@@ -1,0 +1,25 @@
+﻿using OpenTibia.IO;
+
+namespace OpenTibia
+{
+    public class MessageOfTheDayOutgoingPacket : IOutgoingPacket
+    {
+        public MessageOfTheDayOutgoingPacket(int number, string message)
+        {
+            this.Number = number;
+
+            this.Message = message;
+        }
+
+        public int Number { get; set; }
+
+        public string Message { get; set; }
+        
+        public void Write(ByteArrayStreamWriter writer)
+        {
+            writer.Write( (byte)0x14 );
+
+            writer.Write(Number + "\n" + Message);
+        }
+    }
+}
