@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{543812C5-B886-44AD-A8E2-5281E0E49866}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OpenTibia.Network</RootNamespace>
+    <AssemblyName>mtanksl.OpenTibia.Network</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Packets\Incoming\GameWindow\SelectOutfit.cs" />
+    <Compile Include="Packets\Incoming\Console\CloseReportRuleViolationChannelQuestion.cs" />
+    <Compile Include="Packets\Incoming\Control\TurnEast.cs" />
+    <Compile Include="Packets\Incoming\Control\TurnWest.cs" />
+    <Compile Include="Packets\Incoming\Control\TurnSouth.cs" />
+    <Compile Include="Packets\Incoming\Control\TurnNorth.cs" />
+    <Compile Include="Packets\Incoming\Control\WalkNorthWest.cs" />
+    <Compile Include="Packets\Incoming\Control\WalkSouthWest.cs" />
+    <Compile Include="Packets\Incoming\Control\WalkSouthEast.cs" />
+    <Compile Include="Packets\Incoming\Control\WalkNorthEast.cs" />
+    <Compile Include="Packets\Incoming\Control\WalkSouth.cs" />
+    <Compile Include="Packets\Incoming\Control\WalkEast.cs" />
+    <Compile Include="Packets\Incoming\Control\WalkNorth.cs" />
+    <Compile Include="Packets\Incoming\Control\WalkWest.cs" />
+    <Compile Include="Packets\Incoming\CombatControl\Stop.cs" />
+    <Compile Include="Packets\Incoming\Dialog\OpenMyPrivateChannel.cs" />
+    <Compile Include="Packets\Incoming\Button\Channels.cs" />
+    <Compile Include="Packets\Incoming\Console\CloseNpcsChannel.cs" />
+    <Compile Include="Packets\Incoming\NpcTrade\CloseNpcTrade.cs" />
+    <Compile Include="Packets\Incoming\GameWindow\LeaveParty.cs" />
+    <Compile Include="Packets\Incoming\Button\Quests.cs" />
+    <Compile Include="Packets\Incoming\Trade\CancelTrade.cs" />
+    <Compile Include="Packets\Incoming\Trade\AcceptTrade.cs" />
+    <Compile Include="Packets\Incoming\Vip\AddVip.cs" />
+    <Compile Include="Packets\Incoming\Battle\Attack.cs" />
+    <Compile Include="Packets\Incoming\NpcTrade\BuyNpcTrade.cs" />
+    <Compile Include="Packets\Incoming\Dialog\ChangeOutfit.cs" />
+    <Compile Include="Packets\Incoming\Console\CloseChannel.cs" />
+    <Compile Include="Packets\Incoming\Container\CloseContainer.cs" />
+    <Compile Include="Packets\Incoming\Console\CloseReportRuleViolationChannelAnswer.cs" />
+    <Compile Include="Packets\Incoming\CombatControl\CombatControls.cs" />
+    <Compile Include="Packets\Incoming\Client\EnterGame.cs" />
+    <Compile Include="Packets\Incoming\Console\ExcludePlayer.cs" />
+    <Compile Include="Packets\Incoming\Battle\Follow.cs" />
+    <Compile Include="Packets\Incoming\Client\StopWalk.cs" />
+    <Compile Include="Packets\Incoming\IIncomingPacket.cs" />
+    <Compile Include="Packets\Incoming\Console\InvitePlayer.cs" />
+    <Compile Include="Packets\Incoming\GameWindow\InviteToParty.cs" />
+    <Compile Include="Packets\Incoming\GameWindow\JoinParty.cs" />
+    <Compile Include="Packets\Incoming\GameWindow\Look.cs" />
+    <Compile Include="Packets\Incoming\NpcTrade\LookItemNpcTrade.cs" />
+    <Compile Include="Packets\Incoming\Trade\LookItemTrade.cs" />
+    <Compile Include="Packets\Incoming\GameWindow\MoveItem.cs" />
+    <Compile Include="Packets\Incoming\Dialog\OpenChannel.cs" />
+    <Compile Include="Packets\Incoming\Container\OpenParent.cs" />
+    <Compile Include="Packets\Incoming\Dialog\OpenPrivateChannel.cs" />
+    <Compile Include="Packets\Incoming\Dialog\OpenReportRuleViolationChannel.cs" />
+    <Compile Include="Packets\Incoming\GameWindow\PassLeadershipTo.cs" />
+    <Compile Include="Packets\Incoming\Client\Ping.cs" />
+    <Compile Include="Packets\Incoming\Button\Logout.cs" />
+    <Compile Include="Packets\Incoming\Dialog\Quest.cs" />
+    <Compile Include="Packets\Incoming\Vip\RemoveVip.cs" />
+    <Compile Include="Packets\Incoming\Dialog\ReportBug.cs" />
+    <Compile Include="Packets\Incoming\GameWindow\RevokeParty.cs" />
+    <Compile Include="Packets\Incoming\GameWindow\RotateItem.cs" />
+    <Compile Include="Packets\Incoming\NpcTrade\SellNpcTrade.cs" />
+    <Compile Include="Packets\Incoming\GameWindow\SharedExperience.cs" />
+    <Compile Include="Packets\Incoming\Console\Talk.cs" />
+    <Compile Include="Packets\Incoming\Trade\TradeWith.cs" />
+    <Compile Include="Packets\Incoming\Client\UpdateContainer.cs" />
+    <Compile Include="Packets\Incoming\Client\UpdateTile.cs" />
+    <Compile Include="Packets\Incoming\GameWindow\UseItem.cs" />
+    <Compile Include="Packets\Incoming\GameWindow\UseItemWithCreature.cs" />
+    <Compile Include="Packets\Incoming\GameWindow\UseItemWithItem.cs" />
+    <Compile Include="Packets\Incoming\Control\WalkTo.cs" />
+    <Compile Include="Packets\Outgoing\GameWindow\AnimatedText.cs" />
+    <Compile Include="Packets\Outgoing\Console\CancelReport.cs" />
+    <Compile Include="Packets\Outgoing\GameWindow\ChangeOutfit.cs" />
+    <Compile Include="Packets\Outgoing\Console\CloseChannel.cs" />
+    <Compile Include="Packets\Outgoing\Container\CloseContainer.cs" />
+    <Compile Include="Packets\Outgoing\NpcTrade\CloseNpcTrade.cs" />
+    <Compile Include="Packets\Outgoing\Console\CloseReport.cs" />
+    <Compile Include="Packets\Outgoing\Trade\CloseTrade.cs" />
+    <Compile Include="Packets\Outgoing\Client\Connecting.cs" />
+    <Compile Include="Packets\Outgoing\Container\ContainerAdd.cs" />
+    <Compile Include="Packets\Outgoing\Container\ContainerRemove.cs" />
+    <Compile Include="Packets\Outgoing\Container\ContainerUpdate.cs" />
+    <Compile Include="Packets\Outgoing\Dialog\EditList.cs" />
+    <Compile Include="Packets\Outgoing\GameWindow\EnvironmentLight.cs" />
+    <Compile Include="Packets\Outgoing\Dialog\ForYourInformation.cs" />
+    <Compile Include="Packets\Outgoing\GameWindow\Frame.cs" />
+    <Compile Include="Packets\Outgoing\GameWindow\Health.cs" />
+    <Compile Include="Packets\Outgoing\Battle\Info.cs" />
+    <Compile Include="Packets\Outgoing\NpcTrade\InviteNpcTrade.cs" />
+    <Compile Include="Packets\Outgoing\Trade\InviteTrade.cs" />
+    <Compile Include="Packets\Outgoing\IOutgoingPacket.cs" />
+    <Compile Include="Packets\Incoming\Dialog\Login.cs" />
+    <Compile Include="Packets\Outgoing\NpcTrade\JoinNpcTrade.cs" />
+    <Compile Include="Packets\Outgoing\Trade\JoinTrade.cs" />
+    <Compile Include="Packets\Outgoing\GameWindow\Light.cs" />
+    <Compile Include="Packets\Outgoing\GameWindow\MagicEffect.cs" />
+    <Compile Include="Packets\Outgoing\Client\Map.cs" />
+    <Compile Include="Packets\Outgoing\Dialog\MessageOfTheDay.cs" />
+    <Compile Include="Packets\Outgoing\Console\NewChannel.cs" />
+    <Compile Include="Packets\Outgoing\Console\OpenChannel.cs" />
+    <Compile Include="Packets\Outgoing\Container\OpenContainer.cs" />
+    <Compile Include="Packets\Outgoing\Console\OpenMyPrivateChannel.cs" />
+    <Compile Include="Packets\Outgoing\Console\OpenPrivateChannel.cs" />
+    <Compile Include="Packets\Outgoing\Console\OpenRuleViolationsChannel.cs" />
+    <Compile Include="Packets\Outgoing\GameWindow\Party.cs" />
+    <Compile Include="Packets\Outgoing\Client\Ping.cs" />
+    <Compile Include="Packets\Outgoing\Dialog\PleaseWait.cs" />
+    <Compile Include="Packets\Outgoing\GameWindow\Projectile.cs" />
+    <Compile Include="Packets\Outgoing\Dialog\QuestLine.cs" />
+    <Compile Include="Packets\Outgoing\Dialog\QuestLog.cs" />
+    <Compile Include="Packets\Outgoing\Console\RemoveReport.cs" />
+    <Compile Include="Packets\Outgoing\Dialog\SelectCharacter.cs" />
+    <Compile Include="Packets\Outgoing\Dialog\SelectOutfit.cs" />
+    <Compile Include="Packets\Outgoing\Minimap\SetMarker.cs" />
+    <Compile Include="Packets\Outgoing\Dialog\ShowText.cs" />
+    <Compile Include="Packets\Outgoing\Skill\Skills.cs" />
+    <Compile Include="Packets\Outgoing\GameWindow\Skull.cs" />
+    <Compile Include="Packets\Outgoing\Inventory\SlotAdd.cs" />
+    <Compile Include="Packets\Outgoing\Inventory\SlotRemove.cs" />
+    <Compile Include="Packets\Outgoing\Dialog\Sorry.cs" />
+    <Compile Include="Packets\Outgoing\StatusBar\SpecialCondition.cs" />
+    <Compile Include="Packets\Outgoing\GameWindow\Speed.cs" />
+    <Compile Include="Packets\Outgoing\Skill\Status.cs" />
+    <Compile Include="Packets\Outgoing\CombatControl\StopAttackAndFollow.cs" />
+    <Compile Include="Packets\Outgoing\CombatControl\StopWalk.cs" />
+    <Compile Include="Packets\Outgoing\GameWindow\Talk.cs" />
+    <Compile Include="Packets\Outgoing\GameWindow\Text.cs" />
+    <Compile Include="Packets\Outgoing\GameWindow\ThingAdd.cs" />
+    <Compile Include="Packets\Outgoing\GameWindow\ThingRemove.cs" />
+    <Compile Include="Packets\Outgoing\GameWindow\ThingUpdate.cs" />
+    <Compile Include="Packets\Outgoing\Client\Tile.cs" />
+    <Compile Include="Packets\Outgoing\Client\Tiles.cs" />
+    <Compile Include="Packets\Outgoing\Dialog\TutorialHint.cs" />
+    <Compile Include="Packets\Outgoing\Vip\VipLogin.cs" />
+    <Compile Include="Packets\Outgoing\Vip\VipLogout.cs" />
+    <Compile Include="Packets\Outgoing\Vip\Vip.cs" />
+    <Compile Include="Packets\Outgoing\Client\WalkDown.cs" />
+    <Compile Include="Packets\Outgoing\Client\WalkEast.cs" />
+    <Compile Include="Packets\Outgoing\Client\WalkNorth.cs" />
+    <Compile Include="Packets\Outgoing\Client\Walk.cs" />
+    <Compile Include="Packets\Outgoing\Client\WalkSouth.cs" />
+    <Compile Include="Packets\Outgoing\Client\WalkUp.cs" />
+    <Compile Include="Packets\Outgoing\Client\WalkWest.cs" />
+    <Compile Include="Packets\Outgoing\Dialog\YouAreDeath.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Packets\Incoming\Inventory\" />
+    <Folder Include="Packets\Incoming\Minimap\" />
+    <Folder Include="Packets\Incoming\Skill\" />
+    <Folder Include="Packets\Incoming\StatusBar\" />
+    <Folder Include="Packets\Outgoing\Button\" />
+    <Folder Include="Packets\Outgoing\Control\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\mtanksl.OpenTibia.IO\mtanksl.OpenTibia.IO.csproj">
+      <Project>{335c75e2-baa9-4bd7-8982-30f498906726}</Project>
+      <Name>mtanksl.OpenTibia.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mtanksl.OpenTibia.Security\mtanksl.OpenTibia.Security.csproj">
+      <Project>{cc655792-e0a5-41e6-9dab-7ff8b089a6eb}</Project>
+      <Name>mtanksl.OpenTibia.Security</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

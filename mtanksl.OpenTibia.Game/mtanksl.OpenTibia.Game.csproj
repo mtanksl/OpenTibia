@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B0A04C47-6F1F-4899-A69D-C30C4FB3C578}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OpenTibia.Game</RootNamespace>
+    <AssemblyName>mtanksl.OpenTibia.Game</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commands\CommandBus.cs" />
+    <Compile Include="Commands\GameCommand.cs" />
+    <Compile Include="Events\EventBus.cs" />
+    <Compile Include="Events\GameEvent.cs" />
+    <Compile Include="Objects\TeleportItem.cs" />
+    <Compile Include="Objects\StackableItem.cs" />
+    <Compile Include="Objects\Item.cs" />
+    <Compile Include="Objects\MonsterMetadata.cs" />
+    <Compile Include="Objects\NpcMetadata.cs" />
+    <Compile Include="Objects\ItemMetadata.cs" />
+    <Compile Include="Objects\Monster.cs" />
+    <Compile Include="Objects\Npc.cs" />
+    <Compile Include="Objects\Player.cs" />
+    <Compile Include="Objects\Creature.cs" />
+    <Compile Include="Objects\Inventory.cs" />
+    <Compile Include="Objects\IContainer.cs" />
+    <Compile Include="Objects\IContent.cs" />
+    <Compile Include="Objects\Container.cs" />
+    <Compile Include="Objects\Tile.cs" />
+    <Compile Include="Objects\TopOrder.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
