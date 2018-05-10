@@ -25,54 +25,6 @@ namespace OpenTibia.Network.Packets.Incoming
             ItemId = reader.ReadUShort();
 
             Index = reader.ReadByte();
-        }
-
-        public void Parse(TibiaClient client)
-        {
-            /*
-            IContent content = Position.FromPacket(X, Y, Z, Index).GetContent(client);
-
-            if (content == null)
-            {
-                return;
-            }
-
-            StringBuilder message = new StringBuilder("You see ");
-
-            if (content is Item)
-	        {
-                Item item = (Item)content;
-
-                if (item.Metadata.ClientId != ItemId)
-                {
-                    return;
-                }
-
-                if (item is Stackable)
-                {
-                    Stackable stackable = (Stackable)item;
-
-                    message.Append(stackable.Count).Append(" ").Append(item.Metadata.Plural).Append("."); 
-                }
-                else
-                {
-                    message.Append(item.Metadata.Article).Append(" ").Append(item.Metadata.Name).Append(".");
-                }
-	        }
-            else if (content is Creature)
-	        {
-		        Creature creature = (Creature)content;
-
-                if (0x63 != ItemId)
-                {
-                    return;
-                }
-                
-                message.Append(creature.Name).Append(".");
-	        }
-
-            client.Send(new Text(TextColor.GreenCenterGameWindowAndServerLog, message.ToString() ) );
-            */
-        }
+        }        
     }
 }

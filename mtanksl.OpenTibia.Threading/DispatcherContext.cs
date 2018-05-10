@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Threading
 {
+    //TODO: remove
+
     public class DispatcherContext : IDisposable
     {
         public static DispatcherContext Current
@@ -43,21 +45,9 @@ namespace OpenTibia.Threading
             return (T)value;
         }
 
-        //private MessageCollection messages = new MessageCollection();
-
-        //public MessageCollection Messages
-        //{
-        //    get
-        //    {
-        //        return messages;
-        //    }
-        //}
-
         public void Dispose()
         {
             scope.Dispose();
-
-            //messages.Flush();
         }
     }
 }

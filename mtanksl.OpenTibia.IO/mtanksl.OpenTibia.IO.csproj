@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArrayExtensions.cs" />
     <Compile Include="ByteArrayArrayStream.cs" />
     <Compile Include="ByteArrayBufferedStream.cs" />
     <Compile Include="ByteArrayFileStream.cs" />
@@ -47,9 +48,17 @@
     <Compile Include="ByteArrayMemoryStream.cs" />
     <Compile Include="ByteArrayStream.cs" />
     <Compile Include="ByteArrayStreamReader.cs" />
+    <Compile Include="ByteArrayStreamReaderExtensions.cs" />
     <Compile Include="ByteArrayStreamWriter.cs" />
+    <Compile Include="ByteArrayStreamWriterExtensions.cs" />
     <Compile Include="Origin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\mtanksl.OpenTibia.Common\mtanksl.OpenTibia.Common.csproj">
+      <Project>{b0a04c47-6f1f-4899-a69d-c30c4fb3c578}</Project>
+      <Name>mtanksl.OpenTibia.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

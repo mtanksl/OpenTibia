@@ -31,22 +31,5 @@ namespace OpenTibia.Network.Packets.Incoming
 
             ContainerId = reader.ReadByte();
         }
-
-        public void Parse(TibiaClient client)
-        {
-            /*
-            Item item = Position.FromPacket(X, Y, Z, Index).GetContent(client) as Item;
-            
-            if (item == null || item.Metadata.ClientId != ItemId)
-            {
-                return;
-            }
-
-            if ( !Game.Current.UseItemScripts.Execute(client.Player, item) )
-            {
-                client.Send(new Text(TextColor.WhiteBottomGameWindow, "You cannot use this object.") );
-            }
-            */
-        }
     }
 }

@@ -4,16 +4,14 @@ using System.Threading;
 
 namespace OpenTibia.Threading
 {
-    public class Dispatcher : SynchronizationContext
+    public class Dispatcher
     {
         private readonly object sync = new object();
 
             private bool stop = false;
 
             private AutoResetEvent syncStop = new AutoResetEvent(false);
-
-            private Queue<DispatcherEvent> events = new Queue<DispatcherEvent>();
-
+        
         private Thread worker;
 
         public Dispatcher()
@@ -31,10 +29,10 @@ namespace OpenTibia.Threading
             worker.Start();
         }
 
+        private Queue<DispatcherEvent> events = new Queue<DispatcherEvent>();
+
         private void Consume()
         {
-            SynchronizationContext.SetSynchronizationContext(this);
-
             while (true)
             {
                 DispatcherEvent dispatcherEvent;
@@ -59,6 +57,8 @@ namespace OpenTibia.Threading
                     dispatcherEvent = events.Dequeue();
                 }
 
+                //TODO: remove
+
                 using (DispatcherContext context = new DispatcherContext() )
                 {
                     dispatcherEvent.Execute();
@@ -70,17 +70,9 @@ namespace OpenTibia.Threading
             syncStop.Set();
         }
 
-        public override void Post(SendOrPostCallback d, object state)
-        {
-            QueueForExecution( () =>
-            {
-                d(state);
-            } );
-        }
-
         public void QueueForExecution(Action execute)
         {
-            QueueForExecution( new DispatcherEvent(execute) );
+            QueueForExecution(new DispatcherEvent(execute) );
         }
 
         public void QueueForExecution(DispatcherEvent dispatcherEvent)
@@ -117,6 +109,8 @@ namespace OpenTibia.Threading
                 syncStop.WaitOne();
             }
         }
+
+        //TODO: remove
 
         public event EventHandler Complete;
 

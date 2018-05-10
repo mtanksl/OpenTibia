@@ -46,29 +46,5 @@ namespace OpenTibia.Network.Packets.Incoming
 
             ToIndex = reader.ReadByte();
         }
-
-        public void Parse(TibiaClient client)
-        {
-            /*
-            Item fromItem = Position.FromPacket(FromX, FromY, FromZ, FromIndex).GetContent(client) as Item;
-            
-            if (fromItem == null || fromItem.Metadata.ClientId != FromItemId || !fromItem.Metadata.Flags.Any(ItemMetadataFlags.Useable) )
-            {
-                return;
-            }
-
-            Item toItem = Position.FromPacket(ToX, ToY, ToZ, ToIndex).GetContent(client) as Item;
-            
-            if (toItem == null || toItem.Metadata.ClientId != ToItemId)
-            {
-                return;
-            }
-
-            if ( !Game.Current.UseItemWithItemScripts.Execute(client.Player, fromItem, toItem) )
-            {
-                client.Send(new Text(TextColor.WhiteBottomGameWindow, "You cannot use this object.") );
-            }
-            */
-        }
     }
 }

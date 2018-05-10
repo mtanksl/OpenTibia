@@ -42,25 +42,5 @@ namespace OpenTibia.Network.Packets.Incoming
 
             Count = reader.ReadByte();
         }
-        
-        public void Parse(TibiaClient client)
-        {
-            /*
-            Position fromPosition = Position.FromPacket(FromX, FromY, FromZ, FromIndex);
-
-            Position toPosition = Position.FromPacket(ToX, ToY, ToZ);
-            
-                Item item = fromPosition.GetContent(client) as Item;
-
-                if (item == null || item.Metadata.ClientId != FromItemId || item.Metadata.Flags.Any(ItemMetadataFlags.NotMoveable) )
-                {
-                    return;
-                }
-
-            fromPosition.Remove(client);
-
-            toPosition.Add(client, item);
-            */
-        }
     }
 }

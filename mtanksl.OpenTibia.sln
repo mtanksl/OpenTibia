@@ -13,17 +13,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Security"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.IO", "mtanksl.OpenTibia.IO\mtanksl.OpenTibia.IO.csproj", "{335C75E2-BAA9-4BD7-8982-30F498906726}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Not really bad", "Not really bad", "{61ADD5A1-2104-4BA9-93EE-1FCC9A07CB83}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ready", "Ready", "{61ADD5A1-2104-4BA9-93EE-1FCC9A07CB83}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Threading", "mtanksl.OpenTibia.Threading\mtanksl.OpenTibia.Threading.csproj", "{18E3DF48-31E5-4485-AA9B-C9FF9A21EA8C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Need to rewrite as soon as possible", "Need to rewrite as soon as possible", "{B9CA20AD-9A7A-4E88-A273-AA6B4BB32509}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ReWrite", "ReWrite", "{B9CA20AD-9A7A-4E88-A273-AA6B4BB32509}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Game", "mtanksl.OpenTibia.Game\mtanksl.OpenTibia.Game.csproj", "{B0A04C47-6F1F-4899-A69D-C30C4FB3C578}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Common", "mtanksl.OpenTibia.Common\mtanksl.OpenTibia.Common.csproj", "{B0A04C47-6F1F-4899-A69D-C30C4FB3C578}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Network", "mtanksl.OpenTibia.Network\mtanksl.OpenTibia.Network.csproj", "{543812C5-B886-44AD-A8E2-5281E0E49866}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.FileFormats", "mtanksl.OpenTibia.FileFormats\mtanksl.OpenTibia.FileFormats.csproj", "{9CEA17EC-40C6-4585-84F7-C820F66EE051}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Game", "mtanksl.OpenTibia.Game\mtanksl.OpenTibia.Game.csproj", "{B1133F0B-9819-4931-969F-3DC637F7F7D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Host", "mtanksl.OpenTibia.Host\mtanksl.OpenTibia.Host.csproj", "{99EDEB89-2A3F-444B-8684-7E30B27B600F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -105,12 +109,29 @@ Global
 		{9CEA17EC-40C6-4585-84F7-C820F66EE051}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9CEA17EC-40C6-4585-84F7-C820F66EE051}.Release|x64.ActiveCfg = Release|Any CPU
 		{9CEA17EC-40C6-4585-84F7-C820F66EE051}.Release|x64.Build.0 = Release|Any CPU
+		{B1133F0B-9819-4931-969F-3DC637F7F7D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1133F0B-9819-4931-969F-3DC637F7F7D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1133F0B-9819-4931-969F-3DC637F7F7D2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B1133F0B-9819-4931-969F-3DC637F7F7D2}.Debug|x64.Build.0 = Debug|Any CPU
+		{B1133F0B-9819-4931-969F-3DC637F7F7D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1133F0B-9819-4931-969F-3DC637F7F7D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1133F0B-9819-4931-969F-3DC637F7F7D2}.Release|x64.ActiveCfg = Release|Any CPU
+		{B1133F0B-9819-4931-969F-3DC637F7F7D2}.Release|x64.Build.0 = Release|Any CPU
+		{99EDEB89-2A3F-444B-8684-7E30B27B600F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99EDEB89-2A3F-444B-8684-7E30B27B600F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99EDEB89-2A3F-444B-8684-7E30B27B600F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{99EDEB89-2A3F-444B-8684-7E30B27B600F}.Debug|x64.Build.0 = Debug|Any CPU
+		{99EDEB89-2A3F-444B-8684-7E30B27B600F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99EDEB89-2A3F-444B-8684-7E30B27B600F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99EDEB89-2A3F-444B-8684-7E30B27B600F}.Release|x64.ActiveCfg = Release|Any CPU
+		{99EDEB89-2A3F-444B-8684-7E30B27B600F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C8761913-23D5-4D66-A740-1585A90F1705} = {B9CA20AD-9A7A-4E88-A273-AA6B4BB32509}
+		{8BAB3AC5-C665-4882-A7F0-31678DDB34A9} = {B9CA20AD-9A7A-4E88-A273-AA6B4BB32509}
 		{8A8EEDA8-933C-4B50-9FB4-41E38EBC894B} = {61ADD5A1-2104-4BA9-93EE-1FCC9A07CB83}
 		{CC655792-E0A5-41E6-9DAB-7FF8B089A6EB} = {61ADD5A1-2104-4BA9-93EE-1FCC9A07CB83}
 		{335C75E2-BAA9-4BD7-8982-30F498906726} = {61ADD5A1-2104-4BA9-93EE-1FCC9A07CB83}
@@ -118,6 +139,8 @@ Global
 		{B0A04C47-6F1F-4899-A69D-C30C4FB3C578} = {61ADD5A1-2104-4BA9-93EE-1FCC9A07CB83}
 		{543812C5-B886-44AD-A8E2-5281E0E49866} = {61ADD5A1-2104-4BA9-93EE-1FCC9A07CB83}
 		{9CEA17EC-40C6-4585-84F7-C820F66EE051} = {61ADD5A1-2104-4BA9-93EE-1FCC9A07CB83}
+		{B1133F0B-9819-4931-969F-3DC637F7F7D2} = {61ADD5A1-2104-4BA9-93EE-1FCC9A07CB83}
+		{99EDEB89-2A3F-444B-8684-7E30B27B600F} = {61ADD5A1-2104-4BA9-93EE-1FCC9A07CB83}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92639E7B-CD2A-40A0-89B0-DCF462B2A027}

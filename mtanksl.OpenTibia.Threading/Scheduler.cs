@@ -10,9 +10,7 @@ namespace OpenTibia.Threading
             private bool stop = false;
 
             private AutoResetEvent syncStop = new AutoResetEvent(false);
-
-            private PriorityQueue<SchedulerEvent> events = new PriorityQueue<SchedulerEvent>();
-
+        
         private Dispatcher dispatcher;
 
         private Thread worker;
@@ -33,6 +31,8 @@ namespace OpenTibia.Threading
         {
             worker.Start();
         }
+
+        private PriorityQueue<SchedulerEvent> events = new PriorityQueue<SchedulerEvent>();
 
         private void Consume()
         {

@@ -84,11 +84,10 @@
       <Name>mtanksl.OpenTibia.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\mtanksl.OpenTibia.Threading\mtanksl.OpenTibia.Threading.csproj">
-      <Project>{18e3df48-31e5-4485-aa9b-c9ff9a21ea8c}</Project>
+      <Project>{18E3DF48-31E5-4485-AA9B-C9FF9A21EA8C}</Project>
       <Name>mtanksl.OpenTibia.Threading</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="data\items\items.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

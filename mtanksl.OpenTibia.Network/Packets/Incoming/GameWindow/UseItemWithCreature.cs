@@ -29,30 +29,6 @@ namespace OpenTibia.Network.Packets.Incoming
             Index = reader.ReadByte();
 
             CreatureId = reader.ReadUInt();
-        }
-        
-        public void Parse(TibiaClient client)
-        {
-            /*
-            Item fromItem = Position.FromPacket(X, Y, Z, Index).GetContent(client) as Item;
-            
-            if (fromItem == null || fromItem.Metadata.ClientId != ItemId || !fromItem.Metadata.Flags.Any(ItemMetadataFlags.Useable) )
-            {
-                return;
-            }
-
-            Creature toCreature = Game.Current.Map.GetCreature(CreatureId);
-
-            if (toCreature == null)
-            {
-                return;
-            }
-
-            if ( !Game.Current.UseItemWithCreatureScripts.Execute(client.Player, fromItem, toCreature) )
-            {
-                client.Send(new Text(TextColor.WhiteBottomGameWindow, "You cannot use this object.") );
-            }
-            */
-        }
+        }        
     }
 }

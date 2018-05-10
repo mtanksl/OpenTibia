@@ -26,22 +26,5 @@ namespace OpenTibia.Network.Packets.Incoming
 
             Index = reader.ReadByte();
         }
-        
-        public void Parse(TibiaClient client)
-        {
-            /*
-            Item item = Position.FromPacket(X, Y, Z, Index).GetContent(client) as Item;
-
-            if (item == null || item.Metadata.ClientId != ItemId || !item.Metadata.Flags.Any(ItemMetadataFlags.Rotatable) )
-            {
-                return;
-            }
-
-            if ( !Game.Current.RotateItemScripts.Execute(client.Player, item) )
-            {
-                client.Send(new Text(TextColor.WhiteBottomGameWindow, "You cannot use this object.") );
-            }
-            */
-        }
     }
 }

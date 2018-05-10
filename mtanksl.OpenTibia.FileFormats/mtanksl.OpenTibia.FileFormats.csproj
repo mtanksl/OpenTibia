@@ -43,9 +43,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TODO.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Dat\" />
     <Folder Include="Otbm\" />
     <Folder Include="Otb\" />
@@ -58,6 +55,10 @@
     <Folder Include="Xml\Spawn\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\mtanksl.OpenTibia.Common\mtanksl.OpenTibia.Common.csproj">
+      <Project>{b0a04c47-6f1f-4899-a69d-c30c4fb3c578}</Project>
+      <Name>mtanksl.OpenTibia.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\mtanksl.OpenTibia.IO\mtanksl.OpenTibia.IO.csproj">
       <Project>{335c75e2-baa9-4bd7-8982-30f498906726}</Project>
       <Name>mtanksl.OpenTibia.IO</Name>
