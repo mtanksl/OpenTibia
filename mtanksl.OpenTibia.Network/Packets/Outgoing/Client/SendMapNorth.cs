@@ -6,7 +6,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class SendMapNorth : SendMap
     {
-        public SendMapNorth(Map map, IClient client, Position fromPosition) : base(map, client)
+        public SendMapNorth(IMap map, IClient client, Position fromPosition) : base(map, client)
         {
             this.FromPosition = fromPosition;
         }

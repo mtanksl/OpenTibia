@@ -39,7 +39,7 @@ namespace OpenTibia.Threading
 
             return false;
         }
-
+        
         public bool Cancel()
         {
             if (state == ExecutionState.Pending)

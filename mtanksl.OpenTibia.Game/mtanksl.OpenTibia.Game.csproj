@@ -41,22 +41,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Client.cs" />
-    <Compile Include="Controllers\Sockets\Connection.cs" />
-    <Compile Include="Controllers\Contexts\Context.cs" />
-    <Compile Include="Controllers\Controller.cs" />
-    <Compile Include="Controllers\Results\FlushAndCloseResult.cs" />
-    <Compile Include="Controllers\Results\FlushResult.cs" />
-    <Compile Include="Controllers\Sockets\GameConnection.cs" />
-    <Compile Include="GameController.cs" />
-    <Compile Include="Controllers\Results\IActionResult.cs" />
-    <Compile Include="Controllers\Sockets\Listener.cs" />
-    <Compile Include="Controllers\Sockets\LoginConnection.cs" />
-    <Compile Include="LoginController.cs" />
-    <Compile Include="Controllers\Contexts\Message.cs" />
-    <Compile Include="Controllers\PacketAttribute.cs" />
-    <Compile Include="Controllers\PortAttribute.cs" />
-    <Compile Include="Controllers\Contexts\Request.cs" />
-    <Compile Include="Controllers\Contexts\Response.cs" />
+    <Compile Include="Commands\AsyncCommand.cs" />
+    <Compile Include="Commands\CommandBus.cs" />
+    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\ChangeOutfitCommand.cs" />
+    <Compile Include="Commands\TeleportCommand.cs" />
+    <Compile Include="Commands\WalkToCommand.cs" />
+    <Compile Include="Commands\TurnCommand.cs" />
+    <Compile Include="Commands\WalkCommand.cs" />
+    <Compile Include="Commands\LoginCommand.cs" />
+    <Compile Include="Connections\GameConnection.cs" />
+    <Compile Include="Controllers\GameController.cs" />
+    <Compile Include="Connections\LoginConnection.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="CreatureCollection.cs" />
+    <Compile Include="EventHandlers\IEventHandler.cs" />
+    <Compile Include="Events\IEvent.cs" />
+    <Compile Include="Events\TurnedEventArgs.cs" />
+    <Compile Include="Events\ChangedOutfitEventArgs.cs" />
+    <Compile Include="Events\LoggedInEventArgs.cs" />
+    <Compile Include="Events\StopedWalkEventArgs.cs" />
+    <Compile Include="Events\WalkedEventArgs.cs" />
+    <Compile Include="ItemFactory.cs" />
+    <Compile Include="Map.cs" />
+    <Compile Include="MonsterFactory.cs" />
+    <Compile Include="NpcFactory.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -77,17 +86,25 @@
       <Project>{335C75E2-BAA9-4BD7-8982-30F498906726}</Project>
       <Name>mtanksl.OpenTibia.IO</Name>
     </ProjectReference>
+    <ProjectReference Include="..\mtanksl.OpenTibia.Mvc\mtanksl.OpenTibia.Mvc.csproj">
+      <Project>{f65c69c1-3de2-4ab3-b462-f75c66122f4a}</Project>
+      <Name>mtanksl.OpenTibia.Mvc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\mtanksl.OpenTibia.Network\mtanksl.OpenTibia.Network.csproj">
       <Project>{543812c5-b886-44ad-a8e2-5281e0e49866}</Project>
       <Name>mtanksl.OpenTibia.Network</Name>
     </ProjectReference>
     <ProjectReference Include="..\mtanksl.OpenTibia.Security\mtanksl.OpenTibia.Security.csproj">
-      <Project>{CC655792-E0A5-41E6-9DAB-7FF8B089A6EB}</Project>
+      <Project>{cc655792-e0a5-41e6-9dab-7ff8b089a6eb}</Project>
       <Name>mtanksl.OpenTibia.Security</Name>
     </ProjectReference>
     <ProjectReference Include="..\mtanksl.OpenTibia.Threading\mtanksl.OpenTibia.Threading.csproj">
       <Project>{18e3df48-31e5-4485-aa9b-c9ff9a21ea8c}</Project>
       <Name>mtanksl.OpenTibia.Threading</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mtanksl.OpenTibia.Web\mtanksl.OpenTibia.Web.csproj">
+      <Project>{36f3ce5e-2bb3-4f52-ad64-307fdeaacd8b}</Project>
+      <Name>mtanksl.OpenTibia.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

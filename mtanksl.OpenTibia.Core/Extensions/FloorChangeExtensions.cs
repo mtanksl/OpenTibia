@@ -1,4 +1,6 @@
-﻿namespace OpenTibia
+﻿using OpenTibia.Common.Structures;
+
+namespace OpenTibia
 {
     public static class FloorChangeExtensions
     {

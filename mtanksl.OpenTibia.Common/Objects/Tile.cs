@@ -1,43 +1,148 @@
-﻿using System;
+﻿using OpenTibia.Common.Structures;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenTibia.Common.Objects
 {
     public class Tile : IContainer
     {
-        public int AddContent(IContent content)
+        public Tile(Position position)
         {
-            throw new NotImplementedException();
+            this.position = position;
         }
 
-        public void AddContent(int index, IContent content)
+        private Position position;
+
+        public Position Position
         {
-            throw new NotImplementedException();
+            get
+            {
+                return position;
+            }
         }
 
-        public int RemoveContent(IContent content)
+        private List<IContent> contents = new List<IContent>(1);
+        
+        public byte AddContent(IContent content)
         {
-            throw new NotImplementedException();
+            //10 Other
+            //11 Other
+            //9 Creature
+            //8 Creature
+            //7 LowPriority
+            //6 LowPriority
+            //5 MediumPriority
+            //4 MediumPriority
+            //3 HighPriority      
+            //2 HighPriority      
+            //1 Ground
+            //0 Ground
+
+            byte index = 0;
+            
+            if (content.TopOrder == TopOrder.Other)
+	        {
+                while (index < contents.Count && contents[index].TopOrder != content.TopOrder)
+                {
+                    index++;
+                }
+	        }
+            else
+            {
+                while (index < contents.Count && contents[index].TopOrder <= content.TopOrder)
+                {
+                    index++;
+                }
+            }
+
+            contents.Insert(index, content);
+
+            content.Container = this;
+
+            return index;
         }
 
-        public int ReplaceContent(IContent before, IContent after)
+        public void AddContent(byte index, IContent content)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
-        public int GetIndex(IContent content)
+        public byte RemoveContent(IContent content)
         {
-            throw new NotImplementedException();
+            byte index = GetIndex(content);
+
+            contents.RemoveAt(index);
+
+            content.Container = null;
+
+            return index;
         }
 
-        public IContent GetContent(int index)
+        public byte ReplaceContent(IContent before, IContent after)
         {
-            throw new NotImplementedException();
+            byte index = GetIndex(before);
+
+            contents[index] = after;
+
+            before.Container = null;
+
+            after.Container = this;
+
+            return index;
+        }
+
+        public byte GetIndex(IContent content)
+        {
+            for (byte index = 0; index < contents.Count; index++)
+            {
+                if (contents[index] == content)
+                {
+                    return index;
+                }
+            }
+
+            return 255;
+        }
+
+        public IContent GetContent(byte index)
+        {
+            if (index < 0 || index > contents.Count - 1)
+            {
+                return null;
+            }
+
+            return contents[index];
         }
 
         public IEnumerable<IContent> GetContents()
         {
-            throw new NotImplementedException();
-        }       
+            return contents;
+        }
+
+        public IEnumerable<Item> GetItems()
+        {
+            return contents.OfType<Item>();
+        }
+
+        public IEnumerable<Creature> GetCreatures()
+        {
+            return contents.OfType<Creature>();
+        }
+
+        public IEnumerable<Monster> GetMonsters()
+        {
+            return contents.OfType<Monster>();
+        }
+
+        public IEnumerable<Npc> GetNpcs()
+        {
+            return contents.OfType<Npc>();
+        }
+
+        public IEnumerable<Player> GetPlayers()
+        {
+            return contents.OfType<Player>();
+        }
     }
 }

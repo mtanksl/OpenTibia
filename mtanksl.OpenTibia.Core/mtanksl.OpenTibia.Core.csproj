@@ -70,50 +70,6 @@
     <Compile Include="Events\EventBus.cs" />
     <Compile Include="Events\CreatureMoveEvent.cs" />
     <Compile Include="Events\EventHandlers.cs" />
-    <Compile Include="Files\Dat\DatFile.cs" />
-    <Compile Include="Files\Dat\Enum\DatAttribute.cs" />
-    <Compile Include="Files\Dat\Enum\ExtraInfo.cs" />
-    <Compile Include="Files\Dat\Item.cs" />
-    <Compile Include="Files\Otbm\Area.cs" />
-    <Compile Include="Files\Otbm\Enum\OtbmAttribute.cs" />
-    <Compile Include="Files\Otbm\Enum\OtbmType.cs" />
-    <Compile Include="Files\Otbm\Enum\OtbmVersion.cs" />
-    <Compile Include="Files\Otbm\Enum\TileFlags.cs" />
-    <Compile Include="Files\Otbm\HouseTile.cs" />
-    <Compile Include="Files\Otbm\Item.cs" />
-    <Compile Include="Files\Otbm\MapInfo.cs" />
-    <Compile Include="Files\Otbm\OtbmFile.cs" />
-    <Compile Include="Files\Otbm\OtbmInfo.cs" />
-    <Compile Include="Files\Otbm\Tile.cs" />
-    <Compile Include="Files\Otbm\Town.cs" />
-    <Compile Include="Files\Otbm\Waypoint.cs" />
-    <Compile Include="Files\Otb\Enum\ItemFlags.cs" />
-    <Compile Include="Files\Otb\Enum\ItemGroup.cs" />
-    <Compile Include="Files\Otb\Enum\OtbAttribute.cs" />
-    <Compile Include="Files\Otb\Enum\OtbVersion.cs" />
-    <Compile Include="Files\Otb\Enum\TibiaVersion.cs" />
-    <Compile Include="Files\Otb\Enum\TopOrder.cs" />
-    <Compile Include="Files\Otb\Item.cs" />
-    <Compile Include="Files\Otb\OtbFile.cs" />
-    <Compile Include="Files\Otb\OtbInfo.cs" />
-    <Compile Include="Files\Pic\Image.cs" />
-    <Compile Include="Files\Pic\PicFile.cs" />
-    <Compile Include="Files\Pic\Sprite.cs" />
-    <Compile Include="Files\Spr\SprFile.cs" />
-    <Compile Include="Files\Spr\Sprite.cs" />
-    <Compile Include="Files\Xml\House\House.cs" />
-    <Compile Include="Files\Xml\House\HouseFile.cs" />
-    <Compile Include="Files\Xml\Items\Enum\FloorChange.cs" />
-    <Compile Include="Files\Xml\Items\Item.cs" />
-    <Compile Include="Files\Xml\Items\ItemsFile.cs" />
-    <Compile Include="Files\Xml\Monster\Monster.cs" />
-    <Compile Include="Files\Xml\Monster\MonsterFile.cs" />
-    <Compile Include="Files\Xml\Npc\Npc.cs" />
-    <Compile Include="Files\Xml\Npc\NpcFile.cs" />
-    <Compile Include="Files\Xml\Spawn\Monster.cs" />
-    <Compile Include="Files\Xml\Spawn\Npc.cs" />
-    <Compile Include="Files\Xml\Spawn\Spawn.cs" />
-    <Compile Include="Files\Xml\Spawn\SpawnFile.cs" />
     <Compile Include="Game\Factory\TibiaLoginClientFactory.cs" />
     <Compile Include="Game\Factory\TibiaGameClientFactory.cs" />
     <Compile Include="Game\Factory\OutgoingPacketFactory.cs" />
@@ -315,9 +271,17 @@
     <Compile Include="Network\TibiaLoginClientMethods.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\mtanksl.OpenTibia.Common\mtanksl.OpenTibia.Common.csproj">
+      <Project>{B0A04C47-6F1F-4899-A69D-C30C4FB3C578}</Project>
+      <Name>mtanksl.OpenTibia.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\mtanksl.OpenTibia.Data\mtanksl.OpenTibia.Data.csproj">
       <Project>{8a8eeda8-933c-4b50-9fb4-41e38ebc894b}</Project>
       <Name>mtanksl.OpenTibia.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mtanksl.OpenTibia.FileFormats\mtanksl.OpenTibia.FileFormats.csproj">
+      <Project>{9cea17ec-40c6-4585-84f7-c820f66ee051}</Project>
+      <Name>mtanksl.OpenTibia.FileFormats</Name>
     </ProjectReference>
     <ProjectReference Include="..\mtanksl.OpenTibia.IO\mtanksl.OpenTibia.IO.csproj">
       <Project>{335c75e2-baa9-4bd7-8982-30f498906726}</Project>

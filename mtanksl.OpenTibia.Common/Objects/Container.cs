@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenTibia.Common.Objects
 {
@@ -10,39 +11,79 @@ namespace OpenTibia.Common.Objects
 
         }
 
-        public int AddContent(IContent content)
+        private List<IContent> contents = new List<IContent>();
+        
+        public byte AddContent(IContent content)
         {
-            throw new NotImplementedException();
+            byte index = 0;
+
+            contents.Insert(index, content);
+
+            content.Container = this;
+
+            return index;
         }
 
-        public void AddContent(int index, IContent content)
+        public void AddContent(byte index, IContent content)
         {
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
-        public int RemoveContent(IContent content)
+        public byte RemoveContent(IContent content)
         {
-            throw new NotImplementedException();
+            byte index = GetIndex(content);
+
+            contents.RemoveAt(index);
+
+            content.Container = null;
+
+            return index;
         }
 
-        public int ReplaceContent(IContent before, IContent after)
+        public byte ReplaceContent(IContent before, IContent after)
         {
-            throw new NotImplementedException();
+            byte index = GetIndex(before);
+
+            contents[index] = after;
+
+            before.Container = null;
+
+            after.Container = this;
+
+            return index;
         }
 
-        public int GetIndex(IContent content)
+        public byte GetIndex(IContent content)
         {
-            throw new NotImplementedException();
+            for (byte index = 0; index < contents.Count; index++)
+            {
+                if (contents[index] == content)
+                {
+                    return index;
+                }
+            }
+
+            return 255;
         }
 
-        public IContent GetContent(int index)
+        public IContent GetContent(byte index)
         {
-            throw new NotImplementedException();
+            if (index < 0 || index > contents.Count - 1)
+            {
+                return null;
+            }
+
+            return contents[index];
         }
 
         public IEnumerable<IContent> GetContents()
         {
-            throw new NotImplementedException();
-        }       
+            return contents;
+        }
+
+        public IEnumerable<Item> GetItems()
+        {
+            return contents.OfType<Item>();
+        }
     }
 }

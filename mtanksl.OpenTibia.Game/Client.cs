@@ -1,10 +1,20 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Threading;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenTibia.Game
 {
     public class Client : IClient
     {
+        private Server server;
+
+        public Client(Server server)
+        {
+            this.server = server;
+        }
+
         private Player player;
 
         public Player Player
@@ -15,11 +25,20 @@ namespace OpenTibia.Game
             }
             set
             {
-                player = value;
-
-                if (player != null && player.Client != this)
+                if (value != player)
                 {
-                    player.Client = this;
+                    var current = player;
+
+                                  player = value;
+
+                    if (value == null)
+                    {
+                        current.Client = null;
+                    }
+                    else
+                    {
+                        player.Client = this;
+                    }
                 }
             }
         }
@@ -34,18 +53,77 @@ namespace OpenTibia.Game
             }
             set
             {
-                connection = value;
-
-                if (connection != null && connection.Client != this)
+                if (value != connection)
                 {
-                    connection.Client = this;
+                    var current = connection;
+
+                                  connection = value;
+
+                    if (value == null)
+                    {
+                        current.Client = null;
+                    }
+                    else
+                    {
+                        connection.Client = this;
+                    }
                 }
             }
         }
 
+        private HashSet<uint> creatureIds = new HashSet<uint>();
+
         public bool IsKnownCreature(uint creatureId, out uint removeId)
         {
-            throw new NotImplementedException();
+            if ( creatureIds.Add(creatureId) )
+            {
+                if (creatureIds.Count > 250)
+                {
+                    removeId = creatureIds.Where(id =>
+                    {
+                        if (id != player.Id)
+                        {
+                            Creature creature = server.CreatureCollection.GetCreature(id);
+
+                            if (creature == null || !player.Tile.Position.CanSee(creature.Tile.Position) )
+                            {
+                                return true;
+                            }
+                        }
+
+                        return false;
+
+                    } ) .FirstOrDefault();
+
+                    if (removeId == 0)
+                    {
+                        removeId = creatureIds.Where(id =>
+                        {
+                            if (id != player.Id)
+                            {
+                                return true;
+                            }
+
+                            return false;
+
+                        } ).First();
+                    }
+
+                    creatureIds.Remove(removeId);
+
+                    return false;
+                }
+
+                removeId = 0;
+
+                return false;
+            }
+
+            removeId = 0;
+
+            return true;
         }
+
+        public SchedulerEvent Walking { get; set; }
     }
 }

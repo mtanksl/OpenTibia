@@ -43,7 +43,7 @@
     <Compile Include="Events\DisconnectEventArgs.cs" />
     <Compile Include="Objects\IConnection.cs" />
     <Compile Include="Objects\IClient.cs" />
-    <Compile Include="Objects\Map.cs" />
+    <Compile Include="Objects\IMap.cs" />
     <Compile Include="Objects\TeleportItem.cs" />
     <Compile Include="Objects\StackableItem.cs" />
     <Compile Include="Objects\Item.cs" />
@@ -69,6 +69,7 @@
     <Compile Include="Structures\CounterOffer.cs" />
     <Compile Include="Structures\Direction.cs" />
     <Compile Include="Structures\FightMode.cs" />
+    <Compile Include="Structures\FloorChange.cs" />
     <Compile Include="Structures\FrameColor.cs" />
     <Compile Include="Structures\Light.cs" />
     <Compile Include="Structures\MagicEffectType.cs" />

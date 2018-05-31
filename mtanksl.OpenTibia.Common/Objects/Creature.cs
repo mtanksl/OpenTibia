@@ -1,32 +1,52 @@
 ﻿using OpenTibia.Common.Structures;
-using System;
 
 namespace OpenTibia.Common.Objects
 {
     public abstract class Creature : IContent
     {
+        public Creature()
+        {
+            Health = 100;
+
+            MaxHealth = 100;
+
+            Direction = Direction.South;
+
+            Light = new Light(0, 0);
+
+            Outfit = new Outfit(266, 0, 0, 0, 0, Addon.None);
+
+            Speed = 220; // 2 * (Level - 1) + 220
+
+            SkullIcon = SkullIcon.None;
+
+            PartyIcon = PartyIcon.None;
+
+            WarIcon = WarIcon.None;
+
+            Block = true;
+        }
+
         public TopOrder TopOrder
         {
             get
             {
-                throw new NotImplementedException();
+                return TopOrder.Creature;
             }
         }
 
-        public IContainer Container
+        public IContainer Container { get; set; }
+
+        public Tile Tile
         {
             get
             {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
+                return Container as Tile;
             }
         }
 
         public uint Id { get; set; }
-
+        
         public string Name { get; set; }
 
         public ushort Health { get; set; }
@@ -40,8 +60,6 @@ namespace OpenTibia.Common.Objects
         public Outfit Outfit { get; set; }
 
         public ushort Speed { get; set; }
-
-        public int DiagonalDelay { get; set; }
 
         public SkullIcon SkullIcon { get; set; }
 

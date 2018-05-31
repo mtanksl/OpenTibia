@@ -4,17 +4,17 @@ namespace OpenTibia.Common.Objects
 {
     public interface IContainer
     {
-        int AddContent(IContent content);
+        byte AddContent(IContent content);
 
-        void AddContent(int index, IContent content);
+        void AddContent(byte index, IContent content);
 
-        int RemoveContent(IContent content);
+        byte RemoveContent(IContent content);
 
-        int ReplaceContent(IContent before, IContent after);
+        byte ReplaceContent(IContent before, IContent after);
 
-        int GetIndex(IContent content);
+        byte GetIndex(IContent content);
 
-        IContent GetContent(int index);
+        IContent GetContent(byte index);
 
         IEnumerable<IContent> GetContents();
     }

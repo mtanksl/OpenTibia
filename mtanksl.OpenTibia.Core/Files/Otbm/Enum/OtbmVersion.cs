@@ -1,9 +1,0 @@
-﻿namespace OpenTibia
-{
-    public enum OtbmVersion : uint
-    {
-        Version1 = 1,
-
-        Version2 = 2,
-    }
-}

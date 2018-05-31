@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace OpenTibia.Common.Objects
+﻿namespace OpenTibia.Common.Objects
 {
     public class Item : IContent
     {
@@ -23,20 +21,10 @@ namespace OpenTibia.Common.Objects
         {
             get
             {
-                throw new NotImplementedException();
+                return metadata.TopOrder;
             }
         }
 
-        public IContainer Container
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public IContainer Container { get; set; }
     }
 }

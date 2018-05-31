@@ -106,6 +106,7 @@
     <Compile Include="Packets\Incoming\GameWindow\UseItemWithCreature.cs" />
     <Compile Include="Packets\Incoming\GameWindow\UseItemWithItem.cs" />
     <Compile Include="Packets\Incoming\Control\WalkTo.cs" />
+    <Compile Include="Packets\Outgoing\Message.cs" />
     <Compile Include="Packets\Outgoing\Client\SendMap.cs" />
     <Compile Include="Packets\Outgoing\Client\SendTile.cs" />
     <Compile Include="Packets\Outgoing\Client\SendTiles.cs" />
@@ -181,6 +182,8 @@
     <Compile Include="Packets\Outgoing\GameWindow\Walk.cs" />
     <Compile Include="Packets\Outgoing\Dialog\OpenYouAreDeathDialog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sockets\Connection.cs" />
+    <Compile Include="Sockets\Listener.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Packets\Incoming\Inventory\" />
@@ -199,6 +202,10 @@
     <ProjectReference Include="..\mtanksl.OpenTibia.IO\mtanksl.OpenTibia.IO.csproj">
       <Project>{335c75e2-baa9-4bd7-8982-30f498906726}</Project>
       <Name>mtanksl.OpenTibia.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\mtanksl.OpenTibia.Security\mtanksl.OpenTibia.Security.csproj">
+      <Project>{cc655792-e0a5-41e6-9dab-7ff8b089a6eb}</Project>
+      <Name>mtanksl.OpenTibia.Security</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

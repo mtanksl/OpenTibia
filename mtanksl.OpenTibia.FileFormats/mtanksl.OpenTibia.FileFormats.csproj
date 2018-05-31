@@ -32,6 +32,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,20 +41,51 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dat\DatAttribute.cs" />
+    <Compile Include="Dat\DatFile.cs" />
+    <Compile Include="Dat\ExtraInfo.cs" />
+    <Compile Include="Dat\Item.cs" />
+    <Compile Include="Otbm\Area.cs" />
+    <Compile Include="Otbm\HouseTile.cs" />
+    <Compile Include="Otbm\Item.cs" />
+    <Compile Include="Otbm\MapInfo.cs" />
+    <Compile Include="Otbm\OtbmAttribute.cs" />
+    <Compile Include="Otbm\OtbmFile.cs" />
+    <Compile Include="Otbm\OtbmInfo.cs" />
+    <Compile Include="Otbm\OtbmType.cs" />
+    <Compile Include="Otbm\OtbmVersion.cs" />
+    <Compile Include="Otbm\Tile.cs" />
+    <Compile Include="Otbm\TileFlags.cs" />
+    <Compile Include="Otbm\Town.cs" />
+    <Compile Include="Otbm\Waypoint.cs" />
+    <Compile Include="Otb\Item.cs" />
+    <Compile Include="Otb\ItemFlags.cs" />
+    <Compile Include="Otb\ItemGroup.cs" />
+    <Compile Include="Otb\OtbAttribute.cs" />
+    <Compile Include="Otb\OtbFile.cs" />
+    <Compile Include="Otb\OtbInfo.cs" />
+    <Compile Include="Otb\OtbVersion.cs" />
+    <Compile Include="Otb\TibiaVersion.cs" />
+    <Compile Include="Pic\Image.cs" />
+    <Compile Include="Pic\PicFile.cs" />
+    <Compile Include="Pic\Sprite.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Spr\SprFile.cs" />
+    <Compile Include="Spr\Sprite.cs" />
+    <Compile Include="Xml\Houses\House.cs" />
+    <Compile Include="Xml\Houses\HouseFile.cs" />
+    <Compile Include="Xml\Items\Item.cs" />
+    <Compile Include="Xml\Items\ItemsFile.cs" />
+    <Compile Include="Xml\Monsters\Monster.cs" />
+    <Compile Include="Xml\Monsters\MonsterFile.cs" />
+    <Compile Include="Xml\Npcs\Npc.cs" />
+    <Compile Include="Xml\Npcs\NpcFile.cs" />
+    <Compile Include="Xml\Spawns\Monster.cs" />
+    <Compile Include="Xml\Spawns\Npc.cs" />
+    <Compile Include="Xml\Spawns\Spawn.cs" />
+    <Compile Include="Xml\Spawns\SpawnFile.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dat\" />
-    <Folder Include="Otbm\" />
-    <Folder Include="Otb\" />
-    <Folder Include="Pic\" />
-    <Folder Include="Spr\" />
-    <Folder Include="Xml\House\" />
-    <Folder Include="Xml\Item\" />
-    <Folder Include="Xml\Monster\" />
-    <Folder Include="Xml\Npc\" />
-    <Folder Include="Xml\Spawn\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\mtanksl.OpenTibia.Common\mtanksl.OpenTibia.Common.csproj">
       <Project>{b0a04c47-6f1f-4899-a69d-c30c4fb3c578}</Project>

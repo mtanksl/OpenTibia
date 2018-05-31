@@ -1,7 +1,8 @@
-﻿using System;
+﻿using OpenTibia.Common.Structures;
+using OpenTibia.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using OpenTibia.Data;
 
 namespace OpenTibia
 {

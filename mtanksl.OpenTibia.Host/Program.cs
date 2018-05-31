@@ -7,13 +7,13 @@ namespace mtanksl.OpenTibia.Host
     {
         static void Main(string[] args)
         {
-            using (var game = new Server() )
+            using (var server = new Server() )
             {
-                game.Start();
+                server.Start();
 
                 Console.ReadKey();
 
-                game.Stop();
+                server.Stop();
             }
         }
     }

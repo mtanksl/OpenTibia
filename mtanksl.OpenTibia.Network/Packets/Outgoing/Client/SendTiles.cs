@@ -6,7 +6,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class SendTiles : SendMap
     {
-        public SendTiles(Map map, IClient client, Position position) : base(map, client)
+        public SendTiles(IMap map, IClient client, Position position) : base(map, client)
         {
             this.Position = position;
         }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-using OpenTibia.Xml.Npc;
+using OpenTibia.FileFormats.Xml.Npcs;
 
 namespace OpenTibia
 {
@@ -22,7 +22,7 @@ namespace OpenTibia
 
                         MaxHealth = xmlNpc.MaxHealth,
 
-                        Outfit = xmlNpc.Outfit,
+                        ////Outfit = xmlNpc.Outfit,
 
                         Speed = xmlNpc.Speed
                     }

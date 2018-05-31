@@ -4,6 +4,16 @@
     {
         public Npc(NpcMetadata metadata)
         {
+            Name = metadata.Name;
+
+            Health = metadata.Health;
+
+            MaxHealth = metadata.MaxHealth;
+
+            Outfit = metadata.Outfit;
+
+            Speed = metadata.Speed;
+
             this.metadata = metadata;
         }
 

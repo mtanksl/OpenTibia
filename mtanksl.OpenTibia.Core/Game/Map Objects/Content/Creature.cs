@@ -1,4 +1,5 @@
-﻿using OpenTibia.Threading;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Threading;
 using System.Linq;
 
 namespace OpenTibia

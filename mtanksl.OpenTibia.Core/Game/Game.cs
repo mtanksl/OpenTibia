@@ -1,11 +1,10 @@
-﻿using System;
-using OpenTibia.Dat;
-using OpenTibia.Otb;
-using OpenTibia.Otbm;
+﻿using OpenTibia.FileFormats.Dat;
+using OpenTibia.FileFormats.Otb;
+using OpenTibia.FileFormats.Xml.Items;
+using OpenTibia.FileFormats.Xml.Monsters;
+using OpenTibia.FileFormats.Xml.Npcs;
 using OpenTibia.Threading;
-using OpenTibia.Xml.Items;
-using OpenTibia.Xml.Monster;
-using OpenTibia.Xml.Npc;
+using System;
 
 namespace OpenTibia
 {

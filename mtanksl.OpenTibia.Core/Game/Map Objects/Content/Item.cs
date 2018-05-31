@@ -1,4 +1,6 @@
-﻿namespace OpenTibia
+﻿using OpenTibia.Common.Objects;
+
+namespace OpenTibia
 {
     public class Item : IContent
     {

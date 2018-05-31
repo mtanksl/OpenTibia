@@ -102,6 +102,76 @@ namespace OpenTibia.Common.Structures
             return new Position(X + x, Y + y, Z + z);
         }
 
+        public Position Offset(MoveDirection moveDirection)
+        {
+            switch (moveDirection)
+            {
+                case MoveDirection.East:
+
+                    return new Position(this.X + 1, this.Y, this.Z);
+
+                case MoveDirection.NorthEast:
+
+                    return new Position(this.X + 1, this.Y - 1, this.Z);
+
+                case MoveDirection.North:
+
+                    return new Position(this.X, this.Y - 1, this.Z);
+
+                case MoveDirection.NorthWest:
+
+                    return new Position(this.X - 1, this.Y - 1, this.Z);
+
+                case MoveDirection.West:
+
+                    return new Position(this.X - 1, this.Y, this.Z);
+
+                case MoveDirection.SouthWest:
+
+                    return new Position(this.X - 1, this.Y + 1, this.Z);
+
+                case MoveDirection.South:
+
+                    return new Position(this.X, this.Y + 1, this.Z);
+
+                default:
+
+                    return new Position(this.X + 1, this.Y + 1, this.Z);
+            }
+        }
+        
+        public bool CanSee(Position that)
+        {
+            int deltaZ = that.z - this.z;
+
+            int deltaY = that.y - this.y + deltaZ;
+
+            int deltaX = that.x - this.x + deltaZ;
+
+            if (this.z >= 8)
+            {
+                if (deltaZ < -2 || deltaZ > 2)
+                {
+                    return false;
+                }
+            }
+
+            if (this.z <= 7) 
+            {
+                if (that.z >= 8)
+                {
+                    return false;
+                }
+            }
+
+            if (deltaX < -8 || deltaX > 9 || deltaY <-6 || deltaY > 7)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public static bool operator ==(Position a, Position b)
         {
             if ( object.ReferenceEquals(a, b) )

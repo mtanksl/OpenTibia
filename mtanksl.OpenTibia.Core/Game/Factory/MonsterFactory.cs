@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-using OpenTibia.Xml.Monster;
+using OpenTibia.FileFormats.Xml.Monsters;
 
 namespace OpenTibia
 {
@@ -22,7 +22,7 @@ namespace OpenTibia
 
                         MaxHealth = xmlMonster.MaxHealth,
 
-                        Outfit = xmlMonster.Outfit,
+                        ////Outfit = xmlMonster.Outfit,
 
                         Speed = xmlMonster.Speed
                     }

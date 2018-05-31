@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 
-using OpenTibia.Otbm;
+using OpenTibia.FileFormats.Otbm;
 using OpenTibia.IO;
 
 namespace OpenTibia
@@ -17,7 +17,7 @@ namespace OpenTibia
             {
                 foreach (var otbmTile in otbmArea.Tiles)
                 {
-                    Tile tile = new Tile(otbmArea.Position.Offset(otbmTile.OffsetX, otbmTile.OffsetY, 0) );
+                    Tile tile = null; ////new Tile(otbmArea.Position.Offset(otbmTile.OffsetX, otbmTile.OffsetY, 0) );
 
                     tiles.Add(tile.Position, tile);
 
@@ -54,7 +54,7 @@ namespace OpenTibia
                             {
                                 Teleport teleport = (Teleport)item;
 
-                                teleport.Position = otbmItem.TeleportPosition;
+                                ////teleport.Position = otbmItem.TeleportPosition;
                             }
 
                             tile.AddContent(item);
@@ -73,7 +73,7 @@ namespace OpenTibia
 
                     Name = otbmTown.Name,
 
-                    Position = otbmTown.Position
+                    ////Position = otbmTown.Position
                 };
 
                 towns.Add(town);

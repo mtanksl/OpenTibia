@@ -1,4 +1,7 @@
-﻿namespace OpenTibia
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
+
+namespace OpenTibia
 {
     public class ItemMetadata
     {

@@ -1,4 +1,6 @@
-﻿namespace OpenTibia.Common.Objects
+﻿using OpenTibia.Common.Structures;
+
+namespace OpenTibia.Common.Objects
 {
     public class TeleportItem : Item
     {
@@ -6,5 +8,7 @@
         {
 
         }
+
+        public Position Position { get; set; }
     }
 }

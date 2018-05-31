@@ -29,6 +29,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Game", "m
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Host", "mtanksl.OpenTibia.Host\mtanksl.OpenTibia.Host.csproj", "{99EDEB89-2A3F-444B-8684-7E30B27B600F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Mvc", "mtanksl.OpenTibia.Mvc\mtanksl.OpenTibia.Mvc.csproj", "{F65C69C1-3DE2-4AB3-B462-F75C66122F4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Web", "mtanksl.OpenTibia.Web\mtanksl.OpenTibia.Web.csproj", "{36F3CE5E-2BB3-4F52-AD64-307FDEAACD8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +129,22 @@ Global
 		{99EDEB89-2A3F-444B-8684-7E30B27B600F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{99EDEB89-2A3F-444B-8684-7E30B27B600F}.Release|x64.ActiveCfg = Release|Any CPU
 		{99EDEB89-2A3F-444B-8684-7E30B27B600F}.Release|x64.Build.0 = Release|Any CPU
+		{F65C69C1-3DE2-4AB3-B462-F75C66122F4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F65C69C1-3DE2-4AB3-B462-F75C66122F4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F65C69C1-3DE2-4AB3-B462-F75C66122F4A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F65C69C1-3DE2-4AB3-B462-F75C66122F4A}.Debug|x64.Build.0 = Debug|Any CPU
+		{F65C69C1-3DE2-4AB3-B462-F75C66122F4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F65C69C1-3DE2-4AB3-B462-F75C66122F4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F65C69C1-3DE2-4AB3-B462-F75C66122F4A}.Release|x64.ActiveCfg = Release|Any CPU
+		{F65C69C1-3DE2-4AB3-B462-F75C66122F4A}.Release|x64.Build.0 = Release|Any CPU
+		{36F3CE5E-2BB3-4F52-AD64-307FDEAACD8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36F3CE5E-2BB3-4F52-AD64-307FDEAACD8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36F3CE5E-2BB3-4F52-AD64-307FDEAACD8B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{36F3CE5E-2BB3-4F52-AD64-307FDEAACD8B}.Debug|x64.Build.0 = Debug|Any CPU
+		{36F3CE5E-2BB3-4F52-AD64-307FDEAACD8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36F3CE5E-2BB3-4F52-AD64-307FDEAACD8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36F3CE5E-2BB3-4F52-AD64-307FDEAACD8B}.Release|x64.ActiveCfg = Release|Any CPU
+		{36F3CE5E-2BB3-4F52-AD64-307FDEAACD8B}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -141,6 +161,8 @@ Global
 		{9CEA17EC-40C6-4585-84F7-C820F66EE051} = {61ADD5A1-2104-4BA9-93EE-1FCC9A07CB83}
 		{B1133F0B-9819-4931-969F-3DC637F7F7D2} = {61ADD5A1-2104-4BA9-93EE-1FCC9A07CB83}
 		{99EDEB89-2A3F-444B-8684-7E30B27B600F} = {61ADD5A1-2104-4BA9-93EE-1FCC9A07CB83}
+		{F65C69C1-3DE2-4AB3-B462-F75C66122F4A} = {61ADD5A1-2104-4BA9-93EE-1FCC9A07CB83}
+		{36F3CE5E-2BB3-4F52-AD64-307FDEAACD8B} = {61ADD5A1-2104-4BA9-93EE-1FCC9A07CB83}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92639E7B-CD2A-40A0-89B0-DCF462B2A027}

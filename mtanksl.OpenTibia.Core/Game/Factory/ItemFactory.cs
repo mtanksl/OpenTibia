@@ -1,9 +1,10 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 
-using OpenTibia.Dat;
-using OpenTibia.Otb;
-using OpenTibia.Xml.Items;
+using OpenTibia.FileFormats.Dat;
+using OpenTibia.FileFormats.Otb;
+using OpenTibia.FileFormats.Xml.Items;
+using OpenTibia.Common.Objects;
 
 namespace OpenTibia
 {
