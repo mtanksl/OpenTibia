@@ -5,6 +5,8 @@ Just press F5 to run the server.
 Use Tibia 8.6 client with an ip changer to connect to localhost on port 7171.
 Use account number 1 and password 1.
 
+![Server and Client](/server.png)
+
 # Notes
 
 Please dont take this too seriously ;)
