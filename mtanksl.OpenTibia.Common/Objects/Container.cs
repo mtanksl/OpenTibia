@@ -85,5 +85,13 @@ namespace OpenTibia.Common.Objects
         {
             return contents.OfType<Item>();
         }
+
+        public IEnumerable< KeyValuePair<byte, IContent> > GetIndexedContents()
+        {
+            for (byte index = 0; index < contents.Count; index++)
+            {
+                yield return new KeyValuePair<byte, IContent>( index, contents[index] );
+            }
+        }
     }
 }

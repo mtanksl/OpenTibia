@@ -19,7 +19,7 @@ namespace OpenTibia.Data
                 {
                     new Player()
                     {
-                       Name = "Player 1",
+                       Name = "Player",
 
                        CoordinateX = 931,
 

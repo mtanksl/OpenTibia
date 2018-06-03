@@ -23,7 +23,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             writer.Write(Position.Z);
 
-            MapDescription(writer, Position.X, Position.Y, Position.Z, 1, 1, Position.Z, 0);
+            Write(writer, Position.X, Position.Y, Position.Z, 1, 1, Position.Z, 0);
         }
     }
 }

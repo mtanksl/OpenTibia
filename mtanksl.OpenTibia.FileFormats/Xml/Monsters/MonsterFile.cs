@@ -12,11 +12,14 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
             file.monsters = new List<Monster>();
 
-            foreach ( var directoryName in Directory.GetDirectories(path) )
+            if (Directory.Exists(path) )
             {
-                foreach ( var fileName in Directory.GetFiles(directoryName) )
+                foreach (var directoryName in Directory.GetDirectories(path) )
                 {
-                    file.monsters.Add( Monster.Load( XElement.Load(fileName) ) );
+                    foreach (var fileName in Directory.GetFiles(directoryName) )
+                    {
+                        file.monsters.Add( Monster.Load( XElement.Load(fileName) ) );
+                    }
                 }
             }
 

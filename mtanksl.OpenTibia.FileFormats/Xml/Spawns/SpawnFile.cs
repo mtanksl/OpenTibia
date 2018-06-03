@@ -11,7 +11,7 @@ namespace OpenTibia.FileFormats.Xml.Spawns
 
             file.spawns = new List<Spawn>();
 
-            foreach ( var spawnNode in XElement.Load(path).Elements("spawn") )
+            foreach (var spawnNode in XElement.Load(path).Elements("spawn") )
             {
                 file.spawns.Add( Spawn.Load(spawnNode) );
             }

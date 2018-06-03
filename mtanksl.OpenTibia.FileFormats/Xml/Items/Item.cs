@@ -17,7 +17,7 @@ namespace OpenTibia.FileFormats.Xml.Items
 
             item.Plural = (string)itemNode.Attribute("plural");
 
-            foreach ( var attributeNode in itemNode.Elements("attribute") )
+            foreach (var attributeNode in itemNode.Elements("attribute") )
             {
                 XAttribute key = attributeNode.Attribute("key");
 

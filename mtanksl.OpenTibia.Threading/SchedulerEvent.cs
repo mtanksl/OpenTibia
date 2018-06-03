@@ -8,14 +8,14 @@ namespace OpenTibia.Threading
 
         public SchedulerEvent(int execution, Action execute) : base(execute)
         {
-            this.executeIn = DateTime.Now.AddMilliseconds( Math.Max(50, execution) );
+            this.executeIn = DateTime.UtcNow.AddMilliseconds( Math.Max(50, execution) );
         }
 
         public TimeSpan Timeout
         {
             get
             {
-                DateTime now = DateTime.Now;
+                DateTime now = DateTime.UtcNow;
 
                 return executeIn > now ? executeIn.Subtract(now) : TimeSpan.Zero;
             }

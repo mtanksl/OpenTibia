@@ -14,18 +14,17 @@ namespace OpenTibia.Game
             foreach (var xmlMonster in monsterFile.Monsters)
             {
                 metadatas.Add(xmlMonster.Name, new MonsterMetadata()
-                    {
-                        Name = xmlMonster.Name,
+                {
+                    Name = xmlMonster.Name,
 
-                        Health = xmlMonster.Health,
+                    Health = xmlMonster.Health,
 
-                        MaxHealth = xmlMonster.MaxHealth,
+                    MaxHealth = xmlMonster.MaxHealth,
 
-                        Outfit = xmlMonster.Outfit,
+                    Outfit = xmlMonster.Outfit,
 
-                        Speed = xmlMonster.Speed
-                    }
-                );
+                    Speed = xmlMonster.Speed
+                } );
             }
         }
 

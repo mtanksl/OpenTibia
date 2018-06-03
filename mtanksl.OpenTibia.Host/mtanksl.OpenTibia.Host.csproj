@@ -67,13 +67,13 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\mtanksl.OpenTibia.Game\mtanksl.OpenTibia.Game.csproj">
-      <Project>{b1133f0b-9819-4931-969f-3dc637f7f7d2}</Project>
-      <Name>mtanksl.OpenTibia.Game</Name>
-    </ProjectReference>
+    <Folder Include="data\npcs\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="data\npcs\" />
+    <ProjectReference Include="..\mtanksl.OpenTibia.Game\mtanksl.OpenTibia.Game.csproj">
+      <Project>{B1133F0B-9819-4931-969F-3DC637F7F7D2}</Project>
+      <Name>mtanksl.OpenTibia.Game</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

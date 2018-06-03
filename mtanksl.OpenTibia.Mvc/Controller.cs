@@ -59,5 +59,10 @@ namespace OpenTibia.Mvc
                 return context.Request.Connection.Client.Player;
             }
         }
+
+        public IActionResult Empty()
+        {
+            return null;
+        }
     }
 }

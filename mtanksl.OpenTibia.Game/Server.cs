@@ -1,4 +1,5 @@
-﻿using OpenTibia.FileFormats.Dat;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.FileFormats.Dat;
 using OpenTibia.FileFormats.Otb;
 using OpenTibia.FileFormats.Otbm;
 using OpenTibia.FileFormats.Xml.Items;
@@ -9,34 +10,46 @@ using OpenTibia.Game.Connections;
 using OpenTibia.Mvc;
 using OpenTibia.Network.Sockets;
 using OpenTibia.Threading;
+using OpenTibia.Web;
 using System;
+using System.Collections.Generic;
 
 namespace OpenTibia.Game
 {
     public class Server : IDisposable
     {
+        private Dispatcher dispatcher;
+
+        private Scheduler scheduler;
+
+        private Listener loginListener;
+
+        private Listener gameListener;
+
         public Server()
         {
-            CreatureCollection = new CreatureCollection();
+            dispatcher = new Dispatcher();
 
-            CommandBus = new CommandBus(this);
+            scheduler = new Scheduler(dispatcher);
+            
+            loginListener = new Listener(7171, socket => new LoginConnection(this, 7171, socket) );
 
-            Dispatcher = new Dispatcher();
-
-            Scheduler = new Scheduler(Dispatcher);
-
-            ControllerBaseMetadataFactory = new ControllerMetadataFactory();
-
-            LoginListener = new Listener(7171, socket => new LoginConnection(this, 7171, socket) );
-
-            GameListener = new Listener(7172, socket => new GameConnection(this, 7172, socket) );
+            gameListener = new Listener(7172, socket => new GameConnection(this, 7172, socket) );
         }
 
         ~Server()
         {
             Dispose(false);
         }
-        
+
+        public Logger Logger { get; set; }
+
+        public ChannelCollection Channels { get; set; }
+
+        public RuleViolationCollection RuleViolations { get; set; }
+
+        public ControllerMetadataFactory ControllerBaseMetadataFactory { get; set; }
+
         public ItemFactory ItemFactory { get; set; }
         
         public MonsterFactory MonsterFactory { get; set; }
@@ -44,61 +57,134 @@ namespace OpenTibia.Game
         public NpcFactory NpcFactory { get; set; }
 
         public Map Map { get; set; }
-
-        public CreatureCollection CreatureCollection { get; set; }
-
-        public CommandBus CommandBus { get; set; }
-        
-        public Dispatcher Dispatcher { get; set; }
-
-        public Scheduler Scheduler { get; set; }
-
-        public ControllerMetadataFactory ControllerBaseMetadataFactory { get; set; }
-
-        public Listener LoginListener { get; set; }
-
-        public Listener GameListener { get; set; }
         
         public void Start()
         {
-            OtbFile otbFile = OtbFile.Load("data/items/items.otb");
+            Logger = new Logger();
 
-            DatFile datFile = DatFile.Load("data/items/tibia.dat");
+            Channels = new ChannelCollection();
 
-            ItemsFile itemsFile = ItemsFile.Load("data/items/items.xml");
+            RuleViolations = new RuleViolationCollection();
 
-            ItemFactory = new ItemFactory(otbFile, datFile, itemsFile);
+            ControllerBaseMetadataFactory = new ControllerMetadataFactory();
 
-            MonsterFile monsterFile = MonsterFile.Load("data/monsters");
+            using (Logger.Measure("Loading items", true) )
+            {
+                ItemFactory = new ItemFactory(OtbFile.Load("data/items/items.otb"), DatFile.Load("data/items/tibia.dat"), ItemsFile.Load("data/items/items.xml") );
+            }
 
-            MonsterFactory = new MonsterFactory(monsterFile);
+            using (Logger.Measure("Loading monsters", true) )
+            {
+                MonsterFactory = new MonsterFactory(MonsterFile.Load("data/monsters") );
+            }
 
-            NpcFile npcFile = NpcFile.Load("data/npcs");
+            using (Logger.Measure("Loading npcs", true) )
+            {
+                NpcFactory = new NpcFactory(NpcFile.Load("data/npcs") );
+            }
 
-            NpcFactory = new NpcFactory(npcFile);
+            using (Logger.Measure("Loading map", true) )
+            {
+                Map = new Map(this, OtbmFile.Load("data/map/pholium3.otbm") );
+            }           
 
-            OtbmFile otbmFile = OtbmFile.Load("data/map/pholium3.otbm");
+            dispatcher.Start();
 
-            Map = new Map(ItemFactory, otbmFile);
+            scheduler.Start();
 
-            Dispatcher.Start();
+            loginListener.Start();
 
-            Scheduler.Start();
+            gameListener.Start();
 
-            LoginListener.Start();
+            Logger.WriteLine("Server online");
+        }
 
-            GameListener.Start();
+        private Dictionary<string, SchedulerEvent> schedulerEvents = new Dictionary<string, SchedulerEvent>();
+
+        public void QueueForExecution(Context context, Command command, Action callback)
+        {
+            dispatcher.QueueForExecution( () =>
+            {
+                try
+                {
+                    command.Execute(context);
+
+                        context.Response.Flush();
+
+                    if (callback != null)
+                    {
+                        callback();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.WriteLine(ex.ToString() );
+                }                
+            } );
+        }
+
+        public void QueueForExecution(string key, int delay, Context context, Command command, Action callback)
+        {
+            SchedulerEvent schedulerEvent;
+
+            if ( schedulerEvents.TryGetValue(key, out schedulerEvent) )
+            {
+                schedulerEvents.Remove(key);
+
+                schedulerEvent.Cancel();
+            }
+
+            schedulerEvent = scheduler.QueueForExecution(delay, () =>
+            {
+                schedulerEvents.Remove(key);
+
+                try
+                {
+                    command.Execute(context);
+
+                        context.Response.Flush();
+
+                    if (callback != null)
+                    {
+                        callback();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.WriteLine(ex.ToString() );
+                }                
+            } );
+
+            schedulerEvents.Add(key, schedulerEvent);
+        }
+
+        public bool CancelQueueForExecution(string key)
+        {
+            SchedulerEvent schedulerEvent;
+
+            if ( schedulerEvents.TryGetValue(key, out schedulerEvent) )
+            {
+                schedulerEvents.Remove(key);
+
+                schedulerEvent.Cancel();
+
+                return true;
+            }
+
+            return false;
         }
 
         public void Stop()
         {
-            GameListener.Stop();
+            gameListener.Stop();
 
-            LoginListener.Stop();
+            loginListener.Stop();
 
-            Scheduler.Stop();
+            scheduler.Stop();
 
-            Dispatcher.Stop();
+            dispatcher.Stop();
+
+            Logger.WriteLine("Server offline");
         }
 
         private bool disposed = false;
@@ -118,9 +204,9 @@ namespace OpenTibia.Game
 
                 if (disposing)
                 {
-                    LoginListener.Dispose();
+                    loginListener.Dispose();
 
-                    GameListener.Dispose();
+                    gameListener.Dispose();
                 }
             }
         }

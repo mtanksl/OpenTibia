@@ -36,7 +36,11 @@ namespace OpenTibia.Network.Sockets
         {
             lock (sync)
             {
-                socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp); socket.Bind(new IPEndPoint(IPAddress.Any, port) ); socket.Listen(0);
+                socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+                socket.Bind(new IPEndPoint(IPAddress.Any, port) );
+
+                socket.Listen(0);
 
                 socket.BeginAccept(Accept, null);
             }
@@ -58,7 +62,7 @@ namespace OpenTibia.Network.Sockets
                     {
                         Connection connection = factory( socket.EndAccept(result) );
 
-                        connection.Disconnect += (sender, e) =>
+                        connection.Disconnected += (sender, e) =>
                         {
                             lock (sync)
                             {
@@ -79,7 +83,7 @@ namespace OpenTibia.Network.Sockets
                     }
                     catch (SocketException)
                     {
-                        //Empty
+                        //
                     }
                 }
             }

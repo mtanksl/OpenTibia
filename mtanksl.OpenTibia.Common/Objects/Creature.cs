@@ -16,7 +16,7 @@ namespace OpenTibia.Common.Objects
 
             Outfit = new Outfit(266, 0, 0, 0, 0, Addon.None);
 
-            Speed = 220; // 2 * (Level - 1) + 220
+            Speed = 220;
 
             SkullIcon = SkullIcon.None;
 

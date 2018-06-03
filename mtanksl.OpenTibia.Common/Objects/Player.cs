@@ -23,6 +23,11 @@
             CanReportBugs = true;
 
             Inventory = new Inventory(this);
+
+
+            Level = 100;
+
+            Speed = (ushort)(2 * (Level - 1) + 220);
         }
 
         private IClient client;

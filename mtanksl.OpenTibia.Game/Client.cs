@@ -1,6 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Threading;
-using System;
+using OpenTibia.Common.Structures;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -71,6 +70,12 @@ namespace OpenTibia.Game
             }
         }
 
+        public FightMode FightMode { get; set; }
+
+        public ChaseMode ChaseMode { get; set; }
+
+        public SafeMode SafeMode { get; set; }
+
         private HashSet<uint> creatureIds = new HashSet<uint>();
 
         public bool IsKnownCreature(uint creatureId, out uint removeId)
@@ -83,7 +88,7 @@ namespace OpenTibia.Game
                     {
                         if (id != player.Id)
                         {
-                            Creature creature = server.CreatureCollection.GetCreature(id);
+                            Creature creature = server.Map.GetCreature(id);
 
                             if (creature == null || !player.Tile.Position.CanSee(creature.Tile.Position) )
                             {
@@ -123,7 +128,5 @@ namespace OpenTibia.Game
 
             return true;
         }
-
-        public SchedulerEvent Walking { get; set; }
     }
 }

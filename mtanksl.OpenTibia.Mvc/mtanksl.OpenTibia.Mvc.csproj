@@ -43,6 +43,7 @@
     <Compile Include="Controller.cs" />
     <Compile Include="ControllerMetadata.cs" />
     <Compile Include="ControllerMetadataFactory.cs" />
+    <Compile Include="IActionResult.cs" />
     <Compile Include="PacketAttribute.cs" />
     <Compile Include="PortAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

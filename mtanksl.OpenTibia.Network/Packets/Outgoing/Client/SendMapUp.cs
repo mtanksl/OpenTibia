@@ -6,8 +6,16 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class SendMapUp : SendMap
     {
+        private IMap map;
+
+        private IClient client;
+
         public SendMapUp(IMap map, IClient client, Position fromPosition) : base(map, client)
         {
+            this.map = map;
+
+            this.client = client;
+
             this.FromPosition = fromPosition;
         }
 
@@ -19,35 +27,16 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             if (FromPosition.Z == 8)
             {
-                MapDescription(writer, FromPosition.X - 8, FromPosition.Y - 6, FromPosition.Z, 18, 14, 5, -5);
+                Write(writer, FromPosition.X - 8, FromPosition.Y - 6, FromPosition.Z, 18, 14, 5, -5);
             }
             else if (FromPosition.Z > 8)
             {
-                MapDescription(writer, FromPosition.X - 8, FromPosition.Y - 6, FromPosition.Z, 18, 14, FromPosition.Z - 3, 0);
+                Write(writer, FromPosition.X - 8, FromPosition.Y - 6, FromPosition.Z, 18, 14, FromPosition.Z - 3, 0);
             }
 
-            Position toPosition = FromPosition.Offset(0, 0, -1);
+            new SendMapWest(map, client, FromPosition.Offset(0, 0, -1) ).Write(writer);
 
-            if (toPosition.Z <= 7)
-            {
-                writer.Write( (byte)0x68 ); //West
-
-                MapDescription(writer, toPosition.X - 8, toPosition.Y - 5, toPosition.Z, 1, 14, 7, -7);
-
-                writer.Write( (byte)0x65 ); //North
-
-                MapDescription(writer, toPosition.X - 8, toPosition.Y - 6, toPosition.Z, 18, 1, 7, -7);
-            }
-            else
-            {
-                writer.Write( (byte)0x68 ); //West
-
-                MapDescription(writer, toPosition.X - 8, toPosition.Y - 5, toPosition.Z, 1, 14, toPosition.Z - 2, 4);
-
-                writer.Write( (byte)0x65 ); //North
-
-                MapDescription(writer, toPosition.X - 8, toPosition.Y - 6, toPosition.Z, 18, 1, toPosition.Z - 2, 4);
-            }
+            new SendMapNorth(map, client, FromPosition.Offset(0, 0, -1) ).Write(writer);
         }
     }
 }

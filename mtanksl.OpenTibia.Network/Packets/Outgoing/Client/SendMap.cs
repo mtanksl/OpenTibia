@@ -20,7 +20,7 @@ namespace OpenTibia.Network.Packets.Outgoing
             this.client = client;
         }
 
-        public void MapDescription(ByteArrayStreamWriter writer, int x, int y, int z, int width, int height, int floor, int floors)
+        public void Write(ByteArrayStreamWriter writer, int x, int y, int z, int width, int height, int floor, int floors)
         {
             int step = -1;
 

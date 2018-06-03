@@ -14,18 +14,17 @@ namespace OpenTibia.Game
             foreach (var xmlNpc in npcFile.Npcs)
             {
                 metadatas.Add(xmlNpc.Name, new NpcMetadata()
-                    {
-                        Name = xmlNpc.Name,
+                {
+                    Name = xmlNpc.Name,
 
-                        Health = xmlNpc.Health,
+                    Health = xmlNpc.Health,
 
-                        MaxHealth = xmlNpc.MaxHealth,
+                    MaxHealth = xmlNpc.MaxHealth,
 
-                        ////Outfit = xmlNpc.Outfit,
+                    Outfit = xmlNpc.Outfit,
 
-                        Speed = xmlNpc.Speed
-                    }
-                ); 
+                    Speed = xmlNpc.Speed
+                } ); 
             }
         }
         

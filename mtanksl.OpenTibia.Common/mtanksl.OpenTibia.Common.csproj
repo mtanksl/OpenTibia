@@ -40,10 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Events\DisconnectEventArgs.cs" />
+    <Compile Include="Events\DisconnectedEventArgs.cs" />
+    <Compile Include="Objects\Channel.cs" />
+    <Compile Include="Objects\ChannelCollection.cs" />
     <Compile Include="Objects\IConnection.cs" />
     <Compile Include="Objects\IClient.cs" />
     <Compile Include="Objects\IMap.cs" />
+    <Compile Include="Objects\RuleViolation.cs" />
+    <Compile Include="Objects\RuleViolationCollection.cs" />
     <Compile Include="Objects\TeleportItem.cs" />
     <Compile Include="Objects\StackableItem.cs" />
     <Compile Include="Objects\Item.cs" />
@@ -63,10 +67,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structures\Addon.cs" />
     <Compile Include="Structures\AnimatedTextColor.cs" />
-    <Compile Include="Structures\Channel.cs" />
-    <Compile Include="Structures\Character.cs" />
     <Compile Include="Structures\ChaseMode.cs" />
-    <Compile Include="Structures\CounterOffer.cs" />
     <Compile Include="Structures\Direction.cs" />
     <Compile Include="Structures\FightMode.cs" />
     <Compile Include="Structures\FloorChange.cs" />
@@ -74,17 +75,13 @@
     <Compile Include="Structures\Light.cs" />
     <Compile Include="Structures\MagicEffectType.cs" />
     <Compile Include="Structures\Marker.cs" />
-    <Compile Include="Structures\Mission.cs" />
     <Compile Include="Structures\MoveDirection.cs" />
-    <Compile Include="Structures\Offer.cs" />
     <Compile Include="Structures\OperatingSystem.cs" />
     <Compile Include="Structures\Outfit.cs" />
     <Compile Include="Structures\PartyIcon.cs" />
     <Compile Include="Structures\Position.cs" />
     <Compile Include="Structures\ProjectileType.cs" />
-    <Compile Include="Structures\Quest.cs" />
     <Compile Include="Structures\SafeMode.cs" />
-    <Compile Include="Structures\SelectOutfit.cs" />
     <Compile Include="Structures\SkullIcon.cs" />
     <Compile Include="Structures\Slot.cs" />
     <Compile Include="Structures\SpecialCondition.cs" />

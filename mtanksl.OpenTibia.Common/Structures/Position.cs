@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace OpenTibia.Common.Structures
+﻿namespace OpenTibia.Common.Structures
 {
     public class Position
     {
@@ -43,7 +41,7 @@ namespace OpenTibia.Common.Structures
             }
         }
 
-        public bool IsSlot
+        public bool IsInventory
         {
             get
             {
@@ -58,11 +56,11 @@ namespace OpenTibia.Common.Structures
             }
         }
         
-        public Slot SlotIndex
+        public byte InventoryIndex
         {
             get
             {
-                return (Slot)(y);
+                return (byte)(y);
             }
         }
 
@@ -172,6 +170,62 @@ namespace OpenTibia.Common.Structures
             return true;
         }
 
+        public bool CanHearSay(Position that)
+        {
+            int deltaZ = that.z - this.z;
+
+            int deltaY = that.y - this.y;
+
+            int deltaX = that.x - this.x;
+
+            if (deltaZ != 0 || deltaX < -8 || deltaX > 9 || deltaY < -6 || deltaY > 7)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool CanHearWhisper(Position that)
+        {
+            int deltaZ = that.z - this.z;
+
+            int deltaY = that.y - this.y;
+
+            int deltaX = that.x - this.x;
+
+            if (deltaZ != 0 || deltaX < -1 || deltaX > 1 || deltaY < -1 || deltaY > 1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool CanHearYell(Position that)
+        {
+            int deltaZ = that.z - this.z;
+
+            int deltaY = that.y - this.y + deltaZ;
+
+            int deltaX = that.x - this.x + deltaZ;
+
+            if (this.z >= 8 || that.z >= 8)
+            {
+                if (deltaZ != 0)
+                {
+                    return false;
+                }
+            }
+
+            if (deltaX < -30 || deltaX > 30 || deltaY < -30 || deltaY > 30)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public static bool operator ==(Position a, Position b)
         {
             if ( object.ReferenceEquals(a, b) )
@@ -222,9 +276,9 @@ namespace OpenTibia.Common.Structures
 
         public override string ToString()
         {
-            if (IsSlot)
+            if (IsInventory)
             {
-                return "Slot index: " + SlotIndex;
+                return "Slot index: " + InventoryIndex;
             }
 
             if (IsContainer)

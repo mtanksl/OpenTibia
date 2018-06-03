@@ -23,7 +23,7 @@ namespace OpenTibia.Game
                 }
             }
 
-            var lookup = otbFile.Items.ToLookup(otbItem => otbItem.ClientId, item => item.ServerId);
+            var lookup = otbFile.Items.ToLookup(otbItem => otbItem.ClientId, otbItem => otbItem.ServerId);
 
             foreach (var datItem in datFile.Items)
             {
@@ -31,9 +31,19 @@ namespace OpenTibia.Game
                 {
                     ItemMetadata metadata = metadatas[serverId];
 
-                    metadata.TopOrder = datItem.IsGround ? TopOrder.Ground : datItem.AlwaysOnTop1 ? TopOrder.HighPriority : datItem.AlwaysOnTop2 ? TopOrder.MediumPriority : datItem.AlwaysOnTop3 ? TopOrder.LowPriority : TopOrder.Other;
+                    metadata.TopOrder = datItem.IsGround ? TopOrder.Ground 
+                        
+                                                         : datItem.AlwaysOnTop1 ? TopOrder.HighPriority 
+                                                          
+                                                                                : datItem.AlwaysOnTop2 ? TopOrder.MediumPriority 
+                                                          
+                                                                                                       : datItem.AlwaysOnTop3 ? TopOrder.LowPriority 
+                                                          
+                                                                                                                              : TopOrder.Other;
 
-                    // TODO
+                    metadata.Speed = datItem.Speed;
+
+                    //TODO
                 }
             }
 
@@ -43,7 +53,7 @@ namespace OpenTibia.Game
                 {
                     ItemMetadata metadata = metadatas[xmlItem.Id];
 
-                    // TODO
+                    //TODO
                 }
             }
         }

@@ -1,4 +1,6 @@
-﻿namespace OpenTibia.Common.Objects
+﻿using System;
+
+namespace OpenTibia.Common.Objects
 {
     public interface IConnection 
     {
@@ -6,6 +8,10 @@
 
         uint[] Keys { get; set; }
 
+        DateTime Latency { get; set; }
+
         void Send(byte[] bytes);
+
+        void Disconnect();
     }
 }

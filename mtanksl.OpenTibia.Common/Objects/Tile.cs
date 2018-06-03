@@ -22,6 +22,14 @@ namespace OpenTibia.Common.Objects
             }
         }
 
+        public Item Ground
+        {
+            get
+            {
+                return GetItems().Where(item => item.TopOrder == TopOrder.Ground).FirstOrDefault();
+            }
+        }
+        
         private List<IContent> contents = new List<IContent>(1);
         
         public byte AddContent(IContent content)
@@ -143,6 +151,14 @@ namespace OpenTibia.Common.Objects
         public IEnumerable<Player> GetPlayers()
         {
             return contents.OfType<Player>();
+        }
+
+        public IEnumerable< KeyValuePair<byte, IContent> > GetIndexedContents()
+        {
+            for (byte index = 0; index < contents.Count; index++)
+            {
+                yield return new KeyValuePair<byte, IContent>( index, contents[index] );
+            }
         }
     }
 }

@@ -57,14 +57,7 @@ namespace OpenTibia.Threading
                     dispatcherEvent = events.Dequeue();
                 }
 
-                //TODO: remove
-
-                using (DispatcherContext context = new DispatcherContext() )
-                {
-                    dispatcherEvent.Execute();
-
-                    OnComplete();
-                }
+                dispatcherEvent.Execute();
             }
 
             syncStop.Set();
@@ -107,18 +100,6 @@ namespace OpenTibia.Threading
             if (wait)
             {
                 syncStop.WaitOne();
-            }
-        }
-
-        //TODO: remove
-
-        public event EventHandler Complete;
-
-        protected virtual void OnComplete()
-        {
-            if (Complete != null)
-            {
-                Complete(this, EventArgs.Empty);
             }
         }
     }

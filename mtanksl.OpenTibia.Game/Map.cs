@@ -7,7 +7,7 @@ namespace OpenTibia.Game
 {
     public class Map : IMap
     {
-        public Map(ItemFactory itemFactory, FileFormats.Otbm.OtbmFile otbmFile)
+        public Map(Server server, FileFormats.Otbm.OtbmFile otbmFile)
         {
             tiles = new Dictionary<Position, Tile>(otbmFile.Areas.Sum(area => area.Tiles.Count) );
 
@@ -21,7 +21,7 @@ namespace OpenTibia.Game
 
                     if (otbmTile.ItemId > 0)
                     {
-                        Item ground = itemFactory.Create(otbmTile.ItemId);
+                        Item ground = server.ItemFactory.Create(otbmTile.ItemId);
                         
                         tile.AddContent(ground);
                     }
@@ -30,13 +30,13 @@ namespace OpenTibia.Game
                     {
                         foreach (var otbmItem in otbmTile.Items)
                         {
-                            Item item = itemFactory.Create(otbmItem.Id);
+                            Item item = server.ItemFactory.Create(otbmItem.Id);
 
                             if (item is Container)
                             {
                                 Container container = (Container)item;
 
-                                // TODO: Load container items
+                                //TODO: Load container items
                             }
                             else if (item is StackableItem)
                             {
@@ -67,6 +67,66 @@ namespace OpenTibia.Game
             tiles.TryGetValue(position, out tile);
 
             return tile;
+        }
+
+        private Dictionary<uint, Creature> creatures = new Dictionary<uint, Creature>();
+        
+        private uint uniqueId = 0;
+
+        private uint GenerateId()
+        {
+            uniqueId++;
+
+            if (uniqueId == 0)
+            {
+                uniqueId++;
+            }
+
+            return uniqueId;
+        }
+
+        public void AddCreature(Creature creature)
+        {
+            if (creature.Id == 0)
+            {
+                creature.Id = GenerateId();
+            }
+
+            creatures.Add(creature.Id, creature);
+        }
+
+        public void RemoveCreature(Creature creature)
+        {
+            creatures.Remove(creature.Id);
+        }
+        
+        public Creature GetCreature(uint creatureId)
+        {
+            Creature creature;
+
+            creatures.TryGetValue(creatureId, out creature);
+
+            return creature;
+        }
+
+        public IEnumerable<Creature> GetCreatures()
+        {
+            return creatures.Values;
+        }
+
+        public IEnumerable<Monster> GetMonsters()
+        {
+            return creatures.Values.OfType<Monster>();
+        }
+
+        public IEnumerable<Npc> GetNpcs()
+        {
+            return creatures.Values.OfType<Npc>();
+        }
+
+        public IEnumerable<Player> GetPlayers()
+        {
+            return creatures.Values.OfType<Player>();
         }
     }
 }

@@ -23,7 +23,7 @@ namespace OpenTibia.Web
 
         private Dictionary<IConnection, Message> messages = new Dictionary<IConnection, Message>();
         
-        public void Write(IConnection connection, IOutgoingPacket packet)
+        public Response Write(IConnection connection, IOutgoingPacket packet)
         {
             Message message;
 
@@ -35,6 +35,8 @@ namespace OpenTibia.Web
             }
 
             message.Add(packet);
+
+            return this;
         }
 
         public void Flush()

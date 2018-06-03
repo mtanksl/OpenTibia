@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<monster name="Scarab" nameDescription="a scarab" speed="170">
-  <health now="320" max="320"/>
-	<look type="83" head="0" body="0" legs="0" feet="0"/>
-</monster>

@@ -1,4 +1,5 @@
-﻿using OpenTibia.IO;
+﻿using OpenTibia.Common.Events;
+using OpenTibia.IO;
 using OpenTibia.Mvc;
 using OpenTibia.Network.Packets.Incoming;
 using OpenTibia.Network.Sockets;
@@ -22,48 +23,67 @@ namespace OpenTibia.Game.Connections
             this.port = port;
         }
 
+        protected override void OnConnect()
+        {
+            base.OnConnect();
+        }
+
         protected override void OnReceive(byte[] body)
         {
             ByteArrayArrayStream stream = new ByteArrayArrayStream(body);
 
             ByteArrayStreamReader reader = new ByteArrayStreamReader(stream);
 
-            if (Adler32.Generate(body, 4) == reader.ReadUInt() )
+            try
             {
-                if (Keys == null)
+                if (Adler32.Generate(body, 4) == reader.ReadUInt() )
                 {
-                    Rsa.DecryptAndReplace(body, 21);
-                }
-                else
-                {
-                    //Empty
-                }
-
-                byte identifier = reader.ReadByte();
-
-                ControllerMetadata controllerBaseMetadata = server.ControllerBaseMetadataFactory.Get(port, identifier);
-
-                if (controllerBaseMetadata != null)
-                {
-                    Controller controller = (Controller)Activator.CreateInstance(controllerBaseMetadata.Type, new object[] { server, this } );
-
-                    List<object> parameters = new List<object>();
-
-                    foreach (var parameterType in controllerBaseMetadata.ParameterTypes)
+                    if (Keys == null)
                     {
-                        IIncomingPacket packet = (IIncomingPacket)Activator.CreateInstance(parameterType);
-
-                        packet.Read(reader);
-
-                        parameters.Add(packet);
+                        Rsa.DecryptAndReplace(body, 21);
+                    }
+                    else
+                    {
+                        //
                     }
 
-                    server.Dispatcher.QueueForExecution( () =>
+                    ControllerMetadata controllerBaseMetadata = server.ControllerBaseMetadataFactory.Get(port, reader.ReadByte() );
+
+                    if (controllerBaseMetadata != null)
                     {
-                        controllerBaseMetadata.Method.Invoke(controller, parameters.ToArray() );
-                    } );
+                        Controller controller = (Controller)Activator.CreateInstance(controllerBaseMetadata.Type, new object[] { server, this } );
+
+                        List<IIncomingPacket> parameters = new List<IIncomingPacket>();
+
+                        foreach (var parameterType in controllerBaseMetadata.ParameterTypes)
+                        {
+                            IIncomingPacket packet = (IIncomingPacket)Activator.CreateInstance(parameterType);
+
+                            packet.Read(reader);
+
+                            parameters.Add(packet);
+                        }
+
+                        IActionResult result = (IActionResult)controllerBaseMetadata.Method.Invoke(controller, parameters.ToArray() );
+
+                        if (result != null)
+                        {
+                            result.Execute(controller.Context);                        
+                        }
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                server.Logger.WriteLine(ex.ToString() );
+            }
+
+            base.OnReceive(body);
+        }
+
+        protected override void OnDisconnected(DisconnectedEventArgs e)
+        {
+            base.OnDisconnected(e);
         }
     }
 }

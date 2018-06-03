@@ -12,9 +12,12 @@ namespace OpenTibia.FileFormats.Xml.Npcs
 
             file.npcs = new List<Npc>();
 
-            foreach ( var fileName in Directory.GetFiles(path) )
+            if (Directory.Exists(path) )
             {
-                file.npcs.Add( Npc.Load( XElement.Load(fileName) ) );
+                foreach (var fileName in Directory.GetFiles(path) )
+                {
+                    file.npcs.Add( Npc.Load( XElement.Load(fileName) ) );
+                }
             }
 
             return file;

@@ -11,7 +11,7 @@ namespace OpenTibia.FileFormats.Xml.Items
 
             file.items = new List<Item>();
 
-            foreach ( var itemNode in XElement.Load(path).Elements("item") )
+            foreach (var itemNode in XElement.Load(path).Elements("item") )
             {
                 file.items.Add( Item.Load(itemNode) );
             }

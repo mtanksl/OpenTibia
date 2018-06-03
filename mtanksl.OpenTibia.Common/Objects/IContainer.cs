@@ -9,7 +9,7 @@ namespace OpenTibia.Common.Objects
         void AddContent(byte index, IContent content);
 
         byte RemoveContent(IContent content);
-
+        
         byte ReplaceContent(IContent before, IContent after);
 
         byte GetIndex(IContent content);
@@ -17,5 +17,7 @@ namespace OpenTibia.Common.Objects
         IContent GetContent(byte index);
 
         IEnumerable<IContent> GetContents();
+
+        IEnumerable< KeyValuePair<byte, IContent> > GetIndexedContents();
     }
 }
