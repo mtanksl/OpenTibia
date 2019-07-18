@@ -43,7 +43,7 @@ namespace OpenTibia.Game
 
                     metadata.Speed = datItem.Speed;
 
-                    //TODO
+                    //TODO: Set other properties
                 }
             }
 
@@ -53,7 +53,7 @@ namespace OpenTibia.Game
                 {
                     ItemMetadata metadata = metadatas[xmlItem.Id];
 
-                    //TODO
+                    //TODO: Set other properties
                 }
             }
         }

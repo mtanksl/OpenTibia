@@ -40,7 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Client.cs" />
+    <Compile Include="Commands\Client\LogInCommand.cs" />
+    <Compile Include="Commands\Client\EnterGameCommand.cs" />
+    <Compile Include="Commands\CommandContext.cs" />
+    <Compile Include="Common\Objects\Client.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\MoveItem\MoveItemFromTileToInventoryCommand.cs" />
     <Compile Include="Commands\Console\BroadcastMessageCommand.cs" />
@@ -61,11 +64,8 @@
     <Compile Include="Commands\Walk\WalkToCommand.cs" />
     <Compile Include="Commands\Turn\TurnCommand.cs" />
     <Compile Include="Commands\Walk\WalkCommand.cs" />
-    <Compile Include="Commands\Client\LogInCommand.cs" />
-    <Compile Include="Commands\CommandResult.cs" />
-    <Compile Include="Commands\DelayedCommandResult.cs" />
     <Compile Include="Commands\Client\CleanUpCommand.cs" />
-    <Compile Include="Connections\GameConnection.cs" />
+    <Compile Include="Common\Objects\GameConnection.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Commands\Client\CombatControlsCommand.cs" />
     <Compile Include="Commands\Console\OpenNewChannelCommand.cs" />
@@ -73,10 +73,8 @@
     <Compile Include="Commands\Console\SendMessageToChannelCommand.cs" />
     <Compile Include="Commands\Console\CloseChannelCommand.cs" />
     <Compile Include="Commands\RuleViolation\CloseReportRuleViolationChannelAnswerCommand.cs" />
-    <Compile Include="Controllers\GameController.cs" />
-    <Compile Include="Connections\LoginConnection.cs" />
+    <Compile Include="Common\Objects\LoginConnection.cs" />
     <Compile Include="Commands\Console\InvitePlayerCommand.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Commands\Console\SayCommand.cs" />
     <Compile Include="Commands\Console\OpenedPrivateChannelCommand.cs" />
     <Compile Include="Commands\Console\OpenedMyPrivateChannelCommand.cs" />
@@ -88,8 +86,9 @@
     <Compile Include="Commands\RuleViolation\AnswerInReportRuleViolationChannelCommand.cs" />
     <Compile Include="ItemFactory.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="Map.cs" />
+    <Compile Include="Common\Objects\Map.cs" />
     <Compile Include="MonsterFactory.cs" />
+    <Compile Include="PacketsFactory.cs" />
     <Compile Include="NpcFactory.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,10 +110,6 @@
       <Project>{335C75E2-BAA9-4BD7-8982-30F498906726}</Project>
       <Name>mtanksl.OpenTibia.IO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\mtanksl.OpenTibia.Mvc\mtanksl.OpenTibia.Mvc.csproj">
-      <Project>{f65c69c1-3de2-4ab3-b462-f75c66122f4a}</Project>
-      <Name>mtanksl.OpenTibia.Mvc</Name>
-    </ProjectReference>
     <ProjectReference Include="..\mtanksl.OpenTibia.Network\mtanksl.OpenTibia.Network.csproj">
       <Project>{543812c5-b886-44ad-a8e2-5281e0e49866}</Project>
       <Name>mtanksl.OpenTibia.Network</Name>
@@ -126,10 +121,6 @@
     <ProjectReference Include="..\mtanksl.OpenTibia.Threading\mtanksl.OpenTibia.Threading.csproj">
       <Project>{18e3df48-31e5-4485-aa9b-c9ff9a21ea8c}</Project>
       <Name>mtanksl.OpenTibia.Threading</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\mtanksl.OpenTibia.Web\mtanksl.OpenTibia.Web.csproj">
-      <Project>{36f3ce5e-2bb3-4f52-ad64-307fdeaacd8b}</Project>
-      <Name>mtanksl.OpenTibia.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

@@ -2,25 +2,24 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Network.Packets.Outgoing;
-using OpenTibia.Web;
 using System.Linq;
 
-namespace OpenTibia.Game.Controllers
+namespace OpenTibia.Game.Commands
 {
-    internal class InvitePlayerCommand : Command
+    public class InvitePlayerCommand : Command
     {
-        private Server server;
-
-        public InvitePlayerCommand(Server server)
+        public InvitePlayerCommand(Player player, string name)
         {
-            this.server = server;
+            Player = player;
+
+            Name = name;
         }
 
         public Player Player { get; set; }
 
         public string Name { get; set; }
 
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
@@ -44,9 +43,9 @@ namespace OpenTibia.Game.Controllers
 
                                 //Notify
 
-                                context.Response.Write(Player.Client.Connection, new ShowWindowText(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been invited.") );
+                                context.Write(Player.Client.Connection, new ShowWindowText(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been invited.") );
 
-                                context.Response.Write(observer.Client.Connection, new ShowWindowText(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " invites you to his private chat channel." ) );
+                                context.Write(observer.Client.Connection, new ShowWindowText(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " invites you to his private chat channel." ) );
                             }
                         }
                     }

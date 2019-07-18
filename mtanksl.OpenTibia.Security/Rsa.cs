@@ -67,7 +67,6 @@ namespace OpenTibia.Security
                 return rsa.Encrypt(dataToEncrypt, false);
             }
             */
-
             
             byte[] encryptedData = BigInteger.ModPow(new BigInteger(dataToEncrypt), Exponent, Modulus).ToByteArray(); 
 
@@ -107,8 +106,7 @@ namespace OpenTibia.Security
                                          .Concat(new byte[] { 0 } )
                                          .ToArray();
 
-            /* Does not work
-            
+            /*
             using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider() )
             {
                 rsa.ImportParameters(new RSAParameters()

@@ -1,22 +1,21 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Web;
 
 namespace OpenTibia.Game.Commands
 {
     public class CloseChannelCommand : Command
     {
-        private Server server;
-
-        public CloseChannelCommand(Server server)
+        public CloseChannelCommand(Player player, ushort channelId)
         {
-            this.server = server;
+            Player = player;
+
+            ChannelId = channelId;
         }
 
         public Player Player { get; set; }
 
         public ushort ChannelId { get; set; }
 
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 

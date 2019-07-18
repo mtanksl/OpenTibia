@@ -16,9 +16,9 @@ namespace OpenTibia.Network.Sockets
 
         private int port;
 
-        private Func<Socket, Connection> factory;
+        private Func<int, Socket, Connection> factory;
 
-        public Listener(int port, Func<Socket, Connection> factory)
+        public Listener(int port, Func<int, Socket, Connection> factory)
         {
             this.port = port;
 
@@ -38,9 +38,10 @@ namespace OpenTibia.Network.Sockets
             {
                 socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-                socket.Bind(new IPEndPoint(IPAddress.Any, port) );
+                    socket.Bind(new IPEndPoint(IPAddress.Any, port) );
 
-                socket.Listen(0);
+                    socket.Listen(0);
+
 
                 socket.BeginAccept(Accept, null);
             }
@@ -60,7 +61,7 @@ namespace OpenTibia.Network.Sockets
                 {
                     try
                     {
-                        Connection connection = factory( socket.EndAccept(result) );
+                        Connection connection = factory( port, socket.EndAccept(result) );
 
                         connection.Disconnected += (sender, e) =>
                         {
@@ -79,6 +80,7 @@ namespace OpenTibia.Network.Sockets
 
                         connection.Start();
                         
+
                         socket.BeginAccept(Accept, null);
                     }
                     catch (SocketException)

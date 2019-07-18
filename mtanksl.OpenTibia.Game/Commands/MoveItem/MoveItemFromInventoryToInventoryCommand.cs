@@ -1,17 +1,18 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
-using OpenTibia.Web;
 
 namespace OpenTibia.Game.Commands
 {
     public class MoveItemFromInventoryToInventoryCommand : Command
     {
-        private Server server;
-
-        public MoveItemFromInventoryToInventoryCommand(Server server)
+        public MoveItemFromInventoryToInventoryCommand(Player player, byte fromSlot, byte toSlot)
         {
-            this.server = server;
+            Player = player;
+
+            FromSlot = fromSlot;
+
+            ToSlot = toSlot;
         }
 
         public Player Player { get; set; }
@@ -20,7 +21,7 @@ namespace OpenTibia.Game.Commands
 
         public byte ToSlot { get; set; }
         
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
@@ -40,15 +41,15 @@ namespace OpenTibia.Game.Commands
 
                 //Notify
 
-                context.Response.Write(Player.Client.Connection, new SlotRemove( (Slot)FromSlot) )
+                context.Write(Player.Client.Connection, new SlotRemove( (Slot)FromSlot) )
 
-                    .Write(Player.Client.Connection, new SlotAdd( (Slot)ToSlot, fromItem) );
+                       .Write(Player.Client.Connection, new SlotAdd( (Slot)ToSlot, fromItem) );
             }
             else
             {
                 //Notify
 
-                context.Response.Write(Player.Client.Connection, new ShowWindowText(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                context.Write(Player.Client.Connection, new ShowWindowText(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
             }
         }
     }

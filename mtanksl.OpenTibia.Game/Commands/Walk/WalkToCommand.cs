@@ -1,24 +1,23 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Web;
 using System;
 
 namespace OpenTibia.Game.Commands
 {
     public class WalkToCommand : Command
     {
-        private Server server;
-
-        public WalkToCommand(Server server)
+        public WalkToCommand(Player player, MoveDirection[] moveDirections)
         {
-            this.server = server;
+            Player = player;
+
+            MoveDirections = moveDirections;
         }
 
         public Player Player { get; set; }
 
         public MoveDirection[] MoveDirections { get; set; }
         
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
@@ -28,19 +27,14 @@ namespace OpenTibia.Game.Commands
             {
                 if (index < MoveDirections.Length)
                 {
-                    WalkCommand command = new WalkCommand(server)
-                    {
-                        Player = Player,
-
-                        MoveDirection = MoveDirections[index]
-                    };
+                    WalkCommand command = new WalkCommand(Player, MoveDirections[index] );
 
                     command.Completed += (sender, e) =>
                     {
                         Next(index + 1);
                     };
 
-                    command.Execute(context);
+                    command.Execute(server, context);
                 }
                 else
                 {

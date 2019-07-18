@@ -1,24 +1,23 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Web;
 using System;
 
 namespace OpenTibia.Game.Commands
 {
     public class WalkCommand : Command
     {
-        private Server server;
-
-        public WalkCommand(Server server)
+        public WalkCommand(Player player, MoveDirection moveDirection)
         {
-            this.server = server;
+            Player = player;
+
+            MoveDirection = moveDirection;
         }
 
         public Player Player { get; set; }
 
         public MoveDirection MoveDirection { get; set; }
         
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
@@ -28,11 +27,9 @@ namespace OpenTibia.Game.Commands
 
             Position toPosition = fromPosition.Offset(MoveDirection);
 
-            int delay = 1000 * fromTile.Ground.Metadata.Speed / Player.Speed;
-
             //Act
 
-            server.QueueForExecution(Constants.PlayerWalkSchedulerEvent(Player), delay, context, new TeleportCommand(server) { Player = Player, Position = toPosition }, OnCompleted);
+            server.QueueForExecution(Constants.PlayerWalkSchedulerEvent(Player), 1000 * fromTile.Ground.Metadata.Speed / Player.Speed, new TeleportCommand(Player, toPosition), OnCompleted);
 
             //Notify
         }

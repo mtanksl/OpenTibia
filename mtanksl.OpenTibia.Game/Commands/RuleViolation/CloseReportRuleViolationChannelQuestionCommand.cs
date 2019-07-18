@@ -1,21 +1,18 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
-using OpenTibia.Web;
 
 namespace OpenTibia.Game.Commands
 {
     public class CloseReportRuleViolationChannelQuestionCommand : Command
     {
-        private Server server;
-
-        public CloseReportRuleViolationChannelQuestionCommand(Server server)
+        public CloseReportRuleViolationChannelQuestionCommand(Player player)
         {
-            this.server = server;
+            Player = player;
         }
 
         public Player Player { get; set; }
 
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
             //Arrange
             
@@ -31,7 +28,7 @@ namespace OpenTibia.Game.Commands
 
                     foreach (var observer2 in server.Channels.GetChannel(3).GetPlayers() )
                     {
-                        context.Response.Write(observer2.Client.Connection, new RemoveRuleViolation(ruleViolation.Reporter.Name) );
+                        context.Write(observer2.Client.Connection, new RemoveRuleViolation(ruleViolation.Reporter.Name) );
                     }
                 }
                 else
@@ -40,7 +37,7 @@ namespace OpenTibia.Game.Commands
 
                     //Notify
 
-                    context.Response.Write(ruleViolation.Assignee.Client.Connection, new CancelRuleViolation(ruleViolation.Reporter.Name) );
+                    context.Write(ruleViolation.Assignee.Client.Connection, new CancelRuleViolation(ruleViolation.Reporter.Name) );
                 }
             }
         }

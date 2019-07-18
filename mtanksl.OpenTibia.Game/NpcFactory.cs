@@ -23,7 +23,9 @@ namespace OpenTibia.Game
 
                     Outfit = xmlNpc.Outfit,
 
-                    Speed = xmlNpc.Speed
+                    Speed = xmlNpc.Speed,
+
+                    //TODO: Set other properties
                 } ); 
             }
         }

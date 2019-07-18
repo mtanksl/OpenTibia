@@ -6,12 +6,10 @@ using OpenTibia.FileFormats.Xml.Items;
 using OpenTibia.FileFormats.Xml.Monsters;
 using OpenTibia.FileFormats.Xml.Npcs;
 using OpenTibia.Game.Commands;
-using OpenTibia.Game.Connections;
-using OpenTibia.Mvc;
 using OpenTibia.Network.Sockets;
 using OpenTibia.Threading;
-using OpenTibia.Web;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game
@@ -22,19 +20,17 @@ namespace OpenTibia.Game
 
         private Scheduler scheduler;
 
-        private Listener loginListener;
-
-        private Listener gameListener;
+        private List<Listener> listeners = new List<Listener>();
 
         public Server()
         {
             dispatcher = new Dispatcher();
 
             scheduler = new Scheduler(dispatcher);
-            
-            loginListener = new Listener(7171, socket => new LoginConnection(this, 7171, socket) );
 
-            gameListener = new Listener(7172, socket => new GameConnection(this, 7172, socket) );
+            listeners.Add(new Listener(7171, (port, socket) => new LoginConnection(this, port, socket) ) );
+
+            listeners.Add(new Listener(7172, (port, socket) => new GameConnection(this, port, socket) ) );
         }
 
         ~Server()
@@ -48,7 +44,7 @@ namespace OpenTibia.Game
 
         public RuleViolationCollection RuleViolations { get; set; }
 
-        public ControllerMetadataFactory ControllerBaseMetadataFactory { get; set; }
+        public PacketsFactory PacketsFactory { get; set; }
 
         public ItemFactory ItemFactory { get; set; }
         
@@ -66,7 +62,7 @@ namespace OpenTibia.Game
 
             RuleViolations = new RuleViolationCollection();
 
-            ControllerBaseMetadataFactory = new ControllerMetadataFactory();
+            PacketsFactory = new PacketsFactory();
 
             using (Logger.Measure("Loading items", true) )
             {
@@ -92,79 +88,86 @@ namespace OpenTibia.Game
 
             scheduler.Start();
 
-            loginListener.Start();
-
-            gameListener.Start();
+            foreach (var listener in listeners)
+            {
+                listener.Start();
+            }
 
             Logger.WriteLine("Server online");
         }
 
-        private Dictionary<string, SchedulerEvent> schedulerEvents = new Dictionary<string, SchedulerEvent>();
-
-        public void QueueForExecution(Context context, Command command, Action callback)
+        public void QueueForExecution(Command command, Action callback = null)
         {
             dispatcher.QueueForExecution( () =>
             {
+                CommandContext context = new CommandContext();
+
                 try
                 {
-                    command.Execute(context);
+                    command.Execute(this, context);
 
-                        context.Response.Flush();
-
-                    if (callback != null)
-                    {
-                        callback();
-                    }
+                    context.Flush();
                 }
                 catch (Exception ex)
                 {
                     Logger.WriteLine(ex.ToString() );
-                }                
+                }
+
+                if (callback != null)
+                {
+                    callback();
+                }
             } );
         }
 
-        public void QueueForExecution(string key, int delay, Context context, Command command, Action callback)
+        private Dictionary<string, SchedulerEvent> events = new Dictionary<string, SchedulerEvent>();
+
+        public void QueueForExecution(string key, int executeIn, Command command, Action callback = null)
         {
             SchedulerEvent schedulerEvent;
 
-            if ( schedulerEvents.TryGetValue(key, out schedulerEvent) )
+            if ( events.TryGetValue(key, out schedulerEvent) )
             {
-                schedulerEvents.Remove(key);
+                events.Remove(key);
 
                 schedulerEvent.Cancel();
             }
 
-            schedulerEvent = scheduler.QueueForExecution(delay, () =>
+            schedulerEvent = new SchedulerEvent(executeIn, () =>
             {
-                schedulerEvents.Remove(key);
+                events.Remove(key);
+
+                CommandContext context = new CommandContext();
 
                 try
                 {
-                    command.Execute(context);
+                    command.Execute(this, context);
 
-                        context.Response.Flush();
-
-                    if (callback != null)
-                    {
-                        callback();
-                    }
+                    context.Flush();
                 }
                 catch (Exception ex)
                 {
                     Logger.WriteLine(ex.ToString() );
-                }                
+                }
+
+                if (callback != null)
+                {
+                    callback();
+                }
             } );
 
-            schedulerEvents.Add(key, schedulerEvent);
+            events[key] = schedulerEvent;
+
+            scheduler.QueueForExecution(schedulerEvent);
         }
 
         public bool CancelQueueForExecution(string key)
         {
             SchedulerEvent schedulerEvent;
 
-            if ( schedulerEvents.TryGetValue(key, out schedulerEvent) )
+            if ( events.TryGetValue(key, out schedulerEvent) )
             {
-                schedulerEvents.Remove(key);
+                events.Remove(key);
 
                 schedulerEvent.Cancel();
 
@@ -176,9 +179,10 @@ namespace OpenTibia.Game
 
         public void Stop()
         {
-            gameListener.Stop();
-
-            loginListener.Stop();
+            foreach (var listener in listeners)
+            {
+                listener.Stop();
+            }
 
             scheduler.Stop();
 
@@ -204,9 +208,10 @@ namespace OpenTibia.Game
 
                 if (disposing)
                 {
-                    loginListener.Dispose();
-
-                    gameListener.Dispose();
+                    foreach (var listener in listeners)
+                    {
+                        listener.Dispose();
+                    }
                 }
             }
         }

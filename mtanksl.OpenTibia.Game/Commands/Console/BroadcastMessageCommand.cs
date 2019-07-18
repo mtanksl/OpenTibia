@@ -1,24 +1,23 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
-using OpenTibia.Web;
 
 namespace OpenTibia.Game.Commands
 {
     public class BroadcastMessageCommand : Command
     {
-        private Server server;
-
-        public BroadcastMessageCommand(Server server)
+        public BroadcastMessageCommand(Player player, string message)
         {
-            this.server = server;
+            Player = player;
+
+            Message = message;
         }
 
         public Player Player { get; set; }
 
         public string Message { get; set; }
 
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
@@ -30,11 +29,11 @@ namespace OpenTibia.Game.Commands
             {
                 if (observer != Player)
                 {
-                    context.Response.Write(observer.Client.Connection, new ShowText(0, Player.Name, Player.Level, TalkType.Broadcast, Message) );
+                    context.Write(observer.Client.Connection, new ShowText(0, Player.Name, Player.Level, TalkType.Broadcast, Message) );
                 }
             }
 
-            context.Response.Write(Player.Client.Connection, new ShowText(0, Player.Name, Player.Level, TalkType.Broadcast, Message) );
+            context.Write(Player.Client.Connection, new ShowText(0, Player.Name, Player.Level, TalkType.Broadcast, Message) );
         }
     }
 }

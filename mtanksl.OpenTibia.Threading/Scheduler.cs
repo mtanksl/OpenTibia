@@ -57,19 +57,15 @@ namespace OpenTibia.Threading
                         }
                     }
 
-                    bool stop2 = false;
-
                     while ( Monitor.Wait(sync, events.Peek().Timeout) )
                     {
                         if (stop)
                         {
-                            stop2 = true;
-
                             break;
                         }
                     }
 
-                    if (stop2)
+                    if (stop)
                     {
                         break;
                     }

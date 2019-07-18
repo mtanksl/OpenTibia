@@ -1,24 +1,23 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
-using OpenTibia.Web;
 
 namespace OpenTibia.Game.Commands
 {
     public class OpenedNewChannelCommand : Command
     {
-        private Server server;
-
-        public OpenedNewChannelCommand(Server server)
+        public OpenedNewChannelCommand(Player player, ushort channelId)
         {
-            this.server = server;
+            Player = player;
+
+            ChannelId = channelId;
         }
 
         public Player Player { get; set; }
 
         public ushort ChannelId { get; set; }
 
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
@@ -63,13 +62,13 @@ namespace OpenTibia.Game.Commands
                 {
                     //Notify
 
-                    context.Response.Write(Player.Client.Connection, new OpenRuleViolationsChannel(channel.Id) );
+                    context.Write(Player.Client.Connection, new OpenRuleViolationsChannel(channel.Id) );
                     
                     foreach (var ruleViolation in server.RuleViolations.GetRuleViolations() )
                     {
                         if (ruleViolation.Assignee == null)
                         {
-                            context.Response.Write(Player.Client.Connection, new ShowText(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationOpen, ruleViolation.Time, ruleViolation.Message) );
+                            context.Write(Player.Client.Connection, new ShowText(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationOpen, ruleViolation.Time, ruleViolation.Message) );
                         }
                     }
                 }
@@ -77,7 +76,7 @@ namespace OpenTibia.Game.Commands
                 {
                     //Notify
 
-                    context.Response.Write(Player.Client.Connection, new OpenChannel(channel.Id, channel.Name) );
+                    context.Write(Player.Client.Connection, new OpenChannel(channel.Id, channel.Name) );
                 }
             }
         }

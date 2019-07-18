@@ -1,17 +1,18 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
-using OpenTibia.Web;
 
 namespace OpenTibia.Game.Commands
 {
     public class MoveItemFromInventoryToTileCommand : Command
     {
-        private Server server;
-
-        public MoveItemFromInventoryToTileCommand(Server server)
+        public MoveItemFromInventoryToTileCommand(Player player, byte fromSlot, Position toPosition)
         {
-            this.server = server;
+            Player = player;
+
+            FromSlot = fromSlot;
+
+            ToPosition = toPosition;
         }
 
         public Player Player { get; set; }
@@ -20,7 +21,7 @@ namespace OpenTibia.Game.Commands
 
         public Position ToPosition { get; set; }
         
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
@@ -38,13 +39,13 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            context.Response.Write(Player.Client.Connection, new SlotRemove( (Slot)FromSlot) );
+            context.Write(Player.Client.Connection, new SlotRemove( (Slot)FromSlot) );
 
             foreach (var observer in server.Map.GetPlayers() )
             {
                 if (observer.Tile.Position.CanSee(toTile.Position) )
                 {
-                     context.Response.Write(observer.Client.Connection, new ThingAdd(toTile.Position, toIndex, fromItem) );
+                     context.Write(observer.Client.Connection, new ThingAdd(toTile.Position, toIndex, fromItem) );
                 }
             }
         }

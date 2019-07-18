@@ -1,23 +1,22 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
-using OpenTibia.Web;
 
 namespace OpenTibia.Game.Commands
 {
     public class LogOutCommand : Command
     {
-        private Server server;
-
-        public LogOutCommand(Server server)
+        public LogOutCommand(Player player)
         {
-            this.server = server;
+            Player = player;
         }
 
         public Player Player { get; set; }
 
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
+            Player.Client.Connection.Disconnect();
+
             //Arrange
 
             Tile fromTile = Player.Tile;
@@ -36,9 +35,9 @@ namespace OpenTibia.Game.Commands
                 {
                     if (observer.Tile.Position.CanSee(fromTile.Position) )
                     {
-                        context.Response.Write(observer.Client.Connection, new ThingRemove(fromTile.Position, fromIndex) )
+                        context.Write(observer.Client.Connection, new ThingRemove(fromTile.Position, fromIndex) )
 
-                            .Write(observer.Client.Connection, new ShowMagicEffect(fromTile.Position, MagicEffectType.Puff) );
+                              .Write(observer.Client.Connection, new ShowMagicEffect(fromTile.Position, MagicEffectType.Puff) );
                     }
                 }
             }

@@ -1,18 +1,19 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
-using OpenTibia.Web;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
     public class AnswerInReportRuleViolationChannelCommand : Command
     {
-        private Server server;
-
-        public AnswerInReportRuleViolationChannelCommand(Server server)
+        public AnswerInReportRuleViolationChannelCommand(Player player, string name, string message)
         {
-            this.server = server;
+            Player = player;
+
+            Name = name;
+
+            Message = message;
         }
 
         public Player Player { get; set; }
@@ -21,7 +22,7 @@ namespace OpenTibia.Game.Commands
 
         public string Message { get; set; }
 
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
@@ -39,7 +40,7 @@ namespace OpenTibia.Game.Commands
                     {
                         //Notify
 
-                        context.Response.Write(ruleViolation.Reporter.Client.Connection, new ShowText(0, ruleViolation.Assignee.Name, ruleViolation.Assignee.Level, TalkType.ReportRuleViolationAnswer, Message) );
+                        context.Write(ruleViolation.Reporter.Client.Connection, new ShowText(0, ruleViolation.Assignee.Name, ruleViolation.Assignee.Level, TalkType.ReportRuleViolationAnswer, Message) );
                     }
                 }
             }

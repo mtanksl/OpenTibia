@@ -1,24 +1,23 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
-using OpenTibia.Web;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
     public class OpenedPrivateChannelCommand : Command
     {
-        private Server server;
-
-        public OpenedPrivateChannelCommand(Server server)
+        public OpenedPrivateChannelCommand(Player player, string name)
         {
-            this.server = server;
+            Player = player;
+
+            Name = name;
         }
 
         public Player Player { get; set; }
 
         public string Name { get; set; }
 
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
@@ -32,7 +31,7 @@ namespace OpenTibia.Game.Commands
                 {
                     //Notify
 
-                    context.Response.Write(Player.Client.Connection, new OpenPrivateChannel(Name) );
+                    context.Write(Player.Client.Connection, new OpenPrivateChannel(Name) );
                 }
             }
         }

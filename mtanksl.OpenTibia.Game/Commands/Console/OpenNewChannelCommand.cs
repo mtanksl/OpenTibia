@@ -1,22 +1,19 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
-using OpenTibia.Web;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
     public class OpenNewChannelCommand : Command
     {
-        private Server server;
-
-        public OpenNewChannelCommand(Server server)
+        public OpenNewChannelCommand(Player player)
         {
-            this.server = server;
+            Player = player;
         }
 
         public Player Player { get; set; }
 
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
@@ -57,7 +54,7 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            context.Response.Write(Player.Client.Connection, new OpenChannelDialog(channels) );
+            context.Write(Player.Client.Connection, new OpenChannelDialog(channels) );
         }
     }
 }

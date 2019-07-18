@@ -1,21 +1,18 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
-using OpenTibia.Web;
 
 namespace OpenTibia.Game.Commands
 {
     public class StopWalkCommand : Command
     {
-        private Server server;
-
-        public StopWalkCommand(Server server)
+        public StopWalkCommand(Player player)
         {
-            this.server = server;
+            Player = player;
         }
 
         public Player Player { get; set; }
                 
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
@@ -25,7 +22,7 @@ namespace OpenTibia.Game.Commands
             {
                 //Notify
 
-                context.Response.Write(Player.Client.Connection, new StopWalk(Player.Direction) );
+                context.Write(Player.Client.Connection, new StopWalk(Player.Direction) );
             }
         }
     }

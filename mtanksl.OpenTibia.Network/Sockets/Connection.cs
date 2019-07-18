@@ -16,14 +16,26 @@ namespace OpenTibia.Network.Sockets
 
         private Socket socket;
 
-        public Connection(Socket socket)
+        public Connection(int port, Socket socket)
         {
             this.socket = socket;
+
+            this.port = port;
         }
 
         ~Connection()
         {
             Dispose(false);
+        }
+
+        private int port;
+
+        public int Port
+        {
+            get
+            {
+                return port;
+            }
         }
 
         private IClient client;

@@ -1,17 +1,18 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
-using OpenTibia.Web;
 
 namespace OpenTibia.Game.Commands
 {
     public class SendMessageToChannel : Command
     {
-        private Server server;
-
-        public SendMessageToChannel(Server server)
+        public SendMessageToChannel(Player player, ushort channelId, string message)
         {
-            this.server = server;
+            Player = player;
+
+            ChannelId = channelId;
+
+            Message = message;
         }
 
         public Player Player { get; set; }
@@ -20,7 +21,7 @@ namespace OpenTibia.Game.Commands
 
         public string Message { get; set; }
 
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
@@ -36,7 +37,7 @@ namespace OpenTibia.Game.Commands
                     {
                         //Notify
 
-                        context.Response.Write(observer.Client.Connection, new ShowText(0, Player.Name, Player.Level, TalkType.ChannelYellow, channel.Id, Message) );
+                        context.Write(observer.Client.Connection, new ShowText(0, Player.Name, Player.Level, TalkType.ChannelYellow, channel.Id, Message) );
                     }
                 }
             }

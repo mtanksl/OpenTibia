@@ -1,14 +1,12 @@
-﻿using System;
-
-namespace OpenTibia.Common.Objects
+﻿namespace OpenTibia.Common.Objects
 {
     public interface IConnection 
     {
+        int Port { get; }
+
         IClient Client { get; set; }
 
         uint[] Keys { get; set; }
-
-        DateTime Latency { get; set; }
 
         void Send(byte[] bytes);
 

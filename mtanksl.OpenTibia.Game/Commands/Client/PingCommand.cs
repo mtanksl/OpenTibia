@@ -1,22 +1,19 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
-using OpenTibia.Web;
 using System;
 
 namespace OpenTibia.Game.Commands
 {
     public class PingCommand : Command
     {
-        private Server server;
-
-        public PingCommand(Server server)
+        public PingCommand(Player player)
         {
-            this.server = server;
+            Player = player;
         }
 
         public Player Player { get; set; }
 
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
             //Arrange
             
@@ -24,11 +21,11 @@ namespace OpenTibia.Game.Commands
 
             //Act
 
-            Player.Client.Connection.Latency = ping;
+            
 
             //Notify
 
-            context.Response.Write(Player.Client.Connection, new Ping() );
+            context.Write(Player.Client.Connection, new Ping() );
         }
     }
 }

@@ -1,24 +1,23 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
-using OpenTibia.Web;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
     public class ProcessReportRuleViolationCommand : Command
     {
-        private Server server;
-
-        public ProcessReportRuleViolationCommand(Server server)
+        public ProcessReportRuleViolationCommand(Player player, string name)
         {
-            this.server = server;
+            Player = player;
+
+            Name = name;
         }
 
         public Player Player { get; set; }
 
         public string Name { get; set; }
 
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
@@ -40,7 +39,7 @@ namespace OpenTibia.Game.Commands
 
                         foreach (var observer2 in server.Channels.GetChannel(3).GetPlayers() )
                         {
-                            context.Response.Write(observer2.Client.Connection, new RemoveRuleViolation(ruleViolation.Reporter.Name) );
+                            context.Write(observer2.Client.Connection, new RemoveRuleViolation(ruleViolation.Reporter.Name) );
                         }
                     }
                 }

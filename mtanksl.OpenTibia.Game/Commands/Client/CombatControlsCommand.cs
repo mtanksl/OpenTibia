@@ -1,16 +1,19 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Web;
 
 namespace OpenTibia.Game.Commands
 {
     public class CombatControlsCommand : Command
     {
-        private Server server;
-
-        public CombatControlsCommand(Server server)
+        public CombatControlsCommand(Player player, FightMode fightMode, ChaseMode chaseMode, SafeMode safeMode)
         {
-            this.server = server;
+            Player = player;
+
+            FightMode = fightMode;
+
+            ChaseMode = chaseMode;
+
+            SafeMode = safeMode;
         }
 
         public Player Player { get; set; }
@@ -21,7 +24,7 @@ namespace OpenTibia.Game.Commands
 
         public SafeMode SafeMode { get; set; }
 
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 

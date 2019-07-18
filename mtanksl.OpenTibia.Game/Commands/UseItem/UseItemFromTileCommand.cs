@@ -1,16 +1,17 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Web;
 
 namespace OpenTibia.Game.Commands
 {
     public class UseItemFromTileCommand : Command
     {
-        private Server server;
-
-        public UseItemFromTileCommand(Server server)
+        public UseItemFromTileCommand(Player player, Position fromPosition, byte fromIndex)
         {
-            this.server = server;
+            Player = player;
+
+            FromPosition = fromPosition;
+
+            FromIndex = fromIndex;
         }
 
         public Player Player { get; set; }
@@ -19,7 +20,7 @@ namespace OpenTibia.Game.Commands
 
         public byte FromIndex { get; set; }
         
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 

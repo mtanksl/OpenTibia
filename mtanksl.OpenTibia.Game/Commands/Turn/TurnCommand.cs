@@ -1,24 +1,23 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
-using OpenTibia.Web;
 
 namespace OpenTibia.Game.Commands
 {
     public class TurnCommand : Command
     {
-        private Server server;
-
-        public TurnCommand(Server server)
+        public TurnCommand(Player player, Direction direction)
         {
-            this.server = server;
+            Player = player;
+
+            Direction = direction;
         }
 
         public Player Player { get; set; }
 
         public Direction Direction { get; set; }
 
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
@@ -36,7 +35,7 @@ namespace OpenTibia.Game.Commands
             {
                 if (observer.Tile.Position.CanSee(fromTile.Position) )
                 {
-                    context.Response.Write(observer.Client.Connection, new ThingUpdate(fromTile.Position, fromIndex, Player.Id, Direction) );                        
+                    context.Write(observer.Client.Connection, new ThingUpdate(fromTile.Position, fromIndex, Player.Id, Direction) );                        
                 }
             }
         }

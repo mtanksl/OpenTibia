@@ -1,76 +1,108 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Network.Packets.Incoming;
 using OpenTibia.Network.Packets.Outgoing;
-using OpenTibia.Web;
 
 namespace OpenTibia.Game.Commands
 {
     public class LogInCommand : Command
     {
-        private Server server;
+        private static int sequence;
 
-        public LogInCommand(Server server)
+        public LogInCommand(IConnection connection, SelectedCharacterIncomingPacket packet)
         {
-            this.server = server;
+            Connection = connection;
+
+            Packet = packet;
         }
 
-        public Player Player { get; set; }
+        public IConnection Connection { get; set; }
 
-        public Position Position { get; set; }
+        public SelectedCharacterIncomingPacket Packet { get; set; }
 
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
-            //Arrange
+            Connection.Keys = Packet.Keys;
 
-            Tile fromTile = server.Map.GetTile(Position);
-
-            //Act
-
-            server.Map.AddCreature(Player);
-
-            byte fromIndex = fromTile.AddContent(Player);
-
-            server.QueueForExecution(Constants.PlayerPingSchedulerEvent(Player), 10000, context, new PingCommand(server) { Player = Player }, null);
-
-            //Notify
-
-            foreach (var observer in server.Map.GetPlayers() )
+            if (Packet.Version != 860)
             {
-                if (observer != Player)
+                context.Write(Connection, new OpenSorryDialog(true, Constants.OnlyProtocol86Allowed) );
+            }
+            else
+            {
+                var account = new Data.PlayerRepository().GetPlayer(Packet.Account, Packet.Password, Packet.Character);
+
+                if (account == null)
                 {
-                    if (observer.Tile.Position.CanSee(fromTile.Position) )
+                    context.Write(Connection, new OpenSorryDialog(true, Constants.AccountNameOrPasswordIsNotCorrect) );
+                }
+                else
+                {
+                    Connection.Client = new Client(server)
                     {
-                        uint removeId;
-
-                        if (observer.Client.IsKnownCreature(Player.Id, out removeId) )
+                        Player = new Player()
                         {
-                            context.Response.Write(observer.Client.Connection, new ThingAdd(fromTile.Position, fromIndex, Player) )
-
-                                .Write(observer.Client.Connection, new ShowMagicEffect(fromTile.Position, MagicEffectType.Teleport) );
+                            Name = account.Name + " " + sequence++
                         }
-                        else
-                        {
-                            context.Response.Write(observer.Client.Connection, new ThingAdd(fromTile.Position, fromIndex, removeId, Player) )
+                    };
 
-                                .Write(observer.Client.Connection, new ShowMagicEffect(fromTile.Position, MagicEffectType.Teleport) );
+                    //Arrange
+
+                    IClient client = Connection.Client;
+
+                    Player player = client.Player;
+
+                    Position position = new Position(account.CoordinateX, account.CoordinateY, account.CoordinateZ);
+
+                    Tile fromTile = server.Map.GetTile(position);
+
+                    //Act
+
+                    server.Map.AddCreature(player);
+
+                    byte fromIndex = fromTile.AddContent(player);
+
+                    //Notify
+
+                    foreach (var observer in server.Map.GetPlayers() )
+                    {
+                        if (observer != player)
+                        {
+                            if (observer.Tile.Position.CanSee(position) )
+                            {
+                                uint removeId;
+
+                                if (observer.Client.IsKnownCreature(player.Id, out removeId) )
+                                {
+                                    context.Write(observer.Client.Connection, new ThingAdd(position, fromIndex, player) )
+
+                                           .Write(observer.Client.Connection, new ShowMagicEffect(position, MagicEffectType.Teleport) );
+                                }
+                                else
+                                {
+                                    context.Write(observer.Client.Connection, new ThingAdd(position, fromIndex, removeId, player) )
+
+                                           .Write(observer.Client.Connection, new ShowMagicEffect(position, MagicEffectType.Teleport) );
+                                }
+                            }
                         }
                     }
+
+                    context.Write(Connection, new SendInfo(player.Id, player.CanReportBugs) )  
+                           
+                           .Write(Connection, new SetSpecialCondition(SpecialCondition.None) )            
+                           
+                           .Write(Connection, new SendStatus(player.Health, player.MaxHealth, player.Capacity, player.Experience, player.Level, player.LevelPercent, player.Mana, player.MaxMana, 0, 0, player.Soul, player.Stamina) )            
+                           
+                           .Write(Connection, new SendSkills(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0) )                
+                           
+                           .Write(Connection, new SetEnvironmentLight(Light.Day) )            
+                           
+                           .Write(Connection, new SendTiles(server.Map, client, position) )            
+                           
+                           .Write(Connection, new ShowMagicEffect(position, MagicEffectType.Teleport) );
                 }
             }
-
-            context.Response.Write(Player.Client.Connection, new SendInfo(Player.Id, Player.CanReportBugs) )   
-                
-                .Write(Player.Client.Connection, new SetSpecialCondition(SpecialCondition.None) )            
-                
-                .Write(Player.Client.Connection, new SendStatus(Player.Health, Player.MaxHealth, Player.Capacity, Player.Experience, Player.Level, Player.LevelPercent, Player.Mana, Player.MaxMana, 0, 0, Player.Soul, Player.Stamina) )            
-                
-                .Write(Player.Client.Connection, new SendSkills(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0) )                
-
-                .Write(Player.Client.Connection, new SetEnvironmentLight(Light.Day) )            
-                
-                .Write(Player.Client.Connection, new SendTiles(server.Map, Player.Client, fromTile.Position) )            
-                
-                .Write(Player.Client.Connection, new ShowMagicEffect(fromTile.Position, MagicEffectType.Teleport) );
         }
     }
 }

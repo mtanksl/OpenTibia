@@ -2,25 +2,24 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Network.Packets.Outgoing;
-using OpenTibia.Web;
 using System.Linq;
 
-namespace OpenTibia.Game.Controllers
+namespace OpenTibia.Game.Commands
 {
     public class ExcludePlayerCommand : Command
     {
-        private Server server;
-
-        public ExcludePlayerCommand(Server server)
+        public ExcludePlayerCommand(Player player, string name)
         {
-            this.server = server;
+            Player = player;
+
+            Name = name;
         }
 
         public Player Player { get; set; }
 
         public string Name { get; set; }
 
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
@@ -42,7 +41,7 @@ namespace OpenTibia.Game.Controllers
 
                             //Notify
 
-                            context.Response.Write(Player.Client.Connection, new ShowWindowText(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been excluded.") );
+                            context.Write(Player.Client.Connection, new ShowWindowText(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been excluded.") );
                         }
                         else if (privateChannel.ContainsPlayer(observer) )
                         {
@@ -50,9 +49,9 @@ namespace OpenTibia.Game.Controllers
 
                             //Notify
 
-                            context.Response.Write(Player.Client.Connection, new ShowWindowText(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been excluded.") );
+                            context.Write(Player.Client.Connection, new ShowWindowText(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been excluded.") );
 
-                            context.Response.Write(observer.Client.Connection, new CloseChannel(privateChannel.Id) );
+                            context.Write(observer.Client.Connection, new CloseChannel(privateChannel.Id) );
                         }
                     }
                 }

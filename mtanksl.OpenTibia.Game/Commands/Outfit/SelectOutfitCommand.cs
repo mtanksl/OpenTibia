@@ -2,23 +2,20 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets;
 using OpenTibia.Network.Packets.Outgoing;
-using OpenTibia.Web;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
     public class SelectOutfitCommand : Command
     {
-        private Server server;
-
-        public SelectOutfitCommand(Server server)
+        public SelectOutfitCommand(Player player)
         {
-            this.server = server;
+            Player = player;
         }
 
         public Player Player { get; set; }
                 
-        public override void Execute(Context context)
+        public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
@@ -37,7 +34,7 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            context.Response.Write(Player.Client.Connection, new OpenSelectOutfitDialog(Player.Outfit, outfits) );
+            context.Write(Player.Client.Connection, new OpenSelectOutfitDialog(Player.Outfit, outfits) );
         }
     }
 }
