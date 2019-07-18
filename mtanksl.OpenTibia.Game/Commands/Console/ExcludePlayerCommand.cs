@@ -51,7 +51,7 @@ namespace OpenTibia.Game.Commands
 
                             context.Write(Player.Client.Connection, new ShowWindowText(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been excluded.") );
 
-                            context.Write(observer.Client.Connection, new CloseChannel(privateChannel.Id) );
+                            context.Write(observer.Client.Connection, new CloseChannelOutgoingPacket(privateChannel.Id) );
                         }
                     }
                 }

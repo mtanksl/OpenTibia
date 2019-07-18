@@ -68,8 +68,6 @@ namespace OpenTibia.Network.Sockets
         
         public uint[] Keys { get; set; }
 
-        public DateTime Latency { get; set; }
-
         public void Start()
         {
             lock (sync)

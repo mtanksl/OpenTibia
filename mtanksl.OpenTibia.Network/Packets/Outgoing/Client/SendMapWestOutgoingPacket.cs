@@ -4,9 +4,9 @@ using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
-    public class SendMapNorth : SendMap
+    public class SendMapWestOutgoingPacket : SendMapOutgoingPacket
     {
-        public SendMapNorth(IMap map, IClient client, Position fromPosition) : base(map, client)
+        public SendMapWestOutgoingPacket(IMap map, IClient client, Position fromPosition) : base(map, client)
         {
             this.FromPosition = fromPosition;
         }
@@ -15,15 +15,15 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public override void Write(ByteArrayStreamWriter writer)
         {
-            writer.Write( (byte)0x65 );
+            writer.Write( (byte)0x68 );
 
             if (FromPosition.Z <= 7)
             {
-                Write(writer, FromPosition.X - 8, FromPosition.Y - 7, FromPosition.Z, 18, 1, 7, -7);
+                Write(writer, FromPosition.X - 9, FromPosition.Y - 6, FromPosition.Z, 1, 14, 7, -7);
             }
             else
             {
-                Write(writer, FromPosition.X - 8, FromPosition.Y - 7, FromPosition.Z, 18, 1, FromPosition.Z - 2, 4);
+                Write(writer, FromPosition.X - 9, FromPosition.Y - 6, FromPosition.Z, 1, 14, FromPosition.Z - 2, 4);
             }
         }
     }

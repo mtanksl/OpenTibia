@@ -3,9 +3,9 @@ using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
-    public class ContainerAdd : IOutgoingPacket
+    public class ContainerAddOutgoingPacket : IOutgoingPacket
     {
-        public ContainerAdd(byte containerId, Item item)
+        public ContainerAddOutgoingPacket(byte containerId, Item item)
         {
             this.ContainerId = containerId;
 

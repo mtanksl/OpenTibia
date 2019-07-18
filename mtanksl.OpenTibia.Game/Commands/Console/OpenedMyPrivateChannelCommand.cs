@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            context.Write(Player.Client.Connection, new OpenMyPrivateChannel(privateChannel.Id, privateChannel.Name) );
+            context.Write(Player.Client.Connection, new OpenMyPrivateChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
         }
     }
 }

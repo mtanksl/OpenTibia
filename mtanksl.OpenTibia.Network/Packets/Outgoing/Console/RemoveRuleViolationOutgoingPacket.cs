@@ -2,9 +2,9 @@
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
-    public class CancelRuleViolation : IOutgoingPacket
+    public class RemoveRuleViolationOutgoingPacket : IOutgoingPacket
     {
-        public CancelRuleViolation(string name)
+        public RemoveRuleViolationOutgoingPacket(string name)
         {
             this.Name = name;
         }
@@ -13,7 +13,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public void Write(ByteArrayStreamWriter writer)
         {
-            writer.Write( (byte)0xB0 );
+            writer.Write( (byte)0xAF );
 
             writer.Write(Name);
         }

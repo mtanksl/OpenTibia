@@ -23,7 +23,7 @@ namespace OpenTibia.Common.Objects
 
         protected override void OnConnect()
         {
-            Send( new Message() { new SendConnectionInfo() }.GetBytes(Keys) );
+            Send( new Message() { new SendConnectionInfoOutgoingPacket() }.GetBytes(Keys) );
 
             base.OnConnect();
         }

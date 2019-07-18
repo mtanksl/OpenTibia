@@ -2,9 +2,9 @@
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
-    public class StopAttackAndFollow : IOutgoingPacket
+    public class StopAttackAndFollowOutgoingPacket : IOutgoingPacket
     {
-        public StopAttackAndFollow(uint nonce)
+        public StopAttackAndFollowOutgoingPacket(uint nonce)
         {
             this.Nonce = nonce;
         }

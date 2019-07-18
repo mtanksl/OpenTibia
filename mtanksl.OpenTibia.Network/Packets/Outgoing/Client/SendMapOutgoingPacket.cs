@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
-    public abstract class SendMap : IOutgoingPacket
+    public abstract class SendMapOutgoingPacket : IOutgoingPacket
     {
         private const byte Separator = 0xFF;
 
@@ -13,7 +13,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         private IClient client;
 
-        public SendMap(IMap map, IClient client)
+        public SendMapOutgoingPacket(IMap map, IClient client)
         {
             this.map = map;
 

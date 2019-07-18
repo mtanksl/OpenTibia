@@ -1,27 +1,34 @@
-﻿using OpenTibia.IO;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
-    public class ContainerRemove : IOutgoingPacket
+    public class ContainerUpdateOutgoingPacket : IOutgoingPacket
     {
-        public ContainerRemove(byte containerId, byte index)
+        public ContainerUpdateOutgoingPacket(byte containerId, byte index, Item item)
         {
             this.ContainerId = containerId;
 
             this.Index = index;
+
+            this.Item = item;
         }
 
         public byte ContainerId { get; set; }
 
         public byte Index { get; set; }
+
+        public Item Item { get; set; }
         
         public void Write(ByteArrayStreamWriter writer)
         {
-            writer.Write( (byte)0x72 );
+            writer.Write( (byte)0x71 );
 
             writer.Write(ContainerId);
 
             writer.Write(Index);
+
+            writer.Write(Item);
         }
     }
 }

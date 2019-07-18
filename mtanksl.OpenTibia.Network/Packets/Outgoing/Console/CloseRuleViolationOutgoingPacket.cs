@@ -2,11 +2,11 @@
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
-    public class Ping : IOutgoingPacket
+    public class CloseRuleViolationOutgoingPacket : IOutgoingPacket
     {
         public void Write(ByteArrayStreamWriter writer)
         {
-            writer.Write( (byte)0x1E );
+            writer.Write( (byte)0xB1 );
         }
     }
 }

@@ -3,9 +3,9 @@ using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
-    public class StopWalk : IOutgoingPacket
+    public class StopWalkOutgoingPacket : IOutgoingPacket
     {
-        public StopWalk(Direction direction)
+        public StopWalkOutgoingPacket(Direction direction)
         {
             this.Direction = direction;
         }

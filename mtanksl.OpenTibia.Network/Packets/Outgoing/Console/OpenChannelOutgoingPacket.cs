@@ -2,20 +2,26 @@
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
-    public class CloseChannel : IOutgoingPacket
+    public class OpenChannelOutgoingPacket : IOutgoingPacket
     {
-        public CloseChannel(ushort channelId)
+        public OpenChannelOutgoingPacket(ushort channelId, string name)
         {
             this.ChannelId = channelId;
+
+            this.Name = name;
         }
 
         public ushort ChannelId { get; set; }
+
+        public string Name { get; set; }
         
         public void Write(ByteArrayStreamWriter writer)
         {
-            writer.Write( (byte)0xB3 );
+            writer.Write( (byte)0xAC );
 
             writer.Write(ChannelId);
+
+            writer.Write(Name);
         }
     }
 }

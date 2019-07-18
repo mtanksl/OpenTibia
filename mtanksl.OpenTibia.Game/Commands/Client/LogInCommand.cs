@@ -88,7 +88,7 @@ namespace OpenTibia.Game.Commands
                         }
                     }
 
-                    context.Write(Connection, new SendInfo(player.Id, player.CanReportBugs) )  
+                    context.Write(Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs) )  
                            
                            .Write(Connection, new SetSpecialCondition(SpecialCondition.None) )            
                            
@@ -98,7 +98,7 @@ namespace OpenTibia.Game.Commands
                            
                            .Write(Connection, new SetEnvironmentLight(Light.Day) )            
                            
-                           .Write(Connection, new SendTiles(server.Map, client, position) )            
+                           .Write(Connection, new SendTilesOutgoingPacket(server.Map, client, position) )            
                            
                            .Write(Connection, new ShowMagicEffect(position, MagicEffectType.Teleport) );
                 }

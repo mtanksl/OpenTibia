@@ -71,7 +71,7 @@ namespace OpenTibia.Game.Commands
 
             if (deltaY < -1 || deltaY > 1 || deltaX < -1 || deltaX > 1)
             {
-                context.Write(Player.Client.Connection, new SendTiles(server.Map, Player.Client, toTile.Position) );
+                context.Write(Player.Client.Connection, new SendTilesOutgoingPacket(server.Map, Player.Client, toTile.Position) );
             }
             else
             {
@@ -79,20 +79,20 @@ namespace OpenTibia.Game.Commands
 
                 if (deltaY == -1)
                 {
-                    context.Write(Player.Client.Connection, new SendMapNorth(server.Map, Player.Client, fromTile.Position) );
+                    context.Write(Player.Client.Connection, new SendMapNorthOutgoingPacket(server.Map, Player.Client, fromTile.Position) );
                 }
                 else if (deltaY == 1)
                 {
-                    context.Write(Player.Client.Connection, new SendMapSouth(server.Map, Player.Client, fromTile.Position) );
+                    context.Write(Player.Client.Connection, new SendMapSouthOutgoingPacket(server.Map, Player.Client, fromTile.Position) );
                 }
                             
                 if (deltaX == -1)
                 {
-                    context.Write(Player.Client.Connection, new SendMapWest(server.Map, Player.Client, fromTile.Position) );
+                    context.Write(Player.Client.Connection, new SendMapWestOutgoingPacket(server.Map, Player.Client, fromTile.Position) );
                 }
                 else if (deltaX == 1)
                 {
-                    context.Write(Player.Client.Connection, new SendMapEast(server.Map, Player.Client, fromTile.Position) );
+                    context.Write(Player.Client.Connection, new SendMapEastOutgoingPacket(server.Map, Player.Client, fromTile.Position) );
                 }
             }
         }

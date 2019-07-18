@@ -2,9 +2,9 @@
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
-    public class SendInfo : IOutgoingPacket
+    public class SendInfoOutgoingPacket : IOutgoingPacket
     {
-        public SendInfo(uint creatureId, bool canReportBugs)
+        public SendInfoOutgoingPacket(uint creatureId, bool canReportBugs)
         {
             this.CreatureId = creatureId;
 

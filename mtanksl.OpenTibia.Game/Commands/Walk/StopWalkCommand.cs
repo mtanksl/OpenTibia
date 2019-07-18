@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Commands
             {
                 //Notify
 
-                context.Write(Player.Client.Connection, new StopWalk(Player.Direction) );
+                context.Write(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
             }
         }
     }

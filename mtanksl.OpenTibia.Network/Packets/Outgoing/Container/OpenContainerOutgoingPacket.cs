@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
-    public class OpenContainer : IOutgoingPacket
+    public class OpenContainerOutgoingPacket : IOutgoingPacket
     {
-        public OpenContainer(byte containerId, ushort itemId, string name, byte capacity, bool hasParent, List<Item> items)
+        public OpenContainerOutgoingPacket(byte containerId, ushort itemId, string name, byte capacity, bool hasParent, List<Item> items)
         {
             this.ContainerId = containerId;
 

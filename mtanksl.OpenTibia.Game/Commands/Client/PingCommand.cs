@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            context.Write(Player.Client.Connection, new Ping() );
+            context.Write(Player.Client.Connection, new PingOutgoingPacket() );
         }
     }
 }

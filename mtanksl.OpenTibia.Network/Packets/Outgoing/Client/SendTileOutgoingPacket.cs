@@ -4,9 +4,9 @@ using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
-    public class SendTile : SendMap
+    public class SendTileOutgoingPacket : SendMapOutgoingPacket
     {
-        public SendTile(IMap map, IClient client, Position position) : base(map, client)
+        public SendTileOutgoingPacket(IMap map, IClient client, Position position) : base(map, client)
         {
             this.Position = position;
         }

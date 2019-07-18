@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Commands
                 {
                     //Notify
 
-                    context.Write(Player.Client.Connection, new OpenPrivateChannel(Name) );
+                    context.Write(Player.Client.Connection, new OpenPrivateChannelOutgoingPacket(Name) );
                 }
             }
         }

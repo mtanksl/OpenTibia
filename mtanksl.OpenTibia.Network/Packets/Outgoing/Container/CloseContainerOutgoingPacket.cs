@@ -2,9 +2,9 @@
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
-    public class CloseContainer : IOutgoingPacket
+    public class CloseContainerOutgoingPacket : IOutgoingPacket
     {
-        public CloseContainer(byte containerId)
+        public CloseContainerOutgoingPacket(byte containerId)
         {
             this.ContainerId = containerId;
         }

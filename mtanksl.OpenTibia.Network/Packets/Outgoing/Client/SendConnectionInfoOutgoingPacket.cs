@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
-    public class SendConnectionInfo : IOutgoingPacket
+    public class SendConnectionInfoOutgoingPacket : IOutgoingPacket
     {
         public void Write(ByteArrayStreamWriter writer)
         {

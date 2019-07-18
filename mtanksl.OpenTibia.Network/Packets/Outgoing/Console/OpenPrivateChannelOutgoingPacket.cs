@@ -2,9 +2,9 @@
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
-    public class OpenPrivateChannel : IOutgoingPacket
+    public class OpenPrivateChannelOutgoingPacket : IOutgoingPacket
     {
-        public OpenPrivateChannel(string name)
+        public OpenPrivateChannelOutgoingPacket(string name)
         {
             this.Name = name;
         }

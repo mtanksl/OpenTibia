@@ -62,7 +62,7 @@ namespace OpenTibia.Game.Commands
                 {
                     //Notify
 
-                    context.Write(Player.Client.Connection, new OpenRuleViolationsChannel(channel.Id) );
+                    context.Write(Player.Client.Connection, new OpenRuleViolationsChannelOutgoingPacket(channel.Id) );
                     
                     foreach (var ruleViolation in server.RuleViolations.GetRuleViolations() )
                     {
@@ -76,7 +76,7 @@ namespace OpenTibia.Game.Commands
                 {
                     //Notify
 
-                    context.Write(Player.Client.Connection, new OpenChannel(channel.Id, channel.Name) );
+                    context.Write(Player.Client.Connection, new OpenChannelOutgoingPacket(channel.Id, channel.Name) );
                 }
             }
         }

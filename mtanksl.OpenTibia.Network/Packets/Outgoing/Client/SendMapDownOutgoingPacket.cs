@@ -4,13 +4,13 @@ using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
-    public class SendMapDown : SendMap
+    public class SendMapDownOutgoingPacket : SendMapOutgoingPacket
     {
         private IMap map;
 
         private IClient client;
         
-        public SendMapDown(IMap map, IClient client, Position fromPosition) : base(map, client)
+        public SendMapDownOutgoingPacket(IMap map, IClient client, Position fromPosition) : base(map, client)
         {
             this.map = map;
 
@@ -34,9 +34,9 @@ namespace OpenTibia.Network.Packets.Outgoing
                 Write(writer, FromPosition.X - 8, FromPosition.Y - 6, FromPosition.Z, 18, 14, FromPosition.Z + 3, 0);
             }
 
-            new SendMapEast(map, client, FromPosition.Offset(0, 0, 1) ).Write(writer);
+            new SendMapEastOutgoingPacket(map, client, FromPosition.Offset(0, 0, 1) ).Write(writer);
 
-            new SendMapSouth(map, client, FromPosition.Offset(0, 0, 1) ).Write(writer);
+            new SendMapSouthOutgoingPacket(map, client, FromPosition.Offset(0, 0, 1) ).Write(writer);
         }
     }
 }
