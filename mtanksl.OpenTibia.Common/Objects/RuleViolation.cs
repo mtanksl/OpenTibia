@@ -6,7 +6,7 @@ namespace OpenTibia.Common.Objects
     {
         public RuleViolation()
         {
-            this.creationDate = DateTime.Now;
+            this.creationDate = DateTime.UtcNow;
         }
 
         private DateTime creationDate;

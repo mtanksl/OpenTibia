@@ -4,6 +4,8 @@
     {
         public Player()
         {
+            Inventory = new Inventory(this);
+
             Experience = 0;
 
             Level = 1;
@@ -21,14 +23,9 @@
             Stamina = 42 * 60;
 
             CanReportBugs = true;
-
-            Inventory = new Inventory(this);
-
-
-            Level = 100;
-
-            Speed = (ushort)(2 * (Level - 1) + 220);
         }
+
+        public Inventory Inventory { get; }
 
         private IClient client;
 
@@ -75,7 +72,5 @@
         public ushort Stamina { get; set; }
 
         public bool CanReportBugs { get; set; }
-
-        public Inventory Inventory { get; }
     }
 }

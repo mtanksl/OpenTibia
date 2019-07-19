@@ -15,8 +15,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Server server, CommandContext context)
         {
-            Player.Client.Connection.Disconnect();
-
             //Arrange
 
             Tile fromTile = Player.Tile;
@@ -24,6 +22,8 @@ namespace OpenTibia.Game.Commands
             Position fromPosition = fromTile.Position;
 
             //Act
+
+            Player.Client.Connection.Disconnect();
 
             server.Map.RemoveCreature(Player);
 

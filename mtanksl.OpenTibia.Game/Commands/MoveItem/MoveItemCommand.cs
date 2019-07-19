@@ -46,7 +46,7 @@ namespace OpenTibia.Game.Commands
             {
                 byte containerId;
 
-                if (observer.Client.ContainerCollection.IsOpen(fromContainer, out containerId) )
+                if (observer.Client.ContainerCollection.HasContainer(fromContainer, out containerId) )
                 {
                     context.Write(observer.Client.Connection, new ContainerRemoveOutgoingPacket(containerId, fromIndex) );
                 }
@@ -93,7 +93,7 @@ namespace OpenTibia.Game.Commands
             {
                 byte containerId;
 
-                if (observer.Client.ContainerCollection.IsOpen(toContainer, out containerId) )
+                if (observer.Client.ContainerCollection.HasContainer(toContainer, out containerId) )
                 {
                     context.Write(observer.Client.Connection, new ContainerAddOutgoingPacket(containerId, fromItem) );
                 }

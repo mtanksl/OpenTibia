@@ -4,30 +4,35 @@ namespace OpenTibia.Game.Commands
 {
     public class LookFromInventoryCommand : LookCommand
     {
-        public LookFromInventoryCommand(Player player, byte fromSlot)
+        public LookFromInventoryCommand(Player player, byte fromSlot, ushort itemId)
         {
             Player = player;
 
             FromSlot = fromSlot;
+
+            ItemId = itemId;
         }
 
         public Player Player { get; set; }
 
         public byte FromSlot { get; set; }
 
+        public ushort ItemId { get; set; }
+
         public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
-            
+            Inventory fromInventory = Player.Inventory;
 
-            //Act
-            
-            
+            Item fromItem = fromInventory.GetContent(FromSlot) as Item;
 
-            //Notify
+            if (fromItem != null)
+            {
+                //Act
 
-
+                Look(Player, fromItem, server, context);
+            }
         }
     }
 }

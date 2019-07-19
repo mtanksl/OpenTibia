@@ -4,7 +4,7 @@ namespace OpenTibia.Game.Commands
 {
     public class UseItemWithCreatureFromContainerCommand : UseItemWithCreatureCommand
     {
-        public UseItemWithCreatureFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, uint creatureId)
+        public UseItemWithCreatureFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort itemId, uint toCreatureId)
         {
             Player = player;
 
@@ -12,7 +12,9 @@ namespace OpenTibia.Game.Commands
 
             FromContainerIndex = fromContainerIndex;
 
-            CreatureId = creatureId;
+            ItemId = itemId;
+
+            ToCreatureId = toCreatureId;
         }
 
         public Player Player { get; set; }
@@ -21,7 +23,9 @@ namespace OpenTibia.Game.Commands
 
         public byte FromContainerIndex { get; set; }
 
-        public uint CreatureId { get; set; }
+        public ushort ItemId { get; set; }
+
+        public uint ToCreatureId { get; set; }
 
         public override void Execute(Server server, CommandContext context)
         {

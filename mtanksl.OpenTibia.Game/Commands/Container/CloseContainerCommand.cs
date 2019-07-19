@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Commands
             {
                 //Act
 
-                byte containerId = Player.Client.ContainerCollection.Close(container);
+                byte containerId = Player.Client.ContainerCollection.CloseContainer(container);
 
                 //Notify
 

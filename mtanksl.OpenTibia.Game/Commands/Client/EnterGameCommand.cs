@@ -38,6 +38,16 @@ namespace OpenTibia.Game.Commands
                 }
                 else
                 {
+                    //Arrange
+
+
+
+                    //Act
+
+
+
+                    //Notify
+
                     List<Character> characters = new List<Character>();
 
                     foreach (var player in account.Players)

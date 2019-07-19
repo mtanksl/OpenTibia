@@ -4,6 +4,12 @@ namespace OpenTibia.Common.Objects
 {
     public interface IClient 
     {
+        ICreatureCollection CreatureCollection { get; }
+
+        IContainerCollection ContainerCollection { get; }
+
+        IWindowCollection WindowCollection { get; }
+
         Player Player { get; set;  }
 
         IConnection Connection { get; set; }
@@ -13,9 +19,5 @@ namespace OpenTibia.Common.Objects
         ChaseMode ChaseMode { get; set; }
 
         SafeMode SafeMode { get; set; }
-
-        ICreatureCollection CreatureCollection { get; }
-
-        IContainerCollection ContainerCollection { get; }
     }
 }

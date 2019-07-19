@@ -28,6 +28,8 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
+
+
             //Act
 
             Player.Client.FightMode = FightMode;
@@ -37,6 +39,8 @@ namespace OpenTibia.Game.Commands
             Player.Client.SafeMode = SafeMode;
             
             //Notify
+
+
         }
     }
 }

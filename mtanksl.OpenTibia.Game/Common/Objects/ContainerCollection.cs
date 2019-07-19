@@ -5,16 +5,37 @@ namespace OpenTibia.Common.Objects
 {
     public class ContainerCollection : IContainerCollection
     {
-        private IClient client;
-
         public ContainerCollection(IClient client)
         {
             this.client = client;
         }
 
+        private IClient client;
+
+        private IClient Client
+        {
+            get
+            {
+                return client;
+            }
+        }
+
         private Dictionary<byte, Container> containers = new Dictionary<byte, Container>();
 
         private Dictionary<Container, byte> containerIds = new Dictionary<Container, byte>();
+
+        private byte GenerateId()
+        {
+            for (byte id = 0; id < 255; id++)
+            {
+                if ( !containers.ContainsKey(id) )
+                {
+                    return id;
+                }
+            }
+
+            throw new Exception();
+        }
 
         public Container GetContainer(byte containerId)
         {
@@ -25,12 +46,12 @@ namespace OpenTibia.Common.Objects
             return container;
         }
 
-        public bool IsOpen(Container container, out byte containerId)
+        public bool HasContainer(Container container, out byte containerId)
         {
             return containerIds.TryGetValue(container, out containerId);
         }
 
-        public byte Open(Container container)
+        public byte OpenContainer(Container container)
         {
             byte containerId = GenerateId();
 
@@ -41,11 +62,11 @@ namespace OpenTibia.Common.Objects
             return containerId;
         }
 
-        public byte Close(Container container)
+        public byte CloseContainer(Container container)
         {
             byte containerId;
 
-            if (containerIds.TryGetValue(container, out containerId) )
+            if ( HasContainer(container, out containerId) )
             {
                 containers.Remove(containerId);
 
@@ -53,21 +74,6 @@ namespace OpenTibia.Common.Objects
             }
 
             return containerId;
-        }
-
-        private byte GenerateId()
-        {
-            for (byte id = 0; id < 255; id++)
-            {
-                Container container;
-
-                if ( !containers.TryGetValue(id, out container) )
-                {
-                    return id;
-                }
-            }
-
-            throw new Exception();
         }
     }
 }

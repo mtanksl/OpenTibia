@@ -27,17 +27,8 @@ namespace OpenTibia.Common.Objects
             get
             {
                 return GetItems()
-                    .Where(item => item.TopOrder == TopOrder.Ground)
+                    .Where(i => i.TopOrder == TopOrder.Ground)
                     .FirstOrDefault();
-            }
-        }
-        
-        public Item TopItem
-        {
-            get
-            {
-                return GetItems()
-                    .LastOrDefault();
             }
         }
 

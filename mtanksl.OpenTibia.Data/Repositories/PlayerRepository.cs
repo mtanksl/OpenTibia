@@ -5,6 +5,8 @@ namespace OpenTibia.Data
 {
     public class PlayerRepository
     {
+        private static readonly string Ip = "192.168.1.11";
+
         private List<AccountRow> accounts = new List<AccountRow>()
         {
             new AccountRow()
@@ -19,7 +21,7 @@ namespace OpenTibia.Data
                 {
                     new PlayerRow()
                     {
-                       Name = "Player",
+                       Name = "Player 1",
 
                        CoordinateX = 931,
 
@@ -31,7 +33,27 @@ namespace OpenTibia.Data
                        {
                            Name = "World",
 
-                           Ip = "192.168.1.11", //Change this to your ip address
+                           Ip = Ip,
+
+                           Port = 7172
+                       }
+                    },
+
+                    new PlayerRow()
+                    {
+                       Name = "Player 2",
+
+                       CoordinateX = 931,
+
+                       CoordinateY = 779,
+
+                       CoordinateZ = 7,
+
+                       World = new WorldRow()
+                       {
+                           Name = "World",
+
+                           Ip = Ip,
 
                            Port = 7172
                        }

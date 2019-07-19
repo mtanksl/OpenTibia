@@ -159,7 +159,7 @@ namespace OpenTibia.Common.Objects
 
                             break;
 
-                        case 0x78:
+                        case 0x78: //TODO
                             {
                                 var packet = server.PacketsFactory.Create<MoveItemIncomingPacket>(reader);
 
@@ -219,7 +219,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<LookItemNpcTradeIncommingPacket>(reader);
 
-                                //TODO: NpcTrade
+                                command = new LookFromNpcTradeCommand(Client.Player, packet.ItemId, packet.Type);
                             }
                             break;
 
@@ -227,7 +227,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<BuyNpcTradeIncommingPacket>(reader);
 
-                                //TODO: NpcTrade
+                                command = new BuyNpcTradeCommand(Client.Player, packet);
                             }
                             break;
 
@@ -235,21 +235,34 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<SellNpcTradeIncommingPacket>(reader);
 
-                                //TODO: NpcTrade
+                                command = new SellNpcTradeCommand(Client.Player, packet);
                             }
                             break;
 
                         case 0x7C:
-                            {
-                                //TODO: NpcTrade (CloseNpcTrade)
-                            }
+                            
+                            command = new CloseNpcTradeCommand(Client.Player);
+                            
                             break;
 
-                        case 0x7D:
+                        case 0x7D: //TODO
                             {
                                 var packet = server.PacketsFactory.Create<TradeWithIncommingPacket>(reader);
 
-                                //TODO: Trade
+                                Position fromPosition = new Position(packet.X, packet.Y, packet.Z);
+
+                                if (fromPosition.IsContainer)
+                                {
+                                    command = new TradeWithFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.CreatureId);
+                                }
+                                else if (fromPosition.IsInventory)
+                                {
+                                    command = new TradeWithFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.CreatureId);
+                                }
+                                else
+                                {
+                                    command = new TradeWithFromTileCommand(Client.Player, fromPosition, packet.Index, packet.CreatureId);
+                                }
                             }
                             break;
 
@@ -257,27 +270,23 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<LookItemTradeIncommingPacket>(reader);
 
-                                //TODO: Trade
+                                command = new LookFromTradeCommand(Client.Player, packet.WindowId, packet.Index);
                             }
                             break;
 
                         case 0x7F:
-                            {
-                                var packet = server.PacketsFactory.Create<AcceptTradeIncommingPacket>(reader);
-
-                                //TODO: Trade
-                            }
+                            
+                            command = new AcceptTradeCommand(Client.Player);
+                            
                             break;
 
                         case 0x80:
-                            {
-                                var packet = server.PacketsFactory.Create<CancelTradeIncommingPacket>(reader);
-
-                                //TODO: Trade
-                            }
+                            
+                            command = new CancelTradeCommand(Client.Player);
+                            
                             break;
 
-                        case 0x82:
+                        case 0x82: //TODO
                             {
                                 var packet = server.PacketsFactory.Create<UseItemIncomingPacket>(reader);
 
@@ -298,7 +307,7 @@ namespace OpenTibia.Common.Objects
                             }
                             break;
 
-                        case 0x83:
+                        case 0x83: //TODO
                             {
                                 var packet = server.PacketsFactory.Create<UseItemWithItemIncomingPacket>(reader);
 
@@ -362,15 +371,15 @@ namespace OpenTibia.Common.Objects
 
                                 if (fromPosition.IsContainer)
                                 {
-                                    command = new UseItemWithCreatureFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.CreatureId);
+                                    command = new UseItemWithCreatureFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.ItemId, packet.CreatureId);
                                 }
                                 else if (fromPosition.IsInventory)
                                 {
-                                    command = new UseItemWithCreatureFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.CreatureId);
+                                    command = new UseItemWithCreatureFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId, packet.CreatureId);
                                 }
                                 else
                                 {
-                                    command = new UseItemWithCreatureFromTileCommand(Client.Player, fromPosition, packet.Index, packet.CreatureId);
+                                    command = new UseItemWithCreatureFromTileCommand(Client.Player, fromPosition, packet.Index, packet.ItemId, packet.CreatureId);
                                 }
                             }
                             break;
@@ -383,15 +392,15 @@ namespace OpenTibia.Common.Objects
 
                                 if (fromPosition.IsContainer)
                                 {
-                                    command = new RotateItemFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex);
+                                    command = new RotateItemFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.ItemId);
                                 }
                                 else if (fromPosition.IsInventory)
                                 {
-                                    command = new RotateItemFromInventoryCommand(Client.Player, fromPosition.InventoryIndex);
+                                    command = new RotateItemFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId);
                                 }
                                 else
                                 {
-                                    command = new RotateItemFromTileCommand(Client.Player, fromPosition, packet.Index);
+                                    command = new RotateItemFromTileCommand(Client.Player, fromPosition, packet.Index, packet.ItemId);
                                 }
                             }
                             break;
@@ -408,7 +417,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<OpenParentIncommingPacket>(reader);
 
-                                //TODO: Container
+                                command = new OpenParentContainerCommand(Client.Player, packet.ContainerId);
                             }
                             break;
 
@@ -420,15 +429,15 @@ namespace OpenTibia.Common.Objects
 
                                 if (fromPosition.IsContainer)
                                 {
-                                    command = new LookFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex);
+                                    command = new LookFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.ItemId);
                                 }
                                 else if (fromPosition.IsInventory)
                                 {
-                                    command = new LookFromInventoryCommand(Client.Player, fromPosition.InventoryIndex);
+                                    command = new LookFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId);
                                 }
                                 else
                                 {
-                                    command = new LookFromTileCommand(Client.Player, fromPosition, packet.Index);
+                                    command = new LookFromTileCommand(Client.Player, fromPosition, packet.Index, packet.ItemId);
                                 }
                             }
                             break;
@@ -550,9 +559,9 @@ namespace OpenTibia.Common.Objects
                             break;
 
                         case 0x9E:
-                            {
-                                //TODO: Channel (CloseNpcsChannel)
-                            }
+
+                            command = new CloseNpcsChannelCommand(Client.Player);
+
                             break;
 
                         case 0xA0:
@@ -583,7 +592,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<InviteToPartyIncomingPacket>(reader);
 
-                                //TODO: Party
+                                command = new InviteToPartyCommand(Client.Player, packet.CreatureId);
                             }
                             break;
 
@@ -591,7 +600,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<JoinPartyIncomingPacket>(reader);
 
-                                //TODO: Party
+                                command = new JoinPartyCommand(Client.Player, packet.CreatureId);
                             }
                             break;
 
@@ -599,7 +608,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<RevokePartyIncomingPacket>(reader);
 
-                                //TODO: Party
+                                command = new RevokePartyCommand(Client.Player, packet.CreatureId);
                             }
                             break;
 
@@ -607,21 +616,21 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<PassLeadershipToIncomingPacket>(reader);
 
-                                //TODO: Party
+                                command = new PassLeaderShipToCommand(Client.Player, packet.CreatureId);
                             }
                             break;
 
                         case 0xA7:
-                            {
-                                //TODO: Party (LeaveParty)
-                            }
+                            
+                            command = new LeavePartyCommand(Client.Player);
+                            
                             break;
 
                         case 0xA8:
                             {
                                 var packet = server.PacketsFactory.Create<SharedExperienceIncomingPacket>(reader);
 
-                                //TODO: Party
+                                command = new SharedExperienceCommand(Client.Player, packet.Enabled);
                             }
                             break;
 
@@ -671,7 +680,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<AddVipIncommingPacket>(reader);
 
-                                //TODO: Vip
+                                command = new AddVipCommand(Client.Player, packet.Name);
                             }
                             break;
 
@@ -679,7 +688,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<RemoveVipIncommingPacket>(reader);
 
-                                //TODO: Vip
+                                command = new RemoveVipCommand(Client.Player, packet.CreatureId);
                             }
                             break;
 
@@ -687,21 +696,21 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<ReportBugIncomingPacket>(reader);
 
-                                //TODO: ReportBug
+                                command = new ReportBugCommand(Client.Player, packet.Message);
                             }
                             break;
 
                         case 0xF0:
-                            {
-                                //TODO: Quest (Quests)
-                            }
+                            
+                            command = new OpenQuestsCommand(Client.Player);
+                            
                             break;
 
                         case 0xF1:
                             {
                                 var packet = server.PacketsFactory.Create<OpenQuestIncomingPacket>(reader);
 
-                                //TODO: Quest
+                                command = new OpenQuestCommand(Client.Player, packet.QuestId);
                             }
                             break;
                     }

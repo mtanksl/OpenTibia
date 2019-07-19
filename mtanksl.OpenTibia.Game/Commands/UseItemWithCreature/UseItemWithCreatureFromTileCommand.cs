@@ -5,7 +5,7 @@ namespace OpenTibia.Game.Commands
 {
     public class UseItemWithCreatureFromTileCommand : UseItemWithCreatureCommand
     {
-        public UseItemWithCreatureFromTileCommand(Player player, Position fromPosition, byte fromIndex, uint creatureId)
+        public UseItemWithCreatureFromTileCommand(Player player, Position fromPosition, byte fromIndex, ushort itemId, uint toCreatureId)
         {
             Player = player;
 
@@ -13,7 +13,9 @@ namespace OpenTibia.Game.Commands
 
             FromIndex = fromIndex;
 
-            CreatureId = creatureId;
+            ItemId = ItemId;
+
+            ToCreatureId = toCreatureId;
         }
 
         public Player Player { get; set; }
@@ -22,7 +24,9 @@ namespace OpenTibia.Game.Commands
 
         public byte FromIndex { get; set; }
 
-        public uint CreatureId { get; set; }
+        public ushort ItemId { get; set; }
+
+        public uint ToCreatureId { get; set; }
 
         public override void Execute(Server server, CommandContext context)
         {

@@ -4,10 +4,10 @@
     {
         Container GetContainer(byte containerId);
 
-        bool IsOpen(Container container, out byte containerId);
+        bool HasContainer(Container container, out byte containerId);
 
-        byte Open(Container container);
+        byte OpenContainer(Container container);
 
-        byte Close(Container container);
+        byte CloseContainer(Container container);
     }
 }

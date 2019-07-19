@@ -10,7 +10,15 @@ namespace OpenTibia.Common.Objects
             this.CreatureCollection = new CreatureCollection(server, this);
 
             this.ContainerCollection = new ContainerCollection(this);
+
+            this.WindowCollection = new WindowCollection(this);
         }
+
+        public ICreatureCollection CreatureCollection { get; }
+
+        public IContainerCollection ContainerCollection { get; }
+
+        public IWindowCollection WindowCollection { get; }
 
         private Player player;
 
@@ -73,9 +81,5 @@ namespace OpenTibia.Common.Objects
         public ChaseMode ChaseMode { get; set; }
 
         public SafeMode SafeMode { get; set; }
-
-        public ICreatureCollection CreatureCollection { get; }
-
-        public IContainerCollection ContainerCollection { get; }
     }
 }

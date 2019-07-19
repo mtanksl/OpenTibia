@@ -33,21 +33,24 @@ namespace OpenTibia.Game.Commands
 
             Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
 
-            Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
-
-            if (fromItem != null)
+            if (fromContainer != null)
             {
-                Inventory toInventory = Player.Inventory;
+                Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
 
-                Item toItem = toInventory.GetContent(ToSlot) as Item;
-
-                if (toItem == null)
+                if (fromItem != null)
                 {
-                    //Act
+                    Inventory toInventory = Player.Inventory;
 
-                    RemoveItem(fromContainer, fromItem, server, context);
+                    Item toItem = toInventory.GetContent(ToSlot) as Item;
 
-                    AddItem(toInventory, ToSlot, fromItem, server, context);
+                    if (toItem == null)
+                    {
+                        //Act
+
+                        RemoveItem(fromContainer, fromItem, server, context);
+
+                        AddItem(toInventory, ToSlot, fromItem, server, context);
+                    }
                 }
             }
         }

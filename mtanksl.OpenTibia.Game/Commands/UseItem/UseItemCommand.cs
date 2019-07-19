@@ -10,11 +10,11 @@ namespace OpenTibia.Game.Commands
         {
             byte containerId;
 
-            if (player.Client.ContainerCollection.IsOpen(container, out containerId) )
+            if (player.Client.ContainerCollection.HasContainer(container, out containerId) )
             {
                 //Act
 
-                containerId = player.Client.ContainerCollection.Close(container);
+                containerId = player.Client.ContainerCollection.CloseContainer(container);
 
                 //Notify
 
@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
             {
                 //Act
 
-                containerId = player.Client.ContainerCollection.Open(container);
+                containerId = player.Client.ContainerCollection.OpenContainer(container);
 
                 //Notify
 

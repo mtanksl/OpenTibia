@@ -41,14 +41,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Attack\AttackCommand.cs" />
+    <Compile Include="Commands\Channel\CloseNpcsChannelCommand.cs" />
     <Compile Include="Commands\Client\LogInCommand.cs" />
     <Compile Include="Commands\Client\EnterGameCommand.cs" />
     <Compile Include="Commands\CommandContext.cs" />
+    <Compile Include="Commands\Container\OpenParentContainerCommand.cs" />
     <Compile Include="Commands\Container\CloseContainerCommand.cs" />
     <Compile Include="Commands\Folow\FollowCommand.cs" />
     <Compile Include="Commands\Look\LookCommand.cs" />
     <Compile Include="Commands\Look\LookFromContainerCommand.cs" />
     <Compile Include="Commands\Look\LookFromInventoryCommand.cs" />
+    <Compile Include="Commands\Look\LookFromNpcTradeCommand.cs" />
+    <Compile Include="Commands\Look\LookFromTradeCommand.cs" />
     <Compile Include="Commands\Look\LookFromTileCommand.cs" />
     <Compile Include="Commands\MoveItem\MoveItemCommand.cs" />
     <Compile Include="Commands\MoveItem\MoveItemFromInventoryToContainerCommand.cs" />
@@ -56,10 +60,28 @@
     <Compile Include="Commands\MoveItem\MoveItemFromContainerToInventoryCommand.cs" />
     <Compile Include="Commands\MoveItem\MoveItemFromContainerToContainerCommand.cs" />
     <Compile Include="Commands\MoveItem\MoveItemFromTileToContainerCommand.cs" />
+    <Compile Include="Commands\NpcTrade\SellNpcTradeCommand.cs" />
+    <Compile Include="Commands\NpcTrade\BuyNpcTradeCommand.cs" />
+    <Compile Include="Commands\NpcTrade\CloseNpcTradeCommand.cs" />
+    <Compile Include="Commands\Party\SharedExperienceCommand.cs" />
+    <Compile Include="Commands\Party\LeavePartyCommand.cs" />
+    <Compile Include="Commands\Party\PassLeaderShipToCommand.cs" />
+    <Compile Include="Commands\Party\RevokePartyCommand.cs" />
+    <Compile Include="Commands\Party\JoinPartyCommand.cs" />
+    <Compile Include="Commands\Party\InviteToPartyCommand.cs" />
+    <Compile Include="Commands\Quest\OpenQuestCommand.cs" />
+    <Compile Include="Commands\Quest\OpenQuestsCommand.cs" />
+    <Compile Include="Commands\ReportBug\ReportBugCommand.cs" />
     <Compile Include="Commands\RotateItem\RotateItemCommand.cs" />
     <Compile Include="Commands\RotateItem\RotateItemFromInventoryCommand.cs" />
     <Compile Include="Commands\RotateItem\RotateItemFromContainerCommand.cs" />
     <Compile Include="Commands\RotateItem\RotateItemFromTileCommand.cs" />
+    <Compile Include="Commands\Trade\CancelTradeCommand.cs" />
+    <Compile Include="Commands\Trade\AcceptTradeCommand.cs" />
+    <Compile Include="Commands\Trade\TradeWithCommand.cs" />
+    <Compile Include="Commands\Trade\TradeWithFromContainerCommand.cs" />
+    <Compile Include="Commands\Trade\TradeWithFromInventoryCommand.cs" />
+    <Compile Include="Commands\Trade\TradeWithFromTileCommand.cs" />
     <Compile Include="Commands\UseItemWithCreature\UseItemWithCreatureCommand.cs" />
     <Compile Include="Commands\UseItemWithCreature\UseItemWithCreatureFromContainerCommand.cs" />
     <Compile Include="Commands\UseItemWithCreature\UseItemWithCreatureFromTileCommand.cs" />
@@ -77,6 +99,8 @@
     <Compile Include="Commands\UseItem\UseItemCommand.cs" />
     <Compile Include="Commands\UseItem\UseItemFromInventoryCommand.cs" />
     <Compile Include="Commands\UseItem\UseItemFromContainerCommand.cs" />
+    <Compile Include="Commands\Vip\AddVipCommand.cs" />
+    <Compile Include="Commands\Vip\RemoveVipCommand.cs" />
     <Compile Include="Common\Objects\Client.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\MoveItem\MoveItemFromTileToInventoryCommand.cs" />
@@ -99,6 +123,7 @@
     <Compile Include="Commands\Turn\TurnCommand.cs" />
     <Compile Include="Commands\Walk\WalkCommand.cs" />
     <Compile Include="Commands\Client\CleanUpCommand.cs" />
+    <Compile Include="Common\Objects\WindowCollection.cs" />
     <Compile Include="Common\Objects\ContainerCollection.cs" />
     <Compile Include="Common\Objects\CreatureCollection.cs" />
     <Compile Include="Common\Objects\GameConnection.cs" />
@@ -159,13 +184,6 @@
       <Name>mtanksl.OpenTibia.Threading</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\NpcTrade\" />
-    <Folder Include="Commands\Party\" />
-    <Folder Include="Commands\Quest\" />
-    <Folder Include="Commands\ReportBug\" />
-    <Folder Include="Commands\Trade\" />
-    <Folder Include="Commands\Vip\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

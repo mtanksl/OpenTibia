@@ -8,8 +8,6 @@ namespace OpenTibia.Game.Commands
 {
     public class LogInCommand : Command
     {
-        private static int sequence;
-
         public LogInCommand(IConnection connection, SelectedCharacterIncomingPacket packet)
         {
             Connection = connection;
@@ -39,69 +37,72 @@ namespace OpenTibia.Game.Commands
                 }
                 else
                 {
-                    Connection.Client = new Client(server)
-                    {
-                        Player = new Player()
-                        {
-                            Name = $"{account.Name} {sequence++}"
-                        }
-                    };
-
                     //Arrange
-
-                    IClient client = Connection.Client;
-
-                    Player player = client.Player;
 
                     Position fromPosition = new Position(account.CoordinateX, account.CoordinateY, account.CoordinateZ);
 
                     Tile fromTile = server.Map.GetTile(fromPosition);
 
-                    //Act
-
-                    server.Map.AddCreature(player);
-
-                    byte fromIndex = fromTile.AddContent(player);
-
-                    //Notify
-
-                    foreach (var observer in server.Map.GetPlayers() )
+                    if (fromTile != null)
                     {
-                        if (observer != player)
+                        //Act
+
+                        Player player = new Player()
                         {
-                            if (observer.Tile.Position.CanSee(fromPosition) )
+                            Name = account.Name
+                        };
+
+                        Client client = new Client(server)
+                        {
+                            Player = player
+                        };
+
+                        Connection.Client = client;
+
+                        server.Map.AddCreature(player);
+
+                        byte fromIndex = fromTile.AddContent(player);
+
+                        //Notify
+
+                        foreach (var observer in server.Map.GetPlayers() )
+                        {
+                            if (observer != player)
                             {
-                                uint removeId;
-
-                                if (observer.Client.CreatureCollection.IsKnownCreature(player.Id, out removeId) )
+                                if (observer.Tile.Position.CanSee(fromPosition) )
                                 {
-                                    context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(fromPosition, fromIndex, player),
+                                    uint removeId;
 
-                                                                              new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Teleport) );
-                                }
-                                else
-                                {
-                                    context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(fromPosition, fromIndex, removeId, player),
+                                    if (observer.Client.CreatureCollection.IsKnownCreature(player.Id, out removeId) )
+                                    {
+                                        context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(fromPosition, fromIndex, player),
 
-                                                                              new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Teleport) );
+                                                                                  new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Teleport) );
+                                    }
+                                    else
+                                    {
+                                        context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(fromPosition, fromIndex, removeId, player),
+
+                                                                                  new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Teleport) );
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    context.Write(Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs), 
+                        context.Write(Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs), 
                            
-                                              new SetSpecialConditionOutgoingPacket(SpecialCondition.None),
+                                                  new SetSpecialConditionOutgoingPacket(SpecialCondition.None),
                                               
-                                              new SendStatusOutgoingPacket(player.Health, player.MaxHealth, player.Capacity, player.Experience, player.Level, player.LevelPercent, player.Mana, player.MaxMana, 0, 0, player.Soul, player.Stamina),
+                                                  new SendStatusOutgoingPacket(player.Health, player.MaxHealth, player.Capacity, player.Experience, player.Level, player.LevelPercent, player.Mana, player.MaxMana, 0, 0, player.Soul, player.Stamina),
                                               
-                                              new SendSkillsOutgoingPacket(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0),
+                                                  new SendSkillsOutgoingPacket(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0),
                                               
-                                              new SetEnvironmentLightOutgoingPacket(Light.Day),
+                                                  new SetEnvironmentLightOutgoingPacket(Light.Day),
                                               
-                                              new SendTilesOutgoingPacket(server.Map, client, fromPosition),
+                                                  new SendTilesOutgoingPacket(server.Map, client, fromPosition),
                                               
-                                              new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Teleport) );
+                                                  new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Teleport) );
+                    }
                 }
             }
         }

@@ -34,19 +34,22 @@ namespace OpenTibia.Game.Commands
 
             Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
 
-            Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
-
-            if (fromItem != null)
+            if (fromContainer != null)
             {
-                Tile toTile = server.Map.GetTile(ToPosition);
+                Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
 
-                if (toTile != null)
+                if (fromItem != null)
                 {
-                    //Act
+                    Tile toTile = server.Map.GetTile(ToPosition);
 
-                    RemoveItem(fromContainer, fromItem, server, context);
+                    if (toTile != null)
+                    {
+                        //Act
 
-                    AddItem(toTile, fromItem, server, context);
+                        RemoveItem(fromContainer, fromItem, server, context);
+
+                        AddItem(toTile, fromItem, server, context);
+                    }
                 }
             }
         }

@@ -1,4 +1,4 @@
-﻿namespace OpenTibia.Common.Objects
+﻿namespace OpenTibia.Common.Structures
 {
     public enum TopOrder : byte
     {

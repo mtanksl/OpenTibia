@@ -34,7 +34,9 @@ namespace OpenTibia.Game.Commands
                 {
                     //Act
 
-                    if (fromItem is Container container)
+                    Container container = fromItem as Container;
+
+                    if (container != null)
                     {
                         OpenOrCloseContainer(Player, container, server, context);
                     }
