@@ -731,9 +731,12 @@ namespace OpenTibia.Common.Objects
 
         protected override void OnDisconnected(DisconnectedEventArgs e)
         {
-            if (Client != null && Client.Player != null)
+            if (e.Type != DisconnetionType.Requested)
             {
-                server.QueueForExecution(new CleanUpCommand(Client.Player) );
+                if (Client != null && Client.Player != null)
+                {
+                    server.QueueForExecution(new LogOutCommand(Client.Player) );
+                }
             }
             
             base.OnDisconnected(e);

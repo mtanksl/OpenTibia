@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
@@ -40,6 +41,13 @@ namespace OpenTibia.Game.Commands
             return this;
         }
 
+        private HashSet<IConnection> connections = new HashSet<IConnection>();
+
+        public void Disconnect(IConnection connection)
+        {
+            connections.Add(connection);
+        }
+
         public void Flush()
         {
             foreach (var pair in messages)
@@ -51,7 +59,14 @@ namespace OpenTibia.Game.Commands
                 connection.Send( message.GetBytes(connection.Keys) );
             }
 
+            foreach (var connection in connections)
+            {
+                connection.Disconnect();
+            }
+
             messages.Clear();
+
+            connections.Clear();
         }
     }
 }

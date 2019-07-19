@@ -26,6 +26,8 @@ namespace OpenTibia.Game.Commands
             if (Packet.Version != 860)
             {
                 context.Write(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.OnlyProtocol86Allowed) );
+
+                context.Disconnect(Connection);
             }
             else
             {
@@ -34,6 +36,8 @@ namespace OpenTibia.Game.Commands
                 if (account == null)
                 {
                     context.Write(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
+
+                    context.Disconnect(Connection);
                 }
                 else
                 {
@@ -45,19 +49,17 @@ namespace OpenTibia.Game.Commands
 
                     if (fromTile != null)
                     {
-                        //Act
-
                         Player player = new Player()
                         {
                             Name = account.Name
                         };
 
-                        Client client = new Client(server)
+                        Connection.Client = new Client(server)
                         {
                             Player = player
                         };
 
-                        Connection.Client = client;
+                        //Act
 
                         server.Map.AddCreature(player);
 
@@ -90,17 +92,25 @@ namespace OpenTibia.Game.Commands
                         }
 
                         context.Write(Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs), 
-                           
+
                                                   new SetSpecialConditionOutgoingPacket(SpecialCondition.None),
-                                              
-                                                  new SendStatusOutgoingPacket(player.Health, player.MaxHealth, player.Capacity, player.Experience, player.Level, player.LevelPercent, player.Mana, player.MaxMana, 0, 0, player.Soul, player.Stamina),
-                                              
+
+                                                  new SendStatusOutgoingPacket(player.Health, player.MaxHealth, 
+                                                  
+                                                                               player.Capacity, 
+                                                  
+                                                                               player.Experience, player.Level, player.LevelPercent, 
+                                                                               
+                                                                               player.Mana, player.MaxMana, 0, 0, player.Soul, 
+                                                                               
+                                                                               player.Stamina),
+
                                                   new SendSkillsOutgoingPacket(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0),
-                                              
+
                                                   new SetEnvironmentLightOutgoingPacket(Light.Day),
-                                              
-                                                  new SendTilesOutgoingPacket(server.Map, client, fromPosition),
-                                              
+
+                                                  new SendTilesOutgoingPacket(server.Map, player.Client, fromPosition),
+
                                                   new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Teleport) );
                     }
                 }

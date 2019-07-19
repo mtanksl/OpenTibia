@@ -23,8 +23,6 @@ namespace OpenTibia.Game.Commands
 
             //Act
 
-            Player.Client.Connection.Disconnect();
-
             server.Map.RemoveCreature(Player);
 
             byte fromIndex = fromTile.RemoveContent(Player);
@@ -43,6 +41,8 @@ namespace OpenTibia.Game.Commands
                     }
                 }
             }
+
+            context.Disconnect(Player.Client.Connection);
         }
     }
 }

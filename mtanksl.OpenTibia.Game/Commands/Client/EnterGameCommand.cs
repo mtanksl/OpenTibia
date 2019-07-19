@@ -27,6 +27,8 @@ namespace OpenTibia.Game.Commands
             if (Packet.TibiaDat != 1277983123 || Packet.TibiaPic != 1256571859 || Packet.TibiaSpr != 1277298068 || Packet.Version != 860)
             {
                 context.Write(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.OnlyProtocol86Allowed) );
+
+                context.Disconnect(Connection);
             }
             else
             {
@@ -35,6 +37,8 @@ namespace OpenTibia.Game.Commands
                 if (account == null)
                 {
                     context.Write(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
+
+                    context.Disconnect(Connection);
                 }
                 else
                 {
@@ -56,6 +60,8 @@ namespace OpenTibia.Game.Commands
                     }
 
                     context.Write(Connection, new OpenSelectCharacterDialogOutgoingPacket(characters, (ushort)account.PremiumDays) );
+
+                    context.Disconnect(Connection);
                 }
             }
         }

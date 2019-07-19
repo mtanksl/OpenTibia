@@ -198,7 +198,7 @@ namespace OpenTibia.Network.Sockets
 
         public void Disconnect()
         {
-            OnDisconnected(new DisconnectedEventArgs(DisconnetionType.Logout) );
+            OnDisconnected(new DisconnectedEventArgs(DisconnetionType.Requested) );
         }
 
         protected virtual void OnConnect()
@@ -235,7 +235,7 @@ namespace OpenTibia.Network.Sockets
                 {
                     stop = true;
 
-                    socket.Close();
+                    socket.Shutdown(SocketShutdown.Both);
                 }
             }
 

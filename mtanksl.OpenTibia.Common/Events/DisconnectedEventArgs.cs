@@ -4,7 +4,7 @@ namespace OpenTibia.Common.Events
 {
     public enum DisconnetionType
     {
-        Logout,
+        Requested,
 
         SocketClosed,
 

@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
             
-            DateTime ping = DateTime.UtcNow;
+            
 
             //Act
 

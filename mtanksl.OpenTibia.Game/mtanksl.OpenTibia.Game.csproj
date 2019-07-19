@@ -122,7 +122,6 @@
     <Compile Include="Commands\Walk\WalkToCommand.cs" />
     <Compile Include="Commands\Turn\TurnCommand.cs" />
     <Compile Include="Commands\Walk\WalkCommand.cs" />
-    <Compile Include="Commands\Client\CleanUpCommand.cs" />
     <Compile Include="Common\Objects\WindowCollection.cs" />
     <Compile Include="Common\Objects\ContainerCollection.cs" />
     <Compile Include="Common\Objects\CreatureCollection.cs" />
