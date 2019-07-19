@@ -82,7 +82,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
                                     uint removeId;
 
-                                    if (client.IsKnownCreature(creature.Id, out removeId) )
+                                    if (client.CreatureCollection.IsKnownCreature(creature.Id, out removeId) )
                                     {
                                         writer.Write(creature);
                                     }

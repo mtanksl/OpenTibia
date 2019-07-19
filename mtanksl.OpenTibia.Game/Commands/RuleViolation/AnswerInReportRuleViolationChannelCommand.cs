@@ -26,7 +26,9 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            Player observer = server.Map.GetPlayers().Where(p => p.Name == Name).FirstOrDefault();
+            Player observer = server.Map.GetPlayers()
+                .Where(p => p.Name == Name)
+                .FirstOrDefault();
 
             //Act
             

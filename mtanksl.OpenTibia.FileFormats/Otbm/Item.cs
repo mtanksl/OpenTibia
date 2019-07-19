@@ -12,7 +12,7 @@ namespace OpenTibia.FileFormats.Otbm
 
             stream.Seek(Origin.Current, 1);
 
-            item.Id = reader.ReadUShort();
+            item.OpenTibiaId = reader.ReadUShort();
 
             while (true)
             {
@@ -143,7 +143,7 @@ namespace OpenTibia.FileFormats.Otbm
             }
         }
 
-        public ushort Id { get; set; }
+        public ushort OpenTibiaId { get; set; }
 
         public byte Count { get; set; }
 

@@ -6,16 +6,16 @@ namespace OpenTibia.Game.Commands
 {
     public class TeleportCommand : Command
     {
-        public TeleportCommand(Player player, Position position)
+        public TeleportCommand(Player player, Position toPosition)
         {
             Player = player;
 
-            Position = position;
+            ToPosition = toPosition;
         }
 
         public Player Player { get; set; }
 
-        public Position Position { get; set; }
+        public Position ToPosition { get; set; }
 
         public override void Execute(Server server, CommandContext context)
         {
@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
 
             Tile fromTile = Player.Tile;
 
-            Tile toTile = server.Map.GetTile(Position);
+            Tile toTile = server.Map.GetTile(ToPosition);
 
             //Act
 
@@ -53,7 +53,7 @@ namespace OpenTibia.Game.Commands
                     {
                         uint removeId;
 
-                        if (observer.Client.IsKnownCreature(Player.Id, out removeId) )
+                        if (observer.Client.CreatureCollection.IsKnownCreature(Player.Id, out removeId) )
                         {
                             context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(toTile.Position, toIndex, Player) );
                         }

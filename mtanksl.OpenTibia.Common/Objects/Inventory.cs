@@ -6,11 +6,19 @@ namespace OpenTibia.Common.Objects
 {
     public class Inventory : IContainer
     {
-        private Player player;
-
         public Inventory(Player player)
         {
             this.player = player;
+        }
+
+        private Player player;
+
+        public Player Player
+        {
+            get
+            {
+                return player;
+            }
         }
 
         private IContent[] contents = new IContent[11];

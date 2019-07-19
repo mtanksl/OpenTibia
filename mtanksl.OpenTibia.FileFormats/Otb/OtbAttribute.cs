@@ -2,9 +2,9 @@
 {
     public enum OtbAttribute : byte
     {
-        ServerId = 16,
+        OpenTibiaId = 16,
 
-        ClientId = 17,
+        TibiaId = 17,
 
         Speed = 20,
 

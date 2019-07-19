@@ -19,15 +19,17 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            
+            Item fromItem = Player.Inventory.GetContent(FromSlot) as Item;
 
-            //Act
+            if (fromItem != null)
+            {
+                //Act
 
-
-
-            //Notify
-
-
+                if (fromItem is Container container)
+                {
+                    OpenOrCloseContainer(Player, container, server, context);
+                }
+            }
         }
     }
 }

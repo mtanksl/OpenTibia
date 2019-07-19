@@ -171,45 +171,45 @@ namespace OpenTibia.Common.Objects
                                 {
                                     if (toPosition.IsContainer)
                                     {
-                                        command = new MoveItemFromContainerToContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, toPosition.ContainerId, toPosition.ContainerIndex);
+                                        command = new MoveItemFromContainerToContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, toPosition.ContainerId, toPosition.ContainerIndex, packet.Count);
                                     }
                                     else if (toPosition.IsInventory)
                                     {
-                                        command = new MoveItemFromContainerToInventoryCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, toPosition.InventoryIndex);
+                                        command = new MoveItemFromContainerToInventoryCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, toPosition.InventoryIndex, packet.Count);
                                     }
                                     else
                                     {
-                                        command = new MoveItemFromContainerToTileCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, toPosition);
+                                        command = new MoveItemFromContainerToTileCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, toPosition, packet.Count);
                                     }
                                 }
                                 else if (fromPosition.IsInventory)
                                 {
                                     if (toPosition.IsContainer)
                                     {
-                                        command = new MoveItemFromInventoryToContainerCommand(Client.Player, fromPosition.InventoryIndex, toPosition.ContainerId, toPosition.ContainerIndex);
+                                        command = new MoveItemFromInventoryToContainerCommand(Client.Player, fromPosition.InventoryIndex, toPosition.ContainerId, toPosition.ContainerIndex, packet.Count);
                                     }
                                     else if (toPosition.IsInventory)
                                     {
-                                        command = new MoveItemFromInventoryToInventoryCommand(Client.Player, fromPosition.InventoryIndex, toPosition.InventoryIndex);
+                                        command = new MoveItemFromInventoryToInventoryCommand(Client.Player, fromPosition.InventoryIndex, toPosition.InventoryIndex, packet.Count);
                                     }
                                     else
                                     {
-                                        command = new MoveItemFromInventoryToTileCommand(Client.Player, fromPosition.InventoryIndex, toPosition);
+                                        command = new MoveItemFromInventoryToTileCommand(Client.Player, fromPosition.InventoryIndex, toPosition, packet.Count);
                                     }
                                 }
                                 else
                                 {
                                     if (toPosition.IsContainer)
                                     {
-                                        command = new MoveItemFromTileToContainerCommand(Client.Player, fromPosition, packet.FromIndex, toPosition.ContainerId, toPosition.ContainerIndex);
+                                        command = new MoveItemFromTileToContainerCommand(Client.Player, fromPosition, packet.FromIndex, toPosition.ContainerId, toPosition.ContainerIndex, packet.Count);
                                     }
                                     else if (toPosition.IsInventory)
                                     {
-                                        command = new MoveItemFromTileToInventoryCommand(Client.Player, fromPosition, packet.FromIndex, toPosition.InventoryIndex);
+                                        command = new MoveItemFromTileToInventoryCommand(Client.Player, fromPosition, packet.FromIndex, toPosition.InventoryIndex, packet.Count);
                                     }
                                     else
                                     {
-                                        command = new MoveItemFromTileToTileCommand(Client.Player, fromPosition, packet.FromIndex, toPosition);
+                                        command = new MoveItemFromTileToTileCommand(Client.Player, fromPosition, packet.FromIndex, toPosition, packet.Count);
                                     }
                                 }
                             }
@@ -400,7 +400,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<CloseContainerIncommingPacket>(reader);
 
-                                //TODO: Container
+                                command = new CloseContainerCommand(Client.Player, packet.ContainerId);
                             }
                             break;
 

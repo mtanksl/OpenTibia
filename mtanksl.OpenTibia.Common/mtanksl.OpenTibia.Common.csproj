@@ -43,6 +43,8 @@
     <Compile Include="Events\DisconnectedEventArgs.cs" />
     <Compile Include="Objects\Channel.cs" />
     <Compile Include="Objects\ChannelCollection.cs" />
+    <Compile Include="Objects\IContainerCollection.cs" />
+    <Compile Include="Objects\ICreatureCollection.cs" />
     <Compile Include="Objects\IConnection.cs" />
     <Compile Include="Objects\IClient.cs" />
     <Compile Include="Objects\IMap.cs" />

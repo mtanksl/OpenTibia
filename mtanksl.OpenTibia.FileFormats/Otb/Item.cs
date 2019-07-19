@@ -21,15 +21,15 @@ namespace OpenTibia.FileFormats.Otb
 
                 switch (attribute)
                 {
-                    case OtbAttribute.ServerId:
+                    case OtbAttribute.OpenTibiaId:
 
-                        item.ServerId = reader.ReadUShort();
+                        item.OpenTibiaId = reader.ReadUShort();
 
                         break;
 
-                    case OtbAttribute.ClientId:
+                    case OtbAttribute.TibiaId:
 
-                        item.ClientId = reader.ReadUShort();
+                        item.TibiaId = reader.ReadUShort();
 
                         break;
 
@@ -90,9 +90,9 @@ namespace OpenTibia.FileFormats.Otb
 
         public ItemFlags Flags { get; set; }
 
-        public ushort ServerId { get; set; }
+        public ushort OpenTibiaId { get; set; }
 
-        public ushort ClientId { get; set; }
+        public ushort TibiaId { get; set; }
 
         public ushort Speed { get; set; }
 

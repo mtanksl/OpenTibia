@@ -76,6 +76,6 @@
 
         public bool CanReportBugs { get; set; }
 
-        public Inventory Inventory { get; set; }
+        public Inventory Inventory { get; }
     }
 }

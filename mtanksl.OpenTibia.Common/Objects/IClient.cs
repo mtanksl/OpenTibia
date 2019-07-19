@@ -14,6 +14,8 @@ namespace OpenTibia.Common.Objects
 
         SafeMode SafeMode { get; set; }
 
-        bool IsKnownCreature(uint creatureId, out uint removeId);
+        ICreatureCollection CreatureCollection { get; }
+
+        IContainerCollection ContainerCollection { get; }
     }
 }

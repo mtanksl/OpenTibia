@@ -38,7 +38,7 @@ namespace OpenTibia.IO
 
         public static void Write(this ByteArrayStreamWriter writer, Item item)
         {
-            writer.Write(item.Metadata.ClientId);
+            writer.Write(item.Metadata.TibiaId);
 
             if (item is StackableItem)
             {

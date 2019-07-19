@@ -29,7 +29,7 @@ namespace OpenTibia.FileFormats.Dat
                 {
                     Item item = Item.Load(reader);
 
-                        item.Id = itemId;
+                        item.TibiaId = itemId;
 
                     file.items.Add(item);
                 }
@@ -40,7 +40,7 @@ namespace OpenTibia.FileFormats.Dat
                 {
                     Item item = Item.Load(reader);
 
-                        item.Id = outfitId;
+                        item.TibiaId = outfitId;
 
                     file.outfits.Add(item);
                 }
@@ -51,7 +51,7 @@ namespace OpenTibia.FileFormats.Dat
                 {
                     Item item = Item.Load(reader);
 
-                        item.Id = effectId;
+                        item.TibiaId = effectId;
 
                     file.effects.Add(item);
                 }
@@ -62,7 +62,7 @@ namespace OpenTibia.FileFormats.Dat
                 {
                     Item item = Item.Load(reader);
 
-                        item.Id = projectileId;
+                        item.TibiaId = projectileId;
 
                     file.projectiles.Add(item);
                 }

@@ -26,10 +26,21 @@ namespace OpenTibia.Common.Objects
         {
             get
             {
-                return GetItems().Where(item => item.TopOrder == TopOrder.Ground).FirstOrDefault();
+                return GetItems()
+                    .Where(item => item.TopOrder == TopOrder.Ground)
+                    .FirstOrDefault();
             }
         }
         
+        public Item TopItem
+        {
+            get
+            {
+                return GetItems()
+                    .LastOrDefault();
+            }
+        }
+
         private List<IContent> contents = new List<IContent>(1);
         
         public byte AddContent(IContent content)

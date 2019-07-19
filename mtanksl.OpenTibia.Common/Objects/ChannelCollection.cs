@@ -55,12 +55,16 @@ namespace OpenTibia.Common.Objects
 
         public Channel GetChannel(int channelId)
         {
-            return GetChannels().Where(c => c.Id == channelId).FirstOrDefault();
+            return GetChannels()
+                .Where(c => c.Id == channelId)
+                .FirstOrDefault();
         }
 
         public PrivateChannel GetPrivateChannel(Player owner)
         {
-            return GetPrivateChannels().Where(c => c.Owner == owner).FirstOrDefault();
+            return GetPrivateChannels()
+                .Where(c => c.Owner == owner)
+                .FirstOrDefault();
         }
 
         public IEnumerable<Channel> GetChannels()

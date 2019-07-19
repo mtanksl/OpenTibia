@@ -23,15 +23,22 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            
+            Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
 
-            //Act
+            if (fromContainer != null)
+            {
+                Item fromItem = fromContainer.GetContent(FromContainerId) as Item;
 
+                if (fromItem != null)
+                {
+                    //Act
 
-
-            //Notify
-
-            
+                    if (fromItem is Container container)
+                    {
+                        OpenOrCloseContainer(Player, container, server, context);
+                    }
+                }
+            }
         }
     }
 }

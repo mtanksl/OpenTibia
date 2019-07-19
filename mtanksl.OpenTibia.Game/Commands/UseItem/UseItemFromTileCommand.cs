@@ -24,15 +24,22 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-           
+            Tile fromTile = server.Map.GetTile(FromPosition);
 
-            //Act
+            if (fromTile != null)
+            {
+                Item fromItem = fromTile.GetContent(FromIndex) as Item;
 
+                if (fromItem != null)
+                {
+                    //Act
 
-
-            //Notify
-
-            
+                    if (fromItem is Container container)
+                    {
+                        OpenOrCloseContainer(Player, container, server, context);
+                    }
+                }
+            }            
         }
     }
 }

@@ -44,6 +44,7 @@
     <Compile Include="Commands\Client\LogInCommand.cs" />
     <Compile Include="Commands\Client\EnterGameCommand.cs" />
     <Compile Include="Commands\CommandContext.cs" />
+    <Compile Include="Commands\Container\CloseContainerCommand.cs" />
     <Compile Include="Commands\Folow\FollowCommand.cs" />
     <Compile Include="Commands\Look\LookCommand.cs" />
     <Compile Include="Commands\Look\LookFromContainerCommand.cs" />
@@ -98,6 +99,8 @@
     <Compile Include="Commands\Turn\TurnCommand.cs" />
     <Compile Include="Commands\Walk\WalkCommand.cs" />
     <Compile Include="Commands\Client\CleanUpCommand.cs" />
+    <Compile Include="Common\Objects\ContainerCollection.cs" />
+    <Compile Include="Common\Objects\CreatureCollection.cs" />
     <Compile Include="Common\Objects\GameConnection.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Commands\Client\CombatControlsCommand.cs" />
@@ -157,7 +160,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Commands\Container\" />
     <Folder Include="Commands\NpcTrade\" />
     <Folder Include="Commands\Party\" />
     <Folder Include="Commands\Quest\" />

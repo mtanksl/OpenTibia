@@ -30,7 +30,7 @@ namespace OpenTibia.Common.Objects
                     {
                         foreach (var otbmItem in otbmTile.Items)
                         {
-                            Item item = server.ItemFactory.Create(otbmItem.Id);
+                            Item item = server.ItemFactory.Create(otbmItem.OpenTibiaId);
 
                             if (item is Container)
                             {

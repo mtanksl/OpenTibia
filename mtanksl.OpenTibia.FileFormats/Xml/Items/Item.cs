@@ -9,7 +9,7 @@ namespace OpenTibia.FileFormats.Xml.Items
         {
             Item item = new Item();
 
-            item.Id = (ushort)(uint)itemNode.Attribute("id");
+            item.OpenTibiaId = (ushort)(uint)itemNode.Attribute("id");
 
             item.Article = (string)itemNode.Attribute("article");
 
@@ -84,13 +84,19 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 break;
 	                    }
                         break;
+
+                    case "containerSize":
+
+                        item.ContainerSize = (byte)(int)value;
+
+                        break;
                 }
             }
 
             return item;
         }
 
-        public ushort Id { get; set; }
+        public ushort OpenTibiaId { get; set; }
 
         public string Article { get; set; }
 
@@ -101,5 +107,7 @@ namespace OpenTibia.FileFormats.Xml.Items
         public uint Weight { get; set; }
 
         public FloorChange FloorChange { get; set; }
+
+        public byte ContainerSize { get; set; }
     }
 }

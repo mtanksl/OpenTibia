@@ -1,5 +1,4 @@
 ﻿using OpenTibia.IO;
-using System.Linq;
 
 namespace OpenTibia.Network.Packets.Incoming
 {

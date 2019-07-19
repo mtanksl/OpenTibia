@@ -19,7 +19,9 @@ namespace OpenTibia.Common.Objects
         
         public RuleViolation GetRuleViolation(Player reporter)
         {
-            return GetRuleViolations().Where(ruleViolation => ruleViolation.Reporter == reporter).FirstOrDefault();
+            return GetRuleViolations()
+                .Where(ruleViolation => ruleViolation.Reporter == reporter)
+                .FirstOrDefault();
         }
 
         public IEnumerable<RuleViolation> GetRuleViolations()

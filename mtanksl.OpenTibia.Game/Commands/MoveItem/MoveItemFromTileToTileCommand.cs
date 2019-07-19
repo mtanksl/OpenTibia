@@ -5,7 +5,7 @@ namespace OpenTibia.Game.Commands
 {
     public class MoveItemFromTileToTileCommand : MoveItemCommand
     {
-        public MoveItemFromTileToTileCommand(Player player, Position fromPosition, byte fromIndex, Position toPosition)
+        public MoveItemFromTileToTileCommand(Player player, Position fromPosition, byte fromIndex, Position toPosition, byte count)
         {
             Player = player;
 
@@ -14,6 +14,8 @@ namespace OpenTibia.Game.Commands
             FromIndex = fromIndex;
 
             ToPosition = toPosition;
+
+            Count = count;
         }
 
         public Player Player { get; set; }
@@ -23,20 +25,33 @@ namespace OpenTibia.Game.Commands
         public byte FromIndex { get; set; }
 
         public Position ToPosition { get; set; }
-        
+
+        public byte Count { get; set; }
+
         public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
+            Tile fromTile = server.Map.GetTile(FromPosition);
 
+            if (fromTile != null)
+            {
+                Item fromItem = fromTile.GetContent(FromIndex) as Item;
 
-            //Act
+                if (fromItem != null)
+                {
+                    Tile toTile = server.Map.GetTile(ToPosition);
 
+                    if (toTile != null)
+                    {
+                        //Act
 
+                        RemoveItem(fromTile, fromItem, server, context);
 
-            //Notify
-
-
-        }
+                        AddItem(toTile, fromItem, server, context);
+                    }
+                }
+            }
+        }        
     }
 }

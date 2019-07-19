@@ -14,22 +14,22 @@ namespace OpenTibia.Game
             {
                 if (otbItem.Group != FileFormats.Otb.ItemGroup.Deprecated)
                 {
-                    metadatas.Add(otbItem.ServerId, new ItemMetadata()
+                    metadatas.Add(otbItem.OpenTibiaId, new ItemMetadata()
                     {
-                        ClientId = otbItem.ClientId,
+                        TibiaId = otbItem.TibiaId,
 
-                        ServerId = otbItem.ServerId
+                        OpenTibiaId = otbItem.OpenTibiaId
                     } );
                 }
             }
 
-            var lookup = otbFile.Items.ToLookup(otbItem => otbItem.ClientId, otbItem => otbItem.ServerId);
+            var lookup = otbFile.Items.ToLookup(otbItem => otbItem.TibiaId, otbItem => otbItem.OpenTibiaId);
 
             foreach (var datItem in datFile.Items)
             {
-                foreach (var serverId in lookup[datItem.Id] )
+                foreach (var openTibiaId in lookup[datItem.TibiaId] )
                 {
-                    ItemMetadata metadata = metadatas[serverId];
+                    ItemMetadata metadata = metadatas[openTibiaId];
 
                     metadata.TopOrder = datItem.IsGround ? TopOrder.Ground 
                         
@@ -43,15 +43,23 @@ namespace OpenTibia.Game
 
                     metadata.Speed = datItem.Speed;
 
+                    metadata.IsContainer = datItem.IsContainer;
+
+                    metadata.Stackable = datItem.Stackable;
+
                     //TODO: Set other properties
                 }
             }
 
             foreach (var xmlItem in itemsFile.Items)
             {
-                if (xmlItem.Id < 20000)
+                if (xmlItem.OpenTibiaId < 20000)
                 {
-                    ItemMetadata metadata = metadatas[xmlItem.Id];
+                    ItemMetadata metadata = metadatas[xmlItem.OpenTibiaId];
+
+                    metadata.Name = xmlItem.Name;
+
+                    metadata.Capacity = xmlItem.ContainerSize;
 
                     //TODO: Set other properties
                 }
@@ -60,15 +68,24 @@ namespace OpenTibia.Game
 
         private Dictionary<ushort, ItemMetadata> metadatas;
 
-        public Item Create(ushort itemId)
+        public Item Create(ushort openTibiaId)
         {
             ItemMetadata metadata;
 
-            if ( !metadatas.TryGetValue(itemId, out metadata) )
+            if ( !metadatas.TryGetValue(openTibiaId, out metadata) )
             {
                 return null;
             }
-            
+
+            if (metadata.IsContainer)
+            {
+                return new Container(metadata);
+            }
+            else if (metadata.Stackable)
+            {
+                return new StackableItem(metadata);
+            }
+
             return new Item(metadata);
         }
     }

@@ -227,7 +227,7 @@ namespace OpenTibia.FileFormats.Dat
             }
         }
 
-        public ushort Id { get; set; }
+        public ushort TibiaId { get; set; }
 
         public bool IsGround { get; set; }
 
