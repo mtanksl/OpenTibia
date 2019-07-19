@@ -3,7 +3,7 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class UseItemWithCreatureFromTileCommand : Command
+    public class UseItemWithCreatureFromTileCommand : UseItemWithCreatureCommand
     {
         public UseItemWithCreatureFromTileCommand(Player player, Position fromPosition, byte fromIndex, uint creatureId)
         {

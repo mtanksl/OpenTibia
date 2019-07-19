@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class MoveItemFromInventoryToContainerCommand : Command
+    public class MoveItemFromInventoryToContainerCommand : MoveItemCommand
     {
         public MoveItemFromInventoryToContainerCommand(Player player, byte fromSlot, byte toContainerId, byte toContainerIndex)
         {

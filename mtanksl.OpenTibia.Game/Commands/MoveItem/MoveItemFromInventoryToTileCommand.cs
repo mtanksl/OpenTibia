@@ -3,7 +3,7 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class MoveItemFromInventoryToTileCommand : Command
+    public class MoveItemFromInventoryToTileCommand : MoveItemCommand
     {
         public MoveItemFromInventoryToTileCommand(Player player, byte fromSlot, Position toPosition)
         {

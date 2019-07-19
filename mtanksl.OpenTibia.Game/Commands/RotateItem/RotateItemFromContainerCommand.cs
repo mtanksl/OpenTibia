@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class RotateItemFromContainerCommand : Command
+    public class RotateItemFromContainerCommand : RotateItemCommand
     {
         public RotateItemFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex)
         {

@@ -3,7 +3,7 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class RotateItemFromTileCommand : Command
+    public class RotateItemFromTileCommand : RotateItemCommand
     {
         public RotateItemFromTileCommand(Player player, Position fromPosition, byte fromIndex)
         {

@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class LookFromInventoryCommand : Command
+    public class LookFromInventoryCommand : LookCommand
     {
         public LookFromInventoryCommand(Player player, byte fromSlot)
         {

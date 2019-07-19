@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class LookFromContainerCommand : Command
+    public class LookFromContainerCommand : LookCommand
     {
         public LookFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex)
         {

@@ -3,7 +3,7 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class LookFromTileCommand : Command
+    public class LookFromTileCommand : LookCommand
     {
         public LookFromTileCommand(Player player, Position fromPosition, byte fromIndex)
         {

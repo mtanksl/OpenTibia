@@ -3,7 +3,7 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class UseItemWithItemFromInventoryToTileCommand : Command
+    public class UseItemWithItemFromInventoryToTileCommand : UseItemWithItemCommand
     {
         public UseItemWithItemFromInventoryToTileCommand(Player player, byte fromSlot, Position toPosition)
         {

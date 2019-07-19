@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class UseItemWithCreatureFromContainerCommand : Command
+    public class UseItemWithCreatureFromContainerCommand : UseItemWithCreatureCommand
     {
         public UseItemWithCreatureFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, uint creatureId)
         {
