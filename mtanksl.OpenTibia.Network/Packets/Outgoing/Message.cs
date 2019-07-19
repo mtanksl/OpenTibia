@@ -27,6 +27,13 @@ namespace OpenTibia.Network.Packets.Outgoing
             return this;
         }
 
+        public Message Add(params IOutgoingPacket[] packet)
+        {
+            packets.AddRange(packet);
+
+            return this;
+        }
+
         private byte[] Length(byte[] bytes)
         {
             byte[] length = BitConverter.GetBytes( (ushort)bytes.Length );

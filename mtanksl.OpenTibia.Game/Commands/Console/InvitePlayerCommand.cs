@@ -43,9 +43,9 @@ namespace OpenTibia.Game.Commands
 
                                 //Notify
 
-                                context.Write(Player.Client.Connection, new ShowWindowText(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been invited.") );
+                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been invited.") );
 
-                                context.Write(observer.Client.Connection, new ShowWindowText(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " invites you to his private chat channel." ) );
+                                context.Write(observer.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " invites you to his private chat channel." ) );
                             }
                         }
                     }

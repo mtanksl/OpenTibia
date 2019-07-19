@@ -133,7 +133,7 @@ namespace OpenTibia.Game
                 schedulerEvent.Cancel();
             }
 
-            schedulerEvent = new SchedulerEvent(executeIn, () =>
+            schedulerEvent = scheduler.QueueForExecution(new SchedulerEvent(executeIn, () =>
             {
                 events.Remove(key);
 
@@ -154,11 +154,9 @@ namespace OpenTibia.Game
                 {
                     callback();
                 }
-            } );
+            } ) );
 
-            events[key] = schedulerEvent;
-
-            scheduler.QueueForExecution(schedulerEvent);
+            events.Add(key, schedulerEvent);
         }
 
         public bool CancelQueueForExecution(string key)

@@ -21,6 +21,8 @@ namespace OpenTibia.Game.Commands
 
             Tile fromTile = Player.Tile;
 
+            Position fromPosition = fromTile.Position;
+
             //Act
 
             server.Map.RemoveCreature(Player);
@@ -33,11 +35,11 @@ namespace OpenTibia.Game.Commands
             {
                 if (observer != Player)
                 {
-                    if (observer.Tile.Position.CanSee(fromTile.Position) )
+                    if (observer.Tile.Position.CanSee(fromPosition) )
                     {
-                        context.Write(observer.Client.Connection, new ThingRemove(fromTile.Position, fromIndex) )
+                        context.Write(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromPosition, fromIndex),
 
-                              .Write(observer.Client.Connection, new ShowMagicEffect(fromTile.Position, MagicEffectType.Puff) );
+                                                                  new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Puff) );
                     }
                 }
             }

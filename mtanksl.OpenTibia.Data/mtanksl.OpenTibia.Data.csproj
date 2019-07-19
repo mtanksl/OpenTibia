@@ -40,9 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\Account.cs" />
-    <Compile Include="Models\Player.cs" />
-    <Compile Include="Models\World.cs" />
+    <Compile Include="Models\AccountRow.cs" />
+    <Compile Include="Models\PlayerRow.cs" />
+    <Compile Include="Models\WorldRow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\PlayerRepository.cs" />
   </ItemGroup>

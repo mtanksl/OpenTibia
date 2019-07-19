@@ -54,7 +54,7 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            context.Write(Player.Client.Connection, new OpenChannelDialog(channels) );
+            context.Write(Player.Client.Connection, new OpenChannelDialogOutgoingPacket(channels) );
         }
     }
 }

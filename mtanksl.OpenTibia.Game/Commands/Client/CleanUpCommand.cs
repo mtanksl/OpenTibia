@@ -57,9 +57,9 @@ namespace OpenTibia.Game.Commands
 
                         //Notify
 
-                        foreach (var observer2 in server.Channels.GetChannel(3).GetPlayers() )
+                        foreach (var observer in server.Channels.GetChannel(3).GetPlayers() )
                         {
-                            context.Write(observer2.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
+                            context.Write(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
                         }
                     }
                     else

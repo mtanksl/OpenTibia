@@ -39,13 +39,13 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            context.Write(Player.Client.Connection, new SlotRemove( (Slot)FromSlot) );
+            context.Write(Player.Client.Connection, new SlotRemoveOutgoingPacket( (Slot)FromSlot) );
 
             foreach (var observer in server.Map.GetPlayers() )
             {
                 if (observer.Tile.Position.CanSee(toTile.Position) )
                 {
-                     context.Write(observer.Client.Connection, new ThingAdd(toTile.Position, toIndex, fromItem) );
+                     context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(toTile.Position, toIndex, fromItem) );
                 }
             }
         }

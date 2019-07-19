@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Commands
                     {
                         //Notify
 
-                        context.Write(ruleViolation.Reporter.Client.Connection, new ShowText(0, ruleViolation.Assignee.Name, ruleViolation.Assignee.Level, TalkType.ReportRuleViolationAnswer, Message) );
+                        context.Write(ruleViolation.Reporter.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Assignee.Name, ruleViolation.Assignee.Level, TalkType.ReportRuleViolationAnswer, Message) );
                     }
                 }
             }

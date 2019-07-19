@@ -43,11 +43,11 @@ namespace OpenTibia.Game.Commands
 
                     if (canSeeFromPosition && canSeeToPosition)
                     {
-                        context.Write(observer.Client.Connection, new Walk(fromTile.Position, fromIndex, toTile.Position) );
+                        context.Write(observer.Client.Connection, new WalkOutgoingPacket(fromTile.Position, fromIndex, toTile.Position) );
                     }
                     else if (canSeeFromPosition)
                     {
-                        context.Write(observer.Client.Connection, new ThingRemove(fromTile.Position, fromIndex) );
+                        context.Write(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromTile.Position, fromIndex) );
                     }
                     else if (canSeeToPosition)
                     {
@@ -55,11 +55,11 @@ namespace OpenTibia.Game.Commands
 
                         if (observer.Client.IsKnownCreature(Player.Id, out removeId) )
                         {
-                            context.Write(observer.Client.Connection, new ThingAdd(toTile.Position, toIndex, Player) );
+                            context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(toTile.Position, toIndex, Player) );
                         }
                         else
                         {
-                            context.Write(observer.Client.Connection, new ThingAdd(toTile.Position, toIndex, removeId, Player) );
+                            context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(toTile.Position, toIndex, removeId, Player) );
                         }
                     }
                 }
@@ -75,7 +75,7 @@ namespace OpenTibia.Game.Commands
             }
             else
             {
-                context.Write(Player.Client.Connection, new Walk(fromTile.Position, fromIndex, toTile.Position) );
+                context.Write(Player.Client.Connection, new WalkOutgoingPacket(fromTile.Position, fromIndex, toTile.Position) );
 
                 if (deltaY == -1)
                 {

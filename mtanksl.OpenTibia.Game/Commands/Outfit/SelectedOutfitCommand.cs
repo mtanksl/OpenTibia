@@ -35,7 +35,7 @@ namespace OpenTibia.Game.Commands
             {
                 if (observer.Tile.Position.CanSee(fromTile.Position) )
                 {
-                    context.Write(observer.Client.Connection, new SetOutfit(Player.Id, Outfit) );
+                    context.Write(observer.Client.Connection, new SetOutfitOutgoingPacket(Player.Id, Outfit) );
                 }
             }
         }

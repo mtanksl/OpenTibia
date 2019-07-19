@@ -29,11 +29,11 @@ namespace OpenTibia.Game.Commands
             {
                 if (observer != Player)
                 {
-                    context.Write(observer.Client.Connection, new ShowText(0, Player.Name, Player.Level, TalkType.Broadcast, Message) );
+                    context.Write(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Broadcast, Message) );
                 }
             }
 
-            context.Write(Player.Client.Connection, new ShowText(0, Player.Name, Player.Level, TalkType.Broadcast, Message) );
+            context.Write(Player.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Broadcast, Message) );
         }
     }
 }

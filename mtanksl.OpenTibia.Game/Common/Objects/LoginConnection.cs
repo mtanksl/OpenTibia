@@ -44,9 +44,11 @@ namespace OpenTibia.Common.Objects
                     switch (reader.ReadByte() )
                     {
                         case 0x01:
+                            {
+                                var packet = server.PacketsFactory.Create<EnterGameIncomingPacket>(reader);
 
-                            command = new EnterGameCommand(this, server.PacketsFactory.Create<EnterGameIncomingPacket>(reader) );
-
+                                command = new EnterGameCommand(this, packet);
+                            }
                             break;
                     }
 

@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Data;
 using OpenTibia.Network.Packets;
 using OpenTibia.Network.Packets.Incoming;
 using OpenTibia.Network.Packets.Outgoing;
@@ -25,15 +26,15 @@ namespace OpenTibia.Game.Commands
 
             if (Packet.TibiaDat != 1277983123 || Packet.TibiaPic != 1256571859 || Packet.TibiaSpr != 1277298068 || Packet.Version != 860)
             {
-                context.Write(Connection, new OpenSorryDialog(true, Constants.OnlyProtocol86Allowed) );
+                context.Write(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.OnlyProtocol86Allowed) );
             }
             else
             {
-                var account = new Data.PlayerRepository().GetAccount(Packet.Account, Packet.Password);
+                var account = new PlayerRepository().GetAccount(Packet.Account, Packet.Password);
 
                 if (account == null)
                 {
-                    context.Write(Connection, new OpenSorryDialog(true, Constants.AccountNameOrPasswordIsNotCorrect) );
+                    context.Write(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
                 }
                 else
                 {
@@ -44,7 +45,7 @@ namespace OpenTibia.Game.Commands
                         characters.Add( new Character(player.Name, player.World.Name, player.World.Ip, (ushort)player.World.Port) );
                     }
 
-                    context.Write(Connection, new OpenSelectCharacterDialog(characters, (ushort)account.PremiumDays) );
+                    context.Write(Connection, new OpenSelectCharacterDialogOutgoingPacket(characters, (ushort)account.PremiumDays) );
                 }
             }
         }

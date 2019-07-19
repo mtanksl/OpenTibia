@@ -41,15 +41,15 @@ namespace OpenTibia.Game.Commands
 
                 //Notify
 
-                context.Write(Player.Client.Connection, new SlotRemove( (Slot)FromSlot) )
+                context.Write(Player.Client.Connection, new SlotRemoveOutgoingPacket( (Slot)FromSlot ),
 
-                       .Write(Player.Client.Connection, new SlotAdd( (Slot)ToSlot, fromItem) );
+                                                        new SlotAddOutgoingPacket( (Slot)ToSlot, fromItem ) );
             }
             else
             {
                 //Notify
 
-                context.Write(Player.Client.Connection, new ShowWindowText(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
             }
         }
     }

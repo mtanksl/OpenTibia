@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Data;
 using OpenTibia.Network.Packets.Incoming;
 using OpenTibia.Network.Packets.Outgoing;
 
@@ -26,15 +27,15 @@ namespace OpenTibia.Game.Commands
 
             if (Packet.Version != 860)
             {
-                context.Write(Connection, new OpenSorryDialog(true, Constants.OnlyProtocol86Allowed) );
+                context.Write(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.OnlyProtocol86Allowed) );
             }
             else
             {
-                var account = new Data.PlayerRepository().GetPlayer(Packet.Account, Packet.Password, Packet.Character);
+                var account = new PlayerRepository().GetPlayer(Packet.Account, Packet.Password, Packet.Character);
 
                 if (account == null)
                 {
-                    context.Write(Connection, new OpenSorryDialog(true, Constants.AccountNameOrPasswordIsNotCorrect) );
+                    context.Write(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
                 }
                 else
                 {
@@ -42,7 +43,7 @@ namespace OpenTibia.Game.Commands
                     {
                         Player = new Player()
                         {
-                            Name = account.Name + " " + sequence++
+                            Name = $"{account.Name} {sequence++}"
                         }
                     };
 
@@ -52,9 +53,9 @@ namespace OpenTibia.Game.Commands
 
                     Player player = client.Player;
 
-                    Position position = new Position(account.CoordinateX, account.CoordinateY, account.CoordinateZ);
+                    Position fromPosition = new Position(account.CoordinateX, account.CoordinateY, account.CoordinateZ);
 
-                    Tile fromTile = server.Map.GetTile(position);
+                    Tile fromTile = server.Map.GetTile(fromPosition);
 
                     //Act
 
@@ -68,39 +69,39 @@ namespace OpenTibia.Game.Commands
                     {
                         if (observer != player)
                         {
-                            if (observer.Tile.Position.CanSee(position) )
+                            if (observer.Tile.Position.CanSee(fromPosition) )
                             {
                                 uint removeId;
 
                                 if (observer.Client.IsKnownCreature(player.Id, out removeId) )
                                 {
-                                    context.Write(observer.Client.Connection, new ThingAdd(position, fromIndex, player) )
+                                    context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(fromPosition, fromIndex, player),
 
-                                           .Write(observer.Client.Connection, new ShowMagicEffect(position, MagicEffectType.Teleport) );
+                                                                              new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Teleport) );
                                 }
                                 else
                                 {
-                                    context.Write(observer.Client.Connection, new ThingAdd(position, fromIndex, removeId, player) )
+                                    context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(fromPosition, fromIndex, removeId, player),
 
-                                           .Write(observer.Client.Connection, new ShowMagicEffect(position, MagicEffectType.Teleport) );
+                                                                              new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Teleport) );
                                 }
                             }
                         }
                     }
 
-                    context.Write(Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs) )  
+                    context.Write(Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs), 
                            
-                           .Write(Connection, new SetSpecialCondition(SpecialCondition.None) )            
-                           
-                           .Write(Connection, new SendStatus(player.Health, player.MaxHealth, player.Capacity, player.Experience, player.Level, player.LevelPercent, player.Mana, player.MaxMana, 0, 0, player.Soul, player.Stamina) )            
-                           
-                           .Write(Connection, new SendSkills(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0) )                
-                           
-                           .Write(Connection, new SetEnvironmentLight(Light.Day) )            
-                           
-                           .Write(Connection, new SendTilesOutgoingPacket(server.Map, client, position) )            
-                           
-                           .Write(Connection, new ShowMagicEffect(position, MagicEffectType.Teleport) );
+                                              new SetSpecialConditionOutgoingPacket(SpecialCondition.None),
+                                              
+                                              new SendStatusOutgoingPacket(player.Health, player.MaxHealth, player.Capacity, player.Experience, player.Level, player.LevelPercent, player.Mana, player.MaxMana, 0, 0, player.Soul, player.Stamina),
+                                              
+                                              new SendSkillsOutgoingPacket(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0),
+                                              
+                                              new SetEnvironmentLightOutgoingPacket(Light.Day),
+                                              
+                                              new SendTilesOutgoingPacket(server.Map, client, fromPosition),
+                                              
+                                              new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Teleport) );
                 }
             }
         }

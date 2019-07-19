@@ -68,7 +68,7 @@ namespace OpenTibia.Game.Commands
                     {
                         if (ruleViolation.Assignee == null)
                         {
-                            context.Write(Player.Client.Connection, new ShowText(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationOpen, ruleViolation.Time, ruleViolation.Message) );
+                            context.Write(Player.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationOpen, ruleViolation.Time, ruleViolation.Message) );
                         }
                     }
                 }

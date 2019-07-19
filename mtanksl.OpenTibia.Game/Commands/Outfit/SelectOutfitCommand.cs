@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            context.Write(Player.Client.Connection, new OpenSelectOutfitDialog(Player.Outfit, outfits) );
+            context.Write(Player.Client.Connection, new OpenSelectOutfitDialogOutgoingPacket(Player.Outfit, outfits) );
         }
     }
 }

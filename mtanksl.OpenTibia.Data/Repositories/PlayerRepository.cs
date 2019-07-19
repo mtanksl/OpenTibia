@@ -5,9 +5,9 @@ namespace OpenTibia.Data
 {
     public class PlayerRepository
     {
-        private List<Account> accounts = new List<Account>()
+        private List<AccountRow> accounts = new List<AccountRow>()
         {
-            new Account()
+            new AccountRow()
             {
                 Name = "1",
 
@@ -15,9 +15,9 @@ namespace OpenTibia.Data
 
                 PremiumDays = 0,
 
-                Players = new List<Player>()
+                Players = new List<PlayerRow>()
                 {
-                    new Player()
+                    new PlayerRow()
                     {
                        Name = "Player",
 
@@ -27,11 +27,11 @@ namespace OpenTibia.Data
 
                        CoordinateZ = 7,
 
-                       World = new World()
+                       World = new WorldRow()
                        {
                            Name = "World",
 
-                           Ip = "127.0.0.1", //Change this to your ip address
+                           Ip = "192.168.1.11", //Change this to your ip address
 
                            Port = 7172
                        }
@@ -40,16 +40,16 @@ namespace OpenTibia.Data
             }
         };
 
-        public Account GetAccount(string accountName, string accountPassword)
+        public AccountRow GetAccount(string accountName, string accountPassword)
         {
             return accounts.Where(a => a.Name == accountName)
                            .Where(a => a.Password == accountPassword)
                            .FirstOrDefault();
         }
 
-        public Player GetPlayer(string accountName, string accountPassword, string playerName)
+        public PlayerRow GetPlayer(string accountName, string accountPassword, string playerName)
         {
-            Account account = GetAccount(accountName, accountPassword);
+            AccountRow account = GetAccount(accountName, accountPassword);
 
             if (account == null)
             {

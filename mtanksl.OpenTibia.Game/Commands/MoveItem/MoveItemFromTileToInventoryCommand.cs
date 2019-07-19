@@ -51,11 +51,17 @@ namespace OpenTibia.Game.Commands
                 {
                     if (observer.Tile.Position.CanSee(fromTile.Position) )
                     {
-                         context.Write(observer.Client.Connection, new ThingRemove(fromTile.Position, FromIndex) );
+                         context.Write(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromTile.Position, FromIndex) );
                     }
                 }
 
-                context.Write(Player.Client.Connection, new SlotAdd( (Slot)ToSlot, fromItem) );
+                context.Write(Player.Client.Connection, new SlotAddOutgoingPacket( (Slot)ToSlot, fromItem ) );
+            }
+            else
+            {
+                //Notify
+
+                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
             }
         }
     }

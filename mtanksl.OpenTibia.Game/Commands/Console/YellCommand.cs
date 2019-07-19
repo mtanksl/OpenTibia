@@ -31,12 +31,12 @@ namespace OpenTibia.Game.Commands
                 {
                     if (observer.Tile.Position.CanHearYell(Player.Tile.Position) )
                     {
-                        context.Write(observer.Client.Connection, new ShowText(0, Player.Name, Player.Level, TalkType.Yell, Player.Tile.Position, Message.ToUpper() ) );
+                        context.Write(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Yell, Player.Tile.Position, Message.ToUpper() ) );
                     }
                 }
             }
 
-            context.Write(Player.Client.Connection, new ShowText(0, Player.Name, Player.Level, TalkType.Yell, Player.Tile.Position, Message.ToUpper() ) );
+            context.Write(Player.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Yell, Player.Tile.Position, Message.ToUpper() ) );
         }
     }
 }

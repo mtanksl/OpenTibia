@@ -35,7 +35,7 @@ namespace OpenTibia.Game.Commands
             {
                 if (observer.Tile.Position.CanSee(fromTile.Position) )
                 {
-                    context.Write(observer.Client.Connection, new ThingUpdate(fromTile.Position, fromIndex, Player.Id, Direction) );                        
+                    context.Write(observer.Client.Connection, new ThingUpdateOutgoingPacket(fromTile.Position, fromIndex, Player.Id, Direction) );                        
                 }
             }
         }

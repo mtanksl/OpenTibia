@@ -47,9 +47,9 @@ namespace OpenTibia.Game.Commands
             {
                 if (observer.Tile.Position.CanSee(toTile.Position) )
                 {
-                     context.Write(observer.Client.Connection, new ThingRemove(fromTile.Position, FromIndex) )
+                     context.Write(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromTile.Position, FromIndex),
                         
-                           .Write(observer.Client.Connection, new ThingAdd(toTile.Position, toIndex, fromItem) );
+                                                               new ThingAddOutgoingPacket(toTile.Position, toIndex, fromItem) );
                 }
             }
         }
