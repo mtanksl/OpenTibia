@@ -3,15 +3,19 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class UseItemFromTileCommand : Command
+    public class UseItemWithItemFromTileToContainerCommand : Command
     {
-        public UseItemFromTileCommand(Player player, Position fromPosition, byte fromIndex)
+        public UseItemWithItemFromTileToContainerCommand(Player player, Position fromPosition, byte fromIndex, byte toContainerId, byte toContainerIndex)
         {
             Player = player;
 
             FromPosition = fromPosition;
 
             FromIndex = fromIndex;
+
+            ToContainerId = ToContainerId;
+
+            ToContainerIndex = ToContainerIndex;
         }
 
         public Player Player { get; set; }
@@ -19,20 +23,24 @@ namespace OpenTibia.Game.Commands
         public Position FromPosition { get; set; }
 
         public byte FromIndex { get; set; }
-        
+
+        public byte ToContainerId { get; set; }
+
+        public byte ToContainerIndex { get; set; }
+
         public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
-           
+            
 
             //Act
 
-
+            
 
             //Notify
 
-            
+
         }
     }
 }

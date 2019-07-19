@@ -3,9 +3,9 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class MoveItemFromInventoryToTileCommand : Command
+    public class UseItemWithItemFromInventoryToTileCommand : Command
     {
-        public MoveItemFromInventoryToTileCommand(Player player, byte fromSlot, Position toPosition)
+        public UseItemWithItemFromInventoryToTileCommand(Player player, byte fromSlot, Position toPosition)
         {
             Player = player;
 
@@ -24,15 +24,15 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-
+            
 
             //Act
 
-
+            
 
             //Notify
 
-
+            
         }
     }
 }

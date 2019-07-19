@@ -1,6 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -29,29 +28,15 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            Tile fromTile = server.Map.GetTile(FromPosition);
 
-            Item fromItem = (Item)fromTile.GetContent(FromIndex);
-
-            Tile toTile = server.Map.GetTile(ToPosition);
 
             //Act
 
-            fromTile.RemoveContent(fromItem);
 
-            byte toIndex = toTile.AddContent(fromItem);
 
             //Notify
 
-            foreach (var observer in server.Map.GetPlayers() )
-            {
-                if (observer.Tile.Position.CanSee(toTile.Position) )
-                {
-                     context.Write(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromTile.Position, FromIndex),
-                        
-                                                               new ThingAddOutgoingPacket(toTile.Position, toIndex, fromItem) );
-                }
-            }
+
         }
     }
 }

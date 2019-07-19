@@ -40,16 +40,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Attack\AttackCommand.cs" />
     <Compile Include="Commands\Client\LogInCommand.cs" />
     <Compile Include="Commands\Client\EnterGameCommand.cs" />
     <Compile Include="Commands\CommandContext.cs" />
+    <Compile Include="Commands\Folow\FollowCommand.cs" />
+    <Compile Include="Commands\Look\LookFromContainerCommand.cs" />
+    <Compile Include="Commands\Look\LookFromInventoryCommand.cs" />
+    <Compile Include="Commands\Look\LookFromTileCommand.cs" />
+    <Compile Include="Commands\MoveItem\MoveItemFromInventoryToContainerCommand.cs" />
+    <Compile Include="Commands\MoveItem\MoveItemFromContainerToTileCommand.cs" />
+    <Compile Include="Commands\MoveItem\MoveItemFromContainerToInventoryCommand.cs" />
+    <Compile Include="Commands\MoveItem\MoveItemFromContainerToContainerCommand.cs" />
+    <Compile Include="Commands\MoveItem\MoveItemFromTileToContainerCommand.cs" />
+    <Compile Include="Commands\RotateItem\RotateItemFromInventoryCommand.cs" />
+    <Compile Include="Commands\RotateItem\RotateItemFromContainerCommand.cs" />
+    <Compile Include="Commands\RotateItem\RotateItemFromTileCommand.cs" />
+    <Compile Include="Commands\UseItemWithCreature\UseItemWithCreatureFromContainerCommand.cs" />
+    <Compile Include="Commands\UseItemWithCreature\UseItemWithCreatureFromTileCommand.cs" />
+    <Compile Include="Commands\UseItemWithCreature\UseItemWithCreatureFromInventoryCommand.cs" />
+    <Compile Include="Commands\UseItemWithItem\UseItemWithItemFromContainerToContainerCommand.cs" />
+    <Compile Include="Commands\UseItemWithItem\UseItemWithItemFromContainerToInventoryCommand.cs" />
+    <Compile Include="Commands\UseItemWithItem\UseItemWithItemFromContainerToTileCommand.cs" />
+    <Compile Include="Commands\UseItemWithItem\UseItemWithItemFromInventoryToContainerCommand.cs" />
+    <Compile Include="Commands\UseItemWithItem\UseItemWithItemFromTileToContainerCommand.cs" />
+    <Compile Include="Commands\UseItemWithItem\UseItemWithItemFromInventoryToInventoryCommand.cs" />
+    <Compile Include="Commands\UseItemWithItem\UseItemWithItemFromInventoryToTileCommand.cs" />
+    <Compile Include="Commands\UseItemWithItem\UseItemWithItemFromTileToInventoryCommand.cs" />
+    <Compile Include="Commands\UseItemWithItem\UseItemWithItemFromTileToTileCommand.cs" />
+    <Compile Include="Commands\UseItem\UseItemFromInventoryCommand.cs" />
+    <Compile Include="Commands\UseItem\UseItemFromContainerCommand.cs" />
     <Compile Include="Common\Objects\Client.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\MoveItem\MoveItemFromTileToInventoryCommand.cs" />
-    <Compile Include="Commands\Console\BroadcastMessageCommand.cs" />
-    <Compile Include="Commands\Console\SendMessageToPlayerCommand.cs" />
-    <Compile Include="Commands\Console\YellCommand.cs" />
-    <Compile Include="Commands\Console\WhisperCommand.cs" />
+    <Compile Include="Commands\Talk\BroadcastMessageCommand.cs" />
+    <Compile Include="Commands\Talk\SendMessageToPlayerCommand.cs" />
+    <Compile Include="Commands\Talk\YellCommand.cs" />
+    <Compile Include="Commands\Talk\WhisperCommand.cs" />
     <Compile Include="Commands\UseItem\UseItemFromTileCommand.cs" />
     <Compile Include="Commands\MoveItem\MoveItemFromTileToTileCommand.cs" />
     <Compile Include="Commands\MoveItem\MoveItemFromInventoryToTileCommand.cs" />
@@ -68,17 +95,17 @@
     <Compile Include="Common\Objects\GameConnection.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Commands\Client\CombatControlsCommand.cs" />
-    <Compile Include="Commands\Console\OpenNewChannelCommand.cs" />
-    <Compile Include="Commands\Console\ExcludePlayerCommand.cs" />
-    <Compile Include="Commands\Console\SendMessageToChannelCommand.cs" />
-    <Compile Include="Commands\Console\CloseChannelCommand.cs" />
+    <Compile Include="Commands\Channel\OpenNewChannelCommand.cs" />
+    <Compile Include="Commands\Channel\ExcludePlayerCommand.cs" />
+    <Compile Include="Commands\Talk\SendMessageToChannelCommand.cs" />
+    <Compile Include="Commands\Channel\CloseChannelCommand.cs" />
     <Compile Include="Commands\RuleViolation\CloseReportRuleViolationChannelAnswerCommand.cs" />
     <Compile Include="Common\Objects\LoginConnection.cs" />
-    <Compile Include="Commands\Console\InvitePlayerCommand.cs" />
-    <Compile Include="Commands\Console\SayCommand.cs" />
-    <Compile Include="Commands\Console\OpenedPrivateChannelCommand.cs" />
-    <Compile Include="Commands\Console\OpenedMyPrivateChannelCommand.cs" />
-    <Compile Include="Commands\Console\OpenedNewChannelCommand.cs" />
+    <Compile Include="Commands\Channel\InvitePlayerCommand.cs" />
+    <Compile Include="Commands\Talk\SayCommand.cs" />
+    <Compile Include="Commands\Channel\OpenedPrivateChannelCommand.cs" />
+    <Compile Include="Commands\Channel\OpenedMyPrivateChannelCommand.cs" />
+    <Compile Include="Commands\Channel\OpenedNewChannelCommand.cs" />
     <Compile Include="Commands\RuleViolation\CloseReportRuleViolationChannelQuestionCommand.cs" />
     <Compile Include="Commands\RuleViolation\ProcessReportRuleViolationCommand.cs" />
     <Compile Include="Commands\RuleViolation\CreateReportRuleViolationCommand.cs" />
@@ -123,6 +150,14 @@
       <Name>mtanksl.OpenTibia.Threading</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Commands\Container\" />
+    <Folder Include="Commands\NpcTrade\" />
+    <Folder Include="Commands\Party\" />
+    <Folder Include="Commands\Quest\" />
+    <Folder Include="Commands\ReportBug\" />
+    <Folder Include="Commands\Trade\" />
+    <Folder Include="Commands\Vip\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

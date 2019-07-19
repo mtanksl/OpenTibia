@@ -3,28 +3,28 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class MoveItemFromInventoryToTileCommand : Command
+    public class LookFromTileCommand : Command
     {
-        public MoveItemFromInventoryToTileCommand(Player player, byte fromSlot, Position toPosition)
+        public LookFromTileCommand(Player player, Position fromPosition, byte fromIndex)
         {
             Player = player;
 
-            FromSlot = fromSlot;
+            FromPosition = fromPosition;
 
-            ToPosition = toPosition;
+            FromIndex = fromIndex;
         }
 
         public Player Player { get; set; }
 
-        public byte FromSlot { get; set; }
+        public Position FromPosition { get; set; }
 
-        public Position ToPosition { get; set; }
-        
+        public byte FromIndex { get; set; }
+
         public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
-
+            
 
             //Act
 
@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-
+            
         }
     }
 }

@@ -3,36 +3,40 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class MoveItemFromInventoryToTileCommand : Command
+    public class MoveItemFromContainerToTileCommand : Command
     {
-        public MoveItemFromInventoryToTileCommand(Player player, byte fromSlot, Position toPosition)
+        public MoveItemFromContainerToTileCommand(Player player, byte fromContainerId, byte fromContainerIndex, Position toPosition)
         {
             Player = player;
 
-            FromSlot = fromSlot;
+            FromContainerId = fromContainerId;
+
+            FromContainerIndex = fromContainerIndex;
 
             ToPosition = toPosition;
         }
 
         public Player Player { get; set; }
 
-        public byte FromSlot { get; set; }
+        public byte FromContainerId { get; set; }
+
+        public byte FromContainerIndex { get; set; }
 
         public Position ToPosition { get; set; }
-        
+
         public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
-
+            
 
             //Act
 
-
+            
 
             //Notify
 
-
+            
         }
     }
 }

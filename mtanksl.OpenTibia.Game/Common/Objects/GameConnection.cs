@@ -171,22 +171,22 @@ namespace OpenTibia.Common.Objects
                                 {
                                     if (toPosition.IsContainer)
                                     {
-                                        //TODO
+                                        command = new MoveItemFromContainerToContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, toPosition.ContainerId, toPosition.ContainerIndex);
                                     }
                                     else if (toPosition.IsInventory)
                                     {
-                                        //TODO
+                                        command = new MoveItemFromContainerToInventoryCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, toPosition.InventoryIndex);
                                     }
                                     else
                                     {
-                                        //TODO
+                                        command = new MoveItemFromContainerToTileCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, toPosition);
                                     }
                                 }
                                 else if (fromPosition.IsInventory)
                                 {
                                     if (toPosition.IsContainer)
                                     {
-                                        //TODO
+                                        command = new MoveItemFromInventoryToContainerCommand(Client.Player, fromPosition.InventoryIndex, toPosition.ContainerId, toPosition.ContainerIndex);
                                     }
                                     else if (toPosition.IsInventory)
                                     {
@@ -201,11 +201,11 @@ namespace OpenTibia.Common.Objects
                                 {
                                     if (toPosition.IsContainer)
                                     {
-                                        //TODO
+                                        command = new MoveItemFromTileToContainerCommand(Client.Player, fromPosition, packet.FromIndex, toPosition.ContainerId, toPosition.ContainerIndex);
                                     }
                                     else if (toPosition.IsInventory)
                                     {
-                                        command = new MoveItemFromTileToInventoryCommand(Client.Player, fromPosition,packet.FromIndex, toPosition.InventoryIndex);
+                                        command = new MoveItemFromTileToInventoryCommand(Client.Player, fromPosition, packet.FromIndex, toPosition.InventoryIndex);
                                     }
                                     else
                                     {
@@ -219,7 +219,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<LookItemNpcTradeIncommingPacket>(reader);
 
-                                //TODO
+                                //TODO: NpcTrade
                             }
                             break;
 
@@ -227,7 +227,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<BuyNpcTradeIncommingPacket>(reader);
 
-                                //TODO
+                                //TODO: NpcTrade
                             }
                             break;
 
@@ -235,13 +235,13 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<SellNpcTradeIncommingPacket>(reader);
 
-                                //TODO
+                                //TODO: NpcTrade
                             }
                             break;
 
                         case 0x7C:
                             {
-                                //TODO CloseNpcTrade
+                                //TODO: NpcTrade (CloseNpcTrade)
                             }
                             break;
 
@@ -249,7 +249,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<TradeWithIncommingPacket>(reader);
 
-                                //TODO
+                                //TODO: Trade
                             }
                             break;
 
@@ -257,7 +257,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<LookItemTradeIncommingPacket>(reader);
 
-                                //TODO
+                                //TODO: Trade
                             }
                             break;
 
@@ -265,7 +265,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<AcceptTradeIncommingPacket>(reader);
 
-                                //TODO
+                                //TODO: Trade
                             }
                             break;
 
@@ -273,7 +273,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<CancelTradeIncommingPacket>(reader);
 
-                                //TODO
+                                //TODO: Trade
                             }
                             break;
 
@@ -285,11 +285,11 @@ namespace OpenTibia.Common.Objects
 
                                 if (fromPosition.IsContainer)
                                 {
-                                    //TODO
+                                    command = new UseItemFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex);
                                 }
                                 else if (fromPosition.IsInventory)
                                 {
-                                    //TODO
+                                    command = new UseItemFromInventoryCommand(Client.Player, fromPosition.InventoryIndex);
                                 }
                                 else
                                 {
@@ -302,7 +302,55 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<UseItemWithItemIncomingPacket>(reader);
 
-                                //TODO
+                                Position fromPosition = new Position(packet.FromX, packet.FromY, packet.FromZ);
+
+                                Position toPosition = new Position(packet.ToX, packet.ToY, packet.ToZ);
+
+                                if (fromPosition.IsContainer)
+                                {
+                                    if (toPosition.IsContainer)
+                                    {
+                                        command = new UseItemWithItemFromContainerToContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, toPosition.ContainerId, toPosition.ContainerIndex);
+                                    }
+                                    else if (toPosition.IsInventory)
+                                    {
+                                        command = new UseItemWithItemFromContainerToInventoryCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, toPosition.InventoryIndex);
+                                    }
+                                    else
+                                    {
+                                        command = new UseItemWithItemFromContainerToTileCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, toPosition);
+                                    }
+                                }
+                                else if (fromPosition.IsInventory)
+                                {
+                                    if (toPosition.IsContainer)
+                                    {
+                                        command = new UseItemWithItemFromInventoryToContainerCommand(Client.Player, fromPosition.InventoryIndex, toPosition.ContainerId, toPosition.ContainerIndex);
+                                    }
+                                    else if (toPosition.IsInventory)
+                                    {
+                                        command = new UseItemWithItemFromInventoryToInventoryCommand(Client.Player, fromPosition.InventoryIndex, toPosition.InventoryIndex);
+                                    }
+                                    else
+                                    {
+                                        command = new UseItemWithItemFromInventoryToTileCommand(Client.Player, fromPosition.InventoryIndex, toPosition);
+                                    }
+                                }
+                                else
+                                {
+                                    if (toPosition.IsContainer)
+                                    {
+                                        command = new UseItemWithItemFromTileToContainerCommand(Client.Player, fromPosition, packet.FromIndex, toPosition.ContainerId, toPosition.ContainerIndex);
+                                    }
+                                    else if (toPosition.IsInventory)
+                                    {
+                                        command = new UseItemWithItemFromTileToInventoryCommand(Client.Player, fromPosition, packet.FromIndex, toPosition.InventoryIndex);
+                                    }
+                                    else
+                                    {
+                                        command = new UseItemWithItemFromTileToTileCommand(Client.Player, fromPosition, packet.FromIndex, toPosition);
+                                    }
+                                }
                             }
                             break;
 
@@ -310,7 +358,20 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<UseItemWithCreatureIncomingPacket>(reader);
 
-                                //TODO
+                                Position fromPosition = new Position(packet.X, packet.Y, packet.Z);
+
+                                if (fromPosition.IsContainer)
+                                {
+                                    command = new UseItemWithCreatureFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.CreatureId);
+                                }
+                                else if (fromPosition.IsInventory)
+                                {
+                                    command = new UseItemWithCreatureFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.CreatureId);
+                                }
+                                else
+                                {
+                                    command = new UseItemWithCreatureFromTileCommand(Client.Player, fromPosition, packet.Index, packet.CreatureId);
+                                }
                             }
                             break;
 
@@ -318,7 +379,20 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<RotateItemIncomingPacket>(reader);
 
-                                //TODO
+                                var fromPosition = new Position(packet.X, packet.Y, packet.Z);
+
+                                if (fromPosition.IsContainer)
+                                {
+                                    command = new RotateItemFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex);
+                                }
+                                else if (fromPosition.IsInventory)
+                                {
+                                    command = new RotateItemFromInventoryCommand(Client.Player, fromPosition.InventoryIndex);
+                                }
+                                else
+                                {
+                                    command = new RotateItemFromTileCommand(Client.Player, fromPosition, packet.Index);
+                                }
                             }
                             break;
 
@@ -326,7 +400,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<CloseContainerIncommingPacket>(reader);
 
-                                //TODO
+                                //TODO: Container
                             }
                             break;
 
@@ -334,7 +408,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<OpenParentIncommingPacket>(reader);
 
-                                //TODO
+                                //TODO: Container
                             }
                             break;
 
@@ -342,7 +416,20 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<LookIncomingPacket>(reader);
 
-                                //TODO
+                                var fromPosition = new Position(packet.X, packet.Y, packet.Z);
+
+                                if (fromPosition.IsContainer)
+                                {
+                                    command = new LookFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex);
+                                }
+                                else if (fromPosition.IsInventory)
+                                {
+                                    command = new LookFromInventoryCommand(Client.Player, fromPosition.InventoryIndex);
+                                }
+                                else
+                                {
+                                    command = new LookFromTileCommand(Client.Player, fromPosition, packet.Index);
+                                }
                             }
                             break;
 
@@ -354,7 +441,7 @@ namespace OpenTibia.Common.Objects
                                 {
                                     case TalkType.Say:
 
-                                        command = new SayCommand(Client.Player,packet.Message);
+                                        command = new SayCommand(Client.Player, packet.Message);
 
                                         break;
 
@@ -402,7 +489,7 @@ namespace OpenTibia.Common.Objects
 
                                     case TalkType.Broadcast:
 
-                                        command = new BroadcastMessageCommand(Client.Player,packet.Message);
+                                        command = new BroadcastMessageCommand(Client.Player, packet.Message);
 
                                         break;
 
@@ -464,7 +551,7 @@ namespace OpenTibia.Common.Objects
 
                         case 0x9E:
                             {
-                                //TODO CloseNpcsChannel
+                                //TODO: Channel (CloseNpcsChannel)
                             }
                             break;
 
@@ -480,7 +567,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<AttackIncommingPacket>(reader);
 
-                                //TODO
+                                command = new AttackCommand(Client.Player, packet.CreatureId, packet.Nonce);
                             }
                             break;
 
@@ -488,7 +575,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<FollowIncommingPacket>(reader);
 
-                                //TODO
+                                command = new FollowCommand(Client.Player, packet.CreatureId, packet.Nonce);
                             }
                             break;
 
@@ -496,7 +583,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<InviteToPartyIncomingPacket>(reader);
 
-                                //TODO
+                                //TODO: Party
                             }
                             break;
 
@@ -504,7 +591,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<JoinPartyIncomingPacket>(reader);
 
-                                //TODO
+                                //TODO: Party
                             }
                             break;
 
@@ -512,7 +599,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<RevokePartyIncomingPacket>(reader);
 
-                                //TODO
+                                //TODO: Party
                             }
                             break;
 
@@ -520,13 +607,13 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<PassLeadershipToIncomingPacket>(reader);
 
-                                //TODO
+                                //TODO: Party
                             }
                             break;
 
                         case 0xA7:
                             {
-                                //TODO LeaveParty
+                                //TODO: Party (LeaveParty)
                             }
                             break;
 
@@ -534,7 +621,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<SharedExperienceIncomingPacket>(reader);
 
-                                //TODO
+                                //TODO: Party
                             }
                             break;
 
@@ -584,7 +671,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<AddVipIncommingPacket>(reader);
 
-                                //TODO
+                                //TODO: Vip
                             }
                             break;
 
@@ -592,7 +679,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<RemoveVipIncommingPacket>(reader);
 
-                                //TODO
+                                //TODO: Vip
                             }
                             break;
 
@@ -600,13 +687,13 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<ReportBugIncomingPacket>(reader);
 
-                                //TODO
+                                //TODO: ReportBug
                             }
                             break;
 
                         case 0xF0:
                             {
-                                //TODO Quests
+                                //TODO: Quest (Quests)
                             }
                             break;
 
@@ -614,7 +701,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<OpenQuestIncomingPacket>(reader);
 
-                                //TODO
+                                //TODO: Quest
                             }
                             break;
                     }

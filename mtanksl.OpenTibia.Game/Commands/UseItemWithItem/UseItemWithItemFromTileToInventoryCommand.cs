@@ -1,21 +1,26 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class MoveItemFromInventoryToInventoryCommand : Command
+    public class UseItemWithItemFromTileToInventoryCommand : Command
     {
-        public MoveItemFromInventoryToInventoryCommand(Player player, byte fromSlot, byte toSlot)
+        public UseItemWithItemFromTileToInventoryCommand(Player player, Position fromPosition, byte fromIndex, byte toSlot)
         {
             Player = player;
 
-            FromSlot = fromSlot;
+            FromPosition = fromPosition;
+
+            FromIndex = fromIndex;
 
             ToSlot = toSlot;
         }
 
         public Player Player { get; set; }
 
-        public byte FromSlot { get; set; }
+        public Position FromPosition { get; set; }
+
+        public byte FromIndex { get; set; }
 
         public byte ToSlot { get; set; }
         
@@ -26,8 +31,8 @@ namespace OpenTibia.Game.Commands
             
 
             //Act
-            
-            
+
+
 
             //Notify
 

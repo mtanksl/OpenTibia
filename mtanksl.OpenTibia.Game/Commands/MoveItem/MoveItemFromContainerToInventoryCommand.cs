@@ -2,23 +2,27 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class MoveItemFromInventoryToInventoryCommand : Command
+    public class MoveItemFromContainerToInventoryCommand : Command
     {
-        public MoveItemFromInventoryToInventoryCommand(Player player, byte fromSlot, byte toSlot)
+        public MoveItemFromContainerToInventoryCommand(Player player, byte fromContainerId, byte fromContainerIndex, byte toSlot)
         {
             Player = player;
 
-            FromSlot = fromSlot;
+            FromContainerId = fromContainerId;
+
+            FromContainerIndex = fromContainerIndex;
 
             ToSlot = toSlot;
         }
 
         public Player Player { get; set; }
 
-        public byte FromSlot { get; set; }
+        public byte FromContainerId { get; set; }
+
+        public byte FromContainerIndex { get; set; }
 
         public byte ToSlot { get; set; }
-        
+
         public override void Execute(Server server, CommandContext context)
         {
             //Arrange
@@ -26,12 +30,12 @@ namespace OpenTibia.Game.Commands
             
 
             //Act
-            
+
             
 
             //Notify
 
-
+            
         }
     }
 }
