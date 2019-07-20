@@ -56,6 +56,8 @@ namespace OpenTibia.Game.Commands
             }
 
             //Notify
+
+            base.Execute(server, context);
         }
     }
 }

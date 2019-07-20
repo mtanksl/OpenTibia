@@ -33,13 +33,15 @@ namespace OpenTibia.Game.Commands
             {
                 Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
 
-                if (fromItem != null)
+                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
                     //Act
 
                     Look(Player, fromItem, server, context);
                 }
             }
+
+            base.Execute(server, context);
         }
     }
 }

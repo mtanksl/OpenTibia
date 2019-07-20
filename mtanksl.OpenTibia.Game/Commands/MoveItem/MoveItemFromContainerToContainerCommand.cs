@@ -4,13 +4,15 @@ namespace OpenTibia.Game.Commands
 {
     public class MoveItemFromContainerToContainerCommand : MoveItemCommand
     {
-        public MoveItemFromContainerToContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, byte toContainerId, byte toContainerIndex, byte count)
+        public MoveItemFromContainerToContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort itemId, byte toContainerId, byte toContainerIndex, byte count)
         {
             Player = player;
 
             FromContainerId = fromContainerId;
 
             FromContainerIndex = fromContainerIndex;
+
+            ItemId = itemId;
 
             ToContainerId = toContainerId;
 
@@ -24,6 +26,8 @@ namespace OpenTibia.Game.Commands
         public byte FromContainerId { get; set; }
 
         public byte FromContainerIndex { get; set; }
+
+        public ushort ItemId { get; set; }
 
         public byte ToContainerId { get; set; }
 
@@ -41,7 +45,7 @@ namespace OpenTibia.Game.Commands
             {
                 Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
 
-                if (fromItem != null)
+                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
                     Container toContainer = Player.Client.ContainerCollection.GetContainer(ToContainerId);
 
@@ -55,6 +59,8 @@ namespace OpenTibia.Game.Commands
                     }
                 }
             }
+
+            base.Execute(server, context);
         }
     }
 }

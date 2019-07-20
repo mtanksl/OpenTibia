@@ -96,7 +96,7 @@ namespace OpenTibia.Game
             Logger.WriteLine("Server online");
         }
 
-        public void QueueForExecution(Command command, Action callback = null)
+        public void QueueForExecution(Command command)
         {
             dispatcher.QueueForExecution( () =>
             {
@@ -112,17 +112,12 @@ namespace OpenTibia.Game
                 {
                     Logger.WriteLine(ex.ToString() );
                 }
-
-                if (callback != null)
-                {
-                    callback();
-                }
             } );
         }
 
         private Dictionary<string, SchedulerEvent> events = new Dictionary<string, SchedulerEvent>();
 
-        public void QueueForExecution(string key, int executeIn, Command command, Action callback = null)
+        public void QueueForExecution(string key, int executeIn, Command command)
         {
             SchedulerEvent schedulerEvent;
 
@@ -148,11 +143,6 @@ namespace OpenTibia.Game
                 catch (Exception ex)
                 {
                     Logger.WriteLine(ex.ToString() );
-                }
-
-                if (callback != null)
-                {
-                    callback();
                 }
             } ) );
 

@@ -6,16 +6,16 @@ namespace OpenTibia.Game.Commands
 {
     public class TeleportCommand : Command
     {
-        public TeleportCommand(Player player, Position toPosition)
+        public TeleportCommand(Player player, Tile toTile)
         {
             Player = player;
 
-            ToPosition = toPosition;
+            ToTile = toTile;
         }
 
         public Player Player { get; set; }
 
-        public Position ToPosition { get; set; }
+        public Tile ToTile { get; set; }
 
         public override void Execute(Server server, CommandContext context)
         {
@@ -23,13 +23,15 @@ namespace OpenTibia.Game.Commands
 
             Tile fromTile = Player.Tile;
 
-            Tile toTile = server.Map.GetTile(ToPosition);
+            Position fromPosition = fromTile.Position;
+
+            Position toPosition = ToTile.Position;
 
             //Act
 
             byte fromIndex = fromTile.RemoveContent(Player);
 
-            byte toIndex = toTile.AddContent(Player);
+            byte toIndex = ToTile.AddContent(Player);
 
             //Notify
 
@@ -37,17 +39,17 @@ namespace OpenTibia.Game.Commands
             {
                 if (observer != Player)
                 {
-                    bool canSeeFromPosition = observer.Tile.Position.CanSee(fromTile.Position);
+                    bool canSeeFromPosition = observer.Tile.Position.CanSee(fromPosition);
 
-                    bool canSeeToPosition = observer.Tile.Position.CanSee(toTile.Position);
+                    bool canSeeToPosition = observer.Tile.Position.CanSee(toPosition);
 
                     if (canSeeFromPosition && canSeeToPosition)
                     {
-                        context.Write(observer.Client.Connection, new WalkOutgoingPacket(fromTile.Position, fromIndex, toTile.Position) );
+                        context.Write(observer.Client.Connection, new WalkOutgoingPacket(fromPosition, fromIndex, toPosition) );
                     }
                     else if (canSeeFromPosition)
                     {
-                        context.Write(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromTile.Position, fromIndex) );
+                        context.Write(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromPosition, fromIndex) );
                     }
                     else if (canSeeToPosition)
                     {
@@ -55,46 +57,41 @@ namespace OpenTibia.Game.Commands
 
                         if (observer.Client.CreatureCollection.IsKnownCreature(Player.Id, out removeId) )
                         {
-                            context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(toTile.Position, toIndex, Player) );
+                            context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(toPosition, toIndex, Player) );
                         }
                         else
                         {
-                            context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(toTile.Position, toIndex, removeId, Player) );
+                            context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(toPosition, toIndex, removeId, Player) );
                         }
                     }
                 }
             }
 
-            int deltaY = toTile.Position.Y - fromTile.Position.Y;
+            context.Write(Player.Client.Connection, new WalkOutgoingPacket(fromPosition, fromIndex, toPosition) );
 
-            int deltaX = toTile.Position.X - fromTile.Position.X;
+            int deltaY = toPosition.Y - fromPosition.Y;
 
-            if (deltaY < -1 || deltaY > 1 || deltaX < -1 || deltaX > 1)
+            if (deltaY == -1)
             {
-                context.Write(Player.Client.Connection, new SendTilesOutgoingPacket(server.Map, Player.Client, toTile.Position) );
+                context.Write(Player.Client.Connection, new SendMapNorthOutgoingPacket(server.Map, Player.Client, fromPosition) );
             }
-            else
+            else if (deltaY == 1)
             {
-                context.Write(Player.Client.Connection, new WalkOutgoingPacket(fromTile.Position, fromIndex, toTile.Position) );
-
-                if (deltaY == -1)
-                {
-                    context.Write(Player.Client.Connection, new SendMapNorthOutgoingPacket(server.Map, Player.Client, fromTile.Position) );
-                }
-                else if (deltaY == 1)
-                {
-                    context.Write(Player.Client.Connection, new SendMapSouthOutgoingPacket(server.Map, Player.Client, fromTile.Position) );
-                }
-                            
-                if (deltaX == -1)
-                {
-                    context.Write(Player.Client.Connection, new SendMapWestOutgoingPacket(server.Map, Player.Client, fromTile.Position) );
-                }
-                else if (deltaX == 1)
-                {
-                    context.Write(Player.Client.Connection, new SendMapEastOutgoingPacket(server.Map, Player.Client, fromTile.Position) );
-                }
+                context.Write(Player.Client.Connection, new SendMapSouthOutgoingPacket(server.Map, Player.Client, fromPosition) );
             }
+            
+            int deltaX = toPosition.X - fromPosition.X;
+
+            if (deltaX == -1)
+            {
+                context.Write(Player.Client.Connection, new SendMapWestOutgoingPacket(server.Map, Player.Client, fromPosition) );
+            }
+            else if (deltaX == 1)
+            {
+                context.Write(Player.Client.Connection, new SendMapEastOutgoingPacket(server.Map, Player.Client, fromPosition) );
+            }
+
+            base.Execute(server, context);
         }
     }
 }

@@ -5,13 +5,15 @@ namespace OpenTibia.Game.Commands
 {
     public class TradeWithFromTileCommand : TradeWithCommand
     {
-        public TradeWithFromTileCommand(Player player, Position fromPosition, byte fromIndex, uint creatureId)
+        public TradeWithFromTileCommand(Player player, Position fromPosition, byte fromIndex, ushort itemId, uint creatureId)
         {
             Player = player;
 
             FromPosition = fromPosition;
 
             FromIndex = fromIndex;
+
+            ItemId = itemId;
 
             ToCreatureId = creatureId;
         }
@@ -21,6 +23,8 @@ namespace OpenTibia.Game.Commands
         public Position FromPosition { get; set; }
 
         public byte FromIndex { get; set; }
+
+        public ushort ItemId { get; set; }
 
         public uint ToCreatureId { get; set; }
 
@@ -34,13 +38,15 @@ namespace OpenTibia.Game.Commands
             {
                 Item fromItem = fromTile.GetContent(FromIndex) as Item;
 
-                if (fromItem != null)
+                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
                     //Act
 
                     
                 }
-            }            
+            }
+
+            base.Execute(server, context);
         }
     }
 }

@@ -4,13 +4,15 @@ namespace OpenTibia.Game.Commands
 {
     public class UseItemFromContainerCommand : UseItemCommand
     {
-        public UseItemFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex)
+        public UseItemFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort itemId)
         {
             Player = player;
 
             FromContainerId = fromContainerId;
 
             FromContainerIndex = fromContainerIndex;
+
+            ItemId = itemId;
         }
 
         public Player Player { get; set; }
@@ -18,6 +20,8 @@ namespace OpenTibia.Game.Commands
         public byte FromContainerId { get; set; }
 
         public byte FromContainerIndex { get; set; }
+
+        public ushort ItemId { get; set; }
 
         public override void Execute(Server server, CommandContext context)
         {
@@ -29,7 +33,7 @@ namespace OpenTibia.Game.Commands
             {
                 Item fromItem = fromContainer.GetContent(FromContainerId) as Item;
 
-                if (fromItem != null)
+                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
                     //Act
 
@@ -41,6 +45,8 @@ namespace OpenTibia.Game.Commands
                     }
                 }
             }
+
+            base.Execute(server, context);
         }
     }
 }

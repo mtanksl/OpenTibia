@@ -22,16 +22,12 @@ namespace OpenTibia.Game.Commands
         public override void Execute(Server server, CommandContext context)
         {
             //Arrange
-
-
-
+            
             //Act
-
-
-
+            
             //Notify
 
-
+            base.Execute(server, context);
         }
     }
 }

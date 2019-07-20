@@ -36,6 +36,8 @@ namespace OpenTibia.Game.Commands
                     Look(Player, item, server, context);
                 }
             }
+
+            base.Execute(server, context);
         }
     }
 }

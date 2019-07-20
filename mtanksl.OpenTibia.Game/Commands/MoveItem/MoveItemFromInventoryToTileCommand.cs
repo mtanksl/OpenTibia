@@ -5,11 +5,13 @@ namespace OpenTibia.Game.Commands
 {
     public class MoveItemFromInventoryToTileCommand : MoveItemCommand
     {
-        public MoveItemFromInventoryToTileCommand(Player player, byte fromSlot, Position toPosition, byte count)
+        public MoveItemFromInventoryToTileCommand(Player player, byte fromSlot, ushort itemId, Position toPosition, byte count)
         {
             Player = player;
 
             FromSlot = fromSlot;
+
+            ItemId = itemId;
 
             ToPosition = toPosition;
 
@@ -19,6 +21,8 @@ namespace OpenTibia.Game.Commands
         public Player Player { get; set; }
 
         public byte FromSlot { get; set; }
+
+        public ushort ItemId { get; set; }
 
         public Position ToPosition { get; set; }
 
@@ -32,7 +36,7 @@ namespace OpenTibia.Game.Commands
 
             Item fromItem = fromInventory.GetContent(FromSlot) as Item;
 
-            if (fromItem != null)
+            if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
             {
                 Tile toTile = server.Map.GetTile(ToPosition);
 
@@ -45,6 +49,8 @@ namespace OpenTibia.Game.Commands
                     AddItem(toTile, fromItem, server, context);
                 }
             }
+
+            base.Execute(server, context);
         }
     }
 }

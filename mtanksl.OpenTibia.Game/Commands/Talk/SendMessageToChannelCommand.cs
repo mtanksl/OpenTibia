@@ -28,19 +28,21 @@ namespace OpenTibia.Game.Commands
             Channel channel = server.Channels.GetChannel(ChannelId);
 
             //Act
-                        
+
+            //Notify
+
             if (channel != null)
             {
                 if (channel.ContainsPlayer(Player) )
                 {
                     foreach (var observer in channel.GetPlayers() )
                     {
-                        //Notify
-
                         context.Write(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.ChannelYellow, channel.Id, Message) );
                     }
                 }
             }
+
+            base.Execute(server, context);
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -23,38 +22,28 @@ namespace OpenTibia.Game.Commands
 
             //Act
 
-            void Next(int index)
-            {
-                if (index < MoveDirections.Length)
-                {
-                    WalkCommand command = new WalkCommand(Player, MoveDirections[index] );
-
-                    command.Completed += (sender, e) =>
-                    {
-                        Next(index + 1);
-                    };
-
-                    command.Execute(server, context);
-                }
-                else
-                {
-                    OnCompleted();
-                }
-            }
-
-            Next(0);
+            Walk(0, server, context);
 
             //Notify
         }
 
-        public EventHandler Completed;
-
-        protected virtual void OnCompleted()
+        protected void Walk(int index, Server server, CommandContext context)
         {
-            if (Completed != null)
+            WalkCommand command = new WalkCommand(Player, MoveDirections[index] );
+
+            command.Completed += (s, e) =>
             {
-                Completed(this, EventArgs.Empty);
-            }
+                if (index + 1 < MoveDirections.Length)
+                {
+                    Walk(index + 1, e.Server, e.Context);
+                }
+                else
+                {
+                    OnCompleted(e);
+                }
+            };
+
+            command.Execute(server, context);
         }
     }
 }

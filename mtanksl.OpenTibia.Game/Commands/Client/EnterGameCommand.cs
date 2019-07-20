@@ -64,6 +64,8 @@ namespace OpenTibia.Game.Commands
                     context.Disconnect(Connection);
                 }
             }
+
+            base.Execute(server, context);
         }
     }
 }

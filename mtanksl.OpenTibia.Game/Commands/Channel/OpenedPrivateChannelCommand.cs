@@ -36,6 +36,8 @@ namespace OpenTibia.Game.Commands
                     context.Write(Player.Client.Connection, new OpenPrivateChannelOutgoingPacket(Name) );
                 }
             }
+
+            base.Execute(server, context);
         }
     }
 }

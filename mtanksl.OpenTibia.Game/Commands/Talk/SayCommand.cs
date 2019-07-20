@@ -37,6 +37,8 @@ namespace OpenTibia.Game.Commands
             }
 
             context.Write(Player.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Say, Player.Tile.Position, Message) );
+            
+            base.Execute(server, context);
         }
     }
 }

@@ -28,15 +28,11 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            
-
             //Act
-
-
 
             //Notify
 
-            
+            base.Execute(server, context);
         }
     }
 }

@@ -113,7 +113,6 @@
     <Compile Include="Commands\MoveItem\MoveItemFromInventoryToTileCommand.cs" />
     <Compile Include="Commands\MoveItem\MoveItemFromInventoryToInventoryCommand.cs" />
     <Compile Include="Commands\Client\LogOutCommand.cs" />
-    <Compile Include="Commands\Client\PingCommand.cs" />
     <Compile Include="Commands\Client\PongCommand.cs" />
     <Compile Include="Commands\Outfit\SelectedOutfitCommand.cs" />
     <Compile Include="Commands\Outfit\SelectOutfitCommand.cs" />

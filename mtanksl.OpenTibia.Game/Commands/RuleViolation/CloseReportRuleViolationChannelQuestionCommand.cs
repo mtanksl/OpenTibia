@@ -40,6 +40,8 @@ namespace OpenTibia.Game.Commands
                     context.Write(ruleViolation.Assignee.Client.Connection, new CancelRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
                 }
             }
+
+            base.Execute(server, context);
         }
     }
 }

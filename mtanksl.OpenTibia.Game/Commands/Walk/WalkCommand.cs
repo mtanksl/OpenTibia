@@ -1,6 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -27,20 +26,22 @@ namespace OpenTibia.Game.Commands
 
             Position toPosition = fromPosition.Offset(MoveDirection);
 
-            //Act
+            Tile toTile = server.Map.GetTile(toPosition);
 
-            server.QueueForExecution(Constants.PlayerWalkSchedulerEvent(Player), 1000 * fromTile.Ground.Metadata.Speed / Player.Speed, new TeleportCommand(Player, toPosition), OnCompleted);
-
-            //Notify
-        }
-
-        public EventHandler Completed;
-
-        protected virtual void OnCompleted()
-        {
-            if (Completed != null)
+            if (toTile != null)
             {
-                Completed(this, EventArgs.Empty);
+                //Act
+
+                TeleportCommand command = new TeleportCommand(Player, toTile);
+
+                command.Completed += (s, e) =>
+                {
+                    OnCompleted(e);
+                };
+
+                server.QueueForExecution(Constants.PlayerWalkSchedulerEvent(Player), 1000 * fromTile.Ground.Metadata.Speed / Player.Speed, command);
+
+                //Notify
             }
         }
     }

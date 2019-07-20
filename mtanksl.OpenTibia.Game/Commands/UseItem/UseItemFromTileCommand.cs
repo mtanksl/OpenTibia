@@ -5,13 +5,15 @@ namespace OpenTibia.Game.Commands
 {
     public class UseItemFromTileCommand : UseItemCommand
     {
-        public UseItemFromTileCommand(Player player, Position fromPosition, byte fromIndex)
+        public UseItemFromTileCommand(Player player, Position fromPosition, byte fromIndex, ushort itemId)
         {
             Player = player;
 
             FromPosition = fromPosition;
 
             FromIndex = fromIndex;
+
+            ItemId = itemId;
         }
 
         public Player Player { get; set; }
@@ -19,7 +21,9 @@ namespace OpenTibia.Game.Commands
         public Position FromPosition { get; set; }
 
         public byte FromIndex { get; set; }
-        
+
+        public ushort ItemId { get; set; }
+
         public override void Execute(Server server, CommandContext context)
         {
             //Arrange
@@ -30,7 +34,7 @@ namespace OpenTibia.Game.Commands
             {
                 Item fromItem = fromTile.GetContent(FromIndex) as Item;
 
-                if (fromItem != null)
+                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
                     //Act
 
@@ -38,10 +42,12 @@ namespace OpenTibia.Game.Commands
 
                     if (container != null)
                     {
-                        OpenOrCloseContainer(Player, container, server, context);
+                        OpenOrCloseContainer(Player, container, e.Server, e.Context);
                     }
                 }
-            }            
+            }     
+            
+            base.Execute(server, context);
         }
     }
 }

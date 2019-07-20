@@ -31,7 +31,9 @@ namespace OpenTibia.Game.Commands
                 .FirstOrDefault();
 
             //Act
-            
+
+            //Notify
+
             if (observer != null)
             {
                 RuleViolation ruleViolation = server.RuleViolations.GetRuleViolation(observer);
@@ -40,12 +42,12 @@ namespace OpenTibia.Game.Commands
                 {
                     if (ruleViolation.Assignee == Player)
                     {
-                        //Notify
-
                         context.Write(ruleViolation.Reporter.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Assignee.Name, ruleViolation.Assignee.Level, TalkType.ReportRuleViolationAnswer, Message) );
                     }
                 }
             }
+
+            base.Execute(server, context);
         }
     }
 }

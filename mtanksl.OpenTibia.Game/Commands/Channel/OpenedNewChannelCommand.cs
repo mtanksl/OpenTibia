@@ -79,6 +79,8 @@ namespace OpenTibia.Game.Commands
                     context.Write(Player.Client.Connection, new OpenChannelOutgoingPacket(channel.Id, channel.Name) );
                 }
             }
+
+            base.Execute(server, context);
         }
     }
 }

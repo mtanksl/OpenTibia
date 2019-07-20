@@ -38,6 +38,8 @@ namespace OpenTibia.Game.Commands
                     context.Write(observer.Client.Connection, new ThingUpdateOutgoingPacket(fromTile.Position, fromIndex, Player.Id, Direction) );                        
                 }
             }
+
+            base.Execute(server, context);
         }
     }
 }

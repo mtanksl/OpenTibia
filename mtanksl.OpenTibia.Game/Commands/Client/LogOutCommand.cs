@@ -23,6 +23,8 @@ namespace OpenTibia.Game.Commands
 
             //Act
 
+            server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(Player) );
+
             server.Map.RemoveCreature(Player);
 
             byte fromIndex = fromTile.RemoveContent(Player);
@@ -43,6 +45,8 @@ namespace OpenTibia.Game.Commands
             }
 
             context.Disconnect(Player.Client.Connection);
+
+            base.Execute(server, context);
         }
     }
 }
