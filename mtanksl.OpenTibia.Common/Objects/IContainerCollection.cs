@@ -1,13 +1,21 @@
-﻿namespace OpenTibia.Common.Objects
+﻿using System.Collections.Generic;
+
+namespace OpenTibia.Common.Objects
 {
     public interface IContainerCollection
     {
-        Container GetContainer(byte containerId);
-
-        bool HasContainer(Container container, out byte containerId);
-
         byte OpenContainer(Container container);
 
-        byte CloseContainer(Container container);
+        void OpenContainer(byte containerId, Container container);
+
+        void CloseContainer(byte containerId);
+
+        Container GetContainer(byte containerId);
+
+        IEnumerable<Container> GetContainers();
+
+        IEnumerable<KeyValuePair<byte, Container> > GetIndexedContainers();
+
+        void Clear();
     }
 }

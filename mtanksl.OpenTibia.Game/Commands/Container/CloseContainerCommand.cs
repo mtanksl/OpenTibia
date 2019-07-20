@@ -26,11 +26,11 @@ namespace OpenTibia.Game.Commands
             {
                 //Act
 
-                byte containerId = Player.Client.ContainerCollection.CloseContainer(container);
+                Player.Client.ContainerCollection.CloseContainer(ContainerId);
 
                 //Notify
 
-                context.Write(Player.Client.Connection, new CloseContainerOutgoingPacket(containerId) );
+                context.Write(Player.Client.Connection, new CloseContainerOutgoingPacket(ContainerId) );
             }
 
             base.Execute(server, context);

@@ -23,13 +23,15 @@ namespace OpenTibia.Game.Commands
 
             Tile fromTile = Player.Tile;
 
+            byte fromIndex = fromTile.GetIndex(Player);
+
             Position fromPosition = fromTile.Position;
 
             Position toPosition = ToTile.Position;
 
             //Act
 
-            byte fromIndex = fromTile.RemoveContent(Player);
+            fromTile.RemoveContent(fromIndex);
 
             byte toIndex = ToTile.AddContent(Player);
 

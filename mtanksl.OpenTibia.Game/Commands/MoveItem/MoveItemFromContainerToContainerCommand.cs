@@ -1,4 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -51,16 +53,23 @@ namespace OpenTibia.Game.Commands
 
                     if (toContainer != null)
                     {
-                        //Act
+                        if ( !CanMoveItem(fromItem, toContainer) )
+                        {
+                            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
+                        }
+                        else
+                        {
+                            //Act
 
-                        RemoveItem(fromContainer, fromItem, server, context);
+                            RemoveItem(fromContainer, FromContainerIndex, server, context);
 
-                        AddItem(toContainer, fromItem, server, context);
+                            AddItem(toContainer, fromItem, server, context);
+
+                            base.Execute(server, context);
+                        }
                     }
                 }
             }
-
-            base.Execute(server, context);
         }
     }
 }

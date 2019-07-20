@@ -22,50 +22,49 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Server server, CommandContext context)
         {
-            Connection.Keys = Packet.Keys;
-
-            if (Packet.TibiaDat != 1277983123 || Packet.TibiaPic != 1256571859 || Packet.TibiaSpr != 1277298068 || Packet.Version != 860)
+            if (Connection.Keys == null)
             {
-                context.Write(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.OnlyProtocol86Allowed) );
+                Connection.Keys = Packet.Keys;
 
-                context.Disconnect(Connection);
-            }
-            else
-            {
-                var account = new PlayerRepository().GetAccount(Packet.Account, Packet.Password);
-
-                if (account == null)
+                if (Packet.TibiaDat != 1277983123 || Packet.TibiaPic != 1256571859 || Packet.TibiaSpr != 1277298068 || Packet.Version != 860)
                 {
-                    context.Write(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
+                    context.Write(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.OnlyProtocol86Allowed) );
 
                     context.Disconnect(Connection);
                 }
                 else
                 {
-                    //Arrange
+                    var account = new PlayerRepository().GetAccount(Packet.Account, Packet.Password);
 
-
-
-                    //Act
-
-
-
-                    //Notify
-
-                    List<Character> characters = new List<Character>();
-
-                    foreach (var player in account.Players)
+                    if (account == null)
                     {
-                        characters.Add( new Character(player.Name, player.World.Name, player.World.Ip, (ushort)player.World.Port) );
+                        context.Write(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
+
+                        context.Disconnect(Connection);
                     }
+                    else
+                    {
+                        //Arrange
 
-                    context.Write(Connection, new OpenSelectCharacterDialogOutgoingPacket(characters, (ushort)account.PremiumDays) );
+                        //Act
 
-                    context.Disconnect(Connection);
+                        //Notify
+
+                        List<Character> characters = new List<Character>();
+
+                        foreach (var player in account.Players)
+                        {
+                            characters.Add( new Character(player.Name, player.World.Name, player.World.Ip, (ushort)player.World.Port) );
+                        }
+
+                        context.Write(Connection, new OpenSelectCharacterDialogOutgoingPacket(characters, (ushort)account.PremiumDays) );
+
+                        context.Disconnect(Connection);
+
+                        base.Execute(server, context);
+                    }
                 }
             }
-
-            base.Execute(server, context);
         }
     }
 }

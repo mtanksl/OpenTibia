@@ -21,102 +21,105 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Server server, CommandContext context)
         {
-            Connection.Keys = Packet.Keys;
-
-            if (Packet.Version != 860)
+            if (Connection.Keys == null)
             {
-                context.Write(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.OnlyProtocol86Allowed) );
+                Connection.Keys = Packet.Keys;
 
-                context.Disconnect(Connection);
-            }
-            else
-            {
-                var account = new PlayerRepository().GetPlayer(Packet.Account, Packet.Password, Packet.Character);
-
-                if (account == null)
+                if (Packet.Version != 860)
                 {
-                    context.Write(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
+                    context.Write(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.OnlyProtocol86Allowed) );
 
                     context.Disconnect(Connection);
                 }
                 else
                 {
-                    //Arrange
+                    var account = new PlayerRepository().GetPlayer(Packet.Account, Packet.Password, Packet.Character);
 
-                    Position fromPosition = new Position(account.CoordinateX, account.CoordinateY, account.CoordinateZ);
-
-                    Tile fromTile = server.Map.GetTile(fromPosition);
-
-                    if (fromTile != null)
+                    if (account == null)
                     {
-                        Player player = new Player()
+                        context.Write(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
+
+                        context.Disconnect(Connection);
+                    }
+                    else
+                    {
+                        //Arrange
+
+                        Position fromPosition = new Position(account.CoordinateX, account.CoordinateY, account.CoordinateZ);
+
+                        Tile fromTile = server.Map.GetTile(fromPosition);
+
+                        if (fromTile != null)
                         {
-                            Name = account.Name
-                        };
-
-                        Connection.Client = new Client(server)
-                        {
-                            Player = player
-                        };
-
-                        //Act
-
-                        server.Map.AddCreature(player);
-
-                        byte fromIndex = fromTile.AddContent(player);
-
-                        //Notify
-
-                        foreach (var observer in server.Map.GetPlayers() )
-                        {
-                            if (observer != player)
+                            Player player = new Player()
                             {
-                                if (observer.Tile.Position.CanSee(fromPosition) )
+                                Name = account.Name
+                            };
+
+                            Connection.Client = new Client(server)
+                            {
+                                Player = player
+                            };
+
+                            //Act
+
+                            server.Map.AddCreature(player);
+
+                            byte fromIndex = fromTile.AddContent(player);
+
+                            //Notify
+
+                            foreach (var observer in server.Map.GetPlayers() )
+                            {
+                                if (observer != player)
                                 {
-                                    uint removeId;
-
-                                    if (observer.Client.CreatureCollection.IsKnownCreature(player.Id, out removeId) )
+                                    if (observer.Tile.Position.CanSee(fromPosition) )
                                     {
-                                        context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(fromPosition, fromIndex, player),
+                                        uint removeId;
 
-                                                                                  new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Teleport) );
-                                    }
-                                    else
-                                    {
-                                        context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(fromPosition, fromIndex, removeId, player),
+                                        if (observer.Client.CreatureCollection.IsKnownCreature(player.Id, out removeId) )
+                                        {
+                                            context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(fromPosition, fromIndex, player),
 
-                                                                                  new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Teleport) );
+                                                                                      new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Teleport) );
+                                        }
+                                        else
+                                        {
+                                            context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(fromPosition, fromIndex, removeId, player),
+
+                                                                                      new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Teleport) );
+                                        }
                                     }
                                 }
                             }
+
+                            context.Write(Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs), 
+
+                                                      new SetSpecialConditionOutgoingPacket(SpecialCondition.None),
+
+                                                      new SendStatusOutgoingPacket(player.Health, player.MaxHealth, 
+                                                  
+                                                                                   player.Capacity, 
+                                                  
+                                                                                   player.Experience, player.Level, player.LevelPercent, 
+                                                                               
+                                                                                   player.Mana, player.MaxMana, 0, 0, player.Soul, 
+                                                                               
+                                                                                   player.Stamina),
+
+                                                      new SendSkillsOutgoingPacket(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0),
+
+                                                      new SetEnvironmentLightOutgoingPacket(Light.Day),
+
+                                                      new SendTilesOutgoingPacket(server.Map, player.Client, fromPosition),
+
+                                                      new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Teleport) );
+
+                            base.Execute(server, context);
                         }
-
-                        context.Write(Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs), 
-
-                                                  new SetSpecialConditionOutgoingPacket(SpecialCondition.None),
-
-                                                  new SendStatusOutgoingPacket(player.Health, player.MaxHealth, 
-                                                  
-                                                                               player.Capacity, 
-                                                  
-                                                                               player.Experience, player.Level, player.LevelPercent, 
-                                                                               
-                                                                               player.Mana, player.MaxMana, 0, 0, player.Soul, 
-                                                                               
-                                                                               player.Stamina),
-
-                                                  new SendSkillsOutgoingPacket(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0),
-
-                                                  new SetEnvironmentLightOutgoingPacket(Light.Day),
-
-                                                  new SendTilesOutgoingPacket(server.Map, player.Client, fromPosition),
-
-                                                  new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Teleport) );
                     }
                 }
             }
-
-            base.Execute(server, context);
         }
     }
 }

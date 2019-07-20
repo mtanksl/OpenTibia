@@ -6,25 +6,70 @@ namespace OpenTibia.Game.Commands
 {
     public abstract class UseItemCommand : Command
     {
-        protected void OpenOrCloseContainer(Player player, Container container, Server server, CommandContext context)
+        protected void CloseOrReplaceContainer(Player player, byte fromContainerId, Container container, Server server, CommandContext context)
         {
-            byte containerId;
+            bool replace = true;
 
-            if (player.Client.ContainerCollection.HasContainer(container, out containerId) )
+            foreach (var pair in player.Client.ContainerCollection.GetIndexedContainers() )
+            {
+                if (pair.Value == container)
+                {
+                    //Act
+
+                    player.Client.ContainerCollection.CloseContainer(pair.Key);
+
+                    //Notify
+
+                    context.Write(player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+
+                    replace = false;
+                }
+            }
+
+            if (replace)
             {
                 //Act
 
-                containerId = player.Client.ContainerCollection.CloseContainer(container);
+                player.Client.ContainerCollection.OpenContainer(fromContainerId, container);
 
                 //Notify
 
-                context.Write(player.Client.Connection, new CloseContainerOutgoingPacket(containerId) );
+                var items = new List<Item>();
+
+                foreach (var item in container.GetItems() )
+                {
+                    items.Add(item);
+                }
+
+                context.Write(player.Client.Connection, new OpenContainerOutgoingPacket(fromContainerId, container.Metadata.TibiaId, container.Metadata.Name, container.Metadata.Capacity, container.Container is Container, items) );
             }
-            else
+        }
+
+        protected void CloseOrOpenContainer(Player player, Container container, Server server, CommandContext context)
+        {
+            bool open = true;
+
+            foreach (var pair in player.Client.ContainerCollection.GetIndexedContainers() )
+            {
+                if (pair.Value == container)
+                {
+                    //Act
+
+                    player.Client.ContainerCollection.CloseContainer(pair.Key);
+
+                    //Notify
+
+                    context.Write(player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+
+                    open = false;
+                }
+            }
+
+            if (open)
             {
                 //Act
 
-                containerId = player.Client.ContainerCollection.OpenContainer(container);
+                byte containerId = player.Client.ContainerCollection.OpenContainer(container);
 
                 //Notify
 

@@ -4,7 +4,7 @@ namespace OpenTibia.Game.Commands
 {
     public class UseItemFromContainerCommand : UseItemCommand
     {
-        public UseItemFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort itemId)
+        public UseItemFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort itemId, byte containerId)
         {
             Player = player;
 
@@ -13,6 +13,8 @@ namespace OpenTibia.Game.Commands
             FromContainerIndex = fromContainerIndex;
 
             ItemId = itemId;
+
+            ContainerId = containerId;
         }
 
         public Player Player { get; set; }
@@ -23,6 +25,8 @@ namespace OpenTibia.Game.Commands
 
         public ushort ItemId { get; set; }
 
+        public byte ContainerId { get; set; }
+
         public override void Execute(Server server, CommandContext context)
         {
             //Arrange
@@ -31,7 +35,7 @@ namespace OpenTibia.Game.Commands
 
             if (fromContainer != null)
             {
-                Item fromItem = fromContainer.GetContent(FromContainerId) as Item;
+                Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
@@ -41,12 +45,19 @@ namespace OpenTibia.Game.Commands
 
                     if (container != null)
                     {
-                        OpenOrCloseContainer(Player, container, server, context);
+                        if (FromContainerId == ContainerId)
+                        {
+                            CloseOrReplaceContainer(Player, FromContainerId, container, server, context);
+                        }
+                        else
+                        {
+                            CloseOrOpenContainer(Player, container, server, context);
+                        }
                     }
+
+                    base.Execute(server, context);
                 }
             }
-
-            base.Execute(server, context);
         }
     }
 }

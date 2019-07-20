@@ -33,12 +33,15 @@ namespace OpenTibia.Game.Commands
 
             if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
             {
-                //Act
+                Player toPlayer = server.Map.GetCreature(ToCreatureId) as Player;
 
-                
+                if (toPlayer != null && toPlayer != Player)
+                {
+                    //Act
+
+                    base.Execute(server, context);
+                }
             }
-
-            base.Execute(server, context);
         }
     }
 }

@@ -4,7 +4,7 @@ namespace OpenTibia.Game.Commands
 {
     public class UseItemWithItemFromContainerToInventoryCommand : UseItemWithItemCommand
     {
-        public UseItemWithItemFromContainerToInventoryCommand(Player player, byte fromContainerId, byte fromContainerIndex, byte toSlot)
+        public UseItemWithItemFromContainerToInventoryCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort fromItemId, byte toSlot, ushort toItemId)
         {
             Player = player;
 
@@ -12,7 +12,11 @@ namespace OpenTibia.Game.Commands
 
             FromContainerIndex = fromContainerIndex;
 
+            FromItemId = fromItemId;
+
             ToSlot = toSlot;
+
+            ToItemId = toItemId;
         }
 
         public Player Player { get; set; }
@@ -21,21 +25,36 @@ namespace OpenTibia.Game.Commands
 
         public byte FromContainerIndex { get; set; }
 
+        public ushort FromItemId { get; set; }
+
         public byte ToSlot { get; set; }
+
+        public ushort ToItemId { get; set; }
 
         public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
-            
+            Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
 
-            //Act
+            if (fromContainer != null)
+            {
+                Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
 
-            
+                if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
+                {
+                    Inventory toInventory = Player.Inventory;
 
-            //Notify
+                    Item toItem = toInventory.GetContent(ToSlot) as Item;
 
-            
+                    if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
+                    {
+                        //Act
+
+                        base.Execute(server, context);
+                    }
+                }
+            }
         }
     }
 }

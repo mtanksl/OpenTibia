@@ -20,60 +20,78 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        private Dictionary<byte, Container> containers = new Dictionary<byte, Container>();
+        private Container[] containers = new Container[255];
 
-        private Dictionary<Container, byte> containerIds = new Dictionary<Container, byte>();
-
-        private byte GenerateId()
+        private byte GenerateContainerId()
         {
-            for (byte id = 0; id < 255; id++)
+            for (byte containerId = 0; containerId < containers.Length; containerId++)
             {
-                if ( !containers.ContainsKey(id) )
+                if (containers[containerId] == null)
                 {
-                    return id;
+                    return containerId;
                 }
             }
 
             throw new Exception();
         }
 
-        public Container GetContainer(byte containerId)
-        {
-            Container container;
-
-            containers.TryGetValue(containerId, out container);
-
-            return container;
-        }
-
-        public bool HasContainer(Container container, out byte containerId)
-        {
-            return containerIds.TryGetValue(container, out containerId);
-        }
-
         public byte OpenContainer(Container container)
         {
-            byte containerId = GenerateId();
+            byte containerId = GenerateContainerId();
 
-            containers.Add(containerId, container);
-
-            containerIds.Add(container, containerId);
+            containers[containerId] = container;
 
             return containerId;
         }
 
-        public byte CloseContainer(Container container)
+        public void OpenContainer(byte containerId, Container container)
         {
-            byte containerId;
+            containers[containerId] = container;
+        }
 
-            if ( HasContainer(container, out containerId) )
+        public void CloseContainer(byte containerId)
+        {
+            containers[containerId] = null;
+        }
+
+        public Container GetContainer(byte containerId)
+        {
+            if (containerId < 0 || containerId > containers.Length - 1)
             {
-                containers.Remove(containerId);
-
-                containerIds.Remove(container);
+                return null;
             }
 
-            return containerId;
+            return containers[containerId];
+        }
+
+        public IEnumerable<Container> GetContainers()
+        {
+            foreach (var container in containers)
+            {
+                if (container != null)
+                {
+                    yield return container;
+                }
+            }
+        }
+
+        public IEnumerable< KeyValuePair<byte, Container> > GetIndexedContainers()
+        {
+            for (byte containerId = 0; containerId < containers.Length; containerId++)
+            {
+                if (containers[containerId] != null)
+                {
+                    yield return new KeyValuePair<byte, Container>(containerId, containers[containerId] );
+                }
+            }
+        }
+
+        public void Clear()
+        {
+            for (byte containerId = 0; containerId < containers.Length; containerId++)
+            {
+                containers[containerId] = null;
+            }
         }
     }
 }

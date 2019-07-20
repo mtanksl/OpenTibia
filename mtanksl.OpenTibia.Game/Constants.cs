@@ -10,14 +10,12 @@ namespace OpenTibia.Game
 
         public static readonly string SorryNotPossible = "Sorry, not possible.";
 
+        public static readonly string ThisIsImpossible = "This is impossible.";
+
+
         public static string PlayerWalkSchedulerEvent(Player player)
         {
             return "Player_Walk_" + player.Id;
-        }
-
-        public static string PlayerPingSchedulerEvent(Player player)
-        {
-            return "Player_Ping_" + player.Id;
         }
     }
 }

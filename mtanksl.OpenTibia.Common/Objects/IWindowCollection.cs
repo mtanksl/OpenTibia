@@ -1,13 +1,21 @@
-﻿namespace OpenTibia.Common.Objects
+﻿using System.Collections.Generic;
+
+namespace OpenTibia.Common.Objects
 {
     public interface IWindowCollection
     {
-        Window GetWindow(byte windowId);
-
-        bool HasWindow(Window window, out byte windowId);
-
         byte OpenWindow(Window window);
 
-        byte CloseWindow(Window window);
+        void OpenWindow(byte windowId, Window window);
+
+        void CloseWindow(byte windowId);
+
+        Window GetWindow(byte windowId);
+
+        IEnumerable<Window> GetWindows();
+
+        IEnumerable< KeyValuePair<byte, Window> > GetIndexedWindows();
+
+        void Clear();
     }
 }

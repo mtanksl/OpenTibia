@@ -23,11 +23,16 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            //Act
+            Inventory fromInventory = Player.Inventory;
 
-            //Notify
+            Item fromItem = fromInventory.GetContent(FromSlot) as Item;
 
-            base.Execute(server, context);
+            if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+            {
+                //Act
+
+                base.Execute(server, context);
+            }
         }
     }
 }

@@ -45,13 +45,13 @@ namespace OpenTibia.Game.Commands
                 {
                     //Act
 
-                    RemoveItem(fromInventory, fromItem, server, context);
+                    RemoveItem(fromInventory, FromSlot, server, context);
 
                     AddItem(toInventory, ToSlot, fromItem, server, context);
+
+                    base.Execute(server, context);
                 }
             }
-
-            base.Execute(server, context);
         }
     }
 }

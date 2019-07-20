@@ -5,7 +5,7 @@ namespace OpenTibia.Game.Commands
 {
     public class UseItemWithItemFromTileToContainerCommand : UseItemWithItemCommand
     {
-        public UseItemWithItemFromTileToContainerCommand(Player player, Position fromPosition, byte fromIndex, byte toContainerId, byte toContainerIndex)
+        public UseItemWithItemFromTileToContainerCommand(Player player, Position fromPosition, byte fromIndex, ushort fromItemId, byte toContainerId, byte toContainerIndex, ushort toItemId)
         {
             Player = player;
 
@@ -13,9 +13,13 @@ namespace OpenTibia.Game.Commands
 
             FromIndex = fromIndex;
 
-            ToContainerId = ToContainerId;
+            FromItemId = fromItemId;
 
-            ToContainerIndex = ToContainerIndex;
+            ToContainerId = toContainerId;
+
+            ToContainerIndex = toContainerIndex;
+
+            ToItemId = toItemId;
         }
 
         public Player Player { get; set; }
@@ -24,23 +28,41 @@ namespace OpenTibia.Game.Commands
 
         public byte FromIndex { get; set; }
 
+        public ushort FromItemId { get; set; }
+
         public byte ToContainerId { get; set; }
 
         public byte ToContainerIndex { get; set; }
+
+        public ushort ToItemId { get; set; }
 
         public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
-            
+            Tile fromTile = server.Map.GetTile(FromPosition);
 
-            //Act
+            if (fromTile != null)
+            {
+                Item fromItem = fromTile.GetContent(FromIndex) as Item;
 
-            
+                if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
+                {
+                    Container toContainer = Player.Client.ContainerCollection.GetContainer(ToContainerId);
 
-            //Notify
+                    if (toContainer != null)
+                    {
+                        Item toItem = toContainer.GetContent(ToContainerIndex) as Item;
 
+                        if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
+                        {
+                            //Act
 
+                            base.Execute(server, context);
+                        }
+                    }
+                }
+            }
         }
     }
 }

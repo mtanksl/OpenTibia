@@ -32,11 +32,24 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            //Act
+            Tile fromTile = server.Map.GetTile(FromPosition);
 
-            //Notify
+            if (fromTile != null)
+            {
+                Item fromItem = fromTile.GetContent(FromIndex) as Item;
 
-            base.Execute(server, context);
+                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                {
+                    Creature ToCreature = server.Map.GetCreature(ToCreatureId);
+
+                    if (ToCreature != null && ToCreature != Player)
+                    {
+                        //Act
+
+                        base.Execute(server, context);
+                    }
+                }
+            }
         }
     }
 }

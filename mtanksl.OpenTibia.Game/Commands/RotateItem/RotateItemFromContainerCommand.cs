@@ -27,11 +27,19 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            //Act
+            Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
 
-            //Notify
+            if (fromContainer != null)
+            {
+                Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
 
-            base.Execute(server, context);
+                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                {
+                    //Act
+
+                    base.Execute(server, context);
+                }
+            }
         }
     }
 }

@@ -24,28 +24,13 @@ namespace OpenTibia.Common.Objects
             throw new NotSupportedException();
         }
 
-        public byte RemoveContent(IContent content)
+        public void RemoveContent(byte index)
         {
-            byte index = GetIndex(content);
+            IContent content = GetContent(index);
 
             contents.RemoveAt(index);
 
             content.Container = null;
-
-            return index;
-        }
-
-        public byte ReplaceContent(IContent before, IContent after)
-        {
-            byte index = GetIndex(before);
-
-            contents[index] = after;
-
-            before.Container = null;
-
-            after.Container = this;
-
-            return index;
         }
 
         public byte GetIndex(IContent content)
@@ -58,7 +43,24 @@ namespace OpenTibia.Common.Objects
                 }
             }
 
-            return 255;
+            throw new Exception();
+        }
+
+        public bool TryGetIndex(IContent content, out byte i)
+        {
+            for (byte index = 0; index < contents.Count; index++)
+            {
+                if (contents[index] == content)
+                {
+                    i = index;
+
+                    return true;
+                }
+            }
+
+            i = 0;
+
+            return false;
         }
 
         public IContent GetContent(byte index)

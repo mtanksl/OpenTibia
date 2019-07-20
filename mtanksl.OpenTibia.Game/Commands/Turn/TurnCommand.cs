@@ -27,19 +27,22 @@ namespace OpenTibia.Game.Commands
 
             //Act
 
-            Player.Direction = Direction;
-
-            //Notify
-
-            foreach (var observer in server.Map.GetPlayers() )
+            if (Player.Direction != Direction)
             {
-                if (observer.Tile.Position.CanSee(fromTile.Position) )
-                {
-                    context.Write(observer.Client.Connection, new ThingUpdateOutgoingPacket(fromTile.Position, fromIndex, Player.Id, Direction) );                        
-                }
-            }
+                 Player.Direction = Direction;
 
-            base.Execute(server, context);
+                //Notify
+
+                foreach (var observer in server.Map.GetPlayers() )
+                {
+                    if (observer.Tile.Position.CanSee(fromTile.Position) )
+                    {
+                        context.Write(observer.Client.Connection, new ThingUpdateOutgoingPacket(fromTile.Position, fromIndex, Player.Id, Direction) );                        
+                    }
+                }
+
+                base.Execute(server, context);
+            }
         }
     }
 }

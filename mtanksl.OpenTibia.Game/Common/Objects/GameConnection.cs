@@ -291,10 +291,10 @@ namespace OpenTibia.Common.Objects
                                 var packet = server.PacketsFactory.Create<UseItemIncomingPacket>(reader);
 
                                 Position fromPosition = new Position(packet.X, packet.Y, packet.Z);
-
+                                
                                 if (fromPosition.IsContainer)
                                 {
-                                    command = new UseItemFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.ItemId);
+                                    command = new UseItemFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.ItemId, packet.ContainerId);
                                 }
                                 else if (fromPosition.IsInventory)
                                 {
@@ -307,7 +307,7 @@ namespace OpenTibia.Common.Objects
                             }
                             break;
 
-                        case 0x83: //TODO
+                        case 0x83:
                             {
                                 var packet = server.PacketsFactory.Create<UseItemWithItemIncomingPacket>(reader);
 
@@ -319,45 +319,45 @@ namespace OpenTibia.Common.Objects
                                 {
                                     if (toPosition.IsContainer)
                                     {
-                                        command = new UseItemWithItemFromContainerToContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, toPosition.ContainerId, toPosition.ContainerIndex);
+                                        command = new UseItemWithItemFromContainerToContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.ToItemId);
                                     }
                                     else if (toPosition.IsInventory)
                                     {
-                                        command = new UseItemWithItemFromContainerToInventoryCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, toPosition.InventoryIndex);
+                                        command = new UseItemWithItemFromContainerToInventoryCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromItemId, toPosition.InventoryIndex, packet.ToItemId);
                                     }
                                     else
                                     {
-                                        command = new UseItemWithItemFromContainerToTileCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, toPosition);
+                                        command = new UseItemWithItemFromContainerToTileCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromItemId, toPosition, packet.ToIndex, packet.ToItemId);
                                     }
                                 }
                                 else if (fromPosition.IsInventory)
                                 {
                                     if (toPosition.IsContainer)
                                     {
-                                        command = new UseItemWithItemFromInventoryToContainerCommand(Client.Player, fromPosition.InventoryIndex, toPosition.ContainerId, toPosition.ContainerIndex);
+                                        command = new UseItemWithItemFromInventoryToContainerCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.ToItemId);
                                     }
                                     else if (toPosition.IsInventory)
                                     {
-                                        command = new UseItemWithItemFromInventoryToInventoryCommand(Client.Player, fromPosition.InventoryIndex, toPosition.InventoryIndex);
+                                        command = new UseItemWithItemFromInventoryToInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition.InventoryIndex, packet.ToItemId);
                                     }
                                     else
                                     {
-                                        command = new UseItemWithItemFromInventoryToTileCommand(Client.Player, fromPosition.InventoryIndex, toPosition);
+                                        command = new UseItemWithItemFromInventoryToTileCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition, packet.ToIndex, packet.ToItemId);
                                     }
                                 }
                                 else
                                 {
                                     if (toPosition.IsContainer)
                                     {
-                                        command = new UseItemWithItemFromTileToContainerCommand(Client.Player, fromPosition, packet.FromIndex, toPosition.ContainerId, toPosition.ContainerIndex);
+                                        command = new UseItemWithItemFromTileToContainerCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.ToItemId);
                                     }
                                     else if (toPosition.IsInventory)
                                     {
-                                        command = new UseItemWithItemFromTileToInventoryCommand(Client.Player, fromPosition, packet.FromIndex, toPosition.InventoryIndex);
+                                        command = new UseItemWithItemFromTileToInventoryCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromItemId, toPosition.InventoryIndex, packet.ToItemId);
                                     }
                                     else
                                     {
-                                        command = new UseItemWithItemFromTileToTileCommand(Client.Player, fromPosition, packet.FromIndex, toPosition);
+                                        command = new UseItemWithItemFromTileToTileCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromItemId, toPosition, packet.ToIndex, packet.ToItemId);
                                     }
                                 }
                             }

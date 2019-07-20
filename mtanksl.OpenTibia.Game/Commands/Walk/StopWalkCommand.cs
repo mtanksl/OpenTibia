@@ -23,9 +23,9 @@ namespace OpenTibia.Game.Commands
                 //Notify
 
                 context.Write(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
-            }
 
-            base.Execute(server, context);
+                base.Execute(server, context);
+            }
         }
     }
 }

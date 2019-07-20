@@ -20,60 +20,78 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        private Dictionary<byte, Window> windows = new Dictionary<byte, Window>();
+        private Window[] windows = new Window[255];
 
-        private Dictionary<Window, byte> windowIds = new Dictionary<Window, byte>();
-
-        private byte GenerateId()
+        private byte GenerateWindowId()
         {
-            for (byte id = 0; id < 255; id++)
+            for (byte windowId = 0; windowId < windows.Length; windowId++)
             {
-                if ( !windows.ContainsKey(id) )
+                if (windows[windowId] == null)
                 {
-                    return id;
+                    return windowId;
                 }
             }
 
             throw new Exception();
         }
 
-        public Window GetWindow(byte windowId)
-        {
-            Window window;
-
-            windows.TryGetValue(windowId, out window);
-
-            return window;
-        }
-
-        public bool HasWindow(Window window, out byte windowId)
-        {
-            return windowIds.TryGetValue(window, out windowId);
-        }
-
         public byte OpenWindow(Window window)
         {
-            byte windowId = GenerateId();
+            byte windowId = GenerateWindowId();
 
-            windows.Add(windowId, window);
-
-            windowIds.Add(window, windowId);
+            windows[windowId] = window;
 
             return windowId;
         }
 
-        public byte CloseWindow(Window window)
+        public void OpenWindow(byte windowId, Window window)
         {
-            byte windowId;
+            windows[windowId] = window;
+        }
 
-            if ( HasWindow(window, out windowId) )
+        public void CloseWindow(byte windowId)
+        {
+            windows[windowId] = null;
+        }
+
+        public Window GetWindow(byte windowId)
+        {
+            if (windowId < 0 || windowId > windows.Length - 1)
             {
-                windows.Remove(windowId);
-
-                windowIds.Remove(window);
+                return null;
             }
 
-            return windowId;
+            return windows[windowId];
+        }
+
+        public IEnumerable<Window> GetWindows()
+        {
+            foreach (var window in windows)
+            {
+                if (window != null)
+                {
+                    yield return window;
+                }
+            }
+        }
+
+        public IEnumerable< KeyValuePair<byte, Window> > GetIndexedWindows()
+        {
+            for (byte windowId = 0; windowId < windows.Length; windowId++)
+            {
+                if (windows[windowId] != null)
+                {
+                    yield return new KeyValuePair<byte, Window>(windowId, windows[windowId] );
+                }
+            }
+        }
+
+        public void Clear()
+        {
+            for (byte windowId = 0; windowId < windows.Length; windowId++)
+            {
+                windows[windowId] = null;
+            }
         }
     }
 }

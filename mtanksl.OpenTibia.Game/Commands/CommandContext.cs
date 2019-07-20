@@ -1,6 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
-using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
@@ -43,9 +42,11 @@ namespace OpenTibia.Game.Commands
 
         private HashSet<IConnection> connections = new HashSet<IConnection>();
 
-        public void Disconnect(IConnection connection)
+        public CommandContext Disconnect(IConnection connection)
         {
             connections.Add(connection);
+
+            return this;
         }
 
         public void Flush()

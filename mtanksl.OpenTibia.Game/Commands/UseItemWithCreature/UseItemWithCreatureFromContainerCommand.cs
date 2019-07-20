@@ -31,11 +31,24 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            //Act
+            Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
 
-            //Notify
-                        
-            base.Execute(server, context);
+            if (fromContainer != null)
+            {
+                Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
+
+                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                {
+                    Creature ToCreature = server.Map.GetCreature(ToCreatureId);
+
+                    if (ToCreature != null && ToCreature != Player)
+                    {
+                        //Act
+
+                        base.Execute(server, context);
+                    }
+                }
+            }
         }
     }
 }

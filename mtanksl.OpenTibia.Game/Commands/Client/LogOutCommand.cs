@@ -19,15 +19,23 @@ namespace OpenTibia.Game.Commands
 
             Tile fromTile = Player.Tile;
 
+            byte fromIndex = fromTile.GetIndex(Player);
+
             Position fromPosition = fromTile.Position;
 
             //Act
 
-            server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(Player) );
-
             server.Map.RemoveCreature(Player);
 
-            byte fromIndex = fromTile.RemoveContent(Player);
+            fromTile.RemoveContent(fromIndex);
+
+            //Clear
+
+            server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(Player));
+
+            Player.Client.ContainerCollection.Clear();
+
+            Player.Client.WindowCollection.Clear();
 
             //Notify
 

@@ -27,11 +27,21 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            //Act
+            Inventory fromInventory = Player.Inventory;
 
-            //Notify
+            Item fromItem = fromInventory.GetContent(FromSlot) as Item;
 
-            base.Execute(server, context);
+            if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+            {
+                Creature ToCreature = server.Map.GetCreature(ToCreatureId);
+
+                if (ToCreature != null && ToCreature != Player)
+                {
+                    //Act
+
+                    base.Execute(server, context);
+                }
+            }
         }
     }
 }

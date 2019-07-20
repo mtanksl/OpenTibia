@@ -6,7 +6,7 @@ namespace OpenTibia.Game.Commands
 {
     public abstract class LookCommand : Command
     {
-        protected void Look(Player player, Item fromItem, Server server, CommandContext context)
+        protected void Look(Player player, Item item, Server server, CommandContext context)
         {
             //Act
 
