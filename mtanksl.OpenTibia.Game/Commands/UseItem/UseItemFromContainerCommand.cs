@@ -45,13 +45,13 @@ namespace OpenTibia.Game.Commands
 
                     if (container != null)
                     {
-                        if (FromContainerId == ContainerId)
+                        if (ContainerId == FromContainerId)
                         {
-                            CloseOrReplaceContainer(Player, FromContainerId, container, server, context);
+                            ReplaceOrCloseContainer(Player, ContainerId, container, server, context);
                         }
                         else
                         {
-                            CloseOrOpenContainer(Player, container, server, context);
+                            OpenOrCloseContainer(Player, container, server, context);
                         }
                     }
 

@@ -32,14 +32,11 @@ namespace OpenTibia.Game.Commands
 
             //Act
 
-            //Notify
-
-            if (observer != null)
+            if (observer != null && observer != Player)
             {
-                if (observer != Player)
-                {
-                    context.Write(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Private, Message) );
-                }
+                //Notify
+
+                context.Write(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Private, Message) );
             }
 
             base.Execute(server, context);

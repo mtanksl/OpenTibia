@@ -1,6 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Game.Commands;
 using OpenTibia.Network.Packets.Outgoing;
 using System.Linq;
 
@@ -22,34 +21,30 @@ namespace OpenTibia.Game.Commands
         public override void Execute(Server server, CommandContext context)
         {
             //Arrange
+           
+            PrivateChannel privateChannel = server.Channels.GetPrivateChannelByOwner(Player);
 
-            Player observer = server.Map.GetPlayers()
-                .Where(p => p.Name == Name)
-                .FirstOrDefault();
-
-            //Act
-
-            if (observer != null)
+            if (privateChannel != null)
             {
-                if (observer != Player)
+                Player observer = server.Map.GetPlayers()
+                   .Where(p => p.Name == Name)
+                   .FirstOrDefault();
+
+                if (observer != null && observer != Player)
                 {
-                    PrivateChannel privateChannel = server.Channels.GetPrivateChannel(Player);
-
-                    if (privateChannel != null)
+                    if ( !privateChannel.ContainsPlayer(observer) && !privateChannel.ContainsInvitation(observer) )
                     {
-                        if ( !privateChannel.ContainsInvitation(observer) )
-                        {
-                            if ( !privateChannel.ContainsPlayer(observer) )
-                            {
-                                privateChannel.AddInvitation(observer);
+                        //Act
 
-                                //Notify
+                        privateChannel.AddInvitation(observer);
 
-                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been invited.") );
+                        //Notify
 
-                                context.Write(observer.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " invites you to his private chat channel." ) );
-                            }
-                        }
+                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been invited.") );
+
+                        context.Write(observer.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " invites you to his private chat channel." ) );
+
+                        base.Execute(server, context);
                     }
                 }
             }

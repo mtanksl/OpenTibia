@@ -15,7 +15,5 @@ namespace OpenTibia.Common.Objects
         IEnumerable<Window> GetWindows();
 
         IEnumerable< KeyValuePair<byte, Window> > GetIndexedWindows();
-
-        void Clear();
     }
 }

@@ -85,13 +85,5 @@ namespace OpenTibia.Common.Objects
                 }
             }
         }
-
-        public void Clear()
-        {
-            for (byte containerId = 0; containerId < containers.Length; containerId++)
-            {
-                containers[containerId] = null;
-            }
-        }
     }
 }

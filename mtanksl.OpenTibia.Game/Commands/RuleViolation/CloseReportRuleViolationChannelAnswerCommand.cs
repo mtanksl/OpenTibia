@@ -29,7 +29,7 @@ namespace OpenTibia.Game.Commands
 
             if (observer != null)
             {
-                RuleViolation ruleViolation = server.RuleViolations.GetRuleViolation(observer);
+                RuleViolation ruleViolation = server.RuleViolations.GetRuleViolationByReporter(observer);
 
                 if (ruleViolation != null)
                 {

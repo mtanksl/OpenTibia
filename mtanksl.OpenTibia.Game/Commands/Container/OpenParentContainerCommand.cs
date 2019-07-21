@@ -43,10 +43,10 @@ namespace OpenTibia.Game.Commands
                     }
 
                     context.Write(Player.Client.Connection, new OpenContainerOutgoingPacket(ContainerId, parentContainer.Metadata.TibiaId, parentContainer.Metadata.Name, parentContainer.Metadata.Capacity, parentContainer.Container is Container, items) );
+
+                    base.Execute(server, context);
                 }
             }
-
-            base.Execute(server, context);
         }
     }
 }

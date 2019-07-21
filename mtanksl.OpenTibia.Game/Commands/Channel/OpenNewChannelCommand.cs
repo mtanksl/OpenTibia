@@ -45,12 +45,22 @@ namespace OpenTibia.Game.Commands
 
             foreach (var privateChannel in server.Channels.GetPrivateChannels() )
             {
-                if (privateChannel.ContainsInvitation(Player) || privateChannel.ContainsPlayer(Player) )
+                if ( privateChannel.ContainsPlayer(Player) || privateChannel.ContainsInvitation(Player) )
                 {
                     channels.Add(new Channel(privateChannel.Id, privateChannel.Name) );
                 }
             }
-            
+
+            foreach (var guildChannel in server.Channels.GetGuildChannels() )
+            {
+                
+            }
+
+            foreach (var partyChannel in server.Channels.GetPartyChannels() )
+            {
+                
+            }
+
             //Act
 
             //Notify

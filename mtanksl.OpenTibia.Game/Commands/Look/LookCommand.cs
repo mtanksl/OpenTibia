@@ -10,8 +10,6 @@ namespace OpenTibia.Game.Commands
         {
             //Act
 
-
-
             //Notify
 
             context.Write(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You see nothing special.") );

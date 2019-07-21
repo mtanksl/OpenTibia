@@ -6,7 +6,7 @@ namespace OpenTibia.Game.Commands
 {
     public abstract class UseItemCommand : Command
     {
-        protected void CloseOrReplaceContainer(Player player, byte fromContainerId, Container container, Server server, CommandContext context)
+        protected void ReplaceOrCloseContainer(Player player, byte containerId, Container container, Server server, CommandContext context)
         {
             bool replace = true;
 
@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
             {
                 //Act
 
-                player.Client.ContainerCollection.OpenContainer(fromContainerId, container);
+                player.Client.ContainerCollection.OpenContainer(containerId, container);
 
                 //Notify
 
@@ -41,11 +41,11 @@ namespace OpenTibia.Game.Commands
                     items.Add(item);
                 }
 
-                context.Write(player.Client.Connection, new OpenContainerOutgoingPacket(fromContainerId, container.Metadata.TibiaId, container.Metadata.Name, container.Metadata.Capacity, container.Container is Container, items) );
+                context.Write(player.Client.Connection, new OpenContainerOutgoingPacket(containerId, container.Metadata.TibiaId, container.Metadata.Name, container.Metadata.Capacity, container.Container is Container, items) );
             }
         }
 
-        protected void CloseOrOpenContainer(Player player, Container container, Server server, CommandContext context)
+        protected void OpenOrCloseContainer(Player player, Container container, Server server, CommandContext context)
         {
             bool open = true;
 

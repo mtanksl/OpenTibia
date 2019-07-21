@@ -501,7 +501,6 @@ namespace OpenTibia.Common.Objects
                                         command = new BroadcastMessageCommand(Client.Player, packet.Message);
 
                                         break;
-
                                 }
                             }
                             break;
@@ -604,7 +603,7 @@ namespace OpenTibia.Common.Objects
                             }
                             break;
 
-                        case 0xA5: //TODO
+                        case 0xA5:
                             {
                                 var packet = server.PacketsFactory.Create<RevokePartyIncomingPacket>(reader);
 

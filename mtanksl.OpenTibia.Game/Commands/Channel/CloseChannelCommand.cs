@@ -1,4 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Network.Packets.Outgoing;
+using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -21,43 +23,43 @@ namespace OpenTibia.Game.Commands
 
             Channel channel = server.Channels.GetChannel(ChannelId);
 
-            //Act
-
             if (channel != null)
             {
+                //Act
+
+                if (channel.ContainsPlayer(Player) )
+                {
+                    channel.RemovePlayer(Player);
+                }
+
                 PrivateChannel privateChannel = channel as PrivateChannel;
 
                 if (privateChannel != null)
                 {
-                    if (privateChannel.ContainsInvitation(Player) )
+                    if (privateChannel.Owner == Player)
                     {
-                        //
-                    }
-                    else if (privateChannel.ContainsPlayer(Player) )
-                    {
-                        channel.RemovePlayer(Player);
-                    }
-                    else
-                    {
-                        return;
-                    }
-                }
-                else
-                {
-                    if (channel.ContainsPlayer(Player) )
-                    {
-                        channel.RemovePlayer(Player);
-                    }
-                    else
-                    {
-                        //
+                        foreach (var observer in privateChannel.GetPlayers().ToList() )
+                        {
+                            context.Write(observer.Client.Connection, new CloseChannelOutgoingPacket(channel.Id) );
+
+                            privateChannel.RemovePlayer(observer);
+                        }
+
+                        foreach (var observer in privateChannel.GetInvitations().ToList() )
+                        {
+                            privateChannel.RemoveInvitation(observer);
+                        }
+
+                        server.Channels.RemoveChannel(privateChannel);
                     }
                 }
+
+                //Notify
+
+                context.Write(Player.Client.Connection, new CloseChannelOutgoingPacket(channel.Id) );
+
+                base.Execute(server, context);
             }
-
-            //Notify
-
-            base.Execute(server, context);
         }
     }
 }

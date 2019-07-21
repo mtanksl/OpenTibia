@@ -23,64 +23,103 @@ namespace OpenTibia.Game.Commands
 
             Channel channel = server.Channels.GetChannel(ChannelId);
             
-            //Act
-            
             if (channel != null)
             {
                 PrivateChannel privateChannel = channel as PrivateChannel;
 
                 if (privateChannel != null)
                 {
-                    if (privateChannel.ContainsInvitation(Player) )
+                    if ( !privateChannel.ContainsPlayer(Player) )
                     {
+                        if ( !privateChannel.ContainsInvitation(Player) )
+                        {
+                            return;
+                        }
+
+                        //Act
+
                         privateChannel.RemoveInvitation(Player);
 
                         privateChannel.AddPlayer(Player);
                     }
-                    else if (privateChannel.ContainsPlayer(Player) )
-                    {
-                        //
-                    }
-                    else
-                    {
-                        return;
-                    }
+
+                    //Notify
+
+                    context.Write(Player.Client.Connection, new OpenChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
+
+                    base.Execute(server, context);
                 }
                 else
                 {
-                    if (channel.ContainsPlayer(Player) )
-                    {
-                        //
-                    }
-                    else
-                    { 
-                        channel.AddPlayer(Player);
-                    }
-                }
+                    GuildChannel guildChannel = channel as GuildChannel;
 
-                if (channel.Id == 3)
-                {
-                    //Notify
-
-                    context.Write(Player.Client.Connection, new OpenRuleViolationsChannelOutgoingPacket(channel.Id) );
-                    
-                    foreach (var ruleViolation in server.RuleViolations.GetRuleViolations() )
+                    if (guildChannel != null)
                     {
-                        if (ruleViolation.Assignee == null)
+                        if ( !guildChannel.ContainsPlayer(Player) )
                         {
-                            context.Write(Player.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationOpen, ruleViolation.Time, ruleViolation.Message) );
-                        }
-                    }
-                }
-                else
-                {
-                    //Notify
+                            //Act
 
-                    context.Write(Player.Client.Connection, new OpenChannelOutgoingPacket(channel.Id, channel.Name) );
+                            guildChannel.AddPlayer(Player);
+                        }
+
+                        //Notify
+
+                        context.Write(Player.Client.Connection, new OpenChannelOutgoingPacket(guildChannel.Id, guildChannel.Name) );
+
+                        base.Execute(server, context);
+                    }
+                    else
+                    {
+                        PartyChannel partyChannel = channel as PartyChannel;
+
+                        if (partyChannel != null)
+                        {
+                            if ( !partyChannel.ContainsPlayer(Player) )
+                            {
+                                //Act
+
+                                partyChannel.AddPlayer(Player);
+                            }
+
+                            //Notify
+
+                            context.Write(Player.Client.Connection, new OpenChannelOutgoingPacket(partyChannel.Id, partyChannel.Name) );
+
+                            base.Execute(server, context);
+                        }
+                        else
+                        {
+                            if ( !channel.ContainsPlayer(Player) )
+                            {
+                                //Act
+
+                                channel.AddPlayer(Player);
+                            }
+
+                            //Notify
+
+                            if (channel.Id == 3)
+                            {
+                                context.Write(Player.Client.Connection, new OpenRuleViolationsChannelOutgoingPacket(channel.Id) );
+                    
+                                foreach (var ruleViolation in server.RuleViolations.GetRuleViolations() )
+                                {
+                                    if (ruleViolation.Assignee == null)
+                                    {
+                                        context.Write(Player.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationOpen, ruleViolation.Time, ruleViolation.Message) );
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                context.Write(Player.Client.Connection, new OpenChannelOutgoingPacket(channel.Id, channel.Name) );
+                            }
+
+                            base.Execute(server, context);
+                        }
+                    }                    
                 }
             }
-
-            base.Execute(server, context);
         }
     }
 }

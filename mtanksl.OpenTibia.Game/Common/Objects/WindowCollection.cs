@@ -85,13 +85,5 @@ namespace OpenTibia.Common.Objects
                 }
             }
         }
-
-        public void Clear()
-        {
-            for (byte windowId = 0; windowId < windows.Length; windowId++)
-            {
-                windows[windowId] = null;
-            }
-        }
     }
 }

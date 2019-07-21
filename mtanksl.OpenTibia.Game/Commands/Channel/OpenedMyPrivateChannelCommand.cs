@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            PrivateChannel privateChannel = server.Channels.GetPrivateChannel(Player);
+            PrivateChannel privateChannel = server.Channels.GetPrivateChannelByOwner(Player);
 
             //Act
 
@@ -26,8 +26,10 @@ namespace OpenTibia.Game.Commands
                 {
                     Owner = Player,
 
-                    Name = Player.Name + " Channel"
+                    Name = Player.Name + "'s channel"
                 };
+
+                privateChannel.AddPlayer(Player);
 
                 server.Channels.AddChannel(privateChannel);
             }
@@ -35,6 +37,8 @@ namespace OpenTibia.Game.Commands
             //Notify
 
             context.Write(Player.Client.Connection, new OpenMyPrivateChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
+
+            base.Execute(server, context);
         }
     }
 }

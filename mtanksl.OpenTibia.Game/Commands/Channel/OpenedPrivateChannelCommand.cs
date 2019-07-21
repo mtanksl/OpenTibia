@@ -27,14 +27,11 @@ namespace OpenTibia.Game.Commands
 
             //Act
             
-            if (observer != null)
+            if (observer != null && observer != Player)
             {
-                if (observer != Player)
-                {
-                    //Notify
+                //Notify
 
-                    context.Write(Player.Client.Connection, new OpenPrivateChannelOutgoingPacket(Name) );
-                }
+                context.Write(Player.Client.Connection, new OpenPrivateChannelOutgoingPacket(Name) );
             }
 
             base.Execute(server, context);

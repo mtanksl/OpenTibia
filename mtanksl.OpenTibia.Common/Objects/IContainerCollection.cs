@@ -15,7 +15,5 @@ namespace OpenTibia.Common.Objects
         IEnumerable<Container> GetContainers();
 
         IEnumerable<KeyValuePair<byte, Container> > GetIndexedContainers();
-
-        void Clear();
     }
 }

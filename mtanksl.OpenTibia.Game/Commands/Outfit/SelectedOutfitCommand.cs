@@ -25,18 +25,23 @@ namespace OpenTibia.Game.Commands
 
             byte fromIndex = fromTile.GetIndex(Player);
 
-            //Act
-
-            Player.Outfit = Outfit;
-
-            //Notify
-
-            foreach (var observer in server.Map.GetPlayers() )
+            if (Player.Outfit != Outfit)
             {
-                if (observer.Tile.Position.CanSee(fromTile.Position) )
+                //Act
+
+                Player.Outfit = Outfit;
+
+                //Notify
+
+                foreach (var observer in server.Map.GetPlayers() )
                 {
-                    context.Write(observer.Client.Connection, new SetOutfitOutgoingPacket(Player.Id, Outfit) );
+                    if (observer.Tile.Position.CanSee(fromTile.Position) )
+                    {
+                        context.Write(observer.Client.Connection, new SetOutfitOutgoingPacket(Player.Id, Outfit) );
+                    }
                 }
+
+                base.Execute(server, context);
             }
         }
     }

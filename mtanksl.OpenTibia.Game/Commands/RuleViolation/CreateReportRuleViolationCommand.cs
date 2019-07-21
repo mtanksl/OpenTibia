@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            RuleViolation ruleViolation = server.RuleViolations.GetRuleViolation(Player);
+            RuleViolation ruleViolation = server.RuleViolations.GetRuleViolationByReporter(Player);
 
             //Act
 

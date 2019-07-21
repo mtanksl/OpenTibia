@@ -42,7 +42,7 @@ namespace OpenTibia.Game.Commands
 
                     if (container != null)
                     {
-                        CloseOrOpenContainer(Player, container, server, context);
+                        OpenOrCloseContainer(Player, container, server, context);
                     }
 
                     base.Execute(server, context);

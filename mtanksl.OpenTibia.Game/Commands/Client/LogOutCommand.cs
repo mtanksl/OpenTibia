@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
+using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -29,14 +30,62 @@ namespace OpenTibia.Game.Commands
 
             fromTile.RemoveContent(fromIndex);
 
-            //Clear
+            //Clear events...
 
-            server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(Player));
+            server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(Player) );
 
-            Player.Client.ContainerCollection.Clear();
+            //Clear channels...
 
-            Player.Client.WindowCollection.Clear();
+            foreach (var channel in server.Channels.GetChannels().ToList() )
+            {
+                if (channel.ContainsPlayer(Player) )
+                {
+                    channel.RemovePlayer(Player);
+                }
 
+                PrivateChannel privateChannel = channel as PrivateChannel;
+
+                if (privateChannel != null)
+                {
+                    if (privateChannel.ContainsInvitation(Player) )
+                    {
+                        privateChannel.RemoveInvitation(Player);
+                    }
+
+                    if (privateChannel.Owner == Player)
+                    {
+                        foreach (var observer in privateChannel.GetPlayers().ToList() )
+                        {
+                            context.Write(observer.Client.Connection, new CloseChannelOutgoingPacket(channel.Id) );
+
+                            privateChannel.RemovePlayer(observer);
+                        }
+
+                        foreach (var observer in privateChannel.GetInvitations().ToList() )
+                        {
+                            privateChannel.RemoveInvitation(observer);
+                        }
+
+                        server.Channels.RemoveChannel(privateChannel);
+                    }
+                }
+            }
+
+            //Clear rule violations...
+
+            foreach (var ruleViolation in server.RuleViolations.GetRuleViolations().ToList() )
+            {
+                if (ruleViolation.Reporter == Player)
+                {
+
+                }
+
+                if (ruleViolation.Assignee == Player)
+                {
+
+                }
+            }
+            
             //Notify
 
             foreach (var observer in server.Map.GetPlayers() )

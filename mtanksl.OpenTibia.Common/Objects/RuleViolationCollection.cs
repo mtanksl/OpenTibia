@@ -17,10 +17,17 @@ namespace OpenTibia.Common.Objects
             ruleViolations.Remove(ruleViolation);
         }
         
-        public RuleViolation GetRuleViolation(Player reporter)
+        public RuleViolation GetRuleViolationByReporter(Player reporter)
         {
             return GetRuleViolations()
                 .Where(r => r.Reporter == reporter)
+                .FirstOrDefault();
+        }
+        
+        public RuleViolation GetRuleViolationByAssignee(Player assignee)
+        {
+            return GetRuleViolations()
+                .Where(r => r.Assignee == assignee)
                 .FirstOrDefault();
         }
 
