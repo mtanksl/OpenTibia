@@ -30,11 +30,11 @@ namespace OpenTibia.Game.Commands
 
             fromTile.RemoveContent(fromIndex);
 
-            //Clear events...
+            //Cancel events...
 
             server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(Player) );
 
-            //Clear channels...
+            //Close channels...
 
             foreach (var channel in server.Channels.GetChannels().ToList() )
             {
@@ -71,18 +71,34 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            //Clear rule violations...
+            //Close rule violations...
 
             foreach (var ruleViolation in server.RuleViolations.GetRuleViolations().ToList() )
             {
                 if (ruleViolation.Reporter == Player)
                 {
+                    if (ruleViolation.Assignee == null)
+                    {
+                        server.RuleViolations.RemoveRuleViolation(ruleViolation);
 
+                        foreach (var observer in server.Channels.GetChannel(3).GetPlayers() )
+                        {
+                            context.Write(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
+                        }
+                    }
+                    else
+                    {
+                        server.RuleViolations.RemoveRuleViolation(ruleViolation);
+
+                        context.Write(ruleViolation.Assignee.Client.Connection, new CancelRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
+                    }
                 }
 
                 if (ruleViolation.Assignee == Player)
                 {
+                    server.RuleViolations.RemoveRuleViolation(ruleViolation);
 
+                    context.Write(ruleViolation.Reporter.Client.Connection, new CloseRuleViolationOutgoingPacket() );
                 }
             }
             

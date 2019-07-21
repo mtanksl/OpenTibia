@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            Player observer = server.Map.GetPlayers()
+            Player reporter = server.Map.GetPlayers()
                 .Where(p => p.Name == Name)
                 .FirstOrDefault();
 
@@ -34,20 +34,17 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            if (observer != null)
+            if (reporter != null)
             {
-                RuleViolation ruleViolation = server.RuleViolations.GetRuleViolationByReporter(observer);
+                RuleViolation ruleViolation = server.RuleViolations.GetRuleViolationByReporter(reporter);
 
-                if (ruleViolation != null)
+                if (ruleViolation != null && ruleViolation.Assignee == Player)
                 {
-                    if (ruleViolation.Assignee == Player)
-                    {
-                        context.Write(ruleViolation.Reporter.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Assignee.Name, ruleViolation.Assignee.Level, TalkType.ReportRuleViolationAnswer, Message) );
-                    }
+                    context.Write(ruleViolation.Reporter.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Assignee.Name, ruleViolation.Assignee.Level, TalkType.ReportRuleViolationAnswer, Message) );
+
+                    base.Execute(server, context);
                 }
             }
-
-            base.Execute(server, context);
         }
     }
 }

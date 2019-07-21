@@ -23,10 +23,10 @@ namespace OpenTibia.Game.Commands
 
             RuleViolation ruleViolation = server.RuleViolations.GetRuleViolationByReporter(Player);
 
-            //Act
-
             if (ruleViolation == null)
             {
+                //Act
+
                 ruleViolation = new RuleViolation()
                 {
                     Reporter = Player,
@@ -42,9 +42,9 @@ namespace OpenTibia.Game.Commands
                 {
                     context.Write(observer.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationOpen, ruleViolation.Time, ruleViolation.Message) );
                 }
-            }
 
-            base.Execute(server, context);
+                base.Execute(server, context);
+            }
         }
     }
 }

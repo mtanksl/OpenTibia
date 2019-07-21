@@ -29,20 +29,20 @@ namespace OpenTibia.Game.Commands
 
             //Act
 
-            //Notify
-
             if (channel != null)
             {
                 if (channel.ContainsPlayer(Player) )
                 {
+                    //Notify
+
                     foreach (var observer in channel.GetPlayers() )
                     {
                         context.Write(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.ChannelYellow, channel.Id, Message) );
                     }
+
+                    base.Execute(server, context);
                 }
             }
-
-            base.Execute(server, context);
         }
     }
 }

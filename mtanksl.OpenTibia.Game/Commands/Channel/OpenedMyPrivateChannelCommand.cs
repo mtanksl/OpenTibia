@@ -18,10 +18,10 @@ namespace OpenTibia.Game.Commands
 
             PrivateChannel privateChannel = server.Channels.GetPrivateChannelByOwner(Player);
 
-            //Act
-
             if (privateChannel == null)
             {
+                //Act
+
                 privateChannel = new PrivateChannel()
                 {
                     Owner = Player,

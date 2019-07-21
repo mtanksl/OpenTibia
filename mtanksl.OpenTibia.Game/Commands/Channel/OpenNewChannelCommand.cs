@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
 
                 new Channel(4, "Gamemaster"),
 
-                new Channel(5, "Game chat"),
+                new Channel(5, "Game Chat"),
 
                 new Channel(6, "Trade"),
 
@@ -49,16 +49,6 @@ namespace OpenTibia.Game.Commands
                 {
                     channels.Add(new Channel(privateChannel.Id, privateChannel.Name) );
                 }
-            }
-
-            foreach (var guildChannel in server.Channels.GetGuildChannels() )
-            {
-                
-            }
-
-            foreach (var partyChannel in server.Channels.GetPartyChannels() )
-            {
-                
             }
 
             //Act

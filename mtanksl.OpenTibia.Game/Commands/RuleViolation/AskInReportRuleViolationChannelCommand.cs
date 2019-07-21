@@ -27,15 +27,12 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            if (ruleViolation != null)
+            if (ruleViolation != null && ruleViolation.Assignee != null)
             {
-                if (ruleViolation.Assignee != null)
-                {
-                    context.Write(ruleViolation.Assignee.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationQuestion, Message) );
-                }
-            }
+                context.Write(ruleViolation.Assignee.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationQuestion, Message) );
 
-            base.Execute(server, context);
+                base.Execute(server, context);
+            }
         }
     }
 }
