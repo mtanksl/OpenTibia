@@ -2,8 +2,6 @@
 {
     public interface IConnection 
     {
-        int Port { get; }
-
         IClient Client { get; set; }
 
         uint[] Keys { get; set; }

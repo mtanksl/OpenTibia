@@ -1,5 +1,4 @@
-﻿using System;
-using OpenTibia.Common.Objects;
+﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
@@ -53,11 +52,11 @@ namespace OpenTibia.Game.Commands
                     {
                         //Act
 
-                        Container parent = fromItem as Container;
+                        Container container = fromItem as Container;
 
-                        if (parent != null)
+                        if (container != null)
                         {
-                            CloseContainer(toInventory, parent, server, context);
+                            MoveContainer(fromTile, toInventory, container, server, context);
                         }
 
                         RemoveItem(fromTile, FromIndex, server, context);

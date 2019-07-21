@@ -28,9 +28,9 @@ namespace OpenTibia.Game
 
             scheduler = new Scheduler(dispatcher);
 
-            listeners.Add(new Listener(7171, (port, socket) => new LoginConnection(this, port, socket) ) );
+            listeners.Add(new Listener(7171, socket => new LoginConnection(this, socket) ) );
 
-            listeners.Add(new Listener(7172, (port, socket) => new GameConnection(this, port, socket) ) );
+            listeners.Add(new Listener(7172, socket => new GameConnection(this, socket) ) );
         }
 
         ~Server()

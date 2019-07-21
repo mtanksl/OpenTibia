@@ -95,5 +95,50 @@ namespace OpenTibia.Common.Objects
                 yield return new KeyValuePair<byte, IContent>( index, contents[index] );
             }
         }
+
+        protected Dictionary<Player, int> players = new Dictionary<Player, int>();
+
+        public void AddPlayer(Player player)
+        {
+            int references;
+
+            if ( !players.TryGetValue(player, out references) )
+            {
+                references = 1;
+
+                players.Add(player, references);
+            }
+            else
+            {
+                players[player] = references + 1;
+            }
+        }
+
+        public void RemovePlayer(Player player)
+        {
+            int references;
+
+            if ( players.TryGetValue(player, out references) )
+            {
+                if (references == 1)
+                {
+                    players.Remove(player);
+                }
+                else
+                {
+                    players[player] = references - 1;
+                }
+            }
+        }
+
+        public bool ContainsPlayer(Player player)
+        {
+            return players.ContainsKey(player);
+        }
+
+        public IEnumerable<Player> GetPlayers()
+        {
+            return players.Keys;
+        }
     }
 }

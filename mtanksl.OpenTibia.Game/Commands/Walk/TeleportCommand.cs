@@ -29,31 +29,12 @@ namespace OpenTibia.Game.Commands
 
             Position toPosition = ToTile.Position;
 
-            foreach (var pair in Player.Client.ContainerCollection.GetIndexedContainers() )
-            {
-                Tile tile = pair.Value.GetParent().Container as Tile;
-
-                if (tile != null)
-                {
-                    if ( !tile.Position.IsNextTo(toPosition) )
-                    {
-                        //Act
-
-                        Player.Client.ContainerCollection.CloseContainer(pair.Key);
-
-                        //Notify
-
-                        context.Write(Player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
-                    }
-                }
-            }
-
             //Act
 
             fromTile.RemoveContent(fromIndex);
 
             byte toIndex = ToTile.AddContent(Player);
-
+            
             //Notify
 
             foreach (var observer in server.Map.GetPlayers() )
@@ -110,6 +91,25 @@ namespace OpenTibia.Game.Commands
             else if (deltaX == 1)
             {
                 context.Write(Player.Client.Connection, new SendMapEastOutgoingPacket(server.Map, Player.Client, fromPosition) );
+            }
+
+            foreach (var pair in Player.Client.ContainerCollection.GetIndexedContainers() )
+            {
+                Tile tile = pair.Value.GetParent() as Tile;
+
+                if (tile != null)
+                {
+                    if ( !tile.Position.IsNextTo(toPosition) )
+                    {
+                        //Act
+
+                        Player.Client.ContainerCollection.CloseContainer(pair.Key);
+
+                        //Notify
+
+                        context.Write(Player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                    }
+                }
             }
 
             base.Execute(server, context);

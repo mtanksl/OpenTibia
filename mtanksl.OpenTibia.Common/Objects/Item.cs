@@ -1,4 +1,6 @@
 ﻿using OpenTibia.Common.Structures;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenTibia.Common.Objects
 {
@@ -29,28 +31,21 @@ namespace OpenTibia.Common.Objects
 
         public IContainer Container { get; set; }
 
-        public Item GetParent()
+        public IContainer GetParent()
         {
-            Item item = this;
+            IContainer container = Container;
 
-            while (true)
+            while (container is IContent content)
             {
-                Item parent = item.Container as Item;
-
-                if (parent == null)
-                {
-                    break;
-                }
-
-                item = parent;
+                container = content.Container;
             }
 
-            return item;
+            return container;
         }
 
-        public bool IsChildOfParent(Item parent)
+        public bool IsChildOfParent(IContent parent)
         {
-            Item item = this;
+            IContent item = this;
 
             while (item != null)
             {
@@ -59,7 +54,7 @@ namespace OpenTibia.Common.Objects
                     return true;
                 }
 
-                item = item.Container as Item;
+                item = item.Container as IContent;
             }
 
             return false;

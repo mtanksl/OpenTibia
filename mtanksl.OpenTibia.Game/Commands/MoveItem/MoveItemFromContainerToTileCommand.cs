@@ -50,11 +50,24 @@ namespace OpenTibia.Game.Commands
                     {
                         //Act
 
-                        Container parent = fromItem as Container;
+                        Container container = fromItem as Container;
 
-                        if (parent != null)
+                        if (container != null)
                         {
-                            CloseContainer(toTile, parent, server, context);
+                            switch (fromContainer.GetParent() )
+                            {
+                                case Tile fromTile:
+
+                                    MoveContainer(fromTile, toTile, container, server, context);
+
+                                    break;
+
+                                case Inventory fromInventory:
+
+                                    MoveContainer(fromInventory, toTile, container, server, context);
+
+                                    break;
+                            }
                         }
 
                         RemoveItem(fromContainer, FromContainerIndex, server, context);

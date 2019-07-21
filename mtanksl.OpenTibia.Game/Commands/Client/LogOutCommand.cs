@@ -101,7 +101,21 @@ namespace OpenTibia.Game.Commands
                     context.Write(ruleViolation.Reporter.Client.Connection, new CloseRuleViolationOutgoingPacket() );
                 }
             }
-            
+
+            //Close containers...
+
+            foreach (var container in Player.Client.ContainerCollection.GetContainers() )
+            {
+                container.RemovePlayer(Player);
+            }
+
+            //Close windows...
+
+            foreach (var window in Player.Client.WindowCollection.GetWindows() )
+            {
+                window.RemovePlayer(Player);
+            }
+
             //Notify
 
             foreach (var observer in server.Map.GetPlayers() )

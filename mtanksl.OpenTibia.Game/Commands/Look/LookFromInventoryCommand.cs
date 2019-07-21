@@ -25,13 +25,13 @@ namespace OpenTibia.Game.Commands
 
             Inventory fromInventory = Player.Inventory;
 
-            Item fromItem = fromInventory.GetContent(FromSlot) as Item;
+            Item item = fromInventory.GetContent(FromSlot) as Item;
 
-            if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+            if (item != null && item.Metadata.TibiaId == ItemId)
             {
                 //Act
 
-                Look(Player, fromItem, server, context);
+                Look(Player, item, server, context);
 
                 base.Execute(server, context);
             }

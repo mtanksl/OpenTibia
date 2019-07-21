@@ -31,13 +31,13 @@ namespace OpenTibia.Game.Commands
 
             if (fromContainer != null)
             {
-                Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
+                Item item = fromContainer.GetContent(FromContainerIndex) as Item;
 
-                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                if (item != null && item.Metadata.TibiaId == ItemId)
                 {
                     //Act
 
-                    Look(Player, fromItem, server, context);
+                    Look(Player, item, server, context);
 
                     base.Execute(server, context);
                 }

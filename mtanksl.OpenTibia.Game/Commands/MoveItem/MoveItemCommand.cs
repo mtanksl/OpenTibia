@@ -6,33 +6,15 @@ namespace OpenTibia.Game.Commands
 {
     public abstract class MoveItemCommand : Command
     {
-        protected void CloseContainer(Container toContainer, Container fromContainer, Server server, CommandContext context)
-        {
-            switch (toContainer.GetParent().Container)
-            {
-                case Tile tile:
-
-                    CloseContainer(tile, fromContainer, server, context);
-
-                    break;
-
-                case Inventory inventory:
-
-                    CloseContainer(inventory, fromContainer, server, context);
-
-                    break;
-            }
-        }
-
-        protected void CloseContainer(Tile toTile, Container fromContainer, Server server, CommandContext context)
+        protected void MoveContainer(Tile fromTile, Tile toTile, Container container, Server server, CommandContext context)
         {
             foreach (var observer in server.Map.GetPlayers() )
             {
-                if ( !observer.Tile.Position.IsNextTo(toTile.Position) )
+                if ( observer.Tile.Position.IsNextTo(fromTile.Position) && !observer.Tile.Position.IsNextTo(toTile.Position) )
                 {
                     foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
                     {
-                        if (pair.Value.IsChildOfParent(fromContainer) )
+                        if ( pair.Value.IsChildOfParent(container) )
                         {
                             //Act
 
@@ -47,15 +29,15 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        protected void CloseContainer(Inventory toInventory, Container fromContainer, Server server, CommandContext context)
+        protected void MoveContainer(Tile fromTile, Inventory toInventory, Container container, Server server, CommandContext context)
         {
             foreach (var observer in server.Map.GetPlayers() )
             {
-                if (observer != toInventory.Player)
+                if ( observer.Tile.Position.IsNextTo(fromTile.Position) && observer != toInventory.Player )
                 {
                     foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
                     {
-                        if (pair.Value.IsChildOfParent(fromContainer) )
+                        if ( pair.Value.IsChildOfParent(container) )
                         {
                             //Act
 
@@ -70,6 +52,31 @@ namespace OpenTibia.Game.Commands
             }
         }
 
+        protected void MoveContainer(Inventory fromInventory, Tile toTile, Container container, Server server, CommandContext context)
+        {
+            if ( !fromInventory.Player.Tile.Position.IsNextTo(toTile.Position) )
+            {
+                foreach (var pair in fromInventory.Player.Client.ContainerCollection.GetIndexedContainers())
+                {
+                    if (pair.Value.IsChildOfParent(container))
+                    {
+                        //Act
+
+                        fromInventory.Player.Client.ContainerCollection.CloseContainer(pair.Key);
+
+                        //Notify
+
+                        context.Write(fromInventory.Player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key));
+                    }
+                }
+            }
+        }
+
+        protected void MoveContainer(Inventory fromInventory, Inventory toInventory, Container container, Server server, CommandContext context)
+        {
+            
+        }
+        
         protected void RemoveItem(Tile fromTile, byte fromIndex, Server server, CommandContext context)
         {
             //Act
@@ -106,7 +113,7 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            foreach (var observer in server.Map.GetPlayers() )
+            foreach (var observer in fromContainer.GetPlayers() )
             {
                 foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
                 {
@@ -154,7 +161,7 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            foreach (var observer in server.Map.GetPlayers() )
+            foreach (var observer in toContainer.GetPlayers() )
             {
                 foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
                 {

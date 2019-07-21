@@ -16,9 +16,9 @@ namespace OpenTibia.Network.Sockets
 
         private int port;
 
-        private Func<int, Socket, Connection> factory;
+        private Func<Socket, Connection> factory;
 
-        public Listener(int port, Func<int, Socket, Connection> factory)
+        public Listener(int port, Func<Socket, Connection> factory)
         {
             this.port = port;
 
@@ -61,7 +61,7 @@ namespace OpenTibia.Network.Sockets
                 {
                     try
                     {
-                        Connection connection = factory( port, socket.EndAccept(result) );
+                        Connection connection = factory( socket.EndAccept(result) );
 
                         connection.Disconnected += (sender, e) =>
                         {

@@ -41,17 +41,29 @@ namespace OpenTibia.Common.Objects
 
             windows[windowId] = window;
 
+            window.AddPlayer(client.Player);
+
             return windowId;
         }
 
-        public void OpenWindow(byte windowId, Window window)
+        public void ReplaceWindow(byte windowId, Window newWindow)
         {
-            windows[windowId] = window;
+            Window oldWindow = GetWindow(windowId);
+
+            oldWindow.RemovePlayer(client.Player);
+
+            windows[windowId] = newWindow;
+
+            newWindow.AddPlayer(client.Player);
         }
 
         public void CloseWindow(byte windowId)
         {
+            Window window = GetWindow(windowId);
+
             windows[windowId] = null;
+
+            window.RemovePlayer(client.Player);
         }
 
         public Window GetWindow(byte windowId)

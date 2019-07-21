@@ -36,26 +36,26 @@ namespace OpenTibia.Game.Commands
 
                 switch (content)
                 {
-                    case Item fromItem:
+                    case Item item:
 
-                        if (fromItem.Metadata.TibiaId == ItemId)
+                        if (item.Metadata.TibiaId == ItemId)
                         {
                             //Act
 
-                            Look(Player, fromItem, server, context);
+                            Look(Player, item, server, context);
 
                             base.Execute(server, context);
                         }
 
                         break;
 
-                    case Creature fromCreature:
+                    case Creature creature:
 
                         if (ItemId == 99)
                         {
                             //Act
 
-                            Look(Player, fromCreature, server, context);
+                            Look(Player, creature, server, context);
 
                             base.Execute(server, context);
                         }

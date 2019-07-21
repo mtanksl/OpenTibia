@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace OpenTibia.Common.Objects
 {
-    public class Window : IContainer
+    public class Window
     {
         private List<IContent> contents = new List<IContent>();
         
@@ -13,8 +13,6 @@ namespace OpenTibia.Common.Objects
             byte index = 0;
 
             contents.Insert(index, content);
-
-            content.Container = this;
 
             return index;
         }
@@ -29,8 +27,6 @@ namespace OpenTibia.Common.Objects
             IContent content = GetContent(index);
 
             contents.RemoveAt(index);
-
-            content.Container = null;
         }
 
         public byte GetIndex(IContent content)
@@ -89,6 +85,51 @@ namespace OpenTibia.Common.Objects
             {
                 yield return new KeyValuePair<byte, IContent>( index, contents[index] );
             }
+        }
+
+        protected Dictionary<Player, int> players = new Dictionary<Player, int>();
+
+        public void AddPlayer(Player player)
+        {
+            int references;
+
+            if ( !players.TryGetValue(player, out references) )
+            {
+                references = 1;
+
+                players.Add(player, references);
+            }
+            else
+            {
+                players[player] = references + 1;
+            }
+        }
+
+        public void RemovePlayer(Player player)
+        {
+            int references;
+
+            if ( players.TryGetValue(player, out references) )
+            {
+                if (references == 1)
+                {
+                    players.Remove(player);
+                }
+                else
+                {
+                    players[player] = references - 1;
+                }
+            }
+        }
+
+        public bool ContainsPlayer(Player player)
+        {
+            return players.ContainsKey(player);
+        }
+
+        public IEnumerable<Player> GetPlayers()
+        {
+            return players.Keys;
         }
     }
 }

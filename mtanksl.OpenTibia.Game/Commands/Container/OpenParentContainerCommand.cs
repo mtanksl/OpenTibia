@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Commands
                 {
                     //Act
 
-                    Player.Client.ContainerCollection.OpenContainer(ContainerId, parentContainer);
+                    Player.Client.ContainerCollection.ReplaceContainer(ContainerId, parentContainer);
 
                     //Notify
 

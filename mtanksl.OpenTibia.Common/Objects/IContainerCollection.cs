@@ -6,7 +6,7 @@ namespace OpenTibia.Common.Objects
     {
         byte OpenContainer(Container container);
 
-        void OpenContainer(byte containerId, Container container);
+        void ReplaceContainer(byte containerId, Container container);
 
         void CloseContainer(byte containerId);
 

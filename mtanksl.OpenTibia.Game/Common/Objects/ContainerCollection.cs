@@ -41,17 +41,29 @@ namespace OpenTibia.Common.Objects
 
             containers[containerId] = container;
 
+            container.AddPlayer(client.Player);
+
             return containerId;
         }
 
-        public void OpenContainer(byte containerId, Container container)
+        public void ReplaceContainer(byte containerId, Container newContainer)
         {
-            containers[containerId] = container;
+            Container oldContainer = GetContainer(containerId);
+
+            oldContainer.RemovePlayer(client.Player);
+
+            containers[containerId] = newContainer;
+
+            newContainer.AddPlayer(client.Player);
         }
 
         public void CloseContainer(byte containerId)
         {
+            Container container = GetContainer(containerId);
+
             containers[containerId] = null;
+
+            container.RemovePlayer(client.Player);
         }
 
         public Container GetContainer(byte containerId)
