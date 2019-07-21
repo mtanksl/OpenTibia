@@ -138,6 +138,32 @@
             }
         }
         
+        public bool IsNextTo(Position that)
+        {
+            int deltaZ = that.z - this.z;
+
+            if (deltaZ != 0)
+            {
+                return false;
+            }
+
+            int deltaY = that.y - this.y + deltaZ;
+
+            if (deltaY < -1 || deltaY > 1)
+            {
+                return false;
+            }
+
+            int deltaX = that.x - this.x + deltaZ;
+
+            if (deltaX < -1 || deltaX > 1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public bool CanSee(Position that)
         {
             int deltaZ = that.z - this.z;

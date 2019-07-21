@@ -42,7 +42,10 @@ namespace OpenTibia.Game.Commands
 
                     if (container != null)
                     {
-                        OpenOrCloseContainer(Player, container, server, context);
+                        if ( Player.Tile.Position.IsNextTo(fromTile.Position) )
+                        {
+                            OpenOrCloseContainer(Player, container, server, context);
+                        }
                     }
 
                     base.Execute(server, context);

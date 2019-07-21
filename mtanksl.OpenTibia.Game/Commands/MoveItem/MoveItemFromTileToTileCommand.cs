@@ -50,6 +50,16 @@ namespace OpenTibia.Game.Commands
                     {
                         //Act
 
+                        Container parent = fromItem as Container;
+
+                        if (parent != null)
+                        {
+                            if ( !Player.Tile.Position.IsNextTo(toTile.Position) )
+                            {
+                                CloseContainers(Player, parent, server, context);
+                            }
+                        }
+
                         RemoveItem(fromTile, FromIndex, server, context);
 
                         AddItem(toTile, fromItem, server, context);

@@ -6,19 +6,21 @@ namespace OpenTibia.Game.Commands
 {
     public abstract class MoveItemCommand : Command
     {
-        protected bool CanMoveItem(Item fromItem, Container toContainer)
+        protected void CloseContainers(Player player, Container parent, Server server, CommandContext context)
         {
-            while (toContainer != null)
+            foreach (var pair in player.Client.ContainerCollection.GetIndexedContainers() )
             {
-                if (fromItem == toContainer)
+                if ( pair.Value.IsChildOfParent(parent) )
                 {
-                    return false;
+                    //Act
+
+                    player.Client.ContainerCollection.CloseContainer(pair.Key);
+
+                    //Notify
+
+                    context.Write(player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
                 }
-
-                toContainer = toContainer.Container as Container;
             }
-
-            return true;
         }
 
         protected void RemoveItem(Tile fromTile, byte fromIndex, Server server, CommandContext context)

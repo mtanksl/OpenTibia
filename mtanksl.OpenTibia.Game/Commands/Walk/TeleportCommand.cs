@@ -28,6 +28,26 @@ namespace OpenTibia.Game.Commands
             Position fromPosition = fromTile.Position;
 
             Position toPosition = ToTile.Position;
+            
+
+            foreach (var pair in Player.Client.ContainerCollection.GetIndexedContainers() )
+            {
+                Tile tile = pair.Value.GetParent().Container as Tile;
+
+                if (tile != null)
+                {
+                    if ( !tile.Position.IsNextTo(toPosition) )
+                    {
+                        //Act
+
+                        Player.Client.ContainerCollection.CloseContainer(pair.Key);
+
+                        //Notify
+
+                        context.Write(Player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                    }
+                }
+            }
 
             //Act
 

@@ -47,7 +47,9 @@ namespace OpenTibia.Game.Commands
 
                 if (toContainer != null)
                 {
-                    if ( !CanMoveItem(fromItem, toContainer) )
+                    Container parent = fromItem as Container;
+
+                    if (parent != null && toContainer.IsChildOfParent(parent) )
                     {
                         context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
                     }
