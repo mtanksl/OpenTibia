@@ -6,19 +6,66 @@ namespace OpenTibia.Game.Commands
 {
     public abstract class MoveItemCommand : Command
     {
-        protected void CloseContainers(Player player, Container parent, Server server, CommandContext context)
+        protected void CloseContainer(Container toContainer, Container fromContainer, Server server, CommandContext context)
         {
-            foreach (var pair in player.Client.ContainerCollection.GetIndexedContainers() )
+            switch (toContainer.GetParent().Container)
             {
-                if ( pair.Value.IsChildOfParent(parent) )
+                case Tile tile:
+
+                    CloseContainer(tile, fromContainer, server, context);
+
+                    break;
+
+                case Inventory inventory:
+
+                    CloseContainer(inventory, fromContainer, server, context);
+
+                    break;
+            }
+        }
+
+        protected void CloseContainer(Tile toTile, Container fromContainer, Server server, CommandContext context)
+        {
+            foreach (var observer in server.Map.GetPlayers() )
+            {
+                if ( !observer.Tile.Position.IsNextTo(toTile.Position) )
                 {
-                    //Act
+                    foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
+                    {
+                        if (pair.Value.IsChildOfParent(fromContainer) )
+                        {
+                            //Act
 
-                    player.Client.ContainerCollection.CloseContainer(pair.Key);
+                            observer.Client.ContainerCollection.CloseContainer(pair.Key);
 
-                    //Notify
+                            //Notify
 
-                    context.Write(player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                            context.Write(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                        }
+                    }
+                }
+            }
+        }
+
+        protected void CloseContainer(Inventory toInventory, Container fromContainer, Server server, CommandContext context)
+        {
+            foreach (var observer in server.Map.GetPlayers() )
+            {
+                if (observer != toInventory.Player)
+                {
+                    foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
+                    {
+                        if (pair.Value.IsChildOfParent(fromContainer) )
+                        {
+                            //Act
+
+                            observer.Client.ContainerCollection.CloseContainer(pair.Key);
+
+                            //Notify
+
+                            context.Write(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                        }
+                    }
                 }
             }
         }

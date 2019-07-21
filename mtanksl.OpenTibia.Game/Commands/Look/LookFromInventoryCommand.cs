@@ -32,9 +32,9 @@ namespace OpenTibia.Game.Commands
                 //Act
 
                 Look(Player, fromItem, server, context);
-            }
 
-            base.Execute(server, context);
+                base.Execute(server, context);
+            }
         }
     }
 }

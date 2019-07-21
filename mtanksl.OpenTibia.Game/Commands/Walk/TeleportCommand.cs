@@ -28,7 +28,6 @@ namespace OpenTibia.Game.Commands
             Position fromPosition = fromTile.Position;
 
             Position toPosition = ToTile.Position;
-            
 
             foreach (var pair in Player.Client.ContainerCollection.GetIndexedContainers() )
             {

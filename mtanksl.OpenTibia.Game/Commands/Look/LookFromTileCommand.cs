@@ -32,17 +32,37 @@ namespace OpenTibia.Game.Commands
 
             if (fromTile != null)
             {
-                Item fromItem = fromTile.GetContent(FromIndex) as Item;
+                IContent content = fromTile.GetContent(FromIndex);
 
-                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                switch (content)
                 {
-                    //Act
+                    case Item fromItem:
 
-                    Look(Player, fromItem, server, context);
+                        if (fromItem.Metadata.TibiaId == ItemId)
+                        {
+                            //Act
+
+                            Look(Player, fromItem, server, context);
+
+                            base.Execute(server, context);
+                        }
+
+                        break;
+
+                    case Creature fromCreature:
+
+                        if (ItemId == 99)
+                        {
+                            //Act
+
+                            Look(Player, fromCreature, server, context);
+
+                            base.Execute(server, context);
+                        }
+
+                        break;
                 }
             }
-
-            base.Execute(server, context);
         }
     }
 }

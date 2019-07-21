@@ -14,5 +14,21 @@ namespace OpenTibia.Game.Commands
 
             context.Write(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You see nothing special.") );
         }
+
+        protected void Look(Player player, Creature creature, Server server, CommandContext context)
+        {
+            //Act
+
+            //Notify
+
+            if (player == creature)
+            {
+                context.Write(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You see yourself.") );
+            }
+            else
+            {
+                context.Write(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You see " + creature.Name + ".") );
+            }
+        }
     }
 }

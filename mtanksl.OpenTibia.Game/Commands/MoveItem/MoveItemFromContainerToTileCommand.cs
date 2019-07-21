@@ -54,10 +54,7 @@ namespace OpenTibia.Game.Commands
 
                         if (parent != null)
                         {
-                            if ( !Player.Tile.Position.IsNextTo(toTile.Position) )
-                            {
-                                CloseContainers(Player, parent, server, context);
-                            }
+                            CloseContainer(toTile, parent, server, context);
                         }
 
                         RemoveItem(fromContainer, FromContainerIndex, server, context);

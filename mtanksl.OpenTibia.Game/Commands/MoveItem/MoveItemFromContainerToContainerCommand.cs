@@ -55,20 +55,25 @@ namespace OpenTibia.Game.Commands
                     {
                         Container parent = fromItem as Container;
 
-                        if (parent != null && toContainer.IsChildOfParent(parent) )
+                        if (parent != null)
                         {
-                            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
-                        }
-                        else
-                        {
+                            if (toContainer.IsChildOfParent(parent) )
+                            {
+                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
+
+                                return;
+                            }
+
                             //Act
 
-                            RemoveItem(fromContainer, FromContainerIndex, server, context);
-
-                            AddItem(toContainer, fromItem, server, context);
-
-                            base.Execute(server, context);
+                            CloseContainer(toContainer, parent,  server, context);
                         }
+                        
+                        RemoveItem(fromContainer, FromContainerIndex, server, context);
+
+                        AddItem(toContainer, fromItem, server, context);
+
+                        base.Execute(server, context);
                     }
                 }
             }

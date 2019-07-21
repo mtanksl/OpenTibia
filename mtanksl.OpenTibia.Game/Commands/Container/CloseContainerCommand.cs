@@ -31,9 +31,9 @@ namespace OpenTibia.Game.Commands
                 //Notify
 
                 context.Write(Player.Client.Connection, new CloseContainerOutgoingPacket(ContainerId) );
-            }
 
-            base.Execute(server, context);
+                base.Execute(server, context);
+            }
         }
     }
 }

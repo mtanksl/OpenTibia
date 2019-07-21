@@ -53,6 +53,13 @@ namespace OpenTibia.Game.Commands
                     {
                         //Act
 
+                        Container parent = fromItem as Container;
+
+                        if (parent != null)
+                        {
+                            CloseContainer(toInventory, parent, server, context);
+                        }
+
                         RemoveItem(fromTile, FromIndex, server, context);
 
                         AddItem(toInventory, ToSlot, fromItem, server, context);
