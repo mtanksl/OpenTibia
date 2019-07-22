@@ -143,12 +143,14 @@
     <Compile Include="Commands\RuleViolation\CreateReportRuleViolationCommand.cs" />
     <Compile Include="Commands\RuleViolation\AskInReportRuleViolationChannelCommand.cs" />
     <Compile Include="Commands\RuleViolation\AnswerInReportRuleViolationChannelCommand.cs" />
+    <Compile Include="IEnumerableExtensions.cs" />
     <Compile Include="ItemFactory.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Common\Objects\Map.cs" />
     <Compile Include="MonsterFactory.cs" />
     <Compile Include="PacketsFactory.cs" />
     <Compile Include="NpcFactory.cs" />
+    <Compile Include="Pathfinding.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

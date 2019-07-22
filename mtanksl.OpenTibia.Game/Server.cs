@@ -9,7 +9,6 @@ using OpenTibia.Game.Commands;
 using OpenTibia.Network.Sockets;
 using OpenTibia.Threading;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game
@@ -53,7 +52,9 @@ namespace OpenTibia.Game
         public NpcFactory NpcFactory { get; set; }
 
         public Map Map { get; set; }
-        
+
+        public Pathfinding Pathfinding { get; set; }
+
         public void Start()
         {
             Logger = new Logger();
@@ -63,6 +64,8 @@ namespace OpenTibia.Game
             RuleViolations = new RuleViolationCollection();
 
             PacketsFactory = new PacketsFactory();
+
+            Pathfinding = new Pathfinding(this);
 
             using (Logger.Measure("Loading items", true) )
             {
@@ -82,8 +85,8 @@ namespace OpenTibia.Game
             using (Logger.Measure("Loading map", true) )
             {
                 Map = new Map(this, OtbmFile.Load("data/map/pholium3.otbm") );
-            }           
-
+            }
+                        
             dispatcher.Start();
 
             scheduler.Start();

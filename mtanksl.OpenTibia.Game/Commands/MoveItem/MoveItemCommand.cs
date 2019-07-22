@@ -56,9 +56,9 @@ namespace OpenTibia.Game.Commands
         {
             if ( !fromInventory.Player.Tile.Position.IsNextTo(toTile.Position) )
             {
-                foreach (var pair in fromInventory.Player.Client.ContainerCollection.GetIndexedContainers())
+                foreach (var pair in fromInventory.Player.Client.ContainerCollection.GetIndexedContainers() )
                 {
-                    if (pair.Value.IsChildOfParent(container))
+                    if ( pair.Value.IsChildOfParent(container) )
                     {
                         //Act
 
@@ -66,7 +66,7 @@ namespace OpenTibia.Game.Commands
 
                         //Notify
 
-                        context.Write(fromInventory.Player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key));
+                        context.Write(fromInventory.Player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
                     }
                 }
             }

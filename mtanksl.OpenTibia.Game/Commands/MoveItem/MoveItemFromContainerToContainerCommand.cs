@@ -54,66 +54,20 @@ namespace OpenTibia.Game.Commands
 
                     if (toContainer != null)
                     {
-                        //Act
-
-                        Container container = fromItem as Container;
-
-                        if (container != null)
+                        if ( toContainer.IsChildOfParent(fromItem) )
                         {
-                            if ( toContainer.IsChildOfParent(container) )
-                            {
-                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
-
-                                return;
-                            }
-
-                            switch (fromContainer.GetParent() )
-                            {
-                                case Tile fromTile:
-
-                                    switch (toContainer.GetParent() )
-                                    {
-                                        case Tile toTile:
-
-                                            MoveContainer(fromTile, toTile, container, server, context);
-
-                                            break;
-
-                                        case Inventory toInventory:
-
-                                            MoveContainer(fromTile, toInventory, container, server, context);
-
-                                            break;
-                                    }
-
-                                    break;
-
-                                case Inventory fromInventory:
-
-                                    switch (toContainer.GetParent() )
-                                    {
-                                        case Tile toTile:
-
-                                            MoveContainer(fromInventory, toTile, container, server, context);
-
-                                            break;
-
-                                        case Inventory toInventory:
-
-                                            MoveContainer(fromInventory, toInventory, container, server, context);
-
-                                            break;
-                                    }
-
-                                    break;
-                            }
+                            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
                         }
+                        else
+                        {
+                            //Act
 
-                        RemoveItem(fromContainer, FromContainerIndex, server, context);
+                            RemoveItem(fromContainer, FromContainerIndex, server, context);
 
-                        AddItem(toContainer, fromItem, server, context);
+                            AddItem(toContainer, fromItem, server, context);
 
-                        base.Execute(server, context);
+                            base.Execute(server, context);
+                        }                        
                     }
                 }
             }

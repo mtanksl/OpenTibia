@@ -99,7 +99,7 @@ namespace OpenTibia.Game.Commands
 
                 if (tile != null)
                 {
-                    if ( !tile.Position.IsNextTo(toPosition) )
+                    if ( !toPosition.IsNextTo(tile.Position) )
                     {
                         //Act
 

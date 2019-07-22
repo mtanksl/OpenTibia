@@ -18,6 +18,12 @@ namespace OpenTibia.Common.Objects
 
         public bool Stackable { get; set; }
 
+        public bool NotWalkable { get; set; }
+
+        public bool BlockProjectile { get; set; }
+
+        public bool BlockPathFinding { get; set; }
+
         public string Name { get; set; }
     }
 }

@@ -12,6 +12,9 @@ namespace OpenTibia.Game
 
         public static readonly string ThisIsImpossible = "This is impossible.";
 
+        public static readonly string YouCanNotThrowThere = "You cannot throw there.";
+
+        public static readonly string ThereIsNoWay = "There is no way.";
 
         public static string PlayerWalkSchedulerEvent(Player player)
         {

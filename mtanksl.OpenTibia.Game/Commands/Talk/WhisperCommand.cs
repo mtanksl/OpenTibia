@@ -27,20 +27,15 @@ namespace OpenTibia.Game.Commands
 
             foreach (var observer in server.Map.GetPlayers() )
             {
-                if (observer != Player)
+                if (observer.Tile.Position.CanHearWhisper(Player.Tile.Position) )
                 {
-                    if (observer.Tile.Position.CanHearWhisper(Player.Tile.Position) )
-                    {
-                        context.Write(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, Message) );
-                    }
-                    else if (observer.Tile.Position.CanHearSay(Player.Tile.Position) )
-                    {
-                        context.Write(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, "pspsps") );
-                    }
+                    context.Write(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, Message) );
+                }
+                else if (observer.Tile.Position.CanHearSay(Player.Tile.Position) )
+                {
+                    context.Write(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, "pspsps") );
                 }
             }
-
-            context.Write(Player.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, Message) );
 
             base.Execute(server, context);
         }

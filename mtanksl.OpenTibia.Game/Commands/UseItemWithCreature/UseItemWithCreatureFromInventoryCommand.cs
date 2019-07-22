@@ -35,7 +35,7 @@ namespace OpenTibia.Game.Commands
             {
                 Creature ToCreature = server.Map.GetCreature(ToCreatureId);
 
-                if (ToCreature != null && ToCreature != Player)
+                if (ToCreature != null)
                 {
                     //Act
 

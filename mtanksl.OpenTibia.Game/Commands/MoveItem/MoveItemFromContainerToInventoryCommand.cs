@@ -51,26 +51,6 @@ namespace OpenTibia.Game.Commands
                     {
                         //Act
 
-                        Container container = fromItem as Container;
-
-                        if (container != null)
-                        {
-                            switch (fromContainer.GetParent() )
-                            {
-                                case Tile fromTile:
-
-                                    MoveContainer(fromTile, toInventory, container, server, context);
-
-                                    break;
-
-                                case Inventory fromInventory:
-
-                                    MoveContainer(fromInventory, toInventory, container, server, context);
-
-                                    break;
-                            }
-                        }
-
                         RemoveItem(fromContainer, FromContainerIndex, server, context);
 
                         AddItem(toInventory, ToSlot, fromItem, server, context);

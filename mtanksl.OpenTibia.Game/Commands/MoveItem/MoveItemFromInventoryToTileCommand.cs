@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
-using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -44,20 +43,20 @@ namespace OpenTibia.Game.Commands
 
                 if (toTile != null)
                 {
-                    //Act
-
-                    Container container = fromItem as Container;
-
-                    if (container != null)
+                    if ( !server.Pathfinding.IsLineOfSightClear(Player.Tile.Position, toTile.Position) )
                     {
-                        MoveContainer(fromInventory, toTile, container, server, context);
+                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
                     }
+                    else
+                    {
+                        //Act
 
-                    RemoveItem(fromInventory, FromSlot, server, context);
+                        RemoveItem(fromInventory, FromSlot, server, context);
 
-                    AddItem(toTile, fromItem, server, context);
+                        AddItem(toTile, fromItem, server, context);
 
-                    base.Execute(server, context);
+                        base.Execute(server, context);
+                    }
                 }
             }
         }

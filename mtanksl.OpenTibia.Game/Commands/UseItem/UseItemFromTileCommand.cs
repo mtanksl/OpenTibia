@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -36,19 +37,39 @@ namespace OpenTibia.Game.Commands
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
-                    //Act
-
-                    Container container = fromItem as Container;
-
-                    if (container != null)
+                    if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
                     {
-                        if ( Player.Tile.Position.IsNextTo(fromTile.Position) )
+                        MoveDirection[] moveDirections = server.Pathfinding.Walk(Player.Tile.Position, fromTile.Position);
+
+                        if (moveDirections.Length == 0)
+                        {
+                            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNoWay) );
+                        }
+                        else
+                        {
+                            WalkToCommand command = new WalkToCommand(Player, moveDirections);
+
+                            command.Completed += (s, e) =>
+                            {
+                                Execute(e.Server, e.Context);
+                            };
+
+                            command.Execute(server, context);
+                        }                       
+                    }
+                    else
+                    {
+                        //Act
+
+                        Container container = fromItem as Container;
+
+                        if (container != null)
                         {
                             OpenOrCloseContainer(Player, container, server, context);
                         }
-                    }
 
-                    base.Execute(server, context);
+                        base.Execute(server, context);
+                    }
                 }
             }
         }

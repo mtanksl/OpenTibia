@@ -1,5 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Network.Packets.Outgoing;
+using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -28,20 +30,22 @@ namespace OpenTibia.Game.Commands
 
             Tile toTile = server.Map.GetTile(toPosition);
 
-            if (toTile != null)
+            if (toTile == null || toTile.GetItems().Any(i => i.Metadata.NotWalkable) )
             {
-                //Act
-
+                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+            }
+            else
+            {
                 TeleportCommand command = new TeleportCommand(Player, toTile);
 
                 command.Completed += (s, e) =>
                 {
-                    OnCompleted(e);
+                    //Act
+
+                    base.Execute(e.Server, e.Context);
                 };
 
                 server.QueueForExecution(Constants.PlayerWalkSchedulerEvent(Player), 1000 * fromTile.Ground.Metadata.Speed / Player.Speed, command);
-
-                //Notify
             }
         }
     }

@@ -1,6 +1,4 @@
 ﻿using OpenTibia.Common.Structures;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace OpenTibia.Common.Objects
 {

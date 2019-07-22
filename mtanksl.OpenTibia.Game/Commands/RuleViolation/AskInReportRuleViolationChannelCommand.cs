@@ -23,12 +23,12 @@ namespace OpenTibia.Game.Commands
 
             RuleViolation ruleViolation = server.RuleViolations.GetRuleViolationByReporter(Player);
 
-            //Act
-
-            //Notify
-
             if (ruleViolation != null && ruleViolation.Assignee != null)
             {
+                //Act
+
+                //Notify
+
                 context.Write(ruleViolation.Assignee.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationQuestion, Message) );
 
                 base.Execute(server, context);

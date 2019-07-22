@@ -45,13 +45,6 @@ namespace OpenTibia.Game.Commands
                 {
                     //Act
 
-                    Container container = fromItem as Container;
-
-                    if (container != null)
-                    {
-                        MoveContainer(fromInventory, toInventory, container, server, context);
-                    }
-
                     RemoveItem(fromInventory, FromSlot, server, context);
 
                     AddItem(toInventory, ToSlot, fromItem, server, context);

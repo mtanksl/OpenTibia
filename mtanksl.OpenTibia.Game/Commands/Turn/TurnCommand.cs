@@ -25,11 +25,11 @@ namespace OpenTibia.Game.Commands
 
             byte fromIndex = fromTile.GetIndex(Player);
 
-            //Act
-
             if (Player.Direction != Direction)
             {
-                 Player.Direction = Direction;
+                //Act
+
+                Player.Direction = Direction;
 
                 //Notify
 

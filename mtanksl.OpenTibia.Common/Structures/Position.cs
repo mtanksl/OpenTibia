@@ -138,6 +138,86 @@
             }
         }
         
+        public Direction ToDirection(Position that)
+        {
+            int deltaY = that.y - this.y;
+
+            int deltaX = that.x - this.x;
+
+            if (deltaX < 0)
+            {
+                return Direction.West;
+            }
+            else if (deltaX == 0)
+            {
+                if (deltaY < 0)
+                {
+                    return Direction.North;
+                }
+                else if (deltaY > 0)
+                {
+                    return Direction.South;
+                }
+            }
+            else if (deltaX > 0)
+            {
+                return Direction.East;
+            }
+
+            return Direction.South;
+        }
+
+        public MoveDirection ToMoveDirection(Position that)
+        {
+            int deltaY = that.y - this.y;
+
+            int deltaX = that.x - this.x;
+
+            if (deltaY < 0)
+            {
+                if (deltaX < 0)
+                {
+                    return MoveDirection.NorthWest;
+                }
+                else if (deltaX == 0)
+                {
+                    return MoveDirection.North;
+                }
+                else if (deltaX > 0)
+                {
+                    return MoveDirection.NorthEast;
+                }
+            }
+            else if (deltaY == 0)
+            {
+                if (deltaX < 0)
+                {
+                    return MoveDirection.West;
+                }
+                else if (deltaX > 0)
+                {
+                    return MoveDirection.East;
+                }
+            }
+            else if (deltaY > 0)
+            {
+                if (deltaX < 0)
+                {
+                    return MoveDirection.SouthWest;
+                }
+                else if (deltaX == 0)
+                {
+                    return MoveDirection.South;
+                }
+                else if (deltaX > 0)
+                {
+                    return MoveDirection.SouthEast;
+                }
+            }
+
+            return MoveDirection.South;
+        }
+
         public bool IsNextTo(Position that)
         {
             int deltaZ = that.z - this.z;

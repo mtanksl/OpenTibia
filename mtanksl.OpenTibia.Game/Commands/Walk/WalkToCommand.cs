@@ -15,35 +15,31 @@ namespace OpenTibia.Game.Commands
         public Player Player { get; set; }
 
         public MoveDirection[] MoveDirections { get; set; }
-        
+
+
+        private int index = 0;
+
         public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
-            //Act
-
-            Walk(0, server, context);
-
-            //Notify
-        }
-
-        protected void Walk(int index, Server server, CommandContext context)
-        {
-            WalkCommand command = new WalkCommand(Player, MoveDirections[index] );
-
-            command.Completed += (s, e) =>
+            if (index < MoveDirections.Length)
             {
-                if (index + 1 < MoveDirections.Length)
-                {
-                    Walk(index + 1, e.Server, e.Context);
-                }
-                else
-                {
-                    OnCompleted(e);
-                }
-            };
+                WalkCommand command = new WalkCommand(Player, MoveDirections[index++] );
 
-            command.Execute(server, context);
+                command.Completed += (s, e) =>
+                {
+                    Execute(e.Server, e.Context);
+                };
+
+                command.Execute(server, context);
+            }
+            else
+            {
+                //Act
+
+                base.Execute(server, context);
+            }
         }
     }
 }

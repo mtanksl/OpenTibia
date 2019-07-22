@@ -48,40 +48,20 @@ namespace OpenTibia.Game.Commands
 
                 if (toContainer != null)
                 {
-                    //Act
-
-                    Container container = fromItem as Container;
-
-                    if (container != null)
+                    if ( toContainer.IsChildOfParent(fromItem) )
                     {
-                        if ( toContainer.IsChildOfParent(container) )
-                        {
-                            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
-
-                            return;
-                        }
-
-                        switch (toContainer.GetParent() )
-                        {
-                            case Tile toTile:
-
-                                MoveContainer(fromInventory, toTile, container, server, context);
-
-                                break;
-
-                            case Inventory toInventory:
-
-                                MoveContainer(fromInventory, toInventory, container, server, context);
-
-                                break;
-                        }
+                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
                     }
+                    else
+                    {
+                        //Act
 
-                    RemoveItem(fromInventory, FromSlot, server, context);
+                        RemoveItem(fromInventory, FromSlot, server, context);
 
-                    AddItem(toContainer, fromItem, server, context);
+                        AddItem(toContainer, fromItem, server, context);
 
-                    base.Execute(server, context);                  
+                        base.Execute(server, context);
+                    }          
                 }
             }
         }

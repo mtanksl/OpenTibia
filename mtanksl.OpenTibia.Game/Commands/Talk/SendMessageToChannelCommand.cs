@@ -27,12 +27,12 @@ namespace OpenTibia.Game.Commands
 
             Channel channel = server.Channels.GetChannel(ChannelId);
 
-            //Act
-
             if (channel != null)
             {
                 if (channel.ContainsPlayer(Player) )
                 {
+                    //Act
+
                     //Notify
 
                     foreach (var observer in channel.GetPlayers() )

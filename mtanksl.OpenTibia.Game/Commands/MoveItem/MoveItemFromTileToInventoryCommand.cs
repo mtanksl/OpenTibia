@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -50,20 +51,36 @@ namespace OpenTibia.Game.Commands
 
                     if (toItem == null)
                     {
-                        //Act
-
-                        Container container = fromItem as Container;
-
-                        if (container != null)
+                        if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
                         {
-                            MoveContainer(fromTile, toInventory, container, server, context);
+                            MoveDirection[] moveDirections = server.Pathfinding.Walk(Player.Tile.Position, fromTile.Position);
+
+                            if (moveDirections.Length == 0)
+                            {
+                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNoWay) );
+                            }
+                            else
+                            {
+                                WalkToCommand command = new WalkToCommand(Player, moveDirections);
+
+                                command.Completed += (s, e) =>
+                                {
+                                    Execute(e.Server, e.Context);
+                                };
+
+                                command.Execute(server, context);
+                            }
                         }
+                        else
+                        {
+                            //Act
 
-                        RemoveItem(fromTile, FromIndex, server, context);
+                            RemoveItem(fromTile, FromIndex, server, context);
 
-                        AddItem(toInventory, ToSlot, fromItem, server, context);
+                            AddItem(toInventory, ToSlot, fromItem, server, context);
 
-                        base.Execute(server, context);
+                            base.Execute(server, context);
+                        }
                     }
                 }
             }

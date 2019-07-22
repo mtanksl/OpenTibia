@@ -48,6 +48,12 @@ namespace OpenTibia.Game
 
                     metadata.Stackable = datItem.Stackable;
 
+                    metadata.NotWalkable = datItem.NotWalkable;
+
+                    metadata.BlockProjectile = datItem.BlockProjectile;
+
+                    metadata.BlockPathFinding = datItem.BlockPathFinding;
+
                     //TODO: Set other properties
                 }
             }

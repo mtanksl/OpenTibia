@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -48,20 +49,43 @@ namespace OpenTibia.Game.Commands
 
                     if (toTile != null)
                     {
-                        //Act
-
-                        Container container = fromItem as Container;
-
-                        if (container != null)
+                        if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
                         {
-                            MoveContainer(fromTile, toTile, container, server, context);
+                            MoveDirection[] moveDirections = server.Pathfinding.Walk(Player.Tile.Position, fromTile.Position);
+
+                            if (moveDirections.Length == 0)
+                            {
+                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNoWay) );
+                            }
+                            else
+                            {
+                                WalkToCommand command = new WalkToCommand(Player, moveDirections);
+
+                                command.Completed += (s, e) =>
+                                {
+                                    Execute(e.Server, e.Context);
+                                };
+
+                                command.Execute(server, context);
+                            }
                         }
+                        else
+                        {
+                            if ( !server.Pathfinding.IsLineOfSightClear(Player.Tile.Position, toTile.Position) )
+                            {
+                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
+                            }
+                            else
+                            {
+                                //Act
 
-                        RemoveItem(fromTile, FromIndex, server, context);
+                                RemoveItem(fromTile, FromIndex, server, context);
 
-                        AddItem(toTile, fromItem, server, context);
+                                AddItem(toTile, fromItem, server, context);
 
-                        base.Execute(server, context);
+                                base.Execute(server, context);
+                            }
+                        }
                     }
                 }
             }

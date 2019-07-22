@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -42,11 +43,34 @@ namespace OpenTibia.Game.Commands
                 {
                     Creature ToCreature = server.Map.GetCreature(ToCreatureId);
 
-                    if (ToCreature != null && ToCreature != Player)
+                    if (ToCreature != null)
                     {
-                        //Act
+                        if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
+                        {
+                            MoveDirection[] moveDirections = server.Pathfinding.Walk(Player.Tile.Position, fromTile.Position);
 
-                        base.Execute(server, context);
+                            if (moveDirections.Length == 0)
+                            {
+                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNoWay) );
+                            }
+                            else
+                            {
+                                WalkToCommand command = new WalkToCommand(Player, moveDirections);
+
+                                command.Completed += (s, e) =>
+                                {
+                                    Execute(e.Server, e.Context);
+                                };
+
+                                command.Execute(server, context);
+                            }                       
+                        }
+                        else
+                        {
+                            //Act
+
+                            base.Execute(server, context);
+                        }
                     }
                 }
             }

@@ -30,16 +30,16 @@ namespace OpenTibia.Game.Commands
                 .Where(p => p.Name == Name)
                 .FirstOrDefault();
 
-            //Act
-
-            //Notify
-
             if (reporter != null)
             {
                 RuleViolation ruleViolation = server.RuleViolations.GetRuleViolationByReporter(reporter);
 
                 if (ruleViolation != null && ruleViolation.Assignee == Player)
                 {
+                    //Act
+
+                    //Notify
+
                     context.Write(ruleViolation.Reporter.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Assignee.Name, ruleViolation.Assignee.Level, TalkType.ReportRuleViolationAnswer, Message) );
 
                     base.Execute(server, context);

@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
-using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -54,40 +53,43 @@ namespace OpenTibia.Game.Commands
 
                     if (toContainer != null)
                     {
-                        //Act
-
-                        Container container = fromItem as Container;
-
-                        if (container != null)
+                        if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
                         {
-                            if ( toContainer.IsChildOfParent(container) )
-                            {
-                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
+                            MoveDirection[] moveDirections = server.Pathfinding.Walk(Player.Tile.Position, fromTile.Position);
 
-                                return;
+                            if (moveDirections.Length == 0)
+                            {
+                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNoWay) );
                             }
-
-                            switch (toContainer.GetParent() )
+                            else
                             {
-                                case Tile toTile:
+                                WalkToCommand command = new WalkToCommand(Player, moveDirections);
 
-                                    MoveContainer(fromTile, toTile, container, server, context);
+                                command.Completed += (s, e) =>
+                                {
+                                    Execute(e.Server, e.Context);
+                                };
 
-                                    break;
-
-                                case Inventory toInventory:
-
-                                    MoveContainer(fromTile, toInventory, container, server, context);
-
-                                    break;
+                                command.Execute(server, context);
                             }
                         }
+                        else
+                        {
+                            if ( toContainer.IsChildOfParent(fromItem) )
+                            {
+                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
+                            }
+                            else
+                            {
+                                //Act
 
-                        RemoveItem(fromTile, FromIndex, server, context);
+                                RemoveItem(fromTile, FromIndex, server, context);
 
-                        AddItem(toContainer, fromItem, server, context);
+                                AddItem(toContainer, fromItem, server, context);
 
-                        base.Execute(server, context);                        
+                                base.Execute(server, context);
+                            }
+                        }
                     }
                 }
             }

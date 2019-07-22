@@ -27,13 +27,8 @@ namespace OpenTibia.Game.Commands
 
             foreach (var observer in server.Map.GetPlayers() )
             {
-                if (observer != Player)
-                {
-                    context.Write(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Broadcast, Message) );
-                }
+                context.Write(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Broadcast, Message) );
             }
-
-            context.Write(Player.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Broadcast, Message) );
 
             base.Execute(server, context);
         }

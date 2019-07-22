@@ -30,10 +30,10 @@ namespace OpenTibia.Game.Commands
                 .Where(p => p.Name == Name)
                 .FirstOrDefault();
 
-            //Act
-
             if (observer != null && observer != Player)
             {
+                //Act
+
                 //Notify
 
                 context.Write(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Private, Message) );
