@@ -166,7 +166,7 @@ namespace OpenTibia.Game
 
                         if ( !open.TryGetValue(nextPosition, out nextNode) )
                         {
-                            if ( callback(nextPosition) )
+                            if ( nextPosition == toPosition || callback(nextPosition) )
                             {
                                 int moves = currentNode.Moves + Node.CalculateCost(moveDirection);
 
