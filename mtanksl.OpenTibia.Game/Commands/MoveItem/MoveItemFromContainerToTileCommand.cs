@@ -61,6 +61,28 @@ namespace OpenTibia.Game.Commands
 
                             AddItem(toTile, fromItem, server, context);
 
+                            Container container = fromItem as Container;
+
+                            if (container != null)
+                            {
+                                switch (fromContainer.GetParent() )
+                                {
+                                    case Tile fromTile:
+
+                                        CloseContainer(fromTile, toTile, container, server, context);
+
+                                        break;
+
+                                    case Inventory fromInventory:
+
+                                        CloseContainer(fromInventory, toTile, container, server, context);
+                                            
+                                        break;
+                                }
+
+                                ShowOrHideOpenParentContainer(container, server, context);
+                            }
+
                             base.Execute(server, context);
                         }
                     }

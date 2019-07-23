@@ -66,6 +66,52 @@ namespace OpenTibia.Game.Commands
 
                             AddItem(toContainer, fromItem, server, context);
 
+                            Container container = fromItem as Container;
+
+                            if (container != null)
+                            {
+                                switch (fromContainer.GetParent() )
+                                {
+                                    case Tile fromTile:
+
+                                        switch (toContainer.GetParent() )
+                                        {
+                                            case Tile toTile:
+
+                                                CloseContainer(fromTile, toTile, container, server, context);
+
+                                                break;
+
+                                            case Inventory toInventory:
+
+                                                CloseContainer(fromTile, toInventory, container, server, context);
+
+                                                break;
+                                        }
+
+                                        break;
+
+                                    case Inventory fromInventory:
+
+                                        switch (toContainer.GetParent() )
+                                        {
+                                            case Tile toTile:
+
+                                                CloseContainer(fromInventory, toTile, container, server, context);
+
+                                                break;
+
+                                            case Inventory toInventory:
+
+                                                CloseContainer(fromInventory, toInventory, container, server, context);
+
+                                                break;
+                                        }
+                                            
+                                        break;
+                                }
+                            }
+
                             base.Execute(server, context);
                         }                        
                     }

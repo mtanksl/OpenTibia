@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
-using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -59,6 +58,28 @@ namespace OpenTibia.Game.Commands
                         RemoveItem(fromInventory, FromSlot, server, context);
 
                         AddItem(toContainer, fromItem, server, context);
+
+                        Container container = fromItem as Container;
+
+                        if (container != null)
+                        {
+                            switch (toContainer.GetParent() )
+                            {
+                                case Tile toTile:
+
+                                    CloseContainer(fromInventory, toTile, container, server, context);
+
+                                    break;
+
+                                case Inventory toInventory:
+
+                                    CloseContainer(fromInventory, toInventory, container, server, context);
+                                            
+                                    break;
+                            }
+
+                            ShowOrHideOpenParentContainer(container, server, context);
+                        }
 
                         base.Execute(server, context);
                     }          

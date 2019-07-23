@@ -55,6 +55,13 @@ namespace OpenTibia.Game.Commands
 
                         AddItem(toTile, fromItem, server, context);
 
+                        Container container = fromItem as Container;
+
+                        if (container != null)
+                        {
+                            CloseContainer(fromInventory, toTile, container, server, context);
+                        }
+
                         base.Execute(server, context);
                     }
                 }
