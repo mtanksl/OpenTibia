@@ -41,4 +41,12 @@ namespace OpenTibia.FileFormats.Otb
 
         WalkStack = 33554432
     }
+
+    public static class ItemFlagsExtensions
+    {
+        public static bool Is(this ItemFlags flags, ItemFlags flag)
+        {
+            return (flags & flag) == flag;
+        }
+    }
 }

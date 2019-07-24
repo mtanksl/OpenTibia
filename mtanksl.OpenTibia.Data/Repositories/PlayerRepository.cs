@@ -11,9 +11,9 @@ namespace OpenTibia.Data
         {
             new AccountRow()
             {
-                Name = "1",
+                Name = "",
 
-                Password = "1",
+                Password = "",
 
                 PremiumDays = 0,
 

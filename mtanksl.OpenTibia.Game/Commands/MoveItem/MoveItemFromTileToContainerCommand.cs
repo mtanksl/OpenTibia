@@ -75,42 +75,56 @@ namespace OpenTibia.Game.Commands
                         }
                         else
                         {
-                            if ( toContainer.IsChildOfParent(fromItem) )
+                            if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
                             {
-                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
+                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
                             }
                             else
                             {
-                                //Act
-
-                                RemoveItem(fromTile, FromIndex, server, context);
-
-                                AddItem(toContainer, fromItem, server, context);
-
-                                Container container = fromItem as Container;
-
-                                if (container != null)
+                                if ( toContainer.GetRootContainer() is Inventory && !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Pickupable) )
                                 {
-                                    switch (toContainer.GetParent() )
-                                    {
-                                        case Tile toTile:
-
-                                            CloseContainer(fromTile, toTile, container, server, context);
-
-                                            break;
-
-                                        case Inventory toInventory:
-
-                                            CloseContainer(fromTile, toInventory, container, server, context);
-                                            
-                                            break;
-                                    }
-
-                                    ShowOrHideOpenParentContainer(container, server, context);
+                                    context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTakeThisObject) );
                                 }
+                                else
+                                {
+                                    if ( toContainer.IsChild(fromItem) )
+                                    {
+                                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
+                                    }
+                                    else
+                                    {
+                                        //Act
 
-                                base.Execute(server, context);
-                            }
+                                        RemoveItem(fromTile, FromIndex, server, context);
+
+                                        AddItem(toContainer, fromItem, server, context);
+
+                                        Container container = fromItem as Container;
+
+                                        if (container != null)
+                                        {
+                                            switch (toContainer.GetRootContainer() )
+                                            {
+                                                case Tile toTile:
+
+                                                    CloseContainer(fromTile, toTile, container, server, context);
+
+                                                    break;
+
+                                                case Inventory toInventory:
+
+                                                    CloseContainer(fromTile, toInventory, container, server, context);
+                                            
+                                                    break;
+                                            }
+
+                                            ShowOrHideOpenParentContainer(container, server, context);
+                                        }
+
+                                        base.Execute(server, context);
+                                    }
+                                }
+                            }                            
                         }
                     }
                 }

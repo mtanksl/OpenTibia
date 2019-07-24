@@ -111,7 +111,7 @@ namespace OpenTibia.Game.Commands
                 {
                     foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
                     {
-                        if ( pair.Value.IsChildOfParent(container) )
+                        if ( pair.Value.IsChild(container) )
                         {
                             //Act
 
@@ -134,7 +134,7 @@ namespace OpenTibia.Game.Commands
                 {
                     foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
                     {
-                        if ( pair.Value.IsChildOfParent(container) )
+                        if ( pair.Value.IsChild(container) )
                         {
                             //Act
 
@@ -155,7 +155,7 @@ namespace OpenTibia.Game.Commands
             {
                 foreach (var pair in fromInventory.Player.Client.ContainerCollection.GetIndexedContainers() )
                 {
-                    if ( pair.Value.IsChildOfParent(container) )
+                    if ( pair.Value.IsChild(container) )
                     {
                         //Act
 

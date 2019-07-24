@@ -1,9 +1,10 @@
 # First run
 
 You need Visual Studio and .NET 4.6.1.
-Just press F5 to run the server. 
+Set PlayerRepository.Ip variable.
+Press F5 to run the server. 
 Use Tibia 8.6 client with an ip changer to connect to localhost on port 7171.
-Use account number 1 and password 1.
+Use account number <empty> and password <empty>.
 
 ![Server and Client](/server.png)
 

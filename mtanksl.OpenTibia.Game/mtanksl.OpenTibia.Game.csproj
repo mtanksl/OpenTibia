@@ -47,6 +47,8 @@
     <Compile Include="Commands\CommandContext.cs" />
     <Compile Include="Commands\Container\OpenParentContainerCommand.cs" />
     <Compile Include="Commands\Container\CloseContainerCommand.cs" />
+    <Compile Include="Commands\Map\CreateItemCommand.cs" />
+    <Compile Include="Commands\Map\CreateMonsterCommand.cs" />
     <Compile Include="Commands\Folow\FollowCommand.cs" />
     <Compile Include="Commands\Look\LookCommand.cs" />
     <Compile Include="Commands\Look\LookFromContainerCommand.cs" />

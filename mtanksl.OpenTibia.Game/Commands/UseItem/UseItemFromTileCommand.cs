@@ -59,16 +59,20 @@ namespace OpenTibia.Game.Commands
                     }
                     else
                     {
-                        //Act
-
                         Container container = fromItem as Container;
 
-                        if (container != null)
+                        if (container == null)
                         {
-                            OpenOrCloseContainer(Player, container, server, context);
+                            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
                         }
+                        else
+                        {
+                            //Act
 
-                        base.Execute(server, context);
+                            OpenOrCloseContainer(Player, container, server, context);
+
+                            base.Execute(server, context);
+                        }
                     }
                 }
             }

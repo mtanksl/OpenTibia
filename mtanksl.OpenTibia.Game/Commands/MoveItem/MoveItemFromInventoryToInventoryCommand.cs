@@ -1,4 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -43,20 +45,27 @@ namespace OpenTibia.Game.Commands
 
                 if (toItem == null)
                 {
-                    //Act
-
-                    RemoveItem(fromInventory, FromSlot, server, context);
-
-                    AddItem(toInventory, ToSlot, fromItem, server, context);
-
-                    Container container = fromItem as Container;
-
-                    if (container != null)
+                    if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
                     {
-                        CloseContainer(fromInventory, toInventory, container, server, context);
+                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
                     }
+                    else
+                    {
+                        //Act
 
-                    base.Execute(server, context);
+                        RemoveItem(fromInventory, FromSlot, server, context);
+
+                        AddItem(toInventory, ToSlot, fromItem, server, context);
+
+                        Container container = fromItem as Container;
+
+                        if (container != null)
+                        {
+                            CloseContainer(fromInventory, toInventory, container, server, context);
+                        }
+
+                        base.Execute(server, context);     
+                    }                    
                 }
             }
         }

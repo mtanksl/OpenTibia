@@ -47,41 +47,48 @@ namespace OpenTibia.Game.Commands
 
                 if (toContainer != null)
                 {
-                    if ( toContainer.IsChildOfParent(fromItem) )
+                    if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
                     {
-                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
+                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
                     }
                     else
                     {
-                        //Act
-
-                        RemoveItem(fromInventory, FromSlot, server, context);
-
-                        AddItem(toContainer, fromItem, server, context);
-
-                        Container container = fromItem as Container;
-
-                        if (container != null)
+                        if ( toContainer.IsChild(fromItem) )
                         {
-                            switch (toContainer.GetParent() )
+                            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
+                        }
+                        else
+                        {
+                            //Act
+
+                            RemoveItem(fromInventory, FromSlot, server, context);
+
+                            AddItem(toContainer, fromItem, server, context);
+
+                            Container container = fromItem as Container;
+
+                            if (container != null)
                             {
-                                case Tile toTile:
+                                switch (toContainer.GetRootContainer() )
+                                {
+                                    case Tile toTile:
 
-                                    CloseContainer(fromInventory, toTile, container, server, context);
+                                        CloseContainer(fromInventory, toTile, container, server, context);
 
-                                    break;
+                                        break;
 
-                                case Inventory toInventory:
+                                    case Inventory toInventory:
 
-                                    CloseContainer(fromInventory, toInventory, container, server, context);
+                                        CloseContainer(fromInventory, toInventory, container, server, context);
                                             
-                                    break;
+                                        break;
+                                }
+
+                                ShowOrHideOpenParentContainer(container, server, context);
                             }
 
-                            ShowOrHideOpenParentContainer(container, server, context);
+                            base.Execute(server, context); 
                         }
-
-                        base.Execute(server, context);
                     }          
                 }
             }

@@ -25,7 +25,7 @@ namespace OpenTibia.FileFormats.Otbm
 
                     case OtbmAttribute.ItemId:
 
-                        tile.ItemId = reader.ReadUShort();
+                        tile.OpenTibiaItemId = reader.ReadUShort();
 
                         break;
 
@@ -59,7 +59,7 @@ namespace OpenTibia.FileFormats.Otbm
 
         public TileFlags Flags { get; set; }
 
-        public ushort ItemId { get; set; }
+        public ushort OpenTibiaItemId { get; set; }
 
         protected List<Item> items;
 

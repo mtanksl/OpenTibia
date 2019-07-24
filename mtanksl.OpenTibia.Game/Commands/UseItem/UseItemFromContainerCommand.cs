@@ -1,4 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -39,12 +41,16 @@ namespace OpenTibia.Game.Commands
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
-                    //Act
-
                     Container container = fromItem as Container;
 
-                    if (container != null)
+                    if (container == null)
                     {
+                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                    }
+                    else
+                    {
+                        //Act
+
                         if (ContainerId == FromContainerId)
                         {
                             ReplaceOrCloseContainer(Player, ContainerId, container, server, context);
@@ -53,9 +59,9 @@ namespace OpenTibia.Game.Commands
                         {
                             OpenOrCloseContainer(Player, container, server, context);
                         }
-                    }
 
-                    base.Execute(server, context);
+                        base.Execute(server, context);
+                    }
                 }
             }
         }

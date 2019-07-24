@@ -19,9 +19,9 @@ namespace OpenTibia.Common.Objects
 
                     tiles.Add(tile.Position, tile);
 
-                    if (otbmTile.ItemId > 0)
+                    if (otbmTile.OpenTibiaItemId > 0)
                     {
-                        Item ground = server.ItemFactory.Create(otbmTile.ItemId);
+                        Item ground = server.ItemFactory.Create(otbmTile.OpenTibiaItemId);
                         
                         tile.AddContent(ground);
                     }

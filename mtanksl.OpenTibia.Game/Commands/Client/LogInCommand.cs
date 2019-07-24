@@ -45,11 +45,11 @@ namespace OpenTibia.Game.Commands
                     {
                         //Arrange
 
-                        Position fromPosition = new Position(account.CoordinateX, account.CoordinateY, account.CoordinateZ);
+                        Position toPosition = new Position(account.CoordinateX, account.CoordinateY, account.CoordinateZ);
 
-                        Tile fromTile = server.Map.GetTile(fromPosition);
+                        Tile toTile = server.Map.GetTile(toPosition);
 
-                        if (fromTile != null)
+                        if (toTile != null)
                         {
                             Player player = new Player()
                             {
@@ -65,7 +65,7 @@ namespace OpenTibia.Game.Commands
 
                             server.Map.AddCreature(player);
 
-                            byte fromIndex = fromTile.AddContent(player);
+                            byte toIndex = toTile.AddContent(player);
 
                             //Notify
 
@@ -73,21 +73,21 @@ namespace OpenTibia.Game.Commands
                             {
                                 if (observer != player)
                                 {
-                                    if (observer.Tile.Position.CanSee(fromPosition) )
+                                    if (observer.Tile.Position.CanSee(toPosition) )
                                     {
                                         uint removeId;
 
                                         if (observer.Client.CreatureCollection.IsKnownCreature(player.Id, out removeId) )
                                         {
-                                            context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(fromPosition, fromIndex, player),
+                                            context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(toPosition, toIndex, player),
 
-                                                                                      new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Teleport) );
+                                                                                      new ShowMagicEffectOutgoingPacket(toPosition, MagicEffectType.Teleport) );
                                         }
                                         else
                                         {
-                                            context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(fromPosition, fromIndex, removeId, player),
+                                            context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(toPosition, toIndex, removeId, player),
 
-                                                                                      new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Teleport) );
+                                                                                      new ShowMagicEffectOutgoingPacket(toPosition, MagicEffectType.Teleport) );
                                         }
                                     }
                                 }
@@ -111,9 +111,9 @@ namespace OpenTibia.Game.Commands
 
                                                       new SetEnvironmentLightOutgoingPacket(Light.Day),
 
-                                                      new SendTilesOutgoingPacket(server.Map, player.Client, fromPosition),
+                                                      new SendTilesOutgoingPacket(server.Map, player.Client, toPosition),
 
-                                                      new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Teleport) );
+                                                      new ShowMagicEffectOutgoingPacket(toPosition, MagicEffectType.Teleport) );
 
                             base.Execute(server, context);
                         }

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Linq;
-using System.Drawing;
-using System.Collections.Generic;
-
-using OpenTibia.FileFormats.Spr;
+﻿using OpenTibia.FileFormats.Spr;
 using OpenTibia.IO;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 
 namespace OpenTibia.FileFormats.Dat
 {
@@ -20,7 +19,7 @@ namespace OpenTibia.FileFormats.Dat
                 {
                     case DatAttribute.IsGround:
 
-                        item.IsGround = true;
+                        item.Flags |= ItemFlags.IsGround;
 
                         item.Speed = reader.ReadUShort();
 
@@ -28,37 +27,37 @@ namespace OpenTibia.FileFormats.Dat
 
                     case DatAttribute.AlwaysOnTop1:
 
-                        item.AlwaysOnTop1 = true;
+                        item.Flags |= ItemFlags.AlwaysOnTop1;
 
                         break;
 
                     case DatAttribute.AlwaysOnTop2:
 
-                        item.AlwaysOnTop2 = true;
+                        item.Flags |= ItemFlags.AlwaysOnTop2;
 
                         break;
 
                     case DatAttribute.AlwaysOnTop3:
 
-                        item.AlwaysOnTop3 = true;
+                        item.Flags |= ItemFlags.AlwaysOnTop3;
 
                         break;
 
                     case DatAttribute.IsContainer:
 
-                        item.IsContainer = true;
+                        item.Flags |= ItemFlags.IsContainer;
 
                         break;
 
                     case DatAttribute.Stackable:
 
-                        item.Stackable = true;
+                        item.Flags |= ItemFlags.Stackable;
 
                         break;
 
                     case DatAttribute.Useable:
 
-                        item.Useable = true;
+                        item.Flags |= ItemFlags.Useable;
 
                         break;
 
@@ -76,67 +75,67 @@ namespace OpenTibia.FileFormats.Dat
 
                     case DatAttribute.IsFluid:
 
-                        item.IsFluid = true;
+                        item.Flags |= ItemFlags.IsFluid;
 
                         break;
 
                     case DatAttribute.IsSplash:
 
-                        item.IsSplash = true;
+                        item.Flags |= ItemFlags.IsSplash;
 
                         break;
 
                     case DatAttribute.NotWalkable:
 
-                        item.NotWalkable = true;
+                        item.Flags |= ItemFlags.NotWalkable;
 
                         break;
 
                     case DatAttribute.NotMoveable:
 
-                        item.NotMoveable = true;
+                        item.Flags |= ItemFlags.NotMoveable;
 
                         break;
 
                     case DatAttribute.BlockProjectile:
 
-                        item.BlockProjectile = true;
+                        item.Flags |= ItemFlags.BlockProjectile;
 
                         break;
 
                     case DatAttribute.BlockPathFinding:
 
-                        item.BlockPathFinding = true;
+                        item.Flags |= ItemFlags.BlockPathFinding;
 
                         break;
 
                     case DatAttribute.Pickupable:
 
-                        item.Pickupable = true;
+                        item.Flags |= ItemFlags.Pickupable;
 
                         break;
 
                     case DatAttribute.Hangable:
 
-                        item.Hangable = true;
+                        item.Flags |= ItemFlags.Hangable;
 
                         break;
 
                     case DatAttribute.Horizontal:
 
-                        item.Horizontal = true;
+                        item.Flags |= ItemFlags.Horizontal;
 
                         break;
 
                     case DatAttribute.Vertical:
 
-                        item.Vertical = true;
+                        item.Flags |= ItemFlags.Vertical;
 
                         break;
 
                     case DatAttribute.Rotatable:
 
-                        item.Rotatable = true;
+                        item.Flags |= ItemFlags.Rotatable;
 
                         break;
 
@@ -164,7 +163,7 @@ namespace OpenTibia.FileFormats.Dat
 
                     case DatAttribute.IdleAnimation:
 
-                        item.IdleAnimation = true;
+                        item.Flags |= ItemFlags.IdleAnimation;
 
                         break;
 
@@ -182,13 +181,13 @@ namespace OpenTibia.FileFormats.Dat
                         
                     case DatAttribute.SolidGround:
 
-                        item.SolidGround = true;
+                        item.Flags |= ItemFlags.SolidGround;
 
                         break;
 
                     case DatAttribute.LookThrough:
 
-                        item.LookThrough = true;
+                        item.Flags |= ItemFlags.LookThrough;
 
                         break;
                         
@@ -229,47 +228,13 @@ namespace OpenTibia.FileFormats.Dat
 
         public ushort TibiaId { get; set; }
 
-        public bool IsGround { get; set; }
+        public ItemFlags Flags { get; set; }
 
         public ushort Speed { get; set; }
-
-        public bool AlwaysOnTop1 { get; set; }
-
-        public bool AlwaysOnTop2 { get; set; }
-
-        public bool AlwaysOnTop3 { get; set; }
-
-        public bool IsContainer { get; set; }
-
-        public bool Stackable { get; set; }
-
-        public bool Useable { get; set; }
 
         public ushort MaxReadWriteChars { get; set; }
 
         public ushort MaxReadChars { get; set; }
-
-        public bool IsFluid { get; set; }
-
-        public bool IsSplash { get; set; }
-
-        public bool NotWalkable { get; set; }
-
-        public bool NotMoveable { get; set; }
-
-        public bool BlockProjectile { get; set; }
-
-        public bool BlockPathFinding { get; set; }
-
-        public bool Pickupable { get; set; }
-
-        public bool Hangable { get; set; }
-
-        public bool Horizontal { get; set; }
-
-        public bool Vertical { get; set; }
-
-        public bool Rotatable { get; set; }
 
         public ushort LightLevel { get; set; }
 
@@ -281,15 +246,9 @@ namespace OpenTibia.FileFormats.Dat
 
         public ushort ItemHeight { get; set; }
 
-        public bool IdleAnimation { get; set; }
-
         public ushort MinimapColor { get; set; }
 
         public ExtraInfo ExtraInfo { get; set; }
-
-        public bool SolidGround { get; set; }
-
-        public bool LookThrough { get; set; }
 
         public byte Width { get; set; }
 

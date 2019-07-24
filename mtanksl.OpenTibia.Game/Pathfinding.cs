@@ -32,7 +32,7 @@ namespace OpenTibia.Game
             {
                 Tile tile = server.Map.GetTile(position);
 
-                if ( tile == null || tile.GetItems().Any(i => i.Metadata.BlockProjectile) )
+                if ( tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.BlockProjectile) ) )
                 {
                     return false;
                 }
@@ -56,7 +56,7 @@ namespace OpenTibia.Game
 
                     Tile tile = server.Map.GetTile(position);
 
-                    if (tile == null || tile.GetItems().Any(i => i.Metadata.NotWalkable || i.Metadata.BlockPathFinding) )
+                    if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || tile.GetCreatures().Any(c => c.Block) )
                     {
                         return false;
                     }

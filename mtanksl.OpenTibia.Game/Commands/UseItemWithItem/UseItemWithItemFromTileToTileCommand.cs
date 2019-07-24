@@ -79,9 +79,16 @@ namespace OpenTibia.Game.Commands
                             }
                             else
                             {
-                                //Act
+                                if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
+                                {
+                                    context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                                }
+                                else
+                                {
+                                    //Act
 
-                                base.Execute(server, context);
+                                    base.Execute(server, context);
+                                }
                             }
                         }
                     }

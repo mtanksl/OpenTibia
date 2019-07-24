@@ -30,13 +30,13 @@ namespace OpenTibia.Game.Commands
 
             Tile toTile = server.Map.GetTile(toPosition);
 
-            if (toTile == null || toTile.GetItems().Any(i => i.Metadata.NotWalkable) )
+            if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || toTile.GetCreatures().Any(c => c.Block) )
             {
                 context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
             }
             else
             {
-                TeleportCommand command = new TeleportCommand(Player, toTile);
+                TeleportCommand command = new TeleportCommand(Player, toPosition);
 
                 command.Completed += (s, e) =>
                 {

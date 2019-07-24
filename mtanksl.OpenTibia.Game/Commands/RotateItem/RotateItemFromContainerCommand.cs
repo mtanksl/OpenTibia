@@ -1,4 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -35,9 +37,16 @@ namespace OpenTibia.Game.Commands
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
-                    //Act
+                    if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Rotatable) )
+                    {
+                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                    }
+                    else
+                    {
+                        //Act
 
-                    base.Execute(server, context);
+                        base.Execute(server, context);
+                    }
                 }
             }
         }

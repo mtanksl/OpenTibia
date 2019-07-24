@@ -1,4 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -49,35 +51,49 @@ namespace OpenTibia.Game.Commands
 
                     if (toItem == null)
                     {
-                        //Act
-
-                        RemoveItem(fromContainer, FromContainerIndex, server, context);
-
-                        AddItem(toInventory, ToSlot, fromItem, server, context);
-
-                        Container container = fromItem as Container;
-
-                        if (container != null)
+                        if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
                         {
-                            switch (fromContainer.GetParent() )
-                            {
-                                case Tile fromTile:
-
-                                    CloseContainer(fromTile, toInventory, container, server, context);
-
-                                    break;
-
-                                case Inventory fromInventory:
-
-                                    CloseContainer(fromInventory, toInventory, container, server, context);
-                                            
-                                    break;
-                            }
-
-                            ShowOrHideOpenParentContainer(container, server, context);
+                            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
                         }
+                        else
+                        {
+                            if ( fromContainer.GetRootContainer() is Tile && !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Pickupable) )
+                            {
+                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTakeThisObject) );
+                            }
+                            else
+                            {
+                                //Act
 
-                        base.Execute(server, context);
+                                RemoveItem(fromContainer, FromContainerIndex, server, context);
+
+                                AddItem(toInventory, ToSlot, fromItem, server, context);
+
+                                Container container = fromItem as Container;
+
+                                if (container != null)
+                                {
+                                    switch (fromContainer.GetRootContainer() )
+                                    {
+                                        case Tile fromTile:
+
+                                            CloseContainer(fromTile, toInventory, container, server, context);
+
+                                            break;
+
+                                        case Inventory fromInventory:
+
+                                            CloseContainer(fromInventory, toInventory, container, server, context);
+                                            
+                                            break;
+                                    }
+
+                                    ShowOrHideOpenParentContainer(container, server, context);
+                                }
+
+                                base.Execute(server, context);  
+                            }
+                        }
                     }
                 }
             }

@@ -1,19 +1,24 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.FileFormats.Dat;
+using OpenTibia.FileFormats.Otb;
+using OpenTibia.FileFormats.Xml.Items;
 using System.Collections.Generic;
 using System.Linq;
+using Item = OpenTibia.Common.Objects.Item;
+using ItemFlags = OpenTibia.FileFormats.Dat.ItemFlags;
 
 namespace OpenTibia.Game
 {
     public class ItemFactory
     {
-        public ItemFactory(OpenTibia.FileFormats.Otb.OtbFile otbFile, OpenTibia.FileFormats.Dat.DatFile datFile, OpenTibia.FileFormats.Xml.Items.ItemsFile itemsFile)
+        public ItemFactory(OtbFile otbFile, DatFile datFile, ItemsFile itemsFile)
         {
             metadatas = new Dictionary<ushort, ItemMetadata>(datFile.Items.Count);
 
             foreach (var otbItem in otbFile.Items)
             {
-                if (otbItem.Group != FileFormats.Otb.ItemGroup.Deprecated)
+                if (otbItem.Group != ItemGroup.Deprecated)
                 {
                     metadatas.Add(otbItem.OpenTibiaId, new ItemMetadata()
                     {
@@ -32,29 +37,32 @@ namespace OpenTibia.Game
                 {
                     ItemMetadata metadata = metadatas[openTibiaId];
 
-                    metadata.TopOrder = datItem.IsGround ? TopOrder.Ground 
-                        
-                                                         : datItem.AlwaysOnTop1 ? TopOrder.HighPriority 
-                                                          
-                                                                                : datItem.AlwaysOnTop2 ? TopOrder.MediumPriority 
-                                                          
-                                                                                                       : datItem.AlwaysOnTop3 ? TopOrder.LowPriority 
-                                                          
-                                                                                                                              : TopOrder.Other;
+                    if (datItem.Flags.Is(ItemFlags.IsGround) )
+                    {
+                        metadata.TopOrder = TopOrder.Ground;
+                    }
+                    else if (datItem.Flags.Is(ItemFlags.AlwaysOnTop1) )
+                    {
+                        metadata.TopOrder = TopOrder.HighPriority;
+                    }
+                    else if (datItem.Flags.Is(ItemFlags.AlwaysOnTop2) )
+                    {
+                        metadata.TopOrder = TopOrder.MediumPriority;
+                    }
+                    else if (datItem.Flags.Is(ItemFlags.AlwaysOnTop3) )
+                    {
+                        metadata.TopOrder = TopOrder.LowPriority;
+                    }
+                    else
+                    {
+                        metadata.TopOrder = TopOrder.Other;
+                    }
+
+                    metadata.Flags = (ItemMetadataFlags)datItem.Flags;
 
                     metadata.Speed = datItem.Speed;
 
-                    metadata.IsContainer = datItem.IsContainer;
-
-                    metadata.Stackable = datItem.Stackable;
-
-                    metadata.NotWalkable = datItem.NotWalkable;
-
-                    metadata.BlockProjectile = datItem.BlockProjectile;
-
-                    metadata.BlockPathFinding = datItem.BlockPathFinding;
-
-                    //TODO: Set other properties
+                    metadata.Light = new Light( (byte)datItem.LightLevel, (byte)datItem.LightColor );
                 }
             }
 
@@ -67,8 +75,6 @@ namespace OpenTibia.Game
                     metadata.Name = xmlItem.Name;
 
                     metadata.Capacity = xmlItem.ContainerSize;
-
-                    //TODO: Set other properties
                 }
             }
         }
@@ -84,11 +90,11 @@ namespace OpenTibia.Game
                 return null;
             }
 
-            if (metadata.IsContainer)
+            if (metadata.Flags.Is(ItemMetadataFlags.IsContainer) )
             {
                 return new Container(metadata);
             }
-            else if (metadata.Stackable)
+            else if (metadata.Flags.Is(ItemMetadataFlags.Stackable) )
             {
                 return new StackableItem(metadata);
             }

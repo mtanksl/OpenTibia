@@ -100,6 +100,29 @@
             return new Position(X + x, Y + y, Z + z);
         }
 
+        public Position Offset(Direction direction)
+        {
+            switch (direction)
+            {
+                case Direction.East:
+
+                    return new Position(this.X + 1, this.Y, this.Z);
+
+                case Direction.North:
+
+                    return new Position(this.X, this.Y - 1, this.Z);
+
+
+                case Direction.West:
+
+                    return new Position(this.X - 1, this.Y, this.Z);
+
+                default:
+
+                    return new Position(this.X, this.Y + 1, this.Z);
+            }
+        }
+
         public Position Offset(MoveDirection moveDirection)
         {
             switch (moveDirection)

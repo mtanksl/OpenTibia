@@ -27,7 +27,7 @@ namespace OpenTibia.FileFormats.Otbm
 
                     case OtbmAttribute.ItemId:
 
-                        houseTile.ItemId = reader.ReadUShort();
+                        houseTile.OpenTibiaItemId = reader.ReadUShort();
 
                         break;
 

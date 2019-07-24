@@ -10,20 +10,14 @@ namespace OpenTibia.Common.Objects
 
         public TopOrder TopOrder { get; set; }
 
+        public ItemMetadataFlags Flags { get; set; }
+
         public ushort Speed { get; set; }
 
-        public bool IsContainer { get; set; }
-
-        public byte Capacity { get; set; }
-
-        public bool Stackable { get; set; }
-
-        public bool NotWalkable { get; set; }
-
-        public bool BlockProjectile { get; set; }
-
-        public bool BlockPathFinding { get; set; }
+        public Light Light { get; set; }
 
         public string Name { get; set; }
+
+        public byte Capacity { get; set; }
     }
 }

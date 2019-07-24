@@ -43,26 +43,33 @@ namespace OpenTibia.Game.Commands
 
                 if (toTile != null)
                 {
-                    if ( !server.Pathfinding.IsLineOfSightClear(Player.Tile.Position, toTile.Position) )
+                    if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
                     {
-                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
+                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
                     }
                     else
                     {
-                        //Act
-
-                        RemoveItem(fromInventory, FromSlot, server, context);
-
-                        AddItem(toTile, fromItem, server, context);
-
-                        Container container = fromItem as Container;
-
-                        if (container != null)
+                        if ( !server.Pathfinding.IsLineOfSightClear(Player.Tile.Position, toTile.Position) )
                         {
-                            CloseContainer(fromInventory, toTile, container, server, context);
+                            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
                         }
+                        else
+                        {
+                            //Act
 
-                        base.Execute(server, context);
+                            RemoveItem(fromInventory, FromSlot, server, context);
+
+                            AddItem(toTile, fromItem, server, context);
+
+                            Container container = fromItem as Container;
+
+                            if (container != null)
+                            {
+                                CloseContainer(fromInventory, toTile, container, server, context);
+                            }
+
+                            base.Execute(server, context);
+                        }      
                     }
                 }
             }

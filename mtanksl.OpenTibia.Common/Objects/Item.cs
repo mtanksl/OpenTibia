@@ -29,7 +29,8 @@ namespace OpenTibia.Common.Objects
 
         public IContainer Container { get; set; }
 
-        public IContainer GetParent()
+
+        public IContainer GetRootContainer()
         {
             IContainer container = Container;
 
@@ -39,11 +40,16 @@ namespace OpenTibia.Common.Objects
             }
 
             return container;
+        }        
+
+        public bool IsParent(Item child)
+        {
+            return child.IsChild(this);
         }
 
-        public bool IsChildOfParent(IContent parent)
+        public bool IsChild(Item parent)
         {
-            IContent item = this;
+            Item item = this;
 
             while (item != null)
             {
@@ -52,7 +58,7 @@ namespace OpenTibia.Common.Objects
                     return true;
                 }
 
-                item = item.Container as IContent;
+                item = item.Container as Item;
             }
 
             return false;

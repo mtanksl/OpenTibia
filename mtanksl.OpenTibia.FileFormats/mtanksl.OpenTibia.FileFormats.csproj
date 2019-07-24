@@ -44,6 +44,7 @@
     <Compile Include="Dat\DatAttribute.cs" />
     <Compile Include="Dat\DatFile.cs" />
     <Compile Include="Dat\ExtraInfo.cs" />
+    <Compile Include="Dat\ItemFlags.cs" />
     <Compile Include="Dat\Item.cs" />
     <Compile Include="Otbm\Area.cs" />
     <Compile Include="Otbm\HouseTile.cs" />
