@@ -145,7 +145,6 @@
     <Compile Include="Commands\RuleViolation\CreateReportRuleViolationCommand.cs" />
     <Compile Include="Commands\RuleViolation\AskInReportRuleViolationChannelCommand.cs" />
     <Compile Include="Commands\RuleViolation\AnswerInReportRuleViolationChannelCommand.cs" />
-    <Compile Include="IEnumerableExtensions.cs" />
     <Compile Include="ItemFactory.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Common\Objects\Map.cs" />

@@ -32,7 +32,7 @@ namespace OpenTibia.Common.Objects
                 }
             }
 
-            throw new Exception();
+            throw new Exception("Container limit exceeded.");
         }
 
         public byte OpenContainer(Container container)

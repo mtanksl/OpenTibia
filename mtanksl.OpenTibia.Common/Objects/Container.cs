@@ -48,7 +48,7 @@ namespace OpenTibia.Common.Objects
                 }
             }
 
-            throw new Exception();
+            throw new Exception("Content not found.");
         }
 
         public bool TryGetIndex(IContent content, out byte i)

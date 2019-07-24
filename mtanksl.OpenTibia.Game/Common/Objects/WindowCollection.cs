@@ -32,7 +32,7 @@ namespace OpenTibia.Common.Objects
                 }
             }
 
-            throw new Exception();
+            throw new Exception("Window limit exceeded.");
         }
 
         public byte OpenWindow(Window window)

@@ -103,17 +103,18 @@ namespace OpenTibia.Game
         {
             dispatcher.QueueForExecution( () =>
             {
-                CommandContext context = new CommandContext();
-
-                try
+                using (var context = new CommandContext() )
                 {
-                    command.Execute(this, context);
+                    try
+                    {
+                        command.Execute(this, context);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.WriteLine(ex.ToString() );
+                    }
 
                     context.Flush();
-                }
-                catch (Exception ex)
-                {
-                    Logger.WriteLine(ex.ToString() );
                 }
             } );
         }
@@ -131,25 +132,24 @@ namespace OpenTibia.Game
                 schedulerEvent.Cancel();
             }
 
-            schedulerEvent = scheduler.QueueForExecution(new SchedulerEvent(executeIn, () =>
+            events.Add(key, scheduler.QueueForExecution(new SchedulerEvent(executeIn, () =>
             {
                 events.Remove(key);
 
-                CommandContext context = new CommandContext();
-
-                try
+                using (var context = new CommandContext() )
                 {
-                    command.Execute(this, context);
+                    try
+                    {
+                        command.Execute(this, context);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.WriteLine(ex.ToString() );
+                    }
 
                     context.Flush();
-                }
-                catch (Exception ex)
-                {
-                    Logger.WriteLine(ex.ToString() );
-                }
-            } ) );
-
-            events.Add(key, schedulerEvent);
+                }                
+            } ) ) );
         }
 
         public bool CancelQueueForExecution(string key)

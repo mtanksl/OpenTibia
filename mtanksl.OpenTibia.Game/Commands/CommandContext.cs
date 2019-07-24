@@ -1,15 +1,31 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
-    public class CommandContext
+    public class CommandContext : IDisposable
     {
+        public CommandContext()
+        {
+
+        }
+
+        ~CommandContext()
+        {
+            Dispose(false);
+        }
+
         private Dictionary<IConnection, Message> messages = new Dictionary<IConnection, Message>();
 
         public CommandContext Write(IConnection connection, IOutgoingPacket packet)
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException( nameof(CommandContext) );
+            }
+
             Message message;
 
             if ( !messages.TryGetValue(connection, out message) )
@@ -26,6 +42,11 @@ namespace OpenTibia.Game.Commands
 
         public CommandContext Write(IConnection connection, params IOutgoingPacket[] packet)
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException( nameof(CommandContext) );
+            }
+
             Message message;
 
             if ( !messages.TryGetValue(connection, out message) )
@@ -44,6 +65,11 @@ namespace OpenTibia.Game.Commands
 
         public CommandContext Disconnect(IConnection connection)
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException( nameof(CommandContext) );
+            }
+
             connections.Add(connection);
 
             return this;
@@ -51,6 +77,11 @@ namespace OpenTibia.Game.Commands
 
         public void Flush()
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException( nameof(CommandContext) );
+            }
+
             foreach (var pair in messages)
             {
                 IConnection connection = pair.Key;
@@ -68,6 +99,28 @@ namespace OpenTibia.Game.Commands
             messages.Clear();
 
             connections.Clear();
+        }
+
+        private bool disposed = false;
+
+        public void Dispose()
+        {
+            Dispose(true);
+
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if ( !disposed )
+            {
+                disposed = true;
+
+                if (disposing)
+                {
+                    
+                }
+            }
         }
     }
 }

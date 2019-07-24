@@ -35,7 +35,7 @@ namespace OpenTibia.Common.Objects
                 }
             }
 
-            throw new Exception();
+            throw new Exception("Channel limit exceeded.");
         }
 
         public void AddChannel(Channel channel)
