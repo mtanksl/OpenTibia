@@ -18,12 +18,7 @@ namespace OpenTibia.Game
 
         public bool IsLineOfSightClear(Position fromPosition, Position toPosition)
         {
-            if (fromPosition.Z != toPosition.Z)
-            {
-                return false;
-            }
-
-            if (toPosition.X < fromPosition.X - 8 || toPosition.Y < fromPosition.Y - 6 || toPosition.X > fromPosition.X + 10 || toPosition.Y > fromPosition.Y + 8)
+            if ( !fromPosition.IsInScreen(toPosition) )
             {
                 return false;
             }
@@ -45,11 +40,11 @@ namespace OpenTibia.Game
         {
             List<MoveDirection> moveDirections = new List<MoveDirection>();
 
-            if (fromPosition.Z == toPosition.Z)
+            if ( fromPosition.IsInScreen(toPosition) )
             {
                 Position[] positions = AStar(fromPosition, toPosition, position =>
                 {
-                    if (position.X < fromPosition.X - 8 || position.Y < fromPosition.Y - 6 || position.X > fromPosition.X + 10 || position.Y > fromPosition.Y + 8)
+                    if ( !fromPosition.IsInScreen(toPosition) )
                     {
                         return false;
                     }

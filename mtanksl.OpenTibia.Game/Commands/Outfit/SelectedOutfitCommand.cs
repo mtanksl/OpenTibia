@@ -6,14 +6,14 @@ namespace OpenTibia.Game.Commands
 {
     public class SelectedOutfitCommand : Command
     {
-        public SelectedOutfitCommand(Player player, Outfit outfit)
+        public SelectedOutfitCommand(Creature creature, Outfit outfit)
         {
-            Player = player;
+            Creature = creature;
 
             Outfit = outfit;
         }
 
-        public Player Player { get; set; }
+        public Creature Creature { get; set; }
 
         public Outfit Outfit { get; set; }
 
@@ -21,15 +21,15 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            Tile fromTile = Player.Tile;
+            Tile fromTile = Creature.Tile;
 
-            byte fromIndex = fromTile.GetIndex(Player);
+            byte fromIndex = fromTile.GetIndex(Creature);
 
-            if (Player.Outfit != Outfit)
+            if (Creature.Outfit != Outfit)
             {
                 //Act
 
-                Player.Outfit = Outfit;
+                Creature.Outfit = Outfit;
 
                 //Notify
 
@@ -37,7 +37,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if (observer.Tile.Position.CanSee(fromTile.Position) )
                     {
-                        context.Write(observer.Client.Connection, new SetOutfitOutgoingPacket(Player.Id, Outfit) );
+                        context.Write(observer.Client.Connection, new SetOutfitOutgoingPacket(Creature.Id, Outfit) );
                     }
                 }
 

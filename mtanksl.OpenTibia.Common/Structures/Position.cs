@@ -241,6 +241,32 @@
             return MoveDirection.South;
         }
 
+        public bool IsInScreen(Position that)
+        {
+            int deltaZ = that.z - this.z;
+
+            if (deltaZ != 0)
+            {
+                return false;
+            }
+
+            int deltaY = that.y - this.y;
+
+            if (deltaY < -6 || deltaY > 7)
+            {
+                return false;
+            }
+
+            int deltaX = that.x - this.x;
+
+            if (deltaX < -8 || deltaX > 9)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public bool IsNextTo(Position that)
         {
             int deltaZ = that.z - this.z;
@@ -301,34 +327,12 @@
 
         public bool CanHearSay(Position that)
         {
-            int deltaZ = that.z - this.z;
-
-            int deltaY = that.y - this.y;
-
-            int deltaX = that.x - this.x;
-
-            if (deltaZ != 0 || deltaX < -8 || deltaX > 9 || deltaY < -6 || deltaY > 7)
-            {
-                return false;
-            }
-
-            return true;
+            return IsInScreen(that);
         }
 
         public bool CanHearWhisper(Position that)
         {
-            int deltaZ = that.z - this.z;
-
-            int deltaY = that.y - this.y;
-
-            int deltaX = that.x - this.x;
-
-            if (deltaZ != 0 || deltaX < -1 || deltaX > 1 || deltaY < -1 || deltaY > 1)
-            {
-                return false;
-            }
-
-            return true;
+            return IsNextTo(that);
         }
 
         public bool CanHearYell(Position that)

@@ -24,28 +24,27 @@ namespace OpenTibia.Game.Commands
 
             Tile fromTile = Player.Tile;
 
-            Position fromPosition = fromTile.Position;
+            Tile toTile = server.Map.GetTile( fromTile.Position.Offset(MoveDirection) );
 
-            Position toPosition = fromPosition.Offset(MoveDirection);
-
-            Tile toTile = server.Map.GetTile(toPosition);
-
-            if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || toTile.GetCreatures().Any(c => c.Block) )
+            if (toTile != null)
             {
-                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
-            }
-            else
-            {
-                TeleportCommand command = new TeleportCommand(Player, toPosition);
-
-                command.Completed += (s, e) =>
+                if ( toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable)) || toTile.GetCreatures().Any(c => c.Block) )
                 {
-                    //Act
+                    context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible));
+                }
+                else
+                {
+                    TeleportCommand command = new TeleportCommand(Player, toTile.Position);
 
-                    base.Execute(e.Server, e.Context);
-                };
+                    command.Completed += (s, e) =>
+                    {
+                        //Act
 
-                server.QueueForExecution(Constants.PlayerWalkSchedulerEvent(Player), 1000 * fromTile.Ground.Metadata.Speed / Player.Speed, command);
+                        base.Execute(e.Server, e.Context);
+                    };
+
+                    server.QueueForExecution(Constants.PlayerWalkSchedulerEvent(Player), 1000 * fromTile.Ground.Metadata.Speed / Player.Speed, command);
+                }
             }
         }
     }

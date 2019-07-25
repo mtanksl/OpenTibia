@@ -5,23 +5,25 @@ namespace OpenTibia.Common.Structures
     [Flags]
     public enum ItemMetadataFlags : uint
     {
-        IsContainer = 16,
+        IsContainer = 1,
 
-        Stackable = 32,
+        Stackable = 2,
 
-        Useable = 64,
+        Useable = 4,
+        
+        NotWalkable = 8,
 
-        NotWalkable = 512,
+        NotMoveable = 16,
 
-        NotMoveable = 1024,
+        BlockProjectile = 32,
 
-        BlockProjectile = 2048,
+        BlockPathFinding = 64,
 
-        BlockPathFinding = 4096,
+        Pickupable = 128,
 
-        Pickupable = 8192,
+        Rotatable = 256,
 
-        Rotatable = 131072
+        HasHeight = 512
     }
 
     public static class ItemMetadataFlagsExtensions

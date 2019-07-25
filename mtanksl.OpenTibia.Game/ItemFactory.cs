@@ -58,11 +58,62 @@ namespace OpenTibia.Game
                         metadata.TopOrder = TopOrder.Other;
                     }
 
-                    metadata.Flags = (ItemMetadataFlags)datItem.Flags;
+                    if (datItem.Flags.Is(ItemFlags.IsContainer) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.IsContainer;
+                    }
+
+                    if (datItem.Flags.Is(ItemFlags.Stackable) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.Stackable;
+                    }
+
+                    if (datItem.Flags.Is(ItemFlags.Useable) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.Useable;
+                    }
+
+                    if (datItem.Flags.Is(ItemFlags.NotWalkable) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.NotWalkable;
+                    }
+
+                    if (datItem.Flags.Is(ItemFlags.NotMoveable) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.NotMoveable;
+                    }
+
+                    if (datItem.Flags.Is(ItemFlags.BlockProjectile) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.BlockProjectile;
+                    }
+
+                    if (datItem.Flags.Is(ItemFlags.BlockPathFinding) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.BlockPathFinding;
+                    }
+
+                    if (datItem.Flags.Is(ItemFlags.Pickupable) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.Pickupable;
+                    }
+
+                    if (datItem.Flags.Is(ItemFlags.Rotatable) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.Rotatable;
+                    }
+
+                    if (datItem.ItemHeight > 0)
+                    {
+                        metadata.Flags |= ItemMetadataFlags.HasHeight;
+                    }
 
                     metadata.Speed = datItem.Speed;
 
-                    metadata.Light = new Light( (byte)datItem.LightLevel, (byte)datItem.LightColor );
+                    if (datItem.LightLevel > 0 || datItem.LightColor > 0)
+                    {
+                        metadata.Light = new Light( (byte)datItem.LightLevel, (byte)datItem.LightColor);
+                    }
                 }
             }
 

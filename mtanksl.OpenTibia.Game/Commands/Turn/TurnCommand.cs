@@ -6,14 +6,14 @@ namespace OpenTibia.Game.Commands
 {
     public class TurnCommand : Command
     {
-        public TurnCommand(Player player, Direction direction)
+        public TurnCommand(Creature creature, Direction direction)
         {
-            Player = player;
+            Creature = creature;
 
             Direction = direction;
         }
 
-        public Player Player { get; set; }
+        public Creature Creature { get; set; }
 
         public Direction Direction { get; set; }
 
@@ -21,15 +21,15 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            Tile fromTile = Player.Tile;
+            Tile fromTile = Creature.Tile;
 
-            byte fromIndex = fromTile.GetIndex(Player);
+            byte fromIndex = fromTile.GetIndex(Creature);
 
-            if (Player.Direction != Direction)
+            if (Creature.Direction != Direction)
             {
                 //Act
 
-                Player.Direction = Direction;
+                Creature.Direction = Direction;
 
                 //Notify
 
@@ -37,7 +37,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if (observer.Tile.Position.CanSee(fromTile.Position) )
                     {
-                        context.Write(observer.Client.Connection, new ThingUpdateOutgoingPacket(fromTile.Position, fromIndex, Player.Id, Direction) );                        
+                        context.Write(observer.Client.Connection, new ThingUpdateOutgoingPacket(fromTile.Position, fromIndex, Creature.Id, Direction) );                        
                     }
                 }
 
