@@ -8,6 +8,8 @@ namespace OpenTibia.Common.Objects
 
         void AddContent(byte index, IContent content);
 
+        void ReplaceContent(byte index, IContent content);
+
         void RemoveContent(byte index);
         
         byte GetIndex(IContent content);

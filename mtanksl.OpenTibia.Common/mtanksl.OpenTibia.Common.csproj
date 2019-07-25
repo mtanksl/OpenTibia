@@ -68,6 +68,7 @@
     <Compile Include="Objects\Container.cs" />
     <Compile Include="Objects\Tile.cs" />
     <Compile Include="Structures\ItemMetadataFlags.cs" />
+    <Compile Include="Structures\Clock.cs" />
     <Compile Include="Structures\TopOrder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Structures\Addon.cs" />

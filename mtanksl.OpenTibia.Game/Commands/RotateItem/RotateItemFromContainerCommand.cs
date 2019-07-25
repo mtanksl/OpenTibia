@@ -14,7 +14,7 @@ namespace OpenTibia.Game.Commands
 
             FromContainerIndex = fromContainerIndex;
 
-            ItemId = ItemId;
+            ItemId = itemId;
         }
 
         public Player Player { get; set; }

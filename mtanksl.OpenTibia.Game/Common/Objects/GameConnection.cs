@@ -657,7 +657,7 @@ namespace OpenTibia.Common.Objects
 
                         case 0xBE:
 
-                            command = new StopWalkCommand(Client.Player);
+                            command = new StopCommand(Client.Player);
 
                             break;
 

@@ -1,4 +1,6 @@
-﻿namespace OpenTibia.Common.Structures
+﻿using System;
+
+namespace OpenTibia.Common.Structures
 {
     public class Position
     {
@@ -240,8 +242,13 @@
 
             return MoveDirection.South;
         }
+         
+        public bool IsInClientRange(Position that)
+        {
+            throw new NotImplementedException();
+        }
 
-        public bool IsInScreen(Position that)
+        public bool IsInPlayerRange(Position that)
         {
             int deltaZ = that.z - this.z;
 
@@ -327,7 +334,7 @@
 
         public bool CanHearSay(Position that)
         {
-            return IsInScreen(that);
+            return IsInPlayerRange(that);
         }
 
         public bool CanHearWhisper(Position that)

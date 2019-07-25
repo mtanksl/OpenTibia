@@ -30,7 +30,9 @@ namespace OpenTibia.Game.Commands
             {
                 if ( toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable)) || toTile.GetCreatures().Any(c => c.Block) )
                 {
-                    context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible));
+                    context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible),
+
+                                                            new StopWalkOutgoingPacket(Player.Direction) );
                 }
                 else
                 {

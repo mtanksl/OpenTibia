@@ -51,7 +51,7 @@ namespace OpenTibia.Game.Commands
                     {
                         if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
                         {
-                            MoveDirection[] moveDirections = server.Pathfinding.Walk(Player.Tile.Position, fromTile.Position);
+                            MoveDirection[] moveDirections = server.Pathfinding.GetMoveDirections(Player.Tile.Position, fromTile.Position);
 
                             if (moveDirections.Length == 0)
                             {
@@ -77,7 +77,7 @@ namespace OpenTibia.Game.Commands
                             }
                             else
                             {
-                                if ( !server.Pathfinding.IsLineOfSightClear(Player.Tile.Position, toTile.Position) )
+                                if ( !server.Pathfinding.CanThrow(Player.Tile.Position, toTile.Position) )
                                 {
                                     context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
                                 }

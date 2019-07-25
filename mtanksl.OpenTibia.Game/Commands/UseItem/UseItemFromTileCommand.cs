@@ -39,7 +39,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
                     {
-                        MoveDirection[] moveDirections = server.Pathfinding.Walk(Player.Tile.Position, fromTile.Position);
+                        MoveDirection[] moveDirections = server.Pathfinding.GetMoveDirections(Player.Tile.Position, fromTile.Position);
 
                         if (moveDirections.Length == 0)
                         {
@@ -61,17 +61,86 @@ namespace OpenTibia.Game.Commands
                     {
                         Container container = fromItem as Container;
 
-                        if (container == null)
-                        {
-                            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
-                        }
-                        else
+                        if (container != null)
                         {
                             //Act
 
                             OpenOrCloseContainer(Player, container, server, context);
 
                             base.Execute(server, context);
+                        }
+                        else
+                        {
+                            //TODO: Refactor
+
+                            Command command = null;
+
+                            switch (fromItem.Metadata.OpenTibiaId)
+                            {
+                                case 6356:
+
+                                    command = new TileReplaceItemCommand(fromTile, FromIndex, 6357);
+
+                                    break;
+
+                                case 6357:
+
+                                    command = new TileReplaceItemCommand(fromTile, FromIndex, 6356);
+
+                                    break;
+
+                                case 6358:
+
+                                    command = new TileReplaceItemCommand(fromTile, FromIndex, 6359);
+
+                                    break;
+
+                                case 6359:
+
+                                    command = new TileReplaceItemCommand(fromTile, FromIndex, 6358);
+
+                                    break;
+
+                                case 6360:
+
+                                    command = new TileReplaceItemCommand(fromTile, FromIndex, 6361);
+
+                                    break;
+
+                                case 6361:
+
+                                    command = new TileReplaceItemCommand(fromTile, FromIndex, 6360);
+
+                                    break;
+
+                                case 6362:
+
+                                    command = new TileReplaceItemCommand(fromTile, FromIndex, 6363);
+
+                                    break;
+
+                                case 6363:
+
+                                    command = new TileReplaceItemCommand(fromTile, FromIndex, 6362);
+
+                                    break;
+                            }
+
+                            if (command != null)
+                            {
+                                command.Completed += (s, e) =>
+                                {
+                                    //Act
+
+                                    base.Execute(server, context);
+                                };
+
+                                command.Execute(server, context);
+                            }
+                            else
+                            {
+                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                            }
                         }
                     }
                 }

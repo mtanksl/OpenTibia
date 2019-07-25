@@ -55,7 +55,7 @@ namespace OpenTibia.Game.Commands
                         }
                         else
                         {
-                            if ( !server.Pathfinding.IsLineOfSightClear(Player.Tile.Position, toTile.Position) )
+                            if ( !server.Pathfinding.CanThrow(Player.Tile.Position, toTile.Position) )
                             {
                                 context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
                             }

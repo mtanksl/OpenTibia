@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Dat;
 using OpenTibia.FileFormats.Otb;
 using OpenTibia.FileFormats.Otbm;
@@ -37,6 +38,8 @@ namespace OpenTibia.Game
             Dispose(false);
         }
 
+        public Clock Clock { get; set; }
+
         public Logger Logger { get; set; }
 
         public ChannelCollection Channels { get; set; }
@@ -45,18 +48,20 @@ namespace OpenTibia.Game
 
         public PacketsFactory PacketsFactory { get; set; }
 
+        public Pathfinding Pathfinding { get; set; }
+
         public ItemFactory ItemFactory { get; set; }
-        
+
         public MonsterFactory MonsterFactory { get; set; }
         
         public NpcFactory NpcFactory { get; set; }
 
         public Map Map { get; set; }
 
-        public Pathfinding Pathfinding { get; set; }
-
         public void Start()
         {
+            Clock = new Clock(12, 0);
+
             Logger = new Logger();
 
             Channels = new ChannelCollection();
@@ -86,7 +91,9 @@ namespace OpenTibia.Game
             {
                 Map = new Map(this, OtbmFile.Load("data/map/pholium3.otbm") );
             }
-                        
+
+            QueueForExecution(Clock.Key, Clock.Interval, new GlobalLightCommand() );
+
             dispatcher.Start();
 
             scheduler.Start();
@@ -174,6 +181,8 @@ namespace OpenTibia.Game
             {
                 listener.Stop();
             }
+
+            CancelQueueForExecution(Clock.Key);
 
             scheduler.Stop();
 

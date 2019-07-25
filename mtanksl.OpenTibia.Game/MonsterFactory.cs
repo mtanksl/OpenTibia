@@ -23,9 +23,7 @@ namespace OpenTibia.Game
 
                     Outfit = xmlMonster.Outfit,
 
-                    Speed = xmlMonster.Speed,
-
-                    //TODO: Set other properties
+                    Speed = xmlMonster.Speed
                 } );
             }
         }

@@ -41,6 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\Attack\AttackCommand.cs" />
+    <Compile Include="Commands\Attack\StopAttackCommand.cs" />
+    <Compile Include="Commands\Base\ContainerRemoveItemCommand.cs" />
+    <Compile Include="Commands\Base\ContainerAddItemCommand.cs" />
+    <Compile Include="Commands\Base\ContainerReplaceItemCommand.cs" />
+    <Compile Include="Commands\Base\InventoryReplaceItemCommand.cs" />
+    <Compile Include="Commands\Base\TileReplaceItemCommand.cs" />
     <Compile Include="Commands\Channel\CloseNpcsChannelCommand.cs" />
     <Compile Include="Commands\Client\LogInCommand.cs" />
     <Compile Include="Commands\Client\EnterGameCommand.cs" />
@@ -50,6 +56,8 @@
     <Compile Include="Commands\Base\MagicEffectCommand.cs" />
     <Compile Include="Commands\Base\InventoryRemoveItemCommand.cs" />
     <Compile Include="Commands\Base\TileRemoveItemCommand.cs" />
+    <Compile Include="Commands\Client\StopCommand.cs" />
+    <Compile Include="Commands\Folow\StopFollowCommand.cs" />
     <Compile Include="Commands\SequenceCommand.cs" />
     <Compile Include="Commands\CommandContext.cs" />
     <Compile Include="Commands\Container\OpenParentContainerCommand.cs" />
@@ -85,6 +93,7 @@
     <Compile Include="Commands\RotateItem\RotateItemFromInventoryCommand.cs" />
     <Compile Include="Commands\RotateItem\RotateItemFromContainerCommand.cs" />
     <Compile Include="Commands\RotateItem\RotateItemFromTileCommand.cs" />
+    <Compile Include="Commands\Server\GlobalLightCommand.cs" />
     <Compile Include="Commands\Trade\CancelTradeCommand.cs" />
     <Compile Include="Commands\Trade\AcceptTradeCommand.cs" />
     <Compile Include="Commands\Trade\TradeWithCommand.cs" />

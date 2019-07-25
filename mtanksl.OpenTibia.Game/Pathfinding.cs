@@ -16,9 +16,9 @@ namespace OpenTibia.Game
             this.server = server;
         }
 
-        public bool IsLineOfSightClear(Position fromPosition, Position toPosition)
+        public bool CanThrow(Position fromPosition, Position toPosition)
         {
-            if ( !fromPosition.IsInScreen(toPosition) )
+            if ( !fromPosition.IsInPlayerRange(toPosition) )
             {
                 return false;
             }
@@ -36,15 +36,15 @@ namespace OpenTibia.Game
             return true;
         }
 
-        public MoveDirection[] Walk(Position fromPosition, Position toPosition)
+        public MoveDirection[] GetMoveDirections(Position fromPosition, Position toPosition)
         {
             List<MoveDirection> moveDirections = new List<MoveDirection>();
 
-            if ( fromPosition.IsInScreen(toPosition) )
+            if ( fromPosition.IsInPlayerRange(toPosition) )
             {
                 Position[] positions = AStar(fromPosition, toPosition, position =>
                 {
-                    if ( !fromPosition.IsInScreen(toPosition) )
+                    if ( !fromPosition.IsInPlayerRange(position) )
                     {
                         return false;
                     }
@@ -71,14 +71,19 @@ namespace OpenTibia.Game
         private IEnumerable<Position> Bresenham(Position fromPosition, Position toPosition)
         {
             int x1 = fromPosition.X, 
+
                 y1 = fromPosition.Y,
+
                 x2 = toPosition.X, 
+
                 y2 = toPosition.Y;
 
             int xi = x1 < x2 ? 1 : -1,
+
                 yi = y1 < y2 ? 1 : -1;
 
             int dx = Math.Abs(x2 - x1),
+
                 dy = -Math.Abs(y2 - y1);
 
             int e = dx + dy;
@@ -97,12 +102,14 @@ namespace OpenTibia.Game
                 if (e2 >= dy)
                 {
                     e += dy;
+
                     x1 += xi;
                 }
 
                 if (e2 <= dx)
                 {
                     e += dx;
+
                     y1 += yi;
                 }
             }                

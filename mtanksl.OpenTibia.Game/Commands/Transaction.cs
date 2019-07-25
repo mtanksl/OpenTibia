@@ -41,9 +41,9 @@ namespace OpenTibia.Game.Commands
             {
                 if ( !transactions[i].Execute() )
                 {
-                    for (int j = 0; j < i + 1; j++)
+                    for (int j = 0; j < i; j++)
                     {
-                        transactions[i - j].Rollback();
+                        transactions[j].Rollback();
                     }
 
                     return false;

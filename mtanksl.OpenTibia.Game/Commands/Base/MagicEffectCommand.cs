@@ -5,14 +5,14 @@ namespace OpenTibia.Game.Commands
 {
     public class MagicEffectCommand : Command
     {
-        public MagicEffectCommand(Position position, MagicEffectType magicEffectType)
+        public MagicEffectCommand(MagicEffectType magicEffectType, params Position[] positions)
         {
-            Position = position;
+            Positions = positions;
 
             MagicEffectType = magicEffectType;
         }
 
-        public Position Position { get; set; }
+        public Position[] Positions { get; set; }
 
         public MagicEffectType MagicEffectType { get; set; }
 
@@ -22,9 +22,12 @@ namespace OpenTibia.Game.Commands
 
             foreach (var observer in server.Map.GetPlayers() )
             {
-                if (observer.Tile.Position.CanSee(Position) )
+                foreach (var position in Positions)
                 {
-                    context.Write(observer.Client.Connection, new ShowMagicEffectOutgoingPacket(Position, MagicEffectType) );
+                    if (observer.Tile.Position.CanSee(position) )
+                    {
+                        context.Write(observer.Client.Connection, new ShowMagicEffectOutgoingPacket(position, MagicEffectType) );
+                    }
                 }
             }
 

@@ -109,7 +109,7 @@ namespace OpenTibia.Game.Commands
 
                                                       new SendSkillsOutgoingPacket(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0),
 
-                                                      new SetEnvironmentLightOutgoingPacket(Light.Day),
+                                                      new SetEnvironmentLightOutgoingPacket(server.Clock.Light),
 
                                                       new SendTilesOutgoingPacket(server.Map, player.Client, toPosition),
 

@@ -14,7 +14,7 @@ namespace OpenTibia.Game.Commands
 
             FromIndex = fromIndex;
 
-            ItemId = ItemId;
+            ItemId = itemId;
 
             ToCreatureId = toCreatureId;
         }
@@ -47,7 +47,7 @@ namespace OpenTibia.Game.Commands
                     {
                         if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
                         {
-                            MoveDirection[] moveDirections = server.Pathfinding.Walk(Player.Tile.Position, fromTile.Position);
+                            MoveDirection[] moveDirections = server.Pathfinding.GetMoveDirections(Player.Tile.Position, fromTile.Position);
 
                             if (moveDirections.Length == 0)
                             {

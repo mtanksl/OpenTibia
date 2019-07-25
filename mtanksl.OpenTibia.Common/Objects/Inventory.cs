@@ -35,6 +35,17 @@ namespace OpenTibia.Common.Objects
             content.Container = this;
         }
 
+        public void ReplaceContent(byte index, IContent content)
+        {
+            IContent oldContent = GetContent(index);
+
+            contents[index] = content;
+
+            oldContent.Container = null;
+
+            content.Container = this;
+        }
+
         public void RemoveContent(byte index)
         {
             IContent content = GetContent(index);

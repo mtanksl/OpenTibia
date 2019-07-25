@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Commands
 
                         new TileAddCreatureCommand(tile, monster), 
 
-                        new MagicEffectCommand(Position, MagicEffectType.RedShimmer) );
+                        new MagicEffectCommand(MagicEffectType.RedShimmer, Position) );
 
                     command.Completed += (s, e) =>
                     {
