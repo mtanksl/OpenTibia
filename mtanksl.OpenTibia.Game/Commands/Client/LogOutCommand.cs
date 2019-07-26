@@ -30,11 +30,28 @@ namespace OpenTibia.Game.Commands
 
             fromTile.RemoveContent(fromIndex);
 
-            //Cancel events...
+            //Stop walk
 
             server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(Player) );
 
-            //Close channels...
+            //Stop follow and attack
+
+            server.CancelQueueForExecution(Constants.PlayerAttackSchedulerEvent(Player) );
+
+            foreach (var creature in server.Map.GetCreatures() )
+            {
+                if (creature.FollowTarget == Player)
+                {
+                    creature.FollowTarget = null;
+                }
+
+                if (creature == Player)
+                {
+                    creature.FollowTarget = null;
+                }
+            }
+
+            //Close channels
 
             foreach (var channel in server.Channels.GetChannels().ToList() )
             {
@@ -71,45 +88,46 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            //Close rule violations...
+            //Close rule violations
 
-            foreach (var ruleViolation in server.RuleViolations.GetRuleViolations().ToList() )
+            RuleViolation ruleViolation = server.RuleViolations.GetRuleViolationByReporter(Player);
+
+            if (ruleViolation != null)
             {
-                if (ruleViolation.Reporter == Player)
-                {
-                    if (ruleViolation.Assignee == null)
-                    {
-                        server.RuleViolations.RemoveRuleViolation(ruleViolation);
-
-                        foreach (var observer in server.Channels.GetChannel(3).GetPlayers() )
-                        {
-                            context.Write(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
-                        }
-                    }
-                    else
-                    {
-                        server.RuleViolations.RemoveRuleViolation(ruleViolation);
-
-                        context.Write(ruleViolation.Assignee.Client.Connection, new CancelRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
-                    }
-                }
-
-                if (ruleViolation.Assignee == Player)
+                if (ruleViolation.Assignee == null)
                 {
                     server.RuleViolations.RemoveRuleViolation(ruleViolation);
 
-                    context.Write(ruleViolation.Reporter.Client.Connection, new CloseRuleViolationOutgoingPacket() );
+                    foreach (var observer in server.Channels.GetChannel(3).GetPlayers() )
+                    {
+                        context.Write(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
+                    }
+                }
+                else
+                {
+                    server.RuleViolations.RemoveRuleViolation(ruleViolation);
+
+                    context.Write(ruleViolation.Assignee.Client.Connection, new CancelRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
                 }
             }
 
-            //Close containers...
+            ruleViolation = server.RuleViolations.GetRuleViolationByAssignee(Player);
+
+            if (ruleViolation != null)
+            {
+                server.RuleViolations.RemoveRuleViolation(ruleViolation);
+
+                context.Write(ruleViolation.Reporter.Client.Connection, new CloseRuleViolationOutgoingPacket() );
+            }
+
+            //Close containers
 
             foreach (var container in Player.Client.ContainerCollection.GetContainers() )
             {
                 container.RemovePlayer(Player);
             }
 
-            //Close windows...
+            //Close windows
 
             foreach (var window in Player.Client.WindowCollection.GetWindows() )
             {

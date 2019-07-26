@@ -71,6 +71,7 @@ namespace OpenTibia.Common.Objects
 
         private Dictionary<uint, Creature> creatures = new Dictionary<uint, Creature>();
         
+
         private uint uniqueId = 0;
 
         private uint GenerateId()

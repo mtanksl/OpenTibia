@@ -13,11 +13,11 @@ namespace OpenTibia.Game.Commands
                 
         public override void Execute(Server server, CommandContext context)
         {
+            //Arrange
+
             SequenceCommand command = new SequenceCommand(
 
                 new StopWalkCommand(Player),
-
-                new StopAttackCommand(Player),
 
                 new StopFollowCommand(Player) );
 

@@ -22,6 +22,8 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Server server, CommandContext context)
         {
+            //Arrange
+
             if (Connection.Keys == null)
             {
                 Connection.Keys = Packet.Keys;
@@ -44,8 +46,6 @@ namespace OpenTibia.Game.Commands
                     }
                     else
                     {
-                        //Arrange
-
                         //Act
 
                         //Notify

@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class LookFromNpcTradeCommand : LookCommand
+    public class LookFromNpcTradeCommand : Command
     {
         public LookFromNpcTradeCommand(Player player, ushort itemId, byte type)
         {

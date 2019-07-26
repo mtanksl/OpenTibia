@@ -30,11 +30,32 @@ namespace OpenTibia.Game.Commands
 
             //Act
 
-            Player.Client.FightMode = FightMode;
+            if (FightMode != Player.Client.FightMode)
+            {
+                Player.Client.FightMode = FightMode;
+            }
 
-            Player.Client.ChaseMode = ChaseMode;
+            if (ChaseMode != Player.Client.ChaseMode)
+            {
+                Player.Client.ChaseMode = ChaseMode;
 
-            Player.Client.SafeMode = SafeMode;
+                if (Player.AttackTarget != null)
+                {
+                    if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
+                    {
+                        Player.FollowTarget = null;
+                    }
+                    else
+                    {
+                        Player.FollowTarget = Player.AttackTarget;
+                    }
+                }
+            }
+
+            if (SafeMode != Player.Client.SafeMode)
+            {
+                Player.Client.SafeMode = SafeMode;
+            }
 
             //Notify
 

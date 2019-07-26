@@ -1,10 +1,11 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Scripts;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class UseItemWithCreatureFromInventoryCommand : UseItemWithCreatureCommand
+    public class UseItemWithCreatureFromInventoryCommand : Command
     {
         public UseItemWithCreatureFromInventoryCommand(Player player, byte fromSlot, ushort itemId, uint toCreatureId)
         {
@@ -35,9 +36,9 @@ namespace OpenTibia.Game.Commands
 
             if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
             {
-                Creature ToCreature = server.Map.GetCreature(ToCreatureId);
+                Creature toCreature = server.Map.GetCreature(ToCreatureId);
 
-                if (ToCreature != null)
+                if (toCreature != null)
                 {
                     if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
                     {
@@ -47,7 +48,18 @@ namespace OpenTibia.Game.Commands
                     {
                         //Act
 
-                        base.Execute(server, context);
+                        ItemUseWithCreatureScript script;
+
+                        if ( !server.ItemUseWithCreatureScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, toCreature, server, context) )
+                        {
+                            //Notify
+
+                            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                        }
+                        else
+                        {
+                            base.Execute(server, context);
+                        }
                     }
                 }
             }

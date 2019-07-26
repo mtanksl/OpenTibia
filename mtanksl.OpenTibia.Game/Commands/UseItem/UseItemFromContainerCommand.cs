@@ -1,10 +1,11 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Scripts;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class UseItemFromContainerCommand : UseItemCommand
+    public class UseItemFromContainerCommand : Command
     {
         public UseItemFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort itemId, byte containerId)
         {
@@ -43,24 +44,44 @@ namespace OpenTibia.Game.Commands
                 {
                     Container container = fromItem as Container;
 
-                    if (container == null)
+                    if (container != null)
                     {
-                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                        Command command;
+
+                        if (ContainerId == FromContainerId)
+                        {
+                            command = new ReplaceOrCloseContainerCommand(Player, ContainerId, container);
+                        }
+                        else
+                        {
+                            command = new OpenOrCloseContainerCommand(Player, container);
+                        }
+
+                        command.Completed += (s, e) =>
+                        {
+                            //Act
+
+                            base.Execute(server, context);
+                        };
+
+                        command.Execute(server, context);
                     }
                     else
                     {
                         //Act
 
-                        if (ContainerId == FromContainerId)
+                        ItemUseScript script;
+
+                        if ( !server.ItemUseScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, server, context) )
                         {
-                            ReplaceOrCloseContainer(Player, ContainerId, container, server, context);
+                            //Notify
+
+                            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
                         }
                         else
                         {
-                            OpenOrCloseContainer(Player, container, server, context);
+                            base.Execute(server, context);
                         }
-
-                        base.Execute(server, context);
                     }
                 }
             }

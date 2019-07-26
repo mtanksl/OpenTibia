@@ -1,10 +1,11 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Scripts;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class RotateItemFromContainerCommand : RotateItemCommand
+    public class RotateItemFromContainerCommand : Command
     {
         public RotateItemFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort itemId)
         {
@@ -45,7 +46,18 @@ namespace OpenTibia.Game.Commands
                     {
                         //Act
 
-                        base.Execute(server, context);
+                        ItemUseScript script;
+
+                        if ( !server.ItemRotateScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, server, context) )
+                        {
+                            //Notify
+
+                            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                        }
+                        else
+                        {
+                            base.Execute(server, context);
+                        }
                     }
                 }
             }

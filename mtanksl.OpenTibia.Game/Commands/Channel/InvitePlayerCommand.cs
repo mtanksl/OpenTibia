@@ -27,8 +27,8 @@ namespace OpenTibia.Game.Commands
             if (privateChannel != null)
             {
                 Player observer = server.Map.GetPlayers()
-                   .Where(p => p.Name == Name)
-                   .FirstOrDefault();
+                    .Where(p => p.Name == Name)
+                    .FirstOrDefault();
 
                 if (observer != null && observer != Player)
                 {

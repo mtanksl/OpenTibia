@@ -40,12 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\Attack\AttackCommand.cs" />
+    <Compile Include="Commands\Attack\StartAttackCommand.cs" />
     <Compile Include="Commands\Attack\StopAttackCommand.cs" />
     <Compile Include="Commands\Base\ContainerRemoveItemCommand.cs" />
     <Compile Include="Commands\Base\ContainerAddItemCommand.cs" />
     <Compile Include="Commands\Base\ContainerReplaceItemCommand.cs" />
     <Compile Include="Commands\Base\InventoryReplaceItemCommand.cs" />
+    <Compile Include="Commands\Base\ItemTransformCommand.cs" />
     <Compile Include="Commands\Base\TileReplaceItemCommand.cs" />
     <Compile Include="Commands\Channel\CloseNpcsChannelCommand.cs" />
     <Compile Include="Commands\Client\LogInCommand.cs" />
@@ -58,14 +59,16 @@
     <Compile Include="Commands\Base\TileRemoveItemCommand.cs" />
     <Compile Include="Commands\Client\StopCommand.cs" />
     <Compile Include="Commands\Folow\StopFollowCommand.cs" />
+    <Compile Include="Commands\ITransaction.cs" />
+    <Compile Include="Commands\Look\LookCreatureCommand.cs" />
     <Compile Include="Commands\SequenceCommand.cs" />
     <Compile Include="Commands\CommandContext.cs" />
     <Compile Include="Commands\Container\OpenParentContainerCommand.cs" />
     <Compile Include="Commands\Container\CloseContainerCommand.cs" />
-    <Compile Include="Commands\Base\CreateItemCommand.cs" />
-    <Compile Include="Commands\Base\CreateMonsterCommand.cs" />
-    <Compile Include="Commands\Folow\FollowCommand.cs" />
-    <Compile Include="Commands\Look\LookCommand.cs" />
+    <Compile Include="Commands\Base\TileCreateItemCommand.cs" />
+    <Compile Include="Commands\Base\TileCreateMonsterCommand.cs" />
+    <Compile Include="Commands\Folow\StartFollowCommand.cs" />
+    <Compile Include="Commands\Look\LookItemCommand.cs" />
     <Compile Include="Commands\Look\LookFromContainerCommand.cs" />
     <Compile Include="Commands\Look\LookFromInventoryCommand.cs" />
     <Compile Include="Commands\Look\LookFromNpcTradeCommand.cs" />
@@ -89,10 +92,10 @@
     <Compile Include="Commands\Quest\OpenQuestCommand.cs" />
     <Compile Include="Commands\Quest\OpenQuestsCommand.cs" />
     <Compile Include="Commands\ReportBug\ReportBugCommand.cs" />
-    <Compile Include="Commands\RotateItem\RotateItemCommand.cs" />
     <Compile Include="Commands\RotateItem\RotateItemFromInventoryCommand.cs" />
     <Compile Include="Commands\RotateItem\RotateItemFromContainerCommand.cs" />
     <Compile Include="Commands\RotateItem\RotateItemFromTileCommand.cs" />
+    <Compile Include="Commands\Server\GlobalCreaturesCommand.cs" />
     <Compile Include="Commands\Server\GlobalLightCommand.cs" />
     <Compile Include="Commands\Trade\CancelTradeCommand.cs" />
     <Compile Include="Commands\Trade\AcceptTradeCommand.cs" />
@@ -101,11 +104,9 @@
     <Compile Include="Commands\Trade\TradeWithFromInventoryCommand.cs" />
     <Compile Include="Commands\Trade\TradeWithFromTileCommand.cs" />
     <Compile Include="Commands\Transaction.cs" />
-    <Compile Include="Commands\UseItemWithCreature\UseItemWithCreatureCommand.cs" />
     <Compile Include="Commands\UseItemWithCreature\UseItemWithCreatureFromContainerCommand.cs" />
     <Compile Include="Commands\UseItemWithCreature\UseItemWithCreatureFromTileCommand.cs" />
     <Compile Include="Commands\UseItemWithCreature\UseItemWithCreatureFromInventoryCommand.cs" />
-    <Compile Include="Commands\UseItemWithItem\UseItemWithItemCommand.cs" />
     <Compile Include="Commands\UseItemWithItem\UseItemWithItemFromContainerToContainerCommand.cs" />
     <Compile Include="Commands\UseItemWithItem\UseItemWithItemFromContainerToInventoryCommand.cs" />
     <Compile Include="Commands\UseItemWithItem\UseItemWithItemFromContainerToTileCommand.cs" />
@@ -115,7 +116,8 @@
     <Compile Include="Commands\UseItemWithItem\UseItemWithItemFromInventoryToTileCommand.cs" />
     <Compile Include="Commands\UseItemWithItem\UseItemWithItemFromTileToInventoryCommand.cs" />
     <Compile Include="Commands\UseItemWithItem\UseItemWithItemFromTileToTileCommand.cs" />
-    <Compile Include="Commands\UseItem\UseItemCommand.cs" />
+    <Compile Include="Commands\Container\OpenOrCloseContainerCommand.cs" />
+    <Compile Include="Commands\Container\ReplaceOrCloseContainerCommand.cs" />
     <Compile Include="Commands\UseItem\UseItemFromInventoryCommand.cs" />
     <Compile Include="Commands\UseItem\UseItemFromContainerCommand.cs" />
     <Compile Include="Commands\Vip\AddVipCommand.cs" />
@@ -169,6 +171,18 @@
     <Compile Include="PacketsFactory.cs" />
     <Compile Include="NpcFactory.cs" />
     <Compile Include="Pathfinding.cs" />
+    <Compile Include="Scripts\Actions\DefaultItemUseScript.cs" />
+    <Compile Include="Scripts\Actions\DefaultItemRotateScript.cs" />
+    <Compile Include="Scripts\Actions\WatchScript.cs" />
+    <Compile Include="Scripts\IScript.cs" />
+    <Compile Include="Scripts\SpeechScript.cs" />
+    <Compile Include="Scripts\ItemUseWithCreatureScript.cs" />
+    <Compile Include="Scripts\ItemUseWithItemScript.cs" />
+    <Compile Include="Scripts\ItemUseScript.cs" />
+    <Compile Include="Scripts\Actions\RopeScript.cs" />
+    <Compile Include="Scripts\Actions\ShovelScript.cs" />
+    <Compile Include="Scripts\Speech\CreateCreatureScript.cs" />
+    <Compile Include="Scripts\Speech\CreateItemScript.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

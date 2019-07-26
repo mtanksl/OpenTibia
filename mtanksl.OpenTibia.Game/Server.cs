@@ -7,10 +7,13 @@ using OpenTibia.FileFormats.Xml.Items;
 using OpenTibia.FileFormats.Xml.Monsters;
 using OpenTibia.FileFormats.Xml.Npcs;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Scripts;
 using OpenTibia.Network.Sockets;
 using OpenTibia.Threading;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace OpenTibia.Game
 {
@@ -58,6 +61,16 @@ namespace OpenTibia.Game
 
         public Map Map { get; set; }
 
+        public Dictionary<ushort, ItemUseScript> ItemRotateScripts { get; set; }
+
+        public Dictionary<ushort, ItemUseScript> ItemUseScripts { get; set; }
+
+        public Dictionary<ushort, ItemUseWithItemScript> ItemUseWithItemScripts { get; set; }
+
+        public Dictionary<ushort, ItemUseWithCreatureScript> ItemUseWithCreatureScripts { get; set; }
+
+        public Dictionary<string, SpeechScript> SpeechScripts { get; set; }
+
         public void Start()
         {
             Clock = new Clock(12, 0);
@@ -71,7 +84,7 @@ namespace OpenTibia.Game
             PacketsFactory = new PacketsFactory();
 
             Pathfinding = new Pathfinding(this);
-
+            
             using (Logger.Measure("Loading items", true) )
             {
                 ItemFactory = new ItemFactory(OtbFile.Load("data/items/items.otb"), DatFile.Load("data/items/tibia.dat"), ItemsFile.Load("data/items/items.xml") );
@@ -92,8 +105,30 @@ namespace OpenTibia.Game
                 Map = new Map(this, OtbmFile.Load("data/map/pholium3.otbm") );
             }
 
-            QueueForExecution(Clock.Key, Clock.Interval, new GlobalLightCommand() );
+            using (Logger.Measure("Loading scripts", true) )
+            {
+                ItemRotateScripts = new Dictionary<ushort, ItemUseScript>();
 
+                ItemUseScripts = new Dictionary<ushort, ItemUseScript>();
+
+                ItemUseWithItemScripts = new Dictionary<ushort, ItemUseWithItemScript>();
+
+                ItemUseWithCreatureScripts = new Dictionary<ushort, ItemUseWithCreatureScript>();
+
+                SpeechScripts = new Dictionary<string, SpeechScript>();
+
+                foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(IScript).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract ) )
+                {
+                    IScript script = (IScript)Activator.CreateInstance(type);
+
+                    script.Register(this);
+                }
+            }
+
+            QueueForExecution(Constants.GlobalLightSchedulerEvent, Clock.Interval, new GlobalLightCommand() );
+
+            QueueForExecution(Constants.GlobalCreaturesSchedulerEvent, 1000, new GlobalCreaturesCommand() );
+            
             dispatcher.Start();
 
             scheduler.Start();
@@ -182,7 +217,9 @@ namespace OpenTibia.Game
                 listener.Stop();
             }
 
-            CancelQueueForExecution(Clock.Key);
+            CancelQueueForExecution(Constants.GlobalLightSchedulerEvent);
+
+            CancelQueueForExecution(Constants.GlobalCreaturesSchedulerEvent);
 
             scheduler.Stop();
 

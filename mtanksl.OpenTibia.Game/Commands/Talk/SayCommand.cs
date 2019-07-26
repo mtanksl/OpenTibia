@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Scripts;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
@@ -21,42 +22,9 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            if (Message.StartsWith("/i") )
-            {
-                ushort openTibiaId;
+            SpeechScript script;
 
-                if (ushort.TryParse(Message.Substring(3), out openTibiaId) )
-                {
-                    //Act
-
-                    CreateItemCommand command = new CreateItemCommand(openTibiaId, Player.Tile.Position.Offset(Player.Direction) );
-
-                    command.Completed += (s, e) =>
-                    {
-                        //Notify
-
-                        base.Execute(e.Server, e.Context);
-                    };
-
-                    command.Execute(server, context);
-                }                
-            }
-            else if ( Message.StartsWith("/m") )
-            {
-                //Act
-
-                CreateMonsterCommand command = new CreateMonsterCommand(Message.Substring(3), Player.Tile.Position.Offset(Player.Direction) );
-
-                command.Completed += (s, e) =>
-                {
-                    //Notify
-
-                    base.Execute(e.Server, e.Context);
-                };
-
-                command.Execute(server, context);
-            }
-            else
+            if ( !Message.StartsWith("/") || Message.Length < 3 || !server.SpeechScripts.TryGetValue(Message.Substring(0, 2), out script) || !script.Execute(Player, Message.Substring(3), server, context) )
             {
                 //Notify
 
@@ -67,9 +35,9 @@ namespace OpenTibia.Game.Commands
                         context.Write(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Say, Player.Tile.Position, Message) );
                     }
                 }
-
-                base.Execute(server, context);
             }
+
+            base.Execute(server, context);
         }
     }
 }

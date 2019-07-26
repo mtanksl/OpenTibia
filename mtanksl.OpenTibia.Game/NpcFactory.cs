@@ -1,5 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.FileFormats.Xml.Npcs;
 using System.Collections.Generic;
+using Npc = OpenTibia.Common.Objects.Npc;
 
 namespace OpenTibia.Game
 {
@@ -7,7 +9,7 @@ namespace OpenTibia.Game
     {
         private Dictionary<string, NpcMetadata> metadatas;
 
-        public NpcFactory(OpenTibia.FileFormats.Xml.Npcs.NpcFile npcFile)
+        public NpcFactory(NpcFile npcFile)
         {
             metadatas = new Dictionary<string, NpcMetadata>(npcFile.Npcs.Count);
 

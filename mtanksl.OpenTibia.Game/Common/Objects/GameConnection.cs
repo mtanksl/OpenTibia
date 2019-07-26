@@ -575,7 +575,14 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<AttackIncommingPacket>(reader);
 
-                                command = new AttackCommand(Client.Player, packet.CreatureId, packet.Nonce);
+                                if (packet.CreatureId == 0)
+                                {
+                                    command = new StopAttackCommand(Client.Player);
+                                }
+                                else
+                                {
+                                    command = new StartAttackCommand(Client.Player, packet.CreatureId, packet.Nonce);
+                                }
                             }
                             break;
 
@@ -583,7 +590,14 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<FollowIncommingPacket>(reader);
 
-                                command = new FollowCommand(Client.Player, packet.CreatureId, packet.Nonce);
+                                if (packet.CreatureId == 0)
+                                {
+                                    command = new StopFollowCommand(Client.Player);
+                                }
+                                else
+                                {
+                                    command = new StartFollowCommand(Client.Player, packet.CreatureId, packet.Nonce);
+                                }
                             }
                             break;
 

@@ -1,10 +1,11 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Scripts;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class UseItemFromTileCommand : UseItemCommand
+    public class UseItemFromTileCommand : Command
     {
         public UseItemFromTileCommand(Player player, Position fromPosition, byte fromIndex, ushort itemId)
         {
@@ -63,83 +64,32 @@ namespace OpenTibia.Game.Commands
 
                         if (container != null)
                         {
-                            //Act
+                            Command command = new OpenOrCloseContainerCommand(Player, container);
 
-                            OpenOrCloseContainer(Player, container, server, context);
+                            command.Completed += (s, e) =>
+                            {
+                                //Act
 
-                            base.Execute(server, context);
+                                base.Execute(server, context);
+                            };
+
+                            command.Execute(server, context);
                         }
                         else
                         {
-                            //TODO: Refactor
+                            //Act
 
-                            Command command = null;
+                            ItemUseScript script;
 
-                            switch (fromItem.Metadata.OpenTibiaId)
+                            if ( !server.ItemUseScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, server, context) )
                             {
-                                case 6356:
+                                //Notify
 
-                                    command = new TileReplaceItemCommand(fromTile, FromIndex, 6357);
-
-                                    break;
-
-                                case 6357:
-
-                                    command = new TileReplaceItemCommand(fromTile, FromIndex, 6356);
-
-                                    break;
-
-                                case 6358:
-
-                                    command = new TileReplaceItemCommand(fromTile, FromIndex, 6359);
-
-                                    break;
-
-                                case 6359:
-
-                                    command = new TileReplaceItemCommand(fromTile, FromIndex, 6358);
-
-                                    break;
-
-                                case 6360:
-
-                                    command = new TileReplaceItemCommand(fromTile, FromIndex, 6361);
-
-                                    break;
-
-                                case 6361:
-
-                                    command = new TileReplaceItemCommand(fromTile, FromIndex, 6360);
-
-                                    break;
-
-                                case 6362:
-
-                                    command = new TileReplaceItemCommand(fromTile, FromIndex, 6363);
-
-                                    break;
-
-                                case 6363:
-
-                                    command = new TileReplaceItemCommand(fromTile, FromIndex, 6362);
-
-                                    break;
-                            }
-
-                            if (command != null)
-                            {
-                                command.Completed += (s, e) =>
-                                {
-                                    //Act
-
-                                    base.Execute(server, context);
-                                };
-
-                                command.Execute(server, context);
+                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
                             }
                             else
                             {
-                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                                base.Execute(server, context);
                             }
                         }
                     }

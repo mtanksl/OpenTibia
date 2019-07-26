@@ -1,10 +1,11 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Scripts;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class UseItemFromInventoryCommand : UseItemCommand
+    public class UseItemFromInventoryCommand : Command
     {
         public UseItemFromInventoryCommand(Player player, byte fromSlot, ushort itemId)
         {
@@ -33,17 +34,35 @@ namespace OpenTibia.Game.Commands
             {
                 Container container = fromItem as Container;
 
-                if (container == null)
+                if (container != null)
                 {
-                    context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                    Command command = new OpenOrCloseContainerCommand(Player, container);
+
+                    command.Completed += (s, e) =>
+                    {
+                        //Act
+
+                        base.Execute(server, context);
+                    };
+
+                    command.Execute(server, context);
                 }
                 else
                 {
                     //Act
 
-                    OpenOrCloseContainer(Player, container, server, context);
+                    ItemUseScript script;
 
-                    base.Execute(server, context);
+                    if ( !server.ItemUseScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, server, context) )
+                    {
+                        //Notify
+
+                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                    }
+                    else
+                    {
+                        base.Execute(server, context);
+                    }
                 }
             }
         }

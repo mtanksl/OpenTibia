@@ -3,7 +3,7 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class LookFromTileCommand : LookCommand
+    public class LookFromTileCommand : Command
     {
         public LookFromTileCommand(Player player, Position fromPosition, byte fromIndex, ushort itemId)
         {
@@ -32,19 +32,15 @@ namespace OpenTibia.Game.Commands
 
             if (fromTile != null)
             {
-                IContent content = fromTile.GetContent(FromIndex);
+                Command command = null;
 
-                switch (content)
+                switch ( fromTile.GetContent(FromIndex) )
                 {
                     case Item item:
 
                         if (item.Metadata.TibiaId == ItemId)
                         {
-                            //Act
-
-                            Look(Player, item, server, context);
-
-                            base.Execute(server, context);
+                            command = new LookItemCommand(Player, item);
                         }
 
                         break;
@@ -53,14 +49,22 @@ namespace OpenTibia.Game.Commands
 
                         if (ItemId == 99)
                         {
-                            //Act
-
-                            Look(Player, creature, server, context);
-
-                            base.Execute(server, context);
+                            command = new LookCreatureCommand(Player, creature);
                         }
 
                         break;
+                }
+
+                if (command != null)
+                {
+                    command.Completed += (s, e) =>
+                    {
+                        //Act
+
+                        base.Execute(server, context);
+                    };
+
+                    command.Execute(server, context);
                 }
             }
         }

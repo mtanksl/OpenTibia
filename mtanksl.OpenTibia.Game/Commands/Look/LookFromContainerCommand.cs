@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class LookFromContainerCommand : LookCommand
+    public class LookFromContainerCommand : Command
     {
         public LookFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort itemId)
         {
@@ -35,11 +35,16 @@ namespace OpenTibia.Game.Commands
 
                 if (item != null && item.Metadata.TibiaId == ItemId)
                 {
-                    //Act
+                    LookItemCommand command = new LookItemCommand(Player, item);
 
-                    Look(Player, item, server, context);
+                    command.Completed += (s, e) =>
+                    {
+                        //Act
 
-                    base.Execute(server, context);
+                        base.Execute(server, context);
+                    };
+
+                    command.Execute(server, context);
                 }
             }
         }

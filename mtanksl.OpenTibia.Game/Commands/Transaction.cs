@@ -58,11 +58,4 @@ namespace OpenTibia.Game.Commands
             scope.Dispose();
         }
     }
-
-    public interface ITransaction
-    {
-        bool Execute();
-
-        void Rollback();
-    }
 }

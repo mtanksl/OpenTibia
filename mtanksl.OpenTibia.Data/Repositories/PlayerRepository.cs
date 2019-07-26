@@ -23,7 +23,7 @@ namespace OpenTibia.Data
                     {
                        Name = "Player 1",
 
-                       CoordinateX = 931,
+                       CoordinateX = 930,
 
                        CoordinateY = 779,
 
@@ -44,6 +44,26 @@ namespace OpenTibia.Data
                        Name = "Player 2",
 
                        CoordinateX = 931,
+
+                       CoordinateY = 779,
+
+                       CoordinateZ = 7,
+
+                       World = new WorldRow()
+                       {
+                           Name = "World",
+
+                           Ip = Ip,
+
+                           Port = 7172
+                       }
+                    },
+
+                    new PlayerRow()
+                    {
+                       Name = "Player 3",
+
+                       CoordinateX = 932,
 
                        CoordinateY = 779,
 

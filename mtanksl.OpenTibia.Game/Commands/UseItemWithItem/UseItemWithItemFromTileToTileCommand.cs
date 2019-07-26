@@ -1,10 +1,11 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Scripts;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class UseItemWithItemFromTileToTileCommand : UseItemWithItemCommand
+    public class UseItemWithItemFromTileToTileCommand : Command
     {
         public UseItemWithItemFromTileToTileCommand(Player player, Position fromPosition, byte fromIndex, ushort fromItemId, Position toPosition, byte toIndex, ushort toItemId)
         {
@@ -87,7 +88,18 @@ namespace OpenTibia.Game.Commands
                                 {
                                     //Act
 
-                                    base.Execute(server, context);
+                                    ItemUseWithItemScript script;
+
+                                    if ( !server.ItemUseWithItemScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, toItem, server, context) )
+                                    {
+                                        //Notify
+
+                                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                                    }
+                                    else
+                                    {
+                                        base.Execute(server, context);
+                                    }
                                 }
                             }
                         }

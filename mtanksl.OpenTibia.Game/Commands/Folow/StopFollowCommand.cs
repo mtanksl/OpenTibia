@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -15,11 +16,20 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            //Act
+            if (Player.FollowTarget != null)
+            {
+                //Act
 
-            //Notify
+                Player.AttackTarget = null;
 
-            base.Execute(server, context);
+                Player.FollowTarget = null;
+
+                //Notify
+
+                context.Write(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
+
+                base.Execute(server, context);
+            }
         }
     }
 }

@@ -3,16 +3,16 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class CreateMonsterCommand : Command
+    public class TileCreateItemCommand : Command
     {
-        public CreateMonsterCommand(string name, Position position)
+        public TileCreateItemCommand(ushort openTibiaId, Position position)
         {
-            Name = name;
+            OpenTibiaId = openTibiaId;
 
             Position = position;
         }
 
-        public string Name { get; set; }
+        public ushort OpenTibiaId { get; set; }
 
         public Position Position { get; set; }
 
@@ -20,9 +20,9 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            Monster monster = server.MonsterFactory.Create(Name);
+            Item item = server.ItemFactory.Create(OpenTibiaId);
 
-            if (monster != null)
+            if (item != null)
             {
                 Tile tile = server.Map.GetTile(Position);
 
@@ -30,9 +30,9 @@ namespace OpenTibia.Game.Commands
                 {
                     SequenceCommand command = new SequenceCommand(
 
-                        new TileAddCreatureCommand(tile, monster), 
+                        new TileAddItemCommand(tile, item), 
 
-                        new MagicEffectCommand(MagicEffectType.RedShimmer, Position) );
+                        new MagicEffectCommand(Position, MagicEffectType.BlueShimmer) );
 
                     command.Completed += (s, e) =>
                     {

@@ -5,45 +5,40 @@ namespace OpenTibia.Game.Commands
 {
     public class TileReplaceItemCommand : Command
     {
-        public TileReplaceItemCommand(Tile tile, byte index, ushort openTibiaId)
+        public TileReplaceItemCommand(Tile tile, byte index, Item item)
         {
             Tile = tile;
 
             Index = index;
 
-            OpenTibiaId = openTibiaId;
+            Item = item;
         }
 
         public Tile Tile { get; set; }
 
         public byte Index { get; set; }
 
-        public ushort OpenTibiaId { get; set; }
+        public Item Item { get; set; }
         
         public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
-            Item item = server.ItemFactory.Create(OpenTibiaId);
+            //Act
 
-            if (item != null)
+            Tile.ReplaceContent(Index, Item);
+
+            //Notify
+
+            foreach (var observer in server.Map.GetPlayers() )
             {
-                //Act
-
-                Tile.ReplaceContent(Index, item);
-
-                //Notify
-
-                foreach (var observer in server.Map.GetPlayers() )
+                if (observer.Tile.Position.CanSee(Tile.Position) )
                 {
-                    if (observer.Tile.Position.CanSee(Tile.Position) )
-                    {
-                        context.Write(observer.Client.Connection, new ThingUpdateOutgoingPacket(Tile.Position, Index, item) );
-                    }
+                    context.Write(observer.Client.Connection, new ThingUpdateOutgoingPacket(Tile.Position, Index, Item) );
                 }
+            }
 
-                base.Execute(server, context);
-            }            
+            base.Execute(server, context);
         }
     }
 }

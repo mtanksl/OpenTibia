@@ -1,5 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.FileFormats.Xml.Monsters;
 using System.Collections.Generic;
+using Monster = OpenTibia.Common.Objects.Monster;
 
 namespace OpenTibia.Game
 {
@@ -7,7 +9,7 @@ namespace OpenTibia.Game
     {
         private Dictionary<string, MonsterMetadata> metadatas;
 
-        public MonsterFactory(OpenTibia.FileFormats.Xml.Monsters.MonsterFile monsterFile)
+        public MonsterFactory(MonsterFile monsterFile)
         {
             metadatas = new Dictionary<string, MonsterMetadata>(monsterFile.Monsters.Count);
 

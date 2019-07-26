@@ -45,8 +45,6 @@ namespace OpenTibia.Game.Commands
 
                     if (toPlayer != null && toPlayer != Player)
                     {
-                        //Act
-
                         if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
                         {
                             MoveDirection[] moveDirections = server.Pathfinding.GetMoveDirections(Player.Tile.Position, fromTile.Position);
@@ -69,6 +67,8 @@ namespace OpenTibia.Game.Commands
                         }
                         else
                         {
+                            //Act
+
                             base.Execute(server, context);
                         }
                     }
