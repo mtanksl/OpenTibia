@@ -173,6 +173,8 @@
     <Compile Include="Pathfinding.cs" />
     <Compile Include="Scripts\Actions\DefaultItemUseScript.cs" />
     <Compile Include="Scripts\Actions\DefaultItemRotateScript.cs" />
+    <Compile Include="Scripts\Actions\SewerScript.cs" />
+    <Compile Include="Scripts\Actions\LadderScript.cs" />
     <Compile Include="Scripts\Actions\WatchScript.cs" />
     <Compile Include="Scripts\IScript.cs" />
     <Compile Include="Scripts\SpeechScript.cs" />
@@ -181,6 +183,9 @@
     <Compile Include="Scripts\ItemUseScript.cs" />
     <Compile Include="Scripts\Actions\RopeScript.cs" />
     <Compile Include="Scripts\Actions\ShovelScript.cs" />
+    <Compile Include="Scripts\Speech\TeleportDownScript.cs" />
+    <Compile Include="Scripts\Speech\TeleportUpScript.cs" />
+    <Compile Include="Scripts\Speech\TeleportScript.cs" />
     <Compile Include="Scripts\Speech\CreateCreatureScript.cs" />
     <Compile Include="Scripts\Speech\CreateItemScript.cs" />
     <Compile Include="Server.cs" />

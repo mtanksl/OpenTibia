@@ -19,5 +19,7 @@ namespace OpenTibia.Common.Objects
         public string Name { get; set; }
 
         public byte Capacity { get; set; }
+
+        public FloorChange FloorChange { get; set; }
     }
 }

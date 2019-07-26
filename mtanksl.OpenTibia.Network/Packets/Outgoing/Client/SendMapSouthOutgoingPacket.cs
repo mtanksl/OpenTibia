@@ -6,24 +6,24 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class SendMapSouthOutgoingPacket : SendMapOutgoingPacket
     {
-        public SendMapSouthOutgoingPacket(IMap map, IClient client, Position fromPosition) : base(map, client)
+        public SendMapSouthOutgoingPacket(IMap map, IClient client, Position position) : base(map, client)
         {
-            this.FromPosition = fromPosition;
+            this.Position = position;
         }
 
-        public Position FromPosition { get; set; }
+        public Position Position { get; set; }
 
         public override void Write(ByteArrayStreamWriter writer)
         {
             writer.Write( (byte)0x67 );
 
-            if (FromPosition.Z <= 7)
+            if (Position.Z <= 7)
             {
-                Write(writer, FromPosition.X - 8, FromPosition.Y + 8, FromPosition.Z, 18, 1, 7, -7);
+                Write(writer, Position.X - 8, Position.Y + 7, Position.Z, 18, 1, 7, -7);
             }
             else
             {
-                Write(writer, FromPosition.X - 8, FromPosition.Y + 8, FromPosition.Z, 18, 1, FromPosition.Z - 2, 4);
+                Write(writer, Position.X - 8, Position.Y + 7, Position.Z, 18, 1, Position.Z - 2, 4);
             }
         }
     }

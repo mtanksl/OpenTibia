@@ -114,7 +114,6 @@ namespace OpenTibia.Common.Structures
 
                     return new Position(this.X, this.Y - 1, this.Z);
 
-
                 case Direction.West:
 
                     return new Position(this.X - 1, this.Y, this.Z);
@@ -283,14 +282,14 @@ namespace OpenTibia.Common.Structures
                 return false;
             }
 
-            int deltaY = that.y - this.y + deltaZ;
+            int deltaY = that.y - this.y;
 
             if (deltaY < -1 || deltaY > 1)
             {
                 return false;
             }
 
-            int deltaX = that.x - this.x + deltaZ;
+            int deltaX = that.x - this.x;
 
             if (deltaX < -1 || deltaX > 1)
             {

@@ -22,7 +22,9 @@ namespace OpenTibia.Game.Scripts
         {
             if (ropeSpots.Contains(toItem.Metadata.OpenTibiaId) )
             {
+                TeleportCommand command = new TeleportCommand(player, ( (Tile)toItem.Container ).Position.Offset(0, 1, -1) );
 
+                command.Execute(server, context);
 
                 return true;
             }

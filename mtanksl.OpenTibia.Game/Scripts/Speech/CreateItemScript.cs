@@ -10,11 +10,11 @@ namespace OpenTibia.Game.Scripts.Speech
             server.SpeechScripts.Add("/i", this);
         }
 
-        public override bool Execute(Player player, string message, Server server, CommandContext context)
+        public override bool Execute(Player player, string parameters, Server server, CommandContext context)
         {
             ushort openTibiaId;
 
-            if ( ushort.TryParse(message, out openTibiaId) )
+            if ( ushort.TryParse(parameters, out openTibiaId) )
             {
                 TileCreateItemCommand command = new TileCreateItemCommand(openTibiaId, player.Tile.Position.Offset(player.Direction) );
 

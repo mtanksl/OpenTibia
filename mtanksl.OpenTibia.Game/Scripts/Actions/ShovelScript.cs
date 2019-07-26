@@ -8,7 +8,12 @@ namespace OpenTibia.Game.Scripts
     {
         private static HashSet<ushort> shovels = new HashSet<ushort>() { 2554 };
 
-        private static HashSet<ushort> stonePiles = new HashSet<ushort> { 468 };
+        private static Dictionary<ushort, ushort> stonePiles = new Dictionary<ushort, ushort>()
+        {
+            { 468, 469 },
+            { 481, 482 },
+            { 483, 484 }
+        };
 
         public override void Register(Server server)
         {
@@ -20,9 +25,13 @@ namespace OpenTibia.Game.Scripts
 
         public override bool Execute(Player player, Item fromItem, Item toItem, Server server, CommandContext context)
         {
-            if (stonePiles.Contains(toItem.Metadata.OpenTibiaId) )
-            {
+            ushort toOpenTibiaId;
 
+            if (stonePiles.TryGetValue(toItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+            {
+                ItemTransformCommand command = new ItemTransformCommand(toItem, toOpenTibiaId);
+
+                command.Execute(server, context);
 
                 return true;
             }

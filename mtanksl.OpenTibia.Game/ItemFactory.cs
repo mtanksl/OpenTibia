@@ -126,6 +126,8 @@ namespace OpenTibia.Game
                     metadata.Name = xmlItem.Name;
 
                     metadata.Capacity = xmlItem.ContainerSize;
+
+                    metadata.FloorChange = xmlItem.FloorChange;
                 }
             }
         }

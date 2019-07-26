@@ -22,9 +22,35 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            SpeechScript script;
+            if ( Message.StartsWith("/") )
+            {
+                int index = Message.IndexOf(' ');
 
-            if ( !Message.StartsWith("/") || Message.Length < 3 || !server.SpeechScripts.TryGetValue(Message.Substring(0, 2), out script) || !script.Execute(Player, Message.Substring(3), server, context) )
+                string command;
+
+                string parameters;
+
+                if (index == -1)
+                {
+                    command = Message;
+
+                    parameters = "";
+                }
+                else
+                {
+                    command = Message.Substring(0, index);
+
+                    parameters = Message.Substring(index + 1);
+                }
+
+                SpeechScript script;
+
+                if ( !server.SpeechScripts.TryGetValue(command, out script) || !script.Execute(Player, parameters, server, context) )
+                {
+                    
+                }
+            }
+            else
             {
                 //Notify
 

@@ -41,11 +41,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArrayExtensions.cs" />
+    <Compile Include="ByteArrayMemoryStream.cs" />
     <Compile Include="ByteArrayArrayStream.cs" />
     <Compile Include="ByteArrayBufferedStream.cs" />
     <Compile Include="ByteArrayFileStream.cs" />
     <Compile Include="ByteArrayFileTreeStream.cs" />
-    <Compile Include="ByteArrayMemoryStream.cs" />
     <Compile Include="ByteArrayStream.cs" />
     <Compile Include="ByteArrayStreamReader.cs" />
     <Compile Include="ByteArrayStreamReaderExtensions.cs" />

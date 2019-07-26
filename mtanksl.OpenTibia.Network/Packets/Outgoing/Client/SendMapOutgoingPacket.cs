@@ -70,26 +70,28 @@ namespace OpenTibia.Network.Packets.Outgoing
                             
                             foreach (var content in tile.GetContents().Take(10) )
                             {
-                                if (content is Item)
+                                switch (content)
                                 {
-                                    Item item = (Item)content;
-                                    
-                                    writer.Write(item);
-                                }
-                                else
-                                {
-                                    Creature creature = (Creature)content;
+                                    case Item item:
 
-                                    uint removeId;
+                                        writer.Write(item);
 
-                                    if (client.CreatureCollection.IsKnownCreature(creature.Id, out removeId) )
-                                    {
-                                        writer.Write(creature);
-                                    }
-                                    else
-                                    {
-                                        writer.Write(removeId, creature);
-                                    }
+                                        break;
+
+                                    case Creature creature:
+
+                                        uint removeId;
+
+                                        if (client.CreatureCollection.IsKnownCreature(creature.Id, out removeId) )
+                                        {
+                                            writer.Write(creature);
+                                        }
+                                        else
+                                        {
+                                            writer.Write(removeId, creature);
+                                        }
+
+                                        break;
                                 }
                             }
                         }
