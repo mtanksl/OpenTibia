@@ -19,9 +19,11 @@ namespace OpenTibia.Game.Scripts.Speech
                 TileCreateItemCommand command = new TileCreateItemCommand(openTibiaId, player.Tile.Position.Offset(player.Direction) );
 
                 command.Execute(server, context);
+
+                return true;
             }
 
-            return true;
+            return false;
         }
     }
 }

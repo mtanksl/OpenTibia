@@ -40,9 +40,9 @@ namespace OpenTibia.Game.Commands
                         context.Write(observer.Client.Connection, new ThingUpdateOutgoingPacket(fromTile.Position, fromIndex, Creature.Id, Direction) );                        
                     }
                 }
-
-                base.Execute(server, context);
             }
+
+            base.Execute(server, context);
         }
     }
 }

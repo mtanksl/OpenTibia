@@ -32,11 +32,9 @@ namespace OpenTibia.Game.Commands
 
             //Stop walk
 
-            server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(Player) );
+            server.CancelQueueForExecution(Constants.PlayerSchedulerEvent(Player) );
 
             //Stop follow and attack
-
-            server.CancelQueueForExecution(Constants.PlayerAttackSchedulerEvent(Player) );
 
             foreach (var creature in server.Map.GetCreatures() )
             {

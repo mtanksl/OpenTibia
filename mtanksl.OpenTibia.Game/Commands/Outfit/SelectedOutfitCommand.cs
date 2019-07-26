@@ -40,9 +40,9 @@ namespace OpenTibia.Game.Commands
                         context.Write(observer.Client.Connection, new SetOutfitOutgoingPacket(Creature.Id, Outfit) );
                     }
                 }
-
-                base.Execute(server, context);
             }
+
+            base.Execute(server, context);
         }
     }
 }

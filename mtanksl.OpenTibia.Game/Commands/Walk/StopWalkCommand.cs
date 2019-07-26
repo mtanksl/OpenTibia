@@ -18,14 +18,14 @@ namespace OpenTibia.Game.Commands
 
             //Act
 
-            if (server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(Player) ) )
+            if (server.CancelQueueForExecution(Constants.PlayerSchedulerEvent(Player) ) )
             {
                 //Notify
 
                 context.Write(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
-
-                base.Execute(server, context);
             }
+
+            base.Execute(server, context);
         }
     }
 }

@@ -46,12 +46,16 @@ namespace OpenTibia.Game.Scripts.Speech
                         break;
                 }
 
+                server.CancelQueueForExecution(Constants.PlayerSchedulerEvent(player) );
+
                 TeleportCommand command = new TeleportCommand(player, toPosition);
 
                 command.Execute(server, context);
+
+                return true;
             }
 
-            return true;
+            return false;
         }
     }
 }

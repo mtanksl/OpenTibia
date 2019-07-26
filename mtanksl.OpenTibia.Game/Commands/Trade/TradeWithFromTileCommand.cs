@@ -59,7 +59,7 @@ namespace OpenTibia.Game.Commands
 
                                 command.Completed += (s, e) =>
                                 {
-                                    Execute(e.Server, e.Context);
+                                    e.Server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), Constants.PlayerItemUseWithDelay, this);
                                 };
 
                                 command.Execute(server, context);

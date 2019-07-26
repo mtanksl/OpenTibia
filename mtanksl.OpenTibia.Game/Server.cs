@@ -61,7 +61,7 @@ namespace OpenTibia.Game
 
         public Map Map { get; set; }
 
-        public Dictionary<ushort, ItemUseScript> ItemRotateScripts { get; set; }
+        public Dictionary<ushort, ItemRotateScript> ItemRotateScripts { get; set; }
 
         public Dictionary<ushort, ItemUseScript> ItemUseScripts { get; set; }
 
@@ -107,7 +107,7 @@ namespace OpenTibia.Game
 
             using (Logger.Measure("Loading scripts", true) )
             {
-                ItemRotateScripts = new Dictionary<ushort, ItemUseScript>();
+                ItemRotateScripts = new Dictionary<ushort, ItemRotateScript>();
 
                 ItemUseScripts = new Dictionary<ushort, ItemUseScript>();
 
@@ -125,9 +125,9 @@ namespace OpenTibia.Game
                 }
             }
 
-            QueueForExecution(Constants.GlobalLightSchedulerEvent, Clock.Interval, new GlobalLightCommand() );
+            QueueForExecution(Constants.GlobalLightSchedulerEvent, Constants.GlobalLightSchedulerEventInterval, new GlobalLightCommand() );
 
-            QueueForExecution(Constants.GlobalCreaturesSchedulerEvent, 1000, new GlobalCreaturesCommand() );
+            QueueForExecution(Constants.GlobalCreaturesSchedulerEvent, Constants.GlobalCreaturesSchedulerEventInterval, new GlobalCreaturesCommand() );
             
             dispatcher.Start();
 

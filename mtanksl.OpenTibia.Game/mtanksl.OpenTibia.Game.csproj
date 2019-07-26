@@ -177,6 +177,7 @@
     <Compile Include="Scripts\Actions\LadderScript.cs" />
     <Compile Include="Scripts\Actions\WatchScript.cs" />
     <Compile Include="Scripts\IScript.cs" />
+    <Compile Include="Scripts\ItemRotateScript.cs" />
     <Compile Include="Scripts\SpeechScript.cs" />
     <Compile Include="Scripts\ItemUseWithCreatureScript.cs" />
     <Compile Include="Scripts\ItemUseWithItemScript.cs" />

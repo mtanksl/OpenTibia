@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using System.Collections.Generic;
 
@@ -25,16 +26,38 @@ namespace OpenTibia.Game.Scripts
 
         public override bool Execute(Player player, Item fromItem, Item toItem, Server server, CommandContext context)
         {
-            ushort toOpenTibiaId;
+            Position fromPosition = player.Tile.Position;
 
-            if (stonePiles.TryGetValue(toItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+            Position toPosition = null;
+
+            switch ( toItem.GetRootContainer() )
             {
-                ItemTransformCommand command = new ItemTransformCommand(toItem, toOpenTibiaId);
+                case Tile tile:
 
-                command.Execute(server, context);
+                    toPosition = tile.Position;
 
-                return true;
+                    break;
+
+                case Inventory inventory:
+
+                    toPosition = inventory.Player.Tile.Position;
+
+                    break;
             }
+
+            if ( toPosition != null && fromPosition.IsNextTo(toPosition) )
+            {
+                ushort toOpenTibiaId;
+
+                if (stonePiles.TryGetValue(toItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+                {
+                    ItemTransformCommand command = new ItemTransformCommand(toItem, toOpenTibiaId);
+
+                    command.Execute(server, context);
+
+                    return true;
+                }
+            }            
             
             return false;
         }

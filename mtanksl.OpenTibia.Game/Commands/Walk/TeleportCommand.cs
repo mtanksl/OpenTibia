@@ -143,8 +143,6 @@ namespace OpenTibia.Game.Commands
                                 }
                             }
                         }
-
-                        server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(observer) );
                     }
                     else
                     {

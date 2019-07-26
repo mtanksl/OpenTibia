@@ -12,6 +12,8 @@ namespace OpenTibia.Game.Scripts.Speech
 
         public override bool Execute(Player player, string parameters, Server server, CommandContext context)
         {
+            server.CancelQueueForExecution(Constants.PlayerSchedulerEvent(player) );
+
             TeleportCommand command = new TeleportCommand(player, player.Tile.Position.Offset(0, 0, -1) );
 
             command.Execute(server, context);

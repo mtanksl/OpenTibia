@@ -22,6 +22,8 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
+            //Act
+
             if ( Message.StartsWith("/") )
             {
                 int index = Message.IndexOf(' ');

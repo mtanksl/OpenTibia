@@ -19,6 +19,8 @@ namespace OpenTibia.Game.Commands
 
                 new StopWalkCommand(Player),
 
+                new StopAttackCommand(Player),
+
                 new StopFollowCommand(Player) );
 
             command.Completed += (s, e) =>

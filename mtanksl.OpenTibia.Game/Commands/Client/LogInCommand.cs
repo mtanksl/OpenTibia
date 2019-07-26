@@ -49,8 +49,14 @@ namespace OpenTibia.Game.Commands
 
                         Tile toTile = server.Map.GetTile(toPosition);
 
-                        if (toTile != null)
+                        if (toTile == null)
                         {
+
+
+                            context.Disconnect(Connection);
+                        }
+                        else
+                        { 
                             Player player = new Player()
                             {
                                 Name = account.Name

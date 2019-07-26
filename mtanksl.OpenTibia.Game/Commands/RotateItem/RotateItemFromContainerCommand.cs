@@ -38,24 +38,18 @@ namespace OpenTibia.Game.Commands
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
-                    if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Rotatable) )
+                    if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.Rotatable) )
                     {
-                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
-                    }
-                    else
-                    {
-                        //Act
-
-                        ItemUseScript script;
+                        ItemRotateScript script;
 
                         if ( !server.ItemRotateScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, server, context) )
                         {
-                            //Notify
-
-                            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
                         }
                         else
                         {
+                            //Act
+
                             base.Execute(server, context);
                         }
                     }

@@ -46,24 +46,18 @@ namespace OpenTibia.Game.Commands
 
                     if (toCreature != null)
                     {
-                        if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
+                        if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
                         {
-                            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
-                        }
-                        else
-                        {
-                            //Act
-
                             ItemUseWithCreatureScript script;
 
                             if ( !server.ItemUseWithCreatureScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, toCreature, server, context) )
                             {
-                                //Notify
-
-                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
                             }
                             else
                             {
+                                //Act
+
                                 base.Execute(server, context);
                             }
                         }

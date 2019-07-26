@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.Scripts
 {
-    public class DefaultItemRotateScript : ItemUseScript
+    public class DefaultItemRotateScript : ItemRotateScript
     {
         private static Dictionary<ushort, ushort> items = new Dictionary<ushort, ushort>()
         {

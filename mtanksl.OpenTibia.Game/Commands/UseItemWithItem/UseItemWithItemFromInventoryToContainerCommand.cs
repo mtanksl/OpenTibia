@@ -52,24 +52,18 @@ namespace OpenTibia.Game.Commands
 
                     if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
                     {
-                        if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
+                        if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
                         {
-                            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
-                        }
-                        else
-                        {
-                            //Act
-
                             ItemUseWithItemScript script;
 
                             if ( !server.ItemUseWithItemScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, toItem, server, context) )
                             {
-                                //Notify
-
-                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
                             }
                             else
                             {
+                                //Act
+
                                 base.Execute(server, context);
                             }
                         }

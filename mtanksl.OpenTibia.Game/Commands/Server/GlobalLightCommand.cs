@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Commands
                 context.Write(player.Client.Connection, packet);
             }
 
-            server.QueueForExecution(Constants.GlobalLightSchedulerEvent, Clock.Interval, this);
+            server.QueueForExecution(Constants.GlobalLightSchedulerEvent, Constants.GlobalLightSchedulerEventInterval, this);
         }
     }
 }

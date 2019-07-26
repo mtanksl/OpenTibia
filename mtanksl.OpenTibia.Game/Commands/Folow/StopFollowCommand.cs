@@ -27,9 +27,9 @@ namespace OpenTibia.Game.Commands
                 //Notify
 
                 context.Write(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
-
-                base.Execute(server, context);
             }
+
+            base.Execute(server, context);
         }
     }
 }

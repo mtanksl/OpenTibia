@@ -15,7 +15,7 @@
 
             //Notify
 
-            server.QueueForExecution(Constants.GlobalCreaturesSchedulerEvent, 1000, this);
+            server.QueueForExecution(Constants.GlobalCreaturesSchedulerEvent, Constants.GlobalCreaturesSchedulerEventInterval, this);
         }
     }
 }

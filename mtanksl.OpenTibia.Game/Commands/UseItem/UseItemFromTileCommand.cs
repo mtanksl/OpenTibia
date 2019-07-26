@@ -52,7 +52,7 @@ namespace OpenTibia.Game.Commands
 
                             command.Completed += (s, e) =>
                             {
-                                Execute(e.Server, e.Context);
+                                e.Server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), Constants.PlayerItemUseDelay, this);
                             };
 
                             command.Execute(server, context);
@@ -77,18 +77,17 @@ namespace OpenTibia.Game.Commands
                         }
                         else
                         {
-                            //Act
-
                             ItemUseScript script;
 
                             if ( !server.ItemUseScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, server, context) )
                             {
-                                //Notify
-
-                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
                             }
                             else
                             {
+
+                                //Act
+
                                 base.Execute(server, context);
                             }
                         }

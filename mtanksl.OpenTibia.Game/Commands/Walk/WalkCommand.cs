@@ -54,7 +54,7 @@ namespace OpenTibia.Game.Commands
                     base.Execute(e.Server, e.Context);
                 };
 
-                server.QueueForExecution(Constants.PlayerWalkSchedulerEvent(Player), 1000 * fromTile.Ground.Metadata.Speed / Player.Speed, command);
+                server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), 1000 * fromTile.Ground.Metadata.Speed / Player.Speed, command);
             }
         }
 
