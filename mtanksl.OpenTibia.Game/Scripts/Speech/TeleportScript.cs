@@ -46,13 +46,16 @@ namespace OpenTibia.Game.Scripts.Speech
                         break;
                 }
 
-                server.CancelQueueForExecution(Constants.PlayerSchedulerEvent(player) );
+                Tile toTile = server.Map.GetTile(toPosition);
 
-                TeleportCommand command = new TeleportCommand(player, toPosition);
+                if (toTile != null)
+                {
+                    server.CancelQueueForExecution(Constants.PlayerSchedulerEvent(player) );
 
-                command.Execute(server, context);
+                    new CreatureMoveCommand(player, toTile).Execute(server, context);
 
-                return true;
+                    return true;
+                }
             }
 
             return false;

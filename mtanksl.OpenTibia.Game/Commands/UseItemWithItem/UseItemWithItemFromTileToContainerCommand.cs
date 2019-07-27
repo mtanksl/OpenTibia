@@ -1,16 +1,12 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Game.Scripts;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class UseItemWithItemFromTileToContainerCommand : Command
+    public class UseItemWithItemFromTileToContainerCommand : UseItemWithItemCommand
     {
-        public UseItemWithItemFromTileToContainerCommand(Player player, Position fromPosition, byte fromIndex, ushort fromItemId, byte toContainerId, byte toContainerIndex, ushort toItemId)
+        public UseItemWithItemFromTileToContainerCommand(Player player, Position fromPosition, byte fromIndex, ushort fromItemId, byte toContainerId, byte toContainerIndex, ushort toItemId) : base(player)
         {
-            Player = player;
-
             FromPosition = fromPosition;
 
             FromIndex = fromIndex;
@@ -23,8 +19,6 @@ namespace OpenTibia.Game.Commands
 
             ToItemId = toItemId;
         }
-
-        public Player Player { get; set; }
 
         public Position FromPosition { get; set; }
 
@@ -58,42 +52,26 @@ namespace OpenTibia.Game.Commands
 
                         if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
                         {
-                            if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
+                            if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
                             {
-                                MoveDirection[] moveDirections = server.Pathfinding.GetMoveDirections(Player.Tile.Position, fromTile.Position);
+                                //Act
 
-                                if (moveDirections.Length == 0)
+                                if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
                                 {
-                                    context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNoWay) );
+                                    WalkToUnknownPathCommand walkToUnknownPathCommand = new WalkToUnknownPathCommand(Player, fromTile);
+
+                                    walkToUnknownPathCommand.Completed += (s, e) =>
+                                    {
+                                        server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), Constants.PlayerSchedulerEventDelay, this);
+                                    };
+
+                                    walkToUnknownPathCommand.Execute(server, context);
                                 }
                                 else
                                 {
-                                    WalkToCommand command = new WalkToCommand(Player, moveDirections);
+                                    //Act
 
-                                    command.Completed += (s, e) =>
-                                    {
-                                        e.Server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), Constants.PlayerItemUseWithDelay, this);
-                                    };
-
-                                    command.Execute(server, context);
-                                }                       
-                            }
-                            else
-                            {
-                                if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
-                                {
-                                    ItemUseWithItemScript script;
-
-                                    if ( !server.ItemUseWithItemScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, toItem, server, context) )
-                                    {
-                                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
-                                    }
-                                    else
-                                    {
-                                        //Act
-
-                                        base.Execute(server, context);
-                                    }
+                                    UseItemWithItem(fromItem, toItem, server, context);
                                 }
                             }
                         }

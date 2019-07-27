@@ -1,13 +1,11 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Game.Scripts;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class UseItemWithCreatureFromTileCommand : Command
+    public class UseItemWithCreatureFromTileCommand : UseItemWithCreatureCommand
     {
-        public UseItemWithCreatureFromTileCommand(Player player, Position fromPosition, byte fromIndex, ushort itemId, uint toCreatureId)
+        public UseItemWithCreatureFromTileCommand(Player player, Position fromPosition, byte fromIndex, ushort itemId, uint toCreatureId) : base(player)
         {
             Player = player;
 
@@ -19,8 +17,6 @@ namespace OpenTibia.Game.Commands
 
             ToCreatureId = toCreatureId;
         }
-
-        public Player Player { get; set; }
 
         public Position FromPosition { get; set; }
 
@@ -46,42 +42,41 @@ namespace OpenTibia.Game.Commands
 
                     if (toCreature != null)
                     {
-                        if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
+                        if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
                         {
-                            MoveDirection[] moveDirections = server.Pathfinding.GetMoveDirections(Player.Tile.Position, fromTile.Position);
+                            //Act
 
-                            if (moveDirections.Length == 0)
+                            if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
                             {
-                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNoWay) );
+                                WalkToUnknownPathCommand walkToUnknownPathCommand = new WalkToUnknownPathCommand(Player, fromTile);
+
+                                walkToUnknownPathCommand.Completed += (s, e) =>
+                                {
+                                    server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), Constants.PlayerSchedulerEventDelay, this);
+                                };
+
+                                walkToUnknownPathCommand.Execute(server, context);
                             }
                             else
                             {
-                                WalkToCommand command = new WalkToCommand(Player, moveDirections);
-
-                                command.Completed += (s, e) =>
+                                UseItemWithCreature(fromItem, toCreature, server, context, () =>
                                 {
-                                    e.Server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), Constants.PlayerItemUseWithDelay, this);
-                                };
+                                    MoveItemFromTileToInventoryCommand moveItemFromTileToInventoryCommand = new MoveItemFromTileToInventoryCommand(Player, FromPosition, FromIndex, ItemId, (byte)Slot.Extra, 1);
 
-                                command.Execute(server, context);
-                            }                       
-                        }
-                        else
-                        {
-                            if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
-                            {
-                                ItemUseWithCreatureScript script;
+                                    moveItemFromTileToInventoryCommand.Completed += (s, e) =>
+                                    {
+                                        UseItemWithCreatureFromInventoryCommand useItemWithCreatureFromInventoryCommand = new UseItemWithCreatureFromInventoryCommand(Player, (byte)Slot.Extra, ItemId, ToCreatureId);
 
-                                if ( !server.ItemUseWithCreatureScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, toCreature, server, context) )
-                                {
-                                    context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
-                                }
-                                else
-                                {
-                                    //Act
+                                        useItemWithCreatureFromInventoryCommand.Completed += (s2, e2) =>
+                                        {
+                                            base.Execute(e2.Server, e2.Context);
+                                        };
 
-                                    base.Execute(server, context);
-                                }
+                                        useItemWithCreatureFromInventoryCommand.Execute(e.Server, e.Context);
+                                    };
+
+                                    moveItemFromTileToInventoryCommand.Execute(server, context);
+                                } );
                             }
                         }
                     }

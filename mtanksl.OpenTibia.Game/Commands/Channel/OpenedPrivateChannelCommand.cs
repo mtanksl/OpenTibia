@@ -24,8 +24,6 @@ namespace OpenTibia.Game.Commands
             Player observer = server.Map.GetPlayers()
                 .Where(p => p.Name == Name)
                 .FirstOrDefault();
-
-            //Act
             
             if (observer != null && observer != Player)
             {

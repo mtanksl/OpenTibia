@@ -1,16 +1,12 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Game.Scripts;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class UseItemWithItemFromTileToTileCommand : Command
+    public class UseItemWithItemFromTileToTileCommand : UseItemWithItemCommand
     {
-        public UseItemWithItemFromTileToTileCommand(Player player, Position fromPosition, byte fromIndex, ushort fromItemId, Position toPosition, byte toIndex, ushort toItemId)
+        public UseItemWithItemFromTileToTileCommand(Player player, Position fromPosition, byte fromIndex, ushort fromItemId, Position toPosition, byte toIndex, ushort toItemId) : base(player)
         {
-            Player = player;
-
             FromPosition = fromPosition;
 
             FromIndex = fromIndex;
@@ -23,9 +19,7 @@ namespace OpenTibia.Game.Commands
 
             ToItemId = toItemId;
         }
-
-        public Player Player { get; set; }
-
+        
         public Position FromPosition { get; set; }
 
         public byte FromIndex { get; set; }
@@ -58,42 +52,43 @@ namespace OpenTibia.Game.Commands
 
                         if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
                         {
-                            if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
+                            if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
                             {
-                                MoveDirection[] moveDirections = server.Pathfinding.GetMoveDirections(Player.Tile.Position, fromTile.Position);
+                                //Act
 
-                                if (moveDirections.Length == 0)
+                                if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
                                 {
-                                    context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNoWay) );
+                                    WalkToUnknownPathCommand walkToUnknownPathCommand = new WalkToUnknownPathCommand(Player, fromTile);
+
+                                    walkToUnknownPathCommand.Completed += (s, e) =>
+                                    {
+                                        server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), Constants.PlayerSchedulerEventDelay, this);
+                                    };
+
+                                    walkToUnknownPathCommand.Execute(server, context);
                                 }
                                 else
                                 {
-                                    WalkToCommand command = new WalkToCommand(Player, moveDirections);
+                                    //Act
 
-                                    command.Completed += (s, e) =>
+                                    UseItemWithItem(fromItem, toItem, toTile, server, context, () =>
                                     {
-                                        e.Server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), Constants.PlayerItemUseWithDelay, this);
-                                    };
+                                        MoveItemFromTileToInventoryCommand moveItemFromTileToInventoryCommand = new MoveItemFromTileToInventoryCommand(Player, FromPosition, FromIndex, FromItemId, (byte)Slot.Extra, 1);
 
-                                    command.Execute(server, context);
-                                }                       
-                            }
-                            else
-                            {
-                                if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
-                                {
-                                    ItemUseWithItemScript script;
+                                        moveItemFromTileToInventoryCommand.Completed += (s, e) =>
+                                        {
+                                            UseItemWithItemFromInventoryToTileCommand useItemWithItemFromInventoryToTileCommand = new UseItemWithItemFromInventoryToTileCommand(Player, (byte)Slot.Extra, FromItemId, ToPosition, ToIndex, ToItemId);
 
-                                    if ( !server.ItemUseWithItemScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, toItem, server, context) )
-                                    {
-                                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
-                                    }
-                                    else
-                                    {
-                                        //Act
+                                            useItemWithItemFromInventoryToTileCommand.Completed += (s2, e2) =>
+                                            {
+                                                base.Execute(e2.Server, e2.Context);
+                                            };
 
-                                        base.Execute(server, context);
-                                    }
+                                            useItemWithItemFromInventoryToTileCommand.Execute(e.Server, e.Context);
+                                        };
+
+                                        moveItemFromTileToInventoryCommand.Execute(server, context);
+                                    } );
                                 }
                             }
                         }

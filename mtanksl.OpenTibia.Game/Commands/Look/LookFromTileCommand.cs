@@ -3,20 +3,16 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class LookFromTileCommand : Command
+    public class LookFromTileCommand : LookCommand
     {
-        public LookFromTileCommand(Player player, Position fromPosition, byte fromIndex, ushort itemId)
+        public LookFromTileCommand(Player player, Position fromPosition, byte fromIndex, ushort itemId) : base(player)
         {
-            Player = player;
-
             FromPosition = fromPosition;
 
             FromIndex = fromIndex;
 
             ItemId = itemId;
         }
-
-        public Player Player { get; set; }
 
         public Position FromPosition { get; set; }
 
@@ -32,15 +28,15 @@ namespace OpenTibia.Game.Commands
 
             if (fromTile != null)
             {
-                Command command = null;
-
                 switch ( fromTile.GetContent(FromIndex) )
                 {
                     case Item item:
 
                         if (item.Metadata.TibiaId == ItemId)
                         {
-                            command = new LookItemCommand(Player, item);
+                            //Act
+
+                            LookItem(item, server, context);
                         }
 
                         break;
@@ -49,22 +45,12 @@ namespace OpenTibia.Game.Commands
 
                         if (ItemId == 99)
                         {
-                            command = new LookCreatureCommand(Player, creature);
+                            //Act
+
+                            LookCreature(creature, server, context);
                         }
 
                         break;
-                }
-
-                if (command != null)
-                {
-                    command.Completed += (s, e) =>
-                    {
-                        //Act
-
-                        base.Execute(server, context);
-                    };
-
-                    command.Execute(server, context);
                 }
             }
         }

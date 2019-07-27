@@ -20,6 +20,8 @@ namespace OpenTibia.Game
 
         public static readonly string YouCanNotThrowThere = "You cannot throw there.";
 
+        public static readonly string YouCanNotUseThere = "You cannot use there.";
+
         public static readonly string ThisIsImpossible = "This is impossible.";
 
         public static string PlayerSchedulerEvent(Player player)
@@ -27,9 +29,7 @@ namespace OpenTibia.Game
             return "Player_" + player.Id;
         }
 
-        public static readonly int PlayerItemUseDelay = 200;
-
-        public static readonly int PlayerItemUseWithDelay = 1 * 1000;
+        public static readonly int PlayerSchedulerEventDelay = 200;
 
         public static readonly string GlobalLightSchedulerEvent = "Global_Light";
 

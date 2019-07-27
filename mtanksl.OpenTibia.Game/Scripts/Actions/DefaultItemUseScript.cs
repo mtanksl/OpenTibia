@@ -34,9 +34,7 @@ namespace OpenTibia.Game.Scripts
 
             if ( items.TryGetValue(fromItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                ItemTransformCommand command = new ItemTransformCommand(fromItem, toOpenTibiaId);
-
-                command.Execute(server, context);
+                new ItemTransformCommand(fromItem, toOpenTibiaId).Execute(server, context);
 
                 return true;
             }

@@ -1,15 +1,12 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
     public class TradeWithFromTileCommand : TradeWithCommand
     {
-        public TradeWithFromTileCommand(Player player, Position fromPosition, byte fromIndex, ushort itemId, uint creatureId)
+        public TradeWithFromTileCommand(Player player, Position fromPosition, byte fromIndex, ushort itemId, uint creatureId) : base(player)
         {
-            Player = player;
-
             FromPosition = fromPosition;
 
             FromIndex = fromIndex;
@@ -18,8 +15,6 @@ namespace OpenTibia.Game.Commands
 
             ToCreatureId = creatureId;
         }
-
-        public Player Player { get; set; }
 
         public Position FromPosition { get; set; }
 
@@ -45,31 +40,22 @@ namespace OpenTibia.Game.Commands
 
                     if (toPlayer != null && toPlayer != Player)
                     {
+                        //Act
+
                         if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
                         {
-                            MoveDirection[] moveDirections = server.Pathfinding.GetMoveDirections(Player.Tile.Position, fromTile.Position);
+                            WalkToUnknownPathCommand walkToUnknownPathCommand = new WalkToUnknownPathCommand(Player, fromTile);
 
-                            if (moveDirections.Length == 0)
+                            walkToUnknownPathCommand.Completed += (s, e) =>
                             {
-                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNoWay) );
-                            }
-                            else
-                            {
-                                WalkToCommand command = new WalkToCommand(Player, moveDirections);
+                                server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), Constants.PlayerSchedulerEventDelay, this);
+                            };
 
-                                command.Completed += (s, e) =>
-                                {
-                                    e.Server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), Constants.PlayerItemUseWithDelay, this);
-                                };
-
-                                command.Execute(server, context);
-                            }                       
+                            walkToUnknownPathCommand.Execute(server, context);
                         }
                         else
                         {
-                            //Act
-
-                            base.Execute(server, context);
+                            TradeWith(fromItem, toPlayer, server, context);
                         }
                     }
                 }

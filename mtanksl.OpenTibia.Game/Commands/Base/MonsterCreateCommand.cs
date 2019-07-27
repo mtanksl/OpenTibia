@@ -3,9 +3,9 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class TileCreateMonsterCommand : Command
+    public class MonsterCreateCommand : Command
     {
-        public TileCreateMonsterCommand(string name, Position position)
+        public MonsterCreateCommand(string name, Position position)
         {
             Name = name;
 

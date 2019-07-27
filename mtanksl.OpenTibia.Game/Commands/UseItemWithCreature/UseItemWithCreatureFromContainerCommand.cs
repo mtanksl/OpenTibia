@@ -1,13 +1,11 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Game.Scripts;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class UseItemWithCreatureFromContainerCommand : Command
+    public class UseItemWithCreatureFromContainerCommand : UseItemWithCreatureCommand
     {
-        public UseItemWithCreatureFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort itemId, uint toCreatureId)
+        public UseItemWithCreatureFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort itemId, uint toCreatureId) : base(player)
         {
             Player = player;
 
@@ -19,8 +17,6 @@ namespace OpenTibia.Game.Commands
 
             ToCreatureId = toCreatureId;
         }
-
-        public Player Player { get; set; }
 
         public byte FromContainerId { get; set; }
 
@@ -48,18 +44,46 @@ namespace OpenTibia.Game.Commands
                     {
                         if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
                         {
-                            ItemUseWithCreatureScript script;
+                            //Act
 
-                            if ( !server.ItemUseWithCreatureScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, toCreature, server, context) )
+                            UseItemWithCreature(fromItem, toCreature, server, context, () =>
                             {
-                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
-                            }
-                            else
-                            {
-                                //Act
+                                switch (fromContainer.GetRootContainer() )
+                                {
+                                    case Tile fromTile:
 
-                                base.Execute(server, context);
-                            }
+                                        MoveItemFromContainerToInventoryCommand moveItemFromTileToInventoryCommand = new MoveItemFromContainerToInventoryCommand(Player, FromContainerId, FromContainerIndex, ItemId, (byte)Slot.Extra, 1);
+
+                                        moveItemFromTileToInventoryCommand.Completed += (s, e) =>
+                                        {
+                                            UseItemWithCreatureFromInventoryCommand useItemWithCreatureFromInventoryCommand = new UseItemWithCreatureFromInventoryCommand(Player, (byte)Slot.Extra, ItemId, ToCreatureId);
+
+                                            useItemWithCreatureFromInventoryCommand.Completed += (s2, e2) =>
+                                            {
+                                                base.Execute(e2.Server, e2.Context);
+                                            };
+
+                                            useItemWithCreatureFromInventoryCommand.Execute(e.Server, e.Context);
+                                        };
+
+                                        moveItemFromTileToInventoryCommand.Execute(server, context);
+
+                                        break;
+
+                                    case Inventory fromInventory:
+
+                                        WalkToUnknownPathCommand walkToUnknownPathCommand = new WalkToUnknownPathCommand(Player, toCreature.Tile);
+
+                                        walkToUnknownPathCommand.Completed += (s, e) =>
+                                        {
+                                            server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), Constants.PlayerSchedulerEventDelay, this);
+                                        };
+
+                                        walkToUnknownPathCommand.Execute(server, context);
+
+                                        break;
+                                }
+                            } );
                         }
                     }
                 }

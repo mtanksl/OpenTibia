@@ -18,11 +18,16 @@ namespace OpenTibia.Game.Scripts
 
         public override bool Execute(Player player, Item fromItem, Server server, CommandContext context)
         {
-            TeleportCommand command = new TeleportCommand(player, ( (Tile)fromItem.Container ).Position.Offset(0, 0, 1) );
+            Tile toTile = server.Map.GetTile( ( (Tile)fromItem.Container ).Position.Offset(0, 0, 1) );
 
-            command.Execute(server, context);
+            if (toTile != null)
+            {
+                new CreatureMoveCommand(player, toTile).Execute(server, context);
 
-            return true;
+                return true;
+            }
+
+            return false;
         }
     }
 }

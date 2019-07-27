@@ -4,10 +4,8 @@ namespace OpenTibia.Game.Commands
 {
     public class TradeWithFromContainerCommand : TradeWithCommand
     {
-        public TradeWithFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort itemId, uint creatureId)
+        public TradeWithFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort itemId, uint creatureId) : base(player)
         {
-            Player = player;
-
             FromContainerId = fromContainerId;
 
             FromContainerIndex = fromContainerIndex;
@@ -16,8 +14,6 @@ namespace OpenTibia.Game.Commands
 
             ToCreatureId = creatureId;
         }
-
-        public Player Player { get; set; }
 
         public byte FromContainerId { get; set; }
 
@@ -45,7 +41,7 @@ namespace OpenTibia.Game.Commands
                     {
                         //Act
 
-                        base.Execute(server, context);
+                        TradeWith(fromItem, toPlayer, server, context);
                     }
                 }
             }           

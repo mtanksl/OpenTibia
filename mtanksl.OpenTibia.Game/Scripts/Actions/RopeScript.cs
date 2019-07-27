@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using System.Collections.Generic;
 
@@ -19,38 +18,27 @@ namespace OpenTibia.Game.Scripts
             }
         }
 
+        public override bool NextTo
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         public override bool Execute(Player player, Item fromItem, Item toItem, Server server, CommandContext context)
         {
-            Position fromPosition = player.Tile.Position;
-
-            Position toPosition = null;
-
-            switch ( toItem.GetRootContainer() )
+            if (ropeSpots.Contains(toItem.Metadata.OpenTibiaId) )
             {
-                case Tile tile:
+                Tile toTile = server.Map.GetTile( ( (Tile)toItem.Container ).Position.Offset(0, 1, -1) );
 
-                    toPosition = tile.Position;
-
-                    break;
-
-                case Inventory inventory:
-
-                    toPosition = inventory.Player.Tile.Position;
-
-                    break;
-            }
-
-            if ( toPosition != null && fromPosition.IsNextTo(toPosition) )
-            {
-                if (ropeSpots.Contains(toItem.Metadata.OpenTibiaId) )
+                if (toTile != null)
                 {
-                    TeleportCommand command = new TeleportCommand(player, ( (Tile)toItem.Container ).Position.Offset(0, 1, -1) );
-
-                    command.Execute(server, context);
+                    new CreatureMoveCommand(player, toTile).Execute(server, context);
 
                     return true;
-                }   
-            }
+                }
+            }   
 
             return false;
         }

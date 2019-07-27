@@ -1,24 +1,18 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Game.Scripts;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class UseItemFromTileCommand : Command
+    public class UseItemFromTileCommand : UseItemCommand
     {
-        public UseItemFromTileCommand(Player player, Position fromPosition, byte fromIndex, ushort itemId)
+        public UseItemFromTileCommand(Player player, Position fromPosition, byte fromIndex, ushort itemId) : base(player)
         {
-            Player = player;
-
             FromPosition = fromPosition;
 
             FromIndex = fromIndex;
 
             ItemId = itemId;
         }
-
-        public Player Player { get; set; }
 
         public Position FromPosition { get; set; }
 
@@ -38,59 +32,22 @@ namespace OpenTibia.Game.Commands
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
+                    //Act
+
                     if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
                     {
-                        MoveDirection[] moveDirections = server.Pathfinding.GetMoveDirections(Player.Tile.Position, fromTile.Position);
+                        WalkToUnknownPathCommand walkToUnknownPathCommand = new WalkToUnknownPathCommand(Player, fromTile);
 
-                        if (moveDirections.Length == 0)
+                        walkToUnknownPathCommand.Completed += (s, e) =>
                         {
-                            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNoWay) );
-                        }
-                        else
-                        {
-                            WalkToCommand command = new WalkToCommand(Player, moveDirections);
+                            server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), Constants.PlayerSchedulerEventDelay, this);
+                        };
 
-                            command.Completed += (s, e) =>
-                            {
-                                e.Server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), Constants.PlayerItemUseDelay, this);
-                            };
-
-                            command.Execute(server, context);
-                        }                       
+                        walkToUnknownPathCommand.Execute(server, context);
                     }
                     else
                     {
-                        Container container = fromItem as Container;
-
-                        if (container != null)
-                        {
-                            Command command = new OpenOrCloseContainerCommand(Player, container);
-
-                            command.Completed += (s, e) =>
-                            {
-                                //Act
-
-                                base.Execute(server, context);
-                            };
-
-                            command.Execute(server, context);
-                        }
-                        else
-                        {
-                            ItemUseScript script;
-
-                            if ( !server.ItemUseScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, server, context) )
-                            {
-                                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
-                            }
-                            else
-                            {
-
-                                //Act
-
-                                base.Execute(server, context);
-                            }
-                        }
+                        UseItem(fromItem, server, context);
                     }
                 }
             }

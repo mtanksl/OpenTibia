@@ -63,7 +63,7 @@ namespace OpenTibia.Game.Commands
                             }
                             else
                             {
-                                WalkToCommand command = new WalkToCommand(Player, moveDirections);
+                                WalkToKnownPathCommand command = new WalkToKnownPathCommand(Player, moveDirections);
 
                                 command.Completed += (s, e) =>
                                 {

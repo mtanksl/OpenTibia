@@ -12,13 +12,18 @@ namespace OpenTibia.Game.Scripts.Speech
 
         public override bool Execute(Player player, string parameters, Server server, CommandContext context)
         {
-            server.CancelQueueForExecution(Constants.PlayerSchedulerEvent(player) );
+            Tile toTile = server.Map.GetTile( player.Tile.Position.Offset(0, 0, -1) );
 
-            TeleportCommand command = new TeleportCommand(player, player.Tile.Position.Offset(0, 0, -1) );
+            if (toTile != null)
+            {
+                server.CancelQueueForExecution(Constants.PlayerSchedulerEvent(player));
 
-            command.Execute(server, context);
+                new CreatureMoveCommand(player, toTile).Execute(server, context);
 
-            return true;
+                return true;
+            }
+
+            return false;
         }
     }
 }

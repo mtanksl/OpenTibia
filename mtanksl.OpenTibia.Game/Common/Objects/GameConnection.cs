@@ -77,7 +77,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<WalkToIncomingPacket>(reader);
 
-                                command = new WalkToCommand(Client.Player, packet.MoveDirections);
+                                command = new WalkToKnownPathCommand(Client.Player, packet.MoveDirections);
                             }
                             break;
 

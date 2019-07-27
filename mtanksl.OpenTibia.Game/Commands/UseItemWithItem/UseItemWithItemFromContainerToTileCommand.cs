@@ -1,16 +1,12 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Game.Scripts;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class UseItemWithItemFromContainerToTileCommand : Command
+    public class UseItemWithItemFromContainerToTileCommand : UseItemWithItemCommand
     {
-        public UseItemWithItemFromContainerToTileCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort fromItemId, Position toPosition, byte toIndex, ushort toItemId)
+        public UseItemWithItemFromContainerToTileCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort fromItemId, Position toPosition, byte toIndex, ushort toItemId) :base(player)
         {
-            Player = player;
-
             FromContainerId = fromContainerId;
 
             FromContainerIndex = fromContainerIndex;
@@ -23,8 +19,6 @@ namespace OpenTibia.Game.Commands
 
             ToItemId = toItemId;
         }
-
-        public Player Player { get; set; }
 
         public byte FromContainerId { get; set; }
 
@@ -60,18 +54,46 @@ namespace OpenTibia.Game.Commands
                         {
                             if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
                             {
-                                ItemUseWithItemScript script;
+                                //Act
 
-                                if ( !server.ItemUseWithItemScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, toItem, server, context) )
+                                UseItemWithItem(fromItem, toItem, toTile, server, context, () =>
                                 {
-                                    context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
-                                }
-                                else
-                                {
-                                    //Act
+                                    switch (fromContainer.GetRootContainer() )
+                                    {
+                                        case Tile fromTile:
 
-                                    base.Execute(server, context);
-                                }
+                                            MoveItemFromContainerToInventoryCommand moveItemFromTileToInventoryCommand = new MoveItemFromContainerToInventoryCommand(Player, FromContainerId, FromContainerIndex, FromItemId, (byte)Slot.Extra, 1);
+
+                                            moveItemFromTileToInventoryCommand.Completed += (s, e) =>
+                                            {
+                                                UseItemWithItemFromInventoryToTileCommand useItemWithItemFromInventoryToTileCommand = new UseItemWithItemFromInventoryToTileCommand(Player, (byte)Slot.Extra, FromItemId, ToPosition, ToIndex, ToItemId);
+
+                                                useItemWithItemFromInventoryToTileCommand.Completed += (s2, e2) =>
+                                                {
+                                                    base.Execute(e2.Server, e2.Context);
+                                                };
+
+                                                useItemWithItemFromInventoryToTileCommand.Execute(e.Server, e.Context);
+                                            };
+
+                                            moveItemFromTileToInventoryCommand.Execute(server, context);
+
+                                            break;
+
+                                        case Inventory fromInventory:
+
+                                            WalkToUnknownPathCommand walkToUnknownPathCommand = new WalkToUnknownPathCommand(Player, toTile);
+
+                                            walkToUnknownPathCommand.Completed += (s, e) =>
+                                            {
+                                                server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), Constants.PlayerSchedulerEventDelay, this);
+                                            };
+
+                                            walkToUnknownPathCommand.Execute(server, context);
+
+                                            break;
+                                    }
+                                } );
                             }
                         }
                     }

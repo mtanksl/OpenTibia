@@ -3,9 +3,9 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class WalkToCommand : Command
+    public class WalkToKnownPathCommand : Command
     {
-        public WalkToCommand(Player player, MoveDirection[] moveDirections)
+        public WalkToKnownPathCommand(Player player, MoveDirection[] moveDirections)
         {
             Player = player;
 

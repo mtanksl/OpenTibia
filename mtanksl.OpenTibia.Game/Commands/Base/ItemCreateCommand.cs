@@ -3,9 +3,9 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class TileCreateItemCommand : Command
+    public class ItemCreateCommand : Command
     {
-        public TileCreateItemCommand(ushort openTibiaId, Position position)
+        public ItemCreateCommand(ushort openTibiaId, Position position)
         {
             OpenTibiaId = openTibiaId;
 

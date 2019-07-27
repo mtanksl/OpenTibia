@@ -2,18 +2,14 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class LookFromTradeCommand : Command
+    public class LookFromTradeCommand : LookCommand
     {
-        public LookFromTradeCommand(Player player, byte windowId, byte index)
+        public LookFromTradeCommand(Player player, byte windowId, byte index) : base(player)
         {
-            Player = player;
-
             WindowId = windowId;
 
             Index = index;
         }
-
-        public Player Player { get; set; }
 
         public byte WindowId { get; set; }
 
@@ -31,16 +27,9 @@ namespace OpenTibia.Game.Commands
 
                 if (item != null)
                 {
-                    LookItemCommand command = new LookItemCommand(Player, item);
+                    //Act
 
-                    command.Completed += (s, e) =>
-                    {
-                        //Act
-
-                        base.Execute(server, context);
-                    };
-
-                    command.Execute(server, context);
+                    LookItem(item, server, context);
                 }
             }
         }

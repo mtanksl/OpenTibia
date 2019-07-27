@@ -1,24 +1,18 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Game.Scripts;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class UseItemWithCreatureFromInventoryCommand : Command
+    public class UseItemWithCreatureFromInventoryCommand : UseItemWithCreatureCommand
     {
-        public UseItemWithCreatureFromInventoryCommand(Player player, byte fromSlot, ushort itemId, uint toCreatureId)
+        public UseItemWithCreatureFromInventoryCommand(Player player, byte fromSlot, ushort itemId, uint toCreatureId) : base(player)
         {
-            Player = player;
-
             FromSlot = fromSlot;
 
             ItemId = itemId;
 
             ToCreatureId = toCreatureId;
         }
-
-        public Player Player { get; set; }
 
         public byte FromSlot { get; set; }
 
@@ -42,18 +36,19 @@ namespace OpenTibia.Game.Commands
                 {
                     if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
                     {
-                        ItemUseWithCreatureScript script;
+                        //Act
 
-                        if ( !server.ItemUseWithCreatureScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, toCreature, server, context) )
+                        UseItemWithCreature(fromItem, toCreature, server, context, () =>
                         {
-                            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
-                        }
-                        else
-                        {
-                            //Notify
+                            WalkToUnknownPathCommand walkToUnknownPathCommand = new WalkToUnknownPathCommand(Player, toCreature.Tile);
 
-                            base.Execute(server, context);
-                        }
+                            walkToUnknownPathCommand.Completed += (s, e) =>
+                            {
+                                server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), Constants.PlayerSchedulerEventDelay, this);
+                            };
+
+                            walkToUnknownPathCommand.Execute(server, context);
+                        } );
                     }
                 }
             }

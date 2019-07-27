@@ -4,16 +4,20 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
-    public class OpenOrCloseContainerCommand : Command
+    public class ContainerReplaceOrCloseCommand : Command
     {
-        public OpenOrCloseContainerCommand(Player player, Container container)
+        public ContainerReplaceOrCloseCommand(Player player, byte containerId, Container container)
         {
             Player = player;
+
+            ContainerId = containerId;
 
             Container = container;
         }
 
         public Player Player { get; set; }
+
+        public byte ContainerId { get; set; }
 
         public Container Container { get; set; }
 
@@ -21,7 +25,7 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            bool open = true;
+            bool replace = true;
 
             foreach (var pair in Player.Client.ContainerCollection.GetIndexedContainers() )
             {
@@ -35,15 +39,15 @@ namespace OpenTibia.Game.Commands
 
                     context.Write(Player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
 
-                    open = false;
+                    replace = false;
                 }
             }
 
-            if (open)
+            if (replace)
             {
                 //Act
 
-                byte containerId = Player.Client.ContainerCollection.OpenContainer(Container);
+                Player.Client.ContainerCollection.ReplaceContainer(ContainerId, Container);
 
                 //Notify
 
@@ -54,7 +58,7 @@ namespace OpenTibia.Game.Commands
                     items.Add(item);
                 }
 
-                context.Write(Player.Client.Connection, new OpenContainerOutgoingPacket(containerId, Container.Metadata.TibiaId, Container.Metadata.Name, Container.Metadata.Capacity, Container.Container is Container, items) );
+                context.Write(Player.Client.Connection, new OpenContainerOutgoingPacket(ContainerId, Container.Metadata.TibiaId, Container.Metadata.Name, Container.Metadata.Capacity, Container.Container is Container, items) );
             }
 
             base.Execute(server, context);

@@ -12,9 +12,7 @@ namespace OpenTibia.Game.Scripts.Speech
 
         public override bool Execute(Player player, string parameters, Server server, CommandContext context)
         {
-            TileCreateMonsterCommand command = new TileCreateMonsterCommand(parameters, player.Tile.Position.Offset(player.Direction) );
-
-            command.Execute(server, context);
+            new MonsterCreateCommand(parameters, player.Tile.Position.Offset(player.Direction) ).Execute(server, context);
 
             return true;
         }

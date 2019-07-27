@@ -43,7 +43,7 @@ namespace OpenTibia.Game.Commands
 
                 SequenceCommand command = new SequenceCommand(
                             
-                    new TeleportCommand(Player, nextTile.Position),
+                    new CreatureMoveCommand(Player, nextTile),
                             
                     new TurnCommand(Player, fromTile.Position.ToDirection(toTile.Position) ) );
 
