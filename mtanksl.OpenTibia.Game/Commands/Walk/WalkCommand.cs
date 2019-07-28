@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
@@ -17,43 +18,60 @@ namespace OpenTibia.Game.Commands
         public Player Player { get; set; }
 
         public MoveDirection MoveDirection { get; set; }
-        
+
+
+        private int index = 0;
+
         public override void Execute(Server server, CommandContext context)
         {
             //Arrange
 
             Tile fromTile = Player.Tile;
 
-            Position fromPosition = fromTile.Position;
+            Tile toTile = server.Map.GetTile( fromTile.Position.Offset(MoveDirection) );
 
-            Position toPosition = fromPosition.Offset(MoveDirection);
+            //Act
 
-            Tile toTile = server.Map.GetTile(toPosition);
-
-            if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || toTile.GetCreatures().Any(c => c.Block) )
+            if (index == 0)
             {
-                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible), new StopWalkOutgoingPacket(Player.Direction) );
+                if ( CanWalk(toTile, server, context) )
+                {
+                    index++;
+
+                    server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), 1000 * fromTile.Ground.Metadata.Speed / Player.Speed, this);
+                }
             }
             else
             {
-                Tile nextTile = server.Map.GetNextTile(toTile);
-
-                if (nextTile == null)
+                CreatureWalk(fromTile, toTile, server, context, () =>
                 {
-                    nextTile = toTile;
-                }
+                    new CreatureMoveCommand(Player, toTile).Execute(server, context);
+                } );
+            }            
+        }
 
-                SequenceCommand command = new SequenceCommand( new CreatureMoveCommand(Player, nextTile), new TurnCommand(Player, fromPosition.ToDirection(toPosition) ) );
+        protected bool CanWalk(Tile toTile, Server server, CommandContext context)
+        {
+            if ( toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable)) || toTile.GetCreatures().Any(c => c.Block) )
+            {
+                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible), 
+                    
+                                                        new StopWalkOutgoingPacket(Player.Direction) );
 
-                command.Completed += (s, e) =>
-                {
-                    //Act
-
-                    base.Execute(e.Server, e.Context);
-                };
-
-                server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), 1000 * fromTile.Ground.Metadata.Speed / Player.Speed, command);
+                return false;
             }
+
+            return true;
+        }
+
+        protected void CreatureWalk(Tile fromTile, Tile toTile, Server server, CommandContext context, Action howToProceed)
+        {
+            if ( !server.CreatureWalkScripts.Any(script => script.Execute(Player, fromTile, toTile, server, context) ) )
+            {
+                howToProceed();
+            }
+
+            base.Execute(server, context);
         }
     }
 }

@@ -55,9 +55,7 @@ namespace OpenTibia.Game.Commands
                         {
                             MoveItem(fromItem, toContainer, ToContainerIndex, Count, server, context, () =>
                             {
-                                new ContainerRemoveItemCommand(fromContainer, FromContainerIndex).Execute(server, context);
-
-                                new ContainerAddItemCommand(toContainer, fromItem).Execute(server, context);
+                                new ItemMoveCommand(fromItem, toContainer, ToContainerIndex).Execute(server, context);
                             } );
                         }
                     }

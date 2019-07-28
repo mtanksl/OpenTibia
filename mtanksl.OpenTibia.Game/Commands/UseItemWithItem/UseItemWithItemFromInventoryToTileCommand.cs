@@ -46,10 +46,10 @@ namespace OpenTibia.Game.Commands
 
                     if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
                     {
-                        if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
-                        {
-                            //Act
+                        //Act
 
+                        if ( IsUseable(fromItem, server, context) )
+                        {
                             UseItemWithItem(fromItem, toItem, toTile, server, context, () =>
                             {
                                 WalkToUnknownPathCommand walkToUnknownPathCommand = new WalkToUnknownPathCommand(Player, toTile);

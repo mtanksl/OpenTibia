@@ -34,9 +34,19 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
+        protected bool IsUseable(Item fromItem, Server server, CommandContext context)
+        {
+            if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         protected void UseItemWithItem(Item fromItem, Item toItem, Server server, CommandContext context)
         {
-            ItemUseWithItemScript script;
+            IItemUseWithItemScript script;
 
             if ( !server.ItemUseWithItemScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) )
             {
@@ -57,7 +67,7 @@ namespace OpenTibia.Game.Commands
 
         protected void UseItemWithItem(Item fromItem, Item toItem, Tile toTile, Server server, CommandContext context, Action howToProceed)
         {
-            ItemUseWithItemScript script;
+            IItemUseWithItemScript script;
 
             if ( !server.ItemUseWithItemScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) )
             {

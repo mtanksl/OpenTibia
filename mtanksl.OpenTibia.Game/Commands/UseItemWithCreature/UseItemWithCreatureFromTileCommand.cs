@@ -42,31 +42,30 @@ namespace OpenTibia.Game.Commands
 
                     if (toCreature != null)
                     {
-                        if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
+                        //Act
+
+                        if ( IsUseable(fromItem, server, context) &&
+
+                            IsNextTo(fromTile, server, context) )
                         {
-                            //Act
-
-                            if ( IsNextTo(fromTile, server, context) )
+                            UseItemWithCreature(fromItem, toCreature, server, context, () =>
                             {
-                                UseItemWithCreature(fromItem, toCreature, server, context, () =>
+                                MoveItemFromTileToInventoryCommand moveItemFromTileToInventoryCommand = new MoveItemFromTileToInventoryCommand(Player, FromPosition, FromIndex, ItemId, (byte)Slot.Extra, 1);
+
+                                moveItemFromTileToInventoryCommand.Completed += (s, e) =>
                                 {
-                                    MoveItemFromTileToInventoryCommand moveItemFromTileToInventoryCommand = new MoveItemFromTileToInventoryCommand(Player, FromPosition, FromIndex, ItemId, (byte)Slot.Extra, 1);
+                                    UseItemWithCreatureFromInventoryCommand useItemWithCreatureFromInventoryCommand = new UseItemWithCreatureFromInventoryCommand(Player, (byte)Slot.Extra, ItemId, ToCreatureId);
 
-                                    moveItemFromTileToInventoryCommand.Completed += (s, e) =>
+                                    useItemWithCreatureFromInventoryCommand.Completed += (s2, e2) =>
                                     {
-                                        UseItemWithCreatureFromInventoryCommand useItemWithCreatureFromInventoryCommand = new UseItemWithCreatureFromInventoryCommand(Player, (byte)Slot.Extra, ItemId, ToCreatureId);
-
-                                        useItemWithCreatureFromInventoryCommand.Completed += (s2, e2) =>
-                                        {
-                                            base.Execute(e2.Server, e2.Context);
-                                        };
-
-                                        useItemWithCreatureFromInventoryCommand.Execute(e.Server, e.Context);
+                                        base.Execute(e2.Server, e2.Context);
                                     };
 
-                                    moveItemFromTileToInventoryCommand.Execute(server, context);
-                                } );
-                            }
+                                    useItemWithCreatureFromInventoryCommand.Execute(e.Server, e.Context);
+                                };
+
+                                moveItemFromTileToInventoryCommand.Execute(server, context);
+                            } );
                         }
                     }
                 }

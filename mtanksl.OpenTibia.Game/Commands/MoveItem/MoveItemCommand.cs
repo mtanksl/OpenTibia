@@ -1,8 +1,8 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Game.Scripts;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
+using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -84,9 +84,7 @@ namespace OpenTibia.Game.Commands
 
         protected void MoveItem(Item fromItem, IContainer toContainer, byte toIndex, byte count, Server server, CommandContext context, Action howToProceed)
         {
-            ItemMoveScript script;
-
-            if ( !server.ItemMoveScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, toContainer, toIndex, count, server, context) )
+            if ( !server.ItemMoveScripts.Any(script => script.Execute(Player, fromItem, toContainer, toIndex, count, server, context) ) )
             {
                 howToProceed();
             }

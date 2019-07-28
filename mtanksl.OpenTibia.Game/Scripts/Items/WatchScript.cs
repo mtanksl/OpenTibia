@@ -6,11 +6,11 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.Scripts
 {
-    public class WatchScript : ItemUseScript
+    public class WatchScript : IItemUseScript
     {
         private static HashSet<ushort> watches = new HashSet<ushort>() { 2036 };
 
-        public override void Register(Server server)
+        public void Register(Server server)
         {
             foreach (var openTibiaId in watches)
             {
@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Scripts
             }
         }
 
-        public override bool Execute(Player player, Item fromItem, Server server, CommandContext context)
+        public bool Execute(Player player, Item fromItem, Server server, CommandContext context)
         {
             context.Write(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "The time is " + server.Clock.Hour.ToString("00") + ":" + server.Clock.Minute.ToString("00") + ".") );
 

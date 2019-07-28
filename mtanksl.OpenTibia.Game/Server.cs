@@ -61,17 +61,19 @@ namespace OpenTibia.Game
 
         public Map Map { get; set; }
 
-        public Dictionary<ushort, ItemMoveScript> ItemMoveScripts { get; set; }
+        public List<ICreatureWalkScript> CreatureWalkScripts { get; set; }
 
-        public Dictionary<ushort, ItemRotateScript> ItemRotateScripts { get; set; }
+        public List<IItemMoveScript> ItemMoveScripts { get; set; }
 
-        public Dictionary<ushort, ItemUseScript> ItemUseScripts { get; set; }
+        public Dictionary<ushort, IItemRotateScript> ItemRotateScripts { get; set; }
 
-        public Dictionary<ushort, ItemUseWithItemScript> ItemUseWithItemScripts { get; set; }
+        public Dictionary<ushort, IItemUseScript> ItemUseScripts { get; set; }
 
-        public Dictionary<ushort, ItemUseWithCreatureScript> ItemUseWithCreatureScripts { get; set; }
+        public Dictionary<ushort, IItemUseWithItemScript> ItemUseWithItemScripts { get; set; }
 
-        public Dictionary<string, SpeechScript> SpeechScripts { get; set; }
+        public Dictionary<ushort, IItemUseWithCreatureScript> ItemUseWithCreatureScripts { get; set; }
+
+        public Dictionary<string, ISpeechScript> SpeechScripts { get; set; }
 
         public void Start()
         {
@@ -109,17 +111,19 @@ namespace OpenTibia.Game
 
             using (Logger.Measure("Loading scripts", true) )
             {
-                ItemMoveScripts = new Dictionary<ushort, ItemMoveScript>();
+                CreatureWalkScripts = new List<ICreatureWalkScript>();
 
-                ItemRotateScripts = new Dictionary<ushort, ItemRotateScript>();
+                ItemMoveScripts = new List<IItemMoveScript>();
 
-                ItemUseScripts = new Dictionary<ushort, ItemUseScript>();
+                ItemRotateScripts = new Dictionary<ushort, IItemRotateScript>();
 
-                ItemUseWithItemScripts = new Dictionary<ushort, ItemUseWithItemScript>();
+                ItemUseScripts = new Dictionary<ushort, IItemUseScript>();
 
-                ItemUseWithCreatureScripts = new Dictionary<ushort, ItemUseWithCreatureScript>();
+                ItemUseWithItemScripts = new Dictionary<ushort, IItemUseWithItemScript>();
 
-                SpeechScripts = new Dictionary<string, SpeechScript>();
+                ItemUseWithCreatureScripts = new Dictionary<ushort, IItemUseWithCreatureScript>();
+
+                SpeechScripts = new Dictionary<string, ISpeechScript>();
 
                 foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(IScript).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract ) )
                 {

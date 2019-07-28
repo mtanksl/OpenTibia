@@ -3,14 +3,14 @@ using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Scripts.Speech
 {
-    public class CreateCreatureScript : SpeechScript
+    public class CreateCreatureScript : ISpeechScript
     {
-        public override void Register(Server server)
+        public void Register(Server server)
         {
             server.SpeechScripts.Add("/m", this);
         }
 
-        public override bool Execute(Player player, string parameters, Server server, CommandContext context)
+        public bool Execute(Player player, string parameters, Server server, CommandContext context)
         {
             new CreatureCreateCommand(parameters, player.Tile.Position.Offset(player.Direction) ).Execute(server, context);
 

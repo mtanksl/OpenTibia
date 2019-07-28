@@ -45,9 +45,7 @@ namespace OpenTibia.Game.Commands
                     {
                         MoveItem(fromItem, toInventory, ToSlot, Count, server, context, () =>
                         {
-                            new InventoryRemoveItemCommand(fromInventory, FromSlot).Execute(server, context);
-
-                            new InventoryAddItemCommand(toInventory, ToSlot, fromItem).Execute(server, context);
+                            new ItemMoveCommand(fromItem, toInventory, ToSlot).Execute(server, context);
                         } );
                     }
                 }

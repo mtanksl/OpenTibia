@@ -45,7 +45,7 @@ namespace OpenTibia.Game.Commands
             }
             else
             {
-                ItemUseScript script;
+                IItemUseScript script;
 
                 if ( !server.ItemUseScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, server, context) )
                 {
@@ -77,7 +77,7 @@ namespace OpenTibia.Game.Commands
             }
             else
             {
-                ItemUseScript script;
+                IItemUseScript script;
 
                 if ( !server.ItemUseScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, server, context) )
                 {

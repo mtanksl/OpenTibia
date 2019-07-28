@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.Scripts
 {
-    public class ShovelScript : ItemUseWithItemScript
+    public class ShovelScript : IItemUseWithItemScript
     {
-        private static HashSet<ushort> shovels = new HashSet<ushort>() { 2554 };
+        private static HashSet<ushort> shovels = new HashSet<ushort>() { 2554, 5710 };
 
         private static Dictionary<ushort, ushort> stonePiles = new Dictionary<ushort, ushort>()
         {
@@ -15,7 +15,7 @@ namespace OpenTibia.Game.Scripts
             { 483, 484 }
         };
 
-        public override void Register(Server server)
+        public void Register(Server server)
         {
             foreach (var openTibiaId in shovels)
             {
@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Scripts
             }
         }
 
-        public override bool NextTo
+        public bool NextTo
         {
             get
             {
@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Scripts
             }
         }
 
-        public override bool Execute(Player player, Item fromItem, Item toItem, Server server, CommandContext context)
+        public bool Execute(Player player, Item fromItem, Item toItem, Server server, CommandContext context)
         {
             ushort toOpenTibiaId;
 

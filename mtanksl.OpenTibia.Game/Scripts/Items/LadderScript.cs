@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.Scripts
 {
-    public class LadderScript : ItemUseScript
+    public class LadderScript : IItemUseScript
     {
         private static HashSet<ushort> ladders = new HashSet<ushort>() { 1386, 3678, 5543 };
 
-        public override void Register(Server server)
+        public void Register(Server server)
         {
             foreach (var openTibiaId in ladders)
             {
@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Scripts
             }
         }
 
-        public override bool Execute(Player player, Item fromItem, Server server, CommandContext context)
+        public bool Execute(Player player, Item fromItem, Server server, CommandContext context)
         {
             Tile toTile = server.Map.GetTile( ( (Tile)fromItem.Container ).Position.Offset(0, 1, -1) );
 

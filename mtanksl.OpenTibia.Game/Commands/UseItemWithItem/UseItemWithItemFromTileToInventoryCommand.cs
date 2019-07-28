@@ -50,7 +50,9 @@ namespace OpenTibia.Game.Commands
                         {
                             //Act
 
-                            if ( IsNextTo(fromTile, server, context) )
+                            if ( IsUseable(fromItem, server, context) &&
+                                
+                                IsNextTo(fromTile, server, context) )
                             {
                                 UseItemWithItem(fromItem, toItem, server, context);
                             }

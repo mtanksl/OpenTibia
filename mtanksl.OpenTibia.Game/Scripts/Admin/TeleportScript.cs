@@ -4,14 +4,14 @@ using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Scripts.Speech
 {
-    public class TeleportScript : SpeechScript
+    public class TeleportScript : ISpeechScript
     {
-        public override void Register(Server server)
+        public void Register(Server server)
         {
             server.SpeechScripts.Add("/a", this);
         }
 
-        public override bool Execute(Player player, string parameters, Server server, CommandContext context)
+        public bool Execute(Player player, string parameters, Server server, CommandContext context)
         {
             int count;
 

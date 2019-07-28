@@ -3,14 +3,14 @@ using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Scripts.Speech
 {
-    public class CreateItemScript : SpeechScript
+    public class CreateItemScript : ISpeechScript
     {
-        public override void Register(Server server)
+        public void Register(Server server)
         {
             server.SpeechScripts.Add("/i", this);
         }
 
-        public override bool Execute(Player player, string parameters, Server server, CommandContext context)
+        public bool Execute(Player player, string parameters, Server server, CommandContext context)
         {
             ushort openTibiaId;
 

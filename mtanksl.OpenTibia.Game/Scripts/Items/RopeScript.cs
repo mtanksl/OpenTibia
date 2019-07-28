@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.Scripts
 {
-    public class RopeScript : ItemUseWithItemScript
+    public class RopeScript : IItemUseWithItemScript
     {
         private static HashSet<ushort> ropes = new HashSet<ushort>() { 2120 };
 
         private static HashSet<ushort> ropeSpots = new HashSet<ushort> { 384 };
 
-        public override void Register(Server server)
+        public void Register(Server server)
         {
             foreach (var openTibiaId in ropes)
             {
@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Scripts
             }
         }
 
-        public override bool NextTo
+        public bool NextTo
         {
             get
             {
@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Scripts
             }
         }
 
-        public override bool Execute(Player player, Item fromItem, Item toItem, Server server, CommandContext context)
+        public bool Execute(Player player, Item fromItem, Item toItem, Server server, CommandContext context)
         {
             if (ropeSpots.Contains(toItem.Metadata.OpenTibiaId) )
             {

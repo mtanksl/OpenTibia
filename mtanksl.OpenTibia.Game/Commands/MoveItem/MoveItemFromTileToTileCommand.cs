@@ -52,18 +52,9 @@ namespace OpenTibia.Game.Commands
                              
                              CanThrow(fromTile, toTile, server, context) )
                         {
-                            Tile nextTile = server.Map.GetNextTile(toTile);
-
-                            if (nextTile == null)
+                            MoveItem(fromItem, toTile, 0, Count, server, context, () =>
                             {
-                                nextTile = toTile;
-                            }
-
-                            MoveItem(fromItem, nextTile, 0, Count, server, context, () =>
-                            {
-                                new TileRemoveItemCommand(fromTile, FromIndex).Execute(server, context);
-
-                                new TileAddItemCommand(nextTile, fromItem).Execute(server, context);
+                                new ItemMoveCommand(fromItem, toTile, 0).Execute(server, context);
                             } );
                         }
                     }

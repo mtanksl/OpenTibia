@@ -52,15 +52,14 @@ namespace OpenTibia.Game.Commands
 
                         if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
                         {
-                            if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
-                            {
-                                //Act
+                            //Act
 
-                                if ( IsNextTo(fromTile, server, context) )
-                                {
-                                    UseItemWithItem(fromItem, toItem, server, context);
-                                }
-                            }
+                            if ( IsUseable(fromItem, server, context) &&
+                                
+                                IsNextTo(fromTile, server, context) )
+                            {
+                                UseItemWithItem(fromItem, toItem, server, context);
+                            }                            
                         }
                     }
                 }

@@ -26,10 +26,10 @@ namespace OpenTibia.Game.Commands
 
             if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
             {
-                if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.Rotatable) )
-                {
-                    //Act
+                //Act
 
+                if ( IsRotatable(fromItem, server, context) )
+                {
                     RotateItem(fromItem, server, context);
                 }
             }

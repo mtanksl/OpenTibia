@@ -42,10 +42,10 @@ namespace OpenTibia.Game.Commands
 
                     if (toCreature != null)
                     {
-                        if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
-                        {
-                            //Act
+                        //Act
 
+                        if ( IsUseable(fromItem, server, context) )
+                        {
                             UseItemWithCreature(fromItem, toCreature, server, context, () =>
                             {
                                 switch (fromContainer.GetRootContainer() )

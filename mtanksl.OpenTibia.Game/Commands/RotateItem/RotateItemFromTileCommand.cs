@@ -32,14 +32,13 @@ namespace OpenTibia.Game.Commands
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
-                    if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.Rotatable) )
-                    {
-                        //Act
+                    //Act
 
-                        if ( IsNextTo(fromTile, server, context) )
-                        {
-                            RotateItem(fromItem, server, context);
-                        }
+                    if ( IsRotatable(fromItem, server, context) &&
+
+                        IsNextTo(fromTile, server, context) )
+                    {
+                        RotateItem(fromItem, server, context);
                     }
                 }
             }

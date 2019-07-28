@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
 
             //Act
 
-            SpeechScript script;
+            ISpeechScript script;
 
             if ( !Message.StartsWith("/") || !server.SpeechScripts.TryGetValue(GetCommand(Message), out script) || !script.Execute(Player, GetParameters(Message), server, context) )
             {

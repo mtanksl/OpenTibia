@@ -52,31 +52,30 @@ namespace OpenTibia.Game.Commands
 
                         if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
                         {
-                            if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
+                            //Act
+
+                            if ( IsUseable(fromItem, server, context) &&
+                                
+                            IsNextTo(fromTile, server, context) )
                             {
-                                //Act
-
-                                if ( IsNextTo(fromTile, server, context) )
+                                UseItemWithItem(fromItem, toItem, toTile, server, context, () =>
                                 {
-                                    UseItemWithItem(fromItem, toItem, toTile, server, context, () =>
+                                    MoveItemFromTileToInventoryCommand moveItemFromTileToInventoryCommand = new MoveItemFromTileToInventoryCommand(Player, FromPosition, FromIndex, FromItemId, (byte)Slot.Extra, 1);
+
+                                    moveItemFromTileToInventoryCommand.Completed += (s, e) =>
                                     {
-                                        MoveItemFromTileToInventoryCommand moveItemFromTileToInventoryCommand = new MoveItemFromTileToInventoryCommand(Player, FromPosition, FromIndex, FromItemId, (byte)Slot.Extra, 1);
+                                        UseItemWithItemFromInventoryToTileCommand useItemWithItemFromInventoryToTileCommand = new UseItemWithItemFromInventoryToTileCommand(Player, (byte)Slot.Extra, FromItemId, ToPosition, ToIndex, ToItemId);
 
-                                        moveItemFromTileToInventoryCommand.Completed += (s, e) =>
+                                        useItemWithItemFromInventoryToTileCommand.Completed += (s2, e2) =>
                                         {
-                                            UseItemWithItemFromInventoryToTileCommand useItemWithItemFromInventoryToTileCommand = new UseItemWithItemFromInventoryToTileCommand(Player, (byte)Slot.Extra, FromItemId, ToPosition, ToIndex, ToItemId);
-
-                                            useItemWithItemFromInventoryToTileCommand.Completed += (s2, e2) =>
-                                            {
-                                                base.Execute(e2.Server, e2.Context);
-                                            };
-
-                                            useItemWithItemFromInventoryToTileCommand.Execute(e.Server, e.Context);
+                                            base.Execute(e2.Server, e2.Context);
                                         };
 
-                                        moveItemFromTileToInventoryCommand.Execute(server, context);
-                                    } );
-                                }
+                                        useItemWithItemFromInventoryToTileCommand.Execute(e.Server, e.Context);
+                                    };
+
+                                    moveItemFromTileToInventoryCommand.Execute(server, context);
+                                } );
                             }
                         }
                     }

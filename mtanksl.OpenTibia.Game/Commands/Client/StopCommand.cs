@@ -15,22 +15,17 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            SequenceCommand command = new SequenceCommand(
+            //Act
 
-                new StopWalkCommand(Player),
+            new StopWalkCommand(Player).Execute(server, context);
 
-                new StopAttackCommand(Player),
+            new StopAttackCommand(Player).Execute(server, context);
 
-                new StopFollowCommand(Player) );
+            new StopFollowCommand(Player).Execute(server, context);
 
-            command.Completed += (s, e) =>
-            {
-                //Act
+            //Notify
 
-                base.Execute(e.Server, e.Context);
-            };
-
-            command.Execute(server, context);
+            base.Execute(server, context);
         }
     }
 }

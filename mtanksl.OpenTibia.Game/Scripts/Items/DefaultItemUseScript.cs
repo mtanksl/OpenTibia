@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.Scripts
 {
-    public class DefaultItemUseScript : ItemUseScript
+    public class DefaultItemUseScript : IItemUseScript
     {
         private static Dictionary<ushort, ushort> items = new Dictionary<ushort, ushort>()
         {
@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Scripts
             { 6363, 6362 }
         };
 
-        public override void Register(Server server)
+        public void Register(Server server)
         {
             foreach (var item in items)
             {
@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Scripts
             }
         }
 
-        public override bool Execute(Player player, Item fromItem, Server server, CommandContext context)
+        public bool Execute(Player player, Item fromItem, Server server, CommandContext context)
         {
             ushort toOpenTibiaId;
 

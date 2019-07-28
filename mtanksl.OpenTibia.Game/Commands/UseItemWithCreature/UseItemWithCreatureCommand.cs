@@ -34,9 +34,19 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
+        protected bool IsUseable(Item fromItem, Server server, CommandContext context)
+        {
+            if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         protected void UseItemWithCreature(Item fromItem, Creature toCreature, Server server, CommandContext context, Action howToProceed)
         {
-            ItemUseWithCreatureScript script;
+            IItemUseWithCreatureScript script;
 
             if ( !server.ItemUseWithCreatureScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) )
             {

@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.Scripts
 {
-    public class SewerScript : ItemUseScript
+    public class SewerScript : IItemUseScript
     {
         private static HashSet<ushort> sewers = new HashSet<ushort>() { 430 };
 
-        public override void Register(Server server)
+        public void Register(Server server)
         {
             foreach (var openTibiaId in sewers)
             {
@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Scripts
             }
         }
 
-        public override bool Execute(Player player, Item fromItem, Server server, CommandContext context)
+        public bool Execute(Player player, Item fromItem, Server server, CommandContext context)
         {
             Tile toTile = server.Map.GetTile( ( (Tile)fromItem.Container ).Position.Offset(0, 0, 1) );
 

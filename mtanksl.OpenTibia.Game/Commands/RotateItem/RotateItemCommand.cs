@@ -33,9 +33,19 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
+        protected bool IsRotatable(Item fromItem, Server server, CommandContext context)
+        {
+            if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Rotatable) )
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         protected void RotateItem(Item fromItem, Server server, CommandContext context)
         {
-            ItemRotateScript script;
+            IItemRotateScript script;
 
             if ( !server.ItemRotateScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, server, context) )
             {

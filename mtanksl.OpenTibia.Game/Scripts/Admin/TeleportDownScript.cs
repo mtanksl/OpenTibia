@@ -3,14 +3,14 @@ using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Scripts.Speech
 {
-    public class TeleportDownScript : SpeechScript
+    public class TeleportDownScript : ISpeechScript
     {
-        public override void Register(Server server)
+        public void Register(Server server)
         {
             server.SpeechScripts.Add("/down", this);
         }
 
-        public override bool Execute(Player player, string parameters, Server server, CommandContext context)
+        public bool Execute(Player player, string parameters, Server server, CommandContext context)
         {
             Tile toTile = server.Map.GetTile( player.Tile.Position.Offset(0, 0, 1) );
 
