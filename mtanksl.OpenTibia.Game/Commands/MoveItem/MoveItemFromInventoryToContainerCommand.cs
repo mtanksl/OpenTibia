@@ -49,11 +49,12 @@ namespace OpenTibia.Game.Commands
 
                         IsPossible(fromItem, toContainer, server, context) )
                     {
-                        new InventoryRemoveItemCommand(fromInventory, FromSlot).Execute(server, context);
+                        MoveItem(fromItem, toContainer, ToContainerIndex, Count, server, context, () =>
+                        {
+                            new InventoryRemoveItemCommand(fromInventory, FromSlot).Execute(server, context);
 
-                        new ContainerAddItemCommand(toContainer, fromItem).Execute(server, context);
-
-                        base.Execute(server, context);
+                            new ContainerAddItemCommand(toContainer, fromItem).Execute(server, context);
+                        } );
                     }     
                 }
             }

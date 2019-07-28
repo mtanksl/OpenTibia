@@ -61,6 +61,8 @@ namespace OpenTibia.Game
 
         public Map Map { get; set; }
 
+        public Dictionary<ushort, ItemMoveScript> ItemMoveScripts { get; set; }
+
         public Dictionary<ushort, ItemRotateScript> ItemRotateScripts { get; set; }
 
         public Dictionary<ushort, ItemUseScript> ItemUseScripts { get; set; }
@@ -107,6 +109,8 @@ namespace OpenTibia.Game
 
             using (Logger.Measure("Loading scripts", true) )
             {
+                ItemMoveScripts = new Dictionary<ushort, ItemMoveScript>();
+
                 ItemRotateScripts = new Dictionary<ushort, ItemRotateScript>();
 
                 ItemUseScripts = new Dictionary<ushort, ItemUseScript>();

@@ -1,6 +1,8 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Scripts;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -78,6 +80,18 @@ namespace OpenTibia.Game.Commands
             }
 
             return true;
+        }
+
+        protected void MoveItem(Item fromItem, IContainer toContainer, byte toIndex, byte count, Server server, CommandContext context, Action howToProceed)
+        {
+            ItemMoveScript script;
+
+            if ( !server.ItemMoveScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, toContainer, toIndex, count, server, context) )
+            {
+                howToProceed();
+            }
+
+            base.Execute(server, context);
         }
     }
 }

@@ -54,11 +54,12 @@ namespace OpenTibia.Game.Commands
 
                             IsPickupable(fromItem, server, context) )
                         {
-                            new TileRemoveItemCommand(fromTile, FromIndex).Execute(server, context);
+                            MoveItem(fromItem, toInventory, ToSlot, Count, server, context, () =>
+                            {
+                                new TileRemoveItemCommand(fromTile, FromIndex).Execute(server, context);
 
-                            new InventoryAddItemCommand(toInventory, ToSlot, fromItem).Execute(server, context);
-
-                            base.Execute(server, context);
+                                new InventoryAddItemCommand(toInventory, ToSlot, fromItem).Execute(server, context);
+                            } );
                         }
                     }
                 }

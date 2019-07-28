@@ -53,11 +53,12 @@ namespace OpenTibia.Game.Commands
 
                              IsPossible(fromItem, toContainer, server, context) )
                         {
-                            new ContainerRemoveItemCommand(fromContainer, FromContainerIndex).Execute(server, context);
+                            MoveItem(fromItem, toContainer, ToContainerIndex, Count, server, context, () =>
+                            {
+                                new ContainerRemoveItemCommand(fromContainer, FromContainerIndex).Execute(server, context);
 
-                            new ContainerAddItemCommand(toContainer, fromItem).Execute(server, context);
-
-                            base.Execute(server, context);
+                                new ContainerAddItemCommand(toContainer, fromItem).Execute(server, context);
+                            } );
                         }
                     }
                 }

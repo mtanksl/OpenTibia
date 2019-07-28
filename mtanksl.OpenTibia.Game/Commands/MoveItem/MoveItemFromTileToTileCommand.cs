@@ -59,11 +59,12 @@ namespace OpenTibia.Game.Commands
                                 nextTile = toTile;
                             }
 
-                            new TileRemoveItemCommand(fromTile, FromIndex).Execute(server, context);
+                            MoveItem(fromItem, nextTile, 0, Count, server, context, () =>
+                            {
+                                new TileRemoveItemCommand(fromTile, FromIndex).Execute(server, context);
 
-                            new TileAddItemCommand(nextTile, fromItem).Execute(server, context);
-
-                            base.Execute(server, context);
+                                new TileAddItemCommand(nextTile, fromItem).Execute(server, context);
+                            } );
                         }
                     }
                 }
