@@ -126,19 +126,6 @@ namespace OpenTibia.Game.Commands
                             deltaX--;
                         }
                     }
-
-                    foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
-                    {
-                        if (pair.Value.GetRootContainer() is Tile tile)
-                        {
-                            if ( !tile.Position.IsNextTo(toPosition) )
-                            {
-                                observer.Client.ContainerCollection.CloseContainer(pair.Key);
-
-                                context.Write(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
-                            }
-                        }
-                    }
                 }
                 else
                 {

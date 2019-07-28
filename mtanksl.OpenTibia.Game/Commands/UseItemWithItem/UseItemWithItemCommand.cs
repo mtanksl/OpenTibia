@@ -15,6 +15,25 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
+        protected bool IsNextTo(Tile fromTile, Server server, CommandContext context)
+        {
+            if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
+            {
+                WalkToUnknownPathCommand walkToUnknownPathCommand = new WalkToUnknownPathCommand(Player, fromTile);
+
+                walkToUnknownPathCommand.Completed += (s, e) =>
+                {
+                    server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), Constants.PlayerSchedulerEventDelay, this);
+                };
+
+                walkToUnknownPathCommand.Execute(server, context);
+
+                return false;
+            }
+
+            return true;
+        }
+
         protected void UseItemWithItem(Item fromItem, Item toItem, Server server, CommandContext context)
         {
             ItemUseWithItemScript script;
@@ -27,7 +46,7 @@ namespace OpenTibia.Game.Commands
             {
                 if ( !script.Execute(Player, fromItem, toItem, server, context) )
                 {
-                    context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem));
+                    context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
                 }
                 else
                 {

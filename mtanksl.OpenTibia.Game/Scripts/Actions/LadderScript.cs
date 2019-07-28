@@ -22,6 +22,8 @@ namespace OpenTibia.Game.Scripts
 
             if (toTile != null)
             {
+                server.CancelQueueForExecution(Constants.PlayerSchedulerEvent(player) );
+
                 new CreatureMoveCommand(player, toTile).Execute(server, context);
 
                 return true;

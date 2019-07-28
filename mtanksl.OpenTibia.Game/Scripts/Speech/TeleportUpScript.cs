@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Scripts.Speech
 
             if (toTile != null)
             {
-                server.CancelQueueForExecution(Constants.PlayerSchedulerEvent(player));
+                server.CancelQueueForExecution(Constants.PlayerSchedulerEvent(player) );
 
                 new CreatureMoveCommand(player, toTile).Execute(server, context);
 

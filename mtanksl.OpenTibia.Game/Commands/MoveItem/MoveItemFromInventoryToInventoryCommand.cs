@@ -1,15 +1,11 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
     public class MoveItemFromInventoryToInventoryCommand : MoveItemCommand
     {
-        public MoveItemFromInventoryToInventoryCommand(Player player, byte fromSlot, ushort itemId, byte toSlot, byte count)
+        public MoveItemFromInventoryToInventoryCommand(Player player, byte fromSlot, ushort itemId, byte toSlot, byte count) : base(player)
         {
-            Player = player;
-
             FromSlot = fromSlot;
 
             ItemId = itemId;
@@ -18,8 +14,6 @@ namespace OpenTibia.Game.Commands
 
             Count = count;
         }
-
-        public Player Player { get; set; }
 
         public byte FromSlot { get; set; }
 
@@ -45,27 +39,16 @@ namespace OpenTibia.Game.Commands
 
                 if (toItem == null)
                 {
-                    if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
+                    //Act
+
+                    if ( IsMoveable(fromItem, server, context) )
                     {
-                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
+                        new InventoryRemoveItemCommand(fromInventory, FromSlot).Execute(server, context);
+
+                        new InventoryAddItemCommand(toInventory, ToSlot, fromItem).Execute(server, context);
+
+                        base.Execute(server, context);
                     }
-                    else
-                    {
-                        //Act
-
-                        RemoveItem(fromInventory, FromSlot, server, context);
-
-                        AddItem(toInventory, ToSlot, fromItem, server, context);
-
-                        Container container = fromItem as Container;
-
-                        if (container != null)
-                        {
-                            CloseContainer(fromInventory, toInventory, container, server, context);
-                        }
-
-                        base.Execute(server, context);     
-                    }                    
                 }
             }
         }

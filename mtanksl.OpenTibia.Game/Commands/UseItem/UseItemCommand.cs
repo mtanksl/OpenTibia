@@ -14,6 +14,25 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
+        protected bool IsNextTo(Tile fromTile, Server server, CommandContext context)
+        {
+            if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
+            {
+                WalkToUnknownPathCommand walkToUnknownPathCommand = new WalkToUnknownPathCommand(Player, fromTile);
+
+                walkToUnknownPathCommand.Completed += (s, e) =>
+                {
+                    server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), Constants.PlayerSchedulerEventDelay, this);
+                };
+
+                walkToUnknownPathCommand.Execute(server, context);
+
+                return false;
+            }
+
+            return true;
+        }
+
         protected void UseItem(Item fromItem, Server server, CommandContext context)
         {
             Container container = fromItem as Container;

@@ -50,21 +50,8 @@ namespace OpenTibia.Game.Commands
                         {
                             //Act
 
-                            if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
+                            if ( IsNextTo(fromTile, server, context) )
                             {
-                                WalkToUnknownPathCommand walkToUnknownPathCommand = new WalkToUnknownPathCommand(Player, fromTile);
-
-                                walkToUnknownPathCommand.Completed += (s, e) =>
-                                {
-                                    server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), Constants.PlayerSchedulerEventDelay, this);
-                                };
-
-                                walkToUnknownPathCommand.Execute(server, context);
-                            }
-                            else
-                            {
-                                //Act
-
                                 UseItemWithItem(fromItem, toItem, server, context);
                             }
                         }

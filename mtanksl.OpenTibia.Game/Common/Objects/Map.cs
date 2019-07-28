@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Structures;
+using OpenTibia.FileFormats.Otbm;
 using OpenTibia.Game;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,13 @@ namespace OpenTibia.Common.Objects
 {
     public class Map : IMap
     {
-        public Map(Server server, FileFormats.Otbm.OtbmFile otbmFile)
+        private Server server;
+
+        public Map(Server server, OtbmFile otbmFile)
         {
-            tiles = new Dictionary<Position, Tile>(otbmFile.Areas.Sum(area => area.Tiles.Count) );
+            this.server = server;
+
+            this.tiles = new Dictionary<Position, Tile>(otbmFile.Areas.Sum(area => area.Tiles.Count) );
 
             foreach (var otbmArea in otbmFile.Areas)
             {
@@ -36,7 +41,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 Container container = (Container)item;
 
-                                //TODO: Load container items
+                                
                             }
                             else if (item is StackableItem)
                             {
@@ -69,8 +74,128 @@ namespace OpenTibia.Common.Objects
             return tile;
         }
 
-        private Dictionary<uint, Creature> creatures = new Dictionary<uint, Creature>();
-        
+        public Tile GetNextTile(Tile toTile)
+        {
+            switch (toTile.FloorChange)
+            {
+                case FloorChange.Down:
+
+                    toTile = server.Map.GetTile( toTile.Position.Offset(0, 0, 1) );
+
+                    if (toTile != null)
+                    {
+                        toTile = GetNextTileDown(toTile);
+                    }
+
+                    break;
+
+                case FloorChange.East:
+
+                    toTile = server.Map.GetTile( toTile.Position.Offset(1, 0, -1) );
+
+                    break;
+
+                case FloorChange.North:
+
+                    toTile = server.Map.GetTile( toTile.Position.Offset(0, -1, -1) );
+
+                    break;
+
+                case FloorChange.West:
+
+                    toTile = server.Map.GetTile( toTile.Position.Offset(-1, 0, -1) );
+
+                    break;
+
+                case FloorChange.South:
+
+                    toTile = server.Map.GetTile( toTile.Position.Offset(0, 1, -1) );
+
+                    break;
+
+                case FloorChange.NorthEast:
+
+                    toTile = server.Map.GetTile( toTile.Position.Offset(1, -1, -1) );
+
+                    break;
+
+                case FloorChange.NorthWest:
+
+                    toTile = server.Map.GetTile( toTile.Position.Offset(-1, -1, -1) );
+
+                    break;
+
+                case FloorChange.SouthEast:
+
+                    toTile = server.Map.GetTile( toTile.Position.Offset(1, 1, -1) );
+
+                    break;
+
+                case FloorChange.SouthWest:
+
+                    toTile = server.Map.GetTile( toTile.Position.Offset(-1, 1, -1) );
+
+                    break;
+            }
+
+            return toTile;
+        }
+
+        public Tile GetNextTileDown(Tile toTile)
+        {
+            switch (toTile.FloorChange)
+            {
+                case FloorChange.East:
+
+                    toTile = server.Map.GetTile( toTile.Position.Offset(-1, 0, 0) );
+
+                    break;
+
+                case FloorChange.North:
+
+                    toTile = server.Map.GetTile( toTile.Position.Offset(0, 1, 0) );
+
+                    break;
+
+                case FloorChange.West:
+
+                    toTile = server.Map.GetTile( toTile.Position.Offset(1, 0, 0) );
+
+                    break;
+
+                case FloorChange.South:
+
+                    toTile = server.Map.GetTile( toTile.Position.Offset(0, -1, 0) );
+
+                    break;
+
+                case FloorChange.NorthEast:
+
+                    toTile = server.Map.GetTile( toTile.Position.Offset(-1, 1, 0) );
+
+                    break;
+
+                case FloorChange.NorthWest:
+
+                    toTile = server.Map.GetTile( toTile.Position.Offset(1, 1, 0) );
+
+                    break;
+
+                case FloorChange.SouthEast:
+
+                    toTile = server.Map.GetTile( toTile.Position.Offset(-1, -1, 0) );
+
+                    break;
+
+                case FloorChange.SouthWest:
+
+                    toTile = server.Map.GetTile( toTile.Position.Offset(1, -1, 0) );
+
+                    break;
+            }
+
+            return toTile;
+        }
 
         private uint uniqueId = 0;
 
@@ -85,6 +210,8 @@ namespace OpenTibia.Common.Objects
 
             return uniqueId;
         }
+
+        private Dictionary<uint, Creature> creatures = new Dictionary<uint, Creature>();
 
         public void AddCreature(Creature creature)
         {

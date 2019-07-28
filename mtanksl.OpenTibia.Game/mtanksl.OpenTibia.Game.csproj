@@ -42,21 +42,27 @@
   <ItemGroup>
     <Compile Include="Commands\Attack\StartAttackCommand.cs" />
     <Compile Include="Commands\Attack\StopAttackCommand.cs" />
-    <Compile Include="Commands\Base\ContainerRemoveItemCommand.cs" />
-    <Compile Include="Commands\Base\ContainerAddItemCommand.cs" />
-    <Compile Include="Commands\Base\ContainerReplaceItemCommand.cs" />
-    <Compile Include="Commands\Base\InventoryReplaceItemCommand.cs" />
-    <Compile Include="Commands\Base\ItemTransformCommand.cs" />
-    <Compile Include="Commands\Base\TileReplaceItemCommand.cs" />
+    <Compile Include="Commands\Base\ContainerCollection\ContainerReplaceCommand.cs" />
+    <Compile Include="Commands\Base\ContainerCollection\ContainerCloseCommand.cs" />
+    <Compile Include="Commands\Base\Container\ContainerRemoveItemCommand.cs" />
+    <Compile Include="Commands\Base\Container\ContainerAddItemCommand.cs" />
+    <Compile Include="Commands\Base\Container\ContainerReplaceItemCommand.cs" />
+    <Compile Include="Commands\Base\Creature\CreatureCreateCommand.cs" />
+    <Compile Include="Commands\Base\Creature\CreatureDestroyCommand.cs" />
+    <Compile Include="Commands\Base\Inventory\InventoryReplaceItemCommand.cs" />
+    <Compile Include="Commands\Base\Item\ItemDestroyCommand.cs" />
+    <Compile Include="Commands\Base\Item\ItemCreateCommand.cs" />
+    <Compile Include="Commands\Base\Item\ItemTransformCommand.cs" />
+    <Compile Include="Commands\Base\Tile\TileReplaceItemCommand.cs" />
     <Compile Include="Commands\Channel\CloseNpcsChannelCommand.cs" />
     <Compile Include="Commands\Client\LogInCommand.cs" />
     <Compile Include="Commands\Client\EnterGameCommand.cs" />
-    <Compile Include="Commands\Base\InventoryAddItemCommand.cs" />
-    <Compile Include="Commands\Base\TileAddCreatureCommand.cs" />
-    <Compile Include="Commands\Base\TileAddItemCommand.cs" />
-    <Compile Include="Commands\Base\MagicEffectCommand.cs" />
-    <Compile Include="Commands\Base\InventoryRemoveItemCommand.cs" />
-    <Compile Include="Commands\Base\TileRemoveItemCommand.cs" />
+    <Compile Include="Commands\Base\Inventory\InventoryAddItemCommand.cs" />
+    <Compile Include="Commands\Base\Tile\TileAddCreatureCommand.cs" />
+    <Compile Include="Commands\Base\Tile\TileAddItemCommand.cs" />
+    <Compile Include="Commands\Base\Tile\MagicEffectCommand.cs" />
+    <Compile Include="Commands\Base\Inventory\InventoryRemoveItemCommand.cs" />
+    <Compile Include="Commands\Base\Tile\TileRemoveItemCommand.cs" />
     <Compile Include="Commands\Client\StopCommand.cs" />
     <Compile Include="Commands\Folow\StopFollowCommand.cs" />
     <Compile Include="Commands\ITransaction.cs" />
@@ -66,8 +72,6 @@
     <Compile Include="Commands\CommandContext.cs" />
     <Compile Include="Commands\Container\OpenParentContainerCommand.cs" />
     <Compile Include="Commands\Container\CloseContainerCommand.cs" />
-    <Compile Include="Commands\Base\ItemCreateCommand.cs" />
-    <Compile Include="Commands\Base\MonsterCreateCommand.cs" />
     <Compile Include="Commands\Folow\StartFollowCommand.cs" />
     <Compile Include="Commands\Look\LookFromContainerCommand.cs" />
     <Compile Include="Commands\Look\LookFromInventoryCommand.cs" />
@@ -118,8 +122,8 @@
     <Compile Include="Commands\UseItemWithItem\UseItemWithItemFromInventoryToTileCommand.cs" />
     <Compile Include="Commands\UseItemWithItem\UseItemWithItemFromTileToInventoryCommand.cs" />
     <Compile Include="Commands\UseItemWithItem\UseItemWithItemFromTileToTileCommand.cs" />
-    <Compile Include="Commands\Base\ContainerOpenOrCloseCommand.cs" />
-    <Compile Include="Commands\Base\ContainerReplaceOrCloseCommand.cs" />
+    <Compile Include="Commands\Base\ContainerCollection\ContainerOpenOrCloseCommand.cs" />
+    <Compile Include="Commands\Base\ContainerCollection\ContainerReplaceOrCloseCommand.cs" />
     <Compile Include="Commands\UseItem\UseItemFromInventoryCommand.cs" />
     <Compile Include="Commands\UseItem\UseItemFromContainerCommand.cs" />
     <Compile Include="Commands\UseItem\UseItemCommand.cs" />
@@ -141,7 +145,7 @@
     <Compile Include="Commands\Client\PongCommand.cs" />
     <Compile Include="Commands\Outfit\SelectedOutfitCommand.cs" />
     <Compile Include="Commands\Outfit\SelectOutfitCommand.cs" />
-    <Compile Include="Commands\Base\CreatureMoveCommand.cs" />
+    <Compile Include="Commands\Base\Creature\CreatureMoveCommand.cs" />
     <Compile Include="Commands\Walk\StopWalkCommand.cs" />
     <Compile Include="Commands\Walk\WalkToKnownPathCommand.cs" />
     <Compile Include="Commands\Turn\TurnCommand.cs" />
@@ -226,6 +230,8 @@
       <Name>mtanksl.OpenTibia.Threading</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Commands\Base\WindowCollection\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

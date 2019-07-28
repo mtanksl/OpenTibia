@@ -24,35 +24,9 @@ namespace OpenTibia.Game.Commands
 
             //Act
 
-            if ( Message.StartsWith("/") )
-            {
-                int index = Message.IndexOf(' ');
+            SpeechScript script;
 
-                string command;
-
-                string parameters;
-
-                if (index == -1)
-                {
-                    command = Message;
-
-                    parameters = "";
-                }
-                else
-                {
-                    command = Message.Substring(0, index);
-
-                    parameters = Message.Substring(index + 1);
-                }
-
-                SpeechScript script;
-
-                if ( !server.SpeechScripts.TryGetValue(command, out script) || !script.Execute(Player, parameters, server, context) )
-                {
-                    
-                }
-            }
-            else
+            if ( !Message.StartsWith("/") || !server.SpeechScripts.TryGetValue(GetCommand(Message), out script) || !script.Execute(Player, GetParameters(Message), server, context) )
             {
                 //Notify
 
@@ -66,6 +40,30 @@ namespace OpenTibia.Game.Commands
             }
 
             base.Execute(server, context);
+        }
+
+        protected string GetCommand(string message)
+        {
+            int index = Message.IndexOf(' ');
+
+            if (index == -1)
+            {
+                return message;
+            }
+
+            return message.Substring(0, index);
+        }
+
+        protected string GetParameters(string message)
+        {
+            int index = Message.IndexOf(' ');
+
+            if (index == -1)
+            {
+                return "";
+            }
+
+            return message.Substring(index + 1);
         }
     }
 }

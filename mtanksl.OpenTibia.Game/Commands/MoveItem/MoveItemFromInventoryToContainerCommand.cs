@@ -1,15 +1,11 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
     public class MoveItemFromInventoryToContainerCommand : MoveItemCommand
     {
-        public MoveItemFromInventoryToContainerCommand(Player player, byte fromSlot, ushort itemId, byte toContainerId, byte toContainerIndex, byte count)
+        public MoveItemFromInventoryToContainerCommand(Player player, byte fromSlot, ushort itemId, byte toContainerId, byte toContainerIndex, byte count) : base(player)
         {
-            Player = player;
-
             FromSlot = fromSlot;
 
             ItemId = itemId;
@@ -20,8 +16,6 @@ namespace OpenTibia.Game.Commands
 
             Count = count;
         }
-
-        public Player Player { get; set; }
 
         public byte FromSlot { get; set; }
 
@@ -47,49 +41,20 @@ namespace OpenTibia.Game.Commands
 
                 if (toContainer != null)
                 {
-                    if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
+                    //Act
+
+                    if ( IsMoveable(fromItem, server, context) &&
+
+                        IsPickupable(fromItem, server, context) &&
+
+                        IsPossible(fromItem, toContainer, server, context) )
                     {
-                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
-                    }
-                    else
-                    {
-                        if ( toContainer.IsChild(fromItem) )
-                        {
-                            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
-                        }
-                        else
-                        {
-                            //Act
+                        new InventoryRemoveItemCommand(fromInventory, FromSlot).Execute(server, context);
 
-                            RemoveItem(fromInventory, FromSlot, server, context);
+                        new ContainerAddItemCommand(toContainer, fromItem).Execute(server, context);
 
-                            AddItem(toContainer, fromItem, server, context);
-
-                            Container container = fromItem as Container;
-
-                            if (container != null)
-                            {
-                                switch (toContainer.GetRootContainer() )
-                                {
-                                    case Tile toTile:
-
-                                        CloseContainer(fromInventory, toTile, container, server, context);
-
-                                        break;
-
-                                    case Inventory toInventory:
-
-                                        CloseContainer(fromInventory, toInventory, container, server, context);
-                                            
-                                        break;
-                                }
-
-                                ShowOrHideOpenParentContainer(container, server, context);
-                            }
-
-                            base.Execute(server, context); 
-                        }
-                    }          
+                        base.Execute(server, context);
+                    }     
                 }
             }
         }

@@ -24,28 +24,26 @@ namespace OpenTibia.Game.Commands
 
             Tile fromTile = Player.Tile;
 
-            Tile toTile = server.Map.GetTile( fromTile.Position.Offset(MoveDirection) );
+            Position fromPosition = fromTile.Position;
+
+            Position toPosition = fromPosition.Offset(MoveDirection);
+
+            Tile toTile = server.Map.GetTile(toPosition);
 
             if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || toTile.GetCreatures().Any(c => c.Block) )
             {
-                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible),
-
-                                                        new StopWalkOutgoingPacket(Player.Direction) );
+                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible), new StopWalkOutgoingPacket(Player.Direction) );
             }
             else
             {
-                Tile nextTile = GetNextTile(server, toTile);
+                Tile nextTile = server.Map.GetNextTile(toTile);
 
                 if (nextTile == null)
                 {
                     nextTile = toTile;
                 }
 
-                SequenceCommand command = new SequenceCommand(
-                            
-                    new CreatureMoveCommand(Player, nextTile),
-                            
-                    new TurnCommand(Player, fromTile.Position.ToDirection(toTile.Position) ) );
+                SequenceCommand command = new SequenceCommand( new CreatureMoveCommand(Player, nextTile), new TurnCommand(Player, fromPosition.ToDirection(toPosition) ) );
 
                 command.Completed += (s, e) =>
                 {
@@ -56,129 +54,6 @@ namespace OpenTibia.Game.Commands
 
                 server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), 1000 * fromTile.Ground.Metadata.Speed / Player.Speed, command);
             }
-        }
-
-        protected Tile GetNextTile(Server server, Tile toTile)
-        {
-            switch (toTile.FloorChange)
-            {
-                case FloorChange.Down:
-
-                    toTile = server.Map.GetTile( toTile.Position.Offset(0, 0, 1) );
-
-                    if (toTile != null)
-                    {
-                        toTile = GetNextTileDown(server, toTile);
-                    }
-
-                    break;
-
-                case FloorChange.East:
-
-                    toTile = server.Map.GetTile( toTile.Position.Offset(1, 0, -1) );
-
-                    break;
-
-                case FloorChange.North:
-
-                    toTile = server.Map.GetTile( toTile.Position.Offset(0, -1, -1) );
-
-                    break;
-
-                case FloorChange.West:
-
-                    toTile = server.Map.GetTile( toTile.Position.Offset(-1, 0, -1) );
-
-                    break;
-
-                case FloorChange.South:
-
-                    toTile = server.Map.GetTile( toTile.Position.Offset(0, 1, -1) );
-
-                    break;
-
-                case FloorChange.NorthEast:
-
-                    toTile = server.Map.GetTile( toTile.Position.Offset(1, -1, -1) );
-
-                    break;
-
-                case FloorChange.NorthWest:
-
-                    toTile = server.Map.GetTile( toTile.Position.Offset(-1, -1, -1) );
-
-                    break;
-
-                case FloorChange.SouthEast:
-
-                    toTile = server.Map.GetTile( toTile.Position.Offset(1, 1, -1) );
-
-                    break;
-
-                case FloorChange.SouthWest:
-
-                    toTile = server.Map.GetTile( toTile.Position.Offset(-1, 1, -1) );
-
-                    break;
-            }
-
-            return toTile;
-        }
-
-        protected Tile GetNextTileDown(Server server, Tile toTile)
-        {
-            switch (toTile.FloorChange)
-            {
-                case FloorChange.East:
-
-                    toTile = server.Map.GetTile( toTile.Position.Offset(-1, 0, 0) );
-
-                    break;
-
-                case FloorChange.North:
-
-                    toTile = server.Map.GetTile( toTile.Position.Offset(0, 1, 0) );
-
-                    break;
-
-                case FloorChange.West:
-
-                    toTile = server.Map.GetTile( toTile.Position.Offset(1, 0, 0) );
-
-                    break;
-
-                case FloorChange.South:
-
-                    toTile = server.Map.GetTile( toTile.Position.Offset(0, -1, 0) );
-
-                    break;
-
-                case FloorChange.NorthEast:
-
-                    toTile = server.Map.GetTile( toTile.Position.Offset(-1, 1, 0) );
-
-                    break;
-
-                case FloorChange.NorthWest:
-
-                    toTile = server.Map.GetTile( toTile.Position.Offset(1, 1, 0) );
-
-                    break;
-
-                case FloorChange.SouthEast:
-
-                    toTile = server.Map.GetTile( toTile.Position.Offset(-1, -1, 0) );
-
-                    break;
-
-                case FloorChange.SouthWest:
-
-                    toTile = server.Map.GetTile( toTile.Position.Offset(1, -1, 0) );
-
-                    break;
-            }
-
-            return toTile;
         }
     }
 }

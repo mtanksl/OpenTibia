@@ -22,8 +22,6 @@ namespace OpenTibia.Game.Commands
 
             //Act
 
-            server.Map.AddCreature(Creature);
-
             byte toIndex = Tile.AddContent(Creature);
 
             //Notify

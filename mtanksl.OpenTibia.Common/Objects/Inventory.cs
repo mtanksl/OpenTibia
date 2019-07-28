@@ -30,6 +30,11 @@ namespace OpenTibia.Common.Objects
 
         public void AddContent(byte index, IContent content)
         {
+            if ( !(content is Item) )
+            {
+                throw new ArgumentException("Content must be an item.");
+            }
+
             contents[index] = content;
 
             content.Container = this;
@@ -37,6 +42,11 @@ namespace OpenTibia.Common.Objects
 
         public void ReplaceContent(byte index, IContent content)
         {
+            if ( !(content is Item) )
+            {
+                throw new ArgumentException("Content must be an item.");
+            }
+
             IContent oldContent = GetContent(index);
 
             contents[index] = content;

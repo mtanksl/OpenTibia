@@ -7,6 +7,6 @@ namespace OpenTibia.Game.Scripts
     {
         public abstract void Register(Server server);
 
-        public abstract bool Execute(Player player, Item fromItem, Server server, CommandContext context);
+        public abstract bool Execute(Player player, Item item, Server server, CommandContext context);
     }
 }

@@ -1,15 +1,12 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
     public class MoveItemFromInventoryToTileCommand : MoveItemCommand
     {
-        public MoveItemFromInventoryToTileCommand(Player player, byte fromSlot, ushort itemId, Position toPosition, byte count)
+        public MoveItemFromInventoryToTileCommand(Player player, byte fromSlot, ushort itemId, Position toPosition, byte count) : base(player)
         {
-            Player = player;
-
             FromSlot = fromSlot;
 
             ItemId = itemId;
@@ -18,8 +15,6 @@ namespace OpenTibia.Game.Commands
 
             Count = count;
         }
-
-        public Player Player { get; set; }
 
         public byte FromSlot { get; set; }
 
@@ -43,33 +38,24 @@ namespace OpenTibia.Game.Commands
 
                 if (toTile != null)
                 {
-                    if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
+                    //Act
+
+                    if ( IsMoveable(fromItem, server, context) &&
+
+                        CanThrow(Player.Tile, toTile, server, context) )
                     {
-                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
-                    }
-                    else
-                    {
-                        if ( !server.Pathfinding.CanThrow(Player.Tile.Position, toTile.Position) )
+                        Tile nextTile = server.Map.GetNextTile(toTile);
+
+                        if (nextTile == null)
                         {
-                            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
+                            nextTile = toTile;
                         }
-                        else
-                        {
-                            //Act
 
-                            RemoveItem(fromInventory, FromSlot, server, context);
+                        new InventoryRemoveItemCommand(fromInventory, FromSlot).Execute(server, context);
 
-                            AddItem(toTile, fromItem, server, context);
+                        new TileAddItemCommand(nextTile, fromItem).Execute(server, context);
 
-                            Container container = fromItem as Container;
-
-                            if (container != null)
-                            {
-                                CloseContainer(fromInventory, toTile, container, server, context);
-                            }
-
-                            base.Execute(server, context);
-                        }      
+                        base.Execute(server, context);
                     }
                 }
             }
