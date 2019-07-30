@@ -9,7 +9,7 @@ namespace OpenTibia.Game.Commands
     {
         public CommandContext()
         {
-
+            
         }
 
         ~CommandContext()

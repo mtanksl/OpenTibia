@@ -64,7 +64,6 @@
     <Compile Include="Commands\Base\Tile\TileRemoveItemCommand.cs" />
     <Compile Include="Commands\Client\StopCommand.cs" />
     <Compile Include="Commands\Folow\StopFollowCommand.cs" />
-    <Compile Include="Commands\ITransaction.cs" />
     <Compile Include="Commands\Look\LookCommand.cs" />
     <Compile Include="Commands\RotateItem\RotateItemCommand.cs" />
     <Compile Include="Commands\CommandContext.cs" />
@@ -105,7 +104,6 @@
     <Compile Include="Commands\Trade\TradeWithFromContainerCommand.cs" />
     <Compile Include="Commands\Trade\TradeWithFromInventoryCommand.cs" />
     <Compile Include="Commands\Trade\TradeWithFromTileCommand.cs" />
-    <Compile Include="Commands\Transaction.cs" />
     <Compile Include="Commands\UseItemWithCreature\UseItemWithCreatureCommand.cs" />
     <Compile Include="Commands\UseItemWithCreature\UseItemWithCreatureFromContainerCommand.cs" />
     <Compile Include="Commands\UseItemWithCreature\UseItemWithCreatureFromTileCommand.cs" />
