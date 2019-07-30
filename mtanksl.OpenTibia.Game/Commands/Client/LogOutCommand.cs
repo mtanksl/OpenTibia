@@ -136,14 +136,11 @@ namespace OpenTibia.Game.Commands
 
             foreach (var observer in server.Map.GetPlayers() )
             {
-                if (observer != Player)
+                if (observer.Tile.Position.CanSee(fromPosition) )
                 {
-                    if (observer.Tile.Position.CanSee(fromPosition) )
-                    {
-                        context.Write(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromPosition, fromIndex),
+                    context.Write(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromPosition, fromIndex),
 
-                                                                  new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Puff) );
-                    }
+                                                              new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Puff) );
                 }
             }
 

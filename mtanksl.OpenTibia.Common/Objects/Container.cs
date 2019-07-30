@@ -13,6 +13,14 @@ namespace OpenTibia.Common.Objects
 
         private List<IContent> contents = new List<IContent>();
         
+        public byte Count
+        {
+            get
+            {
+                return (byte)contents.Count;
+            }
+        }
+
         public byte AddContent(IContent content)
         {
             if ( !(content is Item) )

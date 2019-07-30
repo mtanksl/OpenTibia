@@ -32,22 +32,19 @@ namespace OpenTibia.Game.Commands
 
             //Act
 
-            if (index == 0)
+            if ( CanWalk(toTile, server, context) )
             {
-                if ( CanWalk(toTile, server, context) )
+                if (index == 0)
                 {
                     index++;
 
                     server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), 1000 * fromTile.Ground.Metadata.Speed / Player.Speed, this);
                 }
-            }
-            else
-            {
-                CreatureWalk(fromTile, toTile, server, context, () =>
+                else
                 {
-                    new CreatureMoveCommand(Player, toTile).Execute(server, context);
-                } );
-            }            
+                    CreatureWalk(toTile, server, context);
+                }
+            }
         }
 
         protected bool CanWalk(Tile toTile, Server server, CommandContext context)
@@ -64,13 +61,10 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected void CreatureWalk(Tile fromTile, Tile toTile, Server server, CommandContext context, Action howToProceed)
+        protected void CreatureWalk(Tile toTile, Server server, CommandContext context)
         {
-            if ( !server.CreatureWalkScripts.Any(script => script.Execute(Player, fromTile, toTile, server, context) ) )
-            {
-                howToProceed();
-            }
-
+            new CreatureMoveCommand(Player, toTile).Execute(server, context);
+           
             base.Execute(server, context);
         }
     }

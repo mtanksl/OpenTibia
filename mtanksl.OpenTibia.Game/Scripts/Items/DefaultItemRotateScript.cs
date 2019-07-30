@@ -6,16 +6,12 @@ namespace OpenTibia.Game.Scripts
 {
     public class DefaultItemRotateScript : IItemRotateScript
     {
-        private static Dictionary<ushort, ushort> items = new Dictionary<ushort, ushort>()
+        private Dictionary<ushort, ushort> items = new Dictionary<ushort, ushort>()
         {
-            //Oven
-
             { 6356, 6358 },
             { 6358, 6360 },
             { 6360, 6362 },
             { 6362, 6356 },
-
-            //Oven
 
             { 6357, 6359 },
             { 6359, 6361 },

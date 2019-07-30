@@ -77,7 +77,31 @@ namespace OpenTibia.Game.Commands
 
                             foreach (var observer in server.Map.GetPlayers() )
                             {
-                                if (observer != player)
+                                if (observer == player)
+                                {
+                                    context.Write(observer.Client.Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs), 
+
+                                                                              new SetSpecialConditionOutgoingPacket(SpecialCondition.None),
+
+                                                                              new SendStatusOutgoingPacket(player.Health, player.MaxHealth, 
+                                                  
+                                                                                                          player.Capacity, 
+                                                  
+                                                                                                          player.Experience, player.Level, player.LevelPercent, 
+                                                                             
+                                                                                                          player.Mana, player.MaxMana, 0, 0, player.Soul, 
+                                                                             
+                                                                                                          player.Stamina),
+
+                                                                              new SendSkillsOutgoingPacket(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0),
+
+                                                                              new SetEnvironmentLightOutgoingPacket(server.Clock.Light),
+
+                                                                              new SendTilesOutgoingPacket(server.Map, player.Client, toPosition),
+
+                                                                              new ShowMagicEffectOutgoingPacket(toPosition, MagicEffectType.Teleport) );
+                                }
+                                else
                                 {
                                     if (observer.Tile.Position.CanSee(toPosition) )
                                     {
@@ -98,28 +122,6 @@ namespace OpenTibia.Game.Commands
                                     }
                                 }
                             }
-
-                            context.Write(Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs), 
-
-                                                      new SetSpecialConditionOutgoingPacket(SpecialCondition.None),
-
-                                                      new SendStatusOutgoingPacket(player.Health, player.MaxHealth, 
-                                                  
-                                                                                   player.Capacity, 
-                                                  
-                                                                                   player.Experience, player.Level, player.LevelPercent, 
-                                                                               
-                                                                                   player.Mana, player.MaxMana, 0, 0, player.Soul, 
-                                                                               
-                                                                                   player.Stamina),
-
-                                                      new SendSkillsOutgoingPacket(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0),
-
-                                                      new SetEnvironmentLightOutgoingPacket(server.Clock.Light),
-
-                                                      new SendTilesOutgoingPacket(server.Map, player.Client, toPosition),
-
-                                                      new ShowMagicEffectOutgoingPacket(toPosition, MagicEffectType.Teleport) );
 
                             base.Execute(server, context);
                         }

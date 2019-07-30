@@ -143,11 +143,17 @@ namespace OpenTibia.Game
                 return null;
             }
 
+            if (openTibiaId == 1387)
+            {
+                return new TeleportItem(metadata);
+            }
+
             if (metadata.Flags.Is(ItemMetadataFlags.IsContainer) )
             {
                 return new Container(metadata);
             }
-            else if (metadata.Flags.Is(ItemMetadataFlags.Stackable) )
+
+            if (metadata.Flags.Is(ItemMetadataFlags.Stackable) )
             {
                 return new StackableItem(metadata);
             }

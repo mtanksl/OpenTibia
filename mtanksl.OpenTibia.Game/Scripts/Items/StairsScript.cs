@@ -7,13 +7,27 @@ namespace OpenTibia.Game.Scripts
 {
     public class StairsScript : ICreatureWalkScript, IItemMoveScript
     {
+        private HashSet<ushort> useable = new HashSet<ushort>() { 468, 481, 483 };
+
         public void Register(Server server)
         {
             foreach (var tile in server.Map.GetTiles() )
             {
                 FloorChange floorChange = tile.FloorChange;
 
-                if (floorChange != FloorChange.None)
+                if (floorChange == FloorChange.None)
+                {
+                    foreach (var item in tile.GetItems() )
+                    {
+                        if (useable.Contains(item.Metadata.OpenTibiaId) )
+                        {
+                            positions.Add(tile.Position, floorChange);
+                        }
+
+                        break;
+                    }
+                }
+                else
                 {
                     positions.Add(tile.Position, floorChange);
                 }
@@ -32,16 +46,37 @@ namespace OpenTibia.Game.Scripts
 
             if (positions.TryGetValue(toTile.Position, out floorChange) )
             {
-                Tile nextTile = server.Map.GetTile( GetPosition(toTile.Position, floorChange) );
-
-                if (nextTile != null)
+                if (floorChange == FloorChange.None)
                 {
-                    toTile = nextTile;
+                    floorChange = toTile.FloorChange;
+
+                    if (floorChange != FloorChange.None)
+                    {
+                        Tile nextTile = server.Map.GetTile( GetPosition(toTile.Position, floorChange) );
+
+                        if (nextTile != null)
+                        {
+                            toTile = nextTile;
+                        }
+
+                        new CreatureMoveCommand(creature, toTile).Execute(server, context);
+
+                        return true;
+                    }
                 }
+                else
+                {
+                    Tile nextTile = server.Map.GetTile( GetPosition(toTile.Position, floorChange) );
 
-                new CreatureMoveCommand(creature, toTile).Execute(server, context);
+                    if (nextTile != null)
+                    {
+                        toTile = nextTile;
+                    }
 
-                return true;
+                    new CreatureMoveCommand(creature, toTile).Execute(server, context);
+
+                    return true;
+                }
             }
 
             return false;
@@ -55,16 +90,37 @@ namespace OpenTibia.Game.Scripts
 
                 if (positions.TryGetValue(toTile.Position, out floorChange) )
                 {
-                    Tile nextTile = server.Map.GetTile( GetPosition(toTile.Position, floorChange) );
-
-                    if (nextTile != null)
+                    if (floorChange == FloorChange.None)
                     {
-                        toTile = nextTile;
+                        floorChange = toTile.FloorChange;
+
+                        if (floorChange != FloorChange.None)
+                        {
+                            Tile nextTile = server.Map.GetTile( GetPosition(toTile.Position, floorChange) );
+
+                            if (nextTile != null)
+                            {
+                                toTile = nextTile;
+                            }
+
+                            new ItemMoveCommand(player, fromItem, toTile, 0, count).Execute(server, context);
+
+                            return true;
+                        }
                     }
+                    else
+                    {
+                        Tile nextTile = server.Map.GetTile( GetPosition(toTile.Position, floorChange) );
 
-                    new ItemMoveCommand(fromItem, toTile, 0).Execute(server, context);
+                        if (nextTile != null)
+                        {
+                            toTile = nextTile;
+                        }
 
-                    return true;
+                        new ItemMoveCommand(player, fromItem, toTile, 0, count).Execute(server, context);
+
+                        return true;
+                    }
                 }
             }
 

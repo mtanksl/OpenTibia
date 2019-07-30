@@ -6,7 +6,7 @@ namespace OpenTibia.Game.Scripts
 {
     public class SewerScript : IItemUseScript
     {
-        private static HashSet<ushort> sewers = new HashSet<ushort>() { 430 };
+        private HashSet<ushort> sewers = new HashSet<ushort>() { 430 };
 
         public void Register(Server server)
         {
@@ -22,8 +22,6 @@ namespace OpenTibia.Game.Scripts
 
             if (toTile != null)
             {
-                server.CancelQueueForExecution(Constants.PlayerSchedulerEvent(player) );
-
                 new CreatureMoveCommand(player, toTile).Execute(server, context);
 
                 return true;

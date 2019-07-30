@@ -3,6 +3,7 @@ using OpenTibia.FileFormats.Otbm;
 using OpenTibia.Game;
 using System.Collections.Generic;
 using System.Linq;
+using OtbmItem = OpenTibia.FileFormats.Otbm.Item;
 
 namespace OpenTibia.Common.Objects
 {
@@ -33,31 +34,39 @@ namespace OpenTibia.Common.Objects
 
                     if (otbmTile.Items != null)
                     {
-                        foreach (var otbmItem in otbmTile.Items)
+                        void AddItems(IContainer rootContainer, List<OtbmItem> items)
                         {
-                            Item item = server.ItemFactory.Create(otbmItem.OpenTibiaId);
-
-                            if (item is Container)
+                            foreach (var otbmItem in items)
                             {
-                                Container container = (Container)item;
+                                Item item = server.ItemFactory.Create(otbmItem.OpenTibiaId);
 
-                                
+                                if (item is Container)
+                                {
+                                    Container container = (Container)item;
+
+                                    if (otbmItem.Items != null)
+                                    {
+                                        AddItems(container, otbmItem.Items);
+                                    }
+                                }
+                                else if (item is StackableItem)
+                                {
+                                    StackableItem stackable = (StackableItem)item;
+
+                                    stackable.Count = otbmItem.Count;
+                                }
+                                else if (item is TeleportItem)
+                                {
+                                    TeleportItem teleport = (TeleportItem)item;
+
+                                    teleport.Position = otbmItem.TeleportPosition;
+                                }
+
+                                rootContainer.AddContent(item);
                             }
-                            else if (item is StackableItem)
-                            {
-                                StackableItem stackable = (StackableItem)item;
-
-                                stackable.Count = otbmItem.Count;
-                            }
-                            else if (item is TeleportItem)
-                            {
-                                TeleportItem teleport = (TeleportItem)item;
-
-                                teleport.Position = otbmItem.TeleportPosition;
-                            }
-
-                            tile.AddContent(item);
                         }
+
+                        AddItems(tile, otbmTile.Items);
                     }
                 }
             }

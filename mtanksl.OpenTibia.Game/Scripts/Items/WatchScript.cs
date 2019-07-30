@@ -8,7 +8,7 @@ namespace OpenTibia.Game.Scripts
 {
     public class WatchScript : IItemUseScript
     {
-        private static HashSet<ushort> watches = new HashSet<ushort>() { 2036 };
+        private HashSet<ushort> watches = new HashSet<ushort>() { 2036 };
 
         public void Register(Server server)
         {

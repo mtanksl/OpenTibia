@@ -50,10 +50,7 @@ namespace OpenTibia.Game.Commands
 
                              CanThrow(Player.Tile, toTile, server, context) )
                         {
-                            MoveItem(fromItem, toTile, 0, Count, server, context, () =>
-                            {
-                                new ItemMoveCommand(fromItem, toTile, 0).Execute(server, context);
-                            } );
+                            MoveItem(fromItem, toTile, 0, Count, server, context);
                         }
                     }
                 }

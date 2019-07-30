@@ -6,9 +6,9 @@ namespace OpenTibia.Game.Scripts
 {
     public class ShovelScript : IItemUseWithItemScript
     {
-        private static HashSet<ushort> shovels = new HashSet<ushort>() { 2554, 5710 };
+        private HashSet<ushort> shovels = new HashSet<ushort>() { 2554, 5710 };
 
-        private static Dictionary<ushort, ushort> stonePiles = new Dictionary<ushort, ushort>()
+        private Dictionary<ushort, ushort> stonePiles = new Dictionary<ushort, ushort>()
         {
             { 468, 469 },
             { 481, 482 },

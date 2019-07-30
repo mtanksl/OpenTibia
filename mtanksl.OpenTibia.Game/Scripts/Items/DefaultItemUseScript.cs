@@ -6,10 +6,8 @@ namespace OpenTibia.Game.Scripts
 {
     public class DefaultItemUseScript : IItemUseScript
     {
-        private static Dictionary<ushort, ushort> items = new Dictionary<ushort, ushort>()
+        private Dictionary<ushort, ushort> items = new Dictionary<ushort, ushort>()
         {
-            //Oven
-
             { 6356, 6357 },
             { 6357, 6356 },
             { 6358, 6359 },

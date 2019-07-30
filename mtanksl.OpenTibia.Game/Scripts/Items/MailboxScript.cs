@@ -7,7 +7,7 @@ namespace OpenTibia.Game.Scripts
 {
     public class MailboxScript : IItemMoveScript
     {
-        private static HashSet<ushort> mailboxes = new HashSet<ushort>() { 2593 };
+        private HashSet<ushort> mailboxes = new HashSet<ushort>() { 2593 };
 
         public void Register(Server server)
         {

@@ -81,13 +81,22 @@ namespace OpenTibia.Game.Commands
 
             return true;
         }
-
-        protected void MoveItem(Item fromItem, IContainer toContainer, byte toIndex, byte count, Server server, CommandContext context, Action howToProceed)
+        
+        protected bool IsEnoughtSpace(Item fromItem, Container toContainer, Server server, CommandContext context)
         {
-            if ( !server.ItemMoveScripts.Any(script => script.Execute(Player, fromItem, toContainer, toIndex, count, server, context) ) )
+            if (toContainer.Count == toContainer.Metadata.Capacity)
             {
-                howToProceed();
+                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtSpace) );
+
+                return false;
             }
+
+            return true;
+        }
+
+        protected void MoveItem(Item fromItem, IContainer toContainer, byte toIndex, byte count, Server server, CommandContext context)
+        {
+            new ItemMoveCommand(Player, fromItem, toContainer, toIndex, count).Execute(server, context);
 
             base.Execute(server, context);
         }

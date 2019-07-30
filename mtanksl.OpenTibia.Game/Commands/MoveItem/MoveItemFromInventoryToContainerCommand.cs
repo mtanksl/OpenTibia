@@ -47,12 +47,11 @@ namespace OpenTibia.Game.Commands
 
                         IsPickupable(fromItem, server, context) &&
 
-                        IsPossible(fromItem, toContainer, server, context) )
+                        IsPossible(fromItem, toContainer, server, context) &&
+
+                        IsEnoughtSpace(fromItem, toContainer, server, context) )
                     {
-                        MoveItem(fromItem, toContainer, ToContainerIndex, Count, server, context, () =>
-                        {
-                            new ItemMoveCommand(fromItem, toContainer, ToContainerIndex).Execute(server, context);
-                        } );
+                        MoveItem(fromItem, toContainer, ToContainerIndex, Count, server, context);
                     }     
                 }
             }

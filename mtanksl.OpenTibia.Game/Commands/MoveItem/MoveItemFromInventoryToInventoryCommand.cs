@@ -41,12 +41,11 @@ namespace OpenTibia.Game.Commands
                 {
                     //Act
 
-                    if ( IsMoveable(fromItem, server, context) )
+                    if ( IsMoveable(fromItem, server, context) &&
+                        
+                        IsPickupable(fromItem, server, context) )
                     {
-                        MoveItem(fromItem, toInventory, ToSlot, Count, server, context, () =>
-                        {
-                            new ItemMoveCommand(fromItem, toInventory, ToSlot).Execute(server, context);
-                        } );
+                        MoveItem(fromItem, toInventory, ToSlot, Count, server, context);
                     }
                 }
             }

@@ -42,8 +42,6 @@
   <ItemGroup>
     <Compile Include="Commands\Attack\StartAttackCommand.cs" />
     <Compile Include="Commands\Attack\StopAttackCommand.cs" />
-    <Compile Include="Commands\Base\ContainerCollection\ContainerReplaceCommand.cs" />
-    <Compile Include="Commands\Base\ContainerCollection\ContainerCloseCommand.cs" />
     <Compile Include="Commands\Base\Container\ContainerRemoveItemCommand.cs" />
     <Compile Include="Commands\Base\Container\ContainerAddItemCommand.cs" />
     <Compile Include="Commands\Base\Container\ContainerReplaceItemCommand.cs" />
@@ -180,6 +178,7 @@
     <Compile Include="NpcFactory.cs" />
     <Compile Include="Pathfinding.cs" />
     <Compile Include="Scripts\ICreatureWalkScript.cs" />
+    <Compile Include="Scripts\Items\TeleportScript.cs" />
     <Compile Include="Scripts\Items\StairsScript.cs" />
     <Compile Include="Scripts\Items\DefaultItemUseScript.cs" />
     <Compile Include="Scripts\Items\DefaultItemRotateScript.cs" />

@@ -7,7 +7,7 @@ namespace OpenTibia.Game.Scripts
 {
     public class DustbinScript : IItemMoveScript
     {
-        private static HashSet<ushort> dustbins = new HashSet<ushort>() { 1777 };
+        private HashSet<ushort> dustbins = new HashSet<ushort>() { 1777 };
 
         public void Register(Server server)
         {

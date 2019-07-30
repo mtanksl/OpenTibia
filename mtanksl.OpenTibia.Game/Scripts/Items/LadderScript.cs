@@ -6,7 +6,7 @@ namespace OpenTibia.Game.Scripts
 {
     public class LadderScript : IItemUseScript
     {
-        private static HashSet<ushort> ladders = new HashSet<ushort>() { 1386, 3678, 5543 };
+        private HashSet<ushort> ladders = new HashSet<ushort>() { 1386, 3678, 5543 };
 
         public void Register(Server server)
         {
@@ -22,8 +22,6 @@ namespace OpenTibia.Game.Scripts
 
             if (toTile != null)
             {
-                server.CancelQueueForExecution(Constants.PlayerSchedulerEvent(player) );
-
                 new CreatureMoveCommand(player, toTile).Execute(server, context);
 
                 return true;

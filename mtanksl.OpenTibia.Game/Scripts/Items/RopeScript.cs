@@ -6,9 +6,9 @@ namespace OpenTibia.Game.Scripts
 {
     public class RopeScript : IItemUseWithItemScript
     {
-        private static HashSet<ushort> ropes = new HashSet<ushort>() { 2120 };
+        private HashSet<ushort> ropes = new HashSet<ushort>() { 2120 };
 
-        private static HashSet<ushort> ropeSpots = new HashSet<ushort> { 384 };
+        private HashSet<ushort> ropeSpots = new HashSet<ushort> { 384 };
 
         public void Register(Server server)
         {
@@ -34,8 +34,6 @@ namespace OpenTibia.Game.Scripts
 
                 if (toTile != null)
                 {
-                    server.CancelQueueForExecution(Constants.PlayerSchedulerEvent(player) );
-
                     new CreatureMoveCommand(player, toTile).Execute(server, context);
 
                     return true;
