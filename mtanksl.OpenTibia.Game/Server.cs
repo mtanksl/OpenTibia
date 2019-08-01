@@ -16,27 +16,21 @@ namespace OpenTibia.Game
 {
     public class Server : IDisposable
     {
-        private Dispatcher dispatcher;
-
-        private Scheduler scheduler;
-
-        private List<Listener> listeners = new List<Listener>();
-
         public Server()
         {
-            dispatcher = new Dispatcher();
-
-            scheduler = new Scheduler(dispatcher);
-
-            listeners.Add(new Listener(7171, socket => new LoginConnection(this, socket) ) );
-
-            listeners.Add(new Listener(7172, socket => new GameConnection(this, socket) ) );
+          
         }
 
         ~Server()
         {
             Dispose(false);
         }
+
+        private Dispatcher dispatcher;
+
+        private Scheduler scheduler;
+
+        private List<Listener> listeners;
 
         public Clock Clock { get; set; }
 
@@ -48,20 +42,32 @@ namespace OpenTibia.Game
 
         public PacketsFactory PacketsFactory { get; set; }
 
-        public Pathfinding Pathfinding { get; set; }
-
         public ItemFactory ItemFactory { get; set; }
 
         public MonsterFactory MonsterFactory { get; set; }
         
         public NpcFactory NpcFactory { get; set; }
 
-        public Map Map { get; set; }
+        public IMap Map { get; set; }
 
-        public ScriptsManager Scripts { get; set; }
+        public Pathfinding Pathfinding { get; set; }
+
+        public EventsCollection Events { get; set; }
+
+        public ScriptsCollection Scripts { get; set; }
 
         public void Start()
         {
+            dispatcher = new Dispatcher();
+
+            scheduler = new Scheduler(dispatcher);
+
+            listeners = new List<Listener>();
+
+            listeners.Add(new Listener(7171, socket => new LoginConnection(this, socket) ) );
+
+            listeners.Add(new Listener(7172, socket => new GameConnection(this, socket) ) );
+
             Clock = new Clock(12, 0);
 
             Logger = new Logger();
@@ -71,40 +77,50 @@ namespace OpenTibia.Game
             RuleViolations = new RuleViolationCollection();
 
             PacketsFactory = new PacketsFactory();
-
-            Pathfinding = new Pathfinding(this);
             
             using (Logger.Measure("Loading items", true) )
             {
-                ItemFactory = new ItemFactory(OtbFile.Load("data/items/items.otb"), DatFile.Load("data/items/tibia.dat"), ItemsFile.Load("data/items/items.xml") );
+                var otb = OtbFile.Load("data/items/items.otb");
+
+                var dat = DatFile.Load("data/items/tibia.dat");
+
+                var items = ItemsFile.Load("data/items/items.xml");
+
+                ItemFactory = new ItemFactory(otb, dat, items);
             }
 
             using (Logger.Measure("Loading monsters", true) )
             {
-                MonsterFactory = new MonsterFactory(MonsterFile.Load("data/monsters") );
+                var monsters = MonsterFile.Load("data/monsters");
+
+                MonsterFactory = new MonsterFactory(monsters);
             }
 
             using (Logger.Measure("Loading npcs", true) )
             {
-                NpcFactory = new NpcFactory(NpcFile.Load("data/npcs") );
+                var npcs = NpcFile.Load("data/npcs");
+
+                NpcFactory = new NpcFactory(npcs);
             }
 
             using (Logger.Measure("Loading map", true) )
             {
-                Map = new Map(this, OtbmFile.Load("data/map/pholium3.otbm") );
+                var otbm = OtbmFile.Load("data/map/pholium3.otbm");
+
+                Map = new Map(ItemFactory, otbm);
             }
+
+            Pathfinding = new Pathfinding(Map);
+
+            Events = new EventsCollection();
+
+            Scripts = new ScriptsCollection();
 
             using (Logger.Measure("Loading scripts", true) )
             {
-                Scripts = new ScriptsManager(this);
-
-                Scripts.Start();
+                Scripts.Start(this);
             }
 
-            QueueForExecution(Constants.GlobalLightSchedulerEvent, Constants.GlobalLightSchedulerEventInterval, new GlobalLightCommand() );
-
-            QueueForExecution(Constants.GlobalCreaturesSchedulerEvent, Constants.GlobalCreaturesSchedulerEventInterval, new GlobalCreaturesCommand() );
-            
             dispatcher.Start();
 
             scheduler.Start();
@@ -121,7 +137,7 @@ namespace OpenTibia.Game
         {
             dispatcher.QueueForExecution( () =>
             {
-                using (var context = new CommandContext() )
+                using (var context = new Context() )
                 {
                     try
                     {
@@ -154,7 +170,7 @@ namespace OpenTibia.Game
             {
                 events.Remove(key);
 
-                using (var context = new CommandContext() )
+                using (var context = new Context() )
                 {
                     try
                     {
@@ -188,14 +204,12 @@ namespace OpenTibia.Game
 
         public void Stop()
         {
+            Scripts.Stop(this);
+
             foreach (var listener in listeners)
             {
                 listener.Stop();
             }
-
-            CancelQueueForExecution(Constants.GlobalLightSchedulerEvent);
-
-            CancelQueueForExecution(Constants.GlobalCreaturesSchedulerEvent);
 
             scheduler.Stop();
 

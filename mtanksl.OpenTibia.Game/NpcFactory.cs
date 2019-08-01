@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.FileFormats.Xml.Npcs;
+using OpenTibia.Game.Components;
 using System.Collections.Generic;
 using Npc = OpenTibia.Common.Objects.Npc;
 
@@ -39,7 +40,11 @@ namespace OpenTibia.Game
                 return null;
             }
 
-            return new Npc(metadata);
+            Npc npc = new Npc(metadata);
+
+            npc.AddComponent(new WalkBehaviour(2) );
+
+            return npc;
         }
     }
 }

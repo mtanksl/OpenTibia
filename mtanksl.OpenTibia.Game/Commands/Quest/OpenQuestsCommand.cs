@@ -11,7 +11,7 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
                 
-        public override void Execute(Server server, CommandContext context)
+        public override void Execute(Server server, Context context)
         {
             //Arrange
 

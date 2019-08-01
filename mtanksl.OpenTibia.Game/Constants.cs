@@ -26,6 +26,8 @@ namespace OpenTibia.Game
 
         public static readonly string ThereIsNotEnoughtSpace = "There is not enought space.";
 
+        public static readonly string YouMayNotAttackThisCreature = "You may not attack this creature.";
+
         public static string PlayerSchedulerEvent(Player player)
         {
             return "Player_" + player.Id;

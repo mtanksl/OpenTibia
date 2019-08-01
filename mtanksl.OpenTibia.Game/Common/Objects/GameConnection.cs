@@ -21,14 +21,14 @@ namespace OpenTibia.Common.Objects
             this.server = server;
         }
 
-        protected override void OnConnect()
+        protected override void OnConnected()
         {
             Send( new Message() { new SendConnectionInfoOutgoingPacket() }.GetBytes(Keys) );
 
-            base.OnConnect();
+            base.OnConnected();
         }
 
-        protected override void OnReceive(byte[] body)
+        protected override void OnReceived(byte[] body)
         {
             ByteArrayArrayStream stream = new ByteArrayArrayStream(body);
 
@@ -739,7 +739,7 @@ namespace OpenTibia.Common.Objects
                 server.Logger.WriteLine(ex.ToString() );
             }
 
-            base.OnReceive(body);
+            base.OnReceived(body);
         }
 
         protected override void OnDisconnected(DisconnectedEventArgs e)

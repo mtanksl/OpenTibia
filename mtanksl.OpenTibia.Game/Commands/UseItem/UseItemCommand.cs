@@ -14,7 +14,7 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        protected bool IsNextTo(Tile fromTile, Server server, CommandContext context)
+        protected bool IsNextTo(Tile fromTile, Server server, Context context)
         {
             if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
             {
@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected void UseItem(Item fromItem, Server server, CommandContext context)
+        protected void UseItem(Item fromItem, Server server, Context context)
         {
             Container container = fromItem as Container;
 
@@ -58,7 +58,7 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        protected void UseItem(Item fromItem, byte fromContainerId, byte containerId, Server server, CommandContext context)
+        protected void UseItem(Item fromItem, byte fromContainerId, byte containerId, Server server, Context context)
         {
             Container container = fromItem as Container;
 

@@ -9,12 +9,8 @@ namespace OpenTibia.Common.Objects
 {
     public class Map : IMap
     {
-        private Server server;
-
-        public Map(Server server, OtbmFile otbmFile)
+        public Map(ItemFactory itemFactory, OtbmFile otbmFile)
         {
-            this.server = server;
-
             this.tiles = new Dictionary<Position, Tile>(otbmFile.Areas.Sum(area => area.Tiles.Count) );
 
             foreach (var otbmArea in otbmFile.Areas)
@@ -27,7 +23,7 @@ namespace OpenTibia.Common.Objects
 
                     if (otbmTile.OpenTibiaItemId > 0)
                     {
-                        Item ground = server.ItemFactory.Create(otbmTile.OpenTibiaItemId);
+                        Item ground = itemFactory.Create(otbmTile.OpenTibiaItemId);
                         
                         tile.AddContent(ground);
                     }
@@ -38,7 +34,7 @@ namespace OpenTibia.Common.Objects
                         {
                             foreach (var otbmItem in items)
                             {
-                                Item item = server.ItemFactory.Create(otbmItem.OpenTibiaId);
+                                Item item = itemFactory.Create(otbmItem.OpenTibiaId);
 
                                 if (item is Container)
                                 {

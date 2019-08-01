@@ -6,12 +6,17 @@ namespace OpenTibia.Game.Scripts.Speech
 {
     public class TeleportScript : ISpeechScript
     {
-        public void Register(Server server)
+        public void Start(Server server)
         {
             server.Scripts.SpeechScripts.Add("/a", this);
         }
 
-        public bool OnSpeech(Player player, string parameters, Server server, CommandContext context)
+        public void Stop(Server server)
+        {
+
+        }
+
+        public bool OnSpeech(Player player, string parameters, Server server, Context context)
         {
             int count;
 

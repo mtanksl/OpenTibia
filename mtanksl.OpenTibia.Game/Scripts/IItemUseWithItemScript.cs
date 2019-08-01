@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Scripts
 {
@@ -7,6 +6,6 @@ namespace OpenTibia.Game.Scripts
     {
         bool NextTo { get; }
         
-        bool OnItemUseWithItem(Player player, Item fromItem, Item toItem, Server server, CommandContext context);
+        bool OnItemUseWithItem(Player player, Item item, Item toItem, Server server, Context context);
     }
 }

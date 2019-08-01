@@ -40,10 +40,10 @@ namespace OpenTibia.IO
         {
             writer.Write(item.Metadata.TibiaId);
 
-            if (item is StackableItem)
-            {
-                StackableItem stackable = (StackableItem)item;
+            StackableItem stackable = item as StackableItem;
 
+            if (stackable != null)
+            {
                 writer.Write( (byte)stackable.Count );
             }
         }

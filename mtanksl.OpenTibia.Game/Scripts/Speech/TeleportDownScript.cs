@@ -5,12 +5,17 @@ namespace OpenTibia.Game.Scripts.Speech
 {
     public class TeleportDownScript : ISpeechScript
     {
-        public void Register(Server server)
+        public void Start(Server server)
         {
             server.Scripts.SpeechScripts.Add("/down", this);
         }
 
-        public bool OnSpeech(Player player, string parameters, Server server, CommandContext context)
+        public void Stop(Server server)
+        {
+
+        }
+
+        public bool OnSpeech(Player player, string parameters, Server server, Context context)
         {
             Tile toTile = server.Map.GetTile( player.Tile.Position.Offset(0, 0, 1) );
 

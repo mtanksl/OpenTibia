@@ -28,6 +28,7 @@
 
                 b = ( b + a ) % Modulo;
             }
+
             return a + b * Multiplier;
         }
     }

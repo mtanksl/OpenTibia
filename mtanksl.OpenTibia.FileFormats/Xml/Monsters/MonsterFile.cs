@@ -21,6 +21,11 @@ namespace OpenTibia.FileFormats.Xml.Monsters
                         file.monsters.Add( Monster.Load( XElement.Load(fileName) ) );
                     }
                 }
+
+                foreach (var fileName in Directory.GetFiles(path) )
+                {
+                    file.monsters.Add( Monster.Load( XElement.Load(fileName) ) );
+                }
             }
 
             return file;

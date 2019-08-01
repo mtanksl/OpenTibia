@@ -65,14 +65,7 @@ namespace OpenTibia.IO
         {
             for (int i = 0; i < count; i++)
             {
-                byte value = GetByte();
-
-                if (value == Escape)
-                {
-                    value = GetByte();
-                }
-
-                buffer[i + offset] = value;
+                buffer[i + offset] = ReadByte();
             }
         }
 

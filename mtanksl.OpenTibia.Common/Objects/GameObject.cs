@@ -1,30 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace OpenTibia.Common.Objects
 {
     public class GameObject
     {
-        private List<IComponent> components = null;
+        private List<Component> components = null;
 
-        public T AddComponent<T>() where T : IComponent
+        public void AddComponent(Component component)
         {
             if (components == null)
             {
-                components = new List<IComponent>();
+                components = new List<Component>();
             }
 
-            T component = Activator.CreateInstance<T>();
-
-                component.GameObject = this;
+            component.GameObject = this;
 
             components.Add(component);
-
-            return component;
         }
 
-        public void RemoveComponent(IComponent component)
+        public void RemoveComponent(Component component)
         {
             if (components == null)
             {
@@ -36,7 +31,7 @@ namespace OpenTibia.Common.Objects
             components.Remove(component);
         }
 
-        public T GetComponent<T>() where T : IComponent
+        public T GetComponent<T>()
         {
             if (components == null)
             {
@@ -46,7 +41,7 @@ namespace OpenTibia.Common.Objects
             return components.OfType<T>().FirstOrDefault();
         }
 
-        public IEnumerable<T> GetComponents<T>() where T : IComponent
+        public IEnumerable<T> GetComponents<T>()
         {
             if (components == null)
             {

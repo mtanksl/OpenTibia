@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Objects;
+﻿using OpenTibia.Common.Events;
+using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
@@ -16,7 +17,7 @@ namespace OpenTibia.Game.Commands
 
         public Item Item { get; set; }
 
-        public override void Execute(Server server, CommandContext context)
+        public override void Execute(Server server, Context context)
         {
             //Arrange
 
@@ -34,9 +35,11 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            foreach (var script in server.Scripts.TileAddItemScripts)
+            //Event
+
+            if (server.Events.TileAddItem != null)
             {
-                script.OnTileAddItem(Item, Tile, index, server, context);
+                server.Events.TileAddItem(this, new TileAddItemEventArgs(Item, Tile, index, server, context) );
             }
 
             base.Execute(server, context);

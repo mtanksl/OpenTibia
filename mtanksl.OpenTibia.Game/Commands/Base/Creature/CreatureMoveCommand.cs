@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Objects;
+﻿using OpenTibia.Common.Events;
+using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
 using System.Linq;
@@ -18,22 +19,22 @@ namespace OpenTibia.Game.Commands
 
         public Tile ToTile { get; set; }
 
-        public override void Execute(Server server, CommandContext context)
+        public override void Execute(Server server, Context context)
         {
+            //Arrange
+
             if ( !server.Scripts.CreatureWalkScripts.Any(script => script.OnCreatureWalk(Creature, Creature.Tile, ToTile, server, context) ) )
             {
-                //Arrange
-
                 Position toPosition = ToTile.Position;
 
                 Tile fromTile = Creature.Tile;
-                
+
                 Position fromPosition = fromTile.Position;
 
                 byte fromIndex = fromTile.GetIndex(Creature);
 
                 //Act
-            
+
                 fromTile.RemoveContent(fromIndex);
 
                 byte toIndex = ToTile.AddContent(Creature);
@@ -130,23 +131,6 @@ namespace OpenTibia.Game.Commands
                             }
                         }
 
-                        foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
-                        {
-                            if (pair.Value.GetRootContainer() is Tile tile)
-                            {
-                                if ( !tile.Position.IsNextTo(toPosition) )
-                                {
-                                    //Act
-
-                                    observer.Client.ContainerCollection.CloseContainer(pair.Key);
-
-                                    //Notify
-
-                                    context.Write(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
-                                }
-                            }
-                        }
-
                         server.CancelQueueForExecution(Constants.PlayerSchedulerEvent(observer) );
                     }
                     else
@@ -172,19 +156,23 @@ namespace OpenTibia.Game.Commands
                                 context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(toPosition, toIndex, removeId, Creature) );
                             }
                         }
-                    } 
+                    }                    
                 }
 
-                foreach (var script in server.Scripts.TileRemoveCreatureScripts)
+                //Event
+
+                if (server.Events.TileRemoveCreature != null)
                 {
-                    script.OnTileRemoveCreature(Creature, fromTile, fromIndex, server, context);
+                    server.Events.TileRemoveCreature(this, new TileRemoveCreatureEventArgs(Creature, fromTile, fromIndex, server, context) );
                 }
 
-                foreach (var script in server.Scripts.TileAddCreatureScripts)
+                if (server.Events.TileAddCreature != null)
                 {
-                    script.OnTileAddCreature(Creature, ToTile, toIndex, server, context);
+                    server.Events.TileAddCreature(this, new TileAddCreatureEventArgs(Creature, ToTile, toIndex, server, context) );
                 }
             }
+
+            //Notify
 
             base.Execute(server, context);
         }

@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -20,7 +21,7 @@ namespace OpenTibia.Game.Commands
 
         public uint Nonce { get; set; }
 
-        public override void Execute(Server server, CommandContext context)
+        public override void Execute(Server server, Context context)
         {
             //Arrange
 
@@ -28,22 +29,33 @@ namespace OpenTibia.Game.Commands
 
             if (creature != null && creature != Player)
             {
-                //Act
-
-                Player.AttackTarget = creature;
-
-                if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
+                if (creature is Npc)
                 {
-                    Player.FollowTarget = null;
+                    //Notify
+
+                    context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature),
+
+                                                            new StopAttackAndFollowOutgoingPacket(Nonce) );
                 }
                 else
                 {
-                    Player.FollowTarget = creature;
+                    //Act
+
+                    Player.AttackTarget = creature;
+
+                    if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
+                    {
+                        Player.FollowTarget = null;
+                    }
+                    else
+                    {
+                        Player.FollowTarget = creature;
+                    }
+
+                    //Notify
+
+                    base.Execute(server, context);
                 }
-
-                //Notify
-
-                base.Execute(server, context);
             }
         }
     }

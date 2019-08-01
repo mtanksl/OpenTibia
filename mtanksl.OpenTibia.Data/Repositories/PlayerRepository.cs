@@ -84,8 +84,8 @@ namespace OpenTibia.Data
 
         public AccountRow GetAccount(string accountName, string accountPassword)
         {
-            return accounts.Where(a => a.Name == accountName)
-                           .Where(a => a.Password == accountPassword)
+            return accounts.Where(a => a.Name == accountName &&
+                                       a.Password == accountPassword)
                            .FirstOrDefault();
         }
 

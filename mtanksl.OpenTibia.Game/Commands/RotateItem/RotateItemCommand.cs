@@ -14,7 +14,7 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        protected bool IsNextTo(Tile fromTile, Server server, CommandContext context)
+        protected bool IsNextTo(Tile fromTile, Server server, Context context)
         {
             if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
             {
@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected bool IsRotatable(Item fromItem, Server server, CommandContext context)
+        protected bool IsRotatable(Item fromItem, Server server, Context context)
         {
             if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Rotatable) )
             {
@@ -43,7 +43,7 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected void RotateItem(Item fromItem, Server server, CommandContext context)
+        protected void RotateItem(Item fromItem, Server server, Context context)
         {
             IItemRotateScript script;
 

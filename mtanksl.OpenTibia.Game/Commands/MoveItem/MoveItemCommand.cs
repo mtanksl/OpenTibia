@@ -15,7 +15,7 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        protected bool IsNextTo(Tile fromTile, Server server, CommandContext context)
+        protected bool IsNextTo(Tile fromTile, Server server, Context context)
         {
             if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
             {
@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected bool IsMoveable(Item fromItem, Server server, CommandContext context)
+        protected bool IsMoveable(Item fromItem, Server server, Context context)
         {
             if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
             {
@@ -46,7 +46,7 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected bool IsPickupable(Item fromItem, Server server, CommandContext context)
+        protected bool IsPickupable(Item fromItem, Server server, Context context)
         {
             if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Pickupable) )
             {
@@ -58,7 +58,7 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected bool CanThrow(Tile fromTile, Tile toTile, Server server, CommandContext context)
+        protected bool CanThrow(Tile fromTile, Tile toTile, Server server, Context context)
         {
             if ( !server.Pathfinding.CanThrow(fromTile.Position, toTile.Position) )
             {
@@ -70,7 +70,7 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected bool IsPossible(Item fromItem, Container toContainer, Server server, CommandContext context)
+        protected bool IsPossible(Item fromItem, Container toContainer, Server server, Context context)
         {
             if ( fromItem.IsParent(toContainer) )
             {
@@ -82,7 +82,7 @@ namespace OpenTibia.Game.Commands
             return true;
         }
         
-        protected bool IsEnoughtSpace(Item fromItem, Container toContainer, Server server, CommandContext context)
+        protected bool IsEnoughtSpace(Item fromItem, Container toContainer, Server server, Context context)
         {
             if (toContainer.Count == toContainer.Metadata.Capacity)
             {
@@ -94,7 +94,7 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected void MoveItem(Item fromItem, IContainer toContainer, byte toIndex, byte count, Server server, CommandContext context)
+        protected void MoveItem(Item fromItem, IContainer toContainer, byte toIndex, byte count, Server server, Context context)
         {
             new ItemMoveCommand(Player, fromItem, toContainer, toIndex, count).Execute(server, context);
 

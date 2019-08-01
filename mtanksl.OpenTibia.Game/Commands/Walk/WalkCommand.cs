@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Commands
 
         private int index = 0;
 
-        public override void Execute(Server server, CommandContext context)
+        public override void Execute(Server server, Context context)
         {
             //Arrange
 

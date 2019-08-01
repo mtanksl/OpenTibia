@@ -2,6 +2,8 @@
 {
     public interface IScript
     {
-        void Register(Server server);
+        void Start(Server server);
+
+        void Stop(Server server);
     }
 }

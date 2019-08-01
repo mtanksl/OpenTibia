@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
 
         public EnterGameIncomingPacket Packet { get; set; }
 
-        public override void Execute(Server server, CommandContext context)
+        public override void Execute(Server server, Context context)
         {
             //Arrange
 

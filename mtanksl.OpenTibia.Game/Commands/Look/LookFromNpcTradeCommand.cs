@@ -15,7 +15,7 @@ namespace OpenTibia.Game.Commands
 
         public byte Type { get; set; }
 
-        public override void Execute(Server server, CommandContext context)
+        public override void Execute(Server server, Context context)
         {
             //Arrange
 

@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Objects;
+﻿using OpenTibia.Common.Events;
+using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
 
@@ -21,7 +22,7 @@ namespace OpenTibia.Game.Commands
 
         public Item Item { get; set; }
 
-        public override void Execute(Server server, CommandContext context)
+        public override void Execute(Server server, Context context)
         {
             //Arrange
 
@@ -32,6 +33,13 @@ namespace OpenTibia.Game.Commands
             //Notify
 
             context.Write(Inventory.Player.Client.Connection, new SlotAddOutgoingPacket( (Slot)Slot, Item ) );
+
+            //Event
+
+            if (server.Events.InventoryAddItem != null)
+            {
+                server.Events.InventoryAddItem(this, new InventoryAddItemEventArgs(Item, Inventory, Slot, server, context) );
+            }
 
             base.Execute(server, context);
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OpenTibia.IO
 {
@@ -9,12 +8,19 @@ namespace OpenTibia.IO
 
         public override byte ReadByte()
         {
-            throw new NotSupportedException();
+            byte value = bytes[position];
+
+            Seek(Origin.Current, 1);
+
+            return value;
         }
 
         public override void Read(byte[] buffer, int offset, int count)
         {
-            throw new NotSupportedException();
+            for (int i = 0; i < count; i++)
+            {
+                buffer[i + offset] = ReadByte();
+            }
         }
 
         public override void WriteByte(byte value)
@@ -26,12 +32,10 @@ namespace OpenTibia.IO
 
         public override void Write(byte[] buffer, int offset, int count)
         {
-            for (int i = offset; i < count; i++)
+            for (int i = 0; i < count; i++)
             {
-                bytes.Add( buffer[i] );
+                WriteByte( buffer[i + offset] );
             }
-
-            Seek(Origin.Current, count);
         }
 
         public byte[] GetBytes()

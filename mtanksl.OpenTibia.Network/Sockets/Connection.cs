@@ -60,7 +60,7 @@ namespace OpenTibia.Network.Sockets
         {
             lock (sync)
             {
-                OnConnect();
+                OnConnected();
 
                 if ( !stop )
                 {
@@ -120,7 +120,7 @@ namespace OpenTibia.Network.Sockets
                  
                         if (body.Length == socket.EndReceive(result) )
                         {
-                            OnReceive(body);
+                            OnReceived(body);
 
                             if ( !stop )
                             {
@@ -189,12 +189,12 @@ namespace OpenTibia.Network.Sockets
             OnDisconnected(new DisconnectedEventArgs(DisconnetionType.Requested) );
         }
 
-        protected virtual void OnConnect()
+        protected virtual void OnConnected()
         {
 
         }
 
-        protected virtual void OnReceive(byte[] body)
+        protected virtual void OnReceived(byte[] body)
         {
 
         }

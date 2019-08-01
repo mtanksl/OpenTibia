@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Objects;
+﻿using OpenTibia.Common.Events;
+using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Data;
 using OpenTibia.Network.Packets.Incoming;
@@ -19,7 +20,7 @@ namespace OpenTibia.Game.Commands
 
         public SelectedCharacterIncomingPacket Packet { get; set; }
 
-        public override void Execute(Server server, CommandContext context)
+        public override void Execute(Server server, Context context)
         {
             //Arrange
 
@@ -49,14 +50,8 @@ namespace OpenTibia.Game.Commands
 
                         Tile toTile = server.Map.GetTile(toPosition);
 
-                        if (toTile == null)
+                        if (toTile != null)
                         {
-
-
-                            context.Disconnect(Connection);
-                        }
-                        else
-                        { 
                             Player player = new Player()
                             {
                                 Name = account.Name
@@ -84,13 +79,13 @@ namespace OpenTibia.Game.Commands
                                                                               new SetSpecialConditionOutgoingPacket(SpecialCondition.None),
 
                                                                               new SendStatusOutgoingPacket(player.Health, player.MaxHealth, 
-                                                  
+
                                                                                                           player.Capacity, 
-                                                  
+
                                                                                                           player.Experience, player.Level, player.LevelPercent, 
-                                                                             
-                                                                                                          player.Mana, player.MaxMana, 0, 0, player.Soul, 
-                                                                             
+
+                                                                                                          player.Mana, player.MaxMana, 0, 0, player.Soul,
+
                                                                                                           player.Stamina),
 
                                                                               new SendSkillsOutgoingPacket(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0),
@@ -120,9 +115,16 @@ namespace OpenTibia.Game.Commands
                                                                                       new ShowMagicEffectOutgoingPacket(toPosition, MagicEffectType.Teleport) );
                                         }
                                     }
-                                }
+                                }                                
                             }
 
+                            //Event
+
+                            if (server.Events.TileAddCreature != null)
+                            {
+                                server.Events.TileAddCreature(this, new TileAddCreatureEventArgs(player, toTile, toIndex, server, context) );
+                            }
+                            
                             base.Execute(server, context);
                         }
                     }

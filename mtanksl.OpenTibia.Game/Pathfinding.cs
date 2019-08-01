@@ -9,11 +9,11 @@ namespace OpenTibia.Game
 {
     public class Pathfinding
     {
-        private Server server;
+        private IMap map;
 
-        public Pathfinding(Server server)
+        public Pathfinding(IMap map)
         {
-            this.server = server;
+            this.map = map;
         }
 
         public bool CanThrow(Position fromPosition, Position toPosition)
@@ -25,7 +25,7 @@ namespace OpenTibia.Game
 
             foreach (var position in Bresenham(fromPosition, toPosition) )
             {
-                Tile tile = server.Map.GetTile(position);
+                Tile tile = map.GetTile(position);
 
                 if ( tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.BlockProjectile) ) )
                 {
@@ -49,7 +49,7 @@ namespace OpenTibia.Game
                         return false;
                     }
 
-                    Tile tile = server.Map.GetTile(position);
+                    Tile tile = map.GetTile(position);
 
                     if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || tile.GetCreatures().Any(c => c.Block) )
                     {

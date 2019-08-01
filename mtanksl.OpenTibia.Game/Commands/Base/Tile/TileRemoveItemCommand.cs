@@ -1,30 +1,31 @@
-﻿using OpenTibia.Common.Objects;
+﻿using OpenTibia.Common.Events;
+using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
     public class TileRemoveItemCommand : Command
     {
-        public TileRemoveItemCommand(Tile tile, byte index)
+        public TileRemoveItemCommand(Tile tile, Item item)
         {
             Tile = tile;
 
-            Index = index;
+            Item = item;
         }
 
         public Tile Tile { get; set; }
 
-        public byte Index { get; set; }
+        public Item Item { get; set; }
 
-        public override void Execute(Server server, CommandContext context)
+        public override void Execute(Server server, Context context)
         {
             //Arrange
 
-            Item item = Tile.GetContent(Index) as Item;
+            byte index = Tile.GetIndex(Item);
 
             //Act
 
-            Tile.RemoveContent(Index);
+            Tile.RemoveContent(index);
 
             //Notify
 
@@ -32,13 +33,15 @@ namespace OpenTibia.Game.Commands
             {
                 if (observer.Tile.Position.CanSee(Tile.Position) )
                 {
-                    context.Write(observer.Client.Connection, new ThingRemoveOutgoingPacket(Tile.Position, Index) );
+                    context.Write(observer.Client.Connection, new ThingRemoveOutgoingPacket(Tile.Position, index) );
                 }
             }
 
-            foreach (var script in server.Scripts.TileRemoveItemScripts)
+            //Event
+
+            if (server.Events.TileRemoveItem != null)
             {
-                script.OnTileRemoveItem(item, Tile, Index, server, context);
+                server.Events.TileRemoveItem(this, new TileRemoveItemEventArgs(Item, Tile, index, server, context) );
             }
 
             base.Execute(server, context);

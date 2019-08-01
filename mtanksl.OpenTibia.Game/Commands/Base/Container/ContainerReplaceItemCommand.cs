@@ -5,28 +5,30 @@ namespace OpenTibia.Game.Commands
 {
     public class ContainerReplaceItemCommand : Command
     {
-        public ContainerReplaceItemCommand(Container container, byte index, Item item)
+        public ContainerReplaceItemCommand(Container container, Item fromItem, Item toItem)
         {
             Container = container;
 
-            Index = index;
+            FromItem = fromItem;
 
-            Item = item;
+            ToItem = toItem;
         }
 
         public Container Container { get; set; }
 
-        public byte Index { get; set; }
+        public Item FromItem { get; set; }
 
-        public Item Item { get; set; }
+        public Item ToItem { get; set; }
         
-        public override void Execute(Server server, CommandContext context)
+        public override void Execute(Server server, Context context)
         {
             //Arrange
 
+            byte index = Container.GetIndex(FromItem);
+
             //Act
 
-            Container.ReplaceContent(Index, Item);
+            Container.ReplaceContent(index, ToItem);
 
             //Notify
 
@@ -36,7 +38,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if (pair.Value == Container)
                     {
-                        context.Write(observer.Client.Connection, new ContainerUpdateOutgoingPacket(pair.Key, Index, Item) );
+                        context.Write(observer.Client.Connection, new ContainerUpdateOutgoingPacket(pair.Key, index, ToItem) );
                     }
                 }
             }

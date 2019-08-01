@@ -15,7 +15,7 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        protected bool IsNextTo(Tile fromTile, Server server, CommandContext context)
+        protected bool IsNextTo(Tile fromTile, Server server, Context context)
         {
             if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
             {
@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected bool IsUseable(Item fromItem, Server server, CommandContext context)
+        protected bool IsUseable(Item fromItem, Server server, Context context)
         {
             if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
             {
@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected void UseItemWithCreature(Item fromItem, Creature toCreature, Server server, CommandContext context, Action howToProceed)
+        protected void UseItemWithCreature(Item fromItem, Creature toCreature, Server server, Context context, Action howToProceed)
         {
             IItemUseWithCreatureScript script;
 

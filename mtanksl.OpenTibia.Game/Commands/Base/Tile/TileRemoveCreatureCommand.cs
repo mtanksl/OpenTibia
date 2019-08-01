@@ -1,30 +1,31 @@
-﻿using OpenTibia.Common.Objects;
+﻿using OpenTibia.Common.Events;
+using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
     public class TileRemoveCreatureCommand : Command
     {
-        public TileRemoveCreatureCommand(Tile tile, byte index)
+        public TileRemoveCreatureCommand(Tile tile, Creature creature)
         {
             Tile = tile;
 
-            Index = index;
+            Creature = creature;
         }
 
         public Tile Tile { get; set; }
 
-        public byte Index { get; set; }
+        public Creature Creature { get; set; }
 
-        public override void Execute(Server server, CommandContext context)
+        public override void Execute(Server server, Context context)
         {
             //Arrange
 
-            Creature creature = Tile.GetContent(Index) as Creature;
-
             //Act
 
-            Tile.RemoveContent(Index);
+            byte index = Tile.GetIndex(Creature);
+
+            Tile.RemoveContent(index);
 
             //Notify
 
@@ -32,13 +33,15 @@ namespace OpenTibia.Game.Commands
             {
                 if (observer.Tile.Position.CanSee(Tile.Position) )
                 {
-                    context.Write(observer.Client.Connection, new ThingRemoveOutgoingPacket(Tile.Position, Index) );
+                    context.Write(observer.Client.Connection, new ThingRemoveOutgoingPacket(Tile.Position, index) );
                 }
             }
 
-            foreach (var script in server.Scripts.TileRemoveCreatureScripts)
+            //Event
+
+            if (server.Events.TileRemoveCreature != null)
             {
-                script.OnTileRemoveCreature(creature, Tile, Index, server, context);
+                server.Events.TileRemoveCreature(this, new TileRemoveCreatureEventArgs(Creature, Tile, index, server, context) );
             }
 
             base.Execute(server, context);

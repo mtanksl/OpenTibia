@@ -11,7 +11,7 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        protected void TradeWith(Item fromItem, Player toPlayer, Server server, CommandContext context)
+        protected void TradeWith(Item fromItem, Player toPlayer, Server server, Context context)
         {
 
 

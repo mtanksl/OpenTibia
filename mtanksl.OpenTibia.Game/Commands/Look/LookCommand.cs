@@ -13,7 +13,7 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        protected void LookItem(Item item, Server server, CommandContext context)
+        protected void LookItem(Item item, Server server, Context context)
         {
             //Arrange
 
@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Commands
             base.Execute(server, context);
         }
 
-        protected void LookCreature(Creature creature, Server server, CommandContext context)
+        protected void LookCreature(Creature creature, Server server, Context context)
         {
             //Arrange
 

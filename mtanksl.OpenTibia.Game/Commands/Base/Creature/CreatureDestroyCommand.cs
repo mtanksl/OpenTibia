@@ -11,11 +11,17 @@ namespace OpenTibia.Game.Commands
 
         public Creature Creature { get; set; }
 
-        public override void Execute(Server server, CommandContext context)
+        public override void Execute(Server server, Context context)
         {
+            //Arrange
+
+            //Act
+
+            new TileRemoveCreatureCommand(Creature.Tile, Creature).Execute(server, context);
+            
             server.Map.RemoveCreature(Creature);
 
-            new TileRemoveCreatureCommand(Creature.Tile, Creature.Tile.GetIndex(Creature) ).Execute(server, context);
+            //Notify
 
             base.Execute(server, context);            
         }

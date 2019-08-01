@@ -5,24 +5,26 @@ namespace OpenTibia.Game.Commands
 {
     public class ContainerRemoveItemCommand : Command
     {
-        public ContainerRemoveItemCommand(Container container, byte index)
+        public ContainerRemoveItemCommand(Container container, Item item)
         {
             Container = container;
 
-            Index = index;
+            Item = item;
         }
 
         public Container Container { get; set; }
 
-        public byte Index { get; set; }
+        public Item Item { get; set; }
 
-        public override void Execute(Server server, CommandContext context)
+        public override void Execute(Server server, Context context)
         {
             //Arrange
 
+            byte index = Container.GetIndex(Item);
+
             //Act
 
-            Container.RemoveContent(Index);
+            Container.RemoveContent(index);
 
             //Notify
 
@@ -32,7 +34,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if (pair.Value == Container)
                     {
-                        context.Write(observer.Client.Connection, new ContainerRemoveOutgoingPacket(pair.Key, Index) );
+                        context.Write(observer.Client.Connection, new ContainerRemoveOutgoingPacket(pair.Key, index) );
                     }
                 }
             }
