@@ -34,6 +34,11 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
+            foreach (var script in server.Scripts.TileAddItemScripts)
+            {
+                script.OnTileAddItem(Item, Tile, index, server, context);
+            }
+
             base.Execute(server, context);
         }
     }

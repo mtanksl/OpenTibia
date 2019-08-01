@@ -43,6 +43,11 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
+            foreach (var script in server.Scripts.TileAddCreatureScripts)
+            {
+                script.OnTileAddCreature(Creature, Tile, toIndex, server, context);
+            }
+
             base.Execute(server, context);
         }
     }

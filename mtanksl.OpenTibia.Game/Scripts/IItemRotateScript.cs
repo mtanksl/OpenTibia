@@ -5,6 +5,6 @@ namespace OpenTibia.Game.Scripts
 {
     public interface IItemRotateScript : IScript
     {
-        bool Execute(Player player, Item item, Server server, CommandContext context);
+        bool OnItemRotate(Player player, Item item, Server server, CommandContext context);
     }
 }

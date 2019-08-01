@@ -4,22 +4,20 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.Scripts
 {
-    public class ShovelScript : IItemUseWithItemScript
+    public class MacheteScript : IItemUseWithItemScript
     {
-        private HashSet<ushort> shovels = new HashSet<ushort>() { 2554, 5710 };
+        private HashSet<ushort> machetes = new HashSet<ushort>() { 2420 };
 
-        private Dictionary<ushort, ushort> stonePiles = new Dictionary<ushort, ushort>()
+        private Dictionary<ushort, ushort> jungleGrass = new Dictionary<ushort, ushort>()
         {
-            { 468, 469 },
-            { 481, 482 },
-            { 483, 484 }
+            { 2780, 2781 }
         };
 
         public void Register(Server server)
         {
-            foreach (var openTibiaId in shovels)
+            foreach (var openTibiaId in machetes)
             {
-                server.ItemUseWithItemScripts.Add(openTibiaId, this);
+                server.Scripts.ItemUseWithItemScripts.Add(openTibiaId, this);
             }
         }
 
@@ -31,11 +29,11 @@ namespace OpenTibia.Game.Scripts
             }
         }
 
-        public bool Execute(Player player, Item fromItem, Item toItem, Server server, CommandContext context)
+        public bool OnItemUseWithItem(Player player, Item fromItem, Item toItem, Server server, CommandContext context)
         {
             ushort toOpenTibiaId;
 
-            if (stonePiles.TryGetValue(toItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+            if (jungleGrass.TryGetValue(toItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
                 new ItemTransformCommand(toItem, toOpenTibiaId).Execute(server, context);
 

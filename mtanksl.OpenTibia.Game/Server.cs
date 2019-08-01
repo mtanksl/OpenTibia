@@ -7,13 +7,10 @@ using OpenTibia.FileFormats.Xml.Items;
 using OpenTibia.FileFormats.Xml.Monsters;
 using OpenTibia.FileFormats.Xml.Npcs;
 using OpenTibia.Game.Commands;
-using OpenTibia.Game.Scripts;
 using OpenTibia.Network.Sockets;
 using OpenTibia.Threading;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 
 namespace OpenTibia.Game
 {
@@ -61,19 +58,7 @@ namespace OpenTibia.Game
 
         public Map Map { get; set; }
 
-        public List<ICreatureWalkScript> CreatureWalkScripts { get; set; }
-
-        public List<IItemMoveScript> ItemMoveScripts { get; set; }
-
-        public Dictionary<ushort, IItemRotateScript> ItemRotateScripts { get; set; }
-
-        public Dictionary<ushort, IItemUseScript> ItemUseScripts { get; set; }
-
-        public Dictionary<ushort, IItemUseWithItemScript> ItemUseWithItemScripts { get; set; }
-
-        public Dictionary<ushort, IItemUseWithCreatureScript> ItemUseWithCreatureScripts { get; set; }
-
-        public Dictionary<string, ISpeechScript> SpeechScripts { get; set; }
+        public ScriptsManager Scripts { get; set; }
 
         public void Start()
         {
@@ -111,26 +96,7 @@ namespace OpenTibia.Game
 
             using (Logger.Measure("Loading scripts", true) )
             {
-                CreatureWalkScripts = new List<ICreatureWalkScript>();
-
-                ItemMoveScripts = new List<IItemMoveScript>();
-
-                ItemRotateScripts = new Dictionary<ushort, IItemRotateScript>();
-
-                ItemUseScripts = new Dictionary<ushort, IItemUseScript>();
-
-                ItemUseWithItemScripts = new Dictionary<ushort, IItemUseWithItemScript>();
-
-                ItemUseWithCreatureScripts = new Dictionary<ushort, IItemUseWithCreatureScript>();
-
-                SpeechScripts = new Dictionary<string, ISpeechScript>();
-
-                foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(IScript).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract ) )
-                {
-                    IScript script = (IScript)Activator.CreateInstance(type);
-
-                    script.Register(this);
-                }
+                Scripts = new ScriptsManager(this);               
             }
 
             QueueForExecution(Constants.GlobalLightSchedulerEvent, Constants.GlobalLightSchedulerEventInterval, new GlobalLightCommand() );

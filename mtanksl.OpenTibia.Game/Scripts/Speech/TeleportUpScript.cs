@@ -3,16 +3,16 @@ using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Scripts.Speech
 {
-    public class TeleportDownScript : ISpeechScript
+    public class TeleportUpScript : ISpeechScript
     {
         public void Register(Server server)
         {
-            server.SpeechScripts.Add("/down", this);
+            server.Scripts.SpeechScripts.Add("/up", this);
         }
 
-        public bool Execute(Player player, string parameters, Server server, CommandContext context)
+        public bool OnSpeech(Player player, string parameters, Server server, CommandContext context)
         {
-            Tile toTile = server.Map.GetTile( player.Tile.Position.Offset(0, 0, 1) );
+            Tile toTile = server.Map.GetTile( player.Tile.Position.Offset(0, 0, -1) );
 
             if (toTile != null)
             {
@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Scripts.Speech
                 return true;
             }
 
-            return true;
+            return false;
         }
     }
 }

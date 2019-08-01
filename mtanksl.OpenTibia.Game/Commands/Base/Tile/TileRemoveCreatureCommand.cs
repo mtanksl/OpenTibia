@@ -3,9 +3,9 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class TileRemoveItemCommand : Command
+    public class TileRemoveCreatureCommand : Command
     {
-        public TileRemoveItemCommand(Tile tile, byte index)
+        public TileRemoveCreatureCommand(Tile tile, byte index)
         {
             Tile = tile;
 
@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            Item item = Tile.GetContent(Index) as Item;
+            Creature creature = Tile.GetContent(Index) as Creature;
 
             //Act
 
@@ -36,9 +36,9 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            foreach (var script in server.Scripts.TileRemoveItemScripts)
+            foreach (var script in server.Scripts.TileRemoveCreatureScripts)
             {
-                script.OnTileRemoveItem(item, Tile, Index, server, context);
+                script.OnTileRemoveCreature(creature, Tile, Index, server, context);
             }
 
             base.Execute(server, context);

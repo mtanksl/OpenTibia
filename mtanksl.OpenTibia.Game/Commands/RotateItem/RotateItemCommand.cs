@@ -47,7 +47,7 @@ namespace OpenTibia.Game.Commands
         {
             IItemRotateScript script;
 
-            if ( !server.ItemRotateScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, server, context) )
+            if ( !server.Scripts.ItemRotateScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.OnItemRotate(Player, fromItem, server, context) )
             {
                 context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
             }

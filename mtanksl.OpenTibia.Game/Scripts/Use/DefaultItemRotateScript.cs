@@ -4,29 +4,30 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.Scripts
 {
-    public class DefaultItemUseScript : IItemUseScript
+    public class DefaultItemRotateScript : IItemRotateScript
     {
         private Dictionary<ushort, ushort> items = new Dictionary<ushort, ushort>()
         {
-            { 6356, 6357 },
-            { 6357, 6356 },
-            { 6358, 6359 },
-            { 6359, 6358 },
-            { 6360, 6361 },
-            { 6361, 6360 },
-            { 6362, 6363 },
-            { 6363, 6362 }
+            { 6356, 6358 },
+            { 6358, 6360 },
+            { 6360, 6362 },
+            { 6362, 6356 },
+
+            { 6357, 6359 },
+            { 6359, 6361 },
+            { 6361, 6363 },
+            { 6363, 6357 }
         };
 
         public void Register(Server server)
         {
             foreach (var item in items)
             {
-                server.ItemUseScripts.Add(item.Key, this);
+                server.Scripts.ItemRotateScripts.Add(item.Key, this);
             }
         }
 
-        public bool Execute(Player player, Item fromItem, Server server, CommandContext context)
+        public bool OnItemRotate(Player player, Item fromItem, Server server, CommandContext context)
         {
             ushort toOpenTibiaId;
 

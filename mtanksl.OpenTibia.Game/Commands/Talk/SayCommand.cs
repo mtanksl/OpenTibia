@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Commands
 
             ISpeechScript script;
 
-            if ( !Message.StartsWith("/") || !server.SpeechScripts.TryGetValue(GetCommand(Message), out script) || !script.Execute(Player, GetParameters(Message), server, context) )
+            if ( !Message.StartsWith("/") || !server.Scripts.SpeechScripts.TryGetValue(GetCommand(Message), out script) || !script.OnSpeech(Player, GetParameters(Message), server, context) )
             {
                 //Notify
 

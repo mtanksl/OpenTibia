@@ -7,6 +7,6 @@ namespace OpenTibia.Game.Scripts
     {
         bool NextTo { get; }
         
-        bool Execute(Player player, Item fromItem, Item toItem, Server server, CommandContext context);
+        bool OnItemUseWithItem(Player player, Item fromItem, Item toItem, Server server, CommandContext context);
     }
 }

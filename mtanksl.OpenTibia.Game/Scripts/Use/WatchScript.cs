@@ -14,11 +14,11 @@ namespace OpenTibia.Game.Scripts
         {
             foreach (var openTibiaId in watches)
             {
-                server.ItemUseScripts.Add(openTibiaId, this);
+                server.Scripts.ItemUseScripts.Add(openTibiaId, this);
             }
         }
 
-        public bool Execute(Player player, Item fromItem, Server server, CommandContext context)
+        public bool OnItemUse(Player player, Item fromItem, Server server, CommandContext context)
         {
             context.Write(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "The time is " + server.Clock.Hour.ToString("00") + ":" + server.Clock.Minute.ToString("00") + ".") );
 

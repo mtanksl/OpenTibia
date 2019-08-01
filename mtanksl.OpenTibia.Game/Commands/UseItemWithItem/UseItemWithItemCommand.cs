@@ -48,20 +48,13 @@ namespace OpenTibia.Game.Commands
         {
             IItemUseWithItemScript script;
 
-            if ( !server.ItemUseWithItemScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) )
+            if ( !server.Scripts.ItemUseWithItemScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.OnItemUseWithItem(Player, fromItem, toItem, server, context) )
             {
                 context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
             }
             else
             {
-                if ( !script.Execute(Player, fromItem, toItem, server, context) )
-                {
-                    context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
-                }
-                else
-                {
-                    base.Execute(server, context);
-                }
+                base.Execute(server, context);
             }
         }
 
@@ -69,7 +62,7 @@ namespace OpenTibia.Game.Commands
         {
             IItemUseWithItemScript script;
 
-            if ( !server.ItemUseWithItemScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) )
+            if ( !server.Scripts.ItemUseWithItemScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) )
             {
                 context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
             }
@@ -98,7 +91,7 @@ namespace OpenTibia.Game.Commands
 
                 if (proceed)
                 {
-                    if ( !script.Execute(Player, fromItem, toItem, server, context) )
+                    if ( !script.OnItemUseWithItem(Player, fromItem, toItem, server, context) )
                     {
                         context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem));
                     }

@@ -12,11 +12,11 @@ namespace OpenTibia.Game.Scripts
         {
             foreach (var openTibiaId in ladders)
             {
-                server.ItemUseScripts.Add(openTibiaId, this);
+                server.Scripts.ItemUseScripts.Add(openTibiaId, this);
             }
         }
 
-        public bool Execute(Player player, Item fromItem, Server server, CommandContext context)
+        public bool OnItemUse(Player player, Item fromItem, Server server, CommandContext context)
         {
             Tile toTile = server.Map.GetTile( ( (Tile)fromItem.Container ).Position.Offset(0, 1, -1) );
 

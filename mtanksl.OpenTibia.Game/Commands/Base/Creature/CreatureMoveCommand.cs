@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Server server, CommandContext context)
         {
-            if ( !server.CreatureWalkScripts.Any(script => script.Execute(Creature, Creature.Tile, ToTile, server, context) ) )
+            if ( !server.Scripts.CreatureWalkScripts.Any(script => script.OnCreatureWalk(Creature, Creature.Tile, ToTile, server, context) ) )
             {
                 //Arrange
 
@@ -172,7 +172,17 @@ namespace OpenTibia.Game.Commands
                                 context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(toPosition, toIndex, removeId, Creature) );
                             }
                         }
-                    }                    
+                    } 
+                }
+
+                foreach (var script in server.Scripts.TileRemoveCreatureScripts)
+                {
+                    script.OnTileRemoveCreature(Creature, fromTile, fromIndex, server, context);
+                }
+
+                foreach (var script in server.Scripts.TileAddCreatureScripts)
+                {
+                    script.OnTileAddCreature(Creature, ToTile, toIndex, server, context);
                 }
             }
 

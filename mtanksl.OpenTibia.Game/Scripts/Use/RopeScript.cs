@@ -14,7 +14,7 @@ namespace OpenTibia.Game.Scripts
         {
             foreach (var openTibiaId in ropes)
             {
-                server.ItemUseWithItemScripts.Add(openTibiaId, this);
+                server.Scripts.ItemUseWithItemScripts.Add(openTibiaId, this);
             }
         }
 
@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Scripts
             }
         }
 
-        public bool Execute(Player player, Item fromItem, Item toItem, Server server, CommandContext context)
+        public bool OnItemUseWithItem(Player player, Item fromItem, Item toItem, Server server, CommandContext context)
         {
             if (ropeSpots.Contains(toItem.Metadata.OpenTibiaId) )
             {

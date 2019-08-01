@@ -33,12 +33,15 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Server server, CommandContext context)
         {
-            if ( !server.ItemMoveScripts.Any(script => script.Execute(Player, FromItem, ToContainer, ToIndex, Count, server, context) ) )
+            if ( !server.Scripts.ItemMoveScripts.Any(script => script.OnItemMove(Player, FromItem, ToContainer, ToIndex, Count, server, context) ) )
             {
+                //Arrange
+
                 IContainer fromContainer = FromItem.Container;
 
                 byte fromIndex = fromContainer.GetIndex(FromItem);
 
+                //Act
 
                 Position fromPosition = null;
 
@@ -130,6 +133,8 @@ namespace OpenTibia.Game.Commands
                         break;
                 }
 
+                //Notify
+
                 if (FromItem is Container backpack)
                 {
                     foreach (var observer in server.Map.GetPlayers() )
@@ -180,7 +185,7 @@ namespace OpenTibia.Game.Commands
                             }
                         }
                     }
-                }
+                }                
             }
 
             base.Execute(server, context);

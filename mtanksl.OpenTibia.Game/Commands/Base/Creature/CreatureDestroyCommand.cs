@@ -15,7 +15,7 @@ namespace OpenTibia.Game.Commands
         {
             server.Map.RemoveCreature(Creature);
 
-            new TileRemoveItemCommand(Creature.Tile, Creature.Tile.GetIndex(Creature) ).Execute(server, context);
+            new TileRemoveCreatureCommand(Creature.Tile, Creature.Tile.GetIndex(Creature) ).Execute(server, context);
 
             base.Execute(server, context);            
         }

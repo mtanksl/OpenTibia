@@ -24,21 +24,18 @@ namespace OpenTibia.Game.Scripts
                 }
             }
 
-            server.ItemMoveScripts.Add(this);
+            server.Scripts.ItemMoveScripts.Add(this);
         }
 
         private HashSet<Position> positions = new HashSet<Position>();
 
-        public bool Execute(Player player, Item fromItem, IContainer toContainer, byte toIndex, byte count, Server server, CommandContext context)
+        public bool OnItemMove(Player player, Item fromItem, IContainer toContainer, byte toIndex, byte count, Server server, CommandContext context)
         {
-            if (toContainer is Tile toTile)
+            if (toContainer is Tile toTile && positions.Contains(toTile.Position) )
             {
-                if ( positions.Contains(toTile.Position) )
-                {
-                    new ItemDestroyCommand(fromItem).Execute(server, context);
+                new ItemDestroyCommand(fromItem).Execute(server, context);
 
-                    return true;
-                }
+                return true;
             }
 
             return false;

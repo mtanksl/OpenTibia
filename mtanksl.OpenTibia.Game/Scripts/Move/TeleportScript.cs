@@ -20,14 +20,14 @@ namespace OpenTibia.Game.Scripts
                 }
             }
 
-            server.CreatureWalkScripts.Add(this);
+            server.Scripts.CreatureWalkScripts.Add(this);
 
-            server.ItemMoveScripts.Add(this);
+            server.Scripts.ItemMoveScripts.Add(this);
         }
 
         private Dictionary<Position, Position> positions = new Dictionary<Position, Position>();
         
-        public bool Execute(Creature creature, Tile fromTile, Tile toTile, Server server, CommandContext context)
+        public bool OnCreatureWalk(Creature creature, Tile fromTile, Tile toTile, Server server, CommandContext context)
         {
             Position position;
 
@@ -45,7 +45,7 @@ namespace OpenTibia.Game.Scripts
             return false;
         }
 
-        public bool Execute(Player player, Item fromItem, IContainer toContainer, byte toIndex, byte count, Server server, CommandContext context)
+        public bool OnItemMove(Player player, Item fromItem, IContainer toContainer, byte toIndex, byte count, Server server, CommandContext context)
         {
             if (toContainer is Tile toTile)
             {

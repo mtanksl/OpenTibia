@@ -47,7 +47,7 @@ namespace OpenTibia.Game.Commands
             {
                 IItemUseScript script;
 
-                if ( !server.ItemUseScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, server, context) )
+                if ( !server.Scripts.ItemUseScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.OnItemUse(Player, fromItem, server, context) )
                 {
                     context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
                 }
@@ -79,7 +79,7 @@ namespace OpenTibia.Game.Commands
             {
                 IItemUseScript script;
 
-                if ( !server.ItemUseScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.Execute(Player, fromItem, server, context) )
+                if ( !server.Scripts.ItemUseScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.OnItemUse(Player, fromItem, server, context) )
                 {
                     context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
                 }
