@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.FileFormats.Xml.Monsters;
+using OpenTibia.Game.Components;
 using System.Collections.Generic;
 using Monster = OpenTibia.Common.Objects.Monster;
 
@@ -39,7 +40,11 @@ namespace OpenTibia.Game
                 return null;                
             }
 
-            return new Monster(metadata);
+            Monster monster = new Monster(metadata);
+
+            monster.AddComponent<WalkBehaviour>();
+
+            return monster;
         }
     }
 }

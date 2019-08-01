@@ -8,9 +8,13 @@ namespace OpenTibia.Game
 {
     public class ScriptsManager
     {
+        private Server server;
+
         public ScriptsManager(Server server)
         {
-             CreatureWalkScripts = new List<ICreatureWalkScript>();
+            this.server = server;
+
+            CreatureWalkScripts = new List<ICreatureWalkScript>();
 
             TileAddCreatureScripts = new List<ITileAddCreatureScript>();
 
@@ -31,13 +35,6 @@ namespace OpenTibia.Game
             ItemUseWithCreatureScripts = new Dictionary<ushort, IItemUseWithCreatureScript>();
 
             SpeechScripts = new Dictionary<string, ISpeechScript>();
-
-            foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(IScript).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract ) )
-            {
-                IScript script = (IScript)Activator.CreateInstance(type);
-
-                script.Register(server);
-            }
         }
 
         public List<ICreatureWalkScript> CreatureWalkScripts { get; set; }
@@ -61,5 +58,15 @@ namespace OpenTibia.Game
         public Dictionary<ushort, IItemUseWithCreatureScript> ItemUseWithCreatureScripts { get; set; }
 
         public Dictionary<string, ISpeechScript> SpeechScripts { get; set; }
+
+        public void Start()
+        {
+            foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(IScript).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract ) )
+            {
+                IScript script = (IScript)Activator.CreateInstance(type);
+
+                script.Register(server);
+            }
+        }
     }
 }

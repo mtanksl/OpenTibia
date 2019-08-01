@@ -14,5 +14,26 @@ namespace OpenTibia.IO
 
             return result;
         }
+
+        private static Random random = new Random();
+
+        public static T[] Shuffle<T>(this T[] array)
+        {
+            int currentIndex = array.Length - 1;
+
+            while (currentIndex > 0)
+            {
+                int newIndex = random.Next(0, currentIndex + 1);
+
+                if (currentIndex != newIndex)
+                {
+                    T temp = array[currentIndex]; array[currentIndex] = array[newIndex]; array[newIndex] = temp;
+                }
+
+                currentIndex--;
+            }
+
+            return array;
+        }
     }
 }

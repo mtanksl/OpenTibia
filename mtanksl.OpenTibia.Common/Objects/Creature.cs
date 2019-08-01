@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Common.Objects
 {
-    public abstract class Creature : IContent
+    public abstract class Creature : GameObject, IContent
     {
         public Creature()
         {

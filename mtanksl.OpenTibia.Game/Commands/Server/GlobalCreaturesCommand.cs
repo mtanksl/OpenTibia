@@ -1,4 +1,6 @@
-﻿namespace OpenTibia.Game.Commands
+﻿using OpenTibia.Game.Components;
+
+namespace OpenTibia.Game.Commands
 {
     public class GlobalCreaturesCommand : Command
     {
@@ -8,9 +10,12 @@
 
             //Act
 
-            foreach (var monster in server.Map.GetMonsters() )
+            foreach (var creature in server.Map.GetCreatures() )
             {
-
+                foreach (var component in creature.GetComponents<IBehaviour>() )
+                {
+                    component.Update(server, context);
+                }
             }
 
             //Notify

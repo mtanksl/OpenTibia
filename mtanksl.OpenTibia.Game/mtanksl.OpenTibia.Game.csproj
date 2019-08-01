@@ -147,10 +147,12 @@
     <Compile Include="Commands\Walk\WalkToKnownPathCommand.cs" />
     <Compile Include="Commands\Turn\TurnCommand.cs" />
     <Compile Include="Commands\Walk\WalkCommand.cs" />
+    <Compile Include="Components\IBehaviour.cs" />
     <Compile Include="Common\Objects\WindowCollection.cs" />
     <Compile Include="Common\Objects\ContainerCollection.cs" />
     <Compile Include="Common\Objects\CreatureCollection.cs" />
     <Compile Include="Common\Objects\GameConnection.cs" />
+    <Compile Include="Components\WalkBehaviour.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Commands\Client\CombatControlsCommand.cs" />
     <Compile Include="Commands\Channel\OpenNewChannelCommand.cs" />

@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Common.Objects
 {
-    public class Item : IContent
+    public class Item : GameObject, IContent
     {
         public Item(ItemMetadata metadata)
         {
@@ -29,6 +29,29 @@ namespace OpenTibia.Common.Objects
 
         public IContainer Container { get; set; }
 
+        public Tile Tile
+        {
+            get
+            {
+                return Container as Tile;
+            }
+        }
+
+        public Inventory Inventory
+        {
+            get
+            {
+                return Container as Inventory;
+            }
+        }
+
+        public Player Player
+        {
+            get
+            {
+                return Container as Player;
+            }
+        }
 
         public IContainer GetRootContainer()
         {

@@ -96,7 +96,9 @@ namespace OpenTibia.Game
 
             using (Logger.Measure("Loading scripts", true) )
             {
-                Scripts = new ScriptsManager(this);               
+                Scripts = new ScriptsManager(this);
+
+                Scripts.Start();
             }
 
             QueueForExecution(Constants.GlobalLightSchedulerEvent, Constants.GlobalLightSchedulerEventInterval, new GlobalLightCommand() );
