@@ -34,17 +34,26 @@ namespace OpenTibia.Game.Components
                 {
                     foreach (var direction in new[] { Direction.East, Direction.North, Direction.West, Direction.South }.Shuffle() )
                     {
-                        Tile toTile = server.Map.GetTile( creature.Tile.Position.Offset(direction) );
+                        Position toPosition = creature.Tile.Position.Offset(direction);
 
-                        if (toTile == null || toTile.Position.X > spawnPosition.X + radius || toTile.Position.X < spawnPosition.X - radius || toTile.Position.Y > spawnPosition.Y + radius || toTile.Position.Y < spawnPosition.Y - radius || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || toTile.GetCreatures().Any(c => c.Block) )
+                        if (toPosition.X > spawnPosition.X + radius || toPosition.X < spawnPosition.X - radius || toPosition.Y > spawnPosition.Y + radius || toPosition.Y < spawnPosition.Y - radius)
                         {
-                   
+
                         }
                         else
                         {
-                            new CreatureMoveCommand(creature, toTile).Execute(server, context);
+                            Tile toTile = server.Map.GetTile(toPosition);
 
-                            break;
+                            if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || toTile.GetCreatures().Any(c => c.Block) )
+                            {
+                   
+                            }
+                            else
+                            {
+                                new CreatureMoveCommand(creature, toTile).Execute(server, context);
+
+                                break;
+                            }
                         }
                     }
 

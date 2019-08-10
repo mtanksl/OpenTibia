@@ -45,6 +45,19 @@ namespace OpenTibia.Game.Commands
                 {
                     if (observer == Creature)
                     {
+                        foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
+                        {
+                            if (pair.Value.GetRootContainer() is Tile tile)
+                            {
+                                if ( !tile.Position.IsNextTo(toPosition) )
+                                {
+                                    observer.Client.ContainerCollection.CloseContainer(pair.Key);
+
+                                    context.Write(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                                }
+                            }
+                        }
+
                         int deltaZ = toPosition.Z - fromPosition.Z;
 
                         int deltaY = toPosition.Y - fromPosition.Y;

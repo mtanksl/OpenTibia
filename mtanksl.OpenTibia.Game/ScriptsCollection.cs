@@ -8,6 +8,16 @@ namespace OpenTibia.Game
 {
     public class ScriptsCollection
     {
+        private List<IPlayerLogoutScript> playerLogoutScripts = new List<IPlayerLogoutScript>();
+
+        public List<IPlayerLogoutScript> PlayerLogoutScripts
+        {
+            get
+            {
+                return playerLogoutScripts;
+            }
+        }
+        
         private List<ICreatureWalkScript> creatureWalkScripts = new List<ICreatureWalkScript>();
 
         public List<ICreatureWalkScript> CreatureWalkScripts
@@ -78,8 +88,6 @@ namespace OpenTibia.Game
             }
         }
 
-        private List<IScript> scripts = new List<IScript>();
-
         public void Start(Server server)
         {
             foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(IScript).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract ) )
@@ -90,6 +98,18 @@ namespace OpenTibia.Game
 
                 scripts.Add(script);
             }
+        }
+
+        private List<IScript> scripts = new List<IScript>();
+
+        public T GetScript<T>()
+        {
+            return scripts.OfType<T>().FirstOrDefault();
+        }
+
+        public IEnumerable<T> GetScripts<T>()
+        {
+            return scripts.OfType<T>();
         }
 
         public void Stop(Server server)

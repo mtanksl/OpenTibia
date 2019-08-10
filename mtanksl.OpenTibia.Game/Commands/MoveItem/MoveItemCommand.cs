@@ -72,7 +72,7 @@ namespace OpenTibia.Game.Commands
 
         protected bool IsPossible(Item fromItem, Container toContainer, Server server, Context context)
         {
-            if ( fromItem.IsParent(toContainer) )
+            if ( toContainer.IsChild(fromItem) )
             {
                 context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
 

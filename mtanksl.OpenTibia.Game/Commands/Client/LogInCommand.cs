@@ -80,13 +80,13 @@ namespace OpenTibia.Game.Commands
 
                                                                               new SendStatusOutgoingPacket(player.Health, player.MaxHealth, 
 
-                                                                                                          player.Capacity, 
-
-                                                                                                          player.Experience, player.Level, player.LevelPercent, 
-
-                                                                                                          player.Mana, player.MaxMana, 0, 0, player.Soul,
-
-                                                                                                          player.Stamina),
+                                                                                                           player.Capacity, 
+                                                                                                          
+                                                                                                           player.Experience, player.Level, player.LevelPercent, 
+                                                                                                          
+                                                                                                           player.Mana, player.MaxMana, 0, 0, player.Soul,
+                                                                                                          
+                                                                                                           player.Stamina),
 
                                                                               new SendSkillsOutgoingPacket(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0),
 
@@ -119,6 +119,11 @@ namespace OpenTibia.Game.Commands
                             }
 
                             //Event
+
+                            if (server.Events.Login != null)
+                            {
+                                server.Events.Login(this, new LoginEventArgs(player, toTile, toIndex, server, context) );
+                            }
 
                             if (server.Events.TileAddCreature != null)
                             {

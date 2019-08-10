@@ -65,11 +65,6 @@ namespace OpenTibia.Common.Objects
             return container;
         }        
 
-        public bool IsParent(Item child)
-        {
-            return child.IsChild(this);
-        }
-
         public bool IsChild(Item parent)
         {
             Item item = this;

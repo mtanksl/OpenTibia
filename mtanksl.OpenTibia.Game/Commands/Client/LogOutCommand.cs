@@ -2,6 +2,7 @@
 using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
+using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -18,42 +19,50 @@ namespace OpenTibia.Game.Commands
         {
             //Arrange
 
-            Tile fromTile = Player.Tile;
-
-            Position fromPosition = fromTile.Position;
-
-            byte fromIndex = fromTile.GetIndex(Player);
-
-            //Act
-
-            fromTile.RemoveContent(fromIndex);
-
-            //Notify
-
-            foreach (var observer in server.Map.GetPlayers() )
+            if ( !server.Scripts.PlayerLogoutScripts.Any(script => script.OnPlayerLogout(Player, Player.Tile, server, context) ) )
             {
-                if (observer == Player)
+                Tile fromTile = Player.Tile;
+
+                Position fromPosition = fromTile.Position;
+
+                byte fromIndex = fromTile.GetIndex(Player);
+
+                //Act
+
+                fromTile.RemoveContent(fromIndex);
+
+                //Notify
+
+                foreach (var observer in server.Map.GetPlayers() )
                 {
-                    context.Disconnect(observer.Client.Connection);
-                }
-                else
-                {
-                    if (observer.Tile.Position.CanSee(fromPosition) )
+                    if (observer == Player)
                     {
-                        context.Write(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromPosition, fromIndex),
+                        context.Disconnect(observer.Client.Connection);
+                    }
+                    else
+                    {
+                        if (observer.Tile.Position.CanSee(fromPosition) )
+                        {
+                            context.Write(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromPosition, fromIndex),
                             
-                                                                  new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Puff) );
+                                                                      new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Puff) );
+                        }
                     }
                 }
-            }
 
-            server.Map.RemoveCreature(Player);
+                server.Map.RemoveCreature(Player);
 
-            //Event
+                //Event
 
-            if (server.Events.TileRemoveCreature != null)
-            {
-                server.Events.TileRemoveCreature(this, new TileRemoveCreatureEventArgs(Player, fromTile, fromIndex, server, context) );
+                if (server.Events.Logout != null)
+                {
+                    server.Events.Logout(this, new LogoutEventArgs(Player, fromTile, fromIndex, server, context) );
+                }
+
+                if (server.Events.TileRemoveCreature != null)
+                {
+                    server.Events.TileRemoveCreature(this, new TileRemoveCreatureEventArgs(Player, fromTile, fromIndex, server, context) );
+                }
             }
 
             base.Execute(server, context);

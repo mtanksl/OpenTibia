@@ -19,20 +19,26 @@ namespace OpenTibia.IO
 
         private byte[] bytes = new byte[4 * 1024];
 
-        private int bytesPosition;
+        private int lastPosition;
 
-        private int bytesLength;
+        private int lastLength;
         
         private void Load()
         {
-            stream.Seek(bytesPosition = position, SeekOrigin.Begin); bytesLength = stream.Read(bytes, 0, bytes.Length);
+            lastPosition = position;
+
+            stream.Seek(lastPosition, SeekOrigin.Begin);
+
+            int length = stream.Read(bytes, 0, bytes.Length);
+
+            lastLength = length;
         }
         
         public byte GetByte()
         {
-            int index = position - bytesPosition;
+            int index = position - lastPosition;
 
-            if (index < 0 || bytesLength - index < 1)
+            if (index < 0 || lastLength - index < 1)
             {
                 Load();
 
@@ -48,9 +54,9 @@ namespace OpenTibia.IO
 
         public void GetBytes(byte[] buffer, int offset, int count)
         {
-            int index = position - bytesPosition;
+            int index = position - lastPosition;
 
-            if (index < 0 || bytesLength - index < count)
+            if (index < 0 || lastLength - index < count)
             {
                 Load();
 

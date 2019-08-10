@@ -70,6 +70,8 @@
     <Compile Include="Commands\RotateItem\RotateItemCommand.cs" />
     <Compile Include="Common\Events\InventoryRemoveItemEventArgs.cs" />
     <Compile Include="Common\Events\InventoryAddItemEventArgs.cs" />
+    <Compile Include="Common\Events\LoginEventArgs.cs" />
+    <Compile Include="Common\Events\LogoutEventArgs.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Commands\Container\OpenParentContainerCommand.cs" />
     <Compile Include="Commands\Container\CloseContainerCommand.cs" />
@@ -191,6 +193,7 @@
     <Compile Include="EventsCollection.cs" />
     <Compile Include="ScriptsCollection.cs" />
     <Compile Include="Scripts\Global\GlobalScript.cs" />
+    <Compile Include="Scripts\IPlayerLogoutScript.cs" />
     <Compile Include="Scripts\ICreatureWalkScript.cs" />
     <Compile Include="Scripts\IItemMoveScript.cs" />
     <Compile Include="Scripts\IItemRotateScript.cs" />
@@ -257,6 +260,7 @@
   <ItemGroup>
     <Folder Include="Commands\Base\WindowCollection\" />
     <Folder Include="Scripts\ItemUseWithCreature\" />
+    <Folder Include="Scripts\PlayerLogout\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
