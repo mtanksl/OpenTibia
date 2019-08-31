@@ -2,6 +2,7 @@
 using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Data;
+using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Incoming;
 using OpenTibia.Network.Packets.Outgoing;
 
@@ -116,6 +117,11 @@ namespace OpenTibia.Game.Commands
                                         }
                                     }
                                 }                                
+                            }
+
+                            foreach (var component in player.GetComponents<Behaviour>() )
+                            {
+                                component.Start(server);
                             }
 
                             //Event

@@ -61,5 +61,10 @@ namespace OpenTibia.Game.Components
                 }
             }
         }
+
+        public override void Stop(Server server)
+        {
+
+        }
     }
 }

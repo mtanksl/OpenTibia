@@ -22,7 +22,11 @@ namespace OpenTibia.Game.Commands
 
                 Player.AttackTarget = null;
 
+                server.CancelQueueForExecution(Constants.PlayerAttackSchedulerEvent(Player) );
+
                 Player.FollowTarget = null;
+
+                server.CancelQueueForExecution(Constants.PlayerActionSchedulerEvent(Player) );
 
                 //Notify
 

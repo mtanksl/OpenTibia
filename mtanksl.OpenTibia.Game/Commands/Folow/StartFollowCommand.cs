@@ -31,7 +31,11 @@ namespace OpenTibia.Game.Commands
 
                 Player.AttackTarget = null;
 
+                server.CancelQueueForExecution(Constants.PlayerAttackSchedulerEvent(Player) );
+
                 Player.FollowTarget = creature;
+
+                new FollowCommand(Player, Player.FollowTarget).Execute(server, context);
 
                 //Notify
 

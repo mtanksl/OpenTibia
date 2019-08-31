@@ -31,11 +31,21 @@ namespace OpenTibia.Game.Commands
             {
                 if (creature is Npc)
                 {
+                    //Act
+
+                    Player.AttackTarget = null;
+
+                    server.CancelQueueForExecution(Constants.PlayerAttackSchedulerEvent(Player) );
+
+                    Player.FollowTarget = null;
+
+                    server.CancelQueueForExecution(Constants.PlayerActionSchedulerEvent(Player) );
+
                     //Notify
 
                     context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature),
 
-                                                            new StopAttackAndFollowOutgoingPacket(Nonce) );
+                                                            new StopAttackAndFollowOutgoingPacket(Nonce) );                   
                 }
                 else
                 {
@@ -43,13 +53,19 @@ namespace OpenTibia.Game.Commands
 
                     Player.AttackTarget = creature;
 
+                    new AttackCommand(Player, Player.AttackTarget).Execute(server, context);
+
                     if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
                     {
                         Player.FollowTarget = null;
+
+                        server.CancelQueueForExecution(Constants.PlayerActionSchedulerEvent(Player) );
                     }
                     else
                     {
                         Player.FollowTarget = creature;
+
+                        new FollowCommand(Player, Player.FollowTarget).Execute(server, context);
                     }
 
                     //Notify

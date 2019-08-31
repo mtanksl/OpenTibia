@@ -42,15 +42,6 @@ namespace OpenTibia.Game
 
             Monster monster = new Monster(metadata);
 
-            if (name == "Deer")
-            {
-                monster.AddComponent(new DefenseBehaviour() );
-            }
-            else
-            {
-                monster.AddComponent(new AttackBehaviour() );
-            }
-
             return monster;
         }
     }

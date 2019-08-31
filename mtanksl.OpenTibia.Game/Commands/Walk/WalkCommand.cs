@@ -41,7 +41,7 @@ namespace OpenTibia.Game.Commands
             {
                 if (index++ == 0)
                 {
-                    server.QueueForExecution(Constants.PlayerSchedulerEvent(Player), 1000 * fromTile.Ground.Metadata.Speed / Player.Speed, this);
+                    server.QueueForExecution(Constants.PlayerActionSchedulerEvent(Player), 1000 * fromTile.Ground.Metadata.Speed / Player.Speed, this);
                 }
                 else
                 {

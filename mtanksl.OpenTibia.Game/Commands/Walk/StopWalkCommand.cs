@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Commands
 
             //Act
 
-            if (server.CancelQueueForExecution(Constants.PlayerSchedulerEvent(Player) ) )
+            if (server.CancelQueueForExecution(Constants.PlayerActionSchedulerEvent(Player) ) )
             {
                 //Notify
 

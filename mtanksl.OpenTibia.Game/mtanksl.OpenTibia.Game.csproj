@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Attack\AttackCommand.cs" />
     <Compile Include="Commands\Attack\StartAttackCommand.cs" />
     <Compile Include="Commands\Attack\StopAttackCommand.cs" />
     <Compile Include="Commands\Base\Container\ContainerRemoveItemCommand.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Common\Events\InventoryAddItemEventArgs.cs" />
     <Compile Include="Common\Events\LoginEventArgs.cs" />
     <Compile Include="Common\Events\LogoutEventArgs.cs" />
+    <Compile Include="Commands\Folow\FollowCommand.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="Commands\Container\OpenParentContainerCommand.cs" />
     <Compile Include="Commands\Container\CloseContainerCommand.cs" />
@@ -162,8 +164,6 @@
     <Compile Include="Common\Objects\ContainerCollection.cs" />
     <Compile Include="Common\Objects\CreatureCollection.cs" />
     <Compile Include="Common\Objects\GameConnection.cs" />
-    <Compile Include="Components\AttackBehaviour.cs" />
-    <Compile Include="Components\DefenseBehaviour.cs" />
     <Compile Include="Components\WalkBehaviour.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Commands\Client\CombatControlsCommand.cs" />

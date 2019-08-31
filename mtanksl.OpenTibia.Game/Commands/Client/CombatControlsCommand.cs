@@ -44,10 +44,14 @@ namespace OpenTibia.Game.Commands
                     if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
                     {
                         Player.FollowTarget = null;
+
+                        server.CancelQueueForExecution(Constants.PlayerActionSchedulerEvent(Player) );
                     }
                     else
                     {
                         Player.FollowTarget = Player.AttackTarget;
+
+                        new FollowCommand(Player, Player.FollowTarget).Execute(server, context);
                     }
                 }
             }

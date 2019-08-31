@@ -144,7 +144,7 @@ namespace OpenTibia.Game.Commands
                             }
                         }
 
-                        server.CancelQueueForExecution(Constants.PlayerSchedulerEvent(observer) );
+                        server.CancelQueueForExecution(Constants.PlayerActionSchedulerEvent(observer) );
                     }
                     else
                     {

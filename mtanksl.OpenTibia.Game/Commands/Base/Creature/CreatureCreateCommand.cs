@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.Commands
 {
@@ -37,9 +38,14 @@ namespace OpenTibia.Game.Commands
 
                     server.Map.AddCreature(creature);
 
+                    //Notify
+
                     new TileAddCreatureCommand(tile, creature).Execute(server, context);
 
-                    //Notify
+                    foreach (var component in creature.GetComponents<Behaviour>() )
+                    {
+                        component.Start(server);
+                    }
 
                     base.Execute(server, context);
                 }

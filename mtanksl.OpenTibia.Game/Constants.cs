@@ -28,13 +28,24 @@ namespace OpenTibia.Game
 
         public static readonly string YouMayNotAttackThisCreature = "You may not attack this creature.";
 
-        public static string PlayerSchedulerEvent(Player player)
+        public static readonly string TargetLost = "Target lost.";
+
+        public static string PlayerActionSchedulerEvent(Player player)
         {
-            return "Player_" + player.Id;
+            return "Player_Action_" + player.Id;
         }
 
         public static readonly int PlayerSchedulerEventDelay = 200;
 
+        public static readonly int PlayerWaitFollowEventDelay = 1 * 1000;
+
+        public static string PlayerAttackSchedulerEvent(Player player)
+        {
+            return "Player_Attack_" + player.Id;
+        }
+
+        public static readonly int PlayerAttackEventDelay = 2 * 1000;
+        
         public static readonly string GlobalLightSchedulerEvent = "Global_Light";
 
         public static readonly int GlobalLightSchedulerEventInterval = 10 * 1000;

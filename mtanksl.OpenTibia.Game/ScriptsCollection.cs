@@ -88,19 +88,22 @@ namespace OpenTibia.Game
             }
         }
 
+        private List<IScript> scripts = new List<IScript>();
+
         public void Start(Server server)
         {
             foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(IScript).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract ) )
             {
                 IScript script = (IScript)Activator.CreateInstance(type);
 
-                    script.Start(server);
-
                 scripts.Add(script);
             }
-        }
 
-        private List<IScript> scripts = new List<IScript>();
+            foreach (var script in scripts)
+            {
+                script.Start(server);
+            }
+        }
 
         public T GetScript<T>()
         {

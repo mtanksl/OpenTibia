@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.Commands
 {
@@ -20,6 +21,11 @@ namespace OpenTibia.Game.Commands
             new TileRemoveCreatureCommand(Creature.Tile, Creature).Execute(server, context);
             
             server.Map.RemoveCreature(Creature);
+
+            foreach (var component in Creature.GetComponents<Behaviour>() )
+            {
+                component.Stop(server);
+            }
 
             //Notify
 

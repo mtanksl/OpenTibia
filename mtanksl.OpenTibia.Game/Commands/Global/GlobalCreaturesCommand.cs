@@ -14,20 +14,13 @@ namespace OpenTibia.Game.Commands
             {
                 foreach (var component in creature.GetComponents<Behaviour>() )
                 {
-                    if ( !component.Enabled )
-                    {
-                        component.Enabled = true;
-
-                        component.Start(server);
-                    }
-
                     component.Update(server, context);
                 }
             }
 
-            //Notify
-
             server.QueueForExecution(Constants.GlobalCreaturesSchedulerEvent, Constants.GlobalCreaturesSchedulerEventInterval, this);
+
+            //Notify
         }
     }
 }

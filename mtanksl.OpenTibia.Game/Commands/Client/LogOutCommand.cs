@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Events;
 using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
 using System.Linq;
 
@@ -51,6 +52,11 @@ namespace OpenTibia.Game.Commands
                 }
 
                 server.Map.RemoveCreature(Player);
+
+                foreach (var component in Player.GetComponents<Behaviour>() )
+                {
+                    component.Stop(server);
+                }
 
                 //Event
 
