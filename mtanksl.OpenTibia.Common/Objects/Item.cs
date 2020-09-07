@@ -37,19 +37,19 @@ namespace OpenTibia.Common.Objects
             }
         }
 
+        public Container Bag
+        {
+            get
+            {
+                return Container as Container;
+            }
+        }
+
         public Inventory Inventory
         {
             get
             {
                 return Container as Inventory;
-            }
-        }
-
-        public Player Player
-        {
-            get
-            {
-                return Container as Player;
             }
         }
 

@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Scripts.Speech
                 return true;
             }
 
-            return true;
+            return false;
         }
     }
 }

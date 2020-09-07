@@ -10,7 +10,7 @@ namespace OpenTibia.Game.Scripts
 
         private Dictionary<ushort, ushort> jungleGrass = new Dictionary<ushort, ushort>()
         {
-            { 2780, 2781 }
+            { 2782, 2781 }
         };
 
         public void Start(Server server)

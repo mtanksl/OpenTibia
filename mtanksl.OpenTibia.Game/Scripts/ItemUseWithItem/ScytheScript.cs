@@ -42,9 +42,11 @@ namespace OpenTibia.Game.Scripts
 
             if (wheats.TryGetValue(toItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
+                Tile tile = (Tile)toItem.Container;
+
                 new ItemTransformCommand(toItem, toOpenTibiaId).Execute(server, context);
 
-                new ItemCreateCommand(wheat, ( (Tile)toItem.Container ).Position );
+                new ItemCreateCommand(wheat, tile.Position).Execute(server, context);
 
                 return true;
             }

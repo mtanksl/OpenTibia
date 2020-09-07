@@ -42,6 +42,8 @@ namespace OpenTibia.Game
 
             Monster monster = new Monster(metadata);
 
+            monster.AddComponent(new WalkBehaviour(5) );
+
             return monster;
         }
     }

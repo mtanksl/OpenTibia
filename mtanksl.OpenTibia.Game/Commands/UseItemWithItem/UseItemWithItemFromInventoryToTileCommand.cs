@@ -13,7 +13,7 @@ namespace OpenTibia.Game.Commands
 
             ToPosition = toPosition;
 
-            ToIndex = ToIndex;
+            ToIndex = toIndex;
 
             ToItemId = toItemId;
         }

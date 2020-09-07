@@ -93,7 +93,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if ( !script.OnItemUseWithItem(Player, fromItem, toItem, server, context) )
                     {
-                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem));
+                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
                     }
                     else
                     {

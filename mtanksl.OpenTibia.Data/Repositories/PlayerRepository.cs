@@ -5,7 +5,7 @@ namespace OpenTibia.Data
 {
     public class PlayerRepository
     {
-        private static readonly string Ip = "192.168.1.11";
+        private static readonly string Ip = "127.0.0.1";
 
         private List<AccountRow> accounts = new List<AccountRow>()
         {

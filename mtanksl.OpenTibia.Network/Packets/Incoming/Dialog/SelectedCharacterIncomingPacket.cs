@@ -18,7 +18,9 @@ namespace OpenTibia.Network.Packets.Incoming
         public string Character { get; set; }
 
         public string Password { get; set; }
-        
+
+        public uint Nonce { get; set; }
+
         public void Read(ByteArrayStreamReader reader)
         {
             OperatingSystem = (OperatingSystem)reader.ReadUShort();
@@ -45,6 +47,8 @@ namespace OpenTibia.Network.Packets.Incoming
             Character = reader.ReadString();
 
             Password = reader.ReadString();
+
+            Nonce = reader.ReadUInt();
         }
     }
 }
