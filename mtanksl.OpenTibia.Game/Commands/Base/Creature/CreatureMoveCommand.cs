@@ -166,17 +166,9 @@ namespace OpenTibia.Game.Commands
                     }                    
                 }
 
-                //Event
+                context.AddEvent(new TileRemoveCreatureEventArgs(fromTile, Creature, fromIndex) );
 
-                if (context.Server.Events.TileRemoveCreature != null)
-                {
-                    context.Server.Events.TileRemoveCreature(this, new TileRemoveCreatureEventArgs(fromTile, Creature, fromIndex) );
-                }
-
-                if (context.Server.Events.TileAddCreature != null)
-                {
-                    context.Server.Events.TileAddCreature(this, new TileAddCreatureEventArgs(ToTile, Creature, toIndex) );
-                }
+                context.AddEvent(new TileAddCreatureEventArgs(ToTile, Creature, toIndex) );
             }
 
             base.OnCompleted(context);

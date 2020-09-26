@@ -31,12 +31,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            //Event
-
-            if (context.Server.Events.TileRemoveItem != null)
-            {
-                context.Server.Events.TileRemoveItem(this, new TileRemoveItemEventArgs(Tile, Item, index) );
-            }
+            context.AddEvent(new TileRemoveItemEventArgs(Tile, Item, index) );
 
             base.OnCompleted(context);
         }

@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Objects;
+﻿using OpenTibia.Common.Events;
+using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,35 @@ namespace OpenTibia.Game
             {
                 return server;
             }
+        }
+
+        private Dictionary<string, object> data;
+
+        public Dictionary<string, object> Data
+        {
+            get
+            {
+                return data ?? (data = new Dictionary<string, object>() );
+            }
+        }
+
+        private List<GameEventArgs> events;
+
+        public Context AddEvent(GameEventArgs e)
+        {
+            if (disposed)
+            {
+                throw new ObjectDisposedException( nameof(Context) );
+            }
+
+            if (events == null)
+            {
+                events = new List<GameEventArgs>();
+            }
+
+            events.Add(e);
+
+            return this;
         }
 
         private Dictionary<IConnection, Message> messages = null;
@@ -105,6 +135,16 @@ namespace OpenTibia.Game
             if (disposed)
             {
                 throw new ObjectDisposedException( nameof(Context) );
+            }
+
+            if (events != null)
+            {
+                foreach (var e in events)
+                {
+                    server.Events.Publish(this, e);
+                }
+
+                events.Clear();
             }
 
             if (messages != null)

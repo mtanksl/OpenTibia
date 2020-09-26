@@ -52,12 +52,7 @@ namespace OpenTibia.Game.Commands
                     component.Stop(context.Server);
                 }
 
-                //Event
-
-                if (context.Server.Events.TileRemoveCreature != null)
-                {
-                    context.Server.Events.TileRemoveCreature(this, new TileRemoveCreatureEventArgs(fromTile, Player, fromIndex) );
-                }
+                context.AddEvent(new TileRemoveCreatureEventArgs(fromTile, Player, fromIndex) );
             }
 
             base.OnCompleted(context);

@@ -38,12 +38,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            //Event
-
-            if (context.Server.Events.TileAddCreature != null)
-            {
-                context.Server.Events.TileAddCreature(this, new TileAddCreatureEventArgs(Tile, Creature, index) );
-            }
+            context.AddEvent(new TileAddCreatureEventArgs(Tile, Creature, index) );
 
             base.OnCompleted(context);
         }

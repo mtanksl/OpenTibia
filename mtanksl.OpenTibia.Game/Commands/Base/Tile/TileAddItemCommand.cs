@@ -29,12 +29,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            //Event
-
-            if (context.Server.Events.TileAddItem != null)
-            {
-                context.Server.Events.TileAddItem(this, new TileAddItemEventArgs(Tile, Item, index) );
-            }
+            context.AddEvent(new TileAddItemEventArgs(Tile, Item, index) );
 
             base.OnCompleted(context);
         }

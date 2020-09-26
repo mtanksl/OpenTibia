@@ -1,20 +1,70 @@
 ﻿using OpenTibia.Common.Events;
 using System;
+using System.Collections.Generic;
 
 namespace OpenTibia.Game
 {
     public class EventsCollection
     {
-        public EventHandler<TileAddCreatureEventArgs> TileAddCreature;
+        private interface IEventHandler
+        {
+            Guid Token { get; }
 
-        public EventHandler<TileRemoveCreatureEventArgs> TileRemoveCreature;
+            void Execute(object sender, object e);
+        }
 
-        public EventHandler<TileAddItemEventArgs> TileAddItem;
+        private class EventHandler<T> : IEventHandler where T : GameEventArgs
+        {
+            private Action<object, T> callback;
 
-        public EventHandler<TileRemoveItemEventArgs> TileRemoveItem;
+            public EventHandler(Action<object, T> callback)
+            {
+                this.callback = callback;
+            }
 
-        public EventHandler<InventoryAddItemEventArgs> InventoryAddItem;
+            public Guid Token { get; } = Guid.NewGuid();
 
-        public EventHandler<InventoryRemoveItemEventArgs> InventoryRemoveItem;
+            public void Execute(object sender, object e)
+            {
+                callback(sender, (T)e);
+            }
+        }
+
+        private Dictionary<Type, Dictionary<Guid, IEventHandler> > types = new Dictionary<Type, Dictionary<Guid, IEventHandler> >();
+
+        public Guid Subscribe<T>(Action<object, T> callback) where T : GameEventArgs
+        {
+            if ( !types.TryGetValue(typeof(T), out var handlers) )
+            {
+                handlers = new Dictionary<Guid, IEventHandler>();
+
+                types.Add(typeof(T), handlers);
+            }
+
+            var handler = new EventHandler<T>(callback);
+
+            handlers.Add(handler.Token, handler);
+
+            return handler.Token;
+        }
+
+        public void Unsubscribe<T>(Guid token) where T : GameEventArgs
+        {
+            if ( types.TryGetValue(typeof(T), out var handlers) )
+            {
+                handlers.Remove(token);
+            }
+        }
+
+        public void Publish(object sender, GameEventArgs e)
+        {
+            if ( types.TryGetValue(e.GetType(), out var handlers) )
+            {
+                foreach (var handler in handlers.Values)
+                {
+                    handler.Execute(sender, e);
+                }
+            }
+        }
     }
 }

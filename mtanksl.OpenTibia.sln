@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Data", "mtanksl.OpenTibia.Data\mtanksl.OpenTibia.Data.csproj", "{8A8EEDA8-933C-4B50-9FB4-41E38EBC894B}"
 EndProject
