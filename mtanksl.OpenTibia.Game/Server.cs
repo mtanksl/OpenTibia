@@ -58,6 +58,8 @@ namespace OpenTibia.Game
 
         public EventsCollection Events { get; set; }
 
+        public CommandHandlerCollection CommandHandlers { get; set; }
+
         public ScriptsCollection Scripts { get; set; }
 
         public void Start()
@@ -121,6 +123,8 @@ namespace OpenTibia.Game
             Pathfinding = new Pathfinding(Map);
 
             Events = new EventsCollection();
+
+            CommandHandlers = new CommandHandlerCollection();
 
             Scripts = new ScriptsCollection();
 

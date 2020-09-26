@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandHandlerCollection.cs" />
+    <Compile Include="CommandHandlers\CommandHandler.cs" />
+    <Compile Include="CommandHandlers\ICommandHandler.cs" />
     <Compile Include="Commands\Attack\AttackCommand.cs" />
     <Compile Include="Commands\Attack\StartAttackCommand.cs" />
     <Compile Include="Commands\Attack\StopAttackCommand.cs" />
