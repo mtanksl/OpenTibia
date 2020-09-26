@@ -21,8 +21,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             if ( !context.Server.Scripts.CreatureWalkScripts.Any(script => script.OnCreatureWalk(Creature, Creature.Tile, ToTile, context) ) )
             {
                 Position toPosition = ToTile.Position;
@@ -33,15 +31,11 @@ namespace OpenTibia.Game.Commands
 
                 byte fromIndex = fromTile.GetIndex(Creature);
 
-                //Act
-
                 fromTile.RemoveContent(fromIndex);
 
                 byte toIndex = ToTile.AddContent(Creature);
 
-                //Notify
-
-                foreach (var observer in context.Server.Map.GetPlayers() )
+                foreach (var observer in context.Server.GameObjects.GetPlayers() )
                 {
                     if (observer == Creature)
                     {
@@ -185,9 +179,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            //Notify
-
-            base.Execute(context);
+            base.OnCompleted(context);
         }
     }
 }

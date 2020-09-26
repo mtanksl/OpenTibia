@@ -19,9 +19,7 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
-            Player reporter = context.Server.Map.GetPlayers()
+            Player reporter = context.Server.GameObjects.GetPlayers()
                 .Where(p => p.Name == Name)
                 .FirstOrDefault();
 
@@ -33,11 +31,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if (ruleViolation.Assignee == null)
                     {
-                        //Act
-
                         context.Server.RuleViolations.RemoveRuleViolation(ruleViolation);
-
-                        //Notify
 
                         foreach (var observer in context.Server.Channels.GetChannel(3).GetPlayers() )
                         {
@@ -46,19 +40,15 @@ namespace OpenTibia.Game.Commands
 
                         context.AddPacket(ruleViolation.Reporter.Client.Connection, new CloseRuleViolationOutgoingPacket() );
 
-                        base.Execute(context);
+                        base.OnCompleted(context);
                     }
                     else if (ruleViolation.Assignee == Player)
                     {
-                        //Act
-
                         context.Server.RuleViolations.RemoveRuleViolation(ruleViolation);
-
-                        //Notify
 
                         context.AddPacket(ruleViolation.Reporter.Client.Connection, new CloseRuleViolationOutgoingPacket() );
 
-                        base.Execute(context);
+                        base.OnCompleted(context);
                     }
                 }
             }

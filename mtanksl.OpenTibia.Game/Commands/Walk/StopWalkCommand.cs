@@ -14,18 +14,12 @@ namespace OpenTibia.Game.Commands
                 
         public override void Execute(Context context)
         {
-            //Arrange
-
-            //Act
-
             if (context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) ) )
             {
-                //Notify
-
                 context.AddPacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
             }
 
-            base.Execute(context);
+            base.OnCompleted(context);
         }
     }
 }

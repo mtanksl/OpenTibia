@@ -17,8 +17,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Window window = Player.Client.WindowCollection.GetWindow(WindowId);
 
             if (window != null)
@@ -27,8 +25,6 @@ namespace OpenTibia.Game.Commands
 
                 if (item != null)
                 {
-                    //Act
-
                     LookItem(item, context);
                 }
             }

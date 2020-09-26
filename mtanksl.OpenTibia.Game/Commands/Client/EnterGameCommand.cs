@@ -22,8 +22,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             if (Connection.Keys == null)
             {
                 Connection.Keys = Packet.Keys;
@@ -46,10 +44,6 @@ namespace OpenTibia.Game.Commands
                     }
                     else
                     {
-                        //Act
-
-                        //Notify
-
                         List<Character> characters = new List<Character>();
 
                         foreach (var player in account.Players)
@@ -61,7 +55,7 @@ namespace OpenTibia.Game.Commands
 
                         context.Disconnect(Connection);
 
-                        base.Execute(context);
+                        base.OnCompleted(context);
                     }
                 }
             }

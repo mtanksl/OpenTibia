@@ -36,7 +36,13 @@ namespace OpenTibia.Common.Objects
                             {
                                 Item item = itemFactory.Create(otbmItem.OpenTibiaId);
 
-                                if (item is Container)
+                                if (item is TeleportItem)
+                                {
+                                    TeleportItem teleport = (TeleportItem)item;
+
+                                    teleport.Position = otbmItem.TeleportPosition;
+                                }
+                                else if (item is Container)
                                 {
                                     Container container = (Container)item;
 
@@ -51,11 +57,17 @@ namespace OpenTibia.Common.Objects
 
                                     stackable.Count = otbmItem.Count;
                                 }
-                                else if (item is TeleportItem)
+                                else if (item is FluidItem)
                                 {
-                                    TeleportItem teleport = (TeleportItem)item;
+                                    FluidItem fluidItem = (FluidItem)item;
 
-                                    teleport.Position = otbmItem.TeleportPosition;
+                                    fluidItem.FluidType = (FluidType)otbmItem.Count;
+                                }
+                                else if (item is ReadableItem)
+                                {
+                                    ReadableItem writeableItem = (ReadableItem)item;
+
+                                    writeableItem.Text = otbmItem.Text;
                                 }
 
                                 rootContainer.AddContent(item);
@@ -82,66 +94,6 @@ namespace OpenTibia.Common.Objects
         public IEnumerable<Tile> GetTiles()
         {
             return tiles.Values;
-        }
-
-        private uint uniqueId = 0;
-
-        private uint GenerateId()
-        {
-            uniqueId++;
-
-            if (uniqueId == 0)
-            {
-                uniqueId++;
-            }
-
-            return uniqueId;
-        }
-
-        private Dictionary<uint, Creature> creatures = new Dictionary<uint, Creature>();
-
-        public void AddCreature(Creature creature)
-        {
-            if (creature.Id == 0)
-            {
-                creature.Id = GenerateId();
-            }
-
-            creatures.Add(creature.Id, creature);
-        }
-
-        public void RemoveCreature(Creature creature)
-        {
-            creatures.Remove(creature.Id);
-        }
-        
-        public Creature GetCreature(uint creatureId)
-        {
-            Creature creature;
-
-            creatures.TryGetValue(creatureId, out creature);
-
-            return creature;
-        }
-
-        public IEnumerable<Creature> GetCreatures()
-        {
-            return creatures.Values;
-        }
-
-        public IEnumerable<Monster> GetMonsters()
-        {
-            return creatures.Values.OfType<Monster>();
-        }
-
-        public IEnumerable<Npc> GetNpcs()
-        {
-            return creatures.Values.OfType<Npc>();
-        }
-
-        public IEnumerable<Player> GetPlayers()
-        {
-            return creatures.Values.OfType<Player>();
         }
     }
 }

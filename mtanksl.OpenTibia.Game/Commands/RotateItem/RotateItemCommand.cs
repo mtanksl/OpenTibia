@@ -53,7 +53,7 @@ namespace OpenTibia.Game.Commands
             }
             else
             {
-                base.Execute(context);
+                base.OnCompleted(context);
             }
         }
     }

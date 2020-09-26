@@ -19,19 +19,13 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             RuleViolation ruleViolation = context.Server.RuleViolations.GetRuleViolationByReporter(Player);
 
             if (ruleViolation != null && ruleViolation.Assignee != null)
             {
-                //Act
+                                                context.AddPacket(ruleViolation.Assignee.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationQuestion, Message) );
 
-                //Notify
-
-                context.AddPacket(ruleViolation.Assignee.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationQuestion, Message) );
-
-                base.Execute(context);
+                base.OnCompleted(context);
             }
         }
     }

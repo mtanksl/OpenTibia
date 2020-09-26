@@ -23,16 +23,12 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
-            Creature creature = context.Server.Map.GetCreature(CreatureId);
+            Creature creature = context.Server.GameObjects.GetGameObject<Creature>(CreatureId);
 
             if (creature != null && creature != Player)
             {
                 if (creature is Npc)
                 {
-                    //Act
-
                     Player.AttackTarget = null;
 
                     context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
@@ -41,16 +37,12 @@ namespace OpenTibia.Game.Commands
 
                     context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
 
-                    //Notify
-
                     context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature),
 
-                                                            new StopAttackAndFollowOutgoingPacket(Nonce) );                   
+                                                                new StopAttackAndFollowOutgoingPacket(Nonce) );                   
                 }
                 else
                 {
-                    //Act
-
                     Player.AttackTarget = creature;
 
                     new AttackCommand(Player, Player.AttackTarget).Execute(context);
@@ -68,9 +60,7 @@ namespace OpenTibia.Game.Commands
                         new FollowCommand(Player, Player.FollowTarget).Execute(context);
                     }
 
-                    //Notify
-
-                    base.Execute(context);
+                    base.OnCompleted(context);
                 }
             }
         }

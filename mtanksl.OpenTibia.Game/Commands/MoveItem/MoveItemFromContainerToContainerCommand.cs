@@ -33,8 +33,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
 
             if (fromContainer != null)
@@ -47,8 +45,6 @@ namespace OpenTibia.Game.Commands
 
                     if (toContainer != null)
                     {
-                        //Act
-
                         if ( IsMoveable(fromItem, context) &&
 
                              IsPickupable(fromItem, context) &&

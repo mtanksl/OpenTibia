@@ -18,13 +18,7 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
-            //Act
-
             byte toIndex = Container.AddContent(Item);
-
-            //Notify
 
             foreach (var observer in Container.GetPlayers() )
             {
@@ -37,7 +31,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            base.Execute(context);
+            base.OnCompleted(context);
         }
     }
 }

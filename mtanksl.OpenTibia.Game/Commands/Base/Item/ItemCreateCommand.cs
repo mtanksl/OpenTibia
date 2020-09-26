@@ -18,8 +18,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Item item = context.Server.ItemFactory.Create(OpenTibiaId);
 
             if (item != null)
@@ -28,13 +26,9 @@ namespace OpenTibia.Game.Commands
 
                 if (tile != null)
                 {
-                    //Act
-
                     new TileAddItemCommand(tile, item).Execute(context);
 
-                    //Notify
-
-                    base.Execute(context);
+                    base.OnCompleted(context);
                 }
             }
         }

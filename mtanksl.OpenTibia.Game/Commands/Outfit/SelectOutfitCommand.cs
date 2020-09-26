@@ -17,8 +17,6 @@ namespace OpenTibia.Game.Commands
                 
         public override void Execute(Context context)
         {
-            //Arrange
-
             List<SelectOutfit> outfits = new List<SelectOutfit>()
             {
                 new SelectOutfit(128, "Citizen", Addon.None),
@@ -30,11 +28,9 @@ namespace OpenTibia.Game.Commands
                 new SelectOutfit(131, "Knight", Addon.None)
             };
 
-            //Notify
-
             context.AddPacket(Player.Client.Connection, new OpenSelectOutfitDialogOutgoingPacket(Player.Outfit, outfits) );
 
-            base.Execute(context);
+            base.OnCompleted(context);
         }
     }
 }

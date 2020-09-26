@@ -29,8 +29,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Inventory fromInventory = Player.Inventory;
 
             Item fromItem = fromInventory.GetContent(FromSlot) as Item;
@@ -41,8 +39,6 @@ namespace OpenTibia.Game.Commands
 
                 if (toContainer != null)
                 {
-                    //Act
-
                     if ( IsMoveable(fromItem, context) &&
 
                         IsPickupable(fromItem, context) &&

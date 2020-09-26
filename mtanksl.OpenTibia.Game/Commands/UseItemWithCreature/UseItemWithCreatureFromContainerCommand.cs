@@ -28,8 +28,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
 
             if (fromContainer != null)
@@ -38,12 +36,10 @@ namespace OpenTibia.Game.Commands
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
-                    Creature toCreature = context.Server.Map.GetCreature(ToCreatureId);
+                    Creature toCreature = context.Server.GameObjects.GetGameObject<Creature>(ToCreatureId);
 
                     if (toCreature != null)
                     {
-                        //Act
-
                         if ( IsUseable(fromItem, context) )
                         {
                             UseItemWithCreature(fromItem, toCreature, context, () =>
@@ -60,7 +56,7 @@ namespace OpenTibia.Game.Commands
 
                                             useItemWithCreatureFromInventoryCommand.Completed += (s2, e2) =>
                                             {
-                                                base.Execute(e2.Context);
+                                                base.OnCompleted(e2.Context);
                                             };
 
                                             useItemWithCreatureFromInventoryCommand.Execute(e.Context);

@@ -13,7 +13,7 @@ namespace OpenTibia.Game.Commands
                 context.AddPacket(player.Client.Connection, new SetEnvironmentLightOutgoingPacket(context.Server.Clock.Light) );
             }
 
-            base.Execute(context);
+            base.OnCompleted(context);
         }
     }
 }

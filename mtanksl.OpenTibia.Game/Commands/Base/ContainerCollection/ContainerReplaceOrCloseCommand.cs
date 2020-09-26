@@ -23,19 +23,13 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             bool replace = true;
 
             foreach (var pair in Player.Client.ContainerCollection.GetIndexedContainers() )
             {
                 if (pair.Value == Container)
                 {
-                    //Act
-
                     Player.Client.ContainerCollection.CloseContainer(pair.Key);
-
-                    //Notify
 
                     context.AddPacket(Player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
 
@@ -45,11 +39,7 @@ namespace OpenTibia.Game.Commands
 
             if (replace)
             {
-                //Act
-
                 Player.Client.ContainerCollection.ReplaceContainer(ContainerId, Container);
-
-                //Notify
 
                 var items = new List<Item>();
 
@@ -61,7 +51,7 @@ namespace OpenTibia.Game.Commands
                 context.AddPacket(Player.Client.Connection, new OpenContainerOutgoingPacket(ContainerId, Container.Metadata.TibiaId, Container.Metadata.Name, Container.Metadata.Capacity, Container.Container is Container, items) );
             }
 
-            base.Execute(context);
+            base.OnCompleted(context);
         }
     }
 }

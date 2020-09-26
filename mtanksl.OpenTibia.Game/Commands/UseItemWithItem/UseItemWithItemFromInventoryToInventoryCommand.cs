@@ -26,8 +26,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Inventory fromInventory = Player.Inventory;
 
             Item fromItem = fromInventory.GetContent(FromSlot) as Item;
@@ -40,8 +38,6 @@ namespace OpenTibia.Game.Commands
 
                 if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
                 {
-                    //Act
-
                     if ( IsUseable(fromItem, context) )
                     {
                         UseItemWithItem(fromItem, toItem, context);

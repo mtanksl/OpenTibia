@@ -19,8 +19,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Channel channel = context.Server.Channels.GetChannel(ChannelId);
             
             if (channel != null)
@@ -36,18 +34,14 @@ namespace OpenTibia.Game.Commands
                             return;
                         }
 
-                        //Act
-
                         privateChannel.RemoveInvitation(Player);
 
                         privateChannel.AddPlayer(Player);
                     }
 
-                    //Notify
-
                     context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
 
-                    base.Execute(context);
+                    base.OnCompleted(context);
                 }
                 else
                 {
@@ -57,16 +51,12 @@ namespace OpenTibia.Game.Commands
                     {
                         if ( !guildChannel.ContainsPlayer(Player) )
                         {
-                            //Act
-
                             guildChannel.AddPlayer(Player);
                         }
 
-                        //Notify
-
                         context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(guildChannel.Id, guildChannel.Name) );
 
-                        base.Execute(context);
+                        base.OnCompleted(context);
                     }
                     else
                     {
@@ -76,27 +66,19 @@ namespace OpenTibia.Game.Commands
                         {
                             if ( !partyChannel.ContainsPlayer(Player) )
                             {
-                                //Act
-
                                 partyChannel.AddPlayer(Player);
                             }
 
-                            //Notify
-
                             context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(partyChannel.Id, partyChannel.Name) );
 
-                            base.Execute(context);
+                            base.OnCompleted(context);
                         }
                         else
                         {
                             if ( !channel.ContainsPlayer(Player) )
                             {
-                                //Act
-
                                 channel.AddPlayer(Player);
                             }
-
-                            //Notify
 
                             if (channel.Id == 3)
                             {
@@ -115,7 +97,7 @@ namespace OpenTibia.Game.Commands
                                 context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(channel.Id, channel.Name) );
                             }
 
-                            base.Execute(context);
+                            base.OnCompleted(context);
                         }
                     }                    
                 }

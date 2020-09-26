@@ -26,10 +26,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
-            //Act
-
             if (FightMode != Player.Client.FightMode)
             {
                 Player.Client.FightMode = FightMode;
@@ -61,9 +57,7 @@ namespace OpenTibia.Game.Commands
                 Player.Client.SafeMode = SafeMode;
             }
 
-            //Notify
-
-            base.Execute(context);
+            base.OnCompleted(context);
         }
     }
 }

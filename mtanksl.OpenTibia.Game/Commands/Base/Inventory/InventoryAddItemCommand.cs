@@ -24,13 +24,7 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
-            //Act
-
             Inventory.AddContent(Slot, Item);
-
-            //Notify
 
             context.AddPacket(Inventory.Player.Client.Connection, new SlotAddOutgoingPacket( (Slot)Slot, Item ) );
 
@@ -41,7 +35,7 @@ namespace OpenTibia.Game.Commands
                 context.Server.Events.InventoryAddItem(this, new InventoryAddItemEventArgs(Inventory, Item,  Slot) );
             }
 
-            base.Execute(context);
+            base.OnCompleted(context);
         }
     }
 }

@@ -23,17 +23,11 @@ namespace OpenTibia.Game.Commands
         
         public override void Execute(Context context)
         {
-            //Arrange
-
             byte index = Tile.GetIndex(FromItem);
-
-            //Act
 
             Tile.ReplaceContent(index, ToItem);
 
-            //Notify
-
-            foreach (var observer in context.Server.Map.GetPlayers() )
+            foreach (var observer in context.Server.GameObjects.GetPlayers() )
             {
                 if (observer.Tile.Position.CanSee(Tile.Position) )
                 {
@@ -53,7 +47,7 @@ namespace OpenTibia.Game.Commands
                 context.Server.Events.TileAddItem(this, new TileAddItemEventArgs(Tile, ToItem, index) );
             }
 
-            base.Execute(context);
+            base.OnCompleted(context);
         }
     }
 }

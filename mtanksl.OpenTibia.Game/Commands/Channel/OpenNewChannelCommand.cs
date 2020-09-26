@@ -16,8 +16,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             List<Channel> channels = new List<Channel>()
             {
                 new Channel(0, "Guild"),
@@ -51,11 +49,9 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            //Notify
-
             context.AddPacket(Player.Client.Connection, new OpenChannelDialogOutgoingPacket(channels) );
 
-            base.Execute(context);
+            base.OnCompleted(context);
         }
     }
 }

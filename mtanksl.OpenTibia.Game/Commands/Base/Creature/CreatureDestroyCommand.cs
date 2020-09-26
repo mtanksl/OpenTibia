@@ -14,22 +14,16 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
-            //Act
-
             new TileRemoveCreatureCommand(Creature.Tile, Creature).Execute(context);
 
-            context.Server.Map.RemoveCreature(Creature);
+            context.Server.GameObjects.RemoveGameObject(Creature);
 
             foreach (var component in Creature.GetComponents<Behaviour>() )
             {
                 component.Stop(context.Server);
             }
 
-            //Notify
-
-            base.Execute(context);            
+            base.OnCompleted(context);            
         }
     }
 }

@@ -16,14 +16,8 @@ namespace OpenTibia.Game.Commands
         public uint CreatureId { get; set; }
 
         public override void Execute(Context context)
-        {
-            //Arrange
-            
-            //Act
-            
-            //Notify
-                        
-            base.Execute(context);
+        {      
+            base.OnCompleted(context);
         }
     }
 }

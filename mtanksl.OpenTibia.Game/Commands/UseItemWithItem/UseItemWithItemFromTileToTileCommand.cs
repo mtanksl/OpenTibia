@@ -34,8 +34,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Tile fromTile = context.Server.Map.GetTile(FromPosition);
 
             if (fromTile != null)
@@ -52,8 +50,6 @@ namespace OpenTibia.Game.Commands
 
                         if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
                         {
-                            //Act
-
                             if ( IsUseable(fromItem, context) &&
                                 
                                  IsNextTo(fromTile, context) )
@@ -68,7 +64,7 @@ namespace OpenTibia.Game.Commands
 
                                         useItemWithItemFromInventoryToTileCommand.Completed += (s2, e2) =>
                                         {
-                                            base.Execute(e2.Context);
+                                            base.OnCompleted(e2.Context);
                                         };
 
                                         useItemWithItemFromInventoryToTileCommand.Execute(e.Context);

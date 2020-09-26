@@ -23,8 +23,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             if (Connection.Keys == null)
             {
                 Connection.Keys = Packet.Keys;
@@ -63,15 +61,11 @@ namespace OpenTibia.Game.Commands
                                 Player = player
                             };
 
-                            //Act
-
-                            context.Server.Map.AddCreature(player);
+                            context.Server.GameObjects.AddGameObject(player);
 
                             byte toIndex = toTile.AddContent(player);
 
-                            //Notify
-
-                            foreach (var observer in context.Server.Map.GetPlayers() )
+                            foreach (var observer in context.Server.GameObjects.GetPlayers() )
                             {
                                 if (observer == player)
                                 {
@@ -131,7 +125,7 @@ namespace OpenTibia.Game.Commands
                                 context.Server.Events.TileAddCreature(this, new TileAddCreatureEventArgs(toTile, player, toIndex) );
                             }
                             
-                            base.Execute(context);
+                            base.OnCompleted(context);
                         }
                     }
                 }

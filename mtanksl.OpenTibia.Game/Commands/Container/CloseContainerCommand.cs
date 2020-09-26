@@ -18,21 +18,15 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Container container = Player.Client.ContainerCollection.GetContainer(ContainerId);
 
             if (container != null)
             {
-                //Act
-
                 Player.Client.ContainerCollection.CloseContainer(ContainerId);
-
-                //Notify
 
                 context.AddPacket(Player.Client.Connection, new CloseContainerOutgoingPacket(ContainerId) );
 
-                base.Execute(context);
+                base.OnCompleted(context);
             }
         }
     }

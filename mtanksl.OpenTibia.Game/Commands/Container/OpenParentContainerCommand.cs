@@ -19,8 +19,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Container container = Player.Client.ContainerCollection.GetContainer(ContainerId);
 
             if (container != null)
@@ -29,11 +27,7 @@ namespace OpenTibia.Game.Commands
 
                 if (parentContainer != null)
                 {
-                    //Act
-
                     Player.Client.ContainerCollection.ReplaceContainer(ContainerId, parentContainer);
-
-                    //Notify
 
                     var items = new List<Item>();
 
@@ -44,7 +38,7 @@ namespace OpenTibia.Game.Commands
 
                     context.AddPacket(Player.Client.Connection, new OpenContainerOutgoingPacket(ContainerId, parentContainer.Metadata.TibiaId, parentContainer.Metadata.Name, parentContainer.Metadata.Capacity, parentContainer.Container is Container, items) );
 
-                    base.Execute(context);
+                    base.OnCompleted(context);
                 }
             }
         }

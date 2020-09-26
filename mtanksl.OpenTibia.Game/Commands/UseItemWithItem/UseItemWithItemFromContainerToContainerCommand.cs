@@ -34,8 +34,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
 
             if (fromContainer != null)
@@ -52,8 +50,6 @@ namespace OpenTibia.Game.Commands
 
                         if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
                         {
-                            //Act
-
                             if ( IsUseable(fromItem, context) )
                             {
                                 UseItemWithItem(fromItem, toItem, context);

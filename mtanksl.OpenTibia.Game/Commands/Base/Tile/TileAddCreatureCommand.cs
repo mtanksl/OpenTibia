@@ -19,15 +19,9 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
-            //Act
-
             byte index = Tile.AddContent(Creature);
 
-            //Notify
-
-            foreach (var observer in context.Server.Map.GetPlayers() )
+            foreach (var observer in context.Server.GameObjects.GetPlayers() )
             {
                 if (observer.Tile.Position.CanSee(Tile.Position) )
                 {
@@ -51,7 +45,7 @@ namespace OpenTibia.Game.Commands
                 context.Server.Events.TileAddCreature(this, new TileAddCreatureEventArgs(Tile, Creature, index) );
             }
 
-            base.Execute(context);
+            base.OnCompleted(context);
         }
     }
 }

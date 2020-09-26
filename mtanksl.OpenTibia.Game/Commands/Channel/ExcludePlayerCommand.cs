@@ -20,13 +20,11 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             PrivateChannel privateChannel = context.Server.Channels.GetPrivateChannelByOwner(Player);
 
             if (privateChannel != null)
             {
-                Player observer = context.Server.Map.GetPlayers()
+                Player observer = context.Server.GameObjects.GetPlayers()
                     .Where(p => p.Name == Name)
                     .FirstOrDefault();
 
@@ -34,29 +32,21 @@ namespace OpenTibia.Game.Commands
                 {              
                     if (privateChannel.ContainsInvitation(observer) )
                     {
-                        //Act
-
                         privateChannel.RemoveInvitation(observer);
-
-                        //Notify
 
                         context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been excluded.") );
 
-                        base.Execute(context);
+                        base.OnCompleted(context);
                     }
                     else if (privateChannel.ContainsPlayer(observer) )
                     {
-                        //Act
-
                         privateChannel.RemovePlayer(observer);
-
-                        //Notify
 
                         context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been excluded.") );
 
                         context.AddPacket(observer.Client.Connection, new CloseChannelOutgoingPacket(privateChannel.Id) );
 
-                        base.Execute(context);
+                        base.OnCompleted(context);
                     }
                 }
             }

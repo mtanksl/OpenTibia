@@ -29,30 +29,6 @@ namespace OpenTibia.Common.Objects
 
         public IContainer Container { get; set; }
 
-        public Tile Tile
-        {
-            get
-            {
-                return Container as Tile;
-            }
-        }
-
-        public Container Bag
-        {
-            get
-            {
-                return Container as Container;
-            }
-        }
-
-        public Inventory Inventory
-        {
-            get
-            {
-                return Container as Inventory;
-            }
-        }
-
         public IContainer GetRootContainer()
         {
             IContainer container = Container;

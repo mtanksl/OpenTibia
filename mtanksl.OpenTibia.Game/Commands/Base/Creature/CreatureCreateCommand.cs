@@ -19,8 +19,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Creature creature = context.Server.NpcFactory.Create(Name);
 
             if (creature == null)
@@ -34,11 +32,7 @@ namespace OpenTibia.Game.Commands
 
                 if (tile != null)
                 {
-                    //Act
-
-                    context.Server.Map.AddCreature(creature);
-
-                    //Notify
+                    context.Server.GameObjects.AddGameObject(creature);
 
                     new TileAddCreatureCommand(tile, creature).Execute(context);
 
@@ -47,7 +41,7 @@ namespace OpenTibia.Game.Commands
                         component.Start(context.Server);
                     }
 
-                    base.Execute(context);
+                    base.OnCompleted(context);
                 }
             }
         }

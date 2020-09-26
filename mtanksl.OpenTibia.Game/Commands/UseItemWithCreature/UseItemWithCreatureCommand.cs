@@ -6,7 +6,7 @@ using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class UseItemWithCreatureCommand : Command
+    public abstract class UseItemWithCreatureCommand : Command
     {
         public UseItemWithCreatureCommand(Player player)
         {
@@ -83,7 +83,7 @@ namespace OpenTibia.Game.Commands
                     }
                     else
                     {
-                        base.Execute(context);
+                        base.OnCompleted(context);
                     }
                 }
             }

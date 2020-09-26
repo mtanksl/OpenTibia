@@ -14,38 +14,28 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-            
             RuleViolation ruleViolation = context.Server.RuleViolations.GetRuleViolationByReporter(Player);
 
             if (ruleViolation != null)
             {
                 if (ruleViolation.Assignee == null)
                 {
-                    //Act
-
                     context.Server.RuleViolations.RemoveRuleViolation(ruleViolation);
-
-                    //Notify
 
                     foreach (var observer in context.Server.Channels.GetChannel(3).GetPlayers() )
                     {
                         context.AddPacket(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
                     }
 
-                    base.Execute(context);
+                    base.OnCompleted(context);
                 }
                 else
                 {
-                    //Act
-
                     context.Server.RuleViolations.RemoveRuleViolation(ruleViolation);
-
-                    //Notify
 
                     context.AddPacket(ruleViolation.Assignee.Client.Connection, new CancelRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
 
-                    base.Execute(context);
+                    base.OnCompleted(context);
                 }
             }
         }

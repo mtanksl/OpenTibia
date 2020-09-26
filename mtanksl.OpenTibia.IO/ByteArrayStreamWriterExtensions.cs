@@ -36,15 +36,42 @@ namespace OpenTibia.IO
             writer.Write(light.Color);
         }
 
+        private static FluidColor[] FluidColors = new FluidColor[]
+        {
+            FluidColor.Empty,
+
+            FluidColor.Blue,
+
+            FluidColor.Red,
+
+            FluidColor.Brown1,
+
+            FluidColor.Green,
+
+            FluidColor.Yellow,
+
+            FluidColor.White,
+
+            FluidColor.Purple
+        };
+
         public static void Write(this ByteArrayStreamWriter writer, Item item)
         {
             writer.Write(item.Metadata.TibiaId);
 
-            StackableItem stackable = item as StackableItem;
-
-            if (stackable != null)
+            switch (item)
             {
-                writer.Write( (byte)stackable.Count );
+                case StackableItem stackable:
+
+                    writer.Write( (byte)stackable.Count);
+
+                    break;
+
+                case FluidItem fluidItem:
+
+                    writer.Write( (byte)FluidColors[ (int)fluidItem.FluidType % FluidColors.Length ] );
+
+                    break;
             }
         }
 

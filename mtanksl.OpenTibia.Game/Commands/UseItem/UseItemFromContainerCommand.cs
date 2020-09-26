@@ -25,8 +25,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
 
             if (fromContainer != null)
@@ -35,8 +33,6 @@ namespace OpenTibia.Game.Commands
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
-                    //Act
-
                     UseItem(fromItem, FromContainerId, ContainerId, context);
                 }
             }

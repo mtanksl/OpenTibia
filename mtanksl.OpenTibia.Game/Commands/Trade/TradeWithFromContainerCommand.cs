@@ -25,8 +25,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
 
             if (fromContainer != null)
@@ -35,12 +33,10 @@ namespace OpenTibia.Game.Commands
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
-                    Player toPlayer = context.Server.Map.GetCreature(ToCreatureId) as Player;
+                    Player toPlayer = context.Server.GameObjects.GetGameObject<Creature>(ToCreatureId) as Player;
 
                     if (toPlayer != null && toPlayer != Player)
                     {
-                        //Act
-
                         TradeWith(fromItem, toPlayer, context);
                     }
                 }

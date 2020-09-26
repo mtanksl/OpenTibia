@@ -15,17 +15,13 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
-            //Act
-
             HashSet<Player> isNextFrom = new HashSet<Player>();
 
             switch (Item.Container)
             {
                 case Tile tile:
 
-                    foreach (var observer in context.Server.Map.GetPlayers() )
+                    foreach (var observer in context.Server.GameObjects.GetPlayers() )
                     {
                         if (observer.Tile.Position.IsNextTo(tile.Position) )
                         {
@@ -51,7 +47,7 @@ namespace OpenTibia.Game.Commands
                     {
                         case Tile tile:
 
-                            foreach (var observer in context.Server.Map.GetPlayers() )
+                            foreach (var observer in context.Server.GameObjects.GetPlayers() )
                             {
                                 if (observer.Tile.Position.IsNextTo(tile.Position) )
                                 {
@@ -89,9 +85,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            //Notify
-
-            base.Execute(context);            
+            base.OnCompleted(context);            
         }
     }
 }

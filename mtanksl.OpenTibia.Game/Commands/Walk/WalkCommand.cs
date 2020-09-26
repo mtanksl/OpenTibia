@@ -23,19 +23,15 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Tile fromTile = Player.Tile;
 
             Tile toTile = context.Server.Map.GetTile( fromTile.Position.Offset(MoveDirection) );
-
-            //Act
 
             if ( toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || toTile.GetCreatures().Any(c => c.Block) )
             {
                 context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible), 
                     
-                                                        new StopWalkOutgoingPacket(Player.Direction) );
+                                                            new StopWalkOutgoingPacket(Player.Direction) );
             }
             else
             {
@@ -47,7 +43,7 @@ namespace OpenTibia.Game.Commands
                 {
                     new CreatureMoveCommand(Player, toTile).Execute(context);
            
-                    base.Execute(context);
+                    base.OnCompleted(context);
                 }
             }
         }

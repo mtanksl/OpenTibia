@@ -21,20 +21,16 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Inventory fromInventory = Player.Inventory;
 
             Item fromItem = fromInventory.GetContent(FromSlot) as Item;
 
             if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
             {
-                Creature toCreature = context.Server.Map.GetCreature(ToCreatureId);
+                Creature toCreature = context.Server.GameObjects.GetGameObject<Creature>(ToCreatureId);
 
                 if (toCreature != null)
                 {
-                    //Act
-
                     if ( IsUseable(fromItem, context) )
                     {
                         UseItemWithCreature(fromItem, toCreature, context, () =>

@@ -30,8 +30,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
 
             if (fromContainer != null)
@@ -44,8 +42,6 @@ namespace OpenTibia.Game.Commands
 
                     if (toTile != null)
                     {
-                        //Act
-
                         if ( IsMoveable(fromItem, context) &&
 
                              CanThrow(Player.Tile, toTile, context) )

@@ -20,17 +20,11 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
-            //Act
-
             ISpeechScript script;
 
             if ( !Message.StartsWith("/") || !context.Server.Scripts.SpeechScripts.TryGetValue(GetCommand(Message), out script) || !script.OnSpeech(Player, GetParameters(Message), context) )
             {
-                //Notify
-
-                foreach (var observer in context.Server.Map.GetPlayers() )
+                foreach (var observer in context.Server.GameObjects.GetPlayers() )
                 {
                     if (observer.Tile.Position.CanHearSay(Player.Tile.Position) )
                     {
@@ -39,7 +33,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            base.Execute(context);
+            base.OnCompleted(context);
         }
 
         protected string GetCommand(string message)

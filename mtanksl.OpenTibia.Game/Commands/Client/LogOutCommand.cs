@@ -18,8 +18,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             if ( !context.Server.Scripts.PlayerLogoutScripts.Any(script => script.OnPlayerLogout(Player, Player.Tile, context) ) )
             {
                 Tile fromTile = Player.Tile;
@@ -28,13 +26,9 @@ namespace OpenTibia.Game.Commands
 
                 byte fromIndex = fromTile.GetIndex(Player);
 
-                //Act
-
                 fromTile.RemoveContent(fromIndex);
 
-                //Notify
-
-                foreach (var observer in context.Server.Map.GetPlayers() )
+                foreach (var observer in context.Server.GameObjects.GetPlayers() )
                 {
                     if (observer == Player)
                     {
@@ -46,12 +40,12 @@ namespace OpenTibia.Game.Commands
                         {
                             context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromPosition, fromIndex),
                             
-                                                                      new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Puff) );
+                                                                          new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Puff) );
                         }
                     }
                 }
 
-                context.Server.Map.RemoveCreature(Player);
+                context.Server.GameObjects.RemoveGameObject(Player);
 
                 foreach (var component in Player.GetComponents<Behaviour>() )
                 {
@@ -66,7 +60,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            base.Execute(context);
+            base.OnCompleted(context);
         }
     }
 }

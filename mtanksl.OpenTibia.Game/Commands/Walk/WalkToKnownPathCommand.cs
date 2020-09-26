@@ -21,8 +21,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             if (index < MoveDirections.Length)
             {
                 WalkCommand command = new WalkCommand(Player, MoveDirections[index++] );
@@ -36,9 +34,7 @@ namespace OpenTibia.Game.Commands
             }
             else
             {
-                //Act
-
-                base.Execute(context);
+                base.OnCompleted(context);
             }
         }
     }

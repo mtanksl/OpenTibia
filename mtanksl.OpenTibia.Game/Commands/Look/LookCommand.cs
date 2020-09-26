@@ -15,25 +15,13 @@ namespace OpenTibia.Game.Commands
 
         protected void LookItem(Item item, Context context)
         {
-            //Arrange
-
-            //Act
-
-            //Notify
-
             context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You see nothing special.") );
 
-            base.Execute(context);
+            base.OnCompleted(context);
         }
 
         protected void LookCreature(Creature creature, Context context)
         {
-            //Arrange
-
-            //Act
-
-            //Notify
-
             if (Player == creature)
             {
                 context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You see yourself.") );
@@ -43,7 +31,7 @@ namespace OpenTibia.Game.Commands
                 context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You see " + creature.Name + ".") );
             }
 
-            base.Execute(context);
+            base.OnCompleted(context);
         }
     }
 }

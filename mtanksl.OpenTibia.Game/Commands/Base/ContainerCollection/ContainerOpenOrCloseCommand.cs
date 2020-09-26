@@ -19,19 +19,13 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             bool open = true;
 
             foreach (var pair in Player.Client.ContainerCollection.GetIndexedContainers() )
             {
                 if (pair.Value == Container)
                 {
-                    //Act
-
                     Player.Client.ContainerCollection.CloseContainer(pair.Key);
-
-                    //Notify
 
                     context.AddPacket(Player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
 
@@ -41,11 +35,7 @@ namespace OpenTibia.Game.Commands
 
             if (open)
             {
-                //Act
-
                 byte containerId = Player.Client.ContainerCollection.OpenContainer(Container);
-
-                //Notify
 
                 var items = new List<Item>();
 
@@ -57,7 +47,7 @@ namespace OpenTibia.Game.Commands
                 context.AddPacket(Player.Client.Connection, new OpenContainerOutgoingPacket(containerId, Container.Metadata.TibiaId, Container.Metadata.Name, Container.Metadata.Capacity, Container.Container is Container, items) );
             }
 
-            base.Execute(context);
+            base.OnCompleted(context);
         }
     }
 }

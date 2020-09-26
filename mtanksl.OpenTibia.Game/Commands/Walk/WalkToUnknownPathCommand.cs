@@ -19,8 +19,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             MoveDirection[] moveDirections = context.Server.Pathfinding.GetMoveDirections(Player.Tile.Position, Tile.Position);
 
             if (moveDirections.Length == 0)
@@ -33,9 +31,7 @@ namespace OpenTibia.Game.Commands
 
                 walkToCommand.Completed += (s, e) =>
                 {
-                    //Act
-
-                    base.Execute(e.Context);
+                    base.OnCompleted(e.Context);
                 };
 
                 walkToCommand.Execute(context);

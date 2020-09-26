@@ -22,8 +22,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Tile fromTile = context.Server.Map.GetTile(FromPosition);
 
             if (fromTile != null)
@@ -31,9 +29,7 @@ namespace OpenTibia.Game.Commands
                 Item fromItem = fromTile.GetContent(FromIndex) as Item;
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
-                {
-                    //Act
-
+                {    
                     if ( IsNextTo(fromTile, context) )
                     {
                         UseItem(fromItem, context);

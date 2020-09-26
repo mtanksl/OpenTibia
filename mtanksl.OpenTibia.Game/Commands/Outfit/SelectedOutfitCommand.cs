@@ -19,21 +19,15 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Tile fromTile = Creature.Tile;
 
             byte fromIndex = fromTile.GetIndex(Creature);
 
             if (Creature.Outfit != Outfit)
             {
-                //Act
-
                 Creature.Outfit = Outfit;
 
-                //Notify
-
-                foreach (var observer in context.Server.Map.GetPlayers() )
+                foreach (var observer in context.Server.GameObjects.GetPlayers() )
                 {
                     if (observer.Tile.Position.CanSee(fromTile.Position) )
                     {
@@ -42,7 +36,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            base.Execute(context);
+            base.OnCompleted(context);
         }
     }
 }

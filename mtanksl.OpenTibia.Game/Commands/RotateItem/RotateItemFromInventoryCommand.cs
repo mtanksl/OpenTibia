@@ -18,17 +18,13 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Inventory fromInventory = Player.Inventory;
 
             Item fromItem = fromInventory.GetContent(FromSlot) as Item;
 
             if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
             {
-                //Act
-
-                if ( IsRotatable(fromItem, context) )
+                                if ( IsRotatable(fromItem, context) )
                 {
                     RotateItem(fromItem, context);
                 }

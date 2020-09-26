@@ -19,17 +19,11 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
-            //Act
-
             byte index = Tile.GetIndex(Creature);
 
             Tile.RemoveContent(index);
 
-            //Notify
-
-            foreach (var observer in context.Server.Map.GetPlayers() )
+            foreach (var observer in context.Server.GameObjects.GetPlayers() )
             {
                 if (observer.Tile.Position.CanSee(Tile.Position) )
                 {
@@ -44,7 +38,7 @@ namespace OpenTibia.Game.Commands
                 context.Server.Events.TileRemoveCreature(this, new TileRemoveCreatureEventArgs(Tile, Creature, index) );
             }
 
-            base.Execute(context);
+            base.OnCompleted(context);
         }
     }
 }

@@ -22,8 +22,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Tile fromTile = context.Server.Map.GetTile(FromPosition);
 
             if (fromTile != null)
@@ -34,8 +32,6 @@ namespace OpenTibia.Game.Commands
 
                         if (item.Metadata.TibiaId == ItemId)
                         {
-                            //Act
-
                             LookItem(item, context);
                         }
 
@@ -45,8 +41,6 @@ namespace OpenTibia.Game.Commands
 
                         if (ItemId == 99)
                         {
-                            //Act
-
                             LookCreature(creature, context);
                         }
 

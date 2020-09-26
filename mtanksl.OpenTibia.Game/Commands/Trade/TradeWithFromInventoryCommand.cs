@@ -21,20 +21,16 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Inventory fromInventory = Player.Inventory;
 
             Item fromItem = fromInventory.GetContent(FromSlot) as Item;
 
             if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
             {
-                Player toPlayer = context.Server.Map.GetCreature(ToCreatureId) as Player;
+                Player toPlayer = context.Server.GameObjects.GetGameObject<Creature>(ToCreatureId) as Player;
 
                 if (toPlayer != null && toPlayer != Player)
                 {
-                    //Act
-
                     TradeWith(fromItem, toPlayer, context);
                 }
             }

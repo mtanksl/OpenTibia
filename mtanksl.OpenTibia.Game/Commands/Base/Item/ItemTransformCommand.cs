@@ -17,14 +17,10 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Item toItem = context.Server.ItemFactory.Create(OpenTibiaId);
 
             if (toItem != null)
             {
-                //Act
-
                 switch (Item.Container)
                 {
                     case Tile tile:
@@ -46,9 +42,7 @@ namespace OpenTibia.Game.Commands
                         break;
                 } 
 
-                //Notify
-
-                base.Execute(context);
+                base.OnCompleted(context);
             }
         }
     }

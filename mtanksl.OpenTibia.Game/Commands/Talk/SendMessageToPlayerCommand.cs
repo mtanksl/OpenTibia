@@ -24,21 +24,15 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
-            Player observer = context.Server.Map.GetPlayers()
+            Player observer = context.Server.GameObjects.GetPlayers()
                 .Where(p => p.Name == Name)
                 .FirstOrDefault();
 
             if (observer != null && observer != Player)
             {
-                //Act
-
-                //Notify
-
                 context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Private, Message) );
 
-                base.Execute(context);
+                base.OnCompleted(context);
             }
         }
     }

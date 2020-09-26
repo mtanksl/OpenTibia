@@ -26,8 +26,6 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Tile fromTile = context.Server.Map.GetTile(FromPosition);
 
             if (fromTile != null)
@@ -36,12 +34,10 @@ namespace OpenTibia.Game.Commands
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
-                    Player toPlayer = context.Server.Map.GetCreature(ToCreatureId) as Player;
+                    Player toPlayer = context.Server.GameObjects.GetGameObject<Creature>(ToCreatureId) as Player;
 
                     if (toPlayer != null && toPlayer != Player)
                     {
-                        //Act
-
                         if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
                         {
                             WalkToUnknownPathCommand walkToUnknownPathCommand = new WalkToUnknownPathCommand(Player, fromTile);

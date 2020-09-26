@@ -41,7 +41,7 @@ namespace OpenTibia.Game.Commands
             {
                 new ContainerOpenOrCloseCommand(Player, container).Execute(context);
 
-                base.Execute(context);
+                base.OnCompleted(context);
             }
             else
             {
@@ -53,7 +53,7 @@ namespace OpenTibia.Game.Commands
                 }
                 else
                 {
-                    base.Execute(context);
+                    base.OnCompleted(context);
                 }
             }
         }
@@ -73,7 +73,7 @@ namespace OpenTibia.Game.Commands
                     new ContainerOpenOrCloseCommand(Player, container).Execute(context);
                 }
 
-                base.Execute(context);
+                base.OnCompleted(context);
             }
             else
             {
@@ -85,7 +85,7 @@ namespace OpenTibia.Game.Commands
                 }
                 else
                 {
-                    base.Execute(context);
+                    base.OnCompleted(context);
                 }
             }
         }

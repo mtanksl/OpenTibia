@@ -96,7 +96,7 @@ namespace OpenTibia.Game.Commands
         {
             new ItemMoveCommand(Player, fromItem, toContainer, toIndex, count).Execute(context);
 
-            base.Execute(context);
+            base.OnCompleted(context);
         }
     }
 }

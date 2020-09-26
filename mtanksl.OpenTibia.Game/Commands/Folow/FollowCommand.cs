@@ -19,12 +19,8 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             if ( !Player.Tile.Position.IsInBattleRange(Target.Tile.Position) )
             {
-                //Act
-
                 Player.AttackTarget = null;
 
                 context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
@@ -33,20 +29,14 @@ namespace OpenTibia.Game.Commands
 
                 context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
 
-                //Notify
-
                 context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
                         
-                                                        new StopAttackAndFollowOutgoingPacket(0) );
+                                                            new StopAttackAndFollowOutgoingPacket(0) );
             }
             else
             {
                 if ( !Player.Tile.Position.IsNextTo(Target.Tile.Position) )
                 {
-                    //Act
-
-                    //Notify
-
                     MoveDirection[] moveDirections = context.Server.Pathfinding.GetMoveDirections(Player.Tile.Position, Target.Tile.Position);
 
                     if (moveDirections.Length != 0)

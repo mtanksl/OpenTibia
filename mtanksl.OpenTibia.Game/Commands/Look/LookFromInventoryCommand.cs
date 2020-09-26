@@ -17,16 +17,12 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Inventory fromInventory = Player.Inventory;
 
             Item item = fromInventory.GetContent(FromSlot) as Item;
 
             if (item != null && item.Metadata.TibiaId == ItemId)
             {
-                //Act
-
                 LookItem(item, context);
             }
         }

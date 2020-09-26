@@ -14,12 +14,8 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             if (Player.AttackTarget != null)
             {
-                //Act
-
                 Player.AttackTarget = null;
 
                 context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
@@ -28,12 +24,10 @@ namespace OpenTibia.Game.Commands
 
                 context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
 
-                //Notify
-
                 context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
             }
 
-            base.Execute(context);
+            base.OnCompleted(context);
         }
     }
 }

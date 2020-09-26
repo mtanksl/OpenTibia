@@ -19,14 +19,10 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            //Arrange
-
             Channel channel = context.Server.Channels.GetChannel(ChannelId);
 
             if (channel != null)
             {
-                //Act
-
                 if (channel.ContainsPlayer(Player) )
                 {
                     channel.RemovePlayer(Player);
@@ -54,11 +50,9 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                //Notify
-
                 context.AddPacket(Player.Client.Connection, new CloseChannelOutgoingPacket(channel.Id) );
 
-                base.Execute(context);
+                base.OnCompleted(context);
             }
         }
     }
