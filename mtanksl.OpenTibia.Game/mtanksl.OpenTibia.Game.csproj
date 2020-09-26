@@ -68,6 +68,7 @@
     <Compile Include="Commands\Base\Inventory\InventoryRemoveItemCommand.cs" />
     <Compile Include="Commands\Base\Tile\TileRemoveItemCommand.cs" />
     <Compile Include="Commands\Client\StopCommand.cs" />
+    <Compile Include="Commands\SequenceCommand.cs" />
     <Compile Include="Commands\Global\GlobalItemsCommand.cs" />
     <Compile Include="Components\AutoTalkBehaviour.cs" />
     <Compile Include="Components\AutoWalkBehaviour.cs" />

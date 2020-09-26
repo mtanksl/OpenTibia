@@ -29,7 +29,7 @@ namespace OpenTibia.Game
             }
         }
 
-        public bool TryHandle(Command command, Context context)
+        public Command TryHandle(Command command, Context context)
         {
             if ( types.TryGetValue(command.GetType(), out var handlers) )
             {
@@ -37,14 +37,12 @@ namespace OpenTibia.Game
                 {
                     if ( handler.CanHandle(command, context) )
                     {
-                        handler.Handle(command, context);
-
-                        return true;
+                        return handler.Handle(command, context);
                     }
                 }
             }
 
-            return false;
+            return command;
         }
     }
 }

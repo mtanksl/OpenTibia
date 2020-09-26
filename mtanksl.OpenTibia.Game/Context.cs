@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Events;
 using OpenTibia.Common.Objects;
+using OpenTibia.Game.Commands;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
@@ -28,14 +29,14 @@ namespace OpenTibia.Game
             }
         }
 
-        private Dictionary<string, object> data;
-
-        public Dictionary<string, object> Data
+        public Command AddCommand(Command command)
         {
-            get
+            if (disposed)
             {
-                return data ?? (data = new Dictionary<string, object>() );
+                throw new ObjectDisposedException( nameof(Context) );
             }
+
+            return server.CommandHandlers.TryHandle(command, this);
         }
 
         private List<GameEventArgs> events;

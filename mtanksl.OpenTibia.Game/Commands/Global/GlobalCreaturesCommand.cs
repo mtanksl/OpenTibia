@@ -6,7 +6,23 @@ namespace OpenTibia.Game.Commands
     {
         public override void Execute(Context context)
         {
-            foreach (var creature in context.Server.GameObjects.GetMonsterAndNpcs() )
+            foreach (var creature in context.Server.GameObjects.GetMonsters() )
+            {
+                foreach (var component in creature.GetComponents<TimeBehaviour>() )
+                {
+                    component.Update(context);
+                }
+            }
+
+            foreach (var creature in context.Server.GameObjects.GetNpcs() )
+            {
+                foreach (var component in creature.GetComponents<TimeBehaviour>() )
+                {
+                    component.Update(context);
+                }
+            }
+
+            foreach (var creature in context.Server.GameObjects.GetPlayers() )
             {
                 foreach (var component in creature.GetComponents<TimeBehaviour>() )
                 {

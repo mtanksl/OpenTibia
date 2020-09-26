@@ -119,9 +119,14 @@ namespace OpenTibia.Game
             return default(T);
         }
 
-        public IEnumerable<Creature> GetMonsterAndNpcs()
+        public IEnumerable<Monster> GetMonsters()
         {
-            return GetGameObjects<Monster>().Concat<Creature>( GetGameObjects<Npc>() );
+            return GetGameObjects<Monster>();
+        }
+
+        public IEnumerable<Npc> GetNpcs()
+        {
+            return GetGameObjects<Npc>();
         }
 
         public IEnumerable<Player> GetPlayers()

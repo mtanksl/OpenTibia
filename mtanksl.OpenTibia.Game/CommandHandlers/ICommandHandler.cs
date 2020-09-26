@@ -6,6 +6,6 @@ namespace OpenTibia.Game.CommandHandlers
     {
         bool CanHandle(Command command, Context context);
 
-        void Handle(Command command, Context context);
+        Command Handle(Command command, Context context);
     }
 }

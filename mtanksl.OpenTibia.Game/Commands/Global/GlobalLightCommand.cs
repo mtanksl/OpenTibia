@@ -8,7 +8,7 @@ namespace OpenTibia.Game.Commands
         {                        
             context.Server.Clock.Tick();
 
-            foreach (var player in context.Server.GameObjects.GetPlayers())
+            foreach (var player in context.Server.GameObjects.GetPlayers() )
             {
                 context.AddPacket(player.Client.Connection, new SetEnvironmentLightOutgoingPacket(context.Server.Clock.Light) );
             }
