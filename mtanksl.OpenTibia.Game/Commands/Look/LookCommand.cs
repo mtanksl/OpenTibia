@@ -1,6 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -13,25 +11,28 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        protected void LookItem(Item item, Context context)
+        protected void LookAtItem(Item item, Context context)
         {
-            context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You see nothing special.") );
+            Command command = context.AddCommand(new PlayerLookAtItemCommand(Player, item) );
 
-            base.OnCompleted(context);
+            command.Completed += (s, e) =>
+            {
+                base.OnCompleted(e.Context);
+            };
+
+            command.Execute(context);
         }
 
-        protected void LookCreature(Creature creature, Context context)
+        protected void LookAtCreature(Creature creature, Context context)
         {
-            if (Player == creature)
-            {
-                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You see yourself.") );
-            }
-            else
-            {
-                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You see " + creature.Name + ".") );
-            }
+            Command command = context.AddCommand(new PlayerLookAtCreatureCommand(Player, creature) );
 
-            base.OnCompleted(context);
+            command.Completed += (s, e) =>
+            {
+                base.OnCompleted(e.Context);
+            };
+
+            command.Execute(context);
         }
     }
 }

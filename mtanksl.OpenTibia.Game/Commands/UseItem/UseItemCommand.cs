@@ -45,16 +45,14 @@ namespace OpenTibia.Game.Commands
             }
             else
             {
-                IItemUseScript script;
+                Command command = context.AddCommand(new PlayerUseItemCommand(Player, fromItem) );
 
-                if ( !context.Server.Scripts.ItemUseScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.OnItemUse(Player, fromItem, context) )
-                {
-                    context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
-                }
-                else
+                command.Completed += (s, e) =>
                 {
                     base.OnCompleted(context);
-                }
+                };
+
+                command.Execute(context);
             }
         }
 
@@ -77,16 +75,14 @@ namespace OpenTibia.Game.Commands
             }
             else
             {
-                IItemUseScript script;
+                Command command = context.AddCommand(new PlayerUseItemCommand(Player, fromItem) );
 
-                if ( !context.Server.Scripts.ItemUseScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.OnItemUse(Player, fromItem, context) )
-                {
-                    context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
-                }
-                else
+                command.Completed += (s, e) =>
                 {
                     base.OnCompleted(context);
-                }
+                };
+
+                command.Execute(context);
             }
         }
     }

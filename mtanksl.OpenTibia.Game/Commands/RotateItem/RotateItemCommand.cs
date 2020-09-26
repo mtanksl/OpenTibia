@@ -1,7 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Game.Scripts;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -14,25 +12,6 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        protected bool IsNextTo(Tile fromTile, Context context)
-        {
-            if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
-            {
-                WalkToUnknownPathCommand walkToUnknownPathCommand = new WalkToUnknownPathCommand(Player, fromTile);
-
-                walkToUnknownPathCommand.Completed += (s, e) =>
-                {
-                    context.Server.QueueForExecution(Constants.CreatureActionSchedulerEvent(Player), Constants.CreatureActionSchedulerEventDelay, this);
-                };
-
-                walkToUnknownPathCommand.Execute(context);
-
-                return false;
-            }
-
-            return true;
-        }
-
         protected bool IsRotatable(Item fromItem, Context context)
         {
             if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Rotatable) )
@@ -43,18 +22,35 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
+        protected bool IsNextTo(Tile fromTile, Context context)
+        {
+            if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
+            {
+                Command command = context.AddCommand(new WalkToUnknownPathCommand(Player, fromTile) );
+
+                command.Completed += (s, e) =>
+                {
+                    context.Server.QueueForExecution(Constants.CreatureActionSchedulerEvent(Player), Constants.CreatureActionSchedulerEventDelay, this);
+                };
+
+                command.Execute(context);
+
+                return false;
+            }
+
+            return true;
+        }
+
         protected void RotateItem(Item fromItem, Context context)
         {
-            IItemRotateScript script;
+            Command command = context.AddCommand(new PlayerRotateItemCommand(Player, fromItem) );
 
-            if ( !context.Server.Scripts.ItemRotateScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.OnItemRotate(Player, fromItem, context) )
-            {
-                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
-            }
-            else
+            command.Completed += (s, e) =>
             {
                 base.OnCompleted(context);
-            }
+            };
+
+            command.Execute(context);
         }
     }
 }

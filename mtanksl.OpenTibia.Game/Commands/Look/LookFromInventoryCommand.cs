@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
 
             if (item != null && item.Metadata.TibiaId == ItemId)
             {
-                LookItem(item, context);
+                LookAtItem(item, context);
             }
         }
     }

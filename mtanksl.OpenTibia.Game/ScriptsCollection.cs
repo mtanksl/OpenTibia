@@ -38,26 +38,6 @@ namespace OpenTibia.Game
             }
         }
 
-        private Dictionary<ushort, IItemRotateScript> itemRotateScripts = new Dictionary<ushort, IItemRotateScript>();
-
-        public Dictionary<ushort, IItemRotateScript> ItemRotateScripts
-        {
-            get
-            {
-                return itemRotateScripts;
-            }
-        }
-
-        private Dictionary<ushort, IItemUseScript> itemUseScript = new Dictionary<ushort, IItemUseScript>();
-
-        public Dictionary<ushort, IItemUseScript> ItemUseScripts
-        {
-            get
-            {
-                return itemUseScript;
-            }
-        }
-
         private Dictionary<ushort, IItemUseWithItemScript> itemUseWithItemScripts = new Dictionary<ushort, IItemUseWithItemScript>();
 
         public Dictionary<ushort, IItemUseWithItemScript> ItemUseWithItemScripts

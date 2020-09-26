@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
 
                 if (item != null)
                 {
-                    LookItem(item, context);
+                    LookAtItem(item, context);
                 }
             }
         }

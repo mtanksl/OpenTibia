@@ -30,9 +30,7 @@ namespace OpenTibia.Game.Commands
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
-                                        if ( IsRotatable(fromItem, context) &&
-
-                        IsNextTo(fromTile, context) )
+                    if ( IsRotatable(fromItem, context) && IsNextTo(fromTile, context) )
                     {
                         RotateItem(fromItem, context);
                     }

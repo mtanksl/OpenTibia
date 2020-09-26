@@ -43,6 +43,10 @@
     <Compile Include="CommandHandlerCollection.cs" />
     <Compile Include="CommandHandlers\CommandHandler.cs" />
     <Compile Include="CommandHandlers\ICommandHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItem\WatchHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItem\SewerHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItem\LadderHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItem\UseItemTransformHandler.cs" />
     <Compile Include="Commands\Attack\AttackCommand.cs" />
     <Compile Include="Commands\Attack\StartAttackCommand.cs" />
     <Compile Include="Commands\Attack\StopAttackCommand.cs" />
@@ -56,6 +60,9 @@
     <Compile Include="Commands\Base\Item\ItemCreateCommand.cs" />
     <Compile Include="Commands\Base\Item\ItemMoveCommand.cs" />
     <Compile Include="Commands\Base\Item\ItemTransformCommand.cs" />
+    <Compile Include="Commands\Base\Player\PlayerLookAtCreatureCommand.cs" />
+    <Compile Include="Commands\Base\Player\PlayerUseItemCommand.cs" />
+    <Compile Include="Commands\Base\Player\PlayerLookAtItemCommand.cs" />
     <Compile Include="Commands\Base\Tile\TileRemoveCreatureCommand.cs" />
     <Compile Include="Commands\Base\Tile\TileReplaceItemCommand.cs" />
     <Compile Include="Commands\Channel\CloseNpcsChannelCommand.cs" />
@@ -68,6 +75,9 @@
     <Compile Include="Commands\Base\Inventory\InventoryRemoveItemCommand.cs" />
     <Compile Include="Commands\Base\Tile\TileRemoveItemCommand.cs" />
     <Compile Include="Commands\Client\StopCommand.cs" />
+    <Compile Include="Commands\Base\Player\PlayerRotateItemCommand.cs" />
+    <Compile Include="CommandHandlers\PlayerRotateItem\RotateItemTransformHandler.cs" />
+    <Compile Include="Commands\ConditionalCommand.cs" />
     <Compile Include="Commands\SequenceCommand.cs" />
     <Compile Include="Commands\Global\GlobalItemsCommand.cs" />
     <Compile Include="Components\AutoTalkBehaviour.cs" />
@@ -206,8 +216,6 @@
     <Compile Include="Scripts\IPlayerLogoutScript.cs" />
     <Compile Include="Scripts\ICreatureWalkScript.cs" />
     <Compile Include="Scripts\IItemMoveScript.cs" />
-    <Compile Include="Scripts\IItemRotateScript.cs" />
-    <Compile Include="Scripts\IItemUseScript.cs" />
     <Compile Include="Scripts\IItemUseWithCreatureScript.cs" />
     <Compile Include="Scripts\IItemUseWithItemScript.cs" />
     <Compile Include="Scripts\IScript.cs" />
@@ -219,20 +227,17 @@
     <Compile Include="Scripts\CreatureWalk\StairsScript.cs" />
     <Compile Include="Scripts\ItemMove\SwampScript.cs" />
     <Compile Include="Scripts\CreatureWalk\TeleportScript.cs" />
+    <Compile Include="Scripts\ItemUse\ItemUseScripts.cs" />
     <Compile Include="Scripts\Speech\CreateCreatureScript.cs" />
     <Compile Include="Scripts\Speech\CreateItemScript.cs" />
     <Compile Include="Scripts\Speech\TeleportDownScript.cs" />
     <Compile Include="Scripts\Speech\TeleportScript.cs" />
     <Compile Include="Scripts\Speech\TeleportUpScript.cs" />
-    <Compile Include="Scripts\ItemRotate\DefaultItemRotateScript.cs" />
-    <Compile Include="Scripts\ItemUse\DefaultItemUseScript.cs" />
-    <Compile Include="Scripts\ItemUse\LadderScript.cs" />
+    <Compile Include="Scripts\ItemRotate\ItemRotateScripts.cs" />
     <Compile Include="Scripts\ItemUseWithItem\MacheteScript.cs" />
     <Compile Include="Scripts\ItemUseWithItem\RopeScript.cs" />
     <Compile Include="Scripts\ItemUseWithItem\ScytheScript.cs" />
-    <Compile Include="Scripts\ItemUse\SewerScript.cs" />
     <Compile Include="Scripts\ItemUseWithItem\ShovelScript.cs" />
-    <Compile Include="Scripts\ItemUse\WatchScript.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -267,6 +272,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="CommandHandlers\PlayerLookAtCreature\" />
+    <Folder Include="CommandHandlers\PlayerLookAtItem\" />
     <Folder Include="Commands\Base\WindowCollection\" />
     <Folder Include="Scripts\ItemUseWithCreature\" />
     <Folder Include="Scripts\PlayerLogout\" />

@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Commands
 
                         if (item.Metadata.TibiaId == ItemId)
                         {
-                            LookItem(item, context);
+                            LookAtItem(item, context);
                         }
 
                         break;
@@ -41,7 +41,7 @@ namespace OpenTibia.Game.Commands
 
                         if (ItemId == 99)
                         {
-                            LookCreature(creature, context);
+                            LookAtCreature(creature, context);
                         }
 
                         break;
