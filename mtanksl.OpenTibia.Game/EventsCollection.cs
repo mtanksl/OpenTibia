@@ -5,10 +5,6 @@ namespace OpenTibia.Game
 {
     public class EventsCollection
     {
-        public EventHandler<LoginEventArgs> Login;
-
-        public EventHandler<LogoutEventArgs> Logout;
-
         public EventHandler<TileAddCreatureEventArgs> TileAddCreature;
 
         public EventHandler<TileRemoveCreatureEventArgs> TileRemoveCreature;

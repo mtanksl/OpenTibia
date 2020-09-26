@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Commands
 
         public string Message { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
@@ -25,19 +25,19 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            foreach (var observer in server.Map.GetPlayers() )
+            foreach (var observer in context.Server.Map.GetPlayers() )
             {
                 if (observer.Tile.Position.CanHearWhisper(Player.Tile.Position) )
                 {
-                    context.Write(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, Message) );
+                    context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, Message) );
                 }
                 else if (observer.Tile.Position.CanHearSay(Player.Tile.Position) )
                 {
-                    context.Write(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, "pspsps") );
+                    context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, "pspsps") );
                 }
             }
 
-            base.Execute(server, context);
+            base.Execute(context);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        protected bool IsNextTo(Tile fromTile, Server server, Context context)
+        protected bool IsNextTo(Tile fromTile, Context context)
         {
             if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
             {
@@ -22,10 +22,10 @@ namespace OpenTibia.Game.Commands
 
                 walkToUnknownPathCommand.Completed += (s, e) =>
                 {
-                    server.QueueForExecution(Constants.PlayerActionSchedulerEvent(Player), Constants.PlayerSchedulerEventDelay, this);
+                    context.Server.QueueForExecution(Constants.CreatureActionSchedulerEvent(Player), Constants.CreatureActionSchedulerEventDelay, this);
                 };
 
-                walkToUnknownPathCommand.Execute(server, context);
+                walkToUnknownPathCommand.Execute(context);
 
                 return false;
             }
@@ -33,32 +33,32 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected void UseItem(Item fromItem, Server server, Context context)
+        protected void UseItem(Item fromItem, Context context)
         {
             Container container = fromItem as Container;
 
             if (container != null)
             {
-                new ContainerOpenOrCloseCommand(Player, container).Execute(server, context);
+                new ContainerOpenOrCloseCommand(Player, container).Execute(context);
 
-                base.Execute(server, context);
+                base.Execute(context);
             }
             else
             {
                 IItemUseScript script;
 
-                if ( !server.Scripts.ItemUseScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.OnItemUse(Player, fromItem, server, context) )
+                if ( !context.Server.Scripts.ItemUseScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.OnItemUse(Player, fromItem, context) )
                 {
-                    context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
+                    context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
                 }
                 else
                 {
-                    base.Execute(server, context);
+                    base.Execute(context);
                 }
             }
         }
 
-        protected void UseItem(Item fromItem, byte fromContainerId, byte containerId, Server server, Context context)
+        protected void UseItem(Item fromItem, byte fromContainerId, byte containerId, Context context)
         {
             Container container = fromItem as Container;
 
@@ -66,26 +66,26 @@ namespace OpenTibia.Game.Commands
             {
                 if (fromContainerId == containerId)
                 {
-                    new ContainerReplaceOrCloseCommand(Player, containerId, container).Execute(server, context);
+                    new ContainerReplaceOrCloseCommand(Player, containerId, container).Execute(context);
                 }
                 else
                 {
-                    new ContainerOpenOrCloseCommand(Player, container).Execute(server, context);
+                    new ContainerOpenOrCloseCommand(Player, container).Execute(context);
                 }
 
-                base.Execute(server, context);
+                base.Execute(context);
             }
             else
             {
                 IItemUseScript script;
 
-                if ( !server.Scripts.ItemUseScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.OnItemUse(Player, fromItem, server, context) )
+                if ( !context.Server.Scripts.ItemUseScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.OnItemUse(Player, fromItem, context) )
                 {
-                    context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
+                    context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
                 }
                 else
                 {
-                    base.Execute(server, context);
+                    base.Execute(context);
                 }
             }
         }

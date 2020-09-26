@@ -31,11 +31,11 @@ namespace OpenTibia.Game.Commands
 
         public byte Count { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
-            if ( !server.Scripts.ItemMoveScripts.Any(script => script.OnItemMove(Player, Item, ToContainer, ToIndex, Count, server, context) ) )
+            if ( !context.Server.Scripts.ItemMoveScripts.Any(script => script.OnItemMove(Player, Item, ToContainer, ToIndex, Count, context) ) )
             {
                 //Act
 
@@ -47,7 +47,7 @@ namespace OpenTibia.Game.Commands
                 {
                     case Tile tile:
 
-                        foreach (var observer in server.Map.GetPlayers() )
+                        foreach (var observer in context.Server.Map.GetPlayers() )
                         {
                             if (observer.Tile.Position.IsNextTo(tile.Position) )
                             {
@@ -55,7 +55,7 @@ namespace OpenTibia.Game.Commands
                             }
                         }
 
-                        new TileRemoveItemCommand(tile, Item).Execute(server, context);
+                        new TileRemoveItemCommand(tile, Item).Execute(context);
 
                         break;
 
@@ -63,7 +63,7 @@ namespace OpenTibia.Game.Commands
 
                         isNextFrom.Add(inventory.Player);
 
-                        new InventoryRemoveItemCommand(inventory, Item).Execute(server, context);
+                        new InventoryRemoveItemCommand(inventory, Item).Execute(context);
 
                         break;
 
@@ -73,7 +73,7 @@ namespace OpenTibia.Game.Commands
                         {
                             case Tile tile:
 
-                                foreach (var observer in server.Map.GetPlayers() )
+                                foreach (var observer in context.Server.Map.GetPlayers() )
                                 {
                                     if (observer.Tile.Position.IsNextTo(tile.Position) )
                                     {
@@ -90,7 +90,7 @@ namespace OpenTibia.Game.Commands
                                 break;
                         }
 
-                        new ContainerRemoveItemCommand(container, Item).Execute(server, context);
+                        new ContainerRemoveItemCommand(container, Item).Execute(context);
 
                         break;
                 }
@@ -99,7 +99,7 @@ namespace OpenTibia.Game.Commands
                 {
                     case Tile tile:
 
-                        foreach (var observer in server.Map.GetPlayers() )
+                        foreach (var observer in context.Server.Map.GetPlayers() )
                         {
                             if (observer.Tile.Position.IsNextTo(tile.Position) )
                             {
@@ -107,7 +107,7 @@ namespace OpenTibia.Game.Commands
                             }
                         }
 
-                        new TileAddItemCommand(tile, Item).Execute(server, context);
+                        new TileAddItemCommand(tile, Item).Execute(context);
 
                         break;
 
@@ -115,7 +115,7 @@ namespace OpenTibia.Game.Commands
 
                         isNextTo.Add(inventory.Player);
 
-                        new InventoryAddItemCommand(inventory, ToIndex, Item).Execute(server, context);
+                        new InventoryAddItemCommand(inventory, ToIndex, Item).Execute(context);
 
                         break;
 
@@ -125,7 +125,7 @@ namespace OpenTibia.Game.Commands
                         {
                             case Tile tile:
 
-                                foreach (var observer in server.Map.GetPlayers() )
+                                foreach (var observer in context.Server.Map.GetPlayers() )
                                 {
                                     if (observer.Tile.Position.IsNextTo(tile.Position) )
                                     {
@@ -142,7 +142,7 @@ namespace OpenTibia.Game.Commands
                                 break;
                         }
 
-                        new ContainerAddItemCommand(container, Item).Execute(server, context);
+                        new ContainerAddItemCommand(container, Item).Execute(context);
 
                         break;
                 }
@@ -157,7 +157,7 @@ namespace OpenTibia.Game.Commands
                             {
                                 observer.Client.ContainerCollection.CloseContainer(pair.Key);
 
-                                context.Write(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                                context.AddPacket(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
                             }                           
                         }
                     }
@@ -177,7 +177,7 @@ namespace OpenTibia.Game.Commands
                                     items.Add(item);
                                 }
 
-                                context.Write(observer.Client.Connection, new OpenContainerOutgoingPacket(pair.Key, bag.Metadata.TibiaId, bag.Metadata.Name, bag.Metadata.Capacity, bag.Container is Container, items) );
+                                context.AddPacket(observer.Client.Connection, new OpenContainerOutgoingPacket(pair.Key, bag.Metadata.TibiaId, bag.Metadata.Name, bag.Metadata.Capacity, bag.Container is Container, items) );
                             }                           
                         }
                     }
@@ -186,7 +186,7 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            base.Execute(server, context);
+            base.Execute(context);
         }
     }
 }

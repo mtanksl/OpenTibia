@@ -17,11 +17,11 @@ namespace OpenTibia.Game.Commands
 
         public ushort ChannelId { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
-            Channel channel = server.Channels.GetChannel(ChannelId);
+            Channel channel = context.Server.Channels.GetChannel(ChannelId);
 
             if (channel != null)
             {
@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Commands
                     {
                         foreach (var observer in privateChannel.GetPlayers().ToList() )
                         {
-                            context.Write(observer.Client.Connection, new CloseChannelOutgoingPacket(channel.Id) );
+                            context.AddPacket(observer.Client.Connection, new CloseChannelOutgoingPacket(channel.Id) );
 
                             privateChannel.RemovePlayer(observer);
                         }
@@ -50,15 +50,15 @@ namespace OpenTibia.Game.Commands
                             privateChannel.RemoveInvitation(observer);
                         }
 
-                        server.Channels.RemoveChannel(privateChannel);
+                        context.Server.Channels.RemoveChannel(privateChannel);
                     }
                 }
 
                 //Notify
 
-                context.Write(Player.Client.Connection, new CloseChannelOutgoingPacket(channel.Id) );
+                context.AddPacket(Player.Client.Connection, new CloseChannelOutgoingPacket(channel.Id) );
 
-                base.Execute(server, context);
+                base.Execute(context);
             }
         }
     }

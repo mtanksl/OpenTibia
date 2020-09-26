@@ -32,11 +32,11 @@ namespace OpenTibia.Game.Commands
 
         public ushort ToItemId { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
-            Tile fromTile = server.Map.GetTile(FromPosition);
+            Tile fromTile = context.Server.Map.GetTile(FromPosition);
 
             if (fromTile != null)
             {
@@ -54,11 +54,11 @@ namespace OpenTibia.Game.Commands
                         {
                             //Act
 
-                            if ( IsUseable(fromItem, server, context) &&
+                            if ( IsUseable(fromItem, context) &&
                                 
-                                IsNextTo(fromTile, server, context) )
+                                IsNextTo(fromTile, context) )
                             {
-                                UseItemWithItem(fromItem, toItem, server, context);
+                                UseItemWithItem(fromItem, toItem, context);
                             }                            
                         }
                     }

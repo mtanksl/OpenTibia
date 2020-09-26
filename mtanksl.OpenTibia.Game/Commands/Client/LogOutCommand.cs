@@ -16,11 +16,11 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
-            if ( !server.Scripts.PlayerLogoutScripts.Any(script => script.OnPlayerLogout(Player, Player.Tile, server, context) ) )
+            if ( !context.Server.Scripts.PlayerLogoutScripts.Any(script => script.OnPlayerLogout(Player, Player.Tile, context) ) )
             {
                 Tile fromTile = Player.Tile;
 
@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
 
                 //Notify
 
-                foreach (var observer in server.Map.GetPlayers() )
+                foreach (var observer in context.Server.Map.GetPlayers() )
                 {
                     if (observer == Player)
                     {
@@ -44,34 +44,29 @@ namespace OpenTibia.Game.Commands
                     {
                         if (observer.Tile.Position.CanSee(fromPosition) )
                         {
-                            context.Write(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromPosition, fromIndex),
+                            context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromPosition, fromIndex),
                             
                                                                       new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Puff) );
                         }
                     }
                 }
 
-                server.Map.RemoveCreature(Player);
+                context.Server.Map.RemoveCreature(Player);
 
                 foreach (var component in Player.GetComponents<Behaviour>() )
                 {
-                    component.Stop(server);
+                    component.Stop(context.Server);
                 }
 
                 //Event
 
-                if (server.Events.Logout != null)
+                if (context.Server.Events.TileRemoveCreature != null)
                 {
-                    server.Events.Logout(this, new LogoutEventArgs(Player, fromTile, fromIndex, server, context) );
-                }
-
-                if (server.Events.TileRemoveCreature != null)
-                {
-                    server.Events.TileRemoveCreature(this, new TileRemoveCreatureEventArgs(Player, fromTile, fromIndex, server, context) );
+                    context.Server.Events.TileRemoveCreature(this, new TileRemoveCreatureEventArgs(fromTile, Player, fromIndex) );
                 }
             }
 
-            base.Execute(server, context);
+            base.Execute(context);
         }
     }
 }

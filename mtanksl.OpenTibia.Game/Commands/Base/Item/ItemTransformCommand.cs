@@ -15,11 +15,11 @@ namespace OpenTibia.Game.Commands
 
         public ushort OpenTibiaId { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
-            Item toItem = server.ItemFactory.Create(OpenTibiaId);
+            Item toItem = context.Server.ItemFactory.Create(OpenTibiaId);
 
             if (toItem != null)
             {
@@ -29,26 +29,26 @@ namespace OpenTibia.Game.Commands
                 {
                     case Tile tile:
 
-                        new TileReplaceItemCommand(tile, Item, toItem).Execute(server, context);
+                        new TileReplaceItemCommand(tile, Item, toItem).Execute(context);
 
                         break;
 
                     case Inventory inventory:
 
-                        new InventoryReplaceItemCommand(inventory, Item, toItem).Execute(server, context);
+                        new InventoryReplaceItemCommand(inventory, Item, toItem).Execute(context);
 
                         break;
 
                     case Container container:
 
-                        new ContainerReplaceItemCommand(container, Item, toItem).Execute(server, context);
+                        new ContainerReplaceItemCommand(container, Item, toItem).Execute(context);
 
                         break;
                 } 
 
                 //Notify
 
-                base.Execute(server, context);
+                base.Execute(context);
             }
         }
     }

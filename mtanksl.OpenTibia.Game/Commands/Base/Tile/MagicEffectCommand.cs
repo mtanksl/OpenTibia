@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Commands
 
         public MagicEffectType MagicEffectType { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
@@ -24,15 +24,15 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            foreach (var observer in server.Map.GetPlayers() )
+            foreach (var observer in context.Server.Map.GetPlayers() )
             {
                 if (observer.Tile.Position.CanSee(Position) )
                 {
-                    context.Write(observer.Client.Connection, new ShowMagicEffectOutgoingPacket(Position, MagicEffectType) );
+                    context.AddPacket(observer.Client.Connection, new ShowMagicEffectOutgoingPacket(Position, MagicEffectType) );
                 }
             }
 
-            base.Execute(server, context);
+            base.Execute(context);
         }
     }
 }

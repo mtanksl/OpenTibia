@@ -12,7 +12,7 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
                 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
@@ -22,18 +22,18 @@ namespace OpenTibia.Game.Commands
 
                 Player.AttackTarget = null;
 
-                server.CancelQueueForExecution(Constants.PlayerAttackSchedulerEvent(Player) );
+                context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
 
                 Player.FollowTarget = null;
 
-                server.CancelQueueForExecution(Constants.PlayerActionSchedulerEvent(Player) );
+                context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
 
                 //Notify
 
-                context.Write(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
+                context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
             }
 
-            base.Execute(server, context);
+            base.Execute(context);
         }
     }
 }

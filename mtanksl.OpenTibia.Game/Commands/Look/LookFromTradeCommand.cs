@@ -15,7 +15,7 @@ namespace OpenTibia.Game.Commands
 
         public byte Index { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
@@ -29,7 +29,7 @@ namespace OpenTibia.Game.Commands
                 {
                     //Act
 
-                    LookItem(item, server, context);
+                    LookItem(item, context);
                 }
             }
         }

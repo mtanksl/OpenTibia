@@ -12,24 +12,24 @@ namespace OpenTibia.Game.Commands
 
         public Creature Creature { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
             //Act
 
-            new TileRemoveCreatureCommand(Creature.Tile, Creature).Execute(server, context);
-            
-            server.Map.RemoveCreature(Creature);
+            new TileRemoveCreatureCommand(Creature.Tile, Creature).Execute(context);
+
+            context.Server.Map.RemoveCreature(Creature);
 
             foreach (var component in Creature.GetComponents<Behaviour>() )
             {
-                component.Stop(server);
+                component.Stop(context.Server);
             }
 
             //Notify
 
-            base.Execute(server, context);            
+            base.Execute(context);            
         }
     }
 }

@@ -12,11 +12,11 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
             
-            RuleViolation ruleViolation = server.RuleViolations.GetRuleViolationByReporter(Player);
+            RuleViolation ruleViolation = context.Server.RuleViolations.GetRuleViolationByReporter(Player);
 
             if (ruleViolation != null)
             {
@@ -24,28 +24,28 @@ namespace OpenTibia.Game.Commands
                 {
                     //Act
 
-                    server.RuleViolations.RemoveRuleViolation(ruleViolation);
+                    context.Server.RuleViolations.RemoveRuleViolation(ruleViolation);
 
                     //Notify
 
-                    foreach (var observer in server.Channels.GetChannel(3).GetPlayers() )
+                    foreach (var observer in context.Server.Channels.GetChannel(3).GetPlayers() )
                     {
-                        context.Write(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
+                        context.AddPacket(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
                     }
 
-                    base.Execute(server, context);
+                    base.Execute(context);
                 }
                 else
                 {
                     //Act
-                    
-                    server.RuleViolations.RemoveRuleViolation(ruleViolation);
+
+                    context.Server.RuleViolations.RemoveRuleViolation(ruleViolation);
 
                     //Notify
 
-                    context.Write(ruleViolation.Assignee.Client.Connection, new CancelRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
+                    context.AddPacket(ruleViolation.Assignee.Client.Connection, new CancelRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
 
-                    base.Execute(server, context);
+                    base.Execute(context);
                 }
             }
         }

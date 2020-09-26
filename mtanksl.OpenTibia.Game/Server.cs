@@ -40,9 +40,13 @@ namespace OpenTibia.Game
 
         public RuleViolationCollection RuleViolations { get; set; }
 
+        public GameObjectCollection GameObjects { get; set; }
+
         public PacketsFactory PacketsFactory { get; set; }
 
         public ItemFactory ItemFactory { get; set; }
+
+        public PlayerFactory PlayerFactory { get; set; }
 
         public MonsterFactory MonsterFactory { get; set; }
         
@@ -76,6 +80,8 @@ namespace OpenTibia.Game
 
             RuleViolations = new RuleViolationCollection();
 
+            GameObjects = new GameObjectCollection(this);
+
             PacketsFactory = new PacketsFactory();
             
             using (Logger.Measure("Loading items", true) )
@@ -86,21 +92,23 @@ namespace OpenTibia.Game
 
                 var items = ItemsFile.Load("data/items/items.xml");
 
-                ItemFactory = new ItemFactory(otb, dat, items);
+                ItemFactory = new ItemFactory(GameObjects, otb, dat, items);
             }
 
             using (Logger.Measure("Loading monsters", true) )
             {
                 var monsters = MonsterFile.Load("data/monsters");
 
-                MonsterFactory = new MonsterFactory(monsters);
+                MonsterFactory = new MonsterFactory(GameObjects, monsters);
             }
+
+            PlayerFactory = new PlayerFactory(GameObjects);
 
             using (Logger.Measure("Loading npcs", true) )
             {
                 var npcs = NpcFile.Load("data/npcs");
 
-                NpcFactory = new NpcFactory(npcs);
+                NpcFactory = new NpcFactory(GameObjects, npcs);
             }
 
             using (Logger.Measure("Loading map", true) )
@@ -137,11 +145,11 @@ namespace OpenTibia.Game
         {
             dispatcher.QueueForExecution( () =>
             {
-                using (var context = new Context() )
+                using (var context = new Context(this) )
                 {
                     try
                     {
-                        command.Execute(this, context);
+                        command.Execute(context);
                     }
                     catch (Exception ex)
                     {
@@ -170,11 +178,11 @@ namespace OpenTibia.Game
             {
                 events.Remove(key);
 
-                using (var context = new Context() )
+                using (var context = new Context(this) )
                 {
                     try
                     {
-                        command.Execute(this, context);
+                        command.Execute(context);
                     }
                     catch (Exception ex)
                     {

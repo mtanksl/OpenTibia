@@ -18,7 +18,7 @@ namespace OpenTibia.Game
 
         public bool CanThrow(Position fromPosition, Position toPosition)
         {
-            if ( !fromPosition.IsInPlayerRange(toPosition) )
+            if ( !fromPosition.IsInBattleRange(toPosition) )
             {
                 return false;
             }
@@ -40,11 +40,11 @@ namespace OpenTibia.Game
         {
             List<MoveDirection> moveDirections = new List<MoveDirection>();
 
-            if ( fromPosition.IsInPlayerRange(toPosition) )
+            if ( fromPosition.IsInBattleRange(toPosition) )
             {
                 Position[] positions = AStar(fromPosition, toPosition, position =>
                 {
-                    if ( !fromPosition.IsInPlayerRange(position) )
+                    if ( !fromPosition.IsInBattleRange(position) )
                     {
                         return false;
                     }

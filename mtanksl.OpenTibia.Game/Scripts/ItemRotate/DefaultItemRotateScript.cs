@@ -32,13 +32,13 @@ namespace OpenTibia.Game.Scripts
 
         }
 
-        public bool OnItemRotate(Player player, Item fromItem, Server server, Context context)
+        public bool OnItemRotate(Player player, Item fromItem, Context context)
         {
             ushort toOpenTibiaId;
 
             if ( items.TryGetValue(fromItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                new ItemTransformCommand(fromItem, toOpenTibiaId).Execute(server, context);
+                new ItemTransformCommand(fromItem, toOpenTibiaId).Execute(context);
 
                 return true;
             }

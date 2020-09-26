@@ -32,11 +32,11 @@ namespace OpenTibia.Game.Commands
 
         public ushort ToItemId { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
-            Tile fromTile = server.Map.GetTile(FromPosition);
+            Tile fromTile = context.Server.Map.GetTile(FromPosition);
 
             if (fromTile != null)
             {
@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Commands
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
                 {
-                    Tile toTile = server.Map.GetTile(ToPosition);
+                    Tile toTile = context.Server.Map.GetTile(ToPosition);
 
                     if (toTile != null)
                     {
@@ -54,11 +54,11 @@ namespace OpenTibia.Game.Commands
                         {
                             //Act
 
-                            if ( IsUseable(fromItem, server, context) &&
+                            if ( IsUseable(fromItem, context) &&
                                 
-                                 IsNextTo(fromTile, server, context) )
+                                 IsNextTo(fromTile, context) )
                             {
-                                UseItemWithItem(fromItem, toItem, toTile, server, context, () =>
+                                UseItemWithItem(fromItem, toItem, toTile, context, () =>
                                 {
                                     MoveItemFromTileToInventoryCommand moveItemFromTileToInventoryCommand = new MoveItemFromTileToInventoryCommand(Player, FromPosition, FromIndex, FromItemId, (byte)Slot.Extra, 1);
 
@@ -68,13 +68,13 @@ namespace OpenTibia.Game.Commands
 
                                         useItemWithItemFromInventoryToTileCommand.Completed += (s2, e2) =>
                                         {
-                                            base.Execute(e2.Server, e2.Context);
+                                            base.Execute(e2.Context);
                                         };
 
-                                        useItemWithItemFromInventoryToTileCommand.Execute(e.Server, e.Context);
+                                        useItemWithItemFromInventoryToTileCommand.Execute(e.Context);
                                     };
 
-                                    moveItemFromTileToInventoryCommand.Execute(server, context);
+                                    moveItemFromTileToInventoryCommand.Execute(context);
                                 } );
                             }
                         }

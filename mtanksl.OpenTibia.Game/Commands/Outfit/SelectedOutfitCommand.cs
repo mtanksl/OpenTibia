@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Commands
 
         public Outfit Outfit { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
@@ -33,16 +33,16 @@ namespace OpenTibia.Game.Commands
 
                 //Notify
 
-                foreach (var observer in server.Map.GetPlayers() )
+                foreach (var observer in context.Server.Map.GetPlayers() )
                 {
                     if (observer.Tile.Position.CanSee(fromTile.Position) )
                     {
-                        context.Write(observer.Client.Connection, new SetOutfitOutgoingPacket(Creature.Id, Outfit) );
+                        context.AddPacket(observer.Client.Connection, new SetOutfitOutgoingPacket(Creature.Id, Outfit) );
                     }
                 }
             }
 
-            base.Execute(server, context);
+            base.Execute(context);
         }
     }
 }

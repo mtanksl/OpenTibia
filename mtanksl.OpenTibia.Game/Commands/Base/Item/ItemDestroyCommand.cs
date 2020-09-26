@@ -13,7 +13,7 @@ namespace OpenTibia.Game.Commands
 
         public Item Item { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
             {
                 case Tile tile:
 
-                    foreach (var observer in server.Map.GetPlayers() )
+                    foreach (var observer in context.Server.Map.GetPlayers() )
                     {
                         if (observer.Tile.Position.IsNextTo(tile.Position) )
                         {
@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
                         }
                     }
 
-                    new TileRemoveItemCommand(tile, Item).Execute(server, context);
+                    new TileRemoveItemCommand(tile, Item).Execute(context);
 
                     break;
 
@@ -41,7 +41,7 @@ namespace OpenTibia.Game.Commands
 
                     isNextFrom.Add(inventory.Player);
 
-                    new InventoryRemoveItemCommand(inventory, Item).Execute(server, context);
+                    new InventoryRemoveItemCommand(inventory, Item).Execute(context);
 
                     break;
 
@@ -51,7 +51,7 @@ namespace OpenTibia.Game.Commands
                     {
                         case Tile tile:
 
-                            foreach (var observer in server.Map.GetPlayers() )
+                            foreach (var observer in context.Server.Map.GetPlayers() )
                             {
                                 if (observer.Tile.Position.IsNextTo(tile.Position) )
                                 {
@@ -68,7 +68,7 @@ namespace OpenTibia.Game.Commands
                             break;
                     }
 
-                    new ContainerRemoveItemCommand(container, Item).Execute(server, context);
+                    new ContainerRemoveItemCommand(container, Item).Execute(context);
 
                     break;
             }
@@ -83,7 +83,7 @@ namespace OpenTibia.Game.Commands
                         {
                             observer.Client.ContainerCollection.CloseContainer(pair.Key);
 
-                            context.Write(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                            context.AddPacket(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
                         }                           
                     }
                 }
@@ -91,7 +91,7 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            base.Execute(server, context);            
+            base.Execute(context);            
         }
     }
 }

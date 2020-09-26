@@ -13,7 +13,7 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        protected void LookItem(Item item, Server server, Context context)
+        protected void LookItem(Item item, Context context)
         {
             //Arrange
 
@@ -21,12 +21,12 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You see nothing special.") );
+            context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You see nothing special.") );
 
-            base.Execute(server, context);
+            base.Execute(context);
         }
 
-        protected void LookCreature(Creature creature, Server server, Context context)
+        protected void LookCreature(Creature creature, Context context)
         {
             //Arrange
 
@@ -36,14 +36,14 @@ namespace OpenTibia.Game.Commands
 
             if (Player == creature)
             {
-                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You see yourself.") );
+                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You see yourself.") );
             }
             else
             {
-                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You see " + creature.Name + ".") );
+                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You see " + creature.Name + ".") );
             }
 
-            base.Execute(server, context);
+            base.Execute(context);
         }
     }
 }

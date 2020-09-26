@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Commands
 
         public Creature Creature { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
@@ -29,22 +29,22 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            foreach (var observer in server.Map.GetPlayers() )
+            foreach (var observer in context.Server.Map.GetPlayers() )
             {
                 if (observer.Tile.Position.CanSee(Tile.Position) )
                 {
-                    context.Write(observer.Client.Connection, new ThingRemoveOutgoingPacket(Tile.Position, index) );
+                    context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(Tile.Position, index) );
                 }
             }
 
             //Event
 
-            if (server.Events.TileRemoveCreature != null)
+            if (context.Server.Events.TileRemoveCreature != null)
             {
-                server.Events.TileRemoveCreature(this, new TileRemoveCreatureEventArgs(Creature, Tile, index, server, context) );
+                context.Server.Events.TileRemoveCreature(this, new TileRemoveCreatureEventArgs(Tile, Creature, index) );
             }
 
-            base.Execute(server, context);
+            base.Execute(context);
         }
     }
 }

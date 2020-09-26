@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Scripts
             }
         }
 
-        public bool OnItemUseWithItem(Player player, Item item, Item toItem, Server server, Context context)
+        public bool OnItemUseWithItem(Player player, Item item, Item toItem, Context context)
         {
             ushort toOpenTibiaId;
 
@@ -44,9 +44,9 @@ namespace OpenTibia.Game.Scripts
             {
                 Tile tile = (Tile)toItem.Container;
 
-                new ItemTransformCommand(toItem, toOpenTibiaId).Execute(server, context);
+                new ItemTransformCommand(toItem, toOpenTibiaId).Execute(context);
 
-                new ItemCreateCommand(wheat, tile.Position).Execute(server, context);
+                new ItemCreateCommand(wheat, tile.Position).Execute(context);
 
                 return true;
             }

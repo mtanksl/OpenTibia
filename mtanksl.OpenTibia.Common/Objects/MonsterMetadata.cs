@@ -13,5 +13,7 @@ namespace OpenTibia.Common.Objects
         public Outfit Outfit { get; set; }
 
         public ushort Speed { get; set; }
+
+        public string[] Sentences { get; set; }
     }
 }

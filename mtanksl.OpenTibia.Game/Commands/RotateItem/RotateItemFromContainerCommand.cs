@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Commands
 
         public ushort ItemId { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
@@ -33,9 +33,9 @@ namespace OpenTibia.Game.Commands
                 {
                     //Act
 
-                    if ( IsRotatable(fromItem, server, context) )
+                    if ( IsRotatable(fromItem, context) )
                     {
-                        RotateItem(fromItem, server, context);
+                        RotateItem(fromItem, context);
                     }
                 }
             }

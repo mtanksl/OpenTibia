@@ -7,14 +7,14 @@ namespace OpenTibia.Common.Objects
     {
         public Client(Server server)
         {
-            this.CreatureCollection = new CreatureCollection(server, this);
+            this.CreatureCollection = new BattleCollection(server, this);
 
             this.ContainerCollection = new ContainerCollection(this);
 
             this.WindowCollection = new WindowCollection(this);
         }
 
-        public ICreatureCollection CreatureCollection { get; }
+        public IBattleCollection CreatureCollection { get; }
 
         public IContainerCollection ContainerCollection { get; }
 

@@ -45,7 +45,7 @@ namespace OpenTibia.Game.Scripts
 
         }
         
-        public bool OnCreatureWalk(Creature creature, Tile fromTile, Tile toTile, Server server, Context context)
+        public bool OnCreatureWalk(Creature creature, Tile fromTile, Tile toTile, Context context)
         {
             FloorChange floorChange;
 
@@ -57,28 +57,28 @@ namespace OpenTibia.Game.Scripts
 
                     if (floorChange != FloorChange.None)
                     {
-                        Tile nextTile = server.Map.GetTile( GetPosition(toTile.Position, floorChange) );
+                        Tile nextTile = context.Server.Map.GetTile( GetPosition(toTile.Position, floorChange) );
 
                         if (nextTile != null)
                         {
                             toTile = nextTile;
                         }
 
-                        new CreatureMoveCommand(creature, toTile).Execute(server, context);
+                        new CreatureMoveCommand(creature, toTile).Execute(context);
 
                         return true;
                     }
                 }
                 else
                 {
-                    Tile nextTile = server.Map.GetTile( GetPosition(toTile.Position, floorChange) );
+                    Tile nextTile = context.Server.Map.GetTile( GetPosition(toTile.Position, floorChange) );
 
                     if (nextTile != null)
                     {
                         toTile = nextTile;
                     }
 
-                    new CreatureMoveCommand(creature, toTile).Execute(server, context);
+                    new CreatureMoveCommand(creature, toTile).Execute(context);
 
                     return true;
                 }
@@ -87,7 +87,7 @@ namespace OpenTibia.Game.Scripts
             return false;
         }
 
-        public bool OnItemMove(Player player, Item fromItem, IContainer toContainer, byte toIndex, byte count, Server server, Context context)
+        public bool OnItemMove(Player player, Item fromItem, IContainer toContainer, byte toIndex, byte count, Context context)
         {
             if (toContainer is Tile toTile)
             {
@@ -101,28 +101,28 @@ namespace OpenTibia.Game.Scripts
 
                         if (floorChange != FloorChange.None)
                         {
-                            Tile nextTile = server.Map.GetTile( GetPosition(toTile.Position, floorChange) );
+                            Tile nextTile = context.Server.Map.GetTile( GetPosition(toTile.Position, floorChange) );
 
                             if (nextTile != null)
                             {
                                 toTile = nextTile;
                             }
 
-                            new ItemMoveCommand(player, fromItem, toTile, 0, count).Execute(server, context);
+                            new ItemMoveCommand(player, fromItem, toTile, 0, count).Execute(context);
 
                             return true;
                         }
                     }
                     else
                     {
-                        Tile nextTile = server.Map.GetTile( GetPosition(toTile.Position, floorChange) );
+                        Tile nextTile = context.Server.Map.GetTile( GetPosition(toTile.Position, floorChange) );
 
                         if (nextTile != null)
                         {
                             toTile = nextTile;
                         }
 
-                        new ItemMoveCommand(player, fromItem, toTile, 0, count).Execute(server, context);
+                        new ItemMoveCommand(player, fromItem, toTile, 0, count).Execute(context);
 
                         return true;
                     }

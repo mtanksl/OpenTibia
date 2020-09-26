@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.FileFormats.Xml.Npcs;
 using OpenTibia.Game.Components;
+using System;
 using System.Collections.Generic;
 using Npc = OpenTibia.Common.Objects.Npc;
 
@@ -8,10 +9,12 @@ namespace OpenTibia.Game
 {
     public class NpcFactory
     {
-        private Dictionary<string, NpcMetadata> metadatas;
+        private GameObjectCollection gameObjectCollection;
 
-        public NpcFactory(NpcFile npcFile)
+        public NpcFactory(GameObjectCollection gameObjectCollection, NpcFile npcFile)
         {
+            this.gameObjectCollection = gameObjectCollection;
+
             metadatas = new Dictionary<string, NpcMetadata>(npcFile.Npcs.Count);
 
             foreach (var xmlNpc in npcFile.Npcs)
@@ -30,8 +33,10 @@ namespace OpenTibia.Game
                 } ); 
             }
         }
-        
-        public Npc Create(string name)
+
+        private Dictionary<string, NpcMetadata> metadatas;
+
+        public Npc Create(string name, Action<Npc> initialize = null)
         {
             NpcMetadata metadata;
 
@@ -42,9 +47,21 @@ namespace OpenTibia.Game
 
             Npc npc = new Npc(metadata);
 
-            npc.AddComponent(new WalkBehaviour(2) );
+            npc.AddComponent(new AutoWalkBehaviour() );
+
+            if (initialize != null)
+            {
+                initialize(npc);
+            }
+
+            gameObjectCollection.AddGameObject(npc);
 
             return npc;
+        }
+
+        public void Destroy(Npc npc)
+        {
+            gameObjectCollection.RemoveGameObject(npc);
         }
     }
 }

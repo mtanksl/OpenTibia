@@ -3,6 +3,7 @@ using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Dat;
 using OpenTibia.FileFormats.Otb;
 using OpenTibia.FileFormats.Xml.Items;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Item = OpenTibia.Common.Objects.Item;
@@ -12,20 +13,31 @@ namespace OpenTibia.Game
 {
     public class ItemFactory
     {
-        public ItemFactory(OtbFile otbFile, DatFile datFile, ItemsFile itemsFile)
+        private GameObjectCollection gameObjectCollection;
+
+        public ItemFactory(GameObjectCollection gameObjectCollection, OtbFile otbFile, DatFile datFile, ItemsFile itemsFile)
         {
+            this.gameObjectCollection = gameObjectCollection;
+
             metadatas = new Dictionary<ushort, ItemMetadata>(datFile.Items.Count);
 
             foreach (var otbItem in otbFile.Items)
             {
                 if (otbItem.Group != ItemGroup.Deprecated)
                 {
-                    metadatas.Add(otbItem.OpenTibiaId, new ItemMetadata()
+                    ItemMetadata metadata = new ItemMetadata()
                     {
                         TibiaId = otbItem.TibiaId,
 
-                        OpenTibiaId = otbItem.OpenTibiaId
-                    } );
+                        OpenTibiaId = otbItem.OpenTibiaId,
+                    };
+
+                    if (otbItem.Flags.Is(FileFormats.Otb.ItemFlags.Readable) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.Readable;
+                    }
+
+                    metadatas.Add(otbItem.OpenTibiaId, metadata);
                 }
             }
 
@@ -71,6 +83,11 @@ namespace OpenTibia.Game
                     if (datItem.Flags.Is(ItemFlags.Useable) )
                     {
                         metadata.Flags |= ItemMetadataFlags.Useable;
+                    }
+
+                    if (datItem.Flags.Is(ItemFlags.IsFluid) || datItem.Flags.Is(ItemFlags.IsSplash) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.IsFluid;
                     }
 
                     if (datItem.Flags.Is(ItemFlags.NotWalkable) )
@@ -134,7 +151,7 @@ namespace OpenTibia.Game
 
         private Dictionary<ushort, ItemMetadata> metadatas;
 
-        public Item Create(ushort openTibiaId)
+        public Item Create(ushort openTibiaId, Action<Item> initialize = null)
         {
             ItemMetadata metadata;
 
@@ -143,22 +160,67 @@ namespace OpenTibia.Game
                 return null;
             }
 
+            Item item = null;
+
             if (openTibiaId == 1387)
             {
-                return new TeleportItem(metadata);
+                TeleportItem teleportItem = new TeleportItem(metadata);
+
+                item = teleportItem;
             }
 
             if (metadata.Flags.Is(ItemMetadataFlags.IsContainer) )
             {
-                return new Container(metadata);
+                Container container = new Container(metadata);
+
+                item = container;
             }
 
             if (metadata.Flags.Is(ItemMetadataFlags.Stackable) )
             {
-                return new StackableItem(metadata);
+                StackableItem stackableItem = new StackableItem(metadata);
+
+                stackableItem.Count = 1;
+
+                item = stackableItem;
             }
 
-            return new Item(metadata);
+            if (metadata.Flags.Is(ItemMetadataFlags.IsFluid) )
+            {
+                FluidItem fluidItem = new FluidItem(metadata);
+
+                fluidItem.FluidType = FluidType.Empty;
+
+                item = fluidItem;
+            }
+
+            if (metadata.Flags.Is(ItemMetadataFlags.Readable) )
+            {
+                ReadableItem readableItem = new ReadableItem(metadata);
+
+                readableItem.Text = "";
+
+                item = readableItem;
+            }
+
+            if (item == null)
+            {
+                item = new Item(metadata);
+            }
+
+            if (initialize != null)
+            {
+                initialize(item);
+            }
+
+            gameObjectCollection.AddGameObject(item);
+
+            return item;
+        }
+
+        public void Destroy(Item item)
+        {
+            gameObjectCollection.RemoveGameObject(item);
         }
     }
 }

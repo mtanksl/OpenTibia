@@ -44,8 +44,6 @@ namespace OpenTibia.Common.Objects
                 return Container as Tile;
             }
         }
-
-        public uint Id { get; set; }
         
         public string Name { get; set; }
 

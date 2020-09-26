@@ -4,7 +4,7 @@ namespace OpenTibia.Common.Objects
 {
     public interface IClient 
     {
-        ICreatureCollection CreatureCollection { get; }
+        IBattleCollection CreatureCollection { get; }
 
         IContainerCollection ContainerCollection { get; }
 

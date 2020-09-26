@@ -17,11 +17,11 @@ namespace OpenTibia.Game.Commands
 
         public string Message { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
-            RuleViolation ruleViolation = server.RuleViolations.GetRuleViolationByReporter(Player);
+            RuleViolation ruleViolation = context.Server.RuleViolations.GetRuleViolationByReporter(Player);
 
             if (ruleViolation == null)
             {
@@ -34,16 +34,16 @@ namespace OpenTibia.Game.Commands
                     Message = Message
                 };
 
-                server.RuleViolations.AddRuleViolation(ruleViolation);
+                context.Server.RuleViolations.AddRuleViolation(ruleViolation);
 
                 //Notify
 
-                foreach (var observer in server.Channels.GetChannel(3).GetPlayers() )
+                foreach (var observer in context.Server.Channels.GetChannel(3).GetPlayers() )
                 {
-                    context.Write(observer.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationOpen, ruleViolation.Time, ruleViolation.Message) );
+                    context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationOpen, ruleViolation.Time, ruleViolation.Message) );
                 }
 
-                base.Execute(server, context);
+                base.Execute(context);
             }
         }
     }

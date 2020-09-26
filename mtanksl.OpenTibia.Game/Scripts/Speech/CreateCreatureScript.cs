@@ -15,9 +15,9 @@ namespace OpenTibia.Game.Scripts.Speech
 
         }
 
-        public bool OnSpeech(Player player, string parameters, Server server, Context context)
+        public bool OnSpeech(Player player, string parameters, Context context)
         {
-            new CreatureCreateCommand(parameters, player.Tile.Position.Offset(player.Direction) ).Execute(server, context);
+            new CreatureCreateCommand(parameters, player.Tile.Position.Offset(player.Direction) ).Execute(context);
 
             return true;
         }

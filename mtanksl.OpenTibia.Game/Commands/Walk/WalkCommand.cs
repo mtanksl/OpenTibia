@@ -21,19 +21,19 @@ namespace OpenTibia.Game.Commands
 
         private int index = 0;
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
             Tile fromTile = Player.Tile;
 
-            Tile toTile = server.Map.GetTile( fromTile.Position.Offset(MoveDirection) );
+            Tile toTile = context.Server.Map.GetTile( fromTile.Position.Offset(MoveDirection) );
 
             //Act
 
             if ( toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || toTile.GetCreatures().Any(c => c.Block) )
             {
-                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible), 
+                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible), 
                     
                                                         new StopWalkOutgoingPacket(Player.Direction) );
             }
@@ -41,13 +41,13 @@ namespace OpenTibia.Game.Commands
             {
                 if (index++ == 0)
                 {
-                    server.QueueForExecution(Constants.PlayerActionSchedulerEvent(Player), 1000 * fromTile.Ground.Metadata.Speed / Player.Speed, this);
+                    context.Server.QueueForExecution(Constants.CreatureAttackSchedulerEvent(Player), 1000 * fromTile.Ground.Metadata.Speed / Player.Speed, this);
                 }
                 else
                 {
-                    new CreatureMoveCommand(Player, toTile).Execute(server, context);
+                    new CreatureMoveCommand(Player, toTile).Execute(context);
            
-                    base.Execute(server, context);
+                    base.Execute(context);
                 }
             }
         }

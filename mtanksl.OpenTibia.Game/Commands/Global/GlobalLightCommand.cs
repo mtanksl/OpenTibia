@@ -4,22 +4,16 @@ namespace OpenTibia.Game.Commands
 {
     public class GlobalLightCommand : Command
     {
-        public override void Execute(Server server, Context context)
-        {
-            //Arrange
+        public override void Execute(Context context)
+        {                        
+            context.Server.Clock.Tick();
 
-            //Act
-
-            server.Clock.Tick();
-
-            //Notify
-
-            foreach (var player in server.Map.GetPlayers() )
+            foreach (var player in context.Server.GameObjects.GetPlayers())
             {
-                context.Write(player.Client.Connection, new SetEnvironmentLightOutgoingPacket(server.Clock.Light) );
+                context.AddPacket(player.Client.Connection, new SetEnvironmentLightOutgoingPacket(context.Server.Clock.Light) );
             }
 
-            server.QueueForExecution(Constants.GlobalLightSchedulerEvent, Constants.GlobalLightSchedulerEventInterval, this);
+            base.Execute(context);
         }
     }
 }

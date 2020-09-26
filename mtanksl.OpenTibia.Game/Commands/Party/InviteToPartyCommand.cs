@@ -15,7 +15,7 @@ namespace OpenTibia.Game.Commands
 
         public uint CreatureId { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
             
@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            base.Execute(server, context);
+            base.Execute(context);
         }
     }
 }

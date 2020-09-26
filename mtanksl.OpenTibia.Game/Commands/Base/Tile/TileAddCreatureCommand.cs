@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Commands
 
         public Creature Creature { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
@@ -27,7 +27,7 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            foreach (var observer in server.Map.GetPlayers() )
+            foreach (var observer in context.Server.Map.GetPlayers() )
             {
                 if (observer.Tile.Position.CanSee(Tile.Position) )
                 {
@@ -35,23 +35,23 @@ namespace OpenTibia.Game.Commands
 
                     if (observer.Client.CreatureCollection.IsKnownCreature(Creature.Id, out removeId) )
                     {
-                        context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, Creature) );
+                        context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, Creature) );
                     }
                     else
                     {
-                        context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, removeId, Creature) );
+                        context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, removeId, Creature) );
                     }
                 }
             }
 
             //Event
 
-            if (server.Events.TileAddCreature != null)
+            if (context.Server.Events.TileAddCreature != null)
             {
-                server.Events.TileAddCreature(this, new TileAddCreatureEventArgs(Creature, Tile, index, server, context) );
+                context.Server.Events.TileAddCreature(this, new TileAddCreatureEventArgs(Tile, Creature, index) );
             }
 
-            base.Execute(server, context);
+            base.Execute(context);
         }
     }
 }

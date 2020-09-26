@@ -4,23 +4,17 @@ namespace OpenTibia.Game.Commands
 {
     public class GlobalCreaturesCommand : Command
     {
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
-            //Arrange
-
-            //Act
-
-            foreach (var creature in server.Map.GetCreatures() )
+            foreach (var creature in context.Server.GameObjects.GetMonsterAndNpcs() )
             {
-                foreach (var component in creature.GetComponents<Behaviour>() )
+                foreach (var component in creature.GetComponents<TimeBehaviour>() )
                 {
-                    component.Update(server, context);
+                    component.Update(context);
                 }
             }
 
-            server.QueueForExecution(Constants.GlobalCreaturesSchedulerEvent, Constants.GlobalCreaturesSchedulerEventInterval, this);
-
-            //Notify
+            base.Execute(context);
         }
     }
 }

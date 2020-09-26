@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Commands
 
         public SelectedCharacterIncomingPacket Packet { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Commands
 
                 if (Packet.Version != 860)
                 {
-                    context.Write(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.OnlyProtocol86Allowed) );
+                    context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.OnlyProtocol86Allowed) );
 
                     context.Disconnect(Connection);
                 }
@@ -41,7 +41,7 @@ namespace OpenTibia.Game.Commands
 
                     if (account == null)
                     {
-                        context.Write(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
+                        context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
 
                         context.Disconnect(Connection);
                     }
@@ -49,7 +49,7 @@ namespace OpenTibia.Game.Commands
                     {
                         Position toPosition = new Position(account.CoordinateX, account.CoordinateY, account.CoordinateZ);
 
-                        Tile toTile = server.Map.GetTile(toPosition);
+                        Tile toTile = context.Server.Map.GetTile(toPosition);
 
                         if (toTile != null)
                         {
@@ -58,24 +58,24 @@ namespace OpenTibia.Game.Commands
                                 Name = account.Name
                             };
 
-                            Connection.Client = new Client(server)
+                            Connection.Client = new Client(context.Server)
                             {
                                 Player = player
                             };
 
                             //Act
 
-                            server.Map.AddCreature(player);
+                            context.Server.Map.AddCreature(player);
 
                             byte toIndex = toTile.AddContent(player);
 
                             //Notify
 
-                            foreach (var observer in server.Map.GetPlayers() )
+                            foreach (var observer in context.Server.Map.GetPlayers() )
                             {
                                 if (observer == player)
                                 {
-                                    context.Write(observer.Client.Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs), 
+                                    context.AddPacket(observer.Client.Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs), 
 
                                                                               new SetSpecialConditionOutgoingPacket(SpecialCondition.None),
 
@@ -91,9 +91,9 @@ namespace OpenTibia.Game.Commands
 
                                                                               new SendSkillsOutgoingPacket(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0),
 
-                                                                              new SetEnvironmentLightOutgoingPacket(server.Clock.Light),
+                                                                              new SetEnvironmentLightOutgoingPacket(context.Server.Clock.Light),
 
-                                                                              new SendTilesOutgoingPacket(server.Map, player.Client, toPosition),
+                                                                              new SendTilesOutgoingPacket(context.Server.Map, player.Client, toPosition),
 
                                                                               new ShowMagicEffectOutgoingPacket(toPosition, MagicEffectType.Teleport) );
                                 }
@@ -105,13 +105,13 @@ namespace OpenTibia.Game.Commands
 
                                         if (observer.Client.CreatureCollection.IsKnownCreature(player.Id, out removeId) )
                                         {
-                                            context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(toPosition, toIndex, player),
+                                            context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(toPosition, toIndex, player),
 
                                                                                       new ShowMagicEffectOutgoingPacket(toPosition, MagicEffectType.Teleport) );
                                         }
                                         else
                                         {
-                                            context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(toPosition, toIndex, removeId, player),
+                                            context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(toPosition, toIndex, removeId, player),
 
                                                                                       new ShowMagicEffectOutgoingPacket(toPosition, MagicEffectType.Teleport) );
                                         }
@@ -121,22 +121,17 @@ namespace OpenTibia.Game.Commands
 
                             foreach (var component in player.GetComponents<Behaviour>() )
                             {
-                                component.Start(server);
+                                component.Start(context.Server);
                             }
 
                             //Event
 
-                            if (server.Events.Login != null)
+                            if (context.Server.Events.TileAddCreature != null)
                             {
-                                server.Events.Login(this, new LoginEventArgs(player, toTile, toIndex, server, context) );
-                            }
-
-                            if (server.Events.TileAddCreature != null)
-                            {
-                                server.Events.TileAddCreature(this, new TileAddCreatureEventArgs(player, toTile, toIndex, server, context) );
+                                context.Server.Events.TileAddCreature(this, new TileAddCreatureEventArgs(toTile, player, toIndex) );
                             }
                             
-                            base.Execute(server, context);
+                            base.Execute(context);
                         }
                     }
                 }

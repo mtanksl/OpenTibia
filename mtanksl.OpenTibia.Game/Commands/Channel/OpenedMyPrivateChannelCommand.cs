@@ -12,11 +12,11 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
-            PrivateChannel privateChannel = server.Channels.GetPrivateChannelByOwner(Player);
+            PrivateChannel privateChannel = context.Server.Channels.GetPrivateChannelByOwner(Player);
 
             if (privateChannel == null)
             {
@@ -31,14 +31,14 @@ namespace OpenTibia.Game.Commands
 
                 privateChannel.AddPlayer(Player);
 
-                server.Channels.AddChannel(privateChannel);
+                context.Server.Channels.AddChannel(privateChannel);
             }
 
             //Notify
 
-            context.Write(Player.Client.Connection, new OpenMyPrivateChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
+            context.AddPacket(Player.Client.Connection, new OpenMyPrivateChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
 
-            base.Execute(server, context);
+            base.Execute(context);
         }
     }
 }

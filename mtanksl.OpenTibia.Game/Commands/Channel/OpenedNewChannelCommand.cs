@@ -17,11 +17,11 @@ namespace OpenTibia.Game.Commands
 
         public ushort ChannelId { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
-            Channel channel = server.Channels.GetChannel(ChannelId);
+            Channel channel = context.Server.Channels.GetChannel(ChannelId);
             
             if (channel != null)
             {
@@ -45,9 +45,9 @@ namespace OpenTibia.Game.Commands
 
                     //Notify
 
-                    context.Write(Player.Client.Connection, new OpenChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
+                    context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
 
-                    base.Execute(server, context);
+                    base.Execute(context);
                 }
                 else
                 {
@@ -64,9 +64,9 @@ namespace OpenTibia.Game.Commands
 
                         //Notify
 
-                        context.Write(Player.Client.Connection, new OpenChannelOutgoingPacket(guildChannel.Id, guildChannel.Name) );
+                        context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(guildChannel.Id, guildChannel.Name) );
 
-                        base.Execute(server, context);
+                        base.Execute(context);
                     }
                     else
                     {
@@ -83,9 +83,9 @@ namespace OpenTibia.Game.Commands
 
                             //Notify
 
-                            context.Write(Player.Client.Connection, new OpenChannelOutgoingPacket(partyChannel.Id, partyChannel.Name) );
+                            context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(partyChannel.Id, partyChannel.Name) );
 
-                            base.Execute(server, context);
+                            base.Execute(context);
                         }
                         else
                         {
@@ -100,22 +100,22 @@ namespace OpenTibia.Game.Commands
 
                             if (channel.Id == 3)
                             {
-                                context.Write(Player.Client.Connection, new OpenRuleViolationsChannelOutgoingPacket(channel.Id) );
+                                context.AddPacket(Player.Client.Connection, new OpenRuleViolationsChannelOutgoingPacket(channel.Id) );
                     
-                                foreach (var ruleViolation in server.RuleViolations.GetRuleViolations() )
+                                foreach (var ruleViolation in context.Server.RuleViolations.GetRuleViolations() )
                                 {
                                     if (ruleViolation.Assignee == null)
                                     {
-                                        context.Write(Player.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationOpen, ruleViolation.Time, ruleViolation.Message) );
+                                        context.AddPacket(Player.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationOpen, ruleViolation.Time, ruleViolation.Message) );
                                     }
                                 }
                             }
                             else
                             {
-                                context.Write(Player.Client.Connection, new OpenChannelOutgoingPacket(channel.Id, channel.Name) );
+                                context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(channel.Id, channel.Name) );
                             }
 
-                            base.Execute(server, context);
+                            base.Execute(context);
                         }
                     }                    
                 }

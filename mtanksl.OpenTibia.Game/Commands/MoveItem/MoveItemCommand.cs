@@ -13,7 +13,7 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        protected bool IsNextTo(Tile fromTile, Server server, Context context)
+        protected bool IsNextTo(Tile fromTile, Context context)
         {
             if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
             {
@@ -21,10 +21,10 @@ namespace OpenTibia.Game.Commands
 
                 walkToUnknownPathCommand.Completed += (s, e) =>
                 {
-                    server.QueueForExecution(Constants.PlayerActionSchedulerEvent(Player), Constants.PlayerSchedulerEventDelay, this);
+                    context.Server.QueueForExecution(Constants.CreatureActionSchedulerEvent(Player), Constants.CreatureActionSchedulerEventDelay, this);
                 };
 
-                walkToUnknownPathCommand.Execute(server, context);
+                walkToUnknownPathCommand.Execute(context);
 
                 return false;
             }
@@ -32,11 +32,11 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected bool IsMoveable(Item fromItem, Server server, Context context)
+        protected bool IsMoveable(Item fromItem, Context context)
         {
             if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
             {
-                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
+                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
 
                 return false;
             }
@@ -44,11 +44,11 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected bool IsPickupable(Item fromItem, Server server, Context context)
+        protected bool IsPickupable(Item fromItem, Context context)
         {
             if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Pickupable) )
             {
-                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTakeThisObject) );
+                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTakeThisObject) );
 
                 return false;
             }
@@ -56,11 +56,11 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected bool CanThrow(Tile fromTile, Tile toTile, Server server, Context context)
+        protected bool CanThrow(Tile fromTile, Tile toTile, Context context)
         {
-            if ( !server.Pathfinding.CanThrow(fromTile.Position, toTile.Position) )
+            if ( !context.Server.Pathfinding.CanThrow(fromTile.Position, toTile.Position) )
             {
-                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
+                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
 
                 return false;
             }
@@ -68,11 +68,11 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected bool IsPossible(Item fromItem, Container toContainer, Server server, Context context)
+        protected bool IsPossible(Item fromItem, Container toContainer, Context context)
         {
             if ( toContainer.IsChild(fromItem) )
             {
-                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
+                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
 
                 return false;
             }
@@ -80,11 +80,11 @@ namespace OpenTibia.Game.Commands
             return true;
         }
         
-        protected bool IsEnoughtSpace(Item fromItem, Container toContainer, Server server, Context context)
+        protected bool IsEnoughtSpace(Item fromItem, Container toContainer, Context context)
         {
             if (toContainer.Count == toContainer.Metadata.Capacity)
             {
-                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtSpace) );
+                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtSpace) );
 
                 return false;
             }
@@ -92,11 +92,11 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected void MoveItem(Item fromItem, IContainer toContainer, byte toIndex, byte count, Server server, Context context)
+        protected void MoveItem(Item fromItem, IContainer toContainer, byte toIndex, byte count, Context context)
         {
-            new ItemMoveCommand(Player, fromItem, toContainer, toIndex, count).Execute(server, context);
+            new ItemMoveCommand(Player, fromItem, toContainer, toIndex, count).Execute(context);
 
-            base.Execute(server, context);
+            base.Execute(context);
         }
     }
 }

@@ -6,6 +6,6 @@ namespace OpenTibia.Game.Scripts
     {
         bool NextTo { get; }
 
-        bool OnItemUseWithCreature(Player player, Item item, Creature toCreature, Server server, Context context);
+        bool OnItemUseWithCreature(Player player, Item item, Creature toCreature, Context context);
     }
 }

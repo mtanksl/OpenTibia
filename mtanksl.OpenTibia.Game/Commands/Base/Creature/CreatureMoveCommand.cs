@@ -19,11 +19,11 @@ namespace OpenTibia.Game.Commands
 
         public Tile ToTile { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
-            if ( !server.Scripts.CreatureWalkScripts.Any(script => script.OnCreatureWalk(Creature, Creature.Tile, ToTile, server, context) ) )
+            if ( !context.Server.Scripts.CreatureWalkScripts.Any(script => script.OnCreatureWalk(Creature, Creature.Tile, ToTile, context) ) )
             {
                 Position toPosition = ToTile.Position;
 
@@ -41,7 +41,7 @@ namespace OpenTibia.Game.Commands
 
                 //Notify
 
-                foreach (var observer in server.Map.GetPlayers() )
+                foreach (var observer in context.Server.Map.GetPlayers() )
                 {
                     if (observer == Creature)
                     {
@@ -53,7 +53,7 @@ namespace OpenTibia.Game.Commands
                                 {
                                     observer.Client.ContainerCollection.CloseContainer(pair.Key);
 
-                                    context.Write(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                                    context.AddPacket(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
                                 }
                             }
                         }
@@ -66,43 +66,43 @@ namespace OpenTibia.Game.Commands
 
                         if (deltaZ < -1 || deltaZ > 1 || deltaY < -2 || deltaY > 2 || deltaX < -2 || deltaX > 2)
                         {
-                            context.Write(observer.Client.Connection, new SendTilesOutgoingPacket(server.Map, observer.Client, toPosition) );
+                            context.AddPacket(observer.Client.Connection, new SendTilesOutgoingPacket(context.Server.Map, observer.Client, toPosition) );
                         }
                         else
                         {
                             if (fromPosition.Z == 7 && toPosition.Z == 8)
                             {
-                                context.Write(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromPosition, fromIndex) );
+                                context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromPosition, fromIndex) );
                             }
                             else
                             {
-                                context.Write(observer.Client.Connection, new WalkOutgoingPacket(fromPosition, fromIndex, toPosition) );
+                                context.AddPacket(observer.Client.Connection, new WalkOutgoingPacket(fromPosition, fromIndex, toPosition) );
                             }
 
                             Position position = fromPosition;
 
                             while (deltaZ < 0)
                             {
-                                context.Write(observer.Client.Connection, new SendMapUpOutgoingPacket(server.Map, observer.Client, position) );
+                                context.AddPacket(observer.Client.Connection, new SendMapUpOutgoingPacket(context.Server.Map, observer.Client, position) );
 
                                 position = position.Offset(0, 0, -1);
 
-                                context.Write(observer.Client.Connection, new SendMapWestOutgoingPacket(server.Map, observer.Client, position.Offset(0, 1, 0) ) );
+                                context.AddPacket(observer.Client.Connection, new SendMapWestOutgoingPacket(context.Server.Map, observer.Client, position.Offset(0, 1, 0) ) );
 
-                                context.Write(observer.Client.Connection, new SendMapNorthOutgoingPacket(server.Map, observer.Client, position) );
+                                context.AddPacket(observer.Client.Connection, new SendMapNorthOutgoingPacket(context.Server.Map, observer.Client, position) );
 
                                 deltaZ++;
                             }
 
                             while (deltaZ > 0)
                             {
-                                context.Write(observer.Client.Connection, new SendMapDownOutgoingPacket(server.Map, observer.Client, position) );
+                                context.AddPacket(observer.Client.Connection, new SendMapDownOutgoingPacket(context.Server.Map, observer.Client, position) );
 
                                 position = position.Offset(0, 0, 1);
 
-                                context.Write(observer.Client.Connection, new SendMapEastOutgoingPacket(server.Map, observer.Client, position.Offset(0, -1, 0) ) );
+                                context.AddPacket(observer.Client.Connection, new SendMapEastOutgoingPacket(context.Server.Map, observer.Client, position.Offset(0, -1, 0) ) );
                                 
-                                context.Write(observer.Client.Connection, new SendMapSouthOutgoingPacket(server.Map, observer.Client, position) );
+                                context.AddPacket(observer.Client.Connection, new SendMapSouthOutgoingPacket(context.Server.Map, observer.Client, position) );
 
                                 deltaZ--;
                             }
@@ -111,7 +111,7 @@ namespace OpenTibia.Game.Commands
                             {
                                 position = position.Offset(0, -1, 0);
 
-                                context.Write(observer.Client.Connection, new SendMapNorthOutgoingPacket(server.Map, observer.Client, position) );
+                                context.AddPacket(observer.Client.Connection, new SendMapNorthOutgoingPacket(context.Server.Map, observer.Client, position) );
 
                                 deltaY++;
                             }
@@ -120,7 +120,7 @@ namespace OpenTibia.Game.Commands
                             {
                                 position = position.Offset(0, 1, 0);
 
-                                context.Write(observer.Client.Connection, new SendMapSouthOutgoingPacket(server.Map, observer.Client, position) );
+                                context.AddPacket(observer.Client.Connection, new SendMapSouthOutgoingPacket(context.Server.Map, observer.Client, position) );
                                 
                                 deltaY--;
                             }
@@ -129,7 +129,7 @@ namespace OpenTibia.Game.Commands
                             {
                                 position = position.Offset(-1, 0, 0);
 
-                                context.Write(observer.Client.Connection, new SendMapWestOutgoingPacket(server.Map, observer.Client, position) );
+                                context.AddPacket(observer.Client.Connection, new SendMapWestOutgoingPacket(context.Server.Map, observer.Client, position) );
 
                                 deltaX++;
                             }
@@ -138,23 +138,23 @@ namespace OpenTibia.Game.Commands
                             {
                                 position = position.Offset(1, 0, 0);
 
-                                context.Write(observer.Client.Connection, new SendMapEastOutgoingPacket(server.Map, observer.Client, position) );
+                                context.AddPacket(observer.Client.Connection, new SendMapEastOutgoingPacket(context.Server.Map, observer.Client, position) );
 
                                 deltaX--;
                             }
                         }
 
-                        server.CancelQueueForExecution(Constants.PlayerActionSchedulerEvent(observer) );
+                        context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(observer) );
                     }
                     else
                     {
                         if (observer.Tile.Position.CanSee(fromPosition) && observer.Tile.Position.CanSee(toPosition) )
                         {
-                            context.Write(observer.Client.Connection, new WalkOutgoingPacket(fromPosition, fromIndex, toPosition) );
+                            context.AddPacket(observer.Client.Connection, new WalkOutgoingPacket(fromPosition, fromIndex, toPosition) );
                         }
                         else if (observer.Tile.Position.CanSee(fromPosition) )
                         {
-                            context.Write(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromPosition, fromIndex) );
+                            context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromPosition, fromIndex) );
                         }
                         else if (observer.Tile.Position.CanSee(toPosition) )
                         {
@@ -162,11 +162,11 @@ namespace OpenTibia.Game.Commands
 
                             if (observer.Client.CreatureCollection.IsKnownCreature(Creature.Id, out removeId) )
                             {
-                                context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(toPosition, toIndex, Creature) );
+                                context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(toPosition, toIndex, Creature) );
                             }
                             else
                             {
-                                context.Write(observer.Client.Connection, new ThingAddOutgoingPacket(toPosition, toIndex, removeId, Creature) );
+                                context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(toPosition, toIndex, removeId, Creature) );
                             }
                         }
                     }                    
@@ -174,20 +174,20 @@ namespace OpenTibia.Game.Commands
 
                 //Event
 
-                if (server.Events.TileRemoveCreature != null)
+                if (context.Server.Events.TileRemoveCreature != null)
                 {
-                    server.Events.TileRemoveCreature(this, new TileRemoveCreatureEventArgs(Creature, fromTile, fromIndex, server, context) );
+                    context.Server.Events.TileRemoveCreature(this, new TileRemoveCreatureEventArgs(fromTile, Creature, fromIndex) );
                 }
 
-                if (server.Events.TileAddCreature != null)
+                if (context.Server.Events.TileAddCreature != null)
                 {
-                    server.Events.TileAddCreature(this, new TileAddCreatureEventArgs(Creature, ToTile, toIndex, server, context) );
+                    context.Server.Events.TileAddCreature(this, new TileAddCreatureEventArgs(ToTile, Creature, toIndex) );
                 }
             }
 
             //Notify
 
-            base.Execute(server, context);
+            base.Execute(context);
         }
     }
 }

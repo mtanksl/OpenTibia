@@ -1,22 +1,21 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Game;
 
 namespace OpenTibia.Common.Events
 {
     public class TileAddCreatureEventArgs : GameEventArgs
     {
-        public TileAddCreatureEventArgs(Creature creature, Tile tile, byte index, Server server, Context context) : base(server, context)
+        public TileAddCreatureEventArgs(Tile tile, Creature creature, byte index)
         {
-            Creature = creature;
-
             Tile = tile;
+
+            Creature = creature;
 
             Index = index;
         }
 
-        public Creature Creature { get; set; }
-
         public Tile Tile { get; set; }
+
+        public Creature Creature { get; set; }
 
         public byte Index { get; set; }
     }

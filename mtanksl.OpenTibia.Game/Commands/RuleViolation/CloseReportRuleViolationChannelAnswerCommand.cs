@@ -17,17 +17,17 @@ namespace OpenTibia.Game.Commands
 
         public string Name { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
-            Player reporter = server.Map.GetPlayers()
+            Player reporter = context.Server.Map.GetPlayers()
                 .Where(p => p.Name == Name)
                 .FirstOrDefault();
 
             if (reporter != null)
             {
-                RuleViolation ruleViolation = server.RuleViolations.GetRuleViolationByReporter(reporter);
+                RuleViolation ruleViolation = context.Server.RuleViolations.GetRuleViolationByReporter(reporter);
 
                 if (ruleViolation != null)
                 {
@@ -35,30 +35,30 @@ namespace OpenTibia.Game.Commands
                     {
                         //Act
 
-                        server.RuleViolations.RemoveRuleViolation(ruleViolation);
+                        context.Server.RuleViolations.RemoveRuleViolation(ruleViolation);
 
                         //Notify
 
-                        foreach (var observer in server.Channels.GetChannel(3).GetPlayers() )
+                        foreach (var observer in context.Server.Channels.GetChannel(3).GetPlayers() )
                         {
-                            context.Write(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
+                            context.AddPacket(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
                         }
 
-                        context.Write(ruleViolation.Reporter.Client.Connection, new CloseRuleViolationOutgoingPacket() );
+                        context.AddPacket(ruleViolation.Reporter.Client.Connection, new CloseRuleViolationOutgoingPacket() );
 
-                        base.Execute(server, context);
+                        base.Execute(context);
                     }
                     else if (ruleViolation.Assignee == Player)
                     {
                         //Act
 
-                        server.RuleViolations.RemoveRuleViolation(ruleViolation);
+                        context.Server.RuleViolations.RemoveRuleViolation(ruleViolation);
 
                         //Notify
 
-                        context.Write(ruleViolation.Reporter.Client.Connection, new CloseRuleViolationOutgoingPacket() );
+                        context.AddPacket(ruleViolation.Reporter.Client.Connection, new CloseRuleViolationOutgoingPacket() );
 
-                        base.Execute(server, context);
+                        base.Execute(context);
                     }
                 }
             }

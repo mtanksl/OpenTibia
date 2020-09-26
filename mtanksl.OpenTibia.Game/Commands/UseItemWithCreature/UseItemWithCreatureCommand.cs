@@ -15,7 +15,7 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        protected bool IsNextTo(Tile fromTile, Server server, Context context)
+        protected bool IsNextTo(Tile fromTile, Context context)
         {
             if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
             {
@@ -23,10 +23,10 @@ namespace OpenTibia.Game.Commands
 
                 walkToUnknownPathCommand.Completed += (s, e) =>
                 {
-                    server.QueueForExecution(Constants.PlayerActionSchedulerEvent(Player), Constants.PlayerSchedulerEventDelay, this);
+                    context.Server.QueueForExecution(Constants.CreatureActionSchedulerEvent(Player), Constants.CreatureActionSchedulerEventDelay, this);
                 };
 
-                walkToUnknownPathCommand.Execute(server, context);
+                walkToUnknownPathCommand.Execute(context);
 
                 return false;
             }
@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected bool IsUseable(Item fromItem, Server server, Context context)
+        protected bool IsUseable(Item fromItem, Context context)
         {
             if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
             {
@@ -44,13 +44,13 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected void UseItemWithCreature(Item fromItem, Creature toCreature, Server server, Context context, Action howToProceed)
+        protected void UseItemWithCreature(Item fromItem, Creature toCreature, Context context, Action howToProceed)
         {
             IItemUseWithCreatureScript script;
 
-            if ( !server.Scripts.ItemUseWithCreatureScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) )
+            if ( !context.Server.Scripts.ItemUseWithCreatureScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) )
             {
-                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
+                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
             }
             else
             {
@@ -67,9 +67,9 @@ namespace OpenTibia.Game.Commands
                 }
                 else
                 {
-                    if ( !server.Pathfinding.CanThrow(Player.Tile.Position, toCreature.Tile.Position) )
+                    if ( !context.Server.Pathfinding.CanThrow(Player.Tile.Position, toCreature.Tile.Position) )
                     {
-                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
+                        context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
 
                         proceed = false;
                     }
@@ -77,13 +77,13 @@ namespace OpenTibia.Game.Commands
 
                 if (proceed)
                 {
-                    if ( !script.OnItemUseWithCreature(Player, fromItem, toCreature, server, context) )
+                    if ( !script.OnItemUseWithCreature(Player, fromItem, toCreature, context) )
                     {
-                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
+                        context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
                     }
                     else
                     {
-                        base.Execute(server, context);
+                        base.Execute(context);
                     }
                 }
             }

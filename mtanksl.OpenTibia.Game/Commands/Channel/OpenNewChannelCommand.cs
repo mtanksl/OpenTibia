@@ -14,7 +14,7 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
@@ -43,7 +43,7 @@ namespace OpenTibia.Game.Commands
                 new Channel(65535, "Private Chat Channel")
             };
 
-            foreach (var privateChannel in server.Channels.GetPrivateChannels() )
+            foreach (var privateChannel in context.Server.Channels.GetPrivateChannels() )
             {
                 if ( privateChannel.ContainsPlayer(Player) || privateChannel.ContainsInvitation(Player) )
                 {
@@ -53,9 +53,9 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            context.Write(Player.Client.Connection, new OpenChannelDialogOutgoingPacket(channels) );
+            context.AddPacket(Player.Client.Connection, new OpenChannelDialogOutgoingPacket(channels) );
 
-            base.Execute(server, context);
+            base.Execute(context);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
 
         public SafeMode SafeMode { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
@@ -45,13 +45,13 @@ namespace OpenTibia.Game.Commands
                     {
                         Player.FollowTarget = null;
 
-                        server.CancelQueueForExecution(Constants.PlayerActionSchedulerEvent(Player) );
+                        context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
                     }
                     else
                     {
                         Player.FollowTarget = Player.AttackTarget;
 
-                        new FollowCommand(Player, Player.FollowTarget).Execute(server, context);
+                        new FollowCommand(Player, Player.FollowTarget).Execute(context);
                     }
                 }
             }
@@ -63,7 +63,7 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            base.Execute(server, context);
+            base.Execute(context);
         }
     }
 }

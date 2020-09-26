@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Commands
 
         public Item Item { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
@@ -34,12 +34,12 @@ namespace OpenTibia.Game.Commands
                 {
                     if (pair.Value == Container)
                     {
-                        context.Write(observer.Client.Connection, new ContainerRemoveOutgoingPacket(pair.Key, index) );
+                        context.AddPacket(observer.Client.Connection, new ContainerRemoveOutgoingPacket(pair.Key, index) );
                     }
                 }
             }
 
-            base.Execute(server, context);
+            base.Execute(context);
         }
     }
 }

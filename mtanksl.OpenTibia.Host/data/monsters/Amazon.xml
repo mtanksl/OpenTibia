@@ -2,4 +2,8 @@
 <monster name="Amazon" nameDescription="a amazon" speed="180">
 	<health now="110" max="110"/>
 	<look type="137" head="113" body="120" legs="114" feet="132"/>
+  <voices>
+    <voice sentence="Your head shall be mine!" />
+    <voice sentence="Yeeee ha!"  />
+  </voices>
 </monster>

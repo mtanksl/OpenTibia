@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Commands
 
         public byte ContainerId { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
@@ -30,9 +30,9 @@ namespace OpenTibia.Game.Commands
 
                 //Notify
 
-                context.Write(Player.Client.Connection, new CloseContainerOutgoingPacket(ContainerId) );
+                context.AddPacket(Player.Client.Connection, new CloseContainerOutgoingPacket(ContainerId) );
 
-                base.Execute(server, context);
+                base.Execute(context);
             }
         }
     }

@@ -21,11 +21,11 @@ namespace OpenTibia.Game.Commands
 
         public string Message { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
-            Channel channel = server.Channels.GetChannel(ChannelId);
+            Channel channel = context.Server.Channels.GetChannel(ChannelId);
 
             if (channel != null)
             {
@@ -37,10 +37,10 @@ namespace OpenTibia.Game.Commands
 
                     foreach (var observer in channel.GetPlayers() )
                     {
-                        context.Write(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.ChannelYellow, channel.Id, Message) );
+                        context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.ChannelYellow, channel.Id, Message) );
                     }
 
-                    base.Execute(server, context);
+                    base.Execute(context);
                 }
             }
         }

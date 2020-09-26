@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Commands
 
         public ushort ToItemId { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
@@ -54,9 +54,9 @@ namespace OpenTibia.Game.Commands
                         {
                             //Act
 
-                            if ( IsUseable(fromItem, server, context) )
+                            if ( IsUseable(fromItem, context) )
                             {
-                                UseItemWithItem(fromItem, toItem, server, context);
+                                UseItemWithItem(fromItem, toItem, context);
                             }
                         }
                     }

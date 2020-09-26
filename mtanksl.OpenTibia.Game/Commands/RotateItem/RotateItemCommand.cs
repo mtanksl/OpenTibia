@@ -14,7 +14,7 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        protected bool IsNextTo(Tile fromTile, Server server, Context context)
+        protected bool IsNextTo(Tile fromTile, Context context)
         {
             if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
             {
@@ -22,10 +22,10 @@ namespace OpenTibia.Game.Commands
 
                 walkToUnknownPathCommand.Completed += (s, e) =>
                 {
-                    server.QueueForExecution(Constants.PlayerActionSchedulerEvent(Player), Constants.PlayerSchedulerEventDelay, this);
+                    context.Server.QueueForExecution(Constants.CreatureActionSchedulerEvent(Player), Constants.CreatureActionSchedulerEventDelay, this);
                 };
 
-                walkToUnknownPathCommand.Execute(server, context);
+                walkToUnknownPathCommand.Execute(context);
 
                 return false;
             }
@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected bool IsRotatable(Item fromItem, Server server, Context context)
+        protected bool IsRotatable(Item fromItem, Context context)
         {
             if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Rotatable) )
             {
@@ -43,17 +43,17 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected void RotateItem(Item fromItem, Server server, Context context)
+        protected void RotateItem(Item fromItem, Context context)
         {
             IItemRotateScript script;
 
-            if ( !server.Scripts.ItemRotateScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.OnItemRotate(Player, fromItem, server, context) )
+            if ( !context.Server.Scripts.ItemRotateScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.OnItemRotate(Player, fromItem, context) )
             {
-                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
+                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
             }
             else
             {
-                base.Execute(server, context);
+                base.Execute(context);
             }
         }
     }

@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Commands
 
         public Item Item { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
@@ -30,16 +30,16 @@ namespace OpenTibia.Game.Commands
 
             //Notify
 
-            context.Write(Inventory.Player.Client.Connection, new SlotRemoveOutgoingPacket( (Slot)slot) );
+            context.AddPacket(Inventory.Player.Client.Connection, new SlotRemoveOutgoingPacket( (Slot)slot) );
 
             //Event
 
-            if (server.Events.InventoryRemoveItem != null)
+            if (context.Server.Events.InventoryRemoveItem != null)
             {
-                server.Events.InventoryRemoveItem(this, new InventoryRemoveItemEventArgs(Item, Inventory, slot, server, context) );
+                context.Server.Events.InventoryRemoveItem(this, new InventoryRemoveItemEventArgs(Inventory, Item,  slot) );
             }
 
-            base.Execute(server, context);
+            base.Execute(context);
         }
     }
 }

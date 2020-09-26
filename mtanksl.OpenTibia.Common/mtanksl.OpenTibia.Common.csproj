@@ -43,12 +43,14 @@
     <Compile Include="Events\DisconnectedEventArgs.cs" />
     <Compile Include="Objects\Channel.cs" />
     <Compile Include="Objects\ChannelCollection.cs" />
+    <Compile Include="Objects\FluidItem.cs" />
     <Compile Include="Objects\GameObject.cs" />
     <Compile Include="Objects\Component.cs" />
+    <Compile Include="Objects\ReadableItem.cs" />
     <Compile Include="Objects\Window.cs" />
     <Compile Include="Objects\IWindowCollection.cs" />
     <Compile Include="Objects\IContainerCollection.cs" />
-    <Compile Include="Objects\ICreatureCollection.cs" />
+    <Compile Include="Objects\IBattleCollection.cs" />
     <Compile Include="Objects\IConnection.cs" />
     <Compile Include="Objects\IClient.cs" />
     <Compile Include="Objects\IMap.cs" />
@@ -69,6 +71,8 @@
     <Compile Include="Objects\IContent.cs" />
     <Compile Include="Objects\Container.cs" />
     <Compile Include="Objects\Tile.cs" />
+    <Compile Include="Structures\FluidColor.cs" />
+    <Compile Include="Structures\FluidType.cs" />
     <Compile Include="Structures\ItemMetadataFlags.cs" />
     <Compile Include="Structures\Clock.cs" />
     <Compile Include="Structures\TopOrder.cs" />

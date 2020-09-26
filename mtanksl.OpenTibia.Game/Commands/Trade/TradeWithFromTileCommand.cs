@@ -24,11 +24,11 @@ namespace OpenTibia.Game.Commands
 
         public uint ToCreatureId { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
-            Tile fromTile = server.Map.GetTile(FromPosition);
+            Tile fromTile = context.Server.Map.GetTile(FromPosition);
 
             if (fromTile != null)
             {
@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
-                    Player toPlayer = server.Map.GetCreature(ToCreatureId) as Player;
+                    Player toPlayer = context.Server.Map.GetCreature(ToCreatureId) as Player;
 
                     if (toPlayer != null && toPlayer != Player)
                     {
@@ -48,14 +48,14 @@ namespace OpenTibia.Game.Commands
 
                             walkToUnknownPathCommand.Completed += (s, e) =>
                             {
-                                server.QueueForExecution(Constants.PlayerActionSchedulerEvent(Player), Constants.PlayerSchedulerEventDelay, this);
+                                context.Server.QueueForExecution(Constants.CreatureActionSchedulerEvent(Player), Constants.CreatureActionSchedulerEventDelay, this);
                             };
 
-                            walkToUnknownPathCommand.Execute(server, context);
+                            walkToUnknownPathCommand.Execute(context);
                         }
                         else
                         {
-                            TradeWith(fromItem, toPlayer, server, context);
+                            TradeWith(fromItem, toPlayer, context);
                         }
                     }
                 }

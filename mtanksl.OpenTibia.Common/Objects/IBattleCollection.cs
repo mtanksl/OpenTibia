@@ -1,6 +1,6 @@
 ﻿namespace OpenTibia.Common.Objects
 {
-    public interface ICreatureCollection
+    public interface IBattleCollection
     {
         bool IsKnownCreature(uint creatureId, out uint removeId);
     }

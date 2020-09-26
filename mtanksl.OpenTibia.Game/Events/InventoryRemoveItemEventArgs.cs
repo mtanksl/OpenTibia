@@ -1,22 +1,21 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Game;
 
 namespace OpenTibia.Common.Events
 {
     public class InventoryRemoveItemEventArgs : GameEventArgs
     {
-        public InventoryRemoveItemEventArgs(Item item, Inventory inventory, byte slot, Server server, Context context) : base(server, context)
+        public InventoryRemoveItemEventArgs(Inventory inventory, Item item, byte slot)
         {
-            Item = item;
-
             Inventory = inventory;
+
+            Item = item;
 
             Slot = slot;
         }
 
-        public Item Item { get; set; }
-
         public Inventory Inventory { get; set; }
+
+        public Item Item { get; set; }
 
         public byte Slot { get; set; }
     }

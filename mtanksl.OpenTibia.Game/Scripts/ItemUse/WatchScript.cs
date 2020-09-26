@@ -23,9 +23,9 @@ namespace OpenTibia.Game.Scripts
 
         }
 
-        public bool OnItemUse(Player player, Item fromItem, Server server, Context context)
+        public bool OnItemUse(Player player, Item fromItem, Context context)
         {
-            context.Write(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "The time is " + server.Clock.Hour.ToString("00") + ":" + server.Clock.Minute.ToString("00") + ".") );
+            context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "The time is " + context.Server.Clock.Hour.ToString("00") + ":" + context.Server.Clock.Minute.ToString("00") + ".") );
 
             return true;
         }

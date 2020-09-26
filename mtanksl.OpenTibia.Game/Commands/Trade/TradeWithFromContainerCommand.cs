@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
 
         public uint ToCreatureId { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
@@ -35,13 +35,13 @@ namespace OpenTibia.Game.Commands
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
-                    Player toPlayer = server.Map.GetCreature(ToCreatureId) as Player;
+                    Player toPlayer = context.Server.Map.GetCreature(ToCreatureId) as Player;
 
                     if (toPlayer != null && toPlayer != Player)
                     {
                         //Act
 
-                        TradeWith(fromItem, toPlayer, server, context);
+                        TradeWith(fromItem, toPlayer, context);
                     }
                 }
             }           

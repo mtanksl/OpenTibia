@@ -31,15 +31,15 @@ namespace OpenTibia.Game.Scripts
             }
         }
 
-        public bool OnItemUseWithItem(Player player, Item item, Item toItem, Server server, Context context)
+        public bool OnItemUseWithItem(Player player, Item item, Item toItem, Context context)
         {
             if (ropeSpots.Contains(toItem.Metadata.OpenTibiaId) )
             {
-                Tile toTile = server.Map.GetTile( ( (Tile)toItem.Container ).Position.Offset(0, 1, -1) );
+                Tile toTile = context.Server.Map.GetTile( ( (Tile)toItem.Container ).Position.Offset(0, 1, -1) );
 
                 if (toTile != null)
                 {
-                    new CreatureMoveCommand(player, toTile).Execute(server, context);
+                    new CreatureMoveCommand(player, toTile).Execute(context);
 
                     return true;
                 }

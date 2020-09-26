@@ -15,13 +15,13 @@ namespace OpenTibia.Game.Scripts.Speech
 
         }
 
-        public bool OnSpeech(Player player, string parameters, Server server, Context context)
+        public bool OnSpeech(Player player, string parameters, Context context)
         {
-            Tile toTile = server.Map.GetTile( player.Tile.Position.Offset(0, 0, -1) );
+            Tile toTile = context.Server.Map.GetTile( player.Tile.Position.Offset(0, 0, -1) );
 
             if (toTile != null)
             {
-                new CreatureMoveCommand(player, toTile).Execute(server, context);
+                new CreatureMoveCommand(player, toTile).Execute(context);
 
                 return true;
             }

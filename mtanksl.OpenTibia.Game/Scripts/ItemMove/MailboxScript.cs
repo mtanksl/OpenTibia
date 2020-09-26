@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Scripts
 
         }
 
-        public bool OnItemMove(Player player, Item fromItem, IContainer toContainer, byte toIndex, byte count, Server server, Context context)
+        public bool OnItemMove(Player player, Item fromItem, IContainer toContainer, byte toIndex, byte count, Context context)
         {
             if (toContainer is Tile toTile && positions.Contains(toTile.Position) )
             {

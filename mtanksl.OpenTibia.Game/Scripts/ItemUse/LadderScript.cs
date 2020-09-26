@@ -21,13 +21,13 @@ namespace OpenTibia.Game.Scripts
 
         }
 
-        public bool OnItemUse(Player player, Item fromItem, Server server, Context context)
+        public bool OnItemUse(Player player, Item fromItem, Context context)
         {
-            Tile toTile = server.Map.GetTile( ( (Tile)fromItem.Container ).Position.Offset(0, 1, -1) );
+            Tile toTile = context.Server.Map.GetTile( ( (Tile)fromItem.Container ).Position.Offset(0, 1, -1) );
 
             if (toTile != null)
             {
-                new CreatureMoveCommand(player, toTile).Execute(server, context);
+                new CreatureMoveCommand(player, toTile).Execute(context);
 
                 return true;
             }

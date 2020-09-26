@@ -19,11 +19,11 @@ namespace OpenTibia.Game.Commands
 
         public uint Nonce { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
-            Creature creature = server.Map.GetCreature(CreatureId);
+            Creature creature = context.Server.Map.GetCreature(CreatureId);
 
             if (creature != null && creature != Player)
             {
@@ -31,15 +31,15 @@ namespace OpenTibia.Game.Commands
 
                 Player.AttackTarget = null;
 
-                server.CancelQueueForExecution(Constants.PlayerAttackSchedulerEvent(Player) );
+                context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
 
                 Player.FollowTarget = creature;
 
-                new FollowCommand(Player, Player.FollowTarget).Execute(server, context);
+                new FollowCommand(Player, Player.FollowTarget).Execute(context);
 
                 //Notify
 
-                base.Execute(server, context);
+                base.Execute(context);
             }
         }
     }

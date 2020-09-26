@@ -7,11 +7,11 @@ namespace OpenTibia.Game.Commands
     {
         public EventHandler<CommandCompletedEventArgs> Completed;
 
-        public virtual void Execute(Server server, Context context)
+        public virtual void Execute(Context context)
         {
             if (Completed != null)
             {
-                Completed(this, new CommandCompletedEventArgs(server, context) );
+                Completed(this, new CommandCompletedEventArgs(context) );
             }
         }
     }

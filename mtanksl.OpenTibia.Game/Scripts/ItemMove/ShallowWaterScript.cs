@@ -19,13 +19,13 @@ namespace OpenTibia.Game.Scripts
 
         }
 
-        public bool OnItemMove(Player player, Item fromItem, IContainer toContainer, byte toIndex, byte count, Server server, Context context)
+        public bool OnItemMove(Player player, Item fromItem, IContainer toContainer, byte toIndex, byte count, Context context)
         {
             if (toContainer is Tile toTile && toTile.Ground != null && shallowWaters.Contains(toTile.Ground.Metadata.OpenTibiaId) )
             {
-                new ItemDestroyCommand(fromItem).Execute(server, context);
+                new ItemDestroyCommand(fromItem).Execute(context);
 
-                new MagicEffectCommand(toTile.Position, MagicEffectType.BlueRings).Execute(server, context);
+                new MagicEffectCommand(toTile.Position, MagicEffectType.BlueRings).Execute(context);
 
                 return true;
             }

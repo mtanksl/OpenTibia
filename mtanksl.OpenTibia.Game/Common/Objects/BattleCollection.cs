@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace OpenTibia.Common.Objects
 {
-    public class CreatureCollection : ICreatureCollection
+    public class BattleCollection : IBattleCollection
     {
         private Server server;
 
-        public CreatureCollection(Server server, IClient client)
+        public BattleCollection(Server server, IClient client)
         {
             this.server = server;
 

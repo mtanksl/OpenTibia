@@ -17,15 +17,15 @@ namespace OpenTibia.Game.Commands
 
         public Tile Tile { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
-            MoveDirection[] moveDirections = server.Pathfinding.GetMoveDirections(Player.Tile.Position, Tile.Position);
+            MoveDirection[] moveDirections = context.Server.Pathfinding.GetMoveDirections(Player.Tile.Position, Tile.Position);
 
             if (moveDirections.Length == 0)
             {
-                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNoWay) );
+                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNoWay) );
             }
             else
             {
@@ -35,10 +35,10 @@ namespace OpenTibia.Game.Commands
                 {
                     //Act
 
-                    base.Execute(e.Server, e.Context);
+                    base.Execute(e.Context);
                 };
 
-                walkToCommand.Execute(server, context);
+                walkToCommand.Execute(context);
             }
         }
     }

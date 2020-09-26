@@ -28,11 +28,11 @@ namespace OpenTibia.Game.Commands
 
         public byte Count { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
-            Tile fromTile = server.Map.GetTile(FromPosition);
+            Tile fromTile = context.Server.Map.GetTile(FromPosition);
 
             if (fromTile != null)
             {
@@ -40,19 +40,19 @@ namespace OpenTibia.Game.Commands
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
-                    Tile toTile = server.Map.GetTile(ToPosition);
+                    Tile toTile = context.Server.Map.GetTile(ToPosition);
 
                     if (toTile != null)
                     {
                         //Act
 
-                        if ( IsMoveable(fromItem, server, context) && 
+                        if ( IsMoveable(fromItem, context) && 
                             
-                             IsNextTo(fromTile, server, context) && 
+                             IsNextTo(fromTile, context) && 
                              
-                             CanThrow(fromTile, toTile, server, context) )
+                             CanThrow(fromTile, toTile, context) )
                         {
-                            MoveItem(fromItem, toTile, 0, Count, server, context);
+                            MoveItem(fromItem, toTile, 0, Count, context);
                         }
                     }
                 }

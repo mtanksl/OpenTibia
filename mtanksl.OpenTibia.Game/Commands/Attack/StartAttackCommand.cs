@@ -21,11 +21,11 @@ namespace OpenTibia.Game.Commands
 
         public uint Nonce { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
-            Creature creature = server.Map.GetCreature(CreatureId);
+            Creature creature = context.Server.Map.GetCreature(CreatureId);
 
             if (creature != null && creature != Player)
             {
@@ -35,15 +35,15 @@ namespace OpenTibia.Game.Commands
 
                     Player.AttackTarget = null;
 
-                    server.CancelQueueForExecution(Constants.PlayerAttackSchedulerEvent(Player) );
+                    context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
 
                     Player.FollowTarget = null;
 
-                    server.CancelQueueForExecution(Constants.PlayerActionSchedulerEvent(Player) );
+                    context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
 
                     //Notify
 
-                    context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature),
+                    context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature),
 
                                                             new StopAttackAndFollowOutgoingPacket(Nonce) );                   
                 }
@@ -53,24 +53,24 @@ namespace OpenTibia.Game.Commands
 
                     Player.AttackTarget = creature;
 
-                    new AttackCommand(Player, Player.AttackTarget).Execute(server, context);
+                    new AttackCommand(Player, Player.AttackTarget).Execute(context);
 
                     if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
                     {
                         Player.FollowTarget = null;
 
-                        server.CancelQueueForExecution(Constants.PlayerActionSchedulerEvent(Player) );
+                        context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
                     }
                     else
                     {
                         Player.FollowTarget = creature;
 
-                        new FollowCommand(Player, Player.FollowTarget).Execute(server, context);
+                        new FollowCommand(Player, Player.FollowTarget).Execute(context);
                     }
 
                     //Notify
 
-                    base.Execute(server, context);
+                    base.Execute(context);
                 }
             }
         }

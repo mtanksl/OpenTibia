@@ -17,25 +17,25 @@ namespace OpenTibia.Game.Commands
 
         public Creature Target { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
-            if ( !Player.Tile.Position.IsInPlayerRange(Target.Tile.Position) )
+            if ( !Player.Tile.Position.IsInBattleRange(Target.Tile.Position) )
             {
                 //Act
 
                 Player.AttackTarget = null;
 
-                server.CancelQueueForExecution(Constants.PlayerAttackSchedulerEvent(Player) );
+                context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
 
                 Player.FollowTarget = null;
 
-                server.CancelQueueForExecution(Constants.PlayerActionSchedulerEvent(Player) );
+                context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
 
                 //Notify
 
-                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
+                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
                         
                                                         new StopAttackAndFollowOutgoingPacket(0) );
             }
@@ -47,15 +47,15 @@ namespace OpenTibia.Game.Commands
 
                     //Notify
 
-                    MoveDirection[] moveDirections = server.Pathfinding.GetMoveDirections(Player.Tile.Position, Target.Tile.Position);
+                    MoveDirection[] moveDirections = context.Server.Pathfinding.GetMoveDirections(Player.Tile.Position, Target.Tile.Position);
 
                     if (moveDirections.Length != 0)
                     {
-                        new CreatureMoveCommand(Player, server.Map.GetTile(Player.Tile.Position.Offset(moveDirections[0] ) ) ).Execute(server, context);
+                        new CreatureMoveCommand(Player, context.Server.Map.GetTile(Player.Tile.Position.Offset(moveDirections[0] ) ) ).Execute(context);
                     }
                 }
 
-                server.QueueForExecution(Constants.PlayerActionSchedulerEvent(Player), 1000 * Player.Tile.Ground.Metadata.Speed / Player.Speed, this);
+                context.Server.QueueForExecution(Constants.CreatureAttackSchedulerEvent(Player), 1000 * Player.Tile.Ground.Metadata.Speed / Player.Speed, this);
             }
         }
     }

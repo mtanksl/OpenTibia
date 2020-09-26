@@ -4,6 +4,6 @@ namespace OpenTibia.Game.Scripts
 {
     public interface IItemUseScript : IScript
     {
-        bool OnItemUse(Player player, Item item, Server server, Context context);
+        bool OnItemUse(Player player, Item item, Context context);
     }
 }

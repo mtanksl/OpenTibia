@@ -4,6 +4,21 @@ namespace OpenTibia.Common.Structures
 {
     public class Position
     {
+        public static Position FromTile(int x, int y, int z)
+        {
+            return new Position(x, y, z);
+        }
+
+        public static Position FromInventory(byte slot)
+        {
+            return new Position(65535, slot, 0);
+        }
+
+        public static Position FromContainer(byte id, byte index)
+        {
+            return new Position(65535, id + 64, index);
+        }
+
         public Position(int x, int y, int z)
         {
             this.x = (ushort)x;
@@ -108,19 +123,19 @@ namespace OpenTibia.Common.Structures
             {
                 case Direction.East:
 
-                    return new Position(this.X + 1, this.Y, this.Z);
+                    return Offset(1, 0, 0);
 
                 case Direction.North:
 
-                    return new Position(this.X, this.Y - 1, this.Z);
+                    return Offset(0, -1, 0);
 
                 case Direction.West:
 
-                    return new Position(this.X - 1, this.Y, this.Z);
+                    return Offset(-1, 0, 0);
 
                 default:
 
-                    return new Position(this.X, this.Y + 1, this.Z);
+                    return Offset(0, 1, 0);
             }
         }
 
@@ -130,38 +145,38 @@ namespace OpenTibia.Common.Structures
             {
                 case MoveDirection.East:
 
-                    return new Position(this.X + 1, this.Y, this.Z);
+                    return Offset(1, 0, 0);
 
                 case MoveDirection.NorthEast:
 
-                    return new Position(this.X + 1, this.Y - 1, this.Z);
+                    return Offset(1, -1, 0);
 
                 case MoveDirection.North:
 
-                    return new Position(this.X, this.Y - 1, this.Z);
+                    return Offset(0, -1, 0);
 
                 case MoveDirection.NorthWest:
 
-                    return new Position(this.X - 1, this.Y - 1, this.Z);
+                    return Offset(-1, -1, 0);
 
                 case MoveDirection.West:
 
-                    return new Position(this.X - 1, this.Y, this.Z);
+                    return Offset(-1, 0, 0);
 
                 case MoveDirection.SouthWest:
 
-                    return new Position(this.X - 1, this.Y + 1, this.Z);
+                    return Offset(-1, 1, 0);
 
                 case MoveDirection.South:
 
-                    return new Position(this.X, this.Y + 1, this.Z);
+                    return Offset(0, 1, 0);
 
                 default:
 
-                    return new Position(this.X + 1, this.Y + 1, this.Z);
+                    return Offset(1, 1, 0);
             }
         }
-        
+
         public Direction ToDirection(Position that)
         {
             int deltaY = that.y - this.y;
@@ -244,28 +259,44 @@ namespace OpenTibia.Common.Structures
          
         public bool IsInClientRange(Position that)
         {
-            throw new NotImplementedException();
+            int deltaZ = that.z - this.z;
+
+            int deltaY = that.y - this.y + deltaZ;
+
+            int deltaX = that.x - this.x + deltaZ;
+
+            if (this.z <= 7)
+            {
+                if (that.z >= 8)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (deltaZ < -2 || deltaZ > 2)
+                {
+                    return false;
+                }
+            }
+
+            if (deltaX < -8 || deltaX > 9 || deltaY < -6 || deltaY > 7)
+            {
+                return false;
+            }
+
+            return true;
         }
 
-        public bool IsInPlayerRange(Position that)
+        public bool IsInBattleRange(Position that)
         {
             int deltaZ = that.z - this.z;
 
-            if (deltaZ != 0)
-            {
-                return false;
-            }
-
             int deltaY = that.y - this.y;
-
-            if (deltaY < -6 || deltaY > 7)
-            {
-                return false;
-            }
 
             int deltaX = that.x - this.x;
 
-            if (deltaX < -8 || deltaX > 9)
+            if (deltaZ != 0 || deltaY < -6 || deltaY > 7 || deltaX < -8 || deltaX > 9)
             {
                 return false;
             }
@@ -277,21 +308,11 @@ namespace OpenTibia.Common.Structures
         {
             int deltaZ = that.z - this.z;
 
-            if (deltaZ != 0)
-            {
-                return false;
-            }
-
             int deltaY = that.y - this.y;
-
-            if (deltaY < -1 || deltaY > 1)
-            {
-                return false;
-            }
 
             int deltaX = that.x - this.x;
 
-            if (deltaX < -1 || deltaX > 1)
+            if (deltaZ != 0 || deltaY < -1 || deltaY > 1 || deltaX < -1 || deltaX > 1)
             {
                 return false;
             }
@@ -301,39 +322,12 @@ namespace OpenTibia.Common.Structures
 
         public bool CanSee(Position that)
         {
-            int deltaZ = that.z - this.z;
-
-            int deltaY = that.y - this.y + deltaZ;
-
-            int deltaX = that.x - this.x + deltaZ;
-
-            if (this.z >= 8)
-            {
-                if (deltaZ < -2 || deltaZ > 2)
-                {
-                    return false;
-                }
-            }
-
-            if (this.z <= 7) 
-            {
-                if (that.z >= 8)
-                {
-                    return false;
-                }
-            }
-
-            if (deltaX < -8 || deltaX > 9 || deltaY <-6 || deltaY > 7)
-            {
-                return false;
-            }
-
-            return true;
+            return IsInClientRange(that);
         }
 
         public bool CanHearSay(Position that)
         {
-            return IsInPlayerRange(that);
+            return IsInBattleRange(that);
         }
 
         public bool CanHearWhisper(Position that)
@@ -348,14 +342,6 @@ namespace OpenTibia.Common.Structures
             int deltaY = that.y - this.y + deltaZ;
 
             int deltaX = that.x - this.x + deltaZ;
-
-            if (this.z >= 8 || that.z >= 8)
-            {
-                if (deltaZ != 0)
-                {
-                    return false;
-                }
-            }
 
             if (deltaX < -30 || deltaX > 30 || deltaY < -30 || deltaY > 30)
             {

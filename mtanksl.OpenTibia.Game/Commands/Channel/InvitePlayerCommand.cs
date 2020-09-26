@@ -18,15 +18,15 @@ namespace OpenTibia.Game.Commands
 
         public string Name { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
            
-            PrivateChannel privateChannel = server.Channels.GetPrivateChannelByOwner(Player);
+            PrivateChannel privateChannel = context.Server.Channels.GetPrivateChannelByOwner(Player);
 
             if (privateChannel != null)
             {
-                Player observer = server.Map.GetPlayers()
+                Player observer = context.Server.Map.GetPlayers()
                     .Where(p => p.Name == Name)
                     .FirstOrDefault();
 
@@ -40,11 +40,11 @@ namespace OpenTibia.Game.Commands
 
                         //Notify
 
-                        context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been invited.") );
+                        context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been invited.") );
 
-                        context.Write(observer.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " invites you to his private chat channel." ) );
+                        context.AddPacket(observer.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " invites you to his private chat channel." ) );
 
-                        base.Execute(server, context);
+                        base.Execute(context);
                     }
                 }
             }

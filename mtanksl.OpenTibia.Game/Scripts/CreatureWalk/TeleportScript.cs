@@ -32,17 +32,17 @@ namespace OpenTibia.Game.Scripts
 
         }
 
-        public bool OnCreatureWalk(Creature creature, Tile fromTile, Tile toTile, Server server, Context context)
+        public bool OnCreatureWalk(Creature creature, Tile fromTile, Tile toTile, Context context)
         {
             Position position;
 
             if (positions.TryGetValue(toTile.Position, out position) )
             {
-                new CreatureMoveCommand(creature, server.Map.GetTile(position) ).Execute(server, context);
+                new CreatureMoveCommand(creature, context.Server.Map.GetTile(position) ).Execute(context);
 
-                new MagicEffectCommand(toTile.Position, MagicEffectType.Teleport).Execute(server, context);
+                new MagicEffectCommand(toTile.Position, MagicEffectType.Teleport).Execute(context);
 
-                new MagicEffectCommand(position, MagicEffectType.Teleport).Execute(server, context);
+                new MagicEffectCommand(position, MagicEffectType.Teleport).Execute(context);
 
                 return true;
             }
@@ -50,7 +50,7 @@ namespace OpenTibia.Game.Scripts
             return false;
         }
 
-        public bool OnItemMove(Player player, Item fromItem, IContainer toContainer, byte toIndex, byte count, Server server, Context context)
+        public bool OnItemMove(Player player, Item fromItem, IContainer toContainer, byte toIndex, byte count, Context context)
         {
             if (toContainer is Tile toTile)
             {
@@ -58,11 +58,11 @@ namespace OpenTibia.Game.Scripts
 
                 if (positions.TryGetValue(toTile.Position, out position) )
                 {
-                    new ItemMoveCommand(player, fromItem, server.Map.GetTile(position), 0, count).Execute(server, context);
+                    new ItemMoveCommand(player, fromItem, context.Server.Map.GetTile(position), 0, count).Execute(context);
 
-                    new MagicEffectCommand(toTile.Position, MagicEffectType.Teleport).Execute(server, context);
+                    new MagicEffectCommand(toTile.Position, MagicEffectType.Teleport).Execute(context);
 
-                    new MagicEffectCommand(position, MagicEffectType.Teleport).Execute(server, context);
+                    new MagicEffectCommand(position, MagicEffectType.Teleport).Execute(context);
 
                     return true;
                 }

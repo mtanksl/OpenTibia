@@ -11,11 +11,11 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        protected void TradeWith(Item fromItem, Player toPlayer, Server server, Context context)
+        protected void TradeWith(Item fromItem, Player toPlayer, Context context)
         {
 
 
-            base.Execute(server, context);
+            base.Execute(context);
         }
     }
 }

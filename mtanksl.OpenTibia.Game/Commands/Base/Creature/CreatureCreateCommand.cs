@@ -17,37 +17,37 @@ namespace OpenTibia.Game.Commands
 
         public Position Position { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
-            Creature creature = server.NpcFactory.Create(Name);
+            Creature creature = context.Server.NpcFactory.Create(Name);
 
             if (creature == null)
             {
-                creature = server.MonsterFactory.Create(Name);
+                creature = context.Server.MonsterFactory.Create(Name);
             }
 
             if (creature != null)
             {
-                Tile tile = server.Map.GetTile(Position);
+                Tile tile = context.Server.Map.GetTile(Position);
 
                 if (tile != null)
                 {
                     //Act
 
-                    server.Map.AddCreature(creature);
+                    context.Server.Map.AddCreature(creature);
 
                     //Notify
 
-                    new TileAddCreatureCommand(tile, creature).Execute(server, context);
+                    new TileAddCreatureCommand(tile, creature).Execute(context);
 
                     foreach (var component in creature.GetComponents<Behaviour>() )
                     {
-                        component.Start(server);
+                        component.Start(context.Server);
                     }
 
-                    base.Execute(server, context);
+                    base.Execute(context);
                 }
             }
         }

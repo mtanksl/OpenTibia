@@ -22,11 +22,11 @@ namespace OpenTibia.Game.Commands
 
         public string Message { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
-            Player observer = server.Map.GetPlayers()
+            Player observer = context.Server.Map.GetPlayers()
                 .Where(p => p.Name == Name)
                 .FirstOrDefault();
 
@@ -36,9 +36,9 @@ namespace OpenTibia.Game.Commands
 
                 //Notify
 
-                context.Write(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Private, Message) );
+                context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Private, Message) );
 
-                base.Execute(server, context);
+                base.Execute(context);
             }
         }
     }

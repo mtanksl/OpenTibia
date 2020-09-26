@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Commands
 
         private int index = 0;
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
@@ -29,16 +29,16 @@ namespace OpenTibia.Game.Commands
 
                 command.Completed += (s, e) =>
                 {
-                    Execute(e.Server, e.Context);
+                    Execute(e.Context);
                 };
 
-                command.Execute(server, context);
+                command.Execute(context);
             }
             else
             {
                 //Act
 
-                base.Execute(server, context);
+                base.Execute(context);
             }
         }
     }

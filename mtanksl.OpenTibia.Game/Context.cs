@@ -7,9 +7,9 @@ namespace OpenTibia.Game
 {
     public class Context : IDisposable
     {
-        public Context()
+        public Context(Server server)
         {
-            
+            this.server = server;
         }
 
         ~Context()
@@ -17,9 +17,19 @@ namespace OpenTibia.Game
             Dispose(false);
         }
 
+        private Server server;
+
+        public Server Server
+        {
+            get
+            {
+                return server;
+            }
+        }
+
         private Dictionary<IConnection, Message> messages = null;
 
-        public Context Write(IConnection connection, IOutgoingPacket packet)
+        public Context AddPacket(IConnection connection, IOutgoingPacket packet)
         {
             if (disposed)
             {
@@ -45,7 +55,7 @@ namespace OpenTibia.Game
             return this;
         }
 
-        public Context Write(IConnection connection, params IOutgoingPacket[] packet)
+        public Context AddPacket(IConnection connection, params IOutgoingPacket[] packet)
         {
             if (disposed)
             {

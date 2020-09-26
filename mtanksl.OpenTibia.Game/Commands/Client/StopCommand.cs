@@ -11,21 +11,21 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
                 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
             //Act
 
-            new StopWalkCommand(Player).Execute(server, context);
+            new StopWalkCommand(Player).Execute(context);
 
-            new StopAttackCommand(Player).Execute(server, context);
+            new StopAttackCommand(Player).Execute(context);
 
-            new StopFollowCommand(Player).Execute(server, context);
+            new StopFollowCommand(Player).Execute(context);
 
             //Notify
 
-            base.Execute(server, context);
+            base.Execute(context);
         }
     }
 }

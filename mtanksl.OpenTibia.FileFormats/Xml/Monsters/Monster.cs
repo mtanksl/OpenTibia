@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Structures;
+using System.Collections.Generic;
 using System.Xml.Linq;
 
 namespace OpenTibia.FileFormats.Xml.Monsters
@@ -24,7 +25,22 @@ namespace OpenTibia.FileFormats.Xml.Monsters
             XElement outfitNode = monsterNode.Element("look");
 
             monster.Outfit = new Outfit( (int)outfitNode.Attribute("type"), (int)outfitNode.Attribute("head"), (int)outfitNode.Attribute("body"), (int)outfitNode.Attribute("legs"), (int)outfitNode.Attribute("feet"), Addon.None );
-           
+
+            XElement voicesNode = monsterNode.Element("voices");
+
+            if (voicesNode != null)
+            {
+                monster.Voices = new List<Voice>();
+
+                foreach (var voiceNode in voicesNode.Elements() )
+                {
+                    monster.Voices.Add(new Voice() 
+                    { 
+                        Sentence = (string)voiceNode.Attribute("sentence")
+                    } );
+                }
+            }
+
             return monster;
         }
 
@@ -39,5 +55,7 @@ namespace OpenTibia.FileFormats.Xml.Monsters
         public ushort MaxHealth { get; set; }
 
         public Outfit Outfit { get; set; }
+
+        public List<Voice> Voices { get; set; }
     }
 }

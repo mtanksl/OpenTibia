@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Commands
 
         public byte ContainerId { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
@@ -42,9 +42,9 @@ namespace OpenTibia.Game.Commands
                         items.Add(item);
                     }
 
-                    context.Write(Player.Client.Connection, new OpenContainerOutgoingPacket(ContainerId, parentContainer.Metadata.TibiaId, parentContainer.Metadata.Name, parentContainer.Metadata.Capacity, parentContainer.Container is Container, items) );
+                    context.AddPacket(Player.Client.Connection, new OpenContainerOutgoingPacket(ContainerId, parentContainer.Metadata.TibiaId, parentContainer.Metadata.Name, parentContainer.Metadata.Capacity, parentContainer.Container is Container, items) );
 
-                    base.Execute(server, context);
+                    base.Execute(context);
                 }
             }
         }

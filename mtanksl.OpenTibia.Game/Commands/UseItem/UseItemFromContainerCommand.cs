@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
 
         public byte ContainerId { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
@@ -37,7 +37,7 @@ namespace OpenTibia.Game.Commands
                 {
                     //Act
 
-                    UseItem(fromItem, FromContainerId, ContainerId, server, context);
+                    UseItem(fromItem, FromContainerId, ContainerId, context);
                 }
             }
         }

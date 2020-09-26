@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Scripts.Speech
 
         }
 
-        public bool OnSpeech(Player player, string parameters, Server server, Context context)
+        public bool OnSpeech(Player player, string parameters, Context context)
         {
             int count;
 
@@ -51,11 +51,11 @@ namespace OpenTibia.Game.Scripts.Speech
                         break;
                 }
 
-                Tile toTile = server.Map.GetTile(toPosition);
+                Tile toTile = context.Server.Map.GetTile(toPosition);
 
                 if (toTile != null)
                 {
-                    new CreatureMoveCommand(player, toTile).Execute(server, context);
+                    new CreatureMoveCommand(player, toTile).Execute(context);
 
                     return true;
                 }

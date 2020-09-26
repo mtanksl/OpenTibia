@@ -15,13 +15,13 @@ namespace OpenTibia.Game.Scripts.Speech
 
         }
 
-        public bool OnSpeech(Player player, string parameters, Server server, Context context)
+        public bool OnSpeech(Player player, string parameters, Context context)
         {
             ushort openTibiaId;
 
             if ( ushort.TryParse(parameters, out openTibiaId) )
             {
-                new ItemCreateCommand(openTibiaId, player.Tile.Position.Offset(player.Direction) ).Execute(server, context);
+                new ItemCreateCommand(openTibiaId, player.Tile.Position.Offset(player.Direction) ).Execute(context);
 
                 return true;
             }

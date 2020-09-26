@@ -36,13 +36,13 @@ namespace OpenTibia.Game.Scripts
             }
         }
 
-        public bool OnItemUseWithItem(Player player, Item item, Item toItem, Server server, Context context)
+        public bool OnItemUseWithItem(Player player, Item item, Item toItem, Context context)
         {
             ushort toOpenTibiaId;
 
             if (stonePiles.TryGetValue(toItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                new ItemTransformCommand(toItem, toOpenTibiaId).Execute(server, context);
+                new ItemTransformCommand(toItem, toOpenTibiaId).Execute(context);
 
                 return true;
             }

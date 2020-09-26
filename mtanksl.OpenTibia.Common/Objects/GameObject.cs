@@ -5,6 +5,8 @@ namespace OpenTibia.Common.Objects
 {
     public class GameObject
     {
+        public uint Id { get; set; }
+
         private List<Component> components = null;
 
         public void AddComponent(Component component)

@@ -17,25 +17,25 @@ namespace OpenTibia.Game.Commands
 
         public Creature Target { get; set; }
 
-        public override void Execute(Server server, Context context)
+        public override void Execute(Context context)
         {
             //Arrange
 
-            if ( !Player.Tile.Position.IsInPlayerRange(Target.Tile.Position) )
+            if ( !Player.Tile.Position.IsInBattleRange(Target.Tile.Position) )
             {
                 //Act
 
                 Player.AttackTarget = null;
 
-                server.CancelQueueForExecution(Constants.PlayerAttackSchedulerEvent(Player) );
+                context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
 
                 Player.FollowTarget = null;
 
-                server.CancelQueueForExecution(Constants.PlayerActionSchedulerEvent(Player) );
+                context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
 
                 //Notify
 
-                context.Write(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
+                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
                         
                                                         new StopAttackAndFollowOutgoingPacket(0) );
             }
@@ -47,17 +47,17 @@ namespace OpenTibia.Game.Commands
 
                     //Notify
 
-                    context.Write(Player.Client.Connection, new ShowMagicEffectOutgoingPacket(Target.Tile.Position, MagicEffectType.Puff) );
+                    context.AddPacket(Player.Client.Connection, new ShowMagicEffectOutgoingPacket(Target.Tile.Position, MagicEffectType.Puff) );
 
                     if (Target is Player observer)
                     {
-                        context.Write(observer.Client.Connection, new SetFrameColorOutgoingPacket(Player.Id, FrameColor.Black),
+                        context.AddPacket(observer.Client.Connection, new SetFrameColorOutgoingPacket(Player.Id, FrameColor.Black),
 
                                                                   new ShowMagicEffectOutgoingPacket(Target.Tile.Position, MagicEffectType.Puff) );
                     }
                 }
 
-                server.QueueForExecution(Constants.PlayerAttackSchedulerEvent(Player), Constants.PlayerAttackEventDelay, this);
+                context.Server.QueueForExecution(Constants.CreatureAttackSchedulerEvent(Player), Constants.CreatureAttackEventDelay, this);
             }
         }
     }
