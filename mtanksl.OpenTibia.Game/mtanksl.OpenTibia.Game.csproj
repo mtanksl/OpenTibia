@@ -48,6 +48,10 @@
     <Compile Include="CommandHandlers\PlayerSay\TeleportHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\CreateItemHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\CreateCreatureHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithCreature\HealthPotionHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithCreature\ManaPotionHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithItem\ShovelHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithItem\RopeHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\BlueberryBushHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\FoodHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\ContainerHandler.cs" />
@@ -81,19 +85,20 @@
     <Compile Include="Commands\Base\Player\PlayerUpdateSoulCommand.cs" />
     <Compile Include="Commands\Base\Player\PlayerUpdateManaCommand.cs" />
     <Compile Include="Commands\Base\Player\PlayerUpdateCapacityCommand.cs" />
+    <Compile Include="Commands\Base\Player\PlayerUseItemWithCreatureCommand.cs" />
+    <Compile Include="Commands\Base\Player\PlayerUseItemWithItemCommand.cs" />
     <Compile Include="Commands\Base\Player\PlayerYellCommand.cs" />
     <Compile Include="Commands\Base\Player\PlayerWhisperCommand.cs" />
     <Compile Include="Commands\Base\Player\PlayerSayCommand.cs" />
-    <Compile Include="Commands\Base\REDO\Creature\CreatureCreateCommand.cs" />
-    <Compile Include="Commands\Base\REDO\Creature\CreatureDestroyCommand.cs" />
     <Compile Include="Commands\Base\Inventory\InventoryReplaceItemCommand.cs" />
-    <Compile Include="Commands\Base\REDO\Item\ItemDestroyCommand.cs" />
-    <Compile Include="Commands\Base\REDO\Item\ItemCreateCommand.cs" />
-    <Compile Include="Commands\Base\REDO\Item\ItemMoveCommand.cs" />
-    <Compile Include="Commands\Base\REDO\Item\ItemTransformCommand.cs" />
+    <Compile Include="REDO\Item\ItemDestroyCommand.cs" />
+    <Compile Include="REDO\Item\ItemMoveCommand.cs" />
+    <Compile Include="REDO\Item\ItemTransformCommand.cs" />
     <Compile Include="Commands\Base\Player\PlayerLookAtCreatureCommand.cs" />
     <Compile Include="Commands\Base\Player\PlayerUseItemCommand.cs" />
     <Compile Include="Commands\Base\Player\PlayerLookAtItemCommand.cs" />
+    <Compile Include="Commands\Base\Tile\TileCreateCreatureCommand.cs" />
+    <Compile Include="Commands\Base\Tile\TileDestroyCreatureCommand.cs" />
     <Compile Include="Commands\Base\Tile\TileDestroyItemCommand.cs" />
     <Compile Include="Commands\Base\Tile\TileCreateItemCommand.cs" />
     <Compile Include="Commands\Base\Tile\AnimatedTextCommand.cs" />
@@ -112,7 +117,10 @@
     <Compile Include="Commands\Client\StopCommand.cs" />
     <Compile Include="Commands\Base\Player\PlayerRotateItemCommand.cs" />
     <Compile Include="CommandHandlers\PlayerRotateItem\RotateItemTransformHandler.cs" />
+    <Compile Include="Commands\DelayCommand.cs" />
     <Compile Include="Commands\ConditionalCommand.cs" />
+    <Compile Include="Commands\WhenAnyCommand.cs" />
+    <Compile Include="Commands\WhenAllCommand.cs" />
     <Compile Include="Commands\SequenceCommand.cs" />
     <Compile Include="Commands\Global\GlobalItemsCommand.cs" />
     <Compile Include="Commands\Turn\TurnCommand.cs" />
@@ -209,7 +217,7 @@
     <Compile Include="Commands\Client\PongCommand.cs" />
     <Compile Include="Commands\Outfit\SelectedOutfitCommand.cs" />
     <Compile Include="Commands\Outfit\SelectOutfitCommand.cs" />
-    <Compile Include="Commands\Base\REDO\Creature\CreatureMoveCommand.cs" />
+    <Compile Include="REDO\Creature\CreatureMoveCommand.cs" />
     <Compile Include="Commands\Walk\StopWalkCommand.cs" />
     <Compile Include="Commands\Walk\WalkToKnownPathCommand.cs" />
     <Compile Include="Commands\Walk\WalkCommand.cs" />
@@ -247,26 +255,28 @@
     <Compile Include="EventsCollection.cs" />
     <Compile Include="PlayerFactory.cs" />
     <Compile Include="ScriptsCollection.cs" />
-    <Compile Include="Scripts\Global\GlobalScripts.cs" />
-    <Compile Include="Scripts\ICreatureWalkScript.cs" />
-    <Compile Include="Scripts\IItemMoveScript.cs" />
-    <Compile Include="Scripts\IItemUseWithCreatureScript.cs" />
-    <Compile Include="Scripts\IItemUseWithItemScript.cs" />
+    <Compile Include="Scripts\GlobalScripts.cs" />
+    <Compile Include="REDO\Scripts\ICreatureWalkScript.cs" />
+    <Compile Include="REDO\Scripts\IItemMoveScript.cs" />
+    <Compile Include="REDO\Scripts\IItemUseWithCreatureScript.cs" />
+    <Compile Include="REDO\Scripts\IItemUseWithItemScript.cs" />
     <Compile Include="Scripts\IScript.cs" />
-    <Compile Include="Scripts\ItemMove\DustbinScript.cs" />
-    <Compile Include="Scripts\ItemMove\LavaScript.cs" />
-    <Compile Include="Scripts\ItemMove\MailboxScript.cs" />
-    <Compile Include="Scripts\ItemMove\ShallowWaterScript.cs" />
-    <Compile Include="Scripts\CreatureWalk\StairsScript.cs" />
-    <Compile Include="Scripts\ItemMove\SwampScript.cs" />
-    <Compile Include="Scripts\CreatureWalk\TeleportScript.cs" />
-    <Compile Include="Scripts\ItemUse\ItemUseScripts.cs" />
-    <Compile Include="Scripts\ItemRotate\ItemRotateScripts.cs" />
-    <Compile Include="Scripts\ItemUseWithItem\MacheteScript.cs" />
-    <Compile Include="Scripts\ItemUseWithItem\RopeScript.cs" />
-    <Compile Include="Scripts\ItemUseWithItem\ScytheScript.cs" />
-    <Compile Include="Scripts\ItemUseWithItem\ShovelScript.cs" />
-    <Compile Include="Scripts\TalkScripts\TalkScripts.cs" />
+    <Compile Include="REDO\Scripts\ItemMove\DustbinScript.cs" />
+    <Compile Include="REDO\Scripts\ItemMove\LavaScript.cs" />
+    <Compile Include="REDO\Scripts\ItemMove\MailboxScript.cs" />
+    <Compile Include="REDO\Scripts\ItemMove\ShallowWaterScript.cs" />
+    <Compile Include="REDO\Scripts\CreatureWalk\StairsScript.cs" />
+    <Compile Include="REDO\Scripts\ItemMove\SwampScript.cs" />
+    <Compile Include="REDO\Scripts\CreatureWalk\TeleportScript.cs" />
+    <Compile Include="REDO\Scripts\ItemUseWithItem\MacheteScript.cs" />
+    <Compile Include="REDO\Scripts\ItemUseWithItem\RopeScript.cs" />
+    <Compile Include="REDO\Scripts\ItemUseWithItem\ScytheScript.cs" />
+    <Compile Include="REDO\Scripts\ItemUseWithItem\ShovelScript.cs" />
+    <Compile Include="Scripts\PlayerUseItemWithItemScripts.cs" />
+    <Compile Include="Scripts\PlayerUseItemWithCreatureScripts.cs" />
+    <Compile Include="Scripts\PlayerUseItemScripts.cs" />
+    <Compile Include="Scripts\PlayerRotateItemScripts.cs" />
+    <Compile Include="Scripts\PlayerSayScripts.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -300,9 +310,6 @@
       <Name>mtanksl.OpenTibia.Threading</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CommandHandlers\PlayerTradeWith\" />
-    <Folder Include="Scripts\ItemUseWithCreature\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

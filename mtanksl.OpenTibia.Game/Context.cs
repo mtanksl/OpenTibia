@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Events;
 using OpenTibia.Common.Objects;
+using OpenTibia.Game.CommandHandlers;
 using OpenTibia.Game.Commands;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
@@ -36,11 +37,11 @@ namespace OpenTibia.Game
                 throw new ObjectDisposedException( nameof(Context) );
             }
 
-            Command result;
+            ICommandHandler commandHandler;
 
-            if ( server.CommandHandlers.TryHandle(command, out result) )
+            if ( server.CommandHandlers.TryGet(command, out commandHandler) )
             {
-                return result;
+                return commandHandler.Handle(command, server);
             }
 
             return command;

@@ -117,25 +117,25 @@ namespace OpenTibia.Common.Structures
             return new Position(X + x, Y + y, Z + z);
         }
 
-        public Position Offset(Direction direction)
+        public Position Offset(Direction direction, int count = 1)
         {
             switch (direction)
             {
                 case Direction.East:
 
-                    return Offset(1, 0, 0);
+                    return Offset(count, 0, 0);
 
                 case Direction.North:
 
-                    return Offset(0, -1, 0);
+                    return Offset(0, -count, 0);
 
                 case Direction.West:
 
-                    return Offset(-1, 0, 0);
+                    return Offset(-count, 0, 0);
 
                 default:
 
-                    return Offset(0, 1, 0);
+                    return Offset(0, count, 0);
             }
         }
 

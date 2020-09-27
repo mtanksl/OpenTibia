@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Scripts
 {
-    public class ItemUseScripts : IScript
+    public class PlayerUseItemScripts : IScript
     {
         public void Start(Server server)
         {

@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Scripts
 {
-    public class TalkScripts : IScript
+    public class PlayerSayScripts : IScript
     {
         public void Start(Server server)
         {

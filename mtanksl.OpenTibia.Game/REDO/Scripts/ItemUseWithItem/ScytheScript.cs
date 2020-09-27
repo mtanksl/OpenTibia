@@ -46,7 +46,7 @@ namespace OpenTibia.Game.Scripts
 
                 new ItemTransformCommand(toItem, toOpenTibiaId).Execute(context);
 
-                new ItemCreateCommand(wheat, tile.Position).Execute(context);
+                new TileCreateItemCommand(tile, wheat, 1).Execute(context);
 
                 return true;
             }

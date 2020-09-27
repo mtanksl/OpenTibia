@@ -1,4 +1,6 @@
-﻿using OpenTibia.Game.Commands;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
+using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.CommandHandlers
 {
@@ -6,12 +8,28 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override bool CanHandle(PlayerSayCommand command, Server server)
         {
+            if (command.Message.StartsWith("/down") )
+            {
+                return true;
+            }
+
             return false;
         }
 
         public override Command Handle(PlayerSayCommand command, Server server)
         {
-            return command;
+            Tile toTile = server.Map.GetTile(command.Player.Tile.Position.Offset(0, 0, 1) );
+
+            if (toTile != null)
+            {
+                return new SequenceCommand(
+                
+                    new CreatureMoveCommand(command.Player, toTile),
+                
+                    new MagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+            }
+                
+            return new MagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff);
         }
     }
 }

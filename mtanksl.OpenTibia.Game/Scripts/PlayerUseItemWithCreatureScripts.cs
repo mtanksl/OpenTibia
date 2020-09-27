@@ -2,11 +2,13 @@
 
 namespace OpenTibia.Game.Scripts
 {
-    public class ItemRotateScripts : IScript
+    public class PlayerUseItemWithCreatureScripts : IScript
     {
         public void Start(Server server)
         {
-            server.CommandHandlers.Add(new RotateItemTransformHandler() );
+            server.CommandHandlers.Add(new HealthPotionHandler() );
+
+            server.CommandHandlers.Add(new ManaPotionHandler() );
         }
 
         public void Stop(Server server)

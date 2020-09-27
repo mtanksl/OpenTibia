@@ -33,10 +33,15 @@ namespace OpenTibia.Game
             if ( types.TryGetValue(typeof(T), out var handlers) )
             {
                 handlers.Remove(commandHandler);
+
+                if (handlers.Count == 0)
+                {
+                    types.Remove(typeof(T) );
+                }
             }
         }
 
-        public bool TryHandle(Command command, out Command result)
+        public bool TryGet(Command command, out ICommandHandler commandHandler)
         {
             if ( types.TryGetValue(command.GetType(), out var handlers) )
             {
@@ -44,14 +49,14 @@ namespace OpenTibia.Game
                 {
                     if ( handler.CanHandle(command, server) )
                     {
-                        result = handler.Handle(command, server);
+                        commandHandler = handler;
 
                         return true;
                     }
                 }
             }
 
-            result = null;
+            commandHandler = null;
 
             return false;
         }

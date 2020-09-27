@@ -37,14 +37,17 @@ namespace OpenTibia.Game.Commands
                 fluidItem.FluidType = (FluidType)Count;
             }
 
-            Command command = context.TransformCommand(new InventoryAddItemCommand(Inventory, Slot, item) );
-
-            command.Completed += (s, e) =>
+            if (item != null)
             {
-                base.OnCompleted(e.Context);
-            };
+                Command command = context.TransformCommand(new InventoryAddItemCommand(Inventory, Slot, item));
 
-            command.Execute(context);
+                command.Completed += (s, e) =>
+                {
+                    base.OnCompleted(e.Context);
+                };
+
+                command.Execute(context);
+            }
         }
     }
 }

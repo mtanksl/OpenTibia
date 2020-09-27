@@ -53,6 +53,11 @@ namespace OpenTibia.Game
             if ( types.TryGetValue(typeof(T), out var handlers) )
             {
                 handlers.Remove(token);
+
+                if (handlers.Count == 0)
+                {
+                    types.Remove(typeof(T) );
+                }
             }
         }
 
