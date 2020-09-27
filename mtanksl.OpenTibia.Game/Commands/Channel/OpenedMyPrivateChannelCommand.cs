@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
                 context.Server.Channels.AddChannel(privateChannel);
             }
 
-            context.AddPacket(Player.Client.Connection, new OpenMyPrivateChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
+            context.WritePacket(Player.Client.Connection, new OpenMyPrivateChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
 
             base.OnCompleted(context);
         }

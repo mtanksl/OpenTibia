@@ -16,17 +16,18 @@ namespace OpenTibia.Game.Commands
 
         public MoveDirection[] MoveDirections { get; set; }
 
-
         private int index = 0;
 
         public override void Execute(Context context)
         {
             if (index < MoveDirections.Length)
             {
-                WalkCommand command = new WalkCommand(Player, MoveDirections[index++] );
+                Command command = context.TransformCommand(new WalkCommand(Player, MoveDirections[index] ) );
 
                 command.Completed += (s, e) =>
                 {
+                    index++;
+
                     Execute(e.Context);
                 };
 

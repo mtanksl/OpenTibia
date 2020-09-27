@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You see nothing special.") );
+            context.WritePacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You see nothing special.") );
 
             base.OnCompleted(context);
         }

@@ -37,7 +37,7 @@ namespace OpenTibia.Game.Commands
 
                     context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
 
-                    context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature),
+                    context.WritePacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature),
 
                                                                 new StopAttackAndFollowOutgoingPacket(Nonce) );                   
                 }

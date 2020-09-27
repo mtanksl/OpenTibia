@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
 
                     foreach (var observer in context.Server.Channels.GetChannel(3).GetPlayers() )
                     {
-                        context.AddPacket(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
+                        context.WritePacket(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
                     }
 
                     base.OnCompleted(context);
@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
                 {
                     context.Server.RuleViolations.RemoveRuleViolation(ruleViolation);
 
-                    context.AddPacket(ruleViolation.Assignee.Client.Connection, new CancelRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
+                    context.WritePacket(ruleViolation.Assignee.Client.Connection, new CancelRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
 
                     base.OnCompleted(context);
                 }

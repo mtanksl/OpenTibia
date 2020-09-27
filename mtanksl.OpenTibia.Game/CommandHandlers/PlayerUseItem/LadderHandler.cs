@@ -8,7 +8,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> ladders = new HashSet<ushort>() { 1386, 3678, 5543 };
 
-        public override bool CanHandle(PlayerUseItemCommand command, Context context)
+        public override bool CanHandle(PlayerUseItemCommand command, Server server)
         {
             if (ladders.Contains(command.Item.Metadata.OpenTibiaId) )
             {
@@ -18,9 +18,9 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(PlayerUseItemCommand command, Context context)
+        public override Command Handle(PlayerUseItemCommand command, Server server)
         {
-            return new CreatureMoveCommand(command.Player, context.Server.Map.GetTile( ( (Tile)command.Item.Container ).Position.Offset(0, 1, -1) ) );
+            return new CreatureMoveCommand(command.Player, server.Map.GetTile( ( (Tile)command.Item.Container ).Position.Offset(0, 1, -1) ) );
         }
     }
 }

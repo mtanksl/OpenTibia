@@ -39,7 +39,7 @@ namespace OpenTibia.Game.Commands
                         privateChannel.AddPlayer(Player);
                     }
 
-                    context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
+                    context.WritePacket(Player.Client.Connection, new OpenChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
 
                     base.OnCompleted(context);
                 }
@@ -54,7 +54,7 @@ namespace OpenTibia.Game.Commands
                             guildChannel.AddPlayer(Player);
                         }
 
-                        context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(guildChannel.Id, guildChannel.Name) );
+                        context.WritePacket(Player.Client.Connection, new OpenChannelOutgoingPacket(guildChannel.Id, guildChannel.Name) );
 
                         base.OnCompleted(context);
                     }
@@ -69,7 +69,7 @@ namespace OpenTibia.Game.Commands
                                 partyChannel.AddPlayer(Player);
                             }
 
-                            context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(partyChannel.Id, partyChannel.Name) );
+                            context.WritePacket(Player.Client.Connection, new OpenChannelOutgoingPacket(partyChannel.Id, partyChannel.Name) );
 
                             base.OnCompleted(context);
                         }
@@ -82,19 +82,19 @@ namespace OpenTibia.Game.Commands
 
                             if (channel.Id == 3)
                             {
-                                context.AddPacket(Player.Client.Connection, new OpenRuleViolationsChannelOutgoingPacket(channel.Id) );
+                                context.WritePacket(Player.Client.Connection, new OpenRuleViolationsChannelOutgoingPacket(channel.Id) );
                     
                                 foreach (var ruleViolation in context.Server.RuleViolations.GetRuleViolations() )
                                 {
                                     if (ruleViolation.Assignee == null)
                                     {
-                                        context.AddPacket(Player.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationOpen, ruleViolation.Time, ruleViolation.Message) );
+                                        context.WritePacket(Player.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationOpen, ruleViolation.Time, ruleViolation.Message) );
                                     }
                                 }
                             }
                             else
                             {
-                                context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(channel.Id, channel.Name) );
+                                context.WritePacket(Player.Client.Connection, new OpenChannelOutgoingPacket(channel.Id, channel.Name) );
                             }
 
                             base.OnCompleted(context);

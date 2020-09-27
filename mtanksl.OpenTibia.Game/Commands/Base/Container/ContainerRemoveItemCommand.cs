@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Objects;
+﻿using OpenTibia.Common.Events;
+using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
@@ -28,10 +29,12 @@ namespace OpenTibia.Game.Commands
                 {
                     if (pair.Value == Container)
                     {
-                        context.AddPacket(observer.Client.Connection, new ContainerRemoveOutgoingPacket(pair.Key, index) );
+                        context.WritePacket(observer.Client.Connection, new ContainerRemoveOutgoingPacket(pair.Key, index) );
                     }
                 }
             }
+
+            context.AddEvent(new ContainerRemoveItemEventArgs(Container, Item, index) );
 
             base.OnCompleted(context);
         }

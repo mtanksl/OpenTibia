@@ -8,16 +8,52 @@ namespace OpenTibia.Game
 {
     public class ScriptsCollection
     {
-        private List<IPlayerLogoutScript> playerLogoutScripts = new List<IPlayerLogoutScript>();
+        private Server server;
 
-        public List<IPlayerLogoutScript> PlayerLogoutScripts
+        public ScriptsCollection(Server server)
         {
-            get
+            this.server = server;
+        }
+
+        private List<IScript> scripts = new List<IScript>();
+
+        public void Start()
+        {
+            foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(IScript).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract ) )
             {
-                return playerLogoutScripts;
+                IScript script = (IScript)Activator.CreateInstance(type);
+
+                scripts.Add(script);
+            }
+
+            foreach (var script in scripts)
+            {
+                script.Start(server);
             }
         }
-        
+
+        public T GetScript<T>()
+        {
+            return scripts.OfType<T>().FirstOrDefault();
+        }
+
+        public IEnumerable<T> GetScripts<T>()
+        {
+            return scripts.OfType<T>();
+        }
+
+        public void Stop()
+        {
+            foreach (var script in scripts)
+            {
+                script.Stop(server);
+            }
+        }
+
+
+
+
+
         private List<ICreatureWalkScript> creatureWalkScripts = new List<ICreatureWalkScript>();
 
         public List<ICreatureWalkScript> CreatureWalkScripts
@@ -55,51 +91,6 @@ namespace OpenTibia.Game
             get
             {
                 return itemUseWithCreatureScripts;
-            }
-        }
-
-        private Dictionary<string, ISpeechScript> speechScripts = new Dictionary<string, ISpeechScript>();
-
-        public Dictionary<string, ISpeechScript> SpeechScripts
-        {
-            get
-            {
-                return speechScripts;
-            }
-        }
-
-        private List<IScript> scripts = new List<IScript>();
-
-        public void Start(Server server)
-        {
-            foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(IScript).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract ) )
-            {
-                IScript script = (IScript)Activator.CreateInstance(type);
-
-                scripts.Add(script);
-            }
-
-            foreach (var script in scripts)
-            {
-                script.Start(server);
-            }
-        }
-
-        public T GetScript<T>()
-        {
-            return scripts.OfType<T>().FirstOrDefault();
-        }
-
-        public IEnumerable<T> GetScripts<T>()
-        {
-            return scripts.OfType<T>();
-        }
-
-        public void Stop(Server server)
-        {
-            foreach (var script in scripts)
-            {
-                script.Stop(server);
             }
         }
     }

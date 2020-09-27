@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
 
             Inventory.RemoveContent(slot);
 
-            context.AddPacket(Inventory.Player.Client.Connection, new SlotRemoveOutgoingPacket( (Slot)slot) );
+            context.WritePacket(Inventory.Player.Client.Connection, new SlotRemoveOutgoingPacket( (Slot)slot) );
 
             context.AddEvent(new InventoryRemoveItemEventArgs(Inventory, Item,  slot) );
 

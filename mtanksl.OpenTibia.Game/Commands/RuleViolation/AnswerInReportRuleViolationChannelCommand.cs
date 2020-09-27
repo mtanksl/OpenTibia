@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
 
                 if (ruleViolation != null && ruleViolation.Assignee == Player)
                 {
-                                                            context.AddPacket(ruleViolation.Reporter.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Assignee.Name, ruleViolation.Assignee.Level, TalkType.ReportRuleViolationAnswer, Message) );
+                                                            context.WritePacket(ruleViolation.Reporter.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Assignee.Name, ruleViolation.Assignee.Level, TalkType.ReportRuleViolationAnswer, Message) );
 
                     base.OnCompleted(context);
                 }

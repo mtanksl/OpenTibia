@@ -20,7 +20,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort toOpenTibiaId;
 
-        public override bool CanHandle(PlayerRotateItemCommand command, Context context)
+        public override bool CanHandle(PlayerRotateItemCommand command, Server server)
         {
             if (transformations.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
@@ -30,7 +30,7 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(PlayerRotateItemCommand command, Context context)
+        public override Command Handle(PlayerRotateItemCommand command, Server server)
         {
             return new ItemTransformCommand(command.Item, toOpenTibiaId);
         }

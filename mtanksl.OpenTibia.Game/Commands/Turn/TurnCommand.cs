@@ -1,42 +1,31 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
     public class TurnCommand : Command
     {
-        public TurnCommand(Creature creature, Direction direction)
+        public TurnCommand(Player player, Direction direction)
         {
-            Creature = creature;
+            Player = player;
 
             Direction = direction;
         }
 
-        public Creature Creature { get; set; }
+        public Player Player { get; set; }
 
         public Direction Direction { get; set; }
 
         public override void Execute(Context context)
         {
-            Tile fromTile = Creature.Tile;
+            Command command = context.TransformCommand(new CreatureUpdateDirectionCommand(Player, Direction) );
 
-            byte fromIndex = fromTile.GetIndex(Creature);
-
-            if (Creature.Direction != Direction)
+            command.Completed += (s, e) =>
             {
-                Creature.Direction = Direction;
+                base.OnCompleted(e.Context);
+            };
 
-                foreach (var observer in context.Server.GameObjects.GetPlayers() )
-                {
-                    if (observer.Tile.Position.CanSee(fromTile.Position) )
-                    {
-                        context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(fromTile.Position, fromIndex, Creature.Id, Direction) );                        
-                    }
-                }
-            }
-
-            base.OnCompleted(context);
+            command.Execute(context);
         }
     }
 }

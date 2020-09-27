@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Commands
                 new SelectOutfit(131, "Knight", Addon.None)
             };
 
-            context.AddPacket(Player.Client.Connection, new OpenSelectOutfitDialogOutgoingPacket(Player.Outfit, outfits) );
+            context.WritePacket(Player.Client.Connection, new OpenSelectOutfitDialogOutgoingPacket(Player.Outfit, outfits) );
 
             base.OnCompleted(context);
         }

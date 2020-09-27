@@ -29,7 +29,7 @@ namespace OpenTibia.Game.Commands
 
                 context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
 
-                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
+                context.WritePacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
                         
                                                             new StopAttackAndFollowOutgoingPacket(0) );
             }
@@ -37,11 +37,11 @@ namespace OpenTibia.Game.Commands
             {
                 if ( Player.Tile.Position.IsNextTo(Target.Tile.Position) )
                 {
-                    context.AddPacket(Player.Client.Connection, new ShowMagicEffectOutgoingPacket(Target.Tile.Position, MagicEffectType.Puff) );
+                    context.WritePacket(Player.Client.Connection, new ShowMagicEffectOutgoingPacket(Target.Tile.Position, MagicEffectType.Puff) );
 
                     if (Target is Player observer)
                     {
-                        context.AddPacket(observer.Client.Connection, new SetFrameColorOutgoingPacket(Player.Id, FrameColor.Black),
+                        context.WritePacket(observer.Client.Connection, new SetFrameColorOutgoingPacket(Player.Id, FrameColor.Black),
 
                                                                   new ShowMagicEffectOutgoingPacket(Target.Tile.Position, MagicEffectType.Puff) );
                     }

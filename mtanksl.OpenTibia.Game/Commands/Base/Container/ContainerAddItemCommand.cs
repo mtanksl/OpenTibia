@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Objects;
+﻿using OpenTibia.Common.Events;
+using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
@@ -18,7 +19,7 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            byte toIndex = Container.AddContent(Item);
+            byte index = Container.AddContent(Item);
 
             foreach (var observer in Container.GetPlayers() )
             {
@@ -26,10 +27,12 @@ namespace OpenTibia.Game.Commands
                 {
                     if (pair.Value == Container)
                     {
-                        context.AddPacket(observer.Client.Connection, new ContainerAddOutgoingPacket(pair.Key, Item) );
+                        context.WritePacket(observer.Client.Connection, new ContainerAddOutgoingPacket(pair.Key, Item) );
                     }
                 }
             }
+
+            context.AddEvent(new ContainerAddItemEventArgs(Container, Item, index) );
 
             base.OnCompleted(context);
         }

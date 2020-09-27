@@ -38,18 +38,7 @@ namespace OpenTibia.Game.Commands
 
                     if (toPlayer != null && toPlayer != Player)
                     {
-                        if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
-                        {
-                            WalkToUnknownPathCommand walkToUnknownPathCommand = new WalkToUnknownPathCommand(Player, fromTile);
-
-                            walkToUnknownPathCommand.Completed += (s, e) =>
-                            {
-                                context.Server.QueueForExecution(Constants.CreatureActionSchedulerEvent(Player), Constants.CreatureActionSchedulerEventDelay, this);
-                            };
-
-                            walkToUnknownPathCommand.Execute(context);
-                        }
-                        else
+                        if ( IsNextTo(fromTile, context) )
                         {
                             TradeWith(fromItem, toPlayer, context);
                         }

@@ -49,7 +49,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            context.AddPacket(Player.Client.Connection, new OpenChannelDialogOutgoingPacket(channels) );
+            context.WritePacket(Player.Client.Connection, new OpenChannelDialogOutgoingPacket(channels) );
 
             base.OnCompleted(context);
         }

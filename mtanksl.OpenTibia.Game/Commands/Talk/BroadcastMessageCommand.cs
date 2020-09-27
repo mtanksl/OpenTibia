@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Commands
         {
             foreach (var observer in context.Server.GameObjects.GetPlayers() )
             {
-                context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Broadcast, Message) );
+                context.WritePacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Broadcast, Message) );
             }
 
             base.OnCompleted(context);

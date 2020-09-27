@@ -153,7 +153,7 @@ namespace OpenTibia.Game.Commands
                             {
                                 observer.Client.ContainerCollection.CloseContainer(pair.Key);
 
-                                context.AddPacket(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                                context.WritePacket(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
                             }                           
                         }
                     }
@@ -173,7 +173,7 @@ namespace OpenTibia.Game.Commands
                                     items.Add(item);
                                 }
 
-                                context.AddPacket(observer.Client.Connection, new OpenContainerOutgoingPacket(pair.Key, bag.Metadata.TibiaId, bag.Metadata.Name, bag.Metadata.Capacity, bag.Container is Container, items) );
+                                context.WritePacket(observer.Client.Connection, new OpenContainerOutgoingPacket(pair.Key, bag.Metadata.TibiaId, bag.Metadata.Name, bag.Metadata.Capacity, bag.Container is Container, items) );
                             }                           
                         }
                     }

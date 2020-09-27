@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Commands
                 {    
                     if ( IsNextTo(fromTile, context) )
                     {
-                        UseItem(fromItem, context);
+                        UseItem(fromItem, null, context);
                     }
                 }
             }

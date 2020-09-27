@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
             
             if (observer != null && observer != Player)
             {
-                context.AddPacket(Player.Client.Connection, new OpenPrivateChannelOutgoingPacket(Name) );
+                context.WritePacket(Player.Client.Connection, new OpenPrivateChannelOutgoingPacket(Name) );
 
                 base.OnCompleted(context);
             }

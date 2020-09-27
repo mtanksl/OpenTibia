@@ -23,18 +23,18 @@ namespace OpenTibia.Game.Commands
 
             if (moveDirections.Length == 0)
             {
-                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNoWay) );
+                context.WritePacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNoWay) );
             }
             else
             {
-                WalkToKnownPathCommand walkToCommand = new WalkToKnownPathCommand(Player, moveDirections);
+                Command command = context.TransformCommand(new WalkToKnownPathCommand(Player, moveDirections) );
 
-                walkToCommand.Completed += (s, e) =>
+                command.Completed += (s, e) =>
                 {
                     base.OnCompleted(e.Context);
                 };
 
-                walkToCommand.Execute(context);
+                command.Execute(context);
             }
         }
     }

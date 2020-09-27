@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
 
             if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
             {
-                UseItem(fromItem, context);
+                UseItem(fromItem, null, context);
             }
         }
     }

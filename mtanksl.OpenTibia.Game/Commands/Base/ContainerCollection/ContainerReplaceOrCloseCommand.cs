@@ -6,7 +6,7 @@ namespace OpenTibia.Game.Commands
 {
     public class ContainerReplaceOrCloseCommand : Command
     {
-        public ContainerReplaceOrCloseCommand(Player player, byte containerId, Container container)
+        public ContainerReplaceOrCloseCommand(Player player, Container container, byte containerId)
         {
             Player = player;
 
@@ -17,9 +17,9 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        public byte ContainerId { get; set; }
-
         public Container Container { get; set; }
+
+        public byte ContainerId { get; set; }
 
         public override void Execute(Context context)
         {
@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Commands
                 {
                     Player.Client.ContainerCollection.CloseContainer(pair.Key);
 
-                    context.AddPacket(Player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                    context.WritePacket(Player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
 
                     replace = false;
                 }
@@ -48,7 +48,7 @@ namespace OpenTibia.Game.Commands
                     items.Add(item);
                 }
 
-                context.AddPacket(Player.Client.Connection, new OpenContainerOutgoingPacket(ContainerId, Container.Metadata.TibiaId, Container.Metadata.Name, Container.Metadata.Capacity, Container.Container is Container, items) );
+                context.WritePacket(Player.Client.Connection, new OpenContainerOutgoingPacket(ContainerId, Container.Metadata.TibiaId, Container.Metadata.Name, Container.Metadata.Capacity, Container.Container is Container, items) );
             }
 
             base.OnCompleted(context);

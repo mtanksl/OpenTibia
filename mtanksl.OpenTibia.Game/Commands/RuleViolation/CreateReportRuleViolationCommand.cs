@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
 
                 foreach (var observer in context.Server.Channels.GetChannel(3).GetPlayers() )
                 {
-                    context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationOpen, ruleViolation.Time, ruleViolation.Message) );
+                    context.WritePacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationOpen, ruleViolation.Time, ruleViolation.Message) );
                 }
 
                 base.OnCompleted(context);

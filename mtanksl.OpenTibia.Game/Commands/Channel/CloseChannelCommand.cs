@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
                     {
                         foreach (var observer in privateChannel.GetPlayers().ToList() )
                         {
-                            context.AddPacket(observer.Client.Connection, new CloseChannelOutgoingPacket(channel.Id) );
+                            context.WritePacket(observer.Client.Connection, new CloseChannelOutgoingPacket(channel.Id) );
 
                             privateChannel.RemovePlayer(observer);
                         }
@@ -50,7 +50,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                context.AddPacket(Player.Client.Connection, new CloseChannelOutgoingPacket(channel.Id) );
+                context.WritePacket(Player.Client.Connection, new CloseChannelOutgoingPacket(channel.Id) );
 
                 base.OnCompleted(context);
             }

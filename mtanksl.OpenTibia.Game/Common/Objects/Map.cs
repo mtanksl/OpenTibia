@@ -36,37 +36,27 @@ namespace OpenTibia.Common.Objects
                             {
                                 Item item = itemFactory.Create(otbmItem.OpenTibiaId);
 
-                                if (item is TeleportItem)
+                                if (item is TeleportItem teleport)
                                 {
-                                    TeleportItem teleport = (TeleportItem)item;
-
                                     teleport.Position = otbmItem.TeleportPosition;
                                 }
-                                else if (item is Container)
+                                else if (item is Container container)
                                 {
-                                    Container container = (Container)item;
-
                                     if (otbmItem.Items != null)
                                     {
                                         AddItems(container, otbmItem.Items);
                                     }
                                 }
-                                else if (item is StackableItem)
+                                else if (item is StackableItem stackable)
                                 {
-                                    StackableItem stackable = (StackableItem)item;
-
                                     stackable.Count = otbmItem.Count;
                                 }
-                                else if (item is FluidItem)
+                                else if (item is FluidItem fluidItem)
                                 {
-                                    FluidItem fluidItem = (FluidItem)item;
-
                                     fluidItem.FluidType = (FluidType)otbmItem.Count;
                                 }
-                                else if (item is ReadableItem)
+                                else if (item is ReadableItem writeableItem)
                                 {
-                                    ReadableItem writeableItem = (ReadableItem)item;
-
                                     writeableItem.Text = otbmItem.Text;
                                 }
 

@@ -1,6 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -19,15 +17,14 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            foreach (var observer in context.Server.GameObjects.GetPlayers() )
-            {
-                if (observer.Tile.Position.CanHearYell(Player.Tile.Position) )
-                {
-                    context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Yell, Player.Tile.Position, Message.ToUpper() ) );
-                }
-            }
+            Command command = context.TransformCommand(new PlayerYellCommand(Player, Message) );
 
-            base.OnCompleted(context);
+            command.Completed += (s, e) =>
+            {
+                base.OnCompleted(e.Context);
+            };
+
+            command.Execute(context);
         }
     }
 }

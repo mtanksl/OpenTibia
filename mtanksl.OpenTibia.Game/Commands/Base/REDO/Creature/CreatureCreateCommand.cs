@@ -32,8 +32,6 @@ namespace OpenTibia.Game.Commands
 
                 if (tile != null)
                 {
-                    context.Server.GameObjects.AddGameObject(creature);
-
                     new TileAddCreatureCommand(tile, creature).Execute(context);
 
                     foreach (var component in creature.GetComponents<Behaviour>() )

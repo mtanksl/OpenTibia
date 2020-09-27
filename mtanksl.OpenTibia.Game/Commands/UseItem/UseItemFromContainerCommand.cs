@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
-                    UseItem(fromItem, FromContainerId, ContainerId, context);
+                    UseItem(fromItem, FromContainerId == ContainerId ? ContainerId : ( byte? )null, context);
                 }
             }
         }

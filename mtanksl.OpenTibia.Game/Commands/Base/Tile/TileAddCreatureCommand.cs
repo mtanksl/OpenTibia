@@ -29,11 +29,11 @@ namespace OpenTibia.Game.Commands
 
                     if (observer.Client.CreatureCollection.IsKnownCreature(Creature.Id, out removeId) )
                     {
-                        context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, Creature) );
+                        context.WritePacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, Creature) );
                     }
                     else
                     {
-                        context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, removeId, Creature) );
+                        context.WritePacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, removeId, Creature) );
                     }
                 }
             }

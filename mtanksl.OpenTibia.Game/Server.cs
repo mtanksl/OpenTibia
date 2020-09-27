@@ -124,13 +124,13 @@ namespace OpenTibia.Game
 
             Events = new EventsCollection();
 
-            CommandHandlers = new CommandHandlerCollection();
+            CommandHandlers = new CommandHandlerCollection(this);
 
-            Scripts = new ScriptsCollection();
+            Scripts = new ScriptsCollection(this);
 
             using (Logger.Measure("Loading scripts", true) )
             {
-                Scripts.Start(this);
+                Scripts.Start();
             }
 
             dispatcher.Start();
@@ -154,13 +154,13 @@ namespace OpenTibia.Game
                     try
                     {
                         command.Execute(context);
+
+                        context.Flush();
                     }
                     catch (Exception ex)
                     {
                         Logger.WriteLine(ex.ToString() );
                     }
-
-                    context.Flush();
                 }
             } );
         }
@@ -187,13 +187,13 @@ namespace OpenTibia.Game
                     try
                     {
                         command.Execute(context);
+
+                        context.Flush();
                     }
                     catch (Exception ex)
                     {
                         Logger.WriteLine(ex.ToString() );
                     }
-
-                    context.Flush();
                 }                
             } ) );
         }
@@ -216,7 +216,7 @@ namespace OpenTibia.Game
 
         public void Stop()
         {
-            Scripts.Stop(this);
+            Scripts.Stop();
 
             foreach (var listener in listeners)
             {

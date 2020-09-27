@@ -29,14 +29,21 @@ namespace OpenTibia.Game
             }
         }
 
-        public Command AddCommand(Command command)
+        public Command TransformCommand(Command command)
         {
             if (disposed)
             {
                 throw new ObjectDisposedException( nameof(Context) );
             }
 
-            return server.CommandHandlers.TryHandle(command, this);
+            Command result;
+
+            if ( server.CommandHandlers.TryHandle(command, out result) )
+            {
+                return result;
+            }
+
+            return command;
         }
 
         private List<GameEventArgs> events;
@@ -60,7 +67,7 @@ namespace OpenTibia.Game
 
         private Dictionary<IConnection, Message> messages = null;
 
-        public Context AddPacket(IConnection connection, IOutgoingPacket packet)
+        public Context WritePacket(IConnection connection, IOutgoingPacket packet)
         {
             if (disposed)
             {
@@ -86,7 +93,7 @@ namespace OpenTibia.Game
             return this;
         }
 
-        public Context AddPacket(IConnection connection, params IOutgoingPacket[] packet)
+        public Context WritePacket(IConnection connection, params IOutgoingPacket[] packet)
         {
             if (disposed)
             {

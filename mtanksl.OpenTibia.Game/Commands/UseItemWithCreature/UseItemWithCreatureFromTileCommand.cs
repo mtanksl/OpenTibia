@@ -40,9 +40,7 @@ namespace OpenTibia.Game.Commands
 
                     if (toCreature != null)
                     {
-                        if ( IsUseable(fromItem, context) &&
-
-                            IsNextTo(fromTile, context) )
+                        if ( IsUseable(fromItem, context) && IsNextTo(fromTile, context) )
                         {
                             UseItemWithCreature(fromItem, toCreature, context, () =>
                             {

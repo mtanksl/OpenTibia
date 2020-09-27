@@ -1,9 +1,6 @@
-﻿using OpenTibia.Common.Events;
-using OpenTibia.Common.Objects;
+﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
-using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -18,42 +15,30 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            if ( !context.Server.Scripts.PlayerLogoutScripts.Any(script => script.OnPlayerLogout(Player, Player.Tile, context) ) )
+            Tile fromTile = Player.Tile;
+
+            byte fromIndex = fromTile.GetIndex(Player);
+
+            fromTile.RemoveContent(fromIndex);
+
+            foreach (var observer in context.Server.GameObjects.GetPlayers() )
             {
-                Tile fromTile = Player.Tile;
-
-                Position fromPosition = fromTile.Position;
-
-                byte fromIndex = fromTile.GetIndex(Player);
-
-                fromTile.RemoveContent(fromIndex);
-
-                foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                if (observer == Player)
                 {
-                    if (observer == Player)
+                    context.Disconnect(observer.Client.Connection);
+                }
+                else
+                {
+                    if (observer.Tile.Position.CanSee(fromTile.Position) )
                     {
-                        context.Disconnect(observer.Client.Connection);
-                    }
-                    else
-                    {
-                        if (observer.Tile.Position.CanSee(fromPosition) )
-                        {
-                            context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromPosition, fromIndex),
+                        context.WritePacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromTile.Position, fromIndex),
                             
-                                                                          new ShowMagicEffectOutgoingPacket(fromPosition, MagicEffectType.Puff) );
-                        }
+                                                                      new ShowMagicEffectOutgoingPacket(fromTile.Position, MagicEffectType.Puff) );
                     }
                 }
-
-                context.Server.GameObjects.RemoveGameObject(Player);
-
-                foreach (var component in Player.GetComponents<Behaviour>() )
-                {
-                    component.Stop(context.Server);
-                }
-
-                context.AddEvent(new TileRemoveCreatureEventArgs(fromTile, Player, fromIndex) );
             }
+
+            context.Server.PlayerFactory.Destroy(Player);
 
             base.OnCompleted(context);
         }

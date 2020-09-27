@@ -10,7 +10,7 @@ namespace OpenTibia.Game.Commands
 
             foreach (var player in context.Server.GameObjects.GetPlayers() )
             {
-                context.AddPacket(player.Client.Connection, new SetEnvironmentLightOutgoingPacket(context.Server.Clock.Light) );
+                context.WritePacket(player.Client.Connection, new SetEnvironmentLightOutgoingPacket(context.Server.Clock.Light) );
             }
 
             base.OnCompleted(context);

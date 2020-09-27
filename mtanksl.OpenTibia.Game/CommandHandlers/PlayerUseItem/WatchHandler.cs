@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> watches = new HashSet<ushort>() { 2036 };
 
-        public override bool CanHandle(PlayerUseItemCommand command, Context context)
+        public override bool CanHandle(PlayerUseItemCommand command, Server server)
         {
             if (watches.Contains(command.Item.Metadata.OpenTibiaId) )
             {
@@ -19,11 +19,11 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(PlayerUseItemCommand command, Context context)
+        public override Command Handle(PlayerUseItemCommand command, Server server)
         {
-            return new ConditionalCommand(_context =>
+            return new ConditionalCommand(context =>
             {
-                context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "The time is " + _context.Server.Clock.Hour.ToString("00") + ":" + _context.Server.Clock.Minute.ToString("00") + ".") );
+                context.WritePacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "The time is " + context.Server.Clock.Hour.ToString("00") + ":" + context.Server.Clock.Minute.ToString("00") + ".") );
 
                 return true;
             } );

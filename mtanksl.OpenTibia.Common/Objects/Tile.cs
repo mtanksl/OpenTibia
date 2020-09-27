@@ -26,9 +26,25 @@ namespace OpenTibia.Common.Objects
         {
             get
             {
-                return GetItems()
-                    .Where(i => i.TopOrder == TopOrder.Ground)
-                    .FirstOrDefault();
+                return GetItems().Where(i => i.TopOrder == TopOrder.Ground).FirstOrDefault();
+            }
+        }
+
+        public Item TopItem
+        {
+            get
+            {
+                return GetItems().Where(i => i.TopOrder == TopOrder.Other).FirstOrDefault() ?? 
+                    
+                       GetItems().Where(i => i.TopOrder == TopOrder.HighPriority || i.TopOrder == TopOrder.MediumPriority || i.TopOrder == TopOrder.LowPriority).LastOrDefault();
+            }
+        }
+
+        public Creature TopCreature
+        {
+            get
+            {
+                return GetCreatures().LastOrDefault();
             }
         }
 
@@ -36,8 +52,7 @@ namespace OpenTibia.Common.Objects
         {
             get
             {
-                return GetItems()
-                    .Aggregate(FloorChange.None, (s, i) => s |= i.Metadata.FloorChange);
+                return GetItems().Aggregate(FloorChange.None, (s, i) => s |= i.Metadata.FloorChange);
             }
         }
 

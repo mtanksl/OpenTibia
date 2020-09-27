@@ -4,8 +4,8 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public interface ICommandHandler
     {
-        bool CanHandle(Command command, Context context);
+        bool CanHandle(Command command, Server server);
 
-        Command Handle(Command command, Context context);
+        Command Handle(Command command, Server server);
     }
 }

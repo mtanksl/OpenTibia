@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Commands
         {
             if (context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) ) )
             {
-                context.AddPacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
+                context.WritePacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
             }
 
             base.OnCompleted(context);

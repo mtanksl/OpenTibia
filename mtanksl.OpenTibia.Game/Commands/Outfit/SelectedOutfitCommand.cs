@@ -1,42 +1,31 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
     public class SelectedOutfitCommand : Command
     {
-        public SelectedOutfitCommand(Creature creature, Outfit outfit)
+        public SelectedOutfitCommand(Player player, Outfit outfit)
         {
-            Creature = creature;
+            Player = player;
 
             Outfit = outfit;
         }
 
-        public Creature Creature { get; set; }
+        public Player Player { get; set; }
 
         public Outfit Outfit { get; set; }
 
         public override void Execute(Context context)
         {
-            Tile fromTile = Creature.Tile;
+            Command command = context.TransformCommand(new CreatureUpdateOutfitCommand(Player, Outfit) );
 
-            byte fromIndex = fromTile.GetIndex(Creature);
-
-            if (Creature.Outfit != Outfit)
+            command.Completed += (s, e) =>
             {
-                Creature.Outfit = Outfit;
+                base.OnCompleted(context);
+            };
 
-                foreach (var observer in context.Server.GameObjects.GetPlayers() )
-                {
-                    if (observer.Tile.Position.CanSee(fromTile.Position) )
-                    {
-                        context.AddPacket(observer.Client.Connection, new SetOutfitOutgoingPacket(Creature.Id, Outfit) );
-                    }
-                }
-            }
-
-            base.OnCompleted(context);
+            command.Execute(context);
         }
     }
 }

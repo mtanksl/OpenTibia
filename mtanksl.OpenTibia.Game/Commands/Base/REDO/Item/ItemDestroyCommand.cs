@@ -79,7 +79,7 @@ namespace OpenTibia.Game.Commands
                         {
                             observer.Client.ContainerCollection.CloseContainer(pair.Key);
 
-                            context.AddPacket(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                            context.WritePacket(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
                         }                           
                     }
                 }

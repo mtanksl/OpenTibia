@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Commands
         {
             if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
             {
-                Command command = context.AddCommand(new WalkToUnknownPathCommand(Player, fromTile) );
+                Command command = context.TransformCommand(new WalkToUnknownPathCommand(Player, fromTile) );
 
                 command.Completed += (s, e) =>
                 {
@@ -43,11 +43,11 @@ namespace OpenTibia.Game.Commands
 
         protected void RotateItem(Item fromItem, Context context)
         {
-            Command command = context.AddCommand(new PlayerRotateItemCommand(Player, fromItem) );
+            Command command = context.TransformCommand(new PlayerRotateItemCommand(Player, fromItem) );
 
             command.Completed += (s, e) =>
             {
-                base.OnCompleted(context);
+                base.OnCompleted(e.Context);
             };
 
             command.Execute(context);
