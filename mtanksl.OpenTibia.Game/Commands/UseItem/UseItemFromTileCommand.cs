@@ -30,10 +30,7 @@ namespace OpenTibia.Game.Commands
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {    
-                    if ( IsNextTo(fromTile, context) )
-                    {
-                        UseItem(fromItem, null, context);
-                    }
+                    UseItem(fromItem, null, context);
                 }
             }
         }

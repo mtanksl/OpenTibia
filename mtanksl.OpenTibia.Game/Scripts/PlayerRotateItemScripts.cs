@@ -6,6 +6,8 @@ namespace OpenTibia.Game.Scripts
     {
         public void Start(Server server)
         {
+            server.CommandHandlers.Add(new RotateItemWalkToItemHandler() );
+
             server.CommandHandlers.Add(new RotateItemTransformHandler() );
         }
 

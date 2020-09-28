@@ -43,6 +43,21 @@
     <Compile Include="CommandHandlerCollection.cs" />
     <Compile Include="CommandHandlers\CommandHandler.cs" />
     <Compile Include="CommandHandlers\ICommandHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerRotateItem\RotateItemWalkToItemHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithItem\KnifeHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithItem\BakingTrayWithDoughHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithItem\LumpOfChocolateDoughHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithItem\LumpOfCakeDoughHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithItem\LumpOfDoughHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithItem\FlourHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithItem\WheatHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithItem\ScytheHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithItem\BucketHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithItem\MacheteHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithItem\FishingRodHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithItem\UseItemWithItemWalkToTargetHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithItem\UseItemWithItemWalkToItemHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItem\UseItemWalkToItemHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportDownHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportUpHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportHandler.cs" />
@@ -91,6 +106,7 @@
     <Compile Include="Commands\Base\Player\PlayerWhisperCommand.cs" />
     <Compile Include="Commands\Base\Player\PlayerSayCommand.cs" />
     <Compile Include="Commands\Base\Inventory\InventoryReplaceItemCommand.cs" />
+    <Compile Include="Commands\ChainCommand.cs" />
     <Compile Include="REDO\Item\ItemDestroyCommand.cs" />
     <Compile Include="REDO\Item\ItemMoveCommand.cs" />
     <Compile Include="REDO\Item\ItemTransformCommand.cs" />
@@ -310,6 +326,11 @@
       <Name>mtanksl.OpenTibia.Threading</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="CommandHandlers\PlayerLookAtCreature\" />
+    <Folder Include="CommandHandlers\PlayerLookAtItem\" />
+    <Folder Include="CommandHandlers\PlayerWhisper\" />
+    <Folder Include="CommandHandlers\PlayerYell\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

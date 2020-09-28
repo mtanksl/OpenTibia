@@ -22,25 +22,6 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected bool IsNextTo(Tile fromTile, Context context)
-        {
-            if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
-            {
-                Command command = context.TransformCommand(new WalkToUnknownPathCommand(Player, fromTile) );
-
-                command.Completed += (s, e) =>
-                {
-                    context.Server.QueueForExecution(Constants.CreatureActionSchedulerEvent(Player), Constants.CreatureActionSchedulerEventDelay, this);
-                };
-
-                command.Execute(context);
-
-                return false;
-            }
-
-            return true;
-        }
-
         protected void RotateItem(Item fromItem, Context context)
         {
             Command command = context.TransformCommand(new PlayerRotateItemCommand(Player, fromItem) );

@@ -38,10 +38,7 @@ namespace OpenTibia.Game.Commands
 
                     if (toPlayer != null && toPlayer != Player)
                     {
-                        if ( IsNextTo(fromTile, context) )
-                        {
-                            TradeWith(fromItem, toPlayer, context);
-                        }
+                        TradeWith(fromItem, toPlayer, context);
                     }
                 }
             }
