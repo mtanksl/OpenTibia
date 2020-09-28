@@ -6,7 +6,7 @@ namespace OpenTibia.Game.Scripts
     {
         public void Start(Server server)
         {
-            server.CommandHandlers.Add(new UseItemWithItemWalkToItemHandler() );
+            server.CommandHandlers.Add(new UseItemWithItemWalkToSourceHandler() );
 
             server.CommandHandlers.Add(new FishingRodHandler() );
 

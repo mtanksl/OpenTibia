@@ -27,11 +27,13 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Command Handle(PlayerUseItemCommand command, Server server)
         {
-            return new SequenceCommand(
+            List<Command> commands = new List<Command>();
 
-                new ItemTransformCommand(command.Item, toOpenTibiaId), 
-                
-                new TileCreateItemCommand( (Tile)command.Item.Container, blueberry, 3) );
+            commands.Add(new ItemTransformCommand(command.Item, toOpenTibiaId) );
+
+            commands.Add(new TileCreateItemCommand( (Tile)command.Item.Container, blueberry, 3) );
+
+            return new SequenceCommand(commands.ToArray() );
         }
     }
 }

@@ -43,7 +43,9 @@
     <Compile Include="CommandHandlerCollection.cs" />
     <Compile Include="CommandHandlers\CommandHandler.cs" />
     <Compile Include="CommandHandlers\ICommandHandler.cs" />
-    <Compile Include="CommandHandlers\PlayerRotateItem\RotateItemWalkToItemHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerRotateItem\RotateItemWalkToSourceHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithCreature\UseItemWithCreatureWalkToSourceHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithCreature\UseItemWithCreatureWalkToTargetHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItemWithItem\KnifeHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItemWithItem\BakingTrayWithDoughHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItemWithItem\LumpOfChocolateDoughHandler.cs" />
@@ -56,8 +58,8 @@
     <Compile Include="CommandHandlers\PlayerUseItemWithItem\MacheteHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItemWithItem\FishingRodHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItemWithItem\UseItemWithItemWalkToTargetHandler.cs" />
-    <Compile Include="CommandHandlers\PlayerUseItemWithItem\UseItemWithItemWalkToItemHandler.cs" />
-    <Compile Include="CommandHandlers\PlayerUseItem\UseItemWalkToItemHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithItem\UseItemWithItemWalkToSourceHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItem\UseItemWalkToSourceHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportDownHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportUpHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportHandler.cs" />

@@ -40,26 +40,9 @@ namespace OpenTibia.Game.Commands
 
                     if (toCreature != null)
                     {
-                        if ( IsUseable(fromItem, context) && IsNextTo(fromTile, context) )
+                        if ( IsUseable(fromItem, context) )
                         {
-                            UseItemWithCreature(fromItem, toCreature, context, () =>
-                            {
-                                MoveItemFromTileToInventoryCommand moveItemFromTileToInventoryCommand = new MoveItemFromTileToInventoryCommand(Player, FromPosition, FromIndex, ItemId, (byte)Slot.Extra, 1);
-
-                                moveItemFromTileToInventoryCommand.Completed += (s, e) =>
-                                {
-                                    UseItemWithCreatureFromInventoryCommand useItemWithCreatureFromInventoryCommand = new UseItemWithCreatureFromInventoryCommand(Player, (byte)Slot.Extra, ItemId, ToCreatureId);
-
-                                    useItemWithCreatureFromInventoryCommand.Completed += (s2, e2) =>
-                                    {
-                                        base.OnCompleted(e2.Context);
-                                    };
-
-                                    useItemWithCreatureFromInventoryCommand.Execute(e.Context);
-                                };
-
-                                moveItemFromTileToInventoryCommand.Execute(context);
-                            } );
+                            UseItemWithCreature(fromItem, toCreature, context);
                         }
                     }
                 }

@@ -40,24 +40,31 @@ namespace OpenTibia.Game.Commands
 
                 if (toTile != null)
                 {
-                    Item toItem = toTile.GetContent(ToIndex) as Item;
-
-                    if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
+                    switch (toTile.GetContent(ToIndex) )
                     {
-                        if ( IsUseable(fromItem, context) )
-                        {
-                            UseItemWithItem(fromItem, toItem, toTile, context, () =>
+                        case Item toItem:
+
+                            if (toItem.Metadata.TibiaId == ToItemId)
                             {
-                                WalkToUnknownPathCommand walkToUnknownPathCommand = new WalkToUnknownPathCommand(Player, toTile);
-
-                                walkToUnknownPathCommand.Completed += (s, e) =>
+                                if ( IsUseable(fromItem, context) )
                                 {
-                                    context.Server.QueueForExecution(Constants.CreatureActionSchedulerEvent(Player), Constants.CreatureActionSchedulerEventDelay, this);
-                                };
+                                    UseItemWithItem(fromItem, toItem, context);
+                                }
+                            }
 
-                                walkToUnknownPathCommand.Execute(context);
-                            } );
-                        }
+                            break;
+
+                        case Creature toCreature:
+
+                            if (ToItemId == 99)
+                            {
+                                if ( IsUseable(fromItem, context) )
+                                {
+                                    UseItemWithCreature(fromItem, toCreature, context);
+                                }
+                            }
+
+                            break;
                     }
                 }
             }

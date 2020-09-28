@@ -28,7 +28,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Command Handle(PlayerUseItemWithItemCommand command, Server server)
         {
-            return new ItemTransformCommand(command.Item, toOpenTibiaId);
+            return new ItemTransformCommand(command.ToItem, toOpenTibiaId);
         }
     }
 }

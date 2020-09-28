@@ -22,7 +22,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Command Handle(PlayerUseItemWithItemCommand command, Server server)
         {
-            return new CreatureMoveCommand(command.Player, server.Map.GetTile( ( (Tile)command.Item.Container ).Position.Offset(0, 1, -1) ) );
+            return new CreatureMoveCommand(command.Player, server.Map.GetTile( ( (Tile)command.ToItem.Container ).Position.Offset(0, 1, -1) ) );
         }
     }
 }

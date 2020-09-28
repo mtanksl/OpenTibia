@@ -1,8 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Game.Scripts;
-using OpenTibia.Network.Packets.Outgoing;
-using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -25,68 +22,16 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected bool IsNextTo(Tile fromTile, Context context)
+        protected void UseItemWithCreature(Item fromItem, Creature toCreature, Context context)
         {
-            if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
+            Command command = context.TransformCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) );
+
+            command.Completed += (s, e) =>
             {
-                Command command = context.TransformCommand(new WalkToUnknownPathCommand(Player, fromTile) );
+                base.OnCompleted(e.Context);
+            };
 
-                command.Completed += (s, e) =>
-                {
-                    context.Server.QueueForExecution(Constants.CreatureActionSchedulerEvent(Player), Constants.CreatureActionSchedulerEventDelay, this);
-                };
-
-                command.Execute(context);
-
-                return false;
-            }
-
-            return true;
-        }
-
-        protected void UseItemWithCreature(Item fromItem, Creature toCreature, Context context, Action howToProceed)
-        {
-            IItemUseWithCreatureScript script;
-
-            if ( !context.Server.Scripts.ItemUseWithCreatureScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) )
-            {
-                context.WritePacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
-            }
-            else
-            {
-                bool proceed = true;
-
-                if (script.NextTo)
-                {
-                    if ( !Player.Tile.Position.IsNextTo(toCreature.Tile.Position) )
-                    {
-                        howToProceed();
-
-                        proceed = false;
-                    }
-                }
-                else
-                {
-                    if ( !context.Server.Pathfinding.CanThrow(Player.Tile.Position, toCreature.Tile.Position) )
-                    {
-                        context.WritePacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
-
-                        proceed = false;
-                    }
-                }
-
-                if (proceed)
-                {
-                    if ( !script.OnItemUseWithCreature(Player, fromItem, toCreature, context) )
-                    {
-                        context.WritePacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
-                    }
-                    else
-                    {
-                        base.OnCompleted(context);
-                    }
-                }
-            }
+            command.Execute(context);
         }
     }
 }

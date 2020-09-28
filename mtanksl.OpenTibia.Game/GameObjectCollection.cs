@@ -17,6 +17,8 @@ namespace OpenTibia.Game
 
         private Dictionary<Type, Dictionary<uint, GameObject>> buckets = new Dictionary<Type, Dictionary<uint, GameObject>>()
         {
+            { typeof(Creature), new Dictionary<uint, GameObject>() },
+
             { typeof(Monster), new Dictionary<uint, GameObject>() },
 
             { typeof(Npc), new Dictionary<uint, GameObject>() },
@@ -42,19 +44,27 @@ namespace OpenTibia.Game
                 gameObject.Id = GenerateId();
             }
 
+            if (gameObject is Creature)
+            {
+                buckets[ typeof(Creature) ].Add(gameObject.Id, gameObject);
+            }
+
             if (gameObject is Monster)
             {
                 buckets[ typeof(Monster) ].Add(gameObject.Id, gameObject);
             }
-            else if (gameObject is Npc)
+            
+            if (gameObject is Npc)
             {
                 buckets[ typeof(Npc) ].Add(gameObject.Id, gameObject);
             }
-            else if (gameObject is Player)
+            
+            if (gameObject is Player)
             {
                 buckets[ typeof(Player) ].Add(gameObject.Id, gameObject);
             }
-            else if (gameObject is Item)
+            
+            if (gameObject is Item)
             {
                 buckets[ typeof(Item) ].Add(gameObject.Id, gameObject);
             }
@@ -72,19 +82,27 @@ namespace OpenTibia.Game
                 component.Stop(server);
             }
 
+            if (gameObject is Creature)
+            {
+                buckets[ typeof(Creature) ].Remove(gameObject.Id);
+            }
+
             if (gameObject is Monster)
             {
                 buckets[ typeof(Monster) ].Remove(gameObject.Id);
             }
-            else if (gameObject is Npc)
+            
+            if (gameObject is Npc)
             {
                 buckets[ typeof(Npc) ].Remove(gameObject.Id);
             }
-            else if (gameObject is Player)
+            
+            if (gameObject is Player)
             {
                 buckets[ typeof(Player) ].Remove(gameObject.Id);
             }
-            else if (gameObject is Item)
+            
+            if (gameObject is Item)
             {
                 buckets[ typeof(Item) ].Remove(gameObject.Id);
             }
@@ -117,6 +135,11 @@ namespace OpenTibia.Game
             }
 
             return default(T);
+        }
+
+        public IEnumerable<Creature> GetCreatures()
+        {
+            return GetGameObjects<Creature>();
         }
 
         public IEnumerable<Monster> GetMonsters()

@@ -46,33 +46,31 @@ namespace OpenTibia.Game.Commands
 
                     if (toTile != null)
                     {
-                        Item toItem = toTile.GetContent(ToIndex) as Item;
-
-                        if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
+                        switch (toTile.GetContent(ToIndex) )
                         {
-                            if ( IsUseable(fromItem, context) &&
-                                
-                                 IsNextTo(fromTile, context) )
-                            {
-                                UseItemWithItem(fromItem, toItem, toTile, context, () =>
+                            case Item toItem:
+
+                                if (toItem.Metadata.TibiaId == ToItemId)
                                 {
-                                    MoveItemFromTileToInventoryCommand moveItemFromTileToInventoryCommand = new MoveItemFromTileToInventoryCommand(Player, FromPosition, FromIndex, FromItemId, (byte)Slot.Extra, 1);
-
-                                    moveItemFromTileToInventoryCommand.Completed += (s, e) =>
+                                    if ( IsUseable(fromItem, context) )
                                     {
-                                        UseItemWithItemFromInventoryToTileCommand useItemWithItemFromInventoryToTileCommand = new UseItemWithItemFromInventoryToTileCommand(Player, (byte)Slot.Extra, FromItemId, ToPosition, ToIndex, ToItemId);
+                                        UseItemWithItem(fromItem, toItem, context);
+                                    }
+                                }
 
-                                        useItemWithItemFromInventoryToTileCommand.Completed += (s2, e2) =>
-                                        {
-                                            base.OnCompleted(e2.Context);
-                                        };
+                                break;
 
-                                        useItemWithItemFromInventoryToTileCommand.Execute(e.Context);
-                                    };
+                            case Creature toCreature:
 
-                                    moveItemFromTileToInventoryCommand.Execute(context);
-                                } );
-                            }
+                                if (ToItemId == 99)
+                                {
+                                    if ( IsUseable(fromItem, context) )
+                                    {
+                                        UseItemWithCreature(fromItem, toCreature, context);
+                                    }
+                                }
+
+                                break;
                         }
                     }
                 }

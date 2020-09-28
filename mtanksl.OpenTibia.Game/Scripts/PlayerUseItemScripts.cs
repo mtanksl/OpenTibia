@@ -6,7 +6,7 @@ namespace OpenTibia.Game.Scripts
     {
         public void Start(Server server)
         {
-            server.CommandHandlers.Add(new UseItemWalkToItemHandler() );
+            server.CommandHandlers.Add(new UseItemWalkToSourceHandler() );
 
             server.CommandHandlers.Add(new ContainerHandler() );
 

@@ -33,17 +33,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if ( IsUseable(fromItem, context) )
                     {
-                        UseItemWithCreature(fromItem, toCreature, context, () =>
-                        {
-                            WalkToUnknownPathCommand walkToUnknownPathCommand = new WalkToUnknownPathCommand(Player, toCreature.Tile);
-
-                            walkToUnknownPathCommand.Completed += (s, e) =>
-                            {
-                                context.Server.QueueForExecution(Constants.CreatureActionSchedulerEvent(Player), Constants.CreatureActionSchedulerEventDelay, this);
-                            };
-
-                            walkToUnknownPathCommand.Execute(context);
-                        } );
+                        UseItemWithCreature(fromItem, toCreature, context);
                     }
                 }
             }

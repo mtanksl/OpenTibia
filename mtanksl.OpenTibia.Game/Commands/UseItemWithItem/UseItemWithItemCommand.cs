@@ -1,8 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Game.Scripts;
-using OpenTibia.Network.Packets.Outgoing;
-using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -25,82 +22,28 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected bool IsNextTo(Tile fromTile, Context context)
-        {
-            if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
-            {
-                Command command = context.TransformCommand(new WalkToUnknownPathCommand(Player, fromTile) );
-
-                command.Completed += (s, e) =>
-                {
-                    context.Server.QueueForExecution(Constants.CreatureActionSchedulerEvent(Player), Constants.CreatureActionSchedulerEventDelay, this);
-                };
-
-                command.Execute(context);
-
-                return false;
-            }
-
-            return true;
-        }
-
         protected void UseItemWithItem(Item fromItem, Item toItem, Context context)
         {
-            IItemUseWithItemScript script;
+            Command command = context.TransformCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) );
 
-            if ( !context.Server.Scripts.ItemUseWithItemScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) || !script.OnItemUseWithItem(Player, fromItem, toItem, context) )
+            command.Completed += (s, e) =>
             {
-                context.WritePacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
-            }
-            else
-            {
-                base.OnCompleted(context);
-            }
+                base.OnCompleted(e.Context);
+            };
+
+            command.Execute(context);
         }
 
-        protected void UseItemWithItem(Item fromItem, Item toItem, Tile toTile, Context context, Action howToProceed)
+        protected void UseItemWithCreature(Item fromItem, Creature toCreature, Context context)
         {
-            IItemUseWithItemScript script;
+            Command command = context.TransformCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) );
 
-            if ( !context.Server.Scripts.ItemUseWithItemScripts.TryGetValue(fromItem.Metadata.OpenTibiaId, out script) )
+            command.Completed += (s, e) =>
             {
-                context.WritePacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
-            }
-            else
-            {
-                bool proceed = true;
+                base.OnCompleted(e.Context);
+            };
 
-                if (script.NextTo)
-                {
-                    if ( !Player.Tile.Position.IsNextTo(toTile.Position) )
-                    {
-                        howToProceed();
-
-                        proceed = false;
-                    }
-                }
-                else
-                {
-                    if ( !context.Server.Pathfinding.CanThrow(Player.Tile.Position, toTile.Position) )
-                    {
-                        context.WritePacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
-
-                        proceed = false;
-                    }
-                }
-
-                if (proceed)
-                {
-                    if ( !script.OnItemUseWithItem(Player, fromItem, toItem, context) )
-                    {
-                        context.WritePacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
-                    }
-                    else
-                    {
-                        base.OnCompleted(context);
-                    }
-                }
-            }
+            command.Execute(context);
         }
     }
 }

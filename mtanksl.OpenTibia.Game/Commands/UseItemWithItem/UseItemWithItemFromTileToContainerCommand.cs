@@ -50,9 +50,7 @@ namespace OpenTibia.Game.Commands
 
                         if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
                         {
-                            if ( IsUseable(fromItem, context) &&
-                                
-                                IsNextTo(fromTile, context) )
+                            if ( IsUseable(fromItem, context) )
                             {
                                 UseItemWithItem(fromItem, toItem, context);
                             }                            
