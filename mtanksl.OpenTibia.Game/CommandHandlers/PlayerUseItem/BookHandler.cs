@@ -21,9 +21,11 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Command Handle(PlayerUseItemCommand command, Server server)
         {
+            ReadableItem readableItem = (ReadableItem)command.Item;
+
             return new ConditionalCommand(context =>
             {
-                context.WritePacket(command.Player.Client.Connection, new OpenTextDialogOutgoingPacket(0, command.Item.Metadata.TibiaId, (ushort)( (ReadableItem)command.Item ).Text.Length, ( (ReadableItem)command.Item ).Text, "", "") );
+                context.WritePacket(command.Player.Client.Connection, new OpenTextDialogOutgoingPacket(0, command.Item.Metadata.TibiaId, 255, readableItem.Text, "", "") );
                
                 return true;
             } );

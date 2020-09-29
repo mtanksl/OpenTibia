@@ -55,9 +55,9 @@ namespace OpenTibia.Common.Objects
                                 {
                                     fluidItem.FluidType = (FluidType)otbmItem.Count;
                                 }
-                                else if (item is ReadableItem writeableItem)
+                                else if (item is ReadableItem readableItem)
                                 {
-                                    writeableItem.Text = otbmItem.Text;
+                                    readableItem.Text = otbmItem.Text;
                                 }
 
                                 rootContainer.AddContent(item);

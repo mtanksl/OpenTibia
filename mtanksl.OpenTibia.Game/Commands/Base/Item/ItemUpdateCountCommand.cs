@@ -1,7 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
-using OpenTibia.Game.Commands;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -24,50 +21,38 @@ namespace OpenTibia.Game.Commands
             {
                 Item.Count = Count;
 
+                Command command = null;
+
                 switch (Item.Container)
                 {
                     case Tile tile:
-                        {
-                            byte index = tile.GetIndex(Item);
 
-                            foreach (var observer in context.Server.GameObjects.GetPlayers() )
-                            {
-                                if (observer.Tile.Position.CanSee(tile.Position) )
-                                {
-                                    context.WritePacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(tile.Position, index, Item) );
-                                }
-                            }
-                        }
+                        command = new TileUpdateItemCommand(tile, Item);
+
                         break;
 
                     case Inventory inventory:
-                        {
-                            byte slot = inventory.GetIndex(Item);
 
-                            context.WritePacket(inventory.Player.Client.Connection, new SlotAddOutgoingPacket( (Slot)slot, Item) );
-                        }
+                        command = new InventoryUpdateItemCommand(inventory, Item);
+
                         break;
 
                     case Container container:
-                        {
-                            byte index = container.GetIndex(Item);
 
-                            foreach (var observer in container.GetPlayers() )
-                            {
-                                foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
-                                {
-                                    if (pair.Value == container)
-                                    {
-                                        context.WritePacket(observer.Client.Connection, new ContainerUpdateOutgoingPacket(pair.Key, index, Item) );
-                                    }
-                                }
-                            }
-                        }
+                        command = new ContainerUpdateItemCommand(container, Item);
+
                         break;
                 }
-            }
 
-            base.OnCompleted(context);
+                command = context.TransformCommand(command);
+
+                command.Completed += (s, e) =>
+                {
+                    base.OnCompleted(e.Context);
+                };
+
+                command.Execute(context);
+            }
         }
     }
 }

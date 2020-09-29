@@ -83,6 +83,7 @@
     <Compile Include="Commands\Base\Container\ContainerDestroyItemCommand.cs" />
     <Compile Include="Commands\Base\Container\ContainerRemoveItemCommand.cs" />
     <Compile Include="Commands\Base\Container\ContainerAddItemCommand.cs" />
+    <Compile Include="Commands\Base\Container\ContainerUpdateItemCommand.cs" />
     <Compile Include="Commands\Base\Container\ContainerReplaceItemCommand.cs" />
     <Compile Include="Commands\Base\Container\ContainerCreateItemCommand.cs" />
     <Compile Include="Commands\Base\Creature\CreatureUpdateDirectionCommand.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Commands\Base\Creature\TextCommand.cs" />
     <Compile Include="Commands\Base\Inventory\InventoryDestroyItemCommand.cs" />
     <Compile Include="Commands\Base\Inventory\InventoryCreateItemCommand.cs" />
+    <Compile Include="Commands\Base\Inventory\InventoryUpdateItemCommand.cs" />
     <Compile Include="Commands\Base\Item\ItemUpdateCountCommand.cs" />
     <Compile Include="Commands\Base\Item\ItemUpdateFluidTypeCommand.cs" />
     <Compile Include="Commands\Base\Item\ItemUpdateTextCommand.cs" />
@@ -108,10 +110,11 @@
     <Compile Include="Commands\Base\Player\PlayerWhisperCommand.cs" />
     <Compile Include="Commands\Base\Player\PlayerSayCommand.cs" />
     <Compile Include="Commands\Base\Inventory\InventoryReplaceItemCommand.cs" />
+    <Compile Include="Commands\Base\Tile\TileUpdateItemCommand.cs" />
     <Compile Include="Commands\ChainCommand.cs" />
     <Compile Include="REDO\Item\ItemDestroyCommand.cs" />
     <Compile Include="REDO\Item\ItemMoveCommand.cs" />
-    <Compile Include="REDO\Item\ItemTransformCommand.cs" />
+    <Compile Include="Commands\Base\Item\ItemTransformCommand.cs" />
     <Compile Include="Commands\Base\Player\PlayerLookAtCreatureCommand.cs" />
     <Compile Include="Commands\Base\Player\PlayerUseItemCommand.cs" />
     <Compile Include="Commands\Base\Player\PlayerLookAtItemCommand.cs" />

@@ -7,6 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private Dictionary<ushort, ushort> transformations = new Dictionary<ushort, ushort>()
         {
+             // Oven
             { 6356, 6358 },
             { 6358, 6360 },
             { 6360, 6362 },
@@ -15,7 +16,19 @@ namespace OpenTibia.Game.CommandHandlers
             { 6357, 6359 },
             { 6359, 6361 },
             { 6361, 6363 },
-            { 6363, 6357 }
+            { 6363, 6357 },
+
+            // Wooden chair
+            { 1650, 1651 },
+            { 1651, 1652 },
+            { 1652, 1653 },
+            { 1653, 1650 },
+
+            // Sofa chair
+            { 1658, 1659 },
+            { 1659, 1660 },
+            { 1660, 1661 },
+            { 1661, 1658 }
         };
 
         private ushort toOpenTibiaId;
@@ -32,7 +45,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Command Handle(PlayerRotateItemCommand command, Server server)
         {
-            return new ItemTransformCommand(command.Item, toOpenTibiaId);
+            return new ItemTransformCommand(command.Item, toOpenTibiaId, 1);
         }
     }
 }

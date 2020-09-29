@@ -62,9 +62,16 @@ namespace OpenTibia.IO
 
         public void Write(string value)
         {
-            Write( (ushort)value.Length );
+            if (value == null)
+            {
+                Write( (ushort)0 );
+            }
+            else
+            {
+                Write( (ushort)value.Length );
 
-            Write( Encoding.Default.GetBytes(value) );
+                Write( Encoding.Default.GetBytes(value) );
+            }
         }
 
         public void Write(byte[] buffer)

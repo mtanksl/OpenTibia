@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Scripts
 
             if (jungleGrass.TryGetValue(toItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                new ItemTransformCommand(toItem, toOpenTibiaId).Execute(context);
+                new ItemTransformCommand(toItem, toOpenTibiaId, 1).Execute(context);
 
                 return true;
             }

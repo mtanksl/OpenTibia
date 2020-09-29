@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Scripts
             {
                 Tile tile = (Tile)toItem.Container;
 
-                new ItemTransformCommand(toItem, toOpenTibiaId).Execute(context);
+                new ItemTransformCommand(toItem, toOpenTibiaId, 1).Execute(context);
 
                 new TileCreateItemCommand(tile, wheat, 1).Execute(context);
 

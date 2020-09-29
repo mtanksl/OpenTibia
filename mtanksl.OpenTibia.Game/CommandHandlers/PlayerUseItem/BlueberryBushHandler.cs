@@ -29,7 +29,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             List<Command> commands = new List<Command>();
 
-            commands.Add(new ItemTransformCommand(command.Item, toOpenTibiaId) );
+            commands.Add(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
 
             commands.Add(new TileCreateItemCommand( (Tile)command.Item.Container, blueberry, 3) );
 

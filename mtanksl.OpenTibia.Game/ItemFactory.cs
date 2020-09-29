@@ -198,7 +198,7 @@ namespace OpenTibia.Game
             {
                 ReadableItem readableItem = new ReadableItem(metadata);
 
-                readableItem.Text = "";
+                readableItem.Text = null;
 
                 item = readableItem;
             }
