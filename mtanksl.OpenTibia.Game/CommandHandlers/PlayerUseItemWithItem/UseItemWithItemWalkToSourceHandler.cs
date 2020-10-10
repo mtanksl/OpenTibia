@@ -24,7 +24,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             commands.Add(new DelayCommand(Constants.CreatureActionSchedulerEvent(command.Player), Constants.CreatureActionSchedulerEventDelay) );
 
-            commands.Add(new ChainCommand(context =>
+            commands.Add(new CallbackCommand(context =>
             {
                 return context.TransformCommand(command);
             } ) );

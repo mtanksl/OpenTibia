@@ -23,9 +23,9 @@ namespace OpenTibia.Game.CommandHandlers
             if (toTile != null)
             {
                 return new SequenceCommand(
-                
+
                     new CreatureMoveCommand(command.Player, toTile),
-                
+
                     new MagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
             }
             

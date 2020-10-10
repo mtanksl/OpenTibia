@@ -49,49 +49,5 @@ namespace OpenTibia.Game
                 script.Stop(server);
             }
         }
-
-
-
-
-
-        private List<ICreatureWalkScript> creatureWalkScripts = new List<ICreatureWalkScript>();
-
-        public List<ICreatureWalkScript> CreatureWalkScripts
-        {
-            get
-            {
-                return creatureWalkScripts;
-            }
-        }
-
-        private List<IItemMoveScript> itemMoveScripts = new List<IItemMoveScript>();
-
-        public List<IItemMoveScript> ItemMoveScripts
-        {
-            get
-            {
-                return itemMoveScripts;
-            }
-        }
-
-        private Dictionary<ushort, IItemUseWithItemScript> itemUseWithItemScripts = new Dictionary<ushort, IItemUseWithItemScript>();
-
-        public Dictionary<ushort, IItemUseWithItemScript> ItemUseWithItemScripts
-        {
-            get
-            {
-                return itemUseWithItemScripts;
-            }
-        }
-
-        private Dictionary<ushort, IItemUseWithCreatureScript> itemUseWithCreatureScripts = new Dictionary<ushort, IItemUseWithCreatureScript>();
-
-        public Dictionary<ushort, IItemUseWithCreatureScript> ItemUseWithCreatureScripts
-        {
-            get
-            {
-                return itemUseWithCreatureScripts;
-            }
-        }
     }
 }

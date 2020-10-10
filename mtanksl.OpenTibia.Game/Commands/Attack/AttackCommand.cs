@@ -23,11 +23,11 @@ namespace OpenTibia.Game.Commands
             {
                 Player.AttackTarget = null;
 
-                context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
+                context.Server.CancelQueueForExecution(Constants.CreatureAttackOrFollowSchedulerEvent(Player) );
 
                 Player.FollowTarget = null;
 
-                context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
+                context.Server.CancelQueueForExecution(Constants.CreatureAttackOrFollowSchedulerEvent(Player) );
 
                 context.WritePacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
                         
@@ -47,7 +47,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                context.Server.QueueForExecution(Constants.CreatureAttackSchedulerEvent(Player), Constants.CreatureAttackEventDelay, this);
+                context.Server.QueueForExecution(Constants.CreatureAttackOrFollowSchedulerEvent(Player), Constants.CreatureAttackOrFollowEventDelay, this);
             }
         }
     }

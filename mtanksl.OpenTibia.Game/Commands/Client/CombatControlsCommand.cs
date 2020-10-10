@@ -41,7 +41,7 @@ namespace OpenTibia.Game.Commands
                     {
                         Player.FollowTarget = null;
 
-                        context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
+                        context.Server.CancelQueueForExecution(Constants.CreatureAttackOrFollowSchedulerEvent(Player) );
                     }
                     else
                     {

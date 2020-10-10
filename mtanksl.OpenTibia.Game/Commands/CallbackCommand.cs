@@ -2,11 +2,11 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class ChainCommand : Command
+    public class CallbackCommand : Command
     {
         private Func<Context, Command> callback;
 
-        public ChainCommand(Func<Context, Command> callback)
+        public CallbackCommand(Func<Context, Command> callback)
         {
             this.callback = callback;
         }

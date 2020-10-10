@@ -14,7 +14,7 @@ namespace OpenTibia.Game.Commands
                 
         public override void Execute(Context context)
         {
-            if (context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) ) )
+            if (context.Server.CancelQueueForExecution(Constants.CreatureAttackOrFollowSchedulerEvent(Player) ) )
             {
                 context.WritePacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
             }

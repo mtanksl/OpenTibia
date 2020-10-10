@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            if ( !context.Server.Scripts.ItemMoveScripts.Any(script => script.OnItemMove(Player, Item, ToContainer, ToIndex, Count, context) ) )
+            //if ( !context.Server.Scripts.ItemMoveScripts.Any(script => script.OnItemMove(Player, Item, ToContainer, ToIndex, Count, context) ) )
             {
                 HashSet<Player> isNextFrom = new HashSet<Player>();
 

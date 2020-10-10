@@ -10,7 +10,7 @@ namespace OpenTibia.Game
 
         public static readonly string GlobalItemsSchedulerEvent = "Global_Items";
 
-        public static readonly int GlobalItemsSchedulerEventInterval = 1000;
+        public static readonly int GlobalItemsSchedulerEventInterval = 60000;
 
         public static readonly string GlobalCreaturesSchedulerEvent = "Global_Creatures";
 
@@ -51,11 +51,11 @@ namespace OpenTibia.Game
 
         public static readonly int CreatureActionSchedulerEventDelay = 200;
 
-        public static string CreatureAttackSchedulerEvent(Creature creature)
+        public static string CreatureAttackOrFollowSchedulerEvent(Creature creature)
         {
-            return "Creature_Attack_" + creature.Id;
+            return "Creature_Attack_Or_Follow_" + creature.Id;
         }
 
-        public static readonly int CreatureAttackEventDelay = 2000;
+        public static readonly int CreatureAttackOrFollowEventDelay = 2000;
     }
 }

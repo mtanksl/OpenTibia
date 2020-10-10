@@ -18,11 +18,11 @@ namespace OpenTibia.Game.Commands
             {
                 Player.AttackTarget = null;
 
-                context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
+                context.Server.CancelQueueForExecution(Constants.CreatureAttackOrFollowSchedulerEvent(Player) );
 
                 Player.FollowTarget = null;
 
-                context.Server.CancelQueueForExecution(Constants.CreatureAttackSchedulerEvent(Player) );
+                context.Server.CancelQueueForExecution(Constants.CreatureAttackOrFollowSchedulerEvent(Player) );
 
                 context.WritePacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
             }

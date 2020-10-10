@@ -24,7 +24,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 case Tile fromTile:
                     
-
+                    //TODO: Move item from tile to player
 
                     commands.Add(new DelayCommand(Constants.CreatureActionSchedulerEvent(command.Player), Constants.CreatureActionSchedulerEventDelay) );
 
@@ -36,7 +36,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         case Tile fromTile:
 
-
+                            //TODO: Move item from container to player
 
                             commands.Add(new DelayCommand(Constants.CreatureActionSchedulerEvent(command.Player), Constants.CreatureActionSchedulerEventDelay) );
 
@@ -50,7 +50,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             commands.Add(new DelayCommand(Constants.CreatureActionSchedulerEvent(command.Player), Constants.CreatureActionSchedulerEventDelay) );
 
-            commands.Add(new ChainCommand(context =>
+            commands.Add(new CallbackCommand(context =>
             {
                 return context.TransformCommand(command);
             } ) );

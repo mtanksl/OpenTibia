@@ -83,25 +83,25 @@ namespace OpenTibia.Common.Objects
 
                         case 0x65:
 
-                            command = new WalkCommand(Client.Player, MoveDirection.North);
+                            command = new BeginWalkCommand(Client.Player, MoveDirection.North);
 
                             break;
 
                         case 0x66:
 
-                            command = new WalkCommand(Client.Player, MoveDirection.East);
+                            command = new BeginWalkCommand(Client.Player, MoveDirection.East);
 
                             break;
 
                         case 0x67:
 
-                            command = new WalkCommand(Client.Player, MoveDirection.South);
+                            command = new BeginWalkCommand(Client.Player, MoveDirection.South);
 
                             break;
 
                         case 0x68:
 
-                            command = new WalkCommand(Client.Player, MoveDirection.West);
+                            command = new BeginWalkCommand(Client.Player, MoveDirection.West);
 
                             break;
 
@@ -113,25 +113,25 @@ namespace OpenTibia.Common.Objects
 
                         case 0x6A:
 
-                            command = new WalkCommand(Client.Player, MoveDirection.NorthEast);
+                            command = new BeginWalkCommand(Client.Player, MoveDirection.NorthEast);
 
                             break;
 
                         case 0x6B:
 
-                            command = new WalkCommand(Client.Player, MoveDirection.SouthEast);
+                            command = new BeginWalkCommand(Client.Player, MoveDirection.SouthEast);
 
                             break;
 
                         case 0x6C:
 
-                            command = new WalkCommand(Client.Player, MoveDirection.SouthWest);
+                            command = new BeginWalkCommand(Client.Player, MoveDirection.SouthWest);
 
                             break;
 
                         case 0x6D:
 
-                            command = new WalkCommand(Client.Player, MoveDirection.NorthWest);
+                            command = new BeginWalkCommand(Client.Player, MoveDirection.NorthWest);
 
                             break;
 

@@ -1,13 +1,14 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
-    public class WalkCommand : Command
+    public class BeginWalkCommand : Command
     {
-        public WalkCommand(Player player, MoveDirection moveDirection)
+        public BeginWalkCommand(Player player, MoveDirection moveDirection)
         {
             Player = player;
 
@@ -17,8 +18,6 @@ namespace OpenTibia.Game.Commands
         public Player Player { get; set; }
 
         public MoveDirection MoveDirection { get; set; }
-
-        private int index = 0;
 
         public override void Execute(Context context)
         {
@@ -32,25 +31,24 @@ namespace OpenTibia.Game.Commands
                 {
                     context.WritePacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible), 
                     
-                                                                new StopWalkOutgoingPacket(Player.Direction) );
+                                                                  new StopWalkOutgoingPacket(Player.Direction) );
                 }
                 else
                 {
-                    if (index++ == 0)
-                    {
-                        context.Server.QueueForExecution(Constants.CreatureAttackSchedulerEvent(Player), 1000 * fromTile.Ground.Metadata.Speed / Player.Speed, this);
-                    }
-                    else
-                    {
-                        Command command = context.TransformCommand(new CreatureMoveCommand(Player, toTile) );
+                    List<Command> commands = new List<Command>();
 
-                        command.Completed += (s, e) =>
-                        {
-                            base.OnCompleted(e.Context);
-                        };
+                    commands.Add(new DelayCommand(Constants.CreatureAttackOrFollowSchedulerEvent(Player), 1000 * fromTile.Ground.Metadata.Speed / Player.Speed) );
 
-                        command.Execute(context);
-                    }
+                    commands.Add(new EndWalkCommand(Player, MoveDirection) );
+
+                    Command command = new SequenceCommand(commands.ToArray() );
+
+                    command.Completed += (s, e) =>
+                    {
+                        base.OnCompleted(e.Context);
+                    };
+
+                    command.Execute(context);
                 }
             }
         }
