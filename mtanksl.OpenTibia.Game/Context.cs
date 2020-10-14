@@ -30,6 +30,16 @@ namespace OpenTibia.Game
             }
         }
 
+        private Dictionary<string, object> data;
+
+        public Dictionary<string, object> Data
+        {
+            get
+            {
+                return data ?? (data = new Dictionary<string, object>() );
+            }
+        }
+
         public Command TransformCommand(Command command)
         {
             if (disposed)

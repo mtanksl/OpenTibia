@@ -42,11 +42,23 @@
   <ItemGroup>
     <Compile Include="CommandHandlerCollection.cs" />
     <Compile Include="CommandHandlers\CommandHandler.cs" />
+    <Compile Include="CommandHandlers\CreatureMove\MagicForcefieldHandler.cs" />
+    <Compile Include="CommandHandlers\CreatureMove\StairsHandler.cs" />
     <Compile Include="CommandHandlers\CreatureMove\HoleHandler.cs" />
     <Compile Include="CommandHandlers\CreatureMove\TileDepressHandler.cs" />
     <Compile Include="CommandHandlers\CreatureMove\SnowPressHandler.cs" />
     <Compile Include="CommandHandlers\CreatureMove\TilePressHandler.cs" />
     <Compile Include="CommandHandlers\ICommandHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerMoveItem\TrapHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerMoveItem\CandlestickHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerMoveItem\MagicForcefield2Handler.cs" />
+    <Compile Include="CommandHandlers\PlayerMoveItem\Hole2Handler.cs" />
+    <Compile Include="CommandHandlers\PlayerMoveItem\LavaHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerMoveItem\Stairs2Handler.cs" />
+    <Compile Include="CommandHandlers\PlayerMoveItem\SwampHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerMoveItem\ShallowWaterHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerMoveItem\DustbinHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerMoveItem\MoveItemWalkToSourceHandler.cs" />
     <Compile Include="CommandHandlers\PlayerRotateItem\RotateItemWalkToSourceHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItemWithCreature\UseItemWithCreatureWalkToSourceHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItemWithCreature\UseItemWithCreatureWalkToTargetHandler.cs" />
@@ -104,6 +116,7 @@
     <Compile Include="Commands\Base\Item\ItemUpdateCountCommand.cs" />
     <Compile Include="Commands\Base\Item\ItemUpdateFluidTypeCommand.cs" />
     <Compile Include="Commands\Base\Item\ItemUpdateTextCommand.cs" />
+    <Compile Include="Commands\Base\Player\PlayerMoveItemCommand.cs" />
     <Compile Include="Commands\Base\Player\PlayerTradeWithCommand.cs" />
     <Compile Include="Commands\Base\Player\PlayerUpdateSoulCommand.cs" />
     <Compile Include="Commands\Base\Player\PlayerUpdateManaCommand.cs" />
@@ -285,6 +298,7 @@
     <Compile Include="Scripts\GlobalScripts.cs" />
     <Compile Include="Scripts\IScript.cs" />
     <Compile Include="Scripts\CreatureMoveScripts.cs" />
+    <Compile Include="Scripts\PlayerMoveItemScripts.cs" />
     <Compile Include="Scripts\PlayerUseItemWithItemScripts.cs" />
     <Compile Include="Scripts\PlayerUseItemWithCreatureScripts.cs" />
     <Compile Include="Scripts\PlayerUseItemScripts.cs" />

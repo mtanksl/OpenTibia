@@ -6,7 +6,11 @@ namespace OpenTibia.Game.Scripts
     {
         public void Start(Server server)
         {
+            server.CommandHandlers.Add(new MagicForcefieldHandler() );
+
             server.CommandHandlers.Add(new HoleHandler() );
+
+            server.CommandHandlers.Add(new StairsHandler() );
 
             server.CommandHandlers.Add(new TileDepressHandler() );
 

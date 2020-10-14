@@ -42,11 +42,7 @@ namespace OpenTibia.Game.Commands
 
                     if (toTile != null)
                     {
-                        if ( IsMoveable(fromItem, context) && 
-                            
-                             IsNextTo(fromTile, context) && 
-                             
-                             CanThrow(fromTile, toTile, context) )
+                        if (IsMoveable(fromItem, Count, context) && CanThrow(fromTile, toTile, context) )
                         {
                             MoveItem(fromItem, toTile, 0, Count, context);
                         }

@@ -17,7 +17,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override bool CanHandle(CreatureMoveCommand command, Server server)
         {
-            if ( !command.Data.ContainsKey("TileDepressHandler") && command.Creature.Tile.Ground != null && tiles.TryGetValue(command.Creature.Tile.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) )
+            if (command.Creature.Tile.Ground != null && tiles.TryGetValue(command.Creature.Tile.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) && !command.Data.ContainsKey("TileDepressHandler") )
             {
                 return true;
             }

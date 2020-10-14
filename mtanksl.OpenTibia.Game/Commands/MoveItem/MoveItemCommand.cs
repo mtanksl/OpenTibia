@@ -13,32 +13,28 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        protected bool IsNextTo(Tile fromTile, Context context)
-        {
-            if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
-            {
-                WalkToUnknownPathCommand walkToUnknownPathCommand = new WalkToUnknownPathCommand(Player, fromTile);
-
-                walkToUnknownPathCommand.Completed += (s, e) =>
-                {
-                    context.Server.QueueForExecution(Constants.CreatureActionSchedulerEvent(Player), Constants.CreatureActionSchedulerEventDelay, this);
-                };
-
-                walkToUnknownPathCommand.Execute(context);
-
-                return false;
-            }
-
-            return true;
-        }
-
-        protected bool IsMoveable(Item fromItem, Context context)
+        protected bool IsMoveable(Item fromItem, byte count, Context context)
         {
             if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
             {
                 context.WritePacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
 
                 return false;
+            }
+
+            if (fromItem is StackableItem stackableItem)
+            {
+                if (count < 1 || count > stackableItem.Count)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (count != 1)
+                {
+                    return false;
+                }
             }
 
             return true;
@@ -94,9 +90,14 @@ namespace OpenTibia.Game.Commands
 
         protected void MoveItem(Item fromItem, IContainer toContainer, byte toIndex, byte count, Context context)
         {
-            new ItemMoveCommand(Player, fromItem, toContainer, toIndex, count).Execute(context);
+            Command command = context.TransformCommand(new PlayerMoveItemCommand(Player, fromItem, toContainer, toIndex, count) );
 
-            base.OnCompleted(context);
+            command.Completed += (s, e) =>
+            {
+                base.OnCompleted(e.Context);
+            };
+
+            command.Execute(context);
         }
     }
 }

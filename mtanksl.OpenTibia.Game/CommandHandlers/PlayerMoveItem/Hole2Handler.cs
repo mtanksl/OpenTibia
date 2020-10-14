@@ -5,13 +5,13 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class HoleHandler : CommandHandler<CreatureMoveCommand>
+    public class Hole2Handler : CommandHandler<PlayerMoveItemCommand>
     {
         private HashSet<ushort> holes = new HashSet<ushort>() { 383, 469, 470, 482, 484, 485, 4835 };
 
-        public override bool CanHandle(CreatureMoveCommand command, Server server)
+        public override bool CanHandle(PlayerMoveItemCommand command, Server server)
         {
-            if (command.ToTile.Ground != null && holes.Contains(command.ToTile.Ground.Metadata.OpenTibiaId) )
+            if (command.ToContainer is Tile toTile && toTile.Ground != null && holes.Contains(toTile.Ground.Metadata.OpenTibiaId) )
             {
                 return true;
             }
@@ -19,9 +19,9 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(CreatureMoveCommand command, Server server)
+        public override Command Handle(PlayerMoveItemCommand command, Server server)
         {
-            Tile toTile = command.ToTile;
+            Tile toTile = (Tile)command.ToContainer;
 
             if (toTile.FloorChange == FloorChange.Down)
             {
@@ -47,7 +47,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             return new CallbackCommand(context =>
             {
-                return context.TransformCommand(new CreatureMoveCommand(command.Creature, toTile) );
+                return context.TransformCommand(new PlayerMoveItemCommand(command.Player, command.Item, toTile, 0, command.Count) );
             } );
         }
     }
