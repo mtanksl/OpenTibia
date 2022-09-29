@@ -39,7 +39,7 @@ namespace OpenTibia.Game.Commands
 
                 if (toContainer != null)
                 {
-                    if (IsMoveable(context, fromItem, Count) && IsPickupable(context, fromItem) && IsPossible(context, fromItem, toContainer) && IsEnoughtSpace(context, fromItem, toContainer))
+                    if (IsMoveable(context, fromItem, Count) && IsPickupable(context, fromItem) && IsPossible(context, fromItem, toContainer) && IsEnoughtSpace(context, fromItem, toContainer) )
                     {
                         MoveItem(context, fromItem, toContainer, ToContainerIndex, Count);
                     }     

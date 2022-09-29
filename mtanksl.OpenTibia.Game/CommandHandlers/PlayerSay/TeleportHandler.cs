@@ -24,16 +24,19 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (toTile != null)
             {
-                context.AddCommand(new CreatureMoveCommand(command.Player, command.Player.Tile, toTile) );
+                context.AddCommand(new CreatureMoveCommand(command.Player, toTile), ctx =>
+                {
+                    context.AddCommand(new MagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
 
-                context.AddCommand(new MagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                    base.Handle(ctx, command);
+                } );
             }
             else
             {
                 context.AddCommand(new MagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
-            }
 
-            base.Handle(context, command);
+                base.Handle(context, command);
+            }            
         }
     }
 }

@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Commands
 
                     if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
                     {
-                        if ( IsUseable(context, fromItem))
+                        if ( IsUseable(context, fromItem) )
                         {
                             UseItemWithItem(context, fromItem, toItem);
                         }

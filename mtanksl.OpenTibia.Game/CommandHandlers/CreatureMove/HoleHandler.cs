@@ -61,9 +61,10 @@ namespace OpenTibia.Game.CommandHandlers
                 }
             }
 
-            context.AddCommand(new CreatureMoveCommand(command.Creature, command.FromTile, toTile) );
-
-            base.Handle(context, command);
+            context.AddCommand(new CreatureMoveCommand(command.Creature, toTile), ctx =>
+            {
+                base.Handle(ctx, command);
+            } );
         }
     }
 }

@@ -25,13 +25,14 @@ namespace OpenTibia.Game.CommandHandlers
 
             Tile toTile = context.Server.Map.GetTile( ( (TeleportItem)fromTile.TopItem ).Position );
 
-            context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toTile, 0, command.Count) );
+            context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toTile, 0, command.Count), ctx =>
+            {
+                context.AddCommand(new MagicEffectCommand(fromTile.Position, MagicEffectType.Teleport) );
 
-            context.AddCommand(new MagicEffectCommand(fromTile.Position, MagicEffectType.Teleport) );
+                context.AddCommand(new MagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
 
-            context.AddCommand(new MagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
-
-            base.Handle(context, command);
+                base.Handle(ctx, command);
+            } );
         }
     }
 }

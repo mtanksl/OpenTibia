@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Components
                         }
                         else
                         {
-                            context.AddCommand(new CreatureMoveCommand(creature, creature.Tile, toTile) );
+                            context.AddCommand(new CreatureMoveCommand(creature, toTile) );
 
                             break;
                         }

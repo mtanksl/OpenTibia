@@ -224,8 +224,8 @@
     <Compile Include="Commands\Incoming\GameWindow\UseItemWithItem\UseItemWithItemFromInventoryToTileCommand.cs" />
     <Compile Include="Commands\Incoming\GameWindow\UseItemWithItem\UseItemWithItemFromTileToInventoryCommand.cs" />
     <Compile Include="Commands\Incoming\GameWindow\UseItemWithItem\UseItemWithItemFromTileToTileCommand.cs" />
-    <Compile Include="Commands\Outgoing\Container\ContainerOpenOrCloseCommand.cs" />
-    <Compile Include="Commands\Outgoing\Container\ContainerReplaceOrCloseCommand.cs" />
+    <Compile Include="Commands\Outgoing\ContainerOpenOrCloseCommand.cs" />
+    <Compile Include="Commands\Outgoing\ContainerReplaceOrCloseCommand.cs" />
     <Compile Include="Commands\Incoming\GameWindow\UseItem\UseItemFromInventoryCommand.cs" />
     <Compile Include="Commands\Incoming\GameWindow\UseItem\UseItemFromContainerCommand.cs" />
     <Compile Include="Commands\Incoming\GameWindow\UseItem\UseItemCommand.cs" />

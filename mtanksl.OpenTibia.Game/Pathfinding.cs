@@ -237,7 +237,7 @@ namespace OpenTibia.Game
 
             public static int ChebyshevDistance(Position fromPosition, Position toPosition)
             {
-                return Math.Max(Math.Abs(toPosition.X - fromPosition.X), Math.Abs(toPosition.Y - fromPosition.Y));
+                return Math.Max(Math.Abs(toPosition.X - fromPosition.X), Math.Abs(toPosition.Y - fromPosition.Y) );
             }
 
             public static int ManhattanDistance(Position fromPosition, Position toPosition)

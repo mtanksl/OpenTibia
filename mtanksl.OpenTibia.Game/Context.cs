@@ -142,7 +142,7 @@ namespace OpenTibia.Game
         {
             if (disposed)
             {
-                throw new ObjectDisposedException(nameof(Context));
+                throw new ObjectDisposedException(nameof(Context) );
             }
 
             if (events == null)

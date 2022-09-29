@@ -29,8 +29,6 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            context.AddEvent(new TileAddItemEventArgs(Tile, Item, index) );
-
             base.Execute(context);
         }
     }

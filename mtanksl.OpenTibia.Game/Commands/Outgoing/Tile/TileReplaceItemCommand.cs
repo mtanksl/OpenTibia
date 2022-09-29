@@ -35,10 +35,6 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            context.AddEvent(new TileRemoveItemEventArgs(Tile, FromItem, index) );
-
-            context.AddEvent(new TileAddItemEventArgs(Tile, ToItem, index) );
-
             base.Execute(context);
         }
     }

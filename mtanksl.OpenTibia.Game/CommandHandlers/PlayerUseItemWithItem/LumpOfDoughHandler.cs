@@ -14,7 +14,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override bool CanHandle(Context context, PlayerUseItemWithItemCommand command)
         {
-            if (lumpOfDoughs.Contains(command.Item.Metadata.OpenTibiaId) && ovens.Contains(command.ToItem.Metadata.OpenTibiaId))
+            if (lumpOfDoughs.Contains(command.Item.Metadata.OpenTibiaId) && ovens.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
                 return true;
             }

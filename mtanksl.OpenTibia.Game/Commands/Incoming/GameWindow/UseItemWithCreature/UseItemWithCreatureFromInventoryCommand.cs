@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Commands
 
                 if (toCreature != null)
                 {
-                    if ( IsUseable(context, fromItem))
+                    if ( IsUseable(context, fromItem) )
                     {
                         UseItemWithCreature(context, fromItem, toCreature);
                     }

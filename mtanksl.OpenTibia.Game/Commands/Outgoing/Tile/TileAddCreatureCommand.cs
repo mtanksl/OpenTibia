@@ -38,8 +38,6 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            context.AddEvent(new TileAddCreatureEventArgs(Tile, Creature, index) );
-
             base.Execute(context);
         }
     }

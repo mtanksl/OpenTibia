@@ -30,10 +30,6 @@ namespace OpenTibia.Game.Commands
 
             context.AddPacket(Inventory.Player.Client.Connection, new SlotAddOutgoingPacket( (Slot)slot, ToItem ) );
 
-            context.AddEvent(new InventoryRemoveItemEventArgs(Inventory, FromItem, slot) );
-
-            context.AddEvent(new InventoryAddItemEventArgs(Inventory, ToItem, slot) );
-
             base.Execute(context);
         }
     }

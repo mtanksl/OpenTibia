@@ -25,11 +25,11 @@ namespace OpenTibia.Game.Commands
 
                 Creature.Outfit = Outfit;
 
-                foreach (var observer in context.Server.GameObjects.GetPlayers())
+                foreach (var observer in context.Server.GameObjects.GetPlayers() )
                 {
-                    if (observer.Tile.Position.CanSee(fromTile.Position))
+                    if (observer.Tile.Position.CanSee(fromTile.Position) )
                     {
-                        context.AddPacket(observer.Client.Connection, new SetOutfitOutgoingPacket(Creature.Id, Creature.Outfit));
+                        context.AddPacket(observer.Client.Connection, new SetOutfitOutgoingPacket(Creature.Id, Creature.Outfit) );
                     }
                 }
             }

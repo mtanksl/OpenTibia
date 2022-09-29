@@ -34,8 +34,6 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            context.AddEvent(new ContainerRemoveItemEventArgs(Container, Item, index) );
-
             base.Execute(context);
         }
     }

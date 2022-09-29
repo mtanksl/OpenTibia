@@ -24,8 +24,6 @@ namespace OpenTibia.Game.Commands
         public override void Execute(Context context)
         {
             context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
-
-            base.Execute(context);
         }
     }
 }

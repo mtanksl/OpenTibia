@@ -32,8 +32,6 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            context.AddEvent(new ContainerAddItemEventArgs(Container, Item, index) );
-
             base.Execute(context);
         }
     }

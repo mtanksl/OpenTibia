@@ -25,6 +25,8 @@ namespace OpenTibia.Game.Scripts
             server.CommandHandlers.Add(new CandlestickHandler() );
 
             server.CommandHandlers.Add(new TrapHandler() );
+        
+        
         }
 
         public void Stop(Server server)

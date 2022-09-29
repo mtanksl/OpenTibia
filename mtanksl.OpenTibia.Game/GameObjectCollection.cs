@@ -149,11 +149,11 @@ namespace OpenTibia.Game
         {
             Dictionary<uint, GameObject> gameObjects;
 
-            if (buckets.TryGetValue(typeof(T), out gameObjects))
+            if (buckets.TryGetValue(typeof(T), out gameObjects) )
             {
                 GameObject gameObject;
 
-                if (gameObjects.TryGetValue(id, out gameObject))
+                if (gameObjects.TryGetValue(id, out gameObject) )
                 {
                     return (T)gameObject;
                 }

@@ -15,9 +15,11 @@ namespace OpenTibia.Common.Objects
             Light = new Light(0, 0);
 
             Outfit = new Outfit(266, 0, 0, 0, 0, Addon.None);
-
+#if DEBUG
+            Speed = 2218;
+#else
             Speed = 220;
-
+#endif
             SkullIcon = SkullIcon.None;
 
             PartyIcon = PartyIcon.None;
