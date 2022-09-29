@@ -22,6 +22,8 @@ namespace OpenTibia.Common.Objects
 
         protected override void OnConnected()
         {
+            server.Logger.WriteLine("Connected on game server", LogLevel.Debug);
+
             server.QueueForExecution(ctx =>
             {
                 ctx.AddCommand(new SendConnectionInfoCommand(this) );
@@ -53,7 +55,9 @@ namespace OpenTibia.Common.Objects
 
                     Command command = null;
 
-                    switch (reader.ReadByte() )
+                    byte identification = reader.ReadByte();
+
+                    switch (identification)
                     {
                         case 0x0A:
                             {
@@ -71,7 +75,7 @@ namespace OpenTibia.Common.Objects
 
                         case 0x1E:
 
-                            command = new PingCommand(Client.Player);
+                            command = new PongCommand(Client.Player);
 
                             break;
 
@@ -732,16 +736,26 @@ namespace OpenTibia.Common.Objects
 
                     if (command != null)
                     {
+                        server.Logger.WriteLine("Received on game server: 0x" + identification.ToString("X2"), LogLevel.Debug);
+
                         server.QueueForExecution(ctx =>
                         {
                             ctx.AddCommand(command);
                         } );
                     }
+                    else
+                    {
+                        server.Logger.WriteLine("Unknown packet received on game server: 0x" + identification.ToString("X2"), LogLevel.Warning);
+                    }
+                }
+                else
+                {
+                    server.Logger.WriteLine("Invalid message received on game server.", LogLevel.Warning);
                 }
             }
             catch (Exception ex)
             {
-                server.Logger.WriteLine(ex.ToString() );
+                server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
             }
 
             base.OnReceived(body);
@@ -749,6 +763,8 @@ namespace OpenTibia.Common.Objects
 
         protected override void OnDisconnected(DisconnectedEventArgs e)
         {
+            server.Logger.WriteLine("Disconnected on game server", LogLevel.Debug);
+
             if (e.Type != DisconnetionType.Requested)
             {
                 if (Client != null && Client.Player != null)

@@ -11,9 +11,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override bool CanHandle(Context context, CreatureMoveCommand command)
         {
-            Tile toTile = command.ToTile;
-
-            if (toTile.TopItem != null && magicForcefields.Contains(toTile.TopItem.Metadata.OpenTibiaId) )
+            if (command.ToTile.TopItem != null && magicForcefields.Contains(command.ToTile.TopItem.Metadata.OpenTibiaId) )
             {
                 return true;
             }
@@ -23,13 +21,11 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, CreatureMoveCommand command)
         {
-            Tile toTile = command.ToTile;
+            Tile toOtherTile = context.Server.Map.GetTile( ( (TeleportItem)command.ToTile.TopItem ).Position );
 
-            Tile toOtherTile = context.Server.Map.GetTile( ( (TeleportItem)toTile.TopItem ).Position );
+            context.AddCommand(new CreatureMoveCommand(command.Creature, command.FromTile, toOtherTile) );
 
-            context.AddCommand(new CreatureMoveCommand(command.Creature, toOtherTile) );
-
-            context.AddCommand(new MagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+            context.AddCommand(new MagicEffectCommand(command.ToTile.Position, MagicEffectType.Teleport) );
 
             context.AddCommand(new MagicEffectCommand(toOtherTile.Position, MagicEffectType.Teleport) );
 

@@ -246,7 +246,7 @@
     <Compile Include="Commands\Incoming\GameWindow\MoveItem\MoveItemFromInventoryToTileCommand.cs" />
     <Compile Include="Commands\Incoming\GameWindow\MoveItem\MoveItemFromInventoryToInventoryCommand.cs" />
     <Compile Include="Commands\Incoming\Button\LogOutCommand.cs" />
-    <Compile Include="Commands\Incoming\Client\PingCommand.cs" />
+    <Compile Include="Commands\Incoming\Client\PongCommand.cs" />
     <Compile Include="Commands\Incoming\GameWindow\SetOutfitCommand.cs" />
     <Compile Include="Commands\Incoming\Control\StopWalkCommand.cs" />
     <Compile Include="Commands\Incoming\Control\WalkToUnknownPathCommand.cs" />

@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Commands
             }
             else
             {
-                var account = new PlayerRepository().GetPlayer(Packet.Account, Packet.Password, Packet.Character);
+                var account = context.Server.PlayerRepository.GetPlayer(Packet.Account, Packet.Password, Packet.Character);
 
                 if (account == null)
                 {
@@ -59,25 +59,25 @@ namespace OpenTibia.Game.Commands
                         {
                             context.AddPacket(observer.Client.Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs), 
 
-                                                                            new SetSpecialConditionOutgoingPacket(SpecialCondition.None),
-                                                                            
-                                                                            new SendStatusOutgoingPacket(player.Health, player.MaxHealth, 
-                                                                            
-                                                                                                        player.Capacity, 
-                                                                                                             
-                                                                                                        player.Experience, player.Level, player.LevelPercent, 
-                                                                                                             
-                                                                                                        player.Mana, player.MaxMana, 0, 0, player.Soul,
-                                                                                                             
-                                                                                                        player.Stamina),
-                                                                            
-                                                                            new SendSkillsOutgoingPacket(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0),
-                                                                            
-                                                                            new SetEnvironmentLightOutgoingPacket(context.Server.Clock.Light),
-                                                                            
-                                                                            new SendTilesOutgoingPacket(context.Server.Map, player.Client, toTile.Position),
-                                                                            
-                                                                            new ShowMagicEffectOutgoingPacket(toTile.Position, MagicEffectType.Teleport) );
+                                                                          new SetSpecialConditionOutgoingPacket(SpecialCondition.None),
+                                                                          
+                                                                          new SendStatusOutgoingPacket(player.Health, player.MaxHealth, 
+                                                                          
+                                                                                                      player.Capacity, 
+                                                                                                           
+                                                                                                      player.Experience, player.Level, player.LevelPercent, 
+                                                                                                           
+                                                                                                      player.Mana, player.MaxMana, 0, 0, player.Soul,
+                                                                                                           
+                                                                                                      player.Stamina),
+                                                                          
+                                                                          new SendSkillsOutgoingPacket(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0),
+                                                                          
+                                                                          new SetEnvironmentLightOutgoingPacket(context.Server.Clock.Light),
+                                                                          
+                                                                          new SendTilesOutgoingPacket(context.Server.Map, player.Client, toTile.Position),
+                                                                          
+                                                                          new ShowMagicEffectOutgoingPacket(toTile.Position, MagicEffectType.Teleport) );
                         }
                         else
                         {
@@ -89,13 +89,13 @@ namespace OpenTibia.Game.Commands
                                 {
                                     context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(toTile.Position, toIndex, player),
 
-                                                                                    new ShowMagicEffectOutgoingPacket(toTile.Position, MagicEffectType.Teleport) );
+                                                                                  new ShowMagicEffectOutgoingPacket(toTile.Position, MagicEffectType.Teleport) );
                                 }
                                 else
                                 {
                                     context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(toTile.Position, toIndex, removeId, player),
 
-                                                                                    new ShowMagicEffectOutgoingPacket(toTile.Position, MagicEffectType.Teleport) );
+                                                                                  new ShowMagicEffectOutgoingPacket(toTile.Position, MagicEffectType.Teleport) );
                                 }
                             }
                         }                                

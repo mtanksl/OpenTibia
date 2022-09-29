@@ -186,7 +186,10 @@ namespace OpenTibia.Network.Sockets
 
         public void Disconnect()
         {
-            OnDisconnected(new DisconnectedEventArgs(DisconnetionType.Requested) );
+            if (!stopped)
+            {
+                OnDisconnected(new DisconnectedEventArgs(DisconnetionType.Requested) );
+            }
         }
 
         protected virtual void OnConnected()

@@ -43,7 +43,7 @@ namespace OpenTibia.Game.Components
                     }
                 }
 
-                next = DateTime.Now.AddSeconds(10);
+                next = DateTime.Now.AddSeconds(30);
             }
         }        
     }

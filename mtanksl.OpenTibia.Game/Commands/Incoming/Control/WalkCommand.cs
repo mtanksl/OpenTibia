@@ -58,7 +58,7 @@ namespace OpenTibia.Game.Commands
                 }
                 else
                 {
-                    context.AddCommand(new CreatureMoveCommand(Player, toTile), ctx =>
+                    context.AddCommand(new CreatureMoveCommand(Player, Player.Tile, toTile), ctx =>
                     {
                         base.Execute(ctx);
                     } );

@@ -6,24 +6,26 @@ namespace OpenTibia.Game.Commands
 {
     public class CreatureMoveCommand : Command
     {
-        public CreatureMoveCommand(Creature creature, Tile toTile)
+        public CreatureMoveCommand(Creature creature, Tile fromTile, Tile toTile)
         {
             Creature = creature;
+
+            FromTile = fromTile;
 
             ToTile = toTile;
         }
 
         public Creature Creature { get; set; }
 
+        public Tile FromTile { get; set; }
+
         public Tile ToTile { get; set; }
 
         public override void Execute(Context context)
         {
-            Tile fromTile = Creature.Tile;
+            byte fromIndex = FromTile.GetIndex(Creature);
 
-            byte fromIndex = fromTile.GetIndex(Creature);
-
-            fromTile.RemoveContent(fromIndex);
+            FromTile.RemoveContent(fromIndex);
 
             byte toIndex = ToTile.AddContent(Creature);
 
@@ -31,11 +33,11 @@ namespace OpenTibia.Game.Commands
             {
                 if (Creature == observer)
                 {
-                    int deltaZ = ToTile.Position.Z - fromTile.Position.Z;
+                    int deltaZ = ToTile.Position.Z - FromTile.Position.Z;
 
-                    int deltaY = ToTile.Position.Y - fromTile.Position.Y;
+                    int deltaY = ToTile.Position.Y - FromTile.Position.Y;
 
-                    int deltaX = ToTile.Position.X - fromTile.Position.X;
+                    int deltaX = ToTile.Position.X - FromTile.Position.X;
 
                     if (deltaZ < -1 || deltaZ > 1 || deltaY < -2 || deltaY > 2 || deltaX < -2 || deltaX > 2)
                     {
@@ -43,16 +45,16 @@ namespace OpenTibia.Game.Commands
                     }
                     else
                     {
-                        if (fromTile.Position.Z == 7 && ToTile.Position.Z == 8)
+                        if (FromTile.Position.Z == 7 && ToTile.Position.Z == 8)
                         {
-                            context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromTile.Position, fromIndex) );
+                            context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(FromTile.Position, fromIndex) );
                         }
                         else
                         {
-                            context.AddPacket(observer.Client.Connection, new WalkOutgoingPacket(fromTile.Position, fromIndex, ToTile.Position) );
+                            context.AddPacket(observer.Client.Connection, new WalkOutgoingPacket(FromTile.Position, fromIndex, ToTile.Position) );
                         }
 
-                        Position position = fromTile.Position;
+                        Position position = FromTile.Position;
 
                         while (deltaZ < 0)
                         {
@@ -119,17 +121,17 @@ namespace OpenTibia.Game.Commands
                 }
                 else
                 {
-                    bool canSeeFrom = observer.Tile.Position.CanSee(fromTile.Position);
+                    bool canSeeFrom = observer.Tile.Position.CanSee(FromTile.Position);
 
                     bool canSeeTo = observer.Tile.Position.CanSee(ToTile.Position);
 
                     if (canSeeFrom && canSeeTo)
                     {
-                        context.AddPacket(observer.Client.Connection, new WalkOutgoingPacket(fromTile.Position, fromIndex, ToTile.Position) );
+                        context.AddPacket(observer.Client.Connection, new WalkOutgoingPacket(FromTile.Position, fromIndex, ToTile.Position) );
                     }
                     else if (canSeeFrom)
                     {
-                        context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromTile.Position, fromIndex) );
+                        context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(FromTile.Position, fromIndex) );
                     }
                     else if (canSeeTo)
                     {

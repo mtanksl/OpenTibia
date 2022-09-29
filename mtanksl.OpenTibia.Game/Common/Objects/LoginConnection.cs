@@ -21,6 +21,8 @@ namespace OpenTibia.Common.Objects
 
         protected override void OnConnected()
         {
+            server.Logger.WriteLine("Connected on login server", LogLevel.Debug);
+
             base.OnConnected();
         }
 
@@ -45,7 +47,9 @@ namespace OpenTibia.Common.Objects
 
                     Command command = null;
 
-                    switch (reader.ReadByte() )
+                    byte identification = reader.ReadByte();
+
+                    switch (identification)
                     {
                         case 0x01:
                             {
@@ -58,16 +62,26 @@ namespace OpenTibia.Common.Objects
 
                     if (command != null)
                     {
+                        server.Logger.WriteLine("Received on login server: 0x" + identification.ToString("X2"), LogLevel.Debug);
+
                         server.QueueForExecution(ctx =>
                         {
                             ctx.AddCommand(command);
                         } );
                     }
+                    else
+                    {
+                        server.Logger.WriteLine("Unknown packet received on login server: 0x" + identification.ToString("X2"), LogLevel.Warning);
+                    }
+                }
+                else
+                {
+                    server.Logger.WriteLine("Invalid message received on login server.", LogLevel.Warning);
                 }
             }
             catch (Exception ex)
             {
-                server.Logger.WriteLine(ex.ToString() );
+                server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
             }
 
             base.OnReceived(body);
@@ -75,6 +89,8 @@ namespace OpenTibia.Common.Objects
 
         protected override void OnDisconnected(DisconnectedEventArgs e)
         {
+            server.Logger.WriteLine("Disconnected on login server", LogLevel.Debug);
+
             base.OnDisconnected(e);
         }
     }

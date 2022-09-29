@@ -11,9 +11,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override bool CanHandle(Context context, CreatureMoveCommand command)
         {
-            Tile toTile = command.ToTile;
-
-            if (toTile.TopItem != null && stairs.Contains(toTile.TopItem.Metadata.OpenTibiaId) )
+            if (command.ToTile.TopItem != null && stairs.Contains(command.ToTile.TopItem.Metadata.OpenTibiaId) )
             {
                 return true;
             }
@@ -58,7 +56,7 @@ namespace OpenTibia.Game.CommandHandlers
                 toTile = context.Server.Map.GetTile(toTile.Position.Offset(1, 1, -1) );
             }
 
-            context.AddCommand(new CreatureMoveCommand(command.Creature, toTile) );
+            context.AddCommand(new CreatureMoveCommand(command.Creature, command.FromTile, toTile) );
 
             base.Handle(context, command);
         }

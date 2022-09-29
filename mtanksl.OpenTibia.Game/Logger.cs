@@ -11,13 +11,17 @@ namespace OpenTibia.Game
 
             private string message;
 
+            private LogLevel level;
+
             private bool inline;
                       
-            public StopWatchWrapper(Logger logger, string message, bool inline)
+            public StopWatchWrapper(Logger logger, string message, LogLevel level, bool inline)
             {
                 this.logger = logger;
 
                 this.message = message;
+
+                this.level = level;
 
                 this.inline = inline;
             }
@@ -32,7 +36,7 @@ namespace OpenTibia.Game
 
                 if (inline)
                 {
-                    logger.Write(message + "... ");
+                    logger.Write(message + "... ", level);
                 }
             }
 
@@ -42,32 +46,80 @@ namespace OpenTibia.Game
 
                 if (inline)
                 {
-                    logger.WriteLine(stopWatch.ElapsedMilliseconds + "ms");
+                    logger.WriteLine(stopWatch.ElapsedMilliseconds + "ms", level);
                 }
                 else
                 {
-                    logger.WriteLine(message + "... " + stopWatch.ElapsedMilliseconds + "ms");
+                    logger.WriteLine(message + "... " + stopWatch.ElapsedMilliseconds + "ms", level);
                 }
             }
         }
 
-        public StopWatchWrapper Measure(string message, bool inline)
+        public StopWatchWrapper Measure(string message, LogLevel level = LogLevel.Default, bool inline = true)
         {
-            StopWatchWrapper wrapper = new StopWatchWrapper(this, message, inline);
+            StopWatchWrapper wrapper = new StopWatchWrapper(this, message, level, inline);
 
             wrapper.Start();
 
             return wrapper;
         }
 
-        public virtual void Write(string message, params object[] arguments)
+        public virtual void Write(string message, LogLevel level = LogLevel.Default)
         {
-            Console.Write(message, arguments);
+            switch (level)
+            {
+                case LogLevel.Debug:
+
+                    Console.ForegroundColor = ConsoleColor.Green;
+
+                    break;
+
+                case LogLevel.Information:
+
+                    Console.ForegroundColor = ConsoleColor.Blue;
+
+                    break;
+
+                case LogLevel.Warning:
+
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+
+                    break;
+
+                case LogLevel.Error:
+
+                    Console.ForegroundColor = ConsoleColor.Red;
+
+                    break;
+
+                default:
+
+                    Console.ResetColor();
+
+                    break;
+            }
+
+            Console.Write(message);
         }
 
-        public virtual void WriteLine(string message, params object[] arguments)
+        public virtual void WriteLine(string message, LogLevel level = LogLevel.Default)
         {
-            Console.WriteLine(message, arguments);
+            Write(message, level);
+
+            Console.WriteLine();
         }
+    }
+
+    public enum LogLevel
+    {
+        Default,
+
+        Debug,
+
+        Information, 
+
+        Warning,
+        
+        Error
     }
 }

@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Data;
 using OpenTibia.FileFormats.Dat;
 using OpenTibia.FileFormats.Otb;
 using OpenTibia.FileFormats.Otbm;
@@ -15,9 +16,19 @@ namespace OpenTibia.Game
 {
     public class Server : IDisposable
     {
-        public Server()
+        private string gameServerIpAddress;
+
+        private int loginServerPort;
+        
+        private int gameServerPort;
+
+        public Server(string gameServerIpAddress, int loginServerPort, int gameServerPort)
         {
-          
+            this.gameServerIpAddress = gameServerIpAddress;
+
+            this.loginServerPort = loginServerPort;
+
+            this.gameServerPort = gameServerPort;
         }
 
         ~Server()
@@ -30,6 +41,8 @@ namespace OpenTibia.Game
         private Scheduler scheduler;
 
         private List<Listener> listeners;
+
+        public PlayerRepository PlayerRepository { get; set; }
 
         public PacketsFactory PacketsFactory { get; set; }
 
@@ -69,9 +82,11 @@ namespace OpenTibia.Game
 
             listeners = new List<Listener>();
 
-            listeners.Add(new Listener(7171, socket => new LoginConnection(this, socket) ) );
+            listeners.Add(new Listener(loginServerPort, socket => new LoginConnection(this, socket) ) );
 
-            listeners.Add(new Listener(7172, socket => new GameConnection(this, socket) ) );
+            listeners.Add(new Listener(gameServerPort, socket => new GameConnection(this, socket) ) );
+
+            PlayerRepository = new PlayerRepository(gameServerIpAddress, gameServerPort);
 
             PacketsFactory = new PacketsFactory();
 
@@ -85,7 +100,7 @@ namespace OpenTibia.Game
 
             GameObjects = new GameObjectCollection(this);
                         
-            using (Logger.Measure("Loading items", true) )
+            using (Logger.Measure("Loading items") )
             {
                 var otb = OtbFile.Load("data/items/items.otb");
 
@@ -96,7 +111,7 @@ namespace OpenTibia.Game
                 ItemFactory = new ItemFactory(GameObjects, otb, dat, items);
             }
 
-            using (Logger.Measure("Loading monsters", true) )
+            using (Logger.Measure("Loading monsters") )
             {
                 var monsters = MonsterFile.Load("data/monsters");
 
@@ -105,14 +120,14 @@ namespace OpenTibia.Game
 
             PlayerFactory = new PlayerFactory(GameObjects);
 
-            using (Logger.Measure("Loading npcs", true) )
+            using (Logger.Measure("Loading npcs") )
             {
                 var npcs = NpcFile.Load("data/npcs");
 
                 NpcFactory = new NpcFactory(GameObjects, npcs);
             }
 
-            using (Logger.Measure("Loading map", true) )
+            using (Logger.Measure("Loading map") )
             {
                 var otbm = OtbmFile.Load("data/map/pholium3.otbm");
 
@@ -127,7 +142,7 @@ namespace OpenTibia.Game
 
             Scripts = new ScriptsCollection(this);
 
-            using (Logger.Measure("Loading scripts", true) )
+            using (Logger.Measure("Loading scripts") )
             {
                 Scripts.Start();
             }
@@ -161,7 +176,7 @@ namespace OpenTibia.Game
                 }
                 catch (Exception ex)
                 {
-                    Logger.WriteLine(ex.ToString() );
+                    Logger.WriteLine(ex.ToString(), LogLevel.Error);
                 }
             } );
         }
@@ -192,7 +207,7 @@ namespace OpenTibia.Game
                 }
                 catch (Exception ex)
                 {
-                    Logger.WriteLine(ex.ToString() );
+                    Logger.WriteLine(ex.ToString(), LogLevel.Error);
                 }
             } );
 

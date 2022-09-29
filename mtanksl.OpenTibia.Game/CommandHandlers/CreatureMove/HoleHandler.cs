@@ -11,9 +11,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override bool CanHandle(Context context, CreatureMoveCommand command)
         {
-            Tile toTile = command.ToTile;
-
-            if (toTile.Ground != null && holes.Contains(toTile.Ground.Metadata.OpenTibiaId) )
+            if (command.ToTile.Ground != null && holes.Contains(command.ToTile.Ground.Metadata.OpenTibiaId) )
             {
                 return true;
             }
@@ -63,7 +61,7 @@ namespace OpenTibia.Game.CommandHandlers
                 }
             }
 
-            context.AddCommand(new CreatureMoveCommand(command.Creature, toTile) );
+            context.AddCommand(new CreatureMoveCommand(command.Creature, command.FromTile, toTile) );
 
             base.Handle(context, command);
         }

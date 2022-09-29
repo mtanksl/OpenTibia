@@ -2,9 +2,9 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class PingCommand : Command
+    public class PongCommand : Command
     {
-        public PingCommand(Player player)
+        public PongCommand(Player player)
         {
             Player = player;
         }

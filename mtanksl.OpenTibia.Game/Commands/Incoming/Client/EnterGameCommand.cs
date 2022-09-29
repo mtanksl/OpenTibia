@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Commands
             }
             else
             {
-                var account = new PlayerRepository().GetAccount(Packet.Account, Packet.Password);
+                var account = context.Server.PlayerRepository.GetAccount(Packet.Account, Packet.Password);
 
                 if (account == null)
                 {

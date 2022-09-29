@@ -5,85 +5,99 @@ namespace OpenTibia.Data
 {
     public class PlayerRepository
     {
-        private static readonly string Ip = "127.0.0.1";
+        private string gameServerIpAddress;
 
-        private List<AccountRow> accounts = new List<AccountRow>()
+        private int gameServerPort;
+
+        public PlayerRepository(string gameServerIpAddress, int gameServerPort)
         {
-            new AccountRow()
-            {
-                Name = "",
+            this.gameServerIpAddress = gameServerIpAddress;
 
-                Password = "",
+            this.gameServerPort = gameServerPort;
+        }
 
-                PremiumDays = 0,
-
-                Players = new List<PlayerRow>()
-                {
-                    new PlayerRow()
-                    {
-                       Name = "Player 1",
-
-                       CoordinateX = 930,
-
-                       CoordinateY = 779,
-
-                       CoordinateZ = 7,
-
-                       World = new WorldRow()
-                       {
-                           Name = "World",
-
-                           Ip = Ip,
-
-                           Port = 7172
-                       }
-                    },
-
-                    new PlayerRow()
-                    {
-                       Name = "Player 2",
-
-                       CoordinateX = 931,
-
-                       CoordinateY = 779,
-
-                       CoordinateZ = 7,
-
-                       World = new WorldRow()
-                       {
-                           Name = "World",
-
-                           Ip = Ip,
-
-                           Port = 7172
-                       }
-                    },
-
-                    new PlayerRow()
-                    {
-                       Name = "Player 3",
-
-                       CoordinateX = 932,
-
-                       CoordinateY = 779,
-
-                       CoordinateZ = 7,
-
-                       World = new WorldRow()
-                       {
-                           Name = "World",
-
-                           Ip = Ip,
-
-                           Port = 7172
-                       }
-                    }
-                }
-            }
-        };
+        private List<AccountRow> accounts;
 
         public AccountRow GetAccount(string accountName, string accountPassword)
         {
+            if (accounts == null)
+            {
+                accounts = new List<AccountRow>()
+                {
+                    new AccountRow()
+                    {
+                        Name = "",
+
+                        Password = "",
+
+                        PremiumDays = 0,
+
+                        Players = new List<PlayerRow>()
+                        {
+                            new PlayerRow()
+                            {
+                               Name = "Player 1",
+
+                               CoordinateX = 930,
+
+                               CoordinateY = 779,
+
+                               CoordinateZ = 7,
+
+                               World = new WorldRow()
+                               {
+                                   Name = "World",
+
+                                   Ip = gameServerIpAddress,
+
+                                   Port = gameServerPort
+                               }
+                            },
+
+                            new PlayerRow()
+                            {
+                               Name = "Player 2",
+
+                               CoordinateX = 931,
+
+                               CoordinateY = 779,
+
+                               CoordinateZ = 7,
+
+                               World = new WorldRow()
+                               {
+                                   Name = "World",
+
+                                   Ip = gameServerIpAddress,
+
+                                   Port = gameServerPort
+                               }
+                            },
+
+                            new PlayerRow()
+                            {
+                               Name = "Player 3",
+
+                               CoordinateX = 932,
+
+                               CoordinateY = 779,
+
+                               CoordinateZ = 7,
+
+                               World = new WorldRow()
+                               {
+                                   Name = "World",
+
+                                   Ip = gameServerIpAddress,
+
+                                   Port = gameServerPort
+                               }
+                            }
+                        }
+                    }
+                };
+            }
+
             return accounts.Where(a => a.Name == accountName &&
                                        a.Password == accountPassword)
                            .FirstOrDefault();
