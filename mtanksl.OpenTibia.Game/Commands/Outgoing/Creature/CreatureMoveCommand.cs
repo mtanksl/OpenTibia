@@ -12,6 +12,8 @@ namespace OpenTibia.Game.Commands
 
             FromTile = creature.Tile;
 
+            FromIndex = creature.Tile.GetIndex(creature);
+
             ToTile = toTile;
         }
 
@@ -19,13 +21,13 @@ namespace OpenTibia.Game.Commands
 
         public Tile FromTile { get; set; }
 
+        public byte FromIndex { get; set; }
+
         public Tile ToTile { get; set; }
 
         public override void Execute(Context context)
         {
-            byte fromIndex = FromTile.GetIndex(Creature);
-
-            FromTile.RemoveContent(fromIndex);
+            FromTile.RemoveContent(FromIndex);
 
             byte toIndex = ToTile.AddContent(Creature);
 
@@ -47,11 +49,11 @@ namespace OpenTibia.Game.Commands
                     {
                         if (FromTile.Position.Z == 7 && ToTile.Position.Z == 8)
                         {
-                            context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(FromTile.Position, fromIndex) );
+                            context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(FromTile.Position, FromIndex) );
                         }
                         else
                         {
-                            context.AddPacket(observer.Client.Connection, new WalkOutgoingPacket(FromTile.Position, fromIndex, ToTile.Position) );
+                            context.AddPacket(observer.Client.Connection, new WalkOutgoingPacket(FromTile.Position, FromIndex, ToTile.Position) );
                         }
 
                         Position position = FromTile.Position;
@@ -127,11 +129,11 @@ namespace OpenTibia.Game.Commands
 
                     if (canSeeFrom && canSeeTo)
                     {
-                        context.AddPacket(observer.Client.Connection, new WalkOutgoingPacket(FromTile.Position, fromIndex, ToTile.Position) );
+                        context.AddPacket(observer.Client.Connection, new WalkOutgoingPacket(FromTile.Position, FromIndex, ToTile.Position) );
                     }
                     else if (canSeeFrom)
                     {
-                        context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(FromTile.Position, fromIndex) );
+                        context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(FromTile.Position, FromIndex) );
                     }
                     else if (canSeeTo)
                     {

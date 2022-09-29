@@ -29,11 +29,12 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, CreatureMoveCommand command)
         {
-            context.AddCommand(command);
+            context.AddCommand(command, ctx =>
+            {
+                ctx.AddCommand(new ItemReplaceCommand(command.ToTile.Ground, toOpenTibiaId, 1) );
 
-            context.AddCommand(new ItemReplaceCommand(command.ToTile.Ground, toOpenTibiaId, 1) );
-
-            base.Handle(context, command);
+                base.Handle(ctx, command);
+            } );
         }
     }
 }

@@ -49,6 +49,7 @@
     <Compile Include="CommandHandlers\CreatureMove\SnowPressHandler.cs" />
     <Compile Include="CommandHandlers\CreatureMove\TilePressHandler.cs" />
     <Compile Include="CommandHandlers\ICommandHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerMoveItem\MoveItemContainerCloseHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveItem\TrapHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveItem\CandlestickHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveItem\MagicForcefield2Handler.cs" />
