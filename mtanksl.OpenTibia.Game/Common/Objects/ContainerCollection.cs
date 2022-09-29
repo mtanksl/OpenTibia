@@ -22,6 +22,8 @@ namespace OpenTibia.Common.Objects
 
         private Container[] containers = new Container[255];
 
+        /// <exception cref="InvalidOperationException"></exception>
+
         private byte GenerateContainerId()
         {
             for (byte containerId = 0; containerId < containers.Length; containerId++)
@@ -32,7 +34,7 @@ namespace OpenTibia.Common.Objects
                 }
             }
 
-            throw new Exception("Container limit exceeded.");
+            throw new InvalidOperationException("Container limit exceeded.");
         }
 
         public byte OpenContainer(Container container)
@@ -46,7 +48,7 @@ namespace OpenTibia.Common.Objects
             return containerId;
         }
 
-        public void ReplaceContainer(byte containerId, Container newContainer)
+        public void ReplaceContainer(Container newContainer, byte containerId)
         {
             Container oldContainer = GetContainer(containerId);
 

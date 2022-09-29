@@ -1,4 +1,5 @@
-﻿using OpenTibia.Game.Commands;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Commands;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
@@ -15,30 +16,29 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort toOpenTibiaId;
 
-        public override bool CanHandle(CreatureMoveCommand command, Server server)
+        public override bool CanHandle(Context context, CreatureMoveCommand command)
         {
-            if (command.ToTile.Ground != null && tiles.TryGetValue(command.ToTile.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) && !command.Data.ContainsKey("TilePressHandler") )
+            Tile toTile = command.ToTile;
+
+            if (toTile.Ground != null && tiles.TryGetValue(toTile.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) && !command.Data.ContainsKey("TilePressHandler") )
             {
+                command.Data.Add("TilePressHandler", true);
+
                 return true;
             }
 
             return false;
         }
 
-        public override Command Handle(CreatureMoveCommand command, Server server)
+        public override void Handle(Context context, CreatureMoveCommand command)
         {
-            List<Command> commands = new List<Command>();
+            Tile toTile = command.ToTile;
 
-            commands.Add(new CallbackCommand(context =>
-            {
-                command.Data.Add("TilePressHandler", true);
+            context.AddCommand(command);
 
-                return context.TransformCommand(command);
-            } ) );
+            context.AddCommand(new ItemReplaceCommand(toTile.Ground, toOpenTibiaId, 1) );
 
-            commands.Add(new ItemTransformCommand(command.ToTile.Ground, toOpenTibiaId, 1) );
-
-            return new SequenceCommand(commands.ToArray() );
+            base.Handle(context, command);
         }
     }
 }

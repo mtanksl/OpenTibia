@@ -10,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         private HashSet<ushort> ropeSpots = new HashSet<ushort> { 384 };
 
-        public override bool CanHandle(PlayerUseItemWithItemCommand command, Server server)
+        public override bool CanHandle(Context context, PlayerUseItemWithItemCommand command)
         {
             if (ropes.Contains(command.Item.Metadata.OpenTibiaId) && ropeSpots.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
@@ -20,9 +20,11 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(PlayerUseItemWithItemCommand command, Server server)
+        public override void Handle(Context context, PlayerUseItemWithItemCommand command)
         {
-            return new CreatureMoveCommand(command.Player, server.Map.GetTile( ( (Tile)command.ToItem.Container ).Position.Offset(0, 1, -1) ) );
+            context.AddCommand(new CreatureMoveCommand(command.Player, context.Server.Map.GetTile( ( (Tile)command.ToItem.Parent ).Position.Offset(0, 1, -1) ) ) );
+
+            base.Handle(context, command);
         }
     }
 }

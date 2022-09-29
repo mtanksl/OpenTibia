@@ -25,6 +25,8 @@ namespace OpenTibia.Common.Objects
             new Channel() { Id = 9, Name = "Help" }
         };
 
+        /// <exception cref="InvalidOperationException"></exception>
+        /// 
         private ushort GenerateId()
         {
             for (ushort id = 10; id < 65535; id++)
@@ -35,7 +37,7 @@ namespace OpenTibia.Common.Objects
                 }
             }
 
-            throw new Exception("Channel limit exceeded.");
+            throw new InvalidOperationException("Channel limit exceeded.");
         }
 
         public void AddChannel(Channel channel)

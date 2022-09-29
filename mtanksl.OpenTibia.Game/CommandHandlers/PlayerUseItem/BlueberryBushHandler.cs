@@ -15,7 +15,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort toOpenTibiaId;
 
-        public override bool CanHandle(PlayerUseItemCommand command, Server server)
+        public override bool CanHandle(Context context, PlayerUseItemCommand command)
         {
             if (blueberryBushs.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
@@ -25,15 +25,13 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(PlayerUseItemCommand command, Server server)
+        public override void Handle(Context context, PlayerUseItemCommand command)
         {
-            List<Command> commands = new List<Command>();
+            context.AddCommand(new ItemCreateCommand( (Tile)command.Item.Parent, blueberry, 3) );
 
-            commands.Add(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
+            context.AddCommand(new ItemReplaceCommand(command.Item, toOpenTibiaId, 1) );
 
-            commands.Add(new TileCreateItemCommand( (Tile)command.Item.Container, blueberry, 3) );
-
-            return new SequenceCommand(commands.ToArray() );
+            base.Handle(context, command);
         }
     }
 }

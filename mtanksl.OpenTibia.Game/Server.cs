@@ -6,7 +6,6 @@ using OpenTibia.FileFormats.Otbm;
 using OpenTibia.FileFormats.Xml.Items;
 using OpenTibia.FileFormats.Xml.Monsters;
 using OpenTibia.FileFormats.Xml.Npcs;
-using OpenTibia.Game.Commands;
 using OpenTibia.Network.Sockets;
 using OpenTibia.Threading;
 using System;
@@ -26,23 +25,23 @@ namespace OpenTibia.Game
             Dispose(false);
         }
 
-        private Dispatcher dispatcher;
+        public Dispatcher dispatcher;
 
         private Scheduler scheduler;
 
         private List<Listener> listeners;
 
-        public Clock Clock { get; set; }
+        public PacketsFactory PacketsFactory { get; set; }
 
         public Logger Logger { get; set; }
+
+        public Clock Clock { get; set; }
 
         public ChannelCollection Channels { get; set; }
 
         public RuleViolationCollection RuleViolations { get; set; }
 
         public GameObjectCollection GameObjects { get; set; }
-
-        public PacketsFactory PacketsFactory { get; set; }
 
         public ItemFactory ItemFactory { get; set; }
 
@@ -56,9 +55,9 @@ namespace OpenTibia.Game
 
         public Pathfinding Pathfinding { get; set; }
 
-        public EventsCollection Events { get; set; }
-
         public CommandHandlerCollection CommandHandlers { get; set; }
+
+        public EventHandlerCollection EventHandlers { get; set; }
 
         public ScriptsCollection Scripts { get; set; }
 
@@ -74,18 +73,18 @@ namespace OpenTibia.Game
 
             listeners.Add(new Listener(7172, socket => new GameConnection(this, socket) ) );
 
-            Clock = new Clock(12, 0);
+            PacketsFactory = new PacketsFactory();
 
             Logger = new Logger();
+
+            Clock = new Clock(12, 0);
 
             Channels = new ChannelCollection();
 
             RuleViolations = new RuleViolationCollection();
 
             GameObjects = new GameObjectCollection(this);
-
-            PacketsFactory = new PacketsFactory();
-            
+                        
             using (Logger.Measure("Loading items", true) )
             {
                 var otb = OtbFile.Load("data/items/items.otb");
@@ -122,9 +121,9 @@ namespace OpenTibia.Game
 
             Pathfinding = new Pathfinding(Map);
 
-            Events = new EventsCollection();
+            CommandHandlers = new CommandHandlerCollection();
 
-            CommandHandlers = new CommandHandlerCollection(this);
+            EventHandlers = new EventHandlerCollection();
 
             Scripts = new ScriptsCollection(this);
 
@@ -145,66 +144,68 @@ namespace OpenTibia.Game
             Logger.WriteLine("Server online");
         }
 
-        public void QueueForExecution(Command command)
+        private Dictionary<string, SchedulerEvent> schedulerEvents = new Dictionary<string, SchedulerEvent>();
+
+        public void QueueForExecution(Action<Context> callback)
         {
             dispatcher.QueueForExecution( () =>
             {
-                using (var context = new Context(this) )
+                try
                 {
-                    try
+                    using (var context = new Context(this) )
                     {
-                        command.Execute(context);
+                        callback(context);
 
                         context.Flush();
                     }
-                    catch (Exception ex)
-                    {
-                        Logger.WriteLine(ex.ToString() );
-                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.WriteLine(ex.ToString() );
                 }
             } );
         }
 
-        private Dictionary<string, SchedulerEvent> events = new Dictionary<string, SchedulerEvent>();
-
-        public void QueueForExecution(string key, int executeIn, Command command)
+        public void QueueForExecution(string key, int executeInMilliseconds, Action<Context> callback)
         {
             SchedulerEvent schedulerEvent;
 
-            if ( events.TryGetValue(key, out schedulerEvent) )
+            if ( schedulerEvents.TryGetValue(key, out schedulerEvent) )
             {
-                events.Remove(key);
+                schedulerEvents.Remove(key);
 
                 schedulerEvent.Cancel();
             }
 
-            events.Add(key, scheduler.QueueForExecution(executeIn, () =>
+            schedulerEvent = scheduler.QueueForExecution(executeInMilliseconds, () =>
             {
-                events.Remove(key);
+                schedulerEvents.Remove(key);
 
-                using (var context = new Context(this) )
+                try
                 {
-                    try
+                    using (var context = new Context(this) )
                     {
-                        command.Execute(context);
+                        callback(context);
 
                         context.Flush();
                     }
-                    catch (Exception ex)
-                    {
-                        Logger.WriteLine(ex.ToString() );
-                    }
-                }                
-            } ) );
+                }
+                catch (Exception ex)
+                {
+                    Logger.WriteLine(ex.ToString() );
+                }
+            } );
+
+            schedulerEvents.Add(key, schedulerEvent);
         }
 
         public bool CancelQueueForExecution(string key)
         {
             SchedulerEvent schedulerEvent;
 
-            if ( events.TryGetValue(key, out schedulerEvent) )
+            if ( schedulerEvents.TryGetValue(key, out schedulerEvent) )
             {
-                events.Remove(key);
+                schedulerEvents.Remove(key);
 
                 schedulerEvent.Cancel();
 

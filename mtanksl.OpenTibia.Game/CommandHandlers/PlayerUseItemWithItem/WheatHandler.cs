@@ -12,7 +12,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort flour = 2692;
 
-        public override bool CanHandle(PlayerUseItemWithItemCommand command, Server server)
+        public override bool CanHandle(Context context, PlayerUseItemWithItemCommand command)
         {
             if (wheats.Contains(command.Item.Metadata.OpenTibiaId) && millstones.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
@@ -22,22 +22,20 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(PlayerUseItemWithItemCommand command, Server server)
+        public override void Handle(Context context, PlayerUseItemWithItemCommand command)
         {
-            List<Command> commands = new List<Command>();
-
             if (command.Item is StackableItem stackableItem && stackableItem.Count > 1)
             {
-                commands.Add(new ItemUpdateCountCommand(stackableItem, (byte)(stackableItem.Count - 1) ) );
+                context.AddCommand(new ItemUpdateCommand(stackableItem, (byte)(stackableItem.Count - 1) ) );
             }
             else
             {
-                commands.Add(new ItemDestroyCommand(command.Item) );
+                context.AddCommand(new ItemDestroyCommand(command.Item) );
             }
 
-            commands.Add(new TileCreateItemCommand(command.Player.Tile, flour, 1) );
-     
-            return new SequenceCommand(commands.ToArray() );
+            context.AddCommand(new ItemCreateCommand(command.Player.Tile, flour, 1) );
+
+            base.Handle(context, command);
         }
     }
 }

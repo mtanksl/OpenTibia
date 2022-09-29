@@ -1,5 +1,4 @@
-﻿using OpenTibia.Common.Events;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
@@ -16,16 +15,29 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        public EventHandler<CommandCompletedEventArgs> Completed;
+        public Action<Context> Continuation { get; set; }
 
-        protected virtual void OnCompleted(Context context)
+        public virtual void Execute(Context context)
         {
-            if (Completed != null)
+            if (Continuation != null)
             {
-                Completed(this, new CommandCompletedEventArgs(context) );
+                Continuation(context);
             }
         }
+    }
 
-        public abstract void Execute(Context context);
+    public class InlineCommand : Command
+    {
+        private Action<Context, Action<Context>> execute;
+
+        public InlineCommand(Action<Context, Action<Context> > execute)
+        {
+            this.execute = execute;
+        }
+
+        public override void Execute(Context context)
+        {
+            execute(context, base.Execute);
+        }
     }
 }

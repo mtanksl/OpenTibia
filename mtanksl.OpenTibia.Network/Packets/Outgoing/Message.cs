@@ -1,25 +1,14 @@
 ﻿using OpenTibia.IO;
 using OpenTibia.Security;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
-    public class Message : IEnumerable<IOutgoingPacket>
+    public class Message
     {
         private List<IOutgoingPacket> packets = new List<IOutgoingPacket>(1);
 
-               IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        public IEnumerator<IOutgoingPacket> GetEnumerator()
-        {
-            return packets.GetEnumerator();
-        }
-        
         public Message Add(IOutgoingPacket packet)
         {
             packets.Add(packet);

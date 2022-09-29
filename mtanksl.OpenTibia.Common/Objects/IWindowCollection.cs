@@ -6,7 +6,7 @@ namespace OpenTibia.Common.Objects
     {
         byte OpenWindow(Window window);
 
-        void ReplaceWindow(byte windowId, Window window);
+        void ReplaceWindow(Window window, byte windowId);
 
         void CloseWindow(byte windowId);
 

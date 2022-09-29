@@ -8,7 +8,7 @@ namespace OpenTibia.Threading
     {
         private readonly object sync = new object();
 
-            private bool stop = false;
+            private bool stopped = false;
 
             private AutoResetEvent syncStop = new AutoResetEvent(false);
         
@@ -39,7 +39,7 @@ namespace OpenTibia.Threading
 
                 lock (sync)
                 {
-                    if (stop)
+                    if (stopped)
                     {
                         break;
                     }
@@ -48,7 +48,7 @@ namespace OpenTibia.Threading
                     {
                         Monitor.Wait(sync);
 
-                        if (stop)
+                        if (stopped)
                         {
                             break;
                         }
@@ -72,7 +72,7 @@ namespace OpenTibia.Threading
         {
             lock (sync)
             {
-                if ( !stop )
+                if ( !stopped )
                 {
                     events.Enqueue(dispatcherEvent);
 
@@ -85,13 +85,13 @@ namespace OpenTibia.Threading
         {
             lock (sync)
             {
-                if (stop)
+                if (stopped)
                 {
                     wait = false;
                 }
                 else
                 {
-                    stop = true;
+                    stopped = true;
 
                     Monitor.Pulse(sync);
                 }

@@ -10,10 +10,15 @@ namespace OpenTibia.Game.Commands
 
             foreach (var player in context.Server.GameObjects.GetPlayers() )
             {
-                context.WritePacket(player.Client.Connection, new SetEnvironmentLightOutgoingPacket(context.Server.Clock.Light) );
+                context.AddPacket(player.Client.Connection, new SetEnvironmentLightOutgoingPacket(context.Server.Clock.Light) );
             }
 
-            base.OnCompleted(context);
+            context.AddCommand(new DelayCommand(Constants.GlobalLightSchedulerEvent, Constants.GlobalLightSchedulerEventInterval), ctx =>
+            {
+                Execute(ctx);
+            } );
+
+            base.Execute(context);
         }
     }
 }

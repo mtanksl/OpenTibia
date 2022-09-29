@@ -7,7 +7,7 @@ namespace OpenTibia.Threading
     {
         private readonly object sync = new object();
 
-            private bool stop = false;
+            private bool stopped = false;
 
             private AutoResetEvent syncStop = new AutoResetEvent(false);
         
@@ -42,7 +42,7 @@ namespace OpenTibia.Threading
 
                 lock (sync)
                 {
-                    if (stop)
+                    if (stopped)
                     {
                         break;
                     }
@@ -51,7 +51,7 @@ namespace OpenTibia.Threading
                     {
                         Monitor.Wait(sync);
 
-                        if (stop)
+                        if (stopped)
                         {
                             break;
                         }
@@ -59,13 +59,13 @@ namespace OpenTibia.Threading
 
                     while ( Monitor.Wait(sync, events.Peek().Timeout) )
                     {
-                        if (stop)
+                        if (stopped)
                         {
                             break;
                         }
                     }
 
-                    if (stop)
+                    if (stopped)
                     {
                         break;
                     }
@@ -79,16 +79,16 @@ namespace OpenTibia.Threading
             syncStop.Set();
         }
 
-        public SchedulerEvent QueueForExecution(int executeIn, Action execute)
+        public SchedulerEvent QueueForExecution(int executeInMilliseconds, Action execute)
         {
-            return QueueForExecution( new SchedulerEvent(executeIn, execute) );
+            return QueueForExecution( new SchedulerEvent(executeInMilliseconds, execute) );
         }
 
         public SchedulerEvent QueueForExecution(SchedulerEvent schedulerEvent)
         {
             lock (sync)
             {
-                if ( !stop )
+                if ( !stopped )
                 {
                     events.Enqueue(schedulerEvent);
 
@@ -103,13 +103,13 @@ namespace OpenTibia.Threading
         {
             lock (sync)
             {
-                if (stop)
+                if (stopped)
                 {
                     wait = false;
                 }
                 else
                 {  
-                    stop = true;
+                    stopped = true;
 
                     Monitor.Pulse(sync);
                 }

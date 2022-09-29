@@ -15,15 +15,13 @@
         {
             for (int i = 0; i < commands.Length; i++)
             {
-                commands[i].Completed += (s, e) =>
+                context.AddCommand(commands[i], ctx =>
                 {
                     if (++index == commands.Length)
                     {
-                        base.OnCompleted(e.Context);
+                        base.Execute(ctx);
                     }
-                };
-
-                commands[i].Execute(context);
+                } );
             }
         }
     }

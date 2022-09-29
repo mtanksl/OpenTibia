@@ -17,6 +17,8 @@ namespace OpenTibia.Common.Objects
             return index;
         }
 
+        /// <exception cref="NotSupportedException"></exception>
+
         public void AddContent(byte index, IContent content)
         {
             throw new NotSupportedException();
@@ -29,6 +31,8 @@ namespace OpenTibia.Common.Objects
             contents.RemoveAt(index);
         }
 
+        /// <exception cref="InvalidOperationException"></exception>
+
         public byte GetIndex(IContent content)
         {
             for (byte index = 0; index < contents.Count; index++)
@@ -39,7 +43,7 @@ namespace OpenTibia.Common.Objects
                 }
             }
 
-            throw new Exception("Content not found.");
+            throw new InvalidOperationException("Content not found.");
         }
 
         public bool TryGetIndex(IContent content, out byte i)
@@ -74,17 +78,17 @@ namespace OpenTibia.Common.Objects
             return contents;
         }
 
-        public IEnumerable<Item> GetItems()
-        {
-            return contents.OfType<Item>();
-        }
-
         public IEnumerable< KeyValuePair<byte, IContent> > GetIndexedContents()
         {
             for (byte index = 0; index < contents.Count; index++)
             {
                 yield return new KeyValuePair<byte, IContent>( index, contents[index] );
             }
+        }
+
+        public IEnumerable<Item> GetItems()
+        {
+            return contents.OfType<Item>();
         }
 
         protected Dictionary<Player, int> players = new Dictionary<Player, int>();

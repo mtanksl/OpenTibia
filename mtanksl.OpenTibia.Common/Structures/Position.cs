@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace OpenTibia.Common.Structures
+﻿namespace OpenTibia.Common.Structures
 {
     public class Position
     {

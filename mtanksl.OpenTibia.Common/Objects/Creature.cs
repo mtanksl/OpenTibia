@@ -35,13 +35,13 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        public IContainer Container { get; set; }
+        public IContainer Parent { get; set; }
 
         public Tile Tile
         {
             get
             {
-                return Container as Tile;
+                return Parent as Tile;
             }
         }
         

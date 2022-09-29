@@ -5,7 +5,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class ContainerHandler : CommandHandler<PlayerUseItemCommand>
     {
-        public override bool CanHandle(PlayerUseItemCommand command, Server server)
+        public override bool CanHandle(Context context, PlayerUseItemCommand command)
         {
             if (command.Item is Container)
             {
@@ -15,14 +15,18 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(PlayerUseItemCommand command, Server server)
+        public override void Handle(Context context, PlayerUseItemCommand command)
         {
             if (command.ContainerId != null)
             {
-                return new ContainerReplaceOrCloseCommand(command.Player, (Container)command.Item, command.ContainerId.Value);
+                context.AddCommand(new ContainerReplaceOrCloseCommand(command.Player, (Container)command.Item, command.ContainerId.Value) );
+            }
+            else
+            {
+                context.AddCommand(new ContainerOpenOrCloseCommand(command.Player, (Container)command.Item) );
             }
 
-            return new ContainerOpenOrCloseCommand(command.Player, (Container)command.Item);
+            base.Handle(context, command);
         }
     }
 }

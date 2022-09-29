@@ -13,21 +13,17 @@
 
         public override void Execute(Context context)
         {
-            if (index < commands.Length)
+            context.AddCommand(commands[index++], ctx => 
             {
-                commands[index].Completed += (s, e) =>
+                if (index < commands.Length)
                 {
-                    index++;
-
-                    Execute(e.Context);
-                };
-
-                commands[index].Execute(context);
-            }
-            else
-            {
-                base.OnCompleted(context);
-            }
+                    Execute(ctx);
+                }
+                else
+                {
+                    base.Execute(ctx);
+                }
+            } );
         }
     }
 }

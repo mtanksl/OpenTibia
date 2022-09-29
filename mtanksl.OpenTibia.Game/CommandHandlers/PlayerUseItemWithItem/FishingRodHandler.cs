@@ -11,7 +11,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         private HashSet<ushort> shallowWaters = new HashSet<ushort> { 4608, 4609, 4610, 4611, 4612, 4613, 4612, 4615, 4616, 4617, 4618, 4619, 4620, 4621, 4622, 4623, 4624, 4625, 4664, 4665, 4666 };
 
-        public override bool CanHandle(PlayerUseItemWithItemCommand command, Server server)
+        public override bool CanHandle(Context context, PlayerUseItemWithItemCommand command)
         {
             if (fishingRods.Contains(command.Item.Metadata.OpenTibiaId) && shallowWaters.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
@@ -21,9 +21,11 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(PlayerUseItemWithItemCommand command, Server server)
+        public override void Handle(Context context, PlayerUseItemWithItemCommand command)
         {
-            return new MagicEffectCommand( ( (Tile)command.ToItem.Container).Position, MagicEffectType.BlueRings);
+            context.AddCommand(new MagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.BlueRings) );
+
+            base.Handle(context, command);
         }
     }
 }

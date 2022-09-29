@@ -25,8 +25,6 @@
             CanReportBugs = true;
         }
 
-        public Inventory Inventory { get; }
-
         private IClient client;
 
         public IClient Client
@@ -54,6 +52,8 @@
                 }
             }
         }
+
+        public Inventory Inventory { get; }
 
         public uint Experience { get; set; }
 

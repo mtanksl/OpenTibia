@@ -27,23 +27,54 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        public IContainer Container { get; set; }
+        public IContainer Parent { get; set; }
 
-        public IContainer GetRootContainer()
+        /*
+        public Container Container
         {
-            IContainer container = Container;
+            get
+            {
+                return Parent as Container;
+            }
+        }
+
+        public Inventory Inventory
+        {
+            get
+            {
+                return Parent as Inventory;
+            }
+        }
+
+        public Tile Tile
+        {
+            get
+            {
+                return Parent as Tile;
+            }
+        }
+        */
+
+        public IContainer Root()
+        {
+            IContainer container = Parent;
 
             while (container is IContent content)
             {
-                container = content.Container;
+                container = content.Parent;
             }
 
             return container;
-        }        
+        }
 
-        public bool IsChild(Item parent)
+        public bool IsContainerOf(Item item)
         {
-            Item item = this;
+            return item.IsContentOf(this);
+        }
+
+        public bool IsContentOf(Item parent)
+        {
+            IContent item = this;
 
             while (item != null)
             {
@@ -52,7 +83,7 @@ namespace OpenTibia.Common.Objects
                     return true;
                 }
 
-                item = item.Container as Item;
+                item = item.Parent as IContent;
             }
 
             return false;

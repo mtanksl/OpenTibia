@@ -14,7 +14,12 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            base.OnCompleted(context);
+            context.AddCommand(new DelayCommand(Constants.GlobalItemsSchedulerEvent, Constants.GlobalItemsSchedulerEventInterval), ctx =>
+            {
+                Execute(ctx);
+            } );
+
+            base.Execute(context);
         }
     }
 }

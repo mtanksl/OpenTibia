@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> books = new HashSet<ushort>() { 1955 };
 
-        public override bool CanHandle(PlayerUseItemCommand command, Server server)
+        public override bool CanHandle(Context context, PlayerUseItemCommand command)
         {
             if (books.Contains(command.Item.Metadata.OpenTibiaId) )
             {
@@ -19,16 +19,11 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(PlayerUseItemCommand command, Server server)
+        public override void Handle(Context context, PlayerUseItemCommand command)
         {
-            ReadableItem readableItem = (ReadableItem)command.Item;
+            context.AddPacket(command.Player.Client.Connection, new OpenTextDialogOutgoingPacket(0, command.Item.Metadata.TibiaId, 255, ( (ReadableItem)command.Item ).Text, "", "") );
 
-            return new ConditionalCommand(context =>
-            {
-                context.WritePacket(command.Player.Client.Connection, new OpenTextDialogOutgoingPacket(0, command.Item.Metadata.TibiaId, 255, readableItem.Text, "", "") );
-               
-                return true;
-            } );
+            base.Handle(context, command);
         }
     }
 }

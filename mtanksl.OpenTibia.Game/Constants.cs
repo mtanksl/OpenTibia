@@ -16,6 +16,10 @@ namespace OpenTibia.Game
 
         public static readonly int GlobalCreaturesSchedulerEventInterval = 1000;
 
+        public static string CreatureWalkSchedulerEvent(Creature creature)
+        {
+            return "Creature_Walk_" + creature.Id;
+        }
 
         public static readonly string OnlyProtocol86Allowed = "Only protocol 8.6 allowed.";
 
@@ -42,20 +46,5 @@ namespace OpenTibia.Game
         public static readonly string YouMayNotAttackThisCreature = "You may not attack this creature.";
 
         public static readonly string TargetLost = "Target lost.";
-
-
-        public static string CreatureActionSchedulerEvent(Creature creature)
-        {
-            return "Creature_Action_" + creature.Id;
-        }
-
-        public static readonly int CreatureActionSchedulerEventDelay = 200;
-
-        public static string CreatureAttackOrFollowSchedulerEvent(Creature creature)
-        {
-            return "Creature_Attack_Or_Follow_" + creature.Id;
-        }
-
-        public static readonly int CreatureAttackOrFollowEventDelay = 2000;
     }
 }

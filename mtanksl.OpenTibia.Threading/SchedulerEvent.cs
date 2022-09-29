@@ -4,9 +4,9 @@ namespace OpenTibia.Threading
 {
     public class SchedulerEvent : DispatcherEvent, IComparable<SchedulerEvent>
     {
-        public SchedulerEvent(int execution, Action execute) : base(execute)
+        public SchedulerEvent(int executeInMilliseconds, Action execute) : base(execute)
         {
-            this.timeout = DateTime.UtcNow.AddMilliseconds( Math.Max(50, execution) );
+            this.timeout = DateTime.UtcNow.AddMilliseconds( Math.Max(50, executeInMilliseconds) );
         }
 
         private DateTime timeout;

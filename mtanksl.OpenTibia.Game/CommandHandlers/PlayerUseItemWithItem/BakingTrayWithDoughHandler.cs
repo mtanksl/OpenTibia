@@ -12,7 +12,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort cookie = 2687;
 
-        public override bool CanHandle(PlayerUseItemWithItemCommand command, Server server)
+        public override bool CanHandle(Context context, PlayerUseItemWithItemCommand command)
         {
             if (bakingTrayWithDough.Contains(command.Item.Metadata.OpenTibiaId) && ovens.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
@@ -22,22 +22,20 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(PlayerUseItemWithItemCommand command, Server server)
+        public override void Handle(Context context, PlayerUseItemWithItemCommand command)
         {
-            List<Command> commands = new List<Command>();
-
             if (command.Item is StackableItem stackableItem && stackableItem.Count > 1)
             {
-                commands.Add(new ItemUpdateCountCommand(stackableItem, (byte)(stackableItem.Count - 1) ) );
+                context.AddCommand(new ItemUpdateCommand(stackableItem, (byte)(stackableItem.Count - 1) ) );
             }
             else
             {
-                commands.Add(new ItemDestroyCommand(command.Item) );
+                context.AddCommand(new ItemDestroyCommand(command.Item) );
             }
 
-            commands.Add(new TileCreateItemCommand( (Tile)command.ToItem.Container, cookie, 12) );
+            context.AddCommand(new ItemCreateCommand( (Tile)command.ToItem.Parent, cookie, 12) );
 
-            return new SequenceCommand(commands.ToArray() );
+            base.Handle(context, command);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         ushort toOpenTibiaId;
 
-        public override bool CanHandle(PlayerUseItemWithItemCommand command, Server server)
+        public override bool CanHandle(Context context, PlayerUseItemWithItemCommand command)
         {
             if (shovels.Contains(command.Item.Metadata.OpenTibiaId) && stonePiles.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
@@ -26,9 +26,11 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(PlayerUseItemWithItemCommand command, Server server)
+        public override void Handle(Context context, PlayerUseItemWithItemCommand command)
         {
-            return new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1);
+            context.AddCommand(new ItemReplaceCommand(command.ToItem, toOpenTibiaId, 1) );
+
+            base.Handle(context, command);
         }
     }
 }

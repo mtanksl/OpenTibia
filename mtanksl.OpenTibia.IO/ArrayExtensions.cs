@@ -19,7 +19,7 @@ namespace OpenTibia.IO
 
         public static T Random<T>(this T[] array)
         {
-            return array[random.Next(0, array.Length)];
+            return array[ random.Next(0, array.Length) ];
         }
 
         public static T[] Shuffle<T>(this T[] array)

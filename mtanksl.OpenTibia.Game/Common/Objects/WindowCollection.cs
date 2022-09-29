@@ -21,6 +21,8 @@ namespace OpenTibia.Common.Objects
         }
 
         private Window[] windows = new Window[255];
+     
+        /// <exception cref="InvalidOperationException"></exception>
 
         private byte GenerateWindowId()
         {
@@ -32,7 +34,7 @@ namespace OpenTibia.Common.Objects
                 }
             }
 
-            throw new Exception("Window limit exceeded.");
+            throw new InvalidOperationException("Window limit exceeded.");
         }
 
         public byte OpenWindow(Window window)
@@ -46,7 +48,7 @@ namespace OpenTibia.Common.Objects
             return windowId;
         }
 
-        public void ReplaceWindow(byte windowId, Window newWindow)
+        public void ReplaceWindow(Window newWindow, byte windowId)
         {
             Window oldWindow = GetWindow(windowId);
 

@@ -17,7 +17,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort toOpenTibiaId;
 
-        public override bool CanHandle(PlayerUseItemWithItemCommand command, Server server)
+        public override bool CanHandle(Context context, PlayerUseItemWithItemCommand command)
         {
             if (scythes.Contains(command.Item.Metadata.OpenTibiaId) && wheats.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
@@ -27,15 +27,13 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(PlayerUseItemWithItemCommand command, Server server)
+        public override void Handle(Context context, PlayerUseItemWithItemCommand command)
         {
-            List<Command> commands = new List<Command>();
+            context.AddCommand(new ItemCreateCommand( (Tile)command.ToItem.Parent, wheat, 1) );
 
-            commands.Add(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+            context.AddCommand(new ItemReplaceCommand(command.ToItem, toOpenTibiaId, 1) );
 
-            commands.Add(new TileCreateItemCommand( (Tile)command.ToItem.Container, wheat, 1) );
-
-            return new SequenceCommand(commands.ToArray() );
+            base.Handle(context, command);
         }
     }
 }

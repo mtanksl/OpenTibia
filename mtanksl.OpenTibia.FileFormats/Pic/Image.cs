@@ -38,7 +38,7 @@ namespace OpenTibia.FileFormats.Pic
 
                         image.sprites.Add(sprite);
 
-                        stream.Seek(Origin.Begin, returnIndex);
+                    stream.Seek(Origin.Begin, returnIndex);
                 }
             }
 

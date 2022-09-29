@@ -1,4 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
+using OpenTibia.Game.Commands;
+using OpenTibia.IO;
 using System;
 
 namespace OpenTibia.Game.Components
@@ -34,14 +37,14 @@ namespace OpenTibia.Game.Components
                 {
                     if (creature.Tile.Position.IsInBattleRange(observer.Tile.Position) )
                     {
-                        
+                        context.AddCommand(new TextCommand(creature, TalkType.MonsterSay, sentences.Random() ) );
 
                         break;
                     }
                 }
 
                 next = DateTime.Now.AddSeconds(10);
-            }            
+            }
         }        
     }
 }

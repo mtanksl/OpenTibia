@@ -1,11 +1,14 @@
 ﻿using OpenTibia.Game.Commands;
+using System;
 
 namespace OpenTibia.Game.CommandHandlers
 {
     public interface ICommandHandler
     {
-        bool CanHandle(Command command, Server server);
+        bool CanHandle(Context context, Command command);
 
-        Command Handle(Command command, Server server);
+        void Handle(Context context, Command command);
+
+        Action<Context> Continuation { get; set; }
     }
 }

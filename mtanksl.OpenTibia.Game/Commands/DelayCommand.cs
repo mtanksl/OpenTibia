@@ -4,27 +4,21 @@
     {
         private string key;
 
-        private int executeIn;
+        private int executeInMilliseconds;
 
-        public DelayCommand(string key, int executeIn)
+        public DelayCommand(string key, int executeInMilliseconds)
         {
             this.key = key;
 
-            this.executeIn = executeIn;
+            this.executeInMilliseconds = executeInMilliseconds;
         }
-
-        private int index = 0;
-
+        
         public override void Execute(Context context)
         {
-            if (index++ == 0)
+            context.Server.QueueForExecution(key, executeInMilliseconds, ctx =>
             {
-                context.Server.QueueForExecution(key, executeIn, this);
-            }
-            else
-            {
-                base.OnCompleted(context);
-            }
+                base.Execute(ctx);
+            } );
         }
     }
 }

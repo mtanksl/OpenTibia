@@ -40,45 +40,32 @@ namespace OpenTibia.Game
             }
         }
 
-        public Command TransformCommand(Command command)
+        public void AddCommand(Command command, Action<Context> callback = null)
         {
             if (disposed)
             {
-                throw new ObjectDisposedException( nameof(Context) );
+                throw new ObjectDisposedException(nameof(Context) );
             }
 
             ICommandHandler commandHandler;
 
-            if ( server.CommandHandlers.TryGet(command, out commandHandler) )
+            if (server.CommandHandlers.TryGet(this, command, out commandHandler) )
             {
-                return commandHandler.Handle(command, server);
+                commandHandler.Continuation = callback;
+
+                commandHandler.Handle(this, command);
             }
-
-            return command;
-        }
-
-        private List<GameEventArgs> events;
-
-        public Context AddEvent(GameEventArgs e)
-        {
-            if (disposed)
+            else
             {
-                throw new ObjectDisposedException( nameof(Context) );
+                command.Continuation = callback;
+
+                command.Execute(this);
             }
-
-            if (events == null)
-            {
-                events = new List<GameEventArgs>();
-            }
-
-            events.Add(e);
-
-            return this;
         }
 
         private Dictionary<IConnection, Message> messages = null;
 
-        public Context WritePacket(IConnection connection, IOutgoingPacket packet)
+        public Context AddPacket(IConnection connection, IOutgoingPacket packet)
         {
             if (disposed)
             {
@@ -104,7 +91,7 @@ namespace OpenTibia.Game
             return this;
         }
 
-        public Context WritePacket(IConnection connection, params IOutgoingPacket[] packet)
+        public Context AddPacket(IConnection connection, params IOutgoingPacket[] packet)
         {
             if (disposed)
             {
@@ -149,21 +136,30 @@ namespace OpenTibia.Game
             return this;
         }
 
+        private List<GameEventArgs> events;
+
+        public Context AddEvent(GameEventArgs e)
+        {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(Context));
+            }
+
+            if (events == null)
+            {
+                events = new List<GameEventArgs>();
+            }
+
+            events.Add(e);
+
+            return this;
+        }
+
         public void Flush()
         {
             if (disposed)
             {
                 throw new ObjectDisposedException( nameof(Context) );
-            }
-
-            if (events != null)
-            {
-                foreach (var e in events)
-                {
-                    server.Events.Publish(this, e);
-                }
-
-                events.Clear();
             }
 
             if (messages != null)
@@ -189,6 +185,16 @@ namespace OpenTibia.Game
 
                 connections.Clear();
             }
+
+            if (events != null)
+            {
+                foreach (var e in events)
+                {
+                    server.EventHandlers.Publish(this, e);
+                }
+
+                events.Clear();
+            }
         }
 
         private bool disposed = false;
@@ -211,6 +217,6 @@ namespace OpenTibia.Game
                     
                 }
             }
-        }
+        }        
     }
 }

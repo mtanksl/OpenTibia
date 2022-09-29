@@ -93,12 +93,14 @@ namespace OpenTibia.Common.Objects
 
             contents.Insert(index, content);
 
-            content.Container = this;
+            content.Parent = this;
 
             return index;
         }
 
-        public void AddContent(byte index, IContent content)
+        /// <exception cref="NotSupportedException"></exception>
+        /// 
+        public void AddContent(IContent content, byte index)
         {
             throw new NotSupportedException();
         }
@@ -109,9 +111,9 @@ namespace OpenTibia.Common.Objects
 
             contents[index] = content;
 
-            oldContent.Container = null;
+            oldContent.Parent = null;
 
-            content.Container = this;
+            content.Parent = this;
         }
 
         public void RemoveContent(byte index)
@@ -120,9 +122,11 @@ namespace OpenTibia.Common.Objects
 
             contents.RemoveAt(index);
 
-            content.Container = null;
+            content.Parent = null;
         }
 
+        /// <exception cref="InvalidOperationException"></exception>
+       
         public byte GetIndex(IContent content)
         {
             for (byte index = 0; index < contents.Count; index++)
@@ -133,7 +137,7 @@ namespace OpenTibia.Common.Objects
                 }
             }
 
-            throw new Exception("Content not found.");
+            throw new InvalidOperationException("Content not found.");
         }
 
         public bool TryGetIndex(IContent content, out byte i)
@@ -168,6 +172,14 @@ namespace OpenTibia.Common.Objects
             return contents;
         }
 
+        public IEnumerable< KeyValuePair<byte, IContent> > GetIndexedContents()
+        {
+            for (byte index = 0; index < contents.Count; index++)
+            {
+                yield return new KeyValuePair<byte, IContent>( index, contents[index] );
+            }
+        }
+
         public IEnumerable<Item> GetItems()
         {
             return contents.OfType<Item>();
@@ -191,14 +203,6 @@ namespace OpenTibia.Common.Objects
         public IEnumerable<Player> GetPlayers()
         {
             return contents.OfType<Player>();
-        }
-
-        public IEnumerable< KeyValuePair<byte, IContent> > GetIndexedContents()
-        {
-            for (byte index = 0; index < contents.Count; index++)
-            {
-                yield return new KeyValuePair<byte, IContent>( index, contents[index] );
-            }
-        }
+        }       
     }
 }

@@ -12,9 +12,7 @@ namespace OpenTibia.Game.Scripts
 
             server.CommandHandlers.Add(new ManaPotionHandler() );
 
-            server.CommandHandlers.Add(new UseItemWithCreatureWalkToTargetHandler() );
-
-            
+            server.CommandHandlers.Add(new UseItemWithCreatureWalkToTargetHandler() );            
         }
 
         public void Stop(Server server)

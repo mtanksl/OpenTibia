@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Commands;
 using OpenTibia.IO;
 using System.Linq;
 
@@ -35,7 +36,7 @@ namespace OpenTibia.Game.Components
                         }
                         else
                         {
-                            
+                            context.AddCommand(new CreatureMoveCommand(creature, toTile) );
 
                             break;
                         }

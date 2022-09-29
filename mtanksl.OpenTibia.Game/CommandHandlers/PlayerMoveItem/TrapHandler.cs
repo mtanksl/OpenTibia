@@ -13,7 +13,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort toOpenTibiaId;
 
-        public override bool CanHandle(PlayerMoveItemCommand command, Server server)
+        public override bool CanHandle(Context context, PlayerMoveItemCommand command)
         {
             if (traps.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) && command.ToContainer is Tile toTile)
             {
@@ -23,15 +23,13 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(PlayerMoveItemCommand command, Server server)
+        public override void Handle(Context context, PlayerMoveItemCommand command)
         {
-            List<Command> commands = new List<Command>();
+            context.AddCommand(new ItemDestroyCommand(command.Item) );
 
-            commands.Add(new ItemDestroyCommand(command.Item) );
+            context.AddCommand(new ItemCreateCommand( (Tile)command.ToContainer, toOpenTibiaId, 1) );
 
-            commands.Add(new TileCreateItemCommand( (Tile)command.ToContainer, toOpenTibiaId, 1) );
-
-            return new SequenceCommand(commands.ToArray() );
+            base.Handle(context, command);
         }
     }
 }

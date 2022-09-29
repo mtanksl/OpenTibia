@@ -1,14 +1,13 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
-using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
     public class UseItemWalkToSourceHandler : CommandHandler<PlayerUseItemCommand>
     {
-        public override bool CanHandle(PlayerUseItemCommand command, Server server)
+        public override bool CanHandle(Context context, PlayerUseItemCommand command)
         {
-            if (command.Item.Container is Tile tile && !command.Player.Tile.Position.IsNextTo(tile.Position) )
+            if (command.Item.Parent is Tile tile && !command.Player.Tile.Position.IsNextTo(tile.Position) )
             {
                 return true;
             }
@@ -16,20 +15,14 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(PlayerUseItemCommand command, Server server)
+        public override void Handle(Context context, PlayerUseItemCommand command)
         {
-            List<Command> commands = new List<Command>();
-
-            commands.Add(new WalkToUnknownPathCommand(command.Player, (Tile)command.Item.Container) );
-
-            commands.Add(new DelayCommand(Constants.CreatureActionSchedulerEvent(command.Player), Constants.CreatureActionSchedulerEventDelay) );
-
-            commands.Add(new CallbackCommand(context =>
+            context.AddCommand(new WalkToUnknownPathCommand(command.Player, (Tile)command.Item.Parent), ctx =>
             {
-                return context.TransformCommand(command);
-            } ) );
+                ctx.AddCommand(command);
 
-            return new SequenceCommand(commands.ToArray() );
+                base.Handle(ctx, command);
+            } );
         }
     }
 }

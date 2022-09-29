@@ -38,6 +38,10 @@ namespace OpenTibia.Common.Objects
                     {
                         Rsa.DecryptAndReplace(body, 21);
                     }
+                    else
+                    {
+
+                    }
 
                     Command command = null;
 
@@ -54,7 +58,10 @@ namespace OpenTibia.Common.Objects
 
                     if (command != null)
                     {
-                        server.QueueForExecution(command);
+                        server.QueueForExecution(ctx =>
+                        {
+                            ctx.AddCommand(command);
+                        } );
                     }
                 }
             }

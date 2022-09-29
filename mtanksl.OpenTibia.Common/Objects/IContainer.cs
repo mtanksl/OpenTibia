@@ -6,7 +6,7 @@ namespace OpenTibia.Common.Objects
     {
         byte AddContent(IContent content);
 
-        void AddContent(byte index, IContent content);
+        void AddContent(IContent content, byte index);
 
         void ReplaceContent(byte index, IContent content);
 

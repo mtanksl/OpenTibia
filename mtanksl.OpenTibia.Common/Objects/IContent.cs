@@ -6,6 +6,6 @@ namespace OpenTibia.Common.Objects
     {
         TopOrder TopOrder { get; }
 
-        IContainer Container { get; set; }
+        IContainer Parent { get; set; }
     }
 }

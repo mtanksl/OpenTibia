@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> lavas = new HashSet<ushort>() { 598, 599, 600, 601 };
 
-        public override bool CanHandle(PlayerMoveItemCommand command, Server server)
+        public override bool CanHandle(Context context, PlayerMoveItemCommand command)
         {
             if (command.ToContainer is Tile toTile && toTile.Ground != null && lavas.Contains(toTile.Ground.Metadata.OpenTibiaId) )
             {
@@ -19,22 +19,20 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(PlayerMoveItemCommand command, Server server)
+        public override void Handle(Context context, PlayerMoveItemCommand command)
         {
-            List<Command> commands = new List<Command>();
-
             if (command.Item is StackableItem stackableItem && stackableItem.Count > 1)
             {
-                commands.Add(new ItemUpdateCountCommand(stackableItem, (byte)(stackableItem.Count - 1) ) );
+                context.AddCommand(new ItemUpdateCommand(stackableItem, (byte)(stackableItem.Count - 1) ) );
             }
             else
             {
-                commands.Add(new ItemDestroyCommand(command.Item) );
+                context.AddCommand(new ItemDestroyCommand(command.Item) );
             }
 
-            commands.Add(new MagicEffectCommand( ( (Tile)command.ToContainer).Position, MagicEffectType.FirePlume) );
+            context.AddCommand(new MagicEffectCommand( ( (Tile)command.ToContainer).Position, MagicEffectType.FirePlume) );
 
-            return new SequenceCommand(commands.ToArray() );
+            base.Handle(context, command);
         }
     }
 }

@@ -4,7 +4,6 @@ using OpenTibia.Game;
 using OpenTibia.Game.Commands;
 using OpenTibia.IO;
 using OpenTibia.Network.Packets.Incoming;
-using OpenTibia.Network.Packets.Outgoing;
 using OpenTibia.Network.Sockets;
 using OpenTibia.Security;
 using System;
@@ -23,7 +22,10 @@ namespace OpenTibia.Common.Objects
 
         protected override void OnConnected()
         {
-            Send( new Message() { new SendConnectionInfoOutgoingPacket() }.GetBytes(Keys) );
+            server.QueueForExecution(ctx =>
+            {
+                ctx.AddCommand(new SendConnectionInfoCommand(this) );
+            } );
 
             base.OnConnected();
         }
@@ -57,7 +59,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<SelectedCharacterIncomingPacket>(reader);
 
-                                command = new LogInCommand(this, packet);
+                                command = new SelectedCharacterCommand(this, packet);
                             }
                             break;
 
@@ -69,7 +71,7 @@ namespace OpenTibia.Common.Objects
 
                         case 0x1E:
 
-                            command = new PongCommand(Client.Player);
+                            command = new PingCommand(Client.Player);
 
                             break;
 
@@ -83,25 +85,25 @@ namespace OpenTibia.Common.Objects
 
                         case 0x65:
 
-                            command = new BeginWalkCommand(Client.Player, MoveDirection.North);
+                            command = new WalkCommand(Client.Player, MoveDirection.North);
 
                             break;
 
                         case 0x66:
 
-                            command = new BeginWalkCommand(Client.Player, MoveDirection.East);
+                            command = new WalkCommand(Client.Player, MoveDirection.East);
 
                             break;
 
                         case 0x67:
 
-                            command = new BeginWalkCommand(Client.Player, MoveDirection.South);
+                            command = new WalkCommand(Client.Player, MoveDirection.South);
 
                             break;
 
                         case 0x68:
 
-                            command = new BeginWalkCommand(Client.Player, MoveDirection.West);
+                            command = new WalkCommand(Client.Player, MoveDirection.West);
 
                             break;
 
@@ -113,25 +115,25 @@ namespace OpenTibia.Common.Objects
 
                         case 0x6A:
 
-                            command = new BeginWalkCommand(Client.Player, MoveDirection.NorthEast);
+                            command = new WalkCommand(Client.Player, MoveDirection.NorthEast);
 
                             break;
 
                         case 0x6B:
 
-                            command = new BeginWalkCommand(Client.Player, MoveDirection.SouthEast);
+                            command = new WalkCommand(Client.Player, MoveDirection.SouthEast);
 
                             break;
 
                         case 0x6C:
 
-                            command = new BeginWalkCommand(Client.Player, MoveDirection.SouthWest);
+                            command = new WalkCommand(Client.Player, MoveDirection.SouthWest);
 
                             break;
 
                         case 0x6D:
 
-                            command = new BeginWalkCommand(Client.Player, MoveDirection.NorthWest);
+                            command = new WalkCommand(Client.Player, MoveDirection.NorthWest);
 
                             break;
 
@@ -217,15 +219,15 @@ namespace OpenTibia.Common.Objects
 
                         case 0x79:
                             {
-                                var packet = server.PacketsFactory.Create<LookItemNpcTradeIncommingPacket>(reader);
+                                var packet = server.PacketsFactory.Create<LookItemNpcTradeIncomingPacket>(reader);
 
-                                command = new LookFromNpcTradeCommand(Client.Player, packet.ItemId, packet.Type);
+                                command = new LookItemNpcTradeCommand(Client.Player, packet.ItemId, packet.Type);
                             }
                             break;
 
                         case 0x7A:
                             {
-                                var packet = server.PacketsFactory.Create<BuyNpcTradeIncommingPacket>(reader);
+                                var packet = server.PacketsFactory.Create<BuyNpcTradeIncomingPacket>(reader);
 
                                 command = new BuyNpcTradeCommand(Client.Player, packet);
                             }
@@ -233,7 +235,7 @@ namespace OpenTibia.Common.Objects
 
                         case 0x7B:
                             {
-                                var packet = server.PacketsFactory.Create<SellNpcTradeIncommingPacket>(reader);
+                                var packet = server.PacketsFactory.Create<SellNpcTradeIncomingPacket>(reader);
 
                                 command = new SellNpcTradeCommand(Client.Player, packet);
                             }
@@ -247,7 +249,7 @@ namespace OpenTibia.Common.Objects
 
                         case 0x7D:
                             {
-                                var packet = server.PacketsFactory.Create<TradeWithIncommingPacket>(reader);
+                                var packet = server.PacketsFactory.Create<TradeWithIncomingPacket>(reader);
 
                                 Position fromPosition = new Position(packet.X, packet.Y, packet.Z);
 
@@ -268,9 +270,9 @@ namespace OpenTibia.Common.Objects
 
                         case 0x7E:
                             {
-                                var packet = server.PacketsFactory.Create<LookItemTradeIncommingPacket>(reader);
+                                var packet = server.PacketsFactory.Create<LookItemTradeIncomingPacket>(reader);
 
-                                command = new LookFromTradeCommand(Client.Player, packet.WindowId, packet.Index);
+                                command = new LookItemTradeCommand(Client.Player, packet.WindowId, packet.Index);
                             }
                             break;
 
@@ -407,7 +409,7 @@ namespace OpenTibia.Common.Objects
 
                         case 0x87:
                             {
-                                var packet = server.PacketsFactory.Create<CloseContainerIncommingPacket>(reader);
+                                var packet = server.PacketsFactory.Create<CloseContainerIncomingPacket>(reader);
 
                                 command = new CloseContainerCommand(Client.Player, packet.ContainerId);
                             }
@@ -415,7 +417,7 @@ namespace OpenTibia.Common.Objects
 
                         case 0x88:
                             {
-                                var packet = server.PacketsFactory.Create<OpenParentIncommingPacket>(reader);
+                                var packet = server.PacketsFactory.Create<OpenParentContainerIncomingPacket>(reader);
 
                                 command = new OpenParentContainerCommand(Client.Player, packet.ContainerId);
                             }
@@ -444,61 +446,61 @@ namespace OpenTibia.Common.Objects
 
                         case 0x96:
                             {
-                                var packet = server.PacketsFactory.Create<TalkIncommingPacket>(reader);
+                                var packet = server.PacketsFactory.Create<TalkIncomingPacket>(reader);
 
                                 switch (packet.TalkType)
                                 {
                                     case TalkType.Say:
 
-                                        command = new SayCommand(Client.Player, packet.Message);
+                                        command = new TalkSayCommand(Client.Player, packet.Message);
 
                                         break;
 
                                     case TalkType.Whisper:
 
-                                        command = new WhisperCommand(Client.Player, packet.Message);
+                                        command = new TalkWhisperCommand(Client.Player, packet.Message);
 
                                         break;
 
                                     case TalkType.Yell:
 
-                                        command = new YellCommand(Client.Player, packet.Message);
+                                        command = new TalkYellCommand(Client.Player, packet.Message);
 
                                         break;
 
                                     case TalkType.Private:
 
-                                        command = new SendMessageToPlayerCommand(Client.Player, packet.Name, packet.Message);
+                                        command = new TalkPrivateCommand(Client.Player, packet.Name, packet.Message);
 
                                         break;
 
                                     case TalkType.ChannelYellow:
 
-                                        command = new SendMessageToChannel(Client.Player, packet.ChannelId, packet.Message);
+                                        command = new TalkChannelYellowCommand(Client.Player, packet.ChannelId, packet.Message);
 
                                         break;
 
                                     case TalkType.ReportRuleViolationOpen:
 
-                                        command = new CreateReportRuleViolationCommand(Client.Player, packet.Message);
+                                        command = new OpenReportRuleViolationCommand(Client.Player, packet.Message);
 
                                         break;
 
                                     case TalkType.ReportRuleViolationAnswer:
 
-                                        command = new AnswerInReportRuleViolationChannelCommand(Client.Player, packet.Name, packet.Message);
+                                        command = new AnswerReportRuleViolationCommand(Client.Player, packet.Name, packet.Message);
 
                                         break;
 
                                     case TalkType.ReportRuleViolationQuestion:
 
-                                        command = new AskInReportRuleViolationChannelCommand(Client.Player, packet.Message);
+                                        command = new QuestionReportRuleViolationCommand(Client.Player, packet.Message);
 
                                         break;
 
                                     case TalkType.Broadcast:
 
-                                        command = new BroadcastMessageCommand(Client.Player, packet.Message);
+                                        command = new TalkBroadcastCommand(Client.Player, packet.Message);
 
                                         break;
                                 }
@@ -521,7 +523,7 @@ namespace OpenTibia.Common.Objects
 
                         case 0x99:
                             {
-                                var packet = server.PacketsFactory.Create<CloseChannelIncommingPacket>(reader);
+                                var packet = server.PacketsFactory.Create<CloseChannelIncomingPacket>(reader);
 
                                 command = new CloseChannelCommand(Client.Player, packet.ChannelId);
                             }
@@ -537,7 +539,7 @@ namespace OpenTibia.Common.Objects
 
                         case 0x9B:
                             {
-                                var packet = server.PacketsFactory.Create<ProcessReportRuleViolationIncommingPacket>(reader);
+                                var packet = server.PacketsFactory.Create<ProcessReportRuleViolationIncomingPacket>(reader);
 
                                 command = new ProcessReportRuleViolationCommand(Client.Player, packet.Name);
                             }
@@ -545,7 +547,7 @@ namespace OpenTibia.Common.Objects
 
                         case 0x9C:
                             {
-                                var packet = server.PacketsFactory.Create<CloseReportRuleViolationChannelAnswerIncommingPacket>(reader);
+                                var packet = server.PacketsFactory.Create<CloseReportRuleViolationChannelAnswerIncomingPacket>(reader);
 
                                 command = new CloseReportRuleViolationChannelAnswerCommand(Client.Player, packet.Name);
                             }
@@ -565,7 +567,7 @@ namespace OpenTibia.Common.Objects
 
                         case 0xA0:
                             {
-                                var packet = server.PacketsFactory.Create<CombatControlsIncommingPacket>(reader);
+                                var packet = server.PacketsFactory.Create<CombatControlsIncomingPacket>(reader);
 
                                 command = new CombatControlsCommand(Client.Player, packet.FightMode, packet.ChaseMode, packet.SafeMode);
                             }
@@ -573,7 +575,7 @@ namespace OpenTibia.Common.Objects
 
                         case 0xA1:
                             {
-                                var packet = server.PacketsFactory.Create<AttackIncommingPacket>(reader);
+                                var packet = server.PacketsFactory.Create<AttackIncomingPacket>(reader);
 
                                 if (packet.CreatureId == 0)
                                 {
@@ -588,7 +590,7 @@ namespace OpenTibia.Common.Objects
 
                         case 0xA2:
                             {
-                                var packet = server.PacketsFactory.Create<FollowIncommingPacket>(reader);
+                                var packet = server.PacketsFactory.Create<FollowIncomingPacket>(reader);
 
                                 if (packet.CreatureId == 0)
                                 {
@@ -629,7 +631,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<PassLeadershipToIncomingPacket>(reader);
 
-                                command = new PassLeaderShipToCommand(Client.Player, packet.CreatureId);
+                                command = new PassLeadershipToCommand(Client.Player, packet.CreatureId);
                             }
                             break;
 
@@ -655,15 +657,15 @@ namespace OpenTibia.Common.Objects
 
                         case 0xAB:
                             {
-                                var packet = server.PacketsFactory.Create<InvitePlayerIncommingPacket>(reader);
+                                var packet = server.PacketsFactory.Create<InvitePlayerIncomingPacket>(reader);
 
-                                command = new InvitePlayerCommand(Client.Player, packet.Name);
+                                command = new InvitePlayerChannelCommand(Client.Player, packet.Name);
                             }
                             break;
 
                         case 0xAC:
                             {
-                                var packet = server.PacketsFactory.Create<ExcludePlayerIncommingPacket>(reader);
+                                var packet = server.PacketsFactory.Create<ExcludePlayerIncomingPacket>(reader);
 
                                 command = new ExcludePlayerCommand(Client.Player, packet.Name);
                             }
@@ -677,7 +679,7 @@ namespace OpenTibia.Common.Objects
 
                         case 0xD2:
 
-                            command = new SelectOutfitCommand(Client.Player);
+                            command = new SetOutfitCommand(Client.Player);
 
                             break;
 
@@ -691,7 +693,7 @@ namespace OpenTibia.Common.Objects
 
                         case 0xDC:
                             {
-                                var packet = server.PacketsFactory.Create<AddVipIncommingPacket>(reader);
+                                var packet = server.PacketsFactory.Create<AddVipIncomingPacket>(reader);
 
                                 command = new AddVipCommand(Client.Player, packet.Name);
                             }
@@ -699,7 +701,7 @@ namespace OpenTibia.Common.Objects
 
                         case 0xDD:
                             {
-                                var packet = server.PacketsFactory.Create<RemoveVipIncommingPacket>(reader);
+                                var packet = server.PacketsFactory.Create<RemoveVipIncomingPacket>(reader);
 
                                 command = new RemoveVipCommand(Client.Player, packet.CreatureId);
                             }
@@ -715,7 +717,7 @@ namespace OpenTibia.Common.Objects
 
                         case 0xF0:
                             
-                            command = new OpenQuestsCommand(Client.Player);
+                            command = new QuestsCommand(Client.Player);
                             
                             break;
 
@@ -730,7 +732,10 @@ namespace OpenTibia.Common.Objects
 
                     if (command != null)
                     {
-                        server.QueueForExecution(command);
+                        server.QueueForExecution(ctx =>
+                        {
+                            ctx.AddCommand(command);
+                        } );
                     }
                 }
             }
@@ -748,7 +753,10 @@ namespace OpenTibia.Common.Objects
             {
                 if (Client != null && Client.Player != null)
                 {
-                    server.QueueForExecution(new LogOutCommand(Client.Player) );
+                    server.QueueForExecution(ctx =>
+                    {
+                        ctx.AddCommand(new LogOutCommand(Client.Player) );
+                    } );
                 }
             }
             

@@ -120,23 +120,6 @@ namespace OpenTibia.Game
             return Enumerable.Empty<T>();
         }
 
-        public T GetGameObject<T>(uint id) where T : GameObject
-        {
-            Dictionary<uint, GameObject> gameObjects;
-
-            if ( buckets.TryGetValue(typeof(T), out gameObjects) )
-            {
-                GameObject gameObject;
-
-                if (gameObjects.TryGetValue(id, out gameObject) )
-                {
-                    return (T)gameObject;
-                }
-            }
-
-            return default(T);
-        }
-
         public IEnumerable<Creature> GetCreatures()
         {
             return GetGameObjects<Creature>();
@@ -160,6 +143,23 @@ namespace OpenTibia.Game
         public IEnumerable<Item> GetItems()
         {
             return GetGameObjects<Item>();
+        }
+
+        public T GetGameObject<T>(uint id) where T : GameObject
+        {
+            Dictionary<uint, GameObject> gameObjects;
+
+            if (buckets.TryGetValue(typeof(T), out gameObjects))
+            {
+                GameObject gameObject;
+
+                if (gameObjects.TryGetValue(id, out gameObject))
+                {
+                    return (T)gameObject;
+                }
+            }
+
+            return default(T);
         }
     }
 }

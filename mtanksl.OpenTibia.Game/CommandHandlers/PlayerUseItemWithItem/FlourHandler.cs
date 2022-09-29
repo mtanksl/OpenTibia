@@ -15,7 +15,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort lumpOfCakeDough = 6277;
 
-        public override bool CanHandle(PlayerUseItemWithItemCommand command, Server server)
+        public override bool CanHandle(Context context, PlayerUseItemWithItemCommand command)
         {
             if (flours.Contains(command.Item.Metadata.OpenTibiaId) && buckets.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
@@ -25,44 +25,42 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(PlayerUseItemWithItemCommand command, Server server)
+        public override void Handle(Context context, PlayerUseItemWithItemCommand command)
         {
-            List<Command> commands = new List<Command>();
-
             FluidItem toFluidItem = (FluidItem)command.ToItem;
 
             if (toFluidItem.FluidType == FluidType.Water)
             {
                 if (command.Item is StackableItem stackableItem && stackableItem.Count > 1)
                 {
-                    commands.Add(new ItemUpdateCountCommand(stackableItem, (byte)(stackableItem.Count - 1) ) );
+                    context.AddCommand(new ItemUpdateCommand(stackableItem, (byte)(stackableItem.Count - 1) ) );
                 }
                 else
                 {
-                    commands.Add(new ItemDestroyCommand(command.Item) );
+                    context.AddCommand(new ItemDestroyCommand(command.Item) );
                 }
 
-                commands.Add(new ItemUpdateFluidTypeCommand(toFluidItem, FluidType.Empty) );
+                context.AddCommand(new ItemUpdateCommand(toFluidItem, (byte)FluidType.Empty) );
 
-                commands.Add(new TileCreateItemCommand(command.Player.Tile, lumpOfDough, 1) );
+                context.AddCommand(new ItemCreateCommand(command.Player.Tile, lumpOfDough, 1) );
             }
             else if (toFluidItem.FluidType == FluidType.Milk)
             {
                 if (command.Item is StackableItem stackableItem && stackableItem.Count > 1)
                 {
-                    commands.Add(new ItemUpdateCountCommand(stackableItem, (byte)(stackableItem.Count - 1) ) );
+                    context.AddCommand(new ItemUpdateCommand(stackableItem, (byte)(stackableItem.Count - 1) ) );
                 }
                 else
                 {
-                    commands.Add(new ItemDestroyCommand(command.Item) );
+                    context.AddCommand(new ItemDestroyCommand(command.Item) );
                 }
 
-                commands.Add(new ItemUpdateFluidTypeCommand(toFluidItem, FluidType.Empty) );
+                context.AddCommand(new ItemUpdateCommand(toFluidItem, (byte)FluidType.Empty) );
 
-                commands.Add(new TileCreateItemCommand(command.Player.Tile, lumpOfCakeDough, 1) );
+                context.AddCommand(new ItemCreateCommand(command.Player.Tile, lumpOfCakeDough, 1) );
             }
 
-            return new SequenceCommand(commands.ToArray() );
+            base.Handle(context, command);
         }
     }
 }

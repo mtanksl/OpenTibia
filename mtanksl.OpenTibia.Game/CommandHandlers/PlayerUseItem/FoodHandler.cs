@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using System.Collections.Generic;
 
@@ -78,7 +79,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         private string message;
 
-        public override bool CanHandle(PlayerUseItemCommand command, Server server)
+        public override bool CanHandle(Context context, PlayerUseItemCommand command)
         {
             if (foods.TryGetValue(command.Item.Metadata.OpenTibiaId, out message) )
             {
@@ -88,22 +89,20 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(PlayerUseItemCommand command, Server server)
+        public override void Handle(Context context, PlayerUseItemCommand command)
         {
-            List<Command> commands = new List<Command>();
-
             if (command.Item is StackableItem stackableItem && stackableItem.Count > 1)
             {
-                commands.Add(new ItemUpdateCountCommand(stackableItem, (byte)(stackableItem.Count - 1) ) );
+                context.AddCommand(new ItemUpdateCommand(stackableItem, (byte)(stackableItem.Count - 1) ) );
             }
             else
             {
-                commands.Add(new ItemDestroyCommand(command.Item) );
+                context.AddCommand(new ItemDestroyCommand(command.Item) );
             }
 
-            commands.Add(new TextCommand(command.Player, message) );
+            context.AddCommand(new TextCommand(command.Player, TalkType.MonsterSay, message) );
 
-            return new SequenceCommand(commands.ToArray() );
+            base.Handle(context, command);
         }
     }
 }

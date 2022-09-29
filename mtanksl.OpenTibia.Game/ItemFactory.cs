@@ -160,7 +160,7 @@ namespace OpenTibia.Game
                 return null;
             }
 
-            Item item = null;
+            Item item;
 
             if (openTibiaId == 1387)
             {
@@ -168,15 +168,13 @@ namespace OpenTibia.Game
 
                 item = teleportItem;
             }
-
-            if (metadata.Flags.Is(ItemMetadataFlags.IsContainer) )
+            else if (metadata.Flags.Is(ItemMetadataFlags.IsContainer) )
             {
                 Container container = new Container(metadata);
 
                 item = container;
             }
-
-            if (metadata.Flags.Is(ItemMetadataFlags.Stackable) )
+            else if (metadata.Flags.Is(ItemMetadataFlags.Stackable) )
             {
                 StackableItem stackableItem = new StackableItem(metadata);
 
@@ -184,8 +182,7 @@ namespace OpenTibia.Game
 
                 item = stackableItem;
             }
-
-            if (metadata.Flags.Is(ItemMetadataFlags.IsFluid) )
+            else if (metadata.Flags.Is(ItemMetadataFlags.IsFluid) )
             {
                 FluidItem fluidItem = new FluidItem(metadata);
 
@@ -193,8 +190,7 @@ namespace OpenTibia.Game
 
                 item = fluidItem;
             }
-
-            if (metadata.Flags.Is(ItemMetadataFlags.Readable) )
+            else if (metadata.Flags.Is(ItemMetadataFlags.Readable) )
             {
                 ReadableItem readableItem = new ReadableItem(metadata);
 
@@ -202,8 +198,7 @@ namespace OpenTibia.Game
 
                 item = readableItem;
             }
-
-            if (item == null)
+            else
             {
                 item = new Item(metadata);
             }

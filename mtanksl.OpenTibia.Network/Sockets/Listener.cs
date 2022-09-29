@@ -10,7 +10,7 @@ namespace OpenTibia.Network.Sockets
     {
         private readonly object sync = new object();
 
-            private bool stop = false;
+            private bool stopped = false;
         
             private AutoResetEvent syncStop = new AutoResetEvent(false);
 
@@ -53,7 +53,7 @@ namespace OpenTibia.Network.Sockets
         {
             lock (sync)
             {
-                if (stop)
+                if (stopped)
                 {
                     syncStop.Set();
                 }
@@ -67,7 +67,7 @@ namespace OpenTibia.Network.Sockets
                         {
                             lock (sync)
                             {
-                                if ( !stop )
+                                if ( !stopped )
                                 {
                                     connections.Remove(connection);
 
@@ -95,13 +95,13 @@ namespace OpenTibia.Network.Sockets
         {
             lock (sync)
             {
-                if (stop)
+                if (stopped)
                 {
                     wait = false;
                 }
                 else
                 {
-                    stop = true;
+                    stopped = true;
 
                     foreach (var connection in connections)
                     {

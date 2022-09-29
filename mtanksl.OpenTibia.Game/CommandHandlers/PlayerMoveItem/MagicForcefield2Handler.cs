@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> magicForcefields = new HashSet<ushort>() { 1387 };
 
-        public override bool CanHandle(PlayerMoveItemCommand command, Server server)
+        public override bool CanHandle(Context context, PlayerMoveItemCommand command)
         {
             if (command.ToContainer is Tile toTile && toTile.TopItem != null && magicForcefields.Contains(toTile.TopItem.Metadata.OpenTibiaId) )
             {
@@ -19,22 +19,19 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(PlayerMoveItemCommand command, Server server)
+        public override void Handle(Context context, PlayerMoveItemCommand command)
         {
             Tile fromTile = (Tile)command.ToContainer;
 
-            Tile toTile = server.Map.GetTile( ( (TeleportItem)fromTile.TopItem ).Position );
+            Tile toTile = context.Server.Map.GetTile( ( (TeleportItem)fromTile.TopItem ).Position );
 
-            return new SequenceCommand(
+            context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toTile, 0, command.Count) );
 
-                new CallbackCommand(context =>
-                {
-                    return context.TransformCommand(new PlayerMoveItemCommand(command.Player, command.Item, toTile, 0, command.Count) );
-                } ),
+            context.AddCommand(new MagicEffectCommand(fromTile.Position, MagicEffectType.Teleport) );
 
-                new MagicEffectCommand(fromTile.Position, MagicEffectType.Teleport),
+            context.AddCommand(new MagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
 
-                new MagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+            base.Handle(context, command);
         }
     }
 }

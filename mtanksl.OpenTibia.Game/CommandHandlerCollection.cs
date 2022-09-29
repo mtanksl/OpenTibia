@@ -7,18 +7,13 @@ namespace OpenTibia.Game
 {
     public class CommandHandlerCollection
     {
-        private Server server;
-
-        public CommandHandlerCollection(Server server)
-        {
-            this.server = server;
-        }
-
-        private Dictionary<Type, List<ICommandHandler>> types = new Dictionary<Type, List<ICommandHandler>>();
+        private Dictionary<Type, List<ICommandHandler> > types = new Dictionary<Type, List<ICommandHandler> >();
 
         public void Add<T>(CommandHandler<T> commandHandler) where T : Command
         {
-            if ( !types.TryGetValue(typeof(T), out var handlers) )
+            List<ICommandHandler> handlers;
+
+            if ( !types.TryGetValue(typeof(T), out handlers) )
             {
                 handlers = new List<ICommandHandler>();
 
@@ -30,7 +25,9 @@ namespace OpenTibia.Game
 
         public void Remove<T>(CommandHandler<T> commandHandler) where T : Command
         {
-            if ( types.TryGetValue(typeof(T), out var handlers) )
+            List<ICommandHandler> handlers;
+
+            if ( types.TryGetValue(typeof(T), out handlers) )
             {
                 handlers.Remove(commandHandler);
 
@@ -41,13 +38,15 @@ namespace OpenTibia.Game
             }
         }
 
-        public bool TryGet(Command command, out ICommandHandler commandHandler)
+        public bool TryGet(Context context, Command command, out ICommandHandler commandHandler)
         {
-            if ( types.TryGetValue(command.GetType(), out var handlers) )
+            List<ICommandHandler> handlers;
+
+            if ( types.TryGetValue(command.GetType(), out handlers) )
             {
                 foreach (var handler in handlers)
                 {
-                    if ( handler.CanHandle(command, server) )
+                    if ( handler.CanHandle(context, command) )
                     {
                         commandHandler = handler;
 

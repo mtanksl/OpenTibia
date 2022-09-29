@@ -10,7 +10,7 @@ namespace OpenTibia.Network.Sockets
     {
         private readonly object sync = new object();
 
-            private bool stop = false;
+            private bool stopped = false;
         
             private AutoResetEvent syncStop = new AutoResetEvent(false);
 
@@ -62,7 +62,7 @@ namespace OpenTibia.Network.Sockets
             {
                 OnConnected();
 
-                if ( !stop )
+                if ( !stopped )
                 {
                     byte[] header = new byte[2];
 
@@ -75,7 +75,7 @@ namespace OpenTibia.Network.Sockets
         {
             lock (sync)
             {
-                if (stop)
+                if (stopped)
                 {
                     syncStop.Set();
                 }
@@ -108,7 +108,7 @@ namespace OpenTibia.Network.Sockets
         {
             lock (sync)
             {
-                if (stop)
+                if (stopped)
                 {
                     syncStop.Set();
                 }
@@ -122,7 +122,7 @@ namespace OpenTibia.Network.Sockets
                         {
                             OnReceived(body);
 
-                            if ( !stop )
+                            if ( !stopped )
                             {
                                 byte[] header = new byte[2];
 
@@ -146,7 +146,7 @@ namespace OpenTibia.Network.Sockets
         {
             lock (sync)
             {
-                if ( !stop )
+                if ( !stopped )
                 {
                     socket.BeginSend(bytes, 0, bytes.Length, SocketFlags.None, Send, bytes);
                 }
@@ -157,7 +157,7 @@ namespace OpenTibia.Network.Sockets
         {
             lock (sync)
             {
-                if (stop)
+                if (stopped)
                 {
                     //
                 }
@@ -215,13 +215,13 @@ namespace OpenTibia.Network.Sockets
         {
             lock (sync)
             {
-                if (stop)
+                if (stopped)
                 {
                     wait = false;
                 }
                 else
                 {
-                    stop = true;
+                    stopped = true;
 
                     socket.Shutdown(SocketShutdown.Both);
                 }

@@ -9,9 +9,11 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> holes = new HashSet<ushort>() { 383, 469, 470, 482, 484, 485, 4835 };
 
-        public override bool CanHandle(CreatureMoveCommand command, Server server)
+        public override bool CanHandle(Context context, CreatureMoveCommand command)
         {
-            if (command.ToTile.Ground != null && holes.Contains(command.ToTile.Ground.Metadata.OpenTibiaId) )
+            Tile toTile = command.ToTile;
+
+            if (toTile.Ground != null && holes.Contains(toTile.Ground.Metadata.OpenTibiaId) )
             {
                 return true;
             }
@@ -19,36 +21,51 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(CreatureMoveCommand command, Server server)
+        public override void Handle(Context context, CreatureMoveCommand command)
         {
             Tile toTile = command.ToTile;
 
             if (toTile.FloorChange == FloorChange.Down)
             {
-                toTile = server.Map.GetTile(toTile.Position.Offset(0, 0, 1) );
+                toTile = context.Server.Map.GetTile(toTile.Position.Offset(0, 0, 1) );
 
                 if (toTile.FloorChange == FloorChange.North)
                 {
-                    toTile = server.Map.GetTile(toTile.Position.Offset(0, 1, 0) );
+                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(0, 1, 0) );
                 }
                 else if (toTile.FloorChange == FloorChange.East)
                 {
-                    toTile = server.Map.GetTile(toTile.Position.Offset(-1, 0, 0) );
+                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(-1, 0, 0) );
                 }
                 else if (toTile.FloorChange == FloorChange.South)
                 {
-                    toTile = server.Map.GetTile(toTile.Position.Offset(0, -1, 0) );
+                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(0, -1, 0) );
                 }
                 else if (toTile.FloorChange == FloorChange.West)
                 {
-                    toTile = server.Map.GetTile(toTile.Position.Offset(1, 0, 0) );
+                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(1, 0, 0) );
+                }
+                else if (toTile.FloorChange == FloorChange.NorthEast)
+                {
+                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(-1, 1, 0) );
+                }
+                else if (toTile.FloorChange == FloorChange.NorthWest)
+                {
+                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(1, 1, 0) );
+                }
+                else if (toTile.FloorChange == FloorChange.SouthWest)
+                {
+                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(1, -1, 0) );
+                }
+                else if (toTile.FloorChange == FloorChange.SouthEast)
+                {
+                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(-1, -1, 0) );
                 }
             }
 
-            return new CallbackCommand(context =>
-            {
-                return context.TransformCommand(new CreatureMoveCommand(command.Creature, toTile) );
-            } );
+            context.AddCommand(new CreatureMoveCommand(command.Creature, toTile) );
+
+            base.Handle(context, command);
         }
     }
 }

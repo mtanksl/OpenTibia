@@ -8,7 +8,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> dustbins = new HashSet<ushort>() { 1777 };
 
-        public override bool CanHandle(PlayerMoveItemCommand command, Server server)
+        public override bool CanHandle(Context context, PlayerMoveItemCommand command)
         {
             if (command.ToContainer is Tile toTile && toTile.TopItem != null && dustbins.Contains(toTile.TopItem.Metadata.OpenTibiaId) )
             {
@@ -18,20 +18,18 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(PlayerMoveItemCommand command, Server server)
+        public override void Handle(Context context, PlayerMoveItemCommand command)
         {
-            List<Command> commands = new List<Command>();
-
             if (command.Item is StackableItem stackableItem && stackableItem.Count > command.Count)
             {
-                commands.Add(new ItemUpdateCountCommand(stackableItem, (byte)(stackableItem.Count - command.Count) ) );
+                context.AddCommand(new ItemUpdateCommand(stackableItem, (byte)(stackableItem.Count - command.Count) ) );
             }
             else
             {
-                commands.Add(new ItemDestroyCommand(command.Item) );
+                context.AddCommand(new ItemDestroyCommand(command.Item) );
             }
 
-            return new SequenceCommand(commands.ToArray() );
+            base.Handle(context, command);
         }
     }
 }

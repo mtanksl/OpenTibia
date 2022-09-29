@@ -1,39 +1,19 @@
 ﻿using OpenTibia.Game.Commands;
 
-namespace OpenTibia.Game.Scripts.Global
+namespace OpenTibia.Game.Scripts
 {
     public class GlobalScripts : IScript
     {
         public void Start(Server server)
         {
-            var globalLightCommand = new GlobalLightCommand();
-
-            globalLightCommand.Completed += (s, e) =>
+            server.QueueForExecution(ctx =>
             {
-                e.Context.Server.QueueForExecution(Constants.GlobalLightSchedulerEvent, Constants.GlobalLightSchedulerEventInterval, globalLightCommand);
-            };
-
-            server.QueueForExecution(Constants.GlobalLightSchedulerEvent, Constants.GlobalLightSchedulerEventInterval, globalLightCommand);
-
-
-            var globalItemsCommand = new GlobalItemsCommand();
-
-            globalItemsCommand.Completed += (s, e) =>
-            {
-                e.Context.Server.QueueForExecution(Constants.GlobalItemsSchedulerEvent, Constants.GlobalItemsSchedulerEventInterval, globalItemsCommand);
-            };
-
-            server.QueueForExecution(Constants.GlobalItemsSchedulerEvent, Constants.GlobalItemsSchedulerEventInterval, globalItemsCommand );
-
-
-            var globalCreaturesCommand = new GlobalCreaturesCommand();
-
-            globalCreaturesCommand.Completed += (s, e) =>
-            {
-                e.Context.Server.QueueForExecution(Constants.GlobalCreaturesSchedulerEvent, Constants.GlobalCreaturesSchedulerEventInterval, globalCreaturesCommand);
-            };
-
-            server.QueueForExecution(Constants.GlobalCreaturesSchedulerEvent, Constants.GlobalCreaturesSchedulerEventInterval, globalCreaturesCommand);
+                ctx.AddCommand(new GlobalLightCommand() );
+            
+                ctx.AddCommand(new GlobalItemsCommand() );
+                        
+                ctx.AddCommand(new GlobalCreaturesCommand() );
+            } );
         }
 
         public void Stop(Server server)

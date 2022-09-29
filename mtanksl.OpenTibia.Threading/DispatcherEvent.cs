@@ -24,7 +24,7 @@ namespace OpenTibia.Threading
 
         private ExecutionState state = ExecutionState.Pending;
 
-        public bool Execute()
+        public void Execute()
         {
             if (state == ExecutionState.Pending)
             {
@@ -33,11 +33,7 @@ namespace OpenTibia.Threading
                 execute();
 
                 state = ExecutionState.Executed;
-
-                return true;
             }
-
-            return false;
         }
         
         public bool Cancel()

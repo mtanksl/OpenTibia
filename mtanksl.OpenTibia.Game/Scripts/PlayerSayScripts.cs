@@ -6,7 +6,9 @@ namespace OpenTibia.Game.Scripts
     {
         public void Start(Server server)
         {
-            server.CommandHandlers.Add(new CreateCreatureHandler() );
+            server.CommandHandlers.Add(new CreateMonsterHandler() );
+
+            server.CommandHandlers.Add(new CreateNpcHandler() );
 
             server.CommandHandlers.Add(new CreateItemHandler() );
 

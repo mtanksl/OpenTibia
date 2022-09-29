@@ -1,12 +1,10 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Game.Commands;
-using System.Collections.Generic;
+﻿using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.CommandHandlers
 {
     public class UseItemWithCreatureWalkToTargetHandler : CommandHandler<PlayerUseItemWithCreatureCommand>
     {
-        public override bool CanHandle(PlayerUseItemWithCreatureCommand command, Server server)
+        public override bool CanHandle(Context context, PlayerUseItemWithCreatureCommand command)
         {
             if ( !command.Player.Tile.Position.IsNextTo(command.ToCreature.Tile.Position) )
             {
@@ -16,46 +14,9 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override Command Handle(PlayerUseItemWithCreatureCommand command, Server server)
+        public override void Handle(Context context, PlayerUseItemWithCreatureCommand command)
         {
-            List<Command> commands = new List<Command>();
-
-            switch (command.Item.Container)
-            {
-                case Tile fromTile:
-                    
-                    //TODO: Move item from tile to player
-
-                    commands.Add(new DelayCommand(Constants.CreatureActionSchedulerEvent(command.Player), Constants.CreatureActionSchedulerEventDelay) );
-
-                    break;
-
-                case Container fromContainer:
-
-                    switch (fromContainer.GetRootContainer() )
-                    {
-                        case Tile fromTile:
-
-                            //TODO: Move item from container to player
-
-                            commands.Add(new DelayCommand(Constants.CreatureActionSchedulerEvent(command.Player), Constants.CreatureActionSchedulerEventDelay) );
-
-                            break;
-                    }
-
-                    break;
-            }
-
-            commands.Add(new WalkToUnknownPathCommand(command.Player, command.ToCreature.Tile) );
-
-            commands.Add(new DelayCommand(Constants.CreatureActionSchedulerEvent(command.Player), Constants.CreatureActionSchedulerEventDelay) );
-
-            commands.Add(new CallbackCommand(context =>
-            {
-                return context.TransformCommand(command);
-            } ) );
-
-            return new SequenceCommand(commands.ToArray() );
+            base.Handle(context, command);
         }
     }
 }
