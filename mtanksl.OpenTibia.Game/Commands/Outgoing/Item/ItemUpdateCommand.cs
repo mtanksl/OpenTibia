@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Commands
             {
                 case Tile tile:
 
-                    context.AddCommand(new TileUpdateItemCommand(tile, Item), ctx =>
+                    context.AddCommand(new TileUpdateItemCommand(tile, Item) ).Then(ctx =>
                     {
                         OnComplete(ctx);
                     } );
@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Commands
 
                 case Inventory inventory:
 
-                    context.AddCommand(new InventoryUpdateItemCommand(inventory, Item), ctx =>
+                    context.AddCommand(new InventoryUpdateItemCommand(inventory, Item) ).Then(ctx =>
                     {
                         OnComplete(ctx);
                     } );
@@ -49,7 +49,7 @@ namespace OpenTibia.Game.Commands
 
                 case Container container:
 
-                    context.AddCommand(new ContainerUpdateItemCommand(container, Item), ctx =>
+                    context.AddCommand(new ContainerUpdateItemCommand(container, Item) ).Then(ctx =>
                     {
                         OnComplete(ctx);
                     } );

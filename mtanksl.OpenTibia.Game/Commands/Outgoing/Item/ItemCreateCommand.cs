@@ -63,21 +63,21 @@ namespace OpenTibia.Game.Commands
             {
                 if (Tile != null)
                 {
-                    context.AddCommand(new TileAddItemCommand(Tile, item), ctx =>
+                    context.AddCommand(new TileAddItemCommand(Tile, item) ).Then(ctx =>
                     {
                         OnComplete(ctx, item);
                     } );
                 }
                 else if (Inventory != null)
                 {
-                    context.AddCommand(new InventoryAddItemCommand(Inventory, Slot, item), ctx =>
+                    context.AddCommand(new InventoryAddItemCommand(Inventory, Slot, item) ).Then(ctx =>
                     {
                         OnComplete(ctx, item);
                     } );
                 }
                 else if (Container != null)
                 {
-                    context.AddCommand(new ContainerAddItemCommand(Container, item), ctx =>
+                    context.AddCommand(new ContainerAddItemCommand(Container, item) ).Then(ctx =>
                     {
                         OnComplete(ctx, item);
                     } );

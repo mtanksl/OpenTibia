@@ -61,7 +61,7 @@ namespace OpenTibia.Game.CommandHandlers
                 }
             }
 
-            context.AddCommand(new CreatureMoveCommand(command.Creature, toTile), ctx =>
+            context.AddCommand(new CreatureMoveCommand(command.Creature, toTile) ).Then(ctx =>
             {
                 OnComplete(ctx);
             } );

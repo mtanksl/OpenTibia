@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            context.AddCommand(new CreatureUpdateDirectionCommand(Player, Direction), ctx =>
+            context.AddCommand(new CreatureUpdateDirectionCommand(Player, Direction) ).Then(ctx =>
             {
                 OnComplete(ctx);
             } );

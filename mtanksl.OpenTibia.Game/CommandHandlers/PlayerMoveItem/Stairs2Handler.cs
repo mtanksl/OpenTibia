@@ -56,7 +56,7 @@ namespace OpenTibia.Game.CommandHandlers
                 toTile = context.Server.Map.GetTile(toTile.Position.Offset(1, 1, -1) );
             }
 
-            context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toTile, 0, command.Count), ctx =>
+            context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toTile, 0, command.Count) ).Then(ctx =>
             {
                 OnComplete(ctx);
             } );

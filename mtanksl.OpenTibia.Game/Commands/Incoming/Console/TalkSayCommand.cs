@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            context.AddCommand(new PlayerSayCommand(Player, Message), ctx =>
+            context.AddCommand(new PlayerSayCommand(Player, Message) ).Then(ctx =>
             {
                 OnComplete(ctx);
             } );

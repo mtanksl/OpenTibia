@@ -13,7 +13,7 @@
 
         public override void Execute(Context context)
         {
-            context.AddCommand(commands[index++], ctx => 
+            context.AddCommand(commands[index++] ).Then(ctx => 
             {
                 if (index < commands.Length)
                 {

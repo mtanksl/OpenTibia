@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
 
         protected void RotateItem(Context context, Item fromItem)
         {
-            context.AddCommand(new PlayerRotateItemCommand(Player, fromItem), ctx =>
+            context.AddCommand(new PlayerRotateItemCommand(Player, fromItem) ).Then(ctx =>
             {
                 OnComplete(ctx);
             } );

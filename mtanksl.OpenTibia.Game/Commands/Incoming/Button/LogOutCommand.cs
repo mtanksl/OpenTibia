@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Commands
         {
             Tile fromTile = Player.Tile;
 
-            context.AddCommand(new PlayerDestroyCommand(Player), ctx =>
+            context.AddCommand(new PlayerDestroyCommand(Player) ).Then(ctx =>
             {
                 ctx.AddCommand(new ShowMagicEffectCommand(fromTile.Position, MagicEffectType.Puff) );
                 

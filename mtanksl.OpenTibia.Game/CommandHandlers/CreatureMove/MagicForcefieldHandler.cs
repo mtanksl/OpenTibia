@@ -23,7 +23,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             Tile toOtherTile = context.Server.Map.GetTile( ( (TeleportItem)command.ToTile.TopItem ).Position );
 
-            context.AddCommand(new CreatureMoveCommand(command.Creature, toOtherTile), ctx =>
+            context.AddCommand(new CreatureMoveCommand(command.Creature, toOtherTile) ).Then(ctx =>
             {
                 ctx.AddCommand(new ShowMagicEffectCommand(command.ToTile.Position, MagicEffectType.Teleport) );
 

@@ -5,7 +5,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public abstract class CommandHandlerResult<TResult> : ICommandHandlerResult<TResult>
     {
-        public Action<Context, TResult> Continuation { get; set; }
+        public Action<Context, TResult> ContinueWith { get; set; }
 
         public abstract bool CanHandle(Context context, CommandResult<TResult> command);
 
@@ -13,9 +13,9 @@ namespace OpenTibia.Game.CommandHandlers
 
         protected virtual void OnComplete(Context context, TResult result)
         {
-            if (Continuation != null)
+            if (ContinueWith != null)
             {
-                Continuation(context, result);
+                ContinueWith(context, result);
             }
         }
     }

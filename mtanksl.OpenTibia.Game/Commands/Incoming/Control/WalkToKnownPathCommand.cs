@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Commands
                 commands.Add(new WalkCommand(Player, moveDirection) );
             }
 
-            context.AddCommand(new SequenceCommand(commands.ToArray() ), ctx =>
+            context.AddCommand(new SequenceCommand(commands.ToArray() ) ).Then(ctx =>
             {
                 OnComplete(ctx);
             } );

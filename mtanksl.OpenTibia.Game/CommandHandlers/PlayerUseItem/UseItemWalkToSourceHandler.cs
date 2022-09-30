@@ -17,7 +17,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerUseItemCommand command)
         {
-            context.AddCommand(new WalkToUnknownPathCommand(command.Player, (Tile)command.Item.Parent), ctx =>
+            context.AddCommand(new WalkToUnknownPathCommand(command.Player, (Tile)command.Item.Parent) ).Then(ctx =>
             {
                 ctx.AddCommand(command);
 

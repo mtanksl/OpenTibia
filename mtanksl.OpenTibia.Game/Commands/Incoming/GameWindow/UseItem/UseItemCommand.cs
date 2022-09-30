@@ -13,7 +13,7 @@ namespace OpenTibia.Game.Commands
 
         protected void UseItem(Context context, Item fromItem, byte? containerId)
         {
-            context.AddCommand(new PlayerUseItemCommand(Player, fromItem, containerId), ctx =>
+            context.AddCommand(new PlayerUseItemCommand(Player, fromItem, containerId) ).Then(ctx =>
             {
                 OnComplete(context);
             } );

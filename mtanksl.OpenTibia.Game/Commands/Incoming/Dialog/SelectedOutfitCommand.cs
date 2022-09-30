@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            context.AddCommand(new CreatureUpdateOutfit(Player, Outfit), ctx =>
+            context.AddCommand(new CreatureUpdateOutfit(Player, Outfit) ).Then(ctx =>
             {
                 OnComplete(ctx);
             } );

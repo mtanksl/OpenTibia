@@ -56,7 +56,7 @@ namespace OpenTibia.Game
             }
         }
 
-        public void AddCommand(Command command, Action<Context> callback = null)
+        public Promise AddCommand(Command command)
         {
             if (disposed)
             {
@@ -67,19 +67,25 @@ namespace OpenTibia.Game
 
             if (server.CommandHandlers.TryGet(this, command, out commandHandler) )
             {
-                commandHandler.Continuation = callback;
+                return new Promise(resolve =>
+                {
+                    commandHandler.ContinueWith = resolve;
 
-                commandHandler.Handle(this, command);
+                    commandHandler.Handle(this, command);
+                } );
             }
             else
             {
-                command.Continuation = callback;
+                return new Promise(resolve =>
+                {
+                    command.ContinueWith = resolve;
 
-                command.Execute(this);
+                    command.Execute(this);
+                } );
             }
         }
 
-        public void AddCommand<TResult>(CommandResult<TResult> command, Action<Context, TResult> callback = null)
+        public PromiseResult<TResult> AddCommand<TResult>(CommandResult<TResult> command)
         {
             if (disposed)
             {
@@ -90,21 +96,27 @@ namespace OpenTibia.Game
 
             if (server.CommandHandlers.TryGet(this, command, out commandHandler) )
             {
-                commandHandler.Continuation = callback;
+                return new PromiseResult<TResult>(resolve =>
+                {
+                    commandHandler.ContinueWith = resolve;
 
-                commandHandler.Handle(this, command);
+                    commandHandler.Handle(this, command);
+                } );
             }
             else
             {
-                command.Continuation = callback;
+                return new PromiseResult<TResult>(resolve =>
+                {
+                    command.ContinueWith = resolve;
 
-                command.Execute(this);
+                    command.Execute(this);
+                } );
             }
         }
 
         private Dictionary<IConnection, Message> messages = null;
 
-        public Context AddPacket(IConnection connection, IOutgoingPacket packet)
+        public void AddPacket(IConnection connection, IOutgoingPacket packet)
         {
             if (disposed)
             {
@@ -126,11 +138,9 @@ namespace OpenTibia.Game
             }
 
             message.Add(packet);
-
-            return this;
         }
 
-        public Context AddPacket(IConnection connection, params IOutgoingPacket[] packet)
+        public void AddPacket(IConnection connection, params IOutgoingPacket[] packet)
         {
             if (disposed)
             {
@@ -152,13 +162,11 @@ namespace OpenTibia.Game
             }
 
             message.Add(packet);
-
-            return this;
         }
 
         private HashSet<IConnection> connections = null;
 
-        public Context Disconnect(IConnection connection)
+        public void Disconnect(IConnection connection)
         {
             if (disposed)
             {
@@ -171,13 +179,11 @@ namespace OpenTibia.Game
             }
 
             connections.Add(connection);
-
-            return this;
         }
 
         private List<GameEventArgs> events;
 
-        public Context AddEvent(GameEventArgs e)
+        public void AddEvent(GameEventArgs e)
         {
             if (disposed)
             {
@@ -190,8 +196,6 @@ namespace OpenTibia.Game
             }
 
             events.Add(e);
-
-            return this;
         }
 
         public void Flush()

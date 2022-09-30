@@ -15,15 +15,15 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        public Action<Context> Continuation { get; set; }
+        public Action<Context> ContinueWith { get; set; }
 
         public abstract void Execute(Context context);
 
         protected virtual void OnComplete(Context context)
         {
-            if (Continuation != null)
+            if (ContinueWith != null)
             {
-                Continuation(context);
+                ContinueWith(context);
             }
         }
     }

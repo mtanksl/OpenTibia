@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
 
         protected void UseItemWithCreature(Context context, Item fromItem, Creature toCreature)
         {
-            context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature), ctx =>
+            context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) ).Then(ctx =>
             {
                 OnComplete(context);
             } );

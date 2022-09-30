@@ -24,7 +24,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (toTile != null)
             {
-                context.AddCommand(new CreatureMoveCommand(command.Player, toTile), ctx =>
+                context.AddCommand(new CreatureMoveCommand(command.Player, toTile) ).Then(ctx =>
                 {
                     ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
 

@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Commands
 
             if (npc != null)
             {
-                context.AddCommand(new TileAddCreatureCommand(Tile, npc), ctx =>
+                context.AddCommand(new TileAddCreatureCommand(Tile, npc) ).Then(ctx =>
                 {
                     OnComplete(ctx, npc);
                 } );

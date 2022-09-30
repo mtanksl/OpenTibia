@@ -13,7 +13,7 @@ namespace OpenTibia.Game.Commands
 
         protected void LookAtItem(Context context, Item item)
         {
-            context.AddCommand(new PlayerLookItemCommand(Player, item), ctx =>
+            context.AddCommand(new PlayerLookItemCommand(Player, item) ).Then(ctx =>
             {
                 OnComplete(ctx);
             } );
@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Commands
 
         protected void LookAtCreature(Context context, Creature creature)
         {
-            context.AddCommand(new PlayerLookCreatureCommand(Player, creature), ctx =>
+            context.AddCommand(new PlayerLookCreatureCommand(Player, creature) ).Then(ctx =>
             {
                 OnComplete(ctx);
             } );

@@ -90,7 +90,7 @@ namespace OpenTibia.Game.Commands
 
         protected void MoveItem(Context context, Item fromItem, IContainer toContainer, byte toIndex, byte count)
         {
-            context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toContainer, toIndex, count), ctx =>
+            context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toContainer, toIndex, count) ).Then(ctx =>
             {
                 OnComplete(ctx);
             } );

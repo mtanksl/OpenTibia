@@ -97,6 +97,7 @@
     <Compile Include="CommandHandlers\PlayerUseItem\SewerHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\LadderHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\UseItemTransformHandler.cs" />
+    <Compile Include="Promises\Promise.cs" />
     <Compile Include="Commands\CommandResult.cs" />
     <Compile Include="Commands\Incoming\Client\SendConnectionInfoCommand.cs" />
     <Compile Include="Commands\Incoming\Dialog\ReportRuleViolationCommand.cs" />
@@ -293,6 +294,8 @@
     <Compile Include="Pathfinding.cs" />
     <Compile Include="EventHandlerCollection.cs" />
     <Compile Include="PlayerFactory.cs" />
+    <Compile Include="Promises\PromiseResult.cs" />
+    <Compile Include="Promises\PromiseStatus.cs" />
     <Compile Include="ScriptsCollection.cs" />
     <Compile Include="Scripts\GlobalScripts.cs" />
     <Compile Include="Scripts\IScript.cs" />

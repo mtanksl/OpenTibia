@@ -29,7 +29,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, CreatureMoveCommand command)
         {
-            context.AddCommand(command, ctx =>
+            context.AddCommand(command).Then(ctx =>
             {
                 ctx.AddCommand(new ItemReplaceCommand(command.ToTile.Ground, toOpenTibiaId, 1) );
 

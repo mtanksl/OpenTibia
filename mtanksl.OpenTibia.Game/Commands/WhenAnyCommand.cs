@@ -15,7 +15,7 @@
         {
             for (int i = 0; i < commands.Length; i++)
             {
-                context.AddCommand(commands[i], ctx =>
+                context.AddCommand(commands[i] ).Then(ctx =>
                 {
                     if (++index == 1)
                     {

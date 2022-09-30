@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
                 }
                 else
                 {
-                    context.AddCommand(new DelayCommand(Constants.CreatureWalkSchedulerEvent(Player), 1000 * toTile.Ground.Metadata.Speed / Player.Speed), ctx =>
+                    context.AddCommand(new DelayCommand(Constants.CreatureWalkSchedulerEvent(Player), 1000 * toTile.Ground.Metadata.Speed / Player.Speed) ).Then(ctx =>
                     {
                         EndWalk(ctx);
                     } );
@@ -58,7 +58,7 @@ namespace OpenTibia.Game.Commands
                 }
                 else
                 {
-                    context.AddCommand(new CreatureMoveCommand(Player, toTile), ctx =>
+                    context.AddCommand(new CreatureMoveCommand(Player, toTile) ).Then(ctx =>
                     {
                         OnComplete(ctx);
                     } );
