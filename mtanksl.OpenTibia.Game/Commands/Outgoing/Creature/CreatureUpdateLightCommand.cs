@@ -21,9 +21,9 @@ namespace OpenTibia.Game.Commands
         {
             if (Creature.Light != Light)
             {
-                Tile fromTile = Creature.Tile;
-
                 Creature.Light = Light;
+
+                Tile fromTile = Creature.Tile;
 
                 foreach (var observer in context.Server.GameObjects.GetPlayers() )
                 {

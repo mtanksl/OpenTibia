@@ -21,9 +21,9 @@ namespace OpenTibia.Game.Commands
         {
             if (Creature.SkullIcon != SkullIcon)
             {
-                Tile fromTile = Creature.Tile;
-
                 Creature.SkullIcon = SkullIcon;
+
+                Tile fromTile = Creature.Tile;
 
                 foreach (var observer in context.Server.GameObjects.GetPlayers() )
                 {

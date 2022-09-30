@@ -24,14 +24,14 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 context.AddCommand(new CreatureMoveCommand(command.Player, toTile), ctx =>
                 {
-                    ctx.AddCommand(new MagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                    ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
 
                     OnComplete(ctx);
                 } );
             }
             else
             {
-                context.AddCommand(new MagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
 
                 OnComplete(context);
             }

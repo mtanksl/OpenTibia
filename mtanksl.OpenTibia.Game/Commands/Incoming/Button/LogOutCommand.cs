@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Commands
 
             context.AddCommand(new PlayerDestroyCommand(Player), ctx =>
             {
-                ctx.AddCommand(new MagicEffectCommand(fromTile.Position, MagicEffectType.Puff) );
+                ctx.AddCommand(new ShowMagicEffectCommand(fromTile.Position, MagicEffectType.Puff) );
                 
 
                 ctx.Disconnect(Player.Client.Connection);

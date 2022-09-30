@@ -4,9 +4,9 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class PlayerLookAtCreatureCommand : Command
+    public class PlayerLookCreatureCommand : Command
     {
-        public PlayerLookAtCreatureCommand(Player player, Creature creature)
+        public PlayerLookCreatureCommand(Player player, Creature creature)
         {
             Player = player;
 

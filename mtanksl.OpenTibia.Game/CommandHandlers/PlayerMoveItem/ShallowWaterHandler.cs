@@ -30,7 +30,7 @@ namespace OpenTibia.Game.CommandHandlers
                 context.AddCommand(new ItemDestroyCommand(command.Item) );
             }
 
-            context.AddCommand(new MagicEffectCommand( ( (Tile)command.ToContainer).Position, MagicEffectType.BlueRings) );
+            context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToContainer).Position, MagicEffectType.BlueRings) );
 
             OnComplete(context);
         }

@@ -3,24 +3,24 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class PlayerUpdateCapacityCommand : Command
+    public class PlayerUpdateStaminaCommand : Command
     {
-        public PlayerUpdateCapacityCommand(Player player, uint capacity)
+        public PlayerUpdateStaminaCommand(Player player, ushort stamina)
         {
             Player = player;
 
-            Capacity = capacity;
+            Stamina = stamina;
         }
 
         public Player Player { get; set; }
 
-        public uint Capacity { get; set; }
+        public ushort Stamina { get; set; }
 
         public override void Execute(Context context)
         {
-            if (Player.Capacity != Capacity)
+            if (Player.Stamina != Stamina)
             {
-                Player.Capacity = Capacity;
+                Player.Stamina = Stamina;
 
                 context.AddPacket(Player.Client.Connection, new SendStatusOutgoingPacket(Player.Health, Player.MaxHealth, Player.Capacity, Player.Experience, Player.Level, Player.LevelPercent, Player.Mana, Player.MaxMana, 0, 0, Player.Soul, Player.Stamina) );
             }

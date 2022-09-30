@@ -21,9 +21,9 @@ namespace OpenTibia.Game.Commands
         {
             if (Creature.Outfit != Outfit)
             {
-                Tile fromTile = Creature.Tile;
-
                 Creature.Outfit = Outfit;
+
+                Tile fromTile = Creature.Tile;
 
                 foreach (var observer in context.Server.GameObjects.GetPlayers() )
                 {

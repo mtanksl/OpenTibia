@@ -29,13 +29,13 @@ namespace OpenTibia.Game.Commands
 
             switch (Item.Parent)
             {
-                case Container container:
+                case Tile tile:
 
-                    context.AddCommand(new ContainerUpdateItemCommand(container, Item), ctx =>
+                    context.AddCommand(new TileUpdateItemCommand(tile, Item), ctx =>
                     {
                         OnComplete(ctx);
                     } );
-
+                  
                     break;
 
                 case Inventory inventory:
@@ -47,13 +47,13 @@ namespace OpenTibia.Game.Commands
                    
                     break;
 
-                case Tile tile:
+                case Container container:
 
-                    context.AddCommand(new TileUpdateItemCommand(tile, Item), ctx =>
+                    context.AddCommand(new ContainerUpdateItemCommand(container, Item), ctx =>
                     {
                         OnComplete(ctx);
                     } );
-                  
+
                     break;
             }
         }

@@ -61,15 +61,7 @@ namespace OpenTibia.Game.Commands
 
                                                       new SetSpecialConditionOutgoingPacket(SpecialCondition.None),
                                                     
-                                                      new SendStatusOutgoingPacket(player.Health, player.MaxHealth, 
-                                                    
-                                                                                  player.Capacity, 
-                                                                                      
-                                                                                  player.Experience, player.Level, player.LevelPercent, 
-                                                                                      
-                                                                                  player.Mana, player.MaxMana, 0, 0, player.Soul,
-                                                                                      
-                                                                                  player.Stamina),
+                                                      new SendStatusOutgoingPacket(player.Health, player.MaxHealth, player.Capacity, player.Experience, player.Level, player.LevelPercent, player.Mana, player.MaxMana, 0, 0, player.Soul, player.Stamina),
                                                     
                                                       new SendSkillsOutgoingPacket(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0),
                                                     
@@ -77,7 +69,7 @@ namespace OpenTibia.Game.Commands
                                                     
                                                       new SendTilesOutgoingPacket(ctx.Server.Map, client, toTile.Position) );
 
-                            ctx.AddCommand(new MagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                            ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
 
                             OnComplete(ctx);
                         } );

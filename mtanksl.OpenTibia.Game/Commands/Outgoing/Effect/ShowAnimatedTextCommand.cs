@@ -3,18 +3,22 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class MagicEffectCommand : Command
+    public class ShowAnimatedTextCommand : Command
     {
-        public MagicEffectCommand(Position position, MagicEffectType magicEffectType)
+        public ShowAnimatedTextCommand(Position position, AnimatedTextColor animatedTextColor, string message)
         {
             Position = position;
 
-            MagicEffectType = magicEffectType;
+            AnimatedTextColor = animatedTextColor;
+
+            Message = message;
         }
 
         public Position Position { get; set; }
 
-        public MagicEffectType MagicEffectType { get; set; }
+        public AnimatedTextColor AnimatedTextColor { get; set; }
+
+        public string Message { get; set; }
 
         public override void Execute(Context context)
         {
@@ -22,7 +26,7 @@ namespace OpenTibia.Game.Commands
             {
                 if (observer.Tile.Position.CanSee(Position) )
                 {
-                    context.AddPacket(observer.Client.Connection, new ShowMagicEffectOutgoingPacket(Position, MagicEffectType) );
+                    context.AddPacket(observer.Client.Connection, new ShowAnimatedTextOutgoingPacket(Position, AnimatedTextColor, Message) );
                 }
             }
 

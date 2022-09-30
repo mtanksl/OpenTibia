@@ -26,11 +26,11 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 context.AddCommand(new ItemCreateCommand(toTile, toOpenTibiaId, 1) );
 
-                context.AddCommand(new MagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) );
+                context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) );
             }
             else
             {
-                context.AddCommand(new MagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
             }
 
             OnComplete(context);

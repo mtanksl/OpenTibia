@@ -5,9 +5,9 @@ namespace OpenTibia.Game.Commands
 {
     public class ItemCreateCommand : CommandResult<Item>
     {
-        public ItemCreateCommand(Container container, ushort openTibiaId, byte count)
+        public ItemCreateCommand(Tile tile, ushort openTibiaId, byte count)
         {
-            Container = container;
+            Tile = tile;
 
             OpenTibiaId = openTibiaId;
 
@@ -25,23 +25,23 @@ namespace OpenTibia.Game.Commands
             Count = count;
         }
 
-        public ItemCreateCommand(Tile tile, ushort openTibiaId, byte count)
+        public ItemCreateCommand(Container container, ushort openTibiaId, byte count)
         {
-            Tile = tile;
+            Container = container;
 
             OpenTibiaId = openTibiaId;
 
             Count = count;
         }
 
-        public Container Container { get; set; }
+        public Tile Tile { get; set; }
 
         public Inventory Inventory { get; set; }
 
         public byte Slot { get; set; }
 
-        public Tile Tile { get; set; }
-
+        public Container Container { get; set; }
+                
         public ushort OpenTibiaId { get; set; }
 
         public byte Count { get; set; }
@@ -61,9 +61,9 @@ namespace OpenTibia.Game.Commands
 
             if (item != null)
             {
-                if (Container != null)
+                if (Tile != null)
                 {
-                    context.AddCommand(new ContainerAddItemCommand(Container, item), ctx =>
+                    context.AddCommand(new TileAddItemCommand(Tile, item), ctx =>
                     {
                         OnComplete(ctx, item);
                     } );
@@ -75,9 +75,9 @@ namespace OpenTibia.Game.Commands
                         OnComplete(ctx, item);
                     } );
                 }
-                else if (Tile != null)
+                else if (Container != null)
                 {
-                    context.AddCommand(new TileAddItemCommand(Tile, item), ctx =>
+                    context.AddCommand(new ContainerAddItemCommand(Container, item), ctx =>
                     {
                         OnComplete(ctx, item);
                     } );

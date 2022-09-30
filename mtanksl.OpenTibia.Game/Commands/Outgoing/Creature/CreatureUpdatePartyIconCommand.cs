@@ -21,9 +21,9 @@ namespace OpenTibia.Game.Commands
         {
             if (Creature.PartyIcon != PartyIcon)
             {
-                Tile fromTile = Creature.Tile;
-
                 Creature.PartyIcon = PartyIcon;
+
+                Tile fromTile = Creature.Tile;
 
                 foreach (var observer in context.Server.GameObjects.GetPlayers() )
                 {

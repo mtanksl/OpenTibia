@@ -110,6 +110,8 @@
     <Compile Include="Commands\Outgoing\Npc\NpcCreateCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerDestroyCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerCreateCommand.cs" />
+    <Compile Include="Commands\Outgoing\Player\PlayerUpdateExperienteCommand.cs" />
+    <Compile Include="Commands\Outgoing\Player\PlayerUpdateStaminaCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerYellCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerWhisperCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerSayCommand.cs" />
@@ -132,7 +134,7 @@
     <Compile Include="Commands\Outgoing\Creature\CreatureUpdatePartyIconCommand.cs" />
     <Compile Include="Commands\Outgoing\Creature\CreatureUpdateSkullIconCommand.cs" />
     <Compile Include="Commands\Outgoing\Creature\CreatureUpdateSpeedCommand.cs" />
-    <Compile Include="Commands\Outgoing\Effect\TextCommand.cs" />
+    <Compile Include="Commands\Outgoing\Effect\ShowTextCommand.cs" />
     <Compile Include="Commands\Outgoing\Inventory\InventoryUpdateItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerMoveItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerUpdateSoulCommand.cs" />
@@ -147,11 +149,11 @@
     <Compile Include="Commands\Outgoing\Tile\TileAddCreatureCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileRemoveCreatureCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileUpdateItemCommand.cs" />
-    <Compile Include="Commands\Outgoing\Player\PlayerLookAtCreatureCommand.cs" />
+    <Compile Include="Commands\Outgoing\Player\PlayerLookCreatureCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerUseItemCommand.cs" />
-    <Compile Include="Commands\Outgoing\Player\PlayerLookAtItemCommand.cs" />
-    <Compile Include="Commands\Outgoing\Effect\AnimatedTextCommand.cs" />
-    <Compile Include="Commands\Outgoing\Effect\ProjectileCommand.cs" />
+    <Compile Include="Commands\Outgoing\Player\PlayerLookItemCommand.cs" />
+    <Compile Include="Commands\Outgoing\Effect\ShowAnimatedTextCommand.cs" />
+    <Compile Include="Commands\Outgoing\Effect\ShowProjectileCommand.cs" />
     <Compile Include="Commands\Outgoing\Creature\CreatureMoveCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileReplaceItemCommand.cs" />
     <Compile Include="Commands\Incoming\Console\CloseNpcsChannelCommand.cs" />
@@ -159,7 +161,7 @@
     <Compile Include="Commands\Incoming\Client\EnterGameCommand.cs" />
     <Compile Include="Commands\Outgoing\Inventory\InventoryAddItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileAddItemCommand.cs" />
-    <Compile Include="Commands\Outgoing\Effect\MagicEffectCommand.cs" />
+    <Compile Include="Commands\Outgoing\Effect\ShowMagicEffectCommand.cs" />
     <Compile Include="Commands\Outgoing\Inventory\InventoryRemoveItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileRemoveItemCommand.cs" />
     <Compile Include="Commands\Incoming\Button\StopCommand.cs" />

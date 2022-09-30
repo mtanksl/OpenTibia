@@ -37,19 +37,19 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 context.AddCommand(new ItemUpdateCommand( (FluidItem)command.Item, (byte)FluidType.Water) );
 
-                context.AddCommand(new MagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.BlueRings) );
+                context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.BlueRings) );
             }
             else if (swamps.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
                 context.AddCommand(new ItemUpdateCommand( (FluidItem)command.Item, (byte)FluidType.Slime) );
 
-                context.AddCommand(new MagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.GreenRings) );
+                context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.GreenRings) );
             }
             else if (lavas.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
                 context.AddCommand(new ItemUpdateCommand( (FluidItem)command.Item, (byte)FluidType.Lava) );
 
-                context.AddCommand(new MagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.FirePlume) );
+                context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.FirePlume) );
             }
 
             OnComplete(context);

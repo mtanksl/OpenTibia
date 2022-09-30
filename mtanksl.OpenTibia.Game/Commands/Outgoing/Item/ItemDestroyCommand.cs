@@ -15,15 +15,15 @@ namespace OpenTibia.Game.Commands
         {
             switch (Item.Parent)
             {
-                case Container container:
+                case Tile tile:
 
-                    context.AddCommand(new ContainerRemoveItemCommand(container, Item), ctx =>
+                    context.AddCommand(new TileRemoveItemCommand(tile, Item), ctx =>
                     {
                         ctx.Server.ItemFactory.Destroy(Item);
 
                         OnComplete(ctx);
                     } );
-
+                  
                     break;
 
                 case Inventory inventory:
@@ -37,16 +37,16 @@ namespace OpenTibia.Game.Commands
                    
                     break;
 
-                case Tile tile:
+                case Container container:
 
-                    context.AddCommand(new TileRemoveItemCommand(tile, Item), ctx =>
+                    context.AddCommand(new ContainerRemoveItemCommand(container, Item), ctx =>
                     {
                         ctx.Server.ItemFactory.Destroy(Item);
 
                         OnComplete(ctx);
                     } );
-                  
-                    break;
+
+                    break;                
             }
         }
     }

@@ -21,9 +21,9 @@ namespace OpenTibia.Game.Commands
         {
             if (Creature.Speed != Speed)
             {
-                Tile fromTile = Creature.Tile;
-
                 Creature.Speed = Speed;
+
+                Tile fromTile = Creature.Tile;
 
                 foreach (var observer in context.Server.GameObjects.GetPlayers() )
                 {

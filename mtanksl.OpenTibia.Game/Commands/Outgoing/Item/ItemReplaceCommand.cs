@@ -24,28 +24,28 @@ namespace OpenTibia.Game.Commands
         {
             Item toItem = context.Server.ItemFactory.Create(OpenTibiaId);
 
+            if (toItem is StackableItem stackableItem)
+            {
+                stackableItem.Count = Count;
+            }
+            else if (toItem is FluidItem fluidItem)
+            {
+                fluidItem.FluidType = (FluidType)Count;
+            }
+
             if (toItem != null)
             {
-                if (toItem is StackableItem stackableItem)
-                {
-                    stackableItem.Count = Count;
-                }
-                else if (toItem is FluidItem fluidItem)
-                {
-                    fluidItem.FluidType = (FluidType)Count;
-                }
-
                 switch (FromItem.Parent)
                 {
-                    case Container container:
+                    case Tile tile:
 
-                        context.AddCommand(new ContainerReplaceItemCommand(container, FromItem, toItem), ctx =>
+                        context.AddCommand(new TileReplaceItemCommand(tile, FromItem, toItem), ctx =>
                         {
                             context.Server.ItemFactory.Destroy(FromItem);
 
                             OnComplete(ctx);
                         } );
-
+                  
                         break;
 
                     case Inventory inventory:
@@ -59,16 +59,16 @@ namespace OpenTibia.Game.Commands
                    
                         break;
 
-                    case Tile tile:
+                    case Container container:
 
-                        context.AddCommand(new TileReplaceItemCommand(tile, FromItem, toItem), ctx =>
+                        context.AddCommand(new ContainerReplaceItemCommand(container, FromItem, toItem), ctx =>
                         {
                             context.Server.ItemFactory.Destroy(FromItem);
 
                             OnComplete(ctx);
                         } );
-                  
-                        break;
+
+                        break;                    
                 }
             }
         }

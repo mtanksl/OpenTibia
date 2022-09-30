@@ -21,11 +21,11 @@ namespace OpenTibia.Game.Commands
         {
             if (Creature.Direction != Direction)
             {
+                Creature.Direction = Direction;
+
                 Tile fromTile = Creature.Tile;
 
                 byte index = fromTile.GetIndex(Creature);
-
-                Creature.Direction = Direction;
 
                 foreach (var observer in context.Server.GameObjects.GetPlayers() )
                 {

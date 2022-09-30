@@ -4,9 +4,9 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class TextCommand : Command
+    public class ShowTextCommand : Command
     {
-        public TextCommand(Creature creature, TalkType talkType, string message)
+        public ShowTextCommand(Creature creature, TalkType talkType, string message)
         {
             Creature = creature;
 

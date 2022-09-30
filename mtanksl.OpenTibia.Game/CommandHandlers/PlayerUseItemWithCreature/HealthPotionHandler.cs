@@ -30,9 +30,9 @@ namespace OpenTibia.Game.CommandHandlers
                 context.AddCommand(new ItemDestroyCommand(command.Item) );
             }
 
-            context.AddCommand(new TextCommand(command.ToCreature, TalkType.MonsterSay, "Aaaah...") );
+            context.AddCommand(new ShowTextCommand(command.ToCreature, TalkType.MonsterSay, "Aaaah...") );
 
-            context.AddCommand(new MagicEffectCommand(command.ToCreature.Tile.Position, MagicEffectType.RedShimmer) );
+            context.AddCommand(new ShowMagicEffectCommand(command.ToCreature.Tile.Position, MagicEffectType.RedShimmer) );
 
             OnComplete(context);
         }

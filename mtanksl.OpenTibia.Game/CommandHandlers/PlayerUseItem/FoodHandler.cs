@@ -100,7 +100,7 @@ namespace OpenTibia.Game.CommandHandlers
                 context.AddCommand(new ItemDestroyCommand(command.Item) );
             }
 
-            context.AddCommand(new TextCommand(command.Player, TalkType.MonsterSay, message) );
+            context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, message) );
 
             OnComplete(context);
         }

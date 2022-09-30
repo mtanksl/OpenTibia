@@ -37,7 +37,7 @@ namespace OpenTibia.Game.Components
                 {
                     if (creature.Tile.Position.IsInBattleRange(observer.Tile.Position) )
                     {
-                        context.AddCommand(new TextCommand(creature, TalkType.MonsterSay, sentences.Random() ) );
+                        context.AddCommand(new ShowTextCommand(creature, TalkType.MonsterSay, sentences.Random() ) );
 
                         break;
                     }
