@@ -3,7 +3,7 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ItemCreateCommand : Command
+    public class ItemCreateCommand : CommandResult<Item>
     {
         public ItemCreateCommand(Container container, ushort openTibiaId, byte count)
         {
@@ -50,36 +50,36 @@ namespace OpenTibia.Game.Commands
         {
             Item item = context.Server.ItemFactory.Create(OpenTibiaId);
 
+            if (item is StackableItem stackableItem)
+            {
+                stackableItem.Count = Count;
+            }
+            else if (item is FluidItem fluidItem)
+            {
+                fluidItem.FluidType = (FluidType)Count;
+            }
+
             if (item != null)
             {
-                if (item is StackableItem stackableItem)
-                {
-                    stackableItem.Count = Count;
-                }
-                else if (item is FluidItem fluidItem)
-                {
-                    fluidItem.FluidType = (FluidType)Count;
-                }
-
                 if (Container != null)
                 {
                     context.AddCommand(new ContainerAddItemCommand(Container, item), ctx =>
                     {
-                        OnComplete(ctx);
+                        OnComplete(ctx, item);
                     } );
                 }
                 else if (Inventory != null)
                 {
                     context.AddCommand(new InventoryAddItemCommand(Inventory, Slot, item), ctx =>
                     {
-                        OnComplete(ctx);
+                        OnComplete(ctx, item);
                     } );
                 }
                 else if (Tile != null)
                 {
                     context.AddCommand(new TileAddItemCommand(Tile, item), ctx =>
                     {
-                        OnComplete(ctx);
+                        OnComplete(ctx, item);
                     } );
                 }
             }

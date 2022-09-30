@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
-    public abstract class Command
+    public abstract class CommandResult<TResult>
     {
         private Dictionary<string, object> data;
 
@@ -15,24 +15,24 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        public Action<Context> Continuation { get; set; }
+        public Action<Context, TResult> Continuation { get; set; }
 
         public abstract void Execute(Context context);
 
-        protected virtual void OnComplete(Context context)
+        protected virtual void OnComplete(Context context, TResult result)
         {
             if (Continuation != null)
             {
-                Continuation(context);
+                Continuation(context, result);
             }
         }
     }
 
-    public class InlineCommand : Command
+    public class InlineCommandResult<TResult> : CommandResult<TResult>
     {
-        private Action<Context, Action<Context> > execute;
+        private Action<Context, Action<Context, TResult> > execute;
 
-        public InlineCommand(Action<Context, Action<Context> > execute)
+        public InlineCommandResult(Action<Context, Action<Context, TResult> > execute)
         {
             this.execute = execute;
         }

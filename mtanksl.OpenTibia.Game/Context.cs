@@ -63,13 +63,36 @@ namespace OpenTibia.Game
             }
         }
 
+        public void AddCommand<TResult>(CommandResult<TResult> command, Action<Context, TResult> callback = null)
+        {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(Context) );
+            }
+
+            ICommandHandlerResult<TResult> commandHandler;
+
+            if (server.CommandHandlers.TryGet(this, command, out commandHandler) )
+            {
+                commandHandler.Continuation = callback;
+
+                commandHandler.Handle(this, command);
+            }
+            else
+            {
+                command.Continuation = callback;
+
+                command.Execute(this);
+            }
+        }
+
         private Dictionary<IConnection, Message> messages = null;
 
         public Context AddPacket(IConnection connection, IOutgoingPacket packet)
         {
             if (disposed)
             {
-                throw new ObjectDisposedException( nameof(Context) );
+                throw new ObjectDisposedException(nameof(Context) );
             }
 
             if (messages == null)
@@ -95,7 +118,7 @@ namespace OpenTibia.Game
         {
             if (disposed)
             {
-                throw new ObjectDisposedException( nameof(Context) );
+                throw new ObjectDisposedException(nameof(Context) );
             }
 
             if (messages == null)
@@ -123,7 +146,7 @@ namespace OpenTibia.Game
         {
             if (disposed)
             {
-                throw new ObjectDisposedException( nameof(Context) );
+                throw new ObjectDisposedException(nameof(Context) );
             }
 
             if (connections == null)
@@ -159,7 +182,7 @@ namespace OpenTibia.Game
         {
             if (disposed)
             {
-                throw new ObjectDisposedException( nameof(Context) );
+                throw new ObjectDisposedException(nameof(Context) );
             }
 
             if (messages != null)

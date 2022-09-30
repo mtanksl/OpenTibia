@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandHandlerCollection.cs" />
+    <Compile Include="CommandHandlers\CommandHandlerResult.cs" />
     <Compile Include="CommandHandlers\CommandHandler.cs" />
     <Compile Include="CommandHandlers\CreatureMove\MagicForcefieldHandler.cs" />
     <Compile Include="CommandHandlers\CreatureMove\StairsHandler.cs" />
@@ -48,6 +49,7 @@
     <Compile Include="CommandHandlers\CreatureMove\TileDepressHandler.cs" />
     <Compile Include="CommandHandlers\CreatureMove\SnowPressHandler.cs" />
     <Compile Include="CommandHandlers\CreatureMove\TilePressHandler.cs" />
+    <Compile Include="CommandHandlers\ICommandHandlerResult.cs" />
     <Compile Include="CommandHandlers\ICommandHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveItem\MoveItemContainerCloseHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveItem\TrapHandler.cs" />
@@ -95,6 +97,7 @@
     <Compile Include="CommandHandlers\PlayerUseItem\SewerHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\LadderHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\UseItemTransformHandler.cs" />
+    <Compile Include="Commands\CommandResult.cs" />
     <Compile Include="Commands\Incoming\Client\SendConnectionInfoCommand.cs" />
     <Compile Include="Commands\Incoming\Dialog\ReportRuleViolationCommand.cs" />
     <Compile Include="Commands\Outgoing\Item\ItemUpdateCommand.cs" />
@@ -105,6 +108,7 @@
     <Compile Include="Commands\Outgoing\Monster\MonsterCreateCommand.cs" />
     <Compile Include="Commands\Outgoing\Npc\NpcDestroyCommand.cs" />
     <Compile Include="Commands\Outgoing\Npc\NpcCreateCommand.cs" />
+    <Compile Include="Commands\Outgoing\Player\PlayerCreateCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerYellCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerWhisperCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerSayCommand.cs" />

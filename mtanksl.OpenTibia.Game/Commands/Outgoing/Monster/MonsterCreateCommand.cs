@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class MonsterCreateCommand : Command
+    public class MonsterCreateCommand : CommandResult<Monster>
     {
         public MonsterCreateCommand(Tile tile, string name)
         {
@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
             {
                 context.AddCommand(new TileAddCreatureCommand(Tile, monster), ctx =>
                 {
-                    OnComplete(ctx);
+                    OnComplete(ctx, monster);
                 } );
             }
         }
