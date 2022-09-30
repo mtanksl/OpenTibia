@@ -169,7 +169,10 @@ namespace OpenTibia.Game
                 {
                     using (var context = new Context(this) )
                     {
-                        callback(context);
+                        using (var scope = new Scope<Context>(context) )
+                        {
+                            callback(context);
+                        }
 
                         context.Flush();
                     }
@@ -200,7 +203,10 @@ namespace OpenTibia.Game
                 {
                     using (var context = new Context(this) )
                     {
-                        callback(context);
+                        using (var scope = new Scope<Context>(context) )
+                        {
+                            callback(context);
+                        }
 
                         context.Flush();
                     }

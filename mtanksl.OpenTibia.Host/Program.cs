@@ -12,7 +12,7 @@ namespace mtanksl.OpenTibia.Host
                 server.Start();
 
                 Console.ReadKey();
-                
+
                 server.Stop();
             }
 

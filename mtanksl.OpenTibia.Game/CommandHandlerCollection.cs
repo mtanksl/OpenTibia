@@ -13,39 +13,39 @@ namespace OpenTibia.Game
         {
             var type = typeof( CommandHandler<> ).MakeGenericType(typeof(T) );
            
-            if ( !types.TryGetValue(type, out var handlers) )
+            if ( !types.TryGetValue(type, out var commandHandlers) )
             {
-                handlers = new List<object>();
+                commandHandlers = new List<object>();
 
-                types.Add(type, handlers);
+                types.Add(type, commandHandlers);
             }
 
-            handlers.Add(commandHandler);
+            commandHandlers.Add(commandHandler);
         }
 
         public void Add<T, TResult>(CommandHandlerResult<T, TResult> commandHandler) where T : CommandResult<TResult>
         {
             var type = typeof( CommandHandlerResult<,> ).MakeGenericType(typeof(T), typeof(TResult) );
 
-            if ( !types.TryGetValue(type, out var handlers) )
+            if ( !types.TryGetValue(type, out var commandHandlers) )
             {
-                handlers = new List<object>();
+                commandHandlers = new List<object>();
 
-                types.Add(type, handlers);
+                types.Add(type, commandHandlers);
             }
 
-            handlers.Add(commandHandler);
+            commandHandlers.Add(commandHandler);
         }
 
         public void Remove<T>(CommandHandler<T> commandHandler) where T : Command
         {
             var type = typeof( CommandHandler<> ).MakeGenericType(typeof(T) );
            
-            if ( types.TryGetValue(type, out var handlers) )
+            if ( types.TryGetValue(type, out var commandHandlers) )
             {
-                handlers.Remove(commandHandler);
+                commandHandlers.Remove(commandHandler);
 
-                if (handlers.Count == 0)
+                if (commandHandlers.Count == 0)
                 {
                     types.Remove(type);
                 }
@@ -56,11 +56,11 @@ namespace OpenTibia.Game
         {
             var type = typeof( CommandHandlerResult<,> ).MakeGenericType(typeof(T), typeof(TResult) );
 
-            if ( types.TryGetValue(type, out var handlers) )
+            if ( types.TryGetValue(type, out var commandHandlers) )
             {
-                handlers.Remove(commandHandler);
+                commandHandlers.Remove(commandHandler);
 
-                if (handlers.Count == 0)
+                if (commandHandlers.Count == 0)
                 {
                     types.Remove(type);
                 }
@@ -71,9 +71,9 @@ namespace OpenTibia.Game
         {
             var type = typeof( CommandHandler<> ).MakeGenericType(command.GetType() );
 
-            if ( types.TryGetValue(type, out var handlers) )
+            if ( types.TryGetValue(type, out var commandHandlers) )
             {
-                foreach (ICommandHandler commandHandler in handlers)
+                foreach (ICommandHandler commandHandler in commandHandlers)
                 {
                     if (commandHandler.CanHandle(context, command) )
                     {
@@ -93,9 +93,9 @@ namespace OpenTibia.Game
         {
             var type = typeof( CommandHandlerResult<,> ).MakeGenericType(command.GetType(), typeof(TResult) );
 
-            if ( types.TryGetValue(type, out var handlers) )
+            if ( types.TryGetValue(type, out var commandHandlers) )
             {
-                foreach (ICommandHandlerResult<TResult> commandHandler in handlers)
+                foreach (ICommandHandlerResult<TResult> commandHandler in commandHandlers)
                 {
                     if (commandHandler.CanHandle(context, command) )
                     {

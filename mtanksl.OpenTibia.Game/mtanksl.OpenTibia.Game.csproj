@@ -176,11 +176,11 @@
     <Compile Include="Commands\Incoming\Battle\StopFollowCommand.cs" />
     <Compile Include="Commands\Incoming\GameWindow\Look\LookCommand.cs" />
     <Compile Include="Commands\Incoming\GameWindow\RotateItem\RotateItemCommand.cs" />
+    <Compile Include="Context.cs" />
     <Compile Include="Events\ContainerAddItemEventArgs.cs" />
     <Compile Include="Events\ContainerRemoveItemEventArgs.cs" />
     <Compile Include="Events\InventoryRemoveItemEventArgs.cs" />
     <Compile Include="Events\InventoryAddItemEventArgs.cs" />
-    <Compile Include="Context.cs" />
     <Compile Include="Commands\Incoming\Container\OpenParentContainerCommand.cs" />
     <Compile Include="Commands\Incoming\Container\CloseContainerCommand.cs" />
     <Compile Include="Commands\Incoming\Battle\StartFollowCommand.cs" />

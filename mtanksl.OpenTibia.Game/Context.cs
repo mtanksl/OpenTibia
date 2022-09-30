@@ -3,6 +3,7 @@ using OpenTibia.Common.Objects;
 using OpenTibia.Game.CommandHandlers;
 using OpenTibia.Game.Commands;
 using OpenTibia.Network.Packets.Outgoing;
+using OpenTibia.Threading;
 using System;
 using System.Collections.Generic;
 
@@ -10,6 +11,21 @@ namespace OpenTibia.Game
 {
     public class Context : IDisposable
     {
+        public static Context Current
+        {
+            get
+            {
+                var scope = Scope<Context>.Current;
+
+                if (scope == null)
+                {
+                    return null;
+                }
+
+                return scope.Value;
+            }
+        }
+
         public Context(Server server)
         {
             this.server = server;
