@@ -41,7 +41,7 @@ namespace OpenTibia.Game.Commands
 
                     context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
 
-                    base.Execute(context);
+                    OnComplete(context);
                 }
                 else
                 {
@@ -56,7 +56,7 @@ namespace OpenTibia.Game.Commands
 
                         context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(guildChannel.Id, guildChannel.Name) );
 
-                        base.Execute(context);
+                        OnComplete(context);
                     }
                     else
                     {
@@ -71,7 +71,7 @@ namespace OpenTibia.Game.Commands
 
                             context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(partyChannel.Id, partyChannel.Name) );
 
-                            base.Execute(context);
+                            OnComplete(context);
                         }
                         else
                         {
@@ -97,7 +97,7 @@ namespace OpenTibia.Game.Commands
                                 context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(channel.Id, channel.Name) );
                             }
 
-                            base.Execute(context);
+                            OnComplete(context);
                         }
                     }                    
                 }           

@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
                 context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
             }
 
-            base.Execute(context);
+            OnComplete(context);
         }
     }
 }

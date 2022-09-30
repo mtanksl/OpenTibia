@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
                 Player.FollowTarget = creature;
             }
 
-            base.Execute(context);
+            OnComplete(context);
         }
     }
 }

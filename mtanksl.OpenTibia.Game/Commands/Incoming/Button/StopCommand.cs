@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Commands
 
             context.AddCommand(new StopFollowCommand(Player) );
 
-            base.Execute(context);
+            OnComplete(context);
         }
     }
 }

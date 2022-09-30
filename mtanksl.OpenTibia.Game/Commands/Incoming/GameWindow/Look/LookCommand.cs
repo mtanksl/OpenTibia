@@ -15,7 +15,7 @@ namespace OpenTibia.Game.Commands
         {
             context.AddCommand(new PlayerLookAtItemCommand(Player, item), ctx =>
             {
-                base.Execute(ctx);
+                OnComplete(ctx);
             } );
         }
 
@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
         {
             context.AddCommand(new PlayerLookAtCreatureCommand(Player, creature), ctx =>
             {
-                base.Execute(ctx);
+                OnComplete(ctx);
             } );
         }
     }

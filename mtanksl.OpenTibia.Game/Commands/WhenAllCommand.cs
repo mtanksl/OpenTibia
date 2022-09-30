@@ -19,7 +19,7 @@
                 {
                     if (++index == commands.Length)
                     {
-                        base.Execute(ctx);
+                        OnComplete(ctx);
                     }
                 } );
             }

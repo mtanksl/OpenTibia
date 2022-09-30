@@ -27,7 +27,7 @@ namespace OpenTibia.Game.Commands
             {
                 context.AddPacket(Player.Client.Connection, new OpenPrivateChannelOutgoingPacket(Name) );
 
-                base.Execute(context);
+                OnComplete(context);
             }
         }
     }

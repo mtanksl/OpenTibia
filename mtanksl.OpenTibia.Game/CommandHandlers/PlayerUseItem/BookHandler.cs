@@ -23,7 +23,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             context.AddPacket(command.Player.Client.Connection, new OpenTextDialogOutgoingPacket(0, command.Item.Metadata.TibiaId, 255, ( (ReadableItem)command.Item ).Text, "", "") );
 
-            base.Handle(context, command);
+            OnComplete(context);
         }
     }
 }

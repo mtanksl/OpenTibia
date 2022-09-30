@@ -32,7 +32,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             context.AddCommand(new MagicEffectCommand( ( (Tile)command.ToContainer).Position, MagicEffectType.BlueRings) );
 
-            base.Handle(context, command);
+            OnComplete(context);
         }
     }
 }

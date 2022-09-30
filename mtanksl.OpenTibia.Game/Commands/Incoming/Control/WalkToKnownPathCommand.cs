@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Commands
 
             context.AddCommand(new SequenceCommand(commands.ToArray() ), ctx =>
             {
-                base.Execute(ctx);
+                OnComplete(ctx);
             } );
         }
     }

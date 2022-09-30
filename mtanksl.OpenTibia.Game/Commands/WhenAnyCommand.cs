@@ -19,7 +19,7 @@
                 {
                     if (++index == 1)
                     {
-                        base.Execute(ctx);
+                        OnComplete(ctx);
                     }
                 } );
             }

@@ -26,7 +26,7 @@ namespace OpenTibia.Game.CommandHandlers
                 context.AddCommand(new ContainerOpenOrCloseCommand(command.Player, (Container)command.Item) );
             }
 
-            base.Handle(context, command);
+            OnComplete(context);
         }
     }
 }

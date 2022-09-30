@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
         {
             context.AddCommand(new CreatureUpdateOutfit(Player, Outfit), ctx =>
             {
-                base.Execute(ctx);
+                OnComplete(ctx);
             } );
         }
     }

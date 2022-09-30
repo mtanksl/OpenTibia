@@ -29,7 +29,7 @@ namespace OpenTibia.Game.Commands
             {
                 context.AddCommand(new WalkToKnownPathCommand(Player, moveDirections), ctx =>
                 {
-                    base.Execute(ctx);
+                    OnComplete(ctx);
                 } );
             }
         }

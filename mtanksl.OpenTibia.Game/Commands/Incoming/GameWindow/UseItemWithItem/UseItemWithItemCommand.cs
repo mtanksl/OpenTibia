@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Commands
         {
             context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem), ctx =>
             {
-                base.Execute(context);
+                OnComplete(context);
             } );
         }
 
@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
         {
             context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature), ctx =>
             {
-                base.Execute(context);
+                OnComplete(context);
             } );
         }
     }

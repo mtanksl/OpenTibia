@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
                 context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Broadcast, Message) );
             }
 
-            base.Execute(context);   
+            OnComplete(context);   
         }
     }
 }

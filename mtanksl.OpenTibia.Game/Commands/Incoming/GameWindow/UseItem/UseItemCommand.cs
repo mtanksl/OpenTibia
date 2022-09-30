@@ -15,7 +15,7 @@ namespace OpenTibia.Game.Commands
         {
             context.AddCommand(new PlayerUseItemCommand(Player, fromItem, containerId), ctx =>
             {
-                base.Execute(context);
+                OnComplete(context);
             } );
         }
     }

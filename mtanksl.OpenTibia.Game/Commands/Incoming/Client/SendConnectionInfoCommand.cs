@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Commands
         {
             context.AddPacket(Connection, new SendConnectionInfoOutgoingPacket() );
 
-            base.Execute(context);
+            OnComplete(context);
         }
     }
 }

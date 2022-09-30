@@ -102,7 +102,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             context.AddCommand(new TextCommand(command.Player, TalkType.MonsterSay, message) );
 
-            base.Handle(context, command);
+            OnComplete(context);
         }
     }
 }

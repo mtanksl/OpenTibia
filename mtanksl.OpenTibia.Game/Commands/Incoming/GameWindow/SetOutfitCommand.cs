@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
 
             context.AddPacket(Player.Client.Connection, new OpenSelectOutfitDialogOutgoingPacket(Player.Outfit, outfits) );
 
-            base.Execute(context);
+            OnComplete(context);
         }
     }
 }

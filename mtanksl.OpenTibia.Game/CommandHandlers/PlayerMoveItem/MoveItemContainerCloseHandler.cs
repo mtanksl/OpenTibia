@@ -155,7 +155,7 @@ namespace OpenTibia.Game.CommandHandlers
                     }
                 }
 
-                base.Handle(ctx, command);
+                OnComplete(ctx);
             } );
         }
     }

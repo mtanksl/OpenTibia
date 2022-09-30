@@ -35,7 +35,7 @@ namespace OpenTibia.Game.CommandHandlers
                 context.AddCommand(new MagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
             }
 
-            base.Handle(context, command);
+            OnComplete(context);
         }
     }
 }

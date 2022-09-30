@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
             {
                 context.AddCommand(new TileAddCreatureCommand(Tile, npc), ctx =>
                 {
-                    base.Execute(ctx);
+                    OnComplete(ctx);
                 } );
             }
         }

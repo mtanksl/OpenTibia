@@ -17,7 +17,9 @@ namespace OpenTibia.Game.Commands
 
         public Action<Context> Continuation { get; set; }
 
-        public virtual void Execute(Context context)
+        public abstract void Execute(Context context);
+
+        protected virtual void OnComplete(Context context)
         {
             if (Continuation != null)
             {
@@ -37,7 +39,7 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            execute(context, base.Execute);
+            execute(context, OnComplete);
         }
     }
 }

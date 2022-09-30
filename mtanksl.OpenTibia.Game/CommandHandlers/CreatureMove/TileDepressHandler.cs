@@ -33,7 +33,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 ctx.AddCommand(new ItemReplaceCommand(command.FromTile.Ground, toOpenTibiaId, 1) );
 
-                base.Handle(ctx, command);
+                OnComplete(ctx);
             } );
         }
     }

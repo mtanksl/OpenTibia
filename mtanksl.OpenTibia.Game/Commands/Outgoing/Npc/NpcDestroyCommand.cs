@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Commands
             {
                 context.Server.NpcFactory.Destroy(Npc);
 
-                base.Execute(ctx);
+                OnComplete(ctx);
             } );
         }
     }

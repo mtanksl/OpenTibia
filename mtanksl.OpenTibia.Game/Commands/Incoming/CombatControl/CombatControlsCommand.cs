@@ -53,7 +53,7 @@ namespace OpenTibia.Game.Commands
                 Player.Client.SafeMode = SafeMode;
             }
 
-            base.Execute(context);
+            OnComplete(context);
         }
     }
 }

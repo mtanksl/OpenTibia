@@ -13,7 +13,7 @@ namespace OpenTibia.Game.Commands
 
         protected void TradeWith(Context context, Item fromItem, Player toPlayer)
         {
-            base.Execute(context);
+            OnComplete(context);
         }
     }
 }

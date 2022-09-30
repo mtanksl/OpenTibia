@@ -32,7 +32,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             context.AddCommand(new MagicEffectCommand( ( (Tile)command.ToContainer).Position, MagicEffectType.FirePlume) );
 
-            base.Handle(context, command);
+            OnComplete(context);
         }
     }
 }

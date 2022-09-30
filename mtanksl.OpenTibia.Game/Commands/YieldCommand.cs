@@ -11,7 +11,7 @@
         {
             context.Server.QueueForExecution(ctx =>
             {
-                base.Execute(ctx);
+                OnComplete(ctx);
             } );
         }
     }

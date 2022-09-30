@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Commands
         {
             context.AddCommand(new PlayerSayCommand(Player, Message), ctx =>
             {
-                base.Execute(ctx);
+                OnComplete(ctx);
             } );
         }
     }

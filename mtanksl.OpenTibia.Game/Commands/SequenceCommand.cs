@@ -21,7 +21,7 @@
                 }
                 else
                 {
-                    base.Execute(ctx);
+                    OnComplete(ctx);
                 }
             } );
         }

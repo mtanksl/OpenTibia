@@ -43,7 +43,7 @@ namespace OpenTibia.Game.Commands
                         {
                             context.Server.ItemFactory.Destroy(FromItem);
 
-                            base.Execute(ctx);
+                            OnComplete(ctx);
                         } );
 
                         break;
@@ -54,7 +54,7 @@ namespace OpenTibia.Game.Commands
                         {
                             context.Server.ItemFactory.Destroy(FromItem);
 
-                            base.Execute(ctx);
+                            OnComplete(ctx);
                         } );
                    
                         break;
@@ -65,7 +65,7 @@ namespace OpenTibia.Game.Commands
                         {
                             context.Server.ItemFactory.Destroy(FromItem);
 
-                            base.Execute(ctx);
+                            OnComplete(ctx);
                         } );
                   
                         break;

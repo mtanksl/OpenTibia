@@ -92,7 +92,7 @@ namespace OpenTibia.Game.Commands
         {
             context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toContainer, toIndex, count), ctx =>
             {
-                base.Execute(ctx);
+                OnComplete(ctx);
             } );
         }
     }

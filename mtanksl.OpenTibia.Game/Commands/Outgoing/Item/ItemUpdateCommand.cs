@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
 
                     context.AddCommand(new ContainerUpdateItemCommand(container, Item), ctx =>
                     {
-                        base.Execute(ctx);
+                        OnComplete(ctx);
                     } );
 
                     break;
@@ -42,7 +42,7 @@ namespace OpenTibia.Game.Commands
 
                     context.AddCommand(new InventoryUpdateItemCommand(inventory, Item), ctx =>
                     {
-                        base.Execute(ctx);
+                        OnComplete(ctx);
                     } );
                    
                     break;
@@ -51,7 +51,7 @@ namespace OpenTibia.Game.Commands
 
                     context.AddCommand(new TileUpdateItemCommand(tile, Item), ctx =>
                     {
-                        base.Execute(ctx);
+                        OnComplete(ctx);
                     } );
                   
                     break;

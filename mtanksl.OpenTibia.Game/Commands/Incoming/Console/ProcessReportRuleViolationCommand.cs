@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
                         context.AddPacket(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
                     }
 
-                    base.Execute(context);
+                    OnComplete(context);
                 }
             }
         }

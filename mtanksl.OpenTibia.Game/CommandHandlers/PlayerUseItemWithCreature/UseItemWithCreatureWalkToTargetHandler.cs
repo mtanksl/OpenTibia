@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerUseItemWithCreatureCommand command)
         {
-            base.Handle(context, command);
+            OnComplete(context);
         }
     }
 }

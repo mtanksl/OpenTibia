@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Commands
                 context.AddPacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
             }
 
-            base.Execute(context);
+            OnComplete(context);
         }
     }
 }

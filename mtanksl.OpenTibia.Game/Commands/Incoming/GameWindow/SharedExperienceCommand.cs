@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            base.Execute(context);
+            OnComplete(context);
         }
     }
 }

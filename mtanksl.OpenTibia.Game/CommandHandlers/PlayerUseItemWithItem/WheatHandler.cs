@@ -35,7 +35,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             context.AddCommand(new ItemCreateCommand(command.Player.Tile, flour, 1) );
 
-            base.Handle(context, command);
+            OnComplete(context);
         }
     }
 }

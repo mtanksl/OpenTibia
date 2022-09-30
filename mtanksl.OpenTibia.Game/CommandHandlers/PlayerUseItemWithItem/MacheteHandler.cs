@@ -28,7 +28,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             context.AddCommand(new ItemReplaceCommand(command.ToItem, toOpenTibiaId, 1) );
 
-            base.Handle(context, command);
+            OnComplete(context);
         }
     }
 }

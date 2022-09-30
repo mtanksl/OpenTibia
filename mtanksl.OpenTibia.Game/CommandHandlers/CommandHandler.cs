@@ -9,7 +9,9 @@ namespace OpenTibia.Game.CommandHandlers
 
         public abstract bool CanHandle(Context context, Command command);
 
-        public virtual void Handle(Context context, Command command)
+        public abstract void Handle(Context context, Command command);
+
+        protected virtual void OnComplete(Context context)
         {
             if (Continuation != null)
             {
@@ -32,19 +34,16 @@ namespace OpenTibia.Game.CommandHandlers
             Handle(context, (T)command);
         }
 
-        public virtual void Handle(Context context, T command)
-        {
-            base.Handle(context, command);
-        }
+        public abstract void Handle(Context context, T command);
     }
 
     public class InlineCommandHandler<T> : CommandHandler<T> where T : Command
     {
         private Func<Context, T, bool> canHandle;
 
-        private Action<Context, T, Action<Context, T> > handle;
+        private Action<Context, T, Action<Context> > handle;
 
-        public InlineCommandHandler(Func<Context, T, bool> canHandle, Action<Context, T, Action<Context, T> > handle)
+        public InlineCommandHandler(Func<Context, T, bool> canHandle, Action<Context, T, Action<Context> > handle)
         {
             this.canHandle = canHandle;
 
@@ -58,7 +57,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, T command)
         {
-            handle(context, command, base.Handle);
+            handle(context, command, OnComplete);
         }
     }
 }

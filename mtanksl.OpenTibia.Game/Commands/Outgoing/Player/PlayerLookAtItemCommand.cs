@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Commands
         {
             context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You see nothing special.") );
 
-            base.Execute(context);
+            OnComplete(context);
         }
     }
 }

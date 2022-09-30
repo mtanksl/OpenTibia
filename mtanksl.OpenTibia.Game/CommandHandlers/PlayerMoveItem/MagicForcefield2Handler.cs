@@ -31,7 +31,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 context.AddCommand(new MagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
 
-                base.Handle(ctx, command);
+                OnComplete(ctx);
             } );
         }
     }

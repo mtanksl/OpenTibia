@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Commands
 
             context.Server.PlayerFactory.Destroy(Player);
 
-            base.Execute(context);
+            OnComplete(context);
         }
     }
 }

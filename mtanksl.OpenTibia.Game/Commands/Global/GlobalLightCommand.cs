@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Commands
                 Execute(ctx);
             } );
 
-            base.Execute(context);
+            OnComplete(context);
         }
     }
 }

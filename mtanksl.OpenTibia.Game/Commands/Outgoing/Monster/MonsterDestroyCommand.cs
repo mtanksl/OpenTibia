@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Commands
             {
                 context.Server.MonsterFactory.Destroy(Monster);
 
-                base.Execute(ctx);
+                OnComplete(ctx);
             } );
         }
     }

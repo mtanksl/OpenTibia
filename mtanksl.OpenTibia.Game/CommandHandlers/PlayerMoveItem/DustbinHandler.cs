@@ -29,7 +29,7 @@ namespace OpenTibia.Game.CommandHandlers
                 context.AddCommand(new ItemDestroyCommand(command.Item) );
             }
 
-            base.Handle(context, command);
+            OnComplete(context);
         }
     }
 }

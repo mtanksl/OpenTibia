@@ -35,7 +35,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             context.AddCommand(new ItemCreateCommand( (Tile)command.ToItem.Parent, cookie, 12) );
 
-            base.Handle(context, command);
+            OnComplete(context);
         }
     }
 }

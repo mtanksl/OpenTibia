@@ -34,7 +34,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             context.AddCommand(new MagicEffectCommand(command.ToCreature.Tile.Position, MagicEffectType.RedShimmer) );
 
-            base.Handle(context, command);
+            OnComplete(context);
         }
     }
 }

@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
 
             context.AddPacket(Inventory.Player.Client.Connection, new SlotAddOutgoingPacket( (Slot)slot, ToItem ) );
 
-            base.Execute(context);
+            OnComplete(context);
         }
     }
 }

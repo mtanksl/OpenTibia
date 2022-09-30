@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Commands
 
                         context.AddPacket(ruleViolation.Reporter.Client.Connection, new CloseRuleViolationOutgoingPacket() );
 
-                        base.Execute(context);
+                        OnComplete(context);
                     }
                     else if (ruleViolation.Assignee == Player)
                     {
@@ -48,7 +48,7 @@ namespace OpenTibia.Game.Commands
 
                         context.AddPacket(ruleViolation.Reporter.Client.Connection, new CloseRuleViolationOutgoingPacket() );
 
-                        base.Execute(context);
+                        OnComplete(context);
                     }
                 }
             }

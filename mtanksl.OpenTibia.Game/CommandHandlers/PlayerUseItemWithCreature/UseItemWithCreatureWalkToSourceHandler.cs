@@ -21,7 +21,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 ctx.AddCommand(command);
 
-                base.Handle(ctx, command);
+                OnComplete(ctx);
             } );
         }
     }

@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
                                                                                            Player.Stamina) );
             }
 
-            base.Execute(context);
+            OnComplete(context);
         }
     }
 }

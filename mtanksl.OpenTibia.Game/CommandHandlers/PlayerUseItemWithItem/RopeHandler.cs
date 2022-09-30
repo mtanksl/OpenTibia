@@ -24,7 +24,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             context.AddCommand(new CreatureMoveCommand(command.Player, context.Server.Map.GetTile( ( (Tile)command.ToItem.Parent ).Position.Offset(0, 1, -1) ) ), ctx =>
             {
-                base.Handle(ctx, command);
+                OnComplete(ctx);
             } );
         }
     }

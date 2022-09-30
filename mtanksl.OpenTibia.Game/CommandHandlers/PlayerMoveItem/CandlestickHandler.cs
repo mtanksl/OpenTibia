@@ -35,7 +35,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             context.AddCommand(new ItemReplaceCommand( ( (Tile)command.ToContainer).TopItem, toOpenTibiaId, 1) );
 
-            base.Handle(context, command);
+            OnComplete(context);
         }
     }
 }

@@ -60,7 +60,7 @@ namespace OpenTibia.Game.Commands
                 {
                     context.AddCommand(new CreatureMoveCommand(Player, toTile), ctx =>
                     {
-                        base.Execute(ctx);
+                        OnComplete(ctx);
                     } );
                 }
             }

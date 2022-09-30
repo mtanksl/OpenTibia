@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
 
                         context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been excluded.") );
 
-                        base.Execute(context);
+                        OnComplete(context);
                     }
                     else if (privateChannel.ContainsPlayer(observer) )
                     {
@@ -46,7 +46,7 @@ namespace OpenTibia.Game.Commands
 
                         context.AddPacket(observer.Client.Connection, new CloseChannelOutgoingPacket(privateChannel.Id) );
 
-                        base.Execute(context);
+                        OnComplete(context);
                     }
                 }
             }

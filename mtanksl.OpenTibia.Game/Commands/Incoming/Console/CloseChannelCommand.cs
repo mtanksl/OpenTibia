@@ -52,7 +52,7 @@ namespace OpenTibia.Game.Commands
 
                 context.AddPacket(Player.Client.Connection, new CloseChannelOutgoingPacket(channel.Id) );
 
-                base.Execute(context);
+                OnComplete(context);
             }
         }
     }

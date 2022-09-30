@@ -38,7 +38,7 @@ namespace OpenTibia.Game.Commands
 
                         context.AddPacket(observer.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " invites you to his private chat channel." ) );
 
-                        base.Execute(context);
+                        OnComplete(context);
                     }
                 }
             }

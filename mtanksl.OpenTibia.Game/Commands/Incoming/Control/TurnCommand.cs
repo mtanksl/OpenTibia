@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
         {
             context.AddCommand(new CreatureUpdateDirectionCommand(Player, Direction), ctx =>
             {
-                base.Execute(ctx);
+                OnComplete(ctx);
             } );
         }
     }
