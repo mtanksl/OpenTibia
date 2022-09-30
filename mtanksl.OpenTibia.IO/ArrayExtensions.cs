@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace OpenTibia.IO
 {
@@ -39,6 +40,18 @@ namespace OpenTibia.IO
             }
 
             return array;
+        }
+
+        public static string Print(this byte[] bytes)
+        {
+            var builder = new StringBuilder();
+
+            foreach (var b in bytes)
+            {
+                builder.Append(b.ToString("X2") + " ");
+            }
+
+            return builder.ToString();
         }
     }
 }

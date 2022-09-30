@@ -732,6 +732,14 @@ namespace OpenTibia.Common.Objects
                                 command = new OpenQuestCommand(Client.Player, packet.QuestId);
                             }
                             break;
+
+                        case 0xF2:
+                            {
+                                var packet = server.PacketsFactory.Create<ReportRuleViolationIncomingPacket>(reader);
+
+                                command = new ReportRuleViolationCommand(Client.Player, packet);
+                            }
+                            break;
                     }
 
                     if (command != null)
@@ -746,11 +754,15 @@ namespace OpenTibia.Common.Objects
                     else
                     {
                         server.Logger.WriteLine("Unknown packet received on game server: 0x" + identification.ToString("X2"), LogLevel.Warning);
+
+                        server.Logger.WriteLine(body.Print(), LogLevel.Information);
                     }
                 }
                 else
                 {
                     server.Logger.WriteLine("Invalid message received on game server.", LogLevel.Warning);
+
+                    server.Logger.WriteLine(body.Print(), LogLevel.Information);
                 }
             }
             catch (Exception ex)

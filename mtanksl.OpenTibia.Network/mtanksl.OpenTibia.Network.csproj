@@ -44,6 +44,7 @@
     <Compile Include="Packets\Channel.cs" />
     <Compile Include="Packets\Character.cs" />
     <Compile Include="Packets\CounterOffer.cs" />
+    <Compile Include="Packets\Incoming\Dialog\ReportRuleViolationIncomingPacket.cs" />
     <Compile Include="Packets\Incoming\GameWindow\SetOutfitIncomingPacket.cs" />
     <Compile Include="Packets\Incoming\Console\CloseReportRuleViolationChannelQuestionIncomingPacket.cs" />
     <Compile Include="Packets\Incoming\Control\TurnEastIncomingPacket.cs" />

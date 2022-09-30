@@ -96,6 +96,7 @@
     <Compile Include="CommandHandlers\PlayerUseItem\LadderHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\UseItemTransformHandler.cs" />
     <Compile Include="Commands\Incoming\Client\SendConnectionInfoCommand.cs" />
+    <Compile Include="Commands\Incoming\Dialog\ReportRuleViolationCommand.cs" />
     <Compile Include="Commands\Outgoing\Item\ItemUpdateCommand.cs" />
     <Compile Include="Commands\Outgoing\Item\ItemReplaceCommand.cs" />
     <Compile Include="Commands\Outgoing\Item\ItemDestroyCommand.cs" />
