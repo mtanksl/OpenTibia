@@ -29,16 +29,20 @@ namespace OpenTibia.Game.Commands
                 context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.OnlyProtocol86Allowed) );
 
                 context.Disconnect(Connection);
+
+                OnComplete(context);
             }
             else
             {
-                var account = context.Server.PlayerRepository.GetAccount(Packet.Account, Packet.Password);
+                AccountRow account = context.Server.PlayerRepository.GetAccount(Packet.Account, Packet.Password);
 
                 if (account == null)
                 {
                     context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
 
                     context.Disconnect(Connection);
+
+                    OnComplete(context);
                 }
                 else
                 {
@@ -52,10 +56,10 @@ namespace OpenTibia.Game.Commands
                     context.AddPacket(Connection, new OpenSelectCharacterDialogOutgoingPacket(characters, (ushort)account.PremiumDays) );
 
                     context.Disconnect(Connection);
+
+                    OnComplete(context);
                 }
             }
-
-            OnComplete(context);
         }
     }
 }

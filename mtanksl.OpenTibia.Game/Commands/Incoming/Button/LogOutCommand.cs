@@ -1,6 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -17,30 +16,15 @@ namespace OpenTibia.Game.Commands
         {
             Tile fromTile = Player.Tile;
 
-            byte fromIndex = fromTile.GetIndex(Player);
-
-            fromTile.RemoveContent(fromIndex);
-
-            foreach (var observer in context.Server.GameObjects.GetPlayers() )
+            context.AddCommand(new PlayerDestroyCommand(Player), ctx =>
             {
-                if (observer == Player)
-                {
-                    context.Disconnect(observer.Client.Connection);
-                }
-                else
-                {
-                    if (observer.Tile.Position.CanSee(fromTile.Position) )
-                    {
-                        context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromTile.Position, fromIndex),
-                            
-                                                                      new ShowMagicEffectOutgoingPacket(fromTile.Position, MagicEffectType.Puff) );
-                    }
-                }
-            }
+                ctx.AddCommand(new MagicEffectCommand(fromTile.Position, MagicEffectType.Puff) );
+                
 
-            context.Server.PlayerFactory.Destroy(Player);
+                ctx.Disconnect(Player.Client.Connection);
 
-            OnComplete(context);
+                OnComplete(ctx);
+            } );
         }
     }
 }

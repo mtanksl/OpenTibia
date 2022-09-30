@@ -25,10 +25,13 @@ namespace OpenTibia.Game.Commands
 
             foreach (var observer in context.Server.GameObjects.GetPlayers() )
             {
-                if (observer.Tile.Position.CanSee(Tile.Position) )
+                if (observer != Creature)
                 {
-                    context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(Tile.Position, index) );
-                }
+                    if (observer.Tile.Position.CanSee(Tile.Position))
+                    {
+                        context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(Tile.Position, index));
+                    }
+                }                
             }
 
             OnComplete(context);

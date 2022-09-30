@@ -108,6 +108,7 @@
     <Compile Include="Commands\Outgoing\Monster\MonsterCreateCommand.cs" />
     <Compile Include="Commands\Outgoing\Npc\NpcDestroyCommand.cs" />
     <Compile Include="Commands\Outgoing\Npc\NpcCreateCommand.cs" />
+    <Compile Include="Commands\Outgoing\Player\PlayerDestroyCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerCreateCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerYellCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerWhisperCommand.cs" />
