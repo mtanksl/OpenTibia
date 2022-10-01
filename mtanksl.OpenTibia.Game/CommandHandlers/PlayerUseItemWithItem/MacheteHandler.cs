@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override bool CanHandle(Context context, PlayerUseItemWithItemCommand command)
         {
-            if ( machetes.Contains(command.Item.Metadata.OpenTibiaId) && jungleGrass.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+            if (machetes.Contains(command.Item.Metadata.OpenTibiaId) && jungleGrass.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
                 return true;
             }
@@ -26,9 +26,10 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerUseItemWithItemCommand command)
         {
-            context.AddCommand(new ItemReplaceCommand(command.ToItem, toOpenTibiaId, 1) );
-
-            OnComplete(context);
+            context.AddCommand(new ItemReplaceCommand(command.ToItem, toOpenTibiaId, 1) ).Then( (ctx, item) =>
+            {
+                OnComplete(ctx);
+            } );
         }
     }
 }

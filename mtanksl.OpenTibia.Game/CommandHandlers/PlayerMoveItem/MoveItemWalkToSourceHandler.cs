@@ -19,8 +19,10 @@ namespace OpenTibia.Game.CommandHandlers
         {
             context.AddCommand(new WalkToUnknownPathCommand(command.Player, (Tile)command.Item.Parent) ).Then(ctx =>
             {
-                ctx.AddCommand(command);
+                return ctx.AddCommand(command);
 
+            } ).Then(ctx =>
+            {
                 OnComplete(ctx);
             } );
         }

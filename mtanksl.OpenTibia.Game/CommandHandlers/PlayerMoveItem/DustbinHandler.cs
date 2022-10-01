@@ -20,16 +20,10 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerMoveItemCommand command)
         {
-            if (command.Item is StackableItem stackableItem && stackableItem.Count > command.Count)
+            context.AddCommand(new ItemDecrementCountCommand(command.Item, command.Count) ).Then(ctx =>
             {
-                context.AddCommand(new ItemUpdateCommand(stackableItem, (byte)(stackableItem.Count - command.Count) ) );
-            }
-            else
-            {
-                context.AddCommand(new ItemDestroyCommand(command.Item) );
-            }
-
-            OnComplete(context);
+                OnComplete(ctx);
+            } );
         }
     }
 }

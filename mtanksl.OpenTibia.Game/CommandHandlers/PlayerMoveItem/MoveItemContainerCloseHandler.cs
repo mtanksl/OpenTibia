@@ -22,7 +22,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerMoveItemCommand command)
         {
-            context.AddCommand(command ).Then(ctx =>
+            context.AddCommand(command).Then(ctx =>
             {
                 HashSet<Player> isNextFrom = new HashSet<Player>();
 

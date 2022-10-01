@@ -31,36 +31,34 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (toFluidItem.FluidType == FluidType.Water)
             {
-                if (command.Item is StackableItem stackableItem && stackableItem.Count > 1)
+                context.AddCommand(new ItemDecrementCountCommand(command.Item, 1) ).Then(ctx =>
                 {
-                    context.AddCommand(new ItemUpdateCommand(stackableItem, (byte)(stackableItem.Count - 1) ) );
-                }
-                else
+                    return ctx.AddCommand(new ItemUpdateCommand(toFluidItem, FluidType.Empty) );
+
+                } ).Then(ctx =>
                 {
-                    context.AddCommand(new ItemDestroyCommand(command.Item) );
-                }
+                    return ctx.AddCommand(new ItemCreateCommand(command.Player.Tile, lumpOfDough, 1) );
 
-                context.AddCommand(new ItemUpdateCommand(toFluidItem, (byte)FluidType.Empty) );
-
-                context.AddCommand(new ItemCreateCommand(command.Player.Tile, lumpOfDough, 1) );
+                } ).Then( (ctx, item) =>
+                {
+                    OnComplete(ctx);
+                } );
             }
             else if (toFluidItem.FluidType == FluidType.Milk)
             {
-                if (command.Item is StackableItem stackableItem && stackableItem.Count > 1)
+                context.AddCommand(new ItemDecrementCountCommand(command.Item, 1) ).Then(ctx =>
                 {
-                    context.AddCommand(new ItemUpdateCommand(stackableItem, (byte)(stackableItem.Count - 1) ) );
-                }
-                else
+                    return ctx.AddCommand(new ItemUpdateCommand(toFluidItem, FluidType.Empty) );
+
+                } ).Then(ctx =>
                 {
-                    context.AddCommand(new ItemDestroyCommand(command.Item) );
-                }
+                    return ctx.AddCommand(new ItemCreateCommand(command.Player.Tile, lumpOfCakeDough, 1) );
 
-                context.AddCommand(new ItemUpdateCommand(toFluidItem, (byte)FluidType.Empty) );
-
-                context.AddCommand(new ItemCreateCommand(command.Player.Tile, lumpOfCakeDough, 1) );
+                } ).Then( (ctx, item) =>
+                {
+                    OnComplete(ctx);
+                } );
             }
-
-            OnComplete(context);
         }
     }
 }

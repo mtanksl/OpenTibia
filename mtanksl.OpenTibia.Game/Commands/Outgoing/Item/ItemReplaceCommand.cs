@@ -3,7 +3,7 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ItemReplaceCommand : Command
+    public class ItemReplaceCommand : CommandResult<Item>
     {
         public ItemReplaceCommand(Item fromItem, ushort openTibiaId, byte count)
         {
@@ -43,7 +43,7 @@ namespace OpenTibia.Game.Commands
                         {
                             context.Server.ItemFactory.Destroy(FromItem);
 
-                            OnComplete(ctx);
+                            OnComplete(ctx, toItem);
                         } );
                   
                         break;
@@ -54,7 +54,7 @@ namespace OpenTibia.Game.Commands
                         {
                             context.Server.ItemFactory.Destroy(FromItem);
 
-                            OnComplete(ctx);
+                            OnComplete(ctx, toItem);
                         } );
                    
                         break;
@@ -65,7 +65,7 @@ namespace OpenTibia.Game.Commands
                         {
                             context.Server.ItemFactory.Destroy(FromItem);
 
-                            OnComplete(ctx);
+                            OnComplete(ctx, toItem);
                         } );
 
                         break;                    

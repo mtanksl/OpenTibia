@@ -1,5 +1,4 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using System.Collections.Generic;
 
@@ -91,18 +90,14 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerUseItemCommand command)
         {
-            if (command.Item is StackableItem stackableItem && stackableItem.Count > 1)
+            context.AddCommand(new ItemDecrementCountCommand(command.Item, 1) ).Then(ctx =>
             {
-                context.AddCommand(new ItemUpdateCommand(stackableItem, (byte)(stackableItem.Count - 1) ) );
-            }
-            else
+                return ctx.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, message) );
+            
+            } ).Then(ctx =>
             {
-                context.AddCommand(new ItemDestroyCommand(command.Item) );
-            }
-
-            context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, message) );
-
-            OnComplete(context);
+               OnComplete(ctx);
+            } );
         }
     }
 }

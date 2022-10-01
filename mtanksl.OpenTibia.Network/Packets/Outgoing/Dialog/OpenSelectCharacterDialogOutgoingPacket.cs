@@ -1,7 +1,6 @@
-﻿using System.Net;
+﻿using OpenTibia.IO;
 using System.Collections.Generic;
-using OpenTibia.IO;
-using OpenTibia.Common.Structures;
+using System.Net;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {

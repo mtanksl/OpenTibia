@@ -43,29 +43,39 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerUseItemWithItemCommand command)
         {
-            if (command.Item is StackableItem stackableItem && stackableItem.Count > 1)
-            {
-                context.AddCommand(new ItemUpdateCommand(stackableItem, (byte)(stackableItem.Count - 1) ) );
-            }
-            else
-            {
-                context.AddCommand(new ItemDestroyCommand(command.Item) );
-            }
-
             if (ovens.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
-                context.AddCommand(new ItemCreateCommand( (Tile)command.ToItem.Parent, cake, 1) );
+                context.AddCommand(new ItemDecrementCountCommand(command.Item, 1) ).Then(ctx =>
+                {
+                    return ctx.AddCommand(new ItemCreateCommand((Tile)command.ToItem.Parent, cake, 1) );
+
+                } ).Then( (ctx, item) =>
+                {
+                    OnComplete(ctx);
+                } );                
             }
             else if (barOfChocolate.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
-                context.AddCommand(new ItemReplaceCommand(command.ToItem, lumpOfChocolateDough, 1) );
+                context.AddCommand(new ItemDecrementCountCommand(command.Item, 1) ).Then(ctx =>
+                {
+                    return ctx.AddCommand(new ItemReplaceCommand(command.ToItem, lumpOfChocolateDough, 1) );
+
+                } ).Then( (ctx, item) =>
+                {
+                    OnComplete(ctx);
+                } );
             }
             else if (bakingTrays.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
-                context.AddCommand(new ItemReplaceCommand(command.ToItem, bakingTrayWithDough, 1) );
-            }
+                context.AddCommand(new ItemDecrementCountCommand(command.Item, 1) ).Then(ctx =>
+                {
+                    return ctx.AddCommand(new ItemReplaceCommand(command.ToItem, bakingTrayWithDough, 1) );
 
-            OnComplete(context);
+                } ).Then( (ctx, item) =>
+                {
+                    OnComplete(ctx);
+                } );
+            }            
         }
     }
 }

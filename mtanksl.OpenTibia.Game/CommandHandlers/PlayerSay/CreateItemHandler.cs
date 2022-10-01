@@ -24,16 +24,19 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (toTile != null)
             {
-                context.AddCommand(new ItemCreateCommand(toTile, toOpenTibiaId, 1) );
+                context.AddCommand(new ItemCreateCommand(toTile, toOpenTibiaId, 1) ).Then( (ctx, item) =>
+                {
+                    return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) );
 
-                context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) );
+                } ).Then(ctx =>
+                {
+                    OnComplete(ctx);
+                } );
             }
             else
             {
                 context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
             }
-
-            OnComplete(context);
         }
     }
 }

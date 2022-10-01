@@ -21,20 +21,18 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerUseItemWithCreatureCommand command)
         {
-            if (command.Item is StackableItem stackableItem && stackableItem.Count > 1)
+            context.AddCommand(new ItemDecrementCountCommand(command.Item, 1) ).Then(ctx =>
             {
-                context.AddCommand(new ItemUpdateCommand(stackableItem, (byte)(stackableItem.Count - 1) ) );
-            }
-            else
+                return ctx.AddCommand(new ShowTextCommand(command.ToCreature, TalkType.MonsterSay, "Aaaah...") );
+
+            } ).Then(ctx =>
             {
-                context.AddCommand(new ItemDestroyCommand(command.Item) );
-            }
+                return ctx.AddCommand(new ShowMagicEffectCommand(command.ToCreature.Tile.Position, MagicEffectType.BlueShimmer) );
 
-            context.AddCommand(new ShowTextCommand(command.ToCreature, TalkType.MonsterSay, "Aaaah...") );
-
-            context.AddCommand(new ShowMagicEffectCommand(command.ToCreature.Tile.Position, MagicEffectType.BlueShimmer) );
-
-            OnComplete(context);
+            } ).Then(ctx =>
+            {
+                OnComplete(ctx);
+            } );
         }
     }
 }

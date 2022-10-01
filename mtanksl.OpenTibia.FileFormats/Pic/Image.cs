@@ -1,6 +1,6 @@
-﻿using System.Drawing;
+﻿using OpenTibia.IO;
 using System.Collections.Generic;
-using OpenTibia.IO;
+using System.Drawing;
 
 namespace OpenTibia.FileFormats.Pic
 {

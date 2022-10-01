@@ -1,6 +1,6 @@
-﻿using System.Xml.Linq;
+﻿using OpenTibia.Common.Structures;
 using System.Collections.Generic;
-using OpenTibia.Common.Structures;
+using System.Xml.Linq;
 
 namespace OpenTibia.FileFormats.Xml.Spawns
 {

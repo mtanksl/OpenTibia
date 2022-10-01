@@ -1,5 +1,4 @@
-﻿using OpenTibia.Common.Structures;
-using OpenTibia.IO;
+﻿using OpenTibia.IO;
 using System.Collections.Generic;
 
 namespace OpenTibia.Network.Packets.Outgoing

@@ -26,16 +26,19 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (toTile != null)
             {
-                context.AddCommand(new NpcCreateCommand(toTile, name) );
+                context.AddCommand(new NpcCreateCommand(toTile, name) ).Then( (ctx, npc) =>
+                {
+                    return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) );
 
-                context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) );
+                } ).Then(ctx =>
+                {
+                    OnComplete(ctx);
+                } );
             }
             else
             {
                 context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
             }
-
-            OnComplete(context);
         }
     }
 }

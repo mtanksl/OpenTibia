@@ -1,6 +1,4 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
-using OpenTibia.Game.Commands;
+﻿using OpenTibia.Game.Commands;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
@@ -25,9 +23,10 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerUseItemWithItemCommand command)
         {
-            context.AddCommand(new ItemReplaceCommand(command.ToItem, pumpkinhead, 1) );
-
-            OnComplete(context);
+            context.AddCommand(new ItemReplaceCommand(command.ToItem, pumpkinhead, 1) ).Then( (ctx, item) =>
+            {
+                OnComplete(ctx);
+            } );
         }
     }
 }

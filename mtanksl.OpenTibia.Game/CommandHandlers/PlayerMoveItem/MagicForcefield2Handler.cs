@@ -27,10 +27,14 @@ namespace OpenTibia.Game.CommandHandlers
 
             context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toTile, 0, command.Count) ).Then(ctx =>
             {
-                context.AddCommand(new ShowMagicEffectCommand(fromTile.Position, MagicEffectType.Teleport) );
+                return ctx.AddCommand(new ShowMagicEffectCommand(fromTile.Position, MagicEffectType.Teleport) );
 
-                context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+            } ).Then(ctx =>
+            {
+                return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
 
+            } ).Then(ctx =>
+            {
                 OnComplete(ctx);
             } );
         }

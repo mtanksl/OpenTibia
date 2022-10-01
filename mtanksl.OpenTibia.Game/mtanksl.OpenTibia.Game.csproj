@@ -97,6 +97,7 @@
     <Compile Include="CommandHandlers\PlayerUseItem\SewerHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\LadderHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\UseItemTransformHandler.cs" />
+    <Compile Include="Commands\Outgoing\Item\ItemDecrementCountCommand.cs" />
     <Compile Include="Promises\Promise.cs" />
     <Compile Include="Commands\CommandResult.cs" />
     <Compile Include="Commands\Incoming\Client\SendConnectionInfoCommand.cs" />

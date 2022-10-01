@@ -1,6 +1,6 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Xml.Linq;
-using System.Collections.Generic;
 
 namespace OpenTibia.FileFormats.Xml.Npcs
 {

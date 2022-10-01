@@ -29,11 +29,14 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerUseItemWithItemCommand command)
         {
-            context.AddCommand(new ItemCreateCommand( (Tile)command.ToItem.Parent, wheat, 1) );
+            context.AddCommand(new ItemCreateCommand( (Tile)command.ToItem.Parent, wheat, 1) ).Then( (ctx, item) =>
+            {
+                return ctx.AddCommand(new ItemReplaceCommand(command.ToItem, toOpenTibiaId, 1) );
 
-            context.AddCommand(new ItemReplaceCommand(command.ToItem, toOpenTibiaId, 1) );
-
-            OnComplete(context);
+            } ).Then( (ctx, item) =>
+            {
+                OnComplete(ctx);
+            } );
         }
     }
 }

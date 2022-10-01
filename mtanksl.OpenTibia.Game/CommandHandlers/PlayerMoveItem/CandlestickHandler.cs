@@ -31,11 +31,14 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerMoveItemCommand command)
         {
-            context.AddCommand(new ItemDestroyCommand(command.Item) );
-
-            context.AddCommand(new ItemReplaceCommand( ( (Tile)command.ToContainer).TopItem, toOpenTibiaId, 1) );
-
-            OnComplete(context);
+            context.AddCommand(new ItemDestroyCommand(command.Item) ).Then(ctx =>
+            {
+                return ctx.AddCommand(new ItemReplaceCommand( ( (Tile)command.ToContainer).TopItem, toOpenTibiaId, 1) );
+          
+            } ).Then( (ctx, item) =>
+            {
+                OnComplete(ctx);
+            } );           
         }
     }
 }

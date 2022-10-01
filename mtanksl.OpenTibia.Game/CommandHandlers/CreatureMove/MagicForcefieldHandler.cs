@@ -21,14 +21,20 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, CreatureMoveCommand command)
         {
-            Tile toOtherTile = context.Server.Map.GetTile( ( (TeleportItem)command.ToTile.TopItem ).Position );
+            Tile fromTile = command.ToTile;
 
-            context.AddCommand(new CreatureMoveCommand(command.Creature, toOtherTile) ).Then(ctx =>
+            Tile toTile = context.Server.Map.GetTile( ( (TeleportItem)fromTile.TopItem ).Position );
+
+            context.AddCommand(new CreatureMoveCommand(command.Creature, toTile) ).Then(ctx =>
             {
-                ctx.AddCommand(new ShowMagicEffectCommand(command.ToTile.Position, MagicEffectType.Teleport) );
+                return ctx.AddCommand(new ShowMagicEffectCommand(fromTile.Position, MagicEffectType.Teleport) );
 
-                ctx.AddCommand(new ShowMagicEffectCommand(toOtherTile.Position, MagicEffectType.Teleport) );
+            } ).Then(ctx =>
+            {
+                return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
 
+            } ).Then(ctx =>
+            {
                 OnComplete(ctx);
             } );
         }

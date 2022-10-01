@@ -19,14 +19,18 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (command.ContainerId != null)
             {
-                context.AddCommand(new ContainerReplaceOrCloseCommand(command.Player, (Container)command.Item, command.ContainerId.Value) );
+                context.AddCommand(new ContainerReplaceOrCloseCommand(command.Player, (Container)command.Item, command.ContainerId.Value) ).Then(ctx =>
+                {
+                    OnComplete(ctx);
+                } );
             }
             else
             {
-                context.AddCommand(new ContainerOpenOrCloseCommand(command.Player, (Container)command.Item) );
+                context.AddCommand(new ContainerOpenOrCloseCommand(command.Player, (Container)command.Item) ).Then(ctx =>
+                {
+                    OnComplete(ctx);
+                } );
             }
-
-            OnComplete(context);
         }
     }
 }

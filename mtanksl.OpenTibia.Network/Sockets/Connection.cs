@@ -5,7 +5,7 @@ using System.Net.Sockets;
 using System.Threading;
 
 namespace OpenTibia.Network.Sockets
-{ 
+{
     public abstract class Connection : IConnection, IDisposable
     {
         private readonly object sync = new object();

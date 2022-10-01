@@ -12,6 +12,13 @@ namespace OpenTibia.Game.Commands
             Count = count;
         }
 
+        public ItemUpdateCommand(FluidItem item, FluidType fluidType)
+        {
+            Item = item;
+
+            Count = (byte)fluidType;
+        }
+
         public Item Item { get; set; }
 
         public byte Count { get; set; }
