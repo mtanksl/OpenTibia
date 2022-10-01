@@ -44,6 +44,7 @@
     <Compile Include="CommandHandlers\CommandHandlerResult.cs" />
     <Compile Include="CommandHandlers\CommandHandler.cs" />
     <Compile Include="CommandHandlers\CreatureMove\MagicForcefieldHandler.cs" />
+    <Compile Include="CommandHandlers\CreatureMove\MoveContainerCloseHandler.cs" />
     <Compile Include="CommandHandlers\CreatureMove\StairsHandler.cs" />
     <Compile Include="CommandHandlers\CreatureMove\HoleHandler.cs" />
     <Compile Include="CommandHandlers\CreatureMove\TileDepressHandler.cs" />
@@ -91,7 +92,7 @@
     <Compile Include="CommandHandlers\PlayerUseItemWithItem\RopeHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\BlueberryBushHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\FoodHandler.cs" />
-    <Compile Include="CommandHandlers\PlayerUseItem\ContainerHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItem\ContainerOpenHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\BookHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\WatchHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\SewerHandler.cs" />

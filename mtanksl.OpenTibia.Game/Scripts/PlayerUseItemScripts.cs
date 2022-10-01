@@ -8,7 +8,7 @@ namespace OpenTibia.Game.Scripts
         {
             server.CommandHandlers.Add(new UseItemWalkToSourceHandler() );
 
-            server.CommandHandlers.Add(new ContainerHandler() );
+            server.CommandHandlers.Add(new ContainerOpenHandler() );
 
             server.CommandHandlers.Add(new LadderHandler() );
 

@@ -29,7 +29,7 @@ namespace OpenTibia.Game.Commands
                 {
                     Player.Client.ContainerCollection.ReplaceContainer(parentContainer, ContainerId);
 
-                    var items = new List<Item>();
+                    List<Item> items = new List<Item>();
 
                     foreach (var item in parentContainer.GetItems() )
                     {

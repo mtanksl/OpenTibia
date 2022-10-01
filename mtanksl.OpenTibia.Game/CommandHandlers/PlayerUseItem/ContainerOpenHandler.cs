@@ -3,7 +3,7 @@ using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class ContainerHandler : CommandHandler<PlayerUseItemCommand>
+    public class ContainerOpenHandler : CommandHandler<PlayerUseItemCommand>
     {
         public override bool CanHandle(Context context, PlayerUseItemCommand command)
         {
