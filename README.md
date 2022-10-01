@@ -1,12 +1,24 @@
 # First run
 
 You need Visual Studio and .NET 4.6.1.
-Set PlayerRepository.Ip variable.
+Set mtanksl.OpenTibia.Host as startup project.
 Press F5 to run the server. 
-Use Tibia 8.6 client with an ip changer to connect to localhost on port 7171.
+Use Tibia 8.6 client with an IP Changer to connect to localhost (or 127.0.0.1) on port 7171.
 Use account number <empty> and password <empty>.
 
 ![Server and Client](/server.png)
+
+# Tibia 8.6 client
+
+You can download the official release direct from here [4Shared](https://www.4shared.com/s/fVTbjUnjCiq).
+
+# IP Changer 
+
+You can use [jo3bingham's IP Changer](https://github.com/jo3bingham/tibia-ip-changer), [OtLand IP Changer](https://otland.net/threads/otland-ip-changer.134369/) or download direct from here [4Shared](https://www.4shared.com/s/f2VQahgxIiq).
+
+# Map editor
+
+You can use [Remere's map editor](https://github.com/hampusborgos/rme).
 
 # Notes
 
