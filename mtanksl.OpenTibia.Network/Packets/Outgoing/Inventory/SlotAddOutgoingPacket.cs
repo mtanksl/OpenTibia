@@ -1,19 +1,18 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
 using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
     public class SlotAddOutgoingPacket : IOutgoingPacket
     {
-        public SlotAddOutgoingPacket(Slot slot, Item item)
+        public SlotAddOutgoingPacket(byte slot, Item item)
         {
             this.Slot = slot;
 
             this.Item = item;
         }
 
-        public Slot Slot { get; set; }
+        public byte Slot { get; set; }
 
         public Item Item { get; set; }
         
@@ -21,7 +20,7 @@ namespace OpenTibia.Network.Packets.Outgoing
         {
             writer.Write( (byte)0x78 );
 
-            writer.Write( (byte)Slot );
+            writer.Write(Slot);
 
             writer.Write(Item);
         }

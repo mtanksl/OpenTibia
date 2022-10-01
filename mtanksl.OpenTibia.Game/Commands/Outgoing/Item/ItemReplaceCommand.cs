@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
@@ -22,16 +21,7 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            Item toItem = context.Server.ItemFactory.Create(OpenTibiaId);
-
-            if (toItem is StackableItem stackableItem)
-            {
-                stackableItem.Count = Count;
-            }
-            else if (toItem is FluidItem fluidItem)
-            {
-                fluidItem.FluidType = (FluidType)Count;
-            }
+            Item toItem = context.Server.ItemFactory.Create(OpenTibiaId, Count);
 
             if (toItem != null)
             {

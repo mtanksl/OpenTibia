@@ -1,28 +1,33 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ItemDestroyCommand : Command
+    public class FluidItemUpdateFluidTypeCommand : Command
     {
-        public ItemDestroyCommand(Item item)
+        public FluidItemUpdateFluidTypeCommand(FluidItem item, FluidType fluidType)
         {
             Item = item;
+
+            FluidType = fluidType;
         }
 
-        public Item Item { get; set; }
+        public FluidItem Item { get; set; }
+
+        public FluidType FluidType { get; set; }
 
         public override void Execute(Context context)
         {
-            if (Item.Parent != null)
+            if (Item.FluidType != FluidType)
             {
+                Item.FluidType = FluidType;
+
                 switch (Item.Parent)
                 {
                     case Tile tile:
 
-                        context.AddCommand(new TileRemoveItemCommand(tile, Item) ).Then(ctx =>
+                        context.AddCommand(new TileUpdateItemCommand(tile, Item) ).Then(ctx =>
                         {
-                            ctx.Server.ItemFactory.Destroy(Item);
-
                             OnComplete(ctx);
                         } );
                   
@@ -30,10 +35,8 @@ namespace OpenTibia.Game.Commands
 
                     case Inventory inventory:
 
-                        context.AddCommand(new InventoryRemoveItemCommand(inventory, Item) ).Then(ctx =>
+                        context.AddCommand(new InventoryUpdateItemCommand(inventory, Item) ).Then(ctx =>
                         {
-                            ctx.Server.ItemFactory.Destroy(Item);
-
                             OnComplete(ctx);
                         } );
                    
@@ -41,10 +44,8 @@ namespace OpenTibia.Game.Commands
 
                     case Container container:
 
-                        context.AddCommand(new ContainerRemoveItemCommand(container, Item) ).Then(ctx =>
+                        context.AddCommand(new ContainerUpdateItemCommand(container, Item) ).Then(ctx =>
                         {
-                            ctx.Server.ItemFactory.Destroy(Item);
-
                             OnComplete(ctx);
                         } );
 
@@ -53,8 +54,6 @@ namespace OpenTibia.Game.Commands
             }
             else
             {
-                context.Server.ItemFactory.Destroy(Item);
-
                 OnComplete(context);
             }
         }

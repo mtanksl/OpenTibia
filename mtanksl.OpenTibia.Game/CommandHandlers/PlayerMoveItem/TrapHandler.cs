@@ -29,7 +29,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 return ctx.AddCommand(new ItemCreateCommand( (Tile)command.ToContainer, toOpenTibiaId, 1) );
             
-            } ).Then( (ctx, item) =>
+            } ).Then(ctx =>
             {
                 OnComplete(ctx);
             } );

@@ -24,11 +24,11 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerUseItemWithItemCommand command)
         {
-            context.AddCommand(new ItemDecrementCountCommand(command.Item, 1) ).Then(ctx =>
+            context.AddCommand(new ItemDestroyCommand(command.Item) ).Then(ctx =>
             {
                 return ctx.AddCommand(new ItemCreateCommand( (Tile)command.ToItem.Parent, cookie, 12) );
 
-            } ).Then( (ctx, item) =>
+            } ).Then(ctx =>
             {
                 OnComplete(ctx);
             } );

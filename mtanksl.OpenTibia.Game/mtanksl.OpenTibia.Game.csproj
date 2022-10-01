@@ -97,15 +97,16 @@
     <Compile Include="CommandHandlers\PlayerUseItem\SewerHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\LadderHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\UseItemTransformHandler.cs" />
-    <Compile Include="Commands\Outgoing\Item\ItemDecrementCountCommand.cs" />
+    <Compile Include="Commands\Outgoing\Item\ItemCreateCommand.cs" />
+    <Compile Include="Commands\Outgoing\Item\StackableItemDecrementCountCommand.cs" />
+    <Compile Include="Commands\Outgoing\Item\StackableItemUpdateCountCommand.cs" />
     <Compile Include="Promises\Promise.cs" />
     <Compile Include="Commands\CommandResult.cs" />
     <Compile Include="Commands\Incoming\Client\SendConnectionInfoCommand.cs" />
     <Compile Include="Commands\Incoming\Dialog\ReportRuleViolationCommand.cs" />
-    <Compile Include="Commands\Outgoing\Item\ItemUpdateCommand.cs" />
+    <Compile Include="Commands\Outgoing\Item\FluidItemUpdateFluidTypeCommand.cs" />
     <Compile Include="Commands\Outgoing\Item\ItemReplaceCommand.cs" />
     <Compile Include="Commands\Outgoing\Item\ItemDestroyCommand.cs" />
-    <Compile Include="Commands\Outgoing\Item\ItemCreateCommand.cs" />
     <Compile Include="Commands\Outgoing\Monster\MonsterDestroyCommand.cs" />
     <Compile Include="Commands\Outgoing\Monster\MonsterCreateCommand.cs" />
     <Compile Include="Commands\Outgoing\Npc\NpcDestroyCommand.cs" />
@@ -138,7 +139,7 @@
     <Compile Include="Commands\Outgoing\Creature\CreatureUpdateSpeedCommand.cs" />
     <Compile Include="Commands\Outgoing\Effect\ShowTextCommand.cs" />
     <Compile Include="Commands\Outgoing\Inventory\InventoryUpdateItemCommand.cs" />
-    <Compile Include="Commands\Outgoing\Player\PlayerMoveItemCommand.cs" />
+    <Compile Include="Commands\Outgoing\Player\Review\PlayerMoveItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerUpdateSoulCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerUpdateManaCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerUpdateCapacityCommand.cs" />
@@ -156,7 +157,7 @@
     <Compile Include="Commands\Outgoing\Player\PlayerLookItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Effect\ShowAnimatedTextCommand.cs" />
     <Compile Include="Commands\Outgoing\Effect\ShowProjectileCommand.cs" />
-    <Compile Include="Commands\Outgoing\Creature\CreatureMoveCommand.cs" />
+    <Compile Include="Commands\Outgoing\Creature\Review\CreatureMoveCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileReplaceItemCommand.cs" />
     <Compile Include="Commands\Incoming\Console\CloseNpcsChannelCommand.cs" />
     <Compile Include="Commands\Incoming\Dialog\SelectedCharacterCommand.cs" />

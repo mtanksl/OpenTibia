@@ -23,7 +23,7 @@ namespace OpenTibia.Common.Objects
 
                     if (otbmTile.OpenTibiaItemId > 0)
                     {
-                        Item ground = itemFactory.Create(otbmTile.OpenTibiaItemId);
+                        Item ground = itemFactory.Create(otbmTile.OpenTibiaItemId, 1);
                         
                         tile.AddContent(ground);
                     }
@@ -34,7 +34,7 @@ namespace OpenTibia.Common.Objects
                         {
                             foreach (var otbmItem in items)
                             {
-                                Item item = itemFactory.Create(otbmItem.OpenTibiaId);
+                                Item item = itemFactory.Create(otbmItem.OpenTibiaId, otbmItem.Count);
 
                                 if (item is TeleportItem teleport)
                                 {
@@ -46,14 +46,6 @@ namespace OpenTibia.Common.Objects
                                     {
                                         AddItems(container, otbmItem.Items);
                                     }
-                                }
-                                else if (item is StackableItem stackable)
-                                {
-                                    stackable.Count = otbmItem.Count;
-                                }
-                                else if (item is FluidItem fluidItem)
-                                {
-                                    fluidItem.FluidType = (FluidType)otbmItem.Count;
                                 }
                                 else if (item is ReadableItem readableItem)
                                 {

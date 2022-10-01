@@ -151,7 +151,7 @@ namespace OpenTibia.Game
 
         private Dictionary<ushort, ItemMetadata> metadatas;
 
-        public Item Create(ushort openTibiaId, Action<Item> initialize = null)
+        public Item Create(ushort openTibiaId, byte count, Action<Item> initialize = null)
         {
             ItemMetadata metadata;
 
@@ -164,39 +164,29 @@ namespace OpenTibia.Game
 
             if (openTibiaId == 1387)
             {
-                TeleportItem teleportItem = new TeleportItem(metadata);
-
-                item = teleportItem;
+                item = new TeleportItem(metadata);
             }
             else if (metadata.Flags.Is(ItemMetadataFlags.IsContainer) )
             {
-                Container container = new Container(metadata);
-
-                item = container;
+                item = new Container(metadata);
             }
             else if (metadata.Flags.Is(ItemMetadataFlags.Stackable) )
             {
-                StackableItem stackableItem = new StackableItem(metadata);
-
-                stackableItem.Count = 1;
-
-                item = stackableItem;
+                item = new StackableItem(metadata)
+                {
+                    Count = count 
+                };
             }
             else if (metadata.Flags.Is(ItemMetadataFlags.IsFluid) )
             {
-                FluidItem fluidItem = new FluidItem(metadata);
-
-                fluidItem.FluidType = FluidType.Empty;
-
-                item = fluidItem;
+                item = new FluidItem(metadata)
+                {
+                    FluidType = (FluidType)count 
+                };
             }
             else if (metadata.Flags.Is(ItemMetadataFlags.Readable) )
             {
-                ReadableItem readableItem = new ReadableItem(metadata);
-
-                readableItem.Text = null;
-
-                item = readableItem;
+                item = new ReadableItem(metadata);
             }
             else
             {

@@ -1,4 +1,5 @@
-﻿using OpenTibia.Game.Commands;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Commands;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
@@ -23,11 +24,11 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerUseItemWithItemCommand command)
         {
-            context.AddCommand(new ItemDecrementCountCommand(command.Item, 1) ).Then(ctx =>
+            context.AddCommand(new ItemDecrementCountCommand( (StackableItem)command.Item, 1) ).Then(ctx =>
             {
                 return ctx.AddCommand(new ItemCreateCommand(command.Player.Tile, flour, 1) );
 
-            } ).Then( (ctx, item) =>
+            } ).Then(ctx =>
             {
                 OnComplete(ctx);
             } );

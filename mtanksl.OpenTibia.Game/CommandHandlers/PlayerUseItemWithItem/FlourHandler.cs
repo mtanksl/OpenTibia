@@ -31,30 +31,30 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (toFluidItem.FluidType == FluidType.Water)
             {
-                context.AddCommand(new ItemDecrementCountCommand(command.Item, 1) ).Then(ctx =>
+                context.AddCommand(new ItemDecrementCountCommand( (StackableItem)command.Item, 1) ).Then(ctx =>
                 {
-                    return ctx.AddCommand(new ItemUpdateCommand(toFluidItem, FluidType.Empty) );
+                    return ctx.AddCommand(new FluidItemUpdateFluidTypeCommand(toFluidItem, FluidType.Empty) );
 
                 } ).Then(ctx =>
                 {
                     return ctx.AddCommand(new ItemCreateCommand(command.Player.Tile, lumpOfDough, 1) );
 
-                } ).Then( (ctx, item) =>
+                } ).Then(ctx =>
                 {
                     OnComplete(ctx);
                 } );
             }
             else if (toFluidItem.FluidType == FluidType.Milk)
             {
-                context.AddCommand(new ItemDecrementCountCommand(command.Item, 1) ).Then(ctx =>
+                context.AddCommand(new ItemDecrementCountCommand( (StackableItem)command.Item, 1) ).Then(ctx =>
                 {
-                    return ctx.AddCommand(new ItemUpdateCommand(toFluidItem, FluidType.Empty) );
+                    return ctx.AddCommand(new FluidItemUpdateFluidTypeCommand(toFluidItem, FluidType.Empty) );
 
                 } ).Then(ctx =>
                 {
                     return ctx.AddCommand(new ItemCreateCommand(command.Player.Tile, lumpOfCakeDough, 1) );
 
-                } ).Then( (ctx, item) =>
+                } ).Then(ctx =>
                 {
                     OnComplete(ctx);
                 } );

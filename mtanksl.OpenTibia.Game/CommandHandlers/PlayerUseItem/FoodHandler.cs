@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using System.Collections.Generic;
 
@@ -90,7 +91,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerUseItemCommand command)
         {
-            context.AddCommand(new ItemDecrementCountCommand(command.Item, 1) ).Then(ctx =>
+            context.AddCommand(new ItemDecrementCountCommand( (StackableItem)command.Item, 1) ).Then(ctx =>
             {
                 return ctx.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, message) );
             

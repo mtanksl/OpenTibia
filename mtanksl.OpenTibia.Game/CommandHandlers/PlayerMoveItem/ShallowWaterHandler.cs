@@ -21,7 +21,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerMoveItemCommand command)
         {
-            context.AddCommand(new ItemDecrementCountCommand(command.Item, command.Count) ).Then(ctx =>
+            context.AddCommand(new ItemDecrementCountCommand( (StackableItem)command.Item, command.Count) ).Then(ctx =>
             {
                 return ctx.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToContainer).Position, MagicEffectType.BlueRings) );
 
