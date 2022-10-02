@@ -98,7 +98,7 @@ namespace OpenTibia.Game.Commands
                             position = position.Offset(0, 1, 0);
 
                             context.AddPacket(observer.Client.Connection, new SendMapSouthOutgoingPacket(context.Server.Map, observer.Client, position) );
-                                
+
                             deltaY--;
                         }
 

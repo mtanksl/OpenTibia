@@ -3,9 +3,9 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class TileUpdateItemCommand : Command
+    public class TileRefreshItemCommand : Command
     {
-        public TileUpdateItemCommand(Tile tile, Item item)
+        public TileRefreshItemCommand(Tile tile, Item item)
         {
             Tile = tile;
 

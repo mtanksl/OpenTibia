@@ -4,9 +4,9 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class InventoryUpdateItemCommand : Command
+    public class InventoryRefreshItemCommand : Command
     {
-        public InventoryUpdateItemCommand(Inventory inventory, Item item)
+        public InventoryRefreshItemCommand(Inventory inventory, Item item)
         {
             Inventory = inventory;
 

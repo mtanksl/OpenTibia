@@ -49,7 +49,7 @@ namespace OpenTibia.Game.Commands
 
                     if (toTile != null)
                     {
-                        context.AddCommand(new PlayerCreateCommand(toTile, account.Name) ).Then( (ctx, player) =>
+                        context.AddCommand(new TileCreatePlayerCommand(toTile, account.Name) ).Then( (ctx, player) =>
                         {
                             Client client = new Client(ctx.Server);
 

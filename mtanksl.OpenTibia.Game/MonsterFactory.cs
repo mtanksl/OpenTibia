@@ -39,7 +39,7 @@ namespace OpenTibia.Game
 
         private Dictionary<string, MonsterMetadata> metadatas;
 
-        public Monster Create(string name, Action<Monster> initialize = null)
+        public Monster Create(string name)
         {
             MonsterMetadata metadata;
 
@@ -55,11 +55,6 @@ namespace OpenTibia.Game
             if (monster.Metadata.Sentences != null)
             {
                 monster.AddComponent(new AutoTalkBehaviour(monster.Metadata.Sentences) );
-            }
-
-            if (initialize != null)
-            {
-                initialize(monster);
             }
 
             gameObjectCollection.AddGameObject(monster);

@@ -33,7 +33,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             context.AddCommand(new ItemDestroyCommand(command.Item) ).Then(ctx =>
             {
-                return ctx.AddCommand(new ItemReplaceCommand( ( (Tile)command.ToContainer).TopItem, toOpenTibiaId, 1) );
+                return ctx.AddCommand(new ItemTransformCommand( ( (Tile)command.ToContainer).TopItem, toOpenTibiaId, 1) );
           
             } ).Then( (ctx, item) =>
             {

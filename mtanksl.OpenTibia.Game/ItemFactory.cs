@@ -151,7 +151,7 @@ namespace OpenTibia.Game
 
         private Dictionary<ushort, ItemMetadata> metadatas;
 
-        public Item Create(ushort openTibiaId, byte count, Action<Item> initialize = null)
+        public Item Create(ushort openTibiaId, byte count)
         {
             ItemMetadata metadata;
 
@@ -191,11 +191,6 @@ namespace OpenTibia.Game
             else
             {
                 item = new Item(metadata);
-            }
-
-            if (initialize != null)
-            {
-                initialize(item);
             }
 
             gameObjectCollection.AddGameObject(item);

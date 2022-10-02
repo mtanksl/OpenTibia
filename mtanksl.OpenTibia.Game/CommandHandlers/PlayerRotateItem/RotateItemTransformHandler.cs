@@ -45,7 +45,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerRotateItemCommand command)
         {
-            context.AddCommand(new ItemReplaceCommand(command.Item, toOpenTibiaId, 1) ).Then( (ctx, item) =>
+            context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) ).Then( (ctx, item) =>
             {
                 OnComplete(ctx);
             } );

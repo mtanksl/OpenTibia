@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using System;
 
 namespace OpenTibia.Game
 {
@@ -12,17 +11,12 @@ namespace OpenTibia.Game
             this.gameObjectCollection = gameObjectCollection;
         }
 
-        public Player Create(string name, Action<Player> initialize = null)
+        public Player Create(string name)
         {
             Player player = new Player()
             {
                 Name = name
             };
-
-            if (initialize != null)
-            {
-                initialize(player);
-            }
 
             gameObjectCollection.AddGameObject(player);
 

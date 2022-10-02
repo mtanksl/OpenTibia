@@ -2,24 +2,24 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class ItemDecrementCountCommand : Command
+    public class ItemDecrementCommand : Command
     {
-        public ItemDecrementCountCommand(StackableItem item, byte count)
+        public ItemDecrementCommand(Item item, byte count)
         {
             Item = item;
 
             Count = count;
         }
 
-        public StackableItem Item { get; set; }
+        public Item Item { get; set; }
 
         public byte Count { get; set; }
 
         public override void Execute(Context context)
         {
-            if (Item.Count > Count)
+            if (Item is StackableItem stackableItem && stackableItem.Count > Count)
             {
-                context.AddCommand(new StackableItemUpdateCountCommand(Item, (byte)(Item.Count - Count) ) ).Then(ctx =>
+                context.AddCommand(new StackableItemUpdateCountCommand(stackableItem, (byte)(stackableItem.Count - Count) ) ).Then(ctx =>
                 {
                     OnComplete(ctx);
                 } );

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using OpenTibia.Common.Events;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace OpenTibia.Common.Objects
@@ -19,6 +21,8 @@ namespace OpenTibia.Common.Objects
             component.GameObject = this;
 
             components.Add(component);
+
+            OnAdd(component);
         }
 
         public void RemoveComponent(Component component)
@@ -31,6 +35,8 @@ namespace OpenTibia.Common.Objects
             component.GameObject = null;
 
             components.Remove(component);
+
+            OnRemove(component);
         }
 
         public T GetComponent<T>()
@@ -51,6 +57,26 @@ namespace OpenTibia.Common.Objects
             }
 
             return components.OfType<T>();
+        }
+
+        public event EventHandler<GameObjectComponentsCollectionChangedEventArgs> Add;
+
+        protected virtual void OnAdd(Component component)
+        {
+            if (Add != null)
+            {
+                Add(this, new GameObjectComponentsCollectionChangedEventArgs(component) );
+            }
+        }
+
+        public event EventHandler<GameObjectComponentsCollectionChangedEventArgs> Remove;
+
+        protected virtual void OnRemove(Component component)
+        {
+            if (Remove != null)
+            {
+                Remove(this, new GameObjectComponentsCollectionChangedEventArgs(component) );
+            }
         }
     }
 }

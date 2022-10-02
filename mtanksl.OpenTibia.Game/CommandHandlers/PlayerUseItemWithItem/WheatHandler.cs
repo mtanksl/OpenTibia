@@ -24,9 +24,9 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerUseItemWithItemCommand command)
         {
-            context.AddCommand(new ItemDecrementCountCommand( (StackableItem)command.Item, 1) ).Then(ctx =>
+            context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
             {
-                return ctx.AddCommand(new ItemCreateCommand(command.Player.Tile, flour, 1) );
+                return ctx.AddCommand(new TileCreateItemCommand(command.Player.Tile, flour, 1) );
 
             } ).Then(ctx =>
             {

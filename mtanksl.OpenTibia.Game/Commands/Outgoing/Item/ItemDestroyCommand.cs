@@ -13,49 +13,40 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            if (Item.Parent != null)
+            switch (Item.Parent)
             {
-                switch (Item.Parent)
-                {
-                    case Tile tile:
+                case Tile tile:
 
-                        context.AddCommand(new TileRemoveItemCommand(tile, Item) ).Then(ctx =>
-                        {
-                            ctx.Server.ItemFactory.Destroy(Item);
+                    context.AddCommand(new TileRemoveItemCommand(tile, Item) ).Then(ctx =>
+                    {
+                        ctx.Server.ItemFactory.Destroy(Item);
 
-                            OnComplete(ctx);
-                        } );
+                        OnComplete(ctx);
+                    } );
                   
-                        break;
+                    break;
 
-                    case Inventory inventory:
+                case Inventory inventory:
 
-                        context.AddCommand(new InventoryRemoveItemCommand(inventory, Item) ).Then(ctx =>
-                        {
-                            ctx.Server.ItemFactory.Destroy(Item);
+                    context.AddCommand(new InventoryRemoveItemCommand(inventory, Item) ).Then(ctx =>
+                    {
+                        ctx.Server.ItemFactory.Destroy(Item);
 
-                            OnComplete(ctx);
-                        } );
+                        OnComplete(ctx);
+                    } );
                    
-                        break;
+                    break;
 
-                    case Container container:
+                case Container container:
 
-                        context.AddCommand(new ContainerRemoveItemCommand(container, Item) ).Then(ctx =>
-                        {
-                            ctx.Server.ItemFactory.Destroy(Item);
+                    context.AddCommand(new ContainerRemoveItemCommand(container, Item) ).Then(ctx =>
+                    {
+                        ctx.Server.ItemFactory.Destroy(Item);
 
-                            OnComplete(ctx);
-                        } );
+                        OnComplete(ctx);
+                    } );
 
-                        break;
-                }
-            }
-            else
-            {
-                context.Server.ItemFactory.Destroy(Item);
-
-                OnComplete(context);
+                    break;
             }
         }
     }

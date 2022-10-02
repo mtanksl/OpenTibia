@@ -52,6 +52,7 @@
     <Compile Include="CommandHandlers\CreatureMove\TilePressHandler.cs" />
     <Compile Include="CommandHandlers\ICommandHandlerResult.cs" />
     <Compile Include="CommandHandlers\ICommandHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerMoveItem\MoveItemHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveItem\MoveItemContainerCloseHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveItem\TrapHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveItem\CandlestickHandler.cs" />
@@ -98,22 +99,37 @@
     <Compile Include="CommandHandlers\PlayerUseItem\SewerHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\LadderHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\UseItemTransformHandler.cs" />
-    <Compile Include="Commands\Outgoing\Item\ItemCreateCommand.cs" />
-    <Compile Include="Commands\Outgoing\Item\StackableItemDecrementCountCommand.cs" />
-    <Compile Include="Commands\Outgoing\Item\StackableItemUpdateCountCommand.cs" />
+    <Compile Include="Commands\Outgoing\Inventory\InventoryCreateItemCommand.cs" />
+    <Compile Include="Commands\Outgoing\Container\ContainerCreateItemCommand.cs" />
+    <Compile Include="Commands\Outgoing\Item\ItemMoveToTileCommand.cs" />
+    <Compile Include="Commands\Outgoing\Item\ItemMoveToContainerCommand.cs" />
+    <Compile Include="Commands\Outgoing\Item\ItemMoveToInventoryCommand.cs" />
+    <Compile Include="Commands\Outgoing\Tile\TileCreateItemCommand.cs" />
+    <Compile Include="Commands\Outgoing\Item\ItemDecrementCommand.cs" />
+    <Compile Include="Commands\Outgoing\StackableItem\StackableItemUpdateCountCommand.cs" />
+    <Compile Include="Extensions\CreatureExtensions.cs" />
+    <Compile Include="Extensions\PlayerExtensions.cs" />
+    <Compile Include="Extensions\StackableItemExtensions.cs" />
+    <Compile Include="Extensions\InventoryExtensions.cs" />
+    <Compile Include="Extensions\FluidItemExtensions.cs" />
+    <Compile Include="Extensions\NpcExtensions.cs" />
+    <Compile Include="Extensions\MonsterExtensions.cs" />
+    <Compile Include="Extensions\ItemExtensions.cs" />
+    <Compile Include="Extensions\ContainerExtensions.cs" />
+    <Compile Include="Extensions\TileExtensions.cs" />
     <Compile Include="Promises\Promise.cs" />
     <Compile Include="Commands\CommandResult.cs" />
     <Compile Include="Commands\Incoming\Client\SendConnectionInfoCommand.cs" />
     <Compile Include="Commands\Incoming\Dialog\ReportRuleViolationCommand.cs" />
-    <Compile Include="Commands\Outgoing\Item\FluidItemUpdateFluidTypeCommand.cs" />
-    <Compile Include="Commands\Outgoing\Item\ItemReplaceCommand.cs" />
+    <Compile Include="Commands\Outgoing\FluidItem\FluidItemUpdateFluidTypeCommand.cs" />
+    <Compile Include="Commands\Outgoing\Item\ItemTransformCommand.cs" />
     <Compile Include="Commands\Outgoing\Item\ItemDestroyCommand.cs" />
     <Compile Include="Commands\Outgoing\Monster\MonsterDestroyCommand.cs" />
-    <Compile Include="Commands\Outgoing\Monster\MonsterCreateCommand.cs" />
+    <Compile Include="Commands\Outgoing\Tile\TileCreateMonsterCommand.cs" />
     <Compile Include="Commands\Outgoing\Npc\NpcDestroyCommand.cs" />
-    <Compile Include="Commands\Outgoing\Npc\NpcCreateCommand.cs" />
+    <Compile Include="Commands\Outgoing\Tile\TileCreateNpcCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerDestroyCommand.cs" />
-    <Compile Include="Commands\Outgoing\Player\PlayerCreateCommand.cs" />
+    <Compile Include="Commands\Outgoing\Tile\TileCreatePlayerCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerUpdateExperienteCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerUpdateStaminaCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerYellCommand.cs" />
@@ -129,7 +145,7 @@
     <Compile Include="Commands\Incoming\Battle\StopAttackCommand.cs" />
     <Compile Include="Commands\Outgoing\Container\ContainerRemoveItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Container\ContainerAddItemCommand.cs" />
-    <Compile Include="Commands\Outgoing\Container\ContainerUpdateItemCommand.cs" />
+    <Compile Include="Commands\Outgoing\Container\ContainerRefreshItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Container\ContainerReplaceItemCommand.cs" />
     <Compile Include="Commands\Incoming\Control\TurnCommand.cs" />
     <Compile Include="Commands\Outgoing\Creature\CreatureUpdateHealthCommand.cs" />
@@ -139,8 +155,8 @@
     <Compile Include="Commands\Outgoing\Creature\CreatureUpdateSkullIconCommand.cs" />
     <Compile Include="Commands\Outgoing\Creature\CreatureUpdateSpeedCommand.cs" />
     <Compile Include="Commands\Outgoing\Effect\ShowTextCommand.cs" />
-    <Compile Include="Commands\Outgoing\Inventory\InventoryUpdateItemCommand.cs" />
-    <Compile Include="Commands\Outgoing\Player\Review\PlayerMoveItemCommand.cs" />
+    <Compile Include="Commands\Outgoing\Inventory\InventoryRefreshItemCommand.cs" />
+    <Compile Include="Commands\Outgoing\Player\PlayerMoveItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerUpdateSoulCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerUpdateManaCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerUpdateCapacityCommand.cs" />
@@ -152,7 +168,7 @@
     <Compile Include="Commands\Outgoing\Inventory\InventoryReplaceItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileAddCreatureCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileRemoveCreatureCommand.cs" />
-    <Compile Include="Commands\Outgoing\Tile\TileUpdateItemCommand.cs" />
+    <Compile Include="Commands\Outgoing\Tile\TileRefreshItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerLookCreatureCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerUseItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerLookItemCommand.cs" />
@@ -342,6 +358,9 @@
       <Name>mtanksl.OpenTibia.Threading</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="CommandHandlers\PlayerLookCreature\" />
+    <Folder Include="CommandHandlers\PlayerLookItem\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

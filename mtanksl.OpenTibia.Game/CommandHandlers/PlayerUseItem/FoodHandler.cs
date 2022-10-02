@@ -91,7 +91,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerUseItemCommand command)
         {
-            context.AddCommand(new ItemDecrementCountCommand( (StackableItem)command.Item, 1) ).Then(ctx =>
+            context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
             {
                 return ctx.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, message) );
             

@@ -13,21 +13,12 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            if (Monster.Tile != null)
+            context.AddCommand(new TileRemoveCreatureCommand(Monster.Tile, Monster) ).Then(ctx =>
             {
-                context.AddCommand(new TileRemoveCreatureCommand(Monster.Tile, Monster) ).Then(ctx =>
-                {
-                    ctx.Server.MonsterFactory.Destroy(Monster);
+                ctx.Server.MonsterFactory.Destroy(Monster);
 
-                    OnComplete(ctx);
-                } );
-            }
-            else
-            {
-                context.Server.MonsterFactory.Destroy(Monster);
-
-                OnComplete(context);
-            }
+                OnComplete(ctx);
+            } );            
         }
     }
 }

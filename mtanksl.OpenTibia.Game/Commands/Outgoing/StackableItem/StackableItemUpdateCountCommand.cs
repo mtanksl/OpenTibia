@@ -1,32 +1,31 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class FluidItemUpdateFluidTypeCommand : Command
+    public class StackableItemUpdateCountCommand : Command
     {
-        public FluidItemUpdateFluidTypeCommand(FluidItem item, FluidType fluidType)
+        public StackableItemUpdateCountCommand(StackableItem item, byte count)
         {
             Item = item;
 
-            FluidType = fluidType;
+            Count = count;
         }
 
-        public FluidItem Item { get; set; }
+        public StackableItem Item { get; set; }
 
-        public FluidType FluidType { get; set; }
+        public byte Count { get; set; }
 
         public override void Execute(Context context)
         {
-            if (Item.FluidType != FluidType)
+            if (Item.Count != Count)
             {
-                Item.FluidType = FluidType;
+                Item.Count = Count;
 
                 switch (Item.Parent)
                 {
                     case Tile tile:
 
-                        context.AddCommand(new TileUpdateItemCommand(tile, Item) ).Then(ctx =>
+                        context.AddCommand(new TileRefreshItemCommand(tile, Item) ).Then(ctx =>
                         {
                             OnComplete(ctx);
                         } );
@@ -35,7 +34,7 @@ namespace OpenTibia.Game.Commands
 
                     case Inventory inventory:
 
-                        context.AddCommand(new InventoryUpdateItemCommand(inventory, Item) ).Then(ctx =>
+                        context.AddCommand(new InventoryRefreshItemCommand(inventory, Item) ).Then(ctx =>
                         {
                             OnComplete(ctx);
                         } );
@@ -44,7 +43,7 @@ namespace OpenTibia.Game.Commands
 
                     case Container container:
 
-                        context.AddCommand(new ContainerUpdateItemCommand(container, Item) ).Then(ctx =>
+                        context.AddCommand(new ContainerRefreshItemCommand(container, Item) ).Then(ctx =>
                         {
                             OnComplete(ctx);
                         } );

@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.FileFormats.Xml.Npcs;
 using OpenTibia.Game.Components;
-using System;
 using System.Collections.Generic;
 using Npc = OpenTibia.Common.Objects.Npc;
 
@@ -36,7 +35,7 @@ namespace OpenTibia.Game
 
         private Dictionary<string, NpcMetadata> metadatas;
 
-        public Npc Create(string name, Action<Npc> initialize = null)
+        public Npc Create(string name)
         {
             NpcMetadata metadata;
 
@@ -48,11 +47,6 @@ namespace OpenTibia.Game
             Npc npc = new Npc(metadata);
 
             npc.AddComponent(new AutoWalkBehaviour() );
-
-            if (initialize != null)
-            {
-                initialize(npc);
-            }
 
             gameObjectCollection.AddGameObject(npc);
 

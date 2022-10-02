@@ -2,9 +2,9 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class ItemReplaceCommand : CommandResult<Item>
+    public class ItemTransformCommand : CommandResult<Item>
     {
-        public ItemReplaceCommand(Item fromItem, ushort openTibiaId, byte count)
+        public ItemTransformCommand(Item fromItem, ushort openTibiaId, byte count)
         {
             FromItem = fromItem;
 

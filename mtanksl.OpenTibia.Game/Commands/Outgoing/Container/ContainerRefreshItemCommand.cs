@@ -3,9 +3,9 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ContainerUpdateItemCommand : Command
+    public class ContainerRefreshItemCommand : Command
     {
-        public ContainerUpdateItemCommand(Container container, Item item)
+        public ContainerRefreshItemCommand(Container container, Item item)
         {
             Container = container;
 

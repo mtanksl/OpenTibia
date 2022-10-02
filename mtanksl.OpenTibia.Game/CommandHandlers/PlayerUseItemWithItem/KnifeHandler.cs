@@ -23,7 +23,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerUseItemWithItemCommand command)
         {
-            context.AddCommand(new ItemReplaceCommand(command.ToItem, pumpkinhead, 1) ).Then( (ctx, item) =>
+            context.AddCommand(new ItemTransformCommand(command.ToItem, pumpkinhead, 1) ).Then( (ctx, item) =>
             {
                 OnComplete(ctx);
             } );

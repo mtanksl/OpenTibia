@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Objects;
+﻿using OpenTibia.Common.Events;
+using OpenTibia.Common.Objects;
 using OpenTibia.Game.Components;
 using System;
 using System.Collections.Generic;
@@ -69,19 +70,18 @@ namespace OpenTibia.Game
                 buckets[ typeof(Item) ].Add(gameObject.Id, gameObject);
             }
 
-            foreach (var component in gameObject.GetComponents<Behaviour>() )
+            foreach (var behaviour in gameObject.GetComponents<Behaviour>() )
             {
-                component.Start(server);
+                behaviour.Start(server);
             }
+
+            gameObject.Add += ComponentsAdd;
+
+            gameObject.Remove += ComponentsRemove;
         }
 
         public void RemoveGameObject(GameObject gameObject)
         {
-            foreach (var component in gameObject.GetComponents<Behaviour>() )
-            {
-                component.Stop(server);
-            }
-
             if (gameObject is Creature)
             {
                 buckets[ typeof(Creature) ].Remove(gameObject.Id);
@@ -105,6 +105,31 @@ namespace OpenTibia.Game
             if (gameObject is Item)
             {
                 buckets[ typeof(Item) ].Remove(gameObject.Id);
+            }
+
+            foreach (var behaviour in gameObject.GetComponents<Behaviour>() )
+            {
+                behaviour.Stop(server);
+            }
+
+            gameObject.Add -= ComponentsAdd;
+
+            gameObject.Remove -= ComponentsRemove;
+        }
+
+        private void ComponentsAdd(object sender, GameObjectComponentsCollectionChangedEventArgs e)
+        {
+            if (e.Component is Behaviour behaviour)
+            {
+                behaviour.Start(server);
+            }
+        }
+
+        private void ComponentsRemove(object sender, GameObjectComponentsCollectionChangedEventArgs e)
+        {
+            if (e.Component is Behaviour behaviour)
+            {
+                behaviour.Stop(server);
             }
         }
 

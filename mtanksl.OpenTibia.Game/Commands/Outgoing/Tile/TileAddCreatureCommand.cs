@@ -24,11 +24,11 @@ namespace OpenTibia.Game.Commands
             {
                 if (observer != Creature)
                 {
-                    if (observer.Tile.Position.CanSee(Tile.Position))
+                    if (observer.Tile.Position.CanSee(Tile.Position) )
                     {
                         uint removeId;
 
-                        if (observer.Client.CreatureCollection.IsKnownCreature(Creature.Id, out removeId))
+                        if (observer.Client.CreatureCollection.IsKnownCreature(Creature.Id, out removeId) )
                         {
                             context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, Creature) );
                         }

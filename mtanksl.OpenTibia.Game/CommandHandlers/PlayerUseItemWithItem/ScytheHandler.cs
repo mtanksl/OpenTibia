@@ -29,9 +29,9 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerUseItemWithItemCommand command)
         {
-            context.AddCommand(new ItemCreateCommand( (Tile)command.ToItem.Parent, wheat, 1) ).Then(ctx =>
+            context.AddCommand(new TileCreateItemCommand( (Tile)command.ToItem.Parent, wheat, 1) ).Then(ctx =>
             {
-                return ctx.AddCommand(new ItemReplaceCommand(command.ToItem, toOpenTibiaId, 1) );
+                return ctx.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
 
             } ).Then( (ctx, item) =>
             {

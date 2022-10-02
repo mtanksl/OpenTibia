@@ -2,9 +2,9 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class PlayerCreateCommand : CommandResult<Player>
+    public class TileCreateNpcCommand : CommandResult<Npc>
     {
-        public PlayerCreateCommand(Tile tile, string name)
+        public TileCreateNpcCommand(Tile tile, string name)
         {
             Tile = tile;
 
@@ -17,13 +17,13 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            Player player = context.Server.PlayerFactory.Create(Name);
+            Npc npc = context.Server.NpcFactory.Create(Name);
 
-            if (player != null)
+            if (npc != null)
             {
-                context.AddCommand(new TileAddCreatureCommand(Tile, player) ).Then(ctx =>
+                context.AddCommand(new TileAddCreatureCommand(Tile, npc) ).Then(ctx =>
                 {
-                    OnComplete(ctx, player);
+                    OnComplete(ctx, npc);
                 } );
             }
         }
