@@ -177,7 +177,7 @@
     <Compile Include="Commands\Outgoing\Player\PlayerLookItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Effect\ShowAnimatedTextCommand.cs" />
     <Compile Include="Commands\Outgoing\Effect\ShowProjectileCommand.cs" />
-    <Compile Include="Commands\Outgoing\Creature\Review\CreatureMoveCommand.cs" />
+    <Compile Include="Commands\Outgoing\Creature\CreatureMoveCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileReplaceItemCommand.cs" />
     <Compile Include="Commands\Incoming\Console\CloseNpcsChannelCommand.cs" />
     <Compile Include="Commands\Incoming\Dialog\SelectedCharacterCommand.cs" />
