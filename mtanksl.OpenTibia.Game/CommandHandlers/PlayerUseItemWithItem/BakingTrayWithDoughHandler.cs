@@ -28,7 +28,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 return ctx.AddCommand(new TileCreateItemCommand( (Tile)command.ToItem.Parent, cookie, 12) );
 
-            } ).Then(ctx =>
+            } ).Then( (ctx, item) =>
             {
                 OnComplete(ctx);
             } );

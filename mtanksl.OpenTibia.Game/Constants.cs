@@ -37,6 +37,12 @@ namespace OpenTibia.Game
 
         public static readonly int PlayerCheckConnectionSchedulerEventInterval = 60000;
 
+        public static string ItemDecaySchedulerEvent(Item item)
+        {
+            return "Item_Decay_" + item.Id;
+        }
+
+
 
         public static readonly string OnlyProtocol86Allowed = "Only protocol 8.6 allowed.";
 

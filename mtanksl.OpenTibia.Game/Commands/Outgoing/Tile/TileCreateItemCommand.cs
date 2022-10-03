@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class TileCreateItemCommand : Command
+    public class TileCreateItemCommand : CommandResult<Item>
     {
         public TileCreateItemCommand(Tile tile, ushort openTibiaId, byte count)
         {
@@ -27,7 +27,7 @@ namespace OpenTibia.Game.Commands
             {
                 context.AddCommand(new TileAddItemCommand(Tile, item) ).Then(ctx =>
                 {
-                    OnComplete(ctx);
+                    OnComplete(ctx, item);
                 } );
             }
         }

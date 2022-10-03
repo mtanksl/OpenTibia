@@ -13,6 +13,11 @@ namespace OpenTibia.Game.CommandHandlers
             { 2739, 2737 }
         };
 
+        private Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
+        {
+            { 2737, 2739 }
+        };
+
         private ushort wheat = 2694;
 
         private ushort toOpenTibiaId;
@@ -29,11 +34,15 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerUseItemWithItemCommand command)
         {
-            context.AddCommand(new TileCreateItemCommand( (Tile)command.ToItem.Parent, wheat, 1) ).Then(ctx =>
+            context.AddCommand(new TileCreateItemCommand( (Tile)command.ToItem.Parent, wheat, 1) ).Then( (ctx, item) =>
             {
                 return ctx.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
 
             } ).Then( (ctx, item) =>
+            {
+                return ctx.AddCommand(new ItemDecayCommand(item, 10000, decay[item.Metadata.OpenTibiaId], 1) );
+
+            } ).Then(ctx =>
             {
                 OnComplete(ctx);
             } );

@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Scripts
 
             server.CommandHandlers.Add(new TrapHandler() );
 
-            server.CommandHandlers.Add(new MoveItemToTileContainerCloseHandler() );
+            server.CommandHandlers.Add(new ItemMoveToTileContainerCloseHandler() );
         }
 
         public void Stop(Server server)

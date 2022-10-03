@@ -39,7 +39,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return ctx.AddCommand(new TileCreateItemCommand(command.Player.Tile, lumpOfDough, 1) );
 
-                } ).Then(ctx =>
+                } ).Then( (ctx, item) =>
                 {
                     OnComplete(ctx);
                 } );
@@ -54,7 +54,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return ctx.AddCommand(new TileCreateItemCommand(command.Player.Tile, lumpOfCakeDough, 1) );
 
-                } ).Then(ctx =>
+                } ).Then( (ctx, item) =>
                 {
                     OnComplete(ctx);
                 } );

@@ -6,7 +6,7 @@ namespace OpenTibia.Game.Scripts
     {
         public void Start(Server server)
         {
-            server.CommandHandlers.Add(new MoveItemToContainerContainerCloseHandler() );
+            server.CommandHandlers.Add(new ItemMoveToContainerContainerCloseHandler() );
         }
 
         public void Stop(Server server)

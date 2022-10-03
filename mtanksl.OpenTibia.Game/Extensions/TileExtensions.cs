@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Extensions
             return context.AddCommand(new TileAddItemCommand(tile, item) );
         }
 
-        public static Promise CreateItem(this Tile tile, ushort openTibiaId, byte count)
+        public static PromiseResult<Item> CreateItem(this Tile tile, ushort openTibiaId, byte count)
         {
             Context context = Context.Current;
 

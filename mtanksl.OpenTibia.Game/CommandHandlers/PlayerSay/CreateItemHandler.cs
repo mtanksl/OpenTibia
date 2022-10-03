@@ -24,7 +24,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (toTile != null)
             {
-                context.AddCommand(new TileCreateItemCommand(command.Player.Tile, toOpenTibiaId, 1) ).Then(ctx =>
+                context.AddCommand(new TileCreateItemCommand(command.Player.Tile, toOpenTibiaId, 1) ).Then( (ctx, item) =>
                 {
                     return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) );
 

@@ -36,7 +36,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             context.AddCommand(command).Then(ctx =>
             {
-                return ctx.AddCommand(new ItemTransformCommand(command.ToTile.Ground, toOpenTibiaId, 1) );
+                return ctx.AddCommand(new ItemTransformCommand(toTile.Ground, toOpenTibiaId, 1) );
 
             } ).Then( (ctx, item) =>
             {
