@@ -65,18 +65,6 @@ namespace OpenTibia.Game.Commands
             return true;
         }
         
-        protected bool IsEnoughtSpace(Context context, Item fromItem, Container toContainer)
-        {
-            if (toContainer.Count == toContainer.Metadata.Capacity)
-            {
-                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtSpace) );
-
-                return false;
-            }
-
-            return true;
-        }
-
         protected void MoveItem(Context context, Item fromItem, IContainer toContainer, byte toIndex, byte count)
         {
             context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toContainer, toIndex, count) ).Then(ctx =>

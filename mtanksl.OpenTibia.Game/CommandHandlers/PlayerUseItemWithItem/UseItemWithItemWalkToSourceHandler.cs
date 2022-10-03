@@ -17,11 +17,26 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerUseItemWithItemCommand command)
         {
+            IContainer beforeContainer = command.Item.Parent;
+
+            byte beforeIndex = beforeContainer.GetIndex(command.Item);
+
             context.AddCommand(new WalkToUnknownPathCommand(command.Player, (Tile)command.Item.Parent) ).Then(ctx =>
             {
-                //TODO: Check if item has moved
+                return Promise.Delay(ctx, Constants.PlayerActionSchedulerEvent(command.Player), Constants.PlayerActionSchedulerEventInterval);
 
-                return ctx.AddCommand(command);
+            } ).Then(ctx =>
+            {
+                IContainer afterContainer = command.Item.Parent;
+
+                byte afterIndex = afterContainer.GetIndex(command.Item);
+
+                if (beforeContainer == afterContainer && beforeIndex == afterIndex)
+                {
+                    return ctx.AddCommand(command);
+                }
+
+                return null;
 
             } ).Then(ctx =>
             {

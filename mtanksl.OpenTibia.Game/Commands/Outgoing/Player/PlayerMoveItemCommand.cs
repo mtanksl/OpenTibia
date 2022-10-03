@@ -50,12 +50,36 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
+        protected bool IsEmpty(Context context, Item fromItem, Inventory toInventory, byte toSlot)
+        {
+            if (toInventory.GetContent(toSlot) != null)
+            {
+                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+
+                return false;
+            }
+
+            return true;
+        }
+
+        protected bool IsEnoughtSpace(Context context, Item fromItem, Container toContainer)
+        {
+            if (toContainer.Count == toContainer.Metadata.Capacity)
+            {
+                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtSpace) );
+
+                return false;
+            }
+
+            return true;
+        }
+
         public override void Execute(Context context)
         {
             switch (ToContainer)
             {
                 case Tile toTile:
-
+                {
                     Command command = new ItemUpdateParentToTileCommand(Item, toTile);
 
                     ICommandHandler commandHandler;
@@ -89,26 +113,87 @@ namespace OpenTibia.Game.Commands
                             } );
                         }
                     }
+                }
 
-                    break;
+                break;
 
                 case Inventory toInventory:
+                {
+                    Command command = new ItemUpdateParentToInventoryCommand(Item, toInventory, ToIndex);
 
-                    context.AddCommand(new ItemUpdateParentToInventoryCommand(Item, toInventory, ToIndex) ).Then(ctx =>
+                    ICommandHandler commandHandler;
+
+                    if (context.Server.CommandHandlers.TryGet(context, command, out commandHandler) )
                     {
-                        OnComplete(ctx);
-                    } );
+                        new Promise(resolve =>
+                        {
+                            commandHandler.ContinueWith = resolve;
 
-                    break;
+                            commandHandler.Handle(context, command);
+
+                        } ).Then(ctx =>
+                        {
+                            OnComplete(ctx);
+                        } );
+                    }
+                    else
+                    {
+                        if (IsEmpty(context, Item, toInventory, ToIndex) )
+                        {
+                            new Promise(resolve =>
+                            {
+                                command.ContinueWith = resolve;
+
+                                command.Execute(context);
+
+                            } ).Then(ctx =>
+                            {
+                                OnComplete(ctx);
+                            } );
+                        }
+                    }
+                }
+
+                break;
 
                 case Container toContainer:
+                {
+                    Command command = new ItemUpdateParentToContainerCommand(Item, toContainer);
 
-                    context.AddCommand(new ItemUpdateParentToContainerCommand(Item, toContainer) ).Then(ctx =>
+                    ICommandHandler commandHandler;
+
+                    if (context.Server.CommandHandlers.TryGet(context, command, out commandHandler) )
                     {
-                        OnComplete(ctx);
-                    } );
+                        new Promise(resolve =>
+                        {
+                            commandHandler.ContinueWith = resolve;
 
-                    break;
+                            commandHandler.Handle(context, command);
+
+                        } ).Then(ctx =>
+                        {
+                            OnComplete(ctx);
+                        } );
+                    }
+                    else
+                    {
+                        if (IsEnoughtSpace(context, Item, toContainer) )
+                        {
+                            new Promise(resolve =>
+                            {
+                                command.ContinueWith = resolve;
+
+                                command.Execute(context);
+
+                            } ).Then(ctx =>
+                            {
+                                OnComplete(ctx);
+                            } );
+                        }
+                    }
+                }
+
+                break;
             }
         }
     }

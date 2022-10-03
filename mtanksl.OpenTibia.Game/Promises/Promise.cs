@@ -126,12 +126,22 @@ namespace OpenTibia.Game.Commands
                 {
                     this.continueWith = context =>
                     {
-                        callback(context).Then(resolve);
+                        var promise = callback(context);
+
+                        if (promise != null)
+                        {
+                            promise.Then(resolve);
+                        }
                     };
                 }
                 else if (this.status == PromiseStatus.Fulfilled)
                 {
-                    callback(this.context).Then(resolve);
+                    var promise = callback(this.context);
+
+                    if (promise != null)
+                    {
+                        promise.Then(resolve);
+                    }
                 }
             } );
         }
@@ -144,12 +154,22 @@ namespace OpenTibia.Game.Commands
                 {
                     this.continueWith = context =>
                     {
-                        callback(context).Then(resolve);
+                        var promise = callback(context);
+
+                        if (promise != null)
+                        {
+                            promise.Then(resolve);
+                        }
                     };
                 }
                 else if (this.status == PromiseStatus.Fulfilled)
                 {
-                    callback(this.context).Then(resolve);
+                    var promise = callback(this.context);
+
+                    if (promise != null)
+                    {
+                        promise.Then(resolve);
+                    }
                 }
             } );
         }

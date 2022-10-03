@@ -5,29 +5,26 @@ namespace OpenTibia.Game
     public static class Constants
     {
         public static readonly string GlobalCreaturesSchedulerEvent = "Global_Creatures";
-
         public static readonly int GlobalCreaturesSchedulerEventInterval = 1000;
 
         public static readonly string GlobalItemsSchedulerEvent = "Global_Items";
-
         public static readonly int GlobalItemsSchedulerEventInterval = 60000;
 
         public static readonly string GlobalLightSchedulerEvent = "Global_Light";
-
         public static readonly int GlobalLightSchedulerEventInterval = 10000;
 
-        public static string CreatureTalkSchedulerEvent(Creature creature) { return "Creature_Talk_" + creature.Id; }
+        public static string CreatureWalkSchedulerEvent(Creature creature) => "Creature_Walk_" + creature.Id;
 
+        public static string CreatureTalkSchedulerEvent(Creature creature) => "Creature_Talk_" + creature.Id;
         public static readonly int CreatureTalkSchedulerEventInterval = 30000;
 
-        public static string CreatureWalkSchedulerEvent(Creature creature) { return "Creature_Walk_" + creature.Id; }
+        public static string ItemDecaySchedulerEvent(Item item) => "Item_Decay_" + item.Id;
 
-        public static string ItemDecaySchedulerEvent(Item item) { return "Item_Decay_" + item.Id; }
+        public static string PlayerActionSchedulerEvent(Player player) => "Player_Action_" + player.Id;
+        public static readonly int PlayerActionSchedulerEventInterval = 200;
 
-        public static string PlayerCheckConnectionSchedulerEvent(Player player) { return "Player_Check_Connection_" + player.Id; }
-
+        public static string PlayerCheckConnectionSchedulerEvent(Player player) => "Player_Check_Connection_" + player.Id;
         public static readonly int PlayerCheckConnectionSchedulerEventInterval = 60000;
-
 
         public static readonly string OnlyProtocol86Allowed = "Only protocol 8.6 allowed.";
 
