@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class CandlestickHandler : CommandHandler<PlayerMoveItemCommand>
+    public class CandlestickHandler : CommandHandler<ItemMoveToTileCommand>
     {
         private HashSet<ushort> candlestick = new HashSet<ushort>() { 2048 };
 
@@ -19,9 +19,9 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort toOpenTibiaId;
 
-        public override bool CanHandle(Context context, PlayerMoveItemCommand command)
+        public override bool CanHandle(Context context, ItemMoveToTileCommand command)
         {
-            if (candlestick.Contains(command.Item.Metadata.OpenTibiaId) && command.ToContainer is Tile toTile && toTile.TopItem != null && transformations.TryGetValue(toTile.TopItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+            if (candlestick.Contains(command.Item.Metadata.OpenTibiaId) && command.ToTile.TopItem != null && transformations.TryGetValue(command.ToTile.TopItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
                 return true;
             }
@@ -29,11 +29,11 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override void Handle(Context context, PlayerMoveItemCommand command)
+        public override void Handle(Context context, ItemMoveToTileCommand command)
         {
             context.AddCommand(new ItemDestroyCommand(command.Item) ).Then(ctx =>
             {
-                return ctx.AddCommand(new ItemTransformCommand( ( (Tile)command.ToContainer).TopItem, toOpenTibiaId, 1) );
+                return ctx.AddCommand(new ItemTransformCommand(command.ToTile.TopItem, toOpenTibiaId, 1) );
           
             } ).Then( (ctx, item) =>
             {

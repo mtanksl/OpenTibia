@@ -30,11 +30,6 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            context.AddCommand(new DelayCommand(Constants.GlobalCreaturesSchedulerEvent, Constants.GlobalCreaturesSchedulerEventInterval) ).Then(ctx =>
-            {
-                Execute(ctx);
-            } );
-
             OnComplete(context);
         }
     }

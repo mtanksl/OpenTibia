@@ -1,10 +1,9 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Game.Commands;
+﻿using OpenTibia.Game.Commands;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class TrapHandler : CommandHandler<PlayerMoveItemCommand>
+    public class TrapHandler : CommandHandler<ItemMoveToTileCommand>
     {
         private Dictionary<ushort, ushort> traps = new Dictionary<ushort, ushort>()
         {
@@ -13,9 +12,9 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort toOpenTibiaId;
 
-        public override bool CanHandle(Context context, PlayerMoveItemCommand command)
+        public override bool CanHandle(Context context, ItemMoveToTileCommand command)
         {
-            if (traps.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) && command.ToContainer is Tile toTile)
+            if (traps.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
                 return true;
             }
@@ -23,11 +22,11 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override void Handle(Context context, PlayerMoveItemCommand command)
+        public override void Handle(Context context, ItemMoveToTileCommand command)
         {
             context.AddCommand(new ItemDestroyCommand(command.Item) ).Then(ctx =>
             {
-                return ctx.AddCommand(new TileCreateItemCommand( (Tile)command.ToContainer, toOpenTibiaId, 1) );
+                return ctx.AddCommand(new TileCreateItemCommand(command.ToTile, toOpenTibiaId, 1) );
             
             } ).Then(ctx =>
             {

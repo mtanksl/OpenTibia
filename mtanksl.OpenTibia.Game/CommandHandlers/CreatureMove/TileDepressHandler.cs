@@ -1,4 +1,5 @@
-﻿using OpenTibia.Game.Commands;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Commands;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
@@ -17,10 +18,9 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override bool CanHandle(Context context, CreatureMoveCommand command)
         {
-            return false;
+            Tile fromTile = command.Creature.Tile;
 
-            /*
-            if (command.FromTile.Ground != null && tiles.TryGetValue(command.FromTile.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) && !command.Data.ContainsKey("TileDepressHandler") )
+            if (fromTile.Ground != null && tiles.TryGetValue(fromTile.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) && !command.Data.ContainsKey("TileDepressHandler") )
             {
                 command.Data.Add("TileDepressHandler", true);
 
@@ -28,21 +28,20 @@ namespace OpenTibia.Game.CommandHandlers
             }
 
             return false;
-            */
         }
 
         public override void Handle(Context context, CreatureMoveCommand command)
         {
-            /*
+            Tile fromTile = command.Creature.Tile;
+
             context.AddCommand(command).Then(ctx =>
             {
-                return ctx.AddCommand(new ItemTransformCommand(command.FromTile.Ground, toOpenTibiaId, 1) );
+                return ctx.AddCommand(new ItemTransformCommand(fromTile.Ground, toOpenTibiaId, 1) );
 
-            } ).Then(ctx =>
+            } ).Then( (ctx, item) =>
             {
                 OnComplete(ctx);
             } );
-            */
         }
     }
 }

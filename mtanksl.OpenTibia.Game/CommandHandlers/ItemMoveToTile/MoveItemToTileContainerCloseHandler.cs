@@ -1,27 +1,28 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
-using OpenTibia.Network.Packets.Outgoing;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class MoveItemContainerCloseHandler : CommandHandler<PlayerMoveItemCommand>
+    public class MoveItemToTileContainerCloseHandler : CommandHandler<ItemMoveToTileCommand>
     {
-        public override bool CanHandle(Context context, PlayerMoveItemCommand command)
+        public override bool CanHandle(Context context, ItemMoveToTileCommand command)
         {
+            /*
             if (command.Item is Container && !command.Data.ContainsKey("MoveItemContainerCloseHandler") )
             {
                 command.Data.Add("MoveItemContainerCloseHandler", true);
 
                 return true;
             }
+            */
 
             return false;
         }
 
-        public override void Handle(Context context, PlayerMoveItemCommand command)
+        public override void Handle(Context context, ItemMoveToTileCommand command)
         {
+            /*
             Container container = (Container)command.Item;
 
             HashSet<Player> isNextFrom = new HashSet<Player>();
@@ -157,6 +158,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 OnComplete(ctx);
             } );
+            */
         }
     }
 }

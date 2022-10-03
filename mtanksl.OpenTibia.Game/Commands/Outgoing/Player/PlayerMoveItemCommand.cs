@@ -1,6 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -31,7 +29,35 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
+            switch (ToContainer)
+            {
+                case Tile toTile:
+
+                    context.AddCommand(new ItemMoveToTileCommand(Item, toTile) ).Then(ctx =>
+                    {
+                        OnComplete(ctx);
+                    } );
+
+                    break;
+
+                case Inventory toInventory:
+
+                    context.AddCommand(new ItemMoveToInventoryCommand(Item, toInventory, ToIndex) ).Then(ctx =>
+                    {
+                        OnComplete(ctx);
+                    } );
+
+                    break;
+
+                case Container toContainer:
+
+                    context.AddCommand(new ItemMoveToContainerCommand(Item, toContainer) ).Then(ctx =>
+                    {
+                        OnComplete(ctx);
+                    } );
+
+                    break;
+            }
         }
     }
 }

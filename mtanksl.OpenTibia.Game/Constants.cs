@@ -21,6 +21,23 @@ namespace OpenTibia.Game
             return "Creature_Walk_" + creature.Id;
         }
 
+
+
+        public static string CreatureTalkSchedulerEvent(Creature creature)
+        {
+            return "Creature_Talk_" + creature.Id;
+        }
+
+        public static readonly int CreatureTalkSchedulerEventInterval = 30000;
+
+        public static string PlayerCheckConnectionSchedulerEvent(Player player)
+        {
+            return "Player_Check_Connection_" + player.Id;
+        }
+
+        public static readonly int PlayerCheckConnectionSchedulerEventInterval = 60000;
+
+
         public static readonly string OnlyProtocol86Allowed = "Only protocol 8.6 allowed.";
 
         public static readonly string AccountNameOrPasswordIsNotCorrect = "Account name or password is not correct.";

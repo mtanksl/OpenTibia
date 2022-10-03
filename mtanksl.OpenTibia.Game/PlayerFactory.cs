@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game
 {
@@ -17,6 +18,8 @@ namespace OpenTibia.Game
             {
                 Name = name
             };
+
+            player.AddComponent(new CheckConnectionBehaviour() );
 
             gameObjectCollection.AddGameObject(player);
 

@@ -2,11 +2,11 @@
 
 namespace OpenTibia.Game.Scripts
 {
-    public class PlayerMoveItemScripts : IScript
+    public class ItemMoveToContainerScripts : IScript
     {
         public void Start(Server server)
         {
-            server.CommandHandlers.Add(new MoveItemWalkToSourceHandler() );
+            server.CommandHandlers.Add(new MoveItemToContainerContainerCloseHandler() );
         }
 
         public void Stop(Server server)

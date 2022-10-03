@@ -13,11 +13,6 @@ namespace OpenTibia.Game.Commands
                 context.AddPacket(player.Client.Connection, new SetEnvironmentLightOutgoingPacket(context.Server.Clock.Light) );
             }
 
-            context.AddCommand(new DelayCommand(Constants.GlobalLightSchedulerEvent, Constants.GlobalLightSchedulerEventInterval) ).Then(ctx =>
-            {
-                Execute(ctx);
-            } );
-
             OnComplete(context);
         }
     }

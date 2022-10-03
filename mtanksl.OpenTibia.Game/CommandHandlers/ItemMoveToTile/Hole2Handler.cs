@@ -5,13 +5,13 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class Hole2Handler : CommandHandler<PlayerMoveItemCommand>
+    public class Hole2Handler : CommandHandler<ItemMoveToTileCommand>
     {
         private HashSet<ushort> holes = new HashSet<ushort>() { 383, 469, 470, 482, 484, 485, 4835 };
 
-        public override bool CanHandle(Context context, PlayerMoveItemCommand command)
+        public override bool CanHandle(Context context, ItemMoveToTileCommand command)
         {
-            if (command.ToContainer is Tile toTile && toTile.Ground != null && holes.Contains(toTile.Ground.Metadata.OpenTibiaId) )
+            if (command.ToTile.Ground != null && holes.Contains(command.ToTile.Ground.Metadata.OpenTibiaId) )
             {
                 return true;
             }
@@ -19,9 +19,9 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override void Handle(Context context, PlayerMoveItemCommand command)
+        public override void Handle(Context context, ItemMoveToTileCommand command)
         {
-            Tile toTile = (Tile)command.ToContainer;
+            Tile toTile = command.ToTile;
 
             if (toTile.FloorChange == FloorChange.Down)
             {
@@ -61,7 +61,7 @@ namespace OpenTibia.Game.CommandHandlers
                 }
             }
 
-            context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toTile, 0, command.Count) ).Then(ctx =>
+            context.AddCommand(new ItemMoveToTileCommand(command.Item, toTile) ).Then(ctx =>
             {
                 OnComplete(ctx);
             } );

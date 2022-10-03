@@ -8,11 +8,47 @@ namespace OpenTibia.Game.Scripts
         {
             server.QueueForExecution(ctx =>
             {
-                ctx.AddCommand(new GlobalLightCommand() );
-            
-                ctx.AddCommand(new GlobalItemsCommand() );
-                        
-                ctx.AddCommand(new GlobalCreaturesCommand() );
+                GlobalCreatures(ctx);
+
+                GlobalItems(ctx);
+
+                GlobalLight(ctx);
+            } );
+        }
+
+        private void GlobalCreatures(Context context)
+        {
+            context.AddCommand(new GlobalCreaturesCommand() ).Then(ctx =>
+            {
+                return ctx.AddCommand(new DelayCommand(Constants.GlobalCreaturesSchedulerEvent, Constants.GlobalCreaturesSchedulerEventInterval) );
+
+            } ) .Then(ctx =>
+            {
+                GlobalCreatures(ctx);
+            } );
+        }
+
+        private void GlobalItems(Context context)
+        {
+            context.AddCommand(new GlobalItemsCommand() ).Then(ctx =>
+            {
+                return ctx.AddCommand(new DelayCommand(Constants.GlobalItemsSchedulerEvent, Constants.GlobalItemsSchedulerEventInterval) );
+
+            } ) .Then(ctx =>
+            {
+                GlobalItems(ctx);
+            } );
+        }
+
+        private void GlobalLight(Context context)
+        {
+            context.AddCommand(new GlobalLightCommand() ).Then(ctx =>
+            {
+                return ctx.AddCommand(new DelayCommand(Constants.GlobalLightSchedulerEvent, Constants.GlobalLightSchedulerEventInterval) );
+
+            } ) .Then(ctx =>
+            {
+                GlobalLight(ctx);
             } );
         }
 

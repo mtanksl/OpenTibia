@@ -15,13 +15,15 @@ namespace OpenTibia.Game.Components
             creature = (Creature)GameObject;
         }
 
-        public override void Stop(Server server)
-        {
-            creature = null;
-        }
+        private bool running = false;
 
         public override void Update(Context context)
         {
+            if (running)
+            {
+                return;
+            }
+
             foreach (var observer in context.Server.GameObjects.GetPlayers() )
             {
                 if (creature.Tile.Position.IsInClientRange(observer.Tile.Position) )
@@ -36,7 +38,18 @@ namespace OpenTibia.Game.Components
                         }
                         else
                         {
-                            context.AddCommand(new CreatureMoveCommand(creature, toTile) );
+                            running = true;
+
+                            context.AddCommand(new CreatureMoveCommand(creature, toTile) ).Then(ctx =>
+                            {
+                                return ctx.AddCommand(new DelayCommand(Constants.CreatureWalkSchedulerEvent(creature), 1000 * toTile.Ground.Metadata.Speed / creature.Speed) );
+
+                            } ).Then(ctx =>
+                            {
+                                running = false;
+
+                                Update(ctx);
+                            } );
 
                             break;
                         }
@@ -45,6 +58,11 @@ namespace OpenTibia.Game.Components
                     break;
                 }
             }
+        }
+
+        public override void Stop(Server server)
+        {
+            server.CancelQueueForExecution(Constants.CreatureWalkSchedulerEvent(creature) );
         }
     }
 }
