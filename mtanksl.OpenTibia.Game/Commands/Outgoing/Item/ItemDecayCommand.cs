@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.Commands
 {
@@ -26,14 +25,10 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            var component = Item.GetComponent<ItemDecayBehaviour>();
-
-            if (component != null)
+            context.AddCommand(new DelayCommand(Constants.ItemDecaySchedulerEvent(Item), ExecuteInMilliseconds) ).Then(ctx =>
             {
-                Item.RemoveComponent(component);
-            }
-
-            Item.AddComponent(new ItemDecayBehaviour(ExecuteInMilliseconds, OpenTibiaId, Count) );
+                ctx.AddCommand(new ItemTransformCommand(Item, OpenTibiaId, Count) );
+            } );
 
             OnComplete(context);
         }

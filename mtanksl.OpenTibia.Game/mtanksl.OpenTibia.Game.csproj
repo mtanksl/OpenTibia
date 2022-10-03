@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviours\ItemDecayBehaviour.cs" />
     <Compile Include="CommandHandlerCollection.cs" />
     <Compile Include="CommandHandlers\CommandHandlerResult.cs" />
     <Compile Include="CommandHandlers\CommandHandler.cs" />
