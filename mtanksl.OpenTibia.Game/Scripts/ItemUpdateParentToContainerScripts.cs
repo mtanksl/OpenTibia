@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Scripts
 {
-    public class ItemMoveToContainerScripts : IScript
+    public class ItemUpdateParentToContainerScripts : IScript
     {
         public void Start(Server server)
         {

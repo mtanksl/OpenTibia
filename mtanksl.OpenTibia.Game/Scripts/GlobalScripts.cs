@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Scripts
         {
             context.AddCommand(new GlobalCreaturesCommand() ).Then(ctx =>
             {
-                return ctx.AddCommand(new DelayCommand(Constants.GlobalCreaturesSchedulerEvent, Constants.GlobalCreaturesSchedulerEventInterval) );
+                return Promise.Delay(ctx, Constants.GlobalCreaturesSchedulerEvent, Constants.GlobalCreaturesSchedulerEventInterval);
 
             } ) .Then(ctx =>
             {
@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Scripts
         {
             context.AddCommand(new GlobalItemsCommand() ).Then(ctx =>
             {
-                return ctx.AddCommand(new DelayCommand(Constants.GlobalItemsSchedulerEvent, Constants.GlobalItemsSchedulerEventInterval) );
+                return Promise.Delay(ctx, Constants.GlobalItemsSchedulerEvent, Constants.GlobalItemsSchedulerEventInterval);
 
             } ) .Then(ctx =>
             {
@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Scripts
         {
             context.AddCommand(new GlobalLightCommand() ).Then(ctx =>
             {
-                return ctx.AddCommand(new DelayCommand(Constants.GlobalLightSchedulerEvent, Constants.GlobalLightSchedulerEventInterval) );
+                return Promise.Delay(ctx, Constants.GlobalLightSchedulerEvent, Constants.GlobalLightSchedulerEventInterval);
 
             } ) .Then(ctx =>
             {

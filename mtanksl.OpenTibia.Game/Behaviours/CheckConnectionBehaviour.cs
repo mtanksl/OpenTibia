@@ -21,8 +21,8 @@ namespace OpenTibia.Game.Components
         private void Ping(Context context)
         {
             context.AddPacket(player.Client.Connection, new PingOutgoingPacket() );
-           
-            context.AddCommand(new DelayCommand(Constants.PlayerCheckConnectionSchedulerEvent(player), Constants.PlayerCheckConnectionSchedulerEventInterval) ).Then(ctx =>
+
+            Promise.Delay(context, Constants.PlayerCheckConnectionSchedulerEvent(player), Constants.PlayerCheckConnectionSchedulerEventInterval).Then(ctx =>
             { 
                 Ping(ctx);
             } );

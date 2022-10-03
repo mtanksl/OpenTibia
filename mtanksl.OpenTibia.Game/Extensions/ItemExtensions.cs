@@ -26,25 +26,25 @@ namespace OpenTibia.Game.Extensions
             return context.AddCommand(new ItemDestroyCommand(item) );
         }
 
-        public static Promise Move(this Item item, Tile toTile)
+        public static Promise UpdateParentToTile(this Item item, Tile toTile)
         {
             Context context = Context.Current;
 
-            return context.AddCommand(new ItemMoveToTileCommand(item, toTile) );
+            return context.AddCommand(new ItemUpdateParentToTileCommand(item, toTile) );
         }
 
-        public static Promise Move(this Item item, Inventory toInventory, byte slot)
+        public static Promise UpdateParentToInventory(this Item item, Inventory toInventory, byte slot)
         {
             Context context = Context.Current;
 
-            return context.AddCommand(new ItemMoveToInventoryCommand(item, toInventory, slot) );
+            return context.AddCommand(new ItemUpdateParentToInventoryCommand(item, toInventory, slot) );
         }
 
-        public static Promise Move(this Item item, Container toContiner)
+        public static Promise UpdateParentToContainer(this Item item, Container toContiner)
         {
             Context context = Context.Current;
 
-            return context.AddCommand(new ItemMoveToContainerCommand(item, toContiner) );
+            return context.AddCommand(new ItemUpdateParentToContainerCommand(item, toContiner) );
         }
 
         public static PromiseResult<Item> Transform(this Item item, ushort openTibiaId, byte count)

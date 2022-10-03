@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
 
         public override void Execute(Context context)
         {
-            context.AddCommand(new DelayCommand(Constants.ItemDecaySchedulerEvent(Item), ExecuteInMilliseconds) ).Then(ctx =>
+            Promise.Delay(context, Constants.ItemDecaySchedulerEvent(Item), ExecuteInMilliseconds).Then(ctx =>
             {
                 ctx.AddCommand(new ItemTransformCommand(Item, OpenTibiaId, Count) );
             } );

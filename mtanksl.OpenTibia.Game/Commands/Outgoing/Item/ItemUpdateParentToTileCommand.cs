@@ -2,18 +2,18 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class ItemMoveToContainerCommand : Command
+    public class ItemUpdateParentToTileCommand : Command
     {
-        public ItemMoveToContainerCommand(Item item, Container toContainer)
+        public ItemUpdateParentToTileCommand(Item item, Tile toTile)
         {
             Item = item;
 
-            ToContainer = toContainer;
+            ToTile = toTile;
         }
 
         public Item Item { get; set; }
-        
-        public Container ToContainer { get; set; }
+
+        public Tile ToTile { get; set; }
 
         public override void Execute(Context context)
         {
@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
 
                     context.AddCommand(new TileRemoveItemCommand(fromTile, Item) ).Then(ctx =>
                     {
-                        return ctx.AddCommand(new ContainerAddItemCommand(ToContainer, Item) );
+                        return ctx.AddCommand(new TileAddItemCommand(ToTile, Item) );
 
                     } ).Then(ctx =>
                     {
@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
 
                     context.AddCommand(new InventoryRemoveItemCommand(fromInventory, Item) ).Then(ctx =>
                     {
-                        return ctx.AddCommand(new ContainerAddItemCommand(ToContainer, Item) );
+                        return ctx.AddCommand(new TileAddItemCommand(ToTile, Item) );
 
                     } ).Then(ctx =>
                     {
@@ -49,7 +49,7 @@ namespace OpenTibia.Game.Commands
 
                     context.AddCommand(new ContainerRemoveItemCommand(fromContainer, Item) ).Then(ctx =>
                     {
-                        return ctx.AddCommand(new ContainerAddItemCommand(ToContainer, Item) );
+                        return ctx.AddCommand(new TileAddItemCommand(ToTile, Item) );
 
                     } ).Then(ctx =>
                     {

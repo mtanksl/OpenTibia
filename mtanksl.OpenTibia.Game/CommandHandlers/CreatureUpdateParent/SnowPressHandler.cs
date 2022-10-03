@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class SnowPressHandler : CommandHandler<CreatureMoveCommand>
+    public class SnowPressHandler : CommandHandler<CreatureUpdateParentCommand>
     {
         private Dictionary<ushort, ushort> tiles = new Dictionary<ushort, ushort>()
         {
@@ -27,11 +27,9 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort toOpenTibiaId;
 
-        public override bool CanHandle(Context context, CreatureMoveCommand command)
+        public override bool CanHandle(Context context, CreatureUpdateParentCommand command)
         {
-            Tile toTile = command.ToTile;
-
-            if (toTile.Ground != null && tiles.TryGetValue(toTile.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) && !command.Data.ContainsKey("SnowPressHandler") )
+            if (command.ToTile.Ground != null && tiles.TryGetValue(command.ToTile.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) && !command.Data.ContainsKey("SnowPressHandler") )
             {
                 command.Data.Add("SnowPressHandler", true);
 
@@ -41,13 +39,11 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override void Handle(Context context, CreatureMoveCommand command)
+        public override void Handle(Context context, CreatureUpdateParentCommand command)
         {
-            Tile toTile = command.ToTile;
-
             context.AddCommand(command).Then(ctx =>
             {
-                return ctx.AddCommand(new ItemTransformCommand(toTile.Ground, toOpenTibiaId, 1) );
+                return ctx.AddCommand(new ItemTransformCommand(command.ToTile.Ground, toOpenTibiaId, 1) );
 
             } ).Then( (ctx, item) =>
             {

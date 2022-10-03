@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Scripts
 {
-    public class CreatureMoveScripts : IScript
+    public class CreatureUpdateParentScripts : IScript
     {
         public void Start(Server server)
         {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class TileDepressHandler : CommandHandler<CreatureMoveCommand>
+    public class TileDepressHandler : CommandHandler<CreatureUpdateParentCommand>
     {
         private Dictionary<ushort, ushort> tiles = new Dictionary<ushort, ushort>()
         {
@@ -16,11 +16,9 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort toOpenTibiaId;
 
-        public override bool CanHandle(Context context, CreatureMoveCommand command)
+        public override bool CanHandle(Context context, CreatureUpdateParentCommand command)
         {
-            Tile fromTile = command.Creature.Tile;
-
-            if (fromTile.Ground != null && tiles.TryGetValue(fromTile.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) && !command.Data.ContainsKey("TileDepressHandler") )
+            if (command.Creature.Tile.Ground != null && tiles.TryGetValue(command.Creature.Tile.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) && !command.Data.ContainsKey("TileDepressHandler") )
             {
                 command.Data.Add("TileDepressHandler", true);
 
@@ -30,7 +28,7 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override void Handle(Context context, CreatureMoveCommand command)
+        public override void Handle(Context context, CreatureUpdateParentCommand command)
         {
             Tile fromTile = command.Creature.Tile;
 

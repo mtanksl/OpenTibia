@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Scripts
 {
-    public class ItemMoveToInventoryScripts : IScript
+    public class ItemUpdateParentToInventoryScripts : IScript
     {
         public void Start(Server server)
         {

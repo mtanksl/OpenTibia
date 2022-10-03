@@ -40,9 +40,9 @@ namespace OpenTibia.Game.Components
                         {
                             running = true;
 
-                            context.AddCommand(new CreatureMoveCommand(creature, toTile) ).Then(ctx =>
+                            context.AddCommand(new CreatureUpdateParentCommand(creature, toTile) ).Then(ctx =>
                             {
-                                return ctx.AddCommand(new DelayCommand(Constants.CreatureWalkSchedulerEvent(creature), 1000 * toTile.Ground.Metadata.Speed / creature.Speed) );
+                                return Promise.Delay(ctx, Constants.CreatureWalkSchedulerEvent(creature), 1000 * toTile.Ground.Metadata.Speed / creature.Speed);
 
                             } ).Then(ctx =>
                             {

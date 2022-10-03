@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class MoveContainerCloseHandler : CommandHandler<CreatureMoveCommand>
+    public class MoveContainerCloseHandler : CommandHandler<CreatureUpdateParentCommand>
     {
-        public override bool CanHandle(Context context, CreatureMoveCommand command)
+        public override bool CanHandle(Context context, CreatureUpdateParentCommand command)
         {
             if (command.Creature is Player player && player.Client.ContainerCollection.GetContainers().Any(c => c.Root() is Tile) && !command.Data.ContainsKey("MoveContainerCloseHandler") )
             {
@@ -19,15 +19,17 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override void Handle(Context context, CreatureMoveCommand command)
+        public override void Handle(Context context, CreatureUpdateParentCommand command)
         {
+            Player player = (Player)command.Creature;
+
+            Tile toTile = command.ToTile;
+
             context.AddCommand(command).Then(ctx =>
             {
-                Player player = (Player)command.Creature;
-
                 foreach (var pair in player.Client.ContainerCollection.GetIndexedContainers() )
                 {
-                    if (pair.Value.Root() is Tile tile && !command.ToTile.Position.IsNextTo(tile.Position) )
+                    if (pair.Value.Root() is Tile tile && !toTile.Position.IsNextTo(tile.Position) )
                     {
                         player.Client.ContainerCollection.CloseContainer(pair.Key);
 

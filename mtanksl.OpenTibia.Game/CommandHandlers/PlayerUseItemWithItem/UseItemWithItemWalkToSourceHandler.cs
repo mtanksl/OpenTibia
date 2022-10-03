@@ -19,6 +19,8 @@ namespace OpenTibia.Game.CommandHandlers
         {
             context.AddCommand(new WalkToUnknownPathCommand(command.Player, (Tile)command.Item.Parent) ).Then(ctx =>
             {
+                //TODO: Check if item has moved
+
                 return ctx.AddCommand(command);
 
             } ).Then(ctx =>

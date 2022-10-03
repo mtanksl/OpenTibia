@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class LavaHandler : CommandHandler<ItemMoveToTileCommand>
+    public class LavaHandler : CommandHandler<ItemUpdateParentToTileCommand>
     {
         private HashSet<ushort> lavas = new HashSet<ushort>() { 598, 599, 600, 601 };
 
-        public override bool CanHandle(Context context, ItemMoveToTileCommand command)
+        public override bool CanHandle(Context context, ItemUpdateParentToTileCommand command)
         {
             if (command.ToTile.Ground != null && lavas.Contains(command.ToTile.Ground.Metadata.OpenTibiaId) )
             {
@@ -18,7 +18,7 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override void Handle(Context context, ItemMoveToTileCommand command)
+        public override void Handle(Context context, ItemUpdateParentToTileCommand command)
         {
             context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
             {

@@ -2,22 +2,18 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class ItemMoveToInventoryCommand : Command
+    public class ItemUpdateParentToContainerCommand : Command
     {
-        public ItemMoveToInventoryCommand(Item item, Inventory toInventory, byte slot)
+        public ItemUpdateParentToContainerCommand(Item item, Container toContainer)
         {
             Item = item;
 
-            ToInventory = toInventory;
-
-            Slot = slot;
+            ToContainer = toContainer;
         }
 
         public Item Item { get; set; }
-
-        public Inventory ToInventory { get; set; }
-
-        public byte Slot { get; set; }
+        
+        public Container ToContainer { get; set; }
 
         public override void Execute(Context context)
         {
@@ -27,7 +23,7 @@ namespace OpenTibia.Game.Commands
 
                     context.AddCommand(new TileRemoveItemCommand(fromTile, Item) ).Then(ctx =>
                     {
-                        return ctx.AddCommand(new InventoryAddItemCommand(ToInventory, Slot, Item) );
+                        return ctx.AddCommand(new ContainerAddItemCommand(ToContainer, Item) );
 
                     } ).Then(ctx =>
                     {
@@ -40,7 +36,7 @@ namespace OpenTibia.Game.Commands
 
                     context.AddCommand(new InventoryRemoveItemCommand(fromInventory, Item) ).Then(ctx =>
                     {
-                        return ctx.AddCommand(new InventoryAddItemCommand(ToInventory, Slot, Item) );
+                        return ctx.AddCommand(new ContainerAddItemCommand(ToContainer, Item) );
 
                     } ).Then(ctx =>
                     {
@@ -53,7 +49,7 @@ namespace OpenTibia.Game.Commands
 
                     context.AddCommand(new ContainerRemoveItemCommand(fromContainer, Item) ).Then(ctx =>
                     {
-                        return ctx.AddCommand(new InventoryAddItemCommand(ToInventory, Slot, Item) );
+                        return ctx.AddCommand(new ContainerAddItemCommand(ToContainer, Item) );
 
                     } ).Then(ctx =>
                     {

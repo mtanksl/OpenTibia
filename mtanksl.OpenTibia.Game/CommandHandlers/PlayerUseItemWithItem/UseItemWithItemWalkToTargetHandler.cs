@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.CommandHandlers
@@ -17,7 +18,20 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, PlayerUseItemWithItemCommand command)
         {
-            OnComplete(context);
+            context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, command.Player.Inventory, (byte)Slot.Extra, 1) ).Then(ctx =>
+            {
+                return ctx.AddCommand(new WalkToUnknownPathCommand(command.Player, (Tile)command.ToItem.Parent) );
+
+            } ).Then(ctx =>
+            {                
+                //TODO: Check if item has moved
+
+                return ctx.AddCommand(command);
+
+            } ).Then(ctx =>
+            {
+                OnComplete(ctx);
+            } );
         }
     }
 }

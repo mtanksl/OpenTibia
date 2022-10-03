@@ -4,9 +4,9 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class CreatureMoveCommand : Command
+    public class CreatureUpdateParentCommand : Command
     {
-        public CreatureMoveCommand(Creature creature, Tile toTile)
+        public CreatureUpdateParentCommand(Creature creature, Tile toTile)
         {
             Creature = creature;
 

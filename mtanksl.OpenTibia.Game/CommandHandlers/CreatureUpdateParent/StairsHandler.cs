@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class StairsHandler : CommandHandler<CreatureMoveCommand>
+    public class StairsHandler : CommandHandler<CreatureUpdateParentCommand>
     {
         private HashSet<ushort> stairs = new HashSet<ushort>() { 1385, 5258, 1396, 8709, 3687, 3688, 5259, 5260 };
 
-        public override bool CanHandle(Context context, CreatureMoveCommand command)
+        public override bool CanHandle(Context context, CreatureUpdateParentCommand command)
         {
             if (command.ToTile.TopItem != null && stairs.Contains(command.ToTile.TopItem.Metadata.OpenTibiaId) )
             {
@@ -19,7 +19,7 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override void Handle(Context context, CreatureMoveCommand command)
+        public override void Handle(Context context, CreatureUpdateParentCommand command)
         {
             Tile toTile = command.ToTile;
 
@@ -56,7 +56,7 @@ namespace OpenTibia.Game.CommandHandlers
                 toTile = context.Server.Map.GetTile(toTile.Position.Offset(1, 1, -1) );
             }
 
-            context.AddCommand(new CreatureMoveCommand(command.Creature, toTile) ).Then(ctx =>
+            context.AddCommand(new CreatureUpdateParentCommand(command.Creature, toTile) ).Then(ctx =>
             {
                 OnComplete(ctx);
             } );

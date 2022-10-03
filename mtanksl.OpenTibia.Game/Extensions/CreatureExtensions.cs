@@ -6,11 +6,11 @@ namespace OpenTibia.Game.Extensions
 {
     public static class CreatureExtensions
     {
-        public static Promise Move(this Creature creature, Tile toTile)
+        public static Promise UpdateParent(this Creature creature, Tile toTile)
         {
             Context context = Context.Current;
 
-            return context.AddCommand(new CreatureMoveCommand(creature, toTile) );
+            return context.AddCommand(new CreatureUpdateParentCommand(creature, toTile) );
         }
 
         public static Promise UpdateDirection(this Creature creature, Direction direction)

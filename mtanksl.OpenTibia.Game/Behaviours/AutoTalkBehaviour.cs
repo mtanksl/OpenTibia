@@ -38,7 +38,7 @@ namespace OpenTibia.Game.Components
 
                     context.AddCommand(new ShowTextCommand(creature, TalkType.MonsterSay, sentences.Random() ) ).Then(ctx =>
                     {
-                        return ctx.AddCommand(new DelayCommand(Constants.CreatureTalkSchedulerEvent(creature), Constants.CreatureTalkSchedulerEventInterval) );
+                        return Promise.Delay(ctx, Constants.CreatureTalkSchedulerEvent(creature), Constants.CreatureTalkSchedulerEventInterval);
 
                     } ).Then(ctx =>
                     {

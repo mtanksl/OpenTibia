@@ -5,11 +5,11 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class HoleHandler : CommandHandler<CreatureMoveCommand>
+    public class HoleHandler : CommandHandler<CreatureUpdateParentCommand>
     {
         private HashSet<ushort> holes = new HashSet<ushort>() { 383, 469, 470, 482, 484, 485, 4835 };
 
-        public override bool CanHandle(Context context, CreatureMoveCommand command)
+        public override bool CanHandle(Context context, CreatureUpdateParentCommand command)
         {
             if (command.ToTile.Ground != null && holes.Contains(command.ToTile.Ground.Metadata.OpenTibiaId) )
             {
@@ -19,7 +19,7 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override void Handle(Context context, CreatureMoveCommand command)
+        public override void Handle(Context context, CreatureUpdateParentCommand command)
         {
             Tile toTile = command.ToTile;
 
@@ -61,7 +61,7 @@ namespace OpenTibia.Game.CommandHandlers
                 }
             }
 
-            context.AddCommand(new CreatureMoveCommand(command.Creature, toTile) ).Then(ctx =>
+            context.AddCommand(new CreatureUpdateParentCommand(command.Creature, toTile) ).Then(ctx =>
             {
                 OnComplete(ctx);
             } );

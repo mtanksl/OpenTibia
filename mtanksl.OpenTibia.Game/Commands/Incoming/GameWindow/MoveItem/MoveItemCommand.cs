@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
+using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -45,18 +46,6 @@ namespace OpenTibia.Game.Commands
             if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Pickupable) )
             {
                 context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTakeThisObject) );
-
-                return false;
-            }
-
-            return true;
-        }
-
-        protected bool CanThrow(Context context, Tile fromTile, Tile toTile)
-        {
-            if ( !context.Server.Pathfinding.CanThrow(fromTile.Position, toTile.Position) )
-            {
-                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
 
                 return false;
             }

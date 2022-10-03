@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class ItemMoveToTileContainerCloseHandler : CommandHandler<ItemMoveToTileCommand>
+    public class ItemMoveToTileContainerCloseHandler : CommandHandler<ItemUpdateParentToTileCommand>
     {
-        public override bool CanHandle(Context context, ItemMoveToTileCommand command)
+        public override bool CanHandle(Context context, ItemUpdateParentToTileCommand command)
         {
             /*
             if (command.Item is Container && !command.Data.ContainsKey("MoveItemContainerCloseHandler") )
@@ -20,7 +20,7 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override void Handle(Context context, ItemMoveToTileCommand command)
+        public override void Handle(Context context, ItemUpdateParentToTileCommand command)
         {
             /*
             Container container = (Container)command.Item;

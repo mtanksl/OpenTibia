@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class CandlestickHandler : CommandHandler<ItemMoveToTileCommand>
+    public class CandlestickHandler : CommandHandler<ItemUpdateParentToTileCommand>
     {
         private HashSet<ushort> candlestick = new HashSet<ushort>() { 2048 };
 
@@ -19,7 +19,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort toOpenTibiaId;
 
-        public override bool CanHandle(Context context, ItemMoveToTileCommand command)
+        public override bool CanHandle(Context context, ItemUpdateParentToTileCommand command)
         {
             if (candlestick.Contains(command.Item.Metadata.OpenTibiaId) && command.ToTile.TopItem != null && transformations.TryGetValue(command.ToTile.TopItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
@@ -29,7 +29,7 @@ namespace OpenTibia.Game.CommandHandlers
             return false;
         }
 
-        public override void Handle(Context context, ItemMoveToTileCommand command)
+        public override void Handle(Context context, ItemUpdateParentToTileCommand command)
         {
             context.AddCommand(new ItemDestroyCommand(command.Item) ).Then(ctx =>
             {
