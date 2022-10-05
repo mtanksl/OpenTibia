@@ -1,119 +1,35 @@
-﻿using System.Collections.Generic;
+﻿using OpenTibia.Data.Contexts;
+using OpenTibia.Data.Models;
+using System.Data.Entity;
 using System.Linq;
 
-namespace OpenTibia.Data
+namespace OpenTibia.Data.Repositories
 {
     public class PlayerRepository
     {
-        private string gameServerIpAddress;
+        private SqliteContext context;
 
-        private int gameServerPort;
-
-        public PlayerRepository(string gameServerIpAddress, int gameServerPort)
+        public PlayerRepository(SqliteContext context)
         {
-            this.gameServerIpAddress = gameServerIpAddress;
-
-            this.gameServerPort = gameServerPort;
+            this.context = context;
         }
 
-        private List<AccountRow> accounts;
-
-        public AccountRow GetAccount(string accountName, string accountPassword)
+        public Account GetAccount(string accountName, string accountPassword)
         {
-            if (accounts == null)
-            {
-                accounts = new List<AccountRow>()
-                {
-                    new AccountRow()
-                    {
-                        Name = "",
-
-                        Password = "",
-
-                        PremiumDays = 0,
-
-                        Players = new List<PlayerRow>()
-                        {
-                            new PlayerRow()
-                            {
-                               Name = "Player 1",
-
-                               CoordinateX = 930,
-
-                               CoordinateY = 779,
-
-                               CoordinateZ = 7,
-
-                               World = new WorldRow()
-                               {
-                                   Name = "World",
-
-                                   Ip = gameServerIpAddress,
-
-                                   Port = gameServerPort
-                               }
-                            },
-
-                            new PlayerRow()
-                            {
-                               Name = "Player 2",
-
-                               CoordinateX = 931,
-
-                               CoordinateY = 779,
-
-                               CoordinateZ = 7,
-
-                               World = new WorldRow()
-                               {
-                                   Name = "World",
-
-                                   Ip = gameServerIpAddress,
-
-                                   Port = gameServerPort
-                               }
-                            },
-
-                            new PlayerRow()
-                            {
-                               Name = "Player 3",
-
-                               CoordinateX = 932,
-
-                               CoordinateY = 779,
-
-                               CoordinateZ = 7,
-
-                               World = new WorldRow()
-                               {
-                                   Name = "World",
-
-                                   Ip = gameServerIpAddress,
-
-                                   Port = gameServerPort
-                               }
-                            }
-                        }
-                    }
-                };
-            }
-
-            return accounts.Where(a => a.Name == accountName &&
-                                       a.Password == accountPassword)
-                           .FirstOrDefault();
+            return context.Accounts
+                .Include(a => a.Players.Select(p => p.World) )
+                .Where(a => a.Name == accountName &&
+                            a.Password == accountPassword)
+                .FirstOrDefault();
         }
 
-        public PlayerRow GetPlayer(string accountName, string accountPassword, string playerName)
+        public Player GetPlayer(string accountName, string accountPassword, string playerName)
         {
-            AccountRow account = GetAccount(accountName, accountPassword);
-
-            if (account == null)
-            {
-                return null;
-            }
-
-            return account.Players.Where(p => p.Name == playerName)
-                                  .FirstOrDefault();
+            return context.Players
+                .Where(p => p.Account.Name == accountName &&
+                            p.Account.Password == accountPassword &&
+                            p.Name == playerName)
+                .FirstOrDefault();
         }
     }
 }

@@ -11,6 +11,34 @@ namespace OpenTibia.Common.Objects
     {
         public Map(ItemFactory itemFactory, OtbmFile otbmFile)
         {
+            if (otbmFile.Towns != null)
+            {
+                this.towns = new Dictionary<string, Town>(otbmFile.Towns.Count);
+
+                foreach (var town in otbmFile.Towns)
+                {
+                    towns.Add(town.Name, town);
+                }
+            }
+            else
+            {
+                this.towns = new Dictionary<string, Town>();
+            }
+
+            if (otbmFile.Waypoints != null)
+            {
+                this.waypoints = new Dictionary<string, Waypoint>(otbmFile.Waypoints.Count);
+
+                foreach (var waypoint in otbmFile.Waypoints)
+                {
+                    waypoints.Add(waypoint.Name, waypoint);
+                }
+            }
+            else
+            {
+                this.waypoints = new Dictionary<string, Waypoint>();
+            }
+
             this.tiles = new Dictionary<Position, Tile>(otbmFile.Areas.Sum(area => area.Tiles.Count) );
 
             foreach (var otbmArea in otbmFile.Areas)
@@ -30,7 +58,7 @@ namespace OpenTibia.Common.Objects
 
                     if (otbmTile.Items != null)
                     {
-                        void AddItems(IContainer rootContainer, List<OtbmItem> items)
+                        void AddItems(IContainer parent, List<OtbmItem> items)
                         {
                             foreach (var otbmItem in items)
                             {
@@ -52,7 +80,7 @@ namespace OpenTibia.Common.Objects
                                     readableItem.Text = otbmItem.Text;
                                 }
 
-                                rootContainer.AddContent(item);
+                                parent.AddContent(item);
                             }
                         }
 
@@ -60,6 +88,38 @@ namespace OpenTibia.Common.Objects
                     }
                 }
             }
+        }
+
+        private Dictionary<string, Town> towns;
+
+        public Town GetTown(string name)
+        {
+            Town town;
+
+            towns.TryGetValue(name, out town);
+
+            return town;
+        }
+
+        public IEnumerable<Town> GetTowns()
+        {
+            return towns.Values;
+        }
+
+        private Dictionary<string, Waypoint> waypoints;
+
+        public Waypoint GetWaypoint(string name)
+        {
+            Waypoint waypoint;
+
+            waypoints.TryGetValue(name, out waypoint);
+
+            return waypoint;
+        }
+
+        public IEnumerable<Waypoint> GetWaypoints()
+        {
+            return waypoints.Values;
         }
 
         private Dictionary<Position, Tile> tiles;

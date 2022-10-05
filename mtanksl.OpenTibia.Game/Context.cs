@@ -46,6 +46,16 @@ namespace OpenTibia.Game
             }
         }
 
+        private DatabaseContext databaseContext;
+
+        public DatabaseContext DatabaseContext
+        {
+            get
+            {
+                return databaseContext ?? (databaseContext = new DatabaseContext() );
+            }
+        }
+
         private Dictionary<string, object> data;
 
         public Dictionary<string, object> Data
@@ -257,7 +267,10 @@ namespace OpenTibia.Game
 
                 if (disposing)
                 {
-                    
+                    if (databaseContext != null)
+                    {
+                        databaseContext.Dispose();
+                    }
                 }
             }
         }        

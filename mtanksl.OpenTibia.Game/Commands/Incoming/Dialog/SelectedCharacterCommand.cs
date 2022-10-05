@@ -1,6 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Data;
 using OpenTibia.Network.Packets.Incoming;
 using OpenTibia.Network.Packets.Outgoing;
 
@@ -33,7 +32,7 @@ namespace OpenTibia.Game.Commands
             }
             else
             {
-                PlayerRow account = context.Server.PlayerRepository.GetPlayer(Packet.Account, Packet.Password, Packet.Character);
+                var account = context.DatabaseContext.PlayerRepository.GetPlayer(Packet.Account, Packet.Password, Packet.Character);
 
                 if (account == null)
                 {

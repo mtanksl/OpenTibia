@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Data;
+using OpenTibia.Data.Contexts;
 using OpenTibia.FileFormats.Dat;
 using OpenTibia.FileFormats.Otb;
 using OpenTibia.FileFormats.Otbm;
@@ -16,16 +17,12 @@ namespace OpenTibia.Game
 {
     public class Server : IDisposable
     {
-        private string gameServerIpAddress;
-
         private int loginServerPort;
         
         private int gameServerPort;
 
-        public Server(string gameServerIpAddress, int loginServerPort, int gameServerPort)
+        public Server(int loginServerPort, int gameServerPort)
         {
-            this.gameServerIpAddress = gameServerIpAddress;
-
             this.loginServerPort = loginServerPort;
 
             this.gameServerPort = gameServerPort;
@@ -42,7 +39,7 @@ namespace OpenTibia.Game
 
         private List<Listener> listeners;
 
-        public PlayerRepository PlayerRepository { get; set; }
+        public DatabaseFactory DatabaseFactory { get; set; }
 
         public PacketsFactory PacketsFactory { get; set; }
 
@@ -86,7 +83,7 @@ namespace OpenTibia.Game
 
             listeners.Add(new Listener(gameServerPort, socket => new GameConnection(this, socket) ) );
 
-            PlayerRepository = new PlayerRepository(gameServerIpAddress, gameServerPort);
+            DatabaseFactory = new DatabaseFactory();
 
             PacketsFactory = new PacketsFactory();
 

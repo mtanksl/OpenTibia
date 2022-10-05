@@ -7,7 +7,7 @@ namespace mtanksl.OpenTibia.Host
     {
         static void Main(string[] args)
         {
-            using (var server = new Server("127.0.0.1", 7171, 7172) )
+            using (var server = new Server(7171, 7172) )
             {
                 server.Start();
 

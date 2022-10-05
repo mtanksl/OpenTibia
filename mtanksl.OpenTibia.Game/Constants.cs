@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game
 {
@@ -11,7 +12,7 @@ namespace OpenTibia.Game
         public static readonly int GlobalItemsSchedulerEventInterval = 60000;
 
         public static readonly string GlobalLightSchedulerEvent = "Global_Light";
-        public static readonly int GlobalLightSchedulerEventInterval = 10000;
+        public static readonly int GlobalLightSchedulerEventInterval = Clock.Interval;
 
         public static string CreatureWalkSchedulerEvent(Creature creature) => "Creature_Walk_" + creature.Id;
 
