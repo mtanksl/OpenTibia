@@ -1,7 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Data;
-using OpenTibia.Data.Contexts;
 using OpenTibia.FileFormats.Dat;
 using OpenTibia.FileFormats.Otb;
 using OpenTibia.FileFormats.Otbm;

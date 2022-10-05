@@ -10,19 +10,25 @@ namespace OpenTibia.Game.Scripts
 
             server.CommandHandlers.Add(new ContainerOpenHandler() );
 
+            server.CommandHandlers.Add(new FoodHandler() );
+
             server.CommandHandlers.Add(new LadderHandler() );
 
             server.CommandHandlers.Add(new SewerHandler() );
+
+            server.CommandHandlers.Add(new BlueberryBushHandler() );
 
             server.CommandHandlers.Add(new BookHandler() );
 
             server.CommandHandlers.Add(new WatchHandler() );
 
-            server.CommandHandlers.Add(new FoodHandler() );
-
-            server.CommandHandlers.Add(new BlueberryBushHandler() );
-
             server.CommandHandlers.Add(new UseItemTransformHandler() );
+
+            server.CommandHandlers.Add(new LockedDoorHandler() );
+
+            server.CommandHandlers.Add(new OpenDoorHandler() );
+
+            server.CommandHandlers.Add(new CloseDoorHandler() );
         }
 
         public void Stop(Server server)

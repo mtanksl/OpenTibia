@@ -54,7 +54,7 @@
     <Compile Include="CommandHandlers\CommandHandlerResult.cs" />
     <Compile Include="CommandHandlers\CommandHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\MagicForcefieldHandler.cs" />
-    <Compile Include="CommandHandlers\CreatureUpdateParent\MoveContainerCloseHandler.cs" />
+    <Compile Include="CommandHandlers\CreatureUpdateParent\MoveAwayFromContainerCloseHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\StairsHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\HoleHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\TileDepressHandler.cs" />
@@ -92,6 +92,9 @@
     <Compile Include="CommandHandlers\PlayerUseItemWithItem\FishingRodHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItemWithItem\UseItemWithItemWalkToTargetHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItemWithItem\UseItemWithItemWalkToSourceHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItem\CloseDoorHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItem\LockedDoorHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItem\OpenDoorHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\UseItemWalkToSourceHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportDownHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportUpHandler.cs" />
@@ -119,7 +122,7 @@
     <Compile Include="Commands\Outgoing\Tile\TileCreateItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Item\ItemDecrementCommand.cs" />
     <Compile Include="Commands\Outgoing\StackableItem\StackableItemUpdateCountCommand.cs" />
-    <Compile Include="Behaviours\CheckConnectionBehaviour.cs" />
+    <Compile Include="Behaviours\Review\CheckConnectionBehaviour.cs" />
     <Compile Include="DatabaseContext.cs" />
     <Compile Include="Extensions\CreatureExtensions.cs" />
     <Compile Include="Extensions\PlayerExtensions.cs" />
@@ -206,8 +209,8 @@
     <Compile Include="Commands\DelayCommand.cs" />
     <Compile Include="Commands\WhenAllCommand.cs" />
     <Compile Include="Commands\WhenAnyCommand.cs" />
-    <Compile Include="Behaviours\AutoTalkBehaviour.cs" />
-    <Compile Include="Behaviours\AutoWalkBehaviour.cs" />
+    <Compile Include="Behaviours\Review\AutoTalkBehaviour.cs" />
+    <Compile Include="Behaviours\Review\AutoWalkBehaviour.cs" />
     <Compile Include="Behaviours\TimeBehaviour.cs" />
     <Compile Include="Commands\Incoming\Battle\StopFollowCommand.cs" />
     <Compile Include="Commands\Incoming\GameWindow\Look\LookCommand.cs" />

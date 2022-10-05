@@ -1,6 +1,8 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
+using OpenTibia.Network.Packets.Outgoing;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenTibia.Game.CommandHandlers
 {
@@ -8,24 +10,23 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override bool CanHandle(Context context, ItemUpdateParentToTileCommand command)
         {
-            /*
-            if (command.Item is Container && !command.Data.ContainsKey("MoveItemContainerCloseHandler") )
+            if (command.Item is Container && !command.Data.ContainsKey("ItemMoveToTileContainerCloseHandler") )
             {
-                command.Data.Add("MoveItemContainerCloseHandler", true);
+                command.Data.Add("ItemMoveToTileContainerCloseHandler", true);
 
                 return true;
             }
-            */
 
             return false;
         }
 
         public override void Handle(Context context, ItemUpdateParentToTileCommand command)
         {
-            /*
-            Container container = (Container)command.Item;
-
             HashSet<Player> isNextFrom = new HashSet<Player>();
+
+            HashSet<Player> isNextTo = new HashSet<Player>();
+
+            Container container = (Container)command.Item;
 
             switch (container.Parent)
             {
@@ -53,9 +54,9 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         case Tile fromTile:
 
-                            foreach (var observer in context.Server.GameObjects.GetPlayers())
+                            foreach (var observer in context.Server.GameObjects.GetPlayers() )
                             {
-                                if (observer.Tile.Position.IsNextTo(fromTile.Position))
+                                if (observer.Tile.Position.IsNextTo(fromTile.Position) )
                                 {
                                     isNextFrom.Add(observer);
                                 }
@@ -73,52 +74,12 @@ namespace OpenTibia.Game.CommandHandlers
                     break;
             }
 
-            HashSet<Player> isNextTo = new HashSet<Player>();
-
-            switch (command.ToContainer)
+            foreach (var observer in context.Server.GameObjects.GetPlayers() )
             {
-                case Tile toTile:
-
-                    foreach (var observer in context.Server.GameObjects.GetPlayers() )
-                    {
-                        if (observer.Tile.Position.IsNextTo(toTile.Position) )
-                        {
-                            isNextTo.Add(observer);
-                        }
-                    }
-
-                    break;
-
-                case Inventory toInventory:
-
-                    isNextTo.Add(toInventory.Player);
-
-                    break;
-
-                case Container toContainer:
-
-                    switch (toContainer.Root() )
-                    {
-                        case Tile toTile:
-
-                            foreach (var observer in context.Server.GameObjects.GetPlayers())
-                            {
-                                if (observer.Tile.Position.IsNextTo(toTile.Position))
-                                {
-                                    isNextTo.Add(observer);
-                                }
-                            }
-
-                            break;
-
-                        case Inventory toInventory:
-
-                            isNextTo.Add(toInventory.Player);
-
-                            break;
-                    }
-
-                    break;
+                if (observer.Tile.Position.IsNextTo(command.ToTile.Position) )
+                {
+                    isNextTo.Add(observer);
+                }
             }
 
             context.AddCommand(command).Then(ctx =>
@@ -142,8 +103,6 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         if (pair.Value == container)
                         {
-                            observer.Client.ContainerCollection.ReplaceContainer(container, pair.Key);
-
                             var items = new List<Item>();
 
                             foreach (var item in container.GetItems() )
@@ -158,7 +117,6 @@ namespace OpenTibia.Game.CommandHandlers
 
                 OnComplete(ctx);
             } );
-            */
         }
     }
 }

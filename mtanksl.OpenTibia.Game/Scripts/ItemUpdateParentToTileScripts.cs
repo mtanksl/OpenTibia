@@ -6,12 +6,6 @@ namespace OpenTibia.Game.Scripts
     {
         public void Start(Server server)
         {
-            server.CommandHandlers.Add(new MagicForcefield2Handler() );
-
-            server.CommandHandlers.Add(new Hole2Handler() );
-
-            server.CommandHandlers.Add(new Stairs2Handler() );
-
             server.CommandHandlers.Add(new DustbinHandler() );
 
             server.CommandHandlers.Add(new ShallowWaterHandler() );
@@ -19,6 +13,12 @@ namespace OpenTibia.Game.Scripts
             server.CommandHandlers.Add(new SwampHandler() );
 
             server.CommandHandlers.Add(new LavaHandler() );
+
+            server.CommandHandlers.Add(new MagicForcefield2Handler() );
+
+            server.CommandHandlers.Add(new Hole2Handler() );
+
+            server.CommandHandlers.Add(new Stairs2Handler() );
 
             server.CommandHandlers.Add(new CandlestickHandler() );
 

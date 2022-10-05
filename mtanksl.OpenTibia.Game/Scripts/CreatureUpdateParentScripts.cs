@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Scripts
 
             server.CommandHandlers.Add(new SnowPressHandler() );
 
-            server.CommandHandlers.Add(new MoveContainerCloseHandler() );        
+            server.CommandHandlers.Add(new MoveAwayFromContainerCloseHandler() );        
         }
 
         public void Stop(Server server)
