@@ -4,7 +4,7 @@ You need Visual Studio and .NET 4.6.1.
 Set mtanksl.OpenTibia.Host as startup project.
 Press F5 to run the server. 
 Use Tibia 8.6 client with an IP Changer to connect to localhost (or 127.0.0.1) on port 7171.
-Use empty account number and empty password.
+Use account number 1 and password 1 to enter game.
 
 ![Server and Client](/server.png)
 
