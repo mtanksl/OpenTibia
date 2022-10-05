@@ -121,7 +121,6 @@
     <Compile Include="Commands\Outgoing\StackableItem\StackableItemUpdateCountCommand.cs" />
     <Compile Include="Behaviours\CheckConnectionBehaviour.cs" />
     <Compile Include="DatabaseContext.cs" />
-    <Compile Include="DatabaseFactory.cs" />
     <Compile Include="Extensions\CreatureExtensions.cs" />
     <Compile Include="Extensions\PlayerExtensions.cs" />
     <Compile Include="Extensions\StackableItemExtensions.cs" />

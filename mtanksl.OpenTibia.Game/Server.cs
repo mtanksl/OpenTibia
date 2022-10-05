@@ -39,8 +39,6 @@ namespace OpenTibia.Game
 
         private List<Listener> listeners;
 
-        public DatabaseFactory DatabaseFactory { get; set; }
-
         public PacketsFactory PacketsFactory { get; set; }
 
         public Logger Logger { get; set; }
@@ -82,8 +80,6 @@ namespace OpenTibia.Game
             listeners.Add(new Listener(loginServerPort, socket => new LoginConnection(this, socket) ) );
 
             listeners.Add(new Listener(gameServerPort, socket => new GameConnection(this, socket) ) );
-
-            DatabaseFactory = new DatabaseFactory();
 
             PacketsFactory = new PacketsFactory();
 
