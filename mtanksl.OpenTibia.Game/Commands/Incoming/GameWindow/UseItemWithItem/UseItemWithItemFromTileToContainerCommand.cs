@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -32,32 +33,38 @@ namespace OpenTibia.Game.Commands
 
         public ushort ToItemId { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Tile fromTile = context.Server.Map.GetTile(FromPosition);
-
-            if (fromTile != null)
+            return Promise.Run(resolve =>
             {
-                Item fromItem = fromTile.GetContent(FromIndex) as Item;
+                Tile fromTile = context.Server.Map.GetTile(FromPosition);
 
-                if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
+                if (fromTile != null)
                 {
-                    Container toContainer = Player.Client.ContainerCollection.GetContainer(ToContainerId);
+                    Item fromItem = fromTile.GetContent(FromIndex) as Item;
 
-                    if (toContainer != null)
+                    if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
                     {
-                        Item toItem = toContainer.GetContent(ToContainerIndex) as Item;
+                        Container toContainer = Player.Client.ContainerCollection.GetContainer(ToContainerId);
 
-                        if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
+                        if (toContainer != null)
                         {
-                            if ( IsUseable(context, fromItem) )
+                            Item toItem = toContainer.GetContent(ToContainerIndex) as Item;
+
+                            if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
                             {
-                                UseItemWithItem(context, fromItem, toItem);
-                            }                            
+                                if ( IsUseable(context, fromItem) )
+                                {
+                                    context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) ).Then(ctx =>
+                                    {
+                                        resolve(context);
+                                    } );
+                                }                            
+                            }
                         }
                     }
                 }
-            }
+            } );
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -12,19 +13,17 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
             Tile fromTile = Player.Tile;
 
-            context.AddCommand(new PlayerDestroyCommand(Player) ).Then(ctx =>
+            return context.AddCommand(new PlayerDestroyCommand(Player) ).Then(ctx =>
             {
                 return ctx.AddCommand(new ShowMagicEffectCommand(fromTile.Position, MagicEffectType.Puff) );
 
             } ).Then(ctx =>
             {
                 ctx.Disconnect(Player.Client.Connection);
-
-                OnComplete(ctx);
             } );
         }
     }

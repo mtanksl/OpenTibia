@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -16,16 +17,19 @@ namespace OpenTibia.Game.Commands
 
         public byte Soul { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            if (Player.Soul != Soul)
+            return Promise.Run(resolve =>
             {
-                Player.Soul = Soul;
+                if (Player.Soul != Soul)
+                {
+                    Player.Soul = Soul;
 
-                context.AddPacket(Player.Client.Connection, new SendStatusOutgoingPacket(Player.Health, Player.MaxHealth, Player.Capacity, Player.Experience, Player.Level, Player.LevelPercent, Player.Mana, Player.MaxMana, 0, 0, Player.Soul, Player.Stamina) );
-            }
+                    context.AddPacket(Player.Client.Connection, new SendStatusOutgoingPacket(Player.Health, Player.MaxHealth, Player.Capacity, Player.Experience, Player.Level, Player.LevelPercent, Player.Mana, Player.MaxMana, 0, 0, Player.Soul, Player.Stamina) );
+                }
 
-            OnComplete(context);
+                resolve(context);
+            } );
         }
     }
 }

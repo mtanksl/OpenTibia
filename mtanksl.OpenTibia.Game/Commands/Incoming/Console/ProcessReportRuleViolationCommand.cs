@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
@@ -17,28 +18,31 @@ namespace OpenTibia.Game.Commands
 
         public string Name { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Player reporter = context.Server.GameObjects.GetPlayers()
-                .Where(p => p.Name == Name)
-                .FirstOrDefault();
-            
-            if (reporter != null)
+            return Promise.Run(resolve =>
             {
-                RuleViolation ruleViolation = context.Server.RuleViolations.GetRuleViolationByReporter(reporter);
-
-                if (ruleViolation != null && ruleViolation.Assignee == null)
+                Player reporter = context.Server.GameObjects.GetPlayers()
+                    .Where(p => p.Name == Name)
+                    .FirstOrDefault();
+            
+                if (reporter != null)
                 {
-                    ruleViolation.Assignee = Player;
+                    RuleViolation ruleViolation = context.Server.RuleViolations.GetRuleViolationByReporter(reporter);
 
-                    foreach (var observer in context.Server.Channels.GetChannel(3).GetPlayers() )
+                    if (ruleViolation != null && ruleViolation.Assignee == null)
                     {
-                        context.AddPacket(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
-                    }
+                        ruleViolation.Assignee = Player;
 
-                    OnComplete(context);
+                        foreach (var observer in context.Server.Channels.GetChannel(3).GetPlayers() )
+                        {
+                            context.AddPacket(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
+                        }
+
+                        resolve(context);
+                    }
                 }
-            }
+            } );
         }
     }
 }

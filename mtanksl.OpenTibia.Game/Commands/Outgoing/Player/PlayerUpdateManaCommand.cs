@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -20,18 +21,21 @@ namespace OpenTibia.Game.Commands
 
         public ushort MaxMana { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            if (Player.Mana != Mana || Player.MaxMana != MaxMana)
+            return Promise.Run(resolve =>
             {
-                Player.Mana = Mana;
+                if (Player.Mana != Mana || Player.MaxMana != MaxMana)
+                {
+                    Player.Mana = Mana;
 
-                Player.MaxMana = MaxMana;
+                    Player.MaxMana = MaxMana;
 
-                context.AddPacket(Player.Client.Connection, new SendStatusOutgoingPacket(Player.Health, Player.MaxHealth, Player.Capacity, Player.Experience, Player.Level, Player.LevelPercent, Player.Mana, Player.MaxMana, 0, 0, Player.Soul, Player.Stamina) );
-            }
+                    context.AddPacket(Player.Client.Connection, new SendStatusOutgoingPacket(Player.Health, Player.MaxHealth, Player.Capacity, Player.Experience, Player.Level, Player.LevelPercent, Player.Mana, Player.MaxMana, 0, 0, Player.Soul, Player.Stamina) );
+                }
 
-            OnComplete(context);
+                resolve(context);
+            } );
         }
     }
 }

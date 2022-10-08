@@ -1,36 +1,40 @@
 ﻿using OpenTibia.Game.Components;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
     public class GlobalCreaturesCommand : Command
     {
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            foreach (var creature in context.Server.GameObjects.GetMonsters() )
+            return Promise.Run(resolve =>
             {
-                foreach (var component in creature.GetComponents<TimeBehaviour>() )
+                foreach (var creature in context.Server.GameObjects.GetMonsters() )
                 {
-                    component.Update(context);
+                    foreach (var component in creature.GetComponents<TimeBehaviour>() )
+                    {
+                        component.Update(context);
+                    }
                 }
-            }
 
-            foreach (var creature in context.Server.GameObjects.GetNpcs() )
-            {
-                foreach (var component in creature.GetComponents<TimeBehaviour>() )
+                foreach (var creature in context.Server.GameObjects.GetNpcs() )
                 {
-                    component.Update(context);
+                    foreach (var component in creature.GetComponents<TimeBehaviour>() )
+                    {
+                        component.Update(context);
+                    }
                 }
-            }
 
-            foreach (var creature in context.Server.GameObjects.GetPlayers() )
-            {
-                foreach (var component in creature.GetComponents<TimeBehaviour>() )
+                foreach (var creature in context.Server.GameObjects.GetPlayers() )
                 {
-                    component.Update(context);
+                    foreach (var component in creature.GetComponents<TimeBehaviour>() )
+                    {
+                        component.Update(context);
+                    }
                 }
-            }
 
-            OnComplete(context);
+                resolve(context);
+            } );
         }
     }
 }

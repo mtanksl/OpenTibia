@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -16,46 +17,49 @@ namespace OpenTibia.Game.Commands
 
         public FluidType FluidType { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            if (Item.FluidType != FluidType)
+            return Promise.Run(resolve =>
             {
-                Item.FluidType = FluidType;
-
-                switch (Item.Parent)
+                if (Item.FluidType != FluidType)
                 {
-                    case Tile tile:
+                    Item.FluidType = FluidType;
 
-                        context.AddCommand(new TileRefreshItemCommand(tile, Item) ).Then(ctx =>
-                        {
-                            OnComplete(ctx);
-                        } );
+                    switch (Item.Parent)
+                    {
+                        case Tile tile:
+
+                            context.AddCommand(new TileRefreshItemCommand(tile, Item) ).Then(ctx =>
+                            {
+                                resolve(ctx);
+                            } );
                   
-                        break;
+                            break;
 
-                    case Inventory inventory:
+                        case Inventory inventory:
 
-                        context.AddCommand(new InventoryRefreshItemCommand(inventory, Item) ).Then(ctx =>
-                        {
-                            OnComplete(ctx);
-                        } );
+                            context.AddCommand(new InventoryRefreshItemCommand(inventory, Item) ).Then(ctx =>
+                            {
+                                resolve(ctx);
+                            } );
                    
-                        break;
+                            break;
 
-                    case Container container:
+                        case Container container:
 
-                        context.AddCommand(new ContainerRefreshItemCommand(container, Item) ).Then(ctx =>
-                        {
-                            OnComplete(ctx);
-                        } );
+                            context.AddCommand(new ContainerRefreshItemCommand(container, Item) ).Then(ctx =>
+                            {
+                                resolve(ctx);
+                            } );
 
-                        break;
+                            break;
+                    }
                 }
-            }
-            else
-            {
-                OnComplete(context);
-            }
+                else
+                {
+                    resolve(context);
+                }                
+            } );            
         }
     }
 }

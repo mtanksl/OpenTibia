@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -11,13 +12,11 @@ namespace OpenTibia.Game.Commands
 
         public Npc Npc { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            context.AddCommand(new TileRemoveCreatureCommand(Npc.Tile, Npc) ).Then(ctx =>
+            return context.AddCommand(new TileRemoveCreatureCommand(Npc.Tile, Npc) ).Then(ctx =>
             {
                 ctx.Server.NpcFactory.Destroy(Npc);
-
-                OnComplete(ctx);
             } );
         }
     }

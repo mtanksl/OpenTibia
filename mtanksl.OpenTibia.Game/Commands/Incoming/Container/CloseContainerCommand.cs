@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -16,18 +17,21 @@ namespace OpenTibia.Game.Commands
 
         public byte ContainerId { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Container container = Player.Client.ContainerCollection.GetContainer(ContainerId);
-
-            if (container != null)
+            return Promise.Run(resolve =>
             {
-                Player.Client.ContainerCollection.CloseContainer(ContainerId);
+                Container container = Player.Client.ContainerCollection.GetContainer(ContainerId);
 
-                context.AddPacket(Player.Client.Connection, new CloseContainerOutgoingPacket(ContainerId) );
+                if (container != null)
+                {
+                    Player.Client.ContainerCollection.CloseContainer(ContainerId);
 
-                OnComplete(context);
-            }
+                    context.AddPacket(Player.Client.Connection, new CloseContainerOutgoingPacket(ContainerId) );
+
+                    resolve(context);
+                }
+            } );
         }
     }
 }

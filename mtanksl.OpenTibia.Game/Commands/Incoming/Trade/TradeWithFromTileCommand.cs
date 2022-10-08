@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -24,24 +25,27 @@ namespace OpenTibia.Game.Commands
 
         public uint ToCreatureId { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Tile fromTile = context.Server.Map.GetTile(FromPosition);
-
-            if (fromTile != null)
+            return Promise.Run(resolve =>
             {
-                Item fromItem = fromTile.GetContent(FromIndex) as Item;
+                Tile fromTile = context.Server.Map.GetTile(FromPosition);
 
-                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                if (fromTile != null)
                 {
-                    Player toPlayer = context.Server.GameObjects.GetGameObject<Player>(ToCreatureId);
+                    Item fromItem = fromTile.GetContent(FromIndex) as Item;
 
-                    if (toPlayer != null && toPlayer != Player)
+                    if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                     {
-                        TradeWith(context, fromItem, toPlayer);
+                        Player toPlayer = context.Server.GameObjects.GetGameObject<Player>(ToCreatureId);
+
+                        if (toPlayer != null && toPlayer != Player)
+                        {
+                            resolve(context);
+                        }
                     }
-                }
-            }            
+                } 
+            } );     
         }
     }
 }

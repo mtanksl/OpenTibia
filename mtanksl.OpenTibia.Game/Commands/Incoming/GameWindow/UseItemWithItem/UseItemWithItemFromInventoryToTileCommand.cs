@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -28,46 +29,55 @@ namespace OpenTibia.Game.Commands
 
         public ushort ToItemId { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Inventory fromInventory = Player.Inventory;
-
-            Item fromItem = fromInventory.GetContent(FromSlot) as Item;
-
-            if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
+            return Promise.Run(resolve =>
             {
-                Tile toTile = context.Server.Map.GetTile(ToPosition);
+                Inventory fromInventory = Player.Inventory;
 
-                if (toTile != null)
+                Item fromItem = fromInventory.GetContent(FromSlot) as Item;
+
+                if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
                 {
-                    switch (toTile.GetContent(ToIndex) )
+                    Tile toTile = context.Server.Map.GetTile(ToPosition);
+
+                    if (toTile != null)
                     {
-                        case Item toItem:
+                        switch (toTile.GetContent(ToIndex) )
+                        {
+                            case Item toItem:
 
-                            if (toItem.Metadata.TibiaId == ToItemId)
-                            {
-                                if ( IsUseable(context, fromItem) )
+                                if (toItem.Metadata.TibiaId == ToItemId)
                                 {
-                                    UseItemWithItem(context, fromItem, toItem);
+                                    if ( IsUseable(context, fromItem) )
+                                    {
+                                        context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) ).Then(ctx =>
+                                        {
+                                            resolve(context);
+                                        } );
+                                    }
                                 }
-                            }
 
-                            break;
+                                break;
 
-                        case Creature toCreature:
+                            case Creature toCreature:
 
-                            if (ToItemId == 99)
-                            {
-                                if ( IsUseable(context, fromItem) )
+                                if (ToItemId == 99)
                                 {
-                                    UseItemWithCreature(context, fromItem, toCreature);
+                                    if ( IsUseable(context, fromItem) )
+                                    {
+                                        context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) ).Then(ctx =>
+                                        {
+                                            resolve(context);
+                                        } );
+                                    }
                                 }
-                            }
 
-                            break;
+                                break;
+                        }
                     }
                 }
-            }
+            } );
         }
     }
 }

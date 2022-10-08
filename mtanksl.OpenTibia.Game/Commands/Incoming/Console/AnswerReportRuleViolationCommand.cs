@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
@@ -22,23 +23,26 @@ namespace OpenTibia.Game.Commands
 
         public string Message { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Player reporter = context.Server.GameObjects.GetPlayers()
-                .Where(p => p.Name == Name)
-                .FirstOrDefault();
-
-            if (reporter != null)
+            return Promise.Run(resolve =>
             {
-                RuleViolation ruleViolation = context.Server.RuleViolations.GetRuleViolationByReporter(reporter);
+                Player reporter = context.Server.GameObjects.GetPlayers()
+                    .Where(p => p.Name == Name)
+                    .FirstOrDefault();
 
-                if (ruleViolation != null && ruleViolation.Assignee == Player)
+                if (reporter != null)
                 {
-                    context.AddPacket(ruleViolation.Reporter.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Assignee.Name, ruleViolation.Assignee.Level, TalkType.ReportRuleViolationAnswer, Message) );
+                    RuleViolation ruleViolation = context.Server.RuleViolations.GetRuleViolationByReporter(reporter);
 
-                    OnComplete(context);
+                    if (ruleViolation != null && ruleViolation.Assignee == Player)
+                    {
+                        context.AddPacket(ruleViolation.Reporter.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Assignee.Name, ruleViolation.Assignee.Level, TalkType.ReportRuleViolationAnswer, Message) );
+
+                        resolve(context);
+                    }
                 }
-            }
+            } );
         }
     }
 }

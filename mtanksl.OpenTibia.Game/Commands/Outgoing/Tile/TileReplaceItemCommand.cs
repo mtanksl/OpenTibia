@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -20,21 +21,24 @@ namespace OpenTibia.Game.Commands
 
         public Item ToItem { get; set; }
         
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            byte index = Tile.GetIndex(FromItem);
-
-            Tile.ReplaceContent(index, ToItem);
-
-            foreach (var observer in context.Server.GameObjects.GetPlayers() )
+            return Promise.Run(resolve =>
             {
-                if (observer.Tile.Position.CanSee(Tile.Position) )
-                {
-                    context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(Tile.Position, index, ToItem) );
-                }
-            }
+                byte index = Tile.GetIndex(FromItem);
 
-            OnComplete(context);
+                Tile.ReplaceContent(index, ToItem);
+
+                foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                {
+                    if (observer.Tile.Position.CanSee(Tile.Position) )
+                    {
+                        context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(Tile.Position, index, ToItem) );
+                    }
+                }
+
+                resolve(context);
+            } );
         }
     }
 }

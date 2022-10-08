@@ -13,12 +13,9 @@
             this.executeInMilliseconds = executeInMilliseconds;
         }
         
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            context.Server.QueueForExecution(key, executeInMilliseconds, ctx =>
-            {
-                OnComplete(ctx);
-            } );
+            return Promise.Delay(context, key, executeInMilliseconds);
         }
     }
 }

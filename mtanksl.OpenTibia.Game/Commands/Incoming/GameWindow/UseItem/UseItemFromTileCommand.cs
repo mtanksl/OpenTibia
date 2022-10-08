@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -20,19 +21,25 @@ namespace OpenTibia.Game.Commands
 
         public ushort ItemId { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Tile fromTile = context.Server.Map.GetTile(FromPosition);
-
-            if (fromTile != null)
+            return Promise.Run(resolve =>
             {
-                Item fromItem = fromTile.GetContent(FromIndex) as Item;
+                Tile fromTile = context.Server.Map.GetTile(FromPosition);
 
-                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
-                {    
-                    UseItem(context, fromItem, null);
+                if (fromTile != null)
+                {
+                    Item fromItem = fromTile.GetContent(FromIndex) as Item;
+
+                    if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                    {    
+                        context.AddCommand(new PlayerUseItemCommand(Player, fromItem, null) ).Then(ctx =>
+                        {
+                            resolve(ctx);
+                        } );
+                    }
                 }
-            }
+            } );   
         }
     }
 }

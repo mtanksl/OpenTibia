@@ -4,13 +4,32 @@ namespace OpenTibia.Game.Commands
 {
     public class PromiseResult<TResult>
     {
+        public static PromiseResult<TResult> FromResult(Context context, TResult result)
+        {
+            return new PromiseResult<TResult>(context, result);
+        }
+
+        public static PromiseResult<TResult> Run(Action< Action<Context, TResult> > run)
+        {
+            return new PromiseResult<TResult>(run);
+        }
+
         private PromiseStatus status;
 
         private Context context;
 
         private TResult result;
 
-        public PromiseResult(Action< Action<Context, TResult> > run)
+        private PromiseResult(Context context, TResult result)
+        {
+            this.status = PromiseStatus.Fulfilled;
+
+            this.context = context;
+
+            this.result = result;
+        }
+
+        private PromiseResult(Action< Action<Context, TResult> > run)
         {
             run( (context, result) =>
             {
@@ -34,7 +53,7 @@ namespace OpenTibia.Game.Commands
 
         public PromiseResult<TResult> Then(Action<Context, TResult> callback)
         {
-            return new PromiseResult<TResult>(resolve =>
+            return PromiseResult<TResult>.Run(resolve =>
             {
                 if (this.status == PromiseStatus.Pending)
                 {
@@ -56,58 +75,46 @@ namespace OpenTibia.Game.Commands
 
         public PromiseResult<TResult> Then(Func<Context, TResult, PromiseResult<TResult> > callback)
         {
-            return new PromiseResult<TResult>(resolve =>
+            return PromiseResult<TResult>.Run(resolve =>
             {
                 if (this.status == PromiseStatus.Pending)
                 {
                     this.continueWith = (context, result) =>
                     {
-                        var promise = callback(context, result);
-
-                        if (promise != null)
-                        {
-                            promise.Then(resolve);
-                        }
+                        callback(context, result).Then(resolve);
                     };
                 }
                 else if (this.status == PromiseStatus.Fulfilled)
                 {
-                    var promise = callback(this.context, this.result);
-
-                    if (promise != null)
-                    {
-                        promise.Then(resolve);
-                    }
+                    callback(this.context, this.result).Then(resolve);
                 }
             } );
         }
 
         public Promise Then(Func<Context, TResult, Promise> callback)
         {
-            return new Promise(resolve =>
+            return Promise.Run(resolve =>
             {
                 if (this.status == PromiseStatus.Pending)
                 {
                     this.continueWith = (context, result) =>
                     {
-                        var promise = callback(context, result);
-
-                        if (promise != null)
-                        {
-                            promise.Then(resolve);
-                        }
+                        callback(context, result).Then(resolve);
                     };
                 }
                 else if (this.status == PromiseStatus.Fulfilled)
                 {
-                    var promise = callback(this.context, this.result);
-
-                    if (promise != null)
-                    {
-                        promise.Then(resolve);
-                    }
+                    callback(this.context, this.result).Then(resolve);
                 }
             } );
-        }        
+        }     
+        
+        public static implicit operator Promise(PromiseResult<TResult> promise)
+        {
+            return promise.Then( (ctx, result) => 
+            {
+                return Promise.FromResult(ctx);
+            } );
+        }
     }
 }

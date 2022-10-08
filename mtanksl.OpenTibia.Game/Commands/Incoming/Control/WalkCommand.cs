@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
@@ -18,52 +19,44 @@ namespace OpenTibia.Game.Commands
 
         public MoveDirection MoveDirection { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Tile fromTile = Player.Tile;
-
-            if (fromTile != null)
+            return Check(context).Then( (ctx, toTile) =>
             {
-                Tile toTile = context.Server.Map.GetTile(fromTile.Position.Offset(MoveDirection) );
+                return Promise.Delay(context, Constants.CreatureWalkSchedulerEvent(Player), 1000 * toTile.Ground.Metadata.Speed / Player.Speed);
 
-                if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || toTile.GetCreatures().Any(c => c.Block) )
-                {
-                    context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible),
+            } ).Then(ctx =>
+			{
+                return Check(ctx);
 
-                                                                new StopWalkOutgoingPacket(Player.Direction) );
-                }
-                else
-                {
-                    Promise.Delay(context, Constants.CreatureWalkSchedulerEvent(Player), 1000 * toTile.Ground.Metadata.Speed / Player.Speed).Then(ctx =>
-                    {
-                        EndWalk(ctx);
-                    } );
-                }
-            }
+            } ).Then( (ctx, toTile) =>
+            {
+                return ctx.AddCommand(new CreatureUpdateParentCommand(Player, toTile) );
+            } );
         }
 
-        private void EndWalk(Context context)
+        private PromiseResult<Tile> Check(Context context)
         {
-            Tile fromTile = Player.Tile;
-
-            if (fromTile != null)
+            return PromiseResult<Tile>.Run(resolve =>
             {
-                Tile toTile = context.Server.Map.GetTile(fromTile.Position.Offset(MoveDirection) );
+                Tile fromTile = Player.Tile;
 
-                if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || toTile.GetCreatures().Any(c => c.Block) )
+                if (fromTile != null)
                 {
-                    context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible),
+                    Tile toTile = context.Server.Map.GetTile(fromTile.Position.Offset(MoveDirection) );
 
-                                                                new StopWalkOutgoingPacket(Player.Direction) );
-                }
-                else
-                {
-                    context.AddCommand(new CreatureUpdateParentCommand(Player, toTile) ).Then(ctx =>
+                    if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || toTile.GetCreatures().Any(c => c.Block) )
                     {
-                        OnComplete(ctx);
-                    } );
+                        context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible),
+
+                                                                    new StopWalkOutgoingPacket(Player.Direction) );
+                    }
+                    else
+                    {
+                        resolve(context, toTile);
+                    }
                 }
-            }
+            } );
         }
     }
 }

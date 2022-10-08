@@ -31,13 +31,19 @@ namespace OpenTibia.Game
 
         public static readonly string AccountNameOrPasswordIsNotCorrect = "Account name or password is not correct.";
 
-        public static readonly string ThereIsNoWay = "There is no way.";
-
         public static readonly string SorryNotPossible = "Sorry, not possible.";
 
-        public static readonly string YouCanNotUseThisItem = "You cannot use this item.";
+        public static readonly string TargetLost = "Target lost.";
+
+        public static readonly string ThereIsNotEnoughtRoom = "There is not enought room.";
+
+        public static readonly string ThereIsNoWay = "There is no way.";
+
+        public static readonly string ThisIsImpossible = "This is impossible.";
 
         public static readonly string YouCanNotMoveThisObject = "You cannot move this object.";
+
+        public static readonly string YouCannotPutMoreObjectsInThisContainer = "You cannot put more objects in this container.";
 
         public static readonly string YouCanNotTakeThisObject = "You cannot take this object.";
 
@@ -45,12 +51,8 @@ namespace OpenTibia.Game
 
         public static readonly string YouCanNotUseThere = "You cannot use there.";
 
-        public static readonly string ThisIsImpossible = "This is impossible.";
-
-        public static readonly string ThereIsNotEnoughtSpace = "There is not enought space.";
+        public static readonly string YouCanNotUseThisItem = "You cannot use this item.";
 
         public static readonly string YouMayNotAttackThisCreature = "You may not attack this creature.";
-
-        public static readonly string TargetLost = "Target lost.";
     }
 }

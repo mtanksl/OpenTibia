@@ -1,6 +1,5 @@
 ﻿using OpenTibia.Common.Events;
 using OpenTibia.Common.Objects;
-using OpenTibia.Game.CommandHandlers;
 using OpenTibia.Game.Commands;
 using OpenTibia.Network.Packets.Outgoing;
 using OpenTibia.Threading;
@@ -73,26 +72,19 @@ namespace OpenTibia.Game
                 throw new ObjectDisposedException(nameof(Context) );
             }
 
-            ICommandHandler commandHandler;
+            var commandHandlers = server.CommandHandlers.Get(command).GetEnumerator();
 
-            if (server.CommandHandlers.TryGet(this, command, out commandHandler) )
+            Promise Next(Context context)
             {
-                return new Promise(resolve =>
+                if (commandHandlers.MoveNext() )
                 {
-                    commandHandler.ContinueWith = resolve;
+                    return commandHandlers.Current.Handle(context, Next, command);
+                }
 
-                    commandHandler.Handle(this, command);
-                } );
+                return command.Execute(context);
             }
-            else
-            {
-                return new Promise(resolve =>
-                {
-                    command.ContinueWith = resolve;
 
-                    command.Execute(this);
-                } );
-            }
+            return Next(this);
         }
 
         public PromiseResult<TResult> AddCommand<TResult>(CommandResult<TResult> command)
@@ -102,26 +94,19 @@ namespace OpenTibia.Game
                 throw new ObjectDisposedException(nameof(Context) );
             }
 
-            ICommandHandlerResult<TResult> commandHandler;
+            var commandHandlers = server.CommandHandlers.Get(command).GetEnumerator();
 
-            if (server.CommandHandlers.TryGet(this, command, out commandHandler) )
+            PromiseResult<TResult> Next(Context context, TResult result)
             {
-                return new PromiseResult<TResult>(resolve =>
+                if (commandHandlers.MoveNext() )
                 {
-                    commandHandler.ContinueWith = resolve;
+                    return commandHandlers.Current.Handle(context, Next, command);
+                }
 
-                    commandHandler.Handle(this, command);
-                } );
+                return command.Execute(context);
             }
-            else
-            {
-                return new PromiseResult<TResult>(resolve =>
-                {
-                    command.ContinueWith = resolve;
 
-                    command.Execute(this);
-                } );
-            }
+            return Next(this, default(TResult) );
         }
 
         private Dictionary<IConnection, Message> messages = null;

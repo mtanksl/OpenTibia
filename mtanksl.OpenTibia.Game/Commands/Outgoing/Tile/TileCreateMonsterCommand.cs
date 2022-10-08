@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -15,17 +16,20 @@ namespace OpenTibia.Game.Commands
 
         public string Name { get; set; }
 
-        public override void Execute(Context context)
+        public override PromiseResult<Monster> Execute(Context context)
         {
-            Monster monster = context.Server.MonsterFactory.Create(Name);
-
-            if (monster != null)
+            return PromiseResult<Monster>.Run(resolve =>
             {
-                context.AddCommand(new TileAddCreatureCommand(Tile, monster) ).Then(ctx =>
+                Monster monster = context.Server.MonsterFactory.Create(Name);
+
+                if (monster != null)
                 {
-                    OnComplete(ctx, monster);
-                } );
-            }
+                    context.AddCommand(new TileAddCreatureCommand(Tile, monster) ).Then(ctx =>
+                    {
+                        resolve(ctx, monster);
+                    } );
+                }
+            } );
         }
     }
 }

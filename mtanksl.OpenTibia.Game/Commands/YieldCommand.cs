@@ -1,4 +1,6 @@
-﻿namespace OpenTibia.Game.Commands
+﻿using System;
+
+namespace OpenTibia.Game.Commands
 {
     public class YieldCommand : Command
     {
@@ -7,12 +9,9 @@
             
         }
         
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            context.Server.QueueForExecution(ctx =>
-            {
-                OnComplete(ctx);
-            } );
+            return Promise.Yield(context);
         }
     }
 }

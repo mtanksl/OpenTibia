@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
@@ -9,21 +10,16 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> books = new HashSet<ushort>() { 1955 };
 
-        public override bool CanHandle(Context context, PlayerUseItemCommand command)
+        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemCommand command)
         {
             if (books.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                return true;
+                context.AddPacket(command.Player.Client.Connection, new OpenTextDialogOutgoingPacket(0, command.Item.Metadata.TibiaId, 255, ((ReadableItem)command.Item).Text, "", "") );
+
+                return Promise.FromResult(context);
             }
 
-            return false;
-        }
-
-        public override void Handle(Context context, PlayerUseItemCommand command)
-        {
-            context.AddPacket(command.Player.Client.Connection, new OpenTextDialogOutgoingPacket(0, command.Item.Metadata.TibiaId, 255, ( (ReadableItem)command.Item ).Text, "", "") );
-
-            OnComplete(context);
+            return next(context);
         }
     }
 }

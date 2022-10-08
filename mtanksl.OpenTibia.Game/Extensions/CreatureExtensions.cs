@@ -6,13 +6,6 @@ namespace OpenTibia.Game.Extensions
 {
     public static class CreatureExtensions
     {
-        public static Promise UpdateParent(this Creature creature, Tile toTile)
-        {
-            Context context = Context.Current;
-
-            return context.AddCommand(new CreatureUpdateParentCommand(creature, toTile) );
-        }
-
         public static Promise UpdateDirection(this Creature creature, Direction direction)
         {
             Context context = Context.Current;
@@ -39,6 +32,13 @@ namespace OpenTibia.Game.Extensions
             Context context = Context.Current;
 
             return context.AddCommand(new CreatureUpdateOutfit(creature, outfit) );
+        }
+
+        public static Promise UpdateParent(this Creature creature, Tile toTile)
+        {
+            Context context = Context.Current;
+
+            return context.AddCommand(new CreatureUpdateParentCommand(creature, toTile) );
         }
 
         public static Promise UpdatePartyIcon(this Creature creature, PartyIcon partyIcon)

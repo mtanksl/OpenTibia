@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -15,49 +16,52 @@ namespace OpenTibia.Game.Commands
         
         public Container ToContainer { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            switch (Item.Parent)
+            return Promise.Run(resolve =>
             {
-                case Tile fromTile:
+                switch (Item.Parent)
+                {
+                    case Tile fromTile:
 
-                    context.AddCommand(new TileRemoveItemCommand(fromTile, Item) ).Then(ctx =>
-                    {
-                        return ctx.AddCommand(new ContainerAddItemCommand(ToContainer, Item) );
+                        context.AddCommand(new TileRemoveItemCommand(fromTile, Item) ).Then(ctx =>
+                        {
+                            return ctx.AddCommand(new ContainerAddItemCommand(ToContainer, Item) );
 
-                    } ).Then(ctx =>
-                    {
-                        OnComplete(ctx);
-                    } );
+                        } ).Then(ctx =>
+                        {
+                            resolve(ctx);
+                        } );
 
-                    break;
+                        break;
 
-                case Inventory fromInventory:
+                    case Inventory fromInventory:
 
-                    context.AddCommand(new InventoryRemoveItemCommand(fromInventory, Item) ).Then(ctx =>
-                    {
-                        return ctx.AddCommand(new ContainerAddItemCommand(ToContainer, Item) );
+                        context.AddCommand(new InventoryRemoveItemCommand(fromInventory, Item) ).Then(ctx =>
+                        {
+                            return ctx.AddCommand(new ContainerAddItemCommand(ToContainer, Item) );
 
-                    } ).Then(ctx =>
-                    {
-                        OnComplete(ctx);
-                    } );
+                        } ).Then(ctx =>
+                        {
+                            resolve(ctx);
+                        } );
 
-                    break;
+                        break;
 
-                case Container fromContainer:
+                    case Container fromContainer:
 
-                    context.AddCommand(new ContainerRemoveItemCommand(fromContainer, Item) ).Then(ctx =>
-                    {
-                        return ctx.AddCommand(new ContainerAddItemCommand(ToContainer, Item) );
+                        context.AddCommand(new ContainerRemoveItemCommand(fromContainer, Item) ).Then(ctx =>
+                        {
+                            return ctx.AddCommand(new ContainerAddItemCommand(ToContainer, Item) );
 
-                    } ).Then(ctx =>
-                    {
-                        OnComplete(ctx);
-                    } );
+                        } ).Then(ctx =>
+                        {
+                            resolve(ctx);
+                        } );
 
-                    break;
-            }
+                        break;
+                }
+            } );
         }
     }
 }

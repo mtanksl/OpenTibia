@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
@@ -18,38 +19,41 @@ namespace OpenTibia.Game.Commands
 
         public string Name { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            PrivateChannel privateChannel = context.Server.Channels.GetPrivateChannelByOwner(Player);
-
-            if (privateChannel != null)
+            return Promise.Run(resolve =>
             {
-                Player observer = context.Server.GameObjects.GetPlayers()
-                    .Where(p => p.Name == Name)
-                    .FirstOrDefault();
+                PrivateChannel privateChannel = context.Server.Channels.GetPrivateChannelByOwner(Player);
 
-                if (observer != null && observer != Player)
-                {              
-                    if (privateChannel.ContainsInvitation(observer) )
-                    {
-                        privateChannel.RemoveInvitation(observer);
+                if (privateChannel != null)
+                {
+                    Player observer = context.Server.GameObjects.GetPlayers()
+                        .Where(p => p.Name == Name)
+                        .FirstOrDefault();
 
-                        context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been excluded.") );
+                    if (observer != null && observer != Player)
+                    {              
+                        if (privateChannel.ContainsInvitation(observer) )
+                        {
+                            privateChannel.RemoveInvitation(observer);
 
-                        OnComplete(context);
-                    }
-                    else if (privateChannel.ContainsPlayer(observer) )
-                    {
-                        privateChannel.RemovePlayer(observer);
+                            context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been excluded.") );
 
-                        context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been excluded.") );
+                            resolve(context);
+                        }
+                        else if (privateChannel.ContainsPlayer(observer) )
+                        {
+                            privateChannel.RemovePlayer(observer);
 
-                        context.AddPacket(observer.Client.Connection, new CloseChannelOutgoingPacket(privateChannel.Id) );
+                            context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been excluded.") );
 
-                        OnComplete(context);
+                            context.AddPacket(observer.Client.Connection, new CloseChannelOutgoingPacket(privateChannel.Id) );
+
+                            resolve(context);
+                        }
                     }
                 }
-            }
+            } );            
         }
     }
 }

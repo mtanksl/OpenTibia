@@ -1,19 +1,23 @@
 ﻿using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
     public class GlobalLightCommand : Command
     {
-        public override void Execute(Context context)
-        {                        
-            context.Server.Clock.Tick();
-
-            foreach (var player in context.Server.GameObjects.GetPlayers() )
+        public override Promise Execute(Context context)
+        {         
+            return Promise.Run(resolve =>
             {
-                context.AddPacket(player.Client.Connection, new SetEnvironmentLightOutgoingPacket(context.Server.Clock.Light) );
-            }
+                context.Server.Clock.Tick();
 
-            OnComplete(context);
+                foreach (var player in context.Server.GameObjects.GetPlayers() )
+                {
+                    context.AddPacket(player.Client.Connection, new SetEnvironmentLightOutgoingPacket(context.Server.Clock.Light) );
+                }
+
+                resolve(context);
+            } );
         }
     }
 }

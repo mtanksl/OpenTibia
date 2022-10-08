@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -25,27 +26,33 @@ namespace OpenTibia.Game.Commands
 
         public uint ToCreatureId { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
-
-            if (fromContainer != null)
+            return Promise.Run(resolve =>
             {
-                Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
+                Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
 
-                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                if (fromContainer != null)
                 {
-                    Creature toCreature = context.Server.GameObjects.GetGameObject<Creature>(ToCreatureId);
+                    Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
 
-                    if (toCreature != null)
+                    if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                     {
-                        if ( IsUseable(context, fromItem) )
+                        Creature toCreature = context.Server.GameObjects.GetGameObject<Creature>(ToCreatureId);
+
+                        if (toCreature != null)
                         {
-                            UseItemWithCreature(context, fromItem, toCreature);
+                            if ( IsUseable(context, fromItem) )
+                            {
+                                context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) ).Then(ctx =>
+                                {
+                                    resolve(ctx);
+                                } );
+                            }
                         }
                     }
                 }
-            }
+            } );
         }
     }
 }

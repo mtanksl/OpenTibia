@@ -2,6 +2,7 @@
 using OpenTibia.Game.Commands;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenTibia.Game
 {
@@ -67,48 +68,28 @@ namespace OpenTibia.Game
             }
         }
 
-        public bool TryGet(Context context, Command command, out ICommandHandler result)
+        public IEnumerable<ICommandHandler> Get(Command command)
         {
             var type = typeof( CommandHandler<> ).MakeGenericType(command.GetType() );
 
             if ( types.TryGetValue(type, out var commandHandlers) )
             {
-                foreach (ICommandHandler commandHandler in commandHandlers)
-                {
-                    if (commandHandler.CanHandle(context, command) )
-                    {
-                        result = commandHandler;
-
-                        return true;
-                    }
-                }
+                return commandHandlers.Cast<ICommandHandler>();
             }
 
-            result = null;
-
-            return false;
+            return Enumerable.Empty<ICommandHandler>();
         }
 
-        public bool TryGet<TResult>(Context context, CommandResult<TResult> command, out ICommandHandlerResult<TResult> result)
+        public IEnumerable< ICommandHandlerResult<TResult> > Get<TResult>(CommandResult<TResult> command)
         {
             var type = typeof( CommandHandlerResult<,> ).MakeGenericType(command.GetType(), typeof(TResult) );
 
             if ( types.TryGetValue(type, out var commandHandlers) )
             {
-                foreach (ICommandHandlerResult<TResult> commandHandler in commandHandlers)
-                {
-                    if (commandHandler.CanHandle(context, command) )
-                    {
-                        result = commandHandler;
-
-                        return true;
-                    }
-                }
+                return commandHandlers.Cast< ICommandHandlerResult<TResult> >();
             }
 
-            result = null;
-
-            return false;
+            return Enumerable.Empty< ICommandHandlerResult<TResult> >();
         }
     }
 }

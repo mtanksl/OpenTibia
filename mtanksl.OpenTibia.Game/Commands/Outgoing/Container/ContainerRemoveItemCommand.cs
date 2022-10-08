@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -16,24 +17,27 @@ namespace OpenTibia.Game.Commands
 
         public Item Item { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            byte index = Container.GetIndex(Item);
-
-            Container.RemoveContent(index);
-
-            foreach (var observer in Container.GetPlayers() )
+            return Promise.Run(resolve =>
             {
-                foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
+                byte index = Container.GetIndex(Item);
+
+                Container.RemoveContent(index);
+
+                foreach (var observer in Container.GetPlayers() )
                 {
-                    if (pair.Value == Container)
+                    foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
                     {
-                        context.AddPacket(observer.Client.Connection, new ContainerRemoveOutgoingPacket(pair.Key, index) );
+                        if (pair.Value == Container)
+                        {
+                            context.AddPacket(observer.Client.Connection, new ContainerRemoveOutgoingPacket(pair.Key, index) );
+                        }
                     }
                 }
-            }
 
-            OnComplete(context);
+                resolve(context);
+            } );
         }
     }
 }

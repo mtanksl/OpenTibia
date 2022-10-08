@@ -5,7 +5,7 @@ namespace OpenTibia.Game.Extensions
 {
     public static class ItemExtensions
     {
-        public static Promise Decay(this Item item, int executeInMilliseconds, ushort openTibiaId, byte count)
+        public static PromiseResult<Item> Decay(this Item item, int executeInMilliseconds, ushort openTibiaId, byte count)
         {
             Context context = Context.Current;
 
@@ -24,6 +24,13 @@ namespace OpenTibia.Game.Extensions
             Context context = Context.Current;
 
             return context.AddCommand(new ItemDestroyCommand(item) );
+        }
+
+        public static PromiseResult<Item> Transform(this Item item, ushort openTibiaId, byte count)
+        {
+            Context context = Context.Current;
+            
+            return context.AddCommand(new ItemTransformCommand(item, openTibiaId, count) );
         }
 
         public static Promise UpdateParentToTile(this Item item, Tile toTile)
@@ -45,13 +52,6 @@ namespace OpenTibia.Game.Extensions
             Context context = Context.Current;
 
             return context.AddCommand(new ItemUpdateParentToContainerCommand(item, toContiner) );
-        }
-
-        public static PromiseResult<Item> Transform(this Item item, ushort openTibiaId, byte count)
-        {
-            Context context = Context.Current;
-            
-            return context.AddCommand(new ItemTransformCommand(item, openTibiaId, count) );
         }
     }
 }

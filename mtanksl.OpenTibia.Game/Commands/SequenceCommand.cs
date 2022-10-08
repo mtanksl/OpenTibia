@@ -11,19 +11,17 @@
 
         private int index = 0;
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            context.AddCommand(commands[index++] ).Then(ctx => 
+            if (index < commands.Length)
             {
-                if (index < commands.Length)
+                return context.AddCommand(commands[index++] ).Then(ctx =>
                 {
-                    Execute(ctx);
-                }
-                else
-                {
-                    OnComplete(ctx);
-                }
-            } );
+                    return Execute(ctx);
+                } );
+            }
+
+            return Promise.FromResult(context);
         }
     }
 }

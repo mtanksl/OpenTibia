@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
@@ -17,18 +18,21 @@ namespace OpenTibia.Game.Commands
 
         public string Name { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Player observer = context.Server.GameObjects.GetPlayers()
-                .Where(p => p.Name == Name)
-                .FirstOrDefault();
-            
-            if (observer != null && observer != Player)
+            return Promise.Run(resolve =>
             {
-                context.AddPacket(Player.Client.Connection, new OpenPrivateChannelOutgoingPacket(Name) );
+                Player observer = context.Server.GameObjects.GetPlayers()
+                    .Where(p => p.Name == Name)
+                    .FirstOrDefault();
+            
+                if (observer != null && observer != Player)
+                {
+                    context.AddPacket(Player.Client.Connection, new OpenPrivateChannelOutgoingPacket(Name) );
 
-                OnComplete(context);
-            }
+                    resolve(context);
+                }
+            } );
         }
     }
 }

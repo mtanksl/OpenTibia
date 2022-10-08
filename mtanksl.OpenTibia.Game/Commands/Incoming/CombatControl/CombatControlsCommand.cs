@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -24,36 +25,39 @@ namespace OpenTibia.Game.Commands
 
         public SafeMode SafeMode { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            if (FightMode != Player.Client.FightMode)
+            return Promise.Run(resolve =>
             {
-                Player.Client.FightMode = FightMode;
-            }
-
-            if (ChaseMode != Player.Client.ChaseMode)
-            {
-                Player.Client.ChaseMode = ChaseMode;
-
-                if (Player.AttackTarget != null)
+                if (FightMode != Player.Client.FightMode)
                 {
-                    if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
+                    Player.Client.FightMode = FightMode;
+                }
+
+                if (ChaseMode != Player.Client.ChaseMode)
+                {
+                    Player.Client.ChaseMode = ChaseMode;
+
+                    if (Player.AttackTarget != null)
                     {
-                        Player.FollowTarget = null;
-                    }
-                    else
-                    {
-                        Player.FollowTarget = Player.AttackTarget;
+                        if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
+                        {
+                            Player.FollowTarget = null;
+                        }
+                        else
+                        {
+                            Player.FollowTarget = Player.AttackTarget;
+                        }
                     }
                 }
-            }
 
-            if (SafeMode != Player.Client.SafeMode)
-            {
-                Player.Client.SafeMode = SafeMode;
-            }
+                if (SafeMode != Player.Client.SafeMode)
+                {
+                    Player.Client.SafeMode = SafeMode;
+                }
 
-            OnComplete(context);
+                resolve(context);
+            } );
         }
     }
 }

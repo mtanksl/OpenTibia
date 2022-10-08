@@ -1,8 +1,9 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ItemDecayCommand : Command
+    public class ItemDecayCommand : CommandResult<Item>
     {
         public ItemDecayCommand(Item item, int executeInMilliseconds, ushort openTibiaId, byte count)
         {
@@ -23,14 +24,12 @@ namespace OpenTibia.Game.Commands
 
         public byte Count { get; set; }
 
-        public override void Execute(Context context)
+        public override PromiseResult<Item> Execute(Context context)
         {
-            Promise.Delay(context, Constants.ItemDecaySchedulerEvent(Item), ExecuteInMilliseconds).Then(ctx =>
+            return Promise.Delay(context, Constants.ItemDecaySchedulerEvent(Item), ExecuteInMilliseconds).Then(ctx =>
             {
-                ctx.AddCommand(new ItemTransformCommand(Item, OpenTibiaId, Count) );
+                return ctx.AddCommand(new ItemTransformCommand(Item, OpenTibiaId, Count) );
             } );
-
-            OnComplete(context);
         }
     }
 }

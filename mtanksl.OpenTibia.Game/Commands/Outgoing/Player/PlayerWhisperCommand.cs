@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -17,21 +18,24 @@ namespace OpenTibia.Game.Commands
 
         public string Message { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            foreach (var observer in context.Server.GameObjects.GetPlayers() )
+            return Promise.Run(resolve =>
             {
-                if (observer.Tile.Position.CanHearWhisper(Player.Tile.Position) )
+                foreach (var observer in context.Server.GameObjects.GetPlayers() )
                 {
-                    context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, Message) );
+                    if (observer.Tile.Position.CanHearWhisper(Player.Tile.Position) )
+                    {
+                        context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, Message) );
+                    }
+                    else if (observer.Tile.Position.CanHearSay(Player.Tile.Position) )
+                    {
+                        context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, "pspsps") );
+                    }
                 }
-                else if (observer.Tile.Position.CanHearSay(Player.Tile.Position) )
-                {
-                    context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, "pspsps") );
-                }
-            }
 
-            OnComplete(context);
+                resolve(context);
+            } );
         }
     }
 }

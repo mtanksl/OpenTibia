@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Game.Commands;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
@@ -17,28 +18,19 @@ namespace OpenTibia.Game.CommandHandlers
             { 2781, 2782 }
         };
 
-        private ushort toOpenTibiaId;
-
-        public override bool CanHandle(Context context, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemWithItemCommand command)
         {
+            ushort toOpenTibiaId;
+
             if (machetes.Contains(command.Item.Metadata.OpenTibiaId) && jungleGrass.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                return true;
+                return context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) ).Then( (ctx, item) =>
+                {
+                    return ctx.AddCommand(new ItemDecayCommand(item, 10000, decay[item.Metadata.OpenTibiaId], 1) );
+                } );
             }
 
-            return false;
-        }
-
-        public override void Handle(Context context, PlayerUseItemWithItemCommand command)
-        {
-            context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) ).Then( (ctx, item) =>
-            {
-                return ctx.AddCommand(new ItemDecayCommand(item, 10000, decay[item.Metadata.OpenTibiaId], 1) );
-
-            } ).Then(ctx =>
-            {
-                OnComplete(ctx);
-            } );
+            return next(context);
         }
     }
 }

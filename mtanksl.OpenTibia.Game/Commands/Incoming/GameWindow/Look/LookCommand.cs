@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -10,21 +11,5 @@ namespace OpenTibia.Game.Commands
         }
 
         public Player Player { get; set; }
-
-        protected void LookAtItem(Context context, Item item)
-        {
-            context.AddCommand(new PlayerLookItemCommand(Player, item) ).Then(ctx =>
-            {
-                OnComplete(ctx);
-            } );
-        }
-
-        protected void LookAtCreature(Context context, Creature creature)
-        {
-            context.AddCommand(new PlayerLookCreatureCommand(Player, creature) ).Then(ctx =>
-            {
-                OnComplete(ctx);
-            } );
-        }
     }
 }

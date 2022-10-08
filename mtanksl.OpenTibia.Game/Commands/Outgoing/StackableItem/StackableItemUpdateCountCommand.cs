@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -15,46 +16,49 @@ namespace OpenTibia.Game.Commands
 
         public byte Count { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            if (Item.Count != Count)
+            return Promise.Run(resolve =>
             {
-                Item.Count = Count;
-
-                switch (Item.Parent)
+                if (Item.Count != Count)
                 {
-                    case Tile tile:
+                    Item.Count = Count;
 
-                        context.AddCommand(new TileRefreshItemCommand(tile, Item) ).Then(ctx =>
-                        {
-                            OnComplete(ctx);
-                        } );
+                    switch (Item.Parent)
+                    {
+                        case Tile tile:
+
+                            context.AddCommand(new TileRefreshItemCommand(tile, Item) ).Then(ctx =>
+                            {
+                                resolve(ctx);
+                            } );
                   
-                        break;
+                            break;
 
-                    case Inventory inventory:
+                        case Inventory inventory:
 
-                        context.AddCommand(new InventoryRefreshItemCommand(inventory, Item) ).Then(ctx =>
-                        {
-                            OnComplete(ctx);
-                        } );
+                            context.AddCommand(new InventoryRefreshItemCommand(inventory, Item) ).Then(ctx =>
+                            {
+                                resolve(ctx);
+                            } );
                    
-                        break;
+                            break;
 
-                    case Container container:
+                        case Container container:
 
-                        context.AddCommand(new ContainerRefreshItemCommand(container, Item) ).Then(ctx =>
-                        {
-                            OnComplete(ctx);
-                        } );
+                            context.AddCommand(new ContainerRefreshItemCommand(container, Item) ).Then(ctx =>
+                            {
+                                resolve(ctx);
+                            } );
 
-                        break;
+                            break;
+                    }
                 }
-            }
-            else
-            {
-                OnComplete(context);
-            }
+                else
+                {
+                    resolve(context);
+                }
+            } );
         }
     }
 }

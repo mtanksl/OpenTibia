@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -17,24 +18,27 @@ namespace OpenTibia.Game.Commands
 
         public PartyIcon PartyIcon { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            if (Creature.PartyIcon != PartyIcon)
+            return Promise.Run(resolve =>
             {
-                Creature.PartyIcon = PartyIcon;
-
-                Tile fromTile = Creature.Tile;
-
-                foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                if (Creature.PartyIcon != PartyIcon)
                 {
-                    if (observer.Tile.Position.CanSee(fromTile.Position) )
+                    Creature.PartyIcon = PartyIcon;
+
+                    Tile fromTile = Creature.Tile;
+
+                    foreach (var observer in context.Server.GameObjects.GetPlayers() )
                     {
-                        context.AddPacket(observer.Client.Connection, new SetPartyIconOutgoingPacket(Creature.Id, Creature.PartyIcon) );
+                        if (observer.Tile.Position.CanSee(fromTile.Position) )
+                        {
+                            context.AddPacket(observer.Client.Connection, new SetPartyIconOutgoingPacket(Creature.Id, Creature.PartyIcon) );
+                        }
                     }
                 }
-            }
 
-            OnComplete(context);
+                resolve(context);
+            } );
         }
     }
 }

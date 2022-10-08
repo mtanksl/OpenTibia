@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -16,24 +17,27 @@ namespace OpenTibia.Game.Commands
 
         public ushort Speed { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            if (Creature.Speed != Speed)
+            return Promise.Run(resolve =>
             {
-                Creature.Speed = Speed;
-
-                Tile fromTile = Creature.Tile;
-
-                foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                if (Creature.Speed != Speed)
                 {
-                    if (observer.Tile.Position.CanSee(fromTile.Position) )
+                    Creature.Speed = Speed;
+
+                    Tile fromTile = Creature.Tile;
+
+                    foreach (var observer in context.Server.GameObjects.GetPlayers() )
                     {
-                        context.AddPacket(observer.Client.Connection, new SetSpeedOutgoingPacket(Creature.Id, Creature.Speed) );
+                        if (observer.Tile.Position.CanSee(fromTile.Position) )
+                        {
+                            context.AddPacket(observer.Client.Connection, new SetSpeedOutgoingPacket(Creature.Id, Creature.Speed) );
+                        }
                     }
                 }
-            }
 
-            OnComplete(context);
+                resolve(context);
+            } );
         }
     }
 }

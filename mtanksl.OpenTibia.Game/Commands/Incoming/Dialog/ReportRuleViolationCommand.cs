@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Incoming;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -16,9 +17,14 @@ namespace OpenTibia.Game.Commands
 
         public ReportRuleViolationIncomingPacket Packet { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            OnComplete(context);
+            return Promise.Run(resolve =>
+            {
+
+
+                resolve(context);
+            } );
         }
     }
 }

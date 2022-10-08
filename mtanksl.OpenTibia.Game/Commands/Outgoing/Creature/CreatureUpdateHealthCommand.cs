@@ -21,31 +21,34 @@ namespace OpenTibia.Game.Commands
 
         public ushort MaxHealth { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            if (Creature.Health != Health || Creature.MaxHealth != MaxHealth)
+            return Promise.Run(resolve =>
             {
-                Creature.Health = Health;
-
-                Creature.MaxHealth = MaxHealth;
-
-                Tile fromTile = Creature.Tile;
-
-                foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                if (Creature.Health != Health || Creature.MaxHealth != MaxHealth)
                 {
-                    if (observer == Creature)
+                    Creature.Health = Health;
+
+                    Creature.MaxHealth = MaxHealth;
+
+                    Tile fromTile = Creature.Tile;
+
+                    foreach (var observer in context.Server.GameObjects.GetPlayers() )
                     {
-                        context.AddPacket(observer.Client.Connection, new SendStatusOutgoingPacket(observer.Health, observer.MaxHealth, observer.Capacity, observer.Experience, observer.Level, observer.LevelPercent, observer.Mana, observer.MaxMana, 0, 0, observer.Soul, observer.Stamina) );
-                    }
+                        if (observer == Creature)
+                        {
+                            context.AddPacket(observer.Client.Connection, new SendStatusOutgoingPacket(observer.Health, observer.MaxHealth, observer.Capacity, observer.Experience, observer.Level, observer.LevelPercent, observer.Mana, observer.MaxMana, 0, 0, observer.Soul, observer.Stamina) );
+                        }
                     
-                    if (observer.Tile.Position.CanSee(fromTile.Position) )
-                    {
-                        context.AddPacket(observer.Client.Connection, new SetHealthOutgoingPacket(Creature.Id, (byte)Math.Ceiling(100.0 * Creature.Health / Creature.MaxHealth) ) );
+                        if (observer.Tile.Position.CanSee(fromTile.Position) )
+                        {
+                            context.AddPacket(observer.Client.Connection, new SetHealthOutgoingPacket(Creature.Id, (byte)Math.Ceiling(100.0 * Creature.Health / Creature.MaxHealth) ) );
+                        }
                     }
                 }
-            }
 
-            OnComplete(context);
+                resolve(context);
+            } );
         }
     }
 }

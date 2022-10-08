@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -11,15 +12,18 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
                 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            context.AddCommand(new StopWalkCommand(Player) );
+            return Promise.Run(resolve =>
+            {
+                context.AddCommand(new StopWalkCommand(Player) );
 
-            context.AddCommand(new StopAttackCommand(Player) );
+                context.AddCommand(new StopAttackCommand(Player) );
 
-            context.AddCommand(new StopFollowCommand(Player) );
+                context.AddCommand(new StopFollowCommand(Player) );
 
-            OnComplete(context);
+                resolve(context);
+            } );
         }
     }
 }

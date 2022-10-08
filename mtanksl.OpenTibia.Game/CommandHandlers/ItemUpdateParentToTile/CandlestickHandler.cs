@@ -1,5 +1,5 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Game.Commands;
+﻿using OpenTibia.Game.Commands;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
@@ -17,28 +17,19 @@ namespace OpenTibia.Game.CommandHandlers
             { 5813, 5812 }
         };
 
-        private ushort toOpenTibiaId;
-
-        public override bool CanHandle(Context context, ItemUpdateParentToTileCommand command)
+        public override Promise Handle(Context context, Func<Context, Promise> next, ItemUpdateParentToTileCommand command)
         {
+            ushort toOpenTibiaId;
+
             if (candlestick.Contains(command.Item.Metadata.OpenTibiaId) && command.ToTile.TopItem != null && transformations.TryGetValue(command.ToTile.TopItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                return true;
+                return context.AddCommand(new ItemDestroyCommand(command.Item) ).Then(ctx =>
+                {
+                    return ctx.AddCommand(new ItemTransformCommand(command.ToTile.TopItem, toOpenTibiaId, 1) );          
+                } ); 
             }
 
-            return false;
-        }
-
-        public override void Handle(Context context, ItemUpdateParentToTileCommand command)
-        {
-            context.AddCommand(new ItemDestroyCommand(command.Item) ).Then(ctx =>
-            {
-                return ctx.AddCommand(new ItemTransformCommand(command.ToTile.TopItem, toOpenTibiaId, 1) );
-          
-            } ).Then( (ctx, item) =>
-            {
-                OnComplete(ctx);
-            } );           
+            return next(context);
         }
     }
 }

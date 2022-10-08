@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -10,10 +11,5 @@ namespace OpenTibia.Game.Commands
         }
 
         public Player Player { get; set; }
-
-        protected void TradeWith(Context context, Item fromItem, Player toPlayer)
-        {
-            OnComplete(context);
-        }
     }
 }

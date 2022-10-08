@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
@@ -25,57 +26,49 @@ namespace OpenTibia.Game.CommandHandlers
             1398, 1400, 1402, 1404, 1553, 1555, 1557, 1559
         };
 
-        public override bool CanHandle(Context context, ItemUpdateParentToTileCommand command)
-        {
-            if (command.ToTile.TopItem != null && stairs.Contains(command.ToTile.TopItem.Metadata.OpenTibiaId) )
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public override void Handle(Context context, ItemUpdateParentToTileCommand command)
+        public override Promise Handle(Context context, Func<Context, Promise> next, ItemUpdateParentToTileCommand command)
         {
             Tile toTile = command.ToTile;
 
-            if (toTile.FloorChange == FloorChange.North)
+            if (toTile.TopItem != null && stairs.Contains(toTile.TopItem.Metadata.OpenTibiaId) )
             {
-                toTile = context.Server.Map.GetTile(toTile.Position.Offset(0, -1, -1) );
-            }
-            else if (toTile.FloorChange == FloorChange.East)
-            {
-                toTile = context.Server.Map.GetTile(toTile.Position.Offset(1, 0, -1) );
-            }
-            else if (toTile.FloorChange == FloorChange.South)
-            {
-                toTile = context.Server.Map.GetTile(toTile.Position.Offset(0, 1, -1) );
-            }
-            else if (toTile.FloorChange == FloorChange.West)
-            {
-                toTile = context.Server.Map.GetTile(toTile.Position.Offset(-1, 0, -1) );
-            }
-            else if (toTile.FloorChange == FloorChange.NorthEast)
-            {
-                toTile = context.Server.Map.GetTile(toTile.Position.Offset(1, -1, -1) );
-            }
-            else if (toTile.FloorChange == FloorChange.NorthWest)
-            {
-                toTile = context.Server.Map.GetTile(toTile.Position.Offset(-1, -1, -1) );
-            }
-            else if (toTile.FloorChange == FloorChange.SouthWest)
-            {
-                toTile = context.Server.Map.GetTile(toTile.Position.Offset(-1, 1, -1) );
-            }
-            else if (toTile.FloorChange == FloorChange.SouthEast)
-            {
-                toTile = context.Server.Map.GetTile(toTile.Position.Offset(1, 1, -1) );
+                if (toTile.FloorChange == FloorChange.North)
+                {
+                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(0, -1, -1) );
+                }
+                else if (toTile.FloorChange == FloorChange.East)
+                {
+                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(1, 0, -1) );
+                }
+                else if (toTile.FloorChange == FloorChange.South)
+                {
+                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(0, 1, -1) );
+                }
+                else if (toTile.FloorChange == FloorChange.West)
+                {
+                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(-1, 0, -1) );
+                }
+                else if (toTile.FloorChange == FloorChange.NorthEast)
+                {
+                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(1, -1, -1) );
+                }
+                else if (toTile.FloorChange == FloorChange.NorthWest)
+                {
+                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(-1, -1, -1) );
+                }
+                else if (toTile.FloorChange == FloorChange.SouthWest)
+                {
+                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(-1, 1, -1) );
+                }
+                else if (toTile.FloorChange == FloorChange.SouthEast)
+                {
+                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(1, 1, -1) );
+                }
+
+                return context.AddCommand(new ItemUpdateParentToTileCommand(command.Item, toTile) );
             }
 
-            context.AddCommand(new ItemUpdateParentToTileCommand(command.Item, toTile) ).Then(ctx =>
-            {
-                OnComplete(ctx);
-            } );
+            return next(context);
         }
     }
 }

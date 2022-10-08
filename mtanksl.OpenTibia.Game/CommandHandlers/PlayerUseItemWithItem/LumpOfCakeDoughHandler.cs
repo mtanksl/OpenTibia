@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
@@ -20,62 +21,34 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort bakingTrayWithDough = 8848;
 
-        public override bool CanHandle(Context context, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemWithItemCommand command)
         {
             if (lumpOfCakeDoughs.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 if (ovens.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
-                    return true;
+                    return context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
+                    {
+                        return ctx.AddCommand(new TileCreateItemCommand( (Tile)command.ToItem.Parent, cake, 1) );
+                    } );                
                 }
                 else if (barOfChocolate.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
-                    return true;
+                    return context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
+                    {
+                        return ctx.AddCommand(new ItemTransformCommand(command.ToItem, lumpOfChocolateDough, 1) );
+                    } );
                 }
                 else if (bakingTrays.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
-                    return true;
-                }
+                    return context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
+                    {
+                        return ctx.AddCommand(new ItemTransformCommand(command.ToItem, bakingTrayWithDough, 1) );
+                    } );
+                }   
             }
 
-            return false;
-        }
-
-        public override void Handle(Context context, PlayerUseItemWithItemCommand command)
-        {
-            if (ovens.Contains(command.ToItem.Metadata.OpenTibiaId) )
-            {
-                context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
-                {
-                    return ctx.AddCommand(new TileCreateItemCommand( (Tile)command.ToItem.Parent, cake, 1) );
-
-                } ).Then( (ctx, item) =>
-                {
-                    OnComplete(ctx);
-                } );                
-            }
-            else if (barOfChocolate.Contains(command.ToItem.Metadata.OpenTibiaId) )
-            {
-                context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
-                {
-                    return ctx.AddCommand(new ItemTransformCommand(command.ToItem, lumpOfChocolateDough, 1) );
-
-                } ).Then( (ctx, item) =>
-                {
-                    OnComplete(ctx);
-                } );
-            }
-            else if (bakingTrays.Contains(command.ToItem.Metadata.OpenTibiaId) )
-            {
-                context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
-                {
-                    return ctx.AddCommand(new ItemTransformCommand(command.ToItem, bakingTrayWithDough, 1) );
-
-                } ).Then( (ctx, item) =>
-                {
-                    OnComplete(ctx);
-                } );
-            }            
+            return next(context);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
@@ -8,22 +9,14 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> sewers = new HashSet<ushort>() { 430 };
 
-        public override bool CanHandle(Context context, PlayerUseItemCommand command)
+        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemCommand command)
         {
             if (sewers.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                return true;
+                return context.AddCommand(new CreatureUpdateParentCommand(command.Player, context.Server.Map.GetTile( ( (Tile)command.Item.Parent ).Position.Offset(0, 0, 1) ) ) );
             }
 
-            return false;
-        }
-
-        public override void Handle(Context context, PlayerUseItemCommand command)
-        {
-            context.AddCommand(new CreatureUpdateParentCommand(command.Player, context.Server.Map.GetTile( ( (Tile)command.Item.Parent ).Position.Offset(0, 0, 1) ) ) ).Then(ctx =>
-            {
-                OnComplete(ctx);
-            } );
+            return next(context);
         }
     }
 }

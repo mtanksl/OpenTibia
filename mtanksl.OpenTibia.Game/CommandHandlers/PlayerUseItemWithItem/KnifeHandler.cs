@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Game.Commands;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
@@ -11,22 +12,14 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort pumpkinhead = 2096;
 
-        public override bool CanHandle(Context context, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemWithItemCommand command)
         {
             if (knifes.Contains(command.Item.Metadata.OpenTibiaId) && pumpkins.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
-                return true;
+                return context.AddCommand(new ItemTransformCommand(command.ToItem, pumpkinhead, 1) );
             }
 
-            return false;
-        }
-
-        public override void Handle(Context context, PlayerUseItemWithItemCommand command)
-        {
-            context.AddCommand(new ItemTransformCommand(command.ToItem, pumpkinhead, 1) ).Then( (ctx, item) =>
-            {
-                OnComplete(ctx);
-            } );
+            return next(context);
         }
     }
 }

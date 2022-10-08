@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -31,27 +32,33 @@ namespace OpenTibia.Game.Commands
 
         public byte Count { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
-
-            if (fromContainer != null)
+            return Promise.Run(resolve =>
             {
-                Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
+                Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
 
-                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                if (fromContainer != null)
                 {
-                    Container toContainer = Player.Client.ContainerCollection.GetContainer(ToContainerId);
+                    Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
 
-                    if (toContainer != null)
+                    if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                     {
-                        if (IsMoveable(context, fromItem, Count) && IsPickupable(context, fromItem) && IsPossible(context, fromItem, toContainer) )
+                        Container toContainer = Player.Client.ContainerCollection.GetContainer(ToContainerId);
+
+                        if (toContainer != null)
                         {
-                            MoveItem(context, fromItem, toContainer, ToContainerIndex, Count);
+                            if (IsMoveable(context, fromItem, Count) && IsPickupable(context, fromItem) && IsPossible(context, fromItem, toContainer) )
+                            {
+                                context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toContainer, ToContainerIndex, Count) ).Then(ctx =>
+                                {
+                                    resolve(ctx);
+                                } );
+                            }
                         }
                     }
                 }
-            }
+            } );
         }
     }
 }

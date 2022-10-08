@@ -15,31 +15,21 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        public Action<Context, TResult> ContinueWith { get; set; }
-
-        public abstract void Execute(Context context);
-
-        protected virtual void OnComplete(Context context, TResult result)
-        {
-            if (ContinueWith != null)
-            {
-                ContinueWith(context, result);
-            }
-        }
+        public abstract PromiseResult<TResult> Execute(Context context);
     }
 
     public class InlineCommandResult<TResult> : CommandResult<TResult>
     {
-        private Action<Context, Action<Context, TResult> > execute;
+        private Func<Context, PromiseResult<TResult> > execute;
 
-        public InlineCommandResult(Action<Context, Action<Context, TResult> > execute)
+        public InlineCommandResult(Func<Context, PromiseResult<TResult> > execute)
         {
             this.execute = execute;
         }
 
-        public override void Execute(Context context)
+        public override PromiseResult<TResult> Execute(Context context)
         {
-            execute(context, OnComplete);
+            return execute(context);
         }
     }
 }

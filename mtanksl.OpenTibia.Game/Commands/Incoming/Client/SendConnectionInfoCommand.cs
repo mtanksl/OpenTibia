@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -12,11 +13,14 @@ namespace OpenTibia.Game.Commands
 
         public IConnection Connection { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            context.AddPacket(Connection, new SendConnectionInfoOutgoingPacket() );
+            return Promise.Run(resolve =>
+            {
+                context.AddPacket(Connection, new SendConnectionInfoOutgoingPacket() );
 
-            OnComplete(context);
+                resolve(context);
+            } );
         }
     }
 }

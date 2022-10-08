@@ -1,5 +1,5 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Game.Commands;
+﻿using OpenTibia.Game.Commands;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
@@ -12,26 +12,17 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort flour = 2692;
 
-        public override bool CanHandle(Context context, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemWithItemCommand command)
         {
             if (wheats.Contains(command.Item.Metadata.OpenTibiaId) && millstones.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
-                return true;
+                return context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
+                {
+                    return ctx.AddCommand(new TileCreateItemCommand(command.Player.Tile, flour, 1) );
+                } );
             }
 
-            return false;
-        }
-
-        public override void Handle(Context context, PlayerUseItemWithItemCommand command)
-        {
-            context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
-            {
-                return ctx.AddCommand(new TileCreateItemCommand(command.Player.Tile, flour, 1) );
-
-            } ).Then( (ctx, item) =>
-            {
-                OnComplete(ctx);
-            } );
+            return next(context);
         }
     }
 }

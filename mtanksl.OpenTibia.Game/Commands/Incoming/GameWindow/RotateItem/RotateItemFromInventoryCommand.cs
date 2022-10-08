@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -15,19 +16,25 @@ namespace OpenTibia.Game.Commands
 
         public ushort ItemId { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Inventory fromInventory = Player.Inventory;
-
-            Item fromItem = fromInventory.GetContent(FromSlot) as Item;
-
-            if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+            return Promise.Run(resolve =>
             {
-                if ( IsRotatable(context, fromItem) )
+                Inventory fromInventory = Player.Inventory;
+
+                Item fromItem = fromInventory.GetContent(FromSlot) as Item;
+
+                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
-                    RotateItem(context, fromItem);
+                    if ( IsRotatable(context, fromItem) )
+                    {
+                        context.AddCommand(new PlayerRotateItemCommand(Player, fromItem) ).Then(ctx =>
+                        {
+                            resolve(ctx);
+                        } );
+                    }
                 }
-            }
+            } );
         }
     }
 }

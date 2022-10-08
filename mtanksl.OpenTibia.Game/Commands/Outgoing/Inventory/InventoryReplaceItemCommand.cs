@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -21,15 +22,18 @@ namespace OpenTibia.Game.Commands
 
         public Item ToItem { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            byte slot = Inventory.GetIndex(FromItem);
+            return Promise.Run(resolve =>
+            {
+                byte slot = Inventory.GetIndex(FromItem);
 
-            Inventory.ReplaceContent(slot, ToItem);
+                Inventory.ReplaceContent(slot, ToItem);
 
-            context.AddPacket(Inventory.Player.Client.Connection, new SlotAddOutgoingPacket(slot, ToItem ) );
+                context.AddPacket(Inventory.Player.Client.Connection, new SlotAddOutgoingPacket(slot, ToItem ) );
 
-            OnComplete(context);
+                resolve(context);
+            } );
         }
     }
 }

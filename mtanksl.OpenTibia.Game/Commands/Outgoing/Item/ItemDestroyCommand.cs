@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -11,43 +12,46 @@ namespace OpenTibia.Game.Commands
 
         public Item Item { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            switch (Item.Parent)
+            return Promise.Run(resolve =>
             {
-                case Tile tile:
+                switch (Item.Parent)
+                {
+                    case Tile tile:
 
-                    context.AddCommand(new TileRemoveItemCommand(tile, Item) ).Then(ctx =>
-                    {
-                        ctx.Server.ItemFactory.Destroy(Item);
+                        context.AddCommand(new TileRemoveItemCommand(tile, Item) ).Then(ctx =>
+                        {
+                            ctx.Server.ItemFactory.Destroy(Item);
 
-                        OnComplete(ctx);
-                    } );
+                            resolve(ctx);
+                        } );
                   
-                    break;
+                        break;
 
-                case Inventory inventory:
+                    case Inventory inventory:
 
-                    context.AddCommand(new InventoryRemoveItemCommand(inventory, Item) ).Then(ctx =>
-                    {
-                        ctx.Server.ItemFactory.Destroy(Item);
+                        context.AddCommand(new InventoryRemoveItemCommand(inventory, Item) ).Then(ctx =>
+                        {
+                            ctx.Server.ItemFactory.Destroy(Item);
 
-                        OnComplete(ctx);
-                    } );
+                            resolve(ctx);
+                        } );
                    
-                    break;
+                        break;
 
-                case Container container:
+                    case Container container:
 
-                    context.AddCommand(new ContainerRemoveItemCommand(container, Item) ).Then(ctx =>
-                    {
-                        ctx.Server.ItemFactory.Destroy(Item);
+                        context.AddCommand(new ContainerRemoveItemCommand(container, Item) ).Then(ctx =>
+                        {
+                            ctx.Server.ItemFactory.Destroy(Item);
 
-                        OnComplete(ctx);
-                    } );
+                            resolve(ctx);
+                        } );
 
-                    break;
-            }
+                        break;
+                }
+            } );            
         }
     }
 }

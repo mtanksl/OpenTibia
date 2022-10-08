@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -20,25 +21,28 @@ namespace OpenTibia.Game.Commands
 
         public uint Nonce { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Creature creature = context.Server.GameObjects.GetGameObject<Creature>(CreatureId);
-
-            if (creature != null && creature != Player)
+            return Promise.Run(resolve =>
             {
-                Player.AttackTarget = creature;
+                Creature creature = context.Server.GameObjects.GetGameObject<Creature>(CreatureId);
 
-                if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
+                if (creature != null && creature != Player)
                 {
-                    Player.FollowTarget = null;
-                }
-                else
-                {
-                    Player.FollowTarget = creature;
-                }
-            }
+                    Player.AttackTarget = creature;
 
-            OnComplete(context);
+                    if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
+                    {
+                        Player.FollowTarget = null;
+                    }
+                    else
+                    {
+                        Player.FollowTarget = creature;
+                    }
+                }
+
+                resolve(context);
+            } );
         }
     }
 }

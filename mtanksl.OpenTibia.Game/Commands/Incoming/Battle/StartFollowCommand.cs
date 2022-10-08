@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -19,18 +20,21 @@ namespace OpenTibia.Game.Commands
 
         public uint Nonce { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Creature creature = context.Server.GameObjects.GetGameObject<Creature>(CreatureId);
-
-            if (creature != null && creature != Player)
+            return Promise.Run(resolve =>
             {
-                Player.AttackTarget = null;
+                Creature creature = context.Server.GameObjects.GetGameObject<Creature>(CreatureId);
 
-                Player.FollowTarget = creature;
-            }
+                if (creature != null && creature != Player)
+                {
+                    Player.AttackTarget = null;
 
-            OnComplete(context);
+                    Player.FollowTarget = creature;
+                }
+
+                resolve(context);
+            } );
         }
     }
 }

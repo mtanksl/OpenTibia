@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
@@ -17,7 +18,7 @@ namespace OpenTibia.Game.Commands
 
         public MoveDirection[] MoveDirections { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
             List<Command> commands = new List<Command>();
 
@@ -26,10 +27,7 @@ namespace OpenTibia.Game.Commands
                 commands.Add(new WalkCommand(Player, moveDirection) );
             }
 
-            context.AddCommand(new SequenceCommand(commands.ToArray() ) ).Then(ctx =>
-            {
-                OnComplete(ctx);
-            } );
+            return context.AddCommand(new SequenceCommand(commands.ToArray() ) );
         }
     }
 }

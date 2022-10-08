@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -19,17 +20,20 @@ namespace OpenTibia.Game.Commands
 
         public byte Count { get; set; }
 
-        public override void Execute(Context context)
+        public override PromiseResult<Item> Execute(Context context)
         {
-            Item item = context.Server.ItemFactory.Create(OpenTibiaId, Count);
-
-            if (item != null)
+            return PromiseResult<Item>.Run(resolve =>
             {
-                context.AddCommand(new ContainerAddItemCommand(Container, item) ).Then(ctx =>
+                Item item = context.Server.ItemFactory.Create(OpenTibiaId, Count);
+
+                if (item != null)
                 {
-                    OnComplete(ctx, item);
-                } );
-            }
+                    context.AddCommand(new ContainerAddItemCommand(Container, item) ).Then(ctx =>
+                    {
+                        resolve(ctx, item);
+                    } );
+                }                
+            } );
         }
     }
 }

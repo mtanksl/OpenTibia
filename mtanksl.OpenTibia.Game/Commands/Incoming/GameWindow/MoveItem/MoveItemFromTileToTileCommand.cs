@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -28,27 +29,33 @@ namespace OpenTibia.Game.Commands
 
         public byte Count { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Tile fromTile = context.Server.Map.GetTile(FromPosition);
-
-            if (fromTile != null)
+            return Promise.Run(resolve =>
             {
-                Item fromItem = fromTile.GetContent(FromIndex) as Item;
+                Tile fromTile = context.Server.Map.GetTile(FromPosition);
 
-                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                if (fromTile != null)
                 {
-                    Tile toTile = context.Server.Map.GetTile(ToPosition);
+                    Item fromItem = fromTile.GetContent(FromIndex) as Item;
 
-                    if (toTile != null)
+                    if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                     {
-                        if (IsMoveable(context, fromItem, Count) )
+                        Tile toTile = context.Server.Map.GetTile(ToPosition);
+
+                        if (toTile != null)
                         {
-                            MoveItem(context, fromItem, toTile, 0, Count);
+                            if (IsMoveable(context, fromItem, Count) && CanThrow(context, fromTile, toTile) )
+                            {
+                                context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toTile, 0, Count) ).Then(ctx =>
+                                {
+                                    resolve(ctx);
+                                } );
+                            }
                         }
                     }
                 }
-            }
+            } );
         }
     }
 }

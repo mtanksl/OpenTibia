@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -17,26 +18,29 @@ namespace OpenTibia.Game.Commands
 
         public Direction Direction { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            if (Creature.Direction != Direction)
+            return Promise.Run(resolve =>
             {
-                Creature.Direction = Direction;
-
-                Tile fromTile = Creature.Tile;
-
-                byte index = fromTile.GetIndex(Creature);
-
-                foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                if (Creature.Direction != Direction)
                 {
-                    if (observer.Tile.Position.CanSee(fromTile.Position) )
+                    Creature.Direction = Direction;
+
+                    Tile fromTile = Creature.Tile;
+
+                    byte index = fromTile.GetIndex(Creature);
+
+                    foreach (var observer in context.Server.GameObjects.GetPlayers() )
                     {
-                        context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(fromTile.Position, index, Creature.Id, Creature.Direction) );
+                        if (observer.Tile.Position.CanSee(fromTile.Position) )
+                        {
+                            context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(fromTile.Position, index, Creature.Id, Creature.Direction) );
+                        }
                     }
                 }
-            }
 
-            OnComplete(context);
+                resolve(context);
+            } );
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -17,24 +18,27 @@ namespace OpenTibia.Game.Commands
 
         public Outfit Outfit { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            if (Creature.Outfit != Outfit)
+            return Promise.Run(resolve =>
             {
-                Creature.Outfit = Outfit;
-
-                Tile fromTile = Creature.Tile;
-
-                foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                if (Creature.Outfit != Outfit)
                 {
-                    if (observer.Tile.Position.CanSee(fromTile.Position) )
+                    Creature.Outfit = Outfit;
+
+                    Tile fromTile = Creature.Tile;
+
+                    foreach (var observer in context.Server.GameObjects.GetPlayers() )
                     {
-                        context.AddPacket(observer.Client.Connection, new SetOutfitOutgoingPacket(Creature.Id, Creature.Outfit) );
+                        if (observer.Tile.Position.CanSee(fromTile.Position) )
+                        {
+                            context.AddPacket(observer.Client.Connection, new SetOutfitOutgoingPacket(Creature.Id, Creature.Outfit) );
+                        }
                     }
                 }
-            }
 
-            OnComplete(context);
+                resolve(context);
+            } );
         }
     }
 }

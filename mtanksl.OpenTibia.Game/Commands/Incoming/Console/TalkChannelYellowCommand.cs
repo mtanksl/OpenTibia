@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -21,22 +22,25 @@ namespace OpenTibia.Game.Commands
 
         public string Message { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Channel channel = context.Server.Channels.GetChannel(ChannelId);
-
-            if (channel != null)
+            return Promise.Run(resolve =>
             {
-                if (channel.ContainsPlayer(Player) )
-                {                                                           
-                    foreach (var observer in channel.GetPlayers() )
-                    {
-                        context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.ChannelYellow, channel.Id, Message) );
-                    }
+                Channel channel = context.Server.Channels.GetChannel(ChannelId);
 
-                    OnComplete(context);
-                }
-            }
+                if (channel != null)
+                {
+                    if (channel.ContainsPlayer(Player) )
+                    {                                                           
+                        foreach (var observer in channel.GetPlayers() )
+                        {
+                            context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.ChannelYellow, channel.Id, Message) );
+                        }
+
+                        resolve(context);
+                    }
+                }                
+            } );
         }
     }
 }

@@ -90,12 +90,12 @@ namespace OpenTibia.Game
 
             while (true)
             {
-                yield return new Position(x1, y1, fromPosition.Z);
-
                 if (x1 == x2 && y1 == y2)
                 {
                     break;
                 }
+
+                yield return new Position(x1, y1, fromPosition.Z);
 
                 int e2 = 2 * e;
 

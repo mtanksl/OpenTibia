@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -12,14 +13,17 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
                 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            if (context.Server.CancelQueueForExecution(Constants.CreatureWalkSchedulerEvent(Player) ) )
+            return Promise.Run(resolve =>
             {
-                context.AddPacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
-            }
+                if (context.Server.CancelQueueForExecution(Constants.CreatureWalkSchedulerEvent(Player) ) )
+                {
+                    context.AddPacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
+                }
 
-            OnComplete(context);
+                resolve(context);
+            } );
         }
     }
 }

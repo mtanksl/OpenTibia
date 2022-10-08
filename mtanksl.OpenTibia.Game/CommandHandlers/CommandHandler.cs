@@ -5,59 +5,31 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public abstract class CommandHandler : ICommandHandler
     {
-        public Action<Context> ContinueWith { get; set; }
-
-        public abstract bool CanHandle(Context context, Command command);
-
-        public abstract void Handle(Context context, Command command);
-
-        protected virtual void OnComplete(Context context)
-        {
-            if (ContinueWith != null)
-            {
-                ContinueWith(context);
-            }
-        }
+        public abstract Promise Handle(Context context, Func<Context, Promise> next, Command command);
     }
 
     public abstract class CommandHandler<T> : CommandHandler where T : Command
     {
-        public override bool CanHandle(Context context, Command command)
+        public override Promise Handle(Context context, Func<Context, Promise> next, Command command)
         {
-            return CanHandle(context, (T)command);
+            return Handle(context, next, (T)command);
         }
 
-        public abstract bool CanHandle(Context context, T command);
-
-        public override void Handle(Context context, Command command)
-        {
-            Handle(context, (T)command);
-        }
-
-        public abstract void Handle(Context context, T command);
+        public abstract Promise Handle(Context context, Func<Context, Promise> next, T command);
     }
 
     public class InlineCommandHandler<T> : CommandHandler<T> where T : Command
     {
-        private Func<Context, T, bool> canHandle;
+        private Func<Context, Func<Context, Promise>, T, Promise> handle;
 
-        private Action<Context, T, Action<Context> > handle;
-
-        public InlineCommandHandler(Func<Context, T, bool> canHandle, Action<Context, T, Action<Context> > handle)
+        public InlineCommandHandler(Func<Context, Func<Context, Promise>, T, Promise> handle)
         {
-            this.canHandle = canHandle;
-
             this.handle = handle;
         }
 
-        public override bool CanHandle(Context context, T command)
+        public override Promise Handle(Context context, Func<Context, Promise> next, T command)
         {
-            return canHandle(context, command);
-        }
-
-        public override void Handle(Context context, T command)
-        {
-            handle(context, command, OnComplete);
+            return handle(context, next, command);
         }
     }
 }

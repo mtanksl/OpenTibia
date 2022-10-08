@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
 using System.Collections.Generic;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -17,30 +18,33 @@ namespace OpenTibia.Game.Commands
 
         public byte ContainerId { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Container container = Player.Client.ContainerCollection.GetContainer(ContainerId);
-
-            if (container != null)
+            return Promise.Run(resolve =>
             {
-                Container parentContainer = container.Parent as Container;
+                Container container = Player.Client.ContainerCollection.GetContainer(ContainerId);
 
-                if (parentContainer != null)
+                if (container != null)
                 {
-                    Player.Client.ContainerCollection.ReplaceContainer(parentContainer, ContainerId);
+                    Container parentContainer = container.Parent as Container;
 
-                    List<Item> items = new List<Item>();
-
-                    foreach (var item in parentContainer.GetItems() )
+                    if (parentContainer != null)
                     {
-                        items.Add(item);
+                        Player.Client.ContainerCollection.ReplaceContainer(parentContainer, ContainerId);
+
+                        List<Item> items = new List<Item>();
+
+                        foreach (var item in parentContainer.GetItems() )
+                        {
+                            items.Add(item);
+                        }
+
+                        context.AddPacket(Player.Client.Connection, new OpenContainerOutgoingPacket(ContainerId, parentContainer.Metadata.TibiaId, parentContainer.Metadata.Name, parentContainer.Metadata.Capacity, parentContainer.Parent is Container, items) );
+
+                        resolve(context);
                     }
-
-                    context.AddPacket(Player.Client.Connection, new OpenContainerOutgoingPacket(ContainerId, parentContainer.Metadata.TibiaId, parentContainer.Metadata.Name, parentContainer.Metadata.Capacity, parentContainer.Parent is Container, items) );
-
-                    OnComplete(context);
                 }
-            }
+            } );
         }
     }
 }

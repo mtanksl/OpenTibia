@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
@@ -15,50 +16,37 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort lumpOfCakeDough = 6277;
 
-        public override bool CanHandle(Context context, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemWithItemCommand command)
         {
             if (flours.Contains(command.Item.Metadata.OpenTibiaId) && buckets.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
-                return true;
+                FluidItem toFluidItem = (FluidItem)command.ToItem;
+
+                if (toFluidItem.FluidType == FluidType.Water)
+                {
+                    return context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
+                    {
+                        return ctx.AddCommand(new FluidItemUpdateFluidTypeCommand(toFluidItem, FluidType.Empty) );
+
+                    } ).Then(ctx =>
+                    {
+                        return ctx.AddCommand(new TileCreateItemCommand(command.Player.Tile, lumpOfDough, 1) );
+                    } );
+                }
+                else if (toFluidItem.FluidType == FluidType.Milk)
+                {
+                    return context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
+                    {
+                        return ctx.AddCommand(new FluidItemUpdateFluidTypeCommand(toFluidItem, FluidType.Empty) );
+
+                    } ).Then(ctx =>
+                    {
+                        return ctx.AddCommand(new TileCreateItemCommand(command.Player.Tile, lumpOfCakeDough, 1) );
+                    } );
+                }
             }
 
-            return false;
-        }
-
-        public override void Handle(Context context, PlayerUseItemWithItemCommand command)
-        {
-            FluidItem toFluidItem = (FluidItem)command.ToItem;
-
-            if (toFluidItem.FluidType == FluidType.Water)
-            {
-                context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
-                {
-                    return ctx.AddCommand(new FluidItemUpdateFluidTypeCommand(toFluidItem, FluidType.Empty) );
-
-                } ).Then(ctx =>
-                {
-                    return ctx.AddCommand(new TileCreateItemCommand(command.Player.Tile, lumpOfDough, 1) );
-
-                } ).Then( (ctx, item) =>
-                {
-                    OnComplete(ctx);
-                } );
-            }
-            else if (toFluidItem.FluidType == FluidType.Milk)
-            {
-                context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
-                {
-                    return ctx.AddCommand(new FluidItemUpdateFluidTypeCommand(toFluidItem, FluidType.Empty) );
-
-                } ).Then(ctx =>
-                {
-                    return ctx.AddCommand(new TileCreateItemCommand(command.Player.Tile, lumpOfCakeDough, 1) );
-
-                } ).Then( (ctx, item) =>
-                {
-                    OnComplete(ctx);
-                } );
-            }
+            return next(context);
         }
     }
 }

@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Incoming;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -18,63 +19,66 @@ namespace OpenTibia.Game.Commands
 
         public SelectedCharacterIncomingPacket Packet { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Connection.Keys = Packet.Keys;
-
-            if (Packet.Version != 860)
+            return Promise.Run(resolve =>
             {
-                context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.OnlyProtocol86Allowed) );
+                Connection.Keys = Packet.Keys;
 
-                context.Disconnect(Connection);
-
-                OnComplete(context);
-            }
-            else
-            {
-                var account = context.DatabaseContext.PlayerRepository.GetPlayer(Packet.Account, Packet.Password, Packet.Character);
-
-                if (account == null)
+                if (Packet.Version != 860)
                 {
-                    context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
+                    context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.OnlyProtocol86Allowed) );
 
                     context.Disconnect(Connection);
 
-                    OnComplete(context);
+                    resolve(context);
                 }
                 else
                 {
-                    Tile toTile = context.Server.Map.GetTile(new Position(account.CoordinateX, account.CoordinateY, account.CoordinateZ) );
+                    var account = context.DatabaseContext.PlayerRepository.GetPlayer(Packet.Account, Packet.Password, Packet.Character);
 
-                    if (toTile != null)
+                    if (account == null)
                     {
-                        context.AddCommand(new TileCreatePlayerCommand(toTile, account.Name) ).Then( (ctx, player) =>
-                        {
-                            Client client = new Client(ctx.Server);
+                        context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
 
-                                client.Player = player;
+                        context.Disconnect(Connection);
 
-                                Connection.Client = client;
-                                               
-                            ctx.AddPacket(Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs), 
-
-                                                      new SetSpecialConditionOutgoingPacket(SpecialCondition.None),
-                                                    
-                                                      new SendStatusOutgoingPacket(player.Health, player.MaxHealth, player.Capacity, player.Experience, player.Level, player.LevelPercent, player.Mana, player.MaxMana, 0, 0, player.Soul, player.Stamina),
-                                                    
-                                                      new SendSkillsOutgoingPacket(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0),
-                                                    
-                                                      new SetEnvironmentLightOutgoingPacket(ctx.Server.Clock.Light),
-                                                    
-                                                      new SendTilesOutgoingPacket(ctx.Server.Map, client, toTile.Position) );
-
-                            ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
-
-                            OnComplete(ctx);
-                        } );
+                        resolve(context);
                     }
-                }
-            }
+                    else
+                    {
+                        Tile toTile = context.Server.Map.GetTile(new Position(account.CoordinateX, account.CoordinateY, account.CoordinateZ) );
+
+                        if (toTile != null)
+                        {
+                            context.AddCommand(new TileCreatePlayerCommand(toTile, account.Name) ).Then( (ctx, player) =>
+                            {
+                                Client client = new Client(ctx.Server);
+
+                                    client.Player = player;
+
+                                    Connection.Client = client;
+                                               
+                                ctx.AddPacket(Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs), 
+
+                                                          new SetSpecialConditionOutgoingPacket(SpecialCondition.None),
+                                                    
+                                                          new SendStatusOutgoingPacket(player.Health, player.MaxHealth, player.Capacity, player.Experience, player.Level, player.LevelPercent, player.Mana, player.MaxMana, 0, 0, player.Soul, player.Stamina),
+                                                    
+                                                          new SendSkillsOutgoingPacket(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0),
+                                                    
+                                                          new SetEnvironmentLightOutgoingPacket(ctx.Server.Clock.Light),
+                                                    
+                                                          new SendTilesOutgoingPacket(ctx.Server.Map, client, toTile.Position) );
+
+                                ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+
+                                resolve(ctx);
+                            } );
+                        }
+                    }
+                }                
+            } );
         }
     }
 }

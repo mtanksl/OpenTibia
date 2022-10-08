@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -15,21 +16,15 @@ namespace OpenTibia.Game.Commands
 
         public byte Count { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
             if (Item is StackableItem stackableItem && stackableItem.Count > Count)
             {
-                context.AddCommand(new StackableItemUpdateCountCommand(stackableItem, (byte)(stackableItem.Count - Count) ) ).Then(ctx =>
-                {
-                    OnComplete(ctx);
-                } );
+                return context.AddCommand(new StackableItemUpdateCountCommand(stackableItem, (byte)(stackableItem.Count - Count) ) );
             }
             else
             {
-                context.AddCommand(new ItemDestroyCommand(Item) ).Then(ctx =>
-                {
-                    OnComplete(ctx);
-                } );
+                return context.AddCommand(new ItemDestroyCommand(Item) );
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿namespace OpenTibia.Game.Commands
+﻿using System;
+
+namespace OpenTibia.Game.Commands
 {
     public class WhenAllCommand : Command
     {
@@ -11,18 +13,21 @@
 
         private int index = 0;
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            for (int i = 0; i < commands.Length; i++)
+            return Promise.Run(resolve =>
             {
-                context.AddCommand(commands[i] ).Then(ctx =>
+                for (int i = 0; i < commands.Length; i++)
                 {
-                    if (++index == commands.Length)
+                    context.AddCommand(commands[i] ).Then(ctx =>
                     {
-                        OnComplete(ctx);
-                    }
-                } );
-            }
+                        if (++index == commands.Length)
+                        {
+                            resolve(ctx);
+                        }
+                    } );
+                }
+            } );
         }
     }
 }

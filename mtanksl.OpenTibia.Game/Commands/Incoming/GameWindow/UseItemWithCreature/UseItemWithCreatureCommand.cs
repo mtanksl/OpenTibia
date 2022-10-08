@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -20,14 +21,6 @@ namespace OpenTibia.Game.Commands
             }
 
             return true;
-        }
-
-        protected void UseItemWithCreature(Context context, Item fromItem, Creature toCreature)
-        {
-            context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) ).Then(ctx =>
-            {
-                OnComplete(context);
-            } );
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -20,33 +21,42 @@ namespace OpenTibia.Game.Commands
 
         public ushort ItemId { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Tile fromTile = context.Server.Map.GetTile(FromPosition);
-
-            if (fromTile != null)
+            return Promise.Run(resolve =>
             {
-                switch ( fromTile.GetContent(FromIndex) )
+                Tile fromTile = context.Server.Map.GetTile(FromPosition);
+
+                if (fromTile != null)
                 {
-                    case Item item:
+                    switch ( fromTile.GetContent(FromIndex) )
+                    {
+                        case Item item:
 
-                        if (item.Metadata.TibiaId == ItemId)
-                        {
-                            LookAtItem(context, item);
-                        }
+                            if (item.Metadata.TibiaId == ItemId)
+                            {
+                                context.AddCommand(new PlayerLookItemCommand(Player, item) ).Then(ctx =>
+                                {
+                                    resolve(ctx);
+                                } );
+                            }
 
-                        break;
+                            break;
 
-                    case Creature creature:
+                        case Creature creature:
 
-                        if (ItemId == 99)
-                        {
-                            LookAtCreature(context, creature);
-                        }
+                            if (ItemId == 99)
+                            {
+                                context.AddCommand(new PlayerLookCreatureCommand(Player, creature) ).Then(ctx =>
+                                {
+                                    resolve(ctx);
+                                } );
+                            }
 
-                        break;
+                            break;
+                    }
                 }
-            }
+            } );            
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -20,14 +21,6 @@ namespace OpenTibia.Game.Commands
             }
 
             return true;
-        }
-
-        protected void RotateItem(Context context, Item fromItem)
-        {
-            context.AddCommand(new PlayerRotateItemCommand(Player, fromItem) ).Then(ctx =>
-            {
-                OnComplete(ctx);
-            } );
         }
     }
 }

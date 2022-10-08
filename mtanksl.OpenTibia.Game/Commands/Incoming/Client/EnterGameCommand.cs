@@ -3,6 +3,7 @@ using OpenTibia.Network.Packets;
 using OpenTibia.Network.Packets.Incoming;
 using OpenTibia.Network.Packets.Outgoing;
 using System.Collections.Generic;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -19,46 +20,49 @@ namespace OpenTibia.Game.Commands
 
         public EnterGameIncomingPacket Packet { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Connection.Keys = Packet.Keys;
-
-            if (Packet.TibiaDat != 1277983123 || Packet.TibiaPic != 1256571859 || Packet.TibiaSpr != 1277298068 || Packet.Version != 860)
+            return Promise.Run(resolve =>
             {
-                context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.OnlyProtocol86Allowed) );
+                Connection.Keys = Packet.Keys;
 
-                context.Disconnect(Connection);
-
-                OnComplete(context);
-            }
-            else
-            {
-                var account = context.DatabaseContext.PlayerRepository.GetAccount(Packet.Account, Packet.Password);
-
-                if (account == null)
+                if (Packet.TibiaDat != 1277983123 || Packet.TibiaPic != 1256571859 || Packet.TibiaSpr != 1277298068 || Packet.Version != 860)
                 {
-                    context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
+                    context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.OnlyProtocol86Allowed) );
 
                     context.Disconnect(Connection);
 
-                    OnComplete(context);
+                    resolve(context);
                 }
                 else
                 {
-                    List<Character> characters = new List<Character>();
+                    var account = context.DatabaseContext.PlayerRepository.GetAccount(Packet.Account, Packet.Password);
 
-                    foreach (var player in account.Players)
+                    if (account == null)
                     {
-                        characters.Add( new Character(player.Name, player.World.Name, player.World.Ip, (ushort)player.World.Port) );
+                        context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
+
+                        context.Disconnect(Connection);
+
+                        resolve(context);
                     }
+                    else
+                    {
+                        List<Character> characters = new List<Character>();
 
-                    context.AddPacket(Connection, new OpenSelectCharacterDialogOutgoingPacket(characters, (ushort)account.PremiumDays) );
+                        foreach (var player in account.Players)
+                        {
+                            characters.Add( new Character(player.Name, player.World.Name, player.World.Ip, (ushort)player.World.Port) );
+                        }
 
-                    context.Disconnect(Connection);
+                        context.AddPacket(Connection, new OpenSelectCharacterDialogOutgoingPacket(characters, (ushort)account.PremiumDays) );
 
-                    OnComplete(context);
+                        context.Disconnect(Connection);
+
+                        resolve(context);
+                    }
                 }
-            }
+            } );            
         }
     }
 }

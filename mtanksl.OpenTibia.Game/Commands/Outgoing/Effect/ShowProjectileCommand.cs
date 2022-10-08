@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -20,17 +21,20 @@ namespace OpenTibia.Game.Commands
 
         public ProjectileType ProjectileType { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            foreach (var observer in context.Server.GameObjects.GetPlayers() )
+            return Promise.Run(resolve =>
             {
-                if (observer.Tile.Position.CanSee(FromPosition) || observer.Tile.Position.CanSee(ToPosition) )
+                foreach (var observer in context.Server.GameObjects.GetPlayers() )
                 {
-                    context.AddPacket(observer.Client.Connection, new ShowProjectileOutgoingPacket(FromPosition, ToPosition, ProjectileType) );
+                    if (observer.Tile.Position.CanSee(FromPosition) || observer.Tile.Position.CanSee(ToPosition) )
+                    {
+                        context.AddPacket(observer.Client.Connection, new ShowProjectileOutgoingPacket(FromPosition, ToPosition, ProjectileType) );
+                    }
                 }
-            }
 
-            OnComplete(context);
+                resolve(context);
+            } );
         }
     }
 }

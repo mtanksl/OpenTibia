@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -17,28 +18,31 @@ namespace OpenTibia.Game.Commands
 
         public string Message { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            RuleViolation ruleViolation = context.Server.RuleViolations.GetRuleViolationByReporter(Player);
-
-            if (ruleViolation == null)
+            return Promise.Run(resolve =>
             {
-                ruleViolation = new RuleViolation()
+                RuleViolation ruleViolation = context.Server.RuleViolations.GetRuleViolationByReporter(Player);
+
+                if (ruleViolation == null)
                 {
-                    Reporter = Player,
+                    ruleViolation = new RuleViolation()
+                    {
+                        Reporter = Player,
 
-                    Message = Message
-                };
+                        Message = Message
+                    };
 
-                context.Server.RuleViolations.AddRuleViolation(ruleViolation);
+                    context.Server.RuleViolations.AddRuleViolation(ruleViolation);
 
-                foreach (var observer in context.Server.Channels.GetChannel(3).GetPlayers() )
-                {
-                    context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationOpen, ruleViolation.Time, ruleViolation.Message) );
+                    foreach (var observer in context.Server.Channels.GetChannel(3).GetPlayers() )
+                    {
+                        context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationOpen, ruleViolation.Time, ruleViolation.Message) );
+                    }
+
+                    resolve(context);
                 }
-
-                OnComplete(context);
-            }
+            } );
         }
     }
 }

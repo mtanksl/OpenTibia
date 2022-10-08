@@ -1,6 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Game.CommandHandlers;
 using OpenTibia.Network.Packets.Outgoing;
 using System.Linq;
 
@@ -31,18 +30,11 @@ namespace OpenTibia.Game.Commands
 
         public byte Count { get; set; }
 
-        protected bool CanThrow(Context context, Tile fromTile, Tile toTile)
+        protected bool IsEnoughtRoom(Context context, Tile fromTile, Tile toTile)
         {
             if (toTile.Ground == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) )
             {
-                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
-
-                return false;
-            }
-
-            if ( !context.Server.Pathfinding.CanThrow(fromTile.Position, toTile.Position) )
-            {
-                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
+                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtRoom) );
 
                 return false;
             }
@@ -66,7 +58,7 @@ namespace OpenTibia.Game.Commands
         {
             if (toContainer.Count == toContainer.Metadata.Capacity)
             {
-                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtSpace) );
+                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
 
                 return false;
             }
@@ -74,127 +66,49 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            switch (ToContainer)
+            return Promise.Run(resolve =>
             {
-                case Tile toTile:
+                switch (ToContainer)
                 {
-                    Command command = new ItemUpdateParentToTileCommand(Item, toTile);
+                    case Tile toTile:
 
-                    ICommandHandler commandHandler;
-
-                    if (context.Server.CommandHandlers.TryGet(context, command, out commandHandler) )
-                    {
-                        new Promise(resolve =>
+                        if (IsEnoughtRoom(context, Item.Parent is Tile fromTile ? fromTile : Player.Tile, toTile) )
                         {
-                            commandHandler.ContinueWith = resolve;
-
-                            commandHandler.Handle(context, command);
-
-                        } ).Then(ctx =>
-                        {
-                            OnComplete(ctx);
-                        } );
-                    }
-                    else
-                    {
-                        if (CanThrow(context, Item.Parent is Tile fromTile ? fromTile : Player.Tile, toTile) )
-                        {
-                            new Promise(resolve =>
+                            context.AddCommand(new ItemUpdateParentToTileCommand(Item, toTile) ).Then(ctx =>
                             {
-                                command.ContinueWith = resolve;
-
-                                command.Execute(context);
-
-                            } ).Then(ctx =>
-                            {
-                                OnComplete(ctx);
+                                resolve(ctx);
                             } );
                         }
-                    }
-                }
 
-                break;
+                        break;
 
-                case Inventory toInventory:
-                {
-                    Command command = new ItemUpdateParentToInventoryCommand(Item, toInventory, ToIndex);
+                    case Inventory toInventory:
 
-                    ICommandHandler commandHandler;
-
-                    if (context.Server.CommandHandlers.TryGet(context, command, out commandHandler) )
-                    {
-                        new Promise(resolve =>
-                        {
-                            commandHandler.ContinueWith = resolve;
-
-                            commandHandler.Handle(context, command);
-
-                        } ).Then(ctx =>
-                        {
-                            OnComplete(ctx);
-                        } );
-                    }
-                    else
-                    {
                         if (IsEmpty(context, Item, toInventory, ToIndex) )
                         {
-                            new Promise(resolve =>
+                            context.AddCommand(new ItemUpdateParentToInventoryCommand(Item, toInventory, ToIndex) ).Then(ctx =>
                             {
-                                command.ContinueWith = resolve;
-
-                                command.Execute(context);
-
-                            } ).Then(ctx =>
-                            {
-                                OnComplete(ctx);
+                                resolve(ctx);
                             } );
                         }
-                    }
-                }
 
-                break;
+                        break;
 
-                case Container toContainer:
-                {
-                    Command command = new ItemUpdateParentToContainerCommand(Item, toContainer);
+                    case Container toContainer:
 
-                    ICommandHandler commandHandler;
-
-                    if (context.Server.CommandHandlers.TryGet(context, command, out commandHandler) )
-                    {
-                        new Promise(resolve =>
-                        {
-                            commandHandler.ContinueWith = resolve;
-
-                            commandHandler.Handle(context, command);
-
-                        } ).Then(ctx =>
-                        {
-                            OnComplete(ctx);
-                        } );
-                    }
-                    else
-                    {
                         if (IsEnoughtSpace(context, Item, toContainer) )
                         {
-                            new Promise(resolve =>
+                            context.AddCommand(new ItemUpdateParentToContainerCommand(Item, toContainer) ).Then(ctx =>
                             {
-                                command.ContinueWith = resolve;
-
-                                command.Execute(context);
-
-                            } ).Then(ctx =>
-                            {
-                                OnComplete(ctx);
+                                resolve(ctx);
                             } );
                         }
-                    }
+                        
+                        break;
                 }
-
-                break;
-            }
+            } );
         }
     }
 }

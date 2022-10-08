@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -17,24 +18,27 @@ namespace OpenTibia.Game.Commands
 
         public SkullIcon SkullIcon { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            if (Creature.SkullIcon != SkullIcon)
+            return Promise.Run(resolve =>
             {
-                Creature.SkullIcon = SkullIcon;
-
-                Tile fromTile = Creature.Tile;
-
-                foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                if (Creature.SkullIcon != SkullIcon)
                 {
-                    if (observer.Tile.Position.CanSee(fromTile.Position) )
+                    Creature.SkullIcon = SkullIcon;
+
+                    Tile fromTile = Creature.Tile;
+
+                    foreach (var observer in context.Server.GameObjects.GetPlayers() )
                     {
-                        context.AddPacket(observer.Client.Connection, new SetSkullIconOutgoingPacket(Creature.Id, Creature.SkullIcon) );
+                        if (observer.Tile.Position.CanSee(fromTile.Position) )
+                        {
+                            context.AddPacket(observer.Client.Connection, new SetSkullIconOutgoingPacket(Creature.Id, Creature.SkullIcon) );
+                        }
                     }
                 }
-            }
 
-            OnComplete(context);
+                resolve(context);
+            } );
         }
     }
 }

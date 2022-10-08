@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -16,12 +17,9 @@ namespace OpenTibia.Game.Commands
 
         public Direction Direction { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            context.AddCommand(new CreatureUpdateDirectionCommand(Player, Direction) ).Then(ctx =>
-            {
-                OnComplete(ctx);
-            } );
+            return context.AddCommand(new CreatureUpdateDirectionCommand(Player, Direction) );
         }
     }
 }

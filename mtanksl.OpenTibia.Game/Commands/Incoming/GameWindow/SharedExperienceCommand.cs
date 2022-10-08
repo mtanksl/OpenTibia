@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -15,9 +16,14 @@ namespace OpenTibia.Game.Commands
 
         public bool Enabled { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            OnComplete(context);
+            return Promise.Run(resolve =>
+            {
+
+
+                resolve(context);
+            } );
         }
     }
 }

@@ -1,42 +1,34 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using System;
 
 namespace OpenTibia.Game.CommandHandlers
 {
     public class TeleportHandler : CommandHandler<PlayerSayCommand>
     {
-        private int count;
-
-        public override bool CanHandle(Context context, PlayerSayCommand command)
+        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerSayCommand command)
         {
+            int count;
+
             if (command.Message.StartsWith("/a") && command.Message.Contains(" ") && int.TryParse(command.Message.Split(' ')[1], out count) )
             {
-                return true;
+                Tile toTile = context.Server.Map.GetTile(command.Player.Tile.Position.Offset(command.Player.Direction, count) );
+
+                if (toTile != null)
+                {
+                    return context.AddCommand(new CreatureUpdateParentCommand(command.Player, toTile) ).Then(ctx =>
+                    {
+                        return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                    } );
+                }
+                else
+                {
+                    return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                }   
             }
 
-            return false;
-        }
-
-        public override void Handle(Context context, PlayerSayCommand command)
-        {
-            Tile toTile = context.Server.Map.GetTile(command.Player.Tile.Position.Offset(command.Player.Direction, count) );
-
-            if (toTile != null)
-            {
-                context.AddCommand(new CreatureUpdateParentCommand(command.Player, toTile) ).Then(ctx =>
-                {
-                    return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
-
-                } ).Then(ctx =>
-                {
-                    OnComplete(ctx);
-                } );
-            }
-            else
-            {
-                context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
-            }         
+            return next(context);
         }
     }
 }

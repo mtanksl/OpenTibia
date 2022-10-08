@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
@@ -15,22 +16,25 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
                 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            List<SelectOutfit> outfits = new List<SelectOutfit>()
+            return Promise.Run(resolve =>
             {
-                new SelectOutfit(128, "Citizen", Addon.None),
+                List<SelectOutfit> outfits = new List<SelectOutfit>()
+                {
+                    new SelectOutfit(128, "Citizen", Addon.None),
 
-                new SelectOutfit(129, "Hunter", Addon.None),
+                    new SelectOutfit(129, "Hunter", Addon.None),
 
-                new SelectOutfit(130, "Mage", Addon.None),
+                    new SelectOutfit(130, "Mage", Addon.None),
 
-                new SelectOutfit(131, "Knight", Addon.None)
-            };
+                    new SelectOutfit(131, "Knight", Addon.None)
+                };
 
-            context.AddPacket(Player.Client.Connection, new OpenSelectOutfitDialogOutgoingPacket(Player.Outfit, outfits) );
+                context.AddPacket(Player.Client.Connection, new OpenSelectOutfitDialogOutgoingPacket(Player.Outfit, outfits) );
 
-            OnComplete(context);
+                resolve(context);
+            } );
         }
     }
 }

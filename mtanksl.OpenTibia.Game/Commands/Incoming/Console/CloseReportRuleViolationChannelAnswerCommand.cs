@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
@@ -17,41 +18,44 @@ namespace OpenTibia.Game.Commands
 
         public string Name { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Player reporter = context.Server.GameObjects.GetPlayers()
-                .Where(p => p.Name == Name)
-                .FirstOrDefault();
-
-            if (reporter != null)
+            return Promise.Run(resolve =>
             {
-                RuleViolation ruleViolation = context.Server.RuleViolations.GetRuleViolationByReporter(reporter);
+                Player reporter = context.Server.GameObjects.GetPlayers()
+                    .Where(p => p.Name == Name)
+                    .FirstOrDefault();
 
-                if (ruleViolation != null)
+                if (reporter != null)
                 {
-                    if (ruleViolation.Assignee == null)
-                    {
-                        context.Server.RuleViolations.RemoveRuleViolation(ruleViolation);
+                    RuleViolation ruleViolation = context.Server.RuleViolations.GetRuleViolationByReporter(reporter);
 
-                        foreach (var observer in context.Server.Channels.GetChannel(3).GetPlayers() )
+                    if (ruleViolation != null)
+                    {
+                        if (ruleViolation.Assignee == null)
                         {
-                            context.AddPacket(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
+                            context.Server.RuleViolations.RemoveRuleViolation(ruleViolation);
+
+                            foreach (var observer in context.Server.Channels.GetChannel(3).GetPlayers() )
+                            {
+                                context.AddPacket(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
+                            }
+
+                            context.AddPacket(ruleViolation.Reporter.Client.Connection, new CloseRuleViolationOutgoingPacket() );
+
+                            resolve(context);
                         }
+                        else if (ruleViolation.Assignee == Player)
+                        {
+                            context.Server.RuleViolations.RemoveRuleViolation(ruleViolation);
 
-                        context.AddPacket(ruleViolation.Reporter.Client.Connection, new CloseRuleViolationOutgoingPacket() );
+                            context.AddPacket(ruleViolation.Reporter.Client.Connection, new CloseRuleViolationOutgoingPacket() );
 
-                        OnComplete(context);
-                    }
-                    else if (ruleViolation.Assignee == Player)
-                    {
-                        context.Server.RuleViolations.RemoveRuleViolation(ruleViolation);
-
-                        context.AddPacket(ruleViolation.Reporter.Client.Connection, new CloseRuleViolationOutgoingPacket() );
-
-                        OnComplete(context);
+                            resolve(context);
+                        }
                     }
                 }
-            }
+            } );
         }
     }
 }

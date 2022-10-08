@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -23,19 +24,25 @@ namespace OpenTibia.Game.Commands
 
         public byte ContainerId { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
-
-            if (fromContainer != null)
+            return Promise.Run(resolve =>
             {
-                Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
+                Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
 
-                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                if (fromContainer != null)
                 {
-                    UseItem(context, fromItem, FromContainerId == ContainerId ? ContainerId : (byte?)null);
+                    Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
+
+                    if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                    {
+                        context.AddCommand(new PlayerUseItemCommand(Player, fromItem, FromContainerId == ContainerId ? ContainerId : (byte?)null) ).Then(ctx =>
+                        {
+                            resolve(ctx);
+                        } );
+                    }
                 }
-            }
+            } ); 
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
@@ -17,60 +18,40 @@ namespace OpenTibia.Game.CommandHandlers
 
         private HashSet<ushort> lavas = new HashSet<ushort>() { 598, 599, 600, 601 };
 
-        public override bool CanHandle(Context context, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemWithItemCommand command)
         {
             if (buckets.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                return true;
+                FluidItem item = (FluidItem)command.Item;
+
+                if (drawWell.Contains(command.ToItem.Metadata.OpenTibiaId) )
+                {
+                    return context.AddCommand(new FluidItemUpdateFluidTypeCommand(item, FluidType.Water) );
+                }
+                else if (shallowWaters.Contains(command.ToItem.Metadata.OpenTibiaId) )
+                {
+                    return context.AddCommand(new FluidItemUpdateFluidTypeCommand(item, FluidType.Water) ).Then(ctx =>
+                    {
+                        return ctx.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.BlueRings) );
+                    } );
+                }
+                else if (swamps.Contains(command.ToItem.Metadata.OpenTibiaId) )
+                {
+                    return context.AddCommand(new FluidItemUpdateFluidTypeCommand(item, FluidType.Slime) ).Then(ctx =>
+                    {
+                        return ctx.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.GreenRings) );
+                    } );
+                }
+                else if (lavas.Contains(command.ToItem.Metadata.OpenTibiaId) )
+                {
+                    return context.AddCommand(new FluidItemUpdateFluidTypeCommand(item, FluidType.Lava) ).Then(ctx =>
+                    {
+                        return ctx.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.FirePlume) );
+                    } );
+                }
             }
 
-            return false;
-        }
-
-        public override void Handle(Context context, PlayerUseItemWithItemCommand command)
-        {
-            FluidItem item = (FluidItem)command.Item;
-
-            if (drawWell.Contains(command.ToItem.Metadata.OpenTibiaId) )
-            {
-                context.AddCommand(new FluidItemUpdateFluidTypeCommand(item, FluidType.Water) ).Then(ctx =>
-                {
-                    OnComplete(ctx);
-                } );
-            }
-            else if (shallowWaters.Contains(command.ToItem.Metadata.OpenTibiaId) )
-            {
-                context.AddCommand(new FluidItemUpdateFluidTypeCommand(item, FluidType.Water) ).Then(ctx =>
-                {
-                    return ctx.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.BlueRings) );
-
-                } ).Then(ctx =>
-                {
-                    OnComplete(ctx);
-                } );
-            }
-            else if (swamps.Contains(command.ToItem.Metadata.OpenTibiaId) )
-            {
-                context.AddCommand(new FluidItemUpdateFluidTypeCommand(item, FluidType.Slime) ).Then(ctx =>
-                {
-                    return ctx.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.GreenRings) );
-
-                } ).Then(ctx =>
-                {
-                    OnComplete(ctx);
-                } );
-            }
-            else if (lavas.Contains(command.ToItem.Metadata.OpenTibiaId) )
-            {
-                context.AddCommand(new FluidItemUpdateFluidTypeCommand(item, FluidType.Lava) ).Then(ctx =>
-                {
-                    return ctx.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.FirePlume) );
-
-                } ).Then(ctx =>
-                {
-                    OnComplete(ctx);
-                } );
-            }
+            return next(context);
         }
     }
 }

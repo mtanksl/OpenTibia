@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -12,27 +13,30 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            PrivateChannel privateChannel = context.Server.Channels.GetPrivateChannelByOwner(Player);
-
-            if (privateChannel == null)
+            return Promise.Run(resolve =>
             {
-                privateChannel = new PrivateChannel()
+                PrivateChannel privateChannel = context.Server.Channels.GetPrivateChannelByOwner(Player);
+
+                if (privateChannel == null)
                 {
-                    Owner = Player,
+                    privateChannel = new PrivateChannel()
+                    {
+                        Owner = Player,
 
-                    Name = Player.Name + "'s channel"
-                };
+                        Name = Player.Name + "'s channel"
+                    };
 
-                privateChannel.AddPlayer(Player);
+                    privateChannel.AddPlayer(Player);
 
-                context.Server.Channels.AddChannel(privateChannel);
-            }
+                    context.Server.Channels.AddChannel(privateChannel);
+                }
 
-            context.AddPacket(Player.Client.Connection, new OpenMyPrivateChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
+                context.AddPacket(Player.Client.Connection, new OpenMyPrivateChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
 
-            OnComplete(context);
+                resolve(context);
+            } );
         }
     }
 }

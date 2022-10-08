@@ -1,20 +1,24 @@
 ﻿using OpenTibia.Game.Components;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
     public class GlobalItemsCommand : Command
     {
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            foreach (var item in context.Server.GameObjects.GetItems() )
+            return Promise.Run(resolve =>
             {
-                foreach (var component in item.GetComponents<TimeBehaviour>() )
+                foreach (var item in context.Server.GameObjects.GetItems() )
                 {
-                    component.Update(context);
+                    foreach (var component in item.GetComponents<TimeBehaviour>() )
+                    {
+                        component.Update(context);
+                    }
                 }
-            }
 
-            OnComplete(context);
+                resolve(context);
+            } );
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -27,24 +28,30 @@ namespace OpenTibia.Game.Commands
 
         public byte Count { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
-
-            if (fromContainer != null)
+            return Promise.Run(resolve =>
             {
-                Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
+                Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
 
-                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                if (fromContainer != null)
                 {
-                    Inventory toInventory = Player.Inventory;
+                    Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
 
-                    if (IsMoveable(context, fromItem, Count) && IsPickupable(context, fromItem) )
+                    if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                     {
-                        MoveItem(context, fromItem, toInventory, ToSlot, Count);
+                        Inventory toInventory = Player.Inventory;
+
+                        if (IsMoveable(context, fromItem, Count) && IsPickupable(context, fromItem) )
+                        {
+                            context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toInventory, ToSlot, Count) ).Then(ctx =>
+                            {
+                                resolve(ctx);
+                            } );
+                        }
                     }
                 }
-            }
+            } );
         }
     }
 }

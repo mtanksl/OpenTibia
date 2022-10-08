@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -10,13 +11,5 @@ namespace OpenTibia.Game.Commands
         }
 
         public Player Player { get; set; }
-
-        protected void UseItem(Context context, Item fromItem, byte? containerId)
-        {
-            context.AddCommand(new PlayerUseItemCommand(Player, fromItem, containerId) ).Then(ctx =>
-            {
-                OnComplete(context);
-            } );
-        }
     }
 }

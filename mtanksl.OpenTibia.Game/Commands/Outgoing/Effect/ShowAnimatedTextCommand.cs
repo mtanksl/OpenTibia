@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -20,17 +21,20 @@ namespace OpenTibia.Game.Commands
 
         public string Message { get; set; }
 
-        public override void Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            foreach (var observer in context.Server.GameObjects.GetPlayers() )
+            return Promise.Run(resolve =>
             {
-                if (observer.Tile.Position.CanSee(Position) )
+                foreach (var observer in context.Server.GameObjects.GetPlayers() )
                 {
-                    context.AddPacket(observer.Client.Connection, new ShowAnimatedTextOutgoingPacket(Position, AnimatedTextColor, Message) );
+                    if (observer.Tile.Position.CanSee(Position) )
+                    {
+                        context.AddPacket(observer.Client.Connection, new ShowAnimatedTextOutgoingPacket(Position, AnimatedTextColor, Message) );
+                    }
                 }
-            }
 
-            OnComplete(context);
+                resolve(context);
+            } );
         }
     }
 }
