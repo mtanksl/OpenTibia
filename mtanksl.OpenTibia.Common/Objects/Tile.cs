@@ -56,6 +56,14 @@ namespace OpenTibia.Common.Objects
             }
         }
 
+        public int Count
+        {
+            get
+            {
+                return contents.Count;
+            }
+        }
+
         private List<IContent> contents = new List<IContent>(1);
         
         public byte AddContent(IContent content)

@@ -27,11 +27,11 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             if (Position.Z == 7)
             {
-                Write(writer, Position.X - 8, Position.Y - 6, Position.Z, 18, 14, 8, 2);
+                GetMapDescription(writer, Position.X - 8, Position.Y - 6, Position.Z, 18, 14, 8, 2);
             }
             else if (Position.Z > 7)
             {
-                Write(writer, Position.X - 8, Position.Y - 6, Position.Z, 18, 14, Position.Z + 3, 0);
+                GetMapDescription(writer, Position.X - 8, Position.Y - 6, Position.Z, 18, 14, Position.Z + 3, 0);
             }
         }
     }

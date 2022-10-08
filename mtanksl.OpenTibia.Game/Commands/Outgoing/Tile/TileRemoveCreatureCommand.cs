@@ -32,6 +32,11 @@ namespace OpenTibia.Game.Commands
                         if (observer.Tile.Position.CanSee(Tile.Position) )
                         {
                             context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(Tile.Position, index) );
+
+                            if (Tile.Count > 9)
+                            {
+                                context.AddPacket(observer.Client.Connection, new SendTileOutgoingPacket(context.Server.Map, observer.Client, Tile.Position) );
+                            }
                         }
                     }                
                 }

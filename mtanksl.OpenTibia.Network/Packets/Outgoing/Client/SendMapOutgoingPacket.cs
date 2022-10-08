@@ -20,7 +20,7 @@ namespace OpenTibia.Network.Packets.Outgoing
             this.client = client;
         }
 
-        public void Write(ByteArrayStreamWriter writer, int x, int y, int z, int width, int height, int floor, int floors)
+        public void GetMapDescription(ByteArrayStreamWriter writer, int x, int y, int z, int width, int height, int floor, int floors)
         {
             int step = -1;
 
@@ -38,65 +38,7 @@ namespace OpenTibia.Network.Packets.Outgoing
                     break;
                 }
 
-                int offset = z - currentFloor;
-                
-                for (int i = 0; i < width; i++)
-                {
-                    for (int j = 0; j < height; j++)
-                    {
-                        Tile tile = map.GetTile(new Position(x + i + offset, y + j + offset, currentFloor) );
-
-                        if (tile == null)
-                        {
-                            if (++empty == 255)
-                            {
-                                writer.Write( (byte)empty );
-
-                                writer.Write(Separator);
-
-                                empty = -1;
-                            }
-                        }
-                        else
-                        {
-                            if (empty != -1)
-                            {
-                                writer.Write( (byte)empty );
-
-                                writer.Write(Separator);
-                            }
-
-                            empty = 0;
-                            
-                            foreach (var content in tile.GetContents().Take(10) )
-                            {
-                                switch (content)
-                                {
-                                    case Item item:
-
-                                        writer.Write(item);
-
-                                        break;
-
-                                    case Creature creature:
-
-                                        uint removeId;
-
-                                        if (client.CreatureCollection.IsKnownCreature(creature.Id, out removeId) )
-                                        {
-                                            writer.Write(creature);
-                                        }
-                                        else
-                                        {
-                                            writer.Write(removeId, creature);
-                                        }
-
-                                        break;
-                                }
-                            }
-                        }
-                    }
-                }
+                empty = GetFloorDescription(writer, x, y, currentFloor, z - currentFloor, width, height, empty);
             }
 
             if (empty != -1)
@@ -104,6 +46,74 @@ namespace OpenTibia.Network.Packets.Outgoing
                 writer.Write( (byte)empty );
 
                 writer.Write(Separator);
+            }
+        }
+
+        private int GetFloorDescription(ByteArrayStreamWriter writer, int x, int y, int z, int offset, int width, int height, int empty)
+        {
+            for (int i = 0; i < width; i++)
+            {
+                for (int j = 0; j < height; j++)
+                {
+                    Tile tile = map.GetTile(new Position(x + i + offset, y + j + offset, z) );
+
+                    if (tile == null)
+                    {
+                        if (++empty == 255)
+                        {
+                            writer.Write( (byte)empty );
+
+                            writer.Write(Separator);
+
+                            empty = -1;
+                        }
+                    }
+                    else
+                    {
+                        if (empty != -1)
+                        {
+                            writer.Write( (byte)empty );
+
+                            writer.Write(Separator);
+                        }
+
+                        empty = 0;
+
+                        GetTileDescription(writer, tile);
+                    }
+                }
+            }
+
+            return empty;
+        }
+
+        private void GetTileDescription(ByteArrayStreamWriter writer, Tile tile)
+        {
+            foreach (var content in tile.GetContents().Take(10) )
+            {
+                switch (content)
+                {
+                    case Item item:
+
+                        writer.Write(item);
+
+                        break;
+
+                    case Creature creature:
+
+                        uint removeId;
+
+                        if (client.CreatureCollection.IsKnownCreature(creature.Id, out removeId) )
+                        {
+                            writer.Write(creature);
+                        }
+                        else
+                        {
+                            writer.Write(removeId, creature);
+                        }
+
+                        break;
+                }
             }
         }
 
