@@ -23,11 +23,14 @@ namespace OpenTibia.Game.Commands
             {
                 byte index = Tile.AddContent(Item);
 
-                foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                if (index < Constants.ObjectsPerPoint)
                 {
-                    if (observer.Tile.Position.CanSee(Tile.Position) )
+                    foreach (var observer in context.Server.GameObjects.GetPlayers() )
                     {
-                        context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, Item) );
+                        if (observer.Tile.Position.CanSee(Tile.Position) )
+                        {
+                            context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, Item) );
+                        }
                     }
                 }
 

@@ -1,7 +1,7 @@
 ﻿using OpenTibia.Game;
 using System;
 
-namespace mtanksl.OpenTibia.Host
+namespace OpenTibia.Host
 {
     class Program
     {

@@ -64,7 +64,7 @@ namespace OpenTibia.Game
             return wrapper;
         }
 
-        public virtual void Write(string message, LogLevel level = LogLevel.Default)
+        public void Write(string message, LogLevel level = LogLevel.Default)
         {
             switch (level)
             {
@@ -102,7 +102,7 @@ namespace OpenTibia.Game
             Console.Write(message);
         }
 
-        public virtual void WriteLine(string message, LogLevel level = LogLevel.Default)
+        public void WriteLine(string message, LogLevel level = LogLevel.Default)
         {
             Write(message, level);
 

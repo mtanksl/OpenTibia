@@ -34,8 +34,8 @@ namespace OpenTibia.Common.Objects
         {
             get
             {
-                return GetItems().Where(i => i.TopOrder == TopOrder.Other).FirstOrDefault() ?? 
-                    
+                return GetItems().Where(i => i.TopOrder == TopOrder.Other).FirstOrDefault() ??
+
                        GetItems().Where(i => i.TopOrder == TopOrder.HighPriority || i.TopOrder == TopOrder.MediumPriority || i.TopOrder == TopOrder.LowPriority).LastOrDefault();
             }
         }
@@ -65,14 +65,15 @@ namespace OpenTibia.Common.Objects
         }
 
         private List<IContent> contents = new List<IContent>(1);
-        
+
         public byte AddContent(IContent content)
         {
-            //10 Other
             //11 Other
             //12 Other
-            //9 Creature
+            //13 Other
             //8 Creature
+            //9 Creature
+            //10 Creature
             //7 LowPriority
             //6 LowPriority
             //5 MediumPriority
@@ -83,20 +84,53 @@ namespace OpenTibia.Common.Objects
             //0 Ground
 
             byte index = 0;
-            
-            if (content.TopOrder == TopOrder.Other)
-	        {
-                while (index < contents.Count && contents[index].TopOrder != content.TopOrder)
-                {
-                    index++;
-                }
-	        }
-            else
+
+            while (index < contents.Count)
             {
-                while (index < contents.Count && contents[index].TopOrder <= content.TopOrder)
+                if (content.TopOrder == TopOrder.Ground)
                 {
-                    index++;
+                    if (contents[index].TopOrder == TopOrder.HighPriority || contents[index].TopOrder == TopOrder.MediumPriority || contents[index].TopOrder == TopOrder.LowPriority || contents[index].TopOrder == TopOrder.Creature || contents[index].TopOrder == TopOrder.Other)
+                    {
+                        break;
+                    }
                 }
+                else if (content.TopOrder == TopOrder.HighPriority)
+                {
+                    if (contents[index].TopOrder == TopOrder.MediumPriority || contents[index].TopOrder == TopOrder.LowPriority || contents[index].TopOrder == TopOrder.Creature || contents[index].TopOrder == TopOrder.Other)
+                    {
+                        break;
+                    }
+                }
+                else if (content.TopOrder == TopOrder.MediumPriority)
+                {
+                    if (contents[index].TopOrder == TopOrder.LowPriority || contents[index].TopOrder == TopOrder.Creature || contents[index].TopOrder == TopOrder.Other)
+                    {
+                        break;
+                    }
+                }
+                else if (content.TopOrder == TopOrder.LowPriority)
+                {
+                    if (contents[index].TopOrder == TopOrder.Creature || contents[index].TopOrder == TopOrder.Other)
+                    {
+                        break;
+                    }
+                }
+                else if (content.TopOrder == TopOrder.Creature)
+                {
+                    if (contents[index].TopOrder == TopOrder.Creature || contents[index].TopOrder == TopOrder.Other)
+                    {
+                        break;
+                    }
+                }
+                else if (content.TopOrder == TopOrder.Other)
+                {
+                    if (contents[index].TopOrder == TopOrder.Other)
+                    {
+                        break;
+                    }
+                }
+
+                index++;
             }
 
             contents.Insert(index, content);

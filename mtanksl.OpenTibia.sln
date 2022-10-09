@@ -21,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Game", "m
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Host", "mtanksl.OpenTibia.Host\mtanksl.OpenTibia.Host.csproj", "{99EDEB89-2A3F-444B-8684-7E30B27B600F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Proxy", "mtanksl.OpenTibia.Proxy\mtanksl.OpenTibia.Proxy.csproj", "{AC591C7E-334A-4A12-9294-62756664CC0B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{65061B4D-2938-4A13-923B-947994FA57DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,9 +105,20 @@ Global
 		{99EDEB89-2A3F-444B-8684-7E30B27B600F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{99EDEB89-2A3F-444B-8684-7E30B27B600F}.Release|x64.ActiveCfg = Release|Any CPU
 		{99EDEB89-2A3F-444B-8684-7E30B27B600F}.Release|x64.Build.0 = Release|Any CPU
+		{AC591C7E-334A-4A12-9294-62756664CC0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC591C7E-334A-4A12-9294-62756664CC0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC591C7E-334A-4A12-9294-62756664CC0B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{AC591C7E-334A-4A12-9294-62756664CC0B}.Debug|x64.Build.0 = Debug|Any CPU
+		{AC591C7E-334A-4A12-9294-62756664CC0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC591C7E-334A-4A12-9294-62756664CC0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC591C7E-334A-4A12-9294-62756664CC0B}.Release|x64.ActiveCfg = Release|Any CPU
+		{AC591C7E-334A-4A12-9294-62756664CC0B}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AC591C7E-334A-4A12-9294-62756664CC0B} = {65061B4D-2938-4A13-923B-947994FA57DF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92639E7B-CD2A-40A0-89B0-DCF462B2A027}

@@ -89,7 +89,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         private void GetTileDescription(ByteArrayStreamWriter writer, Tile tile)
         {
-            foreach (var content in tile.GetContents().Take(10) )
+            foreach (var content in tile.GetContents().Take(10) ) // Constants.ObjectsPerPoint
             {
                 switch (content)
                 {

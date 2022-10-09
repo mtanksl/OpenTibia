@@ -73,14 +73,14 @@ namespace OpenTibia.Common.Objects
                     {
                         server.Logger.WriteLine("Unknown packet received on login server: 0x" + identification.ToString("X2"), LogLevel.Warning);
                         
-                        server.Logger.WriteLine(body.Print(), LogLevel.Information);
+                        server.Logger.WriteLine(body.Print(), LogLevel.Warning);
                     }
                 }
                 else
                 {
                     server.Logger.WriteLine("Invalid message received on login server.", LogLevel.Warning);
 
-                    server.Logger.WriteLine(body.Print(), LogLevel.Information);
+                    server.Logger.WriteLine(body.Print(), LogLevel.Warning);
                 }
             }
             catch (Exception ex)

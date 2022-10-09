@@ -23,21 +23,24 @@ namespace OpenTibia.Game.Commands
             {
                 byte index = Tile.AddContent(Creature);
 
-                foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                if (index < Constants.ObjectsPerPoint)
                 {
-                    if (observer != Creature)
+                    foreach (var observer in context.Server.GameObjects.GetPlayers() )
                     {
-                        if (observer.Tile.Position.CanSee(Tile.Position) )
+                        if (observer != Creature)
                         {
-                            uint removeId;
+                            if (observer.Tile.Position.CanSee(Tile.Position) )
+                            {
+                                uint removeId;
 
-                            if (observer.Client.CreatureCollection.IsKnownCreature(Creature.Id, out removeId) )
-                            {
-                                context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, Creature) );
-                            }
-                            else
-                            {
-                                context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, removeId, Creature) );
+                                if (observer.Client.CreatureCollection.IsKnownCreature(Creature.Id, out removeId) )
+                                {
+                                    context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, Creature) );
+                                }
+                                else
+                                {
+                                    context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, removeId, Creature) );
+                                }
                             }
                         }
                     }
