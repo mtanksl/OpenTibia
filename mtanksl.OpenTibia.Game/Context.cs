@@ -96,7 +96,7 @@ namespace OpenTibia.Game
 
             var commandHandlers = server.CommandHandlers.Get(command).GetEnumerator();
 
-            PromiseResult<TResult> Next(Context context, TResult result)
+            PromiseResult<TResult> Next(Context context)
             {
                 if (commandHandlers.MoveNext() )
                 {
@@ -106,7 +106,7 @@ namespace OpenTibia.Game
                 return command.Execute(context);
             }
 
-            return Next(this, default(TResult) );
+            return Next(this);
         }
 
         private Dictionary<IConnection, Message> messages = null;
@@ -200,6 +200,16 @@ namespace OpenTibia.Game
                 throw new ObjectDisposedException(nameof(Context) );
             }
 
+            if (events != null)
+            {
+                foreach (var e in events)
+                {
+                    server.EventHandlers.Publish(this, e);
+                }
+
+                events.Clear();
+            }
+
             if (messages != null)
             {
                 foreach (var pair in messages)
@@ -222,17 +232,7 @@ namespace OpenTibia.Game
                 }
 
                 connections.Clear();
-            }
-
-            if (events != null)
-            {
-                foreach (var e in events)
-                {
-                    server.EventHandlers.Publish(this, e);
-                }
-
-                events.Clear();
-            }
+            }            
         }
 
         private bool disposed = false;

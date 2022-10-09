@@ -30,11 +30,14 @@ namespace OpenTibia.Game.Commands
 
                     byte index = fromTile.GetIndex(Creature);
 
-                    foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                    if (index < Constants.ObjectsPerPoint)
                     {
-                        if (observer.Tile.Position.CanSee(fromTile.Position) )
+                        foreach (var observer in context.Server.GameObjects.GetPlayers())
                         {
-                            context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(fromTile.Position, index, Creature.Id, Creature.Direction) );
+                            if (observer.Tile.Position.CanSee(fromTile.Position))
+                            {
+                                context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(fromTile.Position, index, Creature.Id, Creature.Direction) );
+                            }
                         }
                     }
                 }

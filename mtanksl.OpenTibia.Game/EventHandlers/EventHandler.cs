@@ -7,31 +7,31 @@ namespace OpenTibia.Game.EventHandlers
     {
         public Guid Token { get; } = Guid.NewGuid();
 
-        public abstract void Execute(object sender, object e);
+        public abstract void Handle(Context context, object e);
     }
 
     public abstract class EventHandler<T> : EventHandler where T : GameEventArgs
     {
-        public override void Execute(object sender, object e)
+        public override void Handle(Context context, object e)
         {
-            Execute(sender, (T)e);
+            Handle(context, (T)e);
         }
 
-        public abstract void Execute(object sender, T e);
+        public abstract void Handle(Context context, T e);
     }
 
     public class InlineEventHandler<T> : EventHandler<T> where T : GameEventArgs
     {
-        private Action<object, T> execute;
+        private Action<Context, T> execute;
 
-        public InlineEventHandler(Action<object, T> execute)
+        public InlineEventHandler(Action<Context, T> execute)
         {
             this.execute = execute;
         }
 
-        public override void Execute(object sender, T e)
+        public override void Handle(Context context, T e)
         {
-            execute(sender, e);
+            execute(context, e);
         }
     }
 }

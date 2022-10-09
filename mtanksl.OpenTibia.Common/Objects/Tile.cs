@@ -71,9 +71,9 @@ namespace OpenTibia.Common.Objects
             //11 Other
             //12 Other
             //13 Other
-            //8 Creature
-            //9 Creature
             //10 Creature
+            //9 Creature
+            //8 Creature
             //7 LowPriority
             //6 LowPriority
             //5 MediumPriority
@@ -85,52 +85,29 @@ namespace OpenTibia.Common.Objects
 
             byte index = 0;
 
-            while (index < contents.Count)
+            if (content.TopOrder == TopOrder.Other)
             {
-                if (content.TopOrder == TopOrder.Ground)
+                while (index < contents.Count)
                 {
-                    if (contents[index].TopOrder == TopOrder.HighPriority || contents[index].TopOrder == TopOrder.MediumPriority || contents[index].TopOrder == TopOrder.LowPriority || contents[index].TopOrder == TopOrder.Creature || contents[index].TopOrder == TopOrder.Other)
+                    if (contents[index].TopOrder == content.TopOrder)
                     {
                         break;
                     }
-                }
-                else if (content.TopOrder == TopOrder.HighPriority)
-                {
-                    if (contents[index].TopOrder == TopOrder.MediumPriority || contents[index].TopOrder == TopOrder.LowPriority || contents[index].TopOrder == TopOrder.Creature || contents[index].TopOrder == TopOrder.Other)
-                    {
-                        break;
-                    }
-                }
-                else if (content.TopOrder == TopOrder.MediumPriority)
-                {
-                    if (contents[index].TopOrder == TopOrder.LowPriority || contents[index].TopOrder == TopOrder.Creature || contents[index].TopOrder == TopOrder.Other)
-                    {
-                        break;
-                    }
-                }
-                else if (content.TopOrder == TopOrder.LowPriority)
-                {
-                    if (contents[index].TopOrder == TopOrder.Creature || contents[index].TopOrder == TopOrder.Other)
-                    {
-                        break;
-                    }
-                }
-                else if (content.TopOrder == TopOrder.Creature)
-                {
-                    if (contents[index].TopOrder == TopOrder.Creature || contents[index].TopOrder == TopOrder.Other)
-                    {
-                        break;
-                    }
-                }
-                else if (content.TopOrder == TopOrder.Other)
-                {
-                    if (contents[index].TopOrder == TopOrder.Other)
-                    {
-                        break;
-                    }
-                }
 
-                index++;
+                    index++;
+                }
+            }
+            else
+            {
+                while (index < contents.Count)
+                {
+                    if (contents[index].TopOrder > content.TopOrder)
+                    {
+                        break;
+                    }
+
+                    index++;
+                }
             }
 
             contents.Insert(index, content);

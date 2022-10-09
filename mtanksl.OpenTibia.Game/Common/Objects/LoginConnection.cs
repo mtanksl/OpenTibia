@@ -55,7 +55,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<EnterGameIncomingPacket>(reader);
 
-                                command = new EnterGameCommand(this, packet);
+                                command = new ParseEnterGameCommand(this, packet);
                             }
                             break;
                     }

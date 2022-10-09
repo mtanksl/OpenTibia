@@ -14,6 +14,13 @@ namespace OpenTibia.Proxy
             this.logger = logger;
         }
 
+        protected override void OnConnectedFromClient()
+        {
+            base.OnConnectedFromClient();
+
+            logger.WriteLine("Connected", LogLevel.Debug);
+        }
+
         protected override void OnReceivedBodyFromClient(byte[] body)
         {
             base.OnReceivedBodyFromClient(body);
@@ -152,6 +159,13 @@ namespace OpenTibia.Proxy
             {
                 logger.WriteLine("Server: " + ex.ToString(), LogLevel.Error);
             }
+        }
+
+        protected override void OnDisconnectedFromServer(DisconnectedEventArgs e)
+        {
+            base.OnDisconnectedFromServer(e);
+
+            logger.WriteLine("Disconnected", LogLevel.Debug);
         }
     }
 }

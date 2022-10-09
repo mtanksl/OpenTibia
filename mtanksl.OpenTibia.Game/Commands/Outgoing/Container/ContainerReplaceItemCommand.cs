@@ -4,7 +4,7 @@ using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ContainerReplaceItemCommand : Command
+    public class ContainerReplaceItemCommand : CommandResult<byte>
     {
         public ContainerReplaceItemCommand(Container container, Item fromItem, Item toItem)
         {
@@ -21,9 +21,9 @@ namespace OpenTibia.Game.Commands
 
         public Item ToItem { get; set; }
         
-        public override Promise Execute(Context context)
+        public override PromiseResult<byte> Execute(Context context)
         {
-            return Promise.Run(resolve =>
+            return PromiseResult<byte>.Run(resolve =>
             {
                 byte index = Container.GetIndex(FromItem);
 
@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                resolve(context);
+                resolve(context, index);
             } );
         }
     }

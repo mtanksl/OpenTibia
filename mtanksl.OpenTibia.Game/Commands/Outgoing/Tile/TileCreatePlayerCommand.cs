@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
 
                 if (player != null)
                 {
-                    context.AddCommand(new TileAddCreatureCommand(Tile, player) ).Then(ctx =>
+                    context.AddCommand(new TileAddCreatureCommand(Tile, player) ).Then( (ctx, index) =>
                     {
                         resolve(ctx, player);
                     } );

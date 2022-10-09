@@ -4,7 +4,7 @@ using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ContainerAddItemCommand : Command
+    public class ContainerAddItemCommand : CommandResult<byte>
     {
         public ContainerAddItemCommand(Container container, Item item)
         {
@@ -17,9 +17,9 @@ namespace OpenTibia.Game.Commands
 
         public Item Item { get; set; }
 
-        public override Promise Execute(Context context)
+        public override PromiseResult<byte> Execute(Context context)
         {
-            return Promise.Run(resolve =>
+            return PromiseResult<byte>.Run(resolve =>
             {
                 byte index = Container.AddContent(Item);
 
@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                resolve(context);
+                resolve(context, index);
             } );
         }
     }

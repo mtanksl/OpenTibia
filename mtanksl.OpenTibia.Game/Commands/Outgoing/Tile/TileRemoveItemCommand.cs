@@ -4,7 +4,7 @@ using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class TileRemoveItemCommand : Command
+    public class TileRemoveItemCommand : CommandResult<byte>
     {
         public TileRemoveItemCommand(Tile tile, Item item)
         {
@@ -17,9 +17,9 @@ namespace OpenTibia.Game.Commands
 
         public Item Item { get; set; }
 
-        public override Promise Execute(Context context)
+        public override PromiseResult<byte> Execute(Context context)
         {
-            return Promise.Run(resolve =>
+            return PromiseResult<byte>.Run(resolve =>
             {
                 byte index = Tile.GetIndex(Item);
 
@@ -29,7 +29,10 @@ namespace OpenTibia.Game.Commands
                 {
                     if (observer.Tile.Position.CanSee(Tile.Position) )
                     {
-                        context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(Tile.Position, index) );
+                        if (index < Constants.ObjectsPerPoint)
+                        {
+                            context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(Tile.Position, index) );
+                        }
 
                         if (Tile.Count >= Constants.ObjectsPerPoint)
                         {
@@ -38,7 +41,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                resolve(context);
+                resolve(context, index);
             } );
         }
     }

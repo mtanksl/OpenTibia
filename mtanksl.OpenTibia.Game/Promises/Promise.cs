@@ -4,25 +4,14 @@ namespace OpenTibia.Game.Commands
 {
     public class Promise
     {
-        public static Promise FromResult(Context context)
-        {
-            return new Promise(context);
-        }
-
         public static Promise Run(Action< Action<Context> > run)
         {
             return new Promise(run);
         }
 
-        public static Promise Delay(Context context, string key, int executeInMilliseconds)
+        public static Promise FromResult(Context context)
         {
-            return new Promise(resolve =>
-            {
-                context.Server.QueueForExecution(key, executeInMilliseconds, ctx =>
-                {
-                    resolve(ctx);
-                } );
-            } );
+            return new Promise(context);
         }
 
         public static Promise Yield(Context context)
@@ -30,6 +19,17 @@ namespace OpenTibia.Game.Commands
             return new Promise(resolve =>
             {
                 context.Server.QueueForExecution(ctx =>
+                {
+                    resolve(ctx);
+                } );
+            } );
+        }
+
+        public static Promise Delay(Context context, string key, int executeInMilliseconds)
+        {
+            return new Promise(resolve =>
+            {
+                context.Server.QueueForExecution(key, executeInMilliseconds, ctx =>
                 {
                     resolve(ctx);
                 } );

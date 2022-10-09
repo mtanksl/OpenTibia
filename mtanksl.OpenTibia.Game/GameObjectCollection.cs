@@ -18,6 +18,8 @@ namespace OpenTibia.Game
 
         private Dictionary<Type, Dictionary<uint, GameObject>> buckets = new Dictionary<Type, Dictionary<uint, GameObject>>()
         {
+            { typeof(Creature), new Dictionary<uint, GameObject>() },
+
             { typeof(Monster), new Dictionary<uint, GameObject>() },
 
             { typeof(Npc), new Dictionary<uint, GameObject>() },
@@ -41,6 +43,11 @@ namespace OpenTibia.Game
             if (gameObject.Id == 0)
             {
                 gameObject.Id = GenerateId();
+            }
+
+            if (gameObject is Creature)
+            {
+                buckets[ typeof(Creature) ].Add(gameObject.Id, gameObject);
             }
 
             if (gameObject is Monster)
@@ -75,6 +82,11 @@ namespace OpenTibia.Game
 
         public void RemoveGameObject(GameObject gameObject)
         {
+            if (gameObject is Creature)
+            {
+                buckets[ typeof(Creature) ].Remove(gameObject.Id);
+            }
+
             if (gameObject is Monster)
             {
                 buckets[ typeof(Monster) ].Remove(gameObject.Id);
@@ -131,6 +143,11 @@ namespace OpenTibia.Game
             }
 
             return Enumerable.Empty<T>();
+        }
+
+        public IEnumerable<Creature> GetCreatures()
+        {
+            return GetGameObjects<Creature>();
         }
 
         public IEnumerable<Monster> GetMonsters()

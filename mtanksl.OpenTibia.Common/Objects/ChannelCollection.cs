@@ -26,7 +26,7 @@ namespace OpenTibia.Common.Objects
         };
 
         /// <exception cref="InvalidOperationException"></exception>
-        /// 
+        
         private ushort GenerateId()
         {
             for (ushort id = 10; id < 65535; id++)

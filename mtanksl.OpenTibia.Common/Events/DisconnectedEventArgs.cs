@@ -2,30 +2,30 @@
 
 namespace OpenTibia.Common.Events
 {
-    public enum DisconnetionType
-    {
-        Requested,
-
-        SocketClosed,
-
-        SocketException
-    }
-
     public class DisconnectedEventArgs : EventArgs
     {
-        public DisconnectedEventArgs(DisconnetionType type)
+        public DisconnectedEventArgs(DisconnectionType type)
         {
             this.type = type;
         }
 
-        private DisconnetionType type;
+        private DisconnectionType type;
 
-        public DisconnetionType Type
+        public DisconnectionType Type
         {
             get
             {
                 return type;
             }
         }
+    }
+
+    public enum DisconnectionType
+    {
+        Requested,
+
+        SocketClosed,
+
+        SocketException
     }
 }

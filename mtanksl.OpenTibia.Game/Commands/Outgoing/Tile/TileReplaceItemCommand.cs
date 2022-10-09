@@ -4,7 +4,7 @@ using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class TileReplaceItemCommand : Command
+    public class TileReplaceItemCommand : CommandResult<byte>
     {
         public TileReplaceItemCommand(Tile tile, Item fromItem, Item toItem)
         {
@@ -21,23 +21,26 @@ namespace OpenTibia.Game.Commands
 
         public Item ToItem { get; set; }
         
-        public override Promise Execute(Context context)
+        public override PromiseResult<byte> Execute(Context context)
         {
-            return Promise.Run(resolve =>
+            return PromiseResult<byte>.Run(resolve =>
             {
                 byte index = Tile.GetIndex(FromItem);
 
                 Tile.ReplaceContent(index, ToItem);
 
-                foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                if (index < Constants.ObjectsPerPoint)
                 {
-                    if (observer.Tile.Position.CanSee(Tile.Position) )
+                    foreach (var observer in context.Server.GameObjects.GetPlayers() )
                     {
-                        context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(Tile.Position, index, ToItem) );
+                        if (observer.Tile.Position.CanSee(Tile.Position) )
+                        {
+                            context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(Tile.Position, index, ToItem) );
+                        }
                     }
                 }
 
-                resolve(context);
+                resolve(context, index);
             } );
         }
     }

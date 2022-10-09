@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Scripts
             {
                 return Promise.Delay(ctx, Constants.GlobalCreaturesSchedulerEvent, Constants.GlobalCreaturesSchedulerEventInterval);
 
-            } ) .Then(ctx =>
+            } ).Then(ctx =>
             {
                 GlobalCreatures(ctx);
             } );
@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Scripts
             {
                 return Promise.Delay(ctx, Constants.GlobalItemsSchedulerEvent, Constants.GlobalItemsSchedulerEventInterval);
 
-            } ) .Then(ctx =>
+            } ).Then(ctx =>
             {
                 GlobalItems(ctx);
             } );
@@ -46,7 +46,7 @@ namespace OpenTibia.Game.Scripts
             {
                 return Promise.Delay(ctx, Constants.GlobalLightSchedulerEvent, Constants.GlobalLightSchedulerEventInterval);
 
-            } ) .Then(ctx =>
+            } ).Then(ctx =>
             {
                 GlobalLight(ctx);
             } );

@@ -93,12 +93,12 @@ namespace OpenTibia.Network.Sockets
                         }
                         else
                         {
-                            OnDisconnected(new DisconnectedEventArgs(DisconnetionType.SocketClosed) );
+                            OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SocketClosed) );
                         }
                     }
                     catch (SocketException)
                     {
-                        OnDisconnected(new DisconnectedEventArgs(DisconnetionType.SocketException) );
+                        OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SocketException) );
                     }
                 }
             }
@@ -131,12 +131,12 @@ namespace OpenTibia.Network.Sockets
                         }
                         else
                         {
-                            OnDisconnected(new DisconnectedEventArgs(DisconnetionType.SocketClosed) );
+                            OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SocketClosed) );
                         }
                     }
                     catch (SocketException)
                     {
-                        OnDisconnected(new DisconnectedEventArgs(DisconnetionType.SocketException) );
+                        OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SocketException) );
                     }
                 }
             }
@@ -188,7 +188,7 @@ namespace OpenTibia.Network.Sockets
         {
             if (!stopped)
             {
-                OnDisconnected(new DisconnectedEventArgs(DisconnetionType.Requested) );
+                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.Requested) );
             }
         }
 

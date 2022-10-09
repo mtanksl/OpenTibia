@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Commands
 
                 if (item != null)
                 {
-                    context.AddCommand(new TileAddItemCommand(Tile, item) ).Then(ctx =>
+                    context.AddCommand(new TileAddItemCommand(Tile, item) ).Then( (ctx, index) =>
                     {
                         resolve(ctx, item);
                     } );

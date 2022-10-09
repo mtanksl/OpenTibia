@@ -4,14 +4,14 @@ namespace OpenTibia.Game.Commands
 {
     public class PromiseResult<TResult>
     {
+        public static PromiseResult<TResult> Run(Action<Action<Context, TResult>> run)
+        {
+            return new PromiseResult<TResult>(run);
+        }
+
         public static PromiseResult<TResult> FromResult(Context context, TResult result)
         {
             return new PromiseResult<TResult>(context, result);
-        }
-
-        public static PromiseResult<TResult> Run(Action< Action<Context, TResult> > run)
-        {
-            return new PromiseResult<TResult>(run);
         }
 
         private PromiseStatus status;
@@ -27,6 +27,21 @@ namespace OpenTibia.Game.Commands
             this.context = context;
 
             this.result = result;
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public TResult Result
+        {
+            get
+            {
+                if (status != PromiseStatus.Fulfilled)
+                {
+                    throw new InvalidOperationException("Promise is not fulfilled.");
+                }
+
+                return result;
+            }
         }
 
         private PromiseResult(Action< Action<Context, TResult> > run)

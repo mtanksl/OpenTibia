@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Commands
                     {
                         case Tile tile:
 
-                            context.AddCommand(new TileReplaceItemCommand(tile, FromItem, toItem) ).Then(ctx =>
+                            context.AddCommand(new TileReplaceItemCommand(tile, FromItem, toItem) ).Then( (ctx, index) =>
                             {
                                 context.Server.ItemFactory.Destroy(FromItem);
 
@@ -43,7 +43,7 @@ namespace OpenTibia.Game.Commands
 
                         case Inventory inventory:
 
-                            context.AddCommand(new InventoryReplaceItemCommand(inventory, FromItem, toItem) ).Then(ctx =>
+                            context.AddCommand(new InventoryReplaceItemCommand(inventory, FromItem, toItem) ).Then( (ctx, index) =>
                             {
                                 context.Server.ItemFactory.Destroy(FromItem);
 
@@ -54,7 +54,7 @@ namespace OpenTibia.Game.Commands
 
                         case Container container:
 
-                            context.AddCommand(new ContainerReplaceItemCommand(container, FromItem, toItem) ).Then(ctx =>
+                            context.AddCommand(new ContainerReplaceItemCommand(container, FromItem, toItem) ).Then( (ctx, index) =>
                             {
                                 context.Server.ItemFactory.Destroy(FromItem);
 

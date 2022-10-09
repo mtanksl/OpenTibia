@@ -40,12 +40,12 @@ namespace OpenTibia.Proxy
 
         public void Start()
         {
-            OnConnectedFromClient();
-
             lock (sync)
             {
                 if (!stopped)
                 {
+                    OnConnectedFromClient();
+
                     byte[] header = new byte[2];
 
                     client.BeginReceive(header, 0, header.Length, SocketFlags.None, ReceiveHeaderFromClient, header);
@@ -123,8 +123,12 @@ namespace OpenTibia.Proxy
         {
             lock (sync)
             {
-                if (!stopped)
+                if (stopped)
                 {
+                    syncStop.Set();
+                }
+                else
+                { 
                     try
                     {
                         byte[] header = result.AsyncState as byte[];
@@ -154,7 +158,11 @@ namespace OpenTibia.Proxy
         {
             lock (sync)
             {
-                if (!stopped)
+                if (stopped)
+                {
+                    syncStop.Set();
+                }
+                else
                 {
                     try
                     {
@@ -245,7 +253,7 @@ namespace OpenTibia.Proxy
 
             if (wait)
             {
-                //TODO
+                syncStop.WaitOne();
             }
         }
 

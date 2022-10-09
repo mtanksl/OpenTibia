@@ -5,7 +5,7 @@ using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class InventoryReplaceItemCommand : Command
+    public class InventoryReplaceItemCommand : CommandResult<byte>
     {
         public InventoryReplaceItemCommand(Inventory inventory, Item fromItem, Item toItem)
         {
@@ -22,9 +22,9 @@ namespace OpenTibia.Game.Commands
 
         public Item ToItem { get; set; }
 
-        public override Promise Execute(Context context)
+        public override PromiseResult<byte> Execute(Context context)
         {
-            return Promise.Run(resolve =>
+            return PromiseResult<byte>.Run(resolve =>
             {
                 byte slot = Inventory.GetIndex(FromItem);
 
@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Commands
 
                 context.AddPacket(Inventory.Player.Client.Connection, new SlotAddOutgoingPacket(slot, ToItem ) );
 
-                resolve(context);
+                resolve(context, slot);
             } );
         }
     }

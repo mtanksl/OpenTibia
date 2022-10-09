@@ -40,13 +40,13 @@ namespace OpenTibia.Game
             }
         }
 
-        public void Publish(object sender, GameEventArgs e)
+        public void Publish(Context context, GameEventArgs e)
         {
             if ( types.TryGetValue(e.GetType(), out var handlers) )
             {
                 foreach (var handler in handlers.Values)
                 {
-                    handler.Execute(sender, e);
+                    handler.Handle(context, e);
                 }
             }
         }

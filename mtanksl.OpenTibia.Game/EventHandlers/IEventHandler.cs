@@ -6,6 +6,6 @@ namespace OpenTibia.Game.EventHandlers
     {
         Guid Token { get; }
 
-        void Execute(object sender, object e);
+        void Handle(Context context, object e);
     }
 }

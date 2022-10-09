@@ -4,6 +4,7 @@ using OpenTibia.Game;
 using OpenTibia.Game.Commands;
 using OpenTibia.IO;
 using OpenTibia.Network.Packets.Incoming;
+using OpenTibia.Network.Packets.Outgoing;
 using OpenTibia.Network.Sockets;
 using OpenTibia.Security;
 using System;
@@ -26,7 +27,7 @@ namespace OpenTibia.Common.Objects
 
             server.QueueForExecution(ctx =>
             {
-                ctx.AddCommand(new SendConnectionInfoCommand(this) );
+                ctx.AddPacket(this, new SendConnectionInfoOutgoingPacket() );
             } );
 
             base.OnConnected();
@@ -63,19 +64,19 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<SelectedCharacterIncomingPacket>(reader);
 
-                                command = new SelectedCharacterCommand(this, packet);
+                                command = new ParseSelectedCharacterCommand(this, packet);
                             }
                             break;
 
                         case 0x14:
 
-                            command = new LogOutCommand(Client.Player);
+                            command = new ParseLogOutCommand(Client.Player);
 
                             break;
 
                         case 0x1E:
 
-                            command = new PongCommand(Client.Player);
+                            command = new ParsePongCommand(Client.Player);
 
                             break;
 
@@ -113,7 +114,7 @@ namespace OpenTibia.Common.Objects
 
                         case 0x69:
 
-                            command = new StopWalkCommand(Client.Player);
+                            command = new ParseStopWalkCommand(Client.Player);
 
                             break;
 
@@ -143,25 +144,25 @@ namespace OpenTibia.Common.Objects
 
                         case 0x6F:
 
-                            command = new TurnCommand(Client.Player, Direction.North);
+                            command = new ParseTurnCommand(Client.Player, Direction.North);
 
                             break;
 
                         case 0x70:
 
-                            command = new TurnCommand(Client.Player, Direction.East);
+                            command = new ParseTurnCommand(Client.Player, Direction.East);
 
                             break;
 
                         case 0x71:
 
-                            command = new TurnCommand(Client.Player, Direction.South);
+                            command = new ParseTurnCommand(Client.Player, Direction.South);
 
                             break;
 
                         case 0x72:
 
-                            command = new TurnCommand(Client.Player, Direction.West);
+                            command = new ParseTurnCommand(Client.Player, Direction.West);
 
                             break;
 
@@ -177,45 +178,45 @@ namespace OpenTibia.Common.Objects
                                 {
                                     if (toPosition.IsContainer)
                                     {
-                                        command = new MoveItemFromContainerToContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.Count);
+                                        command = new ParseMoveItemFromContainerToContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.Count);
                                     }
                                     else if (toPosition.IsInventory)
                                     {
-                                        command = new MoveItemFromContainerToInventoryCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromItemId, toPosition.InventoryIndex, packet.Count);
+                                        command = new ParseMoveItemFromContainerToInventoryCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromItemId, toPosition.InventoryIndex, packet.Count);
                                     }
                                     else
                                     {
-                                        command = new MoveItemFromContainerToTileCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromItemId, toPosition, packet.Count);
+                                        command = new ParseMoveItemFromContainerToTileCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromItemId, toPosition, packet.Count);
                                     }
                                 }
                                 else if (fromPosition.IsInventory)
                                 {
                                     if (toPosition.IsContainer)
                                     {
-                                        command = new MoveItemFromInventoryToContainerCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.Count);
+                                        command = new ParseMoveItemFromInventoryToContainerCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.Count);
                                     }
                                     else if (toPosition.IsInventory)
                                     {
-                                        command = new MoveItemFromInventoryToInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition.InventoryIndex, packet.Count);
+                                        command = new ParseMoveItemFromInventoryToInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition.InventoryIndex, packet.Count);
                                     }
                                     else
                                     {
-                                        command = new MoveItemFromInventoryToTileCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition, packet.Count);
+                                        command = new ParseMoveItemFromInventoryToTileCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition, packet.Count);
                                     }
                                 }
                                 else
                                 {
                                     if (toPosition.IsContainer)
                                     {
-                                        command = new MoveItemFromTileToContainerCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.Count);
+                                        command = new ParseMoveItemFromTileToContainerCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.Count);
                                     }
                                     else if (toPosition.IsInventory)
                                     {
-                                        command = new MoveItemFromTileToInventoryCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromItemId, toPosition.InventoryIndex, packet.Count);
+                                        command = new ParseMoveItemFromTileToInventoryCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromItemId, toPosition.InventoryIndex, packet.Count);
                                     }
                                     else
                                     {
-                                        command = new MoveItemFromTileToTileCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromItemId, toPosition, packet.Count);
+                                        command = new ParseMoveItemFromTileToTileCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromItemId, toPosition, packet.Count);
                                     }
                                 }
                             }
@@ -225,7 +226,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<LookItemNpcTradeIncomingPacket>(reader);
 
-                                command = new LookItemNpcTradeCommand(Client.Player, packet.ItemId, packet.Type);
+                                command = new ParseLookItemNpcTradeCommand(Client.Player, packet.ItemId, packet.Type);
                             }
                             break;
 
@@ -233,7 +234,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<BuyNpcTradeIncomingPacket>(reader);
 
-                                command = new BuyNpcTradeCommand(Client.Player, packet);
+                                command = new ParseBuyNpcTradeCommand(Client.Player, packet);
                             }
                             break;
 
@@ -241,13 +242,13 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<SellNpcTradeIncomingPacket>(reader);
 
-                                command = new SellNpcTradeCommand(Client.Player, packet);
+                                command = new ParseSellNpcTradeCommand(Client.Player, packet);
                             }
                             break;
 
                         case 0x7C:
                             
-                            command = new CloseNpcTradeCommand(Client.Player);
+                            command = new ParseCloseNpcTradeCommand(Client.Player);
                             
                             break;
 
@@ -259,15 +260,15 @@ namespace OpenTibia.Common.Objects
 
                                 if (fromPosition.IsContainer)
                                 {
-                                    command = new TradeWithFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.ItemId, packet.CreatureId);
+                                    command = new ParseTradeWithFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.ItemId, packet.CreatureId);
                                 }
                                 else if (fromPosition.IsInventory)
                                 {
-                                    command = new TradeWithFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId, packet.CreatureId);
+                                    command = new ParseTradeWithFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId, packet.CreatureId);
                                 }
                                 else
                                 {
-                                    command = new TradeWithFromTileCommand(Client.Player, fromPosition, packet.Index, packet.ItemId, packet.CreatureId);
+                                    command = new ParseTradeWithFromTileCommand(Client.Player, fromPosition, packet.Index, packet.ItemId, packet.CreatureId);
                                 }
                             }
                             break;
@@ -276,19 +277,19 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<LookItemTradeIncomingPacket>(reader);
 
-                                command = new LookItemTradeCommand(Client.Player, packet.WindowId, packet.Index);
+                                command = new ParseLookItemTradeCommand(Client.Player, packet.WindowId, packet.Index);
                             }
                             break;
 
                         case 0x7F:
                             
-                            command = new AcceptTradeCommand(Client.Player);
+                            command = new ParseAcceptTradeCommand(Client.Player);
                             
                             break;
 
                         case 0x80:
                             
-                            command = new CancelTradeCommand(Client.Player);
+                            command = new ParseCancelTradeCommand(Client.Player);
                             
                             break;
 
@@ -300,15 +301,15 @@ namespace OpenTibia.Common.Objects
                                 
                                 if (fromPosition.IsContainer)
                                 {
-                                    command = new UseItemFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.ItemId, packet.ContainerId);
+                                    command = new ParseUseItemFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.ItemId, packet.ContainerId);
                                 }
                                 else if (fromPosition.IsInventory)
                                 {
-                                    command = new UseItemFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId);
+                                    command = new ParseUseItemFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId);
                                 }
                                 else
                                 {
-                                    command = new UseItemFromTileCommand(Client.Player, fromPosition, packet.Index, packet.ItemId);
+                                    command = new ParseUseItemFromTileCommand(Client.Player, fromPosition, packet.Index, packet.ItemId);
                                 }
                             }
                             break;
@@ -325,45 +326,45 @@ namespace OpenTibia.Common.Objects
                                 {
                                     if (toPosition.IsContainer)
                                     {
-                                        command = new UseItemWithItemFromContainerToContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.ToItemId);
+                                        command = new ParseUseItemWithItemFromContainerToContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.ToItemId);
                                     }
                                     else if (toPosition.IsInventory)
                                     {
-                                        command = new UseItemWithItemFromContainerToInventoryCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromItemId, toPosition.InventoryIndex, packet.ToItemId);
+                                        command = new ParseUseItemWithItemFromContainerToInventoryCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromItemId, toPosition.InventoryIndex, packet.ToItemId);
                                     }
                                     else
                                     {
-                                        command = new UseItemWithItemFromContainerToTileCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromItemId, toPosition, packet.ToIndex, packet.ToItemId);
+                                        command = new ParseUseItemWithItemFromContainerToTileCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromItemId, toPosition, packet.ToIndex, packet.ToItemId);
                                     }
                                 }
                                 else if (fromPosition.IsInventory)
                                 {
                                     if (toPosition.IsContainer)
                                     {
-                                        command = new UseItemWithItemFromInventoryToContainerCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.ToItemId);
+                                        command = new ParseUseItemWithItemFromInventoryToContainerCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.ToItemId);
                                     }
                                     else if (toPosition.IsInventory)
                                     {
-                                        command = new UseItemWithItemFromInventoryToInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition.InventoryIndex, packet.ToItemId);
+                                        command = new ParseUseItemWithItemFromInventoryToInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition.InventoryIndex, packet.ToItemId);
                                     }
                                     else
                                     {
-                                        command = new UseItemWithItemFromInventoryToTileCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition, packet.ToIndex, packet.ToItemId);
+                                        command = new ParseUseItemWithItemFromInventoryToTileCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition, packet.ToIndex, packet.ToItemId);
                                     }
                                 }
                                 else
                                 {
                                     if (toPosition.IsContainer)
                                     {
-                                        command = new UseItemWithItemFromTileToContainerCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.ToItemId);
+                                        command = new ParseUseItemWithItemFromTileToContainerCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.ToItemId);
                                     }
                                     else if (toPosition.IsInventory)
                                     {
-                                        command = new UseItemWithItemFromTileToInventoryCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromItemId, toPosition.InventoryIndex, packet.ToItemId);
+                                        command = new ParseUseItemWithItemFromTileToInventoryCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromItemId, toPosition.InventoryIndex, packet.ToItemId);
                                     }
                                     else
                                     {
-                                        command = new UseItemWithItemFromTileToTileCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromItemId, toPosition, packet.ToIndex, packet.ToItemId);
+                                        command = new ParseUseItemWithItemFromTileToTileCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromItemId, toPosition, packet.ToIndex, packet.ToItemId);
                                     }
                                 }
                             }
@@ -377,15 +378,15 @@ namespace OpenTibia.Common.Objects
 
                                 if (fromPosition.IsContainer)
                                 {
-                                    command = new UseItemWithCreatureFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.ItemId, packet.CreatureId);
+                                    command = new ParseUseItemWithCreatureFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.ItemId, packet.CreatureId);
                                 }
                                 else if (fromPosition.IsInventory)
                                 {
-                                    command = new UseItemWithCreatureFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId, packet.CreatureId);
+                                    command = new ParseUseItemWithCreatureFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId, packet.CreatureId);
                                 }
                                 else
                                 {
-                                    command = new UseItemWithCreatureFromTileCommand(Client.Player, fromPosition, packet.Index, packet.ItemId, packet.CreatureId);
+                                    command = new ParseUseItemWithCreatureFromTileCommand(Client.Player, fromPosition, packet.Index, packet.ItemId, packet.CreatureId);
                                 }
                             }
                             break;
@@ -398,15 +399,15 @@ namespace OpenTibia.Common.Objects
 
                                 if (fromPosition.IsContainer)
                                 {
-                                    command = new RotateItemFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.ItemId);
+                                    command = new ParseRotateItemFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.ItemId);
                                 }
                                 else if (fromPosition.IsInventory)
                                 {
-                                    command = new RotateItemFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId);
+                                    command = new ParseRotateItemFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId);
                                 }
                                 else
                                 {
-                                    command = new RotateItemFromTileCommand(Client.Player, fromPosition, packet.Index, packet.ItemId);
+                                    command = new ParseRotateItemFromTileCommand(Client.Player, fromPosition, packet.Index, packet.ItemId);
                                 }
                             }
                             break;
@@ -415,7 +416,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<CloseContainerIncomingPacket>(reader);
 
-                                command = new CloseContainerCommand(Client.Player, packet.ContainerId);
+                                command = new ParseCloseContainerCommand(Client.Player, packet.ContainerId);
                             }
                             break;
 
@@ -423,7 +424,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<OpenParentContainerIncomingPacket>(reader);
 
-                                command = new OpenParentContainerCommand(Client.Player, packet.ContainerId);
+                                command = new ParseOpenParentContainerCommand(Client.Player, packet.ContainerId);
                             }
                             break;
 
@@ -435,15 +436,15 @@ namespace OpenTibia.Common.Objects
 
                                 if (fromPosition.IsContainer)
                                 {
-                                    command = new LookFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.ItemId);
+                                    command = new ParseLookFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.ItemId);
                                 }
                                 else if (fromPosition.IsInventory)
                                 {
-                                    command = new LookFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId);
+                                    command = new ParseLookFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId);
                                 }
                                 else
                                 {
-                                    command = new LookFromTileCommand(Client.Player, fromPosition, packet.Index, packet.ItemId);
+                                    command = new ParseLookFromTileCommand(Client.Player, fromPosition, packet.Index, packet.ItemId);
                                 }
                             }
                             break;
@@ -456,55 +457,55 @@ namespace OpenTibia.Common.Objects
                                 {
                                     case TalkType.Say:
 
-                                        command = new TalkSayCommand(Client.Player, packet.Message);
+                                        command = new ParseTalkSayCommand(Client.Player, packet.Message);
 
                                         break;
 
                                     case TalkType.Whisper:
 
-                                        command = new TalkWhisperCommand(Client.Player, packet.Message);
+                                        command = new ParseTalkWhisperCommand(Client.Player, packet.Message);
 
                                         break;
 
                                     case TalkType.Yell:
 
-                                        command = new TalkYellCommand(Client.Player, packet.Message);
+                                        command = new ParseTalkYellCommand(Client.Player, packet.Message);
 
                                         break;
 
                                     case TalkType.Private:
 
-                                        command = new TalkPrivateCommand(Client.Player, packet.Name, packet.Message);
+                                        command = new ParseTalkPrivateCommand(Client.Player, packet.Name, packet.Message);
 
                                         break;
 
                                     case TalkType.ChannelYellow:
 
-                                        command = new TalkChannelYellowCommand(Client.Player, packet.ChannelId, packet.Message);
+                                        command = new ParseTalkChannelYellowCommand(Client.Player, packet.ChannelId, packet.Message);
 
                                         break;
 
                                     case TalkType.ReportRuleViolationOpen:
 
-                                        command = new OpenReportRuleViolationCommand(Client.Player, packet.Message);
+                                        command = new ParseOpenReportRuleViolationCommand(Client.Player, packet.Message);
 
                                         break;
 
                                     case TalkType.ReportRuleViolationAnswer:
 
-                                        command = new AnswerReportRuleViolationCommand(Client.Player, packet.Name, packet.Message);
+                                        command = new ParseAnswerReportRuleViolationCommand(Client.Player, packet.Name, packet.Message);
 
                                         break;
 
                                     case TalkType.ReportRuleViolationQuestion:
 
-                                        command = new QuestionReportRuleViolationCommand(Client.Player, packet.Message);
+                                        command = new ParseQuestionReportRuleViolationCommand(Client.Player, packet.Message);
 
                                         break;
 
                                     case TalkType.Broadcast:
 
-                                        command = new TalkBroadcastCommand(Client.Player, packet.Message);
+                                        command = new ParseTalkBroadcastCommand(Client.Player, packet.Message);
 
                                         break;
                                 }
@@ -513,7 +514,7 @@ namespace OpenTibia.Common.Objects
 
                         case 0x97:
                             
-                            command = new OpenNewChannelCommand(Client.Player);
+                            command = new ParseOpenNewChannelCommand(Client.Player);
 
                             break;
 
@@ -521,7 +522,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<OpenedNewChannelIncomingPacket>(reader);
 
-                                command = new OpenedNewChannelCommand(Client.Player, packet.ChannelId);
+                                command = new ParseOpenedNewChannelCommand(Client.Player, packet.ChannelId);
                             }
                             break;
 
@@ -529,7 +530,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<CloseChannelIncomingPacket>(reader);
 
-                                command = new CloseChannelCommand(Client.Player, packet.ChannelId);
+                                command = new ParseCloseChannelCommand(Client.Player, packet.ChannelId);
                             }
                             break;
 
@@ -537,7 +538,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<OpenedPrivateChannelIncomingPacket>(reader);
 
-                                command = new OpenedPrivateChannelCommand(Client.Player, packet.Name);
+                                command = new ParseOpenedPrivateChannelCommand(Client.Player, packet.Name);
                             }
                             break;
 
@@ -545,7 +546,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<ProcessReportRuleViolationIncomingPacket>(reader);
 
-                                command = new ProcessReportRuleViolationCommand(Client.Player, packet.Name);
+                                command = new ParseProcessReportRuleViolationCommand(Client.Player, packet.Name);
                             }
                             break;
 
@@ -553,19 +554,19 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<CloseReportRuleViolationChannelAnswerIncomingPacket>(reader);
 
-                                command = new CloseReportRuleViolationChannelAnswerCommand(Client.Player, packet.Name);
+                                command = new ParseCloseReportRuleViolationChannelAnswerCommand(Client.Player, packet.Name);
                             }
                             break;
 
                         case 0x9D:
 
-                            command = new CloseReportRuleViolationChannelQuestionCommand(Client.Player);
+                            command = new ParseCloseReportRuleViolationChannelQuestionCommand(Client.Player);
                             
                             break;
 
                         case 0x9E:
 
-                            command = new CloseNpcsChannelCommand(Client.Player);
+                            command = new ParseCloseNpcsChannelCommand(Client.Player);
 
                             break;
 
@@ -573,7 +574,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<CombatControlsIncomingPacket>(reader);
 
-                                command = new CombatControlsCommand(Client.Player, packet.FightMode, packet.ChaseMode, packet.SafeMode);
+                                command = new ParseCombatControlsCommand(Client.Player, packet.FightMode, packet.ChaseMode, packet.SafeMode);
                             }
                             break;
 
@@ -583,11 +584,11 @@ namespace OpenTibia.Common.Objects
 
                                 if (packet.CreatureId == 0)
                                 {
-                                    command = new StopAttackCommand(Client.Player);
+                                    command = new ParseStopAttackCommand(Client.Player);
                                 }
                                 else
                                 {
-                                    command = new StartAttackCommand(Client.Player, packet.CreatureId, packet.Nonce);
+                                    command = new ParseStartAttackCommand(Client.Player, packet.CreatureId, packet.Nonce);
                                 }
                             }
                             break;
@@ -598,11 +599,11 @@ namespace OpenTibia.Common.Objects
 
                                 if (packet.CreatureId == 0)
                                 {
-                                    command = new StopFollowCommand(Client.Player);
+                                    command = new ParseStopFollowCommand(Client.Player);
                                 }
                                 else
                                 {
-                                    command = new StartFollowCommand(Client.Player, packet.CreatureId, packet.Nonce);
+                                    command = new ParseStartFollowCommand(Client.Player, packet.CreatureId, packet.Nonce);
                                 }
                             }
                             break;
@@ -611,7 +612,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<InviteToPartyIncomingPacket>(reader);
 
-                                command = new InviteToPartyCommand(Client.Player, packet.CreatureId);
+                                command = new ParseInviteToPartyCommand(Client.Player, packet.CreatureId);
                             }
                             break;
 
@@ -619,7 +620,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<JoinPartyIncomingPacket>(reader);
 
-                                command = new JoinPartyCommand(Client.Player, packet.CreatureId);
+                                command = new ParseJoinPartyCommand(Client.Player, packet.CreatureId);
                             }
                             break;
 
@@ -627,7 +628,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<RevokePartyIncomingPacket>(reader);
 
-                                command = new RevokePartyCommand(Client.Player, packet.CreatureId);
+                                command = new ParseRevokePartyCommand(Client.Player, packet.CreatureId);
                             }
                             break;
 
@@ -635,13 +636,13 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<PassLeadershipToIncomingPacket>(reader);
 
-                                command = new PassLeadershipToCommand(Client.Player, packet.CreatureId);
+                                command = new ParsePassLeadershipToCommand(Client.Player, packet.CreatureId);
                             }
                             break;
 
                         case 0xA7:
                             
-                            command = new LeavePartyCommand(Client.Player);
+                            command = new ParseLeavePartyCommand(Client.Player);
                             
                             break;
 
@@ -649,13 +650,13 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<SharedExperienceIncomingPacket>(reader);
 
-                                command = new SharedExperienceCommand(Client.Player, packet.Enabled);
+                                command = new ParseSharedExperienceCommand(Client.Player, packet.Enabled);
                             }
                             break;
 
                         case 0xAA:
 
-                            command = new OpenedMyPrivateChannelCommand(Client.Player);
+                            command = new ParseOpenedMyPrivateChannelCommand(Client.Player);
 
                             break;
 
@@ -663,7 +664,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<InvitePlayerIncomingPacket>(reader);
 
-                                command = new InvitePlayerChannelCommand(Client.Player, packet.Name);
+                                command = new ParseInvitePlayerChannelCommand(Client.Player, packet.Name);
                             }
                             break;
 
@@ -671,19 +672,19 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<ExcludePlayerIncomingPacket>(reader);
 
-                                command = new ExcludePlayerCommand(Client.Player, packet.Name);
+                                command = new ParseExcludePlayerCommand(Client.Player, packet.Name);
                             }
                             break;
 
                         case 0xBE:
 
-                            command = new StopCommand(Client.Player);
+                            command = new ParseStopCommand(Client.Player);
 
                             break;
 
                         case 0xD2:
 
-                            command = new SetOutfitCommand(Client.Player);
+                            command = new ParseSetOutfitCommand(Client.Player);
 
                             break;
 
@@ -691,7 +692,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<SelectedOutfitIncomingPacket>(reader);
 
-                                command = new SelectedOutfitCommand(Client.Player, packet.Outfit);
+                                command = new ParseSelectedOutfitCommand(Client.Player, packet.Outfit);
                             }
                             break;
 
@@ -699,7 +700,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<AddVipIncomingPacket>(reader);
 
-                                command = new AddVipCommand(Client.Player, packet.Name);
+                                command = new ParseAddVipCommand(Client.Player, packet.Name);
                             }
                             break;
 
@@ -707,7 +708,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<RemoveVipIncomingPacket>(reader);
 
-                                command = new RemoveVipCommand(Client.Player, packet.CreatureId);
+                                command = new ParseRemoveVipCommand(Client.Player, packet.CreatureId);
                             }
                             break;
 
@@ -715,13 +716,13 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<ReportBugIncomingPacket>(reader);
 
-                                command = new ReportBugCommand(Client.Player, packet.Message);
+                                command = new ParseReportBugCommand(Client.Player, packet.Message);
                             }
                             break;
 
                         case 0xF0:
                             
-                            command = new QuestsCommand(Client.Player);
+                            command = new ParseQuestsCommand(Client.Player);
                             
                             break;
 
@@ -729,7 +730,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<OpenQuestIncomingPacket>(reader);
 
-                                command = new OpenQuestCommand(Client.Player, packet.QuestId);
+                                command = new ParseOpenQuestCommand(Client.Player, packet.QuestId);
                             }
                             break;
 
@@ -737,7 +738,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<ReportRuleViolationIncomingPacket>(reader);
 
-                                command = new ReportRuleViolationCommand(Client.Player, packet);
+                                command = new ParseReportRuleViolationCommand(Client.Player, packet);
                             }
                             break;
                     }
@@ -777,13 +778,13 @@ namespace OpenTibia.Common.Objects
         {
             server.Logger.WriteLine("Disconnected on game server", LogLevel.Debug);
 
-            if (e.Type != DisconnetionType.Requested)
+            if (e.Type != DisconnectionType.Requested)
             {
                 if (Client != null && Client.Player != null)
                 {
                     server.QueueForExecution(ctx =>
                     {
-                        ctx.AddCommand(new LogOutCommand(Client.Player) );
+                        ctx.AddCommand(new ParseLogOutCommand(Client.Player) );
                     } );
                 }
             }
