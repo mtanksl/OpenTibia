@@ -8,13 +8,13 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Context context, Func<Context, Promise> next, PlayerMoveCreatureCommand command)
         {
-            if ( !command.Player.Tile.Position.IsNextTo(command.ToTile.Position) )
+            if ( !command.Player.Tile.Position.IsNextTo(command.Creature.Tile.Position) )
             {
                 IContainer beforeContainer = command.Creature.Parent;
 
                 byte beforeIndex = beforeContainer.GetIndex(command.Creature);
 
-                return context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, command.ToTile) ).Then(ctx =>
+                return context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, command.Creature.Tile) ).Then(ctx =>
                 {
                     return Promise.Delay(ctx, Constants.PlayerActionSchedulerEvent(command.Player), Constants.PlayerActionSchedulerEventInterval);
 

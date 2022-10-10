@@ -9,22 +9,30 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Context context, Func<Context, Promise> next, PlayerSayCommand command)
         {
-            ushort toOpenTibiaId;
-
-            if (command.Message.StartsWith("/i") && command.Message.Contains(" ") && ushort.TryParse(command.Message.Split(' ')[1], out toOpenTibiaId) )
+            if (command.Message.StartsWith("/i") )
             {
-                Tile toTile = context.Server.Map.GetTile(command.Player.Tile.Position.Offset(command.Player.Direction) );
+                int startIndex = command.Message.IndexOf(' ');
 
-                if (toTile != null)
+                if (startIndex != -1)
                 {
-                    return context.AddCommand(new TileCreateItemCommand(command.Player.Tile, toOpenTibiaId, 1) ).Then( (ctx, item) =>
+                    ushort toOpenTibiaId;
+
+                    if (ushort.TryParse(command.Message.Substring(startIndex + 1), out toOpenTibiaId) )
                     {
-                        return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) );
-                    } );
-                }
-                else
-                {
-                    return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                        Tile toTile = context.Server.Map.GetTile(command.Player.Tile.Position.Offset(command.Player.Direction) );
+
+                        if (toTile != null)
+                        {
+                            return context.AddCommand(new TileCreateItemCommand(toTile, toOpenTibiaId, 1) ).Then( (ctx, item) =>
+                            {
+                                return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) );
+                            } );
+                        }
+                        else
+                        {
+                            return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                        }
+                    }
                 }
             }
 

@@ -9,7 +9,7 @@ namespace OpenTibia.Common.Objects
         public string Name { get; set; }
 
 
-        protected HashSet<Player> players = new HashSet<Player>();
+        private HashSet<Player> players = new HashSet<Player>();
 
         public void AddPlayer(Player player)
         {

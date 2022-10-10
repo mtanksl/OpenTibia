@@ -9,22 +9,27 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Context context, Func<Context, Promise> next, PlayerSayCommand command)
         {
-            if (command.Message.StartsWith("/m") && command.Message.Contains(" ") )
+            if (command.Message.StartsWith("/m") )
             {
-                string name = command.Message.Split(' ')[1];
+                int startIndex = command.Message.IndexOf(' ');
 
-                Tile toTile = context.Server.Map.GetTile(command.Player.Tile.Position.Offset(command.Player.Direction) );
-
-                if (toTile != null)
+                if (startIndex != -1)
                 {
-                    return context.AddCommand(new TileCreateMonsterCommand(toTile, name) ).Then( (ctx, monster) =>
+                    string name = command.Message.Substring(startIndex + 1);
+
+                    Tile toTile = context.Server.Map.GetTile(command.Player.Tile.Position.Offset(command.Player.Direction) );
+
+                    if (toTile != null)
                     {
-                        return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) );
-                    } );
-                }
-                else
-                {
-                    return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                        return context.AddCommand(new TileCreateMonsterCommand(toTile, name) ).Then( (ctx, monster) =>
+                        {
+                            return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) );
+                        } );
+                    }
+                    else
+                    {
+                        return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                    }
                 }
             }
 

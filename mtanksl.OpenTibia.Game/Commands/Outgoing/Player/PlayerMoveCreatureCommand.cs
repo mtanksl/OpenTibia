@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
 
         protected bool IsEnoughtRoom(Context context, Tile fromTile, Tile toTile)
         {
-            if (toTile.Ground == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) )
+            if (toTile.Ground == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || toTile.GetCreatures().Any(c => c.Block) ) )
             {
                 context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtRoom) );
 

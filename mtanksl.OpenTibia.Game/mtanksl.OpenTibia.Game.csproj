@@ -381,6 +381,8 @@
   <ItemGroup>
     <Folder Include="CommandHandlers\PlayerLookCreature\" />
     <Folder Include="CommandHandlers\PlayerLookItem\" />
+    <Folder Include="CommandHandlers\PlayerWhisper\" />
+    <Folder Include="CommandHandlers\PlayerYell\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

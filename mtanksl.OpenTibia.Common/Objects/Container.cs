@@ -133,7 +133,7 @@ namespace OpenTibia.Common.Objects
             return contents.OfType<Item>();
         }
 
-        protected Dictionary<Player, int> players = new Dictionary<Player, int>();
+        private Dictionary<Player, int> players = new Dictionary<Player, int>();
 
         public void AddPlayer(Player player)
         {

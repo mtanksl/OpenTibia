@@ -60,6 +60,13 @@ namespace OpenTibia.Game.Commands
 
         protected bool CanThrow(Context context, Creature fromCreature, Tile toTile)
         {
+            if ( !fromCreature.Tile.Position.IsNextTo(toTile.Position) )
+            {
+                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
+
+                return false;
+            }
+
             return true;
         }
 

@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Events;
 using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
@@ -33,13 +34,13 @@ namespace OpenTibia.Game.Commands
                 {
                     if (observer == Creature)
                     {
-                        context.AddPacket(observer.Client.Connection, new SendTilesOutgoingPacket(context.Server.Map, observer.Client, ToTile.Position) );
+                        Sync(context, observer, fromTile.Position, fromIndex, ToTile.Position, fromTile.Count);
                     }
                     else
                     {
                         bool canSeeFrom = observer.Tile.Position.CanSee(fromTile.Position) && fromIndex < Constants.ObjectsPerPoint;
 
-		                bool canSeeTo = observer.Tile.Position.CanSee(ToTile.Position) && toIndex < Constants.ObjectsPerPoint;
+                        bool canSeeTo = observer.Tile.Position.CanSee(ToTile.Position) && toIndex < Constants.ObjectsPerPoint;
 
                         if (canSeeFrom && canSeeTo)
 		                {
@@ -81,6 +82,107 @@ namespace OpenTibia.Game.Commands
 
                 resolve(context);
             } );
-        }    
+        }
+
+        private void Sync(Context context, Player observer, Position fromPosition, byte fromIndex, Position toPosition, int count)
+        {
+            int deltaZ = toPosition.Z - fromPosition.Z;
+
+            int deltaY = toPosition.Y - fromPosition.Y;
+
+            int deltaX = toPosition.X - fromPosition.X;
+
+            if (deltaZ < -1 || deltaZ > 1 || deltaY < -6 || deltaY > 7 || deltaX < -8 || deltaX > 9 || fromIndex >= Constants.ObjectsPerPoint)
+            {
+                context.AddPacket(observer.Client.Connection, new SendTilesOutgoingPacket(context.Server.Map, observer.Client, ToTile.Position) );
+            }
+            else
+            {
+                if (fromPosition.Z == 7 && toPosition.Z == 8)
+			    {
+				    context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromPosition, fromIndex) );
+			    }
+			    else
+			    {
+                    context.AddPacket(observer.Client.Connection, new WalkOutgoingPacket(fromPosition, fromIndex, toPosition));
+                }
+
+                Position position = fromPosition;
+
+                while (deltaZ < 0)
+                {
+                    context.AddPacket(observer.Client.Connection, new SendMapUpOutgoingPacket(context.Server.Map, observer.Client, position),
+
+                                                                  new SendMapWestOutgoingPacket(context.Server.Map, observer.Client, position.Offset(0, 1, -1) ),
+
+                                                                  new SendMapNorthOutgoingPacket(context.Server.Map, observer.Client, position.Offset(0, 0, -1) ) );
+
+                    position = position.Offset(0, 0, -1);
+
+                    deltaZ++;
+                }
+
+                while (deltaZ > 0)
+                {
+                    context.AddPacket(observer.Client.Connection, new SendMapDownOutgoingPacket(context.Server.Map, observer.Client, position),
+
+                                                                  new SendMapEastOutgoingPacket(context.Server.Map, observer.Client, position.Offset(0, -1, 1) ),
+
+                                                                  new SendMapSouthOutgoingPacket(context.Server.Map, observer.Client, position.Offset(0, 0, 1) ) );
+
+                    position = position.Offset(0, 0, 1);
+
+                    deltaZ--;
+                }
+
+                while (deltaY < 0)
+                {
+                    context.AddPacket(observer.Client.Connection, new SendMapNorthOutgoingPacket(context.Server.Map, observer.Client, position.Offset(0, -1, 0) ) );
+
+                    position = position.Offset(0, -1, 0);
+
+                    deltaY++;
+                }
+
+                while (deltaY > 0)
+                {
+                    context.AddPacket(observer.Client.Connection, new SendMapSouthOutgoingPacket(context.Server.Map, observer.Client, position.Offset(0, 1, 0) ) );
+
+                    position = position.Offset(0, 1, 0);
+
+                    deltaY--;
+                }
+
+                while (deltaX < 0)
+                {
+                    context.AddPacket(observer.Client.Connection, new SendMapWestOutgoingPacket(context.Server.Map, observer.Client, position.Offset(-1, 0, 0) ) );
+
+                    position = position.Offset(-1, 0, 0);
+
+                    deltaX++;
+                }
+
+                while (deltaX > 0)
+                {
+                    context.AddPacket(observer.Client.Connection, new SendMapEastOutgoingPacket(context.Server.Map, observer.Client, position.Offset(1, 0, 0) ) );
+
+                    position = position.Offset(1, 0, 0);
+
+                    deltaX--;
+                }
+
+                if (fromPosition.Z == 8 && toPosition.Z == 7)
+                {
+
+                }
+                else
+                {
+                    if (count >= Constants.ObjectsPerPoint)
+                    {
+                        context.AddPacket(observer.Client.Connection, new SendTileOutgoingPacket(context.Server.Map, observer.Client, fromPosition) );
+                    }
+                }
+            }
+        }
     }
 }
