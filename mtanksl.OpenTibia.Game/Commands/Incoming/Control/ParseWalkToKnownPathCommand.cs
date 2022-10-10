@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
-    public class WalkToKnownPathCommand : Command
+    public class ParseWalkToKnownPathCommand : Command
     {
-        public WalkToKnownPathCommand(Player player, MoveDirection[] moveDirections)
+        public ParseWalkToKnownPathCommand(Player player, MoveDirection[] moveDirections)
         {
             Player = player;
 
@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
 
             foreach (var moveDirection in MoveDirections)
             {
-                commands.Add(new WalkCommand(Player, moveDirection) );
+                commands.Add(new ParseWalkCommand(Player, moveDirection) );
             }
 
             return context.AddCommand(new SequenceCommand(commands.ToArray() ) );

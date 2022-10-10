@@ -53,6 +53,16 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
+        protected bool IsMoveable(Context context, Creature fromCreature)
+        {
+            return true;
+        }
+
+        protected bool CanThrow(Context context, Creature fromCreature, Tile toTile)
+        {
+            return true;
+        }
+
         protected bool IsPickupable(Context context, Item fromItem)
         {
             if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Pickupable) )

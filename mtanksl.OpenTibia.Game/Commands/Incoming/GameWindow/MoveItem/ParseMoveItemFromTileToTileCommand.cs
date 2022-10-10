@@ -37,22 +37,47 @@ namespace OpenTibia.Game.Commands
 
                 if (fromTile != null)
                 {
-                    Item fromItem = fromTile.GetContent(FromIndex) as Item;
-
-                    if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                    switch (fromTile.GetContent(FromIndex) )
                     {
-                        Tile toTile = context.Server.Map.GetTile(ToPosition);
+                        case Item fromItem:
 
-                        if (toTile != null)
-                        {
-                            if (IsMoveable(context, fromItem, Count) && CanThrow(context, fromTile, toTile) )
+                            if (fromItem.Metadata.TibiaId == ItemId)
                             {
-                                context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toTile, 0, Count) ).Then(ctx =>
+                                Tile toTile = context.Server.Map.GetTile(ToPosition);
+
+                                if (toTile != null)
                                 {
-                                    resolve(ctx);
-                                } );
+                                    if (IsMoveable(context, fromItem, Count) && CanThrow(context, fromTile, toTile) )
+                                    {
+                                        context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toTile, 0, Count) ).Then(ctx =>
+                                        {
+                                            resolve(ctx);
+                                        } );
+                                    }
+                                }
                             }
-                        }
+
+                            break;
+
+                        case Creature fromCreature:
+
+                            if (ItemId == 99)
+                            {
+                                Tile toTile = context.Server.Map.GetTile(ToPosition);
+
+                                if (toTile != null)
+                                {
+                                    if (IsMoveable(context, fromCreature) && CanThrow(context, fromCreature, toTile) )
+                                    {
+                                        context.AddCommand(new PlayerMoveCreatureCommand(Player, fromCreature, toTile) ).Then(ctx =>
+                                        {
+                                            resolve(ctx);
+                                        } );
+                                    }
+                                }
+                            }
+
+                            break;
                     }
                 }
             } );

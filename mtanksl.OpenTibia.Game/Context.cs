@@ -135,7 +135,7 @@ namespace OpenTibia.Game
             message.Add(packet);
         }
 
-        public void AddPacket(IConnection connection, params IOutgoingPacket[] packet)
+        public void AddPacket(IConnection connection, params IOutgoingPacket[] packets)
         {
             if (disposed)
             {
@@ -156,7 +156,7 @@ namespace OpenTibia.Game
                 messages.Add(connection, message);
             }
 
-            message.Add(packet);
+            message.Add(packets);
         }
 
         private HashSet<IConnection> connections = null;
@@ -232,7 +232,7 @@ namespace OpenTibia.Game
                 }
 
                 connections.Clear();
-            }            
+            }
         }
 
         private bool disposed = false;

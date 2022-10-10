@@ -163,9 +163,9 @@ namespace OpenTibia.Game
                         using (var scope = new Scope<Context>(context) )
                         {
                             callback(context);
-                        }
 
-                        context.Flush();
+                            context.Flush();
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -197,9 +197,9 @@ namespace OpenTibia.Game
                         using (var scope = new Scope<Context>(context) )
                         {
                             callback(context);
-                        }
 
-                        context.Flush();
+                            context.Flush();
+                        }
                     }
                 }
                 catch (Exception ex)

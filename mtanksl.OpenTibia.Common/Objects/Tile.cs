@@ -68,20 +68,20 @@ namespace OpenTibia.Common.Objects
 
         public byte AddContent(IContent content)
         {
-            //11 Other
-            //12 Other
-            //13 Other
-            //10 Creature
-            //9 Creature
-            //8 Creature
-            //7 LowPriority
-            //6 LowPriority
-            //5 MediumPriority
-            //4 MediumPriority
-            //3 HighPriority
-            //2 HighPriority   
-            //1 Ground
-            //0 Ground
+            //13 Other 1
+            //12 Other 2 
+            //11 Other 3
+            //10 Creature 3
+            //9 Creature 2
+            //8 Creature 1
+            //7 LowPriority 2
+            //6 LowPriority 1
+            //5 MediumPriority 2
+            //4 MediumPriority 1
+            //3 HighPriority 2
+            //2 HighPriority 1
+            //1 Ground 2
+            //0 Ground 1
 
             byte index = 0;
 
@@ -89,7 +89,7 @@ namespace OpenTibia.Common.Objects
             {
                 while (index < contents.Count)
                 {
-                    if (contents[index].TopOrder == content.TopOrder)
+                    if (contents[index].TopOrder == TopOrder.Other)
                     {
                         break;
                     }

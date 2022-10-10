@@ -57,6 +57,8 @@
     <Compile Include="CommandHandlers\CreatureUpdateParent\MoveAwayContainerCloseHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\StairsHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\HoleHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerMoveCreature\MoveCreatureWalkToSourceHandler.cs" />
+    <Compile Include="Commands\Outgoing\Player\PlayerMoveCreatureCommand.cs" />
     <Compile Include="EventHandlers\TileRemoveCreature\TileDepressHandler.cs" />
     <Compile Include="EventHandlers\TileAddCreature\SnowPressHandler.cs" />
     <Compile Include="EventHandlers\TileAddCreature\TilePressHandler.cs" />
@@ -152,8 +154,8 @@
     <Compile Include="Commands\Outgoing\Creature\CreatureUpdateDirectionCommand.cs" />
     <Compile Include="Commands\Outgoing\Creature\CreatureUpdateOutfit.cs" />
     <Compile Include="Commands\YieldCommand.cs" />
-    <Compile Include="Commands\Incoming\Control\WalkCommand.cs" />
-    <Compile Include="Commands\Incoming\Control\WalkToKnownPathCommand.cs" />
+    <Compile Include="Commands\Incoming\Control\ParseWalkCommand.cs" />
+    <Compile Include="Commands\Incoming\Control\ParseWalkToKnownPathCommand.cs" />
     <Compile Include="Commands\SequenceCommand.cs" />
     <Compile Include="Commands\Incoming\Battle\ParseStartAttackCommand.cs" />
     <Compile Include="Commands\Incoming\Battle\ParseStopAttackCommand.cs" />
@@ -188,7 +190,7 @@
     <Compile Include="Commands\Outgoing\Player\PlayerLookItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Effect\ShowAnimatedTextCommand.cs" />
     <Compile Include="Commands\Outgoing\Effect\ShowProjectileCommand.cs" />
-    <Compile Include="Commands\Outgoing\Creature\Review\CreatureUpdateParentCommand.cs" />
+    <Compile Include="Commands\Outgoing\Creature\CreatureUpdateParentCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileReplaceItemCommand.cs" />
     <Compile Include="Commands\Incoming\Console\ParseCloseNpcsChannelCommand.cs" />
     <Compile Include="Commands\Incoming\Dialog\ParseSelectedCharacterCommand.cs" />
@@ -292,7 +294,7 @@
     <Compile Include="Commands\Incoming\Client\ParsePongCommand.cs" />
     <Compile Include="Commands\Incoming\GameWindow\ParseSetOutfitCommand.cs" />
     <Compile Include="Commands\Incoming\Control\ParseStopWalkCommand.cs" />
-    <Compile Include="Commands\Incoming\Control\WalkToUnknownPathCommand.cs" />
+    <Compile Include="Commands\Incoming\Control\ParseWalkToUnknownPathCommand.cs" />
     <Compile Include="Behaviours\Behaviour.cs" />
     <Compile Include="Common\Objects\WindowCollection.cs" />
     <Compile Include="Common\Objects\ContainerCollection.cs" />
@@ -330,6 +332,7 @@
     <Compile Include="Promises\PromiseResult.cs" />
     <Compile Include="Promises\PromiseStatus.cs" />
     <Compile Include="ScriptsCollection.cs" />
+    <Compile Include="Scripts\PlayerMoveCreatureScripts.cs" />
     <Compile Include="Scripts\TileRemoveCreatureScripts.cs" />
     <Compile Include="Scripts\TileAddCreatureScripts.cs" />
     <Compile Include="Scripts\GlobalScripts.cs" />
@@ -382,6 +385,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Commands\README.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

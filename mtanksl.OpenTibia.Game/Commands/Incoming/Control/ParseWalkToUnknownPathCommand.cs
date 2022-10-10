@@ -5,9 +5,9 @@ using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class WalkToUnknownPathCommand : Command
+    public class ParseWalkToUnknownPathCommand : Command
     {
-        public WalkToUnknownPathCommand(Player player, Tile tile)
+        public ParseWalkToUnknownPathCommand(Player player, Tile tile)
         {
             Player = player;
 
@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
                 }
                 else
                 {
-                    context.AddCommand(new WalkToKnownPathCommand(Player, moveDirections) ).Then(ctx =>
+                    context.AddCommand(new ParseWalkToKnownPathCommand(Player, moveDirections) ).Then(ctx =>
                     {
                         resolve(ctx);
                     } );

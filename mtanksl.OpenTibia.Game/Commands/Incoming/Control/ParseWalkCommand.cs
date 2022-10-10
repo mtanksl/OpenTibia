@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
-    public class WalkCommand : Command
+    public class ParseWalkCommand : Command
     {
-        public WalkCommand(Player player, MoveDirection moveDirection)
+        public ParseWalkCommand(Player player, MoveDirection moveDirection)
         {
             Player = player;
 

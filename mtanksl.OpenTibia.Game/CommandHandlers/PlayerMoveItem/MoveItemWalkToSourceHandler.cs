@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 byte beforeCount = command.Count;
 
-                return context.AddCommand(new WalkToUnknownPathCommand(command.Player, (Tile)command.Item.Parent) ).Then(ctx =>
+                return context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, (Tile)command.Item.Parent) ).Then(ctx =>
                 {
                     return Promise.Delay(ctx, Constants.PlayerActionSchedulerEvent(command.Player), Constants.PlayerActionSchedulerEventInterval);
 

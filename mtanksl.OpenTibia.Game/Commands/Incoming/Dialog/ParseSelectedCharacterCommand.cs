@@ -59,17 +59,17 @@ namespace OpenTibia.Game.Commands
 
                                     Connection.Client = client;
                                                
-                                ctx.AddPacket(Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs), 
+                                ctx.AddPacket(Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs),
 
-                                                          new SetSpecialConditionOutgoingPacket(SpecialCondition.None),
-                                                    
+                                                          new SendTilesOutgoingPacket(ctx.Server.Map, client, toTile.Position),
+
                                                           new SendStatusOutgoingPacket(player.Health, player.MaxHealth, player.Capacity, player.Experience, player.Level, player.LevelPercent, player.Mana, player.MaxMana, 0, 0, player.Soul, player.Stamina),
                                                     
                                                           new SendSkillsOutgoingPacket(10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0),
-                                                    
+
                                                           new SetEnvironmentLightOutgoingPacket(ctx.Server.Clock.Light),
-                                                    
-                                                          new SendTilesOutgoingPacket(ctx.Server.Map, client, toTile.Position) );
+
+                                                          new SetSpecialConditionOutgoingPacket(SpecialCondition.None) );
 
                                 ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
 

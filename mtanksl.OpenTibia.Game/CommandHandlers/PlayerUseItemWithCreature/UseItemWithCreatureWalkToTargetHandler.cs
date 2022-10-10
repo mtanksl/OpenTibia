@@ -19,7 +19,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     } ).Then(ctx =>
                     {
-                        return ctx.AddCommand(new WalkToUnknownPathCommand(command.Player, command.ToCreature.Tile) );
+                        return ctx.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, command.ToCreature.Tile) );
 
                     } ).Then(ctx =>
                     {
@@ -45,7 +45,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     byte beforeIndex = beforeContainer.GetIndex(command.Item);
 
-                    return context.AddCommand(new WalkToUnknownPathCommand(command.Player, command.ToCreature.Tile) ).Then(ctx =>
+                    return context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, command.ToCreature.Tile) ).Then(ctx =>
                     {
                         return Promise.Delay(ctx, Constants.PlayerActionSchedulerEvent(command.Player), Constants.PlayerActionSchedulerEventInterval);
 

@@ -1,24 +1,35 @@
 ﻿using OpenTibia.IO;
 using OpenTibia.Security;
 using System;
-using System.Collections.Generic;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
     public class Message
     {
-        private List<IOutgoingPacket> packets = new List<IOutgoingPacket>(1);
+        private ByteArrayMemoryStream stream;
+
+        private ByteArrayStreamWriter writer;
+
+        public Message()
+        {
+            stream = new ByteArrayMemoryStream();
+
+            writer = new ByteArrayStreamWriter(stream);
+        }
 
         public Message Add(IOutgoingPacket packet)
         {
-            packets.Add(packet);
+            packet.Write(writer);
 
             return this;
         }
 
-        public Message Add(params IOutgoingPacket[] packet)
+        public Message Add(IOutgoingPacket[] packets)
         {
-            packets.AddRange(packet);
+            foreach (var packet in packets)
+            {
+                packet.Write(writer);
+            }
 
             return this;
         }
@@ -51,15 +62,6 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public byte[] GetBytes(uint[] keys)
         {
-            ByteArrayMemoryStream stream = new ByteArrayMemoryStream();
-
-            ByteArrayStreamWriter writer = new ByteArrayStreamWriter(stream);
-
-            foreach (var packet in packets)
-            {
-                packet.Write(writer);
-            }
-
             if (keys == null)
             {
                 return Length(Hash(Length(stream.GetBytes() ) ) );

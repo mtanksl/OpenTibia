@@ -60,10 +60,10 @@ namespace OpenTibia.Network.Sockets
         {
             lock (sync)
             {
-                OnConnected();
-
                 if ( !stopped )
                 {
+                    OnConnected();
+
                     byte[] header = new byte[2];
 
                     socket.BeginReceive(header, 0, header.Length, SocketFlags.None, ReceiveHeader, header);
