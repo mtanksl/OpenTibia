@@ -5,7 +5,7 @@ using OpenTibia.IO;
 
 namespace OpenTibia.Game.Components
 {
-    public class AutoTalkBehaviour : TimeBehaviour
+    public class AutoTalkBehaviour : PeriodicBehaviour
     {
         private string[] sentences;
 

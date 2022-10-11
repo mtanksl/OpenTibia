@@ -5,11 +5,11 @@ namespace OpenTibia.Game
 {
     public class PlayerFactory
     {
-        private GameObjectCollection gameObjectCollection;
+        private Server server;
 
-        public PlayerFactory(GameObjectCollection gameObjectCollection)
+        public PlayerFactory(Server server)
         {
-            this.gameObjectCollection = gameObjectCollection;
+            this.server = server;
         }
 
         public Player Create(string name)
@@ -19,16 +19,18 @@ namespace OpenTibia.Game
                 Name = name
             };
 
-            player.AddComponent(new CheckConnectionBehaviour() );
-
-            gameObjectCollection.AddGameObject(player);
+            server.GameObjects.AddGameObject(player);
 
             return player;
         }
 
         public void Destroy(Player player)
         {
-            gameObjectCollection.RemoveGameObject(player);
+            server.CancelQueueForExecution(Constants.CreatureWalkSchedulerEvent(player) );
+
+            server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(player) );
+
+            server.GameObjects.RemoveGameObject(player);
         }
     }
 }

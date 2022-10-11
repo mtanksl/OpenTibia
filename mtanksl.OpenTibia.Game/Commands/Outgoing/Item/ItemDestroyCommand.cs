@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Commands
 
                         context.AddCommand(new TileRemoveItemCommand(tile, Item) ).Then( (ctx, index) =>
                         {
-                            ctx.Server.ItemFactory.Destroy(Item);
+                            Destroy(ctx, Item);
 
                             resolve(ctx);
                         } );
@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
 
                         context.AddCommand(new InventoryRemoveItemCommand(inventory, Item) ).Then( (ctx, index) =>
                         {
-                            ctx.Server.ItemFactory.Destroy(Item);
+                            Destroy(ctx, Item);
 
                             resolve(ctx);
                         } );
@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Commands
 
                         context.AddCommand(new ContainerRemoveItemCommand(container, Item) ).Then( (ctx, index) =>
                         {
-                            ctx.Server.ItemFactory.Destroy(Item);
+                            Destroy(ctx, Item);
 
                             resolve(ctx);
                         } );
@@ -52,6 +52,19 @@ namespace OpenTibia.Game.Commands
                         break;
                 }
             } );            
+        }
+
+        private void Destroy(Context context, Item item)
+        {
+            if (item is Container container)
+            {
+                foreach (var child in container.GetItems() )
+                {
+                    Destroy(context, child);
+                }
+            }
+
+            context.Server.ItemFactory.Destroy(item);
         }
     }
 }

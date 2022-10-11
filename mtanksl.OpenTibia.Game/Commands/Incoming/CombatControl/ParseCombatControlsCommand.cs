@@ -38,17 +38,17 @@ namespace OpenTibia.Game.Commands
                 {
                     Player.Client.ChaseMode = ChaseMode;
 
-                    if (Player.AttackTarget != null)
-                    {
-                        if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
-                        {
-                            Player.FollowTarget = null;
-                        }
-                        else
-                        {
-                            Player.FollowTarget = Player.AttackTarget;
-                        }
-                    }
+                    //if (Player.AttackTarget != null)
+                    //{
+                    //    if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
+                    //    {
+                    //        Player.FollowTarget = null;
+                    //    }
+                    //    else
+                    //    {
+                    //        Player.FollowTarget = Player.AttackTarget;
+                    //    }
+                    //}
                 }
 
                 if (SafeMode != Player.Client.SafeMode)

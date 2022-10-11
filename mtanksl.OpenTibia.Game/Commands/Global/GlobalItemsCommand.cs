@@ -11,7 +11,7 @@ namespace OpenTibia.Game.Commands
             {
                 foreach (var item in context.Server.GameObjects.GetItems() )
                 {
-                    foreach (var component in item.GetComponents<TimeBehaviour>() )
+                    foreach (var component in item.GetComponents<PeriodicBehaviour>() )
                     {
                         component.Update(context);
                     }

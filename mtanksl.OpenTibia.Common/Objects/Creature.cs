@@ -68,9 +68,5 @@ namespace OpenTibia.Common.Objects
         public WarIcon WarIcon { get; set; }
 
         public bool Block { get; set; }
-        
-        public Creature AttackTarget { get; set; }
-
-        public Creature FollowTarget { get; set; }
     }
 }

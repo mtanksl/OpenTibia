@@ -13,11 +13,11 @@ namespace OpenTibia.Game
 {
     public class ItemFactory
     {
-        private GameObjectCollection gameObjectCollection;
+        private Server server;
 
-        public ItemFactory(GameObjectCollection gameObjectCollection, OtbFile otbFile, DatFile datFile, ItemsFile itemsFile)
+        public ItemFactory(Server server, OtbFile otbFile, DatFile datFile, ItemsFile itemsFile)
         {
-            this.gameObjectCollection = gameObjectCollection;
+            this.server = server;
 
             metadatas = new Dictionary<ushort, ItemMetadata>(datFile.Items.Count);
 
@@ -193,14 +193,16 @@ namespace OpenTibia.Game
                 item = new Item(metadata);
             }
 
-            gameObjectCollection.AddGameObject(item);
+            server.GameObjects.AddGameObject(item);
 
             return item;
         }
 
         public void Destroy(Item item)
         {
-            gameObjectCollection.RemoveGameObject(item);
+            server.CancelQueueForExecution(Constants.ItemDecaySchedulerEvent(item) );
+
+            server.GameObjects.RemoveGameObject(item);
         }
     }
 }

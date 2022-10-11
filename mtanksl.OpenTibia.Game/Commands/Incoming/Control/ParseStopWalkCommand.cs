@@ -22,6 +22,8 @@ namespace OpenTibia.Game.Commands
                     context.AddPacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
                 }
 
+                context.Server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(Player) );
+
                 resolve(context);
             } );
         }

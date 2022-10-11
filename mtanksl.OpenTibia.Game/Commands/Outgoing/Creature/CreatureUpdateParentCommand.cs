@@ -30,6 +30,8 @@ namespace OpenTibia.Game.Commands
 
                 byte toIndex = ToTile.AddContent(Creature);
 
+                Creature.Direction = fromTile.Position.ToDirection(ToTile.Position);
+
                 foreach (var observer in context.Server.GameObjects.GetPlayers() )
                 {
                     if (observer == Creature)

@@ -17,14 +17,14 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run(resolve =>
             {
-                if (Player.AttackTarget != null)
-                {
-                    Player.AttackTarget = null;
-
-                    Player.FollowTarget = null;
-
-                    context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
-                }
+                //if (Player.AttackTarget != null)
+                //{
+                //    Player.AttackTarget = null;
+                //
+                //    Player.FollowTarget = null;
+                //
+                //    context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
+                //}
 
                 resolve(context);
             } );

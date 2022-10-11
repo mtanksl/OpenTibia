@@ -11,7 +11,7 @@ namespace OpenTibia.Game.Commands
             {
                 foreach (var creature in context.Server.GameObjects.GetMonsters() )
                 {
-                    foreach (var component in creature.GetComponents<TimeBehaviour>() )
+                    foreach (var component in creature.GetComponents<PeriodicBehaviour>() )
                     {
                         component.Update(context);
                     }
@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Commands
 
                 foreach (var creature in context.Server.GameObjects.GetNpcs() )
                 {
-                    foreach (var component in creature.GetComponents<TimeBehaviour>() )
+                    foreach (var component in creature.GetComponents<PeriodicBehaviour>() )
                     {
                         component.Update(context);
                     }
@@ -27,7 +27,7 @@ namespace OpenTibia.Game.Commands
 
                 foreach (var creature in context.Server.GameObjects.GetPlayers() )
                 {
-                    foreach (var component in creature.GetComponents<TimeBehaviour>() )
+                    foreach (var component in creature.GetComponents<PeriodicBehaviour>() )
                     {
                         component.Update(context);
                     }

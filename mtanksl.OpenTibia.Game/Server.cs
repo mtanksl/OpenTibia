@@ -99,23 +99,23 @@ namespace OpenTibia.Game
 
                 var items = ItemsFile.Load("data/items/items.xml");
 
-                ItemFactory = new ItemFactory(GameObjects, otb, dat, items);
+                ItemFactory = new ItemFactory(this, otb, dat, items);
             }
 
             using (Logger.Measure("Loading monsters") )
             {
                 var monsters = MonsterFile.Load("data/monsters");
 
-                MonsterFactory = new MonsterFactory(GameObjects, monsters);
+                MonsterFactory = new MonsterFactory(this, monsters);
             }
 
-            PlayerFactory = new PlayerFactory(GameObjects);
+            PlayerFactory = new PlayerFactory(this);
 
             using (Logger.Measure("Loading npcs") )
             {
                 var npcs = NpcFile.Load("data/npcs");
 
-                NpcFactory = new NpcFactory(GameObjects, npcs);
+                NpcFactory = new NpcFactory(this, npcs);
             }
 
             using (Logger.Measure("Loading map") )

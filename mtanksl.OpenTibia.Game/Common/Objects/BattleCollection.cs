@@ -26,6 +26,7 @@ namespace OpenTibia.Common.Objects
         }
 
         private HashSet<uint> creatureIds = new HashSet<uint>();
+
         public bool IsKnownCreature(uint creatureId, out uint removeId)
         {
             if ( creatureIds.Add(creatureId) )

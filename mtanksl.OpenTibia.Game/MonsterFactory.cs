@@ -10,11 +10,11 @@ namespace OpenTibia.Game
 {
     public class MonsterFactory
     {
-        private GameObjectCollection gameObjectCollection;
+        private Server server;
 
-        public MonsterFactory(GameObjectCollection gameObjectCollection, MonsterFile monsterFile)
+        public MonsterFactory(Server server, MonsterFile monsterFile)
         {
-            this.gameObjectCollection = gameObjectCollection;
+            this.server = server;
 
             metadatas = new Dictionary<string, MonsterMetadata>(monsterFile.Monsters.Count);
 
@@ -57,14 +57,18 @@ namespace OpenTibia.Game
                 monster.AddComponent(new AutoTalkBehaviour(monster.Metadata.Sentences) );
             }
 
-            gameObjectCollection.AddGameObject(monster);
+            server.GameObjects.AddGameObject(monster);
 
             return monster;
         }
 
         public void Destroy(Monster monster)
         {
-            gameObjectCollection.RemoveGameObject(monster);
+            server.CancelQueueForExecution(Constants.CreatureTalkSchedulerEvent(monster) );
+
+            server.CancelQueueForExecution(Constants.CreatureWalkSchedulerEvent(monster) );
+
+            server.GameObjects.RemoveGameObject(monster);
         }
     }
 }

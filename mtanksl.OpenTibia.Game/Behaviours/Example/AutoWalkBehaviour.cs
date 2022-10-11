@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
-    public class AutoWalkBehaviour : TimeBehaviour
+    public class AutoWalkBehaviour : PeriodicBehaviour
     {
         private Creature creature;
 

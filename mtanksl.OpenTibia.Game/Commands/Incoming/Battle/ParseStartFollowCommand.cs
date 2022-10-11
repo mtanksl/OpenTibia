@@ -24,14 +24,14 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run(resolve =>
             {
-                Creature creature = context.Server.GameObjects.GetGameObject<Creature>(CreatureId);
-
-                if (creature != null && creature != Player)
-                {
-                    Player.AttackTarget = null;
-
-                    Player.FollowTarget = creature;
-                }
+                //Creature creature = context.Server.GameObjects.GetGameObject<Creature>(CreatureId);
+                //
+                //if (creature != null && creature != Player)
+                //{
+                //    Player.AttackTarget = null;
+                //
+                //    Player.FollowTarget = creature;
+                //}
 
                 resolve(context);
             } );

@@ -122,7 +122,6 @@
     <Compile Include="Commands\Outgoing\Tile\TileCreateItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Item\ItemDecrementCommand.cs" />
     <Compile Include="Commands\Outgoing\StackableItem\StackableItemUpdateCountCommand.cs" />
-    <Compile Include="Behaviours\Review\CheckConnectionBehaviour.cs" />
     <Compile Include="DatabaseContext.cs" />
     <Compile Include="Extensions\CreatureExtensions.cs" />
     <Compile Include="Extensions\PlayerExtensions.cs" />
@@ -208,9 +207,9 @@
     <Compile Include="Commands\DelayCommand.cs" />
     <Compile Include="Commands\WhenAllCommand.cs" />
     <Compile Include="Commands\WhenAnyCommand.cs" />
-    <Compile Include="Behaviours\Review\AutoTalkBehaviour.cs" />
-    <Compile Include="Behaviours\Review\AutoWalkBehaviour.cs" />
-    <Compile Include="Behaviours\TimeBehaviour.cs" />
+    <Compile Include="Behaviours\Example\AutoTalkBehaviour.cs" />
+    <Compile Include="Behaviours\Example\AutoWalkBehaviour.cs" />
+    <Compile Include="Behaviours\PeriodicBehaviour.cs" />
     <Compile Include="Commands\Incoming\Battle\ParseStopFollowCommand.cs" />
     <Compile Include="Commands\Incoming\GameWindow\Look\ParseLookCommand.cs" />
     <Compile Include="Commands\Incoming\GameWindow\RotateItem\ParseRotateItemCommand.cs" />

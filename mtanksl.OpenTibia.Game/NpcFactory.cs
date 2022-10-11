@@ -8,11 +8,11 @@ namespace OpenTibia.Game
 {
     public class NpcFactory
     {
-        private GameObjectCollection gameObjectCollection;
+        private Server server;
 
-        public NpcFactory(GameObjectCollection gameObjectCollection, NpcFile npcFile)
+        public NpcFactory(Server server, NpcFile npcFile)
         {
-            this.gameObjectCollection = gameObjectCollection;
+            this.server = server;
 
             metadatas = new Dictionary<string, NpcMetadata>(npcFile.Npcs.Count);
 
@@ -48,14 +48,18 @@ namespace OpenTibia.Game
 
             npc.AddComponent(new AutoWalkBehaviour() );
 
-            gameObjectCollection.AddGameObject(npc);
+            server.GameObjects.AddGameObject(npc);
 
             return npc;
         }
 
         public void Destroy(Npc npc)
         {
-            gameObjectCollection.RemoveGameObject(npc);
+            server.CancelQueueForExecution(Constants.CreatureTalkSchedulerEvent(npc) );
+
+            server.CancelQueueForExecution(Constants.CreatureWalkSchedulerEvent(npc) );
+
+            server.GameObjects.RemoveGameObject(npc);
         }
     }
 }
