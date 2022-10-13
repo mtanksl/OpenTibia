@@ -19,6 +19,8 @@ namespace OpenTibia.Game
                 Name = name
             };
 
+            player.AddComponent(new AttackAndFollowBehaviour() );
+
             server.GameObjects.AddGameObject(player);
 
             return player;

@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Components;
 using System;
 
 namespace OpenTibia.Game.Commands
@@ -24,14 +25,14 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run(resolve =>
             {
-                //Creature creature = context.Server.GameObjects.GetGameObject<Creature>(CreatureId);
-                //
-                //if (creature != null && creature != Player)
-                //{
-                //    Player.AttackTarget = null;
-                //
-                //    Player.FollowTarget = creature;
-                //}
+                Creature creature = context.Server.GameObjects.GetGameObject<Creature>(CreatureId);
+                
+                if (creature != null && creature != Player)
+                {
+                    AttackAndFollowBehaviour component = Player.GetComponent<AttackAndFollowBehaviour>();
+
+                    component.Follow(creature);
+                }
 
                 resolve(context);
             } );

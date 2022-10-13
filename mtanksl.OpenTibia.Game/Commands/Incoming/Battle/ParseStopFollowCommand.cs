@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 
@@ -17,14 +18,11 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run(resolve =>
             {
-                //if (Player.FollowTarget != null)
-                //{
-                //    Player.AttackTarget = null;
-                //
-                //    Player.FollowTarget = null;
-                //
-                //    context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
-                //}
+                context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
+
+                AttackAndFollowBehaviour component = Player.GetComponent<AttackAndFollowBehaviour>();
+
+                component.Stop();
 
                 resolve(context);
             } );

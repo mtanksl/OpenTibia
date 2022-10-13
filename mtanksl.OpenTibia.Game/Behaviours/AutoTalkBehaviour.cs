@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Components
 
             foreach (var observer in context.Server.GameObjects.GetPlayers() )
             {
-                if (creature.Tile.Position.IsInBattleRange(observer.Tile.Position) )
+                if (creature.Tile.Position.CanHearSay(observer.Tile.Position) )
                 {
                     running = true;
 

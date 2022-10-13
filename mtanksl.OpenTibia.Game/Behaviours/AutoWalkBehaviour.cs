@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Components
 
             foreach (var observer in context.Server.GameObjects.GetPlayers() )
             {
-                if (creature.Tile.Position.IsInClientRange(observer.Tile.Position) )
+                if (creature.Tile.Position.CanSee(observer.Tile.Position) )
                 {
                     foreach (var direction in new[] { Direction.East, Direction.North, Direction.West, Direction.South }.Shuffle() )
                     {

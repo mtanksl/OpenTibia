@@ -1,4 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Components;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
 
 namespace OpenTibia.Game.Commands
@@ -16,11 +18,18 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run(resolve =>
             {
-                context.AddCommand(new ParseStopWalkCommand(Player) );
+                context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
 
-                context.AddCommand(new ParseStopAttackCommand(Player) );
+                AttackAndFollowBehaviour component = Player.GetComponent<AttackAndFollowBehaviour>();
 
-                context.AddCommand(new ParseStopFollowCommand(Player) );
+                component.Stop();
+
+                if (context.Server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(Player) ) )
+                {
+                    context.AddPacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
+                }
+
+                context.Server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(Player) );
 
                 resolve(context);
             } );

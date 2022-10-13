@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Components;
 using System;
 
 namespace OpenTibia.Game.Commands
@@ -38,17 +39,16 @@ namespace OpenTibia.Game.Commands
                 {
                     Player.Client.ChaseMode = ChaseMode;
 
-                    //if (Player.AttackTarget != null)
-                    //{
-                    //    if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
-                    //    {
-                    //        Player.FollowTarget = null;
-                    //    }
-                    //    else
-                    //    {
-                    //        Player.FollowTarget = Player.AttackTarget;
-                    //    }
-                    //}
+                    AttackAndFollowBehaviour component = Player.GetComponent<AttackAndFollowBehaviour>();
+
+                    if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
+                    {
+                        component.StopFollow();                        
+                    }
+                    else
+                    {
+                        component.StartFollow();
+                    }
                 }
 
                 if (SafeMode != Player.Client.SafeMode)

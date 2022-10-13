@@ -4,13 +4,6 @@ namespace OpenTibia.Game
 {
     public static class Constants
     {
-        public static string PlayerWalkSchedulerEvent(Player player) => "Player_Walk_" + player.Id;
-
-        public static string PlayerAutomationSchedulerEvent(Player player) => "Player_Automation_" + player.Id;
-
-        public static readonly int PlayerAutomationSchedulerEventInterval = 200;
-
-
         public static readonly string OnlyProtocol86Allowed = "Only protocol 8.6 allowed.";
 
         public static readonly string AccountNameOrPasswordIsNotCorrect = "Account name or password is not correct.";
@@ -39,6 +32,12 @@ namespace OpenTibia.Game
 
         public static readonly string YouMayNotAttackThisCreature = "You may not attack this creature.";
 
+
+        public static string PlayerWalkSchedulerEvent(Player player) => "Player_Walk_" + player.Id;
+
+        public static string PlayerAutomationSchedulerEvent(Player player) => "Player_Automation_" + player.Id;
+
+        public static readonly int PlayerAutomationSchedulerEventInterval = 200;
 
         public static readonly int ObjectsPerPoint = 10;
     }

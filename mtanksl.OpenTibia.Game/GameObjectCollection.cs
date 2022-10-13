@@ -70,9 +70,9 @@ namespace OpenTibia.Game
                 buckets[ typeof(Item) ].Add(gameObject.Id, gameObject);
             }
 
-            foreach (var behaviour in gameObject.GetComponents<Behaviour>() )
+            foreach (var component in gameObject.GetComponents<Behaviour>() )
             {
-                behaviour.Start(server);
+                component.Start(server);
             }
 
             gameObject.Add += ComponentsAdd;
@@ -107,9 +107,9 @@ namespace OpenTibia.Game
                 buckets[ typeof(Item) ].Remove(gameObject.Id);
             }
 
-            foreach (var behaviour in gameObject.GetComponents<Behaviour>() )
+            foreach (var component in gameObject.GetComponents<Behaviour>() )
             {
-                behaviour.Stop(server);
+                component.Stop(server);
             }
 
             gameObject.Add -= ComponentsAdd;

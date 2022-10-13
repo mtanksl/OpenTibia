@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviours\AttackAndFollowBehaviour.cs" />
     <Compile Include="Behaviours\DecayBehaviour.cs" />
     <Compile Include="CommandHandlerCollection.cs" />
     <Compile Include="CommandHandlers\CommandHandlerResult.cs" />
