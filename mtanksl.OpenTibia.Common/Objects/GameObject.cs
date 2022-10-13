@@ -11,7 +11,7 @@ namespace OpenTibia.Common.Objects
 
         private List<Component> components = null;
 
-        public void AddComponent(Component component)
+        public T AddComponent<T>(T component) where T : Component
         {
             if (components == null)
             {
@@ -23,6 +23,8 @@ namespace OpenTibia.Common.Objects
             components.Add(component);
 
             OnAdd(component);
+
+            return component;
         }
 
         public void RemoveComponent(Component component)
@@ -39,17 +41,12 @@ namespace OpenTibia.Common.Objects
             OnRemove(component);
         }
 
-        public T GetComponent<T>()
+        public T GetComponent<T>() where T : Component
         {
-            if (components == null)
-            {
-                return default(T);
-            }
-
-            return components.OfType<T>().FirstOrDefault();
+            return GetComponents<T>().FirstOrDefault();
         }
 
-        public IEnumerable<T> GetComponents<T>()
+        public IEnumerable<T> GetComponents<T>() where T : Component
         {
             if (components == null)
             {

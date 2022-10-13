@@ -27,6 +27,25 @@ namespace OpenTibia.Game.CommandHandlers
             { 6593, 6608 }
         };
 
+        private Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>() 
+        {
+            { 6594, 670 },
+            { 6595, 6580 },
+            { 6596, 6581 },
+            { 6597, 6582 },
+            { 6598, 6583 },
+            { 6599, 6584 },
+            { 6600, 6585 },
+            { 6601, 6586 },
+            { 6602, 6587 },
+            { 6603, 6588 },
+            { 6604, 6589 },
+            { 6605, 6590 },
+            { 6606, 6591 },
+            { 6607, 6592 },
+            { 6608, 6593 }
+        };
+
         public override void Handle(Context context, TileAddCreatureEventArgs e)
         {
             ushort toOpenTibiaId;
@@ -35,7 +54,10 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (toTile.Ground != null && tiles.TryGetValue(toTile.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                context.AddCommand(new ItemTransformCommand(toTile.Ground, toOpenTibiaId, 1) );
+                context.AddCommand(new ItemTransformCommand(toTile.Ground, toOpenTibiaId, 1) ).Then( (ctx, item) =>
+                {
+                    return ctx.AddCommand(new ItemDecayCommand(item, 10000, decay[item.Metadata.OpenTibiaId], 1) );
+                } );
             }
         }
     }

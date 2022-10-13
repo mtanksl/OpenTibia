@@ -1,4 +1,5 @@
-﻿using OpenTibia.Game.Commands;
+﻿using OpenTibia.Common.Structures;
+using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Scripts
 {
@@ -18,9 +19,9 @@ namespace OpenTibia.Game.Scripts
 
         private void GlobalCreatures(Context context)
         {
-            context.AddCommand(new GlobalCreaturesCommand() ).Then(ctx =>
+            Promise.Delay(context.Server, "GlobalCreatures", 1000).Then(ctx =>
             {
-                return Promise.Delay(ctx, Constants.GlobalCreaturesSchedulerEvent, Constants.GlobalCreaturesSchedulerEventInterval);
+                return ctx.AddCommand(new GlobalCreaturesCommand() );
 
             } ).Then(ctx =>
             {
@@ -30,9 +31,9 @@ namespace OpenTibia.Game.Scripts
 
         private void GlobalItems(Context context)
         {
-            context.AddCommand(new GlobalItemsCommand() ).Then(ctx =>
+            Promise.Delay(context.Server, "GlobalItems", 60000).Then(ctx =>
             {
-                return Promise.Delay(ctx, Constants.GlobalItemsSchedulerEvent, Constants.GlobalItemsSchedulerEventInterval);
+                return ctx.AddCommand(new GlobalItemsCommand() );
 
             } ).Then(ctx =>
             {
@@ -42,9 +43,9 @@ namespace OpenTibia.Game.Scripts
 
         private void GlobalLight(Context context)
         {
-            context.AddCommand(new GlobalLightCommand() ).Then(ctx =>
+            Promise.Delay(context.Server, "GlobalLight", Clock.Interval).Then(ctx =>
             {
-                return Promise.Delay(ctx, Constants.GlobalLightSchedulerEvent, Constants.GlobalLightSchedulerEventInterval);
+                return ctx.AddCommand(new GlobalLightCommand() );
 
             } ).Then(ctx =>
             {
@@ -54,11 +55,11 @@ namespace OpenTibia.Game.Scripts
 
         public void Stop(Server server)
         {
-            server.CancelQueueForExecution(Constants.GlobalLightSchedulerEvent);
+            server.CancelQueueForExecution("GlobalCreatures");
 
-            server.CancelQueueForExecution(Constants.GlobalItemsSchedulerEvent);
+            server.CancelQueueForExecution("GlobalItems");
 
-            server.CancelQueueForExecution(Constants.GlobalCreaturesSchedulerEvent);
+            server.CancelQueueForExecution("GlobalLight");
         }
     }
 }

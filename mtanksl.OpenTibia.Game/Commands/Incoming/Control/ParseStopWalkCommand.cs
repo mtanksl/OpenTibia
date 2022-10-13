@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run(resolve =>
             {
-                if (context.Server.CancelQueueForExecution(Constants.CreatureWalkSchedulerEvent(Player) ) )
+                if (context.Server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(Player) ) )
                 {
                     context.AddPacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
                 }

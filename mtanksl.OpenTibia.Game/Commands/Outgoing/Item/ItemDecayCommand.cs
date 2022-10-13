@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Components;
 using System;
 
 namespace OpenTibia.Game.Commands
@@ -26,8 +27,8 @@ namespace OpenTibia.Game.Commands
 
         public override PromiseResult<Item> Execute(Context context)
         {
-            return Promise.Delay(context, Constants.ItemDecaySchedulerEvent(Item), ExecuteInMilliseconds).Then(ctx =>
-            {
+            return Item.AddComponent(new DecayBehaviour(ExecuteInMilliseconds) ).Promise.Then(ctx =>
+            { 
                 return ctx.AddCommand(new ItemTransformCommand(Item, OpenTibiaId, Count) );
             } );
         }

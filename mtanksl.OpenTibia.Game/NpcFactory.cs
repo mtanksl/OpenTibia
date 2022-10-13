@@ -55,10 +55,6 @@ namespace OpenTibia.Game
 
         public void Destroy(Npc npc)
         {
-            server.CancelQueueForExecution(Constants.CreatureTalkSchedulerEvent(npc) );
-
-            server.CancelQueueForExecution(Constants.CreatureWalkSchedulerEvent(npc) );
-
             server.GameObjects.RemoveGameObject(npc);
         }
     }

@@ -1,29 +1,10 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game
 {
     public static class Constants
     {
-        public static readonly string GlobalCreaturesSchedulerEvent = "Global_Creatures";
-
-        public static readonly int GlobalCreaturesSchedulerEventInterval = 1000;
-
-        public static readonly string GlobalItemsSchedulerEvent = "Global_Items";
-
-        public static readonly int GlobalItemsSchedulerEventInterval = 60000;
-
-        public static readonly string GlobalLightSchedulerEvent = "Global_Light";
-
-        public static readonly int GlobalLightSchedulerEventInterval = Clock.Interval;
-
-        public static string ItemDecaySchedulerEvent(Item item) => "Item_Decay_" + item.Id;
-
-        public static string CreatureTalkSchedulerEvent(Creature creature) => "Creature_Talk_" + creature.Id;
-
-        public static readonly int CreatureTalkSchedulerEventInterval = 30000;
-
-        public static string CreatureWalkSchedulerEvent(Creature creature) => "Creature_Walk_" + creature.Id;
+        public static string PlayerWalkSchedulerEvent(Player player) => "Player_Walk_" + player.Id;
 
         public static string PlayerAutomationSchedulerEvent(Player player) => "Player_Automation_" + player.Id;
 

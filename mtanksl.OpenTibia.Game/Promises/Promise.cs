@@ -14,22 +14,22 @@ namespace OpenTibia.Game.Commands
             return new Promise(context);
         }
 
-        public static Promise Yield(Context context)
+        public static Promise Yield(Server server)
         {
             return new Promise(resolve =>
             {
-                context.Server.QueueForExecution(ctx =>
+                server.QueueForExecution(ctx =>
                 {
                     resolve(ctx);
                 } );
             } );
         }
 
-        public static Promise Delay(Context context, string key, int executeInMilliseconds)
+        public static Promise Delay(Server server, string key, int executeInMilliseconds)
         {
             return new Promise(resolve =>
             {
-                context.Server.QueueForExecution(key, executeInMilliseconds, ctx =>
+                server.QueueForExecution(key, executeInMilliseconds, ctx =>
                 {
                     resolve(ctx);
                 } );

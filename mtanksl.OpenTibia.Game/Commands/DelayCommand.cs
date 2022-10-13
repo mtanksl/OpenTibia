@@ -15,7 +15,7 @@
         
         public override Promise Execute(Context context)
         {
-            return Promise.Delay(context, key, executeInMilliseconds);
+            return Promise.Delay(context.Server, key, executeInMilliseconds);
         }
     }
 }

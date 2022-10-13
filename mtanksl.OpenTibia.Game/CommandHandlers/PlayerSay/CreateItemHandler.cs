@@ -28,10 +28,8 @@ namespace OpenTibia.Game.CommandHandlers
                                 return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) );
                             } );
                         }
-                        else
-                        {
-                            return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
-                        }
+
+                        return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
                     }
                 }
             }

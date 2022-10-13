@@ -10,6 +10,8 @@ namespace OpenTibia.Game.Scripts
 
             server.CommandHandlers.Add(new CreateNpcHandler() );
 
+            server.CommandHandlers.Add(new DestroyMonsterOrNpcHandler() );
+
             server.CommandHandlers.Add(new CreateItemHandler() );
 
             server.CommandHandlers.Add(new TeleportDownHandler() );

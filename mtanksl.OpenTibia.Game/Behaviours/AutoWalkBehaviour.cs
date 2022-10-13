@@ -10,9 +10,13 @@ namespace OpenTibia.Game.Components
     {
         private Creature creature;
 
+        private string key;
+
         public override void Start(Server server)
         {
             creature = (Creature)GameObject;
+
+            key = "AutoWalk" + creature.Id;
         }
 
         private bool running = false;
@@ -42,7 +46,7 @@ namespace OpenTibia.Game.Components
 
                             context.AddCommand(new CreatureUpdateParentCommand(creature, toTile) ).Then(ctx =>
                             {
-                                return Promise.Delay(ctx, Constants.CreatureWalkSchedulerEvent(creature), 1000 * toTile.Ground.Metadata.Speed / creature.Speed);
+                                return Promise.Delay(ctx.Server, key, 1000 * toTile.Ground.Metadata.Speed / creature.Speed);
 
                             } ).Then(ctx =>
                             {
@@ -62,7 +66,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop(Server server)
         {
-            server.CancelQueueForExecution(Constants.CreatureWalkSchedulerEvent(creature) );
+            server.CancelQueueForExecution(key);
         }
     }
 }

@@ -16,9 +16,13 @@ namespace OpenTibia.Game.Components
 
         private Creature creature;
 
+        private string key;
+
         public override void Start(Server server)
         {
             creature = (Creature)GameObject;
+
+            key = "AutoTalk" + creature.Id;
         }
 
         private bool running = false;
@@ -38,7 +42,7 @@ namespace OpenTibia.Game.Components
 
                     context.AddCommand(new ShowTextCommand(creature, TalkType.MonsterSay, sentences.Random() ) ).Then(ctx =>
                     {
-                        return Promise.Delay(ctx, Constants.CreatureTalkSchedulerEvent(creature), Constants.CreatureTalkSchedulerEventInterval);
+                        return Promise.Delay(ctx.Server, key, 30000);
 
                     } ).Then(ctx =>
                     {
@@ -54,7 +58,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop(Server server)
         {
-            server.CancelQueueForExecution(Constants.CreatureTalkSchedulerEvent(creature) );
+            server.CancelQueueForExecution(key);
         }
     }
 }

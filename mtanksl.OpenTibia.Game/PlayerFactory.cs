@@ -26,7 +26,7 @@ namespace OpenTibia.Game
 
         public void Destroy(Player player)
         {
-            server.CancelQueueForExecution(Constants.CreatureWalkSchedulerEvent(player) );
+            server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(player) );
 
             server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(player) );
 

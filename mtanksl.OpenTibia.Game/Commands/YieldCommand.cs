@@ -11,7 +11,7 @@ namespace OpenTibia.Game.Commands
         
         public override Promise Execute(Context context)
         {
-            return Promise.Yield(context);
+            return Promise.Yield(context.Server);
         }
     }
 }

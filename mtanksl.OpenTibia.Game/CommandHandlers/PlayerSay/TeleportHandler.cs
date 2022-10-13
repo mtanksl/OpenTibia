@@ -22,10 +22,8 @@ namespace OpenTibia.Game.CommandHandlers
                         return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
                     } );
                 }
-                else
-                {
-                    return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
-                }   
+
+                return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
             }
 
             return next(context);

@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 return context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, command.Creature.Tile) ).Then(ctx =>
                 {
-                    return Promise.Delay(ctx, Constants.PlayerAutomationSchedulerEvent(command.Player), Constants.PlayerAutomationSchedulerEventInterval);
+                    return Promise.Delay(ctx.Server, Constants.PlayerAutomationSchedulerEvent(command.Player), Constants.PlayerAutomationSchedulerEventInterval);
 
                 } ).Then(ctx =>
                 {

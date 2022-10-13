@@ -200,8 +200,6 @@ namespace OpenTibia.Game
 
         public void Destroy(Item item)
         {
-            server.CancelQueueForExecution(Constants.ItemDecaySchedulerEvent(item) );
-
             server.GameObjects.RemoveGameObject(item);
         }
     }

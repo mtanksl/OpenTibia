@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviours\DecayBehaviour.cs" />
     <Compile Include="CommandHandlerCollection.cs" />
     <Compile Include="CommandHandlers\CommandHandlerResult.cs" />
     <Compile Include="CommandHandlers\CommandHandler.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="CommandHandlers\CreatureUpdateParent\StairsHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\HoleHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveCreature\MoveCreatureWalkToSourceHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerSay\DestroyMonsterOrNpcHandler.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerMoveCreatureCommand.cs" />
     <Compile Include="EventHandlers\TileRemoveCreature\TileDepressHandler.cs" />
     <Compile Include="EventHandlers\TileAddCreature\SnowPressHandler.cs" />
@@ -207,8 +209,8 @@
     <Compile Include="Commands\DelayCommand.cs" />
     <Compile Include="Commands\WhenAllCommand.cs" />
     <Compile Include="Commands\WhenAnyCommand.cs" />
-    <Compile Include="Behaviours\Example\AutoTalkBehaviour.cs" />
-    <Compile Include="Behaviours\Example\AutoWalkBehaviour.cs" />
+    <Compile Include="Behaviours\AutoTalkBehaviour.cs" />
+    <Compile Include="Behaviours\AutoWalkBehaviour.cs" />
     <Compile Include="Behaviours\PeriodicBehaviour.cs" />
     <Compile Include="Commands\Incoming\Battle\ParseStopFollowCommand.cs" />
     <Compile Include="Commands\Incoming\GameWindow\Look\ParseLookCommand.cs" />
