@@ -60,7 +60,7 @@
 
         public bool Equals(Light light)
         {
-            if (light == null)
+            if (light is null)
             {
                 return false;
             }

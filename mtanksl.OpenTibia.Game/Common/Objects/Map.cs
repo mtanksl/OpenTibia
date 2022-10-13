@@ -17,7 +17,14 @@ namespace OpenTibia.Common.Objects
 
                 foreach (var town in otbmFile.Towns)
                 {
-                    towns.Add(town.Name, town);
+                    towns.Add(town.Name, new Town() 
+                    { 
+                        Id = town.Id,
+
+                        Name = town.Name,
+
+                        Position = town.Position
+                    } );
                 }
             }
             else
@@ -31,7 +38,12 @@ namespace OpenTibia.Common.Objects
 
                 foreach (var waypoint in otbmFile.Waypoints)
                 {
-                    waypoints.Add(waypoint.Name, waypoint);
+                    waypoints.Add(waypoint.Name, new Waypoint()
+                    {
+                        Name = waypoint.Name,
+
+                        Position = waypoint.Position
+                    } );
                 }
             }
             else

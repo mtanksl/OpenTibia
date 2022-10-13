@@ -60,6 +60,8 @@
     <Compile Include="CommandHandlers\CreatureUpdateParent\HoleHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveCreature\MoveCreatureWalkToSourceHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\DestroyMonsterOrNpcHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerSay\TeleportToWaypointHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerSay\TeleportToTownHandler.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerMoveCreatureCommand.cs" />
     <Compile Include="EventHandlers\TileRemoveCreature\TileDepressHandler.cs" />
     <Compile Include="EventHandlers\TileAddCreature\SnowPressHandler.cs" />

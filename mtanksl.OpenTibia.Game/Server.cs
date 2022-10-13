@@ -102,14 +102,14 @@ namespace OpenTibia.Game
                 ItemFactory = new ItemFactory(this, otb, dat, items);
             }
 
+            PlayerFactory = new PlayerFactory(this);
+
             using (Logger.Measure("Loading monsters") )
             {
                 var monsters = MonsterFile.Load("data/monsters");
 
                 MonsterFactory = new MonsterFactory(this, monsters);
             }
-
-            PlayerFactory = new PlayerFactory(this);
 
             using (Logger.Measure("Loading npcs") )
             {
@@ -136,6 +136,13 @@ namespace OpenTibia.Game
             using (Logger.Measure("Loading scripts") )
             {
                 Scripts.Start();
+            }
+
+            using (Logger.Measure("Cleanup") )
+            {
+                GC.Collect();
+
+                GC.WaitForPendingFinalizers();
             }
 
             dispatcher.Start();

@@ -129,7 +129,7 @@
 
         public bool Equals(Outfit outfit)
         {
-            if (outfit == null)
+            if (outfit is null)
             {
                 return false;
             }

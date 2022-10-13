@@ -376,7 +376,7 @@
 
         public bool Equals(Position position)
         {
-            if (position == null)
+            if (position is null)
             {
                 return false;
             }
