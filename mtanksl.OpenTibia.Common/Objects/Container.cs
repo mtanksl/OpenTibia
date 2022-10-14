@@ -130,7 +130,7 @@ namespace OpenTibia.Common.Objects
 
         public IEnumerable<Item> GetItems()
         {
-            return contents.OfType<Item>();
+            return GetContents().OfType<Item>();
         }
 
         private Dictionary<Player, int> players = new Dictionary<Player, int>();

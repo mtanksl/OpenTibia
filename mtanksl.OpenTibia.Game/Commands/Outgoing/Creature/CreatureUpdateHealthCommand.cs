@@ -37,7 +37,7 @@ namespace OpenTibia.Game.Commands
                     {
                         if (observer == Creature)
                         {
-                            context.AddPacket(observer.Client.Connection, new SendStatusOutgoingPacket(observer.Health, observer.MaxHealth, observer.Capacity, observer.Experience, observer.Level, observer.LevelPercent, observer.Mana, observer.MaxMana, 0, 0, observer.Soul, observer.Stamina) );
+                            context.AddPacket(observer.Client.Connection, new SendStatusOutgoingPacket(observer.Health, observer.MaxHealth, observer.Capacity, observer.Experience, observer.Level, observer.LevelPercent, observer.Mana, observer.MaxMana, observer.Skills.MagicLevel, observer.Skills.MagicLevelPercent, observer.Soul, observer.Stamina) );
                         }
                     
                         if (observer.Tile.Position.CanSee(fromTile.Position) )

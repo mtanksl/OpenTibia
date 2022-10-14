@@ -17,8 +17,6 @@ namespace OpenTibia.Game.Components
             monster = (Monster)GameObject;            
         }
 
-        private static Random random = new Random();
-
         private DateTime lastAttack;
 
         public override void Update(Context context)
@@ -63,7 +61,7 @@ namespace OpenTibia.Game.Components
 
                         context.AddPacket( ( (Player)target).Client.Connection, new SetFrameColorOutgoingPacket(monster.Id, FrameColor.Black) );
 
-                        int damage = random.Next(0, 10);
+                        int damage = Server.Random.Next(0, 10);
 
                         if (damage > 0)
                         {

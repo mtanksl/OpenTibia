@@ -98,14 +98,12 @@ namespace OpenTibia.Game
             return Enumerable.Empty<T>();
         }
 
-        public IEnumerable<T> GetComponents<T>() where T : Component
+        public IEnumerable<T2> GetComponentsOfType<T1, T2>() where T1 : GameObject 
+                                                             where T2 : Component
         {
-            foreach (var bucket in buckets)
+            foreach (var component in buckets.SelectMany(b => b.Value).Where(c => c.GameObject is T1 && c is T2) )
             {
-                foreach (var component in bucket.Value.OfType<T>() )
-                {
-                    yield return component;
-                }
+                yield return (T2)component;
             }
         }
     }

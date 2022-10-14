@@ -10,9 +10,9 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run(resolve =>
             {
-                foreach (var component in context.Server.Components.GetComponents<PeriodicBehaviour>().ToList() )
+                foreach (var component in context.Server.Components.GetComponentsOfType<Creature, PeriodicBehaviour>().ToList() )
                 {
-                    if (component.GameObject is Creature)
+                    if (component.GameObject != null)
                     {
                         component.Update(context);
                     }

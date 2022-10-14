@@ -6,6 +6,23 @@
         {
             Inventory = new Inventory(this);
 
+            Skills = new Skills(this)
+            {
+                Fist = 10,
+
+                Club = 10,
+
+                Sword = 10,
+
+                Axe = 10,
+
+                Distance = 10,
+
+                Shield = 10,
+
+                Fish = 10
+            };
+
             Experience = 0;
 
             Level = 1;
@@ -54,6 +71,8 @@
         }
 
         public Inventory Inventory { get; }
+
+        public Skills Skills { get; set; }
 
         public uint Experience { get; set; }
 

@@ -15,6 +15,9 @@ namespace OpenTibia.Game
 {
     public class Server : IDisposable
     {
+        public static readonly Random Random = new Random();
+
+
         private int loginServerPort;
         
         private int gameServerPort;

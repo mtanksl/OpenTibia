@@ -14,7 +14,7 @@ namespace OpenTibia.Game
             this.server = server;
         }
 
-        private Dictionary<Type, Dictionary<uint, GameObject>> buckets = new Dictionary<Type, Dictionary<uint, GameObject>>()
+        private Dictionary<Type, Dictionary<uint, GameObject> > buckets = new Dictionary<Type, Dictionary<uint, GameObject> >()
         {
             { typeof(Creature), new Dictionary<uint, GameObject>() },
 

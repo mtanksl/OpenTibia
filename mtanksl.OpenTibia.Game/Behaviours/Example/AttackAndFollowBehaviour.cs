@@ -74,8 +74,6 @@ namespace OpenTibia.Game.Components
             state = State.None;
         }
 
-        private static Random random = new Random();
-
         private DateTime lastAttack;
 
         public override void Update(Context context)
@@ -125,7 +123,7 @@ namespace OpenTibia.Game.Components
                             {
                                 context.AddCommand(new ShowProjectileCommand(player.Tile.Position, target.Tile.Position, ProjectileType.Spear) );
 
-                                int damage = random.Next(0, 20);
+                                int damage = Server.Random.Next(0, 20);
 
                                 if (damage > 0)
                                 {
@@ -163,7 +161,7 @@ namespace OpenTibia.Game.Components
                             
                             if (state == State.Follow || state == State.AttackAndFollow)
                             {
-                                //TODO
+                                //TODO: Follow
                             }
                         }
                     }

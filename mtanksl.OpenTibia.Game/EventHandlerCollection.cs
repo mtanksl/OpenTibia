@@ -12,29 +12,29 @@ namespace OpenTibia.Game
 
         public Guid Subscribe<T>(EventHandlers.EventHandler<T> eventHandler) where T : GameEventArgs
         {
-            Dictionary<Guid, IEventHandler> handlers;
+            Dictionary<Guid, IEventHandler> eventHandlers;
 
-            if ( !types.TryGetValue(typeof(T), out handlers) )
+            if ( !types.TryGetValue(typeof(T), out eventHandlers) )
             {
-                handlers = new Dictionary<Guid, IEventHandler>();
+                eventHandlers = new Dictionary<Guid, IEventHandler>();
 
-                types.Add(typeof(T), handlers);
+                types.Add(typeof(T), eventHandlers);
             }
 
-            handlers.Add(eventHandler.Token, eventHandler);
+            eventHandlers.Add(eventHandler.Token, eventHandler);
 
             return eventHandler.Token;
         }
 
         public void Unsubscribe<T>(Guid token) where T : GameEventArgs
         {
-            Dictionary<Guid, IEventHandler> handlers;
+            Dictionary<Guid, IEventHandler> eventHandlers;
 
-            if ( types.TryGetValue(typeof(T), out handlers) )
+            if ( types.TryGetValue(typeof(T), out eventHandlers) )
             {
-                handlers.Remove(token);
+                eventHandlers.Remove(token);
 
-                if (handlers.Count == 0)
+                if (eventHandlers.Count == 0)
                 {
                     types.Remove(typeof(T) );
                 }
@@ -43,9 +43,9 @@ namespace OpenTibia.Game
 
         public IEnumerable<IEventHandler> Get(GameEventArgs e)
         {
-            if ( types.TryGetValue(e.GetType(), out var handlers) )
+            if ( types.TryGetValue(e.GetType(), out var eventHandlers) )
             {
-                return handlers.Values;
+                return eventHandlers.Values;
             }
 
             return Enumerable.Empty<IEventHandler>();

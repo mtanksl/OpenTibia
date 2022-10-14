@@ -76,17 +76,17 @@ namespace OpenTibia.Common.Objects
 
         public IEnumerable<PrivateChannel> GetPrivateChannels()
         {
-            return channels.OfType<PrivateChannel>();
+            return GetChannels().OfType<PrivateChannel>();
         }
 
         public IEnumerable<GuildChannel> GetGuildChannels()
         {
-            return channels.OfType<GuildChannel>();
+            return GetChannels().OfType<GuildChannel>();
         }
 
         public IEnumerable<PartyChannel> GetPartyChannels()
         {
-            return channels.OfType<PartyChannel>();
+            return GetChannels().OfType<PartyChannel>();
         }
     }
 }

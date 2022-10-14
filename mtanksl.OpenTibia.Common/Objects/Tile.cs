@@ -201,27 +201,27 @@ namespace OpenTibia.Common.Objects
 
         public IEnumerable<Item> GetItems()
         {
-            return contents.OfType<Item>();
+            return GetContents().OfType<Item>();
         }
 
         public IEnumerable<Creature> GetCreatures()
         {
-            return contents.OfType<Creature>();
+            return GetContents().OfType<Creature>();
         }
 
         public IEnumerable<Monster> GetMonsters()
         {
-            return contents.OfType<Monster>();
+            return GetContents().OfType<Monster>();
         }
 
         public IEnumerable<Npc> GetNpcs()
         {
-            return contents.OfType<Npc>();
+            return GetContents().OfType<Npc>();
         }
 
         public IEnumerable<Player> GetPlayers()
         {
-            return contents.OfType<Player>();
+            return GetContents().OfType<Player>();
         }       
     }
 }

@@ -4,7 +4,7 @@ namespace OpenTibia.Game.Commands
 {
     public class PromiseResult<TResult>
     {
-        public static PromiseResult<TResult> Run(Action<Action<Context, TResult>> run)
+        public static PromiseResult<TResult> Run(Action<Action<Context, TResult> > run)
         {
             return new PromiseResult<TResult>(run);
         }

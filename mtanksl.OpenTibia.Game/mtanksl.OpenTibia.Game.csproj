@@ -61,6 +61,7 @@
     <Compile Include="CommandHandlers\CreatureUpdateParent\StairsHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\HoleHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveCreature\MoveCreatureWalkToSourceHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerSay\SpellHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\DestroyMonsterOrNpcHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportToWaypointHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportToTownHandler.cs" />
