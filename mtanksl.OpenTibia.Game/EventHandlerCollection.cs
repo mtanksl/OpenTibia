@@ -2,6 +2,7 @@
 using OpenTibia.Game.EventHandlers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenTibia.Game
 {
@@ -40,15 +41,14 @@ namespace OpenTibia.Game
             }
         }
 
-        public void Publish(Context context, GameEventArgs e)
+        public IEnumerable<IEventHandler> Get(GameEventArgs e)
         {
             if ( types.TryGetValue(e.GetType(), out var handlers) )
             {
-                foreach (var handler in handlers.Values)
-                {
-                    handler.Handle(context, e);
-                }
+                return handlers.Values;
             }
+
+            return Enumerable.Empty<IEventHandler>();
         }
     }
 }

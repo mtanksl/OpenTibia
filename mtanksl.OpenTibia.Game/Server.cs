@@ -47,6 +47,8 @@ namespace OpenTibia.Game
 
         public RuleViolationCollection RuleViolations { get; set; }
 
+        public ComponentCollection Components { get; set; }
+
         public GameObjectCollection GameObjects { get; set; }
 
         public ItemFactory ItemFactory { get; set; }
@@ -88,6 +90,8 @@ namespace OpenTibia.Game
             Channels = new ChannelCollection();
 
             RuleViolations = new RuleViolationCollection();
+
+            Components = new ComponentCollection(this);
 
             GameObjects = new GameObjectCollection(this);
                         

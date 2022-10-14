@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
             {
                 context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
 
-                AttackAndFollowBehaviour component = Player.GetComponent<AttackAndFollowBehaviour>();
+                AttackAndFollowBehaviour component = context.Server.Components.GetComponent<AttackAndFollowBehaviour>(Player);
 
                 component.Stop();
 

@@ -206,7 +206,10 @@ namespace OpenTibia.Game
                 {
                     var e = events.Dequeue();
 
-                    server.EventHandlers.Publish(this, e);
+                    foreach (var eventHandler in server.EventHandlers.Get(e) )
+                    {
+                        eventHandler.Handle(this, e);
+                    }
                 }
 
                 events.Clear();

@@ -1,6 +1,4 @@
-﻿using OpenTibia.Common.Events;
-using OpenTibia.Common.Objects;
-using OpenTibia.Game.Components;
+﻿using OpenTibia.Common.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,15 +64,6 @@ namespace OpenTibia.Game
             {
                 buckets[ typeof(Item) ].Add(gameObject.Id, gameObject);
             }
-
-            foreach (var component in gameObject.GetComponents<Behaviour>() )
-            {
-                component.Start(server);
-            }
-            
-            gameObject.Add = ComponentsAdd;
-            
-            gameObject.Remove = ComponentsRemove;
         }
 
         public void RemoveGameObject(GameObject gameObject)
@@ -99,31 +88,6 @@ namespace OpenTibia.Game
             else if (gameObject is Item)
             {
                 buckets[ typeof(Item) ].Remove(gameObject.Id);
-            }
-
-            foreach (var component in gameObject.GetComponents<Behaviour>() )
-            {
-                component.Stop(server);
-            }
-
-            gameObject.Add = null;
-
-            gameObject.Remove = null;
-        }
-
-        private void ComponentsAdd(object sender, GameObjectComponentsCollectionChangedEventArgs e)
-        {
-            if (e.Component is Behaviour component)
-            {
-                component.Start(server);
-            }
-        }
-
-        private void ComponentsRemove(object sender, GameObjectComponentsCollectionChangedEventArgs e)
-        {
-            if (e.Component is Behaviour component)
-            {
-                component.Stop(server);
             }
         }
 

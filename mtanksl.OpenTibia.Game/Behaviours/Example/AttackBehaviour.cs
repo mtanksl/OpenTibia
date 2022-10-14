@@ -8,13 +8,13 @@ namespace OpenTibia.Game.Components
 {
     public class AttackBehaviour : PeriodicBehaviour
     {
-        private Monster attacker;
+        private Monster monster;
 
         private uint? targetId;
 
         public override void Start(Server server)
         {
-            attacker = (Monster)GameObject;            
+            monster = (Monster)GameObject;            
         }
 
         private static Random random = new Random();
@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Components
             {
                 foreach (var observer in context.Server.GameObjects.GetPlayers() )
                 {
-                    if (attacker.Tile.Position.CanHearSay(observer.Tile.Position) )
+                    if (monster.Tile.Position.CanHearSay(observer.Tile.Position) )
                     {
                         targetId = observer.Id;
 
@@ -53,15 +53,15 @@ namespace OpenTibia.Game.Components
                 }
                 else
                 {
-                    if ( !attacker.Tile.Position.CanHearSay(target.Tile.Position) )
+                    if ( !monster.Tile.Position.CanHearSay(target.Tile.Position) )
                     {
                         targetId = null;
                     }
                     else
                     {
-                        context.AddCommand(new ShowProjectileCommand(attacker.Tile.Position, target.Tile.Position, ProjectileType.Spear) );
+                        context.AddCommand(new ShowProjectileCommand(monster.Tile.Position, target.Tile.Position, ProjectileType.Spear) );
 
-                        context.AddPacket( ( (Player)target).Client.Connection, new SetFrameColorOutgoingPacket(attacker.Id, FrameColor.Black) );
+                        context.AddPacket( ( (Player)target).Client.Connection, new SetFrameColorOutgoingPacket(monster.Id, FrameColor.Black) );
 
                         int damage = random.Next(0, 10);
 
@@ -73,7 +73,7 @@ namespace OpenTibia.Game.Components
                             {
                                 context.AddCommand(new CreatureUpdateHealthCommand(target, (ushort)(target.Health - damage), target.MaxHealth) );
 
-                                context.AddPacket( ( (Player)target).Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + damage + " hitpoints due to an attack by " + attacker.Name) );
+                                context.AddPacket( ( (Player)target).Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + damage + " hitpoints due to an attack by " + monster.Name) );
                             }
                             else
                             {
@@ -98,7 +98,7 @@ namespace OpenTibia.Game.Components
                         }
                         else
                         {
-                            context.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.Puff) );
+                            context.AddCommand(new ShowMagicEffectCommand(monster.Tile.Position, MagicEffectType.Puff) );
                         }
                     }
                 }

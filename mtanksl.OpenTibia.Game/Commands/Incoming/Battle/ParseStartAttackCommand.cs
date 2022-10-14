@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
                 
                 if (creature != null && creature != Player)
                 {
-                    AttackAndFollowBehaviour component = Player.GetComponent<AttackAndFollowBehaviour>();
+                    AttackAndFollowBehaviour component = context.Server.Components.GetComponent<AttackAndFollowBehaviour>(Player);
                 
                     if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
                     {

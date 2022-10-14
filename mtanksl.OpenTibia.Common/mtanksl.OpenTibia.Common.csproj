@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Events\GameObjectComponentsCollectionChangedEventArgs.cs" />
     <Compile Include="Events\DisconnectedEventArgs.cs" />
     <Compile Include="Objects\Channel.cs" />
     <Compile Include="Objects\ChannelCollection.cs" />

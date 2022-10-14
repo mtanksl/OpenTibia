@@ -2,6 +2,7 @@
 using OpenTibia.FileFormats.Xml.Npcs;
 using OpenTibia.Game.Components;
 using System.Collections.Generic;
+using System.Linq;
 using Npc = OpenTibia.Common.Objects.Npc;
 
 namespace OpenTibia.Game
@@ -46,9 +47,9 @@ namespace OpenTibia.Game
 
             Npc npc = new Npc(metadata);
 
-            npc.AddComponent(new AutoWalkBehaviour() );
-
             server.GameObjects.AddGameObject(npc);
+
+            server.Components.AddComponent(npc, new AutoWalkBehaviour() );
 
             return npc;
         }
@@ -56,6 +57,11 @@ namespace OpenTibia.Game
         public void Destroy(Npc npc)
         {
             server.GameObjects.RemoveGameObject(npc);
+
+            foreach (var component in server.Components.GetComponents<Component>(npc).ToList() )
+            {
+                server.Components.RemoveComponent(npc, component);
+            }
         }
     }
 }

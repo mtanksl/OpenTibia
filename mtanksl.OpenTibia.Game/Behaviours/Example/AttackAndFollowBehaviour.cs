@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Components
             AttackAndFollow
         }
 
-        private Player attacker;
+        private Player player;
 
         private uint? targetId;
 
@@ -27,7 +27,7 @@ namespace OpenTibia.Game.Components
 
         public override void Start(Server server)
         {
-            attacker = (Player)GameObject;            
+            player = (Player)GameObject;            
         }
 
         public void Attack(Creature creature)
@@ -80,7 +80,7 @@ namespace OpenTibia.Game.Components
 
         public override void Update(Context context)
         {
-            if ( (DateTime.UtcNow - lastAttack).TotalMilliseconds < 500)
+            if ( (DateTime.UtcNow - lastAttack).TotalMilliseconds < 1000)
             {
                 return;
             }
@@ -93,7 +93,7 @@ namespace OpenTibia.Game.Components
 
                 if (target == null)
                 {
-                    context.AddPacket(attacker.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
+                    context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
 
                                                                   new StopAttackAndFollowOutgoingPacket(0) );
 
@@ -101,9 +101,9 @@ namespace OpenTibia.Game.Components
                 }
                 else
                 {
-                    if ( !attacker.Tile.Position.CanHearSay(target.Tile.Position) )
+                    if ( !player.Tile.Position.CanHearSay(target.Tile.Position) )
                     {
-                        context.AddPacket(attacker.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
+                        context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
 
                                                                       new StopAttackAndFollowOutgoingPacket(0) );
 
@@ -113,7 +113,7 @@ namespace OpenTibia.Game.Components
                     {
                         if (target is Npc || target is Player)
                         {
-                            context.AddPacket(attacker.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature),
+                            context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature),
 
                                                                           new StopAttackAndFollowOutgoingPacket(0) );
 
@@ -123,7 +123,7 @@ namespace OpenTibia.Game.Components
                         {
                             if (state == State.Attack || state == State.AttackAndFollow)
                             {
-                                context.AddCommand(new ShowProjectileCommand(attacker.Tile.Position, target.Tile.Position, ProjectileType.Spear) );
+                                context.AddCommand(new ShowProjectileCommand(player.Tile.Position, target.Tile.Position, ProjectileType.Spear) );
 
                                 int damage = random.Next(0, 20);
 
@@ -150,14 +150,14 @@ namespace OpenTibia.Game.Components
 
                                         context.AddCommand(new MonsterDestroyCommand( (Monster)target) );
 
-                                        context.AddPacket(attacker.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
+                                        context.AddPacket(player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
 
                                         Stop();
                                     }
                                 }
                                 else
                                 {
-                                    context.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.Puff) );
+                                    context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.Puff) );
                                 }
                             }
                             

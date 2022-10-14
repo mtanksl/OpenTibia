@@ -64,6 +64,8 @@
     <Compile Include="CommandHandlers\PlayerSay\DestroyMonsterOrNpcHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportToWaypointHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportToTownHandler.cs" />
+    <Compile Include="ComponentCollection.cs" />
+    <Compile Include="TransactionContext.cs" />
     <Compile Include="Commands\Outgoing\Item\ItemDecayDestroyCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerMoveCreatureCommand.cs" />
     <Compile Include="EventHandlers\TileRemoveCreature\TileDepressHandler.cs" />

@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Components;
+using System.Linq;
 
 namespace OpenTibia.Game
 {
@@ -19,9 +20,9 @@ namespace OpenTibia.Game
                 Name = name
             };
 
-            player.AddComponent(new AttackAndFollowBehaviour() );
-
             server.GameObjects.AddGameObject(player);
+
+            server.Components.AddComponent(player, new AttackAndFollowBehaviour() );
 
             return player;
         }
@@ -33,6 +34,11 @@ namespace OpenTibia.Game
             server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(player) );
 
             server.GameObjects.RemoveGameObject(player);
+
+            foreach (var component in server.Components.GetComponents<Component>(player).ToList() )
+            {
+                server.Components.RemoveComponent(player, component);
+            }
         }
     }
 }

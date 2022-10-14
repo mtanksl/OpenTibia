@@ -49,20 +49,20 @@ namespace OpenTibia.Game
             }
 
             Monster monster = new Monster(metadata);
+                        
+            server.GameObjects.AddGameObject(monster);
 
             if (monster.Name == "Amazon" || monster.Name == "Valkyrie")
             {
-                monster.AddComponent(new AttackBehaviour() );
+                server.Components.AddComponent(monster, new AttackBehaviour() );
             }
 
-            monster.AddComponent(new AutoWalkBehaviour() );
+            server.Components.AddComponent(monster, new AutoWalkBehaviour() );
 
             if (monster.Metadata.Sentences != null)
             {
-                monster.AddComponent(new AutoTalkBehaviour(monster.Metadata.Sentences) );
+                server.Components.AddComponent(monster, new AutoTalkBehaviour(monster.Metadata.Sentences) );
             }
-
-            server.GameObjects.AddGameObject(monster);
 
             return monster;
         }
@@ -70,6 +70,11 @@ namespace OpenTibia.Game
         public void Destroy(Monster monster)
         {
             server.GameObjects.RemoveGameObject(monster);
+
+            foreach (var component in server.Components.GetComponents<Component>(monster).ToList() )
+            {
+                server.Components.RemoveComponent(monster, component);
+            }
         }
     }
 }

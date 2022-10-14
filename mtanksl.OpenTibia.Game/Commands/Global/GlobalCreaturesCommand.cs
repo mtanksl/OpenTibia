@@ -1,5 +1,6 @@
-﻿using OpenTibia.Game.Components;
-using System;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Components;
+using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -9,9 +10,9 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run(resolve =>
             {
-                foreach (var creature in context.Server.GameObjects.GetCreatures() )
+                foreach (var component in context.Server.Components.GetComponents<PeriodicBehaviour>().ToList() )
                 {
-                    foreach (var component in creature.GetComponents<PeriodicBehaviour>() )
+                    if (component.GameObject is Creature)
                     {
                         component.Update(context);
                     }
