@@ -50,6 +50,8 @@ namespace OpenTibia.Game
 
             Monster monster = new Monster(metadata);
 
+            monster.AddComponent(new AttackBehaviour() );
+
             monster.AddComponent(new AutoWalkBehaviour() );
 
             if (monster.Metadata.Sentences != null)

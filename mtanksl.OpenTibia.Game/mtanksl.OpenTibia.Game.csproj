@@ -50,7 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviours\AttackAndFollowBehaviour.cs" />
+    <Compile Include="Behaviours\Example\AttackBehaviour.cs" />
+    <Compile Include="Behaviours\Example\AttackAndFollowBehaviour.cs" />
     <Compile Include="Behaviours\DecayBehaviour.cs" />
     <Compile Include="CommandHandlerCollection.cs" />
     <Compile Include="CommandHandlers\CommandHandlerResult.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="CommandHandlers\PlayerSay\DestroyMonsterOrNpcHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportToWaypointHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportToTownHandler.cs" />
+    <Compile Include="Commands\Outgoing\Item\ItemDecayDestroyCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerMoveCreatureCommand.cs" />
     <Compile Include="EventHandlers\TileRemoveCreature\TileDepressHandler.cs" />
     <Compile Include="EventHandlers\TileAddCreature\SnowPressHandler.cs" />
@@ -123,7 +125,7 @@
     <Compile Include="Commands\Outgoing\Item\ItemUpdateParentToTileCommand.cs" />
     <Compile Include="Commands\Outgoing\Item\ItemUpdateParentToContainerCommand.cs" />
     <Compile Include="Commands\Outgoing\Item\ItemUpdateParentToInventoryCommand.cs" />
-    <Compile Include="Commands\Outgoing\Item\ItemDecayCommand.cs" />
+    <Compile Include="Commands\Outgoing\Item\ItemDecayTransformCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileCreateItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Item\ItemDecrementCommand.cs" />
     <Compile Include="Commands\Outgoing\StackableItem\StackableItemUpdateCountCommand.cs" />

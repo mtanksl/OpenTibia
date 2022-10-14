@@ -1,5 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
+using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -34,7 +36,7 @@ namespace OpenTibia.Game.Commands
 
                             context.AddCommand(new TileReplaceItemCommand(tile, FromItem, toItem) ).Then( (ctx, index) =>
                             {
-                                context.Server.ItemFactory.Destroy(FromItem);
+                                Destroy(ctx, FromItem);
 
                                 resolve(ctx, toItem);
                             } );
@@ -45,7 +47,7 @@ namespace OpenTibia.Game.Commands
 
                             context.AddCommand(new InventoryReplaceItemCommand(inventory, FromItem, toItem) ).Then( (ctx, index) =>
                             {
-                                context.Server.ItemFactory.Destroy(FromItem);
+                                Destroy(ctx, FromItem);
 
                                 resolve(ctx, toItem);
                             } );
@@ -56,7 +58,7 @@ namespace OpenTibia.Game.Commands
 
                             context.AddCommand(new ContainerReplaceItemCommand(container, FromItem, toItem) ).Then( (ctx, index) =>
                             {
-                                context.Server.ItemFactory.Destroy(FromItem);
+                                Destroy(ctx, FromItem);
 
                                 resolve(ctx, toItem);
                             } );
@@ -65,6 +67,32 @@ namespace OpenTibia.Game.Commands
                     }
                 }
             } );            
+        }
+
+        private void Destroy(Context context, Item item)
+        {
+            if (item is Container container)
+            {
+                foreach (var observer in container.GetPlayers().ToList() )
+                {
+                    foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
+                    {
+                        if (pair.Value == container)
+                        {
+                            observer.Client.ContainerCollection.CloseContainer(pair.Key);
+
+                            context.AddPacket(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                        }
+                    }
+                }
+
+                foreach (var child in container.GetItems() )
+                {
+                    Destroy(context, child);
+                }
+            }
+
+            context.Server.ItemFactory.Destroy(item);
         }
     }
 }

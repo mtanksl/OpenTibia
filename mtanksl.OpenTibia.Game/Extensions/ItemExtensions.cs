@@ -5,11 +5,18 @@ namespace OpenTibia.Game.Extensions
 {
     public static class ItemExtensions
     {
-        public static PromiseResult<Item> Decay(this Item item, int executeInMilliseconds, ushort openTibiaId, byte count)
+        public static Promise DecayDesctroy(this Item item, int executeInMilliseconds)
         {
             Context context = Context.Current;
 
-            return context.AddCommand(new ItemDecayCommand(item, executeInMilliseconds, openTibiaId, count) );
+            return context.AddCommand(new ItemDecayDestroyCommand(item, executeInMilliseconds) );
+        }
+
+        public static PromiseResult<Item> DecayTransform(this Item item, int executeInMilliseconds, ushort openTibiaId, byte count)
+        {
+            Context context = Context.Current;
+
+            return context.AddCommand(new ItemDecayTransformCommand(item, executeInMilliseconds, openTibiaId, count) );
         }
 
         public static Promise Decrement(this Item item, byte count)
