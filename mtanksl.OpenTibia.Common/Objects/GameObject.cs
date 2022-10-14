@@ -56,7 +56,7 @@ namespace OpenTibia.Common.Objects
             return components.OfType<T>();
         }
 
-        public event EventHandler<GameObjectComponentsCollectionChangedEventArgs> Add;
+        public Action<object, GameObjectComponentsCollectionChangedEventArgs> Add;
 
         protected virtual void OnAdd(Component component)
         {
@@ -66,7 +66,7 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        public event EventHandler<GameObjectComponentsCollectionChangedEventArgs> Remove;
+        public Action<object, GameObjectComponentsCollectionChangedEventArgs> Remove;
 
         protected virtual void OnRemove(Component component)
         {

@@ -26,23 +26,26 @@ namespace OpenTibia.Game.Commands
 
                 Tile.RemoveContent(index);
 
-                foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                if (index < Constants.ObjectsPerPoint || Tile.Count >= Constants.ObjectsPerPoint)
                 {
-                    if (observer != Creature)
+                    foreach (var observer in context.Server.GameObjects.GetPlayers() )
                     {
-                        if (observer.Tile.Position.CanSee(Tile.Position) )
+                        if (observer != Creature)
                         {
-                            if (index < Constants.ObjectsPerPoint)
+                            if (observer.Tile.Position.CanSee(Tile.Position) )
                             {
-                                context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(Tile.Position, index) );
-                            }
+                                if (index < Constants.ObjectsPerPoint)
+                                {
+                                    context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(Tile.Position, index) );
+                                }
 
-                            if (Tile.Count >= Constants.ObjectsPerPoint)
-                            {
-                                context.AddPacket(observer.Client.Connection, new SendTileOutgoingPacket(context.Server.Map, observer.Client, Tile.Position) );
+                                if (Tile.Count >= Constants.ObjectsPerPoint)
+                                {
+                                    context.AddPacket(observer.Client.Connection, new SendTileOutgoingPacket(context.Server.Map, observer.Client, Tile.Position) );
+                                }
                             }
-                        }
-                    }                
+                        }                
+                    }
                 }
 
                 context.AddEvent(new TileRemoveCreatureEventArgs(Tile, Creature, index) );

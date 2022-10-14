@@ -1,5 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
+using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -58,6 +60,19 @@ namespace OpenTibia.Game.Commands
         {
             if (item is Container container)
             {
+                foreach (var observer in container.GetPlayers().ToList() )
+                {
+                    foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
+                    {
+                        if (pair.Value == container)
+                        {
+                            observer.Client.ContainerCollection.CloseContainer(pair.Key);
+
+                            context.AddPacket(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                        }
+                    }
+                }
+
                 foreach (var child in container.GetItems() )
                 {
                     Destroy(context, child);

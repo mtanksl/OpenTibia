@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Commands
             {
                 foreach (var child in Player.Inventory.GetItems() )
                 {
-                    Destroy(ctx, child);
+                    ctx.AddCommand(new ItemDestroyCommand(child) );
                 }
 
                 foreach (var pair in Player.Client.ContainerCollection.GetIndexedContainers() )
@@ -72,19 +72,6 @@ namespace OpenTibia.Game.Commands
 
                 ctx.Server.PlayerFactory.Destroy(Player);
             } );
-        }
-
-        private void Destroy(Context context, Item item)
-        {
-            if (item is Container container)
-            {
-                foreach (var child in container.GetItems() )
-                {
-                    Destroy(context, child);
-                }
-            }
-
-            context.Server.ItemFactory.Destroy(item);
         }
     }
 }

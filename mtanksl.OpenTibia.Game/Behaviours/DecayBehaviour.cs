@@ -33,10 +33,7 @@ namespace OpenTibia.Game.Components
 
             key = "Decay" + item.Id;
 
-            promise = Promise.Delay(server, key, executeInMilliseconds).Then(ctx =>
-            {
-                GameObject.RemoveComponent(this);
-            } );
+            promise = Promise.Delay(server, key, executeInMilliseconds);
         }
 
         public override void Stop(Server server)

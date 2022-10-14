@@ -48,24 +48,21 @@ namespace OpenTibia.Game
             if (gameObject is Creature)
             {
                 buckets[ typeof(Creature) ].Add(gameObject.Id, gameObject);
-            }
 
-            if (gameObject is Monster)
-            {
-                buckets[ typeof(Monster) ].Add(gameObject.Id, gameObject);
+                if (gameObject is Monster)
+                {
+                    buckets[ typeof(Monster) ].Add(gameObject.Id, gameObject);
+                }
+                else if (gameObject is Npc)
+                {
+                    buckets[ typeof(Npc) ].Add(gameObject.Id, gameObject);
+                }
+                else if (gameObject is Player)
+                {
+                    buckets[ typeof(Player) ].Add(gameObject.Id, gameObject);
+                }
             }
-            
-            if (gameObject is Npc)
-            {
-                buckets[ typeof(Npc) ].Add(gameObject.Id, gameObject);
-            }
-            
-            if (gameObject is Player)
-            {
-                buckets[ typeof(Player) ].Add(gameObject.Id, gameObject);
-            }
-            
-            if (gameObject is Item)
+            else if (gameObject is Item)
             {
                 buckets[ typeof(Item) ].Add(gameObject.Id, gameObject);
             }
@@ -74,10 +71,10 @@ namespace OpenTibia.Game
             {
                 component.Start(server);
             }
-
-            gameObject.Add += ComponentsAdd;
-
-            gameObject.Remove += ComponentsRemove;
+            
+            gameObject.Add = ComponentsAdd;
+            
+            gameObject.Remove = ComponentsRemove;
         }
 
         public void RemoveGameObject(GameObject gameObject)
@@ -85,24 +82,21 @@ namespace OpenTibia.Game
             if (gameObject is Creature)
             {
                 buckets[ typeof(Creature) ].Remove(gameObject.Id);
-            }
 
-            if (gameObject is Monster)
-            {
-                buckets[ typeof(Monster) ].Remove(gameObject.Id);
+                if (gameObject is Monster)
+                {
+                    buckets[ typeof(Monster) ].Remove(gameObject.Id);
+                }
+                else if (gameObject is Npc)
+                {
+                    buckets[ typeof(Npc) ].Remove(gameObject.Id);
+                }
+                else if (gameObject is Player)
+                {
+                    buckets[ typeof(Player) ].Remove(gameObject.Id);
+                }
             }
-            
-            if (gameObject is Npc)
-            {
-                buckets[ typeof(Npc) ].Remove(gameObject.Id);
-            }
-            
-            if (gameObject is Player)
-            {
-                buckets[ typeof(Player) ].Remove(gameObject.Id);
-            }
-            
-            if (gameObject is Item)
+            else if (gameObject is Item)
             {
                 buckets[ typeof(Item) ].Remove(gameObject.Id);
             }
@@ -112,24 +106,24 @@ namespace OpenTibia.Game
                 component.Stop(server);
             }
 
-            gameObject.Add -= ComponentsAdd;
+            gameObject.Add = null;
 
-            gameObject.Remove -= ComponentsRemove;
+            gameObject.Remove = null;
         }
 
         private void ComponentsAdd(object sender, GameObjectComponentsCollectionChangedEventArgs e)
         {
-            if (e.Component is Behaviour behaviour)
+            if (e.Component is Behaviour component)
             {
-                behaviour.Start(server);
+                component.Start(server);
             }
         }
 
         private void ComponentsRemove(object sender, GameObjectComponentsCollectionChangedEventArgs e)
         {
-            if (e.Component is Behaviour behaviour)
+            if (e.Component is Behaviour component)
             {
-                behaviour.Stop(server);
+                component.Stop(server);
             }
         }
 

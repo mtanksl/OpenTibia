@@ -780,13 +780,10 @@ namespace OpenTibia.Common.Objects
 
             if (e.Type != DisconnectionType.Requested)
             {
-                if (Client != null && Client.Player != null)
+                server.QueueForExecution(ctx =>
                 {
-                    server.QueueForExecution(ctx =>
-                    {
-                        ctx.AddCommand(new ParseLogOutCommand(Client.Player) );
-                    } );
-                }
+                    ctx.AddCommand(new ParseLogOutCommand(Client.Player) );
+                } );
             }
             
             base.OnDisconnected(e);

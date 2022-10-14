@@ -13,7 +13,7 @@ namespace OpenTibia.FileFormats.Xml.Houses
             
             house.Name = (string)houseNode.Attribute("name");
 
-            house.Entry = new Position((int)houseNode.Attribute("entryx"), (int)houseNode.Attribute("entryy"), (int)houseNode.Attribute("entryz") );
+            house.Entry = new Position( (int)houseNode.Attribute("entryx"), (int)houseNode.Attribute("entryy"), (int)houseNode.Attribute("entryz") );
 
             house.TownId = (uint)houseNode.Attribute("townid");
 
