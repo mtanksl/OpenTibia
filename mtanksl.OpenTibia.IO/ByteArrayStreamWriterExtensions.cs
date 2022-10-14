@@ -72,6 +72,12 @@ namespace OpenTibia.IO
                     writer.Write( (byte)FluidColors[ (int)fluidItem.FluidType % FluidColors.Length ] );
 
                     break;
+
+                case SplashItem splashItem:
+
+                    writer.Write( (byte)FluidColors[ (int)splashItem.FluidType % FluidColors.Length ] );
+
+                    break;
             }
         }
 

@@ -91,43 +91,6 @@ namespace OpenTibia.Game
             }
         }
 
-        private IEnumerable<T> GetGameObjects<T>() where T : GameObject
-        {
-            Dictionary<uint, GameObject> gameObjects;
-
-            if ( buckets.TryGetValue(typeof(T), out gameObjects) )
-            {
-                return gameObjects.Values.Cast<T>();
-            }
-
-            return Enumerable.Empty<T>();
-        }
-
-        public IEnumerable<Creature> GetCreatures()
-        {
-            return GetGameObjects<Creature>();
-        }
-
-        public IEnumerable<Monster> GetMonsters()
-        {
-            return GetGameObjects<Monster>();
-        }
-
-        public IEnumerable<Npc> GetNpcs()
-        {
-            return GetGameObjects<Npc>();
-        }
-
-        public IEnumerable<Player> GetPlayers()
-        {
-            return GetGameObjects<Player>();
-        }
-
-        public IEnumerable<Item> GetItems()
-        {
-            return GetGameObjects<Item>();
-        }
-
         private T GetGameObject<T>(uint id) where T : GameObject
         {
             Dictionary<uint, GameObject> gameObjects;
@@ -168,6 +131,43 @@ namespace OpenTibia.Game
         public Item GetItem(uint id)
         {
             return GetGameObject<Item>(id);
+        }
+
+        private IEnumerable<T> GetGameObjects<T>() where T : GameObject
+        {
+            Dictionary<uint, GameObject> gameObjects;
+
+            if (buckets.TryGetValue(typeof(T), out gameObjects) )
+            {
+                return gameObjects.Values.Cast<T>();
+            }
+
+            return Enumerable.Empty<T>();
+        }
+
+        public IEnumerable<Creature> GetCreatures()
+        {
+            return GetGameObjects<Creature>();
+        }
+
+        public IEnumerable<Monster> GetMonsters()
+        {
+            return GetGameObjects<Monster>();
+        }
+
+        public IEnumerable<Npc> GetNpcs()
+        {
+            return GetGameObjects<Npc>();
+        }
+
+        public IEnumerable<Player> GetPlayers()
+        {
+            return GetGameObjects<Player>();
+        }
+
+        public IEnumerable<Item> GetItems()
+        {
+            return GetGameObjects<Item>();
         }
     }
 }

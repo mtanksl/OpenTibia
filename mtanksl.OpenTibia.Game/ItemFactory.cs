@@ -84,9 +84,14 @@ namespace OpenTibia.Game
                         metadata.Flags |= ItemMetadataFlags.Useable;
                     }
 
-                    if (datItem.Flags.Is(ItemFlags.IsFluid) || datItem.Flags.Is(ItemFlags.IsSplash) )
+                    if (datItem.Flags.Is(ItemFlags.IsFluid) )
                     {
                         metadata.Flags |= ItemMetadataFlags.IsFluid;
+                    }
+
+                    if (datItem.Flags.Is(ItemFlags.IsSplash) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.IsSplash;
                     }
 
                     if (datItem.Flags.Is(ItemFlags.NotWalkable) )
@@ -179,6 +184,13 @@ namespace OpenTibia.Game
             else if (metadata.Flags.Is(ItemMetadataFlags.IsFluid) )
             {
                 item = new FluidItem(metadata)
+                {
+                    FluidType = (FluidType)count 
+                };
+            }
+            else if (metadata.Flags.Is(ItemMetadataFlags.IsSplash) )
+            {
+                item = new SplashItem(metadata)
                 {
                     FluidType = (FluidType)count 
                 };

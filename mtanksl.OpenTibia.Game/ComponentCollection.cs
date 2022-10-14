@@ -107,6 +107,6 @@ namespace OpenTibia.Game
                     yield return component;
                 }
             }
-        }  
+        }
     }
 }

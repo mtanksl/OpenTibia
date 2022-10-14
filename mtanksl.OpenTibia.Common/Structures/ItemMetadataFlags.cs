@@ -13,21 +13,23 @@ namespace OpenTibia.Common.Structures
 
         IsFluid = 8,
 
-        NotWalkable = 16,
+        IsSplash = 16,
 
-        NotMoveable = 32,
+        NotWalkable = 32,
 
-        BlockProjectile = 64,
+        NotMoveable = 64,
 
-        BlockPathFinding = 128,
+        BlockProjectile = 128,
 
-        Pickupable = 256,
+        BlockPathFinding = 256,
 
-        Rotatable = 512,
+        Pickupable = 512,
 
-        HasHeight = 1024,
+        Rotatable = 1024,
 
-        Readable = 2048
+        HasHeight = 2048,
+
+        Readable = 4096
     }
 
     public static class ItemMetadataFlagsExtensions

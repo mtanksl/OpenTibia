@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Scripts
         {
             return context.AddCommand(new GlobalCreaturesCommand() ).Then(ctx =>
             {
-                return Promise.Delay(ctx.Server, "GlobalCreatures", 1000);
+                return Promise.Delay(ctx.Server, "GlobalCreatures", 100);
 
             } ).Then(ctx =>
             {

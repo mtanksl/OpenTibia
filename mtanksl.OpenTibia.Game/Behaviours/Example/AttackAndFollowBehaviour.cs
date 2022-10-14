@@ -80,7 +80,7 @@ namespace OpenTibia.Game.Components
 
         public override void Update(Context context)
         {
-            if ( (DateTime.UtcNow - lastAttack).TotalMilliseconds < 1000)
+            if ( (DateTime.UtcNow - lastAttack).TotalMilliseconds < 500)
             {
                 return;
             }
