@@ -106,7 +106,7 @@ namespace OpenTibia.Game.Commands
 			    }
 			    else
 			    {
-                    context.AddPacket(observer.Client.Connection, new WalkOutgoingPacket(fromPosition, fromIndex, toPosition));
+                    context.AddPacket(observer.Client.Connection, new WalkOutgoingPacket(fromPosition, fromIndex, toPosition) );
                 }
 
                 Position position = fromPosition;

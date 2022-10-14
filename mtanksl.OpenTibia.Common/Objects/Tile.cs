@@ -118,7 +118,7 @@ namespace OpenTibia.Common.Objects
         }
 
         /// <exception cref="NotSupportedException"></exception>
-        /// 
+
         public void AddContent(IContent content, byte index)
         {
             throw new NotSupportedException();

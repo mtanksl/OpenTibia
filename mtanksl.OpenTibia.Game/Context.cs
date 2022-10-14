@@ -176,7 +176,7 @@ namespace OpenTibia.Game
             connections.Add(connection);
         }
 
-        private List<GameEventArgs> events;
+        private Queue<GameEventArgs> events;
 
         public void AddEvent(GameEventArgs e)
         {
@@ -187,10 +187,10 @@ namespace OpenTibia.Game
 
             if (events == null)
             {
-                events = new List<GameEventArgs>();
+                events = new Queue<GameEventArgs>();
             }
 
-            events.Add(e);
+            events.Enqueue(e);
         }
 
         public void Flush()
@@ -202,8 +202,10 @@ namespace OpenTibia.Game
 
             if (events != null)
             {
-                foreach (var e in events)
+                while (events.Count > 0)
                 {
+                    var e = events.Dequeue();
+
                     server.EventHandlers.Publish(this, e);
                 }
 

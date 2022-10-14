@@ -31,7 +31,7 @@ namespace OpenTibia.Game
             Dispose(false);
         }
 
-        public Dispatcher dispatcher;
+        private Dispatcher dispatcher;
 
         private Scheduler scheduler;
 
@@ -93,36 +93,24 @@ namespace OpenTibia.Game
                         
             using (Logger.Measure("Loading items") )
             {
-                var otb = OtbFile.Load("data/items/items.otb");
-
-                var dat = DatFile.Load("data/items/tibia.dat");
-
-                var items = ItemsFile.Load("data/items/items.xml");
-
-                ItemFactory = new ItemFactory(this, otb, dat, items);
+                ItemFactory = new ItemFactory(this, OtbFile.Load("data/items/items.otb"), DatFile.Load("data/items/tibia.dat"), ItemsFile.Load("data/items/items.xml") );
             }
 
             PlayerFactory = new PlayerFactory(this);
 
             using (Logger.Measure("Loading monsters") )
             {
-                var monsters = MonsterFile.Load("data/monsters");
-
-                MonsterFactory = new MonsterFactory(this, monsters);
+                MonsterFactory = new MonsterFactory(this, MonsterFile.Load("data/monsters") );
             }
 
             using (Logger.Measure("Loading npcs") )
             {
-                var npcs = NpcFile.Load("data/npcs");
-
-                NpcFactory = new NpcFactory(this, npcs);
+                NpcFactory = new NpcFactory(this, NpcFile.Load("data/npcs") );
             }
 
             using (Logger.Measure("Loading map") )
             {
-                var otbm = OtbmFile.Load("data/map/pholium3.otbm");
-
-                Map = new Map(ItemFactory, otbm);
+                Map = new Map(ItemFactory, OtbmFile.Load("data/map/pholium3.otbm") );
             }
 
             Pathfinding = new Pathfinding(Map);
@@ -133,17 +121,7 @@ namespace OpenTibia.Game
 
             Scripts = new ScriptsCollection(this);
 
-            using (Logger.Measure("Loading scripts") )
-            {
-                Scripts.Start();
-            }
-
-            using (Logger.Measure("Cleanup") )
-            {
-                GC.Collect();
-
-                GC.WaitForPendingFinalizers();
-            }
+            Scripts.Start();
 
             dispatcher.Start();
 

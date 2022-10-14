@@ -32,9 +32,9 @@ namespace OpenTibia.Game.Commands
 
                     if (index < Constants.ObjectsPerPoint)
                     {
-                        foreach (var observer in context.Server.GameObjects.GetPlayers())
+                        foreach (var observer in context.Server.GameObjects.GetPlayers() )
                         {
-                            if (observer.Tile.Position.CanSee(fromTile.Position))
+                            if (observer.Tile.Position.CanSee(fromTile.Position) )
                             {
                                 context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(fromTile.Position, index, Creature.Id, Creature.Direction) );
                             }

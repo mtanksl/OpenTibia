@@ -50,7 +50,10 @@ namespace OpenTibia.Game
 
             Monster monster = new Monster(metadata);
 
-            monster.AddComponent(new AttackBehaviour() );
+            if (monster.Name == "Amazon" || monster.Name == "Valkyrie")
+            {
+                monster.AddComponent(new AttackBehaviour() );
+            }
 
             monster.AddComponent(new AutoWalkBehaviour() );
 

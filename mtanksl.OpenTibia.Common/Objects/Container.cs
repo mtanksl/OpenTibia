@@ -22,7 +22,7 @@ namespace OpenTibia.Common.Objects
         private List<IContent> contents = new List<IContent>();
 
         /// <exception cref="ArgumentException"></exception>
-        /// 
+
         public byte AddContent(IContent content)
         {
             if ( !(content is Item) )
@@ -40,14 +40,14 @@ namespace OpenTibia.Common.Objects
         }
 
         /// <exception cref="NotSupportedException"></exception>
-        /// 
+
         public void AddContent(IContent content, byte index)
         {
             throw new NotSupportedException();
         }
 
         /// <exception cref="ArgumentException"></exception>
-        /// 
+
         public void ReplaceContent(byte index, IContent content)
         {
             if ( !(content is Item) )
