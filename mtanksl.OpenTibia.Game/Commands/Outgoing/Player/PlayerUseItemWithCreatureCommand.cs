@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run(resolve =>
             {
-                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisItem) );
+                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
             } );
         }
     }

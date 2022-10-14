@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
-                    Player toPlayer = context.Server.GameObjects.GetGameObject<Player>(ToCreatureId);
+                    Player toPlayer = context.Server.GameObjects.GetPlayer(ToCreatureId);
 
                     if (toPlayer != null && toPlayer != Player)
                     {

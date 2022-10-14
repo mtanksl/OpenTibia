@@ -65,7 +65,7 @@ namespace OpenTibia.Game.Commands
                             {
                                 Tile toTile = context.Server.Map.GetTile(ToPosition);
 
-                                if (toTile != null && fromCreature != Player)
+                                if (toTile != null)
                                 {
                                     if (IsMoveable(context, fromCreature) && CanThrow(context, fromCreature, toTile) )
                                     {

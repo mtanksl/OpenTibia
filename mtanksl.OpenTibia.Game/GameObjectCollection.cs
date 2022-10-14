@@ -127,7 +127,7 @@ namespace OpenTibia.Game
             }
         }
 
-        public IEnumerable<T> GetGameObjects<T>() where T : GameObject
+        private IEnumerable<T> GetGameObjects<T>() where T : GameObject
         {
             Dictionary<uint, GameObject> gameObjects;
 
@@ -164,7 +164,7 @@ namespace OpenTibia.Game
             return GetGameObjects<Item>();
         }
 
-        public T GetGameObject<T>(uint id) where T : GameObject
+        private T GetGameObject<T>(uint id) where T : GameObject
         {
             Dictionary<uint, GameObject> gameObjects;
 
@@ -179,6 +179,31 @@ namespace OpenTibia.Game
             }
 
             return default(T);
+        }
+
+        public Creature GetCreature(uint id)
+        {
+            return GetGameObject<Creature>(id);
+        }
+
+        public Monster GetMonster(uint id)
+        {
+            return GetGameObject<Monster>(id);
+        }
+
+        public Npc GetNpc(uint id)
+        {
+            return GetGameObject<Npc>(id);
+        }
+
+        public Player GetPlayer(uint id)
+        {
+            return GetGameObject<Player>(id);
+        }
+
+        public Item GetItem(uint id)
+        {
+            return GetGameObject<Item>(id);
         }
     }
 }

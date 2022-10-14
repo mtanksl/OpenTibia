@@ -62,7 +62,7 @@ namespace OpenTibia.Game.Commands
         {
             if ( !fromCreature.Tile.Position.IsNextTo(toTile.Position) )
             {
-                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
+                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.DestinationIsOutOfReach) );
 
                 return false;
             }

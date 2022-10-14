@@ -9,23 +9,7 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run(resolve =>
             {
-                foreach (var creature in context.Server.GameObjects.GetMonsters() )
-                {
-                    foreach (var component in creature.GetComponents<PeriodicBehaviour>() )
-                    {
-                        component.Update(context);
-                    }
-                }
-
-                foreach (var creature in context.Server.GameObjects.GetNpcs() )
-                {
-                    foreach (var component in creature.GetComponents<PeriodicBehaviour>() )
-                    {
-                        component.Update(context);
-                    }
-                }
-
-                foreach (var creature in context.Server.GameObjects.GetPlayers() )
+                foreach (var creature in context.Server.GameObjects.GetCreatures() )
                 {
                     foreach (var component in creature.GetComponents<PeriodicBehaviour>() )
                     {

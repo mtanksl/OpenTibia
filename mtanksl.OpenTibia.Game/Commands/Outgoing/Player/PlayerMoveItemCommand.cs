@@ -46,8 +46,6 @@ namespace OpenTibia.Game.Commands
         {
             if (toInventory.GetContent(toSlot) != null)
             {
-                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
-
                 return false;
             }
 

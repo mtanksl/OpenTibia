@@ -45,7 +45,7 @@ namespace OpenTibia.Game.Components
             
             if (targetId != null)
             {
-                var target = context.Server.GameObjects.GetGameObject<Creature>(targetId.Value);
+                var target = context.Server.GameObjects.GetCreature(targetId.Value);
 
                 if (target == null)
                 {

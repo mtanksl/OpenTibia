@@ -39,7 +39,7 @@ namespace OpenTibia.Game.Commands
 
                     if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                     {
-                        Creature toCreature = context.Server.GameObjects.GetGameObject<Creature>(ToCreatureId);
+                        Creature toCreature = context.Server.GameObjects.GetCreature(ToCreatureId);
 
                         if (toCreature != null)
                         {

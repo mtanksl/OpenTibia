@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run(resolve =>
             {
-                Creature creature = context.Server.GameObjects.GetGameObject<Creature>(CreatureId);
+                Creature creature = context.Server.GameObjects.GetCreature(CreatureId);
                 
                 if (creature != null && creature != Player)
                 {
