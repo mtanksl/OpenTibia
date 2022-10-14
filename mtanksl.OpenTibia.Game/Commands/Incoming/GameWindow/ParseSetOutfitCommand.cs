@@ -2,7 +2,6 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets;
 using OpenTibia.Network.Packets.Outgoing;
-using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands

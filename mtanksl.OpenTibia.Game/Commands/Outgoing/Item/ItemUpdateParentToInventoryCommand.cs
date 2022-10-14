@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using System;
 
 namespace OpenTibia.Game.Commands
 {

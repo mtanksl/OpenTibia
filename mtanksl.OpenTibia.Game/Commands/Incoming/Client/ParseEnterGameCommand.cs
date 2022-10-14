@@ -3,7 +3,6 @@ using OpenTibia.Network.Packets;
 using OpenTibia.Network.Packets.Incoming;
 using OpenTibia.Network.Packets.Outgoing;
 using System.Collections.Generic;
-using System;
 
 namespace OpenTibia.Game.Commands
 {

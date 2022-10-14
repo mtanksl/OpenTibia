@@ -1,6 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
-using System;
 using System.Collections.Generic;
 using Channel = OpenTibia.Network.Packets.Channel;
 

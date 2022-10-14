@@ -3,7 +3,6 @@ using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Dat;
 using OpenTibia.FileFormats.Otb;
 using OpenTibia.FileFormats.Xml.Items;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Item = OpenTibia.Common.Objects.Item;

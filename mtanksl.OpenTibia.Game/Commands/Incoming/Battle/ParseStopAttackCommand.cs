@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
-using System;
 
 namespace OpenTibia.Game.Commands
 {

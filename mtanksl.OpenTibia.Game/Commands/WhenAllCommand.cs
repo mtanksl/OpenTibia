@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace OpenTibia.Game.Commands
+﻿namespace OpenTibia.Game.Commands
 {
     public class WhenAllCommand : Command
     {
