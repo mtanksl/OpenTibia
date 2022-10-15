@@ -28,6 +28,10 @@ namespace OpenTibia.Game.Commands
                         resolve(ctx, monster);
                     } );
                 }
+                else
+                {
+                    resolve(context, monster);
+                }
             } );
         }
     }

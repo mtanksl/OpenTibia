@@ -19,35 +19,38 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute(Context context)
         {
-            bool open = true;
-
-            foreach (var pair in Player.Client.ContainerCollection.GetIndexedContainers() )
+            return Promise.Run(resolve =>
             {
-                if (pair.Value == Container)
+                bool open = true;
+
+                foreach (var pair in Player.Client.ContainerCollection.GetIndexedContainers() )
                 {
-                    Player.Client.ContainerCollection.CloseContainer(pair.Key);
+                    if (pair.Value == Container)
+                    {
+                        Player.Client.ContainerCollection.CloseContainer(pair.Key);
 
-                    context.AddPacket(Player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                        context.AddPacket(Player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
 
-                    open = false;
-                }
-            }
-
-            if (open)
-            {
-                byte containerId = Player.Client.ContainerCollection.OpenContainer(Container);
-
-                List<Item> items = new List<Item>();
-
-                foreach (var item in Container.GetItems() )
-                {
-                    items.Add(item);
+                        open = false;
+                    }
                 }
 
-                context.AddPacket(Player.Client.Connection, new OpenContainerOutgoingPacket(containerId, Container.Metadata.TibiaId, Container.Metadata.Name, Container.Metadata.Capacity, Container.Parent is Container, items) );
-            }
+                if (open)
+                {
+                    byte containerId = Player.Client.ContainerCollection.OpenContainer(Container);
 
-            return Promise.FromResult(context);
+                    List<Item> items = new List<Item>();
+
+                    foreach (var item in Container.GetItems() )
+                    {
+                        items.Add(item);
+                    }
+
+                    context.AddPacket(Player.Client.Connection, new OpenContainerOutgoingPacket(containerId, Container.Metadata.TibiaId, Container.Metadata.Name, Container.Metadata.Capacity, Container.Parent is Container, items) );
+                }
+
+                resolve(context);
+            } );
         }
     }
 }

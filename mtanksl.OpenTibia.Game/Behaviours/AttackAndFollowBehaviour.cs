@@ -93,7 +93,7 @@ namespace OpenTibia.Game.Components
                 {
                     context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
 
-                                                                  new StopAttackAndFollowOutgoingPacket(0) );
+                                                                new StopAttackAndFollowOutgoingPacket(0) );
 
                     Stop();
                 }
@@ -103,17 +103,17 @@ namespace OpenTibia.Game.Components
                     {
                         context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
 
-                                                                      new StopAttackAndFollowOutgoingPacket(0) );
+                                                                    new StopAttackAndFollowOutgoingPacket(0) );
 
                         Stop();
                     }
                     else
                     {
-                        if (target is Npc || target is Player)
+                        if (target is Npc)
                         {
                             context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature),
 
-                                                                          new StopAttackAndFollowOutgoingPacket(0) );
+                                                                        new StopAttackAndFollowOutgoingPacket(0) );
 
                             Stop();
                         }
@@ -121,37 +121,11 @@ namespace OpenTibia.Game.Components
                         {
                             if (state == State.Attack || state == State.AttackAndFollow)
                             {
-                                context.AddCommand(new ShowProjectileCommand(player.Tile.Position, target.Tile.Position, ProjectileType.Spear) );
+                                int health = Server.Random.Next(0, 20);
 
-                                int damage = Server.Random.Next(0, 20);
-
-                                if (damage > 0)
+                                if (health > 0)
                                 {
-                                    context.AddCommand(new ShowAnimatedTextCommand(target.Tile.Position, AnimatedTextColor.Red, damage.ToString() ) );
-
-                                    if (target.Health > damage)
-                                    {
-                                        context.AddCommand(new CreatureUpdateHealthCommand(target, (ushort)(target.Health - damage), target.MaxHealth) );
-                                    }
-                                    else
-                                    {
-                                        context.AddCommand(new TileCreateItemCommand(target.Tile, 3058, 1) ).Then( (ctx, item) =>
-                                        {
-                                            ctx.AddCommand(new ItemDecayTransformCommand(item, 10000, 3059, 1) ).Then( (ctx2, item2) =>
-                                            {
-                                                ctx2.AddCommand(new ItemDecayTransformCommand(item2, 10000, 3060, 1) ).Then( (ctx3, item3) =>
-                                                {
-                                                    ctx3.AddCommand(new ItemDecayDestroyCommand(item3, 10000) );
-                                                } );
-                                            } );
-                                        } );
-
-                                        context.AddCommand(new MonsterDestroyCommand( (Monster)target) );
-
-                                        context.AddPacket(player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
-
-                                        Stop();
-                                    }
+                                    context.AddCommand(new CombatDistanceAttackCommand(player, target, ProjectileType.Spear, -health) );
                                 }
                                 else
                                 {

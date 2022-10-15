@@ -16,9 +16,9 @@ namespace OpenTibia.Common.Objects
 
             Outfit = new Outfit(266, 0, 0, 0, 0, Addon.None);
 #if DEBUG
-            Speed = 2218;
+            BaseSpeed = Speed = 2218;
 #else
-            Speed = 220;
+            BaseSpeed = Speed = 220;
 #endif
             SkullIcon = SkullIcon.None;
 
@@ -58,6 +58,8 @@ namespace OpenTibia.Common.Objects
         public Light Light { get; set; }
 
         public Outfit Outfit { get; set; }
+
+        public ushort BaseSpeed { get; set; }
 
         public ushort Speed { get; set; }
 

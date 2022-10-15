@@ -28,6 +28,10 @@ namespace OpenTibia.Game.Commands
                         resolve(ctx, npc);
                     } );
                 }
+                else
+                {
+                    resolve(context, npc);
+                }
             } );
         }
     }

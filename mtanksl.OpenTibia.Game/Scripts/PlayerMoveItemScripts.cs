@@ -1,4 +1,8 @@
-﻿using OpenTibia.Game.CommandHandlers;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
+using OpenTibia.Game.CommandHandlers;
+using OpenTibia.Game.Commands;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Scripts
 {
@@ -7,6 +11,21 @@ namespace OpenTibia.Game.Scripts
         public void Start(Server server)
         {
             server.CommandHandlers.Add(new MoveItemWalkToSourceHandler() );
+
+            server.CommandHandlers.Add(new InlineCommandHandler<PlayerMoveItemCommand>( (context, next, command) => 
+            {
+                if (command.ToContainer is Tile toTile)
+                {
+                    if ( !context.Server.Pathfinding.CanThrow(command.Player.Tile.Position, toTile.Position) )
+                    {
+                        context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
+
+                        return Promise.FromResult(context);
+                    }
+                }
+
+                return next(context);
+            } ) );
 
             server.CommandHandlers.Add(new ThrowAwayContainerCloseHandler() );        
 

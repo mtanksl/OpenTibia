@@ -42,6 +42,9 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,8 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviours\Example\AttackBehaviour.cs" />
-    <Compile Include="Behaviours\Example\AttackAndFollowBehaviour.cs" />
+    <Compile Include="Behaviours\AttackBehaviour.cs" />
+    <Compile Include="Behaviours\AttackAndFollowBehaviour.cs" />
     <Compile Include="Behaviours\DecayBehaviour.cs" />
     <Compile Include="CommandHandlerCollection.cs" />
     <Compile Include="CommandHandlers\CommandHandlerResult.cs" />
@@ -65,12 +68,16 @@
     <Compile Include="CommandHandlers\PlayerSay\DestroyMonsterOrNpcHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportToWaypointHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportToTownHandler.cs" />
+    <Compile Include="Commands\Outgoing\Combat\CombatBeamAttackCommand.cs" />
+    <Compile Include="Commands\Outgoing\Combat\CombatDistanceAttackCommand.cs" />
+    <Compile Include="Commands\Outgoing\Combat\CombatDamageCommand.cs" />
+    <Compile Include="Commands\Outgoing\Combat\CombatAreaAttackCommand.cs" />
     <Compile Include="Commands\Outgoing\SplashItem\FluidItemUpdateFluidTypeCommand.cs" />
     <Compile Include="ComponentCollection.cs" />
     <Compile Include="Extensions\SplashItemExtensions.cs" />
     <Compile Include="TransactionContext.cs" />
     <Compile Include="Commands\Outgoing\Item\ItemDecayDestroyCommand.cs" />
-    <Compile Include="Commands\Outgoing\Player\PlayerMoveCreatureCommand.cs" />
+    <Compile Include="Commands\Outgoing\Player\Review\PlayerMoveCreatureCommand.cs" />
     <Compile Include="EventHandlers\TileRemoveCreature\TileDepressHandler.cs" />
     <Compile Include="EventHandlers\TileAddCreature\SnowPressHandler.cs" />
     <Compile Include="EventHandlers\TileAddCreature\TilePressHandler.cs" />
@@ -149,13 +156,13 @@
     <Compile Include="Commands\CommandResult.cs" />
     <Compile Include="Commands\Incoming\Dialog\ParseReportRuleViolationCommand.cs" />
     <Compile Include="Commands\Outgoing\FluidItem\FluidItemUpdateFluidTypeCommand.cs" />
-    <Compile Include="Commands\Outgoing\Item\ItemTransformCommand.cs" />
-    <Compile Include="Commands\Outgoing\Item\ItemDestroyCommand.cs" />
+    <Compile Include="Commands\Outgoing\Item\Review\ItemTransformCommand.cs" />
+    <Compile Include="Commands\Outgoing\Item\Review\ItemDestroyCommand.cs" />
     <Compile Include="Commands\Outgoing\Monster\MonsterDestroyCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileCreateMonsterCommand.cs" />
     <Compile Include="Commands\Outgoing\Npc\NpcDestroyCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileCreateNpcCommand.cs" />
-    <Compile Include="Commands\Outgoing\Player\PlayerDestroyCommand.cs" />
+    <Compile Include="Commands\Outgoing\Player\Review\PlayerDestroyCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileCreatePlayerCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerUpdateExperienteCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerUpdateStaminaCommand.cs" />
@@ -183,7 +190,7 @@
     <Compile Include="Commands\Outgoing\Creature\CreatureUpdateSpeedCommand.cs" />
     <Compile Include="Commands\Outgoing\Effect\ShowTextCommand.cs" />
     <Compile Include="Commands\Outgoing\Inventory\InventoryRefreshItemCommand.cs" />
-    <Compile Include="Commands\Outgoing\Player\PlayerMoveItemCommand.cs" />
+    <Compile Include="Commands\Outgoing\Player\Review\PlayerMoveItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerUpdateSoulCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerUpdateManaCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerUpdateCapacityCommand.cs" />
@@ -201,7 +208,7 @@
     <Compile Include="Commands\Outgoing\Player\PlayerLookItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Effect\ShowAnimatedTextCommand.cs" />
     <Compile Include="Commands\Outgoing\Effect\ShowProjectileCommand.cs" />
-    <Compile Include="Commands\Outgoing\Creature\CreatureUpdateParentCommand.cs" />
+    <Compile Include="Commands\Outgoing\Creature\Review\CreatureUpdateParentCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileReplaceItemCommand.cs" />
     <Compile Include="Commands\Incoming\Console\ParseCloseNpcsChannelCommand.cs" />
     <Compile Include="Commands\Incoming\Dialog\ParseSelectedCharacterCommand.cs" />

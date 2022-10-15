@@ -31,7 +31,11 @@ namespace OpenTibia.Game.Commands
                     {
                         resolve(ctx, item);
                     } );
-                }                
+                }
+                else
+                {
+                    resolve(context, item);
+                }
             } );
         }
     }

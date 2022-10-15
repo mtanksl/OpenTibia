@@ -110,6 +110,11 @@
             }
         }
 
+        public Position Offset(Offset offset)
+        {
+            return new Position(X + offset.X, Y + offset.Y, Z + offset.Z);
+        }
+
         public Position Offset(int x, int y, int z)
         {
             return new Position(X + x, Y + y, Z + z);

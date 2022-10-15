@@ -46,7 +46,7 @@ namespace OpenTibia.Game.Commands
 
                                 if (toTile != null)
                                 {
-                                    if (IsMoveable(context, fromItem, Count) && CanThrow(context, fromTile, toTile) )
+                                    if (IsMoveable(context, fromItem, Count) )
                                     {
                                         context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toTile, 0, Count) ).Then(ctx =>
                                         {
@@ -66,7 +66,7 @@ namespace OpenTibia.Game.Commands
 
                                 if (toTile != null)
                                 {
-                                    if (IsMoveable(context, fromCreature) && CanThrow(context, fromCreature, toTile) )
+                                    if (IsMoveable(context, fromCreature) )
                                     {
                                         context.AddCommand(new PlayerMoveCreatureCommand(Player, fromCreature, toTile) ).Then(ctx =>
                                         {
