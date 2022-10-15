@@ -16,9 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
 
-                context.AddCommand(new CombatChangeHealthCommand(null, player, Server.Random.Next(100, 200) ) );
-
-                context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.RedShimmer) );
+                context.AddCommand(new CombatSelfAttackCommand(player, MagicEffectType.RedShimmer, Server.Random.Next(100, 200) ) );
 
                 context.AddCommand(new ShowTextCommand(player, TalkType.MonsterSay, "Aaaah...") );
 

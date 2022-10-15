@@ -21,9 +21,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (value == sounds.Count - 1)
                 {
-                    context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.ExplosionDamage) );
-
-                    context.AddCommand(new CombatChangeHealthCommand(null, command.Player, -1) );
+                    context.AddCommand(new CombatSelfAttackCommand(command.Player, MagicEffectType.ExplosionDamage, -1) );
                 }
 
                 return Promise.FromResult(context);

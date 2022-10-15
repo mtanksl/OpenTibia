@@ -5,7 +5,7 @@ using System;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class SpellHandler : CommandHandler<PlayerSayCommand>
+    public class SpellsHandler : CommandHandler<PlayerSayCommand>
     {
         public override Promise Handle(Context context, Func<Context, Promise> next, PlayerSayCommand command)
         {
@@ -248,9 +248,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return context =>
             {
-                context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) );
-
-                context.AddCommand(new CombatChangeHealthCommand(null, player, Server.Random.Next(min, max) ) );
+                context.AddCommand(new CombatSelfAttackCommand(player, MagicEffectType.BlueShimmer, Server.Random.Next(min, max) ) );
             };           
         }
 

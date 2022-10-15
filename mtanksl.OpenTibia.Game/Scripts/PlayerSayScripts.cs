@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Scripts
             
             server.CommandHandlers.Add(new TeleportToWaypointHandler() );
 
-            server.CommandHandlers.Add(new SpellHandler() );
+            server.CommandHandlers.Add(new SpellsHandler() );
         }
 
         public void Stop(Server server)

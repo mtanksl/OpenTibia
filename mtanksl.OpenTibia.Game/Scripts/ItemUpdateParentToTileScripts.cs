@@ -12,9 +12,9 @@ namespace OpenTibia.Game.Scripts
 
             server.CommandHandlers.Add(new Stairs2Handler() );
 
-            server.CommandHandlers.Add(new CandlestickHandler() );
+            server.CommandHandlers.Add(new CandlestickMoveHandler() );
 
-            server.CommandHandlers.Add(new TrapHandler() );
+            server.CommandHandlers.Add(new TrapMoveHandler() );
         }
 
         public void Stop(Server server)

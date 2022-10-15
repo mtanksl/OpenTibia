@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class CandlestickHandler : CommandHandler<ItemUpdateParentToTileCommand>
+    public class CandlestickMoveHandler : CommandHandler<ItemUpdateParentToTileCommand>
     {
         private HashSet<ushort> candlestick = new HashSet<ushort>() { 2048 };
 

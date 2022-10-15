@@ -64,7 +64,7 @@
     <Compile Include="CommandHandlers\CreatureUpdateParent\StairsHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\HoleHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveCreature\MoveCreatureWalkToSourceHandler.cs" />
-    <Compile Include="CommandHandlers\PlayerSay\SpellHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerSay\SpellsHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\DestroyMonsterOrNpcHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportToWaypointHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportToTownHandler.cs" />
@@ -88,6 +88,7 @@
     <Compile Include="CommandHandlers\PlayerUseItem\PlatinumCoinHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\GoldCoinHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\PiggyBankHandler.cs" />
+    <Compile Include="Commands\Outgoing\Combat\CombatSelfAttackCommand.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatBeamAttackCommand.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatChangeManaCommand.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatDistanceAttackCommand.cs" />
@@ -95,6 +96,12 @@
     <Compile Include="Commands\Outgoing\Combat\CombatAreaAttackCommand.cs" />
     <Compile Include="Commands\Outgoing\SplashItem\FluidItemUpdateFluidTypeCommand.cs" />
     <Compile Include="ComponentCollection.cs" />
+    <Compile Include="EventHandlers\TileAddCreature\JungleMawHandler.cs" />
+    <Compile Include="EventHandlers\TileAddCreature\TrapHandler.cs" />
+    <Compile Include="EventHandlers\TileAddCreature\EnergyFieldHandler.cs" />
+    <Compile Include="EventHandlers\TileAddCreature\PoisonFieldHandler.cs" />
+    <Compile Include="EventHandlers\TileAddCreature\FireFieldHandler.cs" />
+    <Compile Include="EventHandlers\TileAddCreature\CampfireHandler.cs" />
     <Compile Include="Extensions\SplashItemExtensions.cs" />
     <Compile Include="TransactionContext.cs" />
     <Compile Include="Commands\Outgoing\Item\ItemDecayDestroyCommand.cs" />
@@ -105,8 +112,8 @@
     <Compile Include="CommandHandlers\ICommandHandlerResult.cs" />
     <Compile Include="CommandHandlers\ICommandHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveItem\ThrowAwayContainerCloseHandler.cs" />
-    <Compile Include="CommandHandlers\ItemUpdateParentToTile\TrapHandler.cs" />
-    <Compile Include="CommandHandlers\ItemUpdateParentToTile\CandlestickHandler.cs" />
+    <Compile Include="CommandHandlers\ItemUpdateParentToTile\TrapMoveHandler.cs" />
+    <Compile Include="CommandHandlers\ItemUpdateParentToTile\CandlestickMoveHandler.cs" />
     <Compile Include="CommandHandlers\ItemUpdateParentToTile\MagicForcefield2Handler.cs" />
     <Compile Include="CommandHandlers\ItemUpdateParentToTile\Hole2Handler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveItem\LavaHandler.cs" />

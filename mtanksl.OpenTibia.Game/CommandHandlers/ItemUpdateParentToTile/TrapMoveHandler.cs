@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class TrapHandler : CommandHandler<ItemUpdateParentToTileCommand>
+    public class TrapMoveHandler : CommandHandler<ItemUpdateParentToTileCommand>
     {
         private Dictionary<ushort, ushort> traps = new Dictionary<ushort, ushort>()
         {
