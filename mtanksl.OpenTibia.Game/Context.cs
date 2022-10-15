@@ -65,6 +65,8 @@ namespace OpenTibia.Game
             }
         }
 
+        /// <exception cref="ObjectDisposedException"></exception>
+
         public Promise AddCommand(Command command)
         {
             if (disposed)
@@ -86,6 +88,8 @@ namespace OpenTibia.Game
 
             return Next(this);
         }
+
+        /// <exception cref="ObjectDisposedException"></exception>
 
         public PromiseResult<TResult> AddCommand<TResult>(CommandResult<TResult> command)
         {
@@ -111,6 +115,8 @@ namespace OpenTibia.Game
 
         private Dictionary<IConnection, Message> messages = null;
 
+        /// <exception cref="ObjectDisposedException"></exception>
+        
         public void AddPacket(IConnection connection, IOutgoingPacket packet)
         {
             if (disposed)
@@ -134,6 +140,8 @@ namespace OpenTibia.Game
 
             message.Add(packet);
         }
+
+        /// <exception cref="ObjectDisposedException"></exception>
 
         public void AddPacket(IConnection connection, params IOutgoingPacket[] packets)
         {
@@ -161,6 +169,8 @@ namespace OpenTibia.Game
 
         private HashSet<IConnection> connections = null;
 
+        /// <exception cref="ObjectDisposedException"></exception>
+
         public void Disconnect(IConnection connection)
         {
             if (disposed)
@@ -178,6 +188,8 @@ namespace OpenTibia.Game
 
         private Queue<GameEventArgs> events;
 
+        /// <exception cref="ObjectDisposedException"></exception>
+
         public void AddEvent(GameEventArgs e)
         {
             if (disposed)
@@ -192,6 +204,8 @@ namespace OpenTibia.Game
 
             events.Enqueue(e);
         }
+
+        /// <exception cref="ObjectDisposedException"></exception>
 
         public void Flush()
         {

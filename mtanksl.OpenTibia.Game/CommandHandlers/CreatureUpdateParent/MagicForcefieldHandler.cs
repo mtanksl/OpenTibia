@@ -12,19 +12,19 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(Context context, Func<Context, Promise> next, CreatureUpdateParentCommand command)
         {
-            Tile fromTile = command.ToTile;
+            Tile toTile = command.ToTile;
 
-            if (fromTile.TopItem != null && magicForcefields.Contains(fromTile.TopItem.Metadata.OpenTibiaId) )
+            if (toTile.TopItem != null && magicForcefields.Contains(toTile.TopItem.Metadata.OpenTibiaId) )
             {
-                Tile toTile = context.Server.Map.GetTile( ( (TeleportItem)fromTile.TopItem ).Position );
+                Tile toOtherTile = context.Server.Map.GetTile( ( (TeleportItem)toTile.TopItem ).Position );
 
-                return context.AddCommand(new CreatureUpdateParentCommand(command.Creature, toTile) ).Then(ctx =>
+                return context.AddCommand(new CreatureUpdateParentCommand(command.Creature, toOtherTile) ).Then(ctx =>
                 {
-                    return ctx.AddCommand(new ShowMagicEffectCommand(fromTile.Position, MagicEffectType.Teleport) );
+                    return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
 
                 } ).Then(ctx =>
                 {
-                    return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                    return ctx.AddCommand(new ShowMagicEffectCommand(toOtherTile.Position, MagicEffectType.Teleport) );
                 } );
             }
 

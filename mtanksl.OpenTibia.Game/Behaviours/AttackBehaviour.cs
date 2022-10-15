@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
-using OpenTibia.Network.Packets.Outgoing;
 using System;
 
 namespace OpenTibia.Game.Components
@@ -12,12 +11,12 @@ namespace OpenTibia.Game.Components
 
         private uint? targetId;
 
+        private DateTime lastAttack;
+
         public override void Start(Server server)
         {
             monster = (Monster)GameObject;            
         }
-
-        private DateTime lastAttack;
 
         public override void Update(Context context)
         {

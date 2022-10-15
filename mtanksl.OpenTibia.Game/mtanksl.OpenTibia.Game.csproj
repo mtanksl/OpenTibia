@@ -55,7 +55,7 @@
   <ItemGroup>
     <Compile Include="Behaviours\AttackBehaviour.cs" />
     <Compile Include="Behaviours\AttackAndFollowBehaviour.cs" />
-    <Compile Include="Behaviours\DecayBehaviour.cs" />
+    <Compile Include="Behaviours\DelayBehaviour.cs" />
     <Compile Include="CommandHandlerCollection.cs" />
     <Compile Include="CommandHandlers\CommandHandlerResult.cs" />
     <Compile Include="CommandHandlers\CommandHandler.cs" />

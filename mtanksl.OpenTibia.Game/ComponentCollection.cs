@@ -17,6 +17,8 @@ namespace OpenTibia.Game
 
         private Dictionary<uint, List<Component> > buckets = new Dictionary<uint, List<Component> >();
 
+        /// <exception cref="InvalidOperationException"></exception>
+
         public T AddComponent<T>(GameObject gameObject, T component) where T : Component
         {
             if (gameObject.Id == 0)
@@ -43,6 +45,8 @@ namespace OpenTibia.Game
             return component;
         }
 
+        /// <exception cref="InvalidOperationException"></exception>
+
         public void RemoveComponent(GameObject gameObject, Component component)
         {
             if (gameObject.Id == 0)
@@ -68,6 +72,8 @@ namespace OpenTibia.Game
             }
         }
 
+        /// <exception cref="InvalidOperationException"></exception>
+
         public T GetComponent<T>(GameObject gameObject) where T : Component
         {
             if (gameObject.Id == 0)
@@ -82,6 +88,8 @@ namespace OpenTibia.Game
 
             return default(T);
         }
+
+        /// <exception cref="InvalidOperationException"></exception>
 
         public IEnumerable<T> GetComponents<T>(GameObject gameObject) where T : Component
         {

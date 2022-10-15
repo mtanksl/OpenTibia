@@ -25,6 +25,8 @@ namespace OpenTibia.Game.Components
 
         private State state;
 
+        private DateTime lastAttack;
+
         public override void Start(Server server)
         {
             player = (Player)GameObject;            
@@ -73,8 +75,6 @@ namespace OpenTibia.Game.Components
 
             state = State.None;
         }
-
-        private DateTime lastAttack;
 
         public override void Update(Context context)
         {

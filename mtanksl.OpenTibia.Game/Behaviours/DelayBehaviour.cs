@@ -3,18 +3,16 @@ using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Components
 {
-    public class DecayBehaviour : Behaviour
+    public class DelayBehaviour : Behaviour
     {
+        private string key;
+
         private int executeInMilliseconds;
 
-        public DecayBehaviour(int executeInMilliseconds)
+        public DelayBehaviour(int executeInMilliseconds)
         {
             this.executeInMilliseconds = executeInMilliseconds;
         }
-
-        private Item item;
-
-        private string key;
 
         private Promise promise;
 
@@ -28,9 +26,7 @@ namespace OpenTibia.Game.Components
 
         public override void Start(Server server)
         {
-            item = (Item)GameObject;
-
-            key = "Decay" + item.Id;
+            key = "Delay" + GameObject.Id;
 
             promise = Promise.Delay(server, key, executeInMilliseconds);
         }
