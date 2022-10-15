@@ -12,16 +12,17 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemWithCreatureCommand command)
         {
-            if (manaPotions.Contains(command.Item.Metadata.OpenTibiaId) && command.ToCreature is Player)
+            if (manaPotions.Contains(command.Item.Metadata.OpenTibiaId) && command.ToCreature is Player player)
             {
-                return context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
-                {
-                    return ctx.AddCommand(new ShowTextCommand(command.ToCreature, TalkType.MonsterSay, "Aaaah...") );
+                context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
 
-                } ).Then(ctx =>
-                {
-                    return ctx.AddCommand(new ShowMagicEffectCommand(command.ToCreature.Tile.Position, MagicEffectType.BlueShimmer) );
-                } );
+                context.AddCommand(new CombatChangeManaCommand(null, player, Server.Random.Next(70, 130) ) );
+
+                context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) );
+
+                context.AddCommand(new ShowTextCommand(player, TalkType.MonsterSay, "Aaaah...") );
+
+                return Promise.FromResult(context);
             }
 
             return next(context);

@@ -4,9 +4,9 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class CombatDamageCommand : Command
+    public class CombatChangeHealthCommand : Command
     {
-        public CombatDamageCommand(Creature attacker, Creature target, int health)
+        public CombatChangeHealthCommand(Creature attacker, Creature target, int health)
         {
             Attacker = attacker;
 
@@ -29,9 +29,20 @@ namespace OpenTibia.Game.Commands
                 {
                     if (Target is Player player)
                     {
-                        context.AddPacket(player.Client.Connection, new SetFrameColorOutgoingPacket(Attacker.Id, FrameColor.Black) );
+                        if (Attacker == null)
+                        {
+                            context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + (-Health) + " hitpoints.") );
+                        }
+                        else if (Attacker == Target)
+                        {
+                            context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + (-Health) + " hitpoints due to your own attack.") );
+                        }
+                        else
+                        {
+                            context.AddPacket(player.Client.Connection, new SetFrameColorOutgoingPacket(Attacker.Id, FrameColor.Black) );
 
-                        context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + (-Health) + " hitpoints due to an attack by " + Attacker.Name) );
+                            context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + (-Health) + " hitpoints due to an attack by " + Attacker.Name + ".") );
+                        }
 
                         context.AddCommand(new ShowAnimatedTextCommand(Target.Tile.Position, AnimatedTextColor.Red, (-Health).ToString() ) );
 

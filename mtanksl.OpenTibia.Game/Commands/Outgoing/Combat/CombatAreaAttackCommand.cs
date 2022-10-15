@@ -41,7 +41,7 @@ namespace OpenTibia.Game.Commands
                     {
                         foreach (var target in tile.GetMonsters().Concat<Creature>(tile.GetPlayers() ).ToList() )
                         {
-                            context.AddCommand(new CombatDamageCommand(Attacker, target, Health) );
+                            context.AddCommand(new CombatChangeHealthCommand(Attacker, target, Health) );
                         }
                     }
                 }

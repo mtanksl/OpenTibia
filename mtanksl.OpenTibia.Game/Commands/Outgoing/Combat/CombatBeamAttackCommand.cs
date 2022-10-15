@@ -6,11 +6,11 @@ namespace OpenTibia.Game.Commands
 {
     public class CombatBeamAttackCommand : Command
     {
-        public CombatBeamAttackCommand(Creature attacker, Offset[] beam, MagicEffectType magicEffectType, int health)
+        public CombatBeamAttackCommand(Creature attacker, Offset[] beams, MagicEffectType magicEffectType, int health)
         {
             Attacker = attacker;
 
-            Beam = beam;
+            Beams = beams;
 
             MagicEffectType = magicEffectType;
 
@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Commands
 
         public Creature Attacker { get; set; }
 
-        public Offset[] Beam { get; set; }
+        public Offset[] Beams { get; set; }
 
         public MagicEffectType MagicEffectType { get; set; }
 
@@ -29,28 +29,28 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run(resolve =>
             {
-                foreach (var offset in Beam)
+                foreach (var beam in Beams)
                 {
-                    Offset directionOffset;
+                    Offset offset;
 
                     if (Attacker.Direction == Direction.North)
                     {
-                        directionOffset = new Offset(offset.X, -offset.Y);
+                        offset = new Offset(-beam.X, -beam.Y);
                     }
                     else if (Attacker.Direction == Direction.East)
                     {
-                        directionOffset = new Offset(offset.Y, offset.X);
+                        offset = new Offset(beam.Y, -beam.X);
                     }
                     else if (Attacker.Direction == Direction.West)
                     {
-                        directionOffset = new Offset(-offset.Y, -offset.X);
+                        offset = new Offset(-beam.Y, beam.X);
                     }
                     else
                     {
-                        directionOffset = offset;
+                        offset = beam;
                     }
 
-                    Position position = Attacker.Tile.Position.Offset(directionOffset);
+                    Position position = Attacker.Tile.Position.Offset(offset);
 
                     context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType) );
 
@@ -60,7 +60,7 @@ namespace OpenTibia.Game.Commands
                     {
                         foreach (var target in tile.GetMonsters().Concat<Creature>(tile.GetPlayers() ).ToList() )
                         {
-                            context.AddCommand(new CombatDamageCommand(Attacker, target, Health) );
+                            context.AddCommand(new CombatChangeHealthCommand(Attacker, target, Health) );
                         }
                     }
                 }

@@ -162,7 +162,7 @@ namespace OpenTibia.Game.CommandHandlers
             }
             else if (command.Message == "exevo gran mas vis")
             {
-                var formula = Berserk(command.Player.Level, command.Player.Skills.Fist, 0);
+                var formula = Strike(command.Player.Level, command.Player.Skills.MagicLevel);
 
                 var area = new Offset[]
                 {
@@ -183,7 +183,7 @@ namespace OpenTibia.Game.CommandHandlers
             }
             else if (command.Message == "exevo gran mas pox")
             {
-                var formula = Berserk(command.Player.Level, command.Player.Skills.Fist, 0);
+                var formula = Strike(command.Player.Level, command.Player.Skills.MagicLevel);
 
                 var area = new Offset[]
                 {
@@ -250,7 +250,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) );
 
-                context.AddCommand(new CombatDamageCommand(player, player, Server.Random.Next(min, max) ) );
+                context.AddCommand(new CombatChangeHealthCommand(player, player, Server.Random.Next(min, max) ) );
             };           
         }
 

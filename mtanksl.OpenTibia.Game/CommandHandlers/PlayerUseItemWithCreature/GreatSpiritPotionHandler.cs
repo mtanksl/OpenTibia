@@ -6,19 +6,21 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class HealthPotionHandler : CommandHandler<PlayerUseItemWithCreatureCommand>
+    public class GreatSpiritPotionHandler : CommandHandler<PlayerUseItemWithCreatureCommand>
     {
-        private HashSet<ushort> healthPotions = new HashSet<ushort>() { 7618 };
+        private HashSet<ushort> manaPotions = new HashSet<ushort>() { 8472 };
 
         public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemWithCreatureCommand command)
         {
-            if (healthPotions.Contains(command.Item.Metadata.OpenTibiaId) && command.ToCreature is Player player)
+            if (manaPotions.Contains(command.Item.Metadata.OpenTibiaId) && command.ToCreature is Player player)
             {
                 context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
 
-                context.AddCommand(new CombatChangeHealthCommand(null, player, Server.Random.Next(100, 200) ) );
+                context.AddCommand(new CombatChangeHealthCommand(null, player, Server.Random.Next(200, 400) ) );
 
-                context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.RedShimmer) );
+                context.AddCommand(new CombatChangeManaCommand(null, player, Server.Random.Next(110, 190) ) );
+
+                context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) );
 
                 context.AddCommand(new ShowTextCommand(player, TalkType.MonsterSay, "Aaaah...") );
 

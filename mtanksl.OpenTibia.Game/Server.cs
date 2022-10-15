@@ -17,7 +17,6 @@ namespace OpenTibia.Game
     {
         public static readonly Random Random = new Random();
 
-
         private int loginServerPort;
         
         private int gameServerPort;

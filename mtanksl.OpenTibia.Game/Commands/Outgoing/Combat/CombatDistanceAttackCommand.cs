@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
             {
                 context.AddCommand(new ShowProjectileCommand(Attacker.Tile.Position, Target.Tile.Position, ProjectileType) );
 
-                context.AddCommand(new CombatDamageCommand(Attacker, Target, Health) );
+                context.AddCommand(new CombatChangeHealthCommand(Attacker, Target, Health) );
 
                 resolve(context);
             } );

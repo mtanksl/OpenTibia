@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class HealthPotionHandler : CommandHandler<PlayerUseItemWithCreatureCommand>
+    public class StrongHealthPotionHandler : CommandHandler<PlayerUseItemWithCreatureCommand>
     {
-        private HashSet<ushort> healthPotions = new HashSet<ushort>() { 7618 };
+        private HashSet<ushort> healthPotions = new HashSet<ushort>() { 7588 };
 
         public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemWithCreatureCommand command)
         {
@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
 
-                context.AddCommand(new CombatChangeHealthCommand(null, player, Server.Random.Next(100, 200) ) );
+                context.AddCommand(new CombatChangeHealthCommand(null, player, Server.Random.Next(200, 400) ) );
 
                 context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.RedShimmer) );
 

@@ -29,6 +29,12 @@ namespace OpenTibia.Game.Scripts
             server.CommandHandlers.Add(new OpenDoorHandler() );
 
             server.CommandHandlers.Add(new CloseDoorHandler() );
+
+            server.CommandHandlers.Add(new GoldCoinHandler() );
+
+            server.CommandHandlers.Add(new PlatinumCoinHandler() );
+
+            server.CommandHandlers.Add(new DiceHandler() );
         }
 
         public void Stop(Server server)
