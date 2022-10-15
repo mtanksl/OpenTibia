@@ -250,7 +250,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) );
 
-                context.AddCommand(new CombatChangeHealthCommand(player, player, Server.Random.Next(min, max) ) );
+                context.AddCommand(new CombatChangeHealthCommand(null, player, Server.Random.Next(min, max) ) );
             };           
         }
 

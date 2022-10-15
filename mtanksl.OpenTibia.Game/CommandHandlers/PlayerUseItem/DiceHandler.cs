@@ -18,9 +18,19 @@ namespace OpenTibia.Game.CommandHandlers
 
                 ushort openTibiaId = (ushort)(5792 + value);
 
-                if (command.Item.Parent is Tile tile)
+                switch (command.Item.Root() )
                 {
-                    context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.Dice) );
+                    case Tile tile:
+
+                        context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.Dice) );
+
+                        break;
+
+                    case Inventory inventory:
+
+                        context.AddCommand(new ShowMagicEffectCommand(inventory.Player.Tile.Position, MagicEffectType.Dice) );
+
+                        break;
                 }
                                
                 context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, command.Player.Name + " rolled a " + (value + 1) + ".") );

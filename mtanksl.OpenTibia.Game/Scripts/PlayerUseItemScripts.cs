@@ -35,6 +35,22 @@ namespace OpenTibia.Game.Scripts
             server.CommandHandlers.Add(new PlatinumCoinHandler() );
 
             server.CommandHandlers.Add(new DiceHandler() );
+
+            server.CommandHandlers.Add(new SurpriseBagBlueHandler() );
+
+            server.CommandHandlers.Add(new SurpriseBagRedHandler() );
+
+            server.CommandHandlers.Add(new PartyTrumpetHandler() );
+
+            server.CommandHandlers.Add(new PartyHatHandler() );
+
+            server.CommandHandlers.Add(new FireworksRocketHandler() ); 
+            
+            server.CommandHandlers.Add(new PiggyBankHandler() );    
+            
+            server.CommandHandlers.Add(new PandaTeddyHandler() );
+
+            server.CommandHandlers.Add(new StuffedDragonHandler() );            
         }
 
         public void Stop(Server server)

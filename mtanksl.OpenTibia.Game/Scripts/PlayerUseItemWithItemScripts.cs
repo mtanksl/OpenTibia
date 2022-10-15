@@ -16,6 +16,8 @@ namespace OpenTibia.Game.Scripts
 
             server.CommandHandlers.Add(new ShovelHandler() );
 
+            server.CommandHandlers.Add(new PickHandler() );
+
             server.CommandHandlers.Add(new MacheteHandler() );
             
             server.CommandHandlers.Add(new BucketHandler() );
