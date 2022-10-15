@@ -77,6 +77,7 @@
     <Compile Include="CommandHandlers\PlayerUseItemWithCreature\SmallHealthPotionHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItemWithItem\PickHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\FireworksRocketHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItem\SantaDollHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\StuffedDragonHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\PartyHatHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\PartyTrumpetHandler.cs" />

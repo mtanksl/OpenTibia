@@ -50,7 +50,9 @@ namespace OpenTibia.Game.Scripts
             
             server.CommandHandlers.Add(new PandaTeddyHandler() );
 
-            server.CommandHandlers.Add(new StuffedDragonHandler() );            
+            server.CommandHandlers.Add(new StuffedDragonHandler() );     
+            
+            server.CommandHandlers.Add(new SantaDollHandler() );
         }
 
         public void Stop(Server server)
