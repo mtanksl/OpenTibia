@@ -52,6 +52,8 @@ namespace OpenTibia.Game.Commands
                         }
                         else
                         {
+                            context.AddCommand(new CreatureUpdateHealthCommand(Target, 0, Target.MaxHealth) );
+
                             context.AddCommand(new TileCreateItemCommand(Target.Tile, 3058, 1) ).Then( (ctx, item) => 
                             { 
                                 return ctx.AddCommand(new ItemDecayTransformCommand(item, 10000, 3059, 1) );
@@ -80,6 +82,8 @@ namespace OpenTibia.Game.Commands
                         }
                         else
                         {
+                            context.AddCommand(new CreatureUpdateHealthCommand(Target, 0, Target.MaxHealth) );
+
                             context.AddCommand(new TileCreateItemCommand(Target.Tile, 3058, 1) ).Then( (ctx, item) => 
                             { 
                                 return ctx.AddCommand(new ItemDecayTransformCommand(item, 10000, 3059, 1) );

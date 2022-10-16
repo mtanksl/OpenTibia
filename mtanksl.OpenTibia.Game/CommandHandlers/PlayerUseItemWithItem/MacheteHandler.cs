@@ -10,12 +10,14 @@ namespace OpenTibia.Game.CommandHandlers
 
         private Dictionary<ushort, ushort> jungleGrass = new Dictionary<ushort, ushort>()
         {
-            { 2782, 2781 }
+            { 2782, 2781 },
+            { 3985, 3984 }
         };
 
         private Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
         {
-            { 2781, 2782 }
+            { 2781, 2782 },
+            { 3984, 3985 }
         };
 
         public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemWithItemCommand command)
