@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (energyFields.Contains(topItem.Metadata.OpenTibiaId) )
                 {
-                    context.AddCommand(new CombatDirectAttackCommand(e.Creature, MagicEffectType.EnergyDamage, -30) );
+                    context.AddCommand(new CombatTargetedAttackCommand(null, e.Creature, null, MagicEffectType.EnergyDamage, target => -30) );
 
                     break;
                 }

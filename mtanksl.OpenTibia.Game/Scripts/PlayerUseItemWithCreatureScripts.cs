@@ -8,6 +8,10 @@ namespace OpenTibia.Game.Scripts
         {
             server.CommandHandlers.Add(new UseItemWithCreatureWalkToSourceHandler() );
 
+            server.CommandHandlers.Add(new FarAwayRunes2Handler() );
+
+            server.CommandHandlers.Add(new UseItemWithCreatureWalkToTargetHandler() );            
+
             server.CommandHandlers.Add(new SmallHealthPotionHandler() );
 
             server.CommandHandlers.Add(new HealthPotionHandler() );
@@ -25,8 +29,6 @@ namespace OpenTibia.Game.Scripts
             server.CommandHandlers.Add(new StrongManaPotionHandler() );
 
             server.CommandHandlers.Add(new GreatSpiritPotionHandler() );
-
-            server.CommandHandlers.Add(new UseItemWithCreatureWalkToTargetHandler() );            
         }
 
         public void Stop(Server server)

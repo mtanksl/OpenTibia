@@ -8,9 +8,13 @@ namespace OpenTibia.Game.Scripts
         {
             server.CommandHandlers.Add(new UseItemWithItemWalkToSourceHandler() );
 
+            server.CommandHandlers.Add(new FarAwayRunesHandler() );
+
             server.CommandHandlers.Add(new FishingRodHandler() );
 
             server.CommandHandlers.Add(new UseItemWithItemWalkToTargetHandler() );
+
+            server.CommandHandlers.Add(new NearRunesHandler() );
 
             server.CommandHandlers.Add(new RopeHandler() );
 

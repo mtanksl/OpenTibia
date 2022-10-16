@@ -1,34 +1,48 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using System;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
     public class CombatBeamAttackCommand : Command
     {
-        public CombatBeamAttackCommand(Creature attacker, Offset[] beams, MagicEffectType magicEffectType, int health)
+        public CombatBeamAttackCommand(Creature attacker, Position position, Offset[] beams, ProjectileType? projectileType, MagicEffectType? magicEffectType, Func<Creature, int> formula)
         {
             Attacker = attacker;
 
+            Position = position;
+
             Beams = beams;
+
+            ProjectileType = projectileType;
 
             MagicEffectType = magicEffectType;
 
-            Health = health;
+            Formula = formula;
         }
 
         public Creature Attacker { get; set; }
 
+        public Position Position { get; set; }
+
         public Offset[] Beams { get; set; }
 
-        public MagicEffectType MagicEffectType { get; set; }
+        public ProjectileType? ProjectileType { get; set; }
 
-        public int Health { get; set; }
+        public MagicEffectType? MagicEffectType { get; set; }
+
+        public Func<Creature, int> Formula { get; set; }
 
         public override Promise Execute(Context context)
         {
             return Promise.Run(resolve =>
             {
+                if (ProjectileType != null)
+                {
+                    context.AddCommand(new ShowProjectileCommand(Attacker.Tile.Position, Position, ProjectileType.Value) );
+                }
+
                 foreach (var beam in Beams)
                 {
                     Offset offset;
@@ -50,9 +64,12 @@ namespace OpenTibia.Game.Commands
                         offset = beam;
                     }
 
-                    Position position = Attacker.Tile.Position.Offset(offset);
+                    Position position = Position.Offset(offset);
 
-                    context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType) );
+                    if (MagicEffectType != null)
+                    {
+                        context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.Value) );
+                    }
 
                     Tile tile = context.Server.Map.GetTile(position);
 
@@ -60,7 +77,12 @@ namespace OpenTibia.Game.Commands
                     {
                         foreach (var target in tile.GetMonsters().Concat<Creature>(tile.GetPlayers() ).ToList() )
                         {
-                            context.AddCommand(new CombatChangeHealthCommand(Attacker, target, Health) );
+                            int health = Formula(target);
+
+                            if (target != Attacker || health > 0)
+                            {
+                                context.AddCommand(new CombatChangeHealthCommand(Attacker, target, health) );
+                            }
                         }
                     }
                 }

@@ -52,6 +52,10 @@ namespace OpenTibia.Game.Commands
                         {
                             context.AddCommand(new TileCreatePlayerCommand(toTile, account.Name) ).Then( (ctx, player) =>
                             {
+#if DEBUG
+                                player.CalculateSorcererAndDruid(507);
+#endif
+
                                 Client client = new Client(ctx.Server);
 
                                     client.Player = player;

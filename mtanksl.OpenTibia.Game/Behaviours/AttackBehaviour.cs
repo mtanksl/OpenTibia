@@ -56,16 +56,7 @@ namespace OpenTibia.Game.Components
                     }
                     else
                     {
-                        int health = Server.Random.Next(0, 10);
-
-                        if (health > 0)
-                        {
-                            context.AddCommand(new CombatDistanceAttackCommand(monster, target, ProjectileType.Spear, null, -health) );
-                        }
-                        else
-                        {
-                            context.AddCommand(new ShowMagicEffectCommand(monster.Tile.Position, MagicEffectType.Puff) );
-                        }
+                        context.AddCommand(new CombatTargetedAttackCommand(monster, target, ProjectileType.Spear, null, _ => -Server.Random.Next(0, 10) ) );
                     }
                 }
             }

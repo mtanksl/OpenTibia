@@ -6,20 +6,16 @@ namespace OpenTibia.Common.Objects
     {
         public Creature()
         {
-            Health = 100;
-
-            MaxHealth = 100;
+            MaxHealth = Health = 150;
 
             Direction = Direction.South;
 
             Light = new Light(0, 0);
 
             Outfit = new Outfit(266, 0, 0, 0, 0, Addon.None);
-#if DEBUG
-            BaseSpeed = Speed = 2218;
-#else
+
             BaseSpeed = Speed = 220;
-#endif
+
             SkullIcon = SkullIcon.None;
 
             PartyIcon = PartyIcon.None;

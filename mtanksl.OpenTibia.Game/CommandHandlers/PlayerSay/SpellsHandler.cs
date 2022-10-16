@@ -64,7 +64,7 @@ namespace OpenTibia.Game.CommandHandlers
                                                             new Offset(-1, 3),  new Offset(0, 3),  new Offset(1, 3)
                 };
 
-                callback = HealingArea(command.Player, area, formula.Min, formula.Max);
+                callback = Healing(command.Player, area, formula.Min, formula.Max);
             }
             else if (command.Message == "exori mort")
             {
@@ -171,7 +171,7 @@ namespace OpenTibia.Game.CommandHandlers
                                                            new Offset(-3, -3), new Offset(-2, -3), new Offset(-1, -3), new Offset(0, -3), new Offset(1, -3), new Offset(2, -3), new Offset(3, -3),
                                        new Offset(-4, -2), new Offset(-3, -2), new Offset(-2, -2), new Offset(-1, -2), new Offset(0, -2), new Offset(1, -2), new Offset(2, -2), new Offset(3, -2), new Offset(4, -2),
                                        new Offset(-4, -1), new Offset(-3, -1), new Offset(-2, -1), new Offset(-1, -1), new Offset(0, -1), new Offset(1, -1), new Offset(2, -1), new Offset(3, -1), new Offset(4, -1),
-                    new Offset(-5, 0), new Offset(-4, 0),  new Offset(-3, 0),  new Offset(-2, 0),  new Offset(-1, 0),                     new Offset(1, 0),  new Offset(2, 0),  new Offset(3, 0),  new Offset(4, 0),  new Offset(5, 0),
+                    new Offset(-5, 0), new Offset(-4, 0),  new Offset(-3, 0),  new Offset(-2, 0),  new Offset(-1, 0),  new Offset(0, 0),  new Offset(1, 0),  new Offset(2, 0),  new Offset(3, 0),  new Offset(4, 0),  new Offset(5, 0),
                                        new Offset(-4, 1),  new Offset(-3, 1),  new Offset(-2, 1),  new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1),  new Offset(2, 1),  new Offset(3, 1),  new Offset(4, 1),
                                        new Offset(-4, 2),  new Offset(-3, 2),  new Offset(-2, 2),  new Offset(-1, 2),  new Offset(0, 2),  new Offset(1, 2),  new Offset(2, 2),  new Offset(3, 2),  new Offset(4, 2),
                                                            new Offset(-3, 3),  new Offset(-2, 3),  new Offset(-1, 3),  new Offset(0, 3),  new Offset(1, 3),  new Offset(2, 3),  new Offset(3, 3),
@@ -192,7 +192,7 @@ namespace OpenTibia.Game.CommandHandlers
                                                            new Offset(-3, -3), new Offset(-2, -3), new Offset(-1, -3), new Offset(0, -3), new Offset(1, -3), new Offset(2, -3), new Offset(3, -3),
                                        new Offset(-4, -2), new Offset(-3, -2), new Offset(-2, -2), new Offset(-1, -2), new Offset(0, -2), new Offset(1, -2), new Offset(2, -2), new Offset(3, -2), new Offset(4, -2),
                                        new Offset(-4, -1), new Offset(-3, -1), new Offset(-2, -1), new Offset(-1, -1), new Offset(0, -1), new Offset(1, -1), new Offset(2, -1), new Offset(3, -1), new Offset(4, -1),
-                    new Offset(-5, 0), new Offset(-4, 0),  new Offset(-3, 0),  new Offset(-2, 0),  new Offset(-1, 0),                     new Offset(1, 0),  new Offset(2, 0),  new Offset(3, 0),  new Offset(4, 0),  new Offset(5, 0),
+                    new Offset(-5, 0), new Offset(-4, 0),  new Offset(-3, 0),  new Offset(-2, 0),  new Offset(-1, 0),  new Offset(0, 0),  new Offset(1, 0),  new Offset(2, 0),  new Offset(3, 0),  new Offset(4, 0),  new Offset(5, 0),
                                        new Offset(-4, 1),  new Offset(-3, 1),  new Offset(-2, 1),  new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1),  new Offset(2, 1),  new Offset(3, 1),  new Offset(4, 1),
                                        new Offset(-4, 2),  new Offset(-3, 2),  new Offset(-2, 2),  new Offset(-1, 2),  new Offset(0, 2),  new Offset(1, 2),  new Offset(2, 2),  new Offset(3, 2),  new Offset(4, 2),
                                                            new Offset(-3, 3),  new Offset(-2, 3),  new Offset(-1, 3),  new Offset(0, 3),  new Offset(1, 3),  new Offset(2, 3),  new Offset(3, 3),
@@ -248,15 +248,15 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return context =>
             {
-                context.AddCommand(new CombatDirectAttackCommand(player, MagicEffectType.BlueShimmer, Server.Random.Next(min, max) ) );
+                context.AddCommand(new CombatTargetedAttackCommand(player, player, null, MagicEffectType.BlueShimmer, target => Server.Random.Next(min, max) ) );
             };           
         }
 
-        private Action<Context> HealingArea(Player player, Offset[] area, int min, int max)
+        private Action<Context> Healing(Player player, Offset[] area, int min, int max)
         {
             return context =>
             {
-                context.AddCommand(new CombatAreaAttackCommand(player, area, MagicEffectType.BlueShimmer, Server.Random.Next(min, max) ) );
+                context.AddCommand(new CombatAreaAttackCommand(player, player.Tile.Position, area, null, MagicEffectType.BlueShimmer, target => Server.Random.Next(min, max) ) );
             };           
         }
 
@@ -264,7 +264,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return context =>
             {
-                context.AddCommand(new CombatAreaAttackCommand(player, area, magicEffectType, -Server.Random.Next(min, max) ) );
+                context.AddCommand(new CombatAreaAttackCommand(player, player.Tile.Position, area, null, magicEffectType, target => -Server.Random.Next(min, max) ) );
             };
         }
 
@@ -272,7 +272,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return context =>
             {
-                context.AddCommand(new CombatBeamAttackCommand(player, beam, magicEffectType, -Server.Random.Next(min, max) ) );
+                context.AddCommand(new CombatBeamAttackCommand(player, player.Tile.Position, beam, null, magicEffectType, target => -Server.Random.Next(min, max) ) );
             };
         }
 
@@ -310,7 +310,23 @@ namespace OpenTibia.Game.CommandHandlers
         {
             var formula = 3 * magicLevel + 2 * level;
 
-           return (formula * (@base - variation) /100, formula * (@base + variation) / 100);
+           return (formula * (@base - variation) / 100, formula * (@base + variation) / 100);
+        }
+
+        private (int Min, int Max) Generic(int level, int magicLevel, int @base, int variation, int min, int max)
+        {
+            var formula = 3 * magicLevel + 2 * level;
+
+            if (formula < min)
+            {
+                formula = min;
+            }
+            else if (formula > max)
+            {
+                formula = max;
+            }
+
+            return (formula * (@base - variation) / 100, formula * (@base + variation) / 100);
         }
     }
 }

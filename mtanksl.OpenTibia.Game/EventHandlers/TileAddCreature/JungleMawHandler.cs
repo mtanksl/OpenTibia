@@ -26,7 +26,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (jungleMaws.TryGetValue(topItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
                 {
-                    context.AddCommand(new CombatDirectAttackCommand(e.Creature, MagicEffectType.BlackSpark, -30) );
+                    context.AddCommand(new CombatTargetedAttackCommand(null, e.Creature, null, MagicEffectType.BlackSpark, target => -30) );
 
                     context.AddCommand(new ItemTransformCommand(topItem, toOpenTibiaId, 1) ).Then( (ctx, item) =>
                     {
