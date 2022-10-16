@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,10 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (command.ToContainer is Tile toTile && toTile.Ground != null && tars.Contains(toTile.Ground.Metadata.OpenTibiaId) )
             {
-                return context.AddCommand(new ItemDecrementCommand(command.Item, command.Count) );
+                return context.AddCommand(new ItemDecrementCommand(command.Item, command.Count) ).Then(ctx =>
+                {
+                    return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Puff) );
+                } );
             }
 
             return next(context);

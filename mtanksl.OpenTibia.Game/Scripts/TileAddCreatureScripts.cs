@@ -21,6 +21,10 @@ namespace OpenTibia.Game.Scripts
             server.EventHandlers.Subscribe(new TrapHandler() );
 
             server.EventHandlers.Subscribe(new JungleMawHandler() );
+
+            server.EventHandlers.Subscribe(new BladesHandler() );
+
+            server.EventHandlers.Subscribe(new SpikesHandler() );
         }
 
         public void Stop(Server server)

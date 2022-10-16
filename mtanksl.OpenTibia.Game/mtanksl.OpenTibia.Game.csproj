@@ -102,7 +102,9 @@
     <Compile Include="Commands\Outgoing\Combat\CombatAreaAttackCommand.cs" />
     <Compile Include="Commands\Outgoing\SplashItem\FluidItemUpdateFluidTypeCommand.cs" />
     <Compile Include="ComponentCollection.cs" />
+    <Compile Include="EventHandlers\TileAddCreature\SpikesHandler.cs" />
     <Compile Include="EventHandlers\TileAddCreature\JungleMawHandler.cs" />
+    <Compile Include="EventHandlers\TileAddCreature\BladesHandler.cs" />
     <Compile Include="EventHandlers\TileAddCreature\TrapHandler.cs" />
     <Compile Include="EventHandlers\TileAddCreature\EnergyFieldHandler.cs" />
     <Compile Include="EventHandlers\TileAddCreature\PoisonFieldHandler.cs" />
