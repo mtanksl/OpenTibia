@@ -32,15 +32,18 @@ namespace OpenTibia.Game.Commands
 
                 if (fromTile != null)
                 {
-                    Item fromItem = fromTile.GetContent(FromIndex) as Item;
-
-                    if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                    if (Player.Tile.Position.CanSee(fromTile.Position) )
                     {
-                        Player toPlayer = context.Server.GameObjects.GetPlayer(ToCreatureId);
+                        Item fromItem = fromTile.GetContent(FromIndex) as Item;
 
-                        if (toPlayer != null && toPlayer != Player)
+                        if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                         {
-                            resolve(context);
+                            Player toPlayer = context.Server.GameObjects.GetPlayer(ToCreatureId);
+
+                            if (toPlayer != null && toPlayer != Player)
+                            {
+                                resolve(context);
+                            }
                         }
                     }
                 } 

@@ -36,22 +36,25 @@ namespace OpenTibia.Game.Commands
 
                 if (fromTile != null)
                 {
-                    Item fromItem = fromTile.GetContent(FromIndex) as Item;
-
-                    if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
+                    if (Player.Tile.Position.CanSee(fromTile.Position) )
                     {
-                        Inventory toInventory = Player.Inventory;
+                        Item fromItem = fromTile.GetContent(FromIndex) as Item;
 
-                        Item toItem = toInventory.GetContent(ToSlot) as Item;
-
-                        if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
+                        if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
                         {
-                            if ( IsUseable(context, fromItem) )
+                            Inventory toInventory = Player.Inventory;
+
+                            Item toItem = toInventory.GetContent(ToSlot) as Item;
+
+                            if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
                             {
-                                context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) ).Then(ctx =>
+                                if ( IsUseable(context, fromItem) )
                                 {
-                                    resolve(context);
-                                } );
+                                    context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) ).Then(ctx =>
+                                    {
+                                        resolve(context);
+                                    } );
+                                }
                             }
                         }
                     }

@@ -36,47 +36,50 @@ namespace OpenTibia.Game.Commands
 
                 if (fromTile != null)
                 {
-                    switch (fromTile.GetContent(FromIndex) )
+                    if (Player.Tile.Position.CanSee(fromTile.Position) )
                     {
-                        case Item fromItem:
+                        switch (fromTile.GetContent(FromIndex) )
+                        {
+                            case Item fromItem:
 
-                            if (fromItem.Metadata.TibiaId == ItemId)
-                            {
-                                Tile toTile = context.Server.Map.GetTile(ToPosition);
-
-                                if (toTile != null)
+                                if (fromItem.Metadata.TibiaId == ItemId)
                                 {
-                                    if (IsMoveable(context, fromItem, Count) )
+                                    Tile toTile = context.Server.Map.GetTile(ToPosition);
+
+                                    if (toTile != null)
                                     {
-                                        context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toTile, 0, Count) ).Then(ctx =>
+                                        if (IsMoveable(context, fromItem, Count) )
                                         {
-                                            resolve(ctx);
-                                        } );
+                                            context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toTile, 0, Count) ).Then(ctx =>
+                                            {
+                                                resolve(ctx);
+                                            } );
+                                        }
                                     }
                                 }
-                            }
 
-                            break;
+                                break;
 
-                        case Creature fromCreature:
+                            case Creature fromCreature:
 
-                            if (ItemId == 99)
-                            {
-                                Tile toTile = context.Server.Map.GetTile(ToPosition);
-
-                                if (toTile != null)
+                                if (ItemId == 99)
                                 {
-                                    if (IsMoveable(context, fromCreature) )
+                                    Tile toTile = context.Server.Map.GetTile(ToPosition);
+
+                                    if (toTile != null)
                                     {
-                                        context.AddCommand(new PlayerMoveCreatureCommand(Player, fromCreature, toTile) ).Then(ctx =>
+                                        if (IsMoveable(context, fromCreature) )
                                         {
-                                            resolve(ctx);
-                                        } );
+                                            context.AddCommand(new PlayerMoveCreatureCommand(Player, fromCreature, toTile) ).Then(ctx =>
+                                            {
+                                                resolve(ctx);
+                                            } );
+                                        }
                                     }
                                 }
-                            }
 
-                            break;
+                                break;
+                        }
                     }
                 }
             } );

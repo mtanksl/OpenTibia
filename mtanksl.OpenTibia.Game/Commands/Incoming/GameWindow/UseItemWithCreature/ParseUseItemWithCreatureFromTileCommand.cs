@@ -34,20 +34,23 @@ namespace OpenTibia.Game.Commands
 
                 if (fromTile != null)
                 {
-                    Item fromItem = fromTile.GetContent(FromIndex) as Item;
-
-                    if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                    if (Player.Tile.Position.CanSee(fromTile.Position) )
                     {
-                        Creature toCreature = context.Server.GameObjects.GetCreature(ToCreatureId);
+                        Item fromItem = fromTile.GetContent(FromIndex) as Item;
 
-                        if (toCreature != null)
+                        if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                         {
-                            if ( IsUseable(context, fromItem) )
+                            Creature toCreature = context.Server.GameObjects.GetCreature(ToCreatureId);
+
+                            if (toCreature != null)
                             {
-                                context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) ).Then(ctx =>
+                                if ( IsUseable(context, fromItem) )
                                 {
-                                    resolve(ctx);
-                                } );
+                                    context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) ).Then(ctx =>
+                                    {
+                                        resolve(ctx);
+                                    } );
+                                }
                             }
                         }
                     }

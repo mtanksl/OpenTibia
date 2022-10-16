@@ -28,31 +28,34 @@ namespace OpenTibia.Game.Commands
 
                 if (fromTile != null)
                 {
-                    switch ( fromTile.GetContent(FromIndex) )
+                    if (Player.Tile.Position.CanSee(fromTile.Position) )
                     {
-                        case Item item:
+                        switch ( fromTile.GetContent(FromIndex) )
+                        {
+                            case Item item:
 
-                            if (item.Metadata.TibiaId == ItemId)
-                            {
-                                context.AddCommand(new PlayerLookItemCommand(Player, item) ).Then(ctx =>
+                                if (item.Metadata.TibiaId == ItemId)
                                 {
-                                    resolve(ctx);
-                                } );
-                            }
+                                    context.AddCommand(new PlayerLookItemCommand(Player, item) ).Then(ctx =>
+                                    {
+                                        resolve(ctx);
+                                    } );
+                                }
 
-                            break;
+                                break;
 
-                        case Creature creature:
+                            case Creature creature:
 
-                            if (ItemId == 99)
-                            {
-                                context.AddCommand(new PlayerLookCreatureCommand(Player, creature) ).Then(ctx =>
+                                if (ItemId == 99)
                                 {
-                                    resolve(ctx);
-                                } );
-                            }
+                                    context.AddCommand(new PlayerLookCreatureCommand(Player, creature) ).Then(ctx =>
+                                    {
+                                        resolve(ctx);
+                                    } );
+                                }
 
-                            break;
+                                break;
+                        }
                     }
                 }
             } );            

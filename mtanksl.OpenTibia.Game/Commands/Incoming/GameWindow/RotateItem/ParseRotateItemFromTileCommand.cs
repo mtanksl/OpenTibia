@@ -28,16 +28,19 @@ namespace OpenTibia.Game.Commands
 
                 if (fromTile != null)
                 {
-                    Item fromItem = fromTile.GetContent(FromIndex) as Item;
-
-                    if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                    if (Player.Tile.Position.CanSee(fromTile.Position) )
                     {
-                        if ( IsRotatable(context, fromItem) )
+                        Item fromItem = fromTile.GetContent(FromIndex) as Item;
+
+                        if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                         {
-                            context.AddCommand(new PlayerRotateItemCommand(Player, fromItem) ).Then(ctx =>
+                            if ( IsRotatable(context, fromItem) )
                             {
-                                resolve(ctx);
-                            } );
+                                context.AddCommand(new PlayerRotateItemCommand(Player, fromItem) ).Then(ctx =>
+                                {
+                                    resolve(ctx);
+                                } );
+                            }
                         }
                     }
                 }

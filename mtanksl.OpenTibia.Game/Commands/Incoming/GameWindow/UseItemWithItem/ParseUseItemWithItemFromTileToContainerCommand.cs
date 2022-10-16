@@ -40,25 +40,28 @@ namespace OpenTibia.Game.Commands
 
                 if (fromTile != null)
                 {
-                    Item fromItem = fromTile.GetContent(FromIndex) as Item;
-
-                    if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
+                    if (Player.Tile.Position.CanSee(fromTile.Position) )
                     {
-                        Container toContainer = Player.Client.ContainerCollection.GetContainer(ToContainerId);
+                        Item fromItem = fromTile.GetContent(FromIndex) as Item;
 
-                        if (toContainer != null)
+                        if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
                         {
-                            Item toItem = toContainer.GetContent(ToContainerIndex) as Item;
+                            Container toContainer = Player.Client.ContainerCollection.GetContainer(ToContainerId);
 
-                            if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
+                            if (toContainer != null)
                             {
-                                if ( IsUseable(context, fromItem) )
+                                Item toItem = toContainer.GetContent(ToContainerIndex) as Item;
+
+                                if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
                                 {
-                                    context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) ).Then(ctx =>
+                                    if ( IsUseable(context, fromItem) )
                                     {
-                                        resolve(context);
-                                    } );
-                                }                            
+                                        context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) ).Then(ctx =>
+                                        {
+                                            resolve(context);
+                                        } );
+                                    }                            
+                                }
                             }
                         }
                     }

@@ -28,14 +28,17 @@ namespace OpenTibia.Game.Commands
 
                 if (fromTile != null)
                 {
-                    Item fromItem = fromTile.GetContent(FromIndex) as Item;
+                    if (Player.Tile.Position.CanSee(fromTile.Position) )
+                    {
+                        Item fromItem = fromTile.GetContent(FromIndex) as Item;
 
-                    if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
-                    {    
-                        context.AddCommand(new PlayerUseItemCommand(Player, fromItem, null) ).Then(ctx =>
-                        {
-                            resolve(ctx);
-                        } );
+                        if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                        {    
+                            context.AddCommand(new PlayerUseItemCommand(Player, fromItem, null) ).Then(ctx =>
+                            {
+                                resolve(ctx);
+                            } );
+                        }
                     }
                 }
             } );   

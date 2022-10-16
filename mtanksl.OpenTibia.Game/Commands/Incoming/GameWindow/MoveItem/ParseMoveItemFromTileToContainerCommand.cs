@@ -40,20 +40,23 @@ namespace OpenTibia.Game.Commands
 
                 if (fromTile != null)
                 {
-                    Item fromItem = fromTile.GetContent(FromIndex) as Item;
-
-                    if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                    if (Player.Tile.Position.CanSee(fromTile.Position) )
                     {
-                        Container toContainer = Player.Client.ContainerCollection.GetContainer(ToContainerId);
+                        Item fromItem = fromTile.GetContent(FromIndex) as Item;
 
-                        if (toContainer != null)
+                        if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                         {
-                            if (IsMoveable(context, fromItem, Count) && IsPickupable(context, fromItem) && IsPossible(context, fromItem, toContainer) )
+                            Container toContainer = Player.Client.ContainerCollection.GetContainer(ToContainerId);
+
+                            if (toContainer != null)
                             {
-                                context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toContainer, ToContainerIndex, Count) ).Then(ctx =>
+                                if (IsMoveable(context, fromItem, Count) && IsPickupable(context, fromItem) && IsPossible(context, fromItem, toContainer) )
                                 {
-                                    resolve(ctx);
-                                } );
+                                    context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toContainer, ToContainerIndex, Count) ).Then(ctx =>
+                                    {
+                                        resolve(ctx);
+                                    } );
+                                }
                             }
                         }
                     }
