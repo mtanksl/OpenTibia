@@ -102,7 +102,7 @@
 
         HolyArea = 50,
 
-        BugPlants = 51,
+        BigPlants = 51,
 
         Cake = 52,
 

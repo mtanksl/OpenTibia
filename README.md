@@ -77,3 +77,29 @@ The server architecture is the following: *Packets* are the primary unity. *Inco
 - exevo mort hur - Attack
 - exevo gran mas vis - Attack
 - exevo gran mas pox - Attack
+- Exori - Attack
+
+Notes: Formulas are based on Tibia Wiki and RealOTS. Not perfect, but it serves as an inspiration for now.
+
+# Runes list
+- Poison field
+- Poison bomb
+- Poison wall
+- Fire field
+- Fire bomb
+- Fire wall
+- Energy field
+- Energy bomb
+- Energy wall
+- Fireball
+- Great fireball
+- Explosion
+- Magic wall
+- Wild growth
+- Intense healing
+- Ultimate healing
+- Light magic missile
+- Heavy magic missile
+- Sudden death
+
+Notes: Formulas are based on Tibia Wiki and RealOTS. Not perfect, but it serves as an inspiration for now.

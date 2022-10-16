@@ -24,13 +24,13 @@
 
         Skull = 11,
 
-        BugStone = 12,
+        BigStone = 12,
 
         SnowBall = 13,
 
         PowerBolt = 14,
 
-        SmallPoison = 15,
+        Poison = 15,
 
         InfernalBolt = 16,
 
@@ -48,13 +48,13 @@
 
         OnyxArrow = 23,
 
-        EarthArrow = 24,
+        PiercingBolt = 24,
 
-        NormalSword = 25,
+        WhirlWindSword = 25,
 
-        NormalAxe = 26,
+        WhirlWindAxe = 26,
 
-        NormalClub = 27,
+        WhirlWindClub = 27,
 
         EthernalSpear = 28,
 
@@ -64,7 +64,7 @@
 
         Holy = 31,
 
-        Death = 32,
+        SuddenDeath = 32,
 
         FlashArrow = 33,
 
@@ -80,7 +80,7 @@
 
         EarthSmall = 39,
 
-        EarthArrow2 = 40,
+        EarthArrow = 40,
 
         Explosion = 41,
 

@@ -74,7 +74,11 @@ namespace OpenTibia.Game.Commands
                             }
                         }
 
-                        if ( !tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || tile.GetCreatures().Any(c => c.Block) )
+                        if ( tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || tile.GetCreatures().Any(c => c.Block) )
+                        {
+
+                        }
+                        else
                         {
                             context.AddCommand(new TileCreateItemCommand(tile, OpenTibiaId, Count) ).Then( (ctx, item) =>
                             {

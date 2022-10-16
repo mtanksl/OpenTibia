@@ -8,7 +8,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class SpellsHandler : CommandHandler<PlayerSayCommand>
     {
-        private static Dictionary<string, Func<Player, Action<Context> > > spells = new Dictionary<string, Func<Player, Action<Context> > >()
+        private static Dictionary<string, Func<Player, Func<Context, Promise>>> spells = new Dictionary<string, Func<Player, Func<Context, Promise>>>()
         {
             { "utevo lux", player =>
             {
@@ -22,7 +22,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             { "utevo vis lux", player => 
             {
-                return Light(player, 10, 215); 
+                return Light(player, 9, 215); 
             } },
 
             { "utani hur", player =>
@@ -206,55 +206,57 @@ namespace OpenTibia.Game.CommandHandlers
             } }
         };
 
-        private static Action<Context> Light(Player player, byte level, byte color)
+        private static Func<Context, Promise> Light(Player player, byte level, byte color)
         {
             return context =>
             {
-                context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) );
-
-                context.AddCommand(new CreatureUpdateLightCommand(player, new Light(level, color) ) );
+                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) ).Then(ctx =>
+                {
+                    return ctx.AddCommand(new CreatureUpdateLightCommand(player, new Light(level, color) ) );
+                } );
             };           
         }
 
-        private static Action<Context> Speed(Player player, ushort speed)
+        private static Func<Context, Promise> Speed(Player player, ushort speed)
         {
             return context =>
             {
-                context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.GreenShimmer) );
-
-                context.AddCommand(new CreatureUpdateSpeedCommand(player, speed) );
+                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.GreenShimmer) ).Then(ctx =>
+                {
+                    return ctx.AddCommand(new CreatureUpdateSpeedCommand(player, speed) );
+                } );
             };           
         }
 
-        private static Action<Context> Healing(Player player, (int Min, int Max) formula)
+        private static Func<Context, Promise> Healing(Player player, (int Min, int Max) formula)
         {
             return context =>
             {
-                context.AddCommand(new CombatTargetedAttackCommand(player, player, null, MagicEffectType.BlueShimmer, target => Server.Random.Next(formula.Min, formula.Max) ) );
+                return context.AddCommand(new CombatTargetedAttackCommand(player, player, null, MagicEffectType.BlueShimmer, target => Server.Random.Next(formula.Min, formula.Max) ) );
             };           
         }
 
-        private static Action<Context> Healing(Player player, Offset[] area, (int Min, int Max) formula)
+        private static Func<Context, Promise> Healing(Player player, Offset[] area, (int Min, int Max) formula)
         {
             return context =>
             {
-                context.AddCommand(new CombatAreaAttackCommand(player, player.Tile.Position, area, null, MagicEffectType.BlueShimmer, target => Server.Random.Next(formula.Min, formula.Max) ) );
+                return context.AddCommand(new CombatAreaAttackCommand(player, player.Tile.Position, area, null, MagicEffectType.BlueShimmer, target => Server.Random.Next(formula.Min, formula.Max) ) );
             };           
         }
 
-        private static Action<Context> AreaAttack(Player player, Offset[] area, MagicEffectType? magicEffectType, (int Min, int Max) formula)
+        private static Func<Context, Promise> AreaAttack(Player player, Offset[] area, MagicEffectType? magicEffectType, (int Min, int Max) formula)
         {
             return context =>
             {
-                context.AddCommand(new CombatAreaAttackCommand(player, player.Tile.Position, area, null, magicEffectType, target => -Server.Random.Next(formula.Min, formula.Max) ) );
+                return context.AddCommand(new CombatAreaAttackCommand(player, player.Tile.Position, area, null, magicEffectType, target => -Server.Random.Next(formula.Min, formula.Max) ) );
             };
         }
 
-        private static Action<Context> BeamAttack(Player player, Offset[] beam, MagicEffectType? magicEffectType, (int Min, int Max) formula)
+        private static Func<Context, Promise> BeamAttack(Player player, Offset[] beam, MagicEffectType? magicEffectType, (int Min, int Max) formula)
         {
             return context =>
             {
-                context.AddCommand(new CombatBeamAttackCommand(player, beam, magicEffectType, target => -Server.Random.Next(formula.Min, formula.Max) ) );
+                return context.AddCommand(new CombatBeamAttackCommand(player, beam, magicEffectType, target => -Server.Random.Next(formula.Min, formula.Max) ) );
             };
         }
 
@@ -300,25 +302,9 @@ namespace OpenTibia.Game.CommandHandlers
            return (formula * (@base - variation) / 100, formula * (@base + variation) / 100);
         }
 
-        private static (int Min, int Max) GenericFormula(int level, int magicLevel, int @base, int variation, int min, int max)
-        {
-            var formula = 3 * magicLevel + 2 * level;
-
-            if (formula < min)
-            {
-                formula = min;
-            }
-            else if (formula > max)
-            {
-                formula = max;
-            }
-
-            return (formula * (@base - variation) / 100, formula * (@base + variation) / 100);
-        }
-
         public override Promise Handle(Context context, Func<Context, Promise> next, PlayerSayCommand command)
         {
-            Func<Player, Action<Context> > callback;
+            Func<Player, Func<Context, Promise>> callback;
 
             if (spells.TryGetValue(command.Message, out callback) )
             {

@@ -8,7 +8,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class RunesHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        Dictionary<ushort, Func<Player, Position, Action<Context>>> runes = new Dictionary<ushort, Func<Player, Position, Action<Context>>>()
+        private static Dictionary<ushort, Func<Player, Position, Func<Context, Promise>>> runes = new Dictionary<ushort, Func<Player, Position, Func<Context, Promise>>>()
         {
             { 2285 /* Poison field */, (player, position) =>
             {
@@ -17,7 +17,7 @@ namespace OpenTibia.Game.CommandHandlers
                     new Offset(0, 0)
                 };
 
-                return AreaCreate(player, position, area, ProjectileType.SmallPoison, MagicEffectType.GreenRings, 1496, 1, -5);
+                return AreaCreate(player, position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, -5);
             } },
 
             { 2286 /* Poison bomb */, (player, position) =>
@@ -29,7 +29,7 @@ namespace OpenTibia.Game.CommandHandlers
                     new Offset(-1, 1) , new Offset(0, 1) , new Offset(1, 1)
                 };
 
-                return AreaCreate(player, position, area, ProjectileType.SmallPoison, MagicEffectType.GreenRings, 1496, 1, -5);
+                return AreaCreate(player, position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, -5);
             } },
 
             { 2289 /* Poison wall */, (player, position) =>
@@ -39,7 +39,7 @@ namespace OpenTibia.Game.CommandHandlers
                     new Offset(-2, 0), new Offset(-1, 0), new Offset(0, 0), new Offset(1, 0), new Offset(2, 0)
                 };
 
-                return AreaCreate(player, position, area, ProjectileType.SmallPoison, MagicEffectType.GreenRings, 1496, 1, -5);
+                return AreaCreate(player, position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, -5);
             } },
 
             { 2301 /* Fire field */, (player, position) =>
@@ -81,7 +81,7 @@ namespace OpenTibia.Game.CommandHandlers
                     new Offset(0, 0)
                 };
 
-                return AreaCreate(player, position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1495, 1, -30);
+                return AreaCreate(player, position, area, ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, 1495, 1, -30);
             } },
 
             { 2262 /* Energy bomb */, (player, position) =>
@@ -93,7 +93,7 @@ namespace OpenTibia.Game.CommandHandlers
                     new Offset(-1, 1) , new Offset(0, 1) , new Offset(1, 1)
                 };
 
-                return AreaCreate(player, position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1495, 1, -30);
+                return AreaCreate(player, position, area, ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, 1495, 1, -30);
             } },
 
             { 2279 /* Energy wall */, (player, position) =>
@@ -103,7 +103,7 @@ namespace OpenTibia.Game.CommandHandlers
                     new Offset(-2, 0), new Offset(-1, 0), new Offset(0, 0), new Offset(1, 0), new Offset(2, 0)
                 };
 
-                return AreaCreate(player, position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1495, 1, -30);
+                return AreaCreate(player, position, area, ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, 1495, 1, -30);
             } },
 
             { 2302 /* Fireball */, (player, position) =>
@@ -165,23 +165,23 @@ namespace OpenTibia.Game.CommandHandlers
                     new Offset(0, 0)
                 };
 
-                return AreaCreate(player, position, area, ProjectileType.Energy, null, 1499, 1, 0);
+                return AreaCreate(player, position, area, ProjectileType.Earth, null, 1499, 1, 0);
             } }
         };
 
-        private static Action<Context> AreaAttack(Player player, Position position, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, (int Min, int Max) formula)
+        private static Func<Context, Promise> AreaAttack(Player player, Position position, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, (int Min, int Max) formula)
         {
             return context =>
             {
-                context.AddCommand(new CombatAreaAttackCommand(player, position, area, projectileType, magicEffectType, target => -Server.Random.Next(formula.Min, formula.Max) ) );
+                return context.AddCommand(new CombatAreaAttackCommand(player, position, area, projectileType, magicEffectType, target => -Server.Random.Next(formula.Min, formula.Max) ) );
             };
         }
 
-        private static Action<Context> AreaCreate(Player player, Position position, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, int health)
+        private static Func<Context, Promise> AreaCreate(Player player, Position position, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, int health)
         {
             return context =>
             {
-                context.AddCommand(new CombatAreaCreateCommand(player, position, area, projectileType, magicEffectType, openTibiaId, count, target => health) );
+                return context.AddCommand(new CombatAreaCreateCommand(player, position, area, projectileType, magicEffectType, openTibiaId, count, target => health) );
             };
         }
 
@@ -192,25 +192,9 @@ namespace OpenTibia.Game.CommandHandlers
             return (formula * (@base - variation) / 100, formula * (@base + variation) / 100);
         }
 
-        private static (int Min, int Max) GenericFormula(int level, int magicLevel, int @base, int variation, int min, int max)
-        {
-            var formula = 3 * magicLevel + 2 * level;
-
-            if (formula < min)
-            {
-                formula = min;
-            }
-            else if (formula > max)
-            {
-                formula = max;
-            }
-
-            return (formula * (@base - variation) / 100, formula * (@base + variation) / 100);
-        }
-
         public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemWithItemCommand command)
         {
-            Func<Player, Position, Action<Context>> callback;
+            Func<Player, Position, Func<Context, Promise>> callback;
 
             if (runes.TryGetValue(command.Item.Metadata.OpenTibiaId, out callback) && command.ToItem.Parent is Tile toTile)
             {
