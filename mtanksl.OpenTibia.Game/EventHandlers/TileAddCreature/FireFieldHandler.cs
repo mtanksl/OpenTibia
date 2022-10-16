@@ -8,13 +8,18 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class FireFieldHandler : EventHandler<TileAddCreatureEventArgs>
     {
-        private HashSet<ushort> campfires = new HashSet<ushort>() { 1487, 1488, 1492, 1493 };
+        private HashSet<ushort> fireFields = new HashSet<ushort>() { 1487, 1488, 1492, 1493 };
 
         public override void Handle(Context context, TileAddCreatureEventArgs e)
         {
-            if (e.Tile.TopItem != null && campfires.Contains(e.Tile.TopItem.Metadata.OpenTibiaId) )
+            foreach (var topItem in e.Tile.GetItems() )
             {
-                context.AddCommand(new CombatDirectAttackCommand(e.Creature, MagicEffectType.FirePlume, -20) );
+                if (fireFields.Contains(topItem.Metadata.OpenTibiaId) )
+                {
+                    context.AddCommand(new CombatDirectAttackCommand(e.Creature, MagicEffectType.FirePlume, -20) );
+
+                    break;
+                }
             }
         }
     }

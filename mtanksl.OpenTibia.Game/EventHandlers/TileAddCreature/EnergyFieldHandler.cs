@@ -8,13 +8,18 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class EnergyFieldHandler : EventHandler<TileAddCreatureEventArgs>
     {
-        private HashSet<ushort> campfires = new HashSet<ushort>() { 1491, 1495 };
+        private HashSet<ushort> energyFields = new HashSet<ushort>() { 1491, 1495 };
 
         public override void Handle(Context context, TileAddCreatureEventArgs e)
         {
-            if (e.Tile.TopItem != null && campfires.Contains(e.Tile.TopItem.Metadata.OpenTibiaId) )
+            foreach (var topItem in e.Tile.GetItems() )
             {
-                context.AddCommand(new CombatDirectAttackCommand(e.Creature, MagicEffectType.EnergyDamage, -30) );
+                if (energyFields.Contains(topItem.Metadata.OpenTibiaId) )
+                {
+                    context.AddCommand(new CombatDirectAttackCommand(e.Creature, MagicEffectType.EnergyDamage, -30) );
+
+                    break;
+                }
             }
         }
     }

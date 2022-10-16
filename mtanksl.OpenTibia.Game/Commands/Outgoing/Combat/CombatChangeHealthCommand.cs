@@ -67,7 +67,7 @@ namespace OpenTibia.Game.Commands
 
                             context.AddCommand(new PlayerDestroyCommand(player) );
 
-                            context.Disconnect(player.Client.Connection);
+                            context.AddPacket(player.Client.Connection, new OpenYouAreDeathDialogOutgoingPacket() );
                         }
                     }
                     else if (Target is Monster monster)

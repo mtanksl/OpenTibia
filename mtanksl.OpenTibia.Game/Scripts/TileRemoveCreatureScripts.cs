@@ -7,6 +7,8 @@ namespace OpenTibia.Game.Scripts
         public void Start(Server server)
         {
             server.EventHandlers.Subscribe(new TileDepressHandler() );
+
+            server.EventHandlers.Subscribe(new CloseDoorAutomaticallyHandler() );
         }
 
         public void Stop(Server server)

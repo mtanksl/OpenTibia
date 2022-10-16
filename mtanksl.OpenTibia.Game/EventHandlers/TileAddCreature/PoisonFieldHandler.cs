@@ -8,13 +8,18 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class PoisonFieldHandler : EventHandler<TileAddCreatureEventArgs>
     {
-        private HashSet<ushort> campfires = new HashSet<ushort>() { 1490, 1496 };
+        private HashSet<ushort> poisonFields = new HashSet<ushort>() { 1490, 1496 };
 
         public override void Handle(Context context, TileAddCreatureEventArgs e)
         {
-            if (e.Tile.TopItem != null && campfires.Contains(e.Tile.TopItem.Metadata.OpenTibiaId) )
+            foreach (var topItem in e.Tile.GetItems() )
             {
-                context.AddCommand(new CombatDirectAttackCommand(e.Creature, MagicEffectType.GreenRings, -5) );
+                if (poisonFields.Contains(topItem.Metadata.OpenTibiaId) )
+                {
+                    context.AddCommand(new CombatDirectAttackCommand(e.Creature, MagicEffectType.GreenRings, -5) );
+
+                    break;
+                }
             }
         }
     }

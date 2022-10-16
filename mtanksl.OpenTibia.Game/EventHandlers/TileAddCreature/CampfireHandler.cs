@@ -12,9 +12,14 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, TileAddCreatureEventArgs e)
         {
-            if (e.Tile.TopItem != null && campfires.Contains(e.Tile.TopItem.Metadata.OpenTibiaId) )
+            foreach (var topItem in e.Tile.GetItems() )
             {
-                context.AddCommand(new CombatDirectAttackCommand(e.Creature, MagicEffectType.FirePlume, -20) );
+                if (campfires.Contains(topItem.Metadata.OpenTibiaId) )
+                {
+                    context.AddCommand(new CombatDirectAttackCommand(e.Creature, MagicEffectType.FirePlume, -20) );
+
+                    break;
+                }
             }
         }
     }

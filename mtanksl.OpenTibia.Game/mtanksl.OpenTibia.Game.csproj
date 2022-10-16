@@ -81,6 +81,8 @@
     <Compile Include="CommandHandlers\PlayerUseItemWithItem\PickHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\FireworksRocketHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\CrystalCoinHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItem\SealedDoorHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItem\GateOfExpertiseHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\SantaDollHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\StuffedDragonHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\PartyHatHandler.cs" />
@@ -106,6 +108,7 @@
     <Compile Include="EventHandlers\TileAddCreature\PoisonFieldHandler.cs" />
     <Compile Include="EventHandlers\TileAddCreature\FireFieldHandler.cs" />
     <Compile Include="EventHandlers\TileAddCreature\CampfireHandler.cs" />
+    <Compile Include="EventHandlers\TileRemoveCreature\CloseDoorAutomaticallyHandler.cs" />
     <Compile Include="Extensions\SplashItemExtensions.cs" />
     <Compile Include="TransactionContext.cs" />
     <Compile Include="Commands\Outgoing\Item\ItemDecayDestroyCommand.cs" />

@@ -15,13 +15,18 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, TileAddCreatureEventArgs e)
         {
-            ushort toOpenTibiaId;
-
-            if (e.Tile.TopItem != null && traps.TryGetValue(e.Tile.TopItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+            foreach (var topItem in e.Tile.GetItems() )
             {
-                context.AddCommand(new ItemTransformCommand(e.Tile.TopItem, toOpenTibiaId, 1) );
+                ushort toOpenTibiaId;
 
-                context.AddCommand(new CombatDirectAttackCommand(e.Creature, MagicEffectType.BlackSpark, -20) );
+                if (traps.TryGetValue(topItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+                {
+                    context.AddCommand(new ItemTransformCommand(topItem, toOpenTibiaId, 1) );
+
+                    context.AddCommand(new CombatDirectAttackCommand(e.Creature, MagicEffectType.BlackSpark, -20) );
+
+                    break;
+                }
             }
         }
     }
