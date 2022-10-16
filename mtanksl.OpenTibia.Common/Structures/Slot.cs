@@ -2,6 +2,8 @@
 {
     public enum Slot : byte
     {
+        Hotkey = 0,
+
         Head = 1,
 
         Amulet = 2,

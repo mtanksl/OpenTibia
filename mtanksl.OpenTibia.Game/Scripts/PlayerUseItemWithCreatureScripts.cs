@@ -8,7 +8,9 @@ namespace OpenTibia.Game.Scripts
         {
             server.CommandHandlers.Add(new UseItemWithCreatureWalkToSourceHandler() );
 
-            server.CommandHandlers.Add(new FarAwayRunes2Handler() );
+            //TODO: You cannot use there.
+
+            server.CommandHandlers.Add(new Runes2Handler() );
 
             server.CommandHandlers.Add(new UseItemWithCreatureWalkToTargetHandler() );            
 

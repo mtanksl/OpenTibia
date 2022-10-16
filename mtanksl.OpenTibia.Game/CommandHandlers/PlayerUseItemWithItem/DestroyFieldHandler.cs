@@ -6,15 +6,15 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class NearRunesHandler : CommandHandler<PlayerUseItemWithItemCommand>
+    public class DestroyFieldHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private ushort destroyField = 2261;
+        private HashSet<ushort> destroyFields = new HashSet<ushort>() { 2261 };
 
         private HashSet<ushort> fields = new HashSet<ushort>() { 1492, 1493, 1494, 1495, 1496 };
 
         public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemWithItemCommand command)
         {
-            if (command.Item.Metadata.OpenTibiaId == destroyField && fields.Contains(command.ToItem.Metadata.OpenTibiaId) )
+            if (destroyFields.Contains(command.Item.Metadata.OpenTibiaId) && fields.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
                 return context.AddCommand(new  ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.Puff) ).Then(ctx =>
                 {

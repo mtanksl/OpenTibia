@@ -7,15 +7,11 @@ namespace OpenTibia.Game.Commands
 {
     public class CombatBeamAttackCommand : Command
     {
-        public CombatBeamAttackCommand(Creature attacker, Position position, Offset[] beams, ProjectileType? projectileType, MagicEffectType? magicEffectType, Func<Creature, int> formula)
+        public CombatBeamAttackCommand(Creature attacker, Offset[] beams, MagicEffectType? magicEffectType, Func<Creature, int> formula)
         {
             Attacker = attacker;
 
-            Position = position;
-
             Beams = beams;
-
-            ProjectileType = projectileType;
 
             MagicEffectType = magicEffectType;
 
@@ -24,11 +20,7 @@ namespace OpenTibia.Game.Commands
 
         public Creature Attacker { get; set; }
 
-        public Position Position { get; set; }
-
         public Offset[] Beams { get; set; }
-
-        public ProjectileType? ProjectileType { get; set; }
 
         public MagicEffectType? MagicEffectType { get; set; }
 
@@ -38,11 +30,6 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run(resolve =>
             {
-                if (ProjectileType != null)
-                {
-                    context.AddCommand(new ShowProjectileCommand(Attacker.Tile.Position, Position, ProjectileType.Value) );
-                }
-
                 foreach (var beam in Beams)
                 {
                     Offset offset;
@@ -64,7 +51,7 @@ namespace OpenTibia.Game.Commands
                         offset = beam;
                     }
 
-                    Position position = Position.Offset(offset);
+                    Position position = Attacker.Tile.Position.Offset(offset);
 
                     if (MagicEffectType != null)
                     {

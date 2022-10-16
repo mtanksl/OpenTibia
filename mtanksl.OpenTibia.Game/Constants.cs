@@ -28,6 +28,8 @@ namespace OpenTibia.Game
 
         public static readonly string YouCanNotThrowThere = "You cannot throw there.";
 
+        public static readonly string YouCanNotUseThere = "You cannot use there.";
+
         public static readonly string YouCanNotUseThisObject = "You cannot use this object.";
 
         public static readonly string YouMayNotAttackThisCreature = "You may not attack this creature.";

@@ -56,6 +56,21 @@
             }
         }
 
+        public bool IsHotkey
+        {
+            get
+            {
+                if (x == 65535)
+                {
+                    if (y == 0)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
         public bool IsInventory
         {
             get

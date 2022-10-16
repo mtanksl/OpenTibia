@@ -71,7 +71,7 @@
     <Compile Include="CommandHandlers\PlayerSay\DestroyMonsterOrNpcHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportToWaypointHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportToTownHandler.cs" />
-    <Compile Include="CommandHandlers\PlayerUseItemWithCreature\FarAwayRunes2Handler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithCreature\Runes2Handler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItemWithCreature\GreatSpiritPotionHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItemWithCreature\StrongManaPotionHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItemWithCreature\GreatManaPotionHandler.cs" />
@@ -79,8 +79,8 @@
     <Compile Include="CommandHandlers\PlayerUseItemWithCreature\GreatHealthPotionHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItemWithCreature\StrongHealthPotionHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItemWithCreature\SmallHealthPotionHandler.cs" />
-    <Compile Include="CommandHandlers\PlayerUseItemWithItem\NearRunesHandler.cs" />
-    <Compile Include="CommandHandlers\PlayerUseItemWithItem\FarAwayRunesHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithItem\DestroyFieldHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItemWithItem\RunesHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItemWithItem\PickHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\FireworksRocketHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\CrystalCoinHandler.cs" />
@@ -97,6 +97,7 @@
     <Compile Include="CommandHandlers\PlayerUseItem\PlatinumCoinHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\GoldCoinHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\PiggyBankHandler.cs" />
+    <Compile Include="Commands\Outgoing\Combat\CombatAreaCreateCommand.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatBeamAttackCommand.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatChangeManaCommand.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatTargetedAttackCommand.cs" />

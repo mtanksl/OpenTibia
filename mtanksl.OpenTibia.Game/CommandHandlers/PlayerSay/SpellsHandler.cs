@@ -2,57 +2,56 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using System;
+using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
     public class SpellsHandler : CommandHandler<PlayerSayCommand>
     {
-        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerSayCommand command)
+        private static Dictionary<string, Func<Player, Action<Context> > > spells = new Dictionary<string, Func<Player, Action<Context> > >()
         {
-            Action<Context> callback = null;
+            { "utevo lux", player =>
+            {
+                return Light(player, 6, 215);
+            } },
 
-            if (command.Message == "utevo lux")
+            { "utevo gran lux", player => 
             {
-                callback = Light(command.Player, 6, 215);
-            }
-            else if (command.Message == "utevo gran lux")
-            {
-                callback = Light(command.Player, 8, 215);
-            }
-            else if (command.Message == "utevo vis lux")
-            {
-                callback = Light(command.Player, 10, 215);
-            }
-            else if (command.Message == "utani hur")
-            {
-                callback = Speed(command.Player, (ushort)(command.Player.BaseSpeed * 1.3 - 24) );
-            }
-            else if (command.Message == "utani gran hur")
-            {
-                callback = Speed(command.Player, (ushort)(command.Player.BaseSpeed * 1.7 - 56) );
-            }
-            else if (command.Message == "exura")
-            {
-                var formula = LightHealingFormula(command.Player.Level, command.Player.Skills.MagicLevel);
+                return Light(player, 8, 215); 
+            } },
 
-                callback = Healing(command.Player, formula.Min, formula.Max);
-            }
-            else if (command.Message == "exura gran")
+            { "utevo vis lux", player => 
             {
-                var formula = IntenseHealingFormula(command.Player.Level, command.Player.Skills.MagicLevel);
+                return Light(player, 10, 215); 
+            } },
 
-                callback = Healing(command.Player, formula.Min, formula.Max);
-            }
-            else if (command.Message == "exura vita")
+            { "utani hur", player =>
             {
-                var formula = UltimateHealingFormula(command.Player.Level, command.Player.Skills.MagicLevel);
+                return Speed(player, HasteFormula(player.BaseSpeed) );
+            } },
 
-                callback = Healing(command.Player, formula.Min, formula.Max);
-            }
-            else if (command.Message == "exura gran mas res")
+            { "utani gran hur", player =>
             {
-                var formula = MassHealingFormula(command.Player.Level, command.Player.Skills.MagicLevel);
+                return Speed(player, StrongHasteFormula(player.BaseSpeed) );
+            } },
 
+            { "exura", player =>
+            {
+                return Healing(player, LightHealingFormula(player.Level, player.Skills.MagicLevel) );
+            } },
+
+            { "exura gran", player =>
+            {
+                return Healing(player, IntenseHealingFormula(player.Level, player.Skills.MagicLevel) );
+            } },
+
+            { "exura vita", player =>
+            {
+                return Healing(player, UltimateHealingFormula(player.Level, player.Skills.MagicLevel) );
+            } },
+
+            { "exura gran mas res", player =>
+            {
                 var area = new Offset[]
                 {
                                                             new Offset(-1, -3), new Offset(0, -3), new Offset(1, -3),
@@ -64,45 +63,41 @@ namespace OpenTibia.Game.CommandHandlers
                                                             new Offset(-1, 3),  new Offset(0, 3),  new Offset(1, 3)
                 };
 
-                callback = Healing(command.Player, area, formula.Min, formula.Max);
-            }
-            else if (command.Message == "exori mort")
-            {
-                var formula = Generic(command.Player.Level, command.Player.Skills.MagicLevel, 45, 10);
+                return Healing(player, area, MassHealingFormula(player.Level, player.Skills.MagicLevel) );
+            } },
 
+            { "exori mort", player =>
+            {
                 var beam = new Offset[] 
                 {
                     new Offset(0, 1)
                 };
 
-                callback = BeamAttack(command.Player, beam, MagicEffectType.MortArea, formula.Min, formula.Max);
-            }
-            else if (command.Message == "exori flam")
+                return BeamAttack(player, beam, MagicEffectType.MortArea, GenericFormula(player.Level, player.Skills.MagicLevel, 45, 10) );
+            } },
+
+            { "exori flam", player =>
             {
-                var formula = Generic(command.Player.Level, command.Player.Skills.MagicLevel, 45, 10);
-
-                var beam = new Offset[]
-                {
-                    new Offset(0, 1)
-                };
-
-                callback = BeamAttack(command.Player, beam, MagicEffectType.FireArea, formula.Min, formula.Max);
-            }
-            else if (command.Message == "exori vis")
-            {
-                var formula = Generic(command.Player.Level, command.Player.Skills.MagicLevel, 45, 10);
-
                 var beam = new Offset[] 
                 {
                     new Offset(0, 1)
                 };
 
-                callback = BeamAttack(command.Player, beam, MagicEffectType.EnergyArea, formula.Min, formula.Max);
-            }
-            else if (command.Message == "exevo flam hur")
-            {
-                var formula = Generic(command.Player.Level, command.Player.Skills.MagicLevel, 30, 10);
+                return BeamAttack(player, beam, MagicEffectType.FireArea, GenericFormula(player.Level, player.Skills.MagicLevel, 45, 10) );
+            } },
 
+            { "exori vis", player =>
+            {
+                var beam = new Offset[] 
+                {
+                    new Offset(0, 1)
+                };
+
+                return BeamAttack(player, beam, MagicEffectType.EnergyArea, GenericFormula(player.Level, player.Skills.MagicLevel, 45, 10) );
+            } },
+
+            { "exevo flam hur", player =>
+            {
                 var beam = new Offset[]
                 {
                                                           new Offset(0, 1),
@@ -111,12 +106,11 @@ namespace OpenTibia.Game.CommandHandlers
                     new Offset(-2, 4), new Offset(-1, 4), new Offset(0, 4), new Offset(1, 4), new Offset(2, 4)
                 };
 
-                callback = BeamAttack(command.Player, beam, MagicEffectType.FireArea, formula.Min, formula.Max);
-            }
-            else if (command.Message == "exevo vis lux")
-            {
-                var formula = Generic(command.Player.Level, command.Player.Skills.MagicLevel, 60, 20);
+                return BeamAttack(player, beam, MagicEffectType.FireArea, GenericFormula(player.Level, player.Skills.MagicLevel, 30, 10) );
+            } },
 
+            { "exevo vis lux", player =>
+            {
                 var beam = new Offset[]
                 {
                     new Offset(0, 1),
@@ -126,12 +120,11 @@ namespace OpenTibia.Game.CommandHandlers
                     new Offset(0, 5)
                 };
 
-                callback = BeamAttack(command.Player, beam, MagicEffectType.EnergyArea, formula.Min, formula.Max);
-            }
-            else if (command.Message == "exevo gran vis lux")
-            {
-                var formula = Generic(command.Player.Level, command.Player.Skills.MagicLevel, 120, 80);
+                return BeamAttack(player, beam, MagicEffectType.EnergyArea, GenericFormula(player.Level, player.Skills.MagicLevel, 60, 20) );
+            } },
 
+            { "exevo gran vis lux", player =>
+            {
                 var beam = new Offset[]
                 {
                     new Offset(0, 1),
@@ -143,12 +136,11 @@ namespace OpenTibia.Game.CommandHandlers
                     new Offset(0, 7)
                 };
 
-                callback = BeamAttack(command.Player, beam, MagicEffectType.EnergyArea, formula.Min, formula.Max);
-            }
-            else if (command.Message == "exevo mort hur")
-            {
-                var formula = Generic(command.Player.Level, command.Player.Skills.MagicLevel, 150, 50);
+                return BeamAttack(player, beam, MagicEffectType.EnergyArea, GenericFormula(player.Level, player.Skills.MagicLevel, 120, 80) );
+            } },
 
+            { "exevo mort hur", player =>
+            {
                 var beam = new Offset[]
                 {
                                        new Offset(0, 1),
@@ -158,12 +150,11 @@ namespace OpenTibia.Game.CommandHandlers
                     new Offset(-1, 5), new Offset(0, 5), new Offset(1, 5),
                 };
 
-                callback = BeamAttack(command.Player, beam, MagicEffectType.MortArea, formula.Min, formula.Max);
-            }
-            else if (command.Message == "exevo gran mas vis")
-            {
-                var formula = Generic(command.Player.Level, command.Player.Skills.MagicLevel, 250, 50);
+                return BeamAttack(player, beam, MagicEffectType.MortArea, GenericFormula(player.Level, player.Skills.MagicLevel, 150, 50) );
+            } },
 
+            { "exevo gran mas vis", player =>
+            {
                 var area = new Offset[]
                 {
                                                                                                                        new Offset(0, -5),
@@ -179,12 +170,11 @@ namespace OpenTibia.Game.CommandHandlers
                                                                                                                        new Offset(0, 5),
                 };
 
-                callback = AreaAttack(command.Player, area, MagicEffectType.FireArea, formula.Min, formula.Max);
-            }
-            else if (command.Message == "exevo gran mas pox")
-            {
-                var formula = Generic(command.Player.Level, command.Player.Skills.MagicLevel, 200, 50);
+                return AreaAttack(player, area, MagicEffectType.FireArea, GenericFormula(player.Level, player.Skills.MagicLevel, 250, 50) );
+            } },
 
+            { "exevo gran mas pox", player =>
+            {
                 var area = new Offset[]
                 {
                                                                                                                        new Offset(0, -5),
@@ -200,31 +190,23 @@ namespace OpenTibia.Game.CommandHandlers
                                                                                                                        new Offset(0, 5),
                 };
 
-                callback = AreaAttack(command.Player, area, MagicEffectType.GreenRings, formula.Min, formula.Max);
-            }
-            else if (command.Message == "exori")
-            {
-                var formula = Berserk(command.Player.Level, command.Player.Skills.Fist, 0);
+                return AreaAttack(player, area, MagicEffectType.GreenRings, GenericFormula(player.Level, player.Skills.MagicLevel, 200, 50) );
+            } },
 
-                var area = new Offset[] 
+            { "exori", player =>
+            {
+                var area = new Offset[]
                 {
                     new Offset(-1, -1), new Offset(0, -1), new Offset(1, -1),
                     new Offset(-1, 0),                     new Offset(1, 0),
-                    new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1) 
+                    new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1)
                 };
 
-                callback = AreaAttack(command.Player, area, MagicEffectType.BlackSpark, formula.Min, formula.Max);
-            }
-            
-            if (callback != null)
-            {
-                return next(context).Then(callback);
-            }
+                return AreaAttack(player, area, MagicEffectType.BlackSpark, BerserkFormula(player.Level, player.Skills.Fist, 0) );
+            } }
+        };
 
-            return next(context);
-        }
-
-        private Action<Context> Light(Player player, byte level, byte color)
+        private static Action<Context> Light(Player player, byte level, byte color)
         {
             return context =>
             {
@@ -234,7 +216,7 @@ namespace OpenTibia.Game.CommandHandlers
             };           
         }
 
-        private Action<Context> Speed(Player player, ushort speed)
+        private static Action<Context> Speed(Player player, ushort speed)
         {
             return context =>
             {
@@ -244,76 +226,81 @@ namespace OpenTibia.Game.CommandHandlers
             };           
         }
 
-        private Action<Context> Healing(Player player, int min, int max)
+        private static Action<Context> Healing(Player player, (int Min, int Max) formula)
         {
             return context =>
             {
-                context.AddCommand(new CombatTargetedAttackCommand(player, player, null, MagicEffectType.BlueShimmer, target => Server.Random.Next(min, max) ) );
+                context.AddCommand(new CombatTargetedAttackCommand(player, player, null, MagicEffectType.BlueShimmer, target => Server.Random.Next(formula.Min, formula.Max) ) );
             };           
         }
 
-        private Action<Context> Healing(Player player, Offset[] area, int min, int max)
+        private static Action<Context> Healing(Player player, Offset[] area, (int Min, int Max) formula)
         {
             return context =>
             {
-                context.AddCommand(new CombatAreaAttackCommand(player, player.Tile.Position, area, null, MagicEffectType.BlueShimmer, target => Server.Random.Next(min, max) ) );
+                context.AddCommand(new CombatAreaAttackCommand(player, player.Tile.Position, area, null, MagicEffectType.BlueShimmer, target => Server.Random.Next(formula.Min, formula.Max) ) );
             };           
         }
 
-        private Action<Context> AreaAttack(Player player, Offset[] area, MagicEffectType magicEffectType, int min, int max)
+        private static Action<Context> AreaAttack(Player player, Offset[] area, MagicEffectType? magicEffectType, (int Min, int Max) formula)
         {
             return context =>
             {
-                context.AddCommand(new CombatAreaAttackCommand(player, player.Tile.Position, area, null, magicEffectType, target => -Server.Random.Next(min, max) ) );
+                context.AddCommand(new CombatAreaAttackCommand(player, player.Tile.Position, area, null, magicEffectType, target => -Server.Random.Next(formula.Min, formula.Max) ) );
             };
         }
 
-        private Action<Context> BeamAttack(Player player, Offset[] beam, MagicEffectType magicEffectType, int min, int max)
+        private static Action<Context> BeamAttack(Player player, Offset[] beam, MagicEffectType? magicEffectType, (int Min, int Max) formula)
         {
             return context =>
             {
-                context.AddCommand(new CombatBeamAttackCommand(player, player.Tile.Position, beam, null, magicEffectType, target => -Server.Random.Next(min, max) ) );
+                context.AddCommand(new CombatBeamAttackCommand(player, beam, magicEffectType, target => -Server.Random.Next(formula.Min, formula.Max) ) );
             };
         }
 
-        private (int Min, int Max) LightHealingFormula(int level, int magicLevel)
+        private static ushort HasteFormula(ushort baseSpeed)
         {
-            return ( (int)(level * 0.2 + magicLevel * 1.4 + 8), 
-                     (int)(level * 0.2 + magicLevel * 1.795 + 11) );
+            return (ushort)(baseSpeed * 1.3 - 24);
         }
 
-        private (int Min, int Max) IntenseHealingFormula(int level, int magicLevel)
+        private static ushort StrongHasteFormula(ushort baseSpeed)
         {
-            return ( (int)(level * 0.2 + magicLevel * 3.184 + 20), 
-                     (int)(level * 0.2 + magicLevel * 5.59 + 35) );
+            return (ushort)(baseSpeed * 1.7 - 56);
         }
 
-        private (int Min, int Max) MassHealingFormula(int level, int magicLevel)
+        private static (int Min, int Max) LightHealingFormula(int level, int magicLevel)
         {
-            return ( (int)(level * 0.2 + magicLevel * 5.7 + 26),
-                     (int)(level * 0.2 + magicLevel * 10.43 + 62) );
+            return ( (int)(level * 0.2 + magicLevel * 1.4 + 8), (int)(level * 0.2 + magicLevel * 1.795 + 11) );
         }
 
-        private (int Min, int Max) UltimateHealingFormula(int level, int magicLevel)
+        private static (int Min, int Max) IntenseHealingFormula(int level, int magicLevel)
         {
-            return ( (int)(level * 0.2 + magicLevel * 7.22 + 44),
-                     (int)(level * 0.2 + magicLevel * 12.79 + 79) );
+            return ( (int)(level * 0.2 + magicLevel * 3.184 + 20), (int)(level * 0.2 + magicLevel * 5.59 + 35) );
         }
 
-        private (int Min, int Max) Berserk(int level, int skill, int weapon)
+        private static (int Min, int Max) MassHealingFormula(int level, int magicLevel)
         {
-            return ( (int)( (skill + weapon) * 0.5 + level * 0.2),
-                     (int)( (skill + weapon) * 1.5 + level * 0.2) );
+            return ( (int)(level * 0.2 + magicLevel * 5.7 + 26), (int)(level * 0.2 + magicLevel * 10.43 + 62) );
         }
 
-        private (int Min, int Max) Generic(int level, int magicLevel, int @base, int variation)
+        private static (int Min, int Max) UltimateHealingFormula(int level, int magicLevel)
+        {
+            return ( (int)(level * 0.2 + magicLevel * 7.22 + 44), (int)(level * 0.2 + magicLevel * 12.79 + 79) );
+        }
+
+        private static (int Min, int Max) BerserkFormula(int level, int skill, int weapon)
+        {
+            return ( (int)( (skill + weapon) * 0.5 + level * 0.2), (int)( (skill + weapon) * 1.5 + level * 0.2) );
+        }
+
+        private static (int Min, int Max) GenericFormula(int level, int magicLevel, int @base, int variation)
         {
             var formula = 3 * magicLevel + 2 * level;
 
            return (formula * (@base - variation) / 100, formula * (@base + variation) / 100);
         }
 
-        private (int Min, int Max) Generic(int level, int magicLevel, int @base, int variation, int min, int max)
+        private static (int Min, int Max) GenericFormula(int level, int magicLevel, int @base, int variation, int min, int max)
         {
             var formula = 3 * magicLevel + 2 * level;
 
@@ -327,6 +314,18 @@ namespace OpenTibia.Game.CommandHandlers
             }
 
             return (formula * (@base - variation) / 100, formula * (@base + variation) / 100);
+        }
+
+        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerSayCommand command)
+        {
+            Func<Player, Action<Context> > callback;
+
+            if (spells.TryGetValue(command.Message, out callback) )
+            {
+                return next(context).Then( callback(command.Player) );
+            }
+
+            return next(context);
         }
     }
 }
