@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class GoldCoinHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private Dictionary<ushort, ushort> goldCoins = new Dictionary<ushort, ushort>() 
+        private Dictionary<ushort, ushort> goldCoinsToPlatinumCoin = new Dictionary<ushort, ushort>() 
         {
             { 2148, 2152 }
         };
@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             ushort toOpenTibiaId;
 
-            if (goldCoins.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) && ( (StackableItem)command.Item).Count == 100)
+            if (goldCoinsToPlatinumCoin.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) && ( (StackableItem)command.Item).Count == 100)
             {
                 return context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
             }

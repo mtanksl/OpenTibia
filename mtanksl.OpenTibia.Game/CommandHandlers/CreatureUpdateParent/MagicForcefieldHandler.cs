@@ -12,20 +12,23 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(Context context, Func<Context, Promise> next, CreatureUpdateParentCommand command)
         {
-            Tile toTile = command.ToTile;
+            Tile magicForcefield = command.ToTile;
 
-            if (toTile.TopItem != null && magicForcefields.Contains(toTile.TopItem.Metadata.OpenTibiaId) )
+            if (magicForcefield.TopItem != null && magicForcefields.Contains(magicForcefield.TopItem.Metadata.OpenTibiaId) )
             {
-                Tile toOtherTile = context.Server.Map.GetTile( ( (TeleportItem)toTile.TopItem ).Position );
+                Tile toTile = context.Server.Map.GetTile( ( (TeleportItem)magicForcefield.TopItem ).Position );
 
-                return context.AddCommand(new CreatureUpdateParentCommand(command.Creature, toOtherTile) ).Then(ctx =>
+                if (toTile != null)
                 {
-                    return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                    return context.AddCommand(new CreatureUpdateParentCommand(command.Creature, toTile) ).Then(ctx =>
+                    {
+                        return ctx.AddCommand(new ShowMagicEffectCommand(magicForcefield.Position, MagicEffectType.Teleport) );
 
-                } ).Then(ctx =>
-                {
-                    return ctx.AddCommand(new ShowMagicEffectCommand(toOtherTile.Position, MagicEffectType.Teleport) );
-                } );
+                    } ).Then(ctx =>
+                    {
+                        return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                    } );
+                }
             }
 
             return next(context);

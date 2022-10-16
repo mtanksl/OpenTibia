@@ -6,55 +6,25 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class HoleHandler : CommandHandler<CreatureUpdateParentCommand>
+    public class PitfallHandler : CommandHandler<CreatureUpdateParentCommand>
     {
-        private HashSet<ushort> holes = new HashSet<ushort>() 
-        { 
-            // Pitfall
-            294,
+        private Dictionary<ushort, ushort> pitfalls = new Dictionary<ushort, ushort>() 
+        {
+            {  293, 294 }
+        };
 
-            // Hole
-            383, 469, 470, 482, 484, 485, 369, 409, 410, 411, 
-
-            // Invisible
-            459, 
-
-            // Wooden
-            369, 409, 410, 411,
-
-            // Wooden
-            423, 427, 428, 429,
-
-            // White marble
-            432, 433,
-
-            // Dark wooden
-            3135, 3136, 3137, 3138,
-
-            // Stone
-            3219, 3220,
-
-            // Black marble
-            4834, 4835, 
-
-            // Gray marble
-            4836, 4837,
-
-            // Stone
-            475, 476, 479, 480, 6127, 6128, 6129, 6130,
-
-            // Snow
-            6917, 6918, 6919, 6920, 6921, 6922, 6923, 6924,
-
-            // Earth
-            8559, 8560, 8561, 8562, 8563, 8564, 8565, 8566
+        private Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
+        {
+            {  294, 293 }
         };
 
         public override Promise Handle(Context context, Func<Context, Promise> next, CreatureUpdateParentCommand command)
         {
+            ushort toOpenTibiaId;
+
             Tile hole = command.ToTile;
 
-            if (hole.Ground != null && holes.Contains(hole.Ground.Metadata.OpenTibiaId) )
+            if (hole.Ground != null && pitfalls.TryGetValue(hole.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
                 Tile down = context.Server.Map.GetTile(hole.Position.Offset(0, 0, 1) );
 
@@ -101,7 +71,14 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (toTile != null)
                     {
-                        return context.AddCommand(new CreatureUpdateParentCommand(command.Creature, toTile) ); 
+                        return context.AddCommand(new CreatureUpdateParentCommand(command.Creature, toTile) ).Then(ctx =>
+                        {
+                            return ctx.AddCommand(new ItemTransformCommand(hole.Ground, toOpenTibiaId, 1) );
+
+                        } ).Then( (ctx, item) =>
+                        {
+                            return ctx.AddCommand(new ItemDecayTransformCommand(item, 10000, decay[toOpenTibiaId], 1) );
+                        } );
                     }
                 }
             }

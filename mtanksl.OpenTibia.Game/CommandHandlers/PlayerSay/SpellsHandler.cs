@@ -68,7 +68,7 @@ namespace OpenTibia.Game.CommandHandlers
             }
             else if (command.Message == "exori mort")
             {
-                var formula = Strike(command.Player.Level, command.Player.Skills.MagicLevel);
+                var formula = Generic(command.Player.Level, command.Player.Skills.MagicLevel, 45, 10);
 
                 var beam = new Offset[] 
                 {
@@ -79,7 +79,7 @@ namespace OpenTibia.Game.CommandHandlers
             }
             else if (command.Message == "exori flam")
             {
-                var formula = Strike(command.Player.Level, command.Player.Skills.MagicLevel);
+                var formula = Generic(command.Player.Level, command.Player.Skills.MagicLevel, 45, 10);
 
                 var beam = new Offset[]
                 {
@@ -90,7 +90,7 @@ namespace OpenTibia.Game.CommandHandlers
             }
             else if (command.Message == "exori vis")
             {
-                var formula = Strike(command.Player.Level, command.Player.Skills.MagicLevel);
+                var formula = Generic(command.Player.Level, command.Player.Skills.MagicLevel, 45, 10);
 
                 var beam = new Offset[] 
                 {
@@ -101,7 +101,7 @@ namespace OpenTibia.Game.CommandHandlers
             }
             else if (command.Message == "exevo flam hur")
             {
-                var formula = Strike(command.Player.Level, command.Player.Skills.MagicLevel);
+                var formula = Generic(command.Player.Level, command.Player.Skills.MagicLevel, 30, 10);
 
                 var beam = new Offset[]
                 {
@@ -115,7 +115,7 @@ namespace OpenTibia.Game.CommandHandlers
             }
             else if (command.Message == "exevo vis lux")
             {
-                var formula = Strike(command.Player.Level, command.Player.Skills.MagicLevel);
+                var formula = Generic(command.Player.Level, command.Player.Skills.MagicLevel, 60, 20);
 
                 var beam = new Offset[]
                 {
@@ -130,7 +130,7 @@ namespace OpenTibia.Game.CommandHandlers
             }
             else if (command.Message == "exevo gran vis lux")
             {
-                var formula = Strike(command.Player.Level, command.Player.Skills.MagicLevel);
+                var formula = Generic(command.Player.Level, command.Player.Skills.MagicLevel, 120, 80);
 
                 var beam = new Offset[]
                 {
@@ -147,7 +147,7 @@ namespace OpenTibia.Game.CommandHandlers
             }
             else if (command.Message == "exevo mort hur")
             {
-                var formula = Strike(command.Player.Level, command.Player.Skills.MagicLevel);
+                var formula = Generic(command.Player.Level, command.Player.Skills.MagicLevel, 150, 50);
 
                 var beam = new Offset[]
                 {
@@ -162,7 +162,7 @@ namespace OpenTibia.Game.CommandHandlers
             }
             else if (command.Message == "exevo gran mas vis")
             {
-                var formula = Strike(command.Player.Level, command.Player.Skills.MagicLevel);
+                var formula = Generic(command.Player.Level, command.Player.Skills.MagicLevel, 250, 50);
 
                 var area = new Offset[]
                 {
@@ -183,7 +183,7 @@ namespace OpenTibia.Game.CommandHandlers
             }
             else if (command.Message == "exevo gran mas pox")
             {
-                var formula = Strike(command.Player.Level, command.Player.Skills.MagicLevel);
+                var formula = Generic(command.Player.Level, command.Player.Skills.MagicLevel, 200, 50);
 
                 var area = new Offset[]
                 {
@@ -248,7 +248,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return context =>
             {
-                context.AddCommand(new CombatSelfAttackCommand(player, MagicEffectType.BlueShimmer, Server.Random.Next(min, max) ) );
+                context.AddCommand(new CombatDirectAttackCommand(player, MagicEffectType.BlueShimmer, Server.Random.Next(min, max) ) );
             };           
         }
 
@@ -300,16 +300,17 @@ namespace OpenTibia.Game.CommandHandlers
                      (int)(level * 0.2 + magicLevel * 12.79 + 79) );
         }
 
-        private (int Min, int Max) Strike(int level, int magicLevel)
-        {
-           return ( (int)(level * 0.2 + magicLevel * 1.403 + 8),
-                    (int)(level * 0.2 + magicLevel * 2.203 + 13) );
-        }
-
         private (int Min, int Max) Berserk(int level, int skill, int weapon)
         {
             return ( (int)( (skill + weapon) * 0.5 + level * 0.2),
                      (int)( (skill + weapon) * 1.5 + level * 0.2) );
+        }
+
+        private (int Min, int Max) Generic(int level, int magicLevel, int @base, int variation)
+        {
+            var formula = 3 * magicLevel + 2 * level;
+
+           return (formula * (@base - variation) /100, formula * (@base + variation) / 100);
         }
     }
 }

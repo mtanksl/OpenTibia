@@ -59,11 +59,14 @@
     <Compile Include="CommandHandlerCollection.cs" />
     <Compile Include="CommandHandlers\CommandHandlerResult.cs" />
     <Compile Include="CommandHandlers\CommandHandler.cs" />
+    <Compile Include="CommandHandlers\CreatureUpdateParent\PitfallHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\MagicForcefieldHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\MoveAwayContainerCloseHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\StairsHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\HoleHandler.cs" />
+    <Compile Include="CommandHandlers\ItemUpdateParentToTile\Pitfall2Handler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveCreature\MoveCreatureWalkToSourceHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerMoveItem\TarHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\SpellsHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\DestroyMonsterOrNpcHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportToWaypointHandler.cs" />
@@ -77,6 +80,7 @@
     <Compile Include="CommandHandlers\PlayerUseItemWithCreature\SmallHealthPotionHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItemWithItem\PickHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\FireworksRocketHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItem\CrystalCoinHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\SantaDollHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\StuffedDragonHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\PartyHatHandler.cs" />
@@ -88,7 +92,7 @@
     <Compile Include="CommandHandlers\PlayerUseItem\PlatinumCoinHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\GoldCoinHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\PiggyBankHandler.cs" />
-    <Compile Include="Commands\Outgoing\Combat\CombatSelfAttackCommand.cs" />
+    <Compile Include="Commands\Outgoing\Combat\CombatDirectAttackCommand.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatBeamAttackCommand.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatChangeManaCommand.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatDistanceAttackCommand.cs" />

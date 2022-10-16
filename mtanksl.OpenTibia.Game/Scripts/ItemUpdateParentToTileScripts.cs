@@ -10,6 +10,8 @@ namespace OpenTibia.Game.Scripts
 
             server.CommandHandlers.Add(new Hole2Handler() );
 
+            server.CommandHandlers.Add(new Pitfall2Handler() );
+
             server.CommandHandlers.Add(new Stairs2Handler() );
 
             server.CommandHandlers.Add(new CandlestickMoveHandler() );

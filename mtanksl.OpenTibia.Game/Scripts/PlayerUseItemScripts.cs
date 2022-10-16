@@ -34,6 +34,8 @@ namespace OpenTibia.Game.Scripts
 
             server.CommandHandlers.Add(new PlatinumCoinHandler() );
 
+            server.CommandHandlers.Add(new CrystalCoinHandler() );
+
             server.CommandHandlers.Add(new DiceHandler() );
 
             server.CommandHandlers.Add(new SurpriseBagBlueHandler() );

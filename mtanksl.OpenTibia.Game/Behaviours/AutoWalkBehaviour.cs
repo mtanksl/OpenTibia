@@ -12,14 +12,14 @@ namespace OpenTibia.Game.Components
 
         private string key;
 
-        private bool running = false;
-
         public override void Start(Server server)
         {
             creature = (Creature)GameObject;
 
             key = "AutoWalk" + creature.Id;
         }
+
+        private bool running = false;
 
         public override void Update(Context context)
         {

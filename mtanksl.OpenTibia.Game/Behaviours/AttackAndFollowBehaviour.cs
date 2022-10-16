@@ -21,36 +21,34 @@ namespace OpenTibia.Game.Components
 
         private Player player;
 
-        private uint? targetId;
-
-        private State state;
-
-        private DateTime lastAttack;
-
         public override void Start(Server server)
         {
             player = (Player)GameObject;            
         }
 
+        private State state;
+
+        private uint? targetId;
+
         public void Attack(Creature creature)
         {
-            targetId = creature.Id;
-
             state = State.Attack;
+
+            targetId = creature.Id;
         }
 
         public void Follow(Creature creature)
         {
-            targetId = creature.Id;
-
             state = State.Follow;
+
+            targetId = creature.Id;
         }
 
         public void AttackAndFollow(Creature creature)
         {
-            targetId = creature.Id;
-
             state = State.AttackAndFollow;
+
+            targetId = creature.Id;
         }
 
         public void StartFollow()
@@ -71,10 +69,12 @@ namespace OpenTibia.Game.Components
 
         public void Stop()
         {
-            targetId = null;
-
             state = State.None;
+
+            targetId = null;
         }
+
+        private DateTime lastAttack;
 
         public override void Update(Context context)
         {
@@ -125,7 +125,7 @@ namespace OpenTibia.Game.Components
 
                                 if (health > 0)
                                 {
-                                    context.AddCommand(new CombatDistanceAttackCommand(player, target, ProjectileType.Spear, -health) );
+                                    context.AddCommand(new CombatDistanceAttackCommand(player, target, ProjectileType.Spear, null, -health) );
                                 }
                                 else
                                 {

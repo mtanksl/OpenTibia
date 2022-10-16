@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Events;
-using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.EventHandlers;
 using System.Collections.Generic;
@@ -50,11 +49,9 @@ namespace OpenTibia.Game.CommandHandlers
         {
             ushort toOpenTibiaId;
 
-            Tile toTile = e.Tile;
-
-            if (toTile.Ground != null && tiles.TryGetValue(toTile.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) )
+            if (e.Tile.Ground != null && tiles.TryGetValue(e.Tile.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                context.AddCommand(new ItemTransformCommand(toTile.Ground, toOpenTibiaId, 1) ).Then( (ctx, item) =>
+                context.AddCommand(new ItemTransformCommand(e.Tile.Ground, toOpenTibiaId, 1) ).Then( (ctx, item) =>
                 {
                     return ctx.AddCommand(new ItemDecayTransformCommand(item, 10000, decay[item.Metadata.OpenTibiaId], 1) );
                 } );

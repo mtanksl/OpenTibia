@@ -36,6 +36,8 @@ namespace OpenTibia.Game.Scripts
             server.CommandHandlers.Add(new SwampHandler() );
 
             server.CommandHandlers.Add(new LavaHandler() );
+
+            server.CommandHandlers.Add(new TarHandler() );
         }
 
         public void Stop(Server server)

@@ -1,12 +1,11 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
-    public class CombatSelfAttackCommand : Command
+    public class CombatDirectAttackCommand : Command
     {
-        public CombatSelfAttackCommand(Creature target, MagicEffectType magicEffectType, int health)
+        public CombatDirectAttackCommand(Creature target, MagicEffectType magicEffectType, int health)
         {
             Target = target;
 

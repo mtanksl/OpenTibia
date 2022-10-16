@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
 
-                context.AddCommand(new CombatSelfAttackCommand(player, MagicEffectType.RedShimmer, Server.Random.Next(500, 700) ) );
+                context.AddCommand(new CombatDirectAttackCommand(player, MagicEffectType.RedShimmer, Server.Random.Next(500, 700) ) );
 
                 context.AddCommand(new ShowTextCommand(player, TalkType.MonsterSay, "Aaaah...") );
 

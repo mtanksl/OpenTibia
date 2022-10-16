@@ -19,9 +19,9 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (e.Tile.TopItem != null && traps.TryGetValue(e.Tile.TopItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                context.AddCommand(new CombatSelfAttackCommand(e.Creature, MagicEffectType.BlackSpark, -20) );
-
                 context.AddCommand(new ItemTransformCommand(e.Tile.TopItem, toOpenTibiaId, 1) );
+
+                context.AddCommand(new CombatDirectAttackCommand(e.Creature, MagicEffectType.BlackSpark, -20) );
             }
         }
     }

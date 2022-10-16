@@ -12,6 +12,8 @@ namespace OpenTibia.Game.Scripts
 
             server.CommandHandlers.Add(new HoleHandler() );
 
+            server.CommandHandlers.Add(new PitfallHandler() );
+
             server.CommandHandlers.Add(new StairsHandler() );
         }
 

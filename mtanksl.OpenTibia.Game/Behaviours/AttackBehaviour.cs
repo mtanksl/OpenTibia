@@ -9,14 +9,14 @@ namespace OpenTibia.Game.Components
     {
         private Monster monster;
 
-        private uint? targetId;
-
-        private DateTime lastAttack;
-
         public override void Start(Server server)
         {
             monster = (Monster)GameObject;            
         }
+
+        private uint? targetId;
+
+        private DateTime lastAttack;
 
         public override void Update(Context context)
         {
@@ -60,7 +60,7 @@ namespace OpenTibia.Game.Components
 
                         if (health > 0)
                         {
-                            context.AddCommand(new CombatDistanceAttackCommand(monster, target, ProjectileType.Spear, -health) );
+                            context.AddCommand(new CombatDistanceAttackCommand(monster, target, ProjectileType.Spear, null, -health) );
                         }
                         else
                         {

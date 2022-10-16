@@ -52,6 +52,19 @@ namespace OpenTibia.Game.Commands
                         }
                         else
                         {
+                            context.AddCommand(new TileCreateItemCommand(Target.Tile, 3058, 1) ).Then( (ctx, item) => 
+                            { 
+                                return ctx.AddCommand(new ItemDecayTransformCommand(item, 10000, 3059, 1) );
+
+                            } ).Then( (ctx, item) => 
+                            {
+                                return ctx.AddCommand(new ItemDecayTransformCommand(item, 10000, 3060, 1) );
+
+                            } ).Then( (ctx, item) => 
+                            {
+                                return ctx.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
+                            } );
+
                             context.AddCommand(new PlayerDestroyCommand(player) );
 
                             context.Disconnect(player.Client.Connection);
@@ -67,6 +80,19 @@ namespace OpenTibia.Game.Commands
                         }
                         else
                         {
+                            context.AddCommand(new TileCreateItemCommand(Target.Tile, 3058, 1) ).Then( (ctx, item) => 
+                            { 
+                                return ctx.AddCommand(new ItemDecayTransformCommand(item, 10000, 3059, 1) );
+
+                            } ).Then( (ctx, item) => 
+                            {
+                                return ctx.AddCommand(new ItemDecayTransformCommand(item, 10000, 3060, 1) );
+
+                            } ).Then( (ctx, item) => 
+                            {
+                                return ctx.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
+                            } );
+
                             context.AddCommand(new MonsterDestroyCommand(monster) );
                         }
                     }

@@ -28,44 +28,53 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(Context context, Func<Context, Promise> next, CreatureUpdateParentCommand command)
         {
-            Tile toTile = command.ToTile;
+            Tile stair = command.ToTile;
 
-            if (toTile.TopItem != null && stairs.Contains(toTile.TopItem.Metadata.OpenTibiaId) )
+            if (stair.TopItem != null && stairs.Contains(stair.TopItem.Metadata.OpenTibiaId) )
             {
-                if (toTile.FloorChange == FloorChange.North)
+                Tile toTile;
+
+                if (stair.FloorChange == FloorChange.North)
                 {
-                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(0, -1, -1) );
+                    toTile = context.Server.Map.GetTile(stair.Position.Offset(0, -1, -1) );
                 }
-                else if (toTile.FloorChange == FloorChange.East)
+                else if (stair.FloorChange == FloorChange.East)
                 {
-                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(1, 0, -1) );
+                    toTile = context.Server.Map.GetTile(stair.Position.Offset(1, 0, -1) );
                 }
-                else if (toTile.FloorChange == FloorChange.South)
+                else if (stair.FloorChange == FloorChange.South)
                 {
-                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(0, 1, -1) );
+                    toTile = context.Server.Map.GetTile(stair.Position.Offset(0, 1, -1) );
                 }
-                else if (toTile.FloorChange == FloorChange.West)
+                else if (stair.FloorChange == FloorChange.West)
                 {
-                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(-1, 0, -1) );
+                    toTile = context.Server.Map.GetTile(stair.Position.Offset(-1, 0, -1) );
                 }
-                else if (toTile.FloorChange == FloorChange.NorthEast)
+                else if (stair.FloorChange == FloorChange.NorthEast)
                 {
-                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(1, -1, -1) );
+                    toTile = context.Server.Map.GetTile(stair.Position.Offset(1, -1, -1) );
                 }
-                else if (toTile.FloorChange == FloorChange.NorthWest)
+                else if (stair.FloorChange == FloorChange.NorthWest)
                 {
-                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(-1, -1, -1) );
+                    toTile = context.Server.Map.GetTile(stair.Position.Offset(-1, -1, -1) );
                 }
-                else if (toTile.FloorChange == FloorChange.SouthWest)
+                else if (stair.FloorChange == FloorChange.SouthWest)
                 {
-                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(-1, 1, -1) );
+                    toTile = context.Server.Map.GetTile(stair.Position.Offset(-1, 1, -1) );
                 }
-                else if (toTile.FloorChange == FloorChange.SouthEast)
+                else if (stair.FloorChange == FloorChange.SouthEast)
                 {
-                    toTile = context.Server.Map.GetTile(toTile.Position.Offset(1, 1, -1) );
+                    toTile = context.Server.Map.GetTile(stair.Position.Offset(1, 1, -1) );
+                }
+                else
+                {
+                    toTile = null;
                 }
 
-                return context.AddCommand(new CreatureUpdateParentCommand(command.Creature, toTile) );
+                if (toTile != null)
+                {
+                    return context.AddCommand(new CreatureUpdateParentCommand(command.Creature, toTile) );
+                }
             }
 
             return next(context);

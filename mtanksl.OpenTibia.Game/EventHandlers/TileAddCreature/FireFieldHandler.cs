@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Events;
-using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.EventHandlers;
@@ -13,11 +12,9 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override void Handle(Context context, TileAddCreatureEventArgs e)
         {
-            Tile toTile = e.Tile;
-
-            if (toTile.TopItem != null && campfires.Contains(toTile.TopItem.Metadata.OpenTibiaId) )
+            if (e.Tile.TopItem != null && campfires.Contains(e.Tile.TopItem.Metadata.OpenTibiaId) )
             {
-                context.AddCommand(new CombatSelfAttackCommand(e.Creature, MagicEffectType.FirePlume, -20) );
+                context.AddCommand(new CombatDirectAttackCommand(e.Creature, MagicEffectType.FirePlume, -20) );
             }
         }
     }
