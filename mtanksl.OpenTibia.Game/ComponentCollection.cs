@@ -33,9 +33,9 @@ namespace OpenTibia.Game
                 buckets.Add(gameObject.Id, components);
             }
 
-            component.GameObject = gameObject;
-
             components.Add(component);
+
+            component.GameObject = gameObject;
 
             if (component is Behaviour behaviour)
             {
@@ -56,19 +56,45 @@ namespace OpenTibia.Game
 
             if (buckets.TryGetValue(gameObject.Id, out var components) )
             {
-                component.GameObject = null;
+                if (components.Remove(component) )
+                {
+                    if (component is Behaviour behaviour)
+                    {
+                        behaviour.Stop(server);
+                    }
 
-                components.Remove(component);
+                    component.GameObject = null;
+                }
 
                 if (components.Count == 0)
                 {
                     buckets.Remove(gameObject.Id);
                 }
             }
+        }
 
-            if (component is Behaviour behaviour)
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public void ClearComponents(GameObject gameObject)
+        {
+            if (gameObject.Id == 0)
             {
-                behaviour.Stop(server);
+                throw new InvalidOperationException("GameObject is not initialized.");
+            }
+
+            if (buckets.TryGetValue(gameObject.Id, out var components) )
+            {
+                foreach (var component in components)
+                {
+                    if (component is Behaviour behaviour)
+                    {
+                        behaviour.Stop(server);
+                    }
+
+                    component.GameObject = null;
+                }
+
+                buckets.Remove(gameObject.Id);
             }
         }
 

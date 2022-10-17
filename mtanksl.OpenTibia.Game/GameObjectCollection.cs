@@ -7,13 +7,6 @@ namespace OpenTibia.Game
 {
     public class GameObjectCollection
     {
-        private Server server;
-
-        public GameObjectCollection(Server server)
-        {
-            this.server = server;
-        }
-
         private Dictionary<Type, Dictionary<uint, GameObject> > buckets = new Dictionary<Type, Dictionary<uint, GameObject> >()
         {
             { typeof(Creature), new Dictionary<uint, GameObject>() },

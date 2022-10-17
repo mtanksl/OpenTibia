@@ -58,10 +58,7 @@ namespace OpenTibia.Game
         {
             server.GameObjects.RemoveGameObject(npc);
 
-            foreach (var component in server.Components.GetComponents<Component>(npc).ToList() )
-            {
-                server.Components.RemoveComponent(npc, component);
-            }
+            server.Components.ClearComponents(npc);
         }
     }
 }

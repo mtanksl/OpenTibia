@@ -99,7 +99,7 @@ namespace OpenTibia.Game
 
             Components = new ComponentCollection(this);
 
-            GameObjects = new GameObjectCollection(this);
+            GameObjects = new GameObjectCollection();
                         
             using (Logger.Measure("Loading items") )
             {
