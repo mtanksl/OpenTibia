@@ -13,7 +13,11 @@ namespace OpenTibia.Data.Contexts
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<PlayerItem>()
+                .HasKey(m => new { m.PlayerId, m.SequenceId } );
 
+            modelBuilder.Entity<PlayerDepotItem>()
+                .HasKey(m => new { m.PlayerId, m.SequenceId } );
 
             base.OnModelCreating(modelBuilder);
         }
@@ -21,6 +25,10 @@ namespace OpenTibia.Data.Contexts
         public DbSet<Account> Accounts { get; set; }
 
         public DbSet<Player> Players { get; set; }
+
+        public DbSet<PlayerItem> PlayerItems { get; set; }
+
+        public DbSet<PlayerDepotItem> PlayerDepotItems { get; set; }
 
         public DbSet<World> Worlds { get; set; }
     }

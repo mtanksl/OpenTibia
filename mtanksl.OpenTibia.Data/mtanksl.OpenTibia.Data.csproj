@@ -65,6 +65,8 @@
     <Compile Include="Contexts\SqliteContext.cs" />
     <Compile Include="Migrations\SqliteContextMigrationConfiguration.cs" />
     <Compile Include="Models\Account.cs" />
+    <Compile Include="Models\PlayerDepotItem.cs" />
+    <Compile Include="Models\PlayerItem.cs" />
     <Compile Include="Models\Player.cs" />
     <Compile Include="Models\World.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

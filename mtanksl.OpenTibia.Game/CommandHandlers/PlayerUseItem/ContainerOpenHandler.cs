@@ -10,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (command.Item is Locker locker)
             {
-                command.Item = context.Server.Lockers.GetDepotChest(context, command.Player.DatabasePlayerId, locker.TownId);
+                command.Item = context.Server.Lockers.GetLocker(context, command.Player.DatabasePlayerId, locker.TownId);
             }
 
             if (command.Item is Container container)

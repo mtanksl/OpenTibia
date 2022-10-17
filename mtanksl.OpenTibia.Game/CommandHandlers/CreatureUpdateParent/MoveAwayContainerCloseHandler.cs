@@ -10,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Context context, Func<Context, Promise> next, CreatureUpdateParentCommand command)
         {
-            if (command.Creature is Player player && player.Client.ContainerCollection.GetContainers().Any(c => c.Root() is Tile || c.Metadata.OpenTibiaId == 2594) )
+            if (command.Creature is Player player && player.Client.ContainerCollection.GetContainers().Any(c => c.Root() is Tile || c.Metadata.OpenTibiaId == 2591) )
             {
                 return next(context).Then(ctx =>
                 {
@@ -25,7 +25,7 @@ namespace OpenTibia.Game.CommandHandlers
                                 ctx.AddPacket(player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
                             }
                         }
-                        else if (pair.Value.Metadata.OpenTibiaId == 2594)
+                        else if (pair.Value.Metadata.OpenTibiaId == 2591)
                         {
                             player.Client.ContainerCollection.CloseContainer(pair.Key);
 

@@ -58,17 +58,22 @@ namespace OpenTibia.Game.Commands
 
                                     Connection.Client = client;
                                                
-                                ctx.AddPacket(Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs),
+                                ctx.AddPacket(Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs) );
 
-                                                          new SendTilesOutgoingPacket(ctx.Server.Map, client, toTile.Position),
+                                ctx.AddPacket(Connection, new SendTilesOutgoingPacket(ctx.Server.Map, client, toTile.Position) );
 
-                                                          new SendStatusOutgoingPacket(player.Health, player.MaxHealth, player.Capacity, player.Experience, player.Level, player.LevelPercent, player.Mana, player.MaxMana, player.Skills.MagicLevel, player.Skills.MagicLevelPercent, player.Soul, player.Stamina),
+                                foreach (var pair in player.Inventory.GetIndexedContents() )
+                                {
+                                    ctx.AddPacket(Connection, new SlotAddOutgoingPacket(pair.Key, (Item)pair.Value) );
+                                }
 
-                                                          new SendSkillsOutgoingPacket(player.Skills.Fist, player.Skills.FistPercent, player.Skills.Club, player.Skills.ClubPercent, player.Skills.Sword, player.Skills.SwordPercent, player.Skills.Axe, player.Skills.AxePercent, player.Skills.Distance, player.Skills.DistancePercent, player.Skills.Shield, player.Skills.ShieldPercent, player.Skills.Fish, player.Skills.FishPercent),
+                                ctx.AddPacket(Connection, new SendStatusOutgoingPacket(player.Health, player.MaxHealth, player.Capacity, player.Experience, player.Level, player.LevelPercent, player.Mana, player.MaxMana, player.Skills.MagicLevel, player.Skills.MagicLevelPercent, player.Soul, player.Stamina) );
 
-                                                          new SetEnvironmentLightOutgoingPacket(ctx.Server.Clock.Light),
+                                ctx.AddPacket(Connection, new SendSkillsOutgoingPacket(player.Skills.Fist, player.Skills.FistPercent, player.Skills.Club, player.Skills.ClubPercent, player.Skills.Sword, player.Skills.SwordPercent, player.Skills.Axe, player.Skills.AxePercent, player.Skills.Distance, player.Skills.DistancePercent, player.Skills.Shield, player.Skills.ShieldPercent, player.Skills.Fish, player.Skills.FishPercent) );
 
-                                                          new SetSpecialConditionOutgoingPacket(SpecialCondition.None) );
+                                ctx.AddPacket(Connection, new SetEnvironmentLightOutgoingPacket(ctx.Server.Clock.Light) );
+
+                                ctx.AddPacket(Connection, new SetSpecialConditionOutgoingPacket(SpecialCondition.None) );
 
                                 ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
 

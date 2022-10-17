@@ -7,7 +7,7 @@ namespace OpenTibia.Common.Objects
     {
         private Dictionary<int, Dictionary<ushort, Container>> players = new Dictionary<int, Dictionary<ushort, Container>>();
 
-        public Container GetDepotChest(Context context, int databasePlayerId, ushort townId)
+        public Container GetLocker(Context context, int databasePlayerId, ushort townId)
         {
             if ( !players.TryGetValue(databasePlayerId, out var towns) )
             {
@@ -16,16 +16,14 @@ namespace OpenTibia.Common.Objects
                 players.Add(databasePlayerId, towns);
             }
 
-            if ( !towns.TryGetValue(townId, out var depotChest) )
+            if ( !towns.TryGetValue(townId, out var locker) )
             {
-                depotChest = (Container)context.Server.ItemFactory.Create(2594, 1);
+                locker = (Container)context.Server.ItemFactory.Create(2591, 1);
 
-                //TODO: Load items from database
-
-                towns.Add(townId, depotChest);
+                towns.Add(townId, locker);
             }
 
-            return depotChest;
+            return locker;
         }
     }
 }
