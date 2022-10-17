@@ -65,7 +65,7 @@ namespace OpenTibia.Game.Commands
                         ruleViolation.Assignee = null;
                     }
 
-                    //TODO: Remove RuleViolation
+                    //TODO: Remove rule violation
                 }
 
                 ctx.Server.PlayerFactory.Destroy(Player);

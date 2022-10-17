@@ -170,6 +170,10 @@ namespace OpenTibia.Game
             {
                 item = new TeleportItem(metadata);
             }
+            else if (openTibiaId == 2589 || openTibiaId == 2590 || openTibiaId == 2591 || openTibiaId == 2592)
+            {
+                item = new Locker(metadata);
+            }
             else if (metadata.Flags.Is(ItemMetadataFlags.IsContainer) )
             {
                 item = new Container(metadata);

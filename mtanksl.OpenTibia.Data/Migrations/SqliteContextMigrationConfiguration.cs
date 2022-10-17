@@ -23,7 +23,13 @@
 
             if (world == null)
             {
-                world = new World() { Id = 1, Name = "World", Ip = "127.0.0.1", Port = 7172 };
+                world = new World() 
+                { 
+                    Id = 1,
+                    Name = "World", 
+                    Ip = "127.0.0.1",
+                    Port = 7172 
+                };
 
                 context.Worlds.AddOrUpdate(world);
             }
@@ -32,15 +38,37 @@
 
             if (account == null)
             {
-                account = new Account() { Id = 1, Name = "1", Password = "1", PremiumDays = 0 };
+                account = new Account()
+                {
+                    Id = 1, 
+                    Name = "1",
+                    Password = "1", 
+                    PremiumDays = 0 
+                };
 
                 context.Accounts.AddOrUpdate(account);
 
-                context.Players.AddOrUpdate(new Player() { Id = 1, AccountId = account.Id, WorldId = world.Id, Name = "Player 1", CoordinateX = 930, CoordinateY = 779, CoordinateZ = 7 } );
+                context.Players.AddOrUpdate(new Player() 
+                {
+                    Id = 1, 
+                    AccountId = account.Id, 
+                    WorldId = world.Id, 
+                    Name = "Player 1", 
+                    CoordinateX = 930, 
+                    CoordinateY = 779, 
+                    CoordinateZ = 7 
+                } );
 
-                context.Players.AddOrUpdate(new Player() { Id = 2, AccountId = account.Id, WorldId = world.Id, Name = "Player 2", CoordinateX = 931, CoordinateY = 779, CoordinateZ = 7 } );
-
-                context.Players.AddOrUpdate(new Player() { Id = 3, AccountId = account.Id, WorldId = world.Id, Name = "Player 3", CoordinateX = 932, CoordinateY = 779, CoordinateZ = 7 } );
+                context.Players.AddOrUpdate(new Player() 
+                {
+                    Id = 2, 
+                    AccountId = account.Id, 
+                    WorldId = world.Id, 
+                    Name = "Player 2", 
+                    CoordinateX = 930, 
+                    CoordinateY = 779, 
+                    CoordinateZ = 7 
+                } );
             }
 
             base.Seed(context);

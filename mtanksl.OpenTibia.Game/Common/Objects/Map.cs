@@ -158,6 +158,12 @@ namespace OpenTibia.Common.Objects
 
                                         break;
 
+                                    case Locker locker:
+
+                                        locker.TownId = otbmItem.DepotId;
+
+                                        break;
+
                                     case Container container:
 
                                         if (otbmItem.Items != null)
@@ -170,6 +176,8 @@ namespace OpenTibia.Common.Objects
                                     case ReadableItem readableItem:
 
                                         readableItem.Text = otbmItem.Text;
+
+                                        readableItem.Author = otbmItem.WrittenBy;
 
                                         break;
                                 }

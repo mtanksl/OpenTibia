@@ -34,9 +34,9 @@ namespace OpenTibia.Game.Commands
                 }
                 else
                 {
-                    var account = context.DatabaseContext.PlayerRepository.GetPlayer(Packet.Account, Packet.Password, Packet.Character);
+                    var databasePlayer = context.DatabaseContext.PlayerRepository.GetPlayer(Packet.Account, Packet.Password, Packet.Character);
 
-                    if (account == null)
+                    if (databasePlayer == null)
                     {
                         context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
 
@@ -46,16 +46,12 @@ namespace OpenTibia.Game.Commands
                     }
                     else
                     {
-                        Tile toTile = context.Server.Map.GetTile(new Position(account.CoordinateX, account.CoordinateY, account.CoordinateZ) );
+                        Tile toTile = context.Server.Map.GetTile(new Position(databasePlayer.CoordinateX, databasePlayer.CoordinateY, databasePlayer.CoordinateZ) );
 
                         if (toTile != null)
                         {
-                            context.AddCommand(new TileCreatePlayerCommand(toTile, account.Name) ).Then( (ctx, player) =>
+                            context.AddCommand(new TileCreatePlayerCommand(toTile, databasePlayer) ).Then( (ctx, player) =>
                             {
-#if DEBUG
-                                player.CalculateSorcererAndDruid(507);
-#endif
-
                                 Client client = new Client(ctx.Server);
 
                                     client.Player = player;

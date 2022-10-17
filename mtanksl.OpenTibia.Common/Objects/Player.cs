@@ -72,6 +72,8 @@ namespace OpenTibia.Common.Objects
             }
         }
 
+        public int DatabasePlayerId { get; set; }
+
         public Inventory Inventory { get; }
 
         public Skills Skills { get; set; }

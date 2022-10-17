@@ -13,12 +13,9 @@ namespace OpenTibia.Game
             this.server = server;
         }
 
-        public Player Create(string name)
+        public Player Create()
         {
-            Player player = new Player()
-            {
-                Name = name
-            };
+            Player player = new Player();
 
             server.GameObjects.AddGameObject(player);
 

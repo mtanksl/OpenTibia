@@ -8,15 +8,20 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemCommand command)
         {
-            if (command.Item is Container)
+            if (command.Item is Locker locker)
+            {
+                command.Item = context.Server.Lockers.GetDepotChest(context, command.Player.DatabasePlayerId, locker.TownId);
+            }
+
+            if (command.Item is Container container)
             {
                 if (command.ContainerId != null)
                 {
-                    return context.AddCommand(new ContainerReplaceOrCloseCommand(command.Player, (Container)command.Item, command.ContainerId.Value) );
+                    return context.AddCommand(new ContainerReplaceOrCloseCommand(command.Player, container, command.ContainerId.Value) );
                 }
                 else
                 {
-                    return context.AddCommand(new ContainerOpenOrCloseCommand(command.Player, (Container)command.Item) );
+                    return context.AddCommand(new ContainerOpenOrCloseCommand(command.Player, container) );
                 }
             }
 

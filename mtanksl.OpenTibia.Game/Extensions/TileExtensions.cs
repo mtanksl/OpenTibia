@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
+using System;
 
 namespace OpenTibia.Game.Extensions
 {
@@ -38,13 +39,6 @@ namespace OpenTibia.Game.Extensions
             Context context = Context.Current;
 
             return context.AddCommand(new TileCreateNpcCommand(tile, name) );
-        }
-
-        public static PromiseResult<Player> CreatePlayer(this Tile tile, string name)
-        {
-            Context context = Context.Current;
-
-            return context.AddCommand(new TileCreatePlayerCommand(tile, name) );
         }
 
         public static PromiseResult<byte> RemoveCreature(this Tile tile, Creature creature)

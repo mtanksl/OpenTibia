@@ -4,22 +4,30 @@ namespace OpenTibia.Game.Commands
 {
     public class TileCreatePlayerCommand : CommandResult<Player>
     {
-        public TileCreatePlayerCommand(Tile tile, string name)
+        public TileCreatePlayerCommand(Tile tile, Data.Models.Player databasePlayer)
         {
             Tile = tile;
 
-            Name = name;
+            DatabasePlayer = databasePlayer;
         }
 
         public Tile Tile { get; set; }
 
-        public string Name { get; set; }
+        public Data.Models.Player DatabasePlayer { get; set; }
 
         public override PromiseResult<Player> Execute(Context context)
         {
             return PromiseResult<Player>.Run(resolve =>
             {
-                Player player = context.Server.PlayerFactory.Create(Name);
+                Player player = context.Server.PlayerFactory.Create();
+
+                player.DatabasePlayerId = DatabasePlayer.Id;
+
+                player.Name = DatabasePlayer.Name;
+#if DEBUG
+                player.BaseSpeed = player.Speed = 2218;
+#endif
+                //TODO: Load inventory from database
 
                 if (player != null)
                 {

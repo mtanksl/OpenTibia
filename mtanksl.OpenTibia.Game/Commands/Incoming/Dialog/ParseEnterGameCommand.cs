@@ -35,9 +35,9 @@ namespace OpenTibia.Game.Commands
                 }
                 else
                 {
-                    var account = context.DatabaseContext.PlayerRepository.GetAccount(Packet.Account, Packet.Password);
+                    var databaseAccount = context.DatabaseContext.PlayerRepository.GetAccount(Packet.Account, Packet.Password);
 
-                    if (account == null)
+                    if (databaseAccount == null)
                     {
                         context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
 
@@ -49,12 +49,12 @@ namespace OpenTibia.Game.Commands
                     {
                         List<Character> characters = new List<Character>();
 
-                        foreach (var player in account.Players)
+                        foreach (var player in databaseAccount.Players)
                         {
                             characters.Add( new Character(player.Name, player.World.Name, player.World.Ip, (ushort)player.World.Port) );
                         }
 
-                        context.AddPacket(Connection, new OpenSelectCharacterDialogOutgoingPacket(characters, (ushort)account.PremiumDays) );
+                        context.AddPacket(Connection, new OpenSelectCharacterDialogOutgoingPacket(characters, (ushort)databaseAccount.PremiumDays) );
 
                         context.Disconnect(Connection);
 

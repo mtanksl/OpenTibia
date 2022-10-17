@@ -105,6 +105,7 @@
     <Compile Include="Commands\Outgoing\Combat\CombatAreaAttackCommand.cs" />
     <Compile Include="Commands\Outgoing\SplashItem\FluidItemUpdateFluidTypeCommand.cs" />
     <Compile Include="ComponentCollection.cs" />
+    <Compile Include="LockerCollection.cs" />
     <Compile Include="EventHandlers\TileAddCreature\SpikesHandler.cs" />
     <Compile Include="EventHandlers\TileAddCreature\JungleMawHandler.cs" />
     <Compile Include="EventHandlers\TileAddCreature\BladesHandler.cs" />
@@ -252,7 +253,7 @@
     <Compile Include="Commands\Outgoing\Tile\TileReplaceItemCommand.cs" />
     <Compile Include="Commands\Incoming\Console\ParseCloseNpcsChannelCommand.cs" />
     <Compile Include="Commands\Incoming\Dialog\ParseSelectedCharacterCommand.cs" />
-    <Compile Include="Commands\Incoming\Client\ParseEnterGameCommand.cs" />
+    <Compile Include="Commands\Incoming\Dialog\ParseEnterGameCommand.cs" />
     <Compile Include="Commands\Outgoing\Inventory\InventoryAddItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileAddItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Effect\ShowMagicEffectCommand.cs" />

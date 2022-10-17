@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> ropes = new HashSet<ushort>() { 2120 };
 
-        private HashSet<ushort> ropeSpots = new HashSet<ushort> { 384 };
+        private HashSet<ushort> ropeSpots = new HashSet<ushort> { 384, 418 };
 
         public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemWithItemCommand command)
         {
