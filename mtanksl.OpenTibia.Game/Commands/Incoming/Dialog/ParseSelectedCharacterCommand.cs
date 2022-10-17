@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Incoming;
 using OpenTibia.Network.Packets.Outgoing;
+using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -50,6 +51,17 @@ namespace OpenTibia.Game.Commands
 
                         if (toTile != null)
                         {
+                            var onlinePlayer = context.Server.GameObjects.GetPlayers()
+                                .Where(p => p.Name == databasePlayer.Name)
+                                .FirstOrDefault();
+
+                            if (onlinePlayer != null)
+                            {
+                                context.AddCommand(new PlayerDestroyCommand(onlinePlayer) );
+
+                                context.Disconnect(onlinePlayer.Client.Connection);
+                            }
+
                             context.AddCommand(new TileCreatePlayerCommand(toTile, databasePlayer) ).Then( (ctx, player) =>
                             {
                                 Client client = new Client(ctx.Server);
