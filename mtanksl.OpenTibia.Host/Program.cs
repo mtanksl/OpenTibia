@@ -13,6 +13,8 @@ namespace OpenTibia.Host
 
                 Console.ReadKey();
 
+                server.KickAll();
+
                 server.Stop();
             }
 

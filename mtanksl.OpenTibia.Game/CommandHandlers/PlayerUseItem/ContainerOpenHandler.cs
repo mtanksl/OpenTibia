@@ -10,18 +10,29 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (command.Item is Locker locker)
             {
-                command.Item = context.Server.Lockers.GetLocker(context, command.Player.DatabasePlayerId, locker.TownId);
+                Container container = context.Server.Lockers.GetLocker(command.Player.DatabasePlayerId, locker.TownId);
+
+                if (container == null)
+                {
+                    container = (Container)context.Server.ItemFactory.Create(2591, 1);
+
+                    context.Server.Lockers.AddLocker(command.Player.DatabasePlayerId, locker.TownId, container);
+                }
+
+                command.Item = container;
             }
 
-            if (command.Item is Container container)
             {
-                if (command.ContainerId != null)
+                if (command.Item is Container container)
                 {
-                    return context.AddCommand(new ContainerReplaceOrCloseCommand(command.Player, container, command.ContainerId.Value) );
-                }
-                else
-                {
-                    return context.AddCommand(new ContainerOpenOrCloseCommand(command.Player, container) );
+                    if (command.ContainerId != null)
+                    {
+                        return context.AddCommand(new ContainerReplaceOrCloseCommand(command.Player, container, command.ContainerId.Value) );
+                    }
+                    else
+                    {
+                        return context.AddCommand(new ContainerOpenOrCloseCommand(command.Player, container) );
+                    }
                 }
             }
 

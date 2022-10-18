@@ -36,6 +36,11 @@ namespace OpenTibia.Game
             }
         }
 
+        public void Commit()
+        {
+            SqliteContext.SaveChanges();
+        }
+
         private bool disposed = false;
 
         public void Dispose()
@@ -59,6 +64,6 @@ namespace OpenTibia.Game
                     }
                 }
             }
-        } 
+        }
     }
 }

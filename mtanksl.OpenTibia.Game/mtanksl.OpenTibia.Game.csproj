@@ -197,8 +197,8 @@
     <Compile Include="Commands\CommandResult.cs" />
     <Compile Include="Commands\Incoming\Dialog\ParseReportRuleViolationCommand.cs" />
     <Compile Include="Commands\Outgoing\FluidItem\FluidItemUpdateFluidTypeCommand.cs" />
-    <Compile Include="Commands\Outgoing\Item\Review\ItemTransformCommand.cs" />
-    <Compile Include="Commands\Outgoing\Item\Review\ItemDestroyCommand.cs" />
+    <Compile Include="Commands\Outgoing\Item\ItemTransformCommand.cs" />
+    <Compile Include="Commands\Outgoing\Item\ItemDestroyCommand.cs" />
     <Compile Include="Commands\Outgoing\Monster\MonsterDestroyCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileCreateMonsterCommand.cs" />
     <Compile Include="Commands\Outgoing\Npc\NpcDestroyCommand.cs" />

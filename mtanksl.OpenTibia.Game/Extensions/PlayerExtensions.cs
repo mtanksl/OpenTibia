@@ -5,13 +5,6 @@ namespace OpenTibia.Game.Extensions
 {
     public static class PlayerExtensions
     {
-        public static Promise Destroy(this Player player)
-        {
-            Context context = Context.Current;
-
-            return context.AddCommand(new PlayerDestroyCommand(player) );
-        }
-
         public static Promise UpdateCapacity(this Player player, uint capacity)
         {
             Context context = Context.Current;

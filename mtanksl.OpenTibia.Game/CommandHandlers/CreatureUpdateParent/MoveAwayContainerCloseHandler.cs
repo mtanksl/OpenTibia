@@ -2,7 +2,6 @@
 using OpenTibia.Game.Commands;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
-using System.Linq;
 
 namespace OpenTibia.Game.CommandHandlers
 {
@@ -10,13 +9,21 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Context context, Func<Context, Promise> next, CreatureUpdateParentCommand command)
         {
-            if (command.Creature is Player player && player.Client.ContainerCollection.GetContainers().Any(c => c.Root() is Tile || c.Metadata.OpenTibiaId == 2591) )
+            if (command.Creature is Player player)
             {
                 return next(context).Then(ctx =>
                 {
                     foreach (var pair in player.Client.ContainerCollection.GetIndexedContainers() )
                     {
-                        if (pair.Value.Root() is Tile tile)
+                        IContainer root = pair.Value.Root();
+
+                        if (root == null)
+                        {
+                            player.Client.ContainerCollection.CloseContainer(pair.Key);
+
+                            ctx.AddPacket(player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                        }
+                        else if (root is Tile tile)
                         {
                             if ( !command.ToTile.Position.IsNextTo(tile.Position) )
                             {
@@ -24,12 +31,6 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 ctx.AddPacket(player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
                             }
-                        }
-                        else if (pair.Value.Metadata.OpenTibiaId == 2591)
-                        {
-                            player.Client.ContainerCollection.CloseContainer(pair.Key);
-
-                            ctx.AddPacket(player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
                         }
                     }
                 } );

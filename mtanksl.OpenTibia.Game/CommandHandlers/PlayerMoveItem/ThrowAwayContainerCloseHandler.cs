@@ -39,6 +39,12 @@ namespace OpenTibia.Game.CommandHandlers
 
                         switch (fromContainer.Root() )
                         {
+                            case null:
+
+                                isNextFrom.Add(command.Player);
+
+                                break;
+
                             case Tile fromTile:
 
                                 foreach (var observer in context.Server.GameObjects.GetPlayers() )
@@ -89,6 +95,12 @@ namespace OpenTibia.Game.CommandHandlers
 
                             switch (toContainer.Root() )
                             {
+                                case null:
+
+                                    isNextTo.Add(command.Player);
+
+                                    break;
+
                                 case Tile toTile:
 
                                     foreach (var observer in context.Server.GameObjects.GetPlayers() )

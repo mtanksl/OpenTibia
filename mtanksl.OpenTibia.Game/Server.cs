@@ -6,10 +6,13 @@ using OpenTibia.FileFormats.Otbm;
 using OpenTibia.FileFormats.Xml.Items;
 using OpenTibia.FileFormats.Xml.Monsters;
 using OpenTibia.FileFormats.Xml.Npcs;
+using OpenTibia.Game.Commands;
 using OpenTibia.Network.Sockets;
 using OpenTibia.Threading;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 
 namespace OpenTibia.Game
 {
@@ -220,6 +223,25 @@ namespace OpenTibia.Game
             }
 
             return false;
+        }
+
+        public void KickAll()
+        {
+            AutoResetEvent syncStop = new AutoResetEvent(false);
+
+            QueueForExecution(context =>
+            {
+                foreach (var player in context.Server.GameObjects.GetPlayers().ToList() )
+                {
+                    context.AddCommand(new PlayerDestroyCommand(player) );
+
+                    context.Disconnect(player.Client.Connection);
+                }
+
+                syncStop.Set();
+            } );
+
+            syncStop.WaitOne();
         }
 
         public void Stop()

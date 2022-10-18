@@ -7,14 +7,18 @@ namespace OpenTibia.Game.Commands
 {
     public class TileCreatePlayerCommand : CommandResult<Player>
     {
-        public TileCreatePlayerCommand(Tile tile, Data.Models.Player databasePlayer)
+        public TileCreatePlayerCommand(Tile tile, IConnection connection, Data.Models.Player databasePlayer)
         {
             Tile = tile;
+
+            Connection = connection;
 
             DatabasePlayer = databasePlayer;
         }
 
         public Tile Tile { get; set; }
+
+        public IConnection Connection { get; set; }
 
         public Data.Models.Player DatabasePlayer { get; set; }
 
@@ -22,7 +26,23 @@ namespace OpenTibia.Game.Commands
         {
             return PromiseResult<Player>.Run(resolve =>
             {
+                #region Connect
+
+                Client client = new Client(context.Server);
+
+                Connection.Client = client;
+
+                #endregion
+
+                #region Create
+
                 Player player = context.Server.PlayerFactory.Create();
+
+                client.Player = player;
+
+                #endregion
+
+                #region Load player from database
 
                 player.DatabasePlayerId = DatabasePlayer.Id;
 
@@ -32,12 +52,17 @@ namespace OpenTibia.Game.Commands
 
                 player.MaxHealth = (ushort)DatabasePlayer.MaxHealth;
 
-                player.Outfit = DatabasePlayer.OutfitItemId != null ? 
-                
-                    new Outfit(DatabasePlayer.OutfitItemId.Value) : 
-                    
-                    new Outfit(DatabasePlayer.OutfitId.Value, DatabasePlayer.OutfitHead.Value, DatabasePlayer.OutfitBody.Value, DatabasePlayer.OutfitLegs.Value, DatabasePlayer.OutfitFeet.Value, (Addon)DatabasePlayer.OutfitAddon.Value);
-               
+                player.Direction = (Direction)DatabasePlayer.Direction;
+
+                if (DatabasePlayer.OutfitId == 0)
+                {
+                    player.Outfit = new Outfit(DatabasePlayer.OutfitItemId);
+                }
+                else
+                {
+                    player.Outfit = new Outfit(DatabasePlayer.OutfitId, DatabasePlayer.OutfitHead, DatabasePlayer.OutfitBody, DatabasePlayer.OutfitLegs, DatabasePlayer.OutfitFeet, (Addon)DatabasePlayer.OutfitAddon);
+                }
+
                 player.BaseSpeed = (ushort)DatabasePlayer.BaseSpeed;
 
                 player.Speed = (ushort)DatabasePlayer.Speed;
@@ -90,27 +115,36 @@ namespace OpenTibia.Game.Commands
 
                 player.Stamina = (ushort)DatabasePlayer.Stamina;
 
-                foreach (var databaseItem in DatabasePlayer.PlayerItems.Where(i => i.ParentId >= 1 /* Slot.Head */ && i.ParentId <= 10 /* Slot.Extra */ ) )
+                #endregion
+
+                #region Load player items from database
+
+                foreach (var databasePlayerItem in DatabasePlayer.PlayerItems.Where(i => i.ParentId >= 1 /* Slot.Head */ && i.ParentId <= 10 /* Slot.Extra */ ) )
                 {
-                    var item = context.Server.ItemFactory.Create( (ushort)databaseItem.OpenTibiaId, (byte)databaseItem.Count);
+                    var item = context.Server.ItemFactory.Create( (ushort)databasePlayerItem.OpenTibiaId, (byte)databasePlayerItem.Count);
 
                     if (item is Container container)
                     {
-                        AddItems(context, DatabasePlayer.PlayerItems, container, databaseItem.SequenceId);
+                        AddItems(context, DatabasePlayer.PlayerItems, container, databasePlayerItem.SequenceId);
                     }
 
-                    player.Inventory.AddContent(item, (byte)databaseItem.ParentId);
+                    player.Inventory.AddContent(item, (byte)databasePlayerItem.ParentId);
                 }
 
-                foreach (var databaseItem in DatabasePlayer.PlayerDepotItems.Where(i => i.ParentId >= 0 /* Town Id */ && i.ParentId <= 100 /* Town Id */ ) )
+                #endregion
+
+                #region Load player depot items from database
+
+                foreach (var databaseplayerDepotItem in DatabasePlayer.PlayerDepotItems.Where(i => i.ParentId >= 0 /* Town Id */ && i.ParentId <= 100 /* Town Id */ ) )
                 {
-                    var container = context.Server.Lockers.GetLocker(context, DatabasePlayer.Id, (ushort)databaseItem.ParentId);
+                    var container = (Container)context.Server.ItemFactory.Create(2591, 1);
 
-                    if (container.Count == 0)
-                    {
-                        AddItems(context, DatabasePlayer.PlayerDepotItems, container, databaseItem.SequenceId);
-                    }
+                    context.Server.Lockers.AddLocker(DatabasePlayer.Id, (ushort)databaseplayerDepotItem.ParentId, container);
+
+                    AddItems(context, DatabasePlayer.PlayerDepotItems, container, databaseplayerDepotItem.SequenceId);
                 }
+
+                #endregion
 
                 context.AddCommand(new TileAddCreatureCommand(Tile, player) ).Then( (ctx, index) =>
                 {
@@ -119,30 +153,30 @@ namespace OpenTibia.Game.Commands
             } );
         }
 
-        private void AddItems(Context context, ICollection<Data.Models.PlayerItem> databaseItems, Container container, int sequenceId)
+        private void AddItems(Context context, ICollection<Data.Models.PlayerItem> databasePlayerItems, Container container, int sequenceId)
         {
-            foreach (var databaseItem in databaseItems.Where(i => i.ParentId == sequenceId) )
+            foreach (var databasePlayerItem in databasePlayerItems.Where(i => i.ParentId == sequenceId) )
             {
-                var item = context.Server.ItemFactory.Create( (ushort)databaseItem.OpenTibiaId, (byte)databaseItem.Count);
+                var item = context.Server.ItemFactory.Create( (ushort)databasePlayerItem.OpenTibiaId, (byte)databasePlayerItem.Count);
 
                 if (item is Container container2)
                 {
-                    AddItems(context, DatabasePlayer.PlayerItems, container2, databaseItem.SequenceId);
+                    AddItems(context, DatabasePlayer.PlayerItems, container2, databasePlayerItem.SequenceId);
                 }
 
                 container.AddContent(item);
             }
         }
 
-        private void AddItems(Context context, ICollection<Data.Models.PlayerDepotItem> databaseItems, Container container, int sequenceId)
+        private void AddItems(Context context, ICollection<Data.Models.PlayerDepotItem> databasePlayerDepotItems, Container container, int sequenceId)
         {
-            foreach (var databaseItem in databaseItems.Where(i => i.ParentId == sequenceId) )
+            foreach (var databasePlayerDepotItem in databasePlayerDepotItems.Where(i => i.ParentId == sequenceId) )
             {
-                var item = context.Server.ItemFactory.Create( (ushort)databaseItem.OpenTibiaId, (byte)databaseItem.Count);
+                var item = context.Server.ItemFactory.Create( (ushort)databasePlayerDepotItem.OpenTibiaId, (byte)databasePlayerDepotItem.Count);
 
                 if (item is Container container2)
                 {
-                    AddItems(context, DatabasePlayer.PlayerItems, container2, databaseItem.SequenceId);
+                    AddItems(context, DatabasePlayer.PlayerDepotItems, container2, databasePlayerDepotItem.SequenceId);
                 }
 
                 container.AddContent(item);

@@ -19,19 +19,21 @@ namespace OpenTibia.Data.Models
 
         public int MaxHealth { get; set; }
 
-        public int? OutfitItemId { get; set; }
+        public int Direction { get; set; }
 
-        public int? OutfitId { get; set; }
+        public int OutfitItemId { get; set; }
 
-        public int? OutfitHead { get; set; }
+        public int OutfitId { get; set; }
 
-        public int? OutfitBody { get; set; }
+        public int OutfitHead { get; set; }
 
-        public int? OutfitLegs { get; set; }
+        public int OutfitBody { get; set; }
 
-        public int? OutfitFeet { get; set; }
+        public int OutfitLegs { get; set; }
 
-        public int? OutfitAddon { get; set; }
+        public int OutfitFeet { get; set; }
+
+        public int OutfitAddon { get; set; }
 
         public int BaseSpeed { get; set; }
 

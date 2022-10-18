@@ -47,32 +47,26 @@ namespace OpenTibia.Game.Commands
                     }
                     else
                     {
+                        var onlinePlayer = context.Server.GameObjects.GetPlayers()
+                            .Where(p => p.Name == databasePlayer.Name)
+                            .FirstOrDefault();
+
+                        if (onlinePlayer != null)
+                        {
+                            context.AddCommand(new PlayerDestroyCommand(onlinePlayer) );
+
+                            context.Disconnect(onlinePlayer.Client.Connection);
+                        }
+
                         Tile toTile = context.Server.Map.GetTile(new Position(databasePlayer.CoordinateX, databasePlayer.CoordinateY, databasePlayer.CoordinateZ) );
 
                         if (toTile != null)
                         {
-                            var onlinePlayer = context.Server.GameObjects.GetPlayers()
-                                .Where(p => p.Name == databasePlayer.Name)
-                                .FirstOrDefault();
-
-                            if (onlinePlayer != null)
-                            {
-                                context.AddCommand(new PlayerDestroyCommand(onlinePlayer) );
-
-                                context.Disconnect(onlinePlayer.Client.Connection);
-                            }
-
-                            context.AddCommand(new TileCreatePlayerCommand(toTile, databasePlayer) ).Then( (ctx, player) =>
-                            {
-                                Client client = new Client(ctx.Server);
-
-                                    client.Player = player;
-
-                                    Connection.Client = client;
-                                               
+                            context.AddCommand(new TileCreatePlayerCommand(toTile, Connection, databasePlayer) ).Then( (ctx, player) =>
+                            {            
                                 ctx.AddPacket(Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs) );
 
-                                ctx.AddPacket(Connection, new SendTilesOutgoingPacket(ctx.Server.Map, client, toTile.Position) );
+                                ctx.AddPacket(Connection, new SendTilesOutgoingPacket(ctx.Server.Map, player.Client, toTile.Position) );
 
                                 foreach (var pair in player.Inventory.GetIndexedContents() )
                                 {
@@ -87,7 +81,10 @@ namespace OpenTibia.Game.Commands
 
                                 ctx.AddPacket(Connection, new SetSpecialConditionOutgoingPacket(SpecialCondition.None) );
 
-                                ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                                if (onlinePlayer == null)
+                                {
+                                    ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                                }
 
                                 resolve(ctx);
                             } );
