@@ -34,46 +34,66 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 Tile toTile;
 
+                Direction direction;
+
                 if (stair.FloorChange == FloorChange.North)
                 {
                     toTile = context.Server.Map.GetTile(stair.Position.Offset(0, -1, -1) );
+
+                    direction = Direction.North;
                 }
                 else if (stair.FloorChange == FloorChange.East)
                 {
                     toTile = context.Server.Map.GetTile(stair.Position.Offset(1, 0, -1) );
+
+                    direction = Direction.East;
                 }
                 else if (stair.FloorChange == FloorChange.South)
                 {
                     toTile = context.Server.Map.GetTile(stair.Position.Offset(0, 1, -1) );
+
+                    direction = Direction.South;
                 }
                 else if (stair.FloorChange == FloorChange.West)
                 {
                     toTile = context.Server.Map.GetTile(stair.Position.Offset(-1, 0, -1) );
+
+                    direction = Direction.West;
                 }
                 else if (stair.FloorChange == FloorChange.NorthEast)
                 {
                     toTile = context.Server.Map.GetTile(stair.Position.Offset(1, -1, -1) );
+
+                    direction = Direction.East;
                 }
                 else if (stair.FloorChange == FloorChange.NorthWest)
                 {
                     toTile = context.Server.Map.GetTile(stair.Position.Offset(-1, -1, -1) );
+
+                    direction = Direction.West;
                 }
                 else if (stair.FloorChange == FloorChange.SouthWest)
                 {
                     toTile = context.Server.Map.GetTile(stair.Position.Offset(-1, 1, -1) );
+
+                    direction = Direction.West;
                 }
                 else if (stair.FloorChange == FloorChange.SouthEast)
                 {
                     toTile = context.Server.Map.GetTile(stair.Position.Offset(1, 1, -1) );
+
+                    direction = Direction.East;
                 }
                 else
                 {
                     toTile = null;
+
+                    direction = Direction.South;
                 }
 
                 if (toTile != null)
                 {
-                    return context.AddCommand(new CreatureUpdateParentCommand(command.Creature, toTile) );
+                    return context.AddCommand(new CreatureUpdateParentCommand(command.Creature, toTile, direction) );
                 }
             }
 

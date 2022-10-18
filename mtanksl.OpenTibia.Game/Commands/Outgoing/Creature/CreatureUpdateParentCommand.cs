@@ -7,16 +7,20 @@ namespace OpenTibia.Game.Commands
 {
     public class CreatureUpdateParentCommand : Command
     {
-        public CreatureUpdateParentCommand(Creature creature, Tile toTile)
+        public CreatureUpdateParentCommand(Creature creature, Tile toTile, Direction? direction = null)
         {
             Creature = creature;
 
             ToTile = toTile;
+
+            Direction = direction;
         }
 
         public Creature Creature { get; set; }
 
         public Tile ToTile { get; set; }
+
+        public Direction? Direction { get; set; }
 
         public override Promise Execute(Context context)
         {
@@ -30,13 +34,24 @@ namespace OpenTibia.Game.Commands
 
                 byte toIndex = ToTile.AddContent(Creature);
 
-                Creature.Direction = fromTile.Position.ToDirection(ToTile.Position);
+                bool updateDirection = false;
+
+                Direction expected = fromTile.Position.ToDirection(ToTile.Position, Creature.Direction);
+
+                if (Direction != null && Direction.Value != expected)
+                {
+                    updateDirection = true;
+
+                    expected = Direction.Value;
+                }
+
+                Creature.Direction = expected;
 
                 foreach (var observer in context.Server.GameObjects.GetPlayers() )
                 {
                     if (observer == Creature)
                     {
-                        Sync(context, observer, fromTile.Position, fromIndex, ToTile.Position, fromTile.Count);
+                        Walking(context, observer, fromTile.Position, fromIndex, ToTile.Position, toIndex, updateDirection, fromTile.Count);
                     }
                     else
                     {
@@ -47,6 +62,11 @@ namespace OpenTibia.Game.Commands
                         if (canSeeFrom && canSeeTo)
 		                {
                             context.AddPacket(observer.Client.Connection, new WalkOutgoingPacket(fromTile.Position, fromIndex, ToTile.Position) );
+
+                            if (updateDirection)
+                            {
+                                context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(ToTile.Position, toIndex, Creature.Id, Creature.Direction) );
+                            }
 
                             if (fromTile.Count >= Constants.ObjectsPerPoint)
                             {
@@ -86,7 +106,7 @@ namespace OpenTibia.Game.Commands
             } );
         }
 
-        private void Sync(Context context, Player observer, Position fromPosition, byte fromIndex, Position toPosition, int count)
+        private void Walking(Context context, Player observer, Position fromPosition, byte fromIndex, Position toPosition, byte toIndex, bool updateDirection, int count)
         {
             int deltaZ = toPosition.Z - fromPosition.Z;
 
@@ -107,6 +127,11 @@ namespace OpenTibia.Game.Commands
 			    else
 			    {
                     context.AddPacket(observer.Client.Connection, new WalkOutgoingPacket(fromPosition, fromIndex, toPosition) );
+
+                    if (updateDirection)
+                    {
+                        context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(toPosition, toIndex, Creature.Id, Creature.Direction) );
+                    }
                 }
 
                 Position position = fromPosition;

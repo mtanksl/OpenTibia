@@ -249,7 +249,7 @@
     <Compile Include="Commands\Outgoing\Player\PlayerLookItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Effect\ShowAnimatedTextCommand.cs" />
     <Compile Include="Commands\Outgoing\Effect\ShowProjectileCommand.cs" />
-    <Compile Include="Commands\Outgoing\Creature\Review\CreatureUpdateParentCommand.cs" />
+    <Compile Include="Commands\Outgoing\Creature\CreatureUpdateParentCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileReplaceItemCommand.cs" />
     <Compile Include="Commands\Incoming\Console\ParseCloseNpcsChannelCommand.cs" />
     <Compile Include="Commands\Incoming\Dialog\ParseSelectedCharacterCommand.cs" />

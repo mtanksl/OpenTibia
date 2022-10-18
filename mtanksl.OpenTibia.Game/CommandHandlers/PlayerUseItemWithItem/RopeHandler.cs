@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (ropes.Contains(command.Item.Metadata.OpenTibiaId) && ropeSpots.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
-                return context.AddCommand(new CreatureUpdateParentCommand(command.Player, context.Server.Map.GetTile( ( (Tile)command.ToItem.Parent ).Position.Offset(0, 1, -1) ) ) );
+                return context.AddCommand(new CreatureUpdateParentCommand(command.Player, context.Server.Map.GetTile( ( (Tile)command.ToItem.Parent ).Position.Offset(0, 1, -1) ), Direction.South ) );
             }
 
             return next(context);

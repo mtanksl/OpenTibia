@@ -195,7 +195,7 @@
             }
         }
 
-        public Direction ToDirection(Position that)
+        public Direction ToDirection(Position that, Direction current)
         {
             int deltaY = that.y - this.y;
 
@@ -221,7 +221,7 @@
                 return Direction.East;
             }
 
-            return Direction.South;
+            return current;
         }
 
         public MoveDirection ToMoveDirection(Position that)

@@ -32,46 +32,66 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     Tile toTile;
 
+                    Direction direction;
+
                     if (down.FloorChange == FloorChange.North)
                     {
                         toTile = context.Server.Map.GetTile(down.Position.Offset(0, 1, 0) );
+
+                        direction = Direction.South;
                     }
                     else if (down.FloorChange == FloorChange.East)
                     {
                         toTile = context.Server.Map.GetTile(down.Position.Offset(-1, 0, 0) );
+
+                        direction = Direction.West;
                     }
                     else if (down.FloorChange == FloorChange.South)
                     {
                         toTile = context.Server.Map.GetTile(down.Position.Offset(0, -1, 0) );
+
+                        direction = Direction.North;
                     }
                     else if (down.FloorChange == FloorChange.West)
                     {
                         toTile = context.Server.Map.GetTile(down.Position.Offset(1, 0, 0) );
+
+                        direction = Direction.East;
                     }
                     else if (down.FloorChange == FloorChange.NorthEast)
                     {
                         toTile = context.Server.Map.GetTile(down.Position.Offset(-1, 1, 0) );
+
+                        direction = Direction.West;
                     }
                     else if (down.FloorChange == FloorChange.NorthWest)
                     {
                         toTile = context.Server.Map.GetTile(down.Position.Offset(1, 1, 0) );
+
+                        direction = Direction.East;
                     }
                     else if (down.FloorChange == FloorChange.SouthWest)
                     {
                         toTile = context.Server.Map.GetTile(down.Position.Offset(1, -1, 0) );
+
+                        direction = Direction.East;
                     }
                     else if (down.FloorChange == FloorChange.SouthEast)
                     {
                         toTile = context.Server.Map.GetTile(down.Position.Offset(-1, -1, 0) );
+
+                        direction = Direction.West;
                     }
                     else
                     {
                         toTile = down;
+
+                        direction = Direction.South;
                     }
 
                     if (toTile != null)
                     {
-                        return context.AddCommand(new CreatureUpdateParentCommand(command.Creature, toTile) ).Then(ctx =>
+                        return context.AddCommand(new CreatureUpdateParentCommand(command.Creature, toTile, direction) ).Then(ctx =>
                         {
                             return ctx.AddCommand(new ItemTransformCommand(hole.Ground, toOpenTibiaId, 1) );
 
