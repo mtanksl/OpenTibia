@@ -8,6 +8,8 @@
 
         South = 2,
 
-        West = 3
+        West = 3,
+
+        None = 255
     }
 }

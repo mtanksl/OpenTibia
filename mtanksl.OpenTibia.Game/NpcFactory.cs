@@ -1,8 +1,8 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Xml.Npcs;
 using OpenTibia.Game.Components;
 using System.Collections.Generic;
-using System.Linq;
 using Npc = OpenTibia.Common.Objects.Npc;
 
 namespace OpenTibia.Game
@@ -23,13 +23,13 @@ namespace OpenTibia.Game
                 {
                     Name = xmlNpc.Name,
 
-                    Health = xmlNpc.Health,
+                    Speed = (ushort)xmlNpc.Speed,
 
-                    MaxHealth = xmlNpc.MaxHealth,
+                    Health = (ushort)xmlNpc.Health.Now,
 
-                    Outfit = xmlNpc.Outfit,
+                    MaxHealth = (ushort)xmlNpc.Health.Max,
 
-                    Speed = xmlNpc.Speed
+                    Outfit = new Outfit(xmlNpc.Look.Type, xmlNpc.Look.Head, xmlNpc.Look.Body, xmlNpc.Look.Legs, xmlNpc.Look.Feet, Addon.None)
                 } ); 
             }
         }
@@ -49,7 +49,7 @@ namespace OpenTibia.Game
 
             server.GameObjects.AddGameObject(npc);
 
-            server.Components.AddComponent(npc, new AutoWalkBehaviour() );
+            server.Components.AddComponent(npc, new RandomWalkBehaviour(2) );
 
             return npc;
         }

@@ -71,6 +71,9 @@
     <Content Include="data\items\items.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="data\monsters\Dog.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="data\monsters\Deer.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

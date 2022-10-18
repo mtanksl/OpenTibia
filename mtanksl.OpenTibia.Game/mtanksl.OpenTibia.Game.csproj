@@ -53,9 +53,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviours\AttackBehaviour.cs" />
-    <Compile Include="Behaviours\AttackAndFollowBehaviour.cs" />
-    <Compile Include="Behaviours\DelayBehaviour.cs" />
+    <Compile Include="Behaviours\Creature\DistanceAttackRandomPlayerBehaviour.cs" />
+    <Compile Include="Behaviours\Creature\ApproachWalkBehaviour.cs" />
+    <Compile Include="Behaviours\Creature\RunAwayWalkBehaviour.cs" />
+    <Compile Include="Behaviours\Creature\KeepDistanceWalkBehaviour.cs" />
+    <Compile Include="Behaviours\Player\AttackAndFollowBehaviour.cs" />
+    <Compile Include="Behaviours\Item\DecayBehaviour.cs" />
     <Compile Include="CommandHandlerCollection.cs" />
     <Compile Include="CommandHandlers\CommandHandlerResult.cs" />
     <Compile Include="CommandHandlers\CommandHandler.cs" />
@@ -267,8 +270,8 @@
     <Compile Include="Commands\DelayCommand.cs" />
     <Compile Include="Commands\WhenAllCommand.cs" />
     <Compile Include="Commands\WhenAnyCommand.cs" />
-    <Compile Include="Behaviours\AutoTalkBehaviour.cs" />
-    <Compile Include="Behaviours\AutoWalkBehaviour.cs" />
+    <Compile Include="Behaviours\Creature\RandomTalkBehaviour.cs" />
+    <Compile Include="Behaviours\Creature\RandomWalkBehaviour.cs" />
     <Compile Include="Behaviours\PeriodicBehaviour.cs" />
     <Compile Include="Commands\Incoming\Battle\ParseStopFollowCommand.cs" />
     <Compile Include="Commands\Incoming\GameWindow\Look\ParseLookCommand.cs" />

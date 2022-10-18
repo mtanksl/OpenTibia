@@ -5,11 +5,11 @@ using OpenTibia.IO;
 
 namespace OpenTibia.Game.Components
 {
-    public class AutoTalkBehaviour : PeriodicBehaviour
+    public class RandomTalkBehaviour : PeriodicBehaviour
     {
         private string[] sentences;
 
-        public AutoTalkBehaviour(string[] sentences)
+        public RandomTalkBehaviour(string[] sentences)
         {
             this.sentences = sentences;
         }
@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Components
         {
             creature = (Creature)GameObject;
 
-            key = "AutoTalk" + creature.Id;
+            key = "Random_Talk_Behaviour_" + creature.Id;
         }
 
         private bool running = false;

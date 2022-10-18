@@ -77,9 +77,13 @@
     <Compile Include="Xml\Houses\HouseFile.cs" />
     <Compile Include="Xml\Items\Item.cs" />
     <Compile Include="Xml\Items\ItemsFile.cs" />
+    <Compile Include="Xml\Monsters\Health.cs" />
     <Compile Include="Xml\Monsters\Monster.cs" />
     <Compile Include="Xml\Monsters\MonsterFile.cs" />
+    <Compile Include="Xml\Monsters\Look.cs" />
     <Compile Include="Xml\Monsters\Voice.cs" />
+    <Compile Include="Xml\Npcs\Health.cs" />
+    <Compile Include="Xml\Npcs\Look.cs" />
     <Compile Include="Xml\Npcs\Npc.cs" />
     <Compile Include="Xml\Npcs\NpcFile.cs" />
     <Compile Include="Xml\Spawns\Monster.cs" />

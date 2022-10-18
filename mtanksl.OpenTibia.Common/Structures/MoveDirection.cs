@@ -16,6 +16,8 @@
 
         South = 7,
 
-        SouthEast = 8
+        SouthEast = 8,
+
+        None = 255
     }
 }

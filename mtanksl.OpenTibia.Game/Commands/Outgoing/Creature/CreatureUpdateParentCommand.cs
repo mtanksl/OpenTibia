@@ -7,20 +7,20 @@ namespace OpenTibia.Game.Commands
 {
     public class CreatureUpdateParentCommand : Command
     {
-        public CreatureUpdateParentCommand(Creature creature, Tile toTile, Direction? direction = null)
+        public CreatureUpdateParentCommand(Creature creature, Tile toTile, Direction? changeDirectionOnMove = null)
         {
             Creature = creature;
 
             ToTile = toTile;
 
-            Direction = direction;
+            ChangeDirectionOnMove = changeDirectionOnMove;
         }
 
         public Creature Creature { get; set; }
 
         public Tile ToTile { get; set; }
 
-        public Direction? Direction { get; set; }
+        public Direction? ChangeDirectionOnMove { get; set; }
 
         public override Promise Execute(Context context)
         {
@@ -36,13 +36,20 @@ namespace OpenTibia.Game.Commands
 
                 bool updateDirection = false;
 
-                Direction expected = fromTile.Position.ToDirection(ToTile.Position, Creature.Direction);
+                Direction expected = fromTile.Position.ToDirection(ToTile.Position);
 
-                if (Direction != null && Direction.Value != expected)
+                if (expected == Direction.None)
                 {
                     updateDirection = true;
 
-                    expected = Direction.Value;
+                    expected = Creature.Direction;
+                }
+
+                if (ChangeDirectionOnMove != null && ChangeDirectionOnMove.Value != expected)
+                {
+                    updateDirection = true;
+
+                    expected = ChangeDirectionOnMove.Value;
                 }
 
                 Creature.Direction = expected;

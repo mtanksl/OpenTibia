@@ -5,13 +5,13 @@ using System;
 
 namespace OpenTibia.Game.Components
 {
-    public class AttackBehaviour : PeriodicBehaviour
+    public class DistanceAttackRandomPlayerBehaviour : PeriodicBehaviour
     {
-        private Monster monster;
+        private Creature creature;
 
         public override void Start(Server server)
         {
-            monster = (Monster)GameObject;            
+            creature = (Creature)GameObject;            
         }
 
         private uint? targetId;
@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Components
             {
                 foreach (var observer in context.Server.GameObjects.GetPlayers() )
                 {
-                    if (monster.Tile.Position.CanHearSay(observer.Tile.Position) )
+                    if (creature.Tile.Position.CanHearSay(observer.Tile.Position) )
                     {
                         targetId = observer.Id;
 
@@ -50,13 +50,13 @@ namespace OpenTibia.Game.Components
                 }
                 else
                 {
-                    if ( !monster.Tile.Position.CanHearSay(target.Tile.Position) )
+                    if ( !creature.Tile.Position.CanHearSay(target.Tile.Position) )
                     {
                         targetId = null;
                     }
                     else
                     {
-                        context.AddCommand(new CombatTargetedAttackCommand(monster, target, ProjectileType.Spear, null, _ => -Server.Random.Next(0, 10) ) );
+                        context.AddCommand(new CombatTargetedAttackCommand(creature, target, ProjectileType.Spear, null, _ => -Server.Random.Next(0, 10) ) );
                     }
                 }
             }

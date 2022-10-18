@@ -12,19 +12,35 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
             monster.Name = (string)monsterNode.Attribute("name");
 
-            monster.Description = (string)monsterNode.Attribute("nameDescription");
+            monster.NameDescription = (string)monsterNode.Attribute("nameDescription");
 
-            monster.Speed = (ushort)(uint)monsterNode.Attribute("speed");
+            monster.Speed = (int)monsterNode.Attribute("speed");
 
             XElement healthNode = monsterNode.Element("health");
 
-            monster.Health = (ushort)(uint)healthNode.Attribute("now");
+            monster.Health = new Health()
+            {
+                Now = (int)healthNode.Attribute("now"),
 
-            monster.MaxHealth = (ushort)(uint)healthNode.Attribute("max");
+                Max = (int)healthNode.Attribute("max")
+            };
 
             XElement outfitNode = monsterNode.Element("look");
 
-            monster.Outfit = new Outfit( (int)outfitNode.Attribute("type"), (int)outfitNode.Attribute("head"), (int)outfitNode.Attribute("body"), (int)outfitNode.Attribute("legs"), (int)outfitNode.Attribute("feet"), Addon.None );
+            monster.Look = new Look()
+            {
+                Type = (int)outfitNode.Attribute("type"),
+
+                Head = (int)outfitNode.Attribute("head"),
+
+                Body = (int)outfitNode.Attribute("body"),
+
+                Legs = (int)outfitNode.Attribute("legs"),
+
+                Feet = (int)outfitNode.Attribute("feet"),
+
+                Corpse = (int)outfitNode.Attribute("corpse")
+            };
 
             XElement voicesNode = monsterNode.Element("voices");
 
@@ -46,15 +62,13 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
         public string Name { get; set; }
 
-        public string Description { get; set; }
+        public string NameDescription { get; set; }
 
-        public ushort Speed { get; set; }
+        public int Speed { get; set; }
 
-        public ushort Health { get; set; }
+        public Health Health { get; set; }
 
-        public ushort MaxHealth { get; set; }
-
-        public Outfit Outfit { get; set; }
+        public Look Look { get; set; }
 
         public List<Voice> Voices { get; set; }
     }

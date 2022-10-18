@@ -11,29 +11,41 @@ namespace OpenTibia.FileFormats.Xml.Npcs
 
             npc.Name = (string)npcNode.Attribute("name");
 
-            npc.Speed = (ushort)(uint)npcNode.Attribute("speed");
+            npc.Speed = (int)npcNode.Attribute("speed");
 
             XElement healthNode = npcNode.Element("health");
 
-            npc.Health = (ushort)(uint)healthNode.Attribute("now");
+            npc.Health = new Health()
+            {
+                Now = (int)healthNode.Attribute("now"),
 
-            npc.MaxHealth = (ushort)(uint)healthNode.Attribute("max");
+                Max = (int)healthNode.Attribute("max")
+            };
 
             XElement outfitNode = npcNode.Element("look");
 
-            npc.Outfit = new Outfit( (int)outfitNode.Attribute("type"), (int)outfitNode.Attribute("head"), (int)outfitNode.Attribute("body"), (int)outfitNode.Attribute("legs"), (int)outfitNode.Attribute("feet"), Addon.None );
+            npc.Look = new Look()
+            {
+                Type = (int)outfitNode.Attribute("type"),
+
+                Head = (int)outfitNode.Attribute("head"),
+
+                Body = (int)outfitNode.Attribute("body"),
+
+                Legs = (int)outfitNode.Attribute("legs"),
+
+                Feet = (int)outfitNode.Attribute("feet"),
+            };
 
             return npc;
         }
 
         public string Name { get; set; }
 
-        public ushort Speed { get; set; }
+        public int Speed { get; set; }
 
-        public ushort Health { get; set; }
+        public Health Health { get; set; }
 
-        public ushort MaxHealth { get; set; }
-
-        public Outfit Outfit { get; set; }        
+        public Look Look { get; set; }        
     }
 }

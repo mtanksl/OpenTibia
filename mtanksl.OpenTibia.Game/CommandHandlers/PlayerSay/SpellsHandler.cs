@@ -202,7 +202,7 @@ namespace OpenTibia.Game.CommandHandlers
                     new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1)
                 };
 
-                return AreaAttack(player, area, MagicEffectType.BlackSpark, BerserkFormula(player.Level, player.Skills.Fist, 0) );
+                return AreaAttack(player, area, MagicEffectType.BlackSpark, BerserkFormula(player.Level, player.Skills.Sword, 0) );
             } }
         };
 

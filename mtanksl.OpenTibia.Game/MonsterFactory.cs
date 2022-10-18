@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Xml.Monsters;
 using OpenTibia.Game.Components;
 using System.Collections.Generic;
@@ -23,13 +24,17 @@ namespace OpenTibia.Game
                 {
                     Name = xmlMonster.Name,
 
-                    Health = xmlMonster.Health,
+                    Speed = (ushort)xmlMonster.Speed,
 
-                    MaxHealth = xmlMonster.MaxHealth,
+                    Description = xmlMonster.NameDescription,
 
-                    Outfit = xmlMonster.Outfit,
+                    Health = (ushort)xmlMonster.Health.Now,
 
-                    Speed = xmlMonster.Speed,
+                    MaxHealth = (ushort)xmlMonster.Health.Max,
+
+                    Outfit = new Outfit(xmlMonster.Look.Type, xmlMonster.Look.Head, xmlMonster.Look.Body, xmlMonster.Look.Legs, xmlMonster.Look.Feet, Addon.None),
+
+                    Corpse = (ushort)xmlMonster.Look.Corpse,
 
                     Sentences = xmlMonster.Voices?.Select(v => v.Sentence).ToArray()
                 } );
@@ -53,14 +58,22 @@ namespace OpenTibia.Game
 
             if (monster.Name == "Amazon" || monster.Name == "Valkyrie")
             {
-                server.Components.AddComponent(monster, new AttackBehaviour() );
-            }
+                server.Components.AddComponent(monster, new DistanceAttackRandomPlayerBehaviour() );
 
-            server.Components.AddComponent(monster, new AutoWalkBehaviour() );
+                server.Components.AddComponent(monster, new KeepDistanceWalkBehaviour(4) );
+            }
+            else if (monster.Name == "Deer")
+            {
+                server.Components.AddComponent(monster, new RunAwayWalkBehaviour() );
+            }
+            else if (monster.Name == "Dog")
+            {
+                server.Components.AddComponent(monster, new ApproachWalkBehaviour() );
+            }
 
             if (monster.Metadata.Sentences != null)
             {
-                server.Components.AddComponent(monster, new AutoTalkBehaviour(monster.Metadata.Sentences) );
+                server.Components.AddComponent(monster, new RandomTalkBehaviour(monster.Metadata.Sentences) );
             }
 
             return monster;

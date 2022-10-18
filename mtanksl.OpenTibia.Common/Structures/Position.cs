@@ -1,4 +1,6 @@
-﻿namespace OpenTibia.Common.Structures
+﻿using System;
+
+namespace OpenTibia.Common.Structures
 {
     public class Position
     {
@@ -125,14 +127,14 @@
             }
         }
 
-        public Position Offset(Offset offset)
-        {
-            return new Position(X + offset.X, Y + offset.Y, Z + offset.Z);
-        }
-
         public Position Offset(int x, int y, int z)
         {
             return new Position(X + x, Y + y, Z + z);
+        }
+
+        public Position Offset(Offset offset)
+        {
+            return Offset(offset.X, offset.Y, offset.Z);
         }
 
         public Position Offset(Direction direction, int count = 1)
@@ -195,7 +197,7 @@
             }
         }
 
-        public Direction ToDirection(Position that, Direction current)
+        public Direction ToDirection(Position that)
         {
             int deltaY = that.y - this.y;
 
@@ -221,7 +223,7 @@
                 return Direction.East;
             }
 
-            return current;
+            return Direction.None;
         }
 
         public MoveDirection ToMoveDirection(Position that)
@@ -272,9 +274,9 @@
                 }
             }
 
-            return MoveDirection.South;
+            return MoveDirection.None;
         }
-         
+
         public bool IsInClientRange(Position that)
         {
             int deltaZ = that.z - this.z;
