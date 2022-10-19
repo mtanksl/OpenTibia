@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<monster name="Orc Rider" nameDescription="a orc rider" speed="340">
+  <health now="180" max="180" />
+  <look typeex="0" type="4" head="0" body="0" legs="0" feer="0" corpse="6010" />
+  <voices>
+    <voice sentence="Grrrrrrr" />
+    <voice sentence="Orc arga Huummmak!" />
+  </voices>
+</monster>

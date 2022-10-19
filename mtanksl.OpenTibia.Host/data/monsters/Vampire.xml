@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<monster name="Vampire" nameDescription="a vampire" speed="220">
+  <health now="450" max="450" />
+  <look typeex="0" type="68" head="0" body="0" legs="0" feer="0" corpse="6006" />
+  <voices>
+    <voice sentence="BLOOD!" />
+    <voice sentence="Let me kiss your neck." />
+    <voice sentence="I smell warm blood." />
+    <voice sentence="I call you, my bats! Come!" />
+  </voices>
+</monster>

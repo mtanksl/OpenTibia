@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Proxy", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{65061B4D-2938-4A13-923B-947994FA57DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.MonsterImport", "mtanksl.OpenTibia.MonsterImport\mtanksl.OpenTibia.MonsterImport.csproj", "{44B43320-3C6C-4BD6-9589-CE216323433F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,12 +115,21 @@ Global
 		{AC591C7E-334A-4A12-9294-62756664CC0B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AC591C7E-334A-4A12-9294-62756664CC0B}.Release|x64.ActiveCfg = Release|Any CPU
 		{AC591C7E-334A-4A12-9294-62756664CC0B}.Release|x64.Build.0 = Release|Any CPU
+		{44B43320-3C6C-4BD6-9589-CE216323433F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44B43320-3C6C-4BD6-9589-CE216323433F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44B43320-3C6C-4BD6-9589-CE216323433F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{44B43320-3C6C-4BD6-9589-CE216323433F}.Debug|x64.Build.0 = Debug|Any CPU
+		{44B43320-3C6C-4BD6-9589-CE216323433F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44B43320-3C6C-4BD6-9589-CE216323433F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44B43320-3C6C-4BD6-9589-CE216323433F}.Release|x64.ActiveCfg = Release|Any CPU
+		{44B43320-3C6C-4BD6-9589-CE216323433F}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{AC591C7E-334A-4A12-9294-62756664CC0B} = {65061B4D-2938-4A13-923B-947994FA57DF}
+		{44B43320-3C6C-4BD6-9589-CE216323433F} = {65061B4D-2938-4A13-923B-947994FA57DF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92639E7B-CD2A-40A0-89B0-DCF462B2A027}

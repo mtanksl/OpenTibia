@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<monster name="Quara Hydromancer" nameDescription="a quara hydromancer" speed="520">
+  <health now="1100" max="1100" />
+  <look typeex="0" type="47" head="0" body="0" legs="0" feer="0" corpse="6066" />
+  <voices>
+    <voice sentence="Qua hah tsh!" />
+    <voice sentence="Teech tsha tshul!" />
+    <voice sentence="Quara tsha Fach!" />
+    <voice sentence="Tssssha Quara!" />
+    <voice sentence="Blubber." />
+    <voice sentence="Blup." />
+  </voices>
+</monster>

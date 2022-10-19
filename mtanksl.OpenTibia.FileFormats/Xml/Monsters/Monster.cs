@@ -1,9 +1,10 @@
-﻿using OpenTibia.Common.Structures;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace OpenTibia.FileFormats.Xml.Monsters
 {
+    [XmlRoot("monster")]
     public class Monster
     {
         public static Monster Load(XElement monsterNode)
@@ -29,17 +30,19 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
             monster.Look = new Look()
             {
-                Type = (int)outfitNode.Attribute("type"),
+                TypeEx = (int?)outfitNode.Attribute("typeex") ?? 0,
 
-                Head = (int)outfitNode.Attribute("head"),
+                Type = (int?)outfitNode.Attribute("type") ?? 0,
 
-                Body = (int)outfitNode.Attribute("body"),
+                Head = (int?)outfitNode.Attribute("head") ?? 0,
 
-                Legs = (int)outfitNode.Attribute("legs"),
+                Body = (int?)outfitNode.Attribute("body") ?? 0,
 
-                Feet = (int)outfitNode.Attribute("feet"),
+                Legs = (int?)outfitNode.Attribute("legs") ?? 0,
 
-                Corpse = (int)outfitNode.Attribute("corpse")
+                Feet = (int?)outfitNode.Attribute("feet") ?? 0,
+
+                Corpse = (int?)outfitNode.Attribute("corpse") ?? 3058
             };
 
             XElement voicesNode = monsterNode.Element("voices");
@@ -60,16 +63,23 @@ namespace OpenTibia.FileFormats.Xml.Monsters
             return monster;
         }
 
+        [XmlAttribute("name")]
         public string Name { get; set; }
 
+        [XmlAttribute("nameDescription")]
         public string NameDescription { get; set; }
 
+        [XmlAttribute("speed")]
         public int Speed { get; set; }
 
+        [XmlElement("health")]
         public Health Health { get; set; }
 
+        [XmlElement("look")]
         public Look Look { get; set; }
 
+        [XmlArray("voices")]
+        [XmlArrayItem("voice")]
         public List<Voice> Voices { get; set; }
     }
 }

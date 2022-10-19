@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<monster name="Wasp" nameDescription="a wasp" speed="460">
+  <health now="35" max="35" />
+  <look typeex="0" type="44" head="0" body="0" legs="0" feer="0" corpse="5989" />
+  <voices>
+    <voice sentence="Bssssss" />
+  </voices>
+</monster>

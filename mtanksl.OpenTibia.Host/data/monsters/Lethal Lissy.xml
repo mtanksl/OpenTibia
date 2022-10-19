@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<monster name="Lethal Lissy" nameDescription="lethal lissy" speed="240">
+  <health now="1450" max="1450" />
+  <look typeex="0" type="155" head="77" body="0" legs="76" feer="132" corpse="6081" />
+</monster>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<monster name="Fire Devil" nameDescription="a fire devil" speed="190">
+  <health now="200" max="200" />
+  <look typeex="0" type="40" head="0" body="0" legs="0" feer="0" corpse="5985" />
+  <voices>
+    <voice sentence="Hot, eh?" />
+    <voice sentence="Hell, oh hell!" />
+  </voices>
+</monster>

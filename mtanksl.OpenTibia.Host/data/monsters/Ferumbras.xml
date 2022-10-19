@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<monster name="Ferumbras" nameDescription="Ferumbras" speed="320">
+  <health now="35000" max="35000" />
+  <look typeex="0" type="229" head="0" body="0" legs="0" feer="0" corpse="6078" />
+  <voices>
+    <voice sentence="NOONE WILL STOP ME THIS TIME!" />
+    <voice sentence="THE POWER IS MINE!" />
+  </voices>
+</monster>

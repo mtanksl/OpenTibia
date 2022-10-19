@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<monster name="Priestess" nameDescription="a priestess" speed="220">
+  <health now="390" max="390" />
+  <look typeex="0" type="58" head="0" body="0" legs="0" feer="0" corpse="6081" />
+  <voices>
+    <voice sentence="Your energy is mine." />
+    <voice sentence="Now, your life has come to an end, hahahha!" />
+    <voice sentence="Throw the soul on the altar!" />
+  </voices>
+</monster>

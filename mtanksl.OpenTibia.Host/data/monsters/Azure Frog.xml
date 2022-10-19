@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<monster name="Azure Frog" speed="230">
+  <health now="60" max="60" />
+  <look typeex="0" type="226" head="69" body="66" legs="69" feer="66" corpse="6079" />
+  <voices>
+    <voice sentence="Ribbit, ribbit!" />
+  </voices>
+</monster>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<monster name="Undead Gladiator" nameDescription="a undead gladiator" speed="270">
+  <health now="1000" max="1000" />
+  <look typeex="0" type="306" head="0" body="0" legs="0" feer="0" corpse="9823" />
+  <voices>
+    <voice sentence="Let's battle it out in a duel!" />
+    <voice sentence="Bring it!" />
+    <voice sentence="I'll fight here in eternity and beyond." />
+    <voice sentence="I will not give up!" />
+    <voice sentence="Another foolish adventurer who tries to beat me." />
+  </voices>
+</monster>

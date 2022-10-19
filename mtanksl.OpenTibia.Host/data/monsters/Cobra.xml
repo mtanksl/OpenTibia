@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<monster name="Cobra" speed="170">
+  <health now="65" max="65" />
+  <look typeex="0" type="81" head="0" body="0" legs="0" feer="0" corpse="3007" />
+  <voices>
+    <voice sentence="Zzzzzz" />
+    <voice sentence="Fsssss" />
+  </voices>
+</monster>

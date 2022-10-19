@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<monster name="Jagged Earth Elemental" nameDescription="a jagged earth elemental" speed="280">
+  <health now="1500" max="1500" />
+  <look typeex="0" type="285" head="0" body="0" legs="0" feer="0" corpse="8933" />
+  <voices>
+    <voice sentence="Stomp STOMP" />
+  </voices>
+</monster>

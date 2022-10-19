@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<monster name="Dark Apprentice" nameDescription="a dark apprentice" speed="220">
+  <health now="225" max="225" />
+  <look typeex="0" type="134" head="78" body="88" legs="0" feer="88" corpse="6080" />
+  <voices>
+    <voice sentence="Outch!" />
+    <voice sentence="Oops, I did it again." />
+    <voice sentence="From the spirits that I called Sir, deliver me!" />
+    <voice sentence="I must dispose of my masters enemies!" />
+  </voices>
+</monster>

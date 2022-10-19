@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<monster name="Overcharged Energy Elemental" nameDescription="an orvercharged energy elemental" speed="300">
+  <health now="1700" max="1700" />
+  <look typeex="0" type="290" head="0" body="0" legs="0" feer="0" corpse="8966" />
+</monster>

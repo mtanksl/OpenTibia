@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<monster name="Orc Leader" nameDescription="a orc leader" speed="230">
+  <health now="450" max="450" />
+  <look typeex="0" type="59" head="0" body="0" legs="0" feer="0" corpse="6001" />
+  <voices>
+    <voice sentence="Ulderek futgyr human!" />
+  </voices>
+</monster>

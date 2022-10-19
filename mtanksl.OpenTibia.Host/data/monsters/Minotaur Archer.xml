@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<monster name="Minotaur Archer" nameDescription="a minotaur archer" speed="170">
+  <health now="100" max="100" />
+  <look typeex="0" type="24" head="0" body="0" legs="0" feer="0" corpse="5982" />
+  <voices>
+    <voice sentence="Ruan Wihmpy!" />
+    <voice sentence="Kaplar!" />
+  </voices>
+</monster>

@@ -32,7 +32,7 @@ namespace OpenTibia.Game
 
                     MaxHealth = (ushort)xmlMonster.Health.Max,
 
-                    Outfit = new Outfit(xmlMonster.Look.Type, xmlMonster.Look.Head, xmlMonster.Look.Body, xmlMonster.Look.Legs, xmlMonster.Look.Feet, Addon.None),
+                    Outfit = xmlMonster.Look.TypeEx != 0 ? new Outfit(xmlMonster.Look.TypeEx) : new Outfit(xmlMonster.Look.Type, xmlMonster.Look.Head, xmlMonster.Look.Body, xmlMonster.Look.Legs, xmlMonster.Look.Feet, Addon.None),
 
                     Corpse = (ushort)xmlMonster.Look.Corpse,
 
@@ -69,6 +69,10 @@ namespace OpenTibia.Game
             else if (monster.Name == "Dog")
             {
                 server.Components.AddComponent(monster, new ApproachWalkBehaviour() );
+            }
+            else
+            {
+                server.Components.AddComponent(monster, new RandomWalkBehaviour(10) );
             }
 
             if (monster.Metadata.Sentences != null)

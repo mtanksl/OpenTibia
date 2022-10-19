@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<monster name="Foreman Kneebiter" nameDescription="foreman kneebiter" speed="200">
+  <health now="445" max="445" />
+  <look typeex="0" type="70" head="0" body="0" legs="0" feer="0" corpse="6013" />
+</monster>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<monster name="Primitive" nameDescription="a Primitive" speed="300">
+  <health now="200" max="200" />
+  <look typeex="0" type="143" head="1" body="1" legs="1" feer="1" corpse="6080" />
+  <voices>
+    <voice sentence="We don't need a future!" />
+    <voice sentence="I'll rook you all!" />
+    <voice sentence="They thought they'd beaten us!" />
+    <voice sentence="You are history!" />
+    <voice sentence="There can only be one world!" />
+    <voice sentence="Valor who?" />
+    <voice sentence="Die noob!" />
+    <voice sentence="There are no dragons!" />
+    <voice sentence="I'll quit forever! Again ..." />
+    <voice sentence="You all are noobs!" />
+    <voice sentence="Beware of the cyclops!" />
+    <voice sentence="Just had a disconnect." />
+    <voice sentence="Magic is only good for girls!" />
+    <voice sentence="We'll be back!" />
+  </voices>
+</monster>

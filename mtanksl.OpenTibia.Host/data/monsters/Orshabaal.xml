@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<monster name="Orshabaal" nameDescription="Orshabaal" speed="380">
+  <health now="22500" max="22500" />
+  <look typeex="0" type="201" head="0" body="0" legs="0" feer="0" corpse="2916" />
+  <voices>
+    <voice sentence="PRAISED BE MY MASTERS, THE RUTHLESS SEVEN!" />
+    <voice sentence="YOU ARE DOOMED!" />
+    <voice sentence="ORSHABAAL IS BACK!" />
+    <voice sentence="Be prepared for the day my masters will come for you!" />
+    <voice sentence="SOULS FOR ORSHABAAL!" />
+  </voices>
+</monster>

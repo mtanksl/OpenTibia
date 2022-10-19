@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<monster name="Morgaroth" nameDescription="Morgaroth" speed="400">
+  <health now="55000" max="55000" />
+  <look typeex="0" type="12" head="0" body="94" legs="79" feer="79" corpse="6068" />
+  <voices>
+    <voice sentence="I AM MORGAROTH, LORD OF THE TRIANGLE... AND YOU ARE LOST!" />
+    <voice sentence="MY SEED IS FEAR AND MY HARVEST ARE YOUR SOULS!" />
+    <voice sentence="THE TRIANGLE OF TERROR WILL RISE!" />
+    <voice sentence="ZATHROTH! LOOK AT THE DESTRUCTION I AM CAUSING IN YOUR NAME!" />
+  </voices>
+</monster>

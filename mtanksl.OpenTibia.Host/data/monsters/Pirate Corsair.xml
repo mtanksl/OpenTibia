@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<monster name="Pirate Corsair" nameDescription="a pirate corsair" speed="230">
+  <health now="675" max="675" />
+  <look typeex="0" type="98" head="0" body="0" legs="0" feer="0" corpse="6080" />
+  <voices>
+    <voice sentence="Give up!" />
+    <voice sentence="Hiyaa!" />
+    <voice sentence="Plundeeeeer!" />
+  </voices>
+</monster>

@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<monster name="Mutated Bat" nameDescription="a mutated bat" speed="245">
+  <health now="900" max="900" />
+  <look typeex="0" type="307" head="0" body="0" legs="0" feer="0" corpse="9829" />
+  <voices />
+</monster>

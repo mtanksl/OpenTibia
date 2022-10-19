@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<monster name="Gazer" nameDescription="a gazer" speed="240">
+  <health now="120" max="120" />
+  <look typeex="0" type="109" head="0" body="0" legs="0" feer="0" corpse="6036" />
+  <voices>
+    <voice sentence="Mommy!?" />
+    <voice sentence="Buuuuhaaaahhaaaaa!" />
+    <voice sentence="Me need mana!" />
+  </voices>
+</monster>

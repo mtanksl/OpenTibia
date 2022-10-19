@@ -1,9 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <monster name="Amazon" nameDescription="a amazon" speed="210">
-	<health now="110" max="110"/>
-	<look type="137" head="113" body="120" legs="114" feet="132" corpse="6081"/>
+  <health now="110" max="110" />
+  <look typeex="0" type="137" head="113" body="120" legs="114" feer="132" corpse="6081" />
   <voices>
-    <voice sentence="Yeeee ha!"/>
-    <voice sentence="Your head shall be mine!"/>
+    <voice sentence="Yeeee ha!" />
+    <voice sentence="Your head shall be mine!" />
   </voices>
 </monster>
