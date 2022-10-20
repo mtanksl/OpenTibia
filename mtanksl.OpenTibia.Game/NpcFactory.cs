@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Xml.Npcs;
 using OpenTibia.Game.Components;
+using OpenTibia.Game.Strategies;
 using System.Collections.Generic;
 using Npc = OpenTibia.Common.Objects.Npc;
 
@@ -49,7 +50,7 @@ namespace OpenTibia.Game
 
             server.GameObjects.AddGameObject(npc);
 
-            server.Components.AddComponent(npc, new RandomWalkBehaviour(2) );
+            server.Components.AddComponent(npc, new WalkBehaviour(new RandomWalkStrategy(2) ) );
 
             return npc;
         }

@@ -7,7 +7,7 @@ namespace OpenTibia.Game.Commands
 {
     public class CombatAreaCreateCommand : Command
     {
-        public CombatAreaCreateCommand(Creature attacker, Position position, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, Func<Creature, int> formula)
+        public CombatAreaCreateCommand(Creature attacker, Position position, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, Func<Creature, Creature, int> formula)
         {
             Attacker = attacker;
 
@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Commands
 
         public byte Count { get; set; }
 
-        public Func<Creature, int> Formula { get; set; }
+        public Func<Creature, Creature, int> Formula { get; set; }
 
         public override Promise Execute(Context context)
         {
@@ -66,7 +66,7 @@ namespace OpenTibia.Game.Commands
                     {
                         foreach (var target in tile.GetMonsters().Concat<Creature>(tile.GetPlayers() ).ToList() )
                         {
-                            int health = Formula(target);
+                            int health = Formula(Attacker, target);
 
                             if (target != Attacker || health > 0)
                             {

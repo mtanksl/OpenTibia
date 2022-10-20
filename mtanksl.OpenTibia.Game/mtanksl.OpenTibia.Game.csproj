@@ -53,10 +53,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Behaviours\Creature\DistanceAttackRandomPlayerBehaviour.cs" />
-    <Compile Include="Behaviours\Creature\ApproachWalkBehaviour.cs" />
-    <Compile Include="Behaviours\Creature\RunAwayWalkBehaviour.cs" />
-    <Compile Include="Behaviours\Creature\KeepDistanceWalkBehaviour.cs" />
+    <Compile Include="Behaviours\Creature\AttackBehaviour.cs" />
+    <Compile Include="Behaviours\Creature\WalkBehaviour.cs" />
     <Compile Include="Behaviours\Player\AttackAndFollowBehaviour.cs" />
     <Compile Include="Behaviours\Item\DecayBehaviour.cs" />
     <Compile Include="CommandHandlerCollection.cs" />
@@ -119,6 +117,15 @@
     <Compile Include="EventHandlers\TileAddCreature\CampfireHandler.cs" />
     <Compile Include="EventHandlers\TileRemoveCreature\CloseDoorAutomaticallyHandler.cs" />
     <Compile Include="Extensions\SplashItemExtensions.cs" />
+    <Compile Include="Strategies\Walk\FollowWalkStrategy.cs" />
+    <Compile Include="Strategies\Walk\ApproachWalkStrategy.cs" />
+    <Compile Include="Strategies\Attack\CloseAttackStrategy.cs" />
+    <Compile Include="Strategies\Attack\DistantAttackStrategy.cs" />
+    <Compile Include="Strategies\IAttackStrategy.cs" />
+    <Compile Include="Strategies\IWalkStrategy.cs" />
+    <Compile Include="Strategies\Walk\KeepDistanceWalkStrategy.cs" />
+    <Compile Include="Strategies\Walk\RandomWalkStrategy.cs" />
+    <Compile Include="Strategies\Walk\RunAwayWalkStrategy.cs" />
     <Compile Include="TransactionContext.cs" />
     <Compile Include="Commands\Outgoing\Item\ItemDecayDestroyCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\Review\PlayerMoveCreatureCommand.cs" />
@@ -270,8 +277,7 @@
     <Compile Include="Commands\DelayCommand.cs" />
     <Compile Include="Commands\WhenAllCommand.cs" />
     <Compile Include="Commands\WhenAnyCommand.cs" />
-    <Compile Include="Behaviours\Creature\RandomTalkBehaviour.cs" />
-    <Compile Include="Behaviours\Creature\RandomWalkBehaviour.cs" />
+    <Compile Include="Behaviours\Creature\TalkBehaviour.cs" />
     <Compile Include="Behaviours\PeriodicBehaviour.cs" />
     <Compile Include="Commands\Incoming\Battle\ParseStopFollowCommand.cs" />
     <Compile Include="Commands\Incoming\GameWindow\Look\ParseLookCommand.cs" />

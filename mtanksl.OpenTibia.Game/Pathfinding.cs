@@ -9,6 +9,62 @@ namespace OpenTibia.Game
 {
     public class Pathfinding
     {
+        private class Node : IComparable<Node>
+        {
+            public Node(Position fromPosition, Position toPosition)
+            {
+                FromPosition = fromPosition;
+
+                EstimatedMoves = Node.ChebyshevDistance(fromPosition, toPosition);
+            }
+
+            public Position FromPosition { get; }
+
+            public int EstimatedMoves { get; }
+
+            public Node Parent { get; set; }
+
+            public int Moves { get; set; }
+
+            public int Score
+            {
+                get
+                {
+                    return EstimatedMoves + Moves;
+                }
+            }
+
+            public int CompareTo(Node node)
+            {
+                return Score.CompareTo(node.Score);
+            }
+
+            public static int EuclideanDistance(Position fromPosition, Position toPosition)
+            {
+                return (int)Math.Sqrt( Math.Pow(toPosition.X - fromPosition.X, 2) + Math.Pow(toPosition.Y - fromPosition.Y, 2) );
+            }
+
+            public static int ChebyshevDistance(Position fromPosition, Position toPosition)
+            {
+                return Math.Max(Math.Abs(toPosition.X - fromPosition.X), Math.Abs(toPosition.Y - fromPosition.Y) );
+            }
+
+            public static int ManhattanDistance(Position fromPosition, Position toPosition)
+            {
+                return Math.Abs(toPosition.X - fromPosition.X) + Math.Abs(toPosition.Y - fromPosition.Y);
+            }
+            
+            public static int CalculateCost(MoveDirection direction)
+            {
+                if (direction == MoveDirection.NorthEast || direction == MoveDirection.NorthWest || direction == MoveDirection.SouthEast || direction == MoveDirection.SouthWest)
+                {
+                    return 3;
+                }
+
+                return 1;
+            }
+        }
+
         private IMap map;
 
         public Pathfinding(IMap map)
@@ -198,62 +254,6 @@ namespace OpenTibia.Game
             }
 
             return positions.ToArray();
-        }
-
-        private class Node : IComparable<Node>
-        {
-            public Node(Position fromPosition, Position toPosition)
-            {
-                FromPosition = fromPosition;
-
-                EstimatedMoves = Node.ChebyshevDistance(fromPosition, toPosition);
-            }
-
-            public Position FromPosition { get; }
-
-            public int EstimatedMoves { get; }
-
-            public Node Parent { get; set; }
-
-            public int Moves { get; set; }
-
-            public int Score
-            {
-                get
-                {
-                    return EstimatedMoves + Moves;
-                }
-            }
-
-            public int CompareTo(Node node)
-            {
-                return Score.CompareTo(node.Score);
-            }
-
-            public static int EuclideanDistance(Position fromPosition, Position toPosition)
-            {
-                return (int)Math.Sqrt( Math.Pow(toPosition.X - fromPosition.X, 2) + Math.Pow(toPosition.Y - fromPosition.Y, 2) );
-            }
-
-            public static int ChebyshevDistance(Position fromPosition, Position toPosition)
-            {
-                return Math.Max(Math.Abs(toPosition.X - fromPosition.X), Math.Abs(toPosition.Y - fromPosition.Y) );
-            }
-
-            public static int ManhattanDistance(Position fromPosition, Position toPosition)
-            {
-                return Math.Abs(toPosition.X - fromPosition.X) + Math.Abs(toPosition.Y - fromPosition.Y);
-            }
-            
-            public static int CalculateCost(MoveDirection direction)
-            {
-                if (direction == MoveDirection.NorthEast || direction == MoveDirection.NorthWest || direction == MoveDirection.SouthEast || direction == MoveDirection.SouthWest)
-                {
-                    return 3;
-                }
-
-                return 1;
-            }
         }
     }
 }

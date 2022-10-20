@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (fireFields.Contains(topItem.Metadata.OpenTibiaId) )
                 {
-                    context.AddCommand(new CombatTargetedAttackCommand(null, e.Creature, null, MagicEffectType.FirePlume, target => -20) );
+                    context.AddCommand(new CombatTargetedAttackCommand(null, e.Creature, null, MagicEffectType.FirePlume, (attacker, target) => -20) );
 
                     break;
                 }

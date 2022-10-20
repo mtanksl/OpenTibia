@@ -1,32 +1,29 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
-using OpenTibia.IO;
-using System;
-using System.Linq;
+using OpenTibia.Game.Strategies;
 
 namespace OpenTibia.Game.Components
 {
-    public class RandomWalkBehaviour : PeriodicBehaviour
+    public class WalkBehaviour : PeriodicBehaviour
     {
-        public RandomWalkBehaviour(int radius)
+        private IWalkStrategy walkStrategy;
+
+        public WalkBehaviour(IWalkStrategy walkStrategy)
         {
-            this.radius = radius;
+            this.walkStrategy = walkStrategy;
         }
-
-        private int radius;
-
-        private Tile spawn;
 
         private Creature creature;
 
         private string key;
 
+        private Tile spawn;
+
         public override void Start(Server server)
         {
             creature = (Creature)GameObject;
 
-            key = "Random_Walk_Behaviour_" + creature.Id;
+            key = "Walk_Behaviour_" + creature.Id;
         }
 
         private bool running = false;
@@ -47,23 +44,9 @@ namespace OpenTibia.Game.Components
             {
                 if (creature.Tile.Position.CanSee(observer.Tile.Position) )
                 {
-                    Walking(creature, spawn, radius, new[] { Direction.East, Direction.North, Direction.West, Direction.South } );
+                    var toTile = walkStrategy.GetNext(context, spawn, creature, observer);
 
-                    break;
-                }
-            }
-
-            bool Walking(Creature creature, Tile spawn, int radius, Direction[] directions)
-            {
-                foreach (var direction in directions.Shuffle() )
-                {
-                    Tile toTile = context.Server.Map.GetTile(creature.Tile.Position.Offset(direction) );
-
-                    if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || toTile.GetCreatures().Any(c => c.Block) || Math.Abs(toTile.Position.X - spawn.Position.X) > radius || Math.Abs(toTile.Position.Y - spawn.Position.Y) > radius)
-                    {
-
-                    }
-                    else
+                    if (toTile != null)
                     {
                         running = true;
 
@@ -77,12 +60,10 @@ namespace OpenTibia.Game.Components
 
                             Update(ctx);
                         } );
-
-                        return true;
                     }
-                }
 
-                return false;
+                    break;
+                }
             }
         }
 

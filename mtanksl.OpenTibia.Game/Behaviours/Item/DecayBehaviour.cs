@@ -5,8 +5,6 @@ namespace OpenTibia.Game.Components
 {
     public class DecayBehaviour : Behaviour
     {
-        private string key;
-
         private int executeInMilliseconds;
 
         public DecayBehaviour(int executeInMilliseconds)
@@ -23,6 +21,8 @@ namespace OpenTibia.Game.Components
                 return promise;
             }
         }
+
+        private string key;
 
         public override void Start(Server server)
         {

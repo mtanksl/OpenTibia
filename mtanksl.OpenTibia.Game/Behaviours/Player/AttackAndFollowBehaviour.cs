@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Strategies;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 
@@ -74,17 +75,16 @@ namespace OpenTibia.Game.Components
             targetId = null;
         }
 
-        private DateTime lastAttack;
+        private IAttackStrategy attackStrategy = new CloseAttackStrategy(1000, (attacker, target) => -Server.Random.Next(0, 50) );
+
+        private IWalkStrategy walkStrategy = new FollowWalkStrategy();
+
+        private DateTime attackCooldown;
+
+        private DateTime moveCooldown;
 
         public override void Update(Context context)
         {
-            if ( (DateTime.UtcNow - lastAttack).TotalMilliseconds < 500)
-            {
-                return;
-            }
-
-            lastAttack = DateTime.UtcNow;
-
             if (targetId != null)
             {
                 var target = context.Server.GameObjects.GetCreature(targetId.Value);
@@ -119,14 +119,38 @@ namespace OpenTibia.Game.Components
                         }
                         else
                         {
-                            if (state == State.Attack || state == State.AttackAndFollow)
-                            {
-                                context.AddCommand(new CombatTargetedAttackCommand(player, target, ProjectileType.Spear, null, _ => -Server.Random.Next(0, 20) ) );
-                            }
-                            
                             if (state == State.Follow || state == State.AttackAndFollow)
                             {
-                                //TODO: Follow
+                                if (DateTime.UtcNow > moveCooldown)
+                                {
+                                    var toTile = walkStrategy.GetNext(context, null, player, target);
+
+                                    if (toTile != null)
+                                    {
+                                        context.AddCommand(new CreatureUpdateParentCommand(player, toTile) );
+
+                                        moveCooldown = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / player.Speed);
+                                    }
+                                    else
+                                    {
+                                        moveCooldown = DateTime.UtcNow.AddMilliseconds(1000 * player.Tile.Ground.Metadata.Speed / player.Speed);
+                                    }
+                                }
+                            }
+
+                            if (state == State.Attack || state == State.AttackAndFollow)
+                            {
+                                if (DateTime.UtcNow > attackCooldown)
+                                {
+                                    var command = attackStrategy.GetNext(context, player, target);
+
+                                    if (command != null)
+                                    {
+                                        context.AddCommand(command);
+                                    } 
+                                    
+                                    attackCooldown = DateTime.UtcNow.AddMilliseconds(attackStrategy.CooldownInMilliseconds);
+                                }
                             }
                         }
                     }

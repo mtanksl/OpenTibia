@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Xml.Monsters;
 using OpenTibia.Game.Components;
+using OpenTibia.Game.Strategies;
 using System.Collections.Generic;
 using System.Linq;
 using Monster = OpenTibia.Common.Objects.Monster;
@@ -56,28 +57,36 @@ namespace OpenTibia.Game
                         
             server.GameObjects.AddGameObject(monster);
 
-            if (monster.Name == "Amazon" || monster.Name == "Valkyrie")
+            if (monster.Name == "Amazon")
             {
-                server.Components.AddComponent(monster, new DistanceAttackRandomPlayerBehaviour() );
+                server.Components.AddComponent(monster, new AttackBehaviour(new DistantAttackStrategy(ProjectileType.ThrowingKnife, 2000, (attacker, target) => -Server.Random.Next(0, 30) ) ) );
 
-                server.Components.AddComponent(monster, new KeepDistanceWalkBehaviour(4) );
+                server.Components.AddComponent(monster, new WalkBehaviour(new KeepDistanceWalkStrategy(3) ) );
+            }
+            else if (monster.Name == "Valkyrie")
+            {
+                server.Components.AddComponent(monster, new AttackBehaviour(new DistantAttackStrategy(ProjectileType.Spear, 2000, (attacker, target) => -Server.Random.Next(0, 45) ) ) );
+
+                server.Components.AddComponent(monster, new WalkBehaviour(new KeepDistanceWalkStrategy(3) ) );
             }
             else if (monster.Name == "Deer")
             {
-                server.Components.AddComponent(monster, new RunAwayWalkBehaviour() );
+                server.Components.AddComponent(monster, new WalkBehaviour(new RunAwayWalkStrategy() ) );
             }
             else if (monster.Name == "Dog")
             {
-                server.Components.AddComponent(monster, new ApproachWalkBehaviour() );
+                server.Components.AddComponent(monster, new WalkBehaviour(new ApproachWalkStrategy() ) );
             }
             else
             {
-                server.Components.AddComponent(monster, new RandomWalkBehaviour(10) );
+                server.Components.AddComponent(monster, new AttackBehaviour(new CloseAttackStrategy(2000, (attacker, target) => -Server.Random.Next(0, 20) ) ) );
+
+                server.Components.AddComponent(monster, new WalkBehaviour(new FollowWalkStrategy() ) );
             }
 
             if (monster.Metadata.Sentences != null)
             {
-                server.Components.AddComponent(monster, new RandomTalkBehaviour(monster.Metadata.Sentences) );
+                server.Components.AddComponent(monster, new TalkBehaviour(monster.Metadata.Sentences) );
             }
 
             return monster;

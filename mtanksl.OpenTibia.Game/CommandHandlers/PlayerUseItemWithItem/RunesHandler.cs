@@ -173,7 +173,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return context =>
             {
-                return context.AddCommand(new CombatAreaAttackCommand(player, position, area, projectileType, magicEffectType, target => -Server.Random.Next(formula.Min, formula.Max) ) );
+                return context.AddCommand(new CombatAreaAttackCommand(player, position, area, projectileType, magicEffectType, (attacker, target) => -Server.Random.Next(formula.Min, formula.Max) ) );
             };
         }
 
@@ -181,7 +181,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return context =>
             {
-                return context.AddCommand(new CombatAreaCreateCommand(player, position, area, projectileType, magicEffectType, openTibiaId, count, target => health) );
+                return context.AddCommand(new CombatAreaCreateCommand(player, position, area, projectileType, magicEffectType, openTibiaId, count, (attacker, target) => health) );
             };
         }
 
