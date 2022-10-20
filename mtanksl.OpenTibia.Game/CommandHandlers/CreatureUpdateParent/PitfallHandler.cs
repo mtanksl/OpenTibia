@@ -97,7 +97,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                         } ).Then( (ctx, item) =>
                         {
-                            return ctx.AddCommand(new ItemDecayTransformCommand(item, 10000, decay[toOpenTibiaId], 1) );
+                            ctx.AddCommand(new ItemDecayTransformCommand(item, 10000, decay[toOpenTibiaId], 1) );
                         } );
                     }
                 }
