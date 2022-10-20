@@ -103,6 +103,7 @@
     <Compile Include="Commands\Outgoing\Combat\CombatAreaCreateCommand.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatBeamAttackCommand.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatChangeManaCommand.cs" />
+    <Compile Include="Commands\Outgoing\Combat\CombatConditionCommand.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatTargetedAttackCommand.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatChangeHealthCommand.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatAreaAttackCommand.cs" />

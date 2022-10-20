@@ -1,4 +1,4 @@
-﻿using OpenTibia.Common.Events;
+﻿using OpenTibia.Game.Events;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.EventHandlers;
@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (energyFields.Contains(topItem.Metadata.OpenTibiaId) )
                 {
-                    context.AddCommand(new CombatTargetedAttackCommand(null, e.Creature, null, MagicEffectType.EnergyDamage, (attacker, target) => -30) );
+                    context.AddCommand(new CombatConditionCommand(e.Creature, MagicEffectType.EnergyDamage, new[] { -30, -25, -25 }, new[] { 2000, 2000 } ) );
 
                     break;
                 }

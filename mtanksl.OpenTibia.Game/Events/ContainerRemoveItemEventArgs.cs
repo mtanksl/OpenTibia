@@ -1,6 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 
-namespace OpenTibia.Common.Events
+namespace OpenTibia.Game.Events
 {
     public class ContainerRemoveItemEventArgs : GameEventArgs
     {

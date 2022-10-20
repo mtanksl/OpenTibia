@@ -1,4 +1,4 @@
-﻿using OpenTibia.Common.Events;
+﻿using OpenTibia.Game.Events;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.EventHandlers;
@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (poisonFields.Contains(topItem.Metadata.OpenTibiaId) )
                 {
-                    context.AddCommand(new CombatTargetedAttackCommand(null, e.Creature, null, MagicEffectType.GreenRings, (attacker, target) => -5) );
+                    context.AddCommand(new CombatConditionCommand(e.Creature, MagicEffectType.GreenRings, new[] { -5, -5, -5 }, new[] { 2000, 2000 } ) );
 
                     break;
                 }

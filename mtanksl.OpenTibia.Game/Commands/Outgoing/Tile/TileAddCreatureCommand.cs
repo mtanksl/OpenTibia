@@ -1,4 +1,4 @@
-﻿using OpenTibia.Common.Events;
+﻿using OpenTibia.Game.Events;
 using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OpenTibia.Common.Events
+namespace OpenTibia.Game.Events
 {
     public abstract class GameEventArgs : EventArgs
     {

@@ -1,4 +1,4 @@
-﻿using OpenTibia.Common.Events;
+﻿using OpenTibia.Game.Events;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.EventHandlers;
 using System.Collections.Generic;
