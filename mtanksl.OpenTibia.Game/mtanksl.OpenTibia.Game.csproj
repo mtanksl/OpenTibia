@@ -70,6 +70,8 @@
     <Compile Include="CommandHandlers\PlayerMoveItem\TarHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\SpellsHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\DestroyMonsterOrNpcHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerSay\TeleportPlayerHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerSay\TeleportToPlayerHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportToWaypointHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportToTownHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItemWithCreature\Runes2Handler.cs" />

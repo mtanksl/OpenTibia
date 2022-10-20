@@ -53,6 +53,8 @@ The server architecture is the following: *Packets* are the primary unity. *Inco
 - /down - Goes down one floor
 - /t `town_name` - Goes to town
 - /w `waypoint_name` - Goes to waypont
+- /goto `player_name` - Goes to player
+- /c `player_name` - Teleports player
 - /i `item_id` - Creates an item
 - /m `monster_name` - Creates a monster
 - /n `npc_name` - Creates a NPC
