@@ -6,11 +6,13 @@ namespace OpenTibia.Game.Commands
 {
     public class CombatChangeManaCommand : Command
     {
-        public CombatChangeManaCommand(Creature attacker, Player target, int mana)
+        public CombatChangeManaCommand(Creature attacker, Player target, AnimatedTextColor? animatedTextColor, int mana)
         {
             Attacker = attacker;
 
             Target = target;
+
+            AnimatedTextColor = animatedTextColor;
 
             Mana = mana;
         }
@@ -18,6 +20,8 @@ namespace OpenTibia.Game.Commands
         public Creature Attacker { get; set; }
 
         public Player Target { get; set; }
+
+        public AnimatedTextColor? AnimatedTextColor { get; set; }
 
         public int Mana { get; set; }
 
@@ -42,7 +46,10 @@ namespace OpenTibia.Game.Commands
                         context.AddPacket(Target.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + (-Mana) + " mana due to an attack by " + Attacker.Name + ".") );
                     }
 
-                    context.AddCommand(new ShowAnimatedTextCommand(Target.Tile.Position, AnimatedTextColor.Red, (-Mana).ToString() ) );
+                    if (AnimatedTextColor != null)
+                    {
+                        context.AddCommand(new ShowAnimatedTextCommand(Target.Tile.Position, AnimatedTextColor.Value, (-Mana).ToString() ) );
+                    }
 
                     if (Target.Mana + Mana > 0)
                     {

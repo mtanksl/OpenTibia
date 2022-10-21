@@ -54,7 +54,7 @@ namespace OpenTibia.Game.Commands
 
                 if (Target != Attacker || health > 0)
                 {
-                    context.AddCommand(new CombatChangeHealthCommand(Attacker, Target, health) );
+                    context.AddCommand(new CombatChangeHealthCommand(Attacker, Target, MagicEffectType.ToAnimatedTextColor(), health) );
                 }
 
                 resolve(context);

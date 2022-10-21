@@ -142,4 +142,22 @@
 
         DragonHead = 70
     }
+
+    public static class MagicEffectTypeExtensions
+    {
+        public static AnimatedTextColor ToAnimatedTextColor(this MagicEffectType? magicEffectType)
+        {
+            if (magicEffectType == MagicEffectType.GreenRings)
+            {
+                return AnimatedTextColor.Green;
+            }
+
+            if (magicEffectType == MagicEffectType.EnergyDamage)
+            {
+                return AnimatedTextColor.LightBlue;
+            }
+
+            return AnimatedTextColor.Red;
+        }
+    }
 }

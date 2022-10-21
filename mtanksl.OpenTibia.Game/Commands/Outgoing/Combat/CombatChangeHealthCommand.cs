@@ -6,11 +6,13 @@ namespace OpenTibia.Game.Commands
 {
     public class CombatChangeHealthCommand : Command
     {
-        public CombatChangeHealthCommand(Creature attacker, Creature target, int health)
+        public CombatChangeHealthCommand(Creature attacker, Creature target, AnimatedTextColor? animatedTextColor, int health)
         {
             Attacker = attacker;
 
             Target = target;
+
+            AnimatedTextColor = animatedTextColor;
 
             Health = health;
         }
@@ -18,6 +20,8 @@ namespace OpenTibia.Game.Commands
         public Creature Attacker { get; set; }
 
         public Creature Target { get; set; }
+
+        public AnimatedTextColor? AnimatedTextColor { get; set; }
 
         public int Health { get; set; }
 
@@ -44,7 +48,10 @@ namespace OpenTibia.Game.Commands
                             context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + (-Health) + " hitpoints due to an attack by " + Attacker.Name + ".") );
                         }
 
-                        context.AddCommand(new ShowAnimatedTextCommand(Target.Tile.Position, AnimatedTextColor.Red, (-Health).ToString() ) );
+                        if (AnimatedTextColor != null)
+                        {
+                            context.AddCommand(new ShowAnimatedTextCommand(Target.Tile.Position, AnimatedTextColor.Value, (-Health).ToString() ) );
+                        }
 
                         if (Target.Health + Health > 0)
                         {
@@ -74,7 +81,10 @@ namespace OpenTibia.Game.Commands
                     }
                     else if (Target is Monster monster)
                     {
-                        context.AddCommand(new ShowAnimatedTextCommand(Target.Tile.Position, AnimatedTextColor.Red, (-Health).ToString() ) );
+                        if (AnimatedTextColor != null)
+                        {
+                            context.AddCommand(new ShowAnimatedTextCommand(Target.Tile.Position, AnimatedTextColor.Value, (-Health).ToString() ) );
+                        }
 
                         if (Target.Health + Health > 0)
                         {
