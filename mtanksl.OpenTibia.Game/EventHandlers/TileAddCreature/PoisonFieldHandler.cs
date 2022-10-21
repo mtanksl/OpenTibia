@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (poisonFields.Contains(topItem.Metadata.OpenTibiaId) )
                 {
-                    context.AddCommand(new CombatConditionCommand(e.Creature, MagicEffectType.GreenRings, new[] { -5, -5, -5 }, new[] { 2000, 2000 } ) );
+                    context.AddCommand(new CombatConditionCommand(e.Creature, MagicEffectType.GreenRings, new[] { -5, -5, -5 }, new[] { 2000, 2000, 2000 } ) );
 
                     break;
                 }

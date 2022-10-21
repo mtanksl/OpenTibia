@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
-using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
@@ -26,23 +25,23 @@ namespace OpenTibia.Game.Commands
 
         public int[] CooldownInMilliseconds { get; set; }
 
+        private int index;
+
         public override Promise Execute(Context context)
         {
-            List<Command> commands = new List<Command>();
-
-            for (int i = 0; i < Health.Length; i++)
+            if (index < Health.Length && Target.Tile != null)
             {
-                int j = i;
-
-                commands.Add(new CombatTargetedAttackCommand(null, Target, null, MagicEffectType, (attacker, target) => Health[j] ) );
-
-                if (j < Health.Length - 1)
+                return context.AddCommand(new CombatTargetedAttackCommand(null, Target, null, MagicEffectType, (attacker, target) => Health[index] ) ).Then(ctx =>
                 {
-                    commands.Add(new InlineCommand(ctx => ctx.Server.Components.AddComponent(Target, new DecayBehaviour(CooldownInMilliseconds[j] ) ).Promise) );
-                }
+                    return ctx.Server.Components.AddComponent(Target, new DecayBehaviour(CooldownInMilliseconds[index++] ) ).Promise;
+
+                } ).Then(ctx =>
+                {
+                    return Execute(ctx);
+                } );
             }
 
-            return context.AddCommand(new SequenceCommand(commands.ToArray() ) );
+            return Promise.FromResult(context);
         }
     }
 }

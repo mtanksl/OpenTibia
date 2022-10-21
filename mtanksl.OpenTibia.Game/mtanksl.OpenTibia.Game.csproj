@@ -225,10 +225,8 @@
     <Compile Include="Commands\Outgoing\Player\PlayerSayCommand.cs" />
     <Compile Include="Commands\Outgoing\Creature\CreatureUpdateDirectionCommand.cs" />
     <Compile Include="Commands\Outgoing\Creature\CreatureUpdateOutfit.cs" />
-    <Compile Include="Commands\YieldCommand.cs" />
     <Compile Include="Commands\Incoming\Control\ParseWalkCommand.cs" />
     <Compile Include="Commands\Incoming\Control\ParseWalkToKnownPathCommand.cs" />
-    <Compile Include="Commands\SequenceCommand.cs" />
     <Compile Include="Commands\Incoming\Battle\ParseStartAttackCommand.cs" />
     <Compile Include="Commands\Incoming\Battle\ParseStopAttackCommand.cs" />
     <Compile Include="Commands\Outgoing\Container\ContainerRemoveItemCommand.cs" />
@@ -277,9 +275,6 @@
     <Compile Include="CommandHandlers\PlayerRotateItem\RotateItemTransformHandler.cs" />
     <Compile Include="Commands\Global\GlobalItemsCommand.cs" />
     <Compile Include="Commands\Incoming\Trade\ParseTradeWithCommand.cs" />
-    <Compile Include="Commands\DelayCommand.cs" />
-    <Compile Include="Commands\WhenAllCommand.cs" />
-    <Compile Include="Commands\WhenAnyCommand.cs" />
     <Compile Include="Behaviours\Creature\TalkBehaviour.cs" />
     <Compile Include="Behaviours\PeriodicBehaviour.cs" />
     <Compile Include="Commands\Incoming\Battle\ParseStopFollowCommand.cs" />
