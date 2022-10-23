@@ -27,8 +27,6 @@ namespace OpenTibia.Game.Scripts
                 return next(context);
             } ) );
 
-            server.CommandHandlers.Add(new ThrowAwayContainerCloseHandler() );        
-
             server.CommandHandlers.Add(new DustbinHandler() );
 
             server.CommandHandlers.Add(new ShallowWaterHandler() );
@@ -38,6 +36,10 @@ namespace OpenTibia.Game.Scripts
             server.CommandHandlers.Add(new LavaHandler() );
 
             server.CommandHandlers.Add(new TarHandler() );
+
+            server.CommandHandlers.Add(new SplitStackableItemHandler() );
+
+            server.CommandHandlers.Add(new ThrowAwayContainerCloseHandler() );
         }
 
         public void Stop(Server server)

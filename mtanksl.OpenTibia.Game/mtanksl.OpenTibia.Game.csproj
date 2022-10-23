@@ -68,6 +68,7 @@
     <Compile Include="CommandHandlers\ItemUpdateParentToTile\Pitfall2Handler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveCreature\MoveCreatureWalkToSourceHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveItem\TarHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerMoveItem\SplitStackableItemHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\SpellsHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\DestroyMonsterOrNpcHandler.cs" />
     <Compile Include="CommandHandlers\PlayerSay\TeleportPlayerHandler.cs" />
@@ -194,9 +195,9 @@
     <Compile Include="CommandHandlers\PlayerUseItem\WatchHandler.cs" />
     <Compile Include="Commands\Outgoing\Inventory\InventoryCreateItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Container\ContainerCreateItemCommand.cs" />
-    <Compile Include="Commands\Outgoing\Item\ItemUpdateParentToTileCommand.cs" />
-    <Compile Include="Commands\Outgoing\Item\ItemUpdateParentToContainerCommand.cs" />
-    <Compile Include="Commands\Outgoing\Item\ItemUpdateParentToInventoryCommand.cs" />
+    <Compile Include="Commands\Outgoing\Item\Review\ItemUpdateParentToTileCommand.cs" />
+    <Compile Include="Commands\Outgoing\Item\Review\ItemUpdateParentToContainerCommand.cs" />
+    <Compile Include="Commands\Outgoing\Item\Review\ItemUpdateParentToInventoryCommand.cs" />
     <Compile Include="Commands\Outgoing\Item\ItemDecayTransformCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileCreateItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Item\ItemDecrementCommand.cs" />
@@ -216,14 +217,14 @@
     <Compile Include="Commands\CommandResult.cs" />
     <Compile Include="Commands\Incoming\Dialog\ParseReportRuleViolationCommand.cs" />
     <Compile Include="Commands\Outgoing\FluidItem\FluidItemUpdateFluidTypeCommand.cs" />
-    <Compile Include="Commands\Outgoing\Item\ItemTransformCommand.cs" />
-    <Compile Include="Commands\Outgoing\Item\ItemDestroyCommand.cs" />
+    <Compile Include="Commands\Outgoing\Item\Review\ItemTransformCommand.cs" />
+    <Compile Include="Commands\Outgoing\Item\Review\ItemDestroyCommand.cs" />
     <Compile Include="Commands\Outgoing\Monster\MonsterDestroyCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileCreateMonsterCommand.cs" />
     <Compile Include="Commands\Outgoing\Npc\NpcDestroyCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileCreateNpcCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\Review\PlayerDestroyCommand.cs" />
-    <Compile Include="Commands\Outgoing\Tile\TileCreatePlayerCommand.cs" />
+    <Compile Include="Commands\Outgoing\Tile\Review\TileCreatePlayerCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerUpdateExperienteCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerUpdateStaminaCommand.cs" />
     <Compile Include="Commands\Outgoing\Player\PlayerYellCommand.cs" />
@@ -266,7 +267,7 @@
     <Compile Include="Commands\Outgoing\Player\PlayerLookItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Effect\ShowAnimatedTextCommand.cs" />
     <Compile Include="Commands\Outgoing\Effect\ShowProjectileCommand.cs" />
-    <Compile Include="Commands\Outgoing\Creature\CreatureUpdateParentCommand.cs" />
+    <Compile Include="Commands\Outgoing\Creature\Review\CreatureUpdateParentCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileReplaceItemCommand.cs" />
     <Compile Include="Commands\Incoming\Console\ParseCloseNpcsChannelCommand.cs" />
     <Compile Include="Commands\Incoming\Dialog\ParseSelectedCharacterCommand.cs" />

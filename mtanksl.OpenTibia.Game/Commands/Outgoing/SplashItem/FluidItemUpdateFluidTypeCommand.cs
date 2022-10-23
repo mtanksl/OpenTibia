@@ -5,14 +5,14 @@ namespace OpenTibia.Game.Commands
 {
     public class SplashItemUpdateFluidTypeCommand : Command
     {
-        public SplashItemUpdateFluidTypeCommand(SplashItem item, FluidType fluidType)
+        public SplashItemUpdateFluidTypeCommand(SplashItem splashItem, FluidType fluidType)
         {
-            Item = item;
+            SplashItem = splashItem;
 
             FluidType = fluidType;
         }
 
-        public SplashItem Item { get; set; }
+        public SplashItem SplashItem { get; set; }
 
         public FluidType FluidType { get; set; }
 
@@ -20,27 +20,27 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run(resolve =>
             {
-                if (Item.FluidType != FluidType)
+                if (SplashItem.FluidType != FluidType)
                 {
-                    Item.FluidType = FluidType;
+                    SplashItem.FluidType = FluidType;
 
-                    switch (Item.Parent)
+                    switch (SplashItem.Parent)
                     {
                         case Tile tile:
 
-                            context.AddCommand(new TileRefreshItemCommand(tile, Item) );
+                            context.AddCommand(new TileRefreshItemCommand(tile, SplashItem) );
                   
                             break;
 
                         case Inventory inventory:
 
-                            context.AddCommand(new InventoryRefreshItemCommand(inventory, Item) );
+                            context.AddCommand(new InventoryRefreshItemCommand(inventory, SplashItem) );
                    
                             break;
 
                         case Container container:
 
-                            context.AddCommand(new ContainerRefreshItemCommand(container, Item) );
+                            context.AddCommand(new ContainerRefreshItemCommand(container, SplashItem) );
 
                             break;
                     }

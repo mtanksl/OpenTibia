@@ -4,14 +4,14 @@ namespace OpenTibia.Game.Commands
 {
     public class StackableItemUpdateCountCommand : Command
     {
-        public StackableItemUpdateCountCommand(StackableItem item, byte count)
+        public StackableItemUpdateCountCommand(StackableItem stackableItem, byte count)
         {
-            Item = item;
+            StackableItem = stackableItem;
 
             Count = count;
         }
 
-        public StackableItem Item { get; set; }
+        public StackableItem StackableItem { get; set; }
 
         public byte Count { get; set; }
 
@@ -19,26 +19,27 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run(resolve =>
             {
-                if (Item.Count != Count)
+                if (StackableItem.Count != Count)
                 {
-                    Item.Count = Count;
+                    StackableItem.Count = Count;
 
-                    switch (Item.Parent)
+                    switch (StackableItem.Parent)
                     {
                         case Tile tile:
 
-                            context.AddCommand(new TileRefreshItemCommand(tile, Item) );
+                            context.AddCommand(new TileRefreshItemCommand(tile, StackableItem) );
+
                             break;
 
                         case Inventory inventory:
 
-                            context.AddCommand(new InventoryRefreshItemCommand(inventory, Item) );
+                            context.AddCommand(new InventoryRefreshItemCommand(inventory, StackableItem) );
                    
                             break;
 
                         case Container container:
 
-                            context.AddCommand(new ContainerRefreshItemCommand(container, Item) );
+                            context.AddCommand(new ContainerRefreshItemCommand(container, StackableItem) );
 
                             break;
                     }
