@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
             {
                 #region Save player to database
 
-                var databasePlayer = context.DatabaseContext.PlayerRepository.GetPlayer(Player.DatabasePlayerId);
+                var databasePlayer = context.DatabaseContext.PlayerRepository.GetPlayerById(Player.DatabasePlayerId);
 
                 databasePlayer.Direction = (int)Player.Direction;
 
@@ -50,9 +50,9 @@ namespace OpenTibia.Game.Commands
 
                 #region Save player items to database
 
-                foreach (var databasePlayerItem in databasePlayer.PlayerItems.ToList() )
+                foreach (var playerItem in databasePlayer.PlayerItems.ToList() )
                 {
-                    context.DatabaseContext.PlayerRepository.RemovePlayerItem(databasePlayerItem);
+                    context.DatabaseContext.PlayerRepository.RemovePlayerItem(playerItem);
                 }
 
                 int sequenceId = 101;
@@ -66,9 +66,9 @@ namespace OpenTibia.Game.Commands
 
                 #region Save player depot items to database
 
-                foreach (var databasePlayerDepotItem in databasePlayer.PlayerDepotItems.ToList() )
+                foreach (var playerDepotItem in databasePlayer.PlayerDepotItems.ToList() )
                 {
-                    context.DatabaseContext.PlayerRepository.RemovePlayerDepotItem(databasePlayerDepotItem);
+                    context.DatabaseContext.PlayerRepository.RemovePlayerDepotItem(playerDepotItem);
                 }
 
                 sequenceId = 101;
@@ -78,9 +78,34 @@ namespace OpenTibia.Game.Commands
                     AddPlayerDepotItems(context, ref sequenceId, pair.Key, pair.Value);
                 }
 
-                context.DatabaseContext.Commit();
+                #endregion
+
+                #region Save player vip to database
+
+                foreach (var playerVip in databasePlayer.PlayerVips.ToList() )
+                {
+                    context.DatabaseContext.PlayerRepository.RemovePlayerVip(playerVip);
+                }
+
+                sequenceId = 1;
+
+                foreach (var vip in Player.Client.VipCollection.GetVips() )
+                {
+                    var playerVip = new Data.Models.PlayerVip()
+                    {
+                        PlayerId = Player.DatabasePlayerId,
+
+                        SequenceId = sequenceId++,
+
+                        VipId = context.DatabaseContext.PlayerRepository.GetPlayerByName(vip.Name).Id
+                    };
+
+                    context.DatabaseContext.PlayerRepository.AddPlayerVip(playerVip);
+                }
 
                 #endregion
+
+                context.DatabaseContext.Commit();
 
                 #region Destroy
 
@@ -173,16 +198,16 @@ namespace OpenTibia.Game.Commands
 
             if (item is Container container)
             {
-                foreach (var i in container.GetItems().Reverse() )
+                foreach (var item2 in container.GetItems().Reverse() )
                 {
-                    AddPlayerItems(context, ref sequence, playerItem.SequenceId, i);
+                    AddPlayerItems(context, ref sequence, playerItem.SequenceId, item2);
                 }
             }
         }
 
         private void AddPlayerDepotItems(Context context, ref int sequence, int index, Item item)
         {
-            var playerItem = new Data.Models.PlayerDepotItem()
+            var playerDepotItem = new Data.Models.PlayerDepotItem()
             {
                 PlayerId = Player.DatabasePlayerId,
 
@@ -199,13 +224,13 @@ namespace OpenTibia.Game.Commands
                         item is SplashItem splashItem ? (int)splashItem.FluidType : 1,
             };
 
-            context.DatabaseContext.PlayerRepository.AddPlayerDepotItem(playerItem);
+            context.DatabaseContext.PlayerRepository.AddPlayerDepotItem(playerDepotItem);
 
             if (item is Container container)
             {
-                foreach (var i in container.GetItems().Reverse() )
+                foreach (var item2 in container.GetItems().Reverse() )
                 {
-                    AddPlayerDepotItems(context, ref sequence, playerItem.SequenceId, i);
+                    AddPlayerDepotItems(context, ref sequence, playerDepotItem.SequenceId, item2);
                 }
             }
         }

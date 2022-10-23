@@ -61,6 +61,30 @@ namespace OpenTibia.Game.Commands
                             builder.Append("You are a sorcerer.");
 
                             break;
+
+                        case Vocation.EliteKnight:
+
+                            builder.Append("You are a elite knight.");
+
+                            break;
+
+                        case Vocation.RoyalPaladin:
+
+                            builder.Append("You are a royal paladin.");
+
+                            break;
+
+                        case Vocation.ElderDruid:
+
+                            builder.Append("You are a elder druid.");
+
+                            break;
+
+                        case Vocation.MasterSorcerer:
+
+                            builder.Append("You are a master sorcerer.");
+
+                            break;
                     }
                 }
                 else
@@ -81,7 +105,7 @@ namespace OpenTibia.Game.Commands
 
                         case Player player:
 
-                            builder.Append(player.Name + ". ");
+                            builder.Append(player.Name + " (Level " + player.Level + "). ");
 
                             switch (player.Gender)
                             {
@@ -127,6 +151,30 @@ namespace OpenTibia.Game.Commands
                                 case Vocation.Sorcerer:
 
                                     builder.Append("is a sorcerer.");
+
+                                    break;
+
+                                case Vocation.EliteKnight:
+
+                                    builder.Append("is a elite knight.");
+
+                                    break;
+
+                                case Vocation.RoyalPaladin:
+
+                                    builder.Append("is a royal paladin.");
+
+                                    break;
+
+                                case Vocation.ElderDruid:
+
+                                    builder.Append("is a elder druid.");
+
+                                    break;
+
+                                case Vocation.MasterSorcerer:
+
+                                    builder.Append("is a master sorcerer.");
 
                                     break;
                             }

@@ -10,6 +10,14 @@
 
         Druid = 3,
 
-        Sorcerer = 4
+        Sorcerer = 4,
+
+        EliteKnight = 5,
+
+        RoyalPaladin = 6,
+
+        ElderDruid = 7,
+
+        MasterSorcerer = 8
     }
 }

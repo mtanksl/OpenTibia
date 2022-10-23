@@ -6,6 +6,8 @@ namespace OpenTibia.Common.Objects
     {
         IBattleCollection CreatureCollection { get; }
 
+        IVipCollection VipCollection { get; }
+
         IContainerCollection ContainerCollection { get; }
 
         IWindowCollection WindowCollection { get; }

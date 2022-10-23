@@ -55,7 +55,7 @@
   <ItemGroup>
     <Compile Include="Behaviours\Creature\AttackBehaviour.cs" />
     <Compile Include="Behaviours\Creature\WalkBehaviour.cs" />
-    <Compile Include="Behaviours\Player\AttackAndFollowBehaviour.cs" />
+    <Compile Include="Behaviours\Player\Review\AttackAndFollowBehaviour.cs" />
     <Compile Include="Behaviours\Item\DecayBehaviour.cs" />
     <Compile Include="CommandHandlerCollection.cs" />
     <Compile Include="CommandHandlers\CommandHandlerResult.cs" />
@@ -113,6 +113,7 @@
     <Compile Include="Commands\Outgoing\Combat\CombatChangeHealthCommand.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatAreaAttackCommand.cs" />
     <Compile Include="Commands\Outgoing\SplashItem\FluidItemUpdateFluidTypeCommand.cs" />
+    <Compile Include="Common\Objects\VipCollection.cs" />
     <Compile Include="ComponentCollection.cs" />
     <Compile Include="LockerCollection.cs" />
     <Compile Include="EventHandlers\TileAddCreature\SpikesHandler.cs" />

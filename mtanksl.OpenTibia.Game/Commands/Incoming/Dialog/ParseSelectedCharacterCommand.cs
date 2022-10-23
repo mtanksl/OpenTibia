@@ -35,7 +35,7 @@ namespace OpenTibia.Game.Commands
                 }
                 else
                 {
-                    var databasePlayer = context.DatabaseContext.PlayerRepository.GetPlayer(Packet.Account, Packet.Password, Packet.Character);
+                    var databasePlayer = context.DatabaseContext.PlayerRepository.GetAccountPlayer(Packet.Account, Packet.Password, Packet.Character);
 
                     if (databasePlayer == null)
                     {
@@ -80,6 +80,11 @@ namespace OpenTibia.Game.Commands
                                 ctx.AddPacket(Connection, new SetEnvironmentLightOutgoingPacket(ctx.Server.Clock.Light) );
 
                                 ctx.AddPacket(Connection, new SetSpecialConditionOutgoingPacket(SpecialCondition.None) );
+
+                                foreach (var vip in player.Client.VipCollection.GetVips() )
+                                {
+                                    ctx.AddPacket(Connection, new VipOutgoingPacket(vip.Id, vip.Name, false) );
+                                }
 
                                 if (onlinePlayer == null)
                                 {

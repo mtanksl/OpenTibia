@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run(resolve =>
             {
-
+                Player.Client.VipCollection.RemoveVip(CreatureId);
 
                 resolve(context);
             } );

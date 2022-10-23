@@ -105,5 +105,7 @@ namespace OpenTibia.Data.Models
         public ICollection<PlayerItem> PlayerItems { get; set; }
 
         public ICollection<PlayerDepotItem> PlayerDepotItems { get; set; }
+
+        public ICollection<PlayerVip> PlayerVips { get; set; }
     }
 }

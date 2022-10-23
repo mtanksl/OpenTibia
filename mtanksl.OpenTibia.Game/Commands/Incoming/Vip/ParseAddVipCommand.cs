@@ -1,4 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Network.Packets.Outgoing;
+using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -19,7 +21,16 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run(resolve =>
             {
+                Player player = context.Server.GameObjects.GetPlayers()
+                    .Where(p => p.Name == Name)
+                    .FirstOrDefault();
 
+                if (player != null && player != Player)
+                {
+                    Vip vip = Player.Client.VipCollection.AddVip(player.Name);
+
+                    context.AddPacket(Player.Client.Connection, new VipOutgoingPacket(vip.Id, vip.Name, false) );
+                }
 
                 resolve(context);
             } );

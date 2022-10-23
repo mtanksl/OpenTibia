@@ -43,6 +43,7 @@
     <Compile Include="Events\DisconnectedEventArgs.cs" />
     <Compile Include="Objects\Channel.cs" />
     <Compile Include="Objects\ChannelCollection.cs" />
+    <Compile Include="Objects\IVipCollection.cs" />
     <Compile Include="Objects\Locker.cs" />
     <Compile Include="Objects\Skills.cs" />
     <Compile Include="Objects\SplashItem.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Objects\ReadableItem.cs" />
     <Compile Include="Objects\Town.cs" />
     <Compile Include="Objects\Waypoint.cs" />
+    <Compile Include="Objects\Vip.cs" />
     <Compile Include="Objects\Window.cs" />
     <Compile Include="Objects\IWindowCollection.cs" />
     <Compile Include="Objects\IContainerCollection.cs" />

@@ -1,7 +1,5 @@
 ﻿using OpenTibia.Data.Contexts;
 using OpenTibia.Data.Models;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
@@ -25,36 +23,38 @@ namespace OpenTibia.Data.Repositories
                 .FirstOrDefault();
         }
 
-        public Player GetPlayer(string accountName, string accountPassword, string playerName)
+        public Player GetAccountPlayer(string accountName, string accountPassword, string playerName)
         {
             return context.Players
                 .Include(p => p.PlayerItems)
                 .Include(p => p.PlayerDepotItems)
+                .Include(p => p.PlayerVips.Select(v => v.Vip) )
                 .Where(p => p.Account.Name == accountName &&
                             p.Account.Password == accountPassword &&
                             p.Name == playerName)
                 .FirstOrDefault();
         }
 
-        public Player GetPlayer(int databasePlayerId)
+        public Player GetPlayerById(int databasePlayerId)
         {
             return context.Players
                 .Include(p => p.PlayerItems)
                 .Include(p => p.PlayerDepotItems)
+                .Include(p => p.PlayerVips)
                 .Where(p => p.Id == databasePlayerId)
+                .FirstOrDefault();
+        }
+
+        public Player GetPlayerByName(string name)
+        {
+            return context.Players
+                .Where(p => p.Name == name)
                 .FirstOrDefault();
         }
 
         public void UpdatePlayer(Player player)
         {
-
-        }
-
-        public List<PlayerItem> GetPlayerItems(int databasePlayerId)
-        {
-            return context.PlayerItems
-                .Where(p => p.PlayerId == databasePlayerId)
-                .ToList();
+            context.Entry(player).State = EntityState.Modified;
         }
 
         public void AddPlayerItem(PlayerItem playerItem)
@@ -67,13 +67,6 @@ namespace OpenTibia.Data.Repositories
             context.PlayerItems.Remove(playerItem);
         }
 
-        public List<PlayerDepotItem> GetPlayerDepotItems(int databasePlayerId)
-        {
-            return context.PlayerDepotItems
-                .Where(p => p.PlayerId == databasePlayerId)
-                .ToList();
-        }
-
         public void AddPlayerDepotItem(PlayerDepotItem playerDepotItem)
         {
             context.PlayerDepotItems.Add(playerDepotItem);
@@ -82,6 +75,16 @@ namespace OpenTibia.Data.Repositories
         public void RemovePlayerDepotItem(PlayerDepotItem playerDepotItem)
         {
             context.PlayerDepotItems.Remove(playerDepotItem);
+        }
+
+        public void AddPlayerVip(PlayerVip playerVip)
+        {
+            context.PlayerVips.Add(playerVip);
+        }
+
+        public void RemovePlayerVip(PlayerVip playerVip)
+        {
+            context.PlayerVips.Remove(playerVip);
         }
     }
 }

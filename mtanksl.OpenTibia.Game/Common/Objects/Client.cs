@@ -11,10 +11,14 @@ namespace OpenTibia.Common.Objects
 
             this.ContainerCollection = new ContainerCollection(this);
 
+            this.VipCollection = new VipCollection(this);
+
             this.WindowCollection = new WindowCollection(this);
         }
 
         public IBattleCollection CreatureCollection { get; }
+
+        public IVipCollection VipCollection { get; }
 
         public IContainerCollection ContainerCollection { get; }
 

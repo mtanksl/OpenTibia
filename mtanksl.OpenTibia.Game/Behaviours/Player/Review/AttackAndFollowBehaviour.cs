@@ -22,34 +22,42 @@ namespace OpenTibia.Game.Components
 
         private Player player;
 
+        private string key1;
+
+        private string key2;
+
         public override void Start(Server server)
         {
-            player = (Player)GameObject;            
+            player = (Player)GameObject;
+
+            key1 = "Player_Attack_Behaviour_" + player.Id;
+
+            key2 = "Player_Follow_Behaviour_" + player.Id;
         }
 
         private State state;
 
-        private uint? targetId;
+        private Creature target;
 
         public void Attack(Creature creature)
         {
             state = State.Attack;
 
-            targetId = creature.Id;
+            target = creature;
         }
 
         public void Follow(Creature creature)
         {
             state = State.Follow;
 
-            targetId = creature.Id;
+            target = creature;
         }
 
         public void AttackAndFollow(Creature creature)
         {
             state = State.AttackAndFollow;
 
-            targetId = creature.Id;
+            target = creature;
         }
 
         public void StartFollow()
@@ -72,7 +80,7 @@ namespace OpenTibia.Game.Components
         {
             state = State.None;
 
-            targetId = null;
+            target = null;
         }
 
         private IAttackStrategy attackStrategy = new CloseAttackStrategy(1000, (attacker, target) => -Server.Random.Next(0, 50) );
@@ -85,11 +93,9 @@ namespace OpenTibia.Game.Components
 
         public override void Update(Context context)
         {
-            if (targetId != null)
+            if (target != null)
             {
-                var target = context.Server.GameObjects.GetCreature(targetId.Value);
-
-                if (target == null)
+                if (target.Tile == null)
                 {
                     context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
 
@@ -160,7 +166,9 @@ namespace OpenTibia.Game.Components
 
         public override void Stop(Server server)
         {
-            
+            server.CancelQueueForExecution(key1);
+
+            server.CancelQueueForExecution(key2);
         }        
     }
 }
