@@ -21,9 +21,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (toTile != null)
                     {
-                        return context.AddCommand(new TileCreateMonsterCommand(toTile, name) ).Then( (ctx, monster) =>
+                        return context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) ).Then(ctx =>
                         {
-                            return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) );
+                            return ctx.AddCommand(new TileCreateMonsterCommand(toTile, name) );
                         } );
                     }
 

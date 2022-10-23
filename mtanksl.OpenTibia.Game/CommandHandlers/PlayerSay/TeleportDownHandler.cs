@@ -15,9 +15,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (toTile != null)
                 {
-                    return context.AddCommand(new CreatureUpdateParentCommand(command.Player, toTile) ).Then(ctx =>
+                    return context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) ).Then(ctx =>
                     {
-                        return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                        return ctx.AddCommand(new CreatureUpdateParentCommand(command.Player, toTile) );
                     } );
                 }
 

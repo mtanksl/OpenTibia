@@ -11,15 +11,15 @@ namespace OpenTibia.Game.CommandHandlers
         {
             int count;
 
-            if (command.Message.StartsWith("/a") && command.Message.Contains(" ") && int.TryParse(command.Message.Split(' ')[1], out count) )
+            if (command.Message.StartsWith("/a") && command.Message.Contains(" ") && int.TryParse(command.Message.Split(' ')[1], out count) && count > 0)
             {
                 Tile toTile = context.Server.Map.GetTile(command.Player.Tile.Position.Offset(command.Player.Direction, count) );
 
                 if (toTile != null)
                 {
-                    return context.AddCommand(new CreatureUpdateParentCommand(command.Player, toTile) ).Then(ctx =>
+                    return context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) ).Then(ctx =>
                     {
-                        return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                        return ctx.AddCommand(new CreatureUpdateParentCommand(command.Player, toTile) );
                     } );
                 }
 

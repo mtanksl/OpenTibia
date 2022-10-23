@@ -35,7 +35,7 @@ namespace OpenTibia.Game.Components
 
             foreach (var observer in context.Server.GameObjects.GetPlayers() )
             {
-                if (creature.Tile.Position.CanSee(observer.Tile.Position) )
+                if (creature.Tile.Position.CanHearSay(observer.Tile.Position) )
                 {
                     var command = attackStrategy.GetNext(context, creature, observer);
 

@@ -19,16 +19,16 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         case Monster monster:
 
-                            return context.AddCommand(new MonsterDestroyCommand(monster) ).Then(ctx =>
+                            return context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.RedShimmer)).Then(ctx =>
                             {
-                                return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.RedShimmer) );
+                                return ctx.AddCommand(new MonsterDestroyCommand(monster) );
                             } );
 
                         case Npc npc:
 
-                            return context.AddCommand(new NpcDestroyCommand(npc) ).Then(ctx =>
+                            return context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.RedShimmer) ).Then(ctx =>
                             {
-                                return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.RedShimmer) );
+                                return ctx.AddCommand(new NpcDestroyCommand(npc) );
                             } );
                     }
                 }
