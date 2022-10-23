@@ -305,7 +305,14 @@ namespace OpenTibia.Common.Objects
                                 }
                                 else if (fromPosition.IsInventory)
                                 {
-                                    command = new ParseUseItemFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId);
+                                    if (fromPosition.IsHotkey)
+                                    {
+                                        command = new ParseUseItemFromHotkeyCommand(Client.Player, packet.ItemId);
+                                    }
+                                    else
+                                    {
+                                        command = new ParseUseItemFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId);
+                                    }
                                 }
                                 else
                                 {
@@ -339,17 +346,35 @@ namespace OpenTibia.Common.Objects
                                 }
                                 else if (fromPosition.IsInventory)
                                 {
-                                    if (toPosition.IsContainer)
+                                    if (fromPosition.IsHotkey)
                                     {
-                                        command = new ParseUseItemWithItemFromInventoryToContainerCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.ToItemId);
-                                    }
-                                    else if (toPosition.IsInventory)
-                                    {
-                                        command = new ParseUseItemWithItemFromInventoryToInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition.InventoryIndex, packet.ToItemId);
+                                        if (toPosition.IsContainer)
+                                        {
+                                            command = new ParseUseItemWithItemFromHotkeyToContainerCommand(Client.Player, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.ToItemId);
+                                        }
+                                        else if (toPosition.IsInventory)
+                                        {
+                                            command = new ParseUseItemWithItemFromHotkeyToInventoryCommand(Client.Player, packet.FromItemId, toPosition.InventoryIndex, packet.ToItemId);
+                                        }
+                                        else
+                                        {
+                                            command = new ParseUseItemWithItemFromHotkeyToTileCommand(Client.Player, packet.FromItemId, toPosition, packet.ToIndex, packet.ToItemId);
+                                        }
                                     }
                                     else
                                     {
-                                        command = new ParseUseItemWithItemFromInventoryToTileCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition, packet.ToIndex, packet.ToItemId);
+                                        if (toPosition.IsContainer)
+                                        {
+                                            command = new ParseUseItemWithItemFromInventoryToContainerCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.ToItemId);
+                                        }
+                                        else if (toPosition.IsInventory)
+                                        {
+                                            command = new ParseUseItemWithItemFromInventoryToInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition.InventoryIndex, packet.ToItemId);
+                                        }
+                                        else
+                                        {
+                                            command = new ParseUseItemWithItemFromInventoryToTileCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition, packet.ToIndex, packet.ToItemId);
+                                        }
                                     }
                                 }
                                 else
@@ -382,7 +407,14 @@ namespace OpenTibia.Common.Objects
                                 }
                                 else if (fromPosition.IsInventory)
                                 {
-                                    command = new ParseUseItemWithCreatureFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId, packet.CreatureId);
+                                    if (fromPosition.IsHotkey)
+                                    {
+                                        command = new ParseUseItemWithCreatureFromHotkeyCommand(Client.Player, packet.ItemId, packet.CreatureId);
+                                    }
+                                    else
+                                    {
+                                        command = new ParseUseItemWithCreatureFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId, packet.CreatureId);
+                                    }
                                 }
                                 else
                                 {
