@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTibia.Common.Structures;
+using System;
 
 namespace OpenTibia.Common.Objects
 {
@@ -95,6 +96,10 @@ namespace OpenTibia.Common.Objects
         public ushort Stamina { get; set; }
 
         public bool CanReportBugs { get; set; }
+
+        public Gender Gender { get; set; }
+
+        public Vocation Vocation { get; set; }
 
         private void Calculate(ushort level)
         {

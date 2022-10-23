@@ -16,7 +16,11 @@ namespace OpenTibia.Common.Objects
 
         public Light Light { get; set; }
 
+        public string Article { get; set; }
+
         public string Name { get; set; }
+
+        public string Plural { get; set; }
 
         public byte Capacity { get; set; }
 

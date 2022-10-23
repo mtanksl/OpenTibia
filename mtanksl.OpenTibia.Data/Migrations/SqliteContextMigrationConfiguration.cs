@@ -1,5 +1,6 @@
 ﻿namespace OpenTibia.Data.Migrations
 {
+    using OpenTibia.Common.Structures;
     using OpenTibia.Data.Contexts;
     using OpenTibia.Data.Models;
     using System.Collections.Generic;
@@ -90,6 +91,8 @@
                     Soul = 100,
                     Capacity = 1390 * 100,
                     Stamina = 42 * 60,
+                    Gender = (int)Gender.Male,
+                    Vocation = (int)Vocation.None,
                     CoordinateX = 930, 
                     CoordinateY = 779, 
                     CoordinateZ = 7,
@@ -142,6 +145,8 @@
                     Soul = 100,
                     Capacity = 2770 * 100,
                     Stamina = 42 * 60,
+                    Gender = (int)Gender.Male,
+                    Vocation = (int)Vocation.Knight,
                     CoordinateX = 930, 
                     CoordinateY = 779, 
                     CoordinateZ = 7,
@@ -194,6 +199,8 @@
                     Soul = 100,
                     Capacity = 2310 * 100,
                     Stamina = 42 * 60,
+                    Gender = (int)Gender.Male,
+                    Vocation = (int)Vocation.Paladin,
                     CoordinateX = 930, 
                     CoordinateY = 779, 
                     CoordinateZ = 7,
@@ -246,6 +253,8 @@
                     Soul = 100,
                     Capacity = 1390 * 100,
                     Stamina = 42 * 60,
+                    Gender = (int)Gender.Male,
+                    Vocation = (int)Vocation.Sorcerer,
                     CoordinateX = 930, 
                     CoordinateY = 779, 
                     CoordinateZ = 7,

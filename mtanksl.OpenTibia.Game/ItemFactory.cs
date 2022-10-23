@@ -144,7 +144,11 @@ namespace OpenTibia.Game
                 {
                     ItemMetadata metadata = metadatas[xmlItem.OpenTibiaId];
 
+                    metadata.Article = xmlItem.Article;
+
                     metadata.Name = xmlItem.Name;
+
+                    metadata.Plural = xmlItem.Plural;
 
                     metadata.Capacity = xmlItem.ContainerSize;
 

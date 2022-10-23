@@ -115,6 +115,10 @@ namespace OpenTibia.Game.Commands
 
                 player.Stamina = (ushort)DatabasePlayer.Stamina;
 
+                player.Gender = (Gender)DatabasePlayer.Gender;
+
+                player.Vocation = (Vocation)DatabasePlayer.Vocation;
+
                 #endregion
 
                 #region Load player items from database

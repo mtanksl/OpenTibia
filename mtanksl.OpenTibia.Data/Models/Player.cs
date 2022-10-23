@@ -87,6 +87,10 @@ namespace OpenTibia.Data.Models
 
         public int Stamina { get; set; }
 
+        public int Gender { get; set; }
+
+        public int Vocation { get; set; }
+
         public int CoordinateX { get; set; }
 
         public int CoordinateY { get; set; }

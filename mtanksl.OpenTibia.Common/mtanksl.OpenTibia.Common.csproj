@@ -76,6 +76,8 @@
     <Compile Include="Objects\IContent.cs" />
     <Compile Include="Objects\Container.cs" />
     <Compile Include="Objects\Tile.cs" />
+    <Compile Include="Structures\Vocation.cs" />
+    <Compile Include="Structures\Gender.cs" />
     <Compile Include="Structures\FluidColor.cs" />
     <Compile Include="Structures\FluidType.cs" />
     <Compile Include="Structures\ItemMetadataFlags.cs" />

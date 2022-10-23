@@ -19,16 +19,40 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run(resolve =>
             {
-                List<SelectOutfit> outfits = new List<SelectOutfit>()
+                List<SelectOutfit> outfits = null;
+
+                switch (Player.Gender)
                 {
-                    new SelectOutfit(128, "Citizen", Addon.None),
+                    case Gender.Male:
 
-                    new SelectOutfit(129, "Hunter", Addon.None),
+                        outfits = new List<SelectOutfit>()
+                        {
+                            new SelectOutfit(128, "Citizen", Addon.None),
 
-                    new SelectOutfit(130, "Mage", Addon.None),
+                            new SelectOutfit(129, "Hunter", Addon.None),
 
-                    new SelectOutfit(131, "Knight", Addon.None)
-                };
+                            new SelectOutfit(130, "Mage", Addon.None),
+
+                            new SelectOutfit(131, "Knight", Addon.None)
+                        };
+
+                        break;
+
+                    case Gender.Female:
+
+                        outfits = new List<SelectOutfit>()
+                        {
+                            new SelectOutfit(136, "Citizen", Addon.None),
+
+                            new SelectOutfit(137, "Hunter", Addon.None),
+
+                            new SelectOutfit(138, "Mage", Addon.None),
+
+                            new SelectOutfit(139, "Knight", Addon.None)
+                        };
+
+                        break;
+                }
 
                 context.AddPacket(Player.Client.Connection, new OpenSelectOutfitDialogOutgoingPacket(Player.Outfit, outfits) );
 
