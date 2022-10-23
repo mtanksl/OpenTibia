@@ -27,36 +27,24 @@ namespace OpenTibia.Game.Commands
                     {
                         case Tile tile:
 
-                            context.AddCommand(new TileRefreshItemCommand(tile, Item) ).Then(ctx =>
-                            {
-                                resolve(ctx);
-                            } );
-                  
+                            context.AddCommand(new TileRefreshItemCommand(tile, Item) );
                             break;
 
                         case Inventory inventory:
 
-                            context.AddCommand(new InventoryRefreshItemCommand(inventory, Item) ).Then(ctx =>
-                            {
-                                resolve(ctx);
-                            } );
+                            context.AddCommand(new InventoryRefreshItemCommand(inventory, Item) );
                    
                             break;
 
                         case Container container:
 
-                            context.AddCommand(new ContainerRefreshItemCommand(container, Item) ).Then(ctx =>
-                            {
-                                resolve(ctx);
-                            } );
+                            context.AddCommand(new ContainerRefreshItemCommand(container, Item) );
 
                             break;
                     }
                 }
-                else
-                {
-                    resolve(context);
-                }
+
+                resolve(context);
             } );
         }
     }

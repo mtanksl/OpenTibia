@@ -31,15 +31,10 @@ namespace OpenTibia.Game.Commands
 
                 if (item != null)
                 {
-                    context.AddCommand(new InventoryAddItemCommand(Inventory, Slot, item) ).Then(ctx =>
-                    {
-                        resolve(ctx, item);
-                    } );
+                    context.AddCommand(new InventoryAddItemCommand(Inventory, Slot, item) );
                 }
-                else
-                {
-                    resolve(context, item);
-                }
+
+                resolve(context, item);
             } );
         }
     }

@@ -23,15 +23,10 @@ namespace OpenTibia.Game.Commands
 
                 if (npc != null)
                 {
-                    context.AddCommand(new TileAddCreatureCommand(Tile, npc) ).Then( (ctx, index) =>
-                    {
-                        resolve(ctx, npc);
-                    } );
+                    context.AddCommand(new TileAddCreatureCommand(Tile, npc) );
                 }
-                else
-                {
-                    resolve(context, npc);
-                }
+
+                resolve(context, npc);
             } );
         }
     }
