@@ -40,7 +40,12 @@ namespace OpenTibia.Game.Commands
                     builder.Append(Item.Metadata.Name);
                 }
 
-                if (Item is FluidItem fluidItem)
+                if (Item is Container container)
+                {
+                    builder.Append(" (Vol: " + container.Metadata.Capacity + ")");
+
+                }
+                else if (Item is FluidItem fluidItem)
                 {
                     switch (fluidItem.FluidType)
                     {
