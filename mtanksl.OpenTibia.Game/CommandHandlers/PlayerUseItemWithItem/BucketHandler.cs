@@ -22,32 +22,50 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (buckets.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                FluidItem item = (FluidItem)command.Item;
+                FluidItem fromItem = (FluidItem)command.Item;
 
-                if (drawWell.Contains(command.ToItem.Metadata.OpenTibiaId) )
+                if (fromItem.FluidType == FluidType.Empty)
                 {
-                    return context.AddCommand(new FluidItemUpdateFluidTypeCommand(item, FluidType.Water) );
-                }
-                else if (shallowWaters.Contains(command.ToItem.Metadata.OpenTibiaId) )
-                {
-                    return context.AddCommand(new FluidItemUpdateFluidTypeCommand(item, FluidType.Water) ).Then(ctx =>
+                    if (drawWell.Contains(command.ToItem.Metadata.OpenTibiaId) )
                     {
-                        return ctx.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.BlueRings) );
-                    } );
-                }
-                else if (swamps.Contains(command.ToItem.Metadata.OpenTibiaId) )
-                {
-                    return context.AddCommand(new FluidItemUpdateFluidTypeCommand(item, FluidType.Slime) ).Then(ctx =>
+                        return context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Water) );
+                    }
+                    else if (shallowWaters.Contains(command.ToItem.Metadata.OpenTibiaId) )
                     {
-                        return ctx.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.GreenRings) );
-                    } );
-                }
-                else if (lavas.Contains(command.ToItem.Metadata.OpenTibiaId) )
-                {
-                    return context.AddCommand(new FluidItemUpdateFluidTypeCommand(item, FluidType.Lava) ).Then(ctx =>
+                        return context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.BlueRings) ).Then(ctx =>
+                        {
+                            return ctx.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Water) );
+                        } );
+                    }
+                    else if (swamps.Contains(command.ToItem.Metadata.OpenTibiaId) )
                     {
-                        return ctx.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.FirePlume) );
-                    } );
+                        return context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.GreenRings) ).Then(ctx =>
+                        {
+                            return ctx.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Slime) );
+                        } );
+                    }
+                    else if (lavas.Contains(command.ToItem.Metadata.OpenTibiaId) )
+                    {
+                        return context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.FirePlume) ).Then(ctx =>
+                        {
+                            return ctx.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Lava) );
+                        } );
+                    }
+                }
+                else
+                {
+                    if (buckets.Contains(command.ToItem.Metadata.OpenTibiaId) )
+                    {
+                        FluidItem toItem = (FluidItem)command.ToItem;
+
+                        if (toItem.FluidType == FluidType.Empty)
+                        {
+                            return context.AddCommand(new FluidItemUpdateFluidTypeCommand(toItem, fromItem.FluidType) ).Then(ctx =>
+                            {
+                                return ctx.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Empty) );
+                            } );
+                        }
+                    }
                 }
             }
 
