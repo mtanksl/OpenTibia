@@ -64,7 +64,7 @@ namespace OpenTibia.Game.Commands
 
                         case Vocation.EliteKnight:
 
-                            builder.Append("You are a elite knight.");
+                            builder.Append("You are an elite knight.");
 
                             break;
 
@@ -76,7 +76,7 @@ namespace OpenTibia.Game.Commands
 
                         case Vocation.ElderDruid:
 
-                            builder.Append("You are a elder druid.");
+                            builder.Append("You are an elder druid.");
 
                             break;
 
@@ -156,7 +156,7 @@ namespace OpenTibia.Game.Commands
 
                                 case Vocation.EliteKnight:
 
-                                    builder.Append("is a elite knight.");
+                                    builder.Append("is an elite knight.");
 
                                     break;
 
@@ -168,7 +168,7 @@ namespace OpenTibia.Game.Commands
 
                                 case Vocation.ElderDruid:
 
-                                    builder.Append("is a elder druid.");
+                                    builder.Append("is an elder druid.");
 
                                     break;
 

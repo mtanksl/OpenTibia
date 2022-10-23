@@ -1,6 +1,6 @@
-﻿using OpenTibia.Game.Events;
-using OpenTibia.Common.Objects;
+﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 using OpenTibia.Threading;
 using System;

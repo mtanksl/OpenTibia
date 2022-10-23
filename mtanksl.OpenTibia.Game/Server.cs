@@ -229,13 +229,13 @@ namespace OpenTibia.Game
         {
             AutoResetEvent syncStop = new AutoResetEvent(false);
 
-            QueueForExecution(context =>
+            QueueForExecution(ctx =>
             {
-                foreach (var player in context.Server.GameObjects.GetPlayers().ToList() )
+                foreach (var player in ctx.Server.GameObjects.GetPlayers().ToList() )
                 {
-                    context.AddCommand(new PlayerDestroyCommand(player) );
+                    ctx.AddCommand(new PlayerDestroyCommand(player) );
 
-                    context.Disconnect(player.Client.Connection);
+                    ctx.Disconnect(player.Client.Connection);
                 }
 
                 syncStop.Set();

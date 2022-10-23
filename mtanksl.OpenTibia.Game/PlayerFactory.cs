@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Components;
+using OpenTibia.Game.Strategies;
 
 namespace OpenTibia.Game
 {
@@ -18,7 +19,7 @@ namespace OpenTibia.Game
 
             server.GameObjects.AddGameObject(player);
 
-            server.Components.AddComponent(player, new AttackAndFollowBehaviour() );
+            server.Components.AddComponent(player, new AttackAndFollowBehaviour(new CloseAttackStrategy(500, (attacker, target) => -Server.Random.Next(0, 20) ), new FollowWalkStrategy() ) );
 
             return player;
         }

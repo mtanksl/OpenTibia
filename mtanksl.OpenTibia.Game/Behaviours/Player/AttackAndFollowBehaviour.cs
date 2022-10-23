@@ -20,19 +20,22 @@ namespace OpenTibia.Game.Components
             AttackAndFollow
         }
 
+        private IAttackStrategy attackStrategy;
+
+        private IWalkStrategy walkStrategy;
+
+        public AttackAndFollowBehaviour(IAttackStrategy attackStrategy, IWalkStrategy walkStrategy)
+        {
+            this.attackStrategy = attackStrategy;
+
+            this.walkStrategy = walkStrategy;
+        }
+
         private Player player;
-
-        private string key1;
-
-        private string key2;
 
         public override void Start(Server server)
         {
             player = (Player)GameObject;
-
-            key1 = "Player_Attack_Behaviour_" + player.Id;
-
-            key2 = "Player_Follow_Behaviour_" + player.Id;
         }
 
         private State state;
@@ -83,10 +86,6 @@ namespace OpenTibia.Game.Components
             target = null;
         }
 
-        private IAttackStrategy attackStrategy = new CloseAttackStrategy(1000, (attacker, target) => -Server.Random.Next(0, 50) );
-
-        private IWalkStrategy walkStrategy = new FollowWalkStrategy();
-
         private DateTime attackCooldown;
 
         private DateTime moveCooldown;
@@ -115,48 +114,33 @@ namespace OpenTibia.Game.Components
                     }
                     else
                     {
-                        if (target is Npc)
+                        if (state == State.Follow || state == State.AttackAndFollow)
                         {
-                            context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature),
-
-                                                                        new StopAttackAndFollowOutgoingPacket(0) );
-
-                            Stop();
-                        }
-                        else
-                        {
-                            if (state == State.Follow || state == State.AttackAndFollow)
+                            if (DateTime.UtcNow > moveCooldown)
                             {
-                                if (DateTime.UtcNow > moveCooldown)
+                                var toTile = walkStrategy.GetNext(context, null, player, target);
+
+                                if (toTile != null)
                                 {
-                                    var toTile = walkStrategy.GetNext(context, null, player, target);
+                                    context.AddCommand(new CreatureUpdateParentCommand(player, toTile) );
 
-                                    if (toTile != null)
-                                    {
-                                        context.AddCommand(new CreatureUpdateParentCommand(player, toTile) );
-
-                                        moveCooldown = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / player.Speed);
-                                    }
-                                    else
-                                    {
-                                        moveCooldown = DateTime.UtcNow.AddMilliseconds(1000 * player.Tile.Ground.Metadata.Speed / player.Speed);
-                                    }
+                                    moveCooldown = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / player.Speed);
                                 }
                             }
+                        }
 
-                            if (state == State.Attack || state == State.AttackAndFollow)
+                        if (state == State.Attack || state == State.AttackAndFollow)
+                        {
+                            if (DateTime.UtcNow > attackCooldown)
                             {
-                                if (DateTime.UtcNow > attackCooldown)
-                                {
-                                    var command = attackStrategy.GetNext(context, player, target);
+                                var command = attackStrategy.GetNext(context, player, target);
 
-                                    if (command != null)
-                                    {
-                                        context.AddCommand(command);
-                                    } 
-                                    
+                                if (command != null)
+                                {
+                                    context.AddCommand(command);
+
                                     attackCooldown = DateTime.UtcNow.AddMilliseconds(attackStrategy.CooldownInMilliseconds);
-                                }
+                                } 
                             }
                         }
                     }
@@ -166,9 +150,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop(Server server)
         {
-            server.CancelQueueForExecution(key1);
-
-            server.CancelQueueForExecution(key2);
+            
         }        
     }
 }

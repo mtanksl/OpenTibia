@@ -28,9 +28,7 @@ namespace OpenTibia.Game.Commands
 
                 if (Item is StackableItem stackableItem && stackableItem.Count > 1 && Item.Metadata.Plural != null)
                 {
-                    builder.Append(stackableItem.Count + " ");
-
-                    builder.Append(Item.Metadata.Plural);
+                    builder.Append(stackableItem.Count + " " + Item.Metadata.Plural);
                 }
                 else
                 {
@@ -67,6 +65,7 @@ namespace OpenTibia.Game.Commands
                         case FluidType.Beer:
 
                             builder.Append(" of beer");
+
                             break;
 
                         case FluidType.Slime:
@@ -184,6 +183,7 @@ namespace OpenTibia.Game.Commands
                         case FluidType.Milk:
 
                             builder.Append(" of milk");
+
                             break;
 
                         case FluidType.Manafluid:

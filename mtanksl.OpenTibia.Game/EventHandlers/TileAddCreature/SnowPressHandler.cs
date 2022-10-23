@@ -1,6 +1,6 @@
-﻿using OpenTibia.Game.Events;
-using OpenTibia.Game.Commands;
+﻿using OpenTibia.Game.Commands;
 using OpenTibia.Game.EventHandlers;
+using OpenTibia.Game.Events;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers

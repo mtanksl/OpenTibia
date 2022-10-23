@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -30,14 +31,25 @@ namespace OpenTibia.Game.Commands
                 if (creature != null && creature != Player)
                 {
                     AttackAndFollowBehaviour component = context.Server.Components.GetComponent<AttackAndFollowBehaviour>(Player);
-                
-                    if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
+
+                    if (creature is Npc)
                     {
-                        component.Attack(creature);
+                        context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature),
+
+                                                                    new StopAttackAndFollowOutgoingPacket(0) );
+
+                        component.Stop();
                     }
                     else
                     {
-                        component.AttackAndFollow(creature);
+                        if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
+                        {
+                            component.Attack(creature);
+                        }
+                        else
+                        {
+                            component.AttackAndFollow(creature);
+                        }
                     }
                 }
 

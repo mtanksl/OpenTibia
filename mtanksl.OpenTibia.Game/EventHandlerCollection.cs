@@ -1,5 +1,5 @@
-﻿using OpenTibia.Game.Events;
-using OpenTibia.Game.EventHandlers;
+﻿using OpenTibia.Game.EventHandlers;
+using OpenTibia.Game.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
