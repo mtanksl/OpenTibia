@@ -3,7 +3,7 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ContainerAddItemCommand : CommandResult<byte>
+    public class ContainerAddItemCommand : Command
     {
         public ContainerAddItemCommand(Container container, Item item)
         {
@@ -16,9 +16,9 @@ namespace OpenTibia.Game.Commands
 
         public Item Item { get; set; }
 
-        public override PromiseResult<byte> Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            return PromiseResult<byte>.Run(resolve =>
+            return Promise.Run(resolve =>
             {
                 byte index = Container.AddContent(Item);
 
@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                resolve(context, index);
+                resolve(context);
             } );
         }
     }

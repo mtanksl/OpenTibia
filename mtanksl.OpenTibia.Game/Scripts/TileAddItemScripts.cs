@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Scripts
 {
-    public class ItemUpdateParentToTileScripts : IScript
+    public class TileAddItemScripts : IScript
     {
         public void Start(Server server)
         {

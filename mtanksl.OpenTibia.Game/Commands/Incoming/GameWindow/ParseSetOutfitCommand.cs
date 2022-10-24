@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
@@ -19,7 +20,7 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run(resolve =>
             {
-                List<SelectOutfit> outfits = null;
+                List<SelectOutfit> outfits;
 
                 switch (Player.Gender)
                 {
@@ -52,6 +53,10 @@ namespace OpenTibia.Game.Commands
                         };
 
                         break;
+
+                    default:
+
+                        throw new NotImplementedException();
                 }
 
                 context.AddPacket(Player.Client.Connection, new OpenSelectOutfitDialogOutgoingPacket(Player.Outfit, outfits) );

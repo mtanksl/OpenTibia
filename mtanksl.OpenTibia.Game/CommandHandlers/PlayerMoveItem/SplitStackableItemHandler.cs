@@ -8,33 +8,35 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Context context, Func<Context, Promise> next, PlayerMoveItemCommand command)
         {
-            if (command.Item is StackableItem stackableItem)
+            if (command.ToContainer is Tile toTile)
             {
-                if (command.Count < stackableItem.Count)
+                if (command.Item is StackableItem fromStackableItem)
                 {
-                    switch (command.ToContainer)
+                    if (toTile.TopItem is StackableItem toStackableItem && toStackableItem.Metadata.OpenTibiaId == fromStackableItem.Metadata.OpenTibiaId)
                     {
-                        case Container container:
+                        if (toStackableItem.Count + command.Count > 100)
+                        {
+                            context.AddCommand(new TileCreateItemCommand(toTile, fromStackableItem.Metadata.OpenTibiaId, (byte)(toStackableItem.Count + command.Count - 100) ) );
 
-                            return context.AddCommand(new StackableItemUpdateCountCommand(stackableItem, (byte)(stackableItem.Count - command.Count) ) ).Then(ctx =>
-                            {
-                                return ctx.AddCommand(new ContainerCreateItemCommand(container, command.Item.Metadata.OpenTibiaId, command.Count) );
-                            } );
+                            context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) );
 
-                        case Inventory inventory:
+                            context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                        }
+                        else
+                        {
+                            context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + command.Count) ) );
 
-                            return context.AddCommand(new StackableItemUpdateCountCommand(stackableItem, (byte)(stackableItem.Count - command.Count) ) ).Then(ctx =>
-                            {
-                                return ctx.AddCommand(new InventoryCreateItemCommand(inventory, command.ToIndex, command.Item.Metadata.OpenTibiaId, command.Count) );
-                            } );
-
-                        case Tile tile:
-
-                            return context.AddCommand(new StackableItemUpdateCountCommand(stackableItem, (byte)(stackableItem.Count - command.Count) ) ).Then(ctx =>
-                            {
-                                return context.AddCommand(new TileCreateItemCommand(tile, command.Item.Metadata.OpenTibiaId, command.Count));
-                            } );
+                            context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                        }
                     }
+                    else
+                    {
+                        context.AddCommand(new TileCreateItemCommand(toTile, fromStackableItem.Metadata.OpenTibiaId, (byte)(command.Count) ) );
+
+                        context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                    }
+
+                    return Promise.FromResult(context);
                 }
             }
 

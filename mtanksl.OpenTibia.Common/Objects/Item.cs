@@ -67,9 +67,9 @@ namespace OpenTibia.Common.Objects
             return container;
         }
 
-        public bool IsContainerOf(Item item)
+        public bool IsContainerOf(Item child)
         {
-            return item.IsContentOf(this);
+            return child.IsContentOf(this);
         }
 
         public bool IsContentOf(Item parent)

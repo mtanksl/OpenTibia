@@ -19,14 +19,14 @@ namespace OpenTibia.Game.Extensions
             return context.AddCommand(new InventoryCreateItemCommand(inventory, slot, openTibiaId, count) );
         }
 
-        public static PromiseResult<byte> RemoveItem(this Inventory inventory, Item item)
+        public static Promise RemoveItem(this Inventory inventory, Item item)
         {
             Context context = Context.Current;
 
             return context.AddCommand(new InventoryRemoveItemCommand(inventory, item) );
         }
 
-        public static PromiseResult<byte> ReplaceItem(this Inventory inventory, Item fromItem, Item toItem)
+        public static Promise ReplaceItem(this Inventory inventory, Item fromItem, Item toItem)
         {
             Context context = Context.Current;
 

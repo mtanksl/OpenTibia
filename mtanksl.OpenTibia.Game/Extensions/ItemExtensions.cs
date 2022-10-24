@@ -5,7 +5,7 @@ namespace OpenTibia.Game.Extensions
 {
     public static class ItemExtensions
     {
-        public static Promise DecayDesctroy(this Item item, int executeInMilliseconds)
+        public static Promise DecayDestroy(this Item item, int executeInMilliseconds)
         {
             Context context = Context.Current;
 
@@ -38,27 +38,6 @@ namespace OpenTibia.Game.Extensions
             Context context = Context.Current;
             
             return context.AddCommand(new ItemTransformCommand(item, openTibiaId, count) );
-        }
-
-        public static Promise UpdateParentToTile(this Item item, Tile toTile)
-        {
-            Context context = Context.Current;
-
-            return context.AddCommand(new ItemUpdateParentToTileCommand(item, toTile) );
-        }
-
-        public static Promise UpdateParentToInventory(this Item item, Inventory toInventory, byte slot)
-        {
-            Context context = Context.Current;
-
-            return context.AddCommand(new ItemUpdateParentToInventoryCommand(item, toInventory, slot) );
-        }
-
-        public static Promise UpdateParentToContainer(this Item item, Container toContiner)
-        {
-            Context context = Context.Current;
-
-            return context.AddCommand(new ItemUpdateParentToContainerCommand(item, toContiner) );
         }
     }
 }

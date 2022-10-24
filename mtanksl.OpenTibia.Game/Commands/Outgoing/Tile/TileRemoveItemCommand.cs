@@ -3,7 +3,7 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class TileRemoveItemCommand : CommandResult<byte>
+    public class TileRemoveItemCommand : Command
     {
         public TileRemoveItemCommand(Tile tile, Item item)
         {
@@ -16,9 +16,9 @@ namespace OpenTibia.Game.Commands
 
         public Item Item { get; set; }
 
-        public override PromiseResult<byte> Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            return PromiseResult<byte>.Run(resolve =>
+            return Promise.Run(resolve =>
             {
                 byte index = Tile.GetIndex(Item);
 
@@ -43,7 +43,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                resolve(context, index);
+                resolve(context);
             } );
         }
     }

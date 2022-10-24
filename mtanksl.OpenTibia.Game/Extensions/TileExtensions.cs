@@ -5,14 +5,14 @@ namespace OpenTibia.Game.Extensions
 {
     public static class TileExtensions
     {
-        public static PromiseResult<byte> AddCreature(this Tile tile, Creature creature)
+        public static Promise AddCreature(this Tile tile, Creature creature)
         {
             Context context = Context.Current;
 
             return context.AddCommand(new TileAddCreatureCommand(tile, creature) );
         }
 
-        public static PromiseResult<byte> AddItem(this Tile tile, Item item)
+        public static Promise AddItem(this Tile tile, Item item)
         {
             Context context = Context.Current;
 
@@ -40,21 +40,21 @@ namespace OpenTibia.Game.Extensions
             return context.AddCommand(new TileCreateNpcCommand(tile, name) );
         }
 
-        public static PromiseResult<byte> RemoveCreature(this Tile tile, Creature creature)
+        public static Promise RemoveCreature(this Tile tile, Creature creature)
         {
             Context context = Context.Current;
 
             return context.AddCommand(new TileRemoveCreatureCommand(tile, creature) );
         }
 
-        public static PromiseResult<byte> RemoveItem(this Tile tile, Item item)
+        public static Promise RemoveItem(this Tile tile, Item item)
         {
             Context context = Context.Current;
 
             return context.AddCommand(new TileRemoveItemCommand(tile, item) );
         }
 
-        public static PromiseResult<byte> ReplaceItem(this Tile tile, Item fromItem, Item toItem)
+        public static Promise ReplaceItem(this Tile tile, Item fromItem, Item toItem)
         {
             Context context = Context.Current;
 

@@ -159,7 +159,7 @@ namespace OpenTibia.Game.Commands
 
                 #endregion
 
-                context.AddCommand(new TileAddCreatureCommand(Tile, player) ).Then( (ctx, index) =>
+                context.AddCommand(new TileAddCreatureCommand(Tile, player) ).Then(ctx =>
                 {
                     resolve(ctx, player);
                 } );

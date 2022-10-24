@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class Hole2Handler : CommandHandler<ItemUpdateParentToTileCommand>
+    public class Hole2Handler : CommandHandler<TileAddItemCommand>
     {
         private HashSet<ushort> holes = new HashSet<ushort>() 
         { 
@@ -50,9 +50,9 @@ namespace OpenTibia.Game.CommandHandlers
             8559, 8560, 8561, 8562, 8563, 8564, 8565, 8566
         };
 
-        public override Promise Handle(Context context, Func<Context, Promise> next, ItemUpdateParentToTileCommand command)
+        public override Promise Handle(Context context, Func<Context, Promise> next, TileAddItemCommand command)
         {
-            Tile hole = command.ToTile;
+            Tile hole = command.Tile;
 
             if (hole.Ground != null && holes.Contains(hole.Ground.Metadata.OpenTibiaId) )
             {
@@ -101,7 +101,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (toTile != null)
                     {
-                        return context.AddCommand(new ItemUpdateParentToTileCommand(command.Item, toTile) );
+                        return context.AddCommand(new TileAddItemCommand(toTile, command.Item) );
                     }
                 }
             }

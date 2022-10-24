@@ -76,7 +76,12 @@ namespace OpenTibia.Game.CommandHandlers
                     }
                     else if (down.TopItem != null)
                     {
-                        return context.AddCommand(new ItemUpdateParentToTileCommand(down.TopItem, south) );
+                        Item item = down.TopItem;
+
+                        return context.AddCommand(new TileRemoveItemCommand(down, item) ).Then(ctx =>
+                        {
+                            return ctx.AddCommand(new TileAddItemCommand(south, item) );
+                        } );
                     }
                 }
             }

@@ -4,7 +4,7 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class TileAddCreatureCommand : CommandResult<byte>
+    public class TileAddCreatureCommand : Command
     {
         public TileAddCreatureCommand(Tile tile, Creature creature)
         {
@@ -17,9 +17,9 @@ namespace OpenTibia.Game.Commands
 
         public Creature Creature { get; set; }
 
-        public override PromiseResult<byte> Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            return PromiseResult<byte>.Run(resolve =>
+            return Promise.Run(resolve =>
             {
                 byte index = Tile.AddContent(Creature);
 
@@ -48,7 +48,7 @@ namespace OpenTibia.Game.Commands
 
                 context.AddEvent(new TileAddCreatureEventArgs(Tile, Creature, index) );
 
-                resolve(context, index);
+                resolve(context);
             } );
         }
     }

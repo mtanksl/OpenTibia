@@ -3,7 +3,7 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class InventoryReplaceItemCommand : CommandResult<byte>
+    public class InventoryReplaceItemCommand : Command
     {
         public InventoryReplaceItemCommand(Inventory inventory, Item fromItem, Item toItem)
         {
@@ -20,9 +20,9 @@ namespace OpenTibia.Game.Commands
 
         public Item ToItem { get; set; }
 
-        public override PromiseResult<byte> Execute(Context context)
+        public override Promise Execute(Context context)
         {
-            return PromiseResult<byte>.Run(resolve =>
+            return Promise.Run(resolve =>
             {
                 byte slot = Inventory.GetIndex(FromItem);
 
@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
 
                 context.AddPacket(Inventory.Player.Client.Connection, new SlotAddOutgoingPacket(slot, ToItem ) );
 
-                resolve(context, slot);
+                resolve(context);
             } );
         }
     }

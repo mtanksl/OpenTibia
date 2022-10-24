@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Commands
         {
             Tile tile = Player.Tile;
 
-            return context.AddCommand(new TileRemoveCreatureCommand(tile, Player) ).Then( (ctx, index) =>
+            return context.AddCommand(new TileRemoveCreatureCommand(tile, Player) ).Then(ctx =>
             {
                 #region Save player to database
 

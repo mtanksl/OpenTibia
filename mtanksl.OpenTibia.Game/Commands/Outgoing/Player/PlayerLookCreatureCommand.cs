@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 using System.Text;
 
 namespace OpenTibia.Game.Commands
@@ -85,6 +86,10 @@ namespace OpenTibia.Game.Commands
                             builder.Append("You are a master sorcerer.");
 
                             break;
+
+                        default:
+
+                            throw new NotImplementedException();
                     }
                 }
                 else
@@ -120,6 +125,10 @@ namespace OpenTibia.Game.Commands
                                     builder.Append("She ");
 
                                     break;
+
+                                default:
+
+                                    throw new NotImplementedException();
                             }
 
                             switch (player.Vocation)
@@ -177,6 +186,10 @@ namespace OpenTibia.Game.Commands
                                     builder.Append("is a master sorcerer.");
 
                                     break;
+
+                                default:
+
+                                    throw new NotImplementedException();
                             }
 
                             break;

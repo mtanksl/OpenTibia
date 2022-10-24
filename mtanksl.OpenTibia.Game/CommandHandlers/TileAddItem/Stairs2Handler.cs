@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class Stairs2Handler : CommandHandler<ItemUpdateParentToTileCommand>
+    public class Stairs2Handler : CommandHandler<TileAddItemCommand>
     {
         private HashSet<ushort> stairs = new HashSet<ushort>()
         { 
@@ -26,9 +26,9 @@ namespace OpenTibia.Game.CommandHandlers
             1398, 1400, 1402, 1404, 1553, 1555, 1557, 1559
         };
 
-        public override Promise Handle(Context context, Func<Context, Promise> next, ItemUpdateParentToTileCommand command)
+        public override Promise Handle(Context context, Func<Context, Promise> next, TileAddItemCommand command)
         {
-            Tile stair = command.ToTile;
+            Tile stair = command.Tile;
 
             if (stair.TopItem != null && stairs.Contains(stair.TopItem.Metadata.OpenTibiaId) )
             {
@@ -73,7 +73,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (toTile != null)
                 {
-                    return context.AddCommand(new ItemUpdateParentToTileCommand(command.Item, toTile) );
+                    return context.AddCommand(new TileAddItemCommand(toTile, command.Item) );
                 }
             }
 
