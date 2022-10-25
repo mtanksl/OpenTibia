@@ -27,13 +27,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                     } ).Then(ctx =>
                     {
-                        IContainer afterContainer = command.Item.Parent;
+                        Item item = command.Player.Inventory.GetContent( (byte)Slot.Extra) as Item;
 
-                        byte afterIndex = afterContainer.GetIndex(command.Item);
-
-                        if (afterContainer is Inventory && afterIndex == (byte)Slot.Extra)
+                        if (item != null && item.Metadata.OpenTibiaId == command.Item.Metadata.OpenTibiaId)
                         {
-                            return next(ctx);
+                            return ctx.AddCommand(new PlayerUseItemWithItemCommand(command.Player, item, command.ToItem) );
                         }
 
                         return Promise.FromResult(ctx);

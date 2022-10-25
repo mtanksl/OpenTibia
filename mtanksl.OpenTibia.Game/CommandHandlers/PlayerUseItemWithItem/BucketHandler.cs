@@ -8,7 +8,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class BucketHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private HashSet<ushort> buckets = new HashSet<ushort>() { 1775, 2005 };
+        private HashSet<ushort> buckets = new HashSet<ushort>() { 1775, 2005, 2008, 2009, 2011, 2012, 2013, 2015, 2023, 3941, 3942 };
 
         private HashSet<ushort> drawWell = new HashSet<ushort> { 1368, 1369 };
 
