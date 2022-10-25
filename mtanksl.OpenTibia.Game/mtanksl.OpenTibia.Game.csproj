@@ -65,6 +65,7 @@
     <Compile Include="CommandHandlers\CreatureUpdateParent\MoveAwayContainerCloseHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\StairsHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\HoleHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerUseItem\SnowHeapHandler.cs" />
     <Compile Include="CommandHandlers\TileAddItem\Pitfall2Handler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveCreature\MoveCreatureWalkToSourceHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveItem\TarHandler.cs" />

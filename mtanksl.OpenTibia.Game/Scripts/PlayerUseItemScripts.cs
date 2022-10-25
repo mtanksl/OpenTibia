@@ -18,6 +18,8 @@ namespace OpenTibia.Game.Scripts
 
             server.CommandHandlers.Add(new BlueberryBushHandler() );
 
+            server.CommandHandlers.Add(new SnowHeapHandler() );
+
             server.CommandHandlers.Add(new BookHandler() );
 
             server.CommandHandlers.Add(new WatchHandler() );
