@@ -19,7 +19,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         case Monster monster:
 
-                            return context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.RedShimmer)).Then(ctx =>
+                            return context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.RedShimmer) ).Then(ctx =>
                             {
                                 return ctx.AddCommand(new MonsterDestroyCommand(monster) );
                             } );

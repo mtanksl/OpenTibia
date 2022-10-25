@@ -38,35 +38,6 @@ namespace OpenTibia.Game.Scripts
 
             server.CommandHandlers.Add(new TarHandler() );
 
-            server.CommandHandlers.Add(new InlineCommandHandler<PlayerMoveItemCommand>( (context, next, command) => 
-            {
-                if (command.ToContainer is Tile toTile)
-                {
-                    if (toTile.Ground == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) )
-                    {
-                        context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtRoom) );
-
-                        return Promise.FromResult(context);
-                    }
-                }
-                else if (command.ToContainer is Inventory toInventory)
-                {
-                    if (toInventory.GetContent(command.ToIndex) != null)
-                    {
-                        return Promise.FromResult(context);
-                    }
-                }
-                else if (command.ToContainer is Container toContainer)
-                {
-                    if (toContainer.Count == toContainer.Metadata.Capacity)
-                    {
-                        context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
-                    }
-                }
-
-                return next(context);
-            } ) );
-
             server.CommandHandlers.Add(new SplitStackableItemHandler() );
 
             server.CommandHandlers.Add(new ThrowAwayContainerCloseHandler() );

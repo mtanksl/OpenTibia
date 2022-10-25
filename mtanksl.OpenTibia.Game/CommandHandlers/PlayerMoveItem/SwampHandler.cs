@@ -14,7 +14,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (command.ToContainer is Tile toTile && toTile.Ground != null && swamps.Contains(toTile.Ground.Metadata.OpenTibiaId) )
             {
-                return context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.GreenRings)).Then(ctx =>
+                return context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.GreenRings) ).Then(ctx =>
                 {
                     return ctx.AddCommand(new ItemDecrementCommand(command.Item, command.Count) );
                 } );
