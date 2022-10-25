@@ -69,15 +69,22 @@ namespace OpenTibia.Game.CommandHandlers
                     }
                     else
                     {
-                        if (toContent == null)
+                        if (toContent is Container toContainer2)
                         {
-                            context.AddCommand(new InventoryCreateItemCommand(toInventory, command.ToIndex, fromStackableItem.Metadata.OpenTibiaId, command.Count) );
-
-                            context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                            return context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toContainer2, 254, command.Count) );
                         }
                         else
                         {
-                            context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
+                            if (toContent == null)
+                            {
+                                context.AddCommand(new InventoryCreateItemCommand(toInventory, command.ToIndex, fromStackableItem.Metadata.OpenTibiaId, command.Count) );
+
+                                context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                            }
+                            else
+                            {
+                                context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
+                            }
                         }
                     }
                 }
@@ -115,15 +122,22 @@ namespace OpenTibia.Game.CommandHandlers
                     }
                     else
                     {
-                        if (toContainer.Count < toContainer.Metadata.Capacity)
+                        if (toContent is Container toContainer2)
                         {
-                            context.AddCommand(new ContainerCreateItemCommand(toContainer, fromStackableItem.Metadata.OpenTibiaId, command.Count) );
-
-                            context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                            return context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toContainer2, 254, command.Count) );
                         }
                         else
                         {
-                            context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
+                            if (toContainer.Count < toContainer.Metadata.Capacity)
+                            {
+                                context.AddCommand(new ContainerCreateItemCommand(toContainer, fromStackableItem.Metadata.OpenTibiaId, command.Count) );
+
+                                context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                            }
+                            else
+                            {
+                                context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
+                            }
                         }
                     }
                 }
@@ -144,27 +158,41 @@ namespace OpenTibia.Game.CommandHandlers
                 else if (command.ToContainer is Inventory toInventory)
                 {
                     IContent toContent = toInventory.GetContent(command.ToIndex);
-
-                    if (toContent == null)
+                                        
+                    if (toContent is Container toContainer2)
                     {
-                        return next(context);
+                        return context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toContainer2, 254, command.Count) );
                     }
                     else
                     {
-                        context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
+                        if (toContent == null)
+                        {
+                            return next(context);
+                        }
+                        else
+                        {
+                            context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
+                        }
                     }
                 }
                 else if (command.ToContainer is Container toContainer)
                 {
                     IContent toContent = toContainer.GetContent(command.ToIndex);
 
-                    if (toContainer.Count < toContainer.Metadata.Capacity)
+                    if (toContent is Container toContainer2)
                     {
-                        return next(context);
+                        return context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toContainer2, 254, command.Count) );
                     }
                     else
                     {
-                        context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
+                        if (toContainer.Count < toContainer.Metadata.Capacity)
+                        {
+                            return next(context);
+                        }
+                        else
+                        {
+                            context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
+                        }
                     }
                 }
             }

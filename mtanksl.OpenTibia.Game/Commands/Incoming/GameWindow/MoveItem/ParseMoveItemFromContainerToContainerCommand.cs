@@ -45,6 +45,11 @@ namespace OpenTibia.Game.Commands
                     {
                         Container toContainer = Player.Client.ContainerCollection.GetContainer(ToContainerId);
 
+                        if (ToContainerIndex == 254)
+                        {
+                            toContainer = toContainer.Parent as Container;
+                        }
+                        
                         if (toContainer != null)
                         {
                             if (IsMoveable(context, fromItem, Count) && IsPickupable(context, fromItem) && IsPossible(context, fromItem, toContainer) )
