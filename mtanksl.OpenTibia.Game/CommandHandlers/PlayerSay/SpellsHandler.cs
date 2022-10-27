@@ -10,6 +10,11 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private static Dictionary<string, Func<Player, Func<Context, Promise>>> spells = new Dictionary<string, Func<Player, Func<Context, Promise>>>()
         {
+            { "exani tera", player =>
+            {
+                return Teleport(player);
+            } },
+
             { "utevo lux", player =>
             {
                 return Light(player, 6, 215);
@@ -205,6 +210,30 @@ namespace OpenTibia.Game.CommandHandlers
                 return AreaAttack(player, area, MagicEffectType.BlackSpark, BerserkFormula(player.Level, player.Skills.Sword, 0) );
             } }
         };
+
+        private static HashSet<ushort> ropeSpots = new HashSet<ushort> { 384, 418 };
+
+        private static Func<Context, Promise> Teleport(Player player)
+        {
+            return context =>
+            {
+                if (ropeSpots.Contains(player.Tile.Ground.Metadata.OpenTibiaId) ) 
+                {
+                    Tile up = context.Server.Map.GetTile(player.Tile.Position.Offset(0, 1, -1) );
+
+                    return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.Teleport) ).Then(ctx =>
+                    {
+                        return ctx.AddCommand(new ShowMagicEffectCommand(up.Position, MagicEffectType.Teleport) );
+
+                    } ).Then(ctx =>
+                    {
+                        return ctx.AddCommand(new CreatureUpdateParentCommand(player, up, Direction.South) );
+                    } );
+                }
+
+                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.Puff) );                
+            };
+        }
 
         private static Func<Context, Promise> Light(Player player, byte level, byte color)
         {
