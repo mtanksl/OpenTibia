@@ -46,7 +46,7 @@ namespace OpenTibia.Game.Commands
                         {
                             if (IsMoveable(context, fromItem, Count) )
                             {
-                                context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toTile, 0, Count) ).Then(ctx =>
+                                context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toTile, 0, Count, true) ).Then(ctx =>
                                 {
                                     resolve(ctx);
                                 } );

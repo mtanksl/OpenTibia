@@ -44,11 +44,11 @@ namespace OpenTibia.Common.Objects
             return vip;
         }
 
-        public void RemoveVip(uint creatureId)
+        public void RemoveVip(uint id)
         {
             for (int i = 0; i < vips.Count; i++)
             {
-                if (vips[i].Id == creatureId)
+                if (vips[i].Id == id)
                 {
                     vips.RemoveAt(i);
 

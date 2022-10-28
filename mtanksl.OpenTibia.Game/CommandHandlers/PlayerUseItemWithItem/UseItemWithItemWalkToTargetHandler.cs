@@ -13,7 +13,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (command.Item.Parent is Tile || command.Item.Parent is Container container && container.Root() is Tile)
                 {
-                    return context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, command.Player.Inventory, (byte)Slot.Extra, 1) ).Then(ctx =>
+                    return context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, command.Player.Inventory, (byte)Slot.Extra, 1, false) ).Then(ctx =>
                     {
                         return Promise.Delay(ctx.Server, Constants.PlayerAutomationSchedulerEvent(command.Player), Constants.PlayerAutomationSchedulerEventInterval);
 

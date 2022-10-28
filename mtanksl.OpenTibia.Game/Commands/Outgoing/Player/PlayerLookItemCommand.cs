@@ -43,7 +43,6 @@ namespace OpenTibia.Game.Commands
                 if (Item is Container container)
                 {
                     builder.Append(" (Vol: " + container.Metadata.Capacity + ")");
-
                 }
                 else if (Item is FluidItem fluidItem)
                 {

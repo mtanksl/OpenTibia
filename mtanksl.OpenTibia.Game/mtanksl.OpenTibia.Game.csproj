@@ -66,7 +66,7 @@
     <Compile Include="CommandHandlers\CreatureUpdateParent\StairsHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\HoleHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\SnowHeapHandler.cs" />
-    <Compile Include="CommandHandlers\TileAddItem\Pitfall2Handler.cs" />
+    <Compile Include="CommandHandlers\PlayerMoveItem\Pitfall2Handler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveCreature\MoveCreatureWalkToSourceHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveItem\TarHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveItem\SplitStackableItemHandler.cs" />
@@ -146,12 +146,12 @@
     <Compile Include="CommandHandlers\ICommandHandlerResult.cs" />
     <Compile Include="CommandHandlers\ICommandHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveItem\ThrowAwayContainerCloseHandler.cs" />
-    <Compile Include="CommandHandlers\TileAddItem\TrapMoveHandler.cs" />
-    <Compile Include="CommandHandlers\TileAddItem\CandlestickMoveHandler.cs" />
-    <Compile Include="CommandHandlers\TileAddItem\MagicForcefield2Handler.cs" />
-    <Compile Include="CommandHandlers\TileAddItem\Hole2Handler.cs" />
+    <Compile Include="CommandHandlers\PlayerMoveItem\TrapMoveHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerMoveItem\CandlestickMoveHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerMoveItem\MagicForcefield2Handler.cs" />
+    <Compile Include="CommandHandlers\PlayerMoveItem\Hole2Handler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveItem\LavaHandler.cs" />
-    <Compile Include="CommandHandlers\TileAddItem\Stairs2Handler.cs" />
+    <Compile Include="CommandHandlers\PlayerMoveItem\Stairs2Handler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveItem\SwampHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveItem\ShallowWaterHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveItem\DustbinHandler.cs" />
@@ -409,7 +409,6 @@
     <Compile Include="Scripts\GlobalScripts.cs" />
     <Compile Include="Scripts\IScript.cs" />
     <Compile Include="Scripts\CreatureUpdateParentScripts.cs" />
-    <Compile Include="Scripts\TileAddItemScripts.cs" />
     <Compile Include="Scripts\PlayerMoveItemScripts.cs" />
     <Compile Include="Scripts\PlayerRotateItemScripts.cs" />
     <Compile Include="Scripts\PlayerSayScripts.cs" />

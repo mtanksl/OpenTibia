@@ -13,7 +13,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (command.ToContainer is Tile toTile)
             {
-                if (toTile.Ground == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) )
+                if (toTile.Ground == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || (toTile.GetCreatures().Any(c => c.Block) && command.Item.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) )
                 {
                     context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtRoom) );
                 }
@@ -64,7 +64,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (toContent is Container toContainer2)
                 {
-                    return context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toContainer2, 254, command.Count) );
+                    return context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toContainer2, 254, command.Count, false) );
                 }
                 else
                 {
@@ -127,7 +127,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (toContent is Container toContainer2)
                 {
-                    return context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toContainer2, 254, command.Count) );
+                    return context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toContainer2, 254, command.Count, false) );
                 }
                 else
                 {
