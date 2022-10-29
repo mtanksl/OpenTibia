@@ -261,7 +261,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return context =>
             {
-                return context.AddCommand(new CombatTargetedAttackCommand(player, player, null, MagicEffectType.BlueShimmer, (attacker, target) => Server.Random.Next(formula.Min, formula.Max) ) );
+                return context.AddCommand(new CombatTargetedAttackCommand(player, player, null, MagicEffectType.BlueShimmer, (attacker, target) => context.Server.Randomization.Take(formula.Min, formula.Max) ) );
             };           
         }
 
@@ -269,7 +269,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return context =>
             {
-                return context.AddCommand(new CombatAreaAttackCommand(player, player.Tile.Position, area, null, MagicEffectType.BlueShimmer, (attacker, target) => Server.Random.Next(formula.Min, formula.Max) ) );
+                return context.AddCommand(new CombatAreaAttackCommand(player, player.Tile.Position, area, null, MagicEffectType.BlueShimmer, (attacker, target) => context.Server.Randomization.Take(formula.Min, formula.Max) ) );
             };           
         }
 
@@ -277,7 +277,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return context =>
             {
-                return context.AddCommand(new CombatAreaAttackCommand(player, player.Tile.Position, area, null, magicEffectType, (attacker, target) => -Server.Random.Next(formula.Min, formula.Max) ) );
+                return context.AddCommand(new CombatAreaAttackCommand(player, player.Tile.Position, area, null, magicEffectType, (attacker, target) => -context.Server.Randomization.Take(formula.Min, formula.Max) ) );
             };
         }
 
@@ -285,7 +285,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return context =>
             {
-                return context.AddCommand(new CombatBeamAttackCommand(player, beam, magicEffectType, (attacker, target) => -Server.Random.Next(formula.Min, formula.Max) ) );
+                return context.AddCommand(new CombatBeamAttackCommand(player, beam, magicEffectType, (attacker, target) => -context.Server.Randomization.Take(formula.Min, formula.Max) ) );
             };
         }
 

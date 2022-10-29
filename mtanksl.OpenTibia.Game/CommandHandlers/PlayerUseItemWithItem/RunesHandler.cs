@@ -173,7 +173,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return context =>
             {
-                return context.AddCommand(new CombatAreaAttackCommand(player, position, area, projectileType, magicEffectType, (attacker, target) => -Server.Random.Next(formula.Min, formula.Max) ) );
+                return context.AddCommand(new CombatAreaAttackCommand(player, position, area, projectileType, magicEffectType, (attacker, target) => -context.Server.Randomization.Take(formula.Min, formula.Max) ) );
             };
         }
 

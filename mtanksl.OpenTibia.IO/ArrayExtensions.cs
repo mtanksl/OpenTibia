@@ -16,32 +16,6 @@ namespace OpenTibia.IO
             return result;
         }
 
-        private static Random random = new Random();
-
-        public static T Random<T>(this T[] array)
-        {
-            return array[ random.Next(0, array.Length) ];
-        }
-
-        public static T[] Shuffle<T>(this T[] array)
-        {
-            int currentIndex = array.Length - 1;
-
-            while (currentIndex > 0)
-            {
-                int newIndex = random.Next(0, currentIndex + 1);
-
-                if (currentIndex != newIndex)
-                {
-                    T temp = array[currentIndex]; array[currentIndex] = array[newIndex]; array[newIndex] = temp;
-                }
-
-                currentIndex--;
-            }
-
-            return array;
-        }
-
         public static string Print(this byte[] bytes)
         {
             var builder = new StringBuilder();

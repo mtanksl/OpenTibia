@@ -42,7 +42,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return context =>
             {
-                return context.AddCommand(new CombatTargetedAttackCommand(player, target, null, MagicEffectType.BlueShimmer, (a, t) => Server.Random.Next(formula.Min, formula.Max) ) );
+                return context.AddCommand(new CombatTargetedAttackCommand(player, target, null, MagicEffectType.BlueShimmer, (a, t) => context.Server.Randomization.Take(formula.Min, formula.Max) ) );
             };           
         }
 
@@ -50,7 +50,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return context =>
             {
-                return context.AddCommand(new CombatTargetedAttackCommand(player, target, projectileType, magicEffectType, (a, t) => -Server.Random.Next(formula.Min, formula.Max) ) );
+                return context.AddCommand(new CombatTargetedAttackCommand(player, target, projectileType, magicEffectType, (a, t) => -context.Server.Randomization.Take(formula.Min, formula.Max) ) );
             };
         }
 

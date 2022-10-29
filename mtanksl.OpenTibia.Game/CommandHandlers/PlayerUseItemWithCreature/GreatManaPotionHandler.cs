@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
 
-                context.AddCommand(new CombatChangeManaCommand(null, player, null, Server.Random.Next(200, 300) ) );
+                context.AddCommand(new CombatChangeManaCommand(null, player, null, context.Server.Randomization.Take(200, 300) ) );
 
                 context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) );
 

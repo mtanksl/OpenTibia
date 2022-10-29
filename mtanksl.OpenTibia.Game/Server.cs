@@ -18,8 +18,6 @@ namespace OpenTibia.Game
 {
     public class Server : IDisposable
     {
-        public static readonly Random Random = new Random();
-
         private int loginServerPort;
         
         private int gameServerPort;
@@ -47,6 +45,8 @@ namespace OpenTibia.Game
         public Logger Logger { get; set; }
 
         public Clock Clock { get; set; }
+
+        public Randomization Randomization { get; set; }
 
         public ChannelCollection Channels { get; set; }
 
@@ -93,6 +93,8 @@ namespace OpenTibia.Game
             Logger = new Logger();
 
             Clock = new Clock(12, 0);
+
+            Randomization = new Randomization();
 
             Channels = new ChannelCollection();
 

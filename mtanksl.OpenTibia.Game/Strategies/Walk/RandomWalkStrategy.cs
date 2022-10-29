@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Strategies
 
         public Tile GetNext(Context context, Tile spawn, Creature creature, Creature target)
         {
-            foreach (var direction in new[] { Direction.North, Direction.East, Direction.South, Direction.West }.Shuffle() )
+            foreach (var direction in context.Server.Randomization.Shuffle(new[] { Direction.North, Direction.East, Direction.South, Direction.West } ) )
             {
                 Tile toTile = context.Server.Map.GetTile(creature.Tile.Position.Offset(direction) );
 
