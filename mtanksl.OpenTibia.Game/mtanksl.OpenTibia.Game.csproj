@@ -115,6 +115,7 @@
     <Compile Include="Commands\Outgoing\Combat\CombatChangeHealthCommand.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatAreaAttackCommand.cs" />
     <Compile Include="Commands\Outgoing\SplashItem\FluidItemUpdateFluidTypeCommand.cs" />
+    <Compile Include="Commands\Outgoing\Tile\TileIncrementOrCreateItemCommand.cs" />
     <Compile Include="Common\Objects\VipCollection.cs" />
     <Compile Include="ComponentCollection.cs" />
     <Compile Include="LockerCollection.cs" />

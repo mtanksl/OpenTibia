@@ -19,7 +19,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 return context.AddCommand(new ItemDestroyCommand(command.Item) ).Then(ctx =>
                 {
-                    return ctx.AddCommand(new TileCreateItemCommand( (Tile)command.ToItem.Parent, cookie, 12) );
+                    return ctx.AddCommand(new TileIncrementOrCreateItemCommand( (Tile)command.ToItem.Parent, cookie, 12) );
                 } );
             }
 

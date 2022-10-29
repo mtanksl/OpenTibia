@@ -28,7 +28,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (scythes.Contains(command.Item.Metadata.OpenTibiaId) && wheats.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                return context.AddCommand(new TileCreateItemCommand( (Tile)command.ToItem.Parent, wheat, 1) ).Then( (ctx, item) =>
+                return context.AddCommand(new TileIncrementOrCreateItemCommand( (Tile)command.ToItem.Parent, wheat, 1) ).Then(ctx =>
                 {
                     return ctx.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
 

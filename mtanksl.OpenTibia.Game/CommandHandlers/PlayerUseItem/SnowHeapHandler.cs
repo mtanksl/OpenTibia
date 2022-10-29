@@ -14,7 +14,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (snowHeaps.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                return context.AddCommand(new TileCreateItemCommand(command.Player.Tile, snowBall, 1) );
+                return context.AddCommand(new TileIncrementOrCreateItemCommand(command.Player.Tile, snowBall, 1) );
             }
 
             return next(context);

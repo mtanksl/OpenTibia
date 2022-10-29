@@ -25,7 +25,7 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             return context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) ).Then(ctx =>
                             {
-                                return ctx.AddCommand(new TileCreateItemCommand(toTile, toOpenTibiaId, 1) );
+                                return ctx.AddCommand(new TileIncrementOrCreateItemCommand(toTile, toOpenTibiaId, 1) );
                             } );
                         }
 
