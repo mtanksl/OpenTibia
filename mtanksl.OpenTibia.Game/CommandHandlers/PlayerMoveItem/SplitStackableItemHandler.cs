@@ -16,6 +16,8 @@ namespace OpenTibia.Game.CommandHandlers
                 if (toTile.Ground == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || (toTile.GetCreatures().Any(c => c.Block) && command.Item.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) )
                 {
                     context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtRoom) );
+                
+                    return Promise.Break();
                 }
                 else
                 {
@@ -105,6 +107,8 @@ namespace OpenTibia.Game.CommandHandlers
                             else
                             {
                                 context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
+                        
+                                return Promise.Break();
                             }
                         }
                     }
@@ -117,6 +121,8 @@ namespace OpenTibia.Game.CommandHandlers
                         else
                         {
                             context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
+                        
+                            return Promise.Break();
                         }
                     }
                 }
@@ -179,6 +185,8 @@ namespace OpenTibia.Game.CommandHandlers
                             else
                             {
                                 context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
+                    
+                                return Promise.Break();
                             }
                         }
                     }
@@ -191,6 +199,8 @@ namespace OpenTibia.Game.CommandHandlers
                         else
                         {
                             context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
+                    
+                            return Promise.Break();
                         }
                     }
                 }

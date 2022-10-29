@@ -4,9 +4,9 @@ namespace OpenTibia.Game.Commands
 {
     public class PromiseResult<TResult>
     {
-        public static PromiseResult<TResult> Run(Action<Action<Context, TResult> > run)
+        public static PromiseResult<TResult> Break()
         {
-            return new PromiseResult<TResult>(run);
+            return new PromiseResult<TResult>();
         }
 
         public static PromiseResult<TResult> FromResult(Context context, TResult result)
@@ -14,11 +14,21 @@ namespace OpenTibia.Game.Commands
             return new PromiseResult<TResult>(context, result);
         }
 
+        public static PromiseResult<TResult> Run(Action<Action<Context, TResult> > run)
+        {
+            return new PromiseResult<TResult>(run);
+        }
+
         private PromiseStatus status;
 
         private Context context;
 
         private TResult result;
+
+        public PromiseResult()
+        {
+            this.status = PromiseStatus.Pending;
+        }
 
         private PromiseResult(Context context, TResult result)
         {

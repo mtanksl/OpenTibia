@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Scripts
                 {
                     context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.DestinationIsOutOfReach) );
 
-                    return Promise.FromResult(context);
+                    return Promise.Break();
                 }
 
                 return next(context);
@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Scripts
                 {
                     context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtRoom) );
 
-                    return Promise.FromResult(context);
+                    return Promise.Break();
                 }
 
                 return next(context);

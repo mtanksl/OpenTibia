@@ -44,29 +44,5 @@ namespace OpenTibia.Game.Commands
         {
             return true;
         }
-
-        protected bool IsPickupable(Context context, Item fromItem)
-        {
-            if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Pickupable) )
-            {
-                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTakeThisObject) );
-
-                return false;
-            }
-
-            return true;
-        }
-
-        protected bool IsPossible(Context context, Item fromItem, Container toContainer)
-        {
-            if ( toContainer.IsContentOf(fromItem) )
-            {
-                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
-
-                return false;
-            }
-
-            return true;
-        }
     }
 }

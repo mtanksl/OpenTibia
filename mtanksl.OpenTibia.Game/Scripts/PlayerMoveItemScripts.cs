@@ -20,7 +20,32 @@ namespace OpenTibia.Game.Scripts
                     {
                         context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
 
-                        return Promise.FromResult(context);
+                        return Promise.Break();
+                    }
+                }
+                else if (command.ToContainer is Inventory toInventory)
+                {
+                    if ( !command.Item.Metadata.Flags.Is(ItemMetadataFlags.Pickupable) )
+                    {
+                        context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTakeThisObject) );
+
+                        return Promise.Break();
+                    }
+                }
+                else if (command.ToContainer is Container toContainer)
+                {
+                    if ( !command.Item.Metadata.Flags.Is(ItemMetadataFlags.Pickupable) )
+                    {
+                        context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTakeThisObject) );
+
+                        return Promise.Break();
+                    }
+
+                    if ( toContainer.IsContentOf(command.Item) )
+                    {
+                        context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
+
+                        return Promise.Break();
                     }
                 }
 

@@ -19,10 +19,9 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute(Context context)
         {
-            return Promise.Run(resolve =>
-            {
-                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
-            } );
+            context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+
+            return Promise.Break();
         }
     }
 }

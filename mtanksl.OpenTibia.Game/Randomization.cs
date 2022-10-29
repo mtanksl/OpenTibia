@@ -19,7 +19,7 @@ namespace OpenTibia.Game
                 throw new ArgumentException();
             }
 
-            return random.Next(min, max + 1);
+            return random.Next(min, max);
         }
 
         public T Take<T>(T[] array)

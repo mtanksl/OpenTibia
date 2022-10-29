@@ -4,14 +4,19 @@ namespace OpenTibia.Game.Commands
 {
     public class Promise
     {
-        public static Promise Run(Action< Action<Context> > run)
+        public static Promise Break()
         {
-            return new Promise(run);
+            return new Promise();
         }
 
         public static Promise FromResult(Context context)
         {
             return new Promise(context);
+        }
+
+        public static Promise Run(Action< Action<Context> > run)
+        {
+            return new Promise(run);
         }
 
         public static Promise Yield(Server server)
@@ -77,6 +82,11 @@ namespace OpenTibia.Game.Commands
         private PromiseStatus status;
 
         private Context context;
+
+        public Promise()
+        {
+            this.status = PromiseStatus.Pending;
+        }
 
         private Promise(Context context)
         {

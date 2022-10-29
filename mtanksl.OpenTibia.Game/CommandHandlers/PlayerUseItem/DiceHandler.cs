@@ -14,7 +14,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (dices.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                int value = context.Server.Randomization.Take(0, 6);
+                int value = context.Server.Randomization.Take(0, dices.Count);
 
                 ushort openTibiaId = (ushort)(5792 + value);
 
