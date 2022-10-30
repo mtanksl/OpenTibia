@@ -88,7 +88,7 @@ namespace OpenTibia.Game.CommandHandlers
                     new Offset(0, 1)
                 };
 
-                return BeamAttack(player, beam, MagicEffectType.FireArea, GenericFormula(player.Level, player.Skills.MagicLevel, 45, 10) );
+                return BeamAttack(player, beam, MagicEffectType.FirePlume, GenericFormula(player.Level, player.Skills.MagicLevel, 45, 10) );
             } },
 
             { "exori vis", player =>
