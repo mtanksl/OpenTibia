@@ -1,6 +1,8 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Components;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
 
@@ -8,121 +10,188 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class RunesHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private static Dictionary<ushort, Func<Player, Position, Func<Context, Promise>>> runes = new Dictionary<ushort, Func<Player, Position, Func<Context, Promise>>>()
+        private class Rune
         {
-            { 2285 /* Poison field */, (player, position) =>
+            public string Name { get; set; }
+
+            public string Group { get; set; }
+
+            public int GroupCooldownInMilliseconds { get; set; }
+
+            public Func<Context, Player, Position, Promise> Callback { get; set; }
+        }
+
+        private static Dictionary<ushort, Rune> runes = new Dictionary<ushort, Rune>()
+        {
+            [2285] = new Rune()
             {
-                var area = new Offset[]
+                Name = "Poison Field Rune",
+
+                Group = "Attack",
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Callback = AreaCreate(new Offset[]
                 {
                     new Offset(0, 0)
-                };
 
-                return AreaCreate(player, position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, -5);
-            } },
+                }, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, -5)
+            },
 
-            { 2286 /* Poison bomb */, (player, position) =>
+            [2286] = new Rune()
             {
-                var area = new Offset[]
+                Name = "Poison Bomb Rune",
+
+                Group = "Attack",
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Callback = AreaCreate(new Offset[]
                 {
                     new Offset(-1, -1), new Offset(0, -1), new Offset(1, -1),
                     new Offset(-1, 0) , new Offset(0, 0) , new Offset(1, 0),
                     new Offset(-1, 1) , new Offset(0, 1) , new Offset(1, 1)
-                };
 
-                return AreaCreate(player, position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, -5);
-            } },
+                }, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, -5)
+            },
 
-            { 2289 /* Poison wall */, (player, position) =>
+            [2289] = new Rune()
             {
-                var area = new Offset[]
+                Name = "Poison Wall Rune",
+
+                Group = "Attack",
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Callback = AreaCreate(new Offset[]
                 {
                     new Offset(-2, 0), new Offset(-1, 0), new Offset(0, 0), new Offset(1, 0), new Offset(2, 0)
-                };
 
-                return AreaCreate(player, position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, -5);
-            } },
+                }, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, -5)
+            },
 
-            { 2301 /* Fire field */, (player, position) =>
+            [2301] = new Rune()
             {
-                var area = new Offset[]
+                Name = "Fire Field Rune",
+
+                Group = "Attack",
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Callback = AreaCreate(new Offset[]
                 {
                     new Offset(0, 0)
-                };
 
-                return AreaCreate(player, position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, -20);
-            } },
+                }, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, -20)
+            },
 
-            { 2305 /* Fire bomb */, (player, position) =>
+            [2305] = new Rune()
             {
-                var area = new Offset[]
+                Name = "Fire Bomb Rune",
+
+                Group = "Attack",
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Callback = AreaCreate(new Offset[]
                 {
                     new Offset(-1, -1), new Offset(0, -1), new Offset(1, -1),
                     new Offset(-1, 0) , new Offset(0, 0) , new Offset(1, 0),
                     new Offset(-1, 1) , new Offset(0, 1) , new Offset(1, 1)
-                };
 
-                return AreaCreate(player, position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, -20);
-            } },
+                }, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, -20)
+            },
 
-            { 2303 /* Fire wall */, (player, position) =>
+            [2303] = new Rune()
             {
-                var area = new Offset[]
+                Name = "Fire Wall Rune",
+
+                Group = "Attack",
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Callback = AreaCreate(new Offset[]
                 {
                     new Offset(-2, 0), new Offset(-1, 0), new Offset(0, 0), new Offset(1, 0), new Offset(2, 0)
-                };
 
-                return AreaCreate(player, position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, -20);
-            } },
+                }, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, -20)
+            },
 
-            { 2277 /* Energy field */, (player, position) =>
+            [2277] = new Rune()
             {
-                var area = new Offset[]
+                Name = "Energy Field Rune",
+
+                Group = "Attack",
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Callback = AreaCreate(new Offset[]
                 {
                     new Offset(0, 0)
-                };
 
-                return AreaCreate(player, position, area, ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, 1495, 1, -30);
-            } },
+                }, ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, 1495, 1, -30)
+            },
 
-            { 2262 /* Energy bomb */, (player, position) =>
+            [2262] = new Rune()
             {
-                var area = new Offset[]
+                Name = "Energy Bomb Rune",
+
+                Group = "Attack",
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Callback = AreaCreate(new Offset[]
                 {
                     new Offset(-1, -1), new Offset(0, -1), new Offset(1, -1),
                     new Offset(-1, 0) , new Offset(0, 0) , new Offset(1, 0),
                     new Offset(-1, 1) , new Offset(0, 1) , new Offset(1, 1)
-                };
 
-                return AreaCreate(player, position, area, ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, 1495, 1, -30);
-            } },
+                }, ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, 1495, 1, -30)
+            },
 
-            { 2279 /* Energy wall */, (player, position) =>
+            [2279] = new Rune()
             {
-                var area = new Offset[]
+                Name = "Energy Wall Rune",
+
+                Group = "Attack",
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Callback = AreaCreate(new Offset[]
                 {
                     new Offset(-2, 0), new Offset(-1, 0), new Offset(0, 0), new Offset(1, 0), new Offset(2, 0)
-                };
 
-                return AreaCreate(player, position, area, ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, 1495, 1, -30);
-            } },
+                }, ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, 1495, 1, -30)
+            },
 
-            { 2302 /* Fireball */, (player, position) =>
+            [2302] = new Rune()
             {
-                var area = new Offset[] 
+                Name = "Fireball Rune",
+
+                Group = "Attack",
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Callback = AreaAttack(new Offset[]
                 {
                                         new Offset(-1, -2), new Offset(0, -2), new Offset(1, -2),
                     new Offset(-2, -1), new Offset(-1, -1), new Offset(0, -1), new Offset(1, -1), new Offset(2, -1),
                     new Offset(-2, 0),  new Offset(-1, 0),  new Offset(0, 0),  new Offset(1, 0),  new Offset(2, 0),
                     new Offset(-2, 1),  new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1),  new Offset(2, 1),
-                                        new Offset(-1, 2),  new Offset(0, 2),  new Offset(1, 2) 
-                };
+                                        new Offset(-1, 2),  new Offset(0, 2),  new Offset(1, 2)
 
-                return AreaAttack(player, position, area, ProjectileType.Fire, MagicEffectType.FireArea, GenericFormula(player.Level, player.Skills.MagicLevel, 20, 5) );
-            } },
+                }, ProjectileType.Fire, MagicEffectType.FireArea, player => GenericFormula(player.Level, player.Skills.MagicLevel, 20, 5) )
+            },
 
-            { 2304 /* Great fireball */ , (player, position) =>
+            [2304] = new Rune()
             {
-                var area = new Offset[]
+                Name = "Great Fireball Rune",
+
+                Group = "Attack",
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Callback = AreaAttack(new Offset[]
                 {
                                                             new Offset(-1, -3), new Offset(0, -3), new Offset(1, -3),
                                         new Offset(-2, -2), new Offset(-1, -2), new Offset(0, -2), new Offset(1, -2), new Offset(2, -2),
@@ -130,56 +199,72 @@ namespace OpenTibia.Game.CommandHandlers
                     new Offset(-3, 0),  new Offset(-2, 0),  new Offset(-1, 0),  new Offset(0, 0),  new Offset(1, 0),  new Offset(2, 0),  new Offset(3, 0),
                     new Offset(-3, 1),  new Offset(-2, 1),  new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1),  new Offset(2, 1),  new Offset(3, 1),
                                         new Offset(-2, 2),  new Offset(-1, 2),  new Offset(0, 2),  new Offset(1, 2),  new Offset(2, 2),
-                                                            new Offset(-1, 3),  new Offset(0, 3),  new Offset(1, 3),
-                };
+                                                            new Offset(-1, 3),  new Offset(0, 3),  new Offset(1, 3)
 
-                return AreaAttack(player, position, area, ProjectileType.Fire, MagicEffectType.FireArea, GenericFormula(player.Level, player.Skills.MagicLevel, 50, 15) );
-            } },
+                }, ProjectileType.Fire, MagicEffectType.FireArea, player => GenericFormula(player.Level, player.Skills.MagicLevel, 50, 15) )
+            },
 
-            { 2313 /* Explosion */, (player, position) =>
+            [2313] = new Rune()
             {
-                var area = new Offset[]
+                Name = "Explosion Rune",
+
+                Group = "Attack",
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Callback = AreaAttack(new Offset[]
                 {
                                         new Offset(0, -1),
                     new Offset(-1, 0),  new Offset(0, 0),  new Offset(1, 0),
-                                        new Offset(0, 1),
-                };
+                                        new Offset(0, 1)
 
-                return AreaAttack(player, position, area, ProjectileType.Explosion, MagicEffectType.ExplosionArea, GenericFormula(player.Level, player.Skills.MagicLevel, 60, 40) );
-            } },
+                }, ProjectileType.Explosion, MagicEffectType.ExplosionArea, player => GenericFormula(player.Level, player.Skills.MagicLevel, 60, 40) )
+            },
 
-            { 2293 /* Magic wall */, (player, position) =>
+            [2293] = new Rune()
             {
-                var area = new Offset[]
+                Name = "Magic Wall Rune",
+
+                Group = "Support",
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Callback = AreaCreate(new Offset[]
                 {
                     new Offset(0, 0)
-                };
 
-                return AreaCreate(player, position, area, ProjectileType.Energy, null, 1497, 1, 0);
-            } },
+                }, ProjectileType.Energy, null, 1497, 1, 0)
+            },
 
-            { 2269 /* Wild growth */, (player, position) =>
+            [2269] = new Rune()
             {
-                var area = new Offset[]
+                Name = "Wild Growth Rune",
+
+                Group = "Support",
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Callback = AreaCreate(new Offset[]
                 {
                     new Offset(0, 0)
-                };
 
-                return AreaCreate(player, position, area, ProjectileType.Earth, null, 1499, 1, 0);
-            } }
+                }, ProjectileType.Energy, null, 1499, 1, 0)
+            }
         };
 
-        private static Func<Context, Promise> AreaAttack(Player player, Position position, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, (int Min, int Max) formula)
+        private static Func<Context, Player, Position, Promise> AreaAttack(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, Func<Player, (int Min, int Max)> formula)
         {
-            return context =>
+            return (context, player, position) =>
             {
-                return context.AddCommand(new CombatAreaAttackCommand(player, position, area, projectileType, magicEffectType, (attacker, target) => -context.Server.Randomization.Take(formula.Min, formula.Max) ) );
+                var calculated = formula(player);
+
+                return context.AddCommand(new CombatAreaAttackCommand(player, position, area, projectileType, magicEffectType, (attacker, target) => -context.Server.Randomization.Take(calculated.Min, calculated.Max) ) );
             };
         }
 
-        private static Func<Context, Promise> AreaCreate(Player player, Position position, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, int health)
+        private static Func<Context, Player, Position, Promise> AreaCreate(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, int health)
         {
-            return context =>
+            return (context, player, position) =>
             {
                 return context.AddCommand(new CombatAreaCreateCommand(player, position, area, projectileType, magicEffectType, openTibiaId, count, (attacker, target) => health) );
             };
@@ -194,14 +279,30 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemWithItemCommand command)
         {
-            Func<Player, Position, Func<Context, Promise>> callback;
+            Rune rune;
 
-            if (runes.TryGetValue(command.Item.Metadata.OpenTibiaId, out callback) && command.ToItem.Parent is Tile toTile)
+            if (runes.TryGetValue(command.Item.Metadata.OpenTibiaId, out rune) && command.ToItem.Parent is Tile toTile)
             {
-                return Promise.FromResult(context).Then( callback(command.Player, toTile.Position) ).Then(ctx =>
+                CooldownBehaviour behaviour = context.Server.Components.GetComponent<CooldownBehaviour>(command.Player);
+
+                if ( !behaviour.HasCooldown(rune.Group) )
                 {
-                    return ctx.AddCommand(new ItemDecrementCommand(command.Item, 1) );
-                } );
+                    return Promise.FromResult(context).Then(ctx =>
+                    {
+                        return rune.Callback(ctx, command.Player, toTile.Position);
+
+                    } ).Then(ctx =>
+                    {
+                        return ctx.AddCommand(new ItemDecrementCommand(command.Item, 1) );
+                    } );
+                }
+                else
+                {
+                    return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then(ctx =>
+                    {
+                        ctx.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
+                    } );
+                }
             }
 
             return next(context);
