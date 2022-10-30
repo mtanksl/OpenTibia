@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Behaviours\Creature\AttackBehaviour.cs" />
     <Compile Include="Behaviours\Creature\WalkBehaviour.cs" />
+    <Compile Include="Behaviours\Player\CooldownBehaviour.cs" />
     <Compile Include="Behaviours\Player\AttackAndFollowBehaviour.cs" />
     <Compile Include="Behaviours\Item\DecayBehaviour.cs" />
     <Compile Include="CommandHandlerCollection.cs" />

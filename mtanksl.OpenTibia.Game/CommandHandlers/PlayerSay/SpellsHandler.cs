@@ -1,63 +1,279 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Components;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenTibia.Game.CommandHandlers
 {
     public class SpellsHandler : CommandHandler<PlayerSayCommand>
     {
-        private static Dictionary<string, Func<Player, Func<Context, Promise>>> spells = new Dictionary<string, Func<Player, Func<Context, Promise>>>()
+        private class Spell
         {
-            { "exani tera", player =>
-            {
-                return Teleport(player);
-            } },
+            public string Name { get; set; }
 
-            { "utevo lux", player =>
-            {
-                return Light(player, 6, 215);
-            } },
+            public string Group { get; set; }
 
-            { "utevo gran lux", player => 
-            {
-                return Light(player, 8, 215); 
-            } },
+            public int CooldownInMilliseconds { get; set; }
 
-            { "utevo vis lux", player => 
-            {
-                return Light(player, 9, 215); 
-            } },
+            public int GroupCooldownInMilliseconds { get; set; }
 
-            { "utani hur", player =>
-            {
-                return Speed(player, HasteFormula(player.BaseSpeed) );
-            } },
+            public bool Premium { get; set; }
 
-            { "utani gran hur", player =>
-            {
-                return Speed(player, StrongHasteFormula(player.BaseSpeed) );
-            } },
+            public int Mana { get; set; }
 
-            { "exura", player =>
-            {
-                return Healing(player, LightHealingFormula(player.Level, player.Skills.MagicLevel) );
-            } },
+            public Func<Context, Player, bool> Condition { get; set; }
 
-            { "exura gran", player =>
-            {
-                return Healing(player, IntenseHealingFormula(player.Level, player.Skills.MagicLevel) );
-            } },
+            public Func<Context, Player, Promise> Callback { get; set; }
+        }
 
-            { "exura vita", player =>
-            {
-                return Healing(player, UltimateHealingFormula(player.Level, player.Skills.MagicLevel) );
-            } },
+        private static HashSet<ushort> ropeSpots = new HashSet<ushort> { 384, 418 };
 
-            { "exura gran mas res", player =>
+        private Dictionary<string, Spell> spells = new Dictionary<string, Spell>()
+        {
+            ["exani tera"] = new Spell()
             {
-                var area = new Offset[]
+                Name = "Magic Rope",
+                
+                Group = "Support", 
+                
+                CooldownInMilliseconds = 2000,
+                
+                GroupCooldownInMilliseconds = 2000, 
+                
+                Premium = true,
+
+                Mana = 20,
+
+                Condition = (context, player) =>
+                {
+                    if (ropeSpots.Contains(player.Tile.Ground.Metadata.OpenTibiaId) )
+                    {
+                        return true;
+                    }
+
+                    return false;
+                },
+
+                Callback = Teleport()
+            },
+
+            ["exani hur up"] = new Spell()
+            {
+                Name = "Levitate",
+                
+                Group = "Support", 
+                
+                CooldownInMilliseconds = 2000,
+                
+                GroupCooldownInMilliseconds = 2000, 
+                
+                Premium = true,
+
+                Mana = 50,
+
+                Condition = (context, player) =>
+                {
+                    Tile up = context.Server.Map.GetTile(player.Tile.Position.Offset(0, 0, -1) );
+
+                    Tile toTile = context.Server.Map.GetTile(player.Tile.Position.Offset(0, 0, -1).Offset(player.Direction) );
+
+                    if (up != null || toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) )
+                    {
+                        return false;
+                    }
+
+                    return true;
+                },
+
+                Callback = TeleportUp()
+            },
+
+            ["exani hur down"] = new Spell()
+            {
+                Name = "Levitate",
+                
+                Group = "Support", 
+                
+                CooldownInMilliseconds = 2000,
+                
+                GroupCooldownInMilliseconds = 2000, 
+                
+                Premium = true,
+
+                Mana = 50,
+
+                Condition = (context, player) =>
+                {
+                    Tile next = context.Server.Map.GetTile(player.Tile.Position.Offset(player.Direction) );
+
+                    Tile toTile = context.Server.Map.GetTile(player.Tile.Position.Offset(0, 0, 1).Offset(player.Direction) );
+
+                    if (next != null || toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) )
+                    {
+                        return false;
+                    }
+
+                    return true;
+                },
+
+                Callback = TeleportDown()
+            },
+
+            ["utevo lux"] = new Spell()
+            {
+                Name = "Light",
+                
+                Group = "Support", 
+                
+                CooldownInMilliseconds = 2000,
+                
+                GroupCooldownInMilliseconds = 2000, 
+                
+                Premium = false,
+
+                Mana = 20,
+
+                Callback = Light(6, 215)
+            },
+
+            ["utevo gran lux"] = new Spell()
+            {
+                Name = "Great Light",
+
+                Group = "Support",
+
+                CooldownInMilliseconds = 2000,
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Premium = false,
+
+                Mana = 60,
+
+                Callback = Light(8, 215)
+            },
+
+            ["utevo vis lux"] = new Spell()
+            {
+                Name = "Ultimate Light",
+
+                Group = "Support",
+
+                CooldownInMilliseconds = 2000,
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Premium = true,
+
+                Mana = 140,
+
+                Callback = Light(9, 215)
+            },
+
+            ["utani hur"] = new Spell()
+            {
+                Name = "Haste",
+
+                Group = "Support",
+
+                CooldownInMilliseconds = 2000,
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Premium = true,
+
+                Mana = 60,
+
+                Callback = Speed(player => HasteFormula(player.BaseSpeed) )
+            },
+
+            ["utani gran hur"] = new Spell()
+            {
+                Name = "Strong Haste",
+
+                Group = "Support",
+
+                CooldownInMilliseconds = 2000,
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Premium = true,
+
+                Mana = 100,
+
+                Callback = Speed(player => StrongHasteFormula(player.BaseSpeed) )
+            },
+
+            ["exura"] = new Spell()
+            {
+                Name = "Light Healing",
+
+                Group = "Healing",
+
+                CooldownInMilliseconds = 1000,
+
+                GroupCooldownInMilliseconds = 1000,
+
+                Premium = false,
+
+                Mana = 20,
+
+                Callback = Healing(player => LightHealingFormula(player.Level, player.Skills.MagicLevel) )
+            },
+
+            ["exura gran"] = new Spell()
+            {
+                Name = "Intense Healing",
+
+                Group = "Healing",
+
+                CooldownInMilliseconds = 1000,
+
+                GroupCooldownInMilliseconds = 1000,
+
+                Premium = false,
+
+                Mana = 70,
+
+                Callback = Healing(player => IntenseHealingFormula(player.Level, player.Skills.MagicLevel) )
+            },
+
+            ["exura vita"] = new Spell()
+            {
+                Name = "Ultimate Healing",
+
+                Group = "Healing",
+
+                CooldownInMilliseconds = 1000,
+
+                GroupCooldownInMilliseconds = 1000,
+
+                Premium = false,
+
+                Mana = 160,
+
+                Callback = Healing(player => UltimateHealingFormula(player.Level, player.Skills.MagicLevel) )
+            },
+
+            ["exura gran mas res"] = new Spell()
+            {
+                Name = "Mass Healing",
+
+                Group = "Healing",
+
+                CooldownInMilliseconds = 2000,
+
+                GroupCooldownInMilliseconds = 1000,
+
+                Premium = true,
+
+                Mana = 150,
+
+                Callback = Healing(new Offset[]
                 {
                                                             new Offset(-1, -3), new Offset(0, -3), new Offset(1, -3),
                                         new Offset(-2, -2), new Offset(-1, -2), new Offset(0, -2), new Offset(1, -2), new Offset(2, -2),
@@ -66,71 +282,137 @@ namespace OpenTibia.Game.CommandHandlers
                     new Offset(-3, 1),  new Offset(-2, 1),  new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1),  new Offset(2, 1),  new Offset(3, 1),
                                         new Offset(-2, 2),  new Offset(-1, 2),  new Offset(0, 2),  new Offset(1, 2),  new Offset(2, 2),
                                                             new Offset(-1, 3),  new Offset(0, 3),  new Offset(1, 3)
-                };
 
-                return Healing(player, area, MassHealingFormula(player.Level, player.Skills.MagicLevel) );
-            } },
+                }, player => MassHealingFormula(player.Level, player.Skills.MagicLevel) )
+            },
 
-            { "exori mort", player =>
+            ["exori mort"] = new Spell()
             {
-                var beam = new Offset[] 
+                Name = "Death Strike",
+
+                Group = "Attack",
+
+                CooldownInMilliseconds = 2000,
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Premium = true,
+
+                Mana = 20,
+
+                Callback = BeamAttack(new Offset[]
                 {
                     new Offset(0, 1)
-                };
 
-                return BeamAttack(player, beam, MagicEffectType.MortArea, GenericFormula(player.Level, player.Skills.MagicLevel, 45, 10) );
-            } },
+                }, MagicEffectType.MortArea, player => GenericFormula(player.Level, player.Skills.MagicLevel, 45, 10) )
+            },
 
-            { "exori flam", player =>
+            ["exori flam"] = new Spell()
             {
-                var beam = new Offset[] 
+                Name = "Flame Strike",
+
+                Group = "Attack",
+
+                CooldownInMilliseconds = 2000,
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Premium = true,
+
+                Mana = 20,
+
+                Callback = BeamAttack(new Offset[]
                 {
                     new Offset(0, 1)
-                };
 
-                return BeamAttack(player, beam, MagicEffectType.FirePlume, GenericFormula(player.Level, player.Skills.MagicLevel, 45, 10) );
-            } },
+                }, MagicEffectType.FirePlume, player => GenericFormula(player.Level, player.Skills.MagicLevel, 45, 10) )
+            },
 
-            { "exori vis", player =>
+            ["exori vis"] = new Spell()
             {
-                var beam = new Offset[] 
+                Name = "Energy Strike",
+
+                Group = "Attack",
+
+                CooldownInMilliseconds = 2000,
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Premium = true,
+
+                Mana = 20,
+
+                Callback = BeamAttack(new Offset[]
                 {
                     new Offset(0, 1)
-                };
 
-                return BeamAttack(player, beam, MagicEffectType.EnergyArea, GenericFormula(player.Level, player.Skills.MagicLevel, 45, 10) );
-            } },
+                }, MagicEffectType.EnergyArea, player => GenericFormula(player.Level, player.Skills.MagicLevel, 45, 10) )
+            },
 
-            { "exevo flam hur", player =>
+            ["exevo flam hur"] = new Spell()
             {
-                var beam = new Offset[]
+                Name = "Fire Wave",
+
+                Group = "Attack",
+
+                CooldownInMilliseconds = 4000,
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Premium = false,
+
+                Mana = 25,
+
+                Callback = BeamAttack(new Offset[]
                 {
-                                                          new Offset(0, 1),
-                                       new Offset(-1, 2), new Offset(0, 2), new Offset(1, 2),
-                                       new Offset(-1, 3), new Offset(0, 3), new Offset(1, 3),
+                                                            new Offset(0, 1),
+                                        new Offset(-1, 2), new Offset(0, 2), new Offset(1, 2),
+                                        new Offset(-1, 3), new Offset(0, 3), new Offset(1, 3),
                     new Offset(-2, 4), new Offset(-1, 4), new Offset(0, 4), new Offset(1, 4), new Offset(2, 4)
-                };
 
-                return BeamAttack(player, beam, MagicEffectType.FireArea, GenericFormula(player.Level, player.Skills.MagicLevel, 30, 10) );
-            } },
+                }, MagicEffectType.FireArea, player => GenericFormula(player.Level, player.Skills.MagicLevel, 30, 10) )
+            },
 
-            { "exevo vis lux", player =>
+            ["exevo vis lux"] = new Spell()
             {
-                var beam = new Offset[]
+                Name = "Energy Beam",
+
+                Group = "Attack",
+
+                CooldownInMilliseconds = 4000,
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Premium = false,
+
+                Mana = 40,
+
+                Callback = BeamAttack(new Offset[]
                 {
                     new Offset(0, 1),
                     new Offset(0, 2),
                     new Offset(0, 3),
                     new Offset(0, 4),
                     new Offset(0, 5)
-                };
 
-                return BeamAttack(player, beam, MagicEffectType.EnergyArea, GenericFormula(player.Level, player.Skills.MagicLevel, 60, 20) );
-            } },
+                }, MagicEffectType.EnergyArea, player => GenericFormula(player.Level, player.Skills.MagicLevel, 60, 20) )
+            },
 
-            { "exevo gran vis lux", player =>
+            ["exevo gran vis lux"] = new Spell()
             {
-                var beam = new Offset[]
+                Name = "Great Energy Beam",
+
+                Group = "Attack",
+
+                CooldownInMilliseconds = 6000,
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Premium = false,
+
+                Mana = 110,
+
+                Callback = BeamAttack(new Offset[]
                 {
                     new Offset(0, 1),
                     new Offset(0, 2),
@@ -139,153 +421,231 @@ namespace OpenTibia.Game.CommandHandlers
                     new Offset(0, 5),
                     new Offset(0, 6),
                     new Offset(0, 7)
-                };
 
-                return BeamAttack(player, beam, MagicEffectType.EnergyArea, GenericFormula(player.Level, player.Skills.MagicLevel, 120, 80) );
-            } },
+                }, MagicEffectType.EnergyArea, player => GenericFormula(player.Level, player.Skills.MagicLevel, 120, 80) )
+            },
 
-            { "exevo mort hur", player =>
+            ["exevo mort hur"] = new Spell()
             {
-                var beam = new Offset[]
+                Name = "Great Energy Beam",
+
+                Group = "Attack",
+
+                CooldownInMilliseconds = 8000,
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Premium = false,
+
+                Mana = 170,
+
+                Callback = BeamAttack(new Offset[]
                 {
-                                       new Offset(0, 1),
-                                       new Offset(0, 2),
+                                        new Offset(0, 1),
+                                        new Offset(0, 2),
                     new Offset(-1, 3), new Offset(0, 3), new Offset(1, 3),
                     new Offset(-1, 4), new Offset(0, 4), new Offset(1, 4),
                     new Offset(-1, 5), new Offset(0, 5), new Offset(1, 5),
-                };
 
-                return BeamAttack(player, beam, MagicEffectType.MortArea, GenericFormula(player.Level, player.Skills.MagicLevel, 150, 50) );
-            } },
+                }, MagicEffectType.MortArea, player => GenericFormula(player.Level, player.Skills.MagicLevel, 150, 50) )
+            },
 
-            { "exevo gran mas vis", player =>
+            ["exevo gran mas vis"] = new Spell()
             {
-                var area = new Offset[]
+                Name = "Rage of the Skies",
+
+                Group = "Attack",
+
+                CooldownInMilliseconds = 40000,
+
+                GroupCooldownInMilliseconds = 4000,
+
+                Premium = true,
+
+                Mana = 600,
+
+                Callback = AreaAttack(new Offset[]
                 {
-                                                                                                                       new Offset(0, -5),
-                                                                               new Offset(-2, -4), new Offset(-1, -4), new Offset(0, -4), new Offset(1, -4), new Offset(2, -4),
-                                                           new Offset(-3, -3), new Offset(-2, -3), new Offset(-1, -3), new Offset(0, -3), new Offset(1, -3), new Offset(2, -3), new Offset(3, -3),
-                                       new Offset(-4, -2), new Offset(-3, -2), new Offset(-2, -2), new Offset(-1, -2), new Offset(0, -2), new Offset(1, -2), new Offset(2, -2), new Offset(3, -2), new Offset(4, -2),
-                                       new Offset(-4, -1), new Offset(-3, -1), new Offset(-2, -1), new Offset(-1, -1), new Offset(0, -1), new Offset(1, -1), new Offset(2, -1), new Offset(3, -1), new Offset(4, -1),
+                                                                                                                        new Offset(0, -5),
+                                                                                new Offset(-2, -4), new Offset(-1, -4), new Offset(0, -4), new Offset(1, -4), new Offset(2, -4),
+                                                            new Offset(-3, -3), new Offset(-2, -3), new Offset(-1, -3), new Offset(0, -3), new Offset(1, -3), new Offset(2, -3), new Offset(3, -3),
+                                        new Offset(-4, -2), new Offset(-3, -2), new Offset(-2, -2), new Offset(-1, -2), new Offset(0, -2), new Offset(1, -2), new Offset(2, -2), new Offset(3, -2), new Offset(4, -2),
+                                        new Offset(-4, -1), new Offset(-3, -1), new Offset(-2, -1), new Offset(-1, -1), new Offset(0, -1), new Offset(1, -1), new Offset(2, -1), new Offset(3, -1), new Offset(4, -1),
                     new Offset(-5, 0), new Offset(-4, 0),  new Offset(-3, 0),  new Offset(-2, 0),  new Offset(-1, 0),  new Offset(0, 0),  new Offset(1, 0),  new Offset(2, 0),  new Offset(3, 0),  new Offset(4, 0),  new Offset(5, 0),
-                                       new Offset(-4, 1),  new Offset(-3, 1),  new Offset(-2, 1),  new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1),  new Offset(2, 1),  new Offset(3, 1),  new Offset(4, 1),
-                                       new Offset(-4, 2),  new Offset(-3, 2),  new Offset(-2, 2),  new Offset(-1, 2),  new Offset(0, 2),  new Offset(1, 2),  new Offset(2, 2),  new Offset(3, 2),  new Offset(4, 2),
-                                                           new Offset(-3, 3),  new Offset(-2, 3),  new Offset(-1, 3),  new Offset(0, 3),  new Offset(1, 3),  new Offset(2, 3),  new Offset(3, 3),
-                                                                               new Offset(-2, 4),  new Offset(-1, 4),  new Offset(0, 4),  new Offset(1, 4),  new Offset(2, 4),
-                                                                                                                       new Offset(0, 5),
-                };
+                                        new Offset(-4, 1),  new Offset(-3, 1),  new Offset(-2, 1),  new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1),  new Offset(2, 1),  new Offset(3, 1),  new Offset(4, 1),
+                                        new Offset(-4, 2),  new Offset(-3, 2),  new Offset(-2, 2),  new Offset(-1, 2),  new Offset(0, 2),  new Offset(1, 2),  new Offset(2, 2),  new Offset(3, 2),  new Offset(4, 2),
+                                                            new Offset(-3, 3),  new Offset(-2, 3),  new Offset(-1, 3),  new Offset(0, 3),  new Offset(1, 3),  new Offset(2, 3),  new Offset(3, 3),
+                                                                                new Offset(-2, 4),  new Offset(-1, 4),  new Offset(0, 4),  new Offset(1, 4),  new Offset(2, 4),
+                                                                                                                        new Offset(0, 5),
 
-                return AreaAttack(player, area, MagicEffectType.FireArea, GenericFormula(player.Level, player.Skills.MagicLevel, 250, 50) );
-            } },
+                }, MagicEffectType.FireArea, player => GenericFormula(player.Level, player.Skills.MagicLevel, 250, 50) )
+            },
 
-            { "exevo gran mas pox", player =>
+            ["exevo gran mas pox"] = new Spell()
             {
-                var area = new Offset[]
+                Name = "Poison Storm",
+
+                Group = "Attack",
+
+                CooldownInMilliseconds = 40000,
+
+                GroupCooldownInMilliseconds = 4000,
+
+                Premium = true,
+
+                Mana = 700,
+
+                Callback = AreaAttack(new Offset[]
                 {
-                                                                                                                       new Offset(0, -5),
-                                                                               new Offset(-2, -4), new Offset(-1, -4), new Offset(0, -4), new Offset(1, -4), new Offset(2, -4),
-                                                           new Offset(-3, -3), new Offset(-2, -3), new Offset(-1, -3), new Offset(0, -3), new Offset(1, -3), new Offset(2, -3), new Offset(3, -3),
-                                       new Offset(-4, -2), new Offset(-3, -2), new Offset(-2, -2), new Offset(-1, -2), new Offset(0, -2), new Offset(1, -2), new Offset(2, -2), new Offset(3, -2), new Offset(4, -2),
-                                       new Offset(-4, -1), new Offset(-3, -1), new Offset(-2, -1), new Offset(-1, -1), new Offset(0, -1), new Offset(1, -1), new Offset(2, -1), new Offset(3, -1), new Offset(4, -1),
+                                                                                                                        new Offset(0, -5),
+                                                                                new Offset(-2, -4), new Offset(-1, -4), new Offset(0, -4), new Offset(1, -4), new Offset(2, -4),
+                                                            new Offset(-3, -3), new Offset(-2, -3), new Offset(-1, -3), new Offset(0, -3), new Offset(1, -3), new Offset(2, -3), new Offset(3, -3),
+                                        new Offset(-4, -2), new Offset(-3, -2), new Offset(-2, -2), new Offset(-1, -2), new Offset(0, -2), new Offset(1, -2), new Offset(2, -2), new Offset(3, -2), new Offset(4, -2),
+                                        new Offset(-4, -1), new Offset(-3, -1), new Offset(-2, -1), new Offset(-1, -1), new Offset(0, -1), new Offset(1, -1), new Offset(2, -1), new Offset(3, -1), new Offset(4, -1),
                     new Offset(-5, 0), new Offset(-4, 0),  new Offset(-3, 0),  new Offset(-2, 0),  new Offset(-1, 0),  new Offset(0, 0),  new Offset(1, 0),  new Offset(2, 0),  new Offset(3, 0),  new Offset(4, 0),  new Offset(5, 0),
-                                       new Offset(-4, 1),  new Offset(-3, 1),  new Offset(-2, 1),  new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1),  new Offset(2, 1),  new Offset(3, 1),  new Offset(4, 1),
-                                       new Offset(-4, 2),  new Offset(-3, 2),  new Offset(-2, 2),  new Offset(-1, 2),  new Offset(0, 2),  new Offset(1, 2),  new Offset(2, 2),  new Offset(3, 2),  new Offset(4, 2),
-                                                           new Offset(-3, 3),  new Offset(-2, 3),  new Offset(-1, 3),  new Offset(0, 3),  new Offset(1, 3),  new Offset(2, 3),  new Offset(3, 3),
-                                                                               new Offset(-2, 4),  new Offset(-1, 4),  new Offset(0, 4),  new Offset(1, 4),  new Offset(2, 4),
-                                                                                                                       new Offset(0, 5),
-                };
+                                        new Offset(-4, 1),  new Offset(-3, 1),  new Offset(-2, 1),  new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1),  new Offset(2, 1),  new Offset(3, 1),  new Offset(4, 1),
+                                        new Offset(-4, 2),  new Offset(-3, 2),  new Offset(-2, 2),  new Offset(-1, 2),  new Offset(0, 2),  new Offset(1, 2),  new Offset(2, 2),  new Offset(3, 2),  new Offset(4, 2),
+                                                            new Offset(-3, 3),  new Offset(-2, 3),  new Offset(-1, 3),  new Offset(0, 3),  new Offset(1, 3),  new Offset(2, 3),  new Offset(3, 3),
+                                                                                new Offset(-2, 4),  new Offset(-1, 4),  new Offset(0, 4),  new Offset(1, 4),  new Offset(2, 4),
+                                                                                                                        new Offset(0, 5),
 
-                return AreaAttack(player, area, MagicEffectType.GreenRings, GenericFormula(player.Level, player.Skills.MagicLevel, 200, 50) );
-            } },
+                }, MagicEffectType.GreenRings, player => GenericFormula(player.Level, player.Skills.MagicLevel, 200, 50) )
+            },
 
-            { "exori", player =>
+            ["exori"] = new Spell()
             {
-                var area = new Offset[]
+                Name = "Berserk",
+
+                Group = "Attack",
+
+                CooldownInMilliseconds = 4000,
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Premium = true,
+
+                Mana = 115,
+
+                Callback = AreaAttack(new Offset[]
                 {
                     new Offset(-1, -1), new Offset(0, -1), new Offset(1, -1),
                     new Offset(-1, 0),                     new Offset(1, 0),
                     new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1)
-                };
 
-                return AreaAttack(player, area, MagicEffectType.BlackSpark, BerserkFormula(player.Level, player.Skills.Sword, 0) );
-            } }
+                }, MagicEffectType.BlackSpark, player => BerserkFormula(player.Level, player.Skills.Sword, 0) )
+            }
         };
 
-        private static HashSet<ushort> ropeSpots = new HashSet<ushort> { 384, 418 };
-
-        private static Func<Context, Promise> Teleport(Player player)
+        private static Func<Context, Player, Promise> Teleport()
         {
-            return context =>
+            return (context, player) =>
             {
-                if (ropeSpots.Contains(player.Tile.Ground.Metadata.OpenTibiaId) ) 
+                Tile toTile = context.Server.Map.GetTile(player.Tile.Position.Offset(0, 1, -1) );
+
+                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.Teleport) ).Then(ctx =>
                 {
-                    Tile up = context.Server.Map.GetTile(player.Tile.Position.Offset(0, 1, -1) );
+                    return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
 
-                    return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.Teleport) ).Then(ctx =>
-                    {
-                        return ctx.AddCommand(new ShowMagicEffectCommand(up.Position, MagicEffectType.Teleport) );
-
-                    } ).Then(ctx =>
-                    {
-                        return ctx.AddCommand(new CreatureUpdateParentCommand(player, up, Direction.South) );
-                    } );
-                }
-
-                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.Puff) );                
+                } ).Then(ctx =>
+                {
+                    return ctx.AddCommand(new CreatureUpdateParentCommand(player, toTile, Direction.South) );
+                } );
             };
         }
 
-        private static Func<Context, Promise> Light(Player player, byte level, byte color)
+        private static Func<Context, Player, Promise> TeleportUp()
         {
-            return context =>
+            return (context, player) =>
+            {
+                Tile toTile = context.Server.Map.GetTile(player.Tile.Position.Offset(0, 0, -1).Offset(player.Direction) );
+
+                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.Teleport) ).Then(ctx =>
+                {
+                    return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+
+                } ).Then(ctx =>
+                {
+                    return ctx.AddCommand(new CreatureUpdateParentCommand(player, toTile) );
+                } );
+            };
+        }
+
+        private static Func<Context, Player, Promise> TeleportDown()
+        {
+            return (context, player) =>
+            {
+                Tile toTile = context.Server.Map.GetTile(player.Tile.Position.Offset(0, 0, 1).Offset(player.Direction) );
+
+                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.Teleport) ).Then(ctx =>
+                {
+                    return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+
+                } ).Then(ctx =>
+                {
+                    return ctx.AddCommand(new CreatureUpdateParentCommand(player, toTile) );
+                } );
+            };
+        }
+
+        private static Func<Context, Player, Promise> Light(byte level, byte color)
+        {
+            return (context, player) =>
             {
                 return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) ).Then(ctx =>
                 {
                     return ctx.AddCommand(new CreatureUpdateLightCommand(player, new Light(level, color) ) );
                 } );
-            };           
+            };
         }
 
-        private static Func<Context, Promise> Speed(Player player, ushort speed)
+        private static Func<Context, Player, Promise> Speed(Func<Player, ushort> formula)
         {
-            return context =>
+            return (context, player) =>
             {
                 return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.GreenShimmer) ).Then(ctx =>
                 {
-                    return ctx.AddCommand(new CreatureUpdateSpeedCommand(player, speed) );
+                    return ctx.AddCommand(new CreatureUpdateSpeedCommand(player, formula(player) ) );
                 } );
             };           
         }
 
-        private static Func<Context, Promise> Healing(Player player, (int Min, int Max) formula)
+        private static Func<Context, Player, Promise> Healing(Func<Player, (int Min, int Max)> formula)
         {
-            return context =>
+            return (context, player) =>
             {
-                return context.AddCommand(new CombatTargetedAttackCommand(player, player, null, MagicEffectType.BlueShimmer, (attacker, target) => context.Server.Randomization.Take(formula.Min, formula.Max) ) );
+                var calculated = formula(player);
+
+                return context.AddCommand(new CombatTargetedAttackCommand(player, player, null, MagicEffectType.BlueShimmer, (attacker, target) => context.Server.Randomization.Take(calculated.Min, calculated.Max) ) );
             };           
         }
 
-        private static Func<Context, Promise> Healing(Player player, Offset[] area, (int Min, int Max) formula)
+        private static Func<Context, Player, Promise> Healing(Offset[] area, Func<Player, (int Min, int Max)> formula)
         {
-            return context =>
+            return (context, player) =>
             {
-                return context.AddCommand(new CombatAreaAttackCommand(player, player.Tile.Position, area, null, MagicEffectType.BlueShimmer, (attacker, target) => context.Server.Randomization.Take(formula.Min, formula.Max) ) );
+                var calculated = formula(player);
+
+                return context.AddCommand(new CombatAreaAttackCommand(player, player.Tile.Position, area, null, MagicEffectType.BlueShimmer, (attacker, target) => context.Server.Randomization.Take(calculated.Min, calculated.Max) ) );
             };           
         }
 
-        private static Func<Context, Promise> AreaAttack(Player player, Offset[] area, MagicEffectType? magicEffectType, (int Min, int Max) formula)
+        private static Func<Context, Player, Promise> AreaAttack(Offset[] area, MagicEffectType? magicEffectType, Func<Player, (int Min, int Max)> formula)
         {
-            return context =>
+            return (context, player) =>
             {
-                return context.AddCommand(new CombatAreaAttackCommand(player, player.Tile.Position, area, null, magicEffectType, (attacker, target) => -context.Server.Randomization.Take(formula.Min, formula.Max) ) );
+                var calculated = formula(player);
+
+                return context.AddCommand(new CombatAreaAttackCommand(player, player.Tile.Position, area, null, magicEffectType, (attacker, target) => -context.Server.Randomization.Take(calculated.Min, calculated.Max) ) );
             };
         }
 
-        private static Func<Context, Promise> BeamAttack(Player player, Offset[] beam, MagicEffectType? magicEffectType, (int Min, int Max) formula)
+        private static Func<Context, Player, Promise> BeamAttack(Offset[] beam, MagicEffectType? magicEffectType, Func<Player, (int Min, int Max)> formula)
         {
-            return context =>
+            return (context, player) =>
             {
-                return context.AddCommand(new CombatBeamAttackCommand(player, beam, magicEffectType, (attacker, target) => -context.Server.Randomization.Take(formula.Min, formula.Max) ) );
+                var calculated = formula(player);
+
+                return context.AddCommand(new CombatBeamAttackCommand(player, beam, magicEffectType, (attacker, target) => -context.Server.Randomization.Take(calculated.Min, calculated.Max) ) );
             };
         }
 
@@ -333,11 +693,37 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(Context context, Func<Context, Promise> next, PlayerSayCommand command)
         {
-            Func<Player, Func<Context, Promise>> callback;
+            Spell spell;
 
-            if (spells.TryGetValue(command.Message, out callback) )
+            if (spells.TryGetValue(command.Message, out spell) )
             {
-                return next(context).Then( callback(command.Player) );
+                CooldownBehaviour behaviour = context.Server.Components.GetComponent<CooldownBehaviour>(command.Player);
+
+                if ( !behaviour.HasCooldown(spell.Name) && !behaviour.HasCooldown(spell.Group) )
+                {
+                    if (spell.Condition == null || spell.Condition(context, command.Player) )
+                    {
+                        behaviour.AddCooldown(spell.Name, spell.CooldownInMilliseconds);
+    
+                        behaviour.AddCooldown(spell.Group, spell.GroupCooldownInMilliseconds);
+
+                        return next(context).Then(ctx =>
+                        {
+                            return spell.Callback(ctx, command.Player);
+                        } );
+                    }
+                    else
+                    {
+                        return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                    }
+                }
+                else
+                {
+                    return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then(ctx =>
+                    {
+                        ctx.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
+                    } );
+                }
             }
 
             return next(context);
