@@ -61,6 +61,9 @@ The server architecture is the following: *Packets* are the primary unity. *Inco
 - /r - Destroys a monster or a NPC
 
 # Spells list
+- exani tera - Support
+- exani hur up - Support
+- exani hur down - Support
 - utevo lux - Light
 - utevo gran lux - Light
 - utevo vis lux - Light

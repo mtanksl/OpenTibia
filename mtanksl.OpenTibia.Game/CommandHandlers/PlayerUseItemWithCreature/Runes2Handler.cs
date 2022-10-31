@@ -118,6 +118,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if ( !behaviour.HasCooldown(rune.Group) )
                 {
+                    behaviour.AddCooldown(rune.Group, rune.GroupCooldownInMilliseconds);
+
                     return Promise.FromResult(context).Then(ctx =>
                     {
                         return rune.Callback(ctx, command.Player, command.ToCreature);
