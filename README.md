@@ -59,6 +59,7 @@ The server architecture is the following: *Packets* are the primary unity. *Inco
 - /m `monster_name` - Creates a monster
 - /n `npc_name` - Creates a NPC
 - /r - Destroys a monster or a NPC
+- /kick `player_name` - Kicks player
 
 # Spells list
 - exani tera - Support

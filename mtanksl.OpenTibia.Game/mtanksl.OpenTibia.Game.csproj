@@ -66,6 +66,7 @@
     <Compile Include="CommandHandlers\CreatureUpdateParent\MoveAwayContainerCloseHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\StairsHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\HoleHandler.cs" />
+    <Compile Include="CommandHandlers\PlayerSay\KickPlayerHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\SnowHeapHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveItem\Pitfall2Handler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveCreature\MoveCreatureWalkToSourceHandler.cs" />
@@ -268,7 +269,7 @@
     <Compile Include="Commands\Outgoing\Player\PlayerLookItemCommand.cs" />
     <Compile Include="Commands\Outgoing\Effect\ShowAnimatedTextCommand.cs" />
     <Compile Include="Commands\Outgoing\Effect\ShowProjectileCommand.cs" />
-    <Compile Include="Commands\Outgoing\Creature\Review\CreatureUpdateParentCommand.cs" />
+    <Compile Include="Commands\Outgoing\Creature\CreatureUpdateParentCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileReplaceItemCommand.cs" />
     <Compile Include="Commands\Incoming\Console\ParseCloseNpcsChannelCommand.cs" />
     <Compile Include="Commands\Incoming\Dialog\ParseSelectedCharacterCommand.cs" />

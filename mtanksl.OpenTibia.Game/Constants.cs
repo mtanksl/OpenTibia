@@ -22,6 +22,8 @@ namespace OpenTibia.Game
 
         public static readonly string YouAreExhausted = "You are exhausted.";
 
+        public static readonly string YouDoNotHaveEnoughMana = "You do not have enough mana";
+
         public static readonly string YouCanNotMoveThisObject = "You cannot move this object.";
 
         public static readonly string YouCannotPutMoreObjectsInThisContainer = "You cannot put more objects in this container.";

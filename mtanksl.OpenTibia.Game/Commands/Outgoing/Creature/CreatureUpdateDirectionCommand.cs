@@ -33,6 +33,16 @@ namespace OpenTibia.Game.Commands
                     {
                         foreach (var observer in context.Server.GameObjects.GetPlayers() )
                         {
+                            if (observer == Creature)
+                            {
+                                if (context.Server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(observer) ) )
+                                {
+                                    context.AddPacket(observer.Client.Connection, new StopWalkOutgoingPacket(observer.Direction) );
+                                }
+
+                                context.Server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(observer) );
+                            }
+
                             if (observer.Tile.Position.CanSee(fromTile.Position) )
                             {
                                 context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(fromTile.Position, index, Creature.Id, Creature.Direction) );

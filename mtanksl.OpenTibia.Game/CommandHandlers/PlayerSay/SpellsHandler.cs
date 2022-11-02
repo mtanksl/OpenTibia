@@ -699,29 +699,39 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 CooldownBehaviour behaviour = context.Server.Components.GetComponent<CooldownBehaviour>(command.Player);
 
-                if ( !behaviour.HasCooldown(spell.Name) && !behaviour.HasCooldown(spell.Group) )
+                if (command.Player.Mana >= spell.Mana)
                 {
-                    if (spell.Condition == null || spell.Condition(context, command.Player) )
+                    if ( !behaviour.HasCooldown(spell.Name) && !behaviour.HasCooldown(spell.Group) )
                     {
-                        behaviour.AddCooldown(spell.Name, spell.CooldownInMilliseconds);
-    
-                        behaviour.AddCooldown(spell.Group, spell.GroupCooldownInMilliseconds);
-
-                        return next(context).Then(ctx =>
+                        if (spell.Condition == null || spell.Condition(context, command.Player) )
                         {
-                            return spell.Callback(ctx, command.Player);
-                        } );
+                            behaviour.AddCooldown(spell.Name, spell.CooldownInMilliseconds);
+    
+                            behaviour.AddCooldown(spell.Group, spell.GroupCooldownInMilliseconds);
+
+                            return next(context).Then(ctx =>
+                            {
+                                return spell.Callback(ctx, command.Player);
+                            } );
+                        }
+                        else
+                        {
+                            return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                        }
                     }
                     else
                     {
-                        return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                        return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then(ctx =>
+                        {
+                            ctx.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
+                        } );
                     }
                 }
                 else
                 {
                     return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then(ctx =>
                     {
-                        ctx.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
+                        ctx.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMana) );
                     } );
                 }
             }
