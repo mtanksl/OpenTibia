@@ -18,6 +18,8 @@ namespace OpenTibia.Game.CommandHandlers
 
             public int GroupCooldownInMilliseconds { get; set; }
 
+            public Func<Context, Player, Creature, bool> Condition { get; set; }
+
             public Func<Context, Player, Creature, Promise> Callback { get; set; }
         }
 
@@ -118,16 +120,23 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if ( !behaviour.HasCooldown(rune.Group) )
                 {
-                    behaviour.AddCooldown(rune.Group, rune.GroupCooldownInMilliseconds);
-
-                    return Promise.FromResult(context).Then(ctx =>
+                    if (rune.Condition == null || rune.Condition(context, command.Player, command.ToCreature) )
                     {
-                        return rune.Callback(ctx, command.Player, command.ToCreature);
+                        behaviour.AddCooldown(rune.Group, rune.GroupCooldownInMilliseconds);
 
-                    } ).Then(ctx =>
+                        return Promise.FromResult(context).Then(ctx =>
+                        {
+                            return rune.Callback(ctx, command.Player, command.ToCreature);
+
+                        } ).Then(ctx =>
+                        {
+                            return ctx.AddCommand(new ItemDecrementCommand(command.Item, 1) );
+                        } );
+                    }
+                    else
                     {
-                        return ctx.AddCommand(new ItemDecrementCommand(command.Item, 1) );
-                    } );
+                        return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                    }
                 }
                 else
                 {

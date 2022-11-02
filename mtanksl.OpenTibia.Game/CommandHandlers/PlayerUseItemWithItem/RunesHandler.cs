@@ -5,6 +5,7 @@ using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenTibia.Game.CommandHandlers
 {
@@ -18,7 +19,9 @@ namespace OpenTibia.Game.CommandHandlers
 
             public int GroupCooldownInMilliseconds { get; set; }
 
-            public Func<Context, Player, Position, Promise> Callback { get; set; }
+            public Func<Context, Player, Tile, bool> Condition { get; set; }
+
+            public Func<Context, Player, Tile, Promise> Callback { get; set; }
         }
 
         private static Dictionary<ushort, Rune> runes = new Dictionary<ushort, Rune>()
@@ -30,6 +33,16 @@ namespace OpenTibia.Game.CommandHandlers
                 Group = "Attack",
 
                 GroupCooldownInMilliseconds = 2000,
+
+                Condition = (context, player, tile) =>
+                {
+                    if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) )  )
+                    {
+                        return false;
+                    }
+
+                    return true;
+                },
 
                 Callback = AreaCreate(new Offset[]
                 {
@@ -45,6 +58,16 @@ namespace OpenTibia.Game.CommandHandlers
                 Group = "Attack",
 
                 GroupCooldownInMilliseconds = 2000,
+
+                Condition = (context, player, tile) =>
+                {
+                    if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                    {
+                        return false;
+                    }
+
+                    return true;
+                },
 
                 Callback = AreaCreate(new Offset[]
                 {
@@ -63,6 +86,16 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldownInMilliseconds = 2000,
 
+                Condition = (context, player, tile) =>
+                {
+                    if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                    {
+                        return false;
+                    }
+
+                    return true;
+                },
+
                 Callback = AreaCreate(new Offset[]
                 {
                     new Offset(-2, 0), new Offset(-1, 0), new Offset(0, 0), new Offset(1, 0), new Offset(2, 0)
@@ -78,6 +111,16 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldownInMilliseconds = 2000,
 
+                Condition = (context, player, tile) =>
+                {
+                    if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                    {
+                        return false;
+                    }
+
+                    return true;
+                },
+
                 Callback = AreaCreate(new Offset[]
                 {
                     new Offset(0, 0)
@@ -92,6 +135,16 @@ namespace OpenTibia.Game.CommandHandlers
                 Group = "Attack",
 
                 GroupCooldownInMilliseconds = 2000,
+
+                Condition = (context, player, tile) =>
+                {
+                    if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                    {
+                        return false;
+                    }
+
+                    return true;
+                },
 
                 Callback = AreaCreate(new Offset[]
                 {
@@ -110,6 +163,16 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldownInMilliseconds = 2000,
 
+                Condition = (context, player, tile) =>
+                {
+                    if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                    {
+                        return false;
+                    }
+
+                    return true;
+                },
+
                 Callback = AreaCreate(new Offset[]
                 {
                     new Offset(-2, 0), new Offset(-1, 0), new Offset(0, 0), new Offset(1, 0), new Offset(2, 0)
@@ -125,6 +188,16 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldownInMilliseconds = 2000,
 
+                Condition = (context, player, tile) =>
+                {
+                    if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                    {
+                        return false;
+                    }
+
+                    return true;
+                },
+
                 Callback = AreaCreate(new Offset[]
                 {
                     new Offset(0, 0)
@@ -139,6 +212,16 @@ namespace OpenTibia.Game.CommandHandlers
                 Group = "Attack",
 
                 GroupCooldownInMilliseconds = 2000,
+
+                Condition = (context, player, tile) =>
+                {
+                    if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                    {
+                        return false;
+                    }
+
+                    return true;
+                },
 
                 Callback = AreaCreate(new Offset[]
                 {
@@ -157,6 +240,16 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldownInMilliseconds = 2000,
 
+                Condition = (context, player, tile) =>
+                {
+                    if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                    {
+                        return false;
+                    }
+
+                    return true;
+                },
+
                 Callback = AreaCreate(new Offset[]
                 {
                     new Offset(-2, 0), new Offset(-1, 0), new Offset(0, 0), new Offset(1, 0), new Offset(2, 0)
@@ -171,6 +264,16 @@ namespace OpenTibia.Game.CommandHandlers
                 Group = "Attack",
 
                 GroupCooldownInMilliseconds = 2000,
+
+                Condition = (context, player, tile) =>
+                {
+                    if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                    {
+                        return false;
+                    }
+
+                    return true;
+                },
 
                 Callback = AreaAttack(new Offset[]
                 {
@@ -190,6 +293,16 @@ namespace OpenTibia.Game.CommandHandlers
                 Group = "Attack",
 
                 GroupCooldownInMilliseconds = 2000,
+
+                Condition = (context, player, tile) =>
+                {
+                    if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                    {
+                        return false;
+                    }
+
+                    return true;
+                },
 
                 Callback = AreaAttack(new Offset[]
                 {
@@ -212,6 +325,16 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldownInMilliseconds = 2000,
 
+                Condition = (context, player, tile) =>
+                {
+                    if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                    {
+                        return false;
+                    }
+
+                    return true;
+                },
+
                 Callback = AreaAttack(new Offset[]
                 {
                                         new Offset(0, -1),
@@ -229,6 +352,16 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldownInMilliseconds = 2000,
 
+                Condition = (context, player, tile) =>
+                {
+                    if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || tile.GetCreatures().Any(c => c.Block) )
+                    {
+                        return false;
+                    }
+
+                    return true;
+                },
+
                 Callback = AreaCreate(new Offset[]
                 {
                     new Offset(0, 0)
@@ -244,6 +377,16 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldownInMilliseconds = 2000,
 
+                Condition = (context, player, tile) =>
+                {
+                    if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || tile.GetCreatures().Any(c => c.Block) )
+                    {
+                        return false;
+                    }
+
+                    return true;
+                },
+
                 Callback = AreaCreate(new Offset[]
                 {
                     new Offset(0, 0)
@@ -252,21 +395,21 @@ namespace OpenTibia.Game.CommandHandlers
             }
         };
 
-        private static Func<Context, Player, Position, Promise> AreaAttack(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, Func<Player, (int Min, int Max)> formula)
+        private static Func<Context, Player, Tile, Promise> AreaAttack(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, Func<Player, (int Min, int Max)> formula)
         {
-            return (context, player, position) =>
+            return (context, player, tile) =>
             {
                 var calculated = formula(player);
 
-                return context.AddCommand(new CombatAreaAttackCommand(player, position, area, projectileType, magicEffectType, (attacker, target) => -context.Server.Randomization.Take(calculated.Min, calculated.Max) ) );
+                return context.AddCommand(new CombatAreaAttackCommand(player, tile.Position, area, projectileType, magicEffectType, (attacker, target) => -context.Server.Randomization.Take(calculated.Min, calculated.Max) ) );
             };
         }
 
-        private static Func<Context, Player, Position, Promise> AreaCreate(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, int health)
+        private static Func<Context, Player, Tile, Promise> AreaCreate(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, int health)
         {
-            return (context, player, position) =>
+            return (context, player, tile) =>
             {
-                return context.AddCommand(new CombatAreaCreateCommand(player, position, area, projectileType, magicEffectType, openTibiaId, count, (attacker, target) => health) );
+                return context.AddCommand(new CombatAreaCreateCommand(player, tile.Position, area, projectileType, magicEffectType, openTibiaId, count, (attacker, target) => health) );
             };
         }
 
@@ -287,16 +430,23 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if ( !behaviour.HasCooldown(rune.Group) )
                 {
-                    behaviour.AddCooldown(rune.Group, rune.GroupCooldownInMilliseconds);
-
-                    return Promise.FromResult(context).Then(ctx =>
+                    if (rune.Condition == null || rune.Condition(context, command.Player, toTile) )
                     {
-                        return rune.Callback(ctx, command.Player, toTile.Position);
+                        behaviour.AddCooldown(rune.Group, rune.GroupCooldownInMilliseconds);
 
-                    } ).Then(ctx =>
+                        return Promise.FromResult(context).Then(ctx =>
+                        {
+                            return rune.Callback(ctx, command.Player, toTile);
+
+                        } ).Then(ctx =>
+                        {
+                            return ctx.AddCommand(new ItemDecrementCommand(command.Item, 1) );
+                        } );
+                    }
+                    else
                     {
-                        return ctx.AddCommand(new ItemDecrementCommand(command.Item, 1) );
-                    } );
+                        return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                    }
                 }
                 else
                 {
