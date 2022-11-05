@@ -22,7 +22,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "Ouch! Rather place it on the ground next time.") );
 
-                    context.AddCommand(new CombatTargetedAttackCommand(null, command.Player, null, MagicEffectType.ExplosionDamage, (attacker, target) => -10) );
+                    context.AddCommand(CombatCommand.TargetAttack(null, command.Player, null, MagicEffectType.ExplosionDamage, (attacker, target) => -10) );
                 }
 
                 context.AddCommand(new ItemDestroyCommand(command.Item) );

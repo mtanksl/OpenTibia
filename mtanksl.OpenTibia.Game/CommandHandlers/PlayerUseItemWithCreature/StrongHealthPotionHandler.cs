@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
 
-                context.AddCommand(new CombatTargetedAttackCommand(command.Player, player, null, MagicEffectType.RedShimmer, (attacker, target) => context.Server.Randomization.Take(200, 400) ) );
+                context.AddCommand(CombatCommand.TargetAttack(command.Player, player, null, MagicEffectType.RedShimmer, (attacker, target) => context.Server.Randomization.Take(200, 400) ) );
 
                 context.AddCommand(new ShowTextCommand(player, TalkType.MonsterSay, "Aaaah...") );
 

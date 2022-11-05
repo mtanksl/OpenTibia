@@ -28,7 +28,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (spikes.TryGetValue(topItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
                 {
-                    context.AddCommand(new CombatTargetedAttackCommand(null, e.Creature, null, MagicEffectType.BlackSpark, (attacker, target) => -60) );
+                    context.AddCommand(CombatCommand.TargetAttack(null, e.Creature, null, MagicEffectType.BlackSpark, (attacker, target) => -60) );
 
                     context.AddCommand(new ItemTransformCommand(topItem, toOpenTibiaId, 1) ).Then( (ctx, item) =>
                     {
@@ -39,7 +39,7 @@ namespace OpenTibia.Game.CommandHandlers
                 }
                 else if (topItem.Metadata.OpenTibiaId == activeSpike)
                 {
-                    context.AddCommand(new CombatTargetedAttackCommand(null, e.Creature, null, MagicEffectType.BlackSpark, (attacker, target) => -60) );
+                    context.AddCommand(CombatCommand.TargetAttack(null, e.Creature, null, MagicEffectType.BlackSpark, (attacker, target) => -60) );
 
                     break;
                 }

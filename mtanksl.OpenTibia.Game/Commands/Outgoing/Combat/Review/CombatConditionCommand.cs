@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Commands
         {
             if (index < Health.Length && Target.Tile != null)
             {
-                return context.AddCommand(new CombatTargetedAttackCommand(null, Target, null, MagicEffectType, (attacker, target) => Health[index] ) ).Then(ctx =>
+                return context.AddCommand(CombatCommand.TargetAttack(null, Target, null, MagicEffectType, (attacker, target) => Health[index] ) ).Then(ctx =>
                 {
                     return ctx.Server.Components.AddComponent(Target, new DecayBehaviour(CooldownInMilliseconds[index++] ) ).Promise;
 

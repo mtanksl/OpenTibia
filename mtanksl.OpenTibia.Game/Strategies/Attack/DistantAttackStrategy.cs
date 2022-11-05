@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Strategies
 
         public Command GetNext(Context context, Creature creature, Creature target)
         {
-            return new CombatTargetedAttackCommand(creature, target, projectileType, MagicEffectType.RedSpark, formula);
+            return CombatCommand.TargetAttack(creature, target, projectileType, MagicEffectType.RedSpark, formula);
         }
     }    
 }
