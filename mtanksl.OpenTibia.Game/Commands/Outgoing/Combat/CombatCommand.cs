@@ -5,22 +5,9 @@ using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
-    public class CombatFormula
-    {
-        public Func<Creature, Creature, int> Value { get; set; }
-
-        public SpecialCondition SpecialCondition { get; set; }
-
-        public MagicEffectType MagicEffectType { get; set; }
-
-        public int[] Health { get; set; }
-
-        public int[] CooldownInMilliseconds { get; set; }
-    }
-
     public class CombatCommand : Command
     {
-        public static CombatCommand BeamAttack(Creature attacker, Offset[] beams, MagicEffectType? magicEffectType, CombatFormula formula)
+        public static CombatCommand BeamAttack(Creature attacker, Offset[] beams, MagicEffectType? magicEffectType, Func<Creature, Creature, int> formula)
         {
             return new CombatCommand()
             {
@@ -46,7 +33,7 @@ namespace OpenTibia.Game.Commands
             };
         }
 
-        public static CombatCommand AreaAttack(Creature attacker, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, CombatFormula formula)
+        public static CombatCommand AreaAttack(Creature attacker, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, Func<Creature, Creature, int> formula)
         {
             return new CombatCommand()
             {
@@ -72,7 +59,7 @@ namespace OpenTibia.Game.Commands
             };
         }
 
-        public static CombatCommand AreaAttack(Creature attacker, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, CombatFormula formula)
+        public static CombatCommand AreaAttack(Creature attacker, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, Func<Creature, Creature, int> formula)
         {
             return new CombatCommand()
             {
@@ -98,7 +85,7 @@ namespace OpenTibia.Game.Commands
             };
         }
 
-        public static CombatCommand AreaCreate(Creature attacker, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, CombatFormula formula)
+        public static CombatCommand AreaCreate(Creature attacker, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, Func<Creature, Creature, int> formula)
         {
             return new CombatCommand()
             {
@@ -124,7 +111,37 @@ namespace OpenTibia.Game.Commands
             };
         }
 
-        public static CombatCommand TargetAttack(Creature attacker, Creature target, ProjectileType? projectileType, MagicEffectType? magicEffectType, CombatFormula formula)
+        public static CombatCommand AreaCreate(Creature attacker, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, SpecialCondition specialCondition, int[] health, int[] cooldownInMilliseconds)
+        {
+            return new CombatCommand()
+            {
+                Attacker = attacker,
+
+                Target = null,
+
+                Center = center,
+
+                Area = area,
+
+                Beams = null,
+
+                ProjectileType = projectileType,
+
+                MagicEffectType = magicEffectType,
+
+                OpenTibiaId = openTibiaId,
+
+                Count = count,
+
+                SpecialCondition = specialCondition,
+
+                Health = health,
+
+                CooldownInMilliseconds = cooldownInMilliseconds
+            };
+        }
+
+        public static CombatCommand TargetAttack(Creature attacker, Creature target, ProjectileType? projectileType, MagicEffectType? magicEffectType, Func<Creature, Creature, int> formula)
         {
             return new CombatCommand()
             {
@@ -168,7 +185,13 @@ namespace OpenTibia.Game.Commands
 
         public byte? Count { get; set; }
 
-        public CombatFormula Formula { get; set; }
+        public Func<Creature, Creature, int> Formula { get; set; }
+
+        public SpecialCondition? SpecialCondition { get; set; }
+
+        public int[] Health { get; set; }
+
+        public int[] CooldownInMilliseconds { get; set; }
 
         public override Promise Execute(Context context)
         {
@@ -181,19 +204,12 @@ namespace OpenTibia.Game.Commands
 
                 if (Target != null)
                 {
-                    int health = Formula.Value(Attacker, Target);
+                    if (MagicEffectType != null)
+                    {
+                        context.AddCommand(new ShowMagicEffectCommand(Center, MagicEffectType.Value) );
+                    }
 
-                    if (health == 0)
-                    {
-                        context.AddCommand(new ShowMagicEffectCommand(Center, Common.Structures.MagicEffectType.Puff) );
-                    }
-                    else
-                    {
-                        if (MagicEffectType != null)
-                        {
-                            context.AddCommand(new ShowMagicEffectCommand(Center, MagicEffectType.Value) );
-                        }
-                    }
+                    int health = Formula(Attacker, Target);
 
                     if (Target != Attacker || health > 0)
                     {
@@ -218,18 +234,18 @@ namespace OpenTibia.Game.Commands
                         {
                             foreach (var target in tile.GetMonsters().Concat<Creature>(tile.GetPlayers() ).ToList() )
                             {
-                                if (Formula.Value != null)
+                                if (SpecialCondition != null)
                                 {
-                                    int health = Formula.Value(Attacker, target);
+                                    context.AddCommand(new CombatConditionCommand(target, SpecialCondition.Value, MagicEffectType, Health, CooldownInMilliseconds) );
+                                }
+                                else
+                                {
+                                    int health = Formula(Attacker, target);
 
                                     if (target != Attacker || health > 0)
                                     {
                                         context.AddCommand(new CombatChangeHealthCommand(Attacker, target, MagicEffectType.ToAnimatedTextColor(), health) );
                                     }
-                                }
-                                else
-                                {
-                                    context.AddCommand(new CombatConditionCommand(Formula.SpecialCondition, target, MagicEffectType.Value, Formula.Health, Formula.CooldownInMilliseconds) );
                                 }
                             }
 
@@ -287,11 +303,18 @@ namespace OpenTibia.Game.Commands
                         {
                             foreach (var target in tile.GetMonsters().Concat<Creature>(tile.GetPlayers() ).ToList() )
                             {
-                                int health = Formula.Value(Attacker, target);
-
-                                if (target != Attacker || health > 0)
+                                if (SpecialCondition != null)
                                 {
-                                    context.AddCommand(new CombatChangeHealthCommand(Attacker, target, MagicEffectType.ToAnimatedTextColor(), health) );
+                                    context.AddCommand(new CombatConditionCommand(target, SpecialCondition.Value, MagicEffectType, Health, CooldownInMilliseconds) );
+                                }
+                                else
+                                {
+                                    int health = Formula(Attacker, target);
+
+                                    if (target != Attacker || health > 0)
+                                    {
+                                        context.AddCommand(new CombatChangeHealthCommand(Attacker, target, MagicEffectType.ToAnimatedTextColor(), health) );
+                                    }
                                 }
                             }
 

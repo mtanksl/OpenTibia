@@ -89,10 +89,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 var calculated = formula(player);
 
-                return context.AddCommand(CombatCommand.TargetAttack(player, target, null, MagicEffectType.BlueShimmer, new CombatFormula()
-                {
-                    Value = (a, t) => context.Server.Randomization.Take(calculated.Min, calculated.Max)
-                } ) );
+                return context.AddCommand(CombatCommand.TargetAttack(player, target, null, MagicEffectType.BlueShimmer, (a, t) => context.Server.Randomization.Take(calculated.Min, calculated.Max) ) );
             };           
         }
 
@@ -102,10 +99,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 var calculated = formula(player);
 
-                return context.AddCommand(CombatCommand.TargetAttack(player, target, projectileType, magicEffectType, new CombatFormula()
-                {
-                    Value = (a, t) => -context.Server.Randomization.Take(calculated.Min, calculated.Max)
-                } ) );
+                return context.AddCommand(CombatCommand.TargetAttack(player, target, projectileType, magicEffectType, (a, t) => -context.Server.Randomization.Take(calculated.Min, calculated.Max) ) );
             };
         }
 

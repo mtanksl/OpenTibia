@@ -30,10 +30,7 @@ namespace OpenTibia.Game.Strategies
         {
             if (creature.Tile.Position.IsNextTo(target.Tile.Position) )
             {
-                return CombatCommand.TargetAttack(creature, target, null, MagicEffectType.RedSpark, new CombatFormula()
-                {
-                    Value = formula
-                } );
+                return CombatCommand.TargetAttack(creature, target, null, MagicEffectType.RedSpark, formula);
             }
 
             return null;

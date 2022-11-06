@@ -7,7 +7,7 @@ namespace OpenTibia.Game.Commands
 {
     public class CombatConditionCommand : Command
     {
-        public CombatConditionCommand(SpecialCondition specialCondition, Creature target, MagicEffectType magicEffectType, int[] health, int[] cooldownInMilliseconds)
+        public CombatConditionCommand(Creature target, SpecialCondition specialCondition, MagicEffectType? magicEffectType, int[] health, int[] cooldownInMilliseconds)
         {
             SpecialCondition = specialCondition;
 
@@ -20,11 +20,11 @@ namespace OpenTibia.Game.Commands
             CooldownInMilliseconds = cooldownInMilliseconds;
         }
 
+        public Creature Target { get; set; }
+        
         public SpecialCondition SpecialCondition { get; set; }
 
-        public Creature Target { get; set; }
-
-        public MagicEffectType MagicEffectType { get; set; }
+        public MagicEffectType? MagicEffectType { get; set; }
 
         public int[] Health { get; set; }
 
@@ -51,10 +51,12 @@ namespace OpenTibia.Game.Commands
                     }
                 }
                                
-                context.AddCommand(CombatCommand.TargetAttack(null, Target, null, MagicEffectType, new CombatFormula()
+                if (MagicEffectType != null)
                 {
-                    Value = (attacker, target) => Health[index]
-                } ) );
+                    context.AddCommand(new ShowMagicEffectCommand(Target.Tile.Position, MagicEffectType.Value) );
+                }
+
+                context.AddCommand(new CombatChangeHealthCommand(null, Target, MagicEffectType.ToAnimatedTextColor(), Health[index] ) );
 
                 if (Target.Tile != null)
                 {
@@ -80,10 +82,12 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                context.AddCommand(CombatCommand.TargetAttack(null, Target, null, MagicEffectType, new CombatFormula()
+                if (MagicEffectType != null)
                 {
-                    Value = (attacker, target) => Health[index]
-                } ) );
+                    context.AddCommand(new ShowMagicEffectCommand(Target.Tile.Position, MagicEffectType.Value) );
+                }
+
+                context.AddCommand(new CombatChangeHealthCommand(null, Target, MagicEffectType.ToAnimatedTextColor(), Health[index] ) );
             }    
             
             return Promise.FromResult(context);

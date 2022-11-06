@@ -58,7 +58,6 @@ namespace OpenTibia.Game.Commands
                     else
                     {
                         context.AddCommand(new PlayerUpdateManaCommand(Target, 0, Target.MaxMana) );
-
                     }
                 }
                 else
