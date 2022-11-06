@@ -615,7 +615,10 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 var calculated = formula(player);
 
-                return context.AddCommand(CombatCommand.TargetAttack(player, player, null, MagicEffectType.BlueShimmer, (attacker, target) => context.Server.Randomization.Take(calculated.Min, calculated.Max) ) );
+                return context.AddCommand(CombatCommand.TargetAttack(player, player, null, MagicEffectType.BlueShimmer, new CombatFormula()
+                {
+                    Value = (attacker, target) => context.Server.Randomization.Take(calculated.Min, calculated.Max)
+                } ) );
             };           
         }
 
@@ -625,7 +628,10 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 var calculated = formula(player);
 
-                return context.AddCommand(CombatCommand.AreaAttack(player, area, null, MagicEffectType.BlueShimmer, (attacker, target) => context.Server.Randomization.Take(calculated.Min, calculated.Max) ) );
+                return context.AddCommand(CombatCommand.AreaAttack(player, area, null, MagicEffectType.BlueShimmer, new CombatFormula()
+                {
+                    Value = (attacker, target) => context.Server.Randomization.Take(calculated.Min, calculated.Max)
+                } ) );
             };           
         }
 
@@ -635,7 +641,10 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 var calculated = formula(player);
 
-                return context.AddCommand(CombatCommand.AreaAttack(player, area, null, magicEffectType, (attacker, target) => -context.Server.Randomization.Take(calculated.Min, calculated.Max) ) );
+                return context.AddCommand(CombatCommand.AreaAttack(player, area, null, magicEffectType, new CombatFormula()
+                {
+                    Value = (attacker, target) => -context.Server.Randomization.Take(calculated.Min, calculated.Max)
+                } ) );
             };
         }
 
@@ -645,7 +654,10 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 var calculated = formula(player);
 
-                return context.AddCommand(CombatCommand.BeamAttack(player, beam, magicEffectType, (attacker, target) => -context.Server.Randomization.Take(calculated.Min, calculated.Max) ) );
+                return context.AddCommand(CombatCommand.BeamAttack(player, beam, magicEffectType, new CombatFormula()
+                {
+                    Value = (attacker, target) => -context.Server.Randomization.Take(calculated.Min, calculated.Max)
+                } ) );
             };
         }
 

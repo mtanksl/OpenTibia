@@ -48,7 +48,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     new Offset(0, 0)
 
-                }, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, -5)
+                }, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, SpecialCondition.Poisoned, new[] { -5, -5, -5 }, new[] { 2000, 2000 } )
             },
 
             [2286] = new Rune()
@@ -75,7 +75,7 @@ namespace OpenTibia.Game.CommandHandlers
                     new Offset(-1, 0) , new Offset(0, 0) , new Offset(1, 0),
                     new Offset(-1, 1) , new Offset(0, 1) , new Offset(1, 1)
 
-                }, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, -5)
+                }, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, SpecialCondition.Poisoned, new[] { -5, -5, -5 }, new[] { 2000, 2000 })
             },
 
             [2289] = new Rune()
@@ -100,7 +100,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     new Offset(-2, 0), new Offset(-1, 0), new Offset(0, 0), new Offset(1, 0), new Offset(2, 0)
 
-                }, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, -5)
+                }, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, SpecialCondition.Poisoned, new[] { -5, -5, -5 }, new[] { 2000, 2000 } )
             },
 
             [2301] = new Rune()
@@ -125,7 +125,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     new Offset(0, 0)
 
-                }, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, -20)
+                }, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, SpecialCondition.Burning, new[] { -20, -10, -10}, new[] { 2000, 2000 } )
             },
 
             [2305] = new Rune()
@@ -152,7 +152,7 @@ namespace OpenTibia.Game.CommandHandlers
                     new Offset(-1, 0) , new Offset(0, 0) , new Offset(1, 0),
                     new Offset(-1, 1) , new Offset(0, 1) , new Offset(1, 1)
 
-                }, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, -20)
+                }, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, SpecialCondition.Burning, new[] { -20, -10, -10 }, new[] { 2000, 2000 } )
             },
 
             [2303] = new Rune()
@@ -177,7 +177,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     new Offset(-2, 0), new Offset(-1, 0), new Offset(0, 0), new Offset(1, 0), new Offset(2, 0)
 
-                }, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, -20)
+                }, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, SpecialCondition.Burning, new[] { -20, -10, -10 }, new[] { 2000, 2000 } )
             },
 
             [2277] = new Rune()
@@ -202,7 +202,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     new Offset(0, 0)
 
-                }, ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, 1495, 1, -30)
+                }, ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, 1495, 1, SpecialCondition.Electrified, new[] { -35, -25, -25 }, new[] { 2000, 2000 } )
             },
 
             [2262] = new Rune()
@@ -229,7 +229,7 @@ namespace OpenTibia.Game.CommandHandlers
                     new Offset(-1, 0) , new Offset(0, 0) , new Offset(1, 0),
                     new Offset(-1, 1) , new Offset(0, 1) , new Offset(1, 1)
 
-                }, ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, 1495, 1, -30)
+                }, ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, 1495, 1, SpecialCondition.Electrified, new[] { -35, -25, -25 }, new[] { 2000, 2000 } )
             },
 
             [2279] = new Rune()
@@ -254,7 +254,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     new Offset(-2, 0), new Offset(-1, 0), new Offset(0, 0), new Offset(1, 0), new Offset(2, 0)
 
-                }, ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, 1495, 1, -30)
+                }, ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, 1495, 1, SpecialCondition.Electrified, new[] { -35, -25, -25 }, new[] { 2000, 2000 } )
             },
 
             [2302] = new Rune()
@@ -366,7 +366,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     new Offset(0, 0)
 
-                }, ProjectileType.Energy, null, 1497, 1, 0)
+                }, ProjectileType.Energy, null, 1497, 1)
             },
 
             [2269] = new Rune()
@@ -391,7 +391,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     new Offset(0, 0)
 
-                }, ProjectileType.Energy, null, 1499, 1, 0)
+                }, ProjectileType.Energy, null, 1499, 1)
             }
         };
 
@@ -401,15 +401,38 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 var calculated = formula(player);
 
-                return context.AddCommand(CombatCommand.AreaAttack(player, tile.Position, area, projectileType, magicEffectType, (attacker, target) => -context.Server.Randomization.Take(calculated.Min, calculated.Max) ) );
+                return context.AddCommand(CombatCommand.AreaAttack(player, tile.Position, area, projectileType, magicEffectType, new CombatFormula() 
+                {
+                    Value = (attacker, target) => -context.Server.Randomization.Take(calculated.Min, calculated.Max) 
+                } ) );
             };
         }
 
-        private static Func<Context, Player, Tile, Promise> AreaCreate(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, int health)
+        private static Func<Context, Player, Tile, Promise> AreaCreate(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count)
         {
             return (context, player, tile) =>
             {
-                return context.AddCommand(CombatCommand.AreaCreate(player, tile.Position, area, projectileType, magicEffectType, openTibiaId, count, (attacker, target) => health) );
+                return context.AddCommand(CombatCommand.AreaCreate(player, tile.Position, area, projectileType, magicEffectType, openTibiaId, count, new CombatFormula()
+                {
+                     Value = (attacker, target) => 0
+                } ) );
+            };
+        }
+
+        private static Func<Context, Player, Tile, Promise> AreaCreate(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, SpecialCondition specialCondition, int[] health, int[] cooldownInMilliseconds)
+        {
+            return (context, player, tile) =>
+            {
+                return context.AddCommand(CombatCommand.AreaCreate(player, tile.Position, area, projectileType, magicEffectType, openTibiaId, count, new CombatFormula()
+                {
+                     SpecialCondition = specialCondition,
+
+                     MagicEffectType = magicEffectType.Value,
+
+                     Health = health,
+
+                     CooldownInMilliseconds = cooldownInMilliseconds
+                } ) );
             };
         }
 

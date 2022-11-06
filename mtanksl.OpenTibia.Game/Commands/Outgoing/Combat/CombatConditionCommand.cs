@@ -51,7 +51,10 @@ namespace OpenTibia.Game.Commands
                     }
                 }
                                
-                context.AddCommand(CombatCommand.TargetAttack(null, Target, null, MagicEffectType, (attacker, target) => Health[index] ) );
+                context.AddCommand(CombatCommand.TargetAttack(null, Target, null, MagicEffectType, new CombatFormula()
+                {
+                    Value = (attacker, target) => Health[index]
+                } ) );
 
                 if (Target.Tile != null)
                 {
@@ -77,7 +80,10 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                context.AddCommand(CombatCommand.TargetAttack(null, Target, null, MagicEffectType, (attacker, target) => Health[index] ) );
+                context.AddCommand(CombatCommand.TargetAttack(null, Target, null, MagicEffectType, new CombatFormula()
+                {
+                    Value = (attacker, target) => Health[index]
+                } ) );
             }    
             
             return Promise.FromResult(context);
