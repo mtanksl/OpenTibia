@@ -57,6 +57,8 @@ namespace OpenTibia.Game
                         
             server.GameObjects.AddGameObject(monster);
 
+            server.Components.AddComponent(monster, new SpecialConditionBehaviour() );
+
             if (monster.Name == "Amazon")
             {
                 server.Components.AddComponent(monster, new AttackBehaviour(new DistantAttackStrategy(ProjectileType.ThrowingKnife, 2000, (attacker, target) => -server.Randomization.Take(0, 30) ) ) );

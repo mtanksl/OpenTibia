@@ -1,14 +1,17 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Game.Commands;
+﻿using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Components
 {
-    public class DecayBehaviour : Behaviour
+    public class DelayBehaviour : Behaviour
     {
+        private string key;
+        
         private int executeInMilliseconds;
 
-        public DecayBehaviour(int executeInMilliseconds)
+        public DelayBehaviour(string key, int executeInMilliseconds)
         {
+            this.key = key;
+
             this.executeInMilliseconds = executeInMilliseconds;
         }
 
@@ -22,18 +25,14 @@ namespace OpenTibia.Game.Components
             }
         }
 
-        private string key;
-
         public override void Start(Server server)
         {
-            key = "Decay_Behaviour_" + GameObject.Id;
-
-            promise = Promise.Delay(server, key, executeInMilliseconds);
+            promise = Promise.Delay(server, key + GameObject.Id, executeInMilliseconds);
         }
 
         public override void Stop(Server server)
         {
-            server.CancelQueueForExecution(key);
+            server.CancelQueueForExecution(key + GameObject.Id);
         }
     }
 }

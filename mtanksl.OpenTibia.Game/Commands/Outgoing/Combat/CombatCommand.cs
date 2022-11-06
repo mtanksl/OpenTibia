@@ -5,7 +5,6 @@ using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
-
     public class CombatCommand : Command
     {
         public static CombatCommand BeamAttack(Creature attacker, Offset[] beams, MagicEffectType? magicEffectType, Func<Creature, Creature, int> formula)

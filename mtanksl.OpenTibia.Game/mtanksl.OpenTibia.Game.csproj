@@ -55,9 +55,10 @@
   <ItemGroup>
     <Compile Include="Behaviours\Creature\AttackBehaviour.cs" />
     <Compile Include="Behaviours\Creature\WalkBehaviour.cs" />
+    <Compile Include="Behaviours\DelayBehaviour.cs" />
+    <Compile Include="Behaviours\Creature\SpecialConditionBehaviour.cs" />
     <Compile Include="Behaviours\Player\CooldownBehaviour.cs" />
     <Compile Include="Behaviours\Player\AttackAndFollowBehaviour.cs" />
-    <Compile Include="Behaviours\Item\DecayBehaviour.cs" />
     <Compile Include="CommandHandlerCollection.cs" />
     <Compile Include="CommandHandlers\CommandHandlerResult.cs" />
     <Compile Include="CommandHandlers\CommandHandler.cs" />
@@ -111,7 +112,7 @@
     <Compile Include="Commands\Incoming\GameWindow\UseItem\ParseUseItemFromHotkeyCommand.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatCommand.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatChangeManaCommand.cs" />
-    <Compile Include="Commands\Outgoing\Combat\Review\CombatConditionCommand.cs" />
+    <Compile Include="Commands\Outgoing\Combat\CombatConditionCommand.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatChangeHealthCommand.cs" />
     <Compile Include="Commands\Outgoing\SplashItem\FluidItemUpdateFluidTypeCommand.cs" />
     <Compile Include="Commands\Outgoing\Tile\TileIncrementOrCreateItemCommand.cs" />

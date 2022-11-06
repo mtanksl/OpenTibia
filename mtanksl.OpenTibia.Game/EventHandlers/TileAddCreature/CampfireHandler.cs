@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (campfires.Contains(topItem.Metadata.OpenTibiaId) )
                 {
-                    context.AddCommand(new CombatConditionCommand(e.Creature, MagicEffectType.FirePlume, new[] { -20, -10, -10 }, new[] { 2000, 2000, 2000 } ) );
+                    context.AddCommand(new CombatConditionCommand(SpecialCondition.Burning, e.Creature, MagicEffectType.FirePlume, new[] { -20, -10, -10 }, new[] { 2000, 2000 } ) );
 
                     break;
                 }

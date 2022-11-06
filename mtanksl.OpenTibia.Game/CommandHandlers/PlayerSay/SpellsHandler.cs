@@ -697,17 +697,17 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (spells.TryGetValue(command.Message, out spell) )
             {
-                CooldownBehaviour behaviour = context.Server.Components.GetComponent<CooldownBehaviour>(command.Player);
+                CooldownBehaviour component = context.Server.Components.GetComponent<CooldownBehaviour>(command.Player);
 
                 if (command.Player.Mana >= spell.Mana)
                 {
-                    if ( !behaviour.HasCooldown(spell.Name) && !behaviour.HasCooldown(spell.Group) )
+                    if ( !component.HasCooldown(spell.Name) && !component.HasCooldown(spell.Group) )
                     {
                         if (spell.Condition == null || spell.Condition(context, command.Player) )
                         {
-                            behaviour.AddCooldown(spell.Name, spell.CooldownInMilliseconds);
+                            component.AddCooldown(spell.Name, spell.CooldownInMilliseconds);
     
-                            behaviour.AddCooldown(spell.Group, spell.GroupCooldownInMilliseconds);
+                            component.AddCooldown(spell.Group, spell.GroupCooldownInMilliseconds);
 
                             return next(context).Then(ctx =>
                             {
