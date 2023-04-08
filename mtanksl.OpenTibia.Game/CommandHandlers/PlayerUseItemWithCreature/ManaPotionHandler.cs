@@ -10,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> manaPotions = new HashSet<ushort>() { 7620 };
 
-        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemWithCreatureCommand command)
+        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemWithCreatureCommand command)
         {
             if (manaPotions.Contains(command.Item.Metadata.OpenTibiaId) && command.ToCreature is Player player)
             {

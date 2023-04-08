@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class TeleportUpHandler : CommandHandler<PlayerSayCommand>
     {
-        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerSayCommand command)
+        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerSayCommand command)
         {
             if (command.Message.StartsWith("/up") )
             {

@@ -6,7 +6,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class RotateItemWalkToSourceHandler : CommandHandler<PlayerRotateItemCommand>
     {
-        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerRotateItemCommand command)
+        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerRotateItemCommand command)
         {
             if (command.Item.Parent is Tile tile && !command.Player.Tile.Position.IsNextTo(tile.Position) )
             {

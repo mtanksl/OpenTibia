@@ -80,7 +80,9 @@ namespace OpenTibia.Game
             {
                 if (commandHandlers.MoveNext() )
                 {
-                    return commandHandlers.Current.Handle(context, Next, command);
+                    var commandHandler = commandHandlers.Current;
+
+                    return commandHandler.Handle(context, Next, command);
                 }
 
                 return command.Execute(context);
@@ -104,7 +106,9 @@ namespace OpenTibia.Game
             {
                 if (commandHandlers.MoveNext() )
                 {
-                    return commandHandlers.Current.Handle(context, Next, command);
+                    var commandHandler = commandHandlers.Current;
+
+                    return commandHandler.Handle(context, Next, command);
                 }
 
                 return command.Execute(context);

@@ -6,7 +6,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class ContainerOpenHandler : CommandHandler<PlayerUseItemCommand>
     {
-        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemCommand command)
+        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemCommand command)
         {
             if (command.Item is Locker locker)
             {

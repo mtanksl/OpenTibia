@@ -144,7 +144,7 @@ namespace OpenTibia.Game.CommandHandlers
             return (formula * (@base - variation) / 100, formula * (@base + variation) / 100);
         }
 
-        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemWithCreatureCommand command)
+        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemWithCreatureCommand command)
         {
             Rune rune;
 

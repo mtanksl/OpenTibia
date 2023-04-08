@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class SplitStackableItemHandler : CommandHandler<PlayerMoveItemCommand>
     {
-        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerMoveItemCommand command)
+        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerMoveItemCommand command)
         {
             if (command.ToContainer is Tile toTile)
             {

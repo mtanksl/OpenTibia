@@ -132,7 +132,7 @@ namespace OpenTibia.Game.CommandHandlers
             //TODO: More items
         };
 
-        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerRotateItemCommand command)
+        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerRotateItemCommand command)
         {
             ushort toOpenTibiaId;
 

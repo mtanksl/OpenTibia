@@ -1,4 +1,7 @@
-﻿using OpenTibia.Game.CommandHandlers;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
+using OpenTibia.Game.CommandHandlers;
+using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Scripts
 {
@@ -6,6 +9,8 @@ namespace OpenTibia.Game.Scripts
     {
         public void Start(Server server)
         {
+            server.CommandHandlers.Add(new DisplayMagicEffectHandler() );
+
             server.CommandHandlers.Add(new CreateMonsterHandler() );
 
             server.CommandHandlers.Add(new CreateNpcHandler() );

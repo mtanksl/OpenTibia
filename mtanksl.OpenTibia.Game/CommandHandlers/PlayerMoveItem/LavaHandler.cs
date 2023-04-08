@@ -10,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> lavas = new HashSet<ushort>() { 598, 599, 600, 601 };
 
-        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerMoveItemCommand command)
+        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerMoveItemCommand command)
         {
             if (command.ToContainer is Tile toTile && toTile.Ground != null && lavas.Contains(toTile.Ground.Metadata.OpenTibiaId) )
             {

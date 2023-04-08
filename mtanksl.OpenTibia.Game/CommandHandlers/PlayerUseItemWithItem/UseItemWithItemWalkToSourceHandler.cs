@@ -6,7 +6,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class UseItemWithItemWalkToSourceHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
         {
             if (command.Item.Parent is Tile tile && !command.Player.Tile.Position.IsNextTo(tile.Position) )
             {

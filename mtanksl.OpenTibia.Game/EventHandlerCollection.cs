@@ -10,6 +10,11 @@ namespace OpenTibia.Game
     {
         private Dictionary<Type, Dictionary<Guid, IEventHandler> > types = new Dictionary<Type, Dictionary<Guid, IEventHandler> >();
 
+        public Guid Subscribe<T>(Action<Context, T> execute) where T : GameEventArgs
+        {
+            return Subscribe(new InlineEventHandler<T>(execute) );
+        }
+
         public Guid Subscribe<T>(EventHandlers.EventHandler<T> eventHandler) where T : GameEventArgs
         {
             Dictionary<Guid, IEventHandler> eventHandlers;

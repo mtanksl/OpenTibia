@@ -10,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> books = new HashSet<ushort>() { 1955 };
 
-        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemCommand command)
+        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemCommand command)
         {
             if (books.Contains(command.Item.Metadata.OpenTibiaId) )
             {

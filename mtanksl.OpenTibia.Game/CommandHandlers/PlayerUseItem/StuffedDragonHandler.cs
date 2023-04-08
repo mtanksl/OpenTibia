@@ -11,7 +11,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         private List<string> sounds = new List<string>() { "Fchhhhhh!", "Zchhhhhh!", "Grooaaaaar*cough*", "Aaa... CHOO!", "You... will.... burn!!" };
 
-        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemCommand command)
+        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemCommand command)
         {
             if (stuffedDragons.Contains(command.Item.Metadata.OpenTibiaId) )
             {

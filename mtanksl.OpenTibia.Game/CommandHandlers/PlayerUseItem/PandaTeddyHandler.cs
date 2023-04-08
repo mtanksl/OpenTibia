@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> pandaTeddies = new HashSet<ushort>() { 5080 };
 
-        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemCommand command)
+        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemCommand command)
         {
             if (pandaTeddies.Contains(command.Item.Metadata.OpenTibiaId) )
             {

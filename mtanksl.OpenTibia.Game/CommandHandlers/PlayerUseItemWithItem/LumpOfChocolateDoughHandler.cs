@@ -13,7 +13,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort chocolateCake = 8847;
 
-        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
         {
             if (lumpOfChocolateDough.Contains(command.Item.Metadata.OpenTibiaId) && ovens.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {

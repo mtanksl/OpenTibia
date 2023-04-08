@@ -54,7 +54,7 @@ namespace OpenTibia.Game.CommandHandlers
             8559, 8560, 8561, 8562, 8563, 8564, 8565, 8566
         };
 
-        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
         {
             if (ropes.Contains(command.Item.Metadata.OpenTibiaId) )
             {

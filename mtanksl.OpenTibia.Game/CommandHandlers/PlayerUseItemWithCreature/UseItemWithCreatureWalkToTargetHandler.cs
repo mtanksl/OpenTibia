@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class UseItemWithCreatureWalkToTargetHandler : CommandHandler<PlayerUseItemWithCreatureCommand>
     {
-        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemWithCreatureCommand command)
+        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemWithCreatureCommand command)
         {
             if ( !command.Player.Tile.Position.IsNextTo(command.ToCreature.Tile.Position) )
             {

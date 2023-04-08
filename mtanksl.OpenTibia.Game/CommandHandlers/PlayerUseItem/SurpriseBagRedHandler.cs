@@ -30,7 +30,7 @@ namespace OpenTibia.Game.CommandHandlers
             (5791, 1)
         };
 
-        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemCommand command)
+        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemCommand command)
         {
             if (surpriseBags.Contains(command.Item.Metadata.OpenTibiaId) )
             {

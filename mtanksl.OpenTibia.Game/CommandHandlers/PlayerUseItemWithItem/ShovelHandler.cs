@@ -22,7 +22,7 @@ namespace OpenTibia.Game.CommandHandlers
             { 484, 483 }
         };
 
-        public override Promise Handle(Context context, Func<Context, Promise> next, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
         {
             ushort toOpenTibiaId;
 

@@ -10,6 +10,25 @@ namespace OpenTibia.Game
     {
         private Dictionary<Type, List<object> > types = new Dictionary<Type, List<object> >();
 
+        /*
+        public void Add<T, TInstance>() where T : Command
+        {
+            Add<T>( (context, next, command) =>
+            {
+                var obj = Activator.CreateInstance(typeof(TInstance), new object[] { next } );
+
+                var result = (Promise)typeof(TInstance).GetMethod("Handle").Invoke(obj, new object[] { context, command } );
+
+                return result;
+            } );
+        }
+        */
+
+        public void Add<T>(Func<Context, ContextPromiseDelegate, T, Promise> handle) where T : Command
+        {
+            Add(new InlineCommandHandler<T>(handle) );
+        }
+
         public void Add<T>(CommandHandler<T> commandHandler) where T : Command
         {
             var type = typeof( CommandHandler<> ).MakeGenericType(typeof(T) );
@@ -22,6 +41,25 @@ namespace OpenTibia.Game
             }
 
             commandHandlers.Add(commandHandler);
+        }
+
+        /*
+        public void Add<T, TResult, TInstance>() where T : CommandResult<TResult>
+        {
+            Add<T, TResult>( (context, next, command) =>
+            {
+                var obj = Activator.CreateInstance(typeof(TInstance), new object[] { next } );
+
+                var result = (PromiseResult<TResult>)typeof(TInstance).GetMethod("Handle").Invoke(obj, new object[] { context, command } );
+
+                return result;
+            } );
+        }
+        */
+
+        public void Add<T, TResult>(Func<Context, ContextPromiseResultDelegate<TResult>, T, PromiseResult<TResult> > handle) where T : CommandResult<TResult>
+        {
+            Add(new InlineCommandHandlerResult<T, TResult>(handle) );
         }
 
         public void Add<T, TResult>(CommandHandlerResult<T, TResult> commandHandler) where T : CommandResult<TResult>

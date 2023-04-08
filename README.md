@@ -53,6 +53,7 @@ You can use [Remere's map editor](https://github.com/hampusborgos/rme).
 - /kick `player_name` - Kicks player
 
 # Spells list
+- exana pox - Healing
 - exani tera - Support
 - exani hur up - Support
 - exani hur down - Support
@@ -74,11 +75,12 @@ You can use [Remere's map editor](https://github.com/hampusborgos/rme).
 - exevo mort hur - Attack
 - exevo gran mas vis - Attack
 - exevo gran mas pox - Attack
-- Exori - Attack
+- exori - Attack
 
 Notes: Formulas are based on Tibia Wiki and RealOTS. Not perfect, but it serves as an inspiration for now.
 
 # Runes list
+- Cure poison
 - Poison field
 - Poison bomb
 - Poison wall
@@ -112,3 +114,43 @@ But there is still a lot to be done.
 # How it works?
 
 The server architecture is the following: *Packets* are the primary unity. *Incoming packets* wrap the intent of the client and *Outgoing packets* wrap all the information of a server change that the client needs to receive in order to keep in sync. *Commands* abstract away how and which clients needs to receive this information. Commands can be intercepted and changed as they pass throw a pipeline of *Command Handlers* before executing. Commands may generate events, which can be listened by *Event Handlers*. Before starting the server, all the classes that implement *IScript* are loaded. This is when the pipeline order is set. Every game object (item, monster, npc and player) can have some *Behaviour* attached to it. Behaviour is like Unity's Component. 
+
+# Script example
+
+```cs
+public class PlayerSayScripts : IScript
+{
+    public void Start(Server server)
+    {
+        server.CommandHandlers.Add(new DisplayMagicEffectHandler() );
+
+        //...        
+    }
+
+    public void Stop(Server server)
+    {
+            
+    }
+}
+```
+
+# Command handler example
+
+```cs
+public class DisplayMagicEffectHandler : CommandHandler<PlayerSayCommand>
+{
+    public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerSayCommand command)
+    {
+        if (command.Message.StartsWith("/me") && 
+            command.Message.Contains(" ") && 
+            int.TryParse(command.Message.Split(' ')[1], out int id) && id >= 1 && id <= 70)
+        {
+            return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, (MagicEffectType)id) );
+        }
+
+        return next(context);
+    }
+}
+```
+
+- /me `n` - Display nth magic effect
