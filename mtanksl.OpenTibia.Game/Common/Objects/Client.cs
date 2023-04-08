@@ -9,9 +9,9 @@ namespace OpenTibia.Common.Objects
         {
             this.CreatureCollection = new BattleCollection(server, this);
 
-            this.ContainerCollection = new ContainerCollection(this);
-
             this.VipCollection = new VipCollection(this);
+
+            this.ContainerCollection = new ContainerCollection(this);
 
             this.WindowCollection = new WindowCollection(this);
         }

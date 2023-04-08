@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
 
         private TResult result;
 
-        public PromiseResult()
+        private PromiseResult()
         {
             this.status = PromiseStatus.Pending;
         }
@@ -37,21 +37,6 @@ namespace OpenTibia.Game.Commands
             this.context = context;
 
             this.result = result;
-        }
-
-        /// <exception cref="InvalidOperationException"></exception>
-
-        public TResult Result
-        {
-            get
-            {
-                if (status != PromiseStatus.Fulfilled)
-                {
-                    throw new InvalidOperationException("Promise is not fulfilled.");
-                }
-
-                return result;
-            }
         }
 
         private PromiseResult(Action< Action<Context, TResult> > run)
@@ -72,6 +57,21 @@ namespace OpenTibia.Game.Commands
                     }
                 }
             } );
+        }
+                
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public TResult Result
+        {
+            get
+            {
+                if (status != PromiseStatus.Fulfilled)
+                {
+                    throw new InvalidOperationException("Promise is not fulfilled.");
+                }
+
+                return result;
+            }
         }
 
         private Action<Context, TResult> continueWith;

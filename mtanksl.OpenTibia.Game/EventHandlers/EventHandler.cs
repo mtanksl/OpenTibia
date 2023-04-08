@@ -19,19 +19,4 @@ namespace OpenTibia.Game.EventHandlers
 
         public abstract void Handle(Context context, T e);
     }
-
-    public class InlineEventHandler<T> : EventHandler<T> where T : GameEventArgs
-    {
-        private Action<Context, T> execute;
-
-        public InlineEventHandler(Action<Context, T> execute)
-        {
-            this.execute = execute;
-        }
-
-        public override void Handle(Context context, T e)
-        {
-            execute(context, e);
-        }
-    }
 }

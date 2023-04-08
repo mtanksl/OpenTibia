@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
@@ -16,20 +15,5 @@ namespace OpenTibia.Game.Commands
         }
 
         public abstract PromiseResult<TResult> Execute(Context context);
-    }
-
-    public class InlineCommandResult<TResult> : CommandResult<TResult>
-    {
-        private Func<Context, PromiseResult<TResult> > execute;
-
-        public InlineCommandResult(Func<Context, PromiseResult<TResult> > execute)
-        {
-            this.execute = execute;
-        }
-
-        public override PromiseResult<TResult> Execute(Context context)
-        {
-            return execute(context);
-        }
     }
 }

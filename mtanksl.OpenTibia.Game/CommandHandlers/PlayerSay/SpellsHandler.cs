@@ -208,6 +208,23 @@ namespace OpenTibia.Game.CommandHandlers
                 Callback = Speed(player => StrongHasteFormula(player.BaseSpeed) )
             },
 
+            ["exana pox"] = new Spell()
+            {
+                Name = "Cure Poison",
+
+                Group = "Healing",
+
+                CooldownInMilliseconds = 6000,
+
+                GroupCooldownInMilliseconds = 1000,
+
+                Premium = false,
+
+                Mana = 30,
+
+                Callback = CurePoison()
+            },
+
             ["exura"] = new Spell()
             {
                 Name = "Light Healing",
@@ -607,6 +624,29 @@ namespace OpenTibia.Game.CommandHandlers
                     return ctx.AddCommand(new CreatureUpdateSpeedCommand(player, formula(player) ) );
                 } );
             };           
+        }
+
+        private static Func<Context, Player, Promise> CurePoison()
+        {
+            return (context, player) =>
+            {
+                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) ).Then(ctx =>
+                {
+                    SpecialConditionBehaviour component = context.Server.Components.GetComponent<SpecialConditionBehaviour>(player);
+
+                    if (component != null)
+                    {
+                        if (component.HasSpecialCondition(SpecialCondition.Poisoned) )
+                        {
+                            component.RemoveSpecialCondition(SpecialCondition.Poisoned);
+
+                            context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(component.SpecialConditions) );
+                        }
+
+                        context.Server.CancelQueueForExecution("Combat_Condition_" + SpecialCondition.Poisoned + player.Id);
+                    }
+                } );
+            };
         }
 
         private static Func<Context, Player, Promise> Healing(Func<Player, (int Min, int Max)> formula)

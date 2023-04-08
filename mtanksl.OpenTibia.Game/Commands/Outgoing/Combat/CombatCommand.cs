@@ -111,7 +111,7 @@ namespace OpenTibia.Game.Commands
             };
         }
 
-        public static CombatCommand AreaCreate(Creature attacker, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, SpecialCondition specialCondition, int[] health, int[] cooldownInMilliseconds)
+        public static CombatCommand AreaCreate(Creature attacker, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, SpecialCondition specialCondition, int[] health, int cooldownInMilliseconds)
         {
             return new CombatCommand()
             {
@@ -191,7 +191,7 @@ namespace OpenTibia.Game.Commands
 
         public int[] Health { get; set; }
 
-        public int[] CooldownInMilliseconds { get; set; }
+        public int CooldownInMilliseconds { get; set; }
 
         public override Promise Execute(Context context)
         {
@@ -209,11 +209,18 @@ namespace OpenTibia.Game.Commands
                         context.AddCommand(new ShowMagicEffectCommand(Center, MagicEffectType.Value) );
                     }
 
-                    int health = Formula(Attacker, Target);
-
-                    if (Target != Attacker || health > 0)
+                    if (SpecialCondition != null)
                     {
-                        context.AddCommand(new CombatChangeHealthCommand(Attacker, Target, MagicEffectType.ToAnimatedTextColor(), health) );
+                        context.AddCommand(new CombatConditionCommand(Attacker, Target, SpecialCondition.Value, MagicEffectType, Health, CooldownInMilliseconds) );
+                    }
+                    else
+                    {
+                        int health = Formula(Attacker, Target);
+
+                        if (Target != Attacker || health > 0)
+                        {
+                            context.AddCommand(new CombatChangeHealthCommand(Attacker, Target, MagicEffectType.ToAnimatedTextColor(), health) );
+                        }
                     }
                 }
 
@@ -236,7 +243,7 @@ namespace OpenTibia.Game.Commands
                             {
                                 if (SpecialCondition != null)
                                 {
-                                    context.AddCommand(new CombatConditionCommand(target, SpecialCondition.Value, MagicEffectType, Health, CooldownInMilliseconds) );
+                                    context.AddCommand(new CombatConditionCommand(Attacker, target, SpecialCondition.Value, MagicEffectType, Health, CooldownInMilliseconds) );
                                 }
                                 else
                                 {
@@ -305,7 +312,7 @@ namespace OpenTibia.Game.Commands
                             {
                                 if (SpecialCondition != null)
                                 {
-                                    context.AddCommand(new CombatConditionCommand(target, SpecialCondition.Value, MagicEffectType, Health, CooldownInMilliseconds) );
+                                    context.AddCommand(new CombatConditionCommand(Attacker, target, SpecialCondition.Value, MagicEffectType, Health, CooldownInMilliseconds) );
                                 }
                                 else
                                 {

@@ -27,6 +27,17 @@ namespace OpenTibia.Game.CommandHandlers
 
         private static Dictionary<ushort, Rune> runes = new Dictionary<ushort, Rune>()
         {
+            [2266] = new Rune()
+            {
+                Name = "Cure Poison Rune",
+
+                Group = "Healing",
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Callback = CurePoison()
+            },
+
             [2265] = new Rune()
             {
                 Name = "Intense Healing Rune",
@@ -82,6 +93,29 @@ namespace OpenTibia.Game.CommandHandlers
                 Callback = TargetedAttack(ProjectileType.SuddenDeath, MagicEffectType.MortArea, player => GenericFormula(player.Level, player.Skills.MagicLevel, 150, 20) )
             }
         };
+
+        private static Func<Context, Player, Creature, Promise> CurePoison()
+        {
+            return (context, player, target) =>
+            {
+                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) ).Then(ctx =>
+                {
+                    SpecialConditionBehaviour component = context.Server.Components.GetComponent<SpecialConditionBehaviour>(player);
+
+                    if (component != null)
+                    {
+                        if (component.HasSpecialCondition(SpecialCondition.Poisoned) )
+                        {
+                            component.RemoveSpecialCondition(SpecialCondition.Poisoned);
+
+                            context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(component.SpecialConditions) );
+                        }
+
+                        context.Server.CancelQueueForExecution("Combat_Condition_" + SpecialCondition.Poisoned + player.Id);
+                    }
+                } );
+            };
+        }
 
         private static Func<Context, Player, Creature, Promise> Healing(Func<Player, (int Min, int Max)> formula)
         {

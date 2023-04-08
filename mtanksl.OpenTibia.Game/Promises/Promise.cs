@@ -83,7 +83,7 @@ namespace OpenTibia.Game.Commands
 
         private Context context;
 
-        public Promise()
+        private Promise()
         {
             this.status = PromiseStatus.Pending;
         }

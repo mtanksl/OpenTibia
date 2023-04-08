@@ -67,6 +67,8 @@
     <Compile Include="CommandHandlers\CreatureUpdateParent\MoveAwayContainerCloseHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\StairsHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\HoleHandler.cs" />
+    <Compile Include="CommandHandlers\InlineCommandHandler.cs" />
+    <Compile Include="CommandHandlers\InlineCommandHandlerResult.cs" />
     <Compile Include="CommandHandlers\PlayerSay\KickPlayerHandler.cs" />
     <Compile Include="CommandHandlers\PlayerUseItem\SnowHeapHandler.cs" />
     <Compile Include="CommandHandlers\PlayerMoveItem\Pitfall2Handler.cs" />
@@ -110,6 +112,8 @@
     <Compile Include="Commands\Incoming\GameWindow\UseItemWithItem\ParseUseItemWithItemFromHotkeyToInventoryCommand.cs" />
     <Compile Include="Commands\Incoming\GameWindow\UseItemWithItem\ParseUseItemWithItemFromHotkeyToTileCommand.cs" />
     <Compile Include="Commands\Incoming\GameWindow\UseItem\ParseUseItemFromHotkeyCommand.cs" />
+    <Compile Include="Commands\InlineCommand.cs" />
+    <Compile Include="Commands\InlineCommandResult.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatCommand.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatChangeManaCommand.cs" />
     <Compile Include="Commands\Outgoing\Combat\CombatConditionCommand.cs" />
@@ -118,6 +122,7 @@
     <Compile Include="Commands\Outgoing\Tile\TileIncrementOrCreateItemCommand.cs" />
     <Compile Include="Common\Objects\VipCollection.cs" />
     <Compile Include="ComponentCollection.cs" />
+    <Compile Include="EventHandlers\InlineEventHandler.cs" />
     <Compile Include="LockerCollection.cs" />
     <Compile Include="EventHandlers\TileAddCreature\SpikesHandler.cs" />
     <Compile Include="EventHandlers\TileAddCreature\JungleMawHandler.cs" />

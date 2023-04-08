@@ -7,11 +7,13 @@ namespace OpenTibia.Game.Commands
 {
     public class CombatConditionCommand : Command
     {
-        public CombatConditionCommand(Creature target, SpecialCondition specialCondition, MagicEffectType? magicEffectType, int[] health, int[] cooldownInMilliseconds)
+        public CombatConditionCommand(Creature attacker, Creature target, SpecialCondition specialCondition, MagicEffectType? magicEffectType, int[] health, int cooldownInMilliseconds)
         {
-            SpecialCondition = specialCondition;
+            Attacker = attacker;
 
             Target = target;
+
+            SpecialCondition = specialCondition;
 
             MagicEffectType = magicEffectType;
 
@@ -19,6 +21,8 @@ namespace OpenTibia.Game.Commands
 
             CooldownInMilliseconds = cooldownInMilliseconds;
         }
+
+        public Creature Attacker { get; set; }
 
         public Creature Target { get; set; }
         
@@ -28,68 +32,61 @@ namespace OpenTibia.Game.Commands
 
         public int[] Health { get; set; }
 
-        public int[] CooldownInMilliseconds { get; set; }
+        public int CooldownInMilliseconds { get; set; }
 
         private int index;
 
         public override Promise Execute(Context context)
         {
-            if (index < Health.Length - 1)
+            if (MagicEffectType != null)
+            {
+                context.AddCommand(new ShowMagicEffectCommand(Target.Tile.Position, MagicEffectType.Value) );
+            }
+
+            context.AddCommand(new CombatChangeHealthCommand(Attacker, Target, MagicEffectType.ToAnimatedTextColor(), Health[index] ) );
+
+            if (Target.Tile != null)
             {
                 SpecialConditionBehaviour component = context.Server.Components.GetComponent<SpecialConditionBehaviour>(Target);
 
                 if (component != null)
                 {
-                    if ( !component.HasSpecialCondition(SpecialCondition) )
+                    if (index < Health.Length - 1)
                     {
-                        component.AddSpecialCondition(SpecialCondition);
-
-                        if (Target is Player player)
+                        if ( !component.HasSpecialCondition(SpecialCondition) )
                         {
-                            context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(component.SpecialConditions) );
+                            component.AddSpecialCondition(SpecialCondition);
+
+                            if (Target is Player player)
+                            {
+                                context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(component.SpecialConditions) );
+                            }
                         }
+
+                        context.Server.Components.AddComponent(Target, new DelayBehaviour("Combat_Condition_" + SpecialCondition, CooldownInMilliseconds) ).Promise.Then(ctx =>
+                        {
+                            index++;
+
+                            return Execute(ctx);
+                        } );
                     }
-                }
-                               
-                if (MagicEffectType != null)
-                {
-                    context.AddCommand(new ShowMagicEffectCommand(Target.Tile.Position, MagicEffectType.Value) );
-                }
-
-                context.AddCommand(new CombatChangeHealthCommand(null, Target, MagicEffectType.ToAnimatedTextColor(), Health[index] ) );
-
-                if (Target.Tile != null)
-                {
-                    context.Server.Components.AddComponent(Target, new DelayBehaviour("Combat_Condition_" + SpecialCondition, CooldownInMilliseconds[index] ) ).Promise.Then(ctx =>
+                    else
                     {
-                        index++;
+                        if (component.HasSpecialCondition(SpecialCondition) )
+                        {
+                            component.RemoveSpecialCondition(SpecialCondition);
 
-                        return Execute(ctx);
-                    } );
+                            if (Target is Player player)
+                            {
+                                context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(component.SpecialConditions) );
+                            }
+                        }
+
+                        context.Server.CancelQueueForExecution("Combat_Condition_" + SpecialCondition + Target.Id);
+                    }
                 }
             }
-            else
-            {
-                SpecialConditionBehaviour component = context.Server.Components.GetComponent<SpecialConditionBehaviour>(Target);
 
-                if (component != null)
-                {
-                    component.RemoveSpecialCondition(SpecialCondition);
-
-                    if (Target is Player player)
-                    {
-                        context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(component.SpecialConditions) );
-                    }
-                }
-
-                if (MagicEffectType != null)
-                {
-                    context.AddCommand(new ShowMagicEffectCommand(Target.Tile.Position, MagicEffectType.Value) );
-                }
-
-                context.AddCommand(new CombatChangeHealthCommand(null, Target, MagicEffectType.ToAnimatedTextColor(), Health[index] ) );
-            }    
-            
             return Promise.FromResult(context);
         }
     }
