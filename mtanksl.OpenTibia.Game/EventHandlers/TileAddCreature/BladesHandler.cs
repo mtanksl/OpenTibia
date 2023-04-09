@@ -20,7 +20,7 @@ namespace OpenTibia.Game.CommandHandlers
             { 1511, 1510 }
         };
 
-        public override void Handle(Context context, TileAddCreatureEventArgs e)
+        public override void Handle(TileAddCreatureEventArgs e)
         {
             foreach (var topItem in e.Tile.GetItems() )
             {

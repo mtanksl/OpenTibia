@@ -22,9 +22,9 @@ namespace OpenTibia.Game.Commands
 
         public Direction? ChangeDirectionOnMove { get; set; }
 
-        public override Promise Execute(Context context)
+        public override Promise Execute()
         {
-            return Promise.Run(resolve =>
+            return Promise.Run( (resolve, reject) =>
             {
                 Tile fromTile = Creature.Tile;
 

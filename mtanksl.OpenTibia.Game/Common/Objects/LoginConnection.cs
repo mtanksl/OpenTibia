@@ -66,7 +66,7 @@ namespace OpenTibia.Common.Objects
 
                         server.QueueForExecution(ctx =>
                         {
-                            ctx.AddCommand(command);
+                            return ctx.AddCommand(command);
                         } );
                     }
                     else

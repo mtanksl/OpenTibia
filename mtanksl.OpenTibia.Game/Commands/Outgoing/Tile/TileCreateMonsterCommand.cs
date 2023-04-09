@@ -15,9 +15,9 @@ namespace OpenTibia.Game.Commands
 
         public string Name { get; set; }
 
-        public override PromiseResult<Monster> Execute(Context context)
+        public override PromiseResult<Monster> Execute()
         {
-            return PromiseResult<Monster>.Run(resolve =>
+            return PromiseResult<Monster>.Run( (resolve, reject) =>
             {
                 Monster monster = context.Server.MonsterFactory.Create(Name);
 

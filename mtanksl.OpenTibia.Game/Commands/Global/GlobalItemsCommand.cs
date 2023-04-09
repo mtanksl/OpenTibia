@@ -6,9 +6,9 @@ namespace OpenTibia.Game.Commands
 {
     public class GlobalItemsCommand : Command
     {
-        public override Promise Execute(Context context)
+        public override Promise Execute()
         {
-            return Promise.Run(resolve =>
+            return Promise.Run( (resolve, reject) =>
             {
                 foreach (var component in context.Server.Components.GetComponentsOfType<Item, PeriodicBehaviour>().ToList() )
                 {

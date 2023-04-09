@@ -12,7 +12,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort flour = 2692;
 
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
         {
             if (wheats.Contains(command.Item.Metadata.OpenTibiaId) && millstones.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {

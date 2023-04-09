@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
 
         public byte Count { get; set; }
 
-        public override PromiseResult<Item> Execute(Context context)
+        public override PromiseResult<Item> Execute()
         {
             return context.Server.Components.AddComponent(Item, new DelayBehaviour("Item_Decay", ExecuteInMilliseconds) ).Promise.Then(ctx =>
             { 

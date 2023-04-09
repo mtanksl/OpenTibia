@@ -18,7 +18,7 @@ namespace OpenTibia.Game.CommandHandlers
             {  294, 293 }
         };
 
-        public override Promise Handle(Context context, ContextPromiseDelegate next, CreatureUpdateParentCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, CreatureUpdateParentCommand command)
         {
             ushort toOpenTibiaId;
 

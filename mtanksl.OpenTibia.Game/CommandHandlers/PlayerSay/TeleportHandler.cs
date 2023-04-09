@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class TeleportHandler : CommandHandler<PlayerSayCommand>
     {
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerSayCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerSayCommand command)
         {
             int count;
 

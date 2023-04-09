@@ -18,9 +18,9 @@ namespace OpenTibia.Game.Commands
 
         public Item Item { get; set; }
 
-        public override Promise Execute(Context context)
+        public override Promise Execute()
         {
-            return Promise.Run(resolve =>
+            return Promise.Run( (resolve, reject) =>
             {
                 StringBuilder builder = new StringBuilder();
 

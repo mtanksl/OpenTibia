@@ -10,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> ladders = new HashSet<ushort>() { 1386, 3678, 5543 };
 
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
         {
             if (ladders.Contains(command.Item.Metadata.OpenTibiaId) )
             {

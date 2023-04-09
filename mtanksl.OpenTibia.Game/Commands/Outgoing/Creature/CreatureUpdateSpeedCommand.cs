@@ -16,9 +16,9 @@ namespace OpenTibia.Game.Commands
 
         public ushort Speed { get; set; }
 
-        public override Promise Execute(Context context)
+        public override Promise Execute()
         {
-            return Promise.Run(resolve =>
+            return Promise.Run( (resolve, reject) =>
             {
                 if (Creature.Speed != Speed)
                 {

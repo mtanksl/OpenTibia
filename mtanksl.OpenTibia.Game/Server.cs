@@ -152,63 +152,73 @@ namespace OpenTibia.Game
 
         private Dictionary<string, SchedulerEvent> schedulerEvents = new Dictionary<string, SchedulerEvent>();
 
-        public void QueueForExecution(Action<Context> callback)
+        public Promise QueueForExecution(Func<Context, Promise> callback)
         {
-            dispatcher.QueueForExecution( () =>
+            return Promise.Run( (resolve, reject) =>
             {
-                try
-                {
-                    using (var context = new Context(this) )
-                    {
-                        using (var scope = new Scope<Context>(context) )
-                        {
-                            callback(context);
+                var previousContext = Context.Current;
 
-                            context.Flush();
+                dispatcher.QueueForExecution( () =>
+                {
+                    try
+                    {
+                        using (var context = new Context(this, previousContext) )
+                        {
+                            using (var scope = new Scope<Context>(context) )
+                            {
+                                callback(context).Then(resolve);
+
+                                context.Flush();
+                            }
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    Logger.WriteLine(ex.ToString(), LogLevel.Error);
-                }
-            } );
+                    catch (Exception ex)
+                    {
+                        Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                    }
+                } );
+            } );            
         }
 
-        public void QueueForExecution(string key, int executeInMilliseconds, Action<Context> callback)
+        public Promise QueueForExecution(string key, int executeInMilliseconds, Func<Context, Promise> callback)
         {
-            SchedulerEvent schedulerEvent;
-
-            if ( schedulerEvents.TryGetValue(key, out schedulerEvent) )
+            return Promise.Run( (resolve, reject) =>
             {
-                schedulerEvents.Remove(key);
+                SchedulerEvent schedulerEvent;
 
-                schedulerEvent.Cancel();
-            }
-
-            schedulerEvent = scheduler.QueueForExecution(executeInMilliseconds, () =>
-            {
-                schedulerEvents.Remove(key);
-
-                try
+                if ( schedulerEvents.TryGetValue(key, out schedulerEvent) )
                 {
-                    using (var context = new Context(this) )
-                    {
-                        using (var scope = new Scope<Context>(context) )
-                        {
-                            callback(context);
+                    schedulerEvents.Remove(key);
 
-                            context.Flush();
+                    schedulerEvent.Cancel();
+                }
+
+                var previousContext = Context.Current;
+
+                schedulerEvent = scheduler.QueueForExecution(executeInMilliseconds, () =>
+                {
+                    schedulerEvents.Remove(key);
+
+                    try
+                    {
+                        using (var context = new Context(this, previousContext) )
+                        {
+                            using (var scope = new Scope<Context>(context) )
+                            {
+                                callback(context).Then(resolve);
+
+                                context.Flush();
+                            }
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    Logger.WriteLine(ex.ToString(), LogLevel.Error);
-                }
-            } );
+                    catch (Exception ex)
+                    {
+                        Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                    }
+                } );
 
-            schedulerEvents.Add(key, schedulerEvent);
+                schedulerEvents.Add(key, schedulerEvent);
+            } );
         }
 
         public bool CancelQueueForExecution(string key)
@@ -241,6 +251,8 @@ namespace OpenTibia.Game
                 }
 
                 syncStop.Set();
+
+                return Promise.Completed(ctx);
             } );
 
             syncStop.WaitOne();

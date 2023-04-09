@@ -28,6 +28,8 @@ namespace OpenTibia.Common.Objects
             server.QueueForExecution(ctx =>
             {
                 ctx.AddPacket(this, new SendConnectionInfoOutgoingPacket() );
+
+                return Promise.Completed(ctx);
             } );
 
             base.OnConnected();
@@ -781,7 +783,7 @@ namespace OpenTibia.Common.Objects
 
                         server.QueueForExecution(ctx =>
                         {
-                            ctx.AddCommand(command);
+                            return ctx.AddCommand(command);
                         } );
                     }
                     else
@@ -814,7 +816,7 @@ namespace OpenTibia.Common.Objects
             {
                 server.QueueForExecution(ctx =>
                 {
-                    ctx.AddCommand(new ParseLogOutCommand(Client.Player) );
+                    return ctx.AddCommand(new ParseLogOutCommand(Client.Player) );
                 } );
             }
             

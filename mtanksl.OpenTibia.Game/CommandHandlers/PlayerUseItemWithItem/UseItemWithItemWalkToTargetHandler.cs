@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class UseItemWithItemWalkToTargetHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
         {
             if (command.ToItem.Parent is Tile toTile && !command.Player.Tile.Position.IsNextTo(toTile.Position) )
             {
@@ -34,7 +34,7 @@ namespace OpenTibia.Game.CommandHandlers
                             return ctx.AddCommand(new PlayerUseItemWithItemCommand(command.Player, item, command.ToItem) );
                         }
 
-                        return Promise.FromResult(ctx);
+                        return Promise.Completed(ctx);
                     } );
                 }
                 else
@@ -58,7 +58,7 @@ namespace OpenTibia.Game.CommandHandlers
                             return next(ctx);
                         }
 
-                        return Promise.FromResult(ctx);
+                        return Promise.Completed(ctx);
                     } );
                 }
             }

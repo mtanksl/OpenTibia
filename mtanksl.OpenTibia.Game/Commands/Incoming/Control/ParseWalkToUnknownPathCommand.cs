@@ -17,9 +17,9 @@ namespace OpenTibia.Game.Commands
 
         public Tile Tile { get; set; }
 
-        public override Promise Execute(Context context)
+        public override Promise Execute()
         {
-            return Promise.Run(resolve =>
+            return Promise.Run( (resolve, reject) =>
             {
                 MoveDirection[] moveDirections = context.Server.Pathfinding.GetMoveDirections(Player.Tile.Position, Tile.Position);
 

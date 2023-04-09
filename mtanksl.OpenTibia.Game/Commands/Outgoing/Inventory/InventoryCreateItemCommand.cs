@@ -23,9 +23,9 @@ namespace OpenTibia.Game.Commands
 
         public byte Count { get; set; }
 
-        public override PromiseResult<Item> Execute(Context context)
+        public override PromiseResult<Item> Execute()
         {
-            return PromiseResult<Item>.Run(resolve =>
+            return PromiseResult<Item>.Run( (resolve, reject) =>
             {
                 Item item = context.Server.ItemFactory.Create(OpenTibiaId, Count);
 

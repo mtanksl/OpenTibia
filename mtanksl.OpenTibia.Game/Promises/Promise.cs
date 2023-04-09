@@ -4,46 +4,43 @@ namespace OpenTibia.Game.Commands
 {
     public class Promise
     {
-        public static Promise Break()
+        public static Promise Pending()
         {
             return new Promise();
         }
 
-        public static Promise FromResult(Context context)
+        public static Promise Completed(Context context)
         {
-            return new Promise(context);
+            return Promise.Run( (resolve, reject) =>
+            {
+                resolve(context);
+            } );
         }
 
-        public static Promise Run(Action< Action<Context> > run)
+        public static Promise Run(Action<Action<Context>, Action<Context, Exception> > run)
         {
             return new Promise(run);
         }
 
         public static Promise Yield(Server server)
         {
-            return new Promise(resolve =>
+            return server.QueueForExecution(ctx =>
             {
-                server.QueueForExecution(ctx =>
-                {
-                    resolve(ctx);
-                } );
+                return Promise.Completed(ctx);
             } );
         }
 
         public static Promise Delay(Server server, string key, int executeInMilliseconds)
         {
-            return new Promise(resolve =>
+            return server.QueueForExecution(key, executeInMilliseconds, ctx =>
             {
-                server.QueueForExecution(key, executeInMilliseconds, ctx =>
-                {
-                    resolve(ctx);
-                } );
+                return Promise.Completed(ctx);
             } );
         }
 
         public static Promise WhenAll(params Promise[] promises)
         {
-            return new Promise(resolve =>
+            return new Promise( (resolve, reject) =>
             {
                 int index = 0;
 
@@ -62,7 +59,7 @@ namespace OpenTibia.Game.Commands
 
         public static Promise WhenAny(params Promise[] promises)
         {
-            return new Promise(resolve =>
+            return new Promise( (resolve, reject) =>
             {
                 int index = 0;
 
@@ -83,92 +80,139 @@ namespace OpenTibia.Game.Commands
 
         private Context context;
 
+        private Exception exception;
+
+        private Action<Context> continueWithFulfilled;
+
+        private Action<Context, Exception> continueWithRejected;
+
         private Promise()
         {
             this.status = PromiseStatus.Pending;
         }
 
-        private Promise(Context context)
+        private Promise(Action<Action<Context>, Action<Context, Exception> > run)
         {
-            this.status = PromiseStatus.Fulfilled;
-
-            this.context = context;
-        }
-
-        private Promise(Action< Action<Context> > run)
-        {
-            run(context =>
+            Action<Context> resolve = (c) =>
             {
                 if (this.status == PromiseStatus.Pending)
                 {
                     this.status = PromiseStatus.Fulfilled;
 
-                    this.context = context;
+                    this.context = c;
 
-                    if (this.continueWith != null)
+                    if (this.continueWithFulfilled != null)
                     {
-                        this.continueWith(context);
+                        this.continueWithFulfilled(c);
                     }
                 }
-            } );
-        }
+            };
 
-        private Action<Context> continueWith;
-
-        public Promise Then(Action<Context> callback)
-        {
-            return Promise.Run(resolve =>
+            Action<Context, Exception> reject = (c, e) =>
             {
                 if (this.status == PromiseStatus.Pending)
                 {
-                    this.continueWith = context =>
-                    {
-                        callback(context);
+                    this.status = PromiseStatus.Rejected;
 
-                        resolve(context);
+                    this.context = c;
+
+                    this.exception = e;
+
+                    if (this.continueWithRejected != null)
+                    {
+                        this.continueWithRejected(c, e);
+                    }
+                }
+            };
+
+            run(resolve, reject);
+        }
+
+        public Promise Then(Action<Context> onFullfilled, Action<Context, Exception> onRejected = null)
+        {
+            return Promise.Run( (resolve, reject) =>
+            {
+                if (this.status == PromiseStatus.Pending)
+                {
+                    this.continueWithFulfilled = (c) =>
+                    {
+                        onFullfilled(c);
+
+                        resolve(c);
+                    };
+
+                    this.continueWithRejected = (c, e) =>
+                    {
+                        onRejected(c, e);
+
+                        reject(c, e);
                     };
                 }
                 else if (this.status == PromiseStatus.Fulfilled)
                 {
-                    callback(this.context);
+                    onFullfilled(this.context);
 
                     resolve(this.context);
                 }
-            } );
-        }
+                else if (this.status == PromiseStatus.Rejected)
+                {
+                    onRejected(this.context, this.exception);
 
-        public Promise Then(Func<Context, Promise> callback)
-        {
-            return Promise.Run(resolve =>
-            {
-                if (this.status == PromiseStatus.Pending)
-                {
-                    this.continueWith = context =>
-                    {
-                        callback(context).Then(resolve);
-                    };
-                }
-                else if (this.status == PromiseStatus.Fulfilled)
-                {
-                    callback(this.context).Then(resolve);
+                    reject(this.context, this.exception);
                 }
             } );
         }
 
-        public PromiseResult<TResult> Then<TResult>(Func<Context, PromiseResult<TResult> > callback)
+        public Promise Then(Func<Context, Promise> onFullfilled, Func<Context, Exception, Promise> onRejected = null)
         {
-            return PromiseResult<TResult>.Run(resolve =>
+            return Promise.Run( (resolve, reject) =>
             {
                 if (this.status == PromiseStatus.Pending)
                 {
-                    this.continueWith = context =>
+                    this.continueWithFulfilled = (c) =>
                     {
-                        callback(context).Then(resolve);
+                        onFullfilled(c).Then(resolve, reject);
+                    };
+
+                    this.continueWithRejected = (c, e) =>
+                    {
+                        onRejected(c, e).Then(resolve, reject);
                     };
                 }
                 else if (this.status == PromiseStatus.Fulfilled)
                 {
-                    callback(this.context).Then(resolve);
+                    onFullfilled(this.context).Then(resolve, reject);
+                }
+                else if (this.status == PromiseStatus.Rejected)
+                {
+                    onRejected(this.context, this.exception).Then(resolve, reject);
+                }
+            } );
+        }
+
+        public PromiseResult<TResult> Then<TResult>(Func<Context, PromiseResult<TResult> > onFullfilled, Func<Context, Exception, PromiseResult<TResult> > onRejected = null)
+        {
+            return PromiseResult<TResult>.Run( (resolve, reject) =>
+            {
+                if (this.status == PromiseStatus.Pending)
+                {
+                    this.continueWithFulfilled = (c) =>
+                    {
+                        onFullfilled(c).Then(resolve, reject);
+                    };
+
+                    this.continueWithRejected = (c, e) =>
+                    {
+                        onRejected(c, e).Then(resolve, reject);
+                    };
+                }
+                else if (this.status == PromiseStatus.Fulfilled)
+                {
+                    onFullfilled(this.context).Then(resolve, reject);
+                }
+                else if (this.status == PromiseStatus.Rejected)
+                {
+                    onRejected(this.context, this.exception).Then(resolve, reject);
                 }
             } );
         }

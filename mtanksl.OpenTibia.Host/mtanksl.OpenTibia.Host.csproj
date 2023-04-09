@@ -1094,6 +1094,10 @@
       <Project>{B1133F0B-9819-4931-969F-3DC637F7F7D2}</Project>
       <Name>mtanksl.OpenTibia.Game</Name>
     </ProjectReference>
+    <ProjectReference Include="..\mtanksl.OpenTibia.Threading\mtanksl.OpenTibia.Threading.csproj">
+      <Project>{18E3DF48-31E5-4485-AA9B-C9FF9A21EA8C}</Project>
+      <Name>mtanksl.OpenTibia.Threading</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

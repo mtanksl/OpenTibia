@@ -10,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> campfires = new HashSet<ushort>() { 1423, 1424, 1425 };
 
-        public override void Handle(Context context, TileAddCreatureEventArgs e)
+        public override void Handle(TileAddCreatureEventArgs e)
         {
             foreach (var topItem in e.Tile.GetItems() )
             {

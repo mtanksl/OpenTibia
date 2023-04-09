@@ -21,11 +21,11 @@ namespace OpenTibia.Game.Commands
 
         public Creature ToCreature { get; set; }
 
-        public override Promise Execute(Context context)
+        public override Promise Execute()
         {
             context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
 
-            return Promise.Break();
+            return Promise.Pending();
         }
     }
 }

@@ -12,7 +12,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         private HashSet<ushort> fields = new HashSet<ushort>() { 1492, 1493, 1494, 1495, 1496 };
 
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
         {
             if (destroyFields.Contains(command.Item.Metadata.OpenTibiaId) && fields.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {

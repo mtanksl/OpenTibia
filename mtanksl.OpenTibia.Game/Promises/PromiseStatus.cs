@@ -4,6 +4,8 @@
     {
         Pending,
 
-        Fulfilled
+        Fulfilled,
+
+        Rejected
     }
 }

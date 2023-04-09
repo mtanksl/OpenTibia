@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort lumpOfCakeDough = 6277;
 
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
         {
             if (flours.Contains(command.Item.Metadata.OpenTibiaId) && buckets.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {

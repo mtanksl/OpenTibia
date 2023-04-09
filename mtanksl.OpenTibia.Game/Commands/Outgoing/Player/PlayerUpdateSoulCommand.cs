@@ -16,9 +16,9 @@ namespace OpenTibia.Game.Commands
 
         public byte Soul { get; set; }
 
-        public override Promise Execute(Context context)
+        public override Promise Execute()
         {
-            return Promise.Run(resolve =>
+            return Promise.Run( (resolve, reject) =>
             {
                 if (Player.Soul != Soul)
                 {

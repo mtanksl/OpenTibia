@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class MoveAwayContainerCloseHandler : CommandHandler<CreatureUpdateParentCommand>
     {
-        public override Promise Handle(Context context, ContextPromiseDelegate next, CreatureUpdateParentCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, CreatureUpdateParentCommand command)
         {
             if (command.Creature is Player player)
             {

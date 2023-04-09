@@ -10,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> magicForcefields = new HashSet<ushort>() { 1387 };
 
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerMoveItemCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerMoveItemCommand command)
         {
             if (command.ToContainer is Tile tile)
             {

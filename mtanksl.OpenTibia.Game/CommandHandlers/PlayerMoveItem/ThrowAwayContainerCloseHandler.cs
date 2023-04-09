@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class ThrowAwayContainerCloseHandler : CommandHandler<PlayerMoveItemCommand>
     {
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerMoveItemCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerMoveItemCommand command)
         {
             if (command.Item is Container container)
             {

@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
 
         private int index;
 
-        public override Promise Execute(Context context)
+        public override Promise Execute()
         {
             if (MagicEffectType != null)
             {
@@ -67,7 +67,7 @@ namespace OpenTibia.Game.Commands
                         {
                             index++;
 
-                            return Execute(ctx);
+                            return Execute();
                         } );
                     }
                     else
@@ -87,7 +87,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            return Promise.FromResult(context);
+            return Promise.Completed(context);
         }
     }
 }

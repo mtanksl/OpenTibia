@@ -6,7 +6,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class RotateItemWalkToSourceHandler : CommandHandler<PlayerRotateItemCommand>
     {
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerRotateItemCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerRotateItemCommand command)
         {
             if (command.Item.Parent is Tile tile && !command.Player.Tile.Position.IsNextTo(tile.Position) )
             {
@@ -29,7 +29,7 @@ namespace OpenTibia.Game.CommandHandlers
                         return next(ctx);
                     }
 
-                    return Promise.FromResult(ctx);
+                    return Promise.Completed(ctx);
                 } );
             }
 

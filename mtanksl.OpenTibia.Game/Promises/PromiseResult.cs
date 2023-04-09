@@ -4,17 +4,20 @@ namespace OpenTibia.Game.Commands
 {
     public class PromiseResult<TResult>
     {
-        public static PromiseResult<TResult> Break()
+        public static PromiseResult<TResult> Pending()
         {
             return new PromiseResult<TResult>();
         }
 
         public static PromiseResult<TResult> FromResult(Context context, TResult result)
         {
-            return new PromiseResult<TResult>(context, result);
+            return PromiseResult<TResult>.Run( (resolve, reject) =>
+            {
+                resolve(context, result);
+            } );
         }
 
-        public static PromiseResult<TResult> Run(Action<Action<Context, TResult> > run)
+        public static PromiseResult<TResult> Run(Action<Action<Context, TResult>, Action<Context, Exception> > run)
         {
             return new PromiseResult<TResult>(run);
         }
@@ -25,38 +28,54 @@ namespace OpenTibia.Game.Commands
 
         private TResult result;
 
+        private Exception exception;
+
+        private Action<Context, TResult> continueWithFulfilled;
+
+        private Action<Context, Exception> continueWithRejected;
+
         private PromiseResult()
         {
             this.status = PromiseStatus.Pending;
         }
 
-        private PromiseResult(Context context, TResult result)
+        private PromiseResult(Action<Action<Context, TResult>, Action<Context, Exception> > run)
         {
-            this.status = PromiseStatus.Fulfilled;
-
-            this.context = context;
-
-            this.result = result;
-        }
-
-        private PromiseResult(Action< Action<Context, TResult> > run)
-        {
-            run( (context, result) =>
+            Action<Context, TResult> resolve = (c, r) =>
             {
                 if (this.status == PromiseStatus.Pending)
                 {
                     this.status = PromiseStatus.Fulfilled;
 
-                    this.context = context;
+                    this.context = c;
 
-                    this.result = result;
+                    this.result = r;
 
-                    if (this.continueWith != null)
+                    if (this.continueWithFulfilled != null)
                     {
-                        this.continueWith(context, result);
+                        this.continueWithFulfilled(this.context, this.result);
                     }
                 }
-            } );
+            };
+
+            Action<Context, Exception> reject = (c, e) =>
+            {
+                if (this.status == PromiseStatus.Pending)
+                {
+                    this.status = PromiseStatus.Rejected;
+
+                    this.context = c;
+
+                    this.exception = e;
+
+                    if (this.continueWithRejected != null)
+                    {
+                        this.continueWithRejected(this.context, this.exception);
+                    }
+                }
+            };
+
+            run(resolve, reject);
         }
                 
         /// <exception cref="InvalidOperationException"></exception>
@@ -74,62 +93,91 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        private Action<Context, TResult> continueWith;
-
-        public PromiseResult<TResult> Then(Action<Context, TResult> callback)
+        public PromiseResult<TResult> Then(Action<Context, TResult> onFullfilled, Action<Context, Exception> onRejected = null)
         {
-            return PromiseResult<TResult>.Run(resolve =>
+            return PromiseResult<TResult>.Run( (resolve, reject) =>
             {
                 if (this.status == PromiseStatus.Pending)
                 {
-                    this.continueWith = (context, result) =>
+                    this.continueWithFulfilled = (c, r) =>
                     {
-                        callback(context, result);
+                        onFullfilled(c, r);
 
-                        resolve(context, result);
+                        resolve(c, r);
+                    };
+
+                    this.continueWithRejected = (c, e) =>
+                    {
+                        onRejected(c, e);
+
+                        reject(c, e);
                     };
                 }
                 else if (this.status == PromiseStatus.Fulfilled)
                 {
-                    callback(this.context, this.result);
+                    onFullfilled(this.context, this.result);
 
                     resolve(this.context, this.result);
                 }
-            } );
-        }
+                else if (this.status == PromiseStatus.Rejected)
+                {
+                    onRejected(this.context, this.exception);
 
-        public PromiseResult<TResult> Then(Func<Context, TResult, PromiseResult<TResult> > callback)
-        {
-            return PromiseResult<TResult>.Run(resolve =>
-            {
-                if (this.status == PromiseStatus.Pending)
-                {
-                    this.continueWith = (context, result) =>
-                    {
-                        callback(context, result).Then(resolve);
-                    };
-                }
-                else if (this.status == PromiseStatus.Fulfilled)
-                {
-                    callback(this.context, this.result).Then(resolve);
+                    reject(this.context, this.exception);
                 }
             } );
         }
 
-        public Promise Then(Func<Context, TResult, Promise> callback)
+        public PromiseResult<TResult> Then(Func<Context, TResult, PromiseResult<TResult> > onFullfilled, Func<Context, Exception, PromiseResult<TResult> > onRejected = null)
         {
-            return Promise.Run(resolve =>
+            return PromiseResult<TResult>.Run( (resolve, reject) =>
             {
                 if (this.status == PromiseStatus.Pending)
                 {
-                    this.continueWith = (context, result) =>
+                    this.continueWithFulfilled = (c, r) =>
                     {
-                        callback(context, result).Then(resolve);
+                        onFullfilled(c, r).Then(resolve, reject);
+                    };
+
+                    this.continueWithRejected = (c, e) =>
+                    {
+                        onRejected(c, e).Then(resolve, reject);
                     };
                 }
                 else if (this.status == PromiseStatus.Fulfilled)
                 {
-                    callback(this.context, this.result).Then(resolve);
+                    onFullfilled(this.context, this.result).Then(resolve, reject);
+                }
+                else if (this.status == PromiseStatus.Rejected)
+                {
+                    onRejected(this.context, this.exception).Then(resolve, reject);
+                }
+            } );
+        }
+
+        public Promise Then(Func<Context, TResult, Promise> onFullfilled, Func<Context, Exception, Promise> onRejected = null)
+        {
+            return Promise.Run( (resolve, reject) =>
+            {
+                if (this.status == PromiseStatus.Pending)
+                {
+                    this.continueWithFulfilled = (c, r) =>
+                    {
+                        onFullfilled(c, r).Then(resolve, reject);
+                    };
+
+                    this.continueWithRejected = (c, e) =>
+                    {
+                        onRejected(c, e).Then(resolve, reject);
+                    };
+                }
+                else if (this.status == PromiseStatus.Fulfilled)
+                {
+                    onFullfilled(this.context, this.result).Then(resolve, reject);
+                }
+                else if (this.status == PromiseStatus.Rejected)
+                {
+                    onRejected(this.context, this.exception).Then(resolve, reject);
                 }
             } );
         }     
@@ -138,7 +186,11 @@ namespace OpenTibia.Game.Commands
         {
             return promise.Then( (ctx, result) => 
             {
-                return Promise.FromResult(ctx);
+                return Promise.Completed(ctx);
+
+            }, (ctx, exception) =>
+            {
+                return Promise.Completed(ctx);
             } );
         }
     }

@@ -10,13 +10,13 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> partyHats = new HashSet<ushort>() { 6578 };
 
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
         {
             if (partyHats.Contains(command.Item.Metadata.OpenTibiaId) && command.Item.Parent is Inventory)
             {
                 context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.GiftWraps) );
 
-                return Promise.FromResult(context);
+                return Promise.Completed(context);
             }
 
             return next(context);

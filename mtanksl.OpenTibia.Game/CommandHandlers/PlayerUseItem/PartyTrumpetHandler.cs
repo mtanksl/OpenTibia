@@ -18,7 +18,7 @@ namespace OpenTibia.Game.CommandHandlers
             { 6573, 6572 }
         };
 
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
         {
             ushort toOpenTibiaId;
 
@@ -46,7 +46,7 @@ namespace OpenTibia.Game.CommandHandlers
                     return ctx.AddCommand(new ItemDecayTransformCommand(item, 2000, decay[item.Metadata.OpenTibiaId], 1) );                      
                 } );
 
-                return Promise.FromResult(context);
+                return Promise.Completed(context);
             }
 
             return next(context);

@@ -30,7 +30,7 @@ namespace OpenTibia.Game.CommandHandlers
             (5791, 1)
         };
 
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
         {
             if (surpriseBags.Contains(command.Item.Metadata.OpenTibiaId) )
             {
@@ -53,7 +53,7 @@ namespace OpenTibia.Game.CommandHandlers
                                
                 context.AddCommand(new ItemTransformCommand(command.Item, prizes[value].OpenTibiaId, prizes[value].Count) );
 
-                return Promise.FromResult(context);
+                return Promise.Completed(context);
             }
 
             return next(context);

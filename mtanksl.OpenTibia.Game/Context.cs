@@ -25,8 +25,12 @@ namespace OpenTibia.Game
             }
         }
 
-        public Context(Server server)
+        private Context previousContext;
+
+        public Context(Server server, Context previousContext)
         {
+            this.previousContext = previousContext;
+
             this.server = server;
         }
 
@@ -61,6 +65,11 @@ namespace OpenTibia.Game
         {
             get
             {
+                if (previousContext != null)
+                {
+                    return previousContext.Data;
+                }
+
                 return data ?? (data = new Dictionary<string, object>() );
             }
         }
@@ -82,10 +91,10 @@ namespace OpenTibia.Game
                 {
                     var commandHandler = commandHandlers.Current;
 
-                    return commandHandler.Handle(context, Next, command);
+                    return commandHandler.Handle(Next, command);
                 }
 
-                return command.Execute(context);
+                return command.Execute();
             }
 
             return Next(this);
@@ -108,10 +117,10 @@ namespace OpenTibia.Game
                 {
                     var commandHandler = commandHandlers.Current;
 
-                    return commandHandler.Handle(context, Next, command);
+                    return commandHandler.Handle(Next, command);
                 }
 
-                return command.Execute(context);
+                return command.Execute();
             }
 
             return Next(this);
@@ -226,7 +235,7 @@ namespace OpenTibia.Game
 
                     foreach (var eventHandler in server.EventHandlers.Get(e) )
                     {
-                        eventHandler.Handle(this, e);
+                        eventHandler.Handle(e);
                     }
                 }
 

@@ -16,9 +16,9 @@ namespace OpenTibia.Game.Commands
 
         public ushort Stamina { get; set; }
 
-        public override Promise Execute(Context context)
+        public override Promise Execute()
         {
-            return Promise.Run(resolve =>
+            return Promise.Run( (resolve, reject) =>
             {
                 if (Player.Stamina != Stamina)
                 {

@@ -17,9 +17,9 @@ namespace OpenTibia.Game.Commands
 
         public ushort ChannelId { get; set; }
 
-        public override Promise Execute(Context context)
+        public override Promise Execute()
         {
-            return Promise.Run(resolve =>
+            return Promise.Run( (resolve, reject) =>
             {
                 Channel channel = context.Server.Channels.GetChannel(ChannelId);
             

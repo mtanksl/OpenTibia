@@ -6,7 +6,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class DisplayMagicEffectHandler : CommandHandler<PlayerSayCommand>
     {
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerSayCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerSayCommand command)
         {
             int id;
 

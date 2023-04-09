@@ -10,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> fireworksRockets = new HashSet<ushort>() { 6576 };
 
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
         {
             if (fireworksRockets.Contains(command.Item.Metadata.OpenTibiaId) )
             {
@@ -27,7 +27,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 context.AddCommand(new ItemDestroyCommand(command.Item) );
 
-                return Promise.FromResult(context);
+                return Promise.Completed(context);
             }
 
             return next(context);

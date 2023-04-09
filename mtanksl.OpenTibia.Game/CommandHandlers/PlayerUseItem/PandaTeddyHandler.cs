@@ -9,13 +9,13 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> pandaTeddies = new HashSet<ushort>() { 5080 };
 
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
         {
             if (pandaTeddies.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "Hug me!") );
 
-                return Promise.FromResult(context);
+                return Promise.Completed(context);
             }
 
             return next(context);

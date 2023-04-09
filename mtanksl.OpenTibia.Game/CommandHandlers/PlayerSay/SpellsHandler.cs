@@ -731,7 +731,7 @@ namespace OpenTibia.Game.CommandHandlers
            return (formula * (@base - variation) / 100, formula * (@base + variation) / 100);
         }
 
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerSayCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerSayCommand command)
         {
             Spell spell;
 

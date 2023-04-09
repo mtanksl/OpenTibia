@@ -10,10 +10,12 @@ namespace OpenTibia.Game.Scripts
             server.QueueForExecution(ctx =>
             {
                 GlobalCreatures(ctx);
-
+            
                 GlobalItems(ctx);
-
+            
                 GlobalLight(ctx);
+
+                return Promise.Completed(ctx);
             } );
         }
 
@@ -21,7 +23,7 @@ namespace OpenTibia.Game.Scripts
         {
             return context.AddCommand(new GlobalCreaturesCommand() ).Then(ctx =>
             {
-                return Promise.Delay(ctx.Server, "Global_Creatures", 100);
+                return Promise.Delay(context.Server, "Global_Creatures", 100);
 
             } ).Then(ctx =>
             {
@@ -33,7 +35,7 @@ namespace OpenTibia.Game.Scripts
         {
             return context.AddCommand(new GlobalItemsCommand() ).Then(ctx =>
             {
-                return Promise.Delay(ctx.Server, "Global_Items", 60000);
+                return Promise.Delay(context.Server, "Global_Items", 60000);
 
             } ).Then(ctx =>
             {
@@ -45,7 +47,7 @@ namespace OpenTibia.Game.Scripts
         {
             return context.AddCommand(new GlobalLightCommand() ).Then(ctx =>
             {
-                return Promise.Delay(ctx.Server, "Global_Light", Clock.Interval);
+                return Promise.Delay(context.Server, "Global_Light", Clock.Interval);
 
             } ).Then(ctx =>
             {

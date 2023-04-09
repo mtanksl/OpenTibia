@@ -5,9 +5,9 @@ namespace OpenTibia.Threading
 {
     public class PriorityQueue<TKey, TValue> where TValue : IComparable<TValue>
     {
-        private PriorityQueue<TValue> queue = new PriorityQueue<TValue>();
-
         private Dictionary<TKey, TValue> dictionary = new Dictionary<TKey, TValue>();
+
+        private PriorityQueue<TValue> queue = new PriorityQueue<TValue>();
 
         private Func<TValue, TKey> keySelector;
 

@@ -15,7 +15,7 @@ namespace OpenTibia.Game.Commands
 
         public byte Count { get; set; }
 
-        public override Promise Execute(Context context)
+        public override Promise Execute()
         {
             if (Item is StackableItem stackableItem && stackableItem.Count > Count)
             {

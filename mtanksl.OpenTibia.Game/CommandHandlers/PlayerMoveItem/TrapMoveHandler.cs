@@ -12,7 +12,7 @@ namespace OpenTibia.Game.CommandHandlers
             { 2579, 2578 }
         };
 
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerMoveItemCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerMoveItemCommand command)
         {
             if (command.ToContainer is Tile tile)
             {

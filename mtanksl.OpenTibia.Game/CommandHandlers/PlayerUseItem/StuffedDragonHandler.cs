@@ -11,7 +11,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         private List<string> sounds = new List<string>() { "Fchhhhhh!", "Zchhhhhh!", "Grooaaaaar*cough*", "Aaa... CHOO!", "You... will.... burn!!" };
 
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
         {
             if (stuffedDragons.Contains(command.Item.Metadata.OpenTibiaId) )
             {
@@ -24,7 +24,7 @@ namespace OpenTibia.Game.CommandHandlers
                     context.AddCommand(CombatCommand.TargetAttack(null, command.Player, null, MagicEffectType.ExplosionDamage, (attacker, target) => -1) );
                 }
 
-                return Promise.FromResult(context);
+                return Promise.Completed(context);
             }
 
             return next(context);

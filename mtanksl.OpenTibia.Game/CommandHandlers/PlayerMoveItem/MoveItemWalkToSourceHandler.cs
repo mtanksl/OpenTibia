@@ -6,7 +6,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class MoveItemWalkToSourceHandler : CommandHandler<PlayerMoveItemCommand>
     {
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerMoveItemCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerMoveItemCommand command)
         {
             if (command.Item.Parent is Tile tile && !command.Player.Tile.Position.IsNextTo(tile.Position) )
             {
@@ -33,7 +33,7 @@ namespace OpenTibia.Game.CommandHandlers
                         return next(ctx);
                     }
 
-                    return Promise.FromResult(ctx);
+                    return Promise.Completed(ctx);
                 } );
             }
 

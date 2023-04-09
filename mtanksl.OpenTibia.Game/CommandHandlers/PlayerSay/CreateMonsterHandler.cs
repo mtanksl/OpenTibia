@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class CreateMonsterHandler : CommandHandler<PlayerSayCommand>
     {
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerSayCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerSayCommand command)
         {
             if (command.Message.StartsWith("/m") )
             {

@@ -4,6 +4,14 @@ namespace OpenTibia.Game.Commands
 {
     public abstract class CommandResult<TResult>
     {
+        public Context context
+        {
+            get
+            {
+                return Context.Current;
+            }
+        }
+
         private Dictionary<string, object> data;
 
         public Dictionary<string, object> Data
@@ -14,6 +22,6 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        public abstract PromiseResult<TResult> Execute(Context context);
+        public abstract PromiseResult<TResult> Execute();
     }
 }

@@ -22,9 +22,9 @@ namespace OpenTibia.Game.Commands
 
         public Data.Models.Player DatabasePlayer { get; set; }
 
-        public override PromiseResult<Player> Execute(Context context)
+        public override PromiseResult<Player> Execute()
         {
-            return PromiseResult<Player>.Run(resolve =>
+            return PromiseResult<Player>.Run( (resolve, reject) =>
             {
                 #region Connect
 

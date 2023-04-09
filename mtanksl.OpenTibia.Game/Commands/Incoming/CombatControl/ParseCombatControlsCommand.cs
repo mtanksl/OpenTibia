@@ -25,9 +25,9 @@ namespace OpenTibia.Game.Commands
 
         public SafeMode SafeMode { get; set; }
 
-        public override Promise Execute(Context context)
+        public override Promise Execute()
         {
-            return Promise.Run(resolve =>
+            return Promise.Run( (resolve, reject) =>
             {
                 if (FightMode != Player.Client.FightMode)
                 {

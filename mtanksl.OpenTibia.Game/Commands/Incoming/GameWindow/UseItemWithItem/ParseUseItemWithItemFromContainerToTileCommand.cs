@@ -32,9 +32,9 @@ namespace OpenTibia.Game.Commands
 
         public ushort ToItemId { get; set; }
 
-        public override Promise Execute(Context context)
+        public override Promise Execute()
         {
-            return Promise.Run(resolve =>
+            return Promise.Run( (resolve, reject) =>
             {
                 Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
 

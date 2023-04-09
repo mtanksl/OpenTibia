@@ -428,7 +428,7 @@ namespace OpenTibia.Game.CommandHandlers
             return (formula * (@base - variation) / 100, formula * (@base + variation) / 100);
         }
 
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
         {
             Rune rune;
 
@@ -442,7 +442,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         component.AddCooldown(rune.Group, rune.GroupCooldownInMilliseconds);
 
-                        return Promise.FromResult(context).Then(ctx =>
+                        return Promise.Completed(context).Then(ctx =>
                         {
                             return rune.Callback(ctx, command.Player, toTile);
 

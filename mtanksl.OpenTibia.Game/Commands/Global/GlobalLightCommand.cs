@@ -4,9 +4,9 @@ namespace OpenTibia.Game.Commands
 {
     public class GlobalLightCommand : Command
     {
-        public override Promise Execute(Context context)
+        public override Promise Execute()
         {         
-            return Promise.Run(resolve =>
+            return Promise.Run( (resolve, reject) =>
             {
                 context.Server.Clock.Tick();
 

@@ -17,9 +17,9 @@ namespace OpenTibia.Game.Commands
 
         public string Message { get; set; }
 
-        public override Promise Execute(Context context)
+        public override Promise Execute()
         {
-            return Promise.Run(resolve =>
+            return Promise.Run( (resolve, reject) =>
             {
                 RuleViolation ruleViolation = context.Server.RuleViolations.GetRuleViolationByReporter(Player);
 

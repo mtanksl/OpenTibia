@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Scripts
                     {
                         context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
 
-                        return Promise.Break();
+                        return Promise.Pending();
                     }
                 }
                 else if (command.ToContainer is Inventory toInventory)
@@ -29,7 +29,7 @@ namespace OpenTibia.Game.Scripts
                     {
                         context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTakeThisObject) );
 
-                        return Promise.Break();
+                        return Promise.Pending();
                     }
                 }
                 else if (command.ToContainer is Container toContainer)
@@ -38,14 +38,14 @@ namespace OpenTibia.Game.Scripts
                     {
                         context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTakeThisObject) );
 
-                        return Promise.Break();
+                        return Promise.Pending();
                     }
 
                     if ( toContainer.IsContentOf(command.Item) )
                     {
                         context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
 
-                        return Promise.Break();
+                        return Promise.Pending();
                     }
                 }
 

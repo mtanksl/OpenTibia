@@ -32,7 +32,7 @@ namespace OpenTibia.Game.CommandHandlers
             //TODO: More items
         };
 
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
         {
             //TODO: Only the worthy may pass.
 

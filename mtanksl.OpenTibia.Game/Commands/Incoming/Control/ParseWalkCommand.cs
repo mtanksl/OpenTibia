@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Commands
 
         public MoveDirection MoveDirection { get; set; }
 
-        public override Promise Execute(Context context)
+        public override Promise Execute()
         {
             return Check(context).Then( (ctx, toTile) =>
             {
@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
 
         private PromiseResult<Tile> Check(Context context)
         {
-            return PromiseResult<Tile>.Run(resolve =>
+            return PromiseResult<Tile>.Run( (resolve, reject) =>
             {
                 Tile fromTile = Player.Tile;
 

@@ -17,9 +17,9 @@ namespace OpenTibia.Game.Commands
 
         public string Name { get; set; }
 
-        public override Promise Execute(Context context)
+        public override Promise Execute()
         {
-            return Promise.Run(resolve =>
+            return Promise.Run( (resolve, reject) =>
             {
                 Player player = context.Server.GameObjects.GetPlayers()
                     .Where(p => p.Name == Name)

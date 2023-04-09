@@ -22,7 +22,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort wheat = 2694;
 
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
         {
             ushort toOpenTibiaId;
 

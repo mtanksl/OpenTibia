@@ -12,9 +12,9 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        public override Promise Execute(Context context)
+        public override Promise Execute()
         {
-            return Promise.Run(resolve =>
+            return Promise.Run( (resolve, reject) =>
             {
                 PrivateChannel privateChannel = context.Server.Channels.GetPrivateChannelByOwner(Player);
 

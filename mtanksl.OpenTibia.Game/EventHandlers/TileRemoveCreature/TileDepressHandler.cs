@@ -15,7 +15,7 @@ namespace OpenTibia.Game.CommandHandlers
             { 3217, 3216 }
         };
 
-        public override void Handle(Context context, TileRemoveCreatureEventArgs e)
+        public override void Handle(TileRemoveCreatureEventArgs e)
         {
             ushort toOpenTibiaId;
             

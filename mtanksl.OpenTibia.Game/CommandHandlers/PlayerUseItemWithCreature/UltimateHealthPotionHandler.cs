@@ -10,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> healthPotions = new HashSet<ushort>() { 8473 };
 
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemWithCreatureCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemWithCreatureCommand command)
         {
             if (healthPotions.Contains(command.Item.Metadata.OpenTibiaId) && command.ToCreature is Player player)
             {
@@ -20,7 +20,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 context.AddCommand(new ShowTextCommand(player, TalkType.MonsterSay, "Aaaah...") );
 
-                return Promise.FromResult(context);
+                return Promise.Completed(context);
             }
 
             return next(context);

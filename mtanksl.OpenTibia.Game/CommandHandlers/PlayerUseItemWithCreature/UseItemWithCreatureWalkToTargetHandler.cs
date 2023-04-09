@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class UseItemWithCreatureWalkToTargetHandler : CommandHandler<PlayerUseItemWithCreatureCommand>
     {
-        public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerUseItemWithCreatureCommand command)
+        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemWithCreatureCommand command)
         {
             if ( !command.Player.Tile.Position.IsNextTo(command.ToCreature.Tile.Position) )
             {
@@ -34,7 +34,7 @@ namespace OpenTibia.Game.CommandHandlers
                             return ctx.AddCommand(new PlayerUseItemWithCreatureCommand(command.Player, item, command.ToCreature) );
                         }
 
-                        return Promise.FromResult(ctx);
+                        return Promise.Completed(ctx);
                     } );
                 }
                 else
@@ -58,7 +58,7 @@ namespace OpenTibia.Game.CommandHandlers
                             return next(ctx);
                         }
 
-                        return Promise.FromResult(ctx);
+                        return Promise.Completed(ctx);
                     } );
                 }
             }

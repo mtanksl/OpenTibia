@@ -12,7 +12,7 @@ namespace OpenTibia.Game.EventHandlers
             this.execute = execute;
         }
 
-        public override void Handle(Context context, T e)
+        public override void Handle(T e)
         {
             execute(context, e);
         }

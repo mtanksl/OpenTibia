@@ -18,17 +18,17 @@ namespace OpenTibia.Game.Commands
 
         private int index;
 
-        public override Promise Execute(Context context)
+        public override Promise Execute()
         {
             if (index < MoveDirections.Length)
             {
                 return context.AddCommand(new ParseWalkCommand(Player, MoveDirections[index++] ) ).Then(ctx =>
                 {
-                    return Execute(ctx);
+                    return Execute();
                 } ); 
             }
 
-            return Promise.FromResult(context);
+            return Promise.Completed(context);
         }
     }
 }

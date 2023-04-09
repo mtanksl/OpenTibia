@@ -17,9 +17,9 @@ namespace OpenTibia.Game.Commands
 
         public Creature Creature { get; set; }
 
-        public override Promise Execute(Context context)
+        public override Promise Execute()
         {
-            return Promise.Run(resolve =>
+            return Promise.Run( (resolve, reject) =>
             {
                 byte index = Tile.AddContent(Creature);
 

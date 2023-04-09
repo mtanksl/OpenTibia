@@ -15,9 +15,9 @@ namespace OpenTibia.Game.Commands
 
         public string Name { get; set; }
 
-        public override PromiseResult<Npc> Execute(Context context)
+        public override PromiseResult<Npc> Execute()
         {
-            return PromiseResult<Npc>.Run(resolve =>
+            return PromiseResult<Npc>.Run( (resolve, reject) =>
             {
                 Npc npc = context.Server.NpcFactory.Create(Name);
 

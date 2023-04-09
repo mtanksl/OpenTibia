@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Commands
 
         public int ExecuteInMilliseconds { get; set; }
 
-        public override Promise Execute(Context context)
+        public override Promise Execute()
         {
             return context.Server.Components.AddComponent(Item, new DelayBehaviour("Item_Decay", ExecuteInMilliseconds) ).Promise.Then(ctx =>
             { 

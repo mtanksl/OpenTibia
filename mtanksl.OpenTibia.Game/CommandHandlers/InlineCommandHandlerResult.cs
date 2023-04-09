@@ -12,7 +12,7 @@ namespace OpenTibia.Game.CommandHandlers
             this.handle = handle;
         }
 
-        public override PromiseResult<TResult> Handle(Context context, ContextPromiseResultDelegate<TResult> next, T command)
+        public override PromiseResult<TResult> Handle(ContextPromiseResultDelegate<TResult> next, T command)
         {
             return handle(context, next, command);
         }
