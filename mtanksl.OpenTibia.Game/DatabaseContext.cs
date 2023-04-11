@@ -1,4 +1,6 @@
-﻿using OpenTibia.Data.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using OpenTibia.Data.Contexts;
 using OpenTibia.Data.Repositories;
 using System;
 
@@ -6,14 +8,24 @@ namespace OpenTibia.Game
 {
     public class DatabaseContext : IDisposable
     {
-        public DatabaseContext()
+        public DatabaseContext(Server server)
         {
-
+            this.server = server;
         }
 
         ~DatabaseContext()
         {
             Dispose(false);
+        }
+
+        private Server server;
+
+        public Server Server
+        {
+            get
+            {
+                return server;
+            }
         }
 
         private SqliteContext sqliteContext;
@@ -22,7 +34,20 @@ namespace OpenTibia.Game
         {
             get
             {
-                return sqliteContext ?? (sqliteContext = new SqliteContext() );
+                if (sqliteContext == null)
+                {
+                    var builder = new DbContextOptionsBuilder<SqliteContext>();
+
+                    builder.LogTo(message => server.Logger.WriteLine(message.Split("CommandTimeout='30']")[1], LogLevel.Information), 
+
+                        events: new[] { RelationalEventId.CommandExecuted }, 
+
+                        options: DbContextLoggerOptions.SingleLine );
+
+                    sqliteContext = new SqliteContext(builder.Options);
+                }
+
+                return sqliteContext;
             }
         }
 

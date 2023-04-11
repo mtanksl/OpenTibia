@@ -17,7 +17,29 @@ namespace mtanksl.OpenTibia.Host2
             {
                 server.Start();
 
-                Console.ReadKey();
+                bool exit = false;
+
+                while ( !exit )
+                {
+                    var option = Console.ReadLine();
+
+                    switch (option)
+                    {
+                        case "cls":
+                        case "clear":
+
+                            Console.Clear();
+
+                            break;
+
+                        case "":
+                        case "exit":
+
+                            exit = true;
+
+                            break;
+                    }
+                }
 
                 server.KickAll();
 

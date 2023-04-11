@@ -57,7 +57,7 @@ namespace OpenTibia.Game
         {
             get
             {
-                return databaseContext ?? (databaseContext = new DatabaseContext() );
+                return databaseContext ?? (databaseContext = new DatabaseContext(server) );
             }
         }
 
