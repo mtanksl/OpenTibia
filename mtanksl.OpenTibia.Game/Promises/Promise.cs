@@ -22,6 +22,19 @@ namespace OpenTibia.Game.Commands
             return new Promise(run);
         }
 
+        public static PromiseResult<TResult> FromResult<TResult>(Context context, TResult result)
+        {
+            return Promise.Run<TResult>( (resolve, reject) =>
+            {
+                resolve(context, result);
+            } );
+        }
+
+        public static PromiseResult<TResult> Run<TResult>(Action<Action<Context, TResult>, Action<Context, Exception> > run)
+        {
+            return new PromiseResult<TResult>(run);
+        }
+
         public static Promise Yield(Server server)
         {
             return server.QueueForExecution(ctx =>
@@ -40,7 +53,7 @@ namespace OpenTibia.Game.Commands
 
         public static Promise WhenAll(params Promise[] promises)
         {
-            return new Promise( (resolve, reject) =>
+            return Promise.Run( (resolve, reject) =>
             {
                 int index = 0;
 
@@ -59,7 +72,7 @@ namespace OpenTibia.Game.Commands
 
         public static Promise WhenAny(params Promise[] promises)
         {
-            return new Promise( (resolve, reject) =>
+            return Promise.Run( (resolve, reject) =>
             {
                 int index = 0;
 
@@ -86,12 +99,12 @@ namespace OpenTibia.Game.Commands
 
         private Action<Context, Exception> continueWithRejected;
 
-        private Promise()
+        public Promise()
         {
             this.status = PromiseStatus.Pending;
         }
 
-        private Promise(Action<Action<Context>, Action<Context, Exception> > run)
+        public Promise(Action<Action<Context>, Action<Context, Exception> > run)
         {
             Action<Context> resolve = (c) =>
             {
@@ -103,7 +116,7 @@ namespace OpenTibia.Game.Commands
 
                     if (this.continueWithFulfilled != null)
                     {
-                        this.continueWithFulfilled(c);
+                        this.continueWithFulfilled(this.context);
                     }
                 }
             };
@@ -120,12 +133,48 @@ namespace OpenTibia.Game.Commands
 
                     if (this.continueWithRejected != null)
                     {
-                        this.continueWithRejected(c, e);
+                        this.continueWithRejected(this.context, this.exception);
                     }
                 }
             };
 
             run(resolve, reject);
+        }
+
+        public bool TrySetResult()
+        {
+            if (this.status == PromiseStatus.Pending)
+            {
+                this.status = PromiseStatus.Fulfilled;
+
+                if (this.continueWithFulfilled != null)
+                {
+                    this.continueWithFulfilled(this.context);
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool TrySetException(Exception exception)
+        {
+            if (this.status == PromiseStatus.Pending)
+            {
+                this.status = PromiseStatus.Rejected;
+
+                this.exception = exception;
+
+                if (this.continueWithRejected != null)
+                {
+                    this.continueWithRejected(this.context, this.exception);
+                }
+
+                return true;
+            }
+
+            return false;
         }
 
         public Promise Then(Action<Context> onFullfilled, Action<Context, Exception> onRejected = null)
@@ -192,7 +241,7 @@ namespace OpenTibia.Game.Commands
 
         public PromiseResult<TResult> Then<TResult>(Func<Context, PromiseResult<TResult> > onFullfilled, Func<Context, Exception, PromiseResult<TResult> > onRejected = null)
         {
-            return PromiseResult<TResult>.Run( (resolve, reject) =>
+            return Promise.Run<TResult>( (resolve, reject) =>
             {
                 if (this.status == PromiseStatus.Pending)
                 {

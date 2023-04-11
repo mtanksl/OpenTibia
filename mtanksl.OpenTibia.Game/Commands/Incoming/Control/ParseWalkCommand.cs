@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
 
         private PromiseResult<Tile> Check(Context context)
         {
-            return PromiseResult<Tile>.Run( (resolve, reject) =>
+            return Promise.Run<Tile>( (resolve, reject) =>
             {
                 Tile fromTile = Player.Tile;
 

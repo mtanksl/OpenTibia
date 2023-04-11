@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
 
         public override PromiseResult<Player> Execute()
         {
-            return PromiseResult<Player>.Run( (resolve, reject) =>
+            return Promise.Run<Player>( (resolve, reject) =>
             {
                 #region Connect
 

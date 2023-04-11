@@ -4,24 +4,6 @@ namespace OpenTibia.Game.Commands
 {
     public class PromiseResult<TResult>
     {
-        public static PromiseResult<TResult> Pending()
-        {
-            return new PromiseResult<TResult>();
-        }
-
-        public static PromiseResult<TResult> FromResult(Context context, TResult result)
-        {
-            return PromiseResult<TResult>.Run( (resolve, reject) =>
-            {
-                resolve(context, result);
-            } );
-        }
-
-        public static PromiseResult<TResult> Run(Action<Action<Context, TResult>, Action<Context, Exception> > run)
-        {
-            return new PromiseResult<TResult>(run);
-        }
-
         private PromiseStatus status;
 
         private Context context;
@@ -34,12 +16,12 @@ namespace OpenTibia.Game.Commands
 
         private Action<Context, Exception> continueWithRejected;
 
-        private PromiseResult()
+        public PromiseResult()
         {
             this.status = PromiseStatus.Pending;
         }
 
-        private PromiseResult(Action<Action<Context, TResult>, Action<Context, Exception> > run)
+        public PromiseResult(Action<Action<Context, TResult>, Action<Context, Exception> > run)
         {
             Action<Context, TResult> resolve = (c, r) =>
             {
@@ -77,6 +59,44 @@ namespace OpenTibia.Game.Commands
 
             run(resolve, reject);
         }
+
+        public bool TrySetResult(TResult result)
+        {
+            if (this.status == PromiseStatus.Pending)
+            {
+                this.status = PromiseStatus.Fulfilled;
+
+                this.result = result;
+
+                if (this.continueWithFulfilled != null)
+                {
+                    this.continueWithFulfilled(this.context, this.result);
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool TrySetException(Exception exception)
+        {
+            if (this.status == PromiseStatus.Pending)
+            {
+                this.status = PromiseStatus.Rejected;
+
+                this.exception = exception;
+
+                if (this.continueWithRejected != null)
+                {
+                    this.continueWithRejected(this.context, this.exception);
+                }
+
+                return true;
+            }
+
+            return false;
+        }
                 
         /// <exception cref="InvalidOperationException"></exception>
 
@@ -95,7 +115,7 @@ namespace OpenTibia.Game.Commands
 
         public PromiseResult<TResult> Then(Action<Context, TResult> onFullfilled, Action<Context, Exception> onRejected = null)
         {
-            return PromiseResult<TResult>.Run( (resolve, reject) =>
+            return Promise.Run<TResult>( (resolve, reject) =>
             {
                 if (this.status == PromiseStatus.Pending)
                 {
@@ -130,7 +150,7 @@ namespace OpenTibia.Game.Commands
 
         public PromiseResult<TResult> Then(Func<Context, TResult, PromiseResult<TResult> > onFullfilled, Func<Context, Exception, PromiseResult<TResult> > onRejected = null)
         {
-            return PromiseResult<TResult>.Run( (resolve, reject) =>
+            return Promise.Run<TResult>( (resolve, reject) =>
             {
                 if (this.status == PromiseStatus.Pending)
                 {

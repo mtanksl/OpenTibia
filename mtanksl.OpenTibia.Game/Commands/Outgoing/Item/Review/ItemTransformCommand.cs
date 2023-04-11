@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
 
         public override PromiseResult<Item> Execute()
         {
-            return PromiseResult<Item>.Run( (resolve, reject) =>
+            return Promise.Run<Item>( (resolve, reject) =>
             {
                 Item toItem = context.Server.ItemFactory.Create(OpenTibiaId, Count);
 
