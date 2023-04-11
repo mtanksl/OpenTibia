@@ -1,6 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.IO;
 using System.Collections.Generic;
 using System.Linq;
 

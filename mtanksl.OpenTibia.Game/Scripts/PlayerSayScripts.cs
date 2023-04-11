@@ -1,7 +1,4 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
-using OpenTibia.Game.CommandHandlers;
-using OpenTibia.Game.Commands;
+﻿using OpenTibia.Game.CommandHandlers;
 
 namespace OpenTibia.Game.Scripts
 {
