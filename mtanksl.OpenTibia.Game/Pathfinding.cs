@@ -177,7 +177,7 @@ namespace OpenTibia.Game
 
             HashSet<Position> closed = new HashSet<Position>();
 
-            PriorityQueue<Position, Node> open = new PriorityQueue<Position, Node>(n => n.FromPosition);
+            Threading.PriorityQueue<Position, Node> open = new Threading.PriorityQueue<Position, Node>(n => n.FromPosition);
 
                 open.Enqueue(new Node(fromPosition, toPosition) );
 

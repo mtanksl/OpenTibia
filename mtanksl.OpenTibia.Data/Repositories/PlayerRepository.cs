@@ -1,6 +1,6 @@
-﻿using OpenTibia.Data.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using OpenTibia.Data.Contexts;
 using OpenTibia.Data.Models;
-using System.Data.Entity;
 using System.Linq;
 
 namespace OpenTibia.Data.Repositories
@@ -17,7 +17,8 @@ namespace OpenTibia.Data.Repositories
         public Account GetAccount(string accountName, string accountPassword)
         {
             return context.Accounts
-                .Include(a => a.Players.Select(p => p.World) )
+                .Include(a => a.Players)
+                    .ThenInclude(p => p.World)
                 .Where(a => a.Name == accountName &&
                             a.Password == accountPassword)
                 .FirstOrDefault();
@@ -28,7 +29,8 @@ namespace OpenTibia.Data.Repositories
             return context.Players
                 .Include(p => p.PlayerItems)
                 .Include(p => p.PlayerDepotItems)
-                .Include(p => p.PlayerVips.Select(v => v.Vip) )
+                .Include(p => p.PlayerVips)
+                    .ThenInclude(v => v.Vip)
                 .Where(p => p.Account.Name == accountName &&
                             p.Account.Password == accountPassword &&
                             p.Name == playerName)

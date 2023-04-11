@@ -13,12 +13,10 @@ From time to time, I take this project to have some fun and recall the good old 
 
 # First run
 
-You need Visual Studio and .NET 4.6.1.
+You need Visual Studio 2022 and .NET 7.
 Download and extract the files.
 Open `mtanksl.OpenTibia.sln`.
 Set `mtanksl.OpenTibia.Host` as startup project.
-Change from `Debug` to `Release`. 
-Now you can change back to `Debug` (yeah, this generates the x64 and x86 SQLite.Interop.dll file)
 Press F5 to run the server. 
 Use Tibia 8.6 client (download below) with an IP Changer (also download below) to connect to localhost (IP address 127.0.0.1) on port 7171.
 Use account number 1 and password 1 to enter game.
@@ -139,16 +137,14 @@ public class PlayerSayScripts : IScript
 ```cs
 public class DisplayMagicEffectHandler : CommandHandler<PlayerSayCommand>
 {
-    public override Promise Handle(Context context, ContextPromiseDelegate next, PlayerSayCommand command)
+    public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
     {
-        if (command.Message.StartsWith("/me") && 
-            command.Message.Contains(" ") && 
-            int.TryParse(command.Message.Split(' ')[1], out int id) && id >= 1 && id <= 70)
+        if (command.Message.StartsWith("/me") && command.Message.Contains(" ") && int.TryParse(command.Message.Split(' ')[1], out int id) && id >= 1 && id <= 70)
         {
-            return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, (MagicEffectType)id) );
+            return Context.AddCommand(new ShowMagicEffectCommand(command.Player..Position, (MagicEffectType)id) );
         }
 
-        return next(context);
+        return next();
     }
 }
 ```

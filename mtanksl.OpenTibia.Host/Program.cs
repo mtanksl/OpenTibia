@@ -1,9 +1,8 @@
 ﻿using OpenTibia.Game;
-using System;
 
-namespace OpenTibia.Host
+namespace mtanksl.OpenTibia.Host2
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
