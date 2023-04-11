@@ -4,17 +4,24 @@ namespace OpenTibia.Game.Commands
 {
     public class Promise
     {
+        private static Promise stop = Promise.Run( (resolve, reject) =>
+        {
+            reject(new PromiseCanceledException() );
+        } );
+
         public static Promise Stop()
         {
-            return Promise.FromException(new PromiseCanceledException() );
+            return stop;
         }
+
+        private static Promise completed = Promise.Run( (resolve, reject) =>
+        {
+            resolve();
+        } );
 
         public static Promise Completed()
         {
-            return Promise.Run( (resolve, reject) =>
-            {
-                resolve();
-            } );
+            return completed;
         }
 
         public static Promise FromException(Exception exception)

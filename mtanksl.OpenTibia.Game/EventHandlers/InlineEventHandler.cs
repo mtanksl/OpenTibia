@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Game.Events;
 using System;
+using System.Diagnostics;
 
 namespace OpenTibia.Game.EventHandlers
 {
@@ -12,6 +13,7 @@ namespace OpenTibia.Game.EventHandlers
             this.execute = execute;
         }
 
+        [DebuggerStepThrough]
         public override void Handle(T e)
         {
             execute(Context, e);
