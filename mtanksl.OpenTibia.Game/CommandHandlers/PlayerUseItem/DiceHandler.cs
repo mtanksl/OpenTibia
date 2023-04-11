@@ -37,7 +37,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Context.AddCommand(new ItemTransformCommand(command.Item, openTibiaId, 1) );
 
-                return Promise.Completed();
+                return Promise.Completed;
             }
 
             return next();

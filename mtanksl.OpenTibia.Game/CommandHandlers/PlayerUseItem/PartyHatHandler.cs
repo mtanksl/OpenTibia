@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.GiftWraps) );
 
-                return Promise.Completed();
+                return Promise.Completed;
             }
 
             return next();

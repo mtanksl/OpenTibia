@@ -34,7 +34,7 @@ namespace OpenTibia.Game.CommandHandlers
                             return Context.AddCommand(new PlayerUseItemWithItemCommand(command.Player, item, command.ToItem) );
                         }
 
-                        return Promise.Completed();
+                        return Promise.Completed;
                     } );
                 }
                 else
@@ -58,7 +58,7 @@ namespace OpenTibia.Game.CommandHandlers
                             return next();
                         }
 
-                        return Promise.Completed();
+                        return Promise.Completed;
                     } );
                 }
             }

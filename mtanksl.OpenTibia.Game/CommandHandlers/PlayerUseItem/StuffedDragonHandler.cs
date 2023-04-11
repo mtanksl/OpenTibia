@@ -24,7 +24,7 @@ namespace OpenTibia.Game.CommandHandlers
                     Context.AddCommand(CombatCommand.TargetAttack(null, command.Player, null, MagicEffectType.ExplosionDamage, (attacker, target) => -1) );
                 }
 
-                return Promise.Completed();
+                return Promise.Completed;
             }
 
             return next();

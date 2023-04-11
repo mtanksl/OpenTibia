@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace OpenTibia.Game.Commands
 {
+    [DebuggerStepThrough]
     public class PromiseResult<TResult>
     {
         private PromiseStatus status;
@@ -96,7 +98,7 @@ namespace OpenTibia.Game.Commands
 
         public Promise Catch(Action<Exception> onRejected)
         {
-            return Promise.Run( (resolve, reject) =>
+            return Promise.Run( [DebuggerStepThrough] (resolve, reject) =>
             {
                 if (this.status == PromiseStatus.Pending)
                 {
@@ -127,7 +129,7 @@ namespace OpenTibia.Game.Commands
 
         public PromiseResult<TResult> Then(Action<TResult> onFullfilled)
         {
-            return Promise.Run<TResult>( (resolve, reject) =>
+            return Promise.Run<TResult>( [DebuggerStepThrough] (resolve, reject) =>
             {
                 if (this.status == PromiseStatus.Pending)
                 {
@@ -158,7 +160,7 @@ namespace OpenTibia.Game.Commands
 
         public PromiseResult<TResult> Then(Func<TResult, PromiseResult<TResult> > onFullfilled)
         {
-            return Promise.Run<TResult>( (resolve, reject) =>
+            return Promise.Run<TResult>( [DebuggerStepThrough] (resolve, reject) =>
             {
                 if (this.status == PromiseStatus.Pending)
                 {
@@ -185,7 +187,7 @@ namespace OpenTibia.Game.Commands
 
         public PromiseResult<TResult2> Then<TResult2>(Func<TResult, PromiseResult<TResult2> > onFullfilled)
         {
-            return Promise.Run<TResult2>( (resolve, reject) =>
+            return Promise.Run<TResult2>( [DebuggerStepThrough] (resolve, reject) =>
             {
                 if (this.status == PromiseStatus.Pending)
                 {
@@ -212,7 +214,7 @@ namespace OpenTibia.Game.Commands
 
         public Promise Then(Func<TResult, Promise> onFullfilled)
         {
-            return Promise.Run( (resolve, reject) =>
+            return Promise.Run( [DebuggerStepThrough] (resolve, reject) =>
             {
                 if (this.status == PromiseStatus.Pending)
                 {
@@ -241,7 +243,7 @@ namespace OpenTibia.Game.Commands
         {
             return promise.Then( (r) => 
             {
-                return Promise.Completed();
+                return Promise.Completed;
             } );
         }          
     }

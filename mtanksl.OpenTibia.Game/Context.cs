@@ -5,9 +5,11 @@ using OpenTibia.Network.Packets.Outgoing;
 using OpenTibia.Threading;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace OpenTibia.Game
 {
+    [DebuggerStepThrough]
     public class Context : IDisposable
     {
         public static Context Current
@@ -85,7 +87,7 @@ namespace OpenTibia.Game
 
             var commandHandlers = server.CommandHandlers.Get(command).GetEnumerator();
 
-            Promise Next()
+            [DebuggerStepThrough] Promise Next()
             {
                 if (commandHandlers.MoveNext() )
                 {
@@ -111,7 +113,7 @@ namespace OpenTibia.Game
 
             var commandHandlers = server.CommandHandlers.Get(command).GetEnumerator();
 
-            PromiseResult<TResult> Next()
+            [DebuggerStepThrough] PromiseResult<TResult> Next()
             {
                 if (commandHandlers.MoveNext() )
                 {

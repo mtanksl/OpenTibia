@@ -268,7 +268,7 @@ namespace OpenTibia.Game
 
                 syncStop.Set();
 
-                return Promise.Completed();
+                return Promise.Completed;
             } );
 
             syncStop.WaitOne();

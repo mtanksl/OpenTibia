@@ -17,7 +17,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtRoom) );
                 
-                    return Promise.Stop();
+                    return Promise.Break;
                 }
                 else
                 {
@@ -108,7 +108,7 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
                         
-                                return Promise.Stop();
+                                return Promise.Break;
                             }
                         }
                     }
@@ -122,7 +122,7 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
                         
-                            return Promise.Stop();
+                            return Promise.Break;
                         }
                     }
                 }
@@ -186,7 +186,7 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
                     
-                                return Promise.Stop();
+                                return Promise.Break;
                             }
                         }
                     }
@@ -200,13 +200,13 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
                     
-                            return Promise.Stop();
+                            return Promise.Break;
                         }
                     }
                 }
             }
 
-            return Promise.Completed();
+            return Promise.Completed;
         }
     }
 }

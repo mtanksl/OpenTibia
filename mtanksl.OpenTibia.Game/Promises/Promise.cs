@@ -1,17 +1,22 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace OpenTibia.Game.Commands
 {
+    [DebuggerStepThrough]
     public class Promise
     {
-        private static Promise stop = Promise.Run( (resolve, reject) =>
+        private static Promise broken = Promise.Run( (resolve, reject) =>
         {
             reject(new PromiseCanceledException() );
         } );
 
-        public static Promise Stop()
+        public static Promise Break
         {
-            return stop;
+            get
+            {
+                return broken;
+            }
         }
 
         private static Promise completed = Promise.Run( (resolve, reject) =>
@@ -19,14 +24,17 @@ namespace OpenTibia.Game.Commands
             resolve();
         } );
 
-        public static Promise Completed()
+        public static Promise Completed
         {
-            return completed;
+            get
+            {
+                return completed;
+            }
         }
 
         public static Promise FromException(Exception exception)
         {
-            return Promise.Run( (resolve, reject) =>
+            return Promise.Run( [DebuggerStepThrough] (resolve, reject) =>
             {
                 reject(exception);
             } );
@@ -39,7 +47,7 @@ namespace OpenTibia.Game.Commands
 
         public static PromiseResult<TResult> FromResult<TResult>(TResult result)
         {
-            return Promise.Run<TResult>( (resolve, reject) =>
+            return Promise.Run<TResult>( [DebuggerStepThrough] (resolve, reject) =>
             {
                 resolve(result);
             } );
@@ -52,29 +60,29 @@ namespace OpenTibia.Game.Commands
 
         public static Promise Yield(Server server)
         {
-            return Promise.Run( (resolve, reject) =>
+            return Promise.Run( [DebuggerStepThrough] (resolve, reject) =>
             {
                 server.QueueForExecution( () =>
                 {
-                    return Promise.Completed().Then(resolve);
+                    return Promise.Completed.Then(resolve);
                 } );               
             } );            
         }
 
         public static Promise Delay(Server server, string key, int executeInMilliseconds)
         {
-            return Promise.Run( (resolve, reject) =>
+            return Promise.Run( [DebuggerStepThrough] (resolve, reject) =>
             {
                 server.QueueForExecution(key, executeInMilliseconds, () =>
                 {
-                    return Promise.Completed().Then(resolve);
+                    return Promise.Completed.Then(resolve);
                 } );               
             } ); 
         }
 
         public static Promise WhenAll(params Promise[] promises)
         {
-            return Promise.Run( (resolve, reject) =>
+            return Promise.Run( [DebuggerStepThrough] (resolve, reject) =>
             {
                 int index = 0;
 
@@ -94,7 +102,7 @@ namespace OpenTibia.Game.Commands
 
         public static Promise WhenAny(params Promise[] promises)
         {
-            return Promise.Run( (resolve, reject) =>
+            return Promise.Run( [DebuggerStepThrough] (resolve, reject) =>
             {
                 int index = 0;
 
@@ -185,7 +193,7 @@ namespace OpenTibia.Game.Commands
 
         public Promise Catch(Action<Exception> onRejected)
         {
-            return Promise.Run( (resolve, reject) =>
+            return Promise.Run( [DebuggerStepThrough] (resolve, reject) =>
             {
                 if (this.status == PromiseStatus.Pending)
                 {
@@ -216,7 +224,7 @@ namespace OpenTibia.Game.Commands
 
         public Promise Then(Action onFullfilled)
         {
-            return Promise.Run( (resolve, reject) =>
+            return Promise.Run( [DebuggerStepThrough] (resolve, reject) =>
             {
                 if (this.status == PromiseStatus.Pending)
                 {
@@ -247,7 +255,7 @@ namespace OpenTibia.Game.Commands
 
         public Promise Then(Func<Promise> onFullfilled)
         {
-            return Promise.Run( (resolve, reject) =>
+            return Promise.Run( [DebuggerStepThrough] (resolve, reject) =>
             {
                 if (this.status == PromiseStatus.Pending)
                 {
@@ -274,7 +282,7 @@ namespace OpenTibia.Game.Commands
 
         public PromiseResult<TResult> Then<TResult>(Func<PromiseResult<TResult> > onFullfilled)
         {
-            return Promise.Run<TResult>( (resolve, reject) =>
+            return Promise.Run<TResult>( [DebuggerStepThrough] (resolve, reject) =>
             {
                 if (this.status == PromiseStatus.Pending)
                 {

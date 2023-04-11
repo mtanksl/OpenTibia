@@ -158,7 +158,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         component.AddCooldown(rune.Group, rune.GroupCooldownInMilliseconds);
 
-                        return Promise.Completed().Then( () =>
+                        return Promise.Completed.Then( () =>
                         {
                             return rune.Callback(Context, command.Player, command.ToCreature);
 

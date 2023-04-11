@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "The time is " + Context.Server.Clock.Hour.ToString("00") + ":" + Context.Server.Clock.Minute.ToString("00") + ".") );
 
-                return Promise.Completed();
+                return Promise.Completed;
             }
 
             return next();

@@ -46,7 +46,7 @@ namespace OpenTibia.Game.CommandHandlers
                     return Context.AddCommand(new ItemDecayTransformCommand(item, 2000, decay[item.Metadata.OpenTibiaId], 1) );                      
                 } );
 
-                return Promise.Completed();
+                return Promise.Completed;
             }
 
             return next();

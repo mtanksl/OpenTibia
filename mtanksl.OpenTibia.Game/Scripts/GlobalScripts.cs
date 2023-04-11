@@ -15,7 +15,7 @@ namespace OpenTibia.Game.Scripts
             
                 GlobalLight();
 
-                return Promise.Completed();
+                return Promise.Completed;
             } );
         }
 

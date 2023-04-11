@@ -29,7 +29,7 @@ namespace OpenTibia.Game.CommandHandlers
                         return next();
                     }
 
-                    return Promise.Completed();
+                    return Promise.Completed;
                 } );
             }
 

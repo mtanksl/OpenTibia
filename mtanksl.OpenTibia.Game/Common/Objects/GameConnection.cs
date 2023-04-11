@@ -31,7 +31,7 @@ namespace OpenTibia.Common.Objects
 
                 context.AddPacket(this, new SendConnectionInfoOutgoingPacket() );
 
-                return Promise.Completed();
+                return Promise.Completed;
             } );
 
             base.OnConnected();

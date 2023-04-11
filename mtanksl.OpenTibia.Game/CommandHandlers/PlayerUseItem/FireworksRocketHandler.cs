@@ -27,7 +27,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Context.AddCommand(new ItemDestroyCommand(command.Item) );
 
-                return Promise.Completed();
+                return Promise.Completed;
             }
 
             return next();

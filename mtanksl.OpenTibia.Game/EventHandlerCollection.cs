@@ -2,10 +2,12 @@
 using OpenTibia.Game.Events;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace OpenTibia.Game
 {
+    [DebuggerStepThrough]
     public class EventHandlerCollection
     {
         private Dictionary<Type, Dictionary<Guid, IEventHandler> > types = new Dictionary<Type, Dictionary<Guid, IEventHandler> >();

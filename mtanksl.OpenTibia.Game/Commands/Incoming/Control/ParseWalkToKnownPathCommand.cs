@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Commands
                 } ); 
             }
 
-            return Promise.Completed();
+            return Promise.Completed;
         }
     }
 }

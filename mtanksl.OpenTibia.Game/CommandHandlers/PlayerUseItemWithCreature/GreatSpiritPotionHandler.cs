@@ -24,7 +24,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Context.AddCommand(new ShowTextCommand(player, TalkType.MonsterSay, "Aaaah...") );
 
-                return Promise.Completed();
+                return Promise.Completed;
             }
 
             return next();

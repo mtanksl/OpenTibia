@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "It is locked.") );
 
-                return Promise.Completed();
+                return Promise.Completed;
             }
 
             return next();
