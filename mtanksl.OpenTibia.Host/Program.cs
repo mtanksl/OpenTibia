@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Game;
-using OpenTibia.Game.Commands;
 using System;
 
 namespace OpenTibia.Host

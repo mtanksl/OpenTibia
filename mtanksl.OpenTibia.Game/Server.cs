@@ -152,73 +152,87 @@ namespace OpenTibia.Game
 
         private Dictionary<string, SchedulerEvent> schedulerEvents = new Dictionary<string, SchedulerEvent>();
 
-        public Promise QueueForExecution(Func<Promise> callback)
+        public void QueueForExecution(Func<Promise> callback)
         {
-            return Promise.Run( (resolve, reject) =>
+            var previousContext = Context.Current;
+
+            dispatcher.QueueForExecution( () =>
             {
-                var previousContext = Context.Current;
-
-                dispatcher.QueueForExecution( () =>
+                try
                 {
-                    try
+                    using (var context = new Context(this, previousContext) )
                     {
-                        using (var context = new Context(this, previousContext) )
+                        using (var scope = new Scope<Context>(context) )
                         {
-                            using (var scope = new Scope<Context>(context) )
+                            callback().Catch(ex =>
                             {
-                                callback().Then(resolve);
+                                if (ex is PromiseCanceledException)
+                                {
 
-                                context.Flush();
-                            }
+                                }
+                                else
+                                {
+                                    Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                                }
+                            } );
+
+                            context.Flush();
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        Logger.WriteLine(ex.ToString(), LogLevel.Error);
-                    }
-                } );
-            } );            
+                }
+                catch (Exception ex)
+                {
+                    Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                }
+            } );
         }
 
-        public Promise QueueForExecution(string key, int executeInMilliseconds, Func<Promise> callback)
+        public void QueueForExecution(string key, int executeInMilliseconds, Func<Promise> callback)
         {
-            return Promise.Run( (resolve, reject) =>
+            SchedulerEvent schedulerEvent;
+
+            if ( schedulerEvents.TryGetValue(key, out schedulerEvent) )
             {
-                SchedulerEvent schedulerEvent;
+                schedulerEvents.Remove(key);
 
-                if ( schedulerEvents.TryGetValue(key, out schedulerEvent) )
+                schedulerEvent.Cancel();
+            }
+
+            var previousContext = Context.Current;
+
+            schedulerEvent = scheduler.QueueForExecution(executeInMilliseconds, () =>
+            {
+                schedulerEvents.Remove(key);
+
+                try
                 {
-                    schedulerEvents.Remove(key);
-
-                    schedulerEvent.Cancel();
-                }
-
-                var previousContext = Context.Current;
-
-                schedulerEvent = scheduler.QueueForExecution(executeInMilliseconds, () =>
-                {
-                    schedulerEvents.Remove(key);
-
-                    try
+                    using (var context = new Context(this, previousContext) )
                     {
-                        using (var context = new Context(this, previousContext) )
+                        using (var scope = new Scope<Context>(context) )
                         {
-                            using (var scope = new Scope<Context>(context) )
+                            callback().Catch(ex =>
                             {
-                                callback().Then(resolve);
+                                if (ex is PromiseCanceledException)
+                                {
 
-                                context.Flush();
-                            }
+                                }
+                                else
+                                {
+                                    Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                                }
+                            } );
+
+                            context.Flush();
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        Logger.WriteLine(ex.ToString(), LogLevel.Error);
-                    }
-                } );
-
-                schedulerEvents.Add(key, schedulerEvent);
+                }
+                catch (Exception ex)
+                {
+                    Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                }
             } );
+
+            schedulerEvents.Add(key, schedulerEvent);
         }
 
         public bool CancelQueueForExecution(string key)

@@ -23,42 +23,33 @@ namespace OpenTibia.Game.Scripts
         {
             Context context = Context.Current;
 
-            return context.AddCommand(new GlobalCreaturesCommand() ).Then( () =>
-            {
-                return Promise.Delay(context.Server, "Global_Creatures", 100);
+            return context.AddCommand(new GlobalCreaturesCommand() )
 
-            } ).Then( () =>
-            {
-                return GlobalCreatures();
-            } );
+                .Then( () => Promise.Delay(context.Server, "Global_Creatures", 100) )
+
+                .Then( () => GlobalCreatures() );
         }
 
         private Promise GlobalItems()
         {
             Context context = Context.Current;
 
-            return context.AddCommand(new GlobalItemsCommand() ).Then( () =>
-            {
-                return Promise.Delay(context.Server, "Global_Items", 60000);
+            return context.AddCommand(new GlobalItemsCommand() )
 
-            } ).Then( () =>
-            {
-                return GlobalItems();
-            } );
+                .Then( () => Promise.Delay(context.Server, "Global_Items", 60000) )
+                
+                .Then( () => GlobalItems() );
         }
 
         private Promise GlobalLight()
         {
             Context context = Context.Current;
 
-            return context.AddCommand(new GlobalLightCommand() ).Then( () =>
-            {
-                return Promise.Delay(context.Server, "Global_Light", Clock.Interval);
+            return context.AddCommand(new GlobalLightCommand() )
 
-            } ).Then( () =>
-            {
-                return GlobalLight();
-            } );
+                .Then( () => Promise.Delay(context.Server, "Global_Light", Clock.Interval) )
+                
+                .Then( () => GlobalLight() );
         }
 
         public void Stop(Server server)

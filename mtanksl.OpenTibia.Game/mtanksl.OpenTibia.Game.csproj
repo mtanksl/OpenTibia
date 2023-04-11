@@ -136,6 +136,7 @@
     <Compile Include="EventHandlers\TileAddCreature\CampfireHandler.cs" />
     <Compile Include="EventHandlers\TileRemoveCreature\CloseDoorAutomaticallyHandler.cs" />
     <Compile Include="Extensions\SplashItemExtensions.cs" />
+    <Compile Include="Promises\PromiseCanceledException.cs" />
     <Compile Include="Randomization.cs" />
     <Compile Include="Strategies\Walk\FollowWalkStrategy.cs" />
     <Compile Include="Strategies\Walk\ApproachWalkStrategy.cs" />

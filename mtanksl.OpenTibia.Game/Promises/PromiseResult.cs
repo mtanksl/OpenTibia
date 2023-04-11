@@ -21,7 +21,14 @@ namespace OpenTibia.Game.Commands
 
         public PromiseResult(Action<Action<TResult>, Action<Exception> > run)
         {
-            run(Resolve, Reject);
+            try
+            {
+                run(Resolve, Reject);
+            }
+            catch (Exception ex)
+            {
+                Reject(ex);
+            }
         }
 
         private void Resolve(TResult result)
@@ -87,7 +94,38 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        public PromiseResult<TResult> Then(Action<TResult> onFullfilled, Action<Exception> onRejected = null)
+        public Promise Catch(Action<Exception> onRejected)
+        {
+            return Promise.Run( (resolve, reject) =>
+            {
+                if (this.status == PromiseStatus.Pending)
+                {
+                    this.continueWithFulfilled = (r) =>
+                    {
+                        resolve();
+                    };
+
+                    this.continueWithRejected = (e) =>
+                    {
+                        onRejected(e);
+
+                        reject(e);
+                    };
+                }
+                else if (this.status == PromiseStatus.Fulfilled)
+                {
+                    resolve();
+                }
+                else if (this.status == PromiseStatus.Rejected)
+                {
+                    onRejected(this.exception);
+
+                    reject(this.exception);
+                }
+            } );
+        }   
+
+        public PromiseResult<TResult> Then(Action<TResult> onFullfilled)
         {
             return Promise.Run<TResult>( (resolve, reject) =>
             {
@@ -102,11 +140,6 @@ namespace OpenTibia.Game.Commands
 
                     this.continueWithRejected = (e) =>
                     {
-                        if (onRejected != null)
-                        {
-                            onRejected(e);
-                        }
-                        
                         reject(e);
                     };
                 }
@@ -118,17 +151,12 @@ namespace OpenTibia.Game.Commands
                 }
                 else if (this.status == PromiseStatus.Rejected)
                 {
-                    if (onRejected != null)
-                    {
-                        onRejected(this.exception);
-                    }
-                    
                     reject(this.exception);
                 }
             } );
         }
 
-        public PromiseResult<TResult> Then(Func<TResult, PromiseResult<TResult> > onFullfilled, Func<Exception, PromiseResult<TResult> > onRejected = null)
+        public PromiseResult<TResult> Then(Func<TResult, PromiseResult<TResult> > onFullfilled)
         {
             return Promise.Run<TResult>( (resolve, reject) =>
             {
@@ -136,40 +164,26 @@ namespace OpenTibia.Game.Commands
                 {
                     this.continueWithFulfilled = (r) =>
                     {
-                        onFullfilled(r).Then(resolve, reject);
+                        onFullfilled(r).Then(resolve).Catch(reject);
                     };
 
                     this.continueWithRejected = (e) =>
                     {
-                        if (onRejected != null)
-                        {
-                            onRejected(e).Then(resolve, reject);
-                        }
-                        else
-                        {
-                            reject(e);
-                        }                       
+                        reject(e);                     
                     };
                 }
                 else if (this.status == PromiseStatus.Fulfilled)
                 {
-                    onFullfilled(this.result).Then(resolve, reject);
+                    onFullfilled(this.result).Then(resolve).Catch(reject);
                 }
                 else if (this.status == PromiseStatus.Rejected)
                 {
-                    if (onRejected != null)
-                    {
-                        onRejected(this.exception).Then(resolve, reject);
-                    }
-                    else
-                    {
-                        reject(this.exception);
-                    }                 
+                    reject(this.exception);                
                 }
             } );
         }
 
-        public PromiseResult<TResult2> Then<TResult2>(Func<TResult, PromiseResult<TResult2> > onFullfilled, Func<Exception, PromiseResult<TResult2> > onRejected = null)
+        public PromiseResult<TResult2> Then<TResult2>(Func<TResult, PromiseResult<TResult2> > onFullfilled)
         {
             return Promise.Run<TResult2>( (resolve, reject) =>
             {
@@ -177,40 +191,26 @@ namespace OpenTibia.Game.Commands
                 {
                     this.continueWithFulfilled = (r) =>
                     {
-                        onFullfilled(r).Then(resolve, reject);
+                        onFullfilled(r).Then(resolve).Catch(reject);
                     };
 
                     this.continueWithRejected = (e) =>
                     {
-                        if (onRejected != null)
-                        {
-                            onRejected(e).Then(resolve, reject);
-                        }
-                        else
-                        {
-                            reject(e);
-                        }
+                        reject(e);
                     };
                 }
                 else if (this.status == PromiseStatus.Fulfilled)
                 {
-                    onFullfilled(this.result).Then(resolve, reject);
+                    onFullfilled(this.result).Then(resolve).Catch(reject);
                 }
                 else if (this.status == PromiseStatus.Rejected)
                 {
-                    if (onRejected != null)
-                    {
-                        onRejected(this.exception).Then(resolve, reject);
-                    }
-                    else
-                    {
-                        reject(this.exception);
-                    }
+                    reject(this.exception);
                 }
             } );
         }
 
-        public Promise Then(Func<TResult, Promise> onFullfilled, Func<Exception, Promise> onRejected = null)
+        public Promise Then(Func<TResult, Promise> onFullfilled)
         {
             return Promise.Run( (resolve, reject) =>
             {
@@ -218,35 +218,21 @@ namespace OpenTibia.Game.Commands
                 {
                     this.continueWithFulfilled = (r) =>
                     {
-                        onFullfilled(r).Then(resolve, reject);
+                        onFullfilled(r).Then(resolve).Catch(reject);
                     };
 
                     this.continueWithRejected = (e) =>
                     {
-                        if (onRejected != null)
-                        {
-                            onRejected(e).Then(resolve, reject);
-                        }
-                        else
-                        {
-                            reject(e);
-                        }
+                        reject(e);
                     };
                 }
                 else if (this.status == PromiseStatus.Fulfilled)
                 {
-                    onFullfilled(this.result).Then(resolve, reject);
+                    onFullfilled(this.result).Then(resolve).Catch(reject);
                 }
                 else if (this.status == PromiseStatus.Rejected)
                 {
-                    if (onRejected != null)
-                    {
-                        onRejected(this.exception).Then(resolve, reject);
-                    }
-                    else
-                    {
-                        reject(this.exception);
-                    }
+                    reject(this.exception);
                 }
             } );
         }     
@@ -257,6 +243,6 @@ namespace OpenTibia.Game.Commands
             {
                 return Promise.Completed();
             } );
-        }
+        }          
     }
 }
