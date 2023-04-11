@@ -26,7 +26,9 @@ namespace OpenTibia.Game
                 throw new InvalidOperationException("GameObject is not initialized.");
             }
 
-            if ( !buckets.TryGetValue(gameObject.Id, out var components) )
+            List<Component> components;
+
+            if ( !buckets.TryGetValue(gameObject.Id, out components) )
             {
                 components = new List<Component>();
 
@@ -54,7 +56,9 @@ namespace OpenTibia.Game
                 throw new InvalidOperationException("GameObject is not initialized.");
             }
 
-            if (buckets.TryGetValue(gameObject.Id, out var components) )
+            List<Component> components;
+
+            if (buckets.TryGetValue(gameObject.Id, out components) )
             {
                 if (components.Remove(component) )
                 {
@@ -82,7 +86,9 @@ namespace OpenTibia.Game
                 throw new InvalidOperationException("GameObject is not initialized.");
             }
 
-            if (buckets.TryGetValue(gameObject.Id, out var components) )
+            List<Component> components;
+
+            if (buckets.TryGetValue(gameObject.Id, out components) )
             {
                 foreach (var component in components)
                 {
@@ -107,7 +113,9 @@ namespace OpenTibia.Game
                 throw new InvalidOperationException("GameObject is not initialized.");
             }
 
-            if (buckets.TryGetValue(gameObject.Id, out var components) )
+            List<Component> components;
+
+            if (buckets.TryGetValue(gameObject.Id, out components) )
             {
                 return components.OfType<T>().FirstOrDefault();
             }
@@ -124,7 +132,9 @@ namespace OpenTibia.Game
                 throw new InvalidOperationException("GameObject is not initialized.");
             }
 
-            if (buckets.TryGetValue(gameObject.Id, out var components) )
+            List<Component> components;
+
+            if (buckets.TryGetValue(gameObject.Id, out components) )
             {
                 return components.OfType<T>();
             }

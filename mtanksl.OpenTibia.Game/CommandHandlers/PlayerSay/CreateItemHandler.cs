@@ -9,28 +9,23 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
-            if (command.Message.StartsWith("/i") )
+            if (command.Message.StartsWith("/i ") )
             {
-                int startIndex = command.Message.IndexOf(' ');
+                ushort toOpenTibiaId;
 
-                if (startIndex != -1)
+                if (ushort.TryParse(command.Message.Substring(3), out toOpenTibiaId) )
                 {
-                    ushort toOpenTibiaId;
+                    Tile toTile = Context.Server.Map.GetTile(command.Player.Tile.Position.Offset(command.Player.Direction) );
 
-                    if (ushort.TryParse(command.Message.Substring(startIndex + 1), out toOpenTibiaId) )
+                    if (toTile != null)
                     {
-                        Tile toTile = Context.Server.Map.GetTile(command.Player.Tile.Position.Offset(command.Player.Direction) );
-
-                        if (toTile != null)
+                        return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                         {
-                            return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
-                            {
-                                return Context.AddCommand(new TileIncrementOrCreateItemCommand(toTile, toOpenTibiaId, 1) );
-                            } );
-                        }
-
-                        return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                            return Context.AddCommand(new TileIncrementOrCreateItemCommand(toTile, toOpenTibiaId, 1) );
+                        } );
                     }
+
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
                 }
             }
 

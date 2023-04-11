@@ -77,10 +77,10 @@ namespace OpenTibia.Game.CommandHandlers
             { 8847, "Yum." }
         };
 
-        private string message;
-
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
+            string message;
+
             if (foods.TryGetValue(command.Item.Metadata.OpenTibiaId, out message) )
             {
                 return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>

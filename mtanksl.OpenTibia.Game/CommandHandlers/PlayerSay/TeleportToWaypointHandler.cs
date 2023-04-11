@@ -9,31 +9,26 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
-            if (command.Message.StartsWith("/w") )
+            if (command.Message.StartsWith("/w ") )
             {
-                int startIndex = command.Message.IndexOf(' ');
+                string name = command.Message.Substring(3);
 
-                if (startIndex != -1)
+                Waypoint waypoint = Context.Server.Map.GetWaypoint(name);
+
+                if (waypoint != null)
                 {
-                    string name = command.Message.Substring(startIndex + 1);
+                    Tile toTile = Context.Server.Map.GetTile(waypoint.Position);
 
-                    Waypoint waypoint = Context.Server.Map.GetWaypoint(name);
-
-                    if (waypoint != null)
+                    if (toTile != null)
                     {
-                        Tile toTile = Context.Server.Map.GetTile(waypoint.Position);
-
-                        if (toTile != null)
+                        return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) ).Then( () =>
                         {
-                            return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) ).Then( () =>
-                            {
-                                return Context.AddCommand(new CreatureUpdateParentCommand(command.Player, toTile) );
-                            } );
-                        }
+                            return Context.AddCommand(new CreatureUpdateParentCommand(command.Player, toTile) );
+                        } );
                     }
-
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
                 }
+
+                return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
             }
 
             return next();

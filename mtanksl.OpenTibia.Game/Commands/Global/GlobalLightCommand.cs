@@ -6,17 +6,14 @@ namespace OpenTibia.Game.Commands
     {
         public override Promise Execute()
         {         
-            return Promise.Run( (resolve, reject) =>
+            Context.Server.Clock.Tick();
+
+            foreach (var observer in Context.Server.GameObjects.GetPlayers() )
             {
-                Context.Server.Clock.Tick();
+                Context.AddPacket(observer.Client.Connection, new SetEnvironmentLightOutgoingPacket(Context.Server.Clock.Light) );
+            }
 
-                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
-                {
-                    Context.AddPacket(observer.Client.Connection, new SetEnvironmentLightOutgoingPacket(Context.Server.Clock.Light) );
-                }
-
-                resolve();
-            } );
+            return Promise.Completed;
         }
     }
 }

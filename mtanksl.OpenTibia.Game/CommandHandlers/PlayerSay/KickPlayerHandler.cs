@@ -10,25 +10,20 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
-            if (command.Message.StartsWith("/kick") )
+            if (command.Message.StartsWith("/kick ") )
             {
-                int startIndex = command.Message.IndexOf(' ');
+                string name = command.Message.Substring(6);
 
-                if (startIndex != -1)
+                Player player = Context.Server.GameObjects.GetPlayers()
+                    .Where(p => p.Name == name)
+                    .FirstOrDefault();
+
+                if (player != null && player != command.Player)
                 {
-                    string name = command.Message.Substring(startIndex + 1);
-
-                    Player player = Context.Server.GameObjects.GetPlayers()
-                        .Where(p => p.Name == name)
-                        .FirstOrDefault();
-
-                    if (player != null && player != command.Player)
-                    {
-                        return Context.AddCommand(new ParseLogOutCommand(player) );
-                    }
-
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                    return Context.AddCommand(new ParseLogOutCommand(player) );
                 }
+
+                return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
             }
 
             return next();

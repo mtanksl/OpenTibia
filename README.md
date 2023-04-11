@@ -139,9 +139,9 @@ public class DisplayMagicEffectHandler : CommandHandler<PlayerSayCommand>
 {
     public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
     {
-        if (command.Message.StartsWith("/me") && command.Message.Contains(" ") && int.TryParse(command.Message.Split(' ')[1], out int id) && id >= 1 && id <= 70)
+        if (command.Message.StartsWith("/me ") && int.TryParse(command.Message.Substring(4), out int id) && id >= 1 && id <= 70)
         {
-            return Context.AddCommand(new ShowMagicEffectCommand(command.Player..Position, (MagicEffectType)id) );
+            return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, (MagicEffectType)id) );
         }
 
         return next();

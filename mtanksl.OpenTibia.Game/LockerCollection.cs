@@ -8,7 +8,9 @@ namespace OpenTibia.Common.Objects
 
         public void AddLocker(int databasePlayerId, ushort townId, Container container)
         {
-            if ( !players.TryGetValue(databasePlayerId, out var towns) )
+            Dictionary<ushort, Container> towns;
+
+            if ( !players.TryGetValue(databasePlayerId, out towns) )
             {
                 towns = new Dictionary<ushort, Container>();
 
@@ -20,7 +22,9 @@ namespace OpenTibia.Common.Objects
 
         public void RemoveLocker(int databasePlayerId, ushort townId)
         {
-            if ( players.TryGetValue(databasePlayerId, out var towns) )
+            Dictionary<ushort, Container> towns;
+
+            if ( players.TryGetValue(databasePlayerId, out towns) )
             {
                 towns.Remove(townId);
 
@@ -33,7 +37,9 @@ namespace OpenTibia.Common.Objects
 
         public Container GetLocker(int databasePlayerId, ushort townId)
         {
-            if ( players.TryGetValue(databasePlayerId, out var towns) )
+            Dictionary<ushort, Container> towns;
+
+            if ( players.TryGetValue(databasePlayerId, out towns) )
             {
                 if ( towns.TryGetValue(townId, out var locker) )
                 {
@@ -46,7 +52,9 @@ namespace OpenTibia.Common.Objects
 
         public IEnumerable<KeyValuePair<ushort, Container>> GetIndexedLockers(int databasePlayerId)
         {
-            if ( players.TryGetValue(databasePlayerId, out var towns) )
+            Dictionary<ushort, Container> towns;
+
+            if ( players.TryGetValue(databasePlayerId, out towns) )
             {
                 foreach (var pair in towns)
                 {

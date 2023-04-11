@@ -10,33 +10,28 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
-            if (command.Message.StartsWith("/c") )
+            if (command.Message.StartsWith("/c ") )
             {
-                int startIndex = command.Message.IndexOf(' ');
+                string name = command.Message.Substring(3);
 
-                if (startIndex != -1)
+                Player player = Context.Server.GameObjects.GetPlayers()
+                    .Where(p => p.Name == name)
+                    .FirstOrDefault();
+
+                if (player != null && player != command.Player)
                 {
-                    string name = command.Message.Substring(startIndex + 1);
+                    Tile toTile = command.Player.Tile;
 
-                    Player player = Context.Server.GameObjects.GetPlayers()
-                        .Where(p => p.Name == name)
-                        .FirstOrDefault();
-
-                    if (player != null && player != command.Player)
+                    if (toTile != null)
                     {
-                        Tile toTile = command.Player.Tile;
-
-                        if (toTile != null)
+                        return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) ).Then( () =>
                         {
-                            return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) ).Then( () =>
-                            {
-                                return Context.AddCommand(new CreatureUpdateParentCommand(player, toTile) );
-                            } );
-                        }
+                            return Context.AddCommand(new CreatureUpdateParentCommand(player, toTile) );
+                        } );
                     }
-
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
                 }
+
+                return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
             }
 
             return next();

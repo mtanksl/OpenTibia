@@ -6,19 +6,6 @@ namespace OpenTibia.Game.Commands
     [DebuggerStepThrough]
     public class Promise
     {
-        private static Promise broken = Promise.Run( (resolve, reject) =>
-        {
-            reject(new PromiseCanceledException() );
-        } );
-
-        public static Promise Break
-        {
-            get
-            {
-                return broken;
-            }
-        }
-
         private static Promise completed = Promise.Run( (resolve, reject) =>
         {
             resolve();
@@ -32,17 +19,17 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        public static Promise FromException(Exception exception)
+        private static Promise broken = Promise.Run( (resolve, reject) =>
         {
-            return Promise.Run( [DebuggerStepThrough] (resolve, reject) =>
-            {
-                reject(exception);
-            } );
-        }
+            reject(new PromiseCanceledException() );
+        } );
 
-        public static Promise Run(Action<Action, Action<Exception> > run)
+        public static Promise Break
         {
-            return new Promise(run);
+            get
+            {
+                return broken;
+            }
         }
 
         public static PromiseResult<TResult> FromResult<TResult>(TResult result)
@@ -53,9 +40,58 @@ namespace OpenTibia.Game.Commands
             } );
         }
 
+        public static PromiseResult<TResult> Run<TResult>(Func<TResult> run)
+        {
+            return Promise.Run<TResult>( [DebuggerStepThrough] (resolve, reject) =>
+            {
+                var result = run();
+
+                resolve(result);
+            } );
+        }
+
+        public static PromiseResult<TResult> Run<TResult>(Func<PromiseResult<TResult>> run)
+        {
+            return Promise.Run<TResult>( [DebuggerStepThrough] (resolve, reject) =>
+            {
+                run().Then(resolve).Catch(reject);
+            } );
+        }
+
         public static PromiseResult<TResult> Run<TResult>(Action<Action<TResult>, Action<Exception> > run)
         {
             return new PromiseResult<TResult>(run);
+        }
+        
+        public static Promise FromException(Exception exception)
+        {
+            return Promise.Run( [DebuggerStepThrough] (resolve, reject) =>
+            {
+                reject(exception);
+            } );
+        }
+
+        public static Promise Run(Action run)
+        {
+            return Promise.Run( [DebuggerStepThrough] (resolve, reject) =>
+            {
+                run();
+
+                resolve();
+            } );
+        }
+
+        public static Promise Run(Func<Promise> run)
+        {
+            return Promise.Run( [DebuggerStepThrough] (resolve, reject) =>
+            {
+                run().Then(resolve).Catch(reject);
+            } );
+        }
+
+        public static Promise Run(Action<Action, Action<Exception> > run)
+        {
+            return new Promise(run);
         }
 
         public static Promise Yield(Server server)
@@ -64,7 +100,9 @@ namespace OpenTibia.Game.Commands
             {
                 server.QueueForExecution( () =>
                 {
-                    return Promise.Completed.Then(resolve);
+                    resolve();
+
+                    return Promise.Completed;
                 } );               
             } );            
         }
@@ -75,7 +113,9 @@ namespace OpenTibia.Game.Commands
             {
                 server.QueueForExecution(key, executeInMilliseconds, () =>
                 {
-                    return Promise.Completed.Then(resolve);
+                    resolve();
+
+                    return Promise.Completed;
                 } );               
             } ); 
         }

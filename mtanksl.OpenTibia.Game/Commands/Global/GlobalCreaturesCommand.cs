@@ -8,18 +8,15 @@ namespace OpenTibia.Game.Commands
     {
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            foreach (var component in Context.Server.Components.GetComponentsOfType<Creature, PeriodicBehaviour>().ToList() )
             {
-                foreach (var component in Context.Server.Components.GetComponentsOfType<Creature, PeriodicBehaviour>().ToList() )
+                if (component.GameObject != null)
                 {
-                    if (component.GameObject != null)
-                    {
-                        component.Update();
-                    }
+                    component.Update();
                 }
+            }
 
-                resolve();
-            } );
+            return Promise.Completed;
         }
     }
 }
