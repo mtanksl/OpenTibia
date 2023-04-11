@@ -9,6 +9,8 @@
     <None Remove="data\items\items.otb" />
     <None Remove="data\items\items.xml" />
     <None Remove="data\items\tibia.dat" />
+    <None Remove="data\map\pholium3-house.xml" />
+    <None Remove="data\map\pholium3-spawn.xml" />
     <None Remove="data\map\pholium3.otbm" />
     <None Remove="data\monsters\Acid Blob.xml" />
     <None Remove="data\monsters\Acolyte of the Cult.xml" />
@@ -345,9 +347,13 @@
     <None Remove="data\monsters\Zombie.xml" />
     <None Remove="data\monsters\Zugurosh.xml" />
     <None Remove="data\npcs\Cipfried.xml" />
+    <None Remove="data\template.db" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="data\template.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="data\items\items.otb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -355,6 +361,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\items\tibia.dat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\map\pholium3-house.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\map\pholium3-spawn.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\map\pholium3.otbm">
@@ -1369,12 +1381,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\mtanksl.OpenTibia.Game\mtanksl.OpenTibia.Game.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="data\database.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

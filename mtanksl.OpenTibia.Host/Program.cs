@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Game;
 using System;
+using System.IO;
 
 namespace mtanksl.OpenTibia.Host2
 {
@@ -7,6 +8,11 @@ namespace mtanksl.OpenTibia.Host2
     {
         static void Main(string[] args)
         {
+            if ( !File.Exists("data\\database.db") )
+            {
+                File.Copy("data\\template.db", "data\\database.db");
+            }
+
             using (var server = new Server(7171, 7172) )
             {
                 server.Start();
