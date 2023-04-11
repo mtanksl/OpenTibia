@@ -21,12 +21,12 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                 {
-                    context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Broadcast, Message) );
+                    Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Broadcast, Message) );
                 }
 
-                resolve(context);
+                resolve();
             } );
         }
     }

@@ -21,33 +21,33 @@ namespace OpenTibia.Game.Commands
                 {
                     case Tile tile:
 
-                        context.AddCommand(new TileRemoveItemCommand(tile, Item) ).Then(ctx =>
+                        Context.AddCommand(new TileRemoveItemCommand(tile, Item) ).Then( () =>
                         {
-                            Destroy(ctx, Item);
+                            Destroy(Item);
 
-                            resolve(ctx);
+                            resolve();
                         } );
                   
                         break;
 
                     case Inventory inventory:
 
-                        context.AddCommand(new InventoryRemoveItemCommand(inventory, Item) ).Then(ctx =>
+                        Context.AddCommand(new InventoryRemoveItemCommand(inventory, Item) ).Then( () =>
                         {
-                            Destroy(ctx, Item);
+                            Destroy(Item);
 
-                            resolve(ctx);
+                            resolve();
                         } );
                    
                         break;
 
                     case Container container:
 
-                        context.AddCommand(new ContainerRemoveItemCommand(container, Item) ).Then(ctx =>
+                        Context.AddCommand(new ContainerRemoveItemCommand(container, Item) ).Then( () =>
                         {
-                            Destroy(ctx, Item);
+                            Destroy(Item);
 
-                            resolve(ctx);
+                            resolve();
                         } );
 
                         break;
@@ -55,7 +55,7 @@ namespace OpenTibia.Game.Commands
             } );            
         }
 
-        private void Destroy(Context context, Item item)
+        private void Destroy(Item item)
         {
             if (item is Container container)
             {
@@ -67,18 +67,18 @@ namespace OpenTibia.Game.Commands
                         {
                             observer.Client.ContainerCollection.CloseContainer(pair.Key);
 
-                            context.AddPacket(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                            Context.AddPacket(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
                         }
                     }
                 }
 
                 foreach (var child in container.GetItems() )
                 {
-                    Destroy(context, child);
+                    Destroy(child);
                 }
             }
 
-            context.Server.ItemFactory.Destroy(item);
+            Context.Server.ItemFactory.Destroy(item);
         }
     }
 }

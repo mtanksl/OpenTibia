@@ -21,24 +21,24 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                Player reporter = context.Server.GameObjects.GetPlayers()
+                Player reporter = Context.Server.GameObjects.GetPlayers()
                     .Where(p => p.Name == Name)
                     .FirstOrDefault();
             
                 if (reporter != null)
                 {
-                    RuleViolation ruleViolation = context.Server.RuleViolations.GetRuleViolationByReporter(reporter);
+                    RuleViolation ruleViolation = Context.Server.RuleViolations.GetRuleViolationByReporter(reporter);
 
                     if (ruleViolation != null && ruleViolation.Assignee == null)
                     {
                         ruleViolation.Assignee = Player;
 
-                        foreach (var observer in context.Server.Channels.GetChannel(3).GetPlayers() )
+                        foreach (var observer in Context.Server.Channels.GetChannel(3).GetPlayers() )
                         {
-                            context.AddPacket(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
+                            Context.AddPacket(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
                         }
 
-                        resolve(context);
+                        resolve();
                     }
                 }
             } );

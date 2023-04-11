@@ -20,14 +20,14 @@ namespace OpenTibia.Game.Commands
 
                 if (fromTile != null)
                 {
-                    context.AddCommand(new ShowMagicEffectCommand(fromTile.Position, MagicEffectType.Puff) );
+                    Context.AddCommand(new ShowMagicEffectCommand(fromTile.Position, MagicEffectType.Puff) );
 
-                    context.AddCommand(new PlayerDestroyCommand(Player) );
+                    Context.AddCommand(new PlayerDestroyCommand(Player) );
                 }
 
-                context.Disconnect(Player.Client.Connection);
+                Context.Disconnect(Player.Client.Connection);
 
-                resolve(context);
+                resolve();
             } );
         }
     }

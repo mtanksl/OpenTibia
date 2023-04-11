@@ -12,17 +12,17 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort flour = 2692;
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
             if (wheats.Contains(command.Item.Metadata.OpenTibiaId) && millstones.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
-                return context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
+                return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                 {
-                    return ctx.AddCommand(new TileIncrementOrCreateItemCommand(command.Player.Tile, flour, 1) );
+                    return Context.AddCommand(new TileIncrementOrCreateItemCommand(command.Player.Tile, flour, 1) );
                 } );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return context.AddCommand(new CreatureUpdateOutfit(Player, Outfit) );
+            return Context.AddCommand(new CreatureUpdateOutfit(Player, Outfit) );
         }
     }
 }

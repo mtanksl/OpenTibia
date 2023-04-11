@@ -15,11 +15,11 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                context.AddCommand(new TileRemoveCreatureCommand(Monster.Tile, Monster) );
+                Context.AddCommand(new TileRemoveCreatureCommand(Monster.Tile, Monster) );
 
-                context.Server.MonsterFactory.Destroy(Monster);
+                Context.Server.MonsterFactory.Destroy(Monster);
 
-                resolve(context);
+                resolve();
             } );   
         }
     }

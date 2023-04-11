@@ -90,13 +90,13 @@ namespace OpenTibia.Game.Components
 
         private DateTime moveCooldown;
 
-        public override void Update(Context context)
+        public override void Update()
         {
             if (target != null)
             {
                 if (target.Tile == null)
                 {
-                    context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
+                    Context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
 
                                                                 new StopAttackAndFollowOutgoingPacket(0) );
 
@@ -106,7 +106,7 @@ namespace OpenTibia.Game.Components
                 {
                     if ( !player.Tile.Position.CanHearSay(target.Tile.Position) )
                     {
-                        context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
+                        Context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
 
                                                                     new StopAttackAndFollowOutgoingPacket(0) );
 
@@ -118,11 +118,11 @@ namespace OpenTibia.Game.Components
                         {
                             if (DateTime.UtcNow > moveCooldown)
                             {
-                                var toTile = walkStrategy.GetNext(context, null, player, target);
+                                var toTile = walkStrategy.GetNext(Context, null, player, target);
 
                                 if (toTile != null)
                                 {
-                                    context.AddCommand(new CreatureUpdateParentCommand(player, toTile) );
+                                    Context.AddCommand(new CreatureUpdateParentCommand(player, toTile) );
 
                                     moveCooldown = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / player.Speed);
                                 }
@@ -133,11 +133,11 @@ namespace OpenTibia.Game.Components
                         {
                             if (DateTime.UtcNow > attackCooldown)
                             {
-                                var command = attackStrategy.GetNext(context, player, target);
+                                var command = attackStrategy.GetNext(Context, player, target);
 
                                 if (command != null)
                                 {
-                                    context.AddCommand(command);
+                                    Context.AddCommand(command);
 
                                     attackCooldown = DateTime.UtcNow.AddMilliseconds(attackStrategy.CooldownInMilliseconds);
                                 } 

@@ -152,7 +152,7 @@ namespace OpenTibia.Game
 
         private Dictionary<string, SchedulerEvent> schedulerEvents = new Dictionary<string, SchedulerEvent>();
 
-        public Promise QueueForExecution(Func<Context, Promise> callback)
+        public Promise QueueForExecution(Func<Promise> callback)
         {
             return Promise.Run( (resolve, reject) =>
             {
@@ -166,7 +166,7 @@ namespace OpenTibia.Game
                         {
                             using (var scope = new Scope<Context>(context) )
                             {
-                                callback(context).Then(resolve);
+                                callback().Then(resolve);
 
                                 context.Flush();
                             }
@@ -180,7 +180,7 @@ namespace OpenTibia.Game
             } );            
         }
 
-        public Promise QueueForExecution(string key, int executeInMilliseconds, Func<Context, Promise> callback)
+        public Promise QueueForExecution(string key, int executeInMilliseconds, Func<Promise> callback)
         {
             return Promise.Run( (resolve, reject) =>
             {
@@ -205,7 +205,7 @@ namespace OpenTibia.Game
                         {
                             using (var scope = new Scope<Context>(context) )
                             {
-                                callback(context).Then(resolve);
+                                callback().Then(resolve);
 
                                 context.Flush();
                             }
@@ -241,18 +241,20 @@ namespace OpenTibia.Game
         {
             AutoResetEvent syncStop = new AutoResetEvent(false);
 
-            QueueForExecution(ctx =>
+            QueueForExecution( () =>
             {
-                foreach (var player in ctx.Server.GameObjects.GetPlayers().ToList() )
-                {
-                    ctx.AddCommand(new PlayerDestroyCommand(player) );
+                Context context = Context.Current;
 
-                    ctx.Disconnect(player.Client.Connection);
+                foreach (var player in context.Server.GameObjects.GetPlayers().ToList() )
+                {
+                    context.AddCommand(new PlayerDestroyCommand(player) );
+
+                    context.Disconnect(player.Client.Connection);
                 }
 
                 syncStop.Set();
 
-                return Promise.Completed(ctx);
+                return Promise.Completed();
             } );
 
             syncStop.WaitOne();

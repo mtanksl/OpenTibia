@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                Channel channel = context.Server.Channels.GetChannel(ChannelId);
+                Channel channel = Context.Server.Channels.GetChannel(ChannelId);
 
                 if (channel != null)
                 {
@@ -38,7 +38,7 @@ namespace OpenTibia.Game.Commands
                         {
                             foreach (var observer in privateChannel.GetPlayers().ToList() )
                             {
-                                context.AddPacket(observer.Client.Connection, new CloseChannelOutgoingPacket(channel.Id) );
+                                Context.AddPacket(observer.Client.Connection, new CloseChannelOutgoingPacket(channel.Id) );
 
                                 privateChannel.RemovePlayer(observer);
                             }
@@ -48,13 +48,13 @@ namespace OpenTibia.Game.Commands
                                 privateChannel.RemoveInvitation(observer);
                             }
 
-                            context.Server.Channels.RemoveChannel(privateChannel);
+                            Context.Server.Channels.RemoveChannel(privateChannel);
                         }
                     }
 
-                    context.AddPacket(Player.Client.Connection, new CloseChannelOutgoingPacket(channel.Id) );
+                    Context.AddPacket(Player.Client.Connection, new CloseChannelOutgoingPacket(channel.Id) );
 
-                    resolve(context);
+                    resolve();
                 }                
             } );
         }

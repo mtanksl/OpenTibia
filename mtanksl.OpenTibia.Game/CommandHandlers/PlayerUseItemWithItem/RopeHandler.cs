@@ -54,39 +54,39 @@ namespace OpenTibia.Game.CommandHandlers
             8559, 8560, 8561, 8562, 8563, 8564, 8565, 8566
         };
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
             if (ropes.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 if (ropeSpots.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
-                    Tile up = context.Server.Map.GetTile( ( (Tile)command.ToItem.Parent ).Position.Offset(0, 1, -1) );
+                    Tile up = Context.Server.Map.GetTile( ( (Tile)command.ToItem.Parent ).Position.Offset(0, 1, -1) );
 
-                    return context.AddCommand(new CreatureUpdateParentCommand(command.Player, up, Direction.South) );
+                    return Context.AddCommand(new CreatureUpdateParentCommand(command.Player, up, Direction.South) );
                 }
                 else if (holes.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
-                    Tile down = context.Server.Map.GetTile( ( (Tile)command.ToItem.Parent).Position.Offset(0, 0, 1) );
+                    Tile down = Context.Server.Map.GetTile( ( (Tile)command.ToItem.Parent).Position.Offset(0, 0, 1) );
 
-                    Tile south = context.Server.Map.GetTile( ( (Tile)command.ToItem.Parent ).Position.Offset(0, 1, 0) );
+                    Tile south = Context.Server.Map.GetTile( ( (Tile)command.ToItem.Parent ).Position.Offset(0, 1, 0) );
 
                     if (down.TopCreature != null)
                     {
-                        return context.AddCommand(new CreatureUpdateParentCommand(down.TopCreature, south, Direction.South) );
+                        return Context.AddCommand(new CreatureUpdateParentCommand(down.TopCreature, south, Direction.South) );
                     }
                     else if (down.TopItem != null)
                     {
                         Item item = down.TopItem;
 
-                        return context.AddCommand(new TileRemoveItemCommand(down, item) ).Then(ctx =>
+                        return Context.AddCommand(new TileRemoveItemCommand(down, item) ).Then( () =>
                         {
-                            return ctx.AddCommand(new TileAddItemCommand(south, item) );
+                            return Context.AddCommand(new TileAddItemCommand(south, item) );
                         } );
                     }
                 }
             }
 
-            return next(context);
+            return next();
         }
     }
 }

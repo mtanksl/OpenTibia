@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                Tile fromTile = context.Server.Map.GetTile(FromPosition);
+                Tile fromTile = Context.Server.Map.GetTile(FromPosition);
 
                 if (fromTile != null)
                 {
@@ -34,9 +34,9 @@ namespace OpenTibia.Game.Commands
 
                         if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                         {    
-                            context.AddCommand(new PlayerUseItemCommand(Player, fromItem, null) ).Then(ctx =>
+                            Context.AddCommand(new PlayerUseItemCommand(Player, fromItem, null) ).Then( () =>
                             {
-                                resolve(ctx);
+                                resolve();
                             } );
                         }
                     }

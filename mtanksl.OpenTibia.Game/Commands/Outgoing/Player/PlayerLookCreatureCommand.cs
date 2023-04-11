@@ -196,9 +196,9 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, builder.ToString() ) );
+                Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, builder.ToString() ) );
 
-                resolve(context);
+                resolve();
             } );
         }
     }

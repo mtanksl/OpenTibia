@@ -1,12 +1,13 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using System;
 
 namespace OpenTibia.Game.CommandHandlers
 {
     public class DisplayMagicEffectHandler : CommandHandler<PlayerSayCommand>
     {
-        public override Promise Handle(ContextPromiseDelegate next, PlayerSayCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
             int id;
 
@@ -14,10 +15,10 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 Tile fromTile = command.Player.Tile;
                               
-                return context.AddCommand(new ShowMagicEffectCommand(fromTile.Position, (MagicEffectType)id) );
+                return Context.AddCommand(new ShowMagicEffectCommand(fromTile.Position, (MagicEffectType)id) );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                PrivateChannel privateChannel = context.Server.Channels.GetPrivateChannelByOwner(Player);
+                PrivateChannel privateChannel = Context.Server.Channels.GetPrivateChannelByOwner(Player);
 
                 if (privateChannel == null)
                 {
@@ -29,12 +29,12 @@ namespace OpenTibia.Game.Commands
 
                     privateChannel.AddPlayer(Player);
 
-                    context.Server.Channels.AddChannel(privateChannel);
+                    Context.Server.Channels.AddChannel(privateChannel);
                 }
 
-                context.AddPacket(Player.Client.Connection, new OpenMyPrivateChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
+                Context.AddPacket(Player.Client.Connection, new OpenMyPrivateChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
 
-                resolve(context);
+                resolve();
             } );
         }
     }

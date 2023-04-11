@@ -11,18 +11,18 @@ namespace OpenTibia.Game.CommandHandlers
 
         private List<string> sounds = new List<string>() { "Ho ho ho!", "Jingle bells, jingle bells...", "Have you been naughty?", "Have you been nice?", "Merry Christmas!", "Can you stop squeezing me now... I'm starting to feel a little sick." };
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
             if (stuffedDragons.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                int value = context.Server.Randomization.Take(0, sounds.Count);
+                int value = Context.Server.Randomization.Take(0, sounds.Count);
 
-                context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, sounds[value] ) );
+                Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, sounds[value] ) );
 
-                return Promise.Completed(context);
+                return Promise.Completed();
             }
 
-            return next(context);
+            return next();
         }
     }
 }

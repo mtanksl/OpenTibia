@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                Tile fromTile = context.Server.Map.GetTile(FromPosition);
+                Tile fromTile = Context.Server.Map.GetTile(FromPosition);
 
                 if (fromTile != null)
                 {
@@ -44,11 +44,11 @@ namespace OpenTibia.Game.Commands
                         {
                             Inventory toInventory = Player.Inventory;
 
-                            if (IsMoveable(context, fromItem, Count) )
+                            if (IsMoveable(Context, fromItem, Count) )
                             {
-                                context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toInventory, ToSlot, Count, true) ).Then(ctx =>
+                                Context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toInventory, ToSlot, Count, true) ).Then( () =>
                                 {
-                                    resolve(ctx);
+                                    resolve();
                                 } );
                             }
                         }

@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                Channel channel = context.Server.Channels.GetChannel(ChannelId);
+                Channel channel = Context.Server.Channels.GetChannel(ChannelId);
 
                 if (channel != null)
                 {
@@ -33,10 +33,10 @@ namespace OpenTibia.Game.Commands
                     {                                                           
                         foreach (var observer in channel.GetPlayers() )
                         {
-                            context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.ChannelYellow, channel.Id, Message) );
+                            Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.ChannelYellow, channel.Id, Message) );
                         }
 
-                        resolve(context);
+                        resolve();
                     }
                 }                
             } );

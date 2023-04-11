@@ -31,11 +31,11 @@ namespace OpenTibia.Game.Commands
 
                     if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                     {
-                        if ( IsRotatable(context, fromItem) )
+                        if ( IsRotatable(Context, fromItem) )
                         {
-                            context.AddCommand(new PlayerRotateItemCommand(Player, fromItem) ).Then(ctx =>
+                            Context.AddCommand(new PlayerRotateItemCommand(Player, fromItem) ).Then( () =>
                             {
-                                resolve(ctx);
+                                resolve();
                             } );
                         }
                     }

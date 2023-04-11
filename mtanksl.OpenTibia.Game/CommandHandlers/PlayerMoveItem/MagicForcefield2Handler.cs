@@ -10,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> magicForcefields = new HashSet<ushort>() { 1387 };
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerMoveItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {
             if (command.ToContainer is Tile tile)
             {
@@ -18,23 +18,23 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (magicForcefield.TopItem != null && magicForcefields.Contains(magicForcefield.TopItem.Metadata.OpenTibiaId) )
                 {
-                    Tile toTile = context.Server.Map.GetTile( ( (TeleportItem)magicForcefield.TopItem ).Position );
+                    Tile toTile = Context.Server.Map.GetTile( ( (TeleportItem)magicForcefield.TopItem ).Position );
 
                     if (toTile != null)
                     {
-                        return context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toTile, 0, command.Count, false) ).Then(ctx =>
+                        return Context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toTile, 0, command.Count, false) ).Then( () =>
                         {
-                            return ctx.AddCommand(new ShowMagicEffectCommand(magicForcefield.Position, MagicEffectType.Teleport) );
+                            return Context.AddCommand(new ShowMagicEffectCommand(magicForcefield.Position, MagicEffectType.Teleport) );
 
-                        } ).Then(ctx =>
+                        } ).Then( () =>
                         {
-                            return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                            return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
                         } );
                     }
                 }
             }
 
-            return next(context);
+            return next();
         }
     }
 }

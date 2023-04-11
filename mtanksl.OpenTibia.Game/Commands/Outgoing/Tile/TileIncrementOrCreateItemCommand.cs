@@ -31,31 +31,31 @@ namespace OpenTibia.Game.Commands
                         {
                             if (toStackableItem.Count + Count > 100)
                             {
-                                context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, (byte)(toStackableItem.Count + Count - 100) ) );
+                                Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, (byte)(toStackableItem.Count + Count - 100) ) );
 
-                                context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) );
+                                Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) );
                             }
                             else
                             {
-                                context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + Count) ) );
+                                Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + Count) ) );
                             }
                         }
                         else
                         {
-                            context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, Count) );
+                            Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, Count) );
                         }
                     }
                     else
                     {
-                        context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, Count) );
+                        Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, Count) );
                     }
                 }
                 else
                 {
-                    context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, Count) );                    
+                    Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, Count) );                    
                 }
 
-                resolve(context);
+                resolve();
             } );
         }
     }

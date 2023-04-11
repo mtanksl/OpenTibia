@@ -29,7 +29,7 @@ namespace OpenTibia.Game.Commands
                     {
                         Player.Client.ContainerCollection.CloseContainer(pair.Key);
 
-                        context.AddPacket(Player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                        Context.AddPacket(Player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
 
                         open = false;
                     }
@@ -46,10 +46,10 @@ namespace OpenTibia.Game.Commands
                         items.Add(item);
                     }
 
-                    context.AddPacket(Player.Client.Connection, new OpenContainerOutgoingPacket(containerId, Container.Metadata.TibiaId, Container.Metadata.Name, Container.Metadata.Capacity, Container.Parent is Container, items) );
+                    Context.AddPacket(Player.Client.Connection, new OpenContainerOutgoingPacket(containerId, Container.Metadata.TibiaId, Container.Metadata.Name, Container.Metadata.Capacity, Container.Parent is Container, items) );
                 }
 
-                resolve(context);
+                resolve();
             } );
         }
     }

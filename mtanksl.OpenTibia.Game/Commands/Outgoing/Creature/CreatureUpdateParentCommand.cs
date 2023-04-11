@@ -54,7 +54,7 @@ namespace OpenTibia.Game.Commands
 
                 Creature.Direction = expected;
 
-                foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                 {
                     if (observer == Creature)
                     {
@@ -66,21 +66,21 @@ namespace OpenTibia.Game.Commands
 
                         if (deltaZ < -1 || deltaZ > 1 || deltaY < -6 || deltaY > 7 || deltaX < -8 || deltaX > 9 || fromIndex >= Constants.ObjectsPerPoint)
                         {
-                            context.AddPacket(observer.Client.Connection, new SendTilesOutgoingPacket(context.Server.Map, observer.Client, ToTile.Position) );
+                            Context.AddPacket(observer.Client.Connection, new SendTilesOutgoingPacket(Context.Server.Map, observer.Client, ToTile.Position) );
                         }
                         else
                         {
                             if (fromTile.Position.Z == 7 && ToTile.Position.Z == 8)
 			                {
-				                context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromTile.Position, fromIndex) );
+				                Context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromTile.Position, fromIndex) );
 			                }
 			                else
 			                {
-                                context.AddPacket(observer.Client.Connection, new WalkOutgoingPacket(fromTile.Position, fromIndex, ToTile.Position) );
+                                Context.AddPacket(observer.Client.Connection, new WalkOutgoingPacket(fromTile.Position, fromIndex, ToTile.Position) );
 
                                 if (updateDirection)
                                 {
-                                    context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(ToTile.Position, toIndex, Creature.Id, Creature.Direction) );
+                                    Context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(ToTile.Position, toIndex, Creature.Id, Creature.Direction) );
                                 }
                             }
 
@@ -88,11 +88,11 @@ namespace OpenTibia.Game.Commands
 
                             while (deltaZ < 0)
                             {
-                                context.AddPacket(observer.Client.Connection, new SendMapUpOutgoingPacket(context.Server.Map, observer.Client, position),
+                                Context.AddPacket(observer.Client.Connection, new SendMapUpOutgoingPacket(Context.Server.Map, observer.Client, position),
 
-                                                                              new SendMapWestOutgoingPacket(context.Server.Map, observer.Client, position.Offset(0, 1, -1) ),
+                                                                              new SendMapWestOutgoingPacket(Context.Server.Map, observer.Client, position.Offset(0, 1, -1) ),
 
-                                                                              new SendMapNorthOutgoingPacket(context.Server.Map, observer.Client, position.Offset(0, 0, -1) ) );
+                                                                              new SendMapNorthOutgoingPacket(Context.Server.Map, observer.Client, position.Offset(0, 0, -1) ) );
 
                                 position = position.Offset(0, 0, -1);
 
@@ -101,11 +101,11 @@ namespace OpenTibia.Game.Commands
 
                             while (deltaZ > 0)
                             {
-                                context.AddPacket(observer.Client.Connection, new SendMapDownOutgoingPacket(context.Server.Map, observer.Client, position),
+                                Context.AddPacket(observer.Client.Connection, new SendMapDownOutgoingPacket(Context.Server.Map, observer.Client, position),
 
-                                                                              new SendMapEastOutgoingPacket(context.Server.Map, observer.Client, position.Offset(0, -1, 1) ),
+                                                                              new SendMapEastOutgoingPacket(Context.Server.Map, observer.Client, position.Offset(0, -1, 1) ),
 
-                                                                              new SendMapSouthOutgoingPacket(context.Server.Map, observer.Client, position.Offset(0, 0, 1) ) );
+                                                                              new SendMapSouthOutgoingPacket(Context.Server.Map, observer.Client, position.Offset(0, 0, 1) ) );
 
                                 position = position.Offset(0, 0, 1);
 
@@ -114,7 +114,7 @@ namespace OpenTibia.Game.Commands
 
                             while (deltaY < 0)
                             {
-                                context.AddPacket(observer.Client.Connection, new SendMapNorthOutgoingPacket(context.Server.Map, observer.Client, position.Offset(0, -1, 0) ) );
+                                Context.AddPacket(observer.Client.Connection, new SendMapNorthOutgoingPacket(Context.Server.Map, observer.Client, position.Offset(0, -1, 0) ) );
 
                                 position = position.Offset(0, -1, 0);
 
@@ -123,7 +123,7 @@ namespace OpenTibia.Game.Commands
 
                             while (deltaY > 0)
                             {
-                                context.AddPacket(observer.Client.Connection, new SendMapSouthOutgoingPacket(context.Server.Map, observer.Client, position.Offset(0, 1, 0) ) );
+                                Context.AddPacket(observer.Client.Connection, new SendMapSouthOutgoingPacket(Context.Server.Map, observer.Client, position.Offset(0, 1, 0) ) );
 
                                 position = position.Offset(0, 1, 0);
 
@@ -132,7 +132,7 @@ namespace OpenTibia.Game.Commands
 
                             while (deltaX < 0)
                             {
-                                context.AddPacket(observer.Client.Connection, new SendMapWestOutgoingPacket(context.Server.Map, observer.Client, position.Offset(-1, 0, 0) ) );
+                                Context.AddPacket(observer.Client.Connection, new SendMapWestOutgoingPacket(Context.Server.Map, observer.Client, position.Offset(-1, 0, 0) ) );
 
                                 position = position.Offset(-1, 0, 0);
 
@@ -141,7 +141,7 @@ namespace OpenTibia.Game.Commands
 
                             while (deltaX > 0)
                             {
-                                context.AddPacket(observer.Client.Connection, new SendMapEastOutgoingPacket(context.Server.Map, observer.Client, position.Offset(1, 0, 0) ) );
+                                Context.AddPacket(observer.Client.Connection, new SendMapEastOutgoingPacket(Context.Server.Map, observer.Client, position.Offset(1, 0, 0) ) );
 
                                 position = position.Offset(1, 0, 0);
 
@@ -156,17 +156,17 @@ namespace OpenTibia.Game.Commands
                             {
                                 if (fromTile.Count >= Constants.ObjectsPerPoint)
                                 {
-                                    context.AddPacket(observer.Client.Connection, new SendTileOutgoingPacket(context.Server.Map, observer.Client, fromTile.Position) );
+                                    Context.AddPacket(observer.Client.Connection, new SendTileOutgoingPacket(Context.Server.Map, observer.Client, fromTile.Position) );
                                 }
                             }
                         }
 
-                        if (context.Server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(observer) ) )
+                        if (Context.Server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(observer) ) )
                         {
-                            context.AddPacket(observer.Client.Connection, new StopWalkOutgoingPacket(observer.Direction) );
+                            Context.AddPacket(observer.Client.Connection, new StopWalkOutgoingPacket(observer.Direction) );
                         }
 
-                        context.Server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(observer) );
+                        Context.Server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(observer) );
                     }
                     else
                     {
@@ -176,25 +176,25 @@ namespace OpenTibia.Game.Commands
 
                         if (canSeeFrom && canSeeTo)
 		                {
-                            context.AddPacket(observer.Client.Connection, new WalkOutgoingPacket(fromTile.Position, fromIndex, ToTile.Position) );
+                            Context.AddPacket(observer.Client.Connection, new WalkOutgoingPacket(fromTile.Position, fromIndex, ToTile.Position) );
 
                             if (updateDirection)
                             {
-                                context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(ToTile.Position, toIndex, Creature.Id, Creature.Direction) );
+                                Context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(ToTile.Position, toIndex, Creature.Id, Creature.Direction) );
                             }
 
                             if (fromTile.Count >= Constants.ObjectsPerPoint)
                             {
-                                context.AddPacket(observer.Client.Connection, new SendTileOutgoingPacket(context.Server.Map, observer.Client, fromTile.Position) );
+                                Context.AddPacket(observer.Client.Connection, new SendTileOutgoingPacket(Context.Server.Map, observer.Client, fromTile.Position) );
                             }
                         }
                         else if (canSeeFrom)
                         {
-                            context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromTile.Position, fromIndex) );
+                            Context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromTile.Position, fromIndex) );
 
                             if (fromTile.Count >= Constants.ObjectsPerPoint)
                             {
-                                context.AddPacket(observer.Client.Connection, new SendTileOutgoingPacket(context.Server.Map, observer.Client, fromTile.Position) );
+                                Context.AddPacket(observer.Client.Connection, new SendTileOutgoingPacket(Context.Server.Map, observer.Client, fromTile.Position) );
                             }
                         }
                         else if (canSeeTo)
@@ -203,21 +203,21 @@ namespace OpenTibia.Game.Commands
 
                             if (observer.Client.CreatureCollection.IsKnownCreature(Creature.Id, out removeId) )
                             {
-                                context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(ToTile.Position, toIndex, Creature) );
+                                Context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(ToTile.Position, toIndex, Creature) );
                             }
                             else
                             {
-                                context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(ToTile.Position, toIndex, removeId, Creature) );
+                                Context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(ToTile.Position, toIndex, removeId, Creature) );
                             }
                         }
                     }
                 }
 
-                context.AddEvent(new TileRemoveCreatureEventArgs(fromTile, Creature, fromIndex) );
+                Context.AddEvent(new TileRemoveCreatureEventArgs(fromTile, Creature, fromIndex) );
 
-                context.AddEvent(new TileAddCreatureEventArgs(ToTile, Creature, toIndex) );
+                Context.AddEvent(new TileAddCreatureEventArgs(ToTile, Creature, toIndex) );
 
-                resolve(context);
+                resolve();
             } );
         }
     }

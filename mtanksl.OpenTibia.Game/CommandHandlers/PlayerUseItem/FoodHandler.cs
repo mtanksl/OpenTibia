@@ -79,17 +79,17 @@ namespace OpenTibia.Game.CommandHandlers
 
         private string message;
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
             if (foods.TryGetValue(command.Item.Metadata.OpenTibiaId, out message) )
             {
-                return context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
+                return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                 {
-                    return ctx.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, message) );            
+                    return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, message) );            
                 } );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

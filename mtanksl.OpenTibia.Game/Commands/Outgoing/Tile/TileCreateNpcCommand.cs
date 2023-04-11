@@ -19,14 +19,14 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run<Npc>( (resolve, reject) =>
             {
-                Npc npc = context.Server.NpcFactory.Create(Name);
+                Npc npc = Context.Server.NpcFactory.Create(Name);
 
                 if (npc != null)
                 {
-                    context.AddCommand(new TileAddCreatureCommand(Tile, npc) );
+                    Context.AddCommand(new TileAddCreatureCommand(Tile, npc) );
                 }
 
-                resolve(context, npc);
+                resolve(npc);
             } );
         }
     }

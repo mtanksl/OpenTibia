@@ -7,51 +7,57 @@ namespace OpenTibia.Game.Scripts
     {
         public void Start(Server server)
         {
-            server.QueueForExecution(ctx =>
+            server.QueueForExecution( () =>
             {
-                GlobalCreatures(ctx);
+                GlobalCreatures();
             
-                GlobalItems(ctx);
+                GlobalItems();
             
-                GlobalLight(ctx);
+                GlobalLight();
 
-                return Promise.Completed(ctx);
+                return Promise.Completed();
             } );
         }
 
-        private Promise GlobalCreatures(Context context)
+        private Promise GlobalCreatures()
         {
-            return context.AddCommand(new GlobalCreaturesCommand() ).Then(ctx =>
+            Context context = Context.Current;
+
+            return context.AddCommand(new GlobalCreaturesCommand() ).Then( () =>
             {
                 return Promise.Delay(context.Server, "Global_Creatures", 100);
 
-            } ).Then(ctx =>
+            } ).Then( () =>
             {
-                return GlobalCreatures(ctx);
+                return GlobalCreatures();
             } );
         }
 
-        private Promise GlobalItems(Context context)
+        private Promise GlobalItems()
         {
-            return context.AddCommand(new GlobalItemsCommand() ).Then(ctx =>
+            Context context = Context.Current;
+
+            return context.AddCommand(new GlobalItemsCommand() ).Then( () =>
             {
                 return Promise.Delay(context.Server, "Global_Items", 60000);
 
-            } ).Then(ctx =>
+            } ).Then( () =>
             {
-                return GlobalItems(ctx);
+                return GlobalItems();
             } );
         }
 
-        private Promise GlobalLight(Context context)
+        private Promise GlobalLight()
         {
-            return context.AddCommand(new GlobalLightCommand() ).Then(ctx =>
+            Context context = Context.Current;
+
+            return context.AddCommand(new GlobalLightCommand() ).Then( () =>
             {
                 return Promise.Delay(context.Server, "Global_Light", Clock.Interval);
 
-            } ).Then(ctx =>
+            } ).Then( () =>
             {
-                return GlobalLight(ctx);
+                return GlobalLight();
             } );
         }
 

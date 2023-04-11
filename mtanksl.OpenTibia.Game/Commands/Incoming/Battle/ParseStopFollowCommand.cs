@@ -17,13 +17,13 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                AttackAndFollowBehaviour component = context.Server.Components.GetComponent<AttackAndFollowBehaviour>(Player);
+                AttackAndFollowBehaviour component = Context.Server.Components.GetComponent<AttackAndFollowBehaviour>(Player);
 
                 component.Stop();
 
-                context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
+                Context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
 
-                resolve(context);
+                resolve();
             } );
         }
     }

@@ -22,19 +22,19 @@ namespace OpenTibia.Game.CommandHandlers
             { 484, 483 }
         };
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
             ushort toOpenTibiaId;
 
             if (shovels.Contains(command.Item.Metadata.OpenTibiaId) && stonePiles.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                return context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) ).Then( (ctx, item) =>
+                return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) ).Then( (item) =>
                 {
-                    return ctx.AddCommand(new ItemDecayTransformCommand(item, 10000, decay[item.Metadata.OpenTibiaId], 1) );
+                    return Context.AddCommand(new ItemDecayTransformCommand(item, 10000, decay[item.Metadata.OpenTibiaId], 1) );
                 } );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

@@ -199,19 +199,19 @@ namespace OpenTibia.Game.Commands
             {
                 if (ProjectileType != null)
                 {
-                    context.AddCommand(new ShowProjectileCommand(Attacker.Tile.Position, Center, ProjectileType.Value) );
+                    Context.AddCommand(new ShowProjectileCommand(Attacker.Tile.Position, Center, ProjectileType.Value) );
                 }
 
                 if (Target != null)
                 {
                     if (MagicEffectType != null)
                     {
-                        context.AddCommand(new ShowMagicEffectCommand(Center, MagicEffectType.Value) );
+                        Context.AddCommand(new ShowMagicEffectCommand(Center, MagicEffectType.Value) );
                     }
 
                     if (SpecialCondition != null)
                     {
-                        context.AddCommand(new CombatConditionCommand(Attacker, Target, SpecialCondition.Value, MagicEffectType, Health, CooldownInMilliseconds) );
+                        Context.AddCommand(new CombatConditionCommand(Attacker, Target, SpecialCondition.Value, MagicEffectType, Health, CooldownInMilliseconds) );
                     }
                     else
                     {
@@ -219,7 +219,7 @@ namespace OpenTibia.Game.Commands
 
                         if (Target != Attacker || health > 0)
                         {
-                            context.AddCommand(new CombatChangeHealthCommand(Attacker, Target, MagicEffectType.ToAnimatedTextColor(), health) );
+                            Context.AddCommand(new CombatChangeHealthCommand(Attacker, Target, MagicEffectType.ToAnimatedTextColor(), health) );
                         }
                     }
                 }
@@ -232,10 +232,10 @@ namespace OpenTibia.Game.Commands
 
                         if (MagicEffectType != null)
                         {
-                            context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.Value) );
+                            Context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.Value) );
                         }
 
-                        Tile tile = context.Server.Map.GetTile(position);
+                        Tile tile = Context.Server.Map.GetTile(position);
 
                         if (tile != null)
                         {
@@ -243,7 +243,7 @@ namespace OpenTibia.Game.Commands
                             {
                                 if (SpecialCondition != null)
                                 {
-                                    context.AddCommand(new CombatConditionCommand(Attacker, target, SpecialCondition.Value, MagicEffectType, Health, CooldownInMilliseconds) );
+                                    Context.AddCommand(new CombatConditionCommand(Attacker, target, SpecialCondition.Value, MagicEffectType, Health, CooldownInMilliseconds) );
                                 }
                                 else
                                 {
@@ -251,7 +251,7 @@ namespace OpenTibia.Game.Commands
 
                                     if (target != Attacker || health > 0)
                                     {
-                                        context.AddCommand(new CombatChangeHealthCommand(Attacker, target, MagicEffectType.ToAnimatedTextColor(), health) );
+                                        Context.AddCommand(new CombatChangeHealthCommand(Attacker, target, MagicEffectType.ToAnimatedTextColor(), health) );
                                     }
                                 }
                             }
@@ -264,9 +264,9 @@ namespace OpenTibia.Game.Commands
                                 }
                                 else
                                 {
-                                    context.AddCommand(new TileCreateItemCommand(tile, OpenTibiaId.Value, Count.Value) ).Then( (ctx, item) =>
+                                    Context.AddCommand(new TileCreateItemCommand(tile, OpenTibiaId.Value, Count.Value) ).Then( (item) =>
                                     {
-                                        return ctx.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
+                                        return Context.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
                                     } );
                                 }
                             }
@@ -301,10 +301,10 @@ namespace OpenTibia.Game.Commands
 
                         if (MagicEffectType != null)
                         {
-                            context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.Value) );
+                            Context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.Value) );
                         }
 
-                        Tile tile = context.Server.Map.GetTile(position);
+                        Tile tile = Context.Server.Map.GetTile(position);
 
                         if (tile != null)
                         {
@@ -312,7 +312,7 @@ namespace OpenTibia.Game.Commands
                             {
                                 if (SpecialCondition != null)
                                 {
-                                    context.AddCommand(new CombatConditionCommand(Attacker, target, SpecialCondition.Value, MagicEffectType, Health, CooldownInMilliseconds) );
+                                    Context.AddCommand(new CombatConditionCommand(Attacker, target, SpecialCondition.Value, MagicEffectType, Health, CooldownInMilliseconds) );
                                 }
                                 else
                                 {
@@ -320,7 +320,7 @@ namespace OpenTibia.Game.Commands
 
                                     if (target != Attacker || health > 0)
                                     {
-                                        context.AddCommand(new CombatChangeHealthCommand(Attacker, target, MagicEffectType.ToAnimatedTextColor(), health) );
+                                        Context.AddCommand(new CombatChangeHealthCommand(Attacker, target, MagicEffectType.ToAnimatedTextColor(), health) );
                                     }
                                 }
                             }
@@ -333,9 +333,9 @@ namespace OpenTibia.Game.Commands
                                 }
                                 else
                                 {
-                                    context.AddCommand(new TileCreateItemCommand(tile, OpenTibiaId.Value, Count.Value) ).Then( (ctx, item) =>
+                                    Context.AddCommand(new TileCreateItemCommand(tile, OpenTibiaId.Value, Count.Value) ).Then( (item) =>
                                     {
-                                        return ctx.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
+                                        return Context.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
                                     } );
                                 }
                             }
@@ -343,7 +343,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                resolve(context);
+                resolve();
             } );
         }
     }

@@ -21,13 +21,13 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                RuleViolation ruleViolation = context.Server.RuleViolations.GetRuleViolationByReporter(Player);
+                RuleViolation ruleViolation = Context.Server.RuleViolations.GetRuleViolationByReporter(Player);
 
                 if (ruleViolation != null && ruleViolation.Assignee != null)
                 {
-                    context.AddPacket(ruleViolation.Assignee.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationQuestion, Message) );
+                    Context.AddPacket(ruleViolation.Assignee.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationQuestion, Message) );
 
-                    resolve(context);
+                    resolve();
                 }
             } );
         }

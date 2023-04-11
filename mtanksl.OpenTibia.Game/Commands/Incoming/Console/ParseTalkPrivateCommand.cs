@@ -26,15 +26,15 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                Player observer = context.Server.GameObjects.GetPlayers()
+                Player observer = Context.Server.GameObjects.GetPlayers()
                     .Where(p => p.Name == Name)
                     .FirstOrDefault();
 
                 if (observer != null && observer != Player)
                 {
-                    context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Private, Message) );
+                    Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Private, Message) );
 
-                    resolve(context);
+                    resolve();
                 }
             } );
         }

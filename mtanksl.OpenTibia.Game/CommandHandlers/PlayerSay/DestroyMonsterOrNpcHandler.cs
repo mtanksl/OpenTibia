@@ -7,11 +7,11 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class DestroyMonsterOrNpcHandler : CommandHandler<PlayerSayCommand>
     {
-        public override Promise Handle(ContextPromiseDelegate next, PlayerSayCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
             if (command.Message.StartsWith("/r") )
             {
-                Tile toTile = context.Server.Map.GetTile(command.Player.Tile.Position.Offset(command.Player.Direction) );
+                Tile toTile = Context.Server.Map.GetTile(command.Player.Tile.Position.Offset(command.Player.Direction) );
 
                 if (toTile != null)
                 {
@@ -19,24 +19,24 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         case Monster monster:
 
-                            return context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.RedShimmer) ).Then(ctx =>
+                            return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.RedShimmer) ).Then( () =>
                             {
-                                return ctx.AddCommand(new MonsterDestroyCommand(monster) );
+                                return Context.AddCommand(new MonsterDestroyCommand(monster) );
                             } );
 
                         case Npc npc:
 
-                            return context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.RedShimmer) ).Then(ctx =>
+                            return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.RedShimmer) ).Then( () =>
                             {
-                                return ctx.AddCommand(new NpcDestroyCommand(npc) );
+                                return Context.AddCommand(new NpcDestroyCommand(npc) );
                             } );
                     }
                 }
 
-                return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

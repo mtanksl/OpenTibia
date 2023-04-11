@@ -10,14 +10,14 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort snowBall = 2111;
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
             if (snowHeaps.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                return context.AddCommand(new TileIncrementOrCreateItemCommand(command.Player.Tile, snowBall, 1) );
+                return Context.AddCommand(new TileIncrementOrCreateItemCommand(command.Player.Tile, snowBall, 1) );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

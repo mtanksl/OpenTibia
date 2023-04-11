@@ -12,7 +12,7 @@ namespace OpenTibia.Game.CommandHandlers
             { 2579, 2578 }
         };
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerMoveItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {
             if (command.ToContainer is Tile tile)
             {
@@ -20,14 +20,14 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (traps.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
                 {
-                    return context.AddCommand(new TileCreateItemCommand(tile, toOpenTibiaId, 1) ).Then( (ctx, item) =>
+                    return Context.AddCommand(new TileCreateItemCommand(tile, toOpenTibiaId, 1) ).Then( (item) =>
                     {
-                        return ctx.AddCommand(new ItemDestroyCommand(command.Item) );            
+                        return Context.AddCommand(new ItemDestroyCommand(command.Item) );            
                     } );
                 }
             }
 
-            return next(context);
+            return next();
         }
     }
 }

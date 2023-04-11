@@ -49,7 +49,7 @@ namespace OpenTibia.Game.Scripts
                     }
                 }
 
-                return next(context);
+                return next();
             } ) );
 
             server.CommandHandlers.Add(new DustbinHandler() );

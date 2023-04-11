@@ -21,34 +21,34 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort bakingTrayWithDough = 8848;
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
             if (lumpOfCakeDoughs.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 if (ovens.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
-                    return context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
+                    return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                     {
-                        return ctx.AddCommand(new TileIncrementOrCreateItemCommand( (Tile)command.ToItem.Parent, cake, 1) );
+                        return Context.AddCommand(new TileIncrementOrCreateItemCommand( (Tile)command.ToItem.Parent, cake, 1) );
                     } );                
                 }
                 else if (barOfChocolate.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
-                    return context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
+                    return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                     {
-                        return ctx.AddCommand(new ItemTransformCommand(command.ToItem, lumpOfChocolateDough, 1) );
+                        return Context.AddCommand(new ItemTransformCommand(command.ToItem, lumpOfChocolateDough, 1) );
                     } );
                 }
                 else if (bakingTrays.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
-                    return context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
+                    return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                     {
-                        return ctx.AddCommand(new ItemTransformCommand(command.ToItem, bakingTrayWithDough, 1) );
+                        return Context.AddCommand(new ItemTransformCommand(command.ToItem, bakingTrayWithDough, 1) );
                     } );
                 }   
             }
 
-            return next(context);
+            return next();
         }
     }
 }

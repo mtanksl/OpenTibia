@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort lumpOfCakeDough = 6277;
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
             if (flours.Contains(command.Item.Metadata.OpenTibiaId) && buckets.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
@@ -24,29 +24,29 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (toFluidItem.FluidType == FluidType.Water)
                 {
-                    return context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
+                    return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                     {
-                        return ctx.AddCommand(new FluidItemUpdateFluidTypeCommand(toFluidItem, FluidType.Empty) );
+                        return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(toFluidItem, FluidType.Empty) );
 
-                    } ).Then(ctx =>
+                    } ).Then( () =>
                     {
-                        return ctx.AddCommand(new TileIncrementOrCreateItemCommand(command.Player.Tile, lumpOfDough, 1) );
+                        return Context.AddCommand(new TileIncrementOrCreateItemCommand(command.Player.Tile, lumpOfDough, 1) );
                     } );
                 }
                 else if (toFluidItem.FluidType == FluidType.Milk)
                 {
-                    return context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(ctx =>
+                    return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                     {
-                        return ctx.AddCommand(new FluidItemUpdateFluidTypeCommand(toFluidItem, FluidType.Empty) );
+                        return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(toFluidItem, FluidType.Empty) );
 
-                    } ).Then(ctx =>
+                    } ).Then( () =>
                     {
-                        return ctx.AddCommand(new TileIncrementOrCreateItemCommand(command.Player.Tile, lumpOfCakeDough, 1) );
+                        return Context.AddCommand(new TileIncrementOrCreateItemCommand(command.Player.Tile, lumpOfCakeDough, 1) );
                     } );
                 }
             }
 
-            return next(context);
+            return next();
         }
     }
 }

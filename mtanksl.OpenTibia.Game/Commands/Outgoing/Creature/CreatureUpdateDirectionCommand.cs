@@ -31,27 +31,27 @@ namespace OpenTibia.Game.Commands
 
                     if (index < Constants.ObjectsPerPoint)
                     {
-                        foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                        foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                         {
                             if (observer == Creature)
                             {
-                                if (context.Server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(observer) ) )
+                                if (Context.Server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(observer) ) )
                                 {
-                                    context.AddPacket(observer.Client.Connection, new StopWalkOutgoingPacket(observer.Direction) );
+                                    Context.AddPacket(observer.Client.Connection, new StopWalkOutgoingPacket(observer.Direction) );
                                 }
 
-                                context.Server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(observer) );
+                                Context.Server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(observer) );
                             }
 
                             if (observer.Tile.Position.CanSee(fromTile.Position) )
                             {
-                                context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(fromTile.Position, index, Creature.Id, Creature.Direction) );
+                                Context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(fromTile.Position, index, Creature.Id, Creature.Direction) );
                             }
                         }
                     }
                 }
 
-                resolve(context);
+                resolve();
             } );
         }
     }

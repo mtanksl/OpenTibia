@@ -39,19 +39,19 @@ namespace OpenTibia.Game.Commands
                 {
                     case Tile fromTile:
 
-                        context.AddCommand(new TileRemoveItemCommand(fromTile, Item) );
+                        Context.AddCommand(new TileRemoveItemCommand(fromTile, Item) );
 
                         break;
 
                     case Inventory fromInventory:
 
-                        context.AddCommand(new InventoryRemoveItemCommand(fromInventory, Item) );
+                        Context.AddCommand(new InventoryRemoveItemCommand(fromInventory, Item) );
 
                         break;
 
                     case Container fromContainer:
 
-                        context.AddCommand(new ContainerRemoveItemCommand(fromContainer, Item) );
+                        Context.AddCommand(new ContainerRemoveItemCommand(fromContainer, Item) );
 
                         break;
                 }
@@ -60,24 +60,24 @@ namespace OpenTibia.Game.Commands
                 {
                     case Tile toTile:
 
-                        context.AddCommand(new TileAddItemCommand(toTile, Item) );
+                        Context.AddCommand(new TileAddItemCommand(toTile, Item) );
 
                         break;
 
                     case Inventory toInventory:
 
-                        context.AddCommand(new InventoryAddItemCommand(toInventory, ToIndex, Item) );
+                        Context.AddCommand(new InventoryAddItemCommand(toInventory, ToIndex, Item) );
 
                         break;
 
                     case Container toContainer:
 
-                        context.AddCommand(new ContainerAddItemCommand(toContainer, Item) );
+                        Context.AddCommand(new ContainerAddItemCommand(toContainer, Item) );
                         
                         break;
                 }
 
-                resolve(context);
+                resolve();
             } );
         }
     }

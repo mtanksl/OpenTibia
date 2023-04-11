@@ -51,9 +51,9 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (e.Tile.Ground != null && tiles.TryGetValue(e.Tile.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                context.AddCommand(new ItemTransformCommand(e.Tile.Ground, toOpenTibiaId, 1) ).Then( (ctx, item) =>
+                Context.AddCommand(new ItemTransformCommand(e.Tile.Ground, toOpenTibiaId, 1) ).Then( (item) =>
                 {
-                    return ctx.AddCommand(new ItemDecayTransformCommand(item, 10000, decay[item.Metadata.OpenTibiaId], 1) );
+                    return Context.AddCommand(new ItemDecayTransformCommand(item, 10000, decay[item.Metadata.OpenTibiaId], 1) );
                 } );
             }
         }

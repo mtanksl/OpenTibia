@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                Tile fromTile = context.Server.Map.GetTile(FromPosition);
+                Tile fromTile = Context.Server.Map.GetTile(FromPosition);
 
                 if (fromTile != null)
                 {
@@ -38,11 +38,11 @@ namespace OpenTibia.Game.Commands
 
                         if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                         {
-                            Player toPlayer = context.Server.GameObjects.GetPlayer(ToCreatureId);
+                            Player toPlayer = Context.Server.GameObjects.GetPlayer(ToCreatureId);
 
                             if (toPlayer != null && toPlayer != Player)
                             {
-                                resolve(context);
+                                resolve();
                             }
                         }
                     }

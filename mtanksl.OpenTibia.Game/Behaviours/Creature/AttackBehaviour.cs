@@ -26,32 +26,32 @@ namespace OpenTibia.Game.Components
 
         private bool running = false;
 
-        public override void Update(Context context)
+        public override void Update()
         {
             if (running)
             {
                 return;
             }
 
-            foreach (var observer in context.Server.GameObjects.GetPlayers() )
+            foreach (var observer in Context.Server.GameObjects.GetPlayers() )
             {
                 if (creature.Tile.Position.CanHearSay(observer.Tile.Position) )
                 {
-                    var command = attackStrategy.GetNext(context, creature, observer);
+                    var command = attackStrategy.GetNext(Context, creature, observer);
 
                     if (command != null)
                     {
                         running = true;
 
-                        context.AddCommand(command).Then(ctx =>
+                        Context.AddCommand(command).Then( () =>
                         {
-                            return Promise.Delay(ctx.Server, key, attackStrategy.CooldownInMilliseconds);
+                            return Promise.Delay(Context.Server, key, attackStrategy.CooldownInMilliseconds);
 
-                        } ).Then(ctx =>
+                        } ).Then( () =>
                         {
                             running = false;
 
-                            Update(ctx);
+                            Update();
                         } );
                     }
 

@@ -27,28 +27,28 @@ namespace OpenTibia.Game.Components
 
         private bool running = false;
 
-        public override void Update(Context context)
+        public override void Update()
         {
             if (running)
             {
                 return;
             }
 
-            foreach (var observer in context.Server.GameObjects.GetPlayers() )
+            foreach (var observer in Context.Server.GameObjects.GetPlayers() )
             {
                 if (creature.Tile.Position.CanHearSay(observer.Tile.Position) )
                 {
                     running = true;
 
-                    context.AddCommand(new ShowTextCommand(creature, TalkType.MonsterSay, context.Server.Randomization.Take(sentences) ) ).Then(ctx =>
+                    Context.AddCommand(new ShowTextCommand(creature, TalkType.MonsterSay, Context.Server.Randomization.Take(sentences) ) ).Then( () =>
                     {
-                        return Promise.Delay(ctx.Server, key, 30000);
+                        return Promise.Delay(Context.Server, key, 30000);
 
-                    } ).Then(ctx =>
+                    } ).Then( () =>
                     {
                         running = false;
 
-                        Update(ctx);
+                        Update();
                     } );
 
                     break;

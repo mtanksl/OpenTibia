@@ -7,11 +7,11 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class MoveAwayContainerCloseHandler : CommandHandler<CreatureUpdateParentCommand>
     {
-        public override Promise Handle(ContextPromiseDelegate next, CreatureUpdateParentCommand command)
+        public override Promise Handle(Func<Promise> next, CreatureUpdateParentCommand command)
         {
             if (command.Creature is Player player)
             {
-                return next(context).Then(ctx =>
+                return next().Then( () =>
                 {
                     foreach (var pair in player.Client.ContainerCollection.GetIndexedContainers() )
                     {
@@ -21,7 +21,7 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             player.Client.ContainerCollection.CloseContainer(pair.Key);
 
-                            ctx.AddPacket(player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                            Context.AddPacket(player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
                         }
                         else if (root is Tile tile)
                         {
@@ -29,14 +29,14 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 player.Client.ContainerCollection.CloseContainer(pair.Key);
 
-                                ctx.AddPacket(player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                                Context.AddPacket(player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
                             }
                         }
                     }
                 } );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

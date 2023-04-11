@@ -29,11 +29,11 @@ namespace OpenTibia.Game.Commands
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
-                    Player toPlayer = context.Server.GameObjects.GetPlayer(ToCreatureId);
+                    Player toPlayer = Context.Server.GameObjects.GetPlayer(ToCreatureId);
 
                     if (toPlayer != null && toPlayer != Player)
                     {
-                        resolve(context);
+                        resolve();
                     }
                 }            
             } );

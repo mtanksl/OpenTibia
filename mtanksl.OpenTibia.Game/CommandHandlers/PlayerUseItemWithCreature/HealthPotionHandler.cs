@@ -10,20 +10,20 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> healthPotions = new HashSet<ushort>() { 7618 };
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemWithCreatureCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemWithCreatureCommand command)
         {
             if (healthPotions.Contains(command.Item.Metadata.OpenTibiaId) && command.ToCreature is Player player)
             {
-                context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
+                Context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
 
-                context.AddCommand(CombatCommand.TargetAttack(command.Player, player, null, MagicEffectType.RedShimmer, (attacker, target) => context.Server.Randomization.Take(100, 200) ) );
+                Context.AddCommand(CombatCommand.TargetAttack(command.Player, player, null, MagicEffectType.RedShimmer, (attacker, target) => Context.Server.Randomization.Take(100, 200) ) );
 
-                context.AddCommand(new ShowTextCommand(player, TalkType.MonsterSay, "Aaaah...") );
+                Context.AddCommand(new ShowTextCommand(player, TalkType.MonsterSay, "Aaaah...") );
 
-                return Promise.Completed(context);
+                return Promise.Completed();
             }
 
-            return next(context);
+            return next();
         }
     }
 }

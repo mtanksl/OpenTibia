@@ -32,7 +32,7 @@ namespace OpenTibia.Game.CommandHandlers
             //TODO: More items
         };
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
             //TODO: The door seems to be sealed against unwanted intruders.
 
@@ -40,13 +40,13 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (doors.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                return context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) ).Then( (ctx, item) =>
+                return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) ).Then( (item) =>
                 {
-                    return ctx.AddCommand(new CreatureUpdateParentCommand(command.Player, (Tile)item.Parent) );
+                    return Context.AddCommand(new CreatureUpdateParentCommand(command.Player, (Tile)item.Parent) );
                 } );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

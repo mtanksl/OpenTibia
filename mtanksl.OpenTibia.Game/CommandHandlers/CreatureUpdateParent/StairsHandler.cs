@@ -26,7 +26,7 @@ namespace OpenTibia.Game.CommandHandlers
             1398, 1400, 1402, 1404, 1553, 1555, 1557, 1559
         };
 
-        public override Promise Handle(ContextPromiseDelegate next, CreatureUpdateParentCommand command)
+        public override Promise Handle(Func<Promise> next, CreatureUpdateParentCommand command)
         {
             Tile stair = command.ToTile;
 
@@ -38,49 +38,49 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (stair.FloorChange == FloorChange.North)
                 {
-                    toTile = context.Server.Map.GetTile(stair.Position.Offset(0, -1, -1) );
+                    toTile = Context.Server.Map.GetTile(stair.Position.Offset(0, -1, -1) );
 
                     direction = Direction.North;
                 }
                 else if (stair.FloorChange == FloorChange.East)
                 {
-                    toTile = context.Server.Map.GetTile(stair.Position.Offset(1, 0, -1) );
+                    toTile = Context.Server.Map.GetTile(stair.Position.Offset(1, 0, -1) );
 
                     direction = Direction.East;
                 }
                 else if (stair.FloorChange == FloorChange.South)
                 {
-                    toTile = context.Server.Map.GetTile(stair.Position.Offset(0, 1, -1) );
+                    toTile = Context.Server.Map.GetTile(stair.Position.Offset(0, 1, -1) );
 
                     direction = Direction.South;
                 }
                 else if (stair.FloorChange == FloorChange.West)
                 {
-                    toTile = context.Server.Map.GetTile(stair.Position.Offset(-1, 0, -1) );
+                    toTile = Context.Server.Map.GetTile(stair.Position.Offset(-1, 0, -1) );
 
                     direction = Direction.West;
                 }
                 else if (stair.FloorChange == FloorChange.NorthEast)
                 {
-                    toTile = context.Server.Map.GetTile(stair.Position.Offset(1, -1, -1) );
+                    toTile = Context.Server.Map.GetTile(stair.Position.Offset(1, -1, -1) );
 
                     direction = Direction.East;
                 }
                 else if (stair.FloorChange == FloorChange.NorthWest)
                 {
-                    toTile = context.Server.Map.GetTile(stair.Position.Offset(-1, -1, -1) );
+                    toTile = Context.Server.Map.GetTile(stair.Position.Offset(-1, -1, -1) );
 
                     direction = Direction.West;
                 }
                 else if (stair.FloorChange == FloorChange.SouthWest)
                 {
-                    toTile = context.Server.Map.GetTile(stair.Position.Offset(-1, 1, -1) );
+                    toTile = Context.Server.Map.GetTile(stair.Position.Offset(-1, 1, -1) );
 
                     direction = Direction.West;
                 }
                 else if (stair.FloorChange == FloorChange.SouthEast)
                 {
-                    toTile = context.Server.Map.GetTile(stair.Position.Offset(1, 1, -1) );
+                    toTile = Context.Server.Map.GetTile(stair.Position.Offset(1, 1, -1) );
 
                     direction = Direction.East;
                 }
@@ -93,11 +93,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (toTile != null)
                 {
-                    return context.AddCommand(new CreatureUpdateParentCommand(command.Creature, toTile, direction) );
+                    return Context.AddCommand(new CreatureUpdateParentCommand(command.Creature, toTile, direction) );
                 }
             }
 
-            return next(context);
+            return next();
         }
     }
 }

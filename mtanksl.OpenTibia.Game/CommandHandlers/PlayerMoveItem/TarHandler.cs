@@ -10,17 +10,17 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> tars = new HashSet<ushort>() { 708, 709, 710, 711 };
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerMoveItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {
             if (command.ToContainer is Tile toTile && toTile.Ground != null && tars.Contains(toTile.Ground.Metadata.OpenTibiaId) )
             {
-                return context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Puff) ).Then(ctx =>
+                return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Puff) ).Then( () =>
                 {
-                    return ctx.AddCommand(new ItemDecrementCommand(command.Item, command.Count) );
+                    return Context.AddCommand(new ItemDecrementCommand(command.Item, command.Count) );
                 } );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

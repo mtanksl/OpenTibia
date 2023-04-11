@@ -16,28 +16,28 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                RuleViolation ruleViolation = context.Server.RuleViolations.GetRuleViolationByReporter(Player);
+                RuleViolation ruleViolation = Context.Server.RuleViolations.GetRuleViolationByReporter(Player);
 
                 if (ruleViolation != null)
                 {
                     if (ruleViolation.Assignee == null)
                     {
-                        context.Server.RuleViolations.RemoveRuleViolation(ruleViolation);
+                        Context.Server.RuleViolations.RemoveRuleViolation(ruleViolation);
 
-                        foreach (var observer in context.Server.Channels.GetChannel(3).GetPlayers() )
+                        foreach (var observer in Context.Server.Channels.GetChannel(3).GetPlayers() )
                         {
-                            context.AddPacket(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
+                            Context.AddPacket(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
                         }
 
-                        resolve(context);
+                        resolve();
                     }
                     else
                     {
-                        context.Server.RuleViolations.RemoveRuleViolation(ruleViolation);
+                        Context.Server.RuleViolations.RemoveRuleViolation(ruleViolation);
 
-                        context.AddPacket(ruleViolation.Assignee.Client.Connection, new CancelRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
+                        Context.AddPacket(ruleViolation.Assignee.Client.Connection, new CancelRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
 
-                        resolve(context);
+                        resolve();
                     }
                 }
             } );            

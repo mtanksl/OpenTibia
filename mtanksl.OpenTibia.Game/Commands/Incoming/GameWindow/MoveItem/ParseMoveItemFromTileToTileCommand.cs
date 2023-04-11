@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                Tile fromTile = context.Server.Map.GetTile(FromPosition);
+                Tile fromTile = Context.Server.Map.GetTile(FromPosition);
 
                 if (fromTile != null)
                 {
@@ -44,15 +44,15 @@ namespace OpenTibia.Game.Commands
 
                                 if (fromItem.Metadata.TibiaId == ItemId)
                                 {
-                                    Tile toTile = context.Server.Map.GetTile(ToPosition);
+                                    Tile toTile = Context.Server.Map.GetTile(ToPosition);
 
                                     if (toTile != null)
                                     {
-                                        if (IsMoveable(context, fromItem, Count) )
+                                        if (IsMoveable(Context, fromItem, Count) )
                                         {
-                                            context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toTile, 0, Count, true) ).Then(ctx =>
+                                            Context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toTile, 0, Count, true) ).Then( () =>
                                             {
-                                                resolve(ctx);
+                                                resolve();
                                             } );
                                         }
                                     }
@@ -64,15 +64,15 @@ namespace OpenTibia.Game.Commands
 
                                 if (ItemId == 99)
                                 {
-                                    Tile toTile = context.Server.Map.GetTile(ToPosition);
+                                    Tile toTile = Context.Server.Map.GetTile(ToPosition);
 
                                     if (toTile != null)
                                     {
-                                        if (IsMoveable(context, fromCreature) )
+                                        if (IsMoveable(Context, fromCreature) )
                                         {
-                                            context.AddCommand(new PlayerMoveCreatureCommand(Player, fromCreature, toTile) ).Then(ctx =>
+                                            Context.AddCommand(new PlayerMoveCreatureCommand(Player, fromCreature, toTile) ).Then( () =>
                                             {
-                                                resolve(ctx);
+                                                resolve();
                                             } );
                                         }
                                     }

@@ -64,9 +64,11 @@ namespace OpenTibia.Common.Objects
                     {
                         server.Logger.WriteLine("Received on login server: 0x" + identification.ToString("X2"), LogLevel.Debug);
 
-                        server.QueueForExecution(ctx =>
+                        server.QueueForExecution( () =>
                         {
-                            return ctx.AddCommand(command);
+                            Context context = Context.Current;
+
+                            return context.AddCommand(command);
                         } );
                     }
                     else

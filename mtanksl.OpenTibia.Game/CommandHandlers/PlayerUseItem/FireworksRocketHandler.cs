@@ -10,27 +10,27 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> fireworksRockets = new HashSet<ushort>() { 6576 };
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
             if (fireworksRockets.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 if (command.Item.Parent is Tile tile)
                 {
-                    context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.FireworkBlue) );
+                    Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.FireworkBlue) );
                 }
                 else
                 {
-                    context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "Ouch! Rather place it on the ground next time.") );
+                    Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "Ouch! Rather place it on the ground next time.") );
 
-                    context.AddCommand(CombatCommand.TargetAttack(null, command.Player, null, MagicEffectType.ExplosionDamage, (attacker, target) => -10) );
+                    Context.AddCommand(CombatCommand.TargetAttack(null, command.Player, null, MagicEffectType.ExplosionDamage, (attacker, target) => -10) );
                 }
 
-                context.AddCommand(new ItemDestroyCommand(command.Item) );
+                Context.AddCommand(new ItemDestroyCommand(command.Item) );
 
-                return Promise.Completed(context);
+                return Promise.Completed();
             }
 
-            return next(context);
+            return next();
         }
     }
 }

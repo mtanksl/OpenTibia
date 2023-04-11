@@ -24,16 +24,16 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                Creature creature = context.Server.GameObjects.GetCreature(CreatureId);
+                Creature creature = Context.Server.GameObjects.GetCreature(CreatureId);
                 
                 if (creature != null && creature != Player)
                 {
-                    AttackAndFollowBehaviour component = context.Server.Components.GetComponent<AttackAndFollowBehaviour>(Player);
+                    AttackAndFollowBehaviour component = Context.Server.Components.GetComponent<AttackAndFollowBehaviour>(Player);
 
                     component.Follow(creature);
                 }
 
-                resolve(context);
+                resolve();
             } );
         }
     }

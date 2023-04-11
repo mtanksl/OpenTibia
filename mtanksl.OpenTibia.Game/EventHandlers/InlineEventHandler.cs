@@ -14,7 +14,7 @@ namespace OpenTibia.Game.EventHandlers
 
         public override void Handle(T e)
         {
-            execute(context, e);
+            execute(Context, e);
         }
     }
 }

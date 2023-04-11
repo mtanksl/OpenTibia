@@ -10,18 +10,18 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> books = new HashSet<ushort>() { 1955 };
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
             if (books.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 var readableItem = (ReadableItem)command.Item;
 
-                context.AddPacket(command.Player.Client.Connection, new OpenTextDialogOutgoingPacket(0, command.Item.Metadata.TibiaId, 255, readableItem.Text, readableItem.Author, readableItem.Date) );
+                Context.AddPacket(command.Player.Client.Connection, new OpenTextDialogOutgoingPacket(0, command.Item.Metadata.TibiaId, 255, readableItem.Text, readableItem.Author, readableItem.Date) );
 
-                return Promise.Completed(context);
+                return Promise.Completed();
             }
 
-            return next(context);
+            return next();
         }
     }
 }

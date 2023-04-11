@@ -12,16 +12,16 @@ namespace OpenTibia.Game.CommandHandlers
             { 2148, 2152 }
         };
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
             ushort toOpenTibiaId;
 
             if (goldCoinsToPlatinumCoin.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) && ( (StackableItem)command.Item).Count == 100)
             {
-                return context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
+                return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

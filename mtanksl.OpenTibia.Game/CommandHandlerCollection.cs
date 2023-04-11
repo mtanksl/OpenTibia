@@ -10,7 +10,7 @@ namespace OpenTibia.Game
     {
         private Dictionary<Type, List<object> > types = new Dictionary<Type, List<object> >();
 
-        public void Add<T>(Func<Context, ContextPromiseDelegate, T, Promise> handle) where T : Command
+        public void Add<T>(Func<Context, Func<Promise>, T, Promise> handle) where T : Command
         {
             Add(new InlineCommandHandler<T>(handle) );
         }
@@ -29,7 +29,7 @@ namespace OpenTibia.Game
             commandHandlers.Add(commandHandler);
         }
 
-        public void Add<T, TResult>(Func<Context, ContextPromiseResultDelegate<TResult>, T, PromiseResult<TResult> > handle) where T : CommandResult<TResult>
+        public void Add<T, TResult>(Func<Context, Func<PromiseResult<TResult>>, T, PromiseResult<TResult> > handle) where T : CommandResult<TResult>
         {
             Add(new InlineCommandHandlerResult<T, TResult>(handle) );
         }

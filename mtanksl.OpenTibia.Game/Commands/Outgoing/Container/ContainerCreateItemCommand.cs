@@ -23,14 +23,14 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run<Item>( (resolve, reject) =>
             {
-                Item item = context.Server.ItemFactory.Create(OpenTibiaId, Count);
+                Item item = Context.Server.ItemFactory.Create(OpenTibiaId, Count);
 
                 if (item != null)
                 {
-                    context.AddCommand(new ContainerAddItemCommand(Container, item) );
+                    Context.AddCommand(new ContainerAddItemCommand(Container, item) );
                 }
 
-                resolve(context, item);
+                resolve(item);
             } );
         }
     }

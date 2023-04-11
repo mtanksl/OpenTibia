@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class ThrowAwayContainerCloseHandler : CommandHandler<PlayerMoveItemCommand>
     {
-        public override Promise Handle(ContextPromiseDelegate next, PlayerMoveItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {
             if (command.Item is Container container)
             {
@@ -19,7 +19,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     case Tile fromTile:
 
-                        foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                        foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                         {
                             if (observer.Tile.Position.IsNextTo(fromTile.Position) )
                             {
@@ -47,7 +47,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                             case Tile fromTile:
 
-                                foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                                 {
                                     if (observer.Tile.Position.IsNextTo(fromTile.Position) )
                                     {
@@ -67,7 +67,7 @@ namespace OpenTibia.Game.CommandHandlers
                         break;
                 }
 
-                return next(context).Then(ctx =>
+                return next().Then( () =>
                 {
                     HashSet<Player> isNextTo = new HashSet<Player>();
 
@@ -75,7 +75,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         case Tile toTile:
 
-                            foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                            foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                             {
                                 if (observer.Tile.Position.IsNextTo(toTile.Position) )
                                 {
@@ -103,7 +103,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 case Tile toTile:
 
-                                    foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                                    foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                                     {
                                         if (observer.Tile.Position.IsNextTo(toTile.Position) )
                                         {
@@ -131,7 +131,7 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 observer.Client.ContainerCollection.CloseContainer(pair.Key);
 
-                                context.AddPacket(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                                Context.AddPacket(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
                             }
                         }
                     }
@@ -149,14 +149,14 @@ namespace OpenTibia.Game.CommandHandlers
                                     items.Add(item);
                                 }
 
-                                context.AddPacket(observer.Client.Connection, new OpenContainerOutgoingPacket(pair.Key, container.Metadata.TibiaId, container.Metadata.Name, container.Metadata.Capacity, container.Parent is Container, items) );
+                                Context.AddPacket(observer.Client.Connection, new OpenContainerOutgoingPacket(pair.Key, container.Metadata.TibiaId, container.Metadata.Name, container.Metadata.Capacity, container.Parent is Container, items) );
                             }                           
                         }
                     }
                 } );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

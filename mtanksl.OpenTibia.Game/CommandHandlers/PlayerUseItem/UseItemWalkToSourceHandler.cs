@@ -6,7 +6,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class UseItemWalkToSourceHandler : CommandHandler<PlayerUseItemCommand>
     {
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
             if (command.Item.Parent is Tile tile && !command.Player.Tile.Position.IsNextTo(tile.Position) )
             {
@@ -14,11 +14,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 byte beforeIndex = beforeContainer.GetIndex(command.Item);
 
-                return context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, (Tile)command.Item.Parent) ).Then(ctx =>
+                return Context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, (Tile)command.Item.Parent) ).Then( () =>
                 {
-                    return Promise.Delay(ctx.Server, Constants.PlayerAutomationSchedulerEvent(command.Player), Constants.PlayerAutomationSchedulerEventInterval);
+                    return Promise.Delay(Context.Server, Constants.PlayerAutomationSchedulerEvent(command.Player), Constants.PlayerAutomationSchedulerEventInterval);
 
-                } ).Then(ctx =>
+                } ).Then( () =>
                 {
                     IContainer afterContainer = command.Item.Parent;
 
@@ -26,14 +26,14 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (beforeContainer == afterContainer && beforeIndex == afterIndex)
                     {
-                        return next(ctx);
+                        return next();
                     }
 
-                    return Promise.Completed(ctx);
+                    return Promise.Completed();
                 } );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

@@ -25,33 +25,33 @@ namespace OpenTibia.Game.CommandHandlers
             (2114, 1)
         };
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
             if (surpriseBags.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                int value = context.Server.Randomization.Take(0, prizes.Count);
+                int value = Context.Server.Randomization.Take(0, prizes.Count);
 
                 switch (command.Item.Root() )
                 {
                     case Tile tile:
 
-                        context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.GiftWraps) );
+                        Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.GiftWraps) );
 
                         break;
 
                     case Inventory inventory:
 
-                        context.AddCommand(new ShowMagicEffectCommand(inventory.Player.Tile.Position, MagicEffectType.GiftWraps) );
+                        Context.AddCommand(new ShowMagicEffectCommand(inventory.Player.Tile.Position, MagicEffectType.GiftWraps) );
 
                         break;
                 }
                                
-                context.AddCommand(new ItemTransformCommand(command.Item, prizes[value].OpenTibiaId, prizes[value].Count) );
+                Context.AddCommand(new ItemTransformCommand(command.Item, prizes[value].OpenTibiaId, prizes[value].Count) );
 
-                return Promise.Completed(context);
+                return Promise.Completed();
             }
 
-            return next(context);
+            return next();
         }
     }
 }

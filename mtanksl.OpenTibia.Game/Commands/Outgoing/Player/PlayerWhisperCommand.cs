@@ -21,19 +21,19 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                 {
                     if (observer.Tile.Position.CanHearWhisper(Player.Tile.Position) )
                     {
-                        context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, Message) );
+                        Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, Message) );
                     }
                     else if (observer.Tile.Position.CanHearSay(Player.Tile.Position) )
                     {
-                        context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, "pspsps") );
+                        Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, "pspsps") );
                     }
                 }
 
-                resolve(context);
+                resolve();
             } );
         }
     }

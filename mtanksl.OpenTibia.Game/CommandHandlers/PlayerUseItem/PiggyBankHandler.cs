@@ -13,7 +13,7 @@ namespace OpenTibia.Game.CommandHandlers
             { 2114, 2115 }
         };
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
             ushort toOpenTibiaId;
 
@@ -23,23 +23,23 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     case Tile tile:
 
-                        context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.Puff) );
+                        Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.Puff) );
 
                         break;
 
                     case Inventory inventory:
 
-                        context.AddCommand(new ShowMagicEffectCommand(inventory.Player.Tile.Position, MagicEffectType.Puff) );
+                        Context.AddCommand(new ShowMagicEffectCommand(inventory.Player.Tile.Position, MagicEffectType.Puff) );
 
                         break;
                 }
 
-                context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
+                Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
 
-                return Promise.Completed(context);
+                return Promise.Completed();
             }
 
-            return next(context);
+            return next();
         }
     }
 }

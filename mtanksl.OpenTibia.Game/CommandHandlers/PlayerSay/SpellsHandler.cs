@@ -559,13 +559,13 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 Tile toTile = context.Server.Map.GetTile(player.Tile.Position.Offset(0, 1, -1) );
 
-                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.Teleport) ).Then(ctx =>
+                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.Teleport) ).Then( () =>
                 {
-                    return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                    return context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
 
-                } ).Then(ctx =>
+                } ).Then( () =>
                 {
-                    return ctx.AddCommand(new CreatureUpdateParentCommand(player, toTile, Direction.South) );
+                    return context.AddCommand(new CreatureUpdateParentCommand(player, toTile, Direction.South) );
                 } );
             };
         }
@@ -576,13 +576,13 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 Tile toTile = context.Server.Map.GetTile(player.Tile.Position.Offset(0, 0, -1).Offset(player.Direction) );
 
-                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.Teleport) ).Then(ctx =>
+                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.Teleport) ).Then( () =>
                 {
-                    return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                    return context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
 
-                } ).Then(ctx =>
+                } ).Then( () =>
                 {
-                    return ctx.AddCommand(new CreatureUpdateParentCommand(player, toTile) );
+                    return context.AddCommand(new CreatureUpdateParentCommand(player, toTile) );
                 } );
             };
         }
@@ -593,13 +593,13 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 Tile toTile = context.Server.Map.GetTile(player.Tile.Position.Offset(0, 0, 1).Offset(player.Direction) );
 
-                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.Teleport) ).Then(ctx =>
+                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.Teleport) ).Then( () =>
                 {
-                    return ctx.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                    return context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
 
-                } ).Then(ctx =>
+                } ).Then( () =>
                 {
-                    return ctx.AddCommand(new CreatureUpdateParentCommand(player, toTile) );
+                    return context.AddCommand(new CreatureUpdateParentCommand(player, toTile) );
                 } );
             };
         }
@@ -608,9 +608,9 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return (context, player) =>
             {
-                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) ).Then(ctx =>
+                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                 {
-                    return ctx.AddCommand(new CreatureUpdateLightCommand(player, new Light(level, color) ) );
+                    return context.AddCommand(new CreatureUpdateLightCommand(player, new Light(level, color) ) );
                 } );
             };
         }
@@ -619,9 +619,9 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return (context, player) =>
             {
-                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.GreenShimmer) ).Then(ctx =>
+                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.GreenShimmer) ).Then( () =>
                 {
-                    return ctx.AddCommand(new CreatureUpdateSpeedCommand(player, formula(player) ) );
+                    return context.AddCommand(new CreatureUpdateSpeedCommand(player, formula(player) ) );
                 } );
             };           
         }
@@ -630,7 +630,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return (context, player) =>
             {
-                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) ).Then(ctx =>
+                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                 {
                     SpecialConditionBehaviour component = context.Server.Components.GetComponent<SpecialConditionBehaviour>(player);
 
@@ -731,52 +731,52 @@ namespace OpenTibia.Game.CommandHandlers
            return (formula * (@base - variation) / 100, formula * (@base + variation) / 100);
         }
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerSayCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
             Spell spell;
 
             if (spells.TryGetValue(command.Message, out spell) )
             {
-                CooldownBehaviour component = context.Server.Components.GetComponent<CooldownBehaviour>(command.Player);
+                CooldownBehaviour component = Context.Server.Components.GetComponent<CooldownBehaviour>(command.Player);
 
                 if (command.Player.Mana >= spell.Mana)
                 {
                     if ( !component.HasCooldown(spell.Name) && !component.HasCooldown(spell.Group) )
                     {
-                        if (spell.Condition == null || spell.Condition(context, command.Player) )
+                        if (spell.Condition == null || spell.Condition(Context, command.Player) )
                         {
                             component.AddCooldown(spell.Name, spell.CooldownInMilliseconds);
     
                             component.AddCooldown(spell.Group, spell.GroupCooldownInMilliseconds);
 
-                            return next(context).Then(ctx =>
+                            return next().Then( () =>
                             {
-                                return spell.Callback(ctx, command.Player);
+                                return spell.Callback(Context, command.Player);
                             } );
                         }
                         else
                         {
-                            return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                            return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
                         }
                     }
                     else
                     {
-                        return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then(ctx =>
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
                         {
-                            ctx.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
+                            Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
                         } );
                     }
                 }
                 else
                 {
-                    return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then(ctx =>
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
                     {
-                        ctx.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMana) );
+                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMana) );
                     } );
                 }
             }
 
-            return next(context);
+            return next();
         }
     }
 }

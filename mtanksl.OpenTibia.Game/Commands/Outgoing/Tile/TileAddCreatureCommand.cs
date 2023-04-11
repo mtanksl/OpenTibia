@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
 
                 if (index < Constants.ObjectsPerPoint)
                 {
-                    foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                    foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                     {
                         if (observer != Creature)
                         {
@@ -35,20 +35,20 @@ namespace OpenTibia.Game.Commands
 
                                 if (observer.Client.CreatureCollection.IsKnownCreature(Creature.Id, out removeId) )
                                 {
-                                    context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, Creature) );
+                                    Context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, Creature) );
                                 }
                                 else
                                 {
-                                    context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, removeId, Creature) );
+                                    Context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, removeId, Creature) );
                                 }
                             }
                         }
                     }
                 }
 
-                context.AddEvent(new TileAddCreatureEventArgs(Tile, Creature, index) );
+                Context.AddEvent(new TileAddCreatureEventArgs(Tile, Creature, index) );
 
-                resolve(context);
+                resolve();
             } );
         }
     }

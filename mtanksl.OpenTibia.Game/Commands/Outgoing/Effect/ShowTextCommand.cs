@@ -25,15 +25,15 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                 {
                     if (observer.Tile.Position.CanSee(Creature.Tile.Position) )
                     {
-                        context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Creature.Name, 0, TalkType, Creature.Tile.Position, Message) );
+                        Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Creature.Name, 0, TalkType, Creature.Tile.Position, Message) );
                     }
                 }
 
-                resolve(context);
+                resolve();
             } );
         }
     }

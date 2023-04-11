@@ -6,17 +6,17 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class ContainerOpenHandler : CommandHandler<PlayerUseItemCommand>
     {
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
             if (command.Item is Locker locker)
             {
-                Container container = context.Server.Lockers.GetLocker(command.Player.DatabasePlayerId, locker.TownId);
+                Container container = Context.Server.Lockers.GetLocker(command.Player.DatabasePlayerId, locker.TownId);
 
                 if (container == null)
                 {
-                    container = (Container)context.Server.ItemFactory.Create(2591, 1);
+                    container = (Container)Context.Server.ItemFactory.Create(2591, 1);
 
-                    context.Server.Lockers.AddLocker(command.Player.DatabasePlayerId, locker.TownId, container);
+                    Context.Server.Lockers.AddLocker(command.Player.DatabasePlayerId, locker.TownId, container);
                 }
 
                 command.Item = container;
@@ -27,16 +27,16 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     if (command.ContainerId != null)
                     {
-                        return context.AddCommand(new ContainerReplaceOrCloseCommand(command.Player, container, command.ContainerId.Value) );
+                        return Context.AddCommand(new ContainerReplaceOrCloseCommand(command.Player, container, command.ContainerId.Value) );
                     }
                     else
                     {
-                        return context.AddCommand(new ContainerOpenOrCloseCommand(command.Player, container) );
+                        return Context.AddCommand(new ContainerOpenOrCloseCommand(command.Player, container) );
                     }
                 }
             }
 
-            return next(context);
+            return next();
         }
     }
 }

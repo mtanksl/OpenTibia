@@ -22,27 +22,27 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort wheat = 2694;
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
             ushort toOpenTibiaId;
 
             if (scythes.Contains(command.Item.Metadata.OpenTibiaId) && wheats.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                return context.AddCommand(new TileIncrementOrCreateItemCommand( (Tile)command.ToItem.Parent, wheat, 1) ).Then(ctx =>
+                return Context.AddCommand(new TileIncrementOrCreateItemCommand( (Tile)command.ToItem.Parent, wheat, 1) ).Then( () =>
                 {
-                    return ctx.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+                    return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
 
-                } ).Then( (ctx, item) =>
+                } ).Then( (item) =>
                 {
-                    return ctx.AddCommand(new ItemDecayTransformCommand(item, 10000, decay[item.Metadata.OpenTibiaId], 1) );
+                    return Context.AddCommand(new ItemDecayTransformCommand(item, 10000, decay[item.Metadata.OpenTibiaId], 1) );
 
-                } ).Then( (ctx, item) =>
+                } ).Then( (item) =>
                 {
-                    return ctx.AddCommand(new ItemDecayTransformCommand(item, 10000, decay[item.Metadata.OpenTibiaId], 1) );
+                    return Context.AddCommand(new ItemDecayTransformCommand(item, 10000, decay[item.Metadata.OpenTibiaId], 1) );
                 } );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

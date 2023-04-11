@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                Player player = context.Server.GameObjects.GetPlayers()
+                Player player = Context.Server.GameObjects.GetPlayers()
                     .Where(p => p.Name == Name)
                     .FirstOrDefault();
 
@@ -29,10 +29,10 @@ namespace OpenTibia.Game.Commands
                 {
                     Vip vip = Player.Client.VipCollection.AddVip(player.Name);
 
-                    context.AddPacket(Player.Client.Connection, new VipOutgoingPacket(vip.Id, vip.Name, false) );
+                    Context.AddPacket(Player.Client.Connection, new VipOutgoingPacket(vip.Id, vip.Name, false) );
                 }
 
-                resolve(context);
+                resolve();
             } );
         }
     }

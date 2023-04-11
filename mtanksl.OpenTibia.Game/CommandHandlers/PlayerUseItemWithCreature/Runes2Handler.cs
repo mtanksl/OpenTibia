@@ -98,7 +98,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return (context, player, target) =>
             {
-                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) ).Then(ctx =>
+                return context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                 {
                     SpecialConditionBehaviour component = context.Server.Components.GetComponent<SpecialConditionBehaviour>(player);
 
@@ -144,48 +144,48 @@ namespace OpenTibia.Game.CommandHandlers
             return (formula * (@base - variation) / 100, formula * (@base + variation) / 100);
         }
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemWithCreatureCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemWithCreatureCommand command)
         {
             Rune rune;
 
             if (runes.TryGetValue(command.Item.Metadata.OpenTibiaId, out rune) )
             {
-                CooldownBehaviour component = context.Server.Components.GetComponent<CooldownBehaviour>(command.Player);
+                CooldownBehaviour component = Context.Server.Components.GetComponent<CooldownBehaviour>(command.Player);
 
                 if ( !component.HasCooldown(rune.Group) )
                 {
-                    if (rune.Condition == null || rune.Condition(context, command.Player, command.ToCreature) )
+                    if (rune.Condition == null || rune.Condition(Context, command.Player, command.ToCreature) )
                     {
                         component.AddCooldown(rune.Group, rune.GroupCooldownInMilliseconds);
 
-                        return Promise.Completed(context).Then(ctx =>
+                        return Promise.Completed().Then( () =>
                         {
-                            return rune.Callback(ctx, command.Player, command.ToCreature);
+                            return rune.Callback(Context, command.Player, command.ToCreature);
 
-                        } ).Then(ctx =>
+                        } ).Then( () =>
                         {
-                            return ctx.AddCommand(new ItemDecrementCommand(command.Item, 1) );
+                            return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
                         } );
                     }
                     else
                     {
-                        return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
                     }
                 }
                 else
                 {
-                    return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then(ctx =>
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
                     {
-                        ctx.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
+                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
                     } );
                 }                
             }
             else if (itemWithItemRunes.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                return context.AddCommand(new PlayerUseItemWithItemCommand(command.Player, command.Item, command.ToCreature.Tile.Ground) );
+                return Context.AddCommand(new PlayerUseItemWithItemCommand(command.Player, command.Item, command.ToCreature.Tile.Ground) );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

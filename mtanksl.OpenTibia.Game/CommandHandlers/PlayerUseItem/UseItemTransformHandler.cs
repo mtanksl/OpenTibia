@@ -121,16 +121,16 @@ namespace OpenTibia.Game.CommandHandlers
             //TODO: More items
         };
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
             ushort toOpenTibiaId;
 
             if (transformations.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                return context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
+                return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

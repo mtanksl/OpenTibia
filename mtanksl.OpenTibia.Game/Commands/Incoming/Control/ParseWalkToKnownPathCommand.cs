@@ -22,13 +22,13 @@ namespace OpenTibia.Game.Commands
         {
             if (index < MoveDirections.Length)
             {
-                return context.AddCommand(new ParseWalkCommand(Player, MoveDirections[index++] ) ).Then(ctx =>
+                return Context.AddCommand(new ParseWalkCommand(Player, MoveDirections[index++] ) ).Then( () =>
                 {
                     return Execute();
                 } ); 
             }
 
-            return Promise.Completed(context);
+            return Promise.Completed();
         }
     }
 }

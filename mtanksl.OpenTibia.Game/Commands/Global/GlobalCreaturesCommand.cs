@@ -10,15 +10,15 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                foreach (var component in context.Server.Components.GetComponentsOfType<Creature, PeriodicBehaviour>().ToList() )
+                foreach (var component in Context.Server.Components.GetComponentsOfType<Creature, PeriodicBehaviour>().ToList() )
                 {
                     if (component.GameObject != null)
                     {
-                        component.Update(context);
+                        component.Update();
                     }
                 }
 
-                resolve(context);
+                resolve();
             } );
         }
     }

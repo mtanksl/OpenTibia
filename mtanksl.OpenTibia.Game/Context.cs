@@ -85,7 +85,7 @@ namespace OpenTibia.Game
 
             var commandHandlers = server.CommandHandlers.Get(command).GetEnumerator();
 
-            Promise Next(Context context)
+            Promise Next()
             {
                 if (commandHandlers.MoveNext() )
                 {
@@ -97,7 +97,7 @@ namespace OpenTibia.Game
                 return command.Execute();
             }
 
-            return Next(this);
+            return Next();
         }
 
         /// <exception cref="ObjectDisposedException"></exception>
@@ -111,7 +111,7 @@ namespace OpenTibia.Game
 
             var commandHandlers = server.CommandHandlers.Get(command).GetEnumerator();
 
-            PromiseResult<TResult> Next(Context context)
+            PromiseResult<TResult> Next()
             {
                 if (commandHandlers.MoveNext() )
                 {
@@ -123,7 +123,7 @@ namespace OpenTibia.Game
                 return command.Execute();
             }
 
-            return Next(this);
+            return Next();
         }
 
         private Dictionary<IConnection, Message> messages = null;

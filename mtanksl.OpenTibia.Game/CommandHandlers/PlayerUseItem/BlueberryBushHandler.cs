@@ -19,23 +19,23 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort blueberry = 2677;
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
             ushort toOpenTibiaId;
 
             if (blueberryBushs.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                return context.AddCommand(new TileIncrementOrCreateItemCommand( (Tile)command.Item.Parent, blueberry, 3) ).Then(ctx =>
+                return Context.AddCommand(new TileIncrementOrCreateItemCommand( (Tile)command.Item.Parent, blueberry, 3) ).Then( () =>
                 {
-                    return ctx.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
+                    return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
             
-                } ).Then( (ctx, item) =>
+                } ).Then( (item) =>
                 {
-                    return ctx.AddCommand(new ItemDecayTransformCommand(item, 10000, decay[item.Metadata.OpenTibiaId], 1) );                      
+                    return Context.AddCommand(new ItemDecayTransformCommand(item, 10000, decay[item.Metadata.OpenTibiaId], 1) );                      
                 } );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

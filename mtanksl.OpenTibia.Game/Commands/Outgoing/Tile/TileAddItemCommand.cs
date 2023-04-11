@@ -24,16 +24,16 @@ namespace OpenTibia.Game.Commands
 
                 if (index < Constants.ObjectsPerPoint)
                 {
-                    foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                    foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                     {
                         if (observer.Tile.Position.CanSee(Tile.Position) )
                         {
-                            context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, Item) );
+                            Context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, Item) );
                         }
                     }
                 }
 
-                resolve(context);
+                resolve();
             } );
         }
     }

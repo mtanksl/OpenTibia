@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                Tile fromTile = context.Server.Map.GetTile(FromPosition);
+                Tile fromTile = Context.Server.Map.GetTile(FromPosition);
 
                 if (fromTile != null)
                 {
@@ -46,7 +46,7 @@ namespace OpenTibia.Game.Commands
 
                         if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
                         {
-                            Tile toTile = context.Server.Map.GetTile(ToPosition);
+                            Tile toTile = Context.Server.Map.GetTile(ToPosition);
 
                             if (toTile != null)
                             {
@@ -56,11 +56,11 @@ namespace OpenTibia.Game.Commands
 
                                         if (toItem.Metadata.TibiaId == ToItemId)
                                         {
-                                            if ( IsUseable(context, fromItem) )
+                                            if ( IsUseable(Context, fromItem) )
                                             {
-                                                context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) ).Then(ctx =>
+                                                Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) ).Then( () =>
                                                 {
-                                                    resolve(context);
+                                                    resolve();
                                                 } );
                                             }
                                         }
@@ -71,11 +71,11 @@ namespace OpenTibia.Game.Commands
 
                                         if (ToItemId == 99)
                                         {
-                                            if ( IsUseable(context, fromItem) )
+                                            if ( IsUseable(Context, fromItem) )
                                             {
-                                                context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) ).Then(ctx =>
+                                                Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) ).Then( () =>
                                                 {
-                                                    resolve(context);
+                                                    resolve();
                                                 } );
                                             }
                                         }

@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                Channel channel = context.Server.Channels.GetChannel(ChannelId);
+                Channel channel = Context.Server.Channels.GetChannel(ChannelId);
             
                 if (channel != null)
                 {
@@ -41,9 +41,9 @@ namespace OpenTibia.Game.Commands
                             privateChannel.AddPlayer(Player);
                         }
 
-                        context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
+                        Context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
 
-                        resolve(context);
+                        resolve();
                     }
                     else
                     {
@@ -56,9 +56,9 @@ namespace OpenTibia.Game.Commands
                                 guildChannel.AddPlayer(Player);
                             }
 
-                            context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(guildChannel.Id, guildChannel.Name) );
+                            Context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(guildChannel.Id, guildChannel.Name) );
 
-                            resolve(context);
+                            resolve();
                         }
                         else
                         {
@@ -71,9 +71,9 @@ namespace OpenTibia.Game.Commands
                                     partyChannel.AddPlayer(Player);
                                 }
 
-                                context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(partyChannel.Id, partyChannel.Name) );
+                                Context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(partyChannel.Id, partyChannel.Name) );
 
-                                resolve(context);
+                                resolve();
                             }
                             else
                             {
@@ -84,22 +84,22 @@ namespace OpenTibia.Game.Commands
 
                                 if (channel.Id == 3)
                                 {
-                                    context.AddPacket(Player.Client.Connection, new OpenRuleViolationsChannelOutgoingPacket(channel.Id) );
+                                    Context.AddPacket(Player.Client.Connection, new OpenRuleViolationsChannelOutgoingPacket(channel.Id) );
                     
-                                    foreach (var ruleViolation in context.Server.RuleViolations.GetRuleViolations() )
+                                    foreach (var ruleViolation in Context.Server.RuleViolations.GetRuleViolations() )
                                     {
                                         if (ruleViolation.Assignee == null)
                                         {
-                                            context.AddPacket(Player.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationOpen, ruleViolation.Time, ruleViolation.Message) );
+                                            Context.AddPacket(Player.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationOpen, ruleViolation.Time, ruleViolation.Message) );
                                         }
                                     }
                                 }
                                 else
                                 {
-                                    context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(channel.Id, channel.Name) );
+                                    Context.AddPacket(Player.Client.Connection, new OpenChannelOutgoingPacket(channel.Id, channel.Name) );
                                 }
 
-                                resolve(context);
+                                resolve();
                             }
                         }                    
                     }           

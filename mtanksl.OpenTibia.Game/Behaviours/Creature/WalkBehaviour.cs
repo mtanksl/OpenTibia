@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Components
 
         private bool running = false;
 
-        public override void Update(Context context)
+        public override void Update()
         {
             if (running)
             {
@@ -40,25 +40,25 @@ namespace OpenTibia.Game.Components
                 spawn = creature.Tile;
             }
 
-            foreach (var observer in context.Server.GameObjects.GetPlayers() )
+            foreach (var observer in Context.Server.GameObjects.GetPlayers() )
             {
                 if (creature.Tile.Position.CanSee(observer.Tile.Position) )
                 {
-                    var toTile = walkStrategy.GetNext(context, spawn, creature, observer);
+                    var toTile = walkStrategy.GetNext(Context, spawn, creature, observer);
 
                     if (toTile != null)
                     {
                         running = true;
 
-                        context.AddCommand(new CreatureUpdateParentCommand(creature, toTile) ).Then(ctx =>
+                        Context.AddCommand(new CreatureUpdateParentCommand(creature, toTile) ).Then( () =>
                         {
-                            return Promise.Delay(ctx.Server, key, 1000 * toTile.Ground.Metadata.Speed / creature.Speed);
+                            return Promise.Delay(Context.Server, key, 1000 * toTile.Ground.Metadata.Speed / creature.Speed);
 
-                        } ).Then(ctx =>
+                        } ).Then( () =>
                         {
                             running = false;
 
-                            Update(ctx);
+                            Update();
                         } );
                     }
 

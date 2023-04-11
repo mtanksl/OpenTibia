@@ -55,7 +55,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (doors.TryGetValue(topItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
                 {
-                    context.AddCommand(new ItemTransformCommand(topItem, toOpenTibiaId, 1) );
+                    Context.AddCommand(new ItemTransformCommand(topItem, toOpenTibiaId, 1) );
 
                     break;
                 }

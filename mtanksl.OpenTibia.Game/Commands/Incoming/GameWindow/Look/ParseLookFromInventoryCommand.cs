@@ -25,9 +25,9 @@ namespace OpenTibia.Game.Commands
 
                 if (item != null && item.Metadata.TibiaId == ItemId)
                 {
-                    context.AddCommand(new PlayerLookItemCommand(Player, item) ).Then(ctx =>
+                    Context.AddCommand(new PlayerLookItemCommand(Player, item) ).Then( () =>
                     {
-                        resolve(ctx);
+                        resolve();
                     } );
                 }
             } );

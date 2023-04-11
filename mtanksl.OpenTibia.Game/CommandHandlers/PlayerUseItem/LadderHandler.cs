@@ -10,14 +10,14 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> ladders = new HashSet<ushort>() { 1386, 3678, 5543 };
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
             if (ladders.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                return context.AddCommand(new CreatureUpdateParentCommand(command.Player, context.Server.Map.GetTile( ( (Tile)command.Item.Parent ).Position.Offset(0, 1, -1) ), Direction.South) );
+                return Context.AddCommand(new CreatureUpdateParentCommand(command.Player, Context.Server.Map.GetTile( ( (Tile)command.Item.Parent ).Position.Offset(0, 1, -1) ), Direction.South) );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

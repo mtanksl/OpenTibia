@@ -9,14 +9,14 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> dustbins = new HashSet<ushort>() { 1777 };
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerMoveItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {
             if (command.ToContainer is Tile toTile && toTile.TopItem != null && dustbins.Contains(toTile.TopItem.Metadata.OpenTibiaId) )
             {
-                return context.AddCommand(new ItemDecrementCommand(command.Item, command.Count) );
+                return Context.AddCommand(new ItemDecrementCommand(command.Item, command.Count) );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

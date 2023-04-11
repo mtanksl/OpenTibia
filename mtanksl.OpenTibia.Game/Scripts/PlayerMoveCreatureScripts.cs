@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Scripts
                     return Promise.Pending();
                 }
 
-                return next(context);
+                return next();
             } ) );
 
             server.CommandHandlers.Add(new InlineCommandHandler<PlayerMoveCreatureCommand>( (context, next, command) => 
@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Scripts
                     return Promise.Pending();
                 }
 
-                return next(context);
+                return next();
             } ) );
         }
 

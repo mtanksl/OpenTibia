@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                Tile fromTile = context.Server.Map.GetTile(FromPosition);
+                Tile fromTile = Context.Server.Map.GetTile(FromPosition);
 
                 if (fromTile != null)
                 {
@@ -36,9 +36,9 @@ namespace OpenTibia.Game.Commands
 
                                 if (item.Metadata.TibiaId == ItemId)
                                 {
-                                    context.AddCommand(new PlayerLookItemCommand(Player, item) ).Then(ctx =>
+                                    Context.AddCommand(new PlayerLookItemCommand(Player, item) ).Then( () =>
                                     {
-                                        resolve(ctx);
+                                        resolve();
                                     } );
                                 }
 
@@ -48,9 +48,9 @@ namespace OpenTibia.Game.Commands
 
                                 if (ItemId == 99)
                                 {
-                                    context.AddCommand(new PlayerLookCreatureCommand(Player, creature) ).Then(ctx =>
+                                    Context.AddCommand(new PlayerLookCreatureCommand(Player, creature) ).Then( () =>
                                     {
-                                        resolve(ctx);
+                                        resolve();
                                     } );
                                 }
 

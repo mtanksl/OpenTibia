@@ -33,46 +33,46 @@ namespace OpenTibia.Game.Commands
                 {
                     if (Attacker == null)
                     {
-                        context.AddPacket(Target.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + (-Mana) + " mana.") );
+                        Context.AddPacket(Target.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + (-Mana) + " mana.") );
                     }
                     else if (Attacker == Target)
                     {
-                        context.AddPacket(Target.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + (-Mana) + " mana due to your own attack.") );
+                        Context.AddPacket(Target.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + (-Mana) + " mana due to your own attack.") );
                     }
                     else
                     {
-                        context.AddPacket(Target.Client.Connection, new SetFrameColorOutgoingPacket(Attacker.Id, FrameColor.Black) );
+                        Context.AddPacket(Target.Client.Connection, new SetFrameColorOutgoingPacket(Attacker.Id, FrameColor.Black) );
 
-                        context.AddPacket(Target.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + (-Mana) + " mana due to an attack by " + Attacker.Name + ".") );
+                        Context.AddPacket(Target.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + (-Mana) + " mana due to an attack by " + Attacker.Name + ".") );
                     }
 
                     if (AnimatedTextColor != null)
                     {
-                        context.AddCommand(new ShowAnimatedTextCommand(Target.Tile.Position, AnimatedTextColor.Value, (-Mana).ToString() ) );
+                        Context.AddCommand(new ShowAnimatedTextCommand(Target.Tile.Position, AnimatedTextColor.Value, (-Mana).ToString() ) );
                     }
 
                     if (Target.Mana + Mana > 0)
                     {
-                        context.AddCommand(new PlayerUpdateManaCommand(Target, (ushort)(Target.Mana + Mana), Target.MaxMana) );
+                        Context.AddCommand(new PlayerUpdateManaCommand(Target, (ushort)(Target.Mana + Mana), Target.MaxMana) );
                     }
                     else
                     {
-                        context.AddCommand(new PlayerUpdateManaCommand(Target, 0, Target.MaxMana) );
+                        Context.AddCommand(new PlayerUpdateManaCommand(Target, 0, Target.MaxMana) );
                     }
                 }
                 else
                 {
                     if (Target.Mana + Mana < Target.MaxMana)
                     {
-                        context.AddCommand(new PlayerUpdateManaCommand(Target, (ushort)(Target.Mana + Mana), Target.MaxMana) );
+                        Context.AddCommand(new PlayerUpdateManaCommand(Target, (ushort)(Target.Mana + Mana), Target.MaxMana) );
                     }
                     else
                     {
-                        context.AddCommand(new PlayerUpdateManaCommand(Target, Target.MaxMana, Target.MaxMana) );
+                        Context.AddCommand(new PlayerUpdateManaCommand(Target, Target.MaxMana, Target.MaxMana) );
                     }
                 }
 
-                resolve(context);
+                resolve();
             } );
         }
     }

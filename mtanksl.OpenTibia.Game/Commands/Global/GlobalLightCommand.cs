@@ -8,14 +8,14 @@ namespace OpenTibia.Game.Commands
         {         
             return Promise.Run( (resolve, reject) =>
             {
-                context.Server.Clock.Tick();
+                Context.Server.Clock.Tick();
 
-                foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                 {
-                    context.AddPacket(observer.Client.Connection, new SetEnvironmentLightOutgoingPacket(context.Server.Clock.Light) );
+                    Context.AddPacket(observer.Client.Connection, new SetEnvironmentLightOutgoingPacket(Context.Server.Clock.Light) );
                 }
 
-                resolve(context);
+                resolve();
             } );
         }
     }

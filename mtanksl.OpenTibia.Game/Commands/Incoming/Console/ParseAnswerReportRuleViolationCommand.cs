@@ -26,19 +26,19 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                Player reporter = context.Server.GameObjects.GetPlayers()
+                Player reporter = Context.Server.GameObjects.GetPlayers()
                     .Where(p => p.Name == Name)
                     .FirstOrDefault();
 
                 if (reporter != null)
                 {
-                    RuleViolation ruleViolation = context.Server.RuleViolations.GetRuleViolationByReporter(reporter);
+                    RuleViolation ruleViolation = Context.Server.RuleViolations.GetRuleViolationByReporter(reporter);
 
                     if (ruleViolation != null && ruleViolation.Assignee == Player)
                     {
-                        context.AddPacket(ruleViolation.Reporter.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Assignee.Name, ruleViolation.Assignee.Level, TalkType.ReportRuleViolationAnswer, Message) );
+                        Context.AddPacket(ruleViolation.Reporter.Client.Connection, new ShowTextOutgoingPacket(0, ruleViolation.Assignee.Name, ruleViolation.Assignee.Level, TalkType.ReportRuleViolationAnswer, Message) );
 
-                        resolve(context);
+                        resolve();
                     }
                 }
             } );

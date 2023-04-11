@@ -7,34 +7,34 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class UseItemWithItemWalkToTargetHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
             if (command.ToItem.Parent is Tile toTile && !command.Player.Tile.Position.IsNextTo(toTile.Position) )
             {
                 if (command.Item.Parent is Tile || command.Item.Parent is Container container && container.Root() is Tile)
                 {
-                    return context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, command.Player.Inventory, (byte)Slot.Extra, 1, false) ).Then(ctx =>
+                    return Context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, command.Player.Inventory, (byte)Slot.Extra, 1, false) ).Then( () =>
                     {
-                        return Promise.Delay(ctx.Server, Constants.PlayerAutomationSchedulerEvent(command.Player), Constants.PlayerAutomationSchedulerEventInterval);
+                        return Promise.Delay(Context.Server, Constants.PlayerAutomationSchedulerEvent(command.Player), Constants.PlayerAutomationSchedulerEventInterval);
 
-                    } ).Then(ctx =>
+                    } ).Then( () =>
                     {
-                        return ctx.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, (Tile)command.ToItem.Parent) );
+                        return Context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, (Tile)command.ToItem.Parent) );
 
-                    } ).Then(ctx =>
+                    } ).Then( () =>
                     {
-                        return Promise.Delay(ctx.Server, Constants.PlayerAutomationSchedulerEvent(command.Player), Constants.PlayerAutomationSchedulerEventInterval);
+                        return Promise.Delay(Context.Server, Constants.PlayerAutomationSchedulerEvent(command.Player), Constants.PlayerAutomationSchedulerEventInterval);
 
-                    } ).Then(ctx =>
+                    } ).Then( () =>
                     {
                         Item item = command.Player.Inventory.GetContent( (byte)Slot.Extra) as Item;
 
                         if (item != null && item.Metadata.OpenTibiaId == command.Item.Metadata.OpenTibiaId)
                         {
-                            return ctx.AddCommand(new PlayerUseItemWithItemCommand(command.Player, item, command.ToItem) );
+                            return Context.AddCommand(new PlayerUseItemWithItemCommand(command.Player, item, command.ToItem) );
                         }
 
-                        return Promise.Completed(ctx);
+                        return Promise.Completed();
                     } );
                 }
                 else
@@ -43,11 +43,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                     byte beforeIndex = beforeContainer.GetIndex(command.Item);
 
-                    return context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, (Tile)command.ToItem.Parent) ).Then(ctx =>
+                    return Context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, (Tile)command.ToItem.Parent) ).Then( () =>
                     {
-                        return Promise.Delay(ctx.Server, Constants.PlayerAutomationSchedulerEvent(command.Player), Constants.PlayerAutomationSchedulerEventInterval);
+                        return Promise.Delay(Context.Server, Constants.PlayerAutomationSchedulerEvent(command.Player), Constants.PlayerAutomationSchedulerEventInterval);
 
-                    } ).Then(ctx =>
+                    } ).Then( () =>
                     {
                         IContainer afterContainer = command.Item.Parent;
 
@@ -55,15 +55,15 @@ namespace OpenTibia.Game.CommandHandlers
 
                         if (beforeContainer == afterContainer && beforeIndex == afterIndex)
                         {
-                            return next(ctx);
+                            return next();
                         }
 
-                        return Promise.Completed(ctx);
+                        return Promise.Completed();
                     } );
                 }
             }
 
-            return next(context);
+            return next();
         }
     }
 }

@@ -27,16 +27,16 @@ namespace OpenTibia.Game.Commands
 
                     Tile fromTile = Creature.Tile;
 
-                    foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                    foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                     {
                         if (observer.Tile.Position.CanSee(fromTile.Position) )
                         {
-                            context.AddPacket(observer.Client.Connection, new SetPartyIconOutgoingPacket(Creature.Id, Creature.PartyIcon) );
+                            Context.AddPacket(observer.Client.Connection, new SetPartyIconOutgoingPacket(Creature.Id, Creature.PartyIcon) );
                         }
                     }
                 }
 
-                resolve(context);
+                resolve();
             } );
         }
     }

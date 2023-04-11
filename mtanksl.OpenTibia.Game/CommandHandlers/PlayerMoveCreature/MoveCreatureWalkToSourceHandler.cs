@@ -6,7 +6,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class MoveCreatureWalkToSourceHandler : CommandHandler<PlayerMoveCreatureCommand>
     {
-        public override Promise Handle(ContextPromiseDelegate next, PlayerMoveCreatureCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerMoveCreatureCommand command)
         {
             if ( !command.Player.Tile.Position.IsNextTo(command.Creature.Tile.Position) )
             {
@@ -14,11 +14,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 byte beforeIndex = beforeContainer.GetIndex(command.Creature);
 
-                return context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, command.Creature.Tile) ).Then(ctx =>
+                return Context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, command.Creature.Tile) ).Then( () =>
                 {
-                    return Promise.Delay(ctx.Server, Constants.PlayerAutomationSchedulerEvent(command.Player), Constants.PlayerAutomationSchedulerEventInterval);
+                    return Promise.Delay(Context.Server, Constants.PlayerAutomationSchedulerEvent(command.Player), Constants.PlayerAutomationSchedulerEventInterval);
 
-                } ).Then(ctx =>
+                } ).Then( () =>
                 {
                     IContainer afterContainer = command.Creature.Parent;
 
@@ -26,14 +26,14 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (beforeContainer == afterContainer && beforeIndex == afterIndex)
                     {
-                        return next(ctx);
+                        return next();
                     }
 
-                    return Promise.Completed(ctx);
+                    return Promise.Completed();
                 } );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

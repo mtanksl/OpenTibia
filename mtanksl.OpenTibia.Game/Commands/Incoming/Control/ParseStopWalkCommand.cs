@@ -16,14 +16,14 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                if (context.Server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(Player) ) )
+                if (Context.Server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(Player) ) )
                 {
-                    context.AddPacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
+                    Context.AddPacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
                 }
 
-                context.Server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(Player) );
+                Context.Server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(Player) );
 
-                resolve(context);
+                resolve();
             } );
         }
     }

@@ -27,15 +27,15 @@ namespace OpenTibia.Game.Commands
 
                     if (fromItem.Metadata.TibiaId == ItemId)
                     {
-                        Creature toCreature = context.Server.GameObjects.GetCreature(ToCreatureId);
+                        Creature toCreature = Context.Server.GameObjects.GetCreature(ToCreatureId);
 
                         if (toCreature != null)
                         {
-                            if ( IsUseable(context, fromItem) )
+                            if ( IsUseable(Context, fromItem) )
                             {
-                                context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) ).Then(ctx =>
+                                Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) ).Then( () =>
                                 {
-                                    resolve(ctx);
+                                    resolve();
                                 } );
                             }
                         }

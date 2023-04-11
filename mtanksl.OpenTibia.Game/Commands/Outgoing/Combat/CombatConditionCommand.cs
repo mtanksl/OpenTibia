@@ -40,14 +40,14 @@ namespace OpenTibia.Game.Commands
         {
             if (MagicEffectType != null)
             {
-                context.AddCommand(new ShowMagicEffectCommand(Target.Tile.Position, MagicEffectType.Value) );
+                Context.AddCommand(new ShowMagicEffectCommand(Target.Tile.Position, MagicEffectType.Value) );
             }
 
-            context.AddCommand(new CombatChangeHealthCommand(Attacker, Target, MagicEffectType.ToAnimatedTextColor(), Health[index] ) );
+            Context.AddCommand(new CombatChangeHealthCommand(Attacker, Target, MagicEffectType.ToAnimatedTextColor(), Health[index] ) );
 
             if (Target.Tile != null)
             {
-                SpecialConditionBehaviour component = context.Server.Components.GetComponent<SpecialConditionBehaviour>(Target);
+                SpecialConditionBehaviour component = Context.Server.Components.GetComponent<SpecialConditionBehaviour>(Target);
 
                 if (component != null)
                 {
@@ -59,11 +59,11 @@ namespace OpenTibia.Game.Commands
 
                             if (Target is Player player)
                             {
-                                context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(component.SpecialConditions) );
+                                Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(component.SpecialConditions) );
                             }
                         }
 
-                        context.Server.Components.AddComponent(Target, new DelayBehaviour("Combat_Condition_" + SpecialCondition, CooldownInMilliseconds) ).Promise.Then(ctx =>
+                        Context.Server.Components.AddComponent(Target, new DelayBehaviour("Combat_Condition_" + SpecialCondition, CooldownInMilliseconds) ).Promise.Then( () =>
                         {
                             index++;
 
@@ -78,16 +78,16 @@ namespace OpenTibia.Game.Commands
 
                             if (Target is Player player)
                             {
-                                context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(component.SpecialConditions) );
+                                Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(component.SpecialConditions) );
                             }
                         }
 
-                        context.Server.CancelQueueForExecution("Combat_Condition_" + SpecialCondition + Target.Id);
+                        Context.Server.CancelQueueForExecution("Combat_Condition_" + SpecialCondition + Target.Id);
                     }
                 }
             }
 
-            return Promise.Completed(context);
+            return Promise.Completed();
         }
     }
 }

@@ -17,20 +17,20 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                AttackAndFollowBehaviour component = context.Server.Components.GetComponent<AttackAndFollowBehaviour>(Player);
+                AttackAndFollowBehaviour component = Context.Server.Components.GetComponent<AttackAndFollowBehaviour>(Player);
 
                 component.Stop();
 
-                context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
+                Context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
 
-                if (context.Server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(Player) ) )
+                if (Context.Server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(Player) ) )
                 {
-                    context.AddPacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
+                    Context.AddPacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
                 }
 
-                context.Server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(Player) );
+                Context.Server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(Player) );
 
-                resolve(context);
+                resolve();
             } );
         }
     }

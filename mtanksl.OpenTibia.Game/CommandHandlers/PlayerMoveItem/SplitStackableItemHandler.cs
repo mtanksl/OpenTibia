@@ -9,13 +9,13 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class SplitStackableItemHandler : CommandHandler<PlayerMoveItemCommand>
     {
-        public override Promise Handle(ContextPromiseDelegate next, PlayerMoveItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {
             if (command.ToContainer is Tile toTile)
             {
                 if (toTile.Ground == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || (toTile.GetCreatures().Any(c => c.Block) && command.Item.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) )
                 {
-                    context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtRoom) );
+                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtRoom) );
                 
                     return Promise.Pending();
                 }
@@ -27,36 +27,36 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             if (toStackableItem.Count + command.Count > 100)
                             {
-                                context.AddCommand(new TileCreateItemCommand(toTile, fromStackableItem.Metadata.OpenTibiaId, (byte)(toStackableItem.Count + command.Count - 100) ) );
+                                Context.AddCommand(new TileCreateItemCommand(toTile, fromStackableItem.Metadata.OpenTibiaId, (byte)(toStackableItem.Count + command.Count - 100) ) );
 
-                                context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) );
+                                Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) );
 
-                                context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
                             }
                             else
                             {
-                                context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + command.Count) ) );
+                                Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + command.Count) ) );
 
-                                context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
                             }
                         }
                         else
                         {
                             if (fromStackableItem.Count == command.Count)
                             {
-                                return next(context);
+                                return next();
                             }
                             else
                             {
-                                context.AddCommand(new TileCreateItemCommand(toTile, fromStackableItem.Metadata.OpenTibiaId, command.Count) );
+                                Context.AddCommand(new TileCreateItemCommand(toTile, fromStackableItem.Metadata.OpenTibiaId, command.Count) );
 
-                                context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
                             }
                         }
                     }
                     else
                     {
-                        return next(context);
+                        return next();
                     }
                 }
             }
@@ -66,7 +66,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (toContent is Container toContainer2)
                 {
-                    return context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toContainer2, 254, command.Count, false) );
+                    return Context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toContainer2, 254, command.Count, false) );
                 }
                 else
                 {
@@ -78,15 +78,15 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 byte count = (byte)(100 - toStackableItem.Count);
 
-                                context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) );
+                                Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) );
 
-                                context.AddCommand(new ItemDecrementCommand(fromStackableItem, count) );
+                                Context.AddCommand(new ItemDecrementCommand(fromStackableItem, count) );
                             }
                             else
                             {
-                                context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + command.Count) ) );
+                                Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + command.Count) ) );
 
-                                context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
                             }
                         }
                         else
@@ -95,18 +95,18 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 if (fromStackableItem.Count == command.Count)
                                 {
-                                    return next(context);
+                                    return next();
                                 }
                                 else
                                 {
-                                    context.AddCommand(new InventoryCreateItemCommand(toInventory, command.ToIndex, fromStackableItem.Metadata.OpenTibiaId, command.Count) );
+                                    Context.AddCommand(new InventoryCreateItemCommand(toInventory, command.ToIndex, fromStackableItem.Metadata.OpenTibiaId, command.Count) );
 
-                                    context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                    Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
                                 }
                             }
                             else
                             {
-                                context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
+                                Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
                         
                                 return Promise.Pending();
                             }
@@ -116,11 +116,11 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         if (toContent == null)
                         {
-                            return next(context);
+                            return next();
                         }
                         else
                         {
-                            context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
+                            Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
                         
                             return Promise.Pending();
                         }
@@ -133,7 +133,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (toContent is Container toContainer2)
                 {
-                    return context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toContainer2, 254, command.Count, false) );
+                    return Context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toContainer2, 254, command.Count, false) );
                 }
                 else
                 {
@@ -145,26 +145,26 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 if (toContainer.Count < toContainer.Metadata.Capacity)
                                 {
-                                    context.AddCommand(new ContainerCreateItemCommand(toContainer, fromStackableItem.Metadata.OpenTibiaId, (byte)(toStackableItem.Count + command.Count - 100) ) );
+                                    Context.AddCommand(new ContainerCreateItemCommand(toContainer, fromStackableItem.Metadata.OpenTibiaId, (byte)(toStackableItem.Count + command.Count - 100) ) );
 
-                                    context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) );
+                                    Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) );
 
-                                    context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                    Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
                                 }
                                 else
                                 {
                                     byte count = (byte)(100 - toStackableItem.Count);
 
-                                    context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) );
+                                    Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) );
 
-                                    context.AddCommand(new ItemDecrementCommand(fromStackableItem, count) );
+                                    Context.AddCommand(new ItemDecrementCommand(fromStackableItem, count) );
                                 }
                             }
                             else
                             {
-                                context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + command.Count) ) );
+                                Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + command.Count) ) );
 
-                                context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
                             }
                         }
                         else
@@ -173,18 +173,18 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 if (fromStackableItem.Count == command.Count)
                                 {
-                                    return next(context);
+                                    return next();
                                 }
                                 else
                                 {
-                                    context.AddCommand(new ContainerCreateItemCommand(toContainer, fromStackableItem.Metadata.OpenTibiaId, command.Count) );
+                                    Context.AddCommand(new ContainerCreateItemCommand(toContainer, fromStackableItem.Metadata.OpenTibiaId, command.Count) );
 
-                                    context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                    Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
                                 }
                             }
                             else
                             {
-                                context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
+                                Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
                     
                                 return Promise.Pending();
                             }
@@ -194,11 +194,11 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         if (toContainer.Count < toContainer.Metadata.Capacity)
                         {
-                            return next(context);
+                            return next();
                         }
                         else
                         {
-                            context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
+                            Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCannotPutMoreObjectsInThisContainer) );
                     
                             return Promise.Pending();
                         }
@@ -206,7 +206,7 @@ namespace OpenTibia.Game.CommandHandlers
                 }
             }
 
-            return Promise.Completed(context);
+            return Promise.Completed();
         }
     }
 }

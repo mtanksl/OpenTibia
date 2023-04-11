@@ -26,9 +26,9 @@ namespace OpenTibia.Game.Commands
             {
                 Inventory.AddContent(Item, Slot);
 
-                context.AddPacket(Inventory.Player.Client.Connection, new SlotAddOutgoingPacket(Slot, Item ) );
+                Context.AddPacket(Inventory.Player.Client.Connection, new SlotAddOutgoingPacket(Slot, Item ) );
 
-                resolve(context);
+                resolve();
             } );
         }
     }

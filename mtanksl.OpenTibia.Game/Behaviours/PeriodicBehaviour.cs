@@ -2,6 +2,6 @@
 {
     public abstract class PeriodicBehaviour : Behaviour
     {
-        public abstract void Update(Context context);
+        public abstract void Update();
     }
 }

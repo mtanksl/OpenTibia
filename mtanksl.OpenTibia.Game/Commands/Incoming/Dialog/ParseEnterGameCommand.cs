@@ -27,23 +27,23 @@ namespace OpenTibia.Game.Commands
 
                 if (Packet.TibiaDat != 1277983123 || Packet.TibiaPic != 1256571859 || Packet.TibiaSpr != 1277298068 || Packet.Version != 860)
                 {
-                    context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.OnlyProtocol86Allowed) );
+                    Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.OnlyProtocol86Allowed) );
 
-                    context.Disconnect(Connection);
+                    Context.Disconnect(Connection);
 
-                    resolve(context);
+                    resolve();
                 }
                 else
                 {
-                    var databaseAccount = context.DatabaseContext.PlayerRepository.GetAccount(Packet.Account, Packet.Password);
+                    var databaseAccount = Context.DatabaseContext.PlayerRepository.GetAccount(Packet.Account, Packet.Password);
 
                     if (databaseAccount == null)
                     {
-                        context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
+                        Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
 
-                        context.Disconnect(Connection);
+                        Context.Disconnect(Connection);
 
-                        resolve(context);
+                        resolve();
                     }
                     else
                     {
@@ -54,11 +54,11 @@ namespace OpenTibia.Game.Commands
                             characters.Add( new Character(player.Name, player.World.Name, player.World.Ip, (ushort)player.World.Port) );
                         }
 
-                        context.AddPacket(Connection, new OpenSelectCharacterDialogOutgoingPacket(characters, (ushort)databaseAccount.PremiumDays) );
+                        Context.AddPacket(Connection, new OpenSelectCharacterDialogOutgoingPacket(characters, (ushort)databaseAccount.PremiumDays) );
 
-                        context.Disconnect(Connection);
+                        Context.Disconnect(Connection);
 
-                        resolve(context);
+                        resolve();
                     }
                 }
             } );            

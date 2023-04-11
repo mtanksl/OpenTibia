@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class TeleportToWaypointHandler : CommandHandler<PlayerSayCommand>
     {
-        public override Promise Handle(ContextPromiseDelegate next, PlayerSayCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
             if (command.Message.StartsWith("/w") )
             {
@@ -17,26 +17,26 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     string name = command.Message.Substring(startIndex + 1);
 
-                    Waypoint waypoint = context.Server.Map.GetWaypoint(name);
+                    Waypoint waypoint = Context.Server.Map.GetWaypoint(name);
 
                     if (waypoint != null)
                     {
-                        Tile toTile = context.Server.Map.GetTile(waypoint.Position);
+                        Tile toTile = Context.Server.Map.GetTile(waypoint.Position);
 
                         if (toTile != null)
                         {
-                            return context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) ).Then(ctx =>
+                            return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) ).Then( () =>
                             {
-                                return ctx.AddCommand(new CreatureUpdateParentCommand(command.Player, toTile) );
+                                return Context.AddCommand(new CreatureUpdateParentCommand(command.Player, toTile) );
                             } );
                         }
                     }
 
-                    return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
                 }
             }
 
-            return next(context);
+            return next();
         }
     }
 }

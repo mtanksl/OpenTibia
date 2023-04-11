@@ -13,17 +13,17 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort cookie = 2687;
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
             if (bakingTrayWithDough.Contains(command.Item.Metadata.OpenTibiaId) && ovens.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
-                return context.AddCommand(new ItemDestroyCommand(command.Item) ).Then(ctx =>
+                return Context.AddCommand(new ItemDestroyCommand(command.Item) ).Then( () =>
                 {
-                    return ctx.AddCommand(new TileIncrementOrCreateItemCommand( (Tile)command.ToItem.Parent, cookie, 12) );
+                    return Context.AddCommand(new TileIncrementOrCreateItemCommand( (Tile)command.ToItem.Parent, cookie, 12) );
                 } );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

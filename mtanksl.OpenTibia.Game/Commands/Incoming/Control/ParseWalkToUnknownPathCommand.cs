@@ -21,17 +21,17 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                MoveDirection[] moveDirections = context.Server.Pathfinding.GetMoveDirections(Player.Tile.Position, Tile.Position);
+                MoveDirection[] moveDirections = Context.Server.Pathfinding.GetMoveDirections(Player.Tile.Position, Tile.Position);
 
                 if (moveDirections.Length == 0)
                 {
-                    context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNoWay) );
+                    Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNoWay) );
                 }
                 else
                 {
-                    context.AddCommand(new ParseWalkToKnownPathCommand(Player, moveDirections) ).Then(ctx =>
+                    Context.AddCommand(new ParseWalkToKnownPathCommand(Player, moveDirections) ).Then( () =>
                     {
-                        resolve(ctx);
+                        resolve();
                     } );
                 }
             } );

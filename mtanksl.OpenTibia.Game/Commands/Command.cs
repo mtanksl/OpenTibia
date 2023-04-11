@@ -4,7 +4,7 @@ namespace OpenTibia.Game.Commands
 {
     public abstract class Command
     {
-        public Context context
+        public Context Context
         {
             get
             {

@@ -26,9 +26,9 @@ namespace OpenTibia.Game.Commands
 
         public override PromiseResult<Item> Execute()
         {
-            return context.Server.Components.AddComponent(Item, new DelayBehaviour("Item_Decay", ExecuteInMilliseconds) ).Promise.Then(ctx =>
+            return Context.Server.Components.AddComponent(Item, new DelayBehaviour("Item_Decay", ExecuteInMilliseconds) ).Promise.Then( () =>
             { 
-                return ctx.AddCommand(new ItemTransformCommand(Item, OpenTibiaId, Count) );
+                return Context.AddCommand(new ItemTransformCommand(Item, OpenTibiaId, Count) );
             } );
         }
     }

@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                Tile fromTile = context.Server.Map.GetTile(FromPosition);
+                Tile fromTile = Context.Server.Map.GetTile(FromPosition);
 
                 if (fromTile != null)
                 {
@@ -40,15 +40,15 @@ namespace OpenTibia.Game.Commands
 
                         if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                         {
-                            Creature toCreature = context.Server.GameObjects.GetCreature(ToCreatureId);
+                            Creature toCreature = Context.Server.GameObjects.GetCreature(ToCreatureId);
 
                             if (toCreature != null)
                             {
-                                if ( IsUseable(context, fromItem) )
+                                if ( IsUseable(Context, fromItem) )
                                 {
-                                    context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) ).Then(ctx =>
+                                    Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) ).Then( () =>
                                     {
-                                        resolve(ctx);
+                                        resolve();
                                     } );
                                 }
                             }

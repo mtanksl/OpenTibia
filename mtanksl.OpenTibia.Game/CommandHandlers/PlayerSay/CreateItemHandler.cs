@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class CreateItemHandler : CommandHandler<PlayerSayCommand>
     {
-        public override Promise Handle(ContextPromiseDelegate next, PlayerSayCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
             if (command.Message.StartsWith("/i") )
             {
@@ -19,22 +19,22 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (ushort.TryParse(command.Message.Substring(startIndex + 1), out toOpenTibiaId) )
                     {
-                        Tile toTile = context.Server.Map.GetTile(command.Player.Tile.Position.Offset(command.Player.Direction) );
+                        Tile toTile = Context.Server.Map.GetTile(command.Player.Tile.Position.Offset(command.Player.Direction) );
 
                         if (toTile != null)
                         {
-                            return context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) ).Then(ctx =>
+                            return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                             {
-                                return ctx.AddCommand(new TileIncrementOrCreateItemCommand(toTile, toOpenTibiaId, 1) );
+                                return Context.AddCommand(new TileIncrementOrCreateItemCommand(toTile, toOpenTibiaId, 1) );
                             } );
                         }
 
-                        return context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
                     }
                 }
             }
 
-            return next(context);
+            return next();
         }
     }
 }

@@ -12,14 +12,14 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort pumpkinhead = 2096;
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemWithItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
             if (knifes.Contains(command.Item.Metadata.OpenTibiaId) && pumpkins.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
-                return context.AddCommand(new ItemTransformCommand(command.ToItem, pumpkinhead, 1) );
+                return Context.AddCommand(new ItemTransformCommand(command.ToItem, pumpkinhead, 1) );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

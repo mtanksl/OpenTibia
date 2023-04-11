@@ -26,7 +26,7 @@ namespace OpenTibia.Game.CommandHandlers
             1398, 1400, 1402, 1404, 1553, 1555, 1557, 1559
         };
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerMoveItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {
             if (command.ToContainer is Tile tile)
             {
@@ -38,35 +38,35 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (stair.FloorChange == FloorChange.North)
                     {
-                        toTile = context.Server.Map.GetTile(stair.Position.Offset(0, -1, -1) );
+                        toTile = Context.Server.Map.GetTile(stair.Position.Offset(0, -1, -1) );
                     }
                     else if (stair.FloorChange == FloorChange.East)
                     {
-                        toTile = context.Server.Map.GetTile(stair.Position.Offset(1, 0, -1) );
+                        toTile = Context.Server.Map.GetTile(stair.Position.Offset(1, 0, -1) );
                     }
                     else if (stair.FloorChange == FloorChange.South)
                     {
-                        toTile = context.Server.Map.GetTile(stair.Position.Offset(0, 1, -1) );
+                        toTile = Context.Server.Map.GetTile(stair.Position.Offset(0, 1, -1) );
                     }
                     else if (stair.FloorChange == FloorChange.West)
                     {
-                        toTile = context.Server.Map.GetTile(stair.Position.Offset(-1, 0, -1) );
+                        toTile = Context.Server.Map.GetTile(stair.Position.Offset(-1, 0, -1) );
                     }
                     else if (stair.FloorChange == FloorChange.NorthEast)
                     {
-                        toTile = context.Server.Map.GetTile(stair.Position.Offset(1, -1, -1) );
+                        toTile = Context.Server.Map.GetTile(stair.Position.Offset(1, -1, -1) );
                     }
                     else if (stair.FloorChange == FloorChange.NorthWest)
                     {
-                        toTile = context.Server.Map.GetTile(stair.Position.Offset(-1, -1, -1) );
+                        toTile = Context.Server.Map.GetTile(stair.Position.Offset(-1, -1, -1) );
                     }
                     else if (stair.FloorChange == FloorChange.SouthWest)
                     {
-                        toTile = context.Server.Map.GetTile(stair.Position.Offset(-1, 1, -1) );
+                        toTile = Context.Server.Map.GetTile(stair.Position.Offset(-1, 1, -1) );
                     }
                     else if (stair.FloorChange == FloorChange.SouthEast)
                     {
-                        toTile = context.Server.Map.GetTile(stair.Position.Offset(1, 1, -1) );
+                        toTile = Context.Server.Map.GetTile(stair.Position.Offset(1, 1, -1) );
                     }
                     else
                     {
@@ -75,12 +75,12 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (toTile != null)
                     {
-                        return context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toTile, 0, command.Count, false) );
+                        return Context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toTile, 0, command.Count, false) );
                     }
                 }
             }
 
-            return next(context);
+            return next();
         }
     }
 }

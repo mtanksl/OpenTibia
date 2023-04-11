@@ -43,7 +43,7 @@ namespace OpenTibia.Game.Commands
                     new Channel(65535, "Private Chat Channel")
                 };
 
-                foreach (var privateChannel in context.Server.Channels.GetPrivateChannels() )
+                foreach (var privateChannel in Context.Server.Channels.GetPrivateChannels() )
                 {
                     if ( privateChannel.ContainsPlayer(Player) || privateChannel.ContainsInvitation(Player) )
                     {
@@ -51,9 +51,9 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                context.AddPacket(Player.Client.Connection, new OpenChannelDialogOutgoingPacket(channels) );
+                Context.AddPacket(Player.Client.Connection, new OpenChannelDialogOutgoingPacket(channels) );
 
-                resolve(context);
+                resolve();
             } );
         }
     }

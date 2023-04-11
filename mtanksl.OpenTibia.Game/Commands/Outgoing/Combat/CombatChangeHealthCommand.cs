@@ -35,71 +35,71 @@ namespace OpenTibia.Game.Commands
                     {
                         if (Attacker == null)
                         {
-                            context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + (-Health) + " hitpoints.") );
+                            Context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + (-Health) + " hitpoints.") );
                         }
                         else if (Attacker == Target)
                         {
-                            context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + (-Health) + " hitpoints due to your own attack.") );
+                            Context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + (-Health) + " hitpoints due to your own attack.") );
                         }
                         else
                         {
-                            context.AddPacket(player.Client.Connection, new SetFrameColorOutgoingPacket(Attacker.Id, FrameColor.Black) );
+                            Context.AddPacket(player.Client.Connection, new SetFrameColorOutgoingPacket(Attacker.Id, FrameColor.Black) );
 
-                            context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + (-Health) + " hitpoints due to an attack by " + Attacker.Name + ".") );
+                            Context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + (-Health) + " hitpoints due to an attack by " + Attacker.Name + ".") );
                         }
 
                         if (AnimatedTextColor != null)
                         {
-                            context.AddCommand(new ShowAnimatedTextCommand(Target.Tile.Position, AnimatedTextColor.Value, (-Health).ToString() ) );
+                            Context.AddCommand(new ShowAnimatedTextCommand(Target.Tile.Position, AnimatedTextColor.Value, (-Health).ToString() ) );
                         }
 
                         if (Target.Health + Health > 0)
                         {
-                            context.AddCommand(new CreatureUpdateHealthCommand(Target, (ushort)(Target.Health + Health), Target.MaxHealth) );
+                            Context.AddCommand(new CreatureUpdateHealthCommand(Target, (ushort)(Target.Health + Health), Target.MaxHealth) );
                         }
                         else
                         {
-                            context.AddCommand(new CreatureUpdateHealthCommand(Target, 0, Target.MaxHealth) );
+                            Context.AddCommand(new CreatureUpdateHealthCommand(Target, 0, Target.MaxHealth) );
 
-                            context.AddCommand(new TileCreateItemCommand(Target.Tile, 3058, 1) ).Then( (ctx, item) => 
+                            Context.AddCommand(new TileCreateItemCommand(Target.Tile, 3058, 1) ).Then( (item) => 
                             { 
-                                return ctx.AddCommand(new ItemDecayTransformCommand(item, 10000, 3059, 1) );
+                                return Context.AddCommand(new ItemDecayTransformCommand(item, 10000, 3059, 1) );
 
-                            } ).Then( (ctx, item) => 
+                            } ).Then( (item) => 
                             {
-                                return ctx.AddCommand(new ItemDecayTransformCommand(item, 10000, 3060, 1) );
+                                return Context.AddCommand(new ItemDecayTransformCommand(item, 10000, 3060, 1) );
 
-                            } ).Then( (ctx, item) => 
+                            } ).Then( (item) => 
                             {
-                                return ctx.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
+                                return Context.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
                             } );
 
-                            context.AddCommand(new PlayerDestroyCommand(player) );
+                            Context.AddCommand(new PlayerDestroyCommand(player) );
 
-                            context.AddPacket(player.Client.Connection, new OpenYouAreDeathDialogOutgoingPacket() );
+                            Context.AddPacket(player.Client.Connection, new OpenYouAreDeathDialogOutgoingPacket() );
                         }
                     }
                     else if (Target is Monster monster)
                     {
                         if (AnimatedTextColor != null)
                         {
-                            context.AddCommand(new ShowAnimatedTextCommand(Target.Tile.Position, AnimatedTextColor.Value, (-Health).ToString() ) );
+                            Context.AddCommand(new ShowAnimatedTextCommand(Target.Tile.Position, AnimatedTextColor.Value, (-Health).ToString() ) );
                         }
 
                         if (Target.Health + Health > 0)
                         {
-                            context.AddCommand(new CreatureUpdateHealthCommand(Target, (ushort)(Target.Health + Health), Target.MaxHealth) );
+                            Context.AddCommand(new CreatureUpdateHealthCommand(Target, (ushort)(Target.Health + Health), Target.MaxHealth) );
                         }
                         else
                         {
-                            context.AddCommand(new CreatureUpdateHealthCommand(Target, 0, Target.MaxHealth) );
+                            Context.AddCommand(new CreatureUpdateHealthCommand(Target, 0, Target.MaxHealth) );
 
-                            context.AddCommand(new TileCreateItemCommand(Target.Tile, monster.Metadata.Corpse, 1) ).Then( (ctx, item) => 
+                            Context.AddCommand(new TileCreateItemCommand(Target.Tile, monster.Metadata.Corpse, 1) ).Then( (item) => 
                             {
-                                return ctx.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
+                                return Context.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
                             } );
 
-                            context.AddCommand(new MonsterDestroyCommand(monster) );
+                            Context.AddCommand(new MonsterDestroyCommand(monster) );
                         }
                     }
                 }
@@ -107,15 +107,15 @@ namespace OpenTibia.Game.Commands
                 {
                     if (Target.Health + Health < Target.MaxHealth)
                     {
-                        context.AddCommand(new CreatureUpdateHealthCommand(Target, (ushort)(Target.Health + Health), Target.MaxHealth) );
+                        Context.AddCommand(new CreatureUpdateHealthCommand(Target, (ushort)(Target.Health + Health), Target.MaxHealth) );
                     }
                     else
                     {
-                        context.AddCommand(new CreatureUpdateHealthCommand(Target, Target.MaxHealth, Target.MaxHealth) );
+                        Context.AddCommand(new CreatureUpdateHealthCommand(Target, Target.MaxHealth, Target.MaxHealth) );
                     }
                 }
 
-                resolve(context);
+                resolve();
             } );
         }
     }

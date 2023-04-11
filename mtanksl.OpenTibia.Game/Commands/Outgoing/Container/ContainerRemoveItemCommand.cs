@@ -30,12 +30,12 @@ namespace OpenTibia.Game.Commands
                     {
                         if (pair.Value == Container)
                         {
-                            context.AddPacket(observer.Client.Connection, new ContainerRemoveOutgoingPacket(pair.Key, index) );
+                            Context.AddPacket(observer.Client.Connection, new ContainerRemoveOutgoingPacket(pair.Key, index) );
                         }
                     }
                 }
 
-                resolve(context);
+                resolve();
             } );
         }
     }

@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Commands
             {
                 Player.Client.VipCollection.RemoveVip(CreatureId);
 
-                resolve(context);
+                resolve();
             } );
         }
     }

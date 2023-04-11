@@ -34,15 +34,15 @@ namespace OpenTibia.Game.Commands
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
-                    Tile toTile = context.Server.Map.GetTile(ToPosition);
+                    Tile toTile = Context.Server.Map.GetTile(ToPosition);
 
                     if (toTile != null)
                     {
-                        if (IsMoveable(context, fromItem, Count) )
+                        if (IsMoveable(Context, fromItem, Count) )
                         {
-                            context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toTile, 0, Count, true) ).Then(ctx =>
+                            Context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toTile, 0, Count, true) ).Then( () =>
                             {
-                                resolve(ctx);
+                                resolve();
                             } );
                         }
                     }

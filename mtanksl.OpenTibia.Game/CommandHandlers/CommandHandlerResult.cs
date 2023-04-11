@@ -1,10 +1,11 @@
 ﻿using OpenTibia.Game.Commands;
+using System;
 
 namespace OpenTibia.Game.CommandHandlers
 {
     public abstract class CommandHandlerResult<TResult> : ICommandHandlerResult<TResult>
     {
-        public Context context
+        public Context Context
         {
             get
             {
@@ -12,6 +13,6 @@ namespace OpenTibia.Game.CommandHandlers
             }
         }
 
-        public abstract PromiseResult<TResult> Handle(ContextPromiseResultDelegate<TResult> next, CommandResult<TResult> command);
+        public abstract PromiseResult<TResult> Handle(Func<PromiseResult<TResult>> next, CommandResult<TResult> command);
     }
 }

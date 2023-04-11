@@ -19,11 +19,11 @@ namespace OpenTibia.Game.Commands
         {
             if (Item is StackableItem stackableItem && stackableItem.Count > Count)
             {
-                return context.AddCommand(new StackableItemUpdateCountCommand(stackableItem, (byte)(stackableItem.Count - Count) ) );
+                return Context.AddCommand(new StackableItemUpdateCountCommand(stackableItem, (byte)(stackableItem.Count - Count) ) );
             }
             else
             {
-                return context.AddCommand(new ItemDestroyCommand(Item) );
+                return Context.AddCommand(new ItemDestroyCommand(Item) );
             }
         }
     }

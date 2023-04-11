@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run<Item>( (resolve, reject) =>
             {
-                Item toItem = context.Server.ItemFactory.Create(OpenTibiaId, Count);
+                Item toItem = Context.Server.ItemFactory.Create(OpenTibiaId, Count);
 
                 if (toItem != null)
                 {
@@ -33,33 +33,33 @@ namespace OpenTibia.Game.Commands
                     {
                         case Tile tile:
 
-                            context.AddCommand(new TileReplaceItemCommand(tile, FromItem, toItem) ).Then(ctx =>
+                            Context.AddCommand(new TileReplaceItemCommand(tile, FromItem, toItem) ).Then( () =>
                             {
-                                Destroy(ctx, FromItem);
+                                Destroy(FromItem);
 
-                                resolve(ctx, toItem);
+                                resolve(toItem);
                             } );
                   
                             break;
 
                         case Inventory inventory:
 
-                            context.AddCommand(new InventoryReplaceItemCommand(inventory, FromItem, toItem) ).Then(ctx =>
+                            Context.AddCommand(new InventoryReplaceItemCommand(inventory, FromItem, toItem) ).Then( () =>
                             {
-                                Destroy(ctx, FromItem);
+                                Destroy(FromItem);
 
-                                resolve(ctx, toItem);
+                                resolve(toItem);
                             } );
                    
                             break;
 
                         case Container container:
 
-                            context.AddCommand(new ContainerReplaceItemCommand(container, FromItem, toItem) ).Then(ctx =>
+                            Context.AddCommand(new ContainerReplaceItemCommand(container, FromItem, toItem) ).Then( () =>
                             {
-                                Destroy(ctx, FromItem);
+                                Destroy(FromItem);
 
-                                resolve(ctx, toItem);
+                                resolve(toItem);
                             } );
 
                             break;                    
@@ -68,7 +68,7 @@ namespace OpenTibia.Game.Commands
             } );            
         }
 
-        private void Destroy(Context context, Item item)
+        private void Destroy(Item item)
         {
             if (item is Container container)
             {
@@ -80,18 +80,18 @@ namespace OpenTibia.Game.Commands
                         {
                             observer.Client.ContainerCollection.CloseContainer(pair.Key);
 
-                            context.AddPacket(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                            Context.AddPacket(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
                         }
                     }
                 }
 
                 foreach (var child in container.GetItems() )
                 {
-                    Destroy(context, child);
+                    Destroy(child);
                 }
             }
 
-            context.Server.ItemFactory.Destroy(item);
+            Context.Server.ItemFactory.Destroy(item);
         }
     }
 }

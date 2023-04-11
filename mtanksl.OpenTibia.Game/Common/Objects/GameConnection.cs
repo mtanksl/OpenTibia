@@ -25,11 +25,13 @@ namespace OpenTibia.Common.Objects
         {
             server.Logger.WriteLine("Connected on game server", LogLevel.Debug);
 
-            server.QueueForExecution(ctx =>
+            server.QueueForExecution( () =>
             {
-                ctx.AddPacket(this, new SendConnectionInfoOutgoingPacket() );
+                Context context = Context.Current;
 
-                return Promise.Completed(ctx);
+                context.AddPacket(this, new SendConnectionInfoOutgoingPacket() );
+
+                return Promise.Completed();
             } );
 
             base.OnConnected();
@@ -781,9 +783,11 @@ namespace OpenTibia.Common.Objects
                     {
                         server.Logger.WriteLine("Received on game server: 0x" + identification.ToString("X2"), LogLevel.Debug);
 
-                        server.QueueForExecution(ctx =>
+                        server.QueueForExecution( () =>
                         {
-                            return ctx.AddCommand(command);
+                            Context context = Context.Current;
+
+                            return context.AddCommand(command);
                         } );
                     }
                     else
@@ -814,9 +818,11 @@ namespace OpenTibia.Common.Objects
 
             if (e.Type != DisconnectionType.Requested)
             {
-                server.QueueForExecution(ctx =>
+                server.QueueForExecution( () =>
                 {
-                    return ctx.AddCommand(new ParseLogOutCommand(Client.Player) );
+                    Context context = Context.Current;
+
+                    return context.AddCommand(new ParseLogOutCommand(Client.Player) );
                 } );
             }
             

@@ -21,7 +21,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (e.Tile.Ground != null && tiles.TryGetValue(e.Tile.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                context.AddCommand(new ItemTransformCommand(e.Tile.Ground, toOpenTibiaId, 1) );
+                Context.AddCommand(new ItemTransformCommand(e.Tile.Ground, toOpenTibiaId, 1) );
             }
         }
     }

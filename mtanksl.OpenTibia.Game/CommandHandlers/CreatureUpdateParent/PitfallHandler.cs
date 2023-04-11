@@ -18,7 +18,7 @@ namespace OpenTibia.Game.CommandHandlers
             {  294, 293 }
         };
 
-        public override Promise Handle(ContextPromiseDelegate next, CreatureUpdateParentCommand command)
+        public override Promise Handle(Func<Promise> next, CreatureUpdateParentCommand command)
         {
             ushort toOpenTibiaId;
 
@@ -26,7 +26,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (hole.Ground != null && pitfalls.TryGetValue(hole.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                Tile down = context.Server.Map.GetTile(hole.Position.Offset(0, 0, 1) );
+                Tile down = Context.Server.Map.GetTile(hole.Position.Offset(0, 0, 1) );
 
                 if (down != null)
                 {
@@ -36,49 +36,49 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (down.FloorChange == FloorChange.North)
                     {
-                        toTile = context.Server.Map.GetTile(down.Position.Offset(0, 1, 0) );
+                        toTile = Context.Server.Map.GetTile(down.Position.Offset(0, 1, 0) );
 
                         direction = Direction.South;
                     }
                     else if (down.FloorChange == FloorChange.East)
                     {
-                        toTile = context.Server.Map.GetTile(down.Position.Offset(-1, 0, 0) );
+                        toTile = Context.Server.Map.GetTile(down.Position.Offset(-1, 0, 0) );
 
                         direction = Direction.West;
                     }
                     else if (down.FloorChange == FloorChange.South)
                     {
-                        toTile = context.Server.Map.GetTile(down.Position.Offset(0, -1, 0) );
+                        toTile = Context.Server.Map.GetTile(down.Position.Offset(0, -1, 0) );
 
                         direction = Direction.North;
                     }
                     else if (down.FloorChange == FloorChange.West)
                     {
-                        toTile = context.Server.Map.GetTile(down.Position.Offset(1, 0, 0) );
+                        toTile = Context.Server.Map.GetTile(down.Position.Offset(1, 0, 0) );
 
                         direction = Direction.East;
                     }
                     else if (down.FloorChange == FloorChange.NorthEast)
                     {
-                        toTile = context.Server.Map.GetTile(down.Position.Offset(-1, 1, 0) );
+                        toTile = Context.Server.Map.GetTile(down.Position.Offset(-1, 1, 0) );
 
                         direction = Direction.West;
                     }
                     else if (down.FloorChange == FloorChange.NorthWest)
                     {
-                        toTile = context.Server.Map.GetTile(down.Position.Offset(1, 1, 0) );
+                        toTile = Context.Server.Map.GetTile(down.Position.Offset(1, 1, 0) );
 
                         direction = Direction.East;
                     }
                     else if (down.FloorChange == FloorChange.SouthWest)
                     {
-                        toTile = context.Server.Map.GetTile(down.Position.Offset(1, -1, 0) );
+                        toTile = Context.Server.Map.GetTile(down.Position.Offset(1, -1, 0) );
 
                         direction = Direction.East;
                     }
                     else if (down.FloorChange == FloorChange.SouthEast)
                     {
-                        toTile = context.Server.Map.GetTile(down.Position.Offset(-1, -1, 0) );
+                        toTile = Context.Server.Map.GetTile(down.Position.Offset(-1, -1, 0) );
 
                         direction = Direction.West;
                     }
@@ -91,19 +91,19 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (toTile != null)
                     {
-                        return context.AddCommand(new CreatureUpdateParentCommand(command.Creature, toTile, direction) ).Then(ctx =>
+                        return Context.AddCommand(new CreatureUpdateParentCommand(command.Creature, toTile, direction) ).Then( () =>
                         {
-                            return ctx.AddCommand(new ItemTransformCommand(hole.Ground, toOpenTibiaId, 1) );
+                            return Context.AddCommand(new ItemTransformCommand(hole.Ground, toOpenTibiaId, 1) );
 
-                        } ).Then( (ctx, item) =>
+                        } ).Then( (item) =>
                         {
-                            ctx.AddCommand(new ItemDecayTransformCommand(item, 10000, decay[toOpenTibiaId], 1) );
+                            Context.AddCommand(new ItemDecayTransformCommand(item, 10000, decay[toOpenTibiaId], 1) );
                         } );
                     }
                 }
             }
 
-            return next(context);
+            return next();
         }
     }
 }

@@ -10,11 +10,11 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> dices = new HashSet<ushort>() { 5792, 5793, 5794, 5795, 5796, 5797 };
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
             if (dices.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                int value = context.Server.Randomization.Take(0, dices.Count);
+                int value = Context.Server.Randomization.Take(0, dices.Count);
 
                 ushort openTibiaId = (ushort)(5792 + value);
 
@@ -22,25 +22,25 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     case Tile tile:
 
-                        context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.Dice) );
+                        Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.Dice) );
 
                         break;
 
                     case Inventory inventory:
 
-                        context.AddCommand(new ShowMagicEffectCommand(inventory.Player.Tile.Position, MagicEffectType.Dice) );
+                        Context.AddCommand(new ShowMagicEffectCommand(inventory.Player.Tile.Position, MagicEffectType.Dice) );
 
                         break;
                 }
                                
-                context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, command.Player.Name + " rolled a " + (value + 1) + ".") );
+                Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, command.Player.Name + " rolled a " + (value + 1) + ".") );
 
-                context.AddCommand(new ItemTransformCommand(command.Item, openTibiaId, 1) );
+                Context.AddCommand(new ItemTransformCommand(command.Item, openTibiaId, 1) );
 
-                return Promise.Completed(context);
+                return Promise.Completed();
             }
 
-            return next(context);
+            return next();
         }
     }
 }

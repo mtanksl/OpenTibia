@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Commands
             {
 
 
-                resolve(context);
+                resolve();
             } );
         }
     }

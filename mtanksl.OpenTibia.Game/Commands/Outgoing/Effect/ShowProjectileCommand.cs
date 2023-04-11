@@ -24,15 +24,15 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run( (resolve, reject) =>
             {
-                foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                 {
                     if (observer.Tile.Position.CanSee(FromPosition) || observer.Tile.Position.CanSee(ToPosition) )
                     {
-                        context.AddPacket(observer.Client.Connection, new ShowProjectileOutgoingPacket(FromPosition, ToPosition, ProjectileType) );
+                        Context.AddPacket(observer.Client.Connection, new ShowProjectileOutgoingPacket(FromPosition, ToPosition, ProjectileType) );
                     }
                 }
 
-                resolve(context);
+                resolve();
             } );
         }
     }

@@ -4,7 +4,7 @@ namespace OpenTibia.Game.EventHandlers
 {
     public abstract class EventHandler : IEventHandler
     {
-        public Context context
+        public Context Context
         {
             get
             {

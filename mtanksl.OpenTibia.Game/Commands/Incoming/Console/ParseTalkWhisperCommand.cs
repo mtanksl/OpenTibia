@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return context.AddCommand(new PlayerWhisperCommand(Player, Message) );
+            return Context.AddCommand(new PlayerWhisperCommand(Player, Message) );
         }
     }
 }

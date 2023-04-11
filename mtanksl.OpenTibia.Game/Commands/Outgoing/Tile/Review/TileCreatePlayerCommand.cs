@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Commands
             {
                 #region Connect
 
-                Client client = new Client(context.Server);
+                Client client = new Client(Context.Server);
 
                 Connection.Client = client;
 
@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
 
                 #region Create
 
-                Player player = context.Server.PlayerFactory.Create();
+                Player player = Context.Server.PlayerFactory.Create();
 
                 client.Player = player;
 
@@ -125,11 +125,11 @@ namespace OpenTibia.Game.Commands
 
                 foreach (var playerItem in DatabasePlayer.PlayerItems.Where(i => i.ParentId >= 1 /* Slot.Head */ && i.ParentId <= 10 /* Slot.Extra */ ) )
                 {
-                    var item = context.Server.ItemFactory.Create( (ushort)playerItem.OpenTibiaId, (byte)playerItem.Count);
+                    var item = Context.Server.ItemFactory.Create( (ushort)playerItem.OpenTibiaId, (byte)playerItem.Count);
 
                     if (item is Container container)
                     {
-                        AddItems(context, DatabasePlayer.PlayerItems, container, playerItem.SequenceId);
+                        AddItems(Context, DatabasePlayer.PlayerItems, container, playerItem.SequenceId);
                     }
 
                     player.Inventory.AddContent(item, (byte)playerItem.ParentId);
@@ -141,11 +141,11 @@ namespace OpenTibia.Game.Commands
 
                 foreach (var playerDepotItem in DatabasePlayer.PlayerDepotItems.Where(i => i.ParentId >= 0 /* Town Id */ && i.ParentId <= 100 /* Town Id */ ) )
                 {
-                    var container = (Container)context.Server.ItemFactory.Create(2591, 1);
+                    var container = (Container)Context.Server.ItemFactory.Create(2591, 1);
 
-                    context.Server.Lockers.AddLocker(DatabasePlayer.Id, (ushort)playerDepotItem.ParentId, container);
+                    Context.Server.Lockers.AddLocker(DatabasePlayer.Id, (ushort)playerDepotItem.ParentId, container);
 
-                    AddItems(context, DatabasePlayer.PlayerDepotItems, container, playerDepotItem.SequenceId);
+                    AddItems(Context, DatabasePlayer.PlayerDepotItems, container, playerDepotItem.SequenceId);
                 }
 
                 #endregion
@@ -159,9 +159,9 @@ namespace OpenTibia.Game.Commands
 
                 #endregion
 
-                context.AddCommand(new TileAddCreatureCommand(Tile, player) ).Then(ctx =>
+                Context.AddCommand(new TileAddCreatureCommand(Tile, player) ).Then( () =>
                 {
-                    resolve(ctx, player);
+                    resolve(player);
                 } );
             } );
         }

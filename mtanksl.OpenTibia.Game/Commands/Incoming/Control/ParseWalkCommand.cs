@@ -20,21 +20,21 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Check(context).Then( (ctx, toTile) =>
+            return Check().Then( (toTile) =>
             {
-                return Promise.Delay(ctx.Server, Constants.PlayerWalkSchedulerEvent(Player), 1000 * toTile.Ground.Metadata.Speed / Player.Speed);
+                return Promise.Delay(Context.Server, Constants.PlayerWalkSchedulerEvent(Player), 1000 * toTile.Ground.Metadata.Speed / Player.Speed);
 
-            } ).Then(ctx =>
+            } ).Then( () =>
 			{
-                return Check(ctx);
+                return Check();
 
-            } ).Then( (ctx, toTile) =>
+            } ).Then( (toTile) =>
             {
-                return ctx.AddCommand(new CreatureUpdateParentCommand(Player, toTile) );
+                return Context.AddCommand(new CreatureUpdateParentCommand(Player, toTile) );
             } );
         }
 
-        private PromiseResult<Tile> Check(Context context)
+        private PromiseResult<Tile> Check()
         {
             return Promise.Run<Tile>( (resolve, reject) =>
             {
@@ -42,17 +42,17 @@ namespace OpenTibia.Game.Commands
 
                 if (fromTile != null)
                 {
-                    Tile toTile = context.Server.Map.GetTile(fromTile.Position.Offset(MoveDirection) );
+                    Tile toTile = Context.Server.Map.GetTile(fromTile.Position.Offset(MoveDirection) );
 
                     if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || toTile.GetCreatures().Any(c => c.Block) )
                     {
-                        context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible),
+                        Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible),
 
                                                                     new StopWalkOutgoingPacket(Player.Direction) );
                     }
                     else
                     {
-                        resolve(context, toTile);
+                        resolve(toTile);
                     }
                 }
             } );

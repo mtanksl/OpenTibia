@@ -16,11 +16,11 @@ namespace OpenTibia.Game.Commands
         {
             Tile tile = Player.Tile;
 
-            return context.AddCommand(new TileRemoveCreatureCommand(tile, Player) ).Then(ctx =>
+            return Context.AddCommand(new TileRemoveCreatureCommand(tile, Player) ).Then( () =>
             {
                 #region Save player to database
 
-                var databasePlayer = context.DatabaseContext.PlayerRepository.GetPlayerById(Player.DatabasePlayerId);
+                var databasePlayer = Context.DatabaseContext.PlayerRepository.GetPlayerById(Player.DatabasePlayerId);
 
                 databasePlayer.Direction = (int)Player.Direction;
 
@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Commands
 
                 databasePlayer.CoordinateZ = tile.Position.Z;
 
-                context.DatabaseContext.PlayerRepository.UpdatePlayer(databasePlayer);
+                Context.DatabaseContext.PlayerRepository.UpdatePlayer(databasePlayer);
 
                 #endregion
 
@@ -52,14 +52,14 @@ namespace OpenTibia.Game.Commands
 
                 foreach (var playerItem in databasePlayer.PlayerItems.ToList() )
                 {
-                    context.DatabaseContext.PlayerRepository.RemovePlayerItem(playerItem);
+                    Context.DatabaseContext.PlayerRepository.RemovePlayerItem(playerItem);
                 }
 
                 int sequenceId = 101;
 
                 foreach (var pair in Player.Inventory.GetIndexedContents() )
                 {
-                    AddPlayerItems(context, ref sequenceId, pair.Key, (Item)pair.Value);
+                    AddPlayerItems(Context, ref sequenceId, pair.Key, (Item)pair.Value);
                 }
 
                 #endregion
@@ -68,14 +68,14 @@ namespace OpenTibia.Game.Commands
 
                 foreach (var playerDepotItem in databasePlayer.PlayerDepotItems.ToList() )
                 {
-                    context.DatabaseContext.PlayerRepository.RemovePlayerDepotItem(playerDepotItem);
+                    Context.DatabaseContext.PlayerRepository.RemovePlayerDepotItem(playerDepotItem);
                 }
 
                 sequenceId = 101;
 
-                foreach (var pair in ctx.Server.Lockers.GetIndexedLockers(Player.DatabasePlayerId) )
+                foreach (var pair in Context.Server.Lockers.GetIndexedLockers(Player.DatabasePlayerId) )
                 {
-                    AddPlayerDepotItems(context, ref sequenceId, pair.Key, pair.Value);
+                    AddPlayerDepotItems(Context, ref sequenceId, pair.Key, pair.Value);
                 }
 
                 #endregion
@@ -84,7 +84,7 @@ namespace OpenTibia.Game.Commands
 
                 foreach (var playerVip in databasePlayer.PlayerVips.ToList() )
                 {
-                    context.DatabaseContext.PlayerRepository.RemovePlayerVip(playerVip);
+                    Context.DatabaseContext.PlayerRepository.RemovePlayerVip(playerVip);
                 }
 
                 sequenceId = 1;
@@ -97,28 +97,28 @@ namespace OpenTibia.Game.Commands
 
                         SequenceId = sequenceId++,
 
-                        VipId = context.DatabaseContext.PlayerRepository.GetPlayerByName(vip.Name).Id
+                        VipId = Context.DatabaseContext.PlayerRepository.GetPlayerByName(vip.Name).Id
                     };
 
-                    context.DatabaseContext.PlayerRepository.AddPlayerVip(playerVip);
+                    Context.DatabaseContext.PlayerRepository.AddPlayerVip(playerVip);
                 }
 
                 #endregion
 
-                context.DatabaseContext.Commit();
+                Context.DatabaseContext.Commit();
 
                 #region Destroy
 
                 foreach (var item in Player.Inventory.GetItems() )
                 {
-                    ctx.AddCommand(new ItemDestroyCommand(item) );
+                    Context.AddCommand(new ItemDestroyCommand(item) );
                 }
 
-                foreach (var pair in ctx.Server.Lockers.GetIndexedLockers(Player.DatabasePlayerId).ToList() )
+                foreach (var pair in Context.Server.Lockers.GetIndexedLockers(Player.DatabasePlayerId).ToList() )
                 {
-                    ctx.Server.Lockers.RemoveLocker(Player.DatabasePlayerId, pair.Key);
+                    Context.Server.Lockers.RemoveLocker(Player.DatabasePlayerId, pair.Key);
 
-                    ctx.AddCommand(new ItemDestroyCommand(pair.Value) );
+                    Context.AddCommand(new ItemDestroyCommand(pair.Value) );
                 }
 
                 foreach (var pair in Player.Client.ContainerCollection.GetIndexedContainers() )
@@ -132,7 +132,7 @@ namespace OpenTibia.Game.Commands
                 }
 
                 /*
-                foreach (var channel in ctx.Server.Channels.GetChannels().ToList() )
+                foreach (var channel in context.Server.Channels.GetChannels().ToList() )
                 {
                     if (channel.ContainsPlayer(Player) )
                     {
@@ -155,7 +155,7 @@ namespace OpenTibia.Game.Commands
                 */
 
                 /*
-                foreach (var ruleViolation in ctx.Server.RuleViolations.GetRuleViolations().ToList() )
+                foreach (var ruleViolation in context.Server.RuleViolations.GetRuleViolations().ToList() )
                 {
                     if (ruleViolation.Reporter == Player)
                     {
@@ -169,7 +169,7 @@ namespace OpenTibia.Game.Commands
                 }
                 */
 
-                ctx.Server.PlayerFactory.Destroy(Player);
+                Context.Server.PlayerFactory.Destroy(Player);
 
                 #endregion
             } );

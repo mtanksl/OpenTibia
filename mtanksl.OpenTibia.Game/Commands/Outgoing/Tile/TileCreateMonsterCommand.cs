@@ -19,14 +19,14 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run<Monster>( (resolve, reject) =>
             {
-                Monster monster = context.Server.MonsterFactory.Create(Name);
+                Monster monster = Context.Server.MonsterFactory.Create(Name);
 
                 if (monster != null)
                 {
-                    context.AddCommand(new TileAddCreatureCommand(Tile, monster) );
+                    Context.AddCommand(new TileAddCreatureCommand(Tile, monster) );
                 }
 
-                resolve(context, monster);
+                resolve(monster);
             } );
         }
     }

@@ -50,7 +50,7 @@ namespace OpenTibia.Game.CommandHandlers
             8559, 8560, 8561, 8562, 8563, 8564, 8565, 8566
         };
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerMoveItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {
             if (command.ToContainer is Tile tile)
             {
@@ -58,7 +58,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (hole.Ground != null && holes.Contains(hole.Ground.Metadata.OpenTibiaId) )
                 {
-                    Tile down = context.Server.Map.GetTile(hole.Position.Offset(0, 0, 1) );
+                    Tile down = Context.Server.Map.GetTile(hole.Position.Offset(0, 0, 1) );
 
                     if (down != null)
                     {
@@ -66,35 +66,35 @@ namespace OpenTibia.Game.CommandHandlers
 
                         if (down.FloorChange == FloorChange.North)
                         {
-                            toTile = context.Server.Map.GetTile(down.Position.Offset(0, 1, 0) );
+                            toTile = Context.Server.Map.GetTile(down.Position.Offset(0, 1, 0) );
                         }
                         else if (down.FloorChange == FloorChange.East)
                         {
-                            toTile = context.Server.Map.GetTile(down.Position.Offset(-1, 0, 0) );
+                            toTile = Context.Server.Map.GetTile(down.Position.Offset(-1, 0, 0) );
                         }
                         else if (down.FloorChange == FloorChange.South)
                         {
-                            toTile = context.Server.Map.GetTile(down.Position.Offset(0, -1, 0) );
+                            toTile = Context.Server.Map.GetTile(down.Position.Offset(0, -1, 0) );
                         }
                         else if (down.FloorChange == FloorChange.West)
                         {
-                            toTile = context.Server.Map.GetTile(down.Position.Offset(1, 0, 0) );
+                            toTile = Context.Server.Map.GetTile(down.Position.Offset(1, 0, 0) );
                         }
                         else if (down.FloorChange == FloorChange.NorthEast)
                         {
-                            toTile = context.Server.Map.GetTile(down.Position.Offset(-1, 1, 0) );
+                            toTile = Context.Server.Map.GetTile(down.Position.Offset(-1, 1, 0) );
                         }
                         else if (down.FloorChange == FloorChange.NorthWest)
                         {
-                            toTile = context.Server.Map.GetTile(down.Position.Offset(1, 1, 0) );
+                            toTile = Context.Server.Map.GetTile(down.Position.Offset(1, 1, 0) );
                         }
                         else if (down.FloorChange == FloorChange.SouthWest)
                         {
-                            toTile = context.Server.Map.GetTile(down.Position.Offset(1, -1, 0) );
+                            toTile = Context.Server.Map.GetTile(down.Position.Offset(1, -1, 0) );
                         }
                         else if (down.FloorChange == FloorChange.SouthEast)
                         {
-                            toTile = context.Server.Map.GetTile(down.Position.Offset(-1, -1, 0) );
+                            toTile = Context.Server.Map.GetTile(down.Position.Offset(-1, -1, 0) );
                         }
                         else
                         {
@@ -103,13 +103,13 @@ namespace OpenTibia.Game.CommandHandlers
 
                         if (toTile != null)
                         {
-                            return context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toTile, 0, command.Count, false) );
+                            return Context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toTile, 0, command.Count, false) );
                         }
                     }
                 }
             }
 
-            return next(context);
+            return next();
         }
     }
 }

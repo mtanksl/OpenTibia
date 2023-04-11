@@ -62,40 +62,40 @@ namespace OpenTibia.Game.CommandHandlers
             //TODO: More items
         };
 
-        public override Promise Handle(ContextPromiseDelegate next, PlayerUseItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
             ushort toOpenTibiaId;
 
             if (horizontalDoors.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                return context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) ).Then( (ctx, item) =>
+                return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) ).Then( (item) =>
                 {
                     Tile door = (Tile)item.Parent;
 
-                    Tile south = ctx.Server.Map.GetTile(door.Position.Offset(0, 1, 0) );
+                    Tile south = Context.Server.Map.GetTile(door.Position.Offset(0, 1, 0) );
 
                     foreach (var creature in door.GetCreatures().ToList() )
                     {
-                        ctx.AddCommand(new CreatureUpdateParentCommand(creature, south) );
+                        Context.AddCommand(new CreatureUpdateParentCommand(creature, south) );
                     }
                 } );
             }
             else if (verticalDoors.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                return context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) ).Then( (ctx, item) =>
+                return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) ).Then( (item) =>
                 {
                     Tile door = (Tile)item.Parent;
 
-                    Tile south = ctx.Server.Map.GetTile(door.Position.Offset(1, 0, 0) );
+                    Tile south = Context.Server.Map.GetTile(door.Position.Offset(1, 0, 0) );
 
                     foreach (var creature in door.GetCreatures().ToList() )
                     {
-                        ctx.AddCommand(new CreatureUpdateParentCommand(creature, south) );
+                        Context.AddCommand(new CreatureUpdateParentCommand(creature, south) );
                     }
                 } );
             }
 
-            return next(context);
+            return next();
         }
     }
 }

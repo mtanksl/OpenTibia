@@ -69,8 +69,6 @@
     <Compile Include="CommandHandlers\CreatureUpdateParent\MoveAwayContainerCloseHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\StairsHandler.cs" />
     <Compile Include="CommandHandlers\CreatureUpdateParent\HoleHandler.cs" />
-    <Compile Include="CommandHandlers\ContextPromiseResultDelegate.cs" />
-    <Compile Include="CommandHandlers\ContextPromiseDelegate.cs" />
     <Compile Include="CommandHandlers\InlineCommandHandler.cs" />
     <Compile Include="CommandHandlers\InlineCommandHandlerResult.cs" />
     <Compile Include="CommandHandlers\PlayerSay\KickPlayerHandler.cs" />

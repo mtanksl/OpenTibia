@@ -59,9 +59,9 @@ namespace OpenTibia.Game.Commands
                         throw new NotImplementedException();
                 }
 
-                context.AddPacket(Player.Client.Connection, new OpenSelectOutfitDialogOutgoingPacket(Player.Outfit, outfits) );
+                Context.AddPacket(Player.Client.Connection, new OpenSelectOutfitDialogOutgoingPacket(Player.Outfit, outfits) );
 
-                resolve(context);
+                resolve();
             } );
         }
     }
