@@ -108,6 +108,11 @@ namespace OpenTibia.Game
 
             Console.WriteLine();
         }
+
+        public void WriteLine()
+        {
+            Console.WriteLine();
+        }
     }
 
     public enum LogLevel

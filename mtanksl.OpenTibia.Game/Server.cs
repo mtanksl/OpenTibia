@@ -105,7 +105,11 @@ namespace OpenTibia.Game
             Components = new ComponentCollection(this);
 
             GameObjects = new GameObjectCollection();
-                        
+
+            Logger.WriteLine("An open Tibia server developed by mtanksl");
+            Logger.WriteLine("Source code: https://github.com/mtanksl/OpenTibia");
+            Logger.WriteLine();
+
             using (Logger.Measure("Loading items") )
             {
                 ItemFactory = new ItemFactory(this, OtbFile.Load("data/items/items.otb"), DatFile.Load("data/items/tibia.dat"), ItemsFile.Load("data/items/items.xml") );
