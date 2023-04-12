@@ -5,18 +5,14 @@ using System;
 
 namespace OpenTibia.Game.Strategies
 {
-    public class DistantAttackStrategy : IAttackStrategy
+    public class CloseAttackStrategy : IAttackStrategy
     {
-        private ProjectileType projectileType;
-
         private int cooldownInMilliseconds;
 
         private Func<Creature, Creature, int> formula;
 
-        public DistantAttackStrategy(ProjectileType projectileType, int cooldownInMilliseconds, Func<Creature, Creature, int> formula)
+        public CloseAttackStrategy(int cooldownInMilliseconds, Func<Creature, Creature, int> formula)
         {
-            this.projectileType = projectileType;
-
             this.cooldownInMilliseconds = cooldownInMilliseconds;
 
             this.formula = formula;
@@ -30,9 +26,16 @@ namespace OpenTibia.Game.Strategies
             }
         }
 
-        public Command GetNext(Context context, Creature creature, Creature target)
+        public Command GetNext(Creature creature, Creature target)
         {
-            return CombatCommand.TargetAttack(creature, target, projectileType, MagicEffectType.RedSpark, formula);
+            Context context = Context.Current;
+
+            if (creature.Tile.Position.IsNextTo(target.Tile.Position) )
+            {
+                return CombatCommand.TargetAttack(creature, target, null, MagicEffectType.RedSpark, formula);
+            }
+
+            return null;
         }
-    }    
+    }
 }

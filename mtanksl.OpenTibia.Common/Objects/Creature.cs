@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Structures;
+using System;
 
 namespace OpenTibia.Common.Objects
 {
@@ -48,6 +49,14 @@ namespace OpenTibia.Common.Objects
         public ushort Health { get; set; }
 
         public ushort MaxHealth { get; set; }
+
+        public byte HealthPercentage
+        {
+            get
+            {
+                return (byte)Math.Ceiling(100.0 * Health / MaxHealth);
+            }
+        }
 
         public Direction Direction { get; set; }
 

@@ -1,17 +1,23 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
     public class PlayerUpdateManaCommand : Command
     {
+        public PlayerUpdateManaCommand(Player player, ushort mana) : this(player, mana, player.MaxMana)
+        {
+
+        }
+
         public PlayerUpdateManaCommand(Player player, ushort mana, ushort maxMana)
         {
             Player = player;
 
-            Mana = mana;
+            Mana = Math.Max( (ushort)0, Math.Min(player.MaxMana, mana) );
 
-            MaxMana = maxMana;
+            MaxMana = Math.Max( (ushort)0, Math.Min(player.MaxMana, maxMana) );
         }
 
         public Player Player { get; set; }

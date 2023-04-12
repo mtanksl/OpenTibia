@@ -7,8 +7,10 @@ namespace OpenTibia.Game.Strategies
 {
     public class RunAwayWalkStrategy : IWalkStrategy
     {
-        public Tile GetNext(Context context, Tile spawn, Creature creature, Creature target)
+        public Tile GetNext(Tile spawn, Creature creature, Creature target)
         {
+            Context context = Context.Current;
+
             int deltaY = creature.Tile.Position.Y - target.Tile.Position.Y;
 
             int deltaX = creature.Tile.Position.X - target.Tile.Position.X;
@@ -35,11 +37,17 @@ namespace OpenTibia.Game.Strategies
 
             if (directions.Count > 0)
             {
+                // Try running away
+
                 foreach (var direction in context.Server.Randomization.Shuffle(directions.ToArray() ) )
                 {
                     Tile toTile = context.Server.Map.GetTile(creature.Tile.Position.Offset(direction) );
 
-                    if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || toTile.GetCreatures().Any(c => c.Block) )
+                    if (toTile == null || 
+                        
+                        toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || 
+                        
+                        toTile.GetCreatures().Any(c => c.Block) )
                     {
 
                     }
@@ -50,11 +58,17 @@ namespace OpenTibia.Game.Strategies
                 }
             }
 
+            // Otherwise, random walk
+
             foreach (var direction in context.Server.Randomization.Shuffle(new[] { Direction.North, Direction.East, Direction.South, Direction.West } ) )
             {
                 Tile toTile = context.Server.Map.GetTile(creature.Tile.Position.Offset(direction) );
 
-                if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || toTile.GetCreatures().Any(c => c.Block) )
+                if (toTile == null || 
+                    
+                    toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || 
+                    
+                    toTile.GetCreatures().Any(c => c.Block) )
                 {
 
                 }

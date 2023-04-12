@@ -6,13 +6,18 @@ namespace OpenTibia.Game.Commands
 {
     public class CreatureUpdateHealthCommand : Command
     {
+        public CreatureUpdateHealthCommand(Creature creature, ushort health) : this(creature, health, creature.MaxHealth)
+        {
+            
+        }
+
         public CreatureUpdateHealthCommand(Creature creature, ushort health, ushort maxHealth)
         {
             Creature = creature;
 
-            Health = health;
+            Health = Math.Max( (ushort)0, Math.Min(creature.MaxHealth, health) );
 
-            MaxHealth = maxHealth;
+            MaxHealth = Math.Max( (ushort)0, Math.Min(creature.MaxHealth, maxHealth) );
         }
 
         public Creature Creature { get; set; }
@@ -40,7 +45,7 @@ namespace OpenTibia.Game.Commands
                     
                     if (observer.Tile.Position.CanSee(fromTile.Position) )
                     {
-                        Context.AddPacket(observer.Client.Connection, new SetHealthOutgoingPacket(Creature.Id, (byte)Math.Ceiling(100.0 * Creature.Health / Creature.MaxHealth) ) );
+                        Context.AddPacket(observer.Client.Connection, new SetHealthOutgoingPacket(Creature.Id, Creature.HealthPercentage) );
                     }
                 }
             }

@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -9,7 +10,7 @@ namespace OpenTibia.Game.Commands
         {
             Player = player;
 
-            Stamina = stamina;
+            Stamina = Math.Max( (ushort)0, Math.Min( (ushort)2520, stamina) );
         }
 
         public Player Player { get; set; }

@@ -4,6 +4,7 @@ using OpenTibia.Game.Commands;
 using OpenTibia.Game.Strategies;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
+using System.Collections.Generic;
 
 namespace OpenTibia.Game.Components
 {
@@ -90,7 +91,7 @@ namespace OpenTibia.Game.Components
 
         private DateTime moveCooldown;
 
-        public override void Update()
+        public override Promise Update()
         {
             if (target != null)
             {
@@ -114,15 +115,17 @@ namespace OpenTibia.Game.Components
                     }
                     else
                     {
+                        List<Command> commands = new List<Command>();
+
                         if (state == State.Follow || state == State.AttackAndFollow)
                         {
                             if (DateTime.UtcNow > moveCooldown)
                             {
-                                var toTile = walkStrategy.GetNext(Context, null, player, target);
+                                var toTile = walkStrategy.GetNext(null, player, target);
 
                                 if (toTile != null)
                                 {
-                                    Context.AddCommand(new CreatureUpdateParentCommand(player, toTile) );
+                                    commands.Add(new CreatureUpdateParentCommand(player, toTile) );
 
                                     moveCooldown = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / player.Speed);
                                 }
@@ -133,19 +136,23 @@ namespace OpenTibia.Game.Components
                         {
                             if (DateTime.UtcNow > attackCooldown)
                             {
-                                var command = attackStrategy.GetNext(Context, player, target);
+                                var command = attackStrategy.GetNext(player, target);
 
                                 if (command != null)
                                 {
-                                    Context.AddCommand(command);
+                                    commands.Add(command);
 
                                     attackCooldown = DateTime.UtcNow.AddMilliseconds(attackStrategy.CooldownInMilliseconds);
                                 } 
                             }
                         }
+
+                        return Command.WhenAll(commands.ToArray() );
                     }
                 }
             }
+
+            return Promise.Completed;
         }
 
         public override void Stop(Server server)

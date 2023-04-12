@@ -5,8 +5,10 @@ namespace OpenTibia.Game.Strategies
 {
     public class FollowWalkStrategy : IWalkStrategy
     {
-        public Tile GetNext(Context context, Tile spawn, Creature creature, Creature target)
+        public Tile GetNext(Tile spawn, Creature creature, Creature target)
         {
+            Context context = Context.Current;
+
             MoveDirection[] moveDirections = context.Server.Pathfinding.GetMoveDirections(creature.Tile.Position, target.Tile.Position);
 
             if (moveDirections.Length != 0)

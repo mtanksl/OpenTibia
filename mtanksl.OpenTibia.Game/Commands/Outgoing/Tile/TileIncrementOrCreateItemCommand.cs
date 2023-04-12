@@ -1,6 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Game;
-using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Commands
 {
@@ -23,28 +21,21 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run((resolve, reject) =>
+            if (Tile.TopItem != null)
             {
-                if (Tile.TopItem != null)
+                if (Tile.TopItem.Metadata.OpenTibiaId == OpenTibiaId)
                 {
-                    if (Tile.TopItem.Metadata.OpenTibiaId == OpenTibiaId)
+                    if (Tile.TopItem is StackableItem toStackableItem)
                     {
-                        if (Tile.TopItem is StackableItem toStackableItem)
+                        if (toStackableItem.Count + Count > 100)
                         {
-                            if (toStackableItem.Count + Count > 100)
-                            {
-                                Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, (byte)(toStackableItem.Count + Count - 100)));
+                            Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, (byte)(toStackableItem.Count + Count - 100)));
 
-                                Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100));
-                            }
-                            else
-                            {
-                                Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + Count)));
-                            }
+                            Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100));
                         }
                         else
                         {
-                            Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, Count));
+                            Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + Count)));
                         }
                     }
                     else
@@ -56,9 +47,13 @@ namespace OpenTibia.Game.Commands
                 {
                     Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, Count));
                 }
+            }
+            else
+            {
+                Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, Count));
+            }
 
-                resolve();
-            });
+            return Promise.Completed;
         }
     }
 }

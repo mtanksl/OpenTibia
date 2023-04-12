@@ -14,13 +14,23 @@ namespace OpenTibia.Game.Strategies
             this.radius = radius;
         }
 
-        public Tile GetNext(Context context, Tile spawn, Creature creature, Creature target)
+        public Tile GetNext(Tile spawn, Creature creature, Creature target)
         {
+            Context context = Context.Current;
+
             foreach (var direction in context.Server.Randomization.Shuffle(new[] { Direction.North, Direction.East, Direction.South, Direction.West } ) )
             {
                 Tile toTile = context.Server.Map.GetTile(creature.Tile.Position.Offset(direction) );
 
-                if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || toTile.GetCreatures().Any(c => c.Block) || Math.Abs(toTile.Position.X - spawn.Position.X) > radius || Math.Abs(toTile.Position.Y - spawn.Position.Y) > radius)
+                if (toTile == null || 
+
+                    toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || 
+
+                    toTile.GetCreatures().Any(c => c.Block) || 
+
+                    Math.Abs(toTile.Position.X - spawn.Position.X) > radius || 
+
+                    Math.Abs(toTile.Position.Y - spawn.Position.Y) > radius)
                 {
 
                 }

@@ -90,7 +90,7 @@ namespace OpenTibia.IO
 
              writer.Write(creature.Id);
 
-             writer.Write( (byte)Math.Ceiling(100.0 * creature.Health / creature.MaxHealth) );
+             writer.Write(creature.HealthPercentage);
 
              writer.Write( (byte)creature.Direction );
 
@@ -120,7 +120,7 @@ namespace OpenTibia.IO
 
             writer.Write(creature.Name);
 
-            writer.Write( (byte)Math.Ceiling(100.0 * creature.Health / creature.MaxHealth) );
+            writer.Write(creature.HealthPercentage);
 
             writer.Write( (byte)creature.Direction );
 

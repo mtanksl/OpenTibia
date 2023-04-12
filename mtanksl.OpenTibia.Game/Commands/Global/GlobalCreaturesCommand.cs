@@ -12,7 +12,17 @@ namespace OpenTibia.Game.Commands
             {
                 if (component.GameObject != null)
                 {
-                    component.Update();
+                    component.Update().Catch(ex =>
+                    {
+                        if (ex is PromiseCanceledException)
+                        {
+
+                        }
+                        else
+                        {
+                            Context.Server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                        }
+                    } );
                 }
             }
 

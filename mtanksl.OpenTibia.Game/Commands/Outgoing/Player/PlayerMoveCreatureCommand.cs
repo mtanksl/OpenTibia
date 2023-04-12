@@ -21,12 +21,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
-            {
-                Context.AddCommand(new CreatureUpdateParentCommand(Creature, ToTile) );
-
-                resolve();
-            } );
+            return Context.AddCommand(new CreatureUpdateParentCommand(Creature, ToTile) );
         }
     }
 }

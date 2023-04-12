@@ -16,7 +16,11 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                 {
-                    return Context.AddCommand(CombatCommand.TargetAttack(command.Player, player, null, MagicEffectType.RedShimmer, (attacker, target) => Context.Server.Randomization.Take(500, 700) ) );
+                    return Context.AddCommand(new CreatureUpdateHealthCommand(player, (ushort)(player.Health + Context.Server.Randomization.Take(500, 700) ) ) );  
+                    
+                } ).Then( () =>
+                {
+                    return Context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.RedShimmer) );
 
                 } ).Then( () =>
                 {

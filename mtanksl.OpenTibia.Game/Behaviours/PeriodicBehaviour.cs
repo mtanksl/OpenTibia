@@ -1,7 +1,9 @@
-﻿namespace OpenTibia.Game.Components
+﻿using OpenTibia.Game.Commands;
+
+namespace OpenTibia.Game.Components
 {
     public abstract class PeriodicBehaviour : Behaviour
     {
-        public abstract void Update();
+        public abstract Promise Update();
     }
 }

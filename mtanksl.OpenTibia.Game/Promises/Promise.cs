@@ -122,6 +122,11 @@ namespace OpenTibia.Game.Commands
 
         public static Promise WhenAll(params Promise[] promises)
         {
+            if (promises == null || promises.Length == 0)
+            {
+                return Promise.Completed;
+            }
+
             return Promise.Run( [DebuggerStepThrough] (resolve, reject) =>
             {
                 int index = 0;
@@ -142,6 +147,11 @@ namespace OpenTibia.Game.Commands
 
         public static Promise WhenAny(params Promise[] promises)
         {
+            if (promises == null || promises.Length == 0)
+            {
+                return Promise.Completed;
+            }
+
             return Promise.Run( [DebuggerStepThrough] (resolve, reject) =>
             {
                 int index = 0;
