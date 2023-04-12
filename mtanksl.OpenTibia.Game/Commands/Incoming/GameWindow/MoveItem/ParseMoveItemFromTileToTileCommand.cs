@@ -30,59 +30,52 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            Tile fromTile = Context.Server.Map.GetTile(FromPosition);
+
+            if (fromTile != null)
             {
-                Tile fromTile = Context.Server.Map.GetTile(FromPosition);
-
-                if (fromTile != null)
+                if (Player.Tile.Position.CanSee(fromTile.Position) )
                 {
-                    if (Player.Tile.Position.CanSee(fromTile.Position) )
+                    switch (fromTile.GetContent(FromIndex) )
                     {
-                        switch (fromTile.GetContent(FromIndex) )
-                        {
-                            case Item fromItem:
+                        case Item fromItem:
 
-                                if (fromItem.Metadata.TibiaId == ItemId)
+                            if (fromItem.Metadata.TibiaId == ItemId)
+                            {
+                                Tile toTile = Context.Server.Map.GetTile(ToPosition);
+
+                                if (toTile != null)
                                 {
-                                    Tile toTile = Context.Server.Map.GetTile(ToPosition);
-
-                                    if (toTile != null)
+                                    if (IsMoveable(Context, fromItem, Count) )
                                     {
-                                        if (IsMoveable(Context, fromItem, Count) )
-                                        {
-                                            Context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toTile, 0, Count, true) ).Then( () =>
-                                            {
-                                                resolve();
-                                            } );
-                                        }
+                                        return Context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toTile, 0, Count, true) );
                                     }
                                 }
+                            }
 
-                                break;
+                            break;
 
-                            case Creature fromCreature:
+                        case Creature fromCreature:
 
-                                if (ItemId == 99)
+                            if (ItemId == 99)
+                            {
+                                Tile toTile = Context.Server.Map.GetTile(ToPosition);
+
+                                if (toTile != null)
                                 {
-                                    Tile toTile = Context.Server.Map.GetTile(ToPosition);
-
-                                    if (toTile != null)
+                                    if (IsMoveable(Context, fromCreature) )
                                     {
-                                        if (IsMoveable(Context, fromCreature) )
-                                        {
-                                            Context.AddCommand(new PlayerMoveCreatureCommand(Player, fromCreature, toTile) ).Then( () =>
-                                            {
-                                                resolve();
-                                            } );
-                                        }
+                                        return Context.AddCommand(new PlayerMoveCreatureCommand(Player, fromCreature, toTile) );
                                     }
                                 }
+                            }
 
-                                break;
-                        }
+                            break;
                     }
                 }
-            } );
+            }
+
+            return Promise.Break;
         }
     }
 }

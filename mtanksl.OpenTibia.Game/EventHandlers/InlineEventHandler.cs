@@ -1,4 +1,5 @@
-﻿using OpenTibia.Game.Events;
+﻿using OpenTibia.Game.Commands;
+using OpenTibia.Game.Events;
 using System;
 using System.Diagnostics;
 
@@ -6,17 +7,17 @@ namespace OpenTibia.Game.EventHandlers
 {
     public class InlineEventHandler<T> : EventHandler<T> where T : GameEventArgs
     {
-        private Action<Context, T> execute;
+        private Func<Context, T, Promise> execute;
 
-        public InlineEventHandler(Action<Context, T> execute)
+        public InlineEventHandler(Func<Context, T, Promise> execute)
         {
             this.execute = execute;
         }
 
         [DebuggerStepThrough]
-        public override void Handle(T e)
+        public override Promise Handle(T e)
         {
-            execute(Context, e);
+            return execute(Context, e);
         }
     }
 }

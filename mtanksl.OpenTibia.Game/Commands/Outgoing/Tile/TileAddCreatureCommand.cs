@@ -19,37 +19,34 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            byte index = Tile.AddContent(Creature);
+
+            if (index < Constants.ObjectsPerPoint)
             {
-                byte index = Tile.AddContent(Creature);
-
-                if (index < Constants.ObjectsPerPoint)
+                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                 {
-                    foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+                    if (observer != Creature)
                     {
-                        if (observer != Creature)
+                        if (observer.Tile.Position.CanSee(Tile.Position) )
                         {
-                            if (observer.Tile.Position.CanSee(Tile.Position) )
-                            {
-                                uint removeId;
+                            uint removeId;
 
-                                if (observer.Client.CreatureCollection.IsKnownCreature(Creature.Id, out removeId) )
-                                {
-                                    Context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, Creature) );
-                                }
-                                else
-                                {
-                                    Context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, removeId, Creature) );
-                                }
+                            if (observer.Client.CreatureCollection.IsKnownCreature(Creature.Id, out removeId) )
+                            {
+                                Context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, Creature) );
+                            }
+                            else
+                            {
+                                Context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, index, removeId, Creature) );
                             }
                         }
                     }
                 }
+            }
 
-                Context.AddEvent(new TileAddCreatureEventArgs(Tile, Creature, index) );
+            Context.AddEvent(new TileAddCreatureEventArgs(Tile, Creature, index) );
 
-                resolve();
-            } );
+            return Promise.Completed;
         }
     }
 }

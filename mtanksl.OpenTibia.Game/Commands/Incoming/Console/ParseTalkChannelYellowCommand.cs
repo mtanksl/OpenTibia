@@ -23,23 +23,22 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            Channel channel = Context.Server.Channels.GetChannel(ChannelId);
+
+            if (channel != null)
             {
-                Channel channel = Context.Server.Channels.GetChannel(ChannelId);
-
-                if (channel != null)
-                {
-                    if (channel.ContainsPlayer(Player) )
-                    {                                                           
-                        foreach (var observer in channel.GetPlayers() )
-                        {
-                            Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.ChannelYellow, channel.Id, Message) );
-                        }
-
-                        resolve();
+                if (channel.ContainsPlayer(Player) )
+                {                                                           
+                    foreach (var observer in channel.GetPlayers() )
+                    {
+                        Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.ChannelYellow, channel.Id, Message) );
                     }
-                }                
-            } );
+
+                    return Promise.Completed;
+                }
+            }
+
+            return Promise.Break;
         }
     }
 }

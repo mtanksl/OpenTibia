@@ -17,20 +17,16 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            Inventory fromInventory = Player.Inventory;
+
+            Item item = fromInventory.GetContent(FromSlot) as Item;
+
+            if (item != null && item.Metadata.TibiaId == ItemId)
             {
-                Inventory fromInventory = Player.Inventory;
+                return Context.AddCommand(new PlayerLookItemCommand(Player, item) );
+            }
 
-                Item item = fromInventory.GetContent(FromSlot) as Item;
-
-                if (item != null && item.Metadata.TibiaId == ItemId)
-                {
-                    Context.AddCommand(new PlayerLookItemCommand(Player, item) ).Then( () =>
-                    {
-                        resolve();
-                    } );
-                }
-            } );
+            return Promise.Break;
         }
     }
 }

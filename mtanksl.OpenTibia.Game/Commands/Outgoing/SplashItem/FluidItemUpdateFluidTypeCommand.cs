@@ -18,36 +18,27 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            if (SplashItem.FluidType != FluidType)
             {
-                if (SplashItem.FluidType != FluidType)
+                SplashItem.FluidType = FluidType;
+
+                switch (SplashItem.Parent)
                 {
-                    SplashItem.FluidType = FluidType;
+                    case Tile tile:
 
-                    switch (SplashItem.Parent)
-                    {
-                        case Tile tile:
+                        return Context.AddCommand(new TileRefreshItemCommand(tile, SplashItem) );
 
-                            Context.AddCommand(new TileRefreshItemCommand(tile, SplashItem) );
-                  
-                            break;
+                    case Inventory inventory:
 
-                        case Inventory inventory:
+                        return Context.AddCommand(new InventoryRefreshItemCommand(inventory, SplashItem) );
 
-                            Context.AddCommand(new InventoryRefreshItemCommand(inventory, SplashItem) );
-                   
-                            break;
+                    case Container container:
 
-                        case Container container:
-
-                            Context.AddCommand(new ContainerRefreshItemCommand(container, SplashItem) );
-
-                            break;
-                    }
+                        return Context.AddCommand(new ContainerRefreshItemCommand(container, SplashItem) );
                 }
+            }
 
-                resolve();
-            } );            
+            return Promise.Completed;
         }
     }
 }

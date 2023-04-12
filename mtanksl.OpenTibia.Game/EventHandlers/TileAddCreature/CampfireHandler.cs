@@ -10,17 +10,17 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> campfires = new HashSet<ushort>() { 1423, 1424, 1425 };
 
-        public override void Handle(TileAddCreatureEventArgs e)
+        public override Promise Handle(TileAddCreatureEventArgs e)
         {
             foreach (var topItem in e.Tile.GetItems() )
             {
                 if (campfires.Contains(topItem.Metadata.OpenTibiaId) )
                 {
-                    Context.AddCommand(new CombatConditionCommand(null, e.Creature, SpecialCondition.Burning, MagicEffectType.FirePlume, new[] { -20, -10, -10, -10, -10, -10, -10, -10 }, 2000) );
-
-                    break;
+                    return Context.AddCommand(new CombatConditionCommand(null, e.Creature, SpecialCondition.Burning, MagicEffectType.FirePlume, new[] { -20, -10, -10, -10, -10, -10, -10, -10 }, 2000) );
                 }
             }
+
+            return Promise.Completed;
         }
     }
 }

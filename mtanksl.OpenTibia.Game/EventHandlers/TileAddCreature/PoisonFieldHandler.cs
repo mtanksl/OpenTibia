@@ -10,17 +10,17 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> poisonFields = new HashSet<ushort>() { 1490, 1496 };
 
-        public override void Handle(TileAddCreatureEventArgs e)
+        public override Promise Handle(TileAddCreatureEventArgs e)
         {
             foreach (var topItem in e.Tile.GetItems() )
             {
                 if (poisonFields.Contains(topItem.Metadata.OpenTibiaId) )
                 {
-                    Context.AddCommand(new CombatConditionCommand(null, e.Creature, SpecialCondition.Poisoned, MagicEffectType.GreenRings, new[] { -5, -5, -5, -5, -5, -4, -4, -4, -4, -4, -3, -3, -3, -3, -3, -3, -3, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }, 2000) );
-
-                    break;
+                    return Context.AddCommand(new CombatConditionCommand(null, e.Creature, SpecialCondition.Poisoned, MagicEffectType.GreenRings, new[] { -5, -5, -5, -5, -5, -4, -4, -4, -4, -4, -3, -3, -3, -3, -3, -3, -3, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }, 2000) );
                 }
             }
+
+            return Promise.Completed;
         }
     }
 }

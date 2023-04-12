@@ -21,10 +21,8 @@ namespace OpenTibia.Game.Commands
             {
                 return Context.AddCommand(new StackableItemUpdateCountCommand(stackableItem, (byte)(stackableItem.Count - Count) ) );
             }
-            else
-            {
-                return Context.AddCommand(new ItemDestroyCommand(Item) );
-            }
+
+            return Context.AddCommand(new ItemDestroyCommand(Item) );
         }
     }
 }

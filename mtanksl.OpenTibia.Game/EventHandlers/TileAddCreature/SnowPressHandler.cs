@@ -45,17 +45,19 @@ namespace OpenTibia.Game.CommandHandlers
             { 6608, 6593 }
         };
 
-        public override void Handle(TileAddCreatureEventArgs e)
+        public override Promise Handle(TileAddCreatureEventArgs e)
         {
             ushort toOpenTibiaId;
 
             if (e.Tile.Ground != null && tiles.TryGetValue(e.Tile.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                Context.AddCommand(new ItemTransformCommand(e.Tile.Ground, toOpenTibiaId, 1) ).Then( (item) =>
+                return Context.AddCommand(new ItemTransformCommand(e.Tile.Ground, toOpenTibiaId, 1) ).Then( (item) =>
                 {
                     return Context.AddCommand(new ItemDecayTransformCommand(item, 10000, decay[item.Metadata.OpenTibiaId], 1) );
                 } );
             }
+
+            return Promise.Completed;
         }
     }
 }

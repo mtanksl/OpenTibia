@@ -22,14 +22,11 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
-            {
-                Inventory.AddContent(Item, Slot);
+            Inventory.AddContent(Item, Slot);
 
-                Context.AddPacket(Inventory.Player.Client.Connection, new SlotAddOutgoingPacket(Slot, Item ) );
+            Context.AddPacket(Inventory.Player.Client.Connection, new SlotAddOutgoingPacket(Slot, Item ) );
 
-                resolve();
-            } );
+            return Promise.Completed;
         }
     }
 }

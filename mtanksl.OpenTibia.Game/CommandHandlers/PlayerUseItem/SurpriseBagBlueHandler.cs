@@ -35,20 +35,18 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     case Tile tile:
 
-                        Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.GiftWraps) );
-
-                        break;
+                        return Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.GiftWraps) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.Item, prizes[value].OpenTibiaId, prizes[value].Count) );
+                        } );
 
                     case Inventory inventory:
 
-                        Context.AddCommand(new ShowMagicEffectCommand(inventory.Player.Tile.Position, MagicEffectType.GiftWraps) );
-
-                        break;
+                        return Context.AddCommand(new ShowMagicEffectCommand(inventory.Player.Tile.Position, MagicEffectType.GiftWraps) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.Item, prizes[value].OpenTibiaId, prizes[value].Count) );
+                        } );
                 }
-                               
-                Context.AddCommand(new ItemTransformCommand(command.Item, prizes[value].OpenTibiaId, prizes[value].Count) );
-
-                return Promise.Completed;
             }
 
             return next();

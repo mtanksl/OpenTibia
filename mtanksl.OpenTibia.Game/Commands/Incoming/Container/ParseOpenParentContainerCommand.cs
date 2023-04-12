@@ -19,31 +19,30 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            Container container = Player.Client.ContainerCollection.GetContainer(ContainerId);
+
+            if (container != null)
             {
-                Container container = Player.Client.ContainerCollection.GetContainer(ContainerId);
+                Container parentContainer = container.Parent as Container;
 
-                if (container != null)
+                if (parentContainer != null)
                 {
-                    Container parentContainer = container.Parent as Container;
+                    Player.Client.ContainerCollection.ReplaceContainer(parentContainer, ContainerId);
 
-                    if (parentContainer != null)
+                    List<Item> items = new List<Item>();
+
+                    foreach (var item in parentContainer.GetItems() )
                     {
-                        Player.Client.ContainerCollection.ReplaceContainer(parentContainer, ContainerId);
-
-                        List<Item> items = new List<Item>();
-
-                        foreach (var item in parentContainer.GetItems() )
-                        {
-                            items.Add(item);
-                        }
-
-                        Context.AddPacket(Player.Client.Connection, new OpenContainerOutgoingPacket(ContainerId, parentContainer.Metadata.TibiaId, parentContainer.Metadata.Name, parentContainer.Metadata.Capacity, parentContainer.Parent is Container, items) );
-
-                        resolve();
+                        items.Add(item);
                     }
+
+                    Context.AddPacket(Player.Client.Connection, new OpenContainerOutgoingPacket(ContainerId, parentContainer.Metadata.TibiaId, parentContainer.Metadata.Name, parentContainer.Metadata.Capacity, parentContainer.Parent is Container, items) );
+
+                    return Promise.Completed;
                 }
-            } );
+            }
+
+            return Promise.Break;
         }
     }
 }

@@ -30,36 +30,32 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            Tile fromTile = Context.Server.Map.GetTile(FromPosition);
+
+            if (fromTile != null)
             {
-                Tile fromTile = Context.Server.Map.GetTile(FromPosition);
-
-                if (fromTile != null)
+                if (Player.Tile.Position.CanSee(fromTile.Position) )
                 {
-                    if (Player.Tile.Position.CanSee(fromTile.Position) )
+                    Item fromItem = fromTile.GetContent(FromIndex) as Item;
+
+                    if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
                     {
-                        Item fromItem = fromTile.GetContent(FromIndex) as Item;
+                        Inventory toInventory = Player.Inventory;
 
-                        if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
+                        Item toItem = toInventory.GetContent(ToSlot) as Item;
+
+                        if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
                         {
-                            Inventory toInventory = Player.Inventory;
-
-                            Item toItem = toInventory.GetContent(ToSlot) as Item;
-
-                            if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
+                            if ( IsUseable(Context, fromItem) )
                             {
-                                if ( IsUseable(Context, fromItem) )
-                                {
-                                    Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) ).Then( () =>
-                                    {
-                                        resolve();
-                                    } );
-                                }
+                                return Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) );
                             }
                         }
                     }
                 }
-            } );
+            }
+
+            return Promise.Break;
         }
     }
 }

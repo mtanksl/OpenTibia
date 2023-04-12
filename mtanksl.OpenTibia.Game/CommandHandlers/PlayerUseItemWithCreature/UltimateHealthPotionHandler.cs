@@ -14,13 +14,14 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (healthPotions.Contains(command.Item.Metadata.OpenTibiaId) && command.ToCreature is Player player)
             {
-                Context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
+                return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
+                {
+                    return Context.AddCommand(CombatCommand.TargetAttack(command.Player, player, null, MagicEffectType.RedShimmer, (attacker, target) => Context.Server.Randomization.Take(800, 1000) ) );
 
-                Context.AddCommand(CombatCommand.TargetAttack(command.Player, player, null, MagicEffectType.RedShimmer, (attacker, target) => Context.Server.Randomization.Take(800, 1000) ) );
-
-                Context.AddCommand(new ShowTextCommand(player, TalkType.MonsterSay, "Aaaah...") );
-
-                return Promise.Completed;
+                } ).Then( () =>
+                {
+                    return Context.AddCommand(new ShowTextCommand(player, TalkType.MonsterSay, "Aaaah...") );
+                } );
             }
 
             return next();

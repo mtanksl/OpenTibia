@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTibia.Game.Commands;
+using System;
 
 namespace OpenTibia.Game.EventHandlers
 {
@@ -14,6 +15,6 @@ namespace OpenTibia.Game.EventHandlers
 
         public Guid Token { get; } = Guid.NewGuid();
 
-        public abstract void Handle(object e);
+        public abstract Promise Handle(object e);
     }
 }

@@ -19,18 +19,15 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            foreach (var observer in Context.Server.GameObjects.GetPlayers() )
             {
-                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+                if (observer.Tile.Position.CanHearYell(Player.Tile.Position) )
                 {
-                    if (observer.Tile.Position.CanHearYell(Player.Tile.Position) )
-                    {
-                        Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Yell, Player.Tile.Position, Message.ToUpper() ) );
-                    }
+                    Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Yell, Player.Tile.Position, Message.ToUpper() ) );
                 }
+            }
 
-                resolve();
-            } );
+            return Promise.Completed;
         }
     }
 }

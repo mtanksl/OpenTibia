@@ -21,23 +21,19 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
+
+            if (fromContainer != null)
             {
-                Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
+                Item item = fromContainer.GetContent(FromContainerIndex) as Item;
 
-                if (fromContainer != null)
+                if (item != null && item.Metadata.TibiaId == ItemId)
                 {
-                    Item item = fromContainer.GetContent(FromContainerIndex) as Item;
-
-                    if (item != null && item.Metadata.TibiaId == ItemId)
-                    {
-                        Context.AddCommand(new PlayerLookItemCommand(Player, item) ).Then( () =>
-                        {
-                            resolve();
-                        } );
-                    }
+                    return Context.AddCommand(new PlayerLookItemCommand(Player, item) );
                 }
-            } );
+            }
+
+            return Promise.Break;
         }
     }
 }

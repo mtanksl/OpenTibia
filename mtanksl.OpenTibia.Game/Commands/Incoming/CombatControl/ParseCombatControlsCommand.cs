@@ -27,36 +27,33 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            if (FightMode != Player.Client.FightMode)
             {
-                if (FightMode != Player.Client.FightMode)
+                Player.Client.FightMode = FightMode;
+            }
+
+            if (ChaseMode != Player.Client.ChaseMode)
+            {
+                Player.Client.ChaseMode = ChaseMode;
+
+                AttackAndFollowBehaviour component = Context.Server.Components.GetComponent<AttackAndFollowBehaviour>(Player);
+
+                if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
                 {
-                    Player.Client.FightMode = FightMode;
+                    component.StopFollow();                        
                 }
-
-                if (ChaseMode != Player.Client.ChaseMode)
+                else
                 {
-                    Player.Client.ChaseMode = ChaseMode;
-
-                    AttackAndFollowBehaviour component = Context.Server.Components.GetComponent<AttackAndFollowBehaviour>(Player);
-
-                    if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
-                    {
-                        component.StopFollow();                        
-                    }
-                    else
-                    {
-                        component.StartFollow();
-                    }
+                    component.StartFollow();
                 }
+            }
 
-                if (SafeMode != Player.Client.SafeMode)
-                {
-                    Player.Client.SafeMode = SafeMode;
-                }
+            if (SafeMode != Player.Client.SafeMode)
+            {
+                Player.Client.SafeMode = SafeMode;
+            }
 
-                resolve();
-            } );
+            return Promise.Completed;
         }
     }
 }

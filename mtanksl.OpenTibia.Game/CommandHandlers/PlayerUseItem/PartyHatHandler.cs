@@ -14,9 +14,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (partyHats.Contains(command.Item.Metadata.OpenTibiaId) && command.Item.Parent is Inventory)
             {
-                Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.GiftWraps) );
-
-                return Promise.Completed;
+                return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.GiftWraps) );
             }
 
             return next();

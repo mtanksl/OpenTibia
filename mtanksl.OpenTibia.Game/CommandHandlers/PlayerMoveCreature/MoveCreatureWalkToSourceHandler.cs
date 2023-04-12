@@ -24,13 +24,13 @@ namespace OpenTibia.Game.CommandHandlers
 
                     byte afterIndex = afterContainer.GetIndex(command.Creature);
 
-                    if (beforeContainer == afterContainer && beforeIndex == afterIndex)
+                    if (beforeContainer != afterContainer || beforeIndex != afterIndex)
                     {
-                        return next();
+                        return Promise.Break;
                     }
 
-                    return Promise.Completed;
-                } );
+                    return next();
+                });
             }
 
             return next();

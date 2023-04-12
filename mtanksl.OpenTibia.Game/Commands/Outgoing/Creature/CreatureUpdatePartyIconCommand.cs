@@ -19,25 +19,22 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            if (Creature.PartyIcon != PartyIcon)
             {
-                if (Creature.PartyIcon != PartyIcon)
+                Creature.PartyIcon = PartyIcon;
+
+                Tile fromTile = Creature.Tile;
+
+                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                 {
-                    Creature.PartyIcon = PartyIcon;
-
-                    Tile fromTile = Creature.Tile;
-
-                    foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+                    if (observer.Tile.Position.CanSee(fromTile.Position) )
                     {
-                        if (observer.Tile.Position.CanSee(fromTile.Position) )
-                        {
-                            Context.AddPacket(observer.Client.Connection, new SetPartyIconOutgoingPacket(Creature.Id, Creature.PartyIcon) );
-                        }
+                        Context.AddPacket(observer.Client.Connection, new SetPartyIconOutgoingPacket(Creature.Id, Creature.PartyIcon) );
                     }
                 }
+            }
 
-                resolve();
-            } );
+            return Promise.Completed;
         }
     }
 }

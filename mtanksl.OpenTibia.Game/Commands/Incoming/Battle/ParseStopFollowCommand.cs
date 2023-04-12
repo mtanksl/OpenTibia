@@ -15,16 +15,13 @@ namespace OpenTibia.Game.Commands
                 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
-            {
-                AttackAndFollowBehaviour component = Context.Server.Components.GetComponent<AttackAndFollowBehaviour>(Player);
+            AttackAndFollowBehaviour component = Context.Server.Components.GetComponent<AttackAndFollowBehaviour>(Player);
 
-                component.Stop();
+            component.Stop();
 
-                Context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
+            Context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
 
-                resolve();
-            } );
+            return Promise.Completed;
         }
     }
 }

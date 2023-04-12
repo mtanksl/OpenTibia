@@ -18,51 +18,48 @@ namespace OpenTibia.Game.Commands
                 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            List<SelectOutfit> outfits;
+
+            switch (Player.Gender)
             {
-                List<SelectOutfit> outfits;
+                case Gender.Male:
 
-                switch (Player.Gender)
-                {
-                    case Gender.Male:
+                    outfits = new List<SelectOutfit>()
+                    {
+                        new SelectOutfit(128, "Citizen", Addon.None),
 
-                        outfits = new List<SelectOutfit>()
-                        {
-                            new SelectOutfit(128, "Citizen", Addon.None),
+                        new SelectOutfit(129, "Hunter", Addon.None),
 
-                            new SelectOutfit(129, "Hunter", Addon.None),
+                        new SelectOutfit(130, "Mage", Addon.None),
 
-                            new SelectOutfit(130, "Mage", Addon.None),
+                        new SelectOutfit(131, "Knight", Addon.None)
+                    };
 
-                            new SelectOutfit(131, "Knight", Addon.None)
-                        };
+                    break;
 
-                        break;
+                case Gender.Female:
 
-                    case Gender.Female:
+                    outfits = new List<SelectOutfit>()
+                    {
+                        new SelectOutfit(136, "Citizen", Addon.None),
 
-                        outfits = new List<SelectOutfit>()
-                        {
-                            new SelectOutfit(136, "Citizen", Addon.None),
+                        new SelectOutfit(137, "Hunter", Addon.None),
 
-                            new SelectOutfit(137, "Hunter", Addon.None),
+                        new SelectOutfit(138, "Mage", Addon.None),
 
-                            new SelectOutfit(138, "Mage", Addon.None),
+                        new SelectOutfit(139, "Knight", Addon.None)
+                    };
 
-                            new SelectOutfit(139, "Knight", Addon.None)
-                        };
+                    break;
 
-                        break;
+                default:
 
-                    default:
+                    throw new NotImplementedException();
+            }
 
-                        throw new NotImplementedException();
-                }
+            Context.AddPacket(Player.Client.Connection, new OpenSelectOutfitDialogOutgoingPacket(Player.Outfit, outfits) );
 
-                Context.AddPacket(Player.Client.Connection, new OpenSelectOutfitDialogOutgoingPacket(Player.Outfit, outfits) );
-
-                resolve();
-            } );
+            return Promise.Completed;
         }
     }
 }

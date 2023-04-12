@@ -19,25 +19,22 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            if (Creature.Light != Light)
             {
-                if (Creature.Light != Light)
+                Creature.Light = Light;
+
+                Tile fromTile = Creature.Tile;
+
+                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                 {
-                    Creature.Light = Light;
-
-                    Tile fromTile = Creature.Tile;
-
-                    foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+                    if (observer.Tile.Position.CanSee(fromTile.Position) )
                     {
-                        if (observer.Tile.Position.CanSee(fromTile.Position) )
-                        {
-                            Context.AddPacket(observer.Client.Connection, new SetLightOutgoingPacket(Creature.Id, Creature.Light) );
-                        }
+                        Context.AddPacket(observer.Client.Connection, new SetLightOutgoingPacket(Creature.Id, Creature.Light) );
                     }
                 }
+            }
 
-                resolve();
-            } );
+            return Promise.Completed;
         }
     }
 }

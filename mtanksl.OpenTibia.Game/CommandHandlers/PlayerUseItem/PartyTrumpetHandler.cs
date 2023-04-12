@@ -28,25 +28,34 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     case Tile tile:
 
-                        Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.GreenNotes) );
+                        return Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.GreenNotes) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "TOOOOOOT!") );
 
-                        break;
+                        } ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
+
+                        } ).Then( (item) =>
+                        {
+                            return Context.AddCommand(new ItemDecayTransformCommand(item, 2000, decay[item.Metadata.OpenTibiaId], 1) );
+                        } );
 
                     case Inventory inventory:
 
-                        Context.AddCommand(new ShowMagicEffectCommand(inventory.Player.Tile.Position, MagicEffectType.GreenNotes) );
+                        return Context.AddCommand(new ShowMagicEffectCommand(inventory.Player.Tile.Position, MagicEffectType.GreenNotes) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "TOOOOOOT!") );
 
-                        break;
+                        } ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
+
+                        } ).Then( (item) =>
+                        {
+                            return Context.AddCommand(new ItemDecayTransformCommand(item, 2000, decay[item.Metadata.OpenTibiaId], 1) );
+                        } );
                 }
-                               
-                Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "TOOOOOOT!") );
-
-                Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) ).Then( (item) =>
-                {
-                    return Context.AddCommand(new ItemDecayTransformCommand(item, 2000, decay[item.Metadata.OpenTibiaId], 1) );                      
-                } );
-
-                return Promise.Completed;
             }
 
             return next();

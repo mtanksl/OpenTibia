@@ -18,23 +18,20 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
-            {
-                byte index = Container.AddContent(Item);
+            byte index = Container.AddContent(Item);
 
-                foreach (var observer in Container.GetPlayers() )
+            foreach (var observer in Container.GetPlayers() )
+            {
+                foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
                 {
-                    foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
+                    if (pair.Value == Container)
                     {
-                        if (pair.Value == Container)
-                        {
-                            Context.AddPacket(observer.Client.Connection, new ContainerAddOutgoingPacket(pair.Key, Item) );
-                        }
+                        Context.AddPacket(observer.Client.Connection, new ContainerAddOutgoingPacket(pair.Key, Item) );
                     }
                 }
+            }
 
-                resolve();
-            } );
+            return Promise.Completed;
         }
     }
 }

@@ -21,185 +21,182 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            StringBuilder builder = new StringBuilder();
+
+            builder.Append("You see ");
+
+            if (Player == Creature)
             {
-                StringBuilder builder = new StringBuilder();
+                builder.Append("yourself. ");
 
-                builder.Append("You see ");
-
-                if (Player == Creature)
+                switch (Player.Vocation)
                 {
-                    builder.Append("yourself. ");
+                    case Vocation.None:
 
-                    switch (Player.Vocation)
-                    {
-                        case Vocation.None:
+                        builder.Append("You have no vocation.");
 
-                            builder.Append("You have no vocation.");
+                        break;
 
-                            break;
+                    case Vocation.Knight:
 
-                        case Vocation.Knight:
+                        builder.Append("You are a knight.");
 
-                            builder.Append("You are a knight.");
+                        break;
 
-                            break;
+                    case Vocation.Paladin:
 
-                        case Vocation.Paladin:
+                        builder.Append("You are a paladin.");
 
-                            builder.Append("You are a paladin.");
+                        break;
 
-                            break;
+                    case Vocation.Druid:
 
-                        case Vocation.Druid:
+                        builder.Append("You are a druid.");
 
-                            builder.Append("You are a druid.");
+                        break;
 
-                            break;
+                    case Vocation.Sorcerer:
 
-                        case Vocation.Sorcerer:
+                        builder.Append("You are a sorcerer.");
 
-                            builder.Append("You are a sorcerer.");
+                        break;
 
-                            break;
+                    case Vocation.EliteKnight:
 
-                        case Vocation.EliteKnight:
+                        builder.Append("You are an elite knight.");
 
-                            builder.Append("You are an elite knight.");
+                        break;
 
-                            break;
+                    case Vocation.RoyalPaladin:
 
-                        case Vocation.RoyalPaladin:
+                        builder.Append("You are a royal paladin.");
 
-                            builder.Append("You are a royal paladin.");
+                        break;
 
-                            break;
+                    case Vocation.ElderDruid:
 
-                        case Vocation.ElderDruid:
+                        builder.Append("You are an elder druid.");
 
-                            builder.Append("You are an elder druid.");
+                        break;
 
-                            break;
+                    case Vocation.MasterSorcerer:
 
-                        case Vocation.MasterSorcerer:
+                        builder.Append("You are a master sorcerer.");
 
-                            builder.Append("You are a master sorcerer.");
+                        break;
 
-                            break;
+                    default:
 
-                        default:
-
-                            throw new NotImplementedException();
-                    }
+                        throw new NotImplementedException();
                 }
-                else
+            }
+            else
+            {
+                switch (Creature)
                 {
-                    switch (Creature)
-                    {
-                        case Monster monster:
+                    case Monster monster:
 
-                            builder.Append(monster.Name + ".");
+                        builder.Append(monster.Name + ".");
 
-                            break;
+                        break;
 
-                        case Npc npc:
+                    case Npc npc:
 
-                            builder.Append(npc.Name + ".");
+                        builder.Append(npc.Name + ".");
 
-                            break;
+                        break;
 
-                        case Player player:
+                    case Player player:
 
-                            builder.Append(player.Name + " (Level " + player.Level + "). ");
+                        builder.Append(player.Name + " (Level " + player.Level + "). ");
 
-                            switch (player.Gender)
-                            {
-                                case Gender.Male:
+                        switch (player.Gender)
+                        {
+                            case Gender.Male:
 
-                                    builder.Append("He ");
+                                builder.Append("He ");
 
-                                    break;
+                                break;
 
-                                case Gender.Female:
+                            case Gender.Female:
 
-                                    builder.Append("She ");
+                                builder.Append("She ");
 
-                                    break;
+                                break;
 
-                                default:
+                            default:
 
-                                    throw new NotImplementedException();
-                            }
+                                throw new NotImplementedException();
+                        }
 
-                            switch (player.Vocation)
-                            {
-                                case Vocation.None:
+                        switch (player.Vocation)
+                        {
+                            case Vocation.None:
 
-                                    builder.Append("has no vocation.");
+                                builder.Append("has no vocation.");
 
-                                    break;
+                                break;
 
-                                case Vocation.Knight:
+                            case Vocation.Knight:
 
-                                    builder.Append("is a knight.");
+                                builder.Append("is a knight.");
 
-                                    break;
+                                break;
 
-                                case Vocation.Paladin:
+                            case Vocation.Paladin:
 
-                                    builder.Append("is a paladin.");
+                                builder.Append("is a paladin.");
 
-                                    break;
+                                break;
 
-                                case Vocation.Druid:
+                            case Vocation.Druid:
 
-                                    builder.Append("is a druid.");
+                                builder.Append("is a druid.");
 
-                                    break;
+                                break;
 
-                                case Vocation.Sorcerer:
+                            case Vocation.Sorcerer:
 
-                                    builder.Append("is a sorcerer.");
+                                builder.Append("is a sorcerer.");
 
-                                    break;
+                                break;
 
-                                case Vocation.EliteKnight:
+                            case Vocation.EliteKnight:
 
-                                    builder.Append("is an elite knight.");
+                                builder.Append("is an elite knight.");
 
-                                    break;
+                                break;
 
-                                case Vocation.RoyalPaladin:
+                            case Vocation.RoyalPaladin:
 
-                                    builder.Append("is a royal paladin.");
+                                builder.Append("is a royal paladin.");
 
-                                    break;
+                                break;
 
-                                case Vocation.ElderDruid:
+                            case Vocation.ElderDruid:
 
-                                    builder.Append("is an elder druid.");
+                                builder.Append("is an elder druid.");
 
-                                    break;
+                                break;
 
-                                case Vocation.MasterSorcerer:
+                            case Vocation.MasterSorcerer:
 
-                                    builder.Append("is a master sorcerer.");
+                                builder.Append("is a master sorcerer.");
 
-                                    break;
+                                break;
 
-                                default:
+                            default:
 
-                                    throw new NotImplementedException();
-                            }
+                                throw new NotImplementedException();
+                        }
 
-                            break;
-                    }
+                        break;
                 }
+            }
 
-                Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, builder.ToString() ) );
+            Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, builder.ToString() ) );
 
-                resolve();
-            } );
+            return Promise.Completed;
         }
     }
 }

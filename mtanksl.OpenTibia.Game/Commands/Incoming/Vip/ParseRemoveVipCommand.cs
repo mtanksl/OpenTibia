@@ -17,12 +17,9 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
-            {
-                Player.Client.VipCollection.RemoveVip(CreatureId);
+            Player.Client.VipCollection.RemoveVip(CreatureId);
 
-                resolve();
-            } );
+            return Promise.Completed;
         }
     }
 }

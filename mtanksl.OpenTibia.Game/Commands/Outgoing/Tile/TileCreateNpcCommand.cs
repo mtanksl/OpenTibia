@@ -17,17 +17,17 @@ namespace OpenTibia.Game.Commands
 
         public override PromiseResult<Npc> Execute()
         {
-            return Promise.Run<Npc>( (resolve, reject) =>
+            Npc npc = Context.Server.NpcFactory.Create(Name);
+
+            if (npc != null)
             {
-                Npc npc = Context.Server.NpcFactory.Create(Name);
-
-                if (npc != null)
+                return Context.AddCommand(new TileAddCreatureCommand(Tile, npc) ).Then( () =>
                 {
-                    Context.AddCommand(new TileAddCreatureCommand(Tile, npc) );
-                }
+                    return Promise.FromResult(npc);
+                } );
+            }
 
-                resolve(npc);
-            } );
+            return Promise.FromResult(npc);
         }
     }
 }

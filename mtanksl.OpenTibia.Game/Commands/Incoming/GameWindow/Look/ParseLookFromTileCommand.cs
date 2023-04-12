@@ -22,43 +22,36 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            Tile fromTile = Context.Server.Map.GetTile(FromPosition);
+
+            if (fromTile != null)
             {
-                Tile fromTile = Context.Server.Map.GetTile(FromPosition);
-
-                if (fromTile != null)
+                if (Player.Tile.Position.CanSee(fromTile.Position) )
                 {
-                    if (Player.Tile.Position.CanSee(fromTile.Position) )
+                    switch ( fromTile.GetContent(FromIndex) )
                     {
-                        switch ( fromTile.GetContent(FromIndex) )
-                        {
-                            case Item item:
+                        case Item item:
 
-                                if (item.Metadata.TibiaId == ItemId)
-                                {
-                                    Context.AddCommand(new PlayerLookItemCommand(Player, item) ).Then( () =>
-                                    {
-                                        resolve();
-                                    } );
-                                }
+                            if (item.Metadata.TibiaId == ItemId)
+                            {
+                                return Context.AddCommand(new PlayerLookItemCommand(Player, item) );
+                            }
 
-                                break;
+                            break;
 
-                            case Creature creature:
+                        case Creature creature:
 
-                                if (ItemId == 99)
-                                {
-                                    Context.AddCommand(new PlayerLookCreatureCommand(Player, creature) ).Then( () =>
-                                    {
-                                        resolve();
-                                    } );
-                                }
+                            if (ItemId == 99)
+                            {
+                                return Context.AddCommand(new PlayerLookCreatureCommand(Player, creature) );
+                            }
 
-                                break;
-                        }
+                            break;
                     }
                 }
-            } );            
+            }
+
+            return Promise.Break;
         }
     }
 }

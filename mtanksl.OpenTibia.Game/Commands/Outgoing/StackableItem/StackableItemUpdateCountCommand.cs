@@ -17,36 +17,27 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            if (StackableItem.Count != Count)
             {
-                if (StackableItem.Count != Count)
+                StackableItem.Count = Count;
+
+                switch (StackableItem.Parent)
                 {
-                    StackableItem.Count = Count;
+                    case Tile tile:
 
-                    switch (StackableItem.Parent)
-                    {
-                        case Tile tile:
+                        return Context.AddCommand(new TileRefreshItemCommand(tile, StackableItem) );
 
-                            Context.AddCommand(new TileRefreshItemCommand(tile, StackableItem) );
+                    case Inventory inventory:
 
-                            break;
+                        return Context.AddCommand(new InventoryRefreshItemCommand(inventory, StackableItem) );
 
-                        case Inventory inventory:
+                    case Container container:
 
-                            Context.AddCommand(new InventoryRefreshItemCommand(inventory, StackableItem) );
-                   
-                            break;
-
-                        case Container container:
-
-                            Context.AddCommand(new ContainerRefreshItemCommand(container, StackableItem) );
-
-                            break;
-                    }
+                        return Context.AddCommand(new ContainerRefreshItemCommand(container, StackableItem) );
                 }
+            }
 
-                resolve();
-            } );
+            return Promise.Completed;
         }
     }
 }

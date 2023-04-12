@@ -22,22 +22,26 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     case Tile tile:
 
-                        Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.Dice) );
+                        return Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.Dice) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, command.Player.Name + " rolled a " + (value + 1) + ".") );
 
-                        break;
+                        } ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.Item, openTibiaId, 1) );
+                        } );
 
                     case Inventory inventory:
 
-                        Context.AddCommand(new ShowMagicEffectCommand(inventory.Player.Tile.Position, MagicEffectType.Dice) );
+                        return Context.AddCommand(new ShowMagicEffectCommand(inventory.Player.Tile.Position, MagicEffectType.Dice) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, command.Player.Name + " rolled a " + (value + 1) + ".") );
 
-                        break;
+                        } ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.Item, openTibiaId, 1) );
+                        } );
                 }
-                               
-                Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, command.Player.Name + " rolled a " + (value + 1) + ".") );
-
-                Context.AddCommand(new ItemTransformCommand(command.Item, openTibiaId, 1) );
-
-                return Promise.Completed;
             }
 
             return next();

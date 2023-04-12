@@ -17,9 +17,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 int value = Context.Server.Randomization.Take(0, sounds.Count);
 
-                Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, sounds[value] ) );
-
-                return Promise.Completed;
+                return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, sounds[value] ) );
             }
 
             return next();

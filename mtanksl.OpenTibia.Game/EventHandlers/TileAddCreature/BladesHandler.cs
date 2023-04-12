@@ -20,7 +20,7 @@ namespace OpenTibia.Game.CommandHandlers
             { 1511, 1510 }
         };
 
-        public override void Handle(TileAddCreatureEventArgs e)
+        public override Promise Handle(TileAddCreatureEventArgs e)
         {
             foreach (var topItem in e.Tile.GetItems() )
             {
@@ -28,22 +28,22 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (blades.TryGetValue(topItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
                 {
-                    Context.AddCommand(CombatCommand.TargetAttack(null, e.Creature, null, MagicEffectType.BlackSpark, (attacker, target) => -60) );
+                    return Context.AddCommand(CombatCommand.TargetAttack(null, e.Creature, null, MagicEffectType.BlackSpark, (attacker, target) => -60) ).Then( () =>
+                    {
+                        return Context.AddCommand(new ItemTransformCommand(topItem, toOpenTibiaId, 1) );
 
-                    Context.AddCommand(new ItemTransformCommand(topItem, toOpenTibiaId, 1) ).Then( (item) =>
+                    } ).Then( (item) =>
                     {
                         return Context.AddCommand(new ItemDecayTransformCommand(item, 10000, decay[toOpenTibiaId], 1) );
                     } );
-
-                    break;
                 }
                 else if (topItem.Metadata.OpenTibiaId == activeBlade)
                 {
-                    Context.AddCommand(CombatCommand.TargetAttack(null, e.Creature, null, MagicEffectType.BlackSpark, (attacker, target) => -60) );
-
-                    break;
+                    return Context.AddCommand(CombatCommand.TargetAttack(null, e.Creature, null, MagicEffectType.BlackSpark, (attacker, target) => -60) );
                 }
             }
+
+            return Promise.Completed;
         }
     }
 }

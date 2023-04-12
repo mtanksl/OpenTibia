@@ -13,9 +13,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (pandaTeddies.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "Hug me!") );
-
-                return Promise.Completed;
+                return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "Hug me!") );
             }
 
             return next();

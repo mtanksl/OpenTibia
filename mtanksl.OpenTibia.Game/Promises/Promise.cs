@@ -320,6 +320,37 @@ namespace OpenTibia.Game.Commands
             } );
         }
 
+        public PromiseResult<TResult> Then<TResult>(Func<TResult> onFullfilled)
+        {
+            return Promise.Run<TResult>( [DebuggerStepThrough] (resolve, reject) =>
+            {
+                if (this.status == PromiseStatus.Pending)
+                {
+                    this.continueWithFulfilled = () =>
+                    {
+                        var result = onFullfilled();
+
+                        resolve(result);
+                    };
+
+                    this.continueWithRejected = (e) =>
+                    {
+                        reject(e);
+                    };
+                }
+                else if (this.status == PromiseStatus.Fulfilled)
+                {
+                    var result = onFullfilled();
+
+                    resolve(result);
+                }
+                else if (this.status == PromiseStatus.Rejected)
+                {
+                    reject(this.exception);
+                }
+            } );
+        } 
+
         public PromiseResult<TResult> Then<TResult>(Func<PromiseResult<TResult> > onFullfilled)
         {
             return Promise.Run<TResult>( [DebuggerStepThrough] (resolve, reject) =>

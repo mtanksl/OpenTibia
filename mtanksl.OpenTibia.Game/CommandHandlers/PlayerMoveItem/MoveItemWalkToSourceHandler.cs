@@ -28,12 +28,12 @@ namespace OpenTibia.Game.CommandHandlers
 
                     byte afterCount = command.Count;
 
-                    if (beforeContainer == afterContainer && beforeIndex == afterIndex && beforeCount == afterCount)
+                    if (beforeContainer != afterContainer || beforeIndex != afterIndex || beforeCount != afterCount)
                     {
-                        return next();
+                        return Promise.Break;
                     }
 
-                    return Promise.Completed;
+                    return next();
                 } );
             }
 

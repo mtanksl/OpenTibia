@@ -237,7 +237,17 @@ namespace OpenTibia.Game
 
                     foreach (var eventHandler in server.EventHandlers.Get(e) )
                     {
-                        eventHandler.Handle(e);
+                        eventHandler.Handle(e).Catch(ex =>
+                        {
+                            if (ex is PromiseCanceledException)
+                            {
+
+                            }
+                            else
+                            {
+                                server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                            }
+                        } );
                     }
                 }
 

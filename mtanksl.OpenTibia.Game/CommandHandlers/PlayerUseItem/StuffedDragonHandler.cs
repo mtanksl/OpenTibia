@@ -17,14 +17,15 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 int value = Context.Server.Randomization.Take(0, sounds.Count);
 
-                Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, sounds[value] ) );
-
-                if (value == sounds.Count - 1)
+                return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, sounds[value] ) ).Then( () =>
                 {
-                    Context.AddCommand(CombatCommand.TargetAttack(null, command.Player, null, MagicEffectType.ExplosionDamage, (attacker, target) => -1) );
-                }
+                    if (value == sounds.Count - 1)
+                    {
+                        return Context.AddCommand(CombatCommand.TargetAttack(null, command.Player, null, MagicEffectType.ExplosionDamage, (attacker, target) => -1) );
+                    }
 
-                return Promise.Completed;
+                    return Promise.Completed;
+                } );
             }
 
             return next();

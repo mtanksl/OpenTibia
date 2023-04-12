@@ -29,33 +29,29 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            Inventory fromInventory = Player.Inventory;
+
+            Item fromItem = fromInventory.GetContent(FromSlot) as Item;
+
+            if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
             {
-                Inventory fromInventory = Player.Inventory;
+                Container toContainer = Player.Client.ContainerCollection.GetContainer(ToContainerId);
 
-                Item fromItem = fromInventory.GetContent(FromSlot) as Item;
-
-                if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
+                if (toContainer != null)
                 {
-                    Container toContainer = Player.Client.ContainerCollection.GetContainer(ToContainerId);
+                    Item toItem = toContainer.GetContent(ToContainerIndex) as Item;
 
-                    if (toContainer != null)
+                    if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
                     {
-                        Item toItem = toContainer.GetContent(ToContainerIndex) as Item;
-
-                        if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
+                        if ( IsUseable(Context, fromItem) )
                         {
-                            if ( IsUseable(Context, fromItem) )
-                            {
-                                Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) ).Then( () =>
-                                {
-                                    resolve();
-                                } );
-                            }
+                            return Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) );
                         }
                     }
                 }
-            } );
+            }
+
+            return Promise.Break;
         }
     }
 }

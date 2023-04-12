@@ -34,59 +34,52 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            Tile fromTile = Context.Server.Map.GetTile(FromPosition);
+
+            if (fromTile != null)
             {
-                Tile fromTile = Context.Server.Map.GetTile(FromPosition);
-
-                if (fromTile != null)
+                if (Player.Tile.Position.CanSee(fromTile.Position) )
                 {
-                    if (Player.Tile.Position.CanSee(fromTile.Position) )
+                    Item fromItem = fromTile.GetContent(FromIndex) as Item;
+
+                    if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
                     {
-                        Item fromItem = fromTile.GetContent(FromIndex) as Item;
+                        Tile toTile = Context.Server.Map.GetTile(ToPosition);
 
-                        if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
+                        if (toTile != null)
                         {
-                            Tile toTile = Context.Server.Map.GetTile(ToPosition);
-
-                            if (toTile != null)
+                            switch (toTile.GetContent(ToIndex) )
                             {
-                                switch (toTile.GetContent(ToIndex) )
-                                {
-                                    case Item toItem:
+                                case Item toItem:
 
-                                        if (toItem.Metadata.TibiaId == ToItemId)
+                                    if (toItem.Metadata.TibiaId == ToItemId)
+                                    {
+                                        if ( IsUseable(Context, fromItem) )
                                         {
-                                            if ( IsUseable(Context, fromItem) )
-                                            {
-                                                Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) ).Then( () =>
-                                                {
-                                                    resolve();
-                                                } );
-                                            }
+                                            return Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) );
                                         }
+                                    }
 
-                                        break;
+                                    break;
 
-                                    case Creature toCreature:
+                                case Creature toCreature:
 
-                                        if (ToItemId == 99)
+                                    if (ToItemId == 99)
+                                    {
+                                        if ( IsUseable(Context, fromItem) )
                                         {
-                                            if ( IsUseable(Context, fromItem) )
-                                            {
-                                                Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) ).Then( () =>
-                                                {
-                                                    resolve();
-                                                } );
-                                            }
+                                            return Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) );
                                         }
+                                    }
 
-                                        break;
-                                }
+                                    break;
                             }
                         }
                     }
                 }
-            } );
+            }
+
+            return Promise.Break;
         }
     }
 }

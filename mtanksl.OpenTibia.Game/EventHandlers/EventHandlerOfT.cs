@@ -1,4 +1,5 @@
-﻿using OpenTibia.Game.Events;
+﻿using OpenTibia.Game.Commands;
+using OpenTibia.Game.Events;
 using System.Diagnostics;
 
 namespace OpenTibia.Game.EventHandlers
@@ -6,11 +7,11 @@ namespace OpenTibia.Game.EventHandlers
     public abstract class EventHandler<T> : EventHandler where T : GameEventArgs
     {
         [DebuggerStepThrough]
-        public override void Handle(object e)
+        public override Promise Handle(object e)
         {
-            Handle( (T)e);
+            return Handle( (T)e);
         }
 
-        public abstract void Handle(T e);
+        public abstract Promise Handle(T e);
     }
 }

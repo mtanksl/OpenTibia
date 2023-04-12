@@ -25,17 +25,17 @@ namespace OpenTibia.Game.Commands
 
         public override PromiseResult<Item> Execute()
         {
-            return Promise.Run<Item>( (resolve, reject) =>
+            Item item = Context.Server.ItemFactory.Create(OpenTibiaId, Count);
+
+            if (item != null)
             {
-                Item item = Context.Server.ItemFactory.Create(OpenTibiaId, Count);
-
-                if (item != null)
+                return Context.AddCommand(new InventoryAddItemCommand(Inventory, Slot, item) ).Then( () =>
                 {
-                    Context.AddCommand(new InventoryAddItemCommand(Inventory, Slot, item) );
-                }
+                     return Promise.FromResult(item);
+                } );
+            }
 
-                resolve(item);
-            } );
+            return Promise.FromResult(item);
         }
     }
 }

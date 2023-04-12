@@ -33,36 +33,32 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
+
+            if (fromContainer != null)
             {
-                Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
+                Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
 
-                if (fromContainer != null)
+                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
-                    Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
+                    Container toContainer = Player.Client.ContainerCollection.GetContainer(ToContainerId);
 
-                    if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                    if (ToContainerIndex == 254)
                     {
-                        Container toContainer = Player.Client.ContainerCollection.GetContainer(ToContainerId);
-
-                        if (ToContainerIndex == 254)
-                        {
-                            toContainer = toContainer.Parent as Container;
-                        }
+                        toContainer = toContainer.Parent as Container;
+                    }
                         
-                        if (toContainer != null)
+                    if (toContainer != null)
+                    {
+                        if (IsMoveable(Context, fromItem, Count) )
                         {
-                            if (IsMoveable(Context, fromItem, Count) )
-                            {
-                                Context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toContainer, ToContainerIndex, Count, true) ).Then( () =>
-                                {
-                                    resolve();
-                                } );
-                            }
+                            return Context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toContainer, ToContainerIndex, Count, true) );
                         }
                     }
                 }
-            } );
+            }
+
+            return Promise.Break;
         }
     }
 }

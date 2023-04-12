@@ -15,26 +15,23 @@ namespace OpenTibia.Game.Commands
         public Tile Tile { get; set; }
 
         public Item Item { get; set; }
-        
+
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
-            {
-                byte index = Tile.GetIndex(Item);
+            byte index = Tile.GetIndex(Item);
 
-                if (index < Constants.ObjectsPerPoint)
+            if (index < Constants.ObjectsPerPoint)
+            {
+                foreach (var observer in Context.Server.GameObjects.GetPlayers())
                 {
-                    foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+                    if (observer.Tile.Position.CanSee(Tile.Position))
                     {
-                        if (observer.Tile.Position.CanSee(Tile.Position) )
-                        {
-                            Context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(Tile.Position, index, Item) );
-                        }
+                        Context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(Tile.Position, index, Item));
                     }
                 }
+            }
 
-                resolve();
-            } );
+            return Promise.Completed;
         }
     }
 }

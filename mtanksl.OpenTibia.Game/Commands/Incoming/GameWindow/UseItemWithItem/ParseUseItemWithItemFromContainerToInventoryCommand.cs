@@ -29,33 +29,29 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
+
+            if (fromContainer != null)
             {
-                Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
+                Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
 
-                if (fromContainer != null)
+                if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
                 {
-                    Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
+                    Inventory toInventory = Player.Inventory;
 
-                    if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
+                    Item toItem = toInventory.GetContent(ToSlot) as Item;
+
+                    if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
                     {
-                        Inventory toInventory = Player.Inventory;
-
-                        Item toItem = toInventory.GetContent(ToSlot) as Item;
-
-                        if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
+                        if ( IsUseable(Context, fromItem) )
                         {
-                            if ( IsUseable(Context, fromItem) )
-                            {
-                                Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) ).Then( () =>
-                                {
-                                    resolve();
-                                } );
-                            }
+                            return Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) );
                         }
                     }
                 }
-            } );
+            }
+
+            return Promise.Break;
         }
     }
 }

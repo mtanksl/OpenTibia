@@ -17,17 +17,17 @@ namespace OpenTibia.Game.Commands
 
         public override PromiseResult<Monster> Execute()
         {
-            return Promise.Run<Monster>( (resolve, reject) =>
+            Monster monster = Context.Server.MonsterFactory.Create(Name);
+
+            if (monster != null)
             {
-                Monster monster = Context.Server.MonsterFactory.Create(Name);
-
-                if (monster != null)
+                return Context.AddCommand(new TileAddCreatureCommand(Tile, monster) ).Then( () =>
                 {
-                    Context.AddCommand(new TileAddCreatureCommand(Tile, monster) );
-                }
+                    return Promise.FromResult(monster); 
+                } );
+            }
 
-                resolve(monster);
-            } );
+            return Promise.FromResult(monster); 
         }
     }
 }

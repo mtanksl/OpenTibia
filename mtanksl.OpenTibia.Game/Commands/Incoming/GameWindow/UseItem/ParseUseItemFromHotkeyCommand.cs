@@ -13,25 +13,19 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
-            {             
-                Inventory fromInventory = Player.Inventory;
+            Inventory fromInventory = Player.Inventory;
 
-                foreach (var pair in fromInventory.GetIndexedContents() )
+            foreach (var pair in fromInventory.GetIndexedContents() )
+            {
+                Item fromItem = (Item)pair.Value;
+
+                if (fromItem.Metadata.TibiaId == ItemId)
                 {
-                    Item fromItem = (Item)pair.Value;
-
-                    if (fromItem.Metadata.TibiaId == ItemId)
-                    {
-                        Context.AddCommand(new PlayerUseItemCommand(Player, fromItem, null) ).Then( () =>
-                        {
-                            resolve();
-                        } );
-
-                        break;
-                    }
+                    return Context.AddCommand(new PlayerUseItemCommand(Player, fromItem, null) );
                 }
-            } ); 
+            }
+
+            return Promise.Break;
         }
     }
 }

@@ -18,16 +18,13 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
-            {
-                byte slot = Inventory.GetIndex(Item);
+            byte slot = Inventory.GetIndex(Item);
 
-                Inventory.RemoveContent(slot);
+            Inventory.RemoveContent(slot);
 
-                Context.AddPacket(Inventory.Player.Client.Connection, new SlotRemoveOutgoingPacket(slot) );
+            Context.AddPacket(Inventory.Player.Client.Connection, new SlotRemoveOutgoingPacket(slot) );
 
-                resolve();
-            } );
+            return Promise.Completed;
         }
     }
 }

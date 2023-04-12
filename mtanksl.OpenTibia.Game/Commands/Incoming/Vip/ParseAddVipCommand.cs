@@ -19,21 +19,20 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            Player player = Context.Server.GameObjects.GetPlayers()
+                .Where(p => p.Name == Name)
+                .FirstOrDefault();
+
+            if (player != null && player != Player)
             {
-                Player player = Context.Server.GameObjects.GetPlayers()
-                    .Where(p => p.Name == Name)
-                    .FirstOrDefault();
+                Vip vip = Player.Client.VipCollection.AddVip(player.Name);
 
-                if (player != null && player != Player)
-                {
-                    Vip vip = Player.Client.VipCollection.AddVip(player.Name);
+                Context.AddPacket(Player.Client.Connection, new VipOutgoingPacket(vip.Id, vip.Name, false) );
 
-                    Context.AddPacket(Player.Client.Connection, new VipOutgoingPacket(vip.Id, vip.Name, false) );
-                }
+                return Promise.Completed;
+            }
 
-                resolve();
-            } );
+            return Promise.Break;
         }
     }
 }

@@ -21,17 +21,14 @@ namespace OpenTibia.Game.Commands
         public Item ToItem { get; set; }
 
         public override Promise Execute()
-        {
-            return Promise.Run( (resolve, reject) =>
-            {
-                byte slot = Inventory.GetIndex(FromItem);
+        {          
+            byte slot = Inventory.GetIndex(FromItem);
 
-                Inventory.ReplaceContent(slot, ToItem);
+            Inventory.ReplaceContent(slot, ToItem);
 
-                Context.AddPacket(Inventory.Player.Client.Connection, new SlotAddOutgoingPacket(slot, ToItem ) );
+            Context.AddPacket(Inventory.Player.Client.Connection, new SlotAddOutgoingPacket(slot, ToItem ) );
 
-                resolve();
-            } );
+            return Promise.Completed;
         }
     }
 }

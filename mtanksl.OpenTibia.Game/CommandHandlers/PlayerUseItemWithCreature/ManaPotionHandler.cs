@@ -14,15 +14,18 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (manaPotions.Contains(command.Item.Metadata.OpenTibiaId) && command.ToCreature is Player player)
             {
-                Context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
+                return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
+                {
+                    return Context.AddCommand(new CombatChangeManaCommand(null, player, null, Context.Server.Randomization.Take(70, 130) ) );  
+                    
+                } ).Then( () =>
+                {
+                    return Context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) );
 
-                Context.AddCommand(new CombatChangeManaCommand(null, player, null, Context.Server.Randomization.Take(70, 130) ) );
-
-                Context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) );
-
-                Context.AddCommand(new ShowTextCommand(player, TalkType.MonsterSay, "Aaaah...") );
-
-                return Promise.Completed;
+                } ).Then( () =>
+                {
+                    return Context.AddCommand(new ShowTextCommand(player, TalkType.MonsterSay, "Aaaah...") );
+                } );
             }
 
             return next();

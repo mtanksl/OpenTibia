@@ -34,7 +34,7 @@ namespace OpenTibia.Game.CommandHandlers
                             return Context.AddCommand(new PlayerUseItemWithCreatureCommand(command.Player, item, command.ToCreature) );
                         }
 
-                        return Promise.Completed;
+                        return Promise.Break;
                     } );
                 }
                 else
@@ -53,12 +53,12 @@ namespace OpenTibia.Game.CommandHandlers
 
                         byte afterIndex = afterContainer.GetIndex(command.Item);
 
-                        if (beforeContainer == afterContainer && beforeIndex == afterIndex)
+                        if (beforeContainer != afterContainer || beforeIndex != afterIndex)
                         {
-                            return next();
+                            return Promise.Break;
                         }
 
-                        return Promise.Completed;
+                        return next();
                     } );
                 }
             }

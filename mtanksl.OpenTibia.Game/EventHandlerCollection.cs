@@ -1,4 +1,5 @@
-﻿using OpenTibia.Game.EventHandlers;
+﻿using OpenTibia.Game.Commands;
+using OpenTibia.Game.EventHandlers;
 using OpenTibia.Game.Events;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace OpenTibia.Game
     {
         private Dictionary<Type, Dictionary<Guid, IEventHandler> > types = new Dictionary<Type, Dictionary<Guid, IEventHandler> >();
 
-        public Guid Subscribe<T>(Action<Context, T> execute) where T : GameEventArgs
+        public Guid Subscribe<T>(Func<Context, T, Promise> execute) where T : GameEventArgs
         {
             return Subscribe(new InlineEventHandler<T>(execute) );
         }

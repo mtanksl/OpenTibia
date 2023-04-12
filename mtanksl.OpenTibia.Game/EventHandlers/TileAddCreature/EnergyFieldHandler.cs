@@ -10,17 +10,17 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> energyFields = new HashSet<ushort>() { 1491, 1495 };
 
-        public override void Handle(TileAddCreatureEventArgs e)
+        public override Promise Handle(TileAddCreatureEventArgs e)
         {
             foreach (var topItem in e.Tile.GetItems() )
             {
                 if (energyFields.Contains(topItem.Metadata.OpenTibiaId) )
                 {
-                    Context.AddCommand(new CombatConditionCommand(null, e.Creature, SpecialCondition.Electrified, MagicEffectType.EnergyDamage, new[] { -30, -25, -25 }, 2000) );
-
-                    break;
+                    return Context.AddCommand(new CombatConditionCommand(null, e.Creature, SpecialCondition.Electrified, MagicEffectType.EnergyDamage, new[] { -30, -25, -25 }, 2000) );
                 }
             }
+
+            return Promise.Completed;
         }
     }
 }

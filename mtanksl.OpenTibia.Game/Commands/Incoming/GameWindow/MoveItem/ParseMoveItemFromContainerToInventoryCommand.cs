@@ -29,28 +29,24 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
+
+            if (fromContainer != null)
             {
-                Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
+                Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
 
-                if (fromContainer != null)
+                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
-                    Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
+                    Inventory toInventory = Player.Inventory;
 
-                    if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                    if (IsMoveable(Context, fromItem, Count) )
                     {
-                        Inventory toInventory = Player.Inventory;
-
-                        if (IsMoveable(Context, fromItem, Count) )
-                        {
-                            Context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toInventory, ToSlot, Count, true) ).Then( () =>
-                            {
-                                resolve();
-                            } );
-                        }
+                        return Context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toInventory, ToSlot, Count, true) );
                     }
                 }
-            } );
+            }
+
+            return Promise.Break;
         }
     }
 }

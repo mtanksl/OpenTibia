@@ -74,10 +74,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     Tile south = Context.Server.Map.GetTile(door.Position.Offset(0, 1, 0) );
 
-                    foreach (var creature in door.GetCreatures().ToList() )
-                    {
-                        Context.AddCommand(new CreatureUpdateParentCommand(creature, south) );
-                    }
+                    return Promise.WhenAll(door.GetCreatures().ToList().Select(creature => Context.AddCommand(new CreatureUpdateParentCommand(creature, south) ) ).ToArray() );
                 } );
             }
             else if (verticalDoors.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
@@ -88,10 +85,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     Tile south = Context.Server.Map.GetTile(door.Position.Offset(1, 0, 0) );
 
-                    foreach (var creature in door.GetCreatures().ToList() )
-                    {
-                        Context.AddCommand(new CreatureUpdateParentCommand(creature, south) );
-                    }
+                    return Promise.WhenAll(door.GetCreatures().ToList().Select(creature => Context.AddCommand(new CreatureUpdateParentCommand(creature, south) ) ).ToArray() );
                 } );
             }
 

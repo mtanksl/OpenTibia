@@ -19,40 +19,37 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            if (Creature.Direction != Direction)
             {
-                if (Creature.Direction != Direction)
+                Creature.Direction = Direction;
+
+                Tile fromTile = Creature.Tile;
+
+                byte index = fromTile.GetIndex(Creature);
+
+                if (index < Constants.ObjectsPerPoint)
                 {
-                    Creature.Direction = Direction;
-
-                    Tile fromTile = Creature.Tile;
-
-                    byte index = fromTile.GetIndex(Creature);
-
-                    if (index < Constants.ObjectsPerPoint)
+                    foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                     {
-                        foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+                        if (observer == Creature)
                         {
-                            if (observer == Creature)
+                            if (Context.Server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(observer) ) )
                             {
-                                if (Context.Server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(observer) ) )
-                                {
-                                    Context.AddPacket(observer.Client.Connection, new StopWalkOutgoingPacket(observer.Direction) );
-                                }
-
-                                Context.Server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(observer) );
+                                Context.AddPacket(observer.Client.Connection, new StopWalkOutgoingPacket(observer.Direction) );
                             }
 
-                            if (observer.Tile.Position.CanSee(fromTile.Position) )
-                            {
-                                Context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(fromTile.Position, index, Creature.Id, Creature.Direction) );
-                            }
+                            Context.Server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(observer) );
+                        }
+
+                        if (observer.Tile.Position.CanSee(fromTile.Position) )
+                        {
+                            Context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(fromTile.Position, index, Creature.Id, Creature.Direction) );
                         }
                     }
                 }
+            }
 
-                resolve();
-            } );
+            return Promise.Completed;
         }
     }
 }

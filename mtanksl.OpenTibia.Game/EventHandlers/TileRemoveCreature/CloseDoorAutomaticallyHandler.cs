@@ -47,7 +47,7 @@ namespace OpenTibia.Game.CommandHandlers
             //TODO: More items
         };
 
-        public override void Handle(TileRemoveCreatureEventArgs e)
+        public override Promise Handle(TileRemoveCreatureEventArgs e)
         {
             foreach (var topItem in e.Tile.GetItems() )
             {
@@ -55,11 +55,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (doors.TryGetValue(topItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
                 {
-                    Context.AddCommand(new ItemTransformCommand(topItem, toOpenTibiaId, 1) );
-
-                    break;
+                    return Context.AddCommand(new ItemTransformCommand(topItem, toOpenTibiaId, 1) );
                 }
             }
+
+            return Promise.Completed;
         }
     }
 }

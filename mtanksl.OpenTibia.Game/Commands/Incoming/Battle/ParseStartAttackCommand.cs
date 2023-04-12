@@ -24,37 +24,36 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
-            {
-                Creature creature = Context.Server.GameObjects.GetCreature(CreatureId);
+            Creature creature = Context.Server.GameObjects.GetCreature(CreatureId);
                 
-                if (creature != null && creature != Player)
+            if (creature != null && creature != Player)
+            {
+                AttackAndFollowBehaviour component = Context.Server.Components.GetComponent<AttackAndFollowBehaviour>(Player);
+
+                if (creature is Npc)
                 {
-                    AttackAndFollowBehaviour component = Context.Server.Components.GetComponent<AttackAndFollowBehaviour>(Player);
+                    Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature),
 
-                    if (creature is Npc)
+                                                                new StopAttackAndFollowOutgoingPacket(0) );
+
+                    component.Stop();
+                }
+                else
+                {
+                    if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
                     {
-                        Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature),
-
-                                                                    new StopAttackAndFollowOutgoingPacket(0) );
-
-                        component.Stop();
+                        component.Attack(creature);
                     }
                     else
                     {
-                        if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
-                        {
-                            component.Attack(creature);
-                        }
-                        else
-                        {
-                            component.AttackAndFollow(creature);
-                        }
+                        component.AttackAndFollow(creature);
                     }
-                }
 
-                resolve();
-            } );
+                    return Promise.Completed;
+                }
+            }
+
+            return Promise.Break;
         }
     }
 }

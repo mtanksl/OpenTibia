@@ -22,26 +22,22 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
+            Tile fromTile = Context.Server.Map.GetTile(FromPosition);
+
+            if (fromTile != null)
             {
-                Tile fromTile = Context.Server.Map.GetTile(FromPosition);
-
-                if (fromTile != null)
+                if (Player.Tile.Position.CanSee(fromTile.Position) )
                 {
-                    if (Player.Tile.Position.CanSee(fromTile.Position) )
-                    {
-                        Item fromItem = fromTile.GetContent(FromIndex) as Item;
+                    Item fromItem = fromTile.GetContent(FromIndex) as Item;
 
-                        if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
-                        {    
-                            Context.AddCommand(new PlayerUseItemCommand(Player, fromItem, null) ).Then( () =>
-                            {
-                                resolve();
-                            } );
-                        }
+                    if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                    {    
+                        return Context.AddCommand(new PlayerUseItemCommand(Player, fromItem, null) );
                     }
                 }
-            } );   
+            }
+
+            return Promise.Break;
         }
     }
 }
