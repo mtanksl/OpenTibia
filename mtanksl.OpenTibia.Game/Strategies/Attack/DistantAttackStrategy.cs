@@ -30,11 +30,9 @@ namespace OpenTibia.Game.Strategies
             }
         }
 
-        public Command GetNext(Creature creature, Creature target)
+        public Command GetNext(Server server, Creature creature, Creature target)
         {
-            Context context = Context.Current;
-
-            return CombatCommand.TargetAttack(creature, target, projectileType, MagicEffectType.RedSpark, formula);
+            return new CombatAttackCreatureWithDistanceCommand(creature, target, projectileType, formula);
         }
     }    
 }

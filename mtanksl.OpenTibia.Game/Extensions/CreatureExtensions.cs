@@ -13,7 +13,7 @@ namespace OpenTibia.Game.Extensions
             return context.AddCommand(new CreatureUpdateDirectionCommand(creature, direction) );
         }
 
-        public static Promise UpdateHealth(this Creature creature, ushort health, ushort maxHealth)
+        public static Promise UpdateHealth(this Creature creature, int health, int maxHealth)
         {
             Context context = Context.Current;
 

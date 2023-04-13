@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Objects;
+﻿using mtanksl.OpenTibia.Game.Promises;
+using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Dat;
 using OpenTibia.FileFormats.Otb;
@@ -7,6 +8,7 @@ using OpenTibia.FileFormats.Xml.Items;
 using OpenTibia.FileFormats.Xml.Monsters;
 using OpenTibia.FileFormats.Xml.Npcs;
 using OpenTibia.Game.Commands;
+using OpenTibia.Network.Packets.Incoming;
 using OpenTibia.Network.Sockets;
 using OpenTibia.Threading;
 using System;
@@ -82,11 +84,12 @@ namespace OpenTibia.Game
 
             scheduler = new Scheduler(dispatcher);
 
-            listeners = new List<Listener>();
+            listeners = new List<Listener>()
+            {
+                new Listener(loginServerPort, socket => new LoginConnection(this, socket) ),
 
-            listeners.Add(new Listener(loginServerPort, socket => new LoginConnection(this, socket) ) );
-
-            listeners.Add(new Listener(gameServerPort, socket => new GameConnection(this, socket) ) );
+                new Listener(gameServerPort, socket => new GameConnection(this, socket) )
+            };
 
             PacketsFactory = new PacketsFactory();
 
@@ -156,19 +159,19 @@ namespace OpenTibia.Game
 
         private Dictionary<string, SchedulerEvent> schedulerEvents = new Dictionary<string, SchedulerEvent>();
 
-        public void QueueForExecution(Func<Promise> callback)
+        public Handle QueueForExecution(Func<Promise> run)
         {
-            var previousContext = Context.Current;
+            var handle = new Handle();
 
-            dispatcher.QueueForExecution( () =>
+            var dispatcherEvent = new DispatcherEvent( () =>
             {
                 try
                 {
-                    using (var context = new Context(this, previousContext) )
+                    using (var context = new Context(this) )
                     {
                         using (var scope = new Scope<Context>(context) )
                         {
-                            callback().Catch(ex =>
+                            run().Catch(ex =>
                             {
                                 if (ex is PromiseCanceledException)
                                 {
@@ -189,32 +192,45 @@ namespace OpenTibia.Game
                     Logger.WriteLine(ex.ToString(), LogLevel.Error);
                 }
             } );
+
+            dispatcherEvent.StateChange += (sender, e) =>
+            {
+                switch (e.State)
+                {
+                    case DispatcherExecutionState.Executed:
+
+                        handle.TrySetResult();
+
+                        break;
+
+                    case DispatcherExecutionState.Canceled:
+
+                        handle.TrySetException(new PromiseCanceledException() );
+
+                        break;
+                }
+            };
+
+            dispatcher.QueueForExecution(dispatcherEvent);
+
+            return handle;
         }
 
-        public void QueueForExecution(string key, int executeInMilliseconds, Func<Promise> callback)
+        public Handle QueueForExecution(string key, int executeInMilliseconds, Func<Promise> run)
         {
-            SchedulerEvent schedulerEvent;
+            var handle = new Handle();
 
-            if ( schedulerEvents.TryGetValue(key, out schedulerEvent) )
+            CancelQueueForExecution(key);
+
+            var schedulerEvent = new SchedulerEvent(executeInMilliseconds, () =>
             {
-                schedulerEvents.Remove(key);
-
-                schedulerEvent.Cancel();
-            }
-
-            var previousContext = Context.Current;
-
-            schedulerEvent = scheduler.QueueForExecution(executeInMilliseconds, () =>
-            {
-                schedulerEvents.Remove(key);
-
                 try
                 {
-                    using (var context = new Context(this, previousContext) )
+                    using (var context = new Context(this) )
                     {
                         using (var scope = new Scope<Context>(context) )
                         {
-                            callback().Catch(ex =>
+                            run().Catch(ex =>
                             {
                                 if (ex is PromiseCanceledException)
                                 {
@@ -236,7 +252,35 @@ namespace OpenTibia.Game
                 }
             } );
 
+            schedulerEvent.StateChange += (sender, e) =>
+            {
+                switch (e.State)
+                {
+                    case DispatcherExecutionState.Executing:
+
+                        schedulerEvents.Remove(key);
+
+                        break;
+
+                    case DispatcherExecutionState.Executed:
+
+                        handle.TrySetResult();
+
+                        break;
+
+                    case DispatcherExecutionState.Canceled:
+
+                        handle.TrySetException(new PromiseCanceledException() );
+
+                        break;                 
+                }
+            };
+
             schedulerEvents.Add(key, schedulerEvent);
+
+            scheduler.QueueForExecution(schedulerEvent);
+
+            return handle;
         }
 
         public bool CancelQueueForExecution(string key)
@@ -257,25 +301,20 @@ namespace OpenTibia.Game
 
         public void KickAll()
         {
-            AutoResetEvent syncStop = new AutoResetEvent(false);
-
             QueueForExecution( () =>
             {
                 Context context = Context.Current;
 
-                foreach (var player in context.Server.GameObjects.GetPlayers().ToList() )
-                {
-                    context.AddCommand(new PlayerDestroyCommand(player) );
+                List<Command> commands = new List<Command>();
 
-                    context.Disconnect(player.Client.Connection);
+                foreach (var player in context.Server.GameObjects.GetPlayers() )
+                {
+                    commands.Add(new PlayerDestroyCommand(player) );
                 }
 
-                syncStop.Set();
+                return Command.Sequence(commands.ToArray() );
 
-                return Promise.Completed;
-            } );
-
-            syncStop.WaitOne();
+            } ).Wait();
         }
 
         public void Stop()

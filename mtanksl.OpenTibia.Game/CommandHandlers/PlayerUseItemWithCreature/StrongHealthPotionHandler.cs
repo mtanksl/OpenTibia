@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                 {
-                    return Context.AddCommand(new CreatureUpdateHealthCommand(player, (ushort)(player.Health + Context.Server.Randomization.Take(200, 400) ) ) );
+                    return Context.AddCommand(new CreatureUpdateHealthCommand(player, player.Health + Context.Server.Randomization.Take(200, 400) ) );
                     
                 } ).Then( () =>
                 {

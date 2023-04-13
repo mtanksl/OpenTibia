@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Components
                 {
                     if (creature.Tile.Position.CanHearSay(observer.Tile.Position) )
                     {
-                        var command = attackStrategy.GetNext(creature, observer);
+                        var command = attackStrategy.GetNext(Context.Server, creature, observer);
 
                         if (command != null)
                         {
@@ -42,7 +42,7 @@ namespace OpenTibia.Game.Components
 
                             return Context.AddCommand(command).Then( () =>
                             {
-                                return Promise.Delay(Context.Server, key, attackStrategy.CooldownInMilliseconds);
+                                return Promise.Delay(key, attackStrategy.CooldownInMilliseconds);
 
                             } ).Then( () =>
                             {

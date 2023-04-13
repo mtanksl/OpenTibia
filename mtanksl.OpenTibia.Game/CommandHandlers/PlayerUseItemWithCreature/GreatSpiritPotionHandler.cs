@@ -16,11 +16,11 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                 {
-                    return Context.AddCommand(new CreatureUpdateHealthCommand(player, (ushort)(player.Health + Context.Server.Randomization.Take(200, 400) ) ) );
+                    return Context.AddCommand(new CreatureUpdateHealthCommand(player, player.Health + Context.Server.Randomization.Take(200, 400) ) );
 
                 } ).Then( () =>
                 {
-                    return Context.AddCommand(new PlayerUpdateManaCommand(player, (ushort)(player.Mana + Context.Server.Randomization.Take(110, 190) ) ) );
+                    return Context.AddCommand(new PlayerUpdateManaCommand(player, player.Mana + Context.Server.Randomization.Take(110, 190) ) );
 
                 } ).Then( () =>
                 {

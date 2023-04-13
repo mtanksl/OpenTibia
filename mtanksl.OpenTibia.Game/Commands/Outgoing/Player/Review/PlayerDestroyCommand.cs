@@ -171,6 +171,8 @@ namespace OpenTibia.Game.Commands
 
                 Context.Server.PlayerFactory.Destroy(Player);
 
+                Context.Disconnect(Player.Client.Connection);
+
                 #endregion
             } );
         }

@@ -3,7 +3,7 @@ using System.IO;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
-namespace mtanksl.OpenTibia.MonsterImport
+namespace OpenTibia.MonsterImport
 {
     class Program
     {

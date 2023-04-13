@@ -9,47 +9,38 @@ namespace OpenTibia.Game.Scripts
         {
             server.QueueForExecution( () =>
             {
-                GlobalCreatures();
-            
-                GlobalItems();
-            
-                GlobalLight();
-
-                return Promise.Completed;
+                return Promise.WhenAll(GlobalCreatures(), GlobalItems(), GlobalLight() );
             } );
         }
 
-        private Promise GlobalCreatures()
+        private async Promise GlobalCreatures()
         {
-            Context context = Context.Current;
+            while (true)
+            {
+                await Context.Current.AddCommand(new GlobalCreaturesCommand() );
 
-            return context.AddCommand(new GlobalCreaturesCommand() )
-
-                .Then( () => Promise.Delay(context.Server, "Global_Creatures", 100) )
-
-                .Then( () => GlobalCreatures() );
+                await Promise.Delay("Global_Creatures", 10000);
+            }
         }
 
-        private Promise GlobalItems()
+        private async Promise GlobalItems()
         {
-            Context context = Context.Current;
+            while (true)
+            {
+                await Context.Current.AddCommand(new GlobalItemsCommand() );
 
-            return context.AddCommand(new GlobalItemsCommand() )
-
-                .Then( () => Promise.Delay(context.Server, "Global_Items", 60000) )
-                
-                .Then( () => GlobalItems() );
+                await Promise.Delay("Global_Items", 60000);
+            }
         }
 
-        private Promise GlobalLight()
+        private async Promise GlobalLight()
         {
-            Context context = Context.Current;
+            while (true)
+            {
+                await Context.Current.AddCommand(new GlobalLightCommand() );
 
-            return context.AddCommand(new GlobalLightCommand() )
-
-                .Then( () => Promise.Delay(context.Server, "Global_Light", Clock.Interval) )
-                
-                .Then( () => GlobalLight() );
+                await Promise.Delay("Global_Light", Clock.Interval);
+            }
         }
 
         public void Stop(Server server)

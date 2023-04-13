@@ -14,13 +14,11 @@ namespace OpenTibia.Game.Strategies
             this.radius = radius;
         }
 
-        public Tile GetNext(Tile spawn, Creature creature, Creature target)
+        public Tile GetNext(Server server, Tile spawn, Creature creature, Creature target)
         {
-            Context context = Context.Current;
-
-            foreach (var direction in context.Server.Randomization.Shuffle(new[] { Direction.North, Direction.East, Direction.South, Direction.West } ) )
+            foreach (var direction in server.Randomization.Shuffle(new[] { Direction.North, Direction.East, Direction.South, Direction.West } ) )
             {
-                Tile toTile = context.Server.Map.GetTile(creature.Tile.Position.Offset(direction) );
+                Tile toTile = server.Map.GetTile(creature.Tile.Position.Offset(direction) );
 
                 if (toTile == null || 
 

@@ -1,15 +1,16 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
     public class PlayerUpdateCapacityCommand : Command
     {
-        public PlayerUpdateCapacityCommand(Player player, uint capacity)
+        public PlayerUpdateCapacityCommand(Player player, int capacity)
         {
             Player = player;
 
-            Capacity = capacity;
+            Capacity = (uint)Math.Max(0, capacity);
         }
 
         public Player Player { get; set; }

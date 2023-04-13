@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using System;
 
@@ -26,13 +25,11 @@ namespace OpenTibia.Game.Strategies
             }
         }
 
-        public Command GetNext(Creature creature, Creature target)
+        public Command GetNext(Server server, Creature creature, Creature target)
         {
-            Context context = Context.Current;
-
             if (creature.Tile.Position.IsNextTo(target.Tile.Position) )
             {
-                return CombatCommand.TargetAttack(creature, target, null, MagicEffectType.RedSpark, formula);
+                return new CombatAttackCreatureWithMeleeCommand(creature, target, formula);
             }
 
             return null;

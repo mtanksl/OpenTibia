@@ -8,6 +8,8 @@ namespace OpenTibia.Game.Scripts
         {
             server.CommandHandlers.Add(new DisplayMagicEffectHandler() );
 
+            server.CommandHandlers.Add(new DisplayProjectileTypeHandler() );
+
             server.CommandHandlers.Add(new CreateMonsterHandler() );
 
             server.CommandHandlers.Add(new CreateNpcHandler() );

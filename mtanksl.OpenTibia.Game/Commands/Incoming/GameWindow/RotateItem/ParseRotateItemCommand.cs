@@ -12,7 +12,7 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        protected bool IsRotatable(Context context, Item fromItem)
+        protected bool IsRotatable(Item fromItem)
         {
             if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Rotatable) )
             {

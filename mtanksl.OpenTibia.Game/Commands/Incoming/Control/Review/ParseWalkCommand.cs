@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Commands
         {
             return Check().Then( (toTile) =>
             {
-                return Promise.Delay(Context.Server, Constants.PlayerWalkSchedulerEvent(Player), 1000 * toTile.Ground.Metadata.Speed / Player.Speed);
+                return Promise.Delay(Constants.PlayerWalkSchedulerEvent(Player), 1000 * toTile.Ground.Metadata.Speed / Player.Speed);
 
             } ).Then( () =>
 			{

@@ -24,7 +24,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "Ouch! Rather place it on the ground next time.") ).Then( () =>
                 {
-                    return Context.AddCommand(CombatCommand.TargetAttack(null, command.Player, null, MagicEffectType.ExplosionDamage, (attacker, target) => -10) );
+                    return Context.AddCommand(new CombatAttackCreatureWithEnvironmentCommand(command.Player, MagicEffectType.ExplosionDamage, -10) );
 
                 } ).Then( () =>
                 {

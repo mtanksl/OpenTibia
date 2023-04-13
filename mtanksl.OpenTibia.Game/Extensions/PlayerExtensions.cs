@@ -5,7 +5,7 @@ namespace OpenTibia.Game.Extensions
 {
     public static class PlayerExtensions
     {
-        public static Promise UpdateCapacity(this Player player, uint capacity)
+        public static Promise UpdateCapacity(this Player player, int capacity)
         {
             Context context = Context.Current;
 
@@ -19,21 +19,21 @@ namespace OpenTibia.Game.Extensions
             return context.AddCommand(new PlayerUpdateExperienteCommand(player, experience, level, levelPercent) );
         }
 
-        public static Promise UpdateMana(this Player player, ushort mana, ushort maxMana)
+        public static Promise UpdateMana(this Player player, int mana, int maxMana)
         {
             Context context = Context.Current;
 
             return context.AddCommand(new PlayerUpdateManaCommand(player, mana, maxMana) );
         }
 
-        public static Promise UpdateSoul(this Player player, byte soul)
+        public static Promise UpdateSoul(this Player player, int soul)
         {
             Context context = Context.Current;
 
             return context.AddCommand(new PlayerUpdateSoulCommand(player, soul) );
         }
 
-        public static Promise UpdateStamina(this Player player, ushort stamina)
+        public static Promise UpdateStamina(this Player player, int stamina)
         {
             Context context = Context.Current;
 

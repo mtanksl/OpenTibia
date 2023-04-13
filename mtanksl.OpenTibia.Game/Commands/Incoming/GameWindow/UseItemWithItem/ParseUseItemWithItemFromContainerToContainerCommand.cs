@@ -49,7 +49,7 @@ namespace OpenTibia.Game.Commands
 
                         if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
                         {
-                            if ( IsUseable(Context, fromItem) )
+                            if ( IsUseable(fromItem) )
                             {
                                 return Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) );
                             }

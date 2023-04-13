@@ -63,11 +63,6 @@ namespace OpenTibia.Threading
             syncStop.Set();
         }
 
-        public void QueueForExecution(Action execute)
-        {
-            QueueForExecution(new DispatcherEvent(execute) );
-        }
-
         public void QueueForExecution(DispatcherEvent dispatcherEvent)
         {
             lock (sync)

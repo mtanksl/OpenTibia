@@ -38,7 +38,7 @@ namespace OpenTibia.Game.Components
 
                         return Context.AddCommand(new ShowTextCommand(creature, TalkType.MonsterSay, Context.Server.Randomization.Take(sentences) ) ).Then( () =>
                         {
-                            return Promise.Delay(Context.Server, key, 30000);
+                            return Promise.Delay(key, 30000);
 
                         } ).Then( () =>
                         {

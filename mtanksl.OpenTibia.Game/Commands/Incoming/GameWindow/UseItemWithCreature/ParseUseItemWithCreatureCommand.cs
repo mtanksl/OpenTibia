@@ -12,7 +12,7 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        protected bool IsUseable(Context context, Item fromItem)
+        protected bool IsUseable(Item fromItem)
         {
             if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Useable) )
             {

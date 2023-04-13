@@ -7,16 +7,16 @@ namespace OpenTibia.Data.Repositories
 {
     public class PlayerRepository
     {
-        private SqliteContext context;
+        private SqliteContext sqliteContext;
 
-        public PlayerRepository(SqliteContext context)
+        public PlayerRepository(SqliteContext sqliteContext)
         {
-            this.context = context;
+            this.sqliteContext = sqliteContext;
         }
 
         public Account GetAccount(string accountName, string accountPassword)
         {
-            return context.Accounts
+            return sqliteContext.Accounts
                 .Include(a => a.Players)
                     .ThenInclude(p => p.World)
                 .Where(a => a.Name == accountName &&
@@ -26,7 +26,7 @@ namespace OpenTibia.Data.Repositories
 
         public Player GetAccountPlayer(string accountName, string accountPassword, string playerName)
         {
-            return context.Players
+            return sqliteContext.Players
                 .Include(p => p.PlayerItems)
                 .Include(p => p.PlayerDepotItems)
                 .Include(p => p.PlayerVips)
@@ -39,7 +39,7 @@ namespace OpenTibia.Data.Repositories
 
         public Player GetPlayerById(int databasePlayerId)
         {
-            return context.Players
+            return sqliteContext.Players
                 .Include(p => p.PlayerItems)
                 .Include(p => p.PlayerDepotItems)
                 .Include(p => p.PlayerVips)
@@ -49,44 +49,44 @@ namespace OpenTibia.Data.Repositories
 
         public Player GetPlayerByName(string name)
         {
-            return context.Players
+            return sqliteContext.Players
                 .Where(p => p.Name == name)
                 .FirstOrDefault();
         }
 
         public void UpdatePlayer(Player player)
         {
-            context.Entry(player).State = EntityState.Modified;
+            sqliteContext.Entry(player).State = EntityState.Modified;
         }
 
         public void AddPlayerItem(PlayerItem playerItem)
         {
-            context.PlayerItems.Add(playerItem);
+            sqliteContext.PlayerItems.Add(playerItem);
         }
 
         public void RemovePlayerItem(PlayerItem playerItem)
         {
-            context.PlayerItems.Remove(playerItem);
+            sqliteContext.PlayerItems.Remove(playerItem);
         }
 
         public void AddPlayerDepotItem(PlayerDepotItem playerDepotItem)
         {
-            context.PlayerDepotItems.Add(playerDepotItem);
+            sqliteContext.PlayerDepotItems.Add(playerDepotItem);
         }
 
         public void RemovePlayerDepotItem(PlayerDepotItem playerDepotItem)
         {
-            context.PlayerDepotItems.Remove(playerDepotItem);
+            sqliteContext.PlayerDepotItems.Remove(playerDepotItem);
         }
 
         public void AddPlayerVip(PlayerVip playerVip)
         {
-            context.PlayerVips.Add(playerVip);
+            sqliteContext.PlayerVips.Add(playerVip);
         }
 
         public void RemovePlayerVip(PlayerVip playerVip)
         {
-            context.PlayerVips.Remove(playerVip);
+            sqliteContext.PlayerVips.Remove(playerVip);
         }
     }
 }

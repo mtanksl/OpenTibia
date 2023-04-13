@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace mtanksl.OpenTibia.Host2
+namespace OpenTibia.Host
 {
     internal class Program
     {

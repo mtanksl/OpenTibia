@@ -121,7 +121,7 @@ namespace OpenTibia.Game.Components
                         {
                             if (DateTime.UtcNow > moveCooldown)
                             {
-                                var toTile = walkStrategy.GetNext(null, player, target);
+                                var toTile = walkStrategy.GetNext(Context.Server, null, player, target);
 
                                 if (toTile != null)
                                 {
@@ -136,7 +136,7 @@ namespace OpenTibia.Game.Components
                         {
                             if (DateTime.UtcNow > attackCooldown)
                             {
-                                var command = attackStrategy.GetNext(player, target);
+                                var command = attackStrategy.GetNext(Context.Server, player, target);
 
                                 if (command != null)
                                 {
@@ -147,7 +147,7 @@ namespace OpenTibia.Game.Components
                             }
                         }
 
-                        return Command.WhenAll(commands.ToArray() );
+                        return Command.Sequence(commands.ToArray() );
                     }
                 }
             }

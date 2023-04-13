@@ -19,7 +19,7 @@ Open `mtanksl.OpenTibia.sln`.
 Set `mtanksl.OpenTibia.Host` as startup project.
 Press F5 to run the server. 
 Use Tibia 8.6 client (download below) with an IP Changer (also download below) to connect to localhost (IP address 127.0.0.1) on port 7171.
-Use account number 1 and password 1 to enter game.
+Use account number `1` and password `1` to enter game.
 
 ![Server and Client](/server.png)
 
@@ -51,7 +51,7 @@ You can use [Remere's map editor](https://github.com/hampusborgos/rme).
 - /kick `player_name` - Kicks player
 
 # Spells list
-- exana pox - Healing
+
 - exani tera - Support
 - exani hur up - Support
 - exani hur down - Support
@@ -60,6 +60,7 @@ You can use [Remere's map editor](https://github.com/hampusborgos/rme).
 - utevo vis lux - Light
 - utani hur - Speed
 - utani gran hur - Speed
+- exana pox - Healing
 - exura - Healing
 - exura gran - Healing
 - exura vita - Healing
@@ -78,7 +79,7 @@ You can use [Remere's map editor](https://github.com/hampusborgos/rme).
 Notes: Formulas are based on Tibia Wiki and RealOTS. Not perfect, but it serves as an inspiration for now.
 
 # Runes list
-- Cure poison
+
 - Poison field
 - Poison bomb
 - Poison wall
@@ -93,6 +94,7 @@ Notes: Formulas are based on Tibia Wiki and RealOTS. Not perfect, but it serves 
 - Explosion
 - Magic wall
 - Wild growth
+- Cure poison
 - Intense healing
 - Ultimate healing
 - Light magic missile

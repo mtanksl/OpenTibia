@@ -6,18 +6,18 @@ namespace OpenTibia.Game.Commands
 {
     public class PlayerUpdateManaCommand : Command
     {
-        public PlayerUpdateManaCommand(Player player, ushort mana) : this(player, mana, player.MaxMana)
+        public PlayerUpdateManaCommand(Player player, int mana) : this(player, mana, player.MaxMana)
         {
 
         }
 
-        public PlayerUpdateManaCommand(Player player, ushort mana, ushort maxMana)
+        public PlayerUpdateManaCommand(Player player, int mana, int maxMana)
         {
             Player = player;
 
-            Mana = Math.Max( (ushort)0, Math.Min(player.MaxMana, mana) );
+            Mana = (ushort)Math.Max(0, Math.Min(player.MaxMana, mana) );
 
-            MaxMana = Math.Max( (ushort)0, Math.Min(player.MaxMana, maxMana) );
+            MaxMana = (ushort)Math.Max(0, Math.Min(player.MaxMana, maxMana) );
         }
 
         public Player Player { get; set; }

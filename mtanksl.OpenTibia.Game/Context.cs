@@ -27,12 +27,8 @@ namespace OpenTibia.Game
             }
         }
 
-        private Context previousContext;
-
-        public Context(Server server, Context previousContext)
+        public Context(Server server)
         {
-            this.previousContext = previousContext;
-
             this.server = server;
         }
 
@@ -67,11 +63,6 @@ namespace OpenTibia.Game
         {
             get
             {
-                if (previousContext != null)
-                {
-                    return previousContext.Data;
-                }
-
                 return data ?? (data = new Dictionary<string, object>() );
             }
         }

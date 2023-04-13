@@ -4,48 +4,63 @@ namespace OpenTibia.Threading
 {
     public class DispatcherEvent
     {
-        private enum ExecutionState
+        public DispatcherEvent(Action execute)
         {
-            Pending,
+            this.state = DispatcherExecutionState.Pending;
 
-            Executing,
+            this.execute = execute;
+        }
 
-            Executed,
+        private DispatcherExecutionState state;
 
-            Canceled
+        public DispatcherExecutionState State
+        {
+            get
+            {
+                return state;
+            }
         }
 
         private Action execute;
 
-        public DispatcherEvent(Action execute)
-        {
-            this.execute = execute;
-        }
-
-        private ExecutionState state = ExecutionState.Pending;
-
         public void Execute()
         {
-            if (state == ExecutionState.Pending)
+            if (state == DispatcherExecutionState.Pending)
             {
-                state = ExecutionState.Executing;
-                
-                execute();
+                state = DispatcherExecutionState.Executing;
 
-                state = ExecutionState.Executed;
+                OnStateChange(state);
+
+                execute();
+                
+                state = DispatcherExecutionState.Executed;
+
+                OnStateChange(state);
             }
         }
         
         public bool Cancel()
         {
-            if (state == ExecutionState.Pending)
+            if (state == DispatcherExecutionState.Pending)
             {
-                state = ExecutionState.Canceled;
+                state = DispatcherExecutionState.Canceled;
+
+                OnStateChange(state);
 
                 return true;
             }
 
             return false;
+        }
+
+        public event EventHandler<DispatcherStateChangeEventArgs> StateChange;
+
+        protected virtual void OnStateChange(DispatcherExecutionState state)
+        {
+            if (StateChange != null)
+            {
+                StateChange(this, new DispatcherStateChangeEventArgs(state) );
+            }
         }
     }
 }

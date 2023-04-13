@@ -54,7 +54,7 @@ namespace OpenTibia.Game.Commands
 
                                     if (toItem.Metadata.TibiaId == ToItemId)
                                     {
-                                        if ( IsUseable(Context, fromItem) )
+                                        if ( IsUseable(fromItem) )
                                         {
                                             return Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) );
                                         }
@@ -66,7 +66,7 @@ namespace OpenTibia.Game.Commands
 
                                     if (ToItemId == 99)
                                     {
-                                        if ( IsUseable(Context, fromItem) )
+                                        if ( IsUseable(fromItem) )
                                         {
                                             return Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) );
                                         }

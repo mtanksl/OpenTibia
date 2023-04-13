@@ -1,45 +1,27 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace OpenTibia.Game.Commands
 {
     public abstract class Command
     {
-        public static Promise WhenAll(params Command[] commands)
+        public static Promise Sequence(params Command[] commands)
         {
-            if (commands == null || commands.Length == 0)
+            int i = -1;
+
+            [DebuggerStepThrough] Promise Next()
             {
+                i++;
+
+                if (i < commands.Length)
+                {
+                    return Context.Current.AddCommand(commands[i] ).Then(Next);
+                }
+
                 return Promise.Completed;
             }
 
-            Context context = Context.Current;
-
-            List<Promise> promises = new List<Promise>();
-
-            foreach (Command command in commands) 
-            { 
-                promises.Add(context.AddCommand(command) );
-            }
-
-            return Promise.WhenAll(promises.ToArray() );
-        }
-
-        public static Promise WhenAny(params Command[] commands)
-        {
-            if (commands == null || commands.Length == 0)
-            {
-                return Promise.Completed;
-            }
-
-            Context context = Context.Current;
-
-            List<Promise> promises = new List<Promise>();
-
-            foreach (Command command in commands) 
-            { 
-                promises.Add(context.AddCommand(command) );
-            }
-
-            return Promise.WhenAny(promises.ToArray() );
+            return Next();
         }
 
         public Context Context

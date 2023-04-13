@@ -41,7 +41,7 @@ namespace OpenTibia.Game.Components
                 {
                     if (creature.Tile.Position.CanSee(observer.Tile.Position))
                     {
-                        var toTile = walkStrategy.GetNext(spawn, creature, observer);
+                        var toTile = walkStrategy.GetNext(Context.Server, spawn, creature, observer);
 
                         if (toTile != null)
                         {
@@ -49,7 +49,7 @@ namespace OpenTibia.Game.Components
 
                             return Context.AddCommand(new CreatureUpdateParentCommand(creature, toTile) ).Then( () =>
                             {
-                                return Promise.Delay(Context.Server, key, 1000 * toTile.Ground.Metadata.Speed / creature.Speed);
+                                return Promise.Delay(key, 1000 * toTile.Ground.Metadata.Speed / creature.Speed);
 
                             } ).Then( () =>
                             {

@@ -6,18 +6,18 @@ namespace OpenTibia.Game.Commands
 {
     public class CreatureUpdateHealthCommand : Command
     {
-        public CreatureUpdateHealthCommand(Creature creature, ushort health) : this(creature, health, creature.MaxHealth)
+        public CreatureUpdateHealthCommand(Creature creature, int health) : this(creature, health, creature.MaxHealth)
         {
             
         }
 
-        public CreatureUpdateHealthCommand(Creature creature, ushort health, ushort maxHealth)
+        public CreatureUpdateHealthCommand(Creature creature, int health, int maxHealth)
         {
             Creature = creature;
 
-            Health = Math.Max( (ushort)0, Math.Min(creature.MaxHealth, health) );
+            Health = (ushort)Math.Max(0, Math.Min(creature.MaxHealth, health) );
 
-            MaxHealth = Math.Max( (ushort)0, Math.Min(creature.MaxHealth, maxHealth) );
+            MaxHealth = (ushort)Math.Max(0, Math.Min(creature.MaxHealth, maxHealth) );
         }
 
         public Creature Creature { get; set; }

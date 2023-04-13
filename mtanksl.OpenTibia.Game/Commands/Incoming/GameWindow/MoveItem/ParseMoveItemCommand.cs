@@ -13,11 +13,11 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        protected bool IsMoveable(Context context, Item fromItem, byte count)
+        protected bool IsMoveable(Item fromItem, byte count)
         {
             if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
             {
-                context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
+                Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
 
                 return false;
             }
@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        protected bool IsMoveable(Context context, Creature fromCreature)
+        protected bool IsMoveable(Creature fromCreature)
         {
             return true;
         }

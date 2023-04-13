@@ -6,11 +6,11 @@ namespace OpenTibia.Game.Commands
 {
     public class PlayerUpdateStaminaCommand : Command
     {
-        public PlayerUpdateStaminaCommand(Player player, ushort stamina)
+        public PlayerUpdateStaminaCommand(Player player, int stamina)
         {
             Player = player;
 
-            Stamina = Math.Max( (ushort)0, Math.Min( (ushort)2520, stamina) );
+            Stamina = (ushort)Math.Max(0, Math.Min(2520, stamina) );
         }
 
         public Player Player { get; set; }

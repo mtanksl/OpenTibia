@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 
 namespace OpenTibia.Threading
 {
@@ -79,12 +78,7 @@ namespace OpenTibia.Threading
             syncStop.Set();
         }
 
-        public SchedulerEvent QueueForExecution(int executeInMilliseconds, Action execute)
-        {
-            return QueueForExecution( new SchedulerEvent(executeInMilliseconds, execute) );
-        }
-
-        public SchedulerEvent QueueForExecution(SchedulerEvent schedulerEvent)
+        public void QueueForExecution(SchedulerEvent schedulerEvent)
         {
             lock (sync)
             {
@@ -95,8 +89,6 @@ namespace OpenTibia.Threading
                     Monitor.Pulse(sync);
                 }
             }
-
-            return schedulerEvent;
         }
 
         public void Stop(bool wait = true)

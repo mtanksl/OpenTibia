@@ -21,7 +21,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     if (value == sounds.Count - 1)
                     {
-                        return Context.AddCommand(CombatCommand.TargetAttack(null, command.Player, null, MagicEffectType.ExplosionDamage, (attacker, target) => -1) );
+                        return Context.AddCommand(new CombatAttackCreatureWithEnvironmentCommand(command.Player, MagicEffectType.ExplosionDamage, -1) );
                     }
 
                     return Promise.Completed;
