@@ -3,7 +3,7 @@ using System;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public abstract class CommandHandlerResult<TResult> : ICommandHandlerResult<TResult>
+    public abstract class CommandResultHandler<TResult> : ICommandResultHandler<TResult>
     {
         public Context Context
         {

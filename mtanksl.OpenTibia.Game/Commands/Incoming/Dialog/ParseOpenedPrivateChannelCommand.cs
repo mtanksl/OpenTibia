@@ -19,19 +19,18 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Run( (resolve, reject) =>
-            {
-                Player observer = Context.Server.GameObjects.GetPlayers()
-                    .Where(p => p.Name == Name)
-                    .FirstOrDefault();
+            Player observer = Context.Server.GameObjects.GetPlayers()
+                .Where(p => p.Name == Name)
+                .FirstOrDefault();
             
-                if (observer != null && observer != Player)
-                {
-                    Context.AddPacket(Player.Client.Connection, new OpenPrivateChannelOutgoingPacket(Name) );
+            if (observer != null && observer != Player)
+            {
+                Context.AddPacket(Player.Client.Connection, new OpenPrivateChannelOutgoingPacket(Name) );
 
-                    resolve();
-                }
-            } );
+                return Promise.Completed;
+            }
+
+            return Promise.Break;
         }
     }
 }

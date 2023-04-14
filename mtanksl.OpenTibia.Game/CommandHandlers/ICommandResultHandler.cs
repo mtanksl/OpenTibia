@@ -3,7 +3,7 @@ using System;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public interface ICommandHandlerResult<TResult>
+    public interface ICommandResultHandler<TResult>
     {
         PromiseResult<TResult> Handle(Func<PromiseResult<TResult>> next, CommandResult<TResult> command);
     }

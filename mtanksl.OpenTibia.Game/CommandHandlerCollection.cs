@@ -32,7 +32,7 @@ namespace OpenTibia.Game
 
         public void Add<T, TResult>(Func<Context, Func<PromiseResult<TResult>>, T, PromiseResult<TResult> > handle) where T : CommandResult<TResult>
         {
-            Add(new InlineCommandHandlerResult<T, TResult>(handle) );
+            Add(new InlineCommandResultHandler<T, TResult>(handle) );
         }
 
         public void Add<T, TResult>(CommandHandlerResult<T, TResult> commandHandler) where T : CommandResult<TResult>
@@ -91,16 +91,16 @@ namespace OpenTibia.Game
             return Enumerable.Empty<ICommandHandler>();
         }
 
-        public IEnumerable< ICommandHandlerResult<TResult> > Get<TResult>(CommandResult<TResult> command)
+        public IEnumerable< ICommandResultHandler<TResult> > Get<TResult>(CommandResult<TResult> command)
         {
             var type = typeof( CommandHandlerResult<,> ).MakeGenericType(command.GetType(), typeof(TResult) );
 
             if ( types.TryGetValue(type, out var commandHandlers) )
             {
-                return commandHandlers.Cast< ICommandHandlerResult<TResult> >();
+                return commandHandlers.Cast< ICommandResultHandler<TResult> >();
             }
 
-            return Enumerable.Empty< ICommandHandlerResult<TResult> >();
+            return Enumerable.Empty< ICommandResultHandler<TResult> >();
         }
     }
 }
