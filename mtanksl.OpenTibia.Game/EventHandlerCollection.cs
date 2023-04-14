@@ -8,7 +8,6 @@ using System.Linq;
 
 namespace OpenTibia.Game
 {
-    [DebuggerStepThrough]
     public class EventHandlerCollection
     {
         private Dictionary<Type, Dictionary<Guid, IEventHandler> > types = new Dictionary<Type, Dictionary<Guid, IEventHandler> >();
@@ -51,7 +50,9 @@ namespace OpenTibia.Game
 
         public IEnumerable<IEventHandler> Get(GameEventArgs e)
         {
-            if ( types.TryGetValue(e.GetType(), out var eventHandlers) )
+            Dictionary<Guid, IEventHandler> eventHandlers;
+
+            if ( types.TryGetValue(e.GetType(), out eventHandlers) )
             {
                 return eventHandlers.Values;
             }

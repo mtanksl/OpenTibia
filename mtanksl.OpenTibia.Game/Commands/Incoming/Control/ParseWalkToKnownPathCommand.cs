@@ -16,19 +16,12 @@ namespace OpenTibia.Game.Commands
 
         public MoveDirection[] MoveDirections { get; set; }
 
-        private int index;
-
-        public override Promise Execute()
+        public override async Promise Execute()
         {
-            if (index < MoveDirections.Length)
+            foreach (var moveDirection in MoveDirections)
             {
-                return Context.AddCommand(new ParseWalkCommand(Player, MoveDirections[index++] ) ).Then( () =>
-                {
-                    return Execute();
-                } ); 
+                await Context.AddCommand(new ParseWalkCommand(Player, moveDirection) );
             }
-
-            return Promise.Completed;
         }
     }
 }

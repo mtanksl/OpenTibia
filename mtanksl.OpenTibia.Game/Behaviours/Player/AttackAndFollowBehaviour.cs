@@ -91,7 +91,7 @@ namespace OpenTibia.Game.Components
 
         private DateTime moveCooldown;
 
-        public override Promise Update()
+        public override async Promise Update()
         {
             if (target != null)
             {
@@ -115,19 +115,17 @@ namespace OpenTibia.Game.Components
                     }
                     else
                     {
-                        List<Command> commands = new List<Command>();
-
                         if (state == State.Follow || state == State.AttackAndFollow)
                         {
                             if (DateTime.UtcNow > moveCooldown)
                             {
-                                var toTile = walkStrategy.GetNext(Context.Server, null, player, target);
+                                Tile toTile = walkStrategy.GetNext(Context.Server, null, player, target);
 
                                 if (toTile != null)
                                 {
-                                    commands.Add(new CreatureUpdateParentCommand(player, toTile) );
-
                                     moveCooldown = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / player.Speed);
+
+                                    await Context.AddCommand(new CreatureUpdateParentCommand(player, toTile) );
                                 }
                             }
                         }
@@ -136,23 +134,19 @@ namespace OpenTibia.Game.Components
                         {
                             if (DateTime.UtcNow > attackCooldown)
                             {
-                                var command = attackStrategy.GetNext(Context.Server, player, target);
+                                Command command = attackStrategy.GetNext(Context.Server, player, target);
 
                                 if (command != null)
                                 {
-                                    commands.Add(command);
-
                                     attackCooldown = DateTime.UtcNow.AddMilliseconds(attackStrategy.CooldownInMilliseconds);
+
+                                    await Context.AddCommand(command);
                                 } 
                             }
                         }
-
-                        return Command.Sequence(commands.ToArray() );
                     }
                 }
             }
-
-            return Promise.Completed;
         }
 
         public override void Stop(Server server)

@@ -9,7 +9,6 @@ using System.Diagnostics;
 
 namespace OpenTibia.Game
 {
-    [DebuggerStepThrough]
     public class Context : IDisposable
     {
         public static Context Current

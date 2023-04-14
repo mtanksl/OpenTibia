@@ -161,7 +161,7 @@ namespace OpenTibia.Game
 
         public Handle QueueForExecution(Func<Promise> run)
         {
-            var handle = new Handle();
+            Handle handle = new Handle();
 
             var dispatcherEvent = new DispatcherEvent( () =>
             {
@@ -193,7 +193,7 @@ namespace OpenTibia.Game
                 }
             } );
 
-            dispatcherEvent.StateChange += (sender, e) =>
+            dispatcherEvent.StateChanged += (sender, e) =>
             {
                 switch (e.State)
                 {
@@ -218,7 +218,7 @@ namespace OpenTibia.Game
 
         public Handle QueueForExecution(string key, int executeInMilliseconds, Func<Promise> run)
         {
-            var handle = new Handle();
+            Handle handle = new Handle();
 
             CancelQueueForExecution(key);
 
@@ -252,7 +252,7 @@ namespace OpenTibia.Game
                 }
             } );
 
-            schedulerEvent.StateChange += (sender, e) =>
+            schedulerEvent.StateChanged += (sender, e) =>
             {
                 switch (e.State)
                 {
@@ -305,14 +305,14 @@ namespace OpenTibia.Game
             {
                 Context context = Context.Current;
 
-                List<Command> commands = new List<Command>();
+                List<Promise> promises = new List<Promise>();
 
-                foreach (var player in context.Server.GameObjects.GetPlayers() )
+                foreach (var player in context.Server.GameObjects.GetPlayers().ToList() )
                 {
-                    commands.Add(new PlayerDestroyCommand(player) );
+                    promises.Add(context.AddCommand(new PlayerDestroyCommand(player) ) );
                 }
 
-                return Command.Sequence(commands.ToArray() );
+                return Promise.WhenAll(promises.ToArray() );
 
             } ).Wait();
         }

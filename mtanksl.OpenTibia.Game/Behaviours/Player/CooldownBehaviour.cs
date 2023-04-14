@@ -17,7 +17,9 @@ namespace OpenTibia.Game.Components
 
         public bool HasCooldown(string name)
         {
-            if ( cooldowns.TryGetValue(name, out var cooldown) )
+            DateTime cooldown;
+
+            if ( cooldowns.TryGetValue(name, out cooldown) )
             {
                return DateTime.UtcNow < cooldown;
             }

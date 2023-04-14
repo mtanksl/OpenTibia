@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Components
 
         private bool running = false;
 
-        public override Promise Update()
+        public override async Promise Update()
         {
             if (!running)
             {
@@ -36,21 +36,18 @@ namespace OpenTibia.Game.Components
                     {
                         running = true;
 
-                        return Context.AddCommand(new ShowTextCommand(creature, TalkType.MonsterSay, Context.Server.Randomization.Take(sentences) ) ).Then( () =>
-                        {
-                            return Promise.Delay(key, 30000);
+                        await Context.AddCommand(new ShowTextCommand(creature, TalkType.MonsterSay, Context.Server.Randomization.Take(sentences) ) );
+                        
+                        await Promise.Delay(key, 30000);
 
-                        } ).Then( () =>
-                        {
-                            running = false;
+                        running = false;
 
-                            return Update();
-                        } );
+                        await Update();
+
+                        break;
                     }
                 }
             }
-
-            return Promise.Completed;
         }
 
         public override void Stop(Server server)

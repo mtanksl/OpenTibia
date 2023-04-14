@@ -142,7 +142,7 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             if (pair.Value == container)
                             {
-                                var items = new List<Item>();
+                                List<Item> items = new List<Item>();
 
                                 foreach (var item in container.GetItems() )
                                 {

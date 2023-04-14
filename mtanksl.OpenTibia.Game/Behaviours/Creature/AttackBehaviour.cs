@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Components
 
         private bool running = false;
 
-        public override Promise Update()
+        public override async Promise Update()
         {
             if (!running)
             {
@@ -34,30 +34,25 @@ namespace OpenTibia.Game.Components
                 {
                     if (creature.Tile.Position.CanHearSay(observer.Tile.Position) )
                     {
-                        var command = attackStrategy.GetNext(Context.Server, creature, observer);
+                        Command command = attackStrategy.GetNext(Context.Server, creature, observer);
 
                         if (command != null)
                         {
                             running = true;
 
-                            return Context.AddCommand(command).Then( () =>
-                            {
-                                return Promise.Delay(key, attackStrategy.CooldownInMilliseconds);
+                            await Context.AddCommand(command);
+                            
+                            await Promise.Delay(key, attackStrategy.CooldownInMilliseconds);
+                            
+                            running = false;
 
-                            } ).Then( () =>
-                            {
-                                running = false;
-
-                                return Update();
-                            } );
+                            await Update();
                         }
 
                         break;
                     }
                 }
             }
-
-            return Promise.Completed;
         }
 
         public override void Stop(Server server)

@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Scripts
             {
                 await Context.Current.AddCommand(new GlobalCreaturesCommand() );
 
-                await Promise.Delay("Global_Creatures", 10000);
+                await Promise.Delay("Global_Creatures", 100);
             }
         }
 

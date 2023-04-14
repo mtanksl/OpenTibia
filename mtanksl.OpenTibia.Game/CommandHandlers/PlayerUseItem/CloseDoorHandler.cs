@@ -2,6 +2,7 @@
 using OpenTibia.Game.Commands;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenTibia.Game.CommandHandlers
 {
@@ -73,14 +74,14 @@ namespace OpenTibia.Game.CommandHandlers
 
                     Tile south = Context.Server.Map.GetTile(door.Position.Offset(0, 1, 0) );
 
-                    List<Command> commands = new List<Command>();
+                    List<Promise> promises = new List<Promise>();
 
-                    foreach (var creature in door.GetCreatures() )
+                    foreach (var creature in door.GetCreatures().ToList() )
                     {
-                        commands.Add(new CreatureUpdateParentCommand(creature, south) );
+                        promises.Add(Context.AddCommand(new CreatureUpdateParentCommand(creature, south) ) );
                     }
 
-                    return Command.Sequence(commands.ToArray() );
+                    return Promise.WhenAll(promises.ToArray() );
                 } );
             }
             else if (verticalDoors.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
@@ -91,14 +92,14 @@ namespace OpenTibia.Game.CommandHandlers
 
                     Tile east = Context.Server.Map.GetTile(door.Position.Offset(1, 0, 0) );
 
-                    List<Command> commands = new List<Command>();
+                    List<Promise> promises = new List<Promise>();
 
-                    foreach (var creature in door.GetCreatures() )
+                    foreach (var creature in door.GetCreatures().ToList() )
                     {
-                        commands.Add(new CreatureUpdateParentCommand(creature, east) );
+                        promises.Add(Context.AddCommand(new CreatureUpdateParentCommand(creature, east) ) );
                     }
 
-                    return Command.Sequence(commands.ToArray() );
+                    return Promise.WhenAll(promises.ToArray());
                 } );
             }
 

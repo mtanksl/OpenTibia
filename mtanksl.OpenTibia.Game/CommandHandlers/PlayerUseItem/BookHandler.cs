@@ -14,7 +14,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (books.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                var readableItem = (ReadableItem)command.Item;
+                ReadableItem readableItem = (ReadableItem)command.Item;
 
                 Context.AddPacket(command.Player.Client.Connection, new OpenTextDialogOutgoingPacket(0, command.Item.Metadata.TibiaId, 255, readableItem.Text, readableItem.Author, readableItem.Date) );
 

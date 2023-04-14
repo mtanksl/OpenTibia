@@ -41,7 +41,9 @@ namespace OpenTibia.Common.Objects
 
             if ( players.TryGetValue(databasePlayerId, out towns) )
             {
-                if ( towns.TryGetValue(townId, out var locker) )
+                Container locker;
+
+                if ( towns.TryGetValue(townId, out locker) )
                 {
                     return locker;
                 }

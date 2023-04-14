@@ -2,9 +2,9 @@
 
 namespace OpenTibia.Threading
 {
-    public class DispatcherStateChangeEventArgs : EventArgs
+    public class DispatcherStateChangedEventArgs : EventArgs
     {
-        public DispatcherStateChangeEventArgs(DispatcherExecutionState state)
+        public DispatcherStateChangedEventArgs(DispatcherExecutionState state)
         {
             this.state = state;
         }

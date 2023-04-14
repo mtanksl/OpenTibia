@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Components
 
         private bool running = false;
 
-        public override Promise Update()
+        public override async Promise Update()
         {
             if (!running)
             {
@@ -37,34 +37,29 @@ namespace OpenTibia.Game.Components
                     spawn = creature.Tile;
                 }
 
-                foreach (var observer in Context.Server.GameObjects.GetPlayers())
+                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                 {
-                    if (creature.Tile.Position.CanSee(observer.Tile.Position))
+                    if (creature.Tile.Position.CanSee(observer.Tile.Position) )
                     {
-                        var toTile = walkStrategy.GetNext(Context.Server, spawn, creature, observer);
+                        Tile toTile = walkStrategy.GetNext(Context.Server, spawn, creature, observer);
 
                         if (toTile != null)
                         {
                             running = true;
 
-                            return Context.AddCommand(new CreatureUpdateParentCommand(creature, toTile) ).Then( () =>
-                            {
-                                return Promise.Delay(key, 1000 * toTile.Ground.Metadata.Speed / creature.Speed);
+                            await Context.AddCommand(new CreatureUpdateParentCommand(creature, toTile) );
 
-                            } ).Then( () =>
-                            {
-                                running = false;
+                            await Promise.Delay(key, 1000 * toTile.Ground.Metadata.Speed / creature.Speed);
 
-                                return Update();
-                            } );
+                            running = false;
+
+                            await Update();
                         }
 
                         break;
                     }
                 }
-            }
-
-            return Promise.Completed;
+            }            
         }
 
         public override void Stop(Server server)

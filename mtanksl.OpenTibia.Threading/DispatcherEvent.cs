@@ -29,13 +29,13 @@ namespace OpenTibia.Threading
             {
                 state = DispatcherExecutionState.Executing;
 
-                OnStateChange(state);
+                OnStateChanged(state);
 
                 execute();
                 
                 state = DispatcherExecutionState.Executed;
 
-                OnStateChange(state);
+                OnStateChanged(state);
             }
         }
         
@@ -45,7 +45,7 @@ namespace OpenTibia.Threading
             {
                 state = DispatcherExecutionState.Canceled;
 
-                OnStateChange(state);
+                OnStateChanged(state);
 
                 return true;
             }
@@ -53,13 +53,13 @@ namespace OpenTibia.Threading
             return false;
         }
 
-        public event EventHandler<DispatcherStateChangeEventArgs> StateChange;
+        public event EventHandler<DispatcherStateChangedEventArgs> StateChanged;
 
-        protected virtual void OnStateChange(DispatcherExecutionState state)
+        protected virtual void OnStateChanged(DispatcherExecutionState state)
         {
-            if (StateChange != null)
+            if (StateChanged != null)
             {
-                StateChange(this, new DispatcherStateChangeEventArgs(state) );
+                StateChanged(this, new DispatcherStateChangedEventArgs(state) );
             }
         }
     }

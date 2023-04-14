@@ -7,7 +7,6 @@ using System.Linq;
 
 namespace OpenTibia.Game
 {
-    [DebuggerStepThrough]
     public class CommandHandlerCollection
     {
         private Dictionary<Type, List<object> > types = new Dictionary<Type, List<object> >();

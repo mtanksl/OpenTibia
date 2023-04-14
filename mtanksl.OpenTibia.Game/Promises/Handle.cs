@@ -3,7 +3,7 @@ using System;
 
 namespace mtanksl.OpenTibia.Game.Promises
 {
-    public class Handle
+    public struct Handle
     {
         private Promise promise;
 
@@ -12,14 +12,14 @@ namespace mtanksl.OpenTibia.Game.Promises
             promise = new Promise();
         }
 
-        public void TrySetResult()
+        public bool TrySetResult()
         {
-            promise.TrySetResult();
+            return promise.TrySetResult();
         }
 
-        public void TrySetException(Exception ex)
+        public bool TrySetException(Exception ex)
         {
-            promise.TrySetException(ex);
+            return promise.TrySetException(ex);
         }
 
         public void Wait()

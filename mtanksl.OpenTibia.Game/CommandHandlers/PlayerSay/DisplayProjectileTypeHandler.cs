@@ -25,14 +25,14 @@ namespace OpenTibia.Game.CommandHandlers
                     new Offset(-2, 2),  new Offset(-1, 2),  new Offset(0, 2),  new Offset(1, 2),  new Offset(2, 2)
                 };
 
-                List<Command> commands = new List<Command>();
+                List<Promise> promises = new List<Promise>();
 
                 foreach (var offset in area)
                 {
-                    commands.Add(new ShowProjectileCommand(fromTile.Position, fromTile.Position.Offset(offset), (ProjectileType)id) );
+                    promises.Add(Context.AddCommand(new ShowProjectileCommand(fromTile.Position, fromTile.Position.Offset(offset), (ProjectileType)id) ) );
                 }
 
-                return Command.Sequence(commands.ToArray() );
+                return Promise.WhenAll(promises.ToArray() );
             }
 
             return next();
