@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<monster name="Valkyrie" nameDescription="a valkyrie" speed="176">
+  <health now="190" max="190" />
+  <look typeex="0" type="139" head="113" body="57" legs="95" feer="113" corpse="6081" />
+  <voices>
+    <voice sentence="Another head for me!" />
+    <voice sentence="Head off!" />
+    <voice sentence="Your head will be mine!" />
+    <voice sentence="Stand still!" />
+    <voice sentence="One more head for me!" />
+  </voices>
+</monster>

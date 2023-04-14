@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<monster name="Spectre" nameDescription="a spectre" speed="250">
+  <health now="1350" max="1350" />
+  <look typeex="0" type="235" head="20" body="0" legs="0" feer="0" corpse="6348" />
+  <voices>
+    <voice sentence="Revenge ... is so ... sweet!" />
+    <voice sentence="Life...force! Feed me your... lifeforce!" />
+  </voices>
+</monster>

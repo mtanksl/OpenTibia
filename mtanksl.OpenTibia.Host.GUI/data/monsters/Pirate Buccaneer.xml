@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<monster name="Pirate Buccaneer" nameDescription="a pirate buccaneer" speed="230">
+  <health now="425" max="425" />
+  <look typeex="0" type="97" head="0" body="0" legs="0" feer="0" corpse="6080" />
+  <voices>
+    <voice sentence="Give up!" />
+    <voice sentence="Hiyaa" />
+    <voice sentence="Plundeeeeer!" />
+  </voices>
+</monster>

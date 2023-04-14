@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<monster name="Wild Warrior" nameDescription="a wild warrior" speed="215">
+  <health now="120" max="120" />
+  <look typeex="0" type="131" head="57" body="57" legs="57" feer="57" corpse="6080" />
+  <voices>
+    <voice sentence="An enemy!" />
+    <voice sentence="Gimme your money!" />
+  </voices>
+</monster>

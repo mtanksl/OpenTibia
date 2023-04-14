@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<monster name="Cyclops Drone" nameDescription="a cyclops drone" speed="220">
+  <health now="325" max="325" />
+  <look typeex="0" type="280" head="0" body="0" legs="0" feer="0" corpse="7847" />
+  <voices>
+    <voice sentence="Fee! Fie! Foe! Fum!" />
+    <voice sentence="Luttl pest!" />
+    <voice sentence="Me makking you pulp!" />
+    <voice sentence="Humy tasy! Hum hum!" />
+  </voices>
+</monster>

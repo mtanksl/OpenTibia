@@ -235,11 +235,11 @@ namespace OpenTibia.Game.Commands
                             Context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.Value) );
                         }
 
-                        Tile tile = Context.Server.Map.GetTile(position);
+                        Tile toTile = Context.Server.Map.GetTile(position);
 
-                        if (tile != null)
+                        if (toTile != null)
                         {
-                            foreach (var target in tile.GetMonsters().Concat<Creature>(tile.GetPlayers() ).ToList() )
+                            foreach (var target in toTile.GetMonsters().Concat<Creature>(toTile.GetPlayers() ).ToList() )
                             {
                                 if (SpecialCondition != null)
                                 {
@@ -258,13 +258,13 @@ namespace OpenTibia.Game.Commands
 
                             if (OpenTibiaId != null && Count != null)
                             {
-                                if (tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                                if (toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
                                 {
 
                                 }
                                 else
                                 {
-                                    Context.AddCommand(new TileCreateItemCommand(tile, OpenTibiaId.Value, Count.Value) ).Then( (item) =>
+                                    Context.AddCommand(new TileCreateItemCommand(toTile, OpenTibiaId.Value, Count.Value) ).Then( (item) =>
                                     {
                                         return Context.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
                                     } );
@@ -304,11 +304,11 @@ namespace OpenTibia.Game.Commands
                             Context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.Value) );
                         }
 
-                        Tile tile = Context.Server.Map.GetTile(position);
+                        Tile toTile = Context.Server.Map.GetTile(position);
 
-                        if (tile != null)
+                        if (toTile != null)
                         {
-                            foreach (var target in tile.GetMonsters().Concat<Creature>(tile.GetPlayers() ).ToList() )
+                            foreach (var target in toTile.GetMonsters().Concat<Creature>(toTile.GetPlayers() ).ToList() )
                             {
                                 if (SpecialCondition != null)
                                 {
@@ -327,13 +327,13 @@ namespace OpenTibia.Game.Commands
 
                             if (OpenTibiaId != null && Count != null)
                             {
-                                if (tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                                if (toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
                                 {
 
                                 }
                                 else
                                 {
-                                    Context.AddCommand(new TileCreateItemCommand(tile, OpenTibiaId.Value, Count.Value) ).Then( (item) =>
+                                    Context.AddCommand(new TileCreateItemCommand(toTile, OpenTibiaId.Value, Count.Value) ).Then( (item) =>
                                     {
                                         return Context.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
                                     } );

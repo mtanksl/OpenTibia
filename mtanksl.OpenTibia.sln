@@ -15,17 +15,19 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtanksl.OpenTibia.Network",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtanksl.OpenTibia.FileFormats", "mtanksl.OpenTibia.FileFormats\mtanksl.OpenTibia.FileFormats.csproj", "{9CEA17EC-40C6-4585-84F7-C820F66EE051}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Proxy", "mtanksl.OpenTibia.Proxy\mtanksl.OpenTibia.Proxy.csproj", "{AC591C7E-334A-4A12-9294-62756664CC0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtanksl.OpenTibia.Proxy", "mtanksl.OpenTibia.Proxy\mtanksl.OpenTibia.Proxy.csproj", "{AC591C7E-334A-4A12-9294-62756664CC0B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{65061B4D-2938-4A13-923B-947994FA57DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.MonsterImport", "mtanksl.OpenTibia.MonsterImport\mtanksl.OpenTibia.MonsterImport.csproj", "{44B43320-3C6C-4BD6-9589-CE216323433F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtanksl.OpenTibia.MonsterImport", "mtanksl.OpenTibia.MonsterImport\mtanksl.OpenTibia.MonsterImport.csproj", "{44B43320-3C6C-4BD6-9589-CE216323433F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Data", "mtanksl.OpenTibia.Data\mtanksl.OpenTibia.Data.csproj", "{03A7098F-845D-4905-A758-DA713D3D4F67}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtanksl.OpenTibia.Data", "mtanksl.OpenTibia.Data\mtanksl.OpenTibia.Data.csproj", "{03A7098F-845D-4905-A758-DA713D3D4F67}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Game", "mtanksl.OpenTibia.Game\mtanksl.OpenTibia.Game.csproj", "{F2039E58-6507-4227-965E-8E4104585594}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtanksl.OpenTibia.Game", "mtanksl.OpenTibia.Game\mtanksl.OpenTibia.Game.csproj", "{F2039E58-6507-4227-965E-8E4104585594}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Host", "mtanksl.OpenTibia.Host\mtanksl.OpenTibia.Host.csproj", "{4AADC9EF-A3DA-4B52-8D75-344C35988B4A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtanksl.OpenTibia.Host", "mtanksl.OpenTibia.Host\mtanksl.OpenTibia.Host.csproj", "{4AADC9EF-A3DA-4B52-8D75-344C35988B4A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtanksl.OpenTibia.Host.GUI", "mtanksl.OpenTibia.Host.GUI\mtanksl.OpenTibia.Host.GUI.csproj", "{49AB4E09-DC7D-4818-A36B-D7486AB35B71}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -169,6 +171,18 @@ Global
 		{4AADC9EF-A3DA-4B52-8D75-344C35988B4A}.Release|x64.Build.0 = Release|Any CPU
 		{4AADC9EF-A3DA-4B52-8D75-344C35988B4A}.Release|x86.ActiveCfg = Release|Any CPU
 		{4AADC9EF-A3DA-4B52-8D75-344C35988B4A}.Release|x86.Build.0 = Release|Any CPU
+		{49AB4E09-DC7D-4818-A36B-D7486AB35B71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49AB4E09-DC7D-4818-A36B-D7486AB35B71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49AB4E09-DC7D-4818-A36B-D7486AB35B71}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{49AB4E09-DC7D-4818-A36B-D7486AB35B71}.Debug|x64.Build.0 = Debug|Any CPU
+		{49AB4E09-DC7D-4818-A36B-D7486AB35B71}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{49AB4E09-DC7D-4818-A36B-D7486AB35B71}.Debug|x86.Build.0 = Debug|Any CPU
+		{49AB4E09-DC7D-4818-A36B-D7486AB35B71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49AB4E09-DC7D-4818-A36B-D7486AB35B71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49AB4E09-DC7D-4818-A36B-D7486AB35B71}.Release|x64.ActiveCfg = Release|Any CPU
+		{49AB4E09-DC7D-4818-A36B-D7486AB35B71}.Release|x64.Build.0 = Release|Any CPU
+		{49AB4E09-DC7D-4818-A36B-D7486AB35B71}.Release|x86.ActiveCfg = Release|Any CPU
+		{49AB4E09-DC7D-4818-A36B-D7486AB35B71}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<monster name="Haunted Treeling" nameDescription="a haunted treeling" speed="260">
+  <health now="450" max="450" />
+  <look typeex="0" type="310" head="0" body="0" legs="0" feer="0" corpse="9867" />
+</monster>

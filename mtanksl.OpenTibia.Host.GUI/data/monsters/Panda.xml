@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<monster name="Panda" nameDescription="a panda" speed="240">
+  <health now="80" max="80" />
+  <look typeex="0" type="123" head="0" body="0" legs="0" feer="0" corpse="6049" />
+  <voices>
+    <voice sentence="Grrrr" />
+    <voice sentence="Groar" />
+  </voices>
+</monster>

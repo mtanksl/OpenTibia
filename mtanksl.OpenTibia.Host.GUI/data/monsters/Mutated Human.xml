@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<monster name="Mutated Human" nameDescription="a mutated human" speed="245">
+  <health now="240" max="240" />
+  <look typeex="0" type="323" head="0" body="0" legs="0" feer="0" corpse="9107" />
+  <voices>
+    <voice sentence="Take that creature off my back!! I can fell it!" />
+    <voice sentence="HEEEEEEEELP!" />
+    <voice sentence="You will be the next infected one... GRAAAAAAAAARRR!" />
+    <voice sentence="Science... is a curse." />
+    <voice sentence="Run as fast as you can." />
+    <voice sentence="Oh by the gods! What is this... aaaaaargh!" />
+  </voices>
+</monster>

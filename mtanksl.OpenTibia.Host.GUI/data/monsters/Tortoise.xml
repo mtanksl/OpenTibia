@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<monster name="Tortoise" nameDescription="a tortoise" speed="200">
+  <health now="150" max="150" />
+  <look typeex="0" type="197" head="0" body="0" legs="0" feer="0" corpse="6072" />
+</monster>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<monster name="Goblin" nameDescription="a goblin" speed="200">
+  <health now="50" max="50" />
+  <look typeex="0" type="61" head="0" body="0" legs="0" feer="0" corpse="6002" />
+  <voices>
+    <voice sentence="Me have him!" />
+    <voice sentence="Zig Zag! Gobo attack!" />
+    <voice sentence="Help! Goblinkiller!" />
+    <voice sentence="Bugga! Bugga!" />
+    <voice sentence="Me green, me mean!" />
+  </voices>
+</monster>

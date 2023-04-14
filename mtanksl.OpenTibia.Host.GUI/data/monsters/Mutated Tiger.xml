@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<monster name="Mutated Tiger" nameDescription="a mutated tiger" speed="245">
+  <health now="1100" max="1100" />
+  <look typeex="0" type="318" head="0" body="0" legs="0" feer="0" corpse="9913" />
+  <voices>
+    <voice sentence="GRAAARRRRRR" />
+    <voice sentence="CHHHHHHHHHHH" />
+  </voices>
+</monster>

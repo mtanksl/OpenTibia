@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<monster name="Fernfang" nameDescription="Fernfang" speed="240">
+  <health now="400" max="400" />
+  <look typeex="0" type="206" head="0" body="0" legs="0" feer="0" corpse="6080" />
+  <voices>
+    <voice sentence="You desecrated this place!" />
+    <voice sentence="I will cleanse this isle!" />
+    <voice sentence="Grrrrrrr" />
+    <voice sentence="Yoooohhuuuu!" />
+  </voices>
+</monster>

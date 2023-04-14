@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<monster name="Morguthis" nameDescription="a morguthis" speed="320">
+  <health now="4800" max="4800" />
+  <look typeex="0" type="90" head="0" body="0" legs="0" feer="0" corpse="6025" />
+  <voices>
+    <voice sentence="Vengeance!" />
+    <voice sentence="You will make a fine trophy." />
+    <voice sentence="Come and fight me, cowards!" />
+    <voice sentence="I am the supreme warrior!" />
+    <voice sentence="Let me hear the music of battle." />
+    <voice sentence="Anotherone to bite the dust!" />
+  </voices>
+</monster>

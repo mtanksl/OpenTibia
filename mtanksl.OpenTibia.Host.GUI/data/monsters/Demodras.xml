@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<monster name="Demodras" nameDescription="demodras" speed="230">
+  <health now="4500" max="4500" />
+  <look typeex="0" type="204" head="0" body="0" legs="0" feer="0" corpse="5984" />
+  <voices>
+    <voice sentence="I WILL SET THE WORLD IN FIRE!" />
+    <voice sentence="I WILL PROTECT MY BROOD!" />
+  </voices>
+</monster>

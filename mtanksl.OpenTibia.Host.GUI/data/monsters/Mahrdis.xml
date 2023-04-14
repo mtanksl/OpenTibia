@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<monster name="Mahrdis" nameDescription="a mahrdis" speed="340">
+  <health now="3900" max="3900" />
+  <look typeex="0" type="90" head="0" body="0" legs="0" feer="0" corpse="6025" />
+  <voices>
+    <voice sentence="Ashes to ashes!" />
+    <voice sentence="Fire, Fire!" />
+    <voice sentence="The eternal flame demands its due!" />
+    <voice sentence="This is why I'm hot." />
+    <voice sentence="May my flames engulf you!" />
+  </voices>
+</monster>

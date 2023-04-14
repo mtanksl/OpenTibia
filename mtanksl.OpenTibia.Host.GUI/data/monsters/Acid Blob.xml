@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<monster name="Acid Blob" nameDescription="an acid blob" speed="210">
+  <health now="250" max="250" />
+  <look typeex="0" type="314" head="0" body="0" legs="0" feer="0" corpse="9962" />
+  <voices />
+</monster>

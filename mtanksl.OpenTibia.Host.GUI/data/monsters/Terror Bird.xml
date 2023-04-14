@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<monster name="Terror Bird" nameDescription="a terror bird" speed="280">
+  <health now="300" max="300" />
+  <look typeex="0" type="218" head="0" body="0" legs="0" feer="0" corpse="6057" />
+  <voices>
+    <voice sentence="CRAAAHHH!" />
+    <voice sentence="Gruuuh Gruuuh." />
+    <voice sentence="Carrah Carrah!" />
+  </voices>
+</monster>

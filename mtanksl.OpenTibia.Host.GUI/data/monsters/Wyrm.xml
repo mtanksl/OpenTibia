@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<monster name="Wyrm" nameDescription="a wyrm" speed="300">
+  <health now="1825" max="1825" />
+  <look typeex="0" type="291" head="0" body="0" legs="0" feer="0" corpse="8941" />
+  <voices>
+    <voice sentence="GRRR!" />
+    <voice sentence="GROOOOAAAAAAAAR!" />
+  </voices>
+</monster>

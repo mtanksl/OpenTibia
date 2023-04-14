@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<monster name="Nightmare" nameDescription="a nightmare" speed="270">
+  <health now="2700" max="2700" />
+  <look typeex="0" type="245" head="0" body="0" legs="0" feer="0" corpse="6340" />
+  <voices>
+    <voice sentence="Close your eyes... I want to show you something!" />
+    <voice sentence="I will haunt you forever!" />
+    <voice sentence="I will make you scream!" />
+    <voice sentence="Pffffrrrrrrrrrrrr." />
+    <voice sentence="Take a ride with me." />
+    <voice sentence="Weeeheeheeeheee!" />
+  </voices>
+</monster>

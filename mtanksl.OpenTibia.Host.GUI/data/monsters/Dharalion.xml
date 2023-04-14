@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<monster name="Dharalion" nameDescription="dharalion" speed="240">
+  <health now="380" max="380" />
+  <look typeex="0" type="203" head="0" body="0" legs="0" feer="0" corpse="6011" />
+  <voices>
+    <voice sentence="Feel my wrath!" />
+    <voice sentence="Noone will stop my ascension!" />
+    <voice sentence="My powers are divine!" />
+  </voices>
+</monster>

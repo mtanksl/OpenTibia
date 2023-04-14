@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<monster name="Mammoth" nameDescription="a mammoth" speed="220">
+  <health now="190" max="190" />
+  <look typeex="0" type="199" head="0" body="0" legs="0" feer="0" corpse="6074" />
+  <voices>
+    <voice sentence="Troooooot!" />
+    <voice sentence="Hooooot-Toooooot!" />
+    <voice sentence="Tooooot." />
+  </voices>
+</monster>

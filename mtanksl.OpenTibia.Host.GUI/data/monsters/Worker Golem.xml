@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<monster name="Worker Golem" nameDescription="a worker golem" speed="270">
+  <health now="1400" max="1400" />
+  <look typeex="0" type="304" head="0" body="0" legs="0" feer="0" corpse="9801" />
+  <voices>
+    <voice sentence="INTRUDER ALARM!" />
+    <voice sentence="klonk klonk klonk" />
+    <voice sentence="Rrrtttarrrttarrrtta" />
+    <voice sentence="Awaiting orders." />
+    <voice sentence="Secret objective complete." />
+  </voices>
+</monster>

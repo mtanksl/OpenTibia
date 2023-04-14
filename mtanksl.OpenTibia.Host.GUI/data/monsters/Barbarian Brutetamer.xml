@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<monster name="Barbarian Brutetamer" nameDescription="a barbarian brutetamer" speed="270">
+  <health now="145" max="145" />
+  <look typeex="0" type="264" head="78" body="116" legs="95" feer="121" corpse="6081" />
+  <voices>
+    <voice sentence="To me, creatures of the wild!" />
+    <voice sentence="My instincts tell me about your cowardice." />
+  </voices>
+</monster>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<monster name="Orc Berserker" nameDescription="a orc berserker" speed="250">
+  <health now="210" max="210" />
+  <look typeex="0" type="8" head="0" body="0" legs="0" feer="0" corpse="5980" />
+  <voices>
+    <voice sentence="KRAK ORRRRRRK!" />
+  </voices>
+</monster>

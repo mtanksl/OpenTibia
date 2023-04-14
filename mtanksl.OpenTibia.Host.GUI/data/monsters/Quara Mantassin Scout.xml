@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<monster name="Quara Mantassin Scout" nameDescription="a quara mantassin scout" speed="270">
+  <health now="220" max="220" />
+  <look typeex="0" type="72" head="0" body="0" legs="0" feer="0" corpse="6064" />
+  <voices>
+    <voice sentence="Zuerk Pachak!" />
+    <voice sentence="Shrrrr" />
+  </voices>
+</monster>

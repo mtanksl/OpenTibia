@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<monster name="Green Djinn" nameDescription="a green djinn" speed="220">
+  <health now="330" max="330" />
+  <look typeex="0" type="51" head="0" body="0" legs="0" feer="0" corpse="6016" />
+  <voices>
+    <voice sentence="I grant you a deathwish!" />
+    <voice sentence="Muhahahaha!" />
+    <voice sentence="I wish you a merry trip to hell!" />
+    <voice sentence="Good wishes are for fairytales" />
+  </voices>
+</monster>

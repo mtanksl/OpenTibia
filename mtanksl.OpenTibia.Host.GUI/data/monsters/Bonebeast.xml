@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<monster name="Bonebeast" nameDescription="a bonebeast" speed="210">
+  <health now="515" max="515" />
+  <look typeex="0" type="101" head="0" body="0" legs="0" feer="0" corpse="6030" />
+  <voices>
+    <voice sentence="Cccchhhhhhhhh!" />
+    <voice sentence="Knooorrrrr!" />
+  </voices>
+</monster>

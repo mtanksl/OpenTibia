@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<monster name="Quara Mantassin" nameDescription="a quara mantassin" speed="520">
+  <health now="800" max="800" />
+  <look typeex="0" type="72" head="0" body="0" legs="0" feer="0" corpse="6064" />
+  <voices>
+    <voice sentence="Zuerk Pachak!" />
+    <voice sentence="Shrrrr" />
+  </voices>
+</monster>

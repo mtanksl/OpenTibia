@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<monster name="Demon Skeleton" nameDescription="a demon skeleton" speed="230">
+  <health now="400" max="400" />
+  <look typeex="0" type="37" head="0" body="0" legs="0" feer="0" corpse="5963" />
+</monster>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<monster name="Crazed Beggar" nameDescription="a crazed beggar" speed="220">
+  <health now="100" max="100" />
+  <look typeex="0" type="153" head="59" body="38" legs="38" feer="97" corpse="3058" />
+  <voices>
+    <voice sentence="Hehehe!" />
+    <voice sentence="Raahhh!" />
+    <voice sentence="You are one of THEM! Die!" />
+    <voice sentence="Wanna buy roses??" />
+  </voices>
+</monster>

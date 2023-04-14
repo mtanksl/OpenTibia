@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<monster name="Dragon Lord Hatchling" nameDescription="a dragon lord hatchling" speed="200">
+  <health now="750" max="750" />
+  <look typeex="0" type="272" head="0" body="0" legs="0" feer="0" corpse="7622" />
+  <voices>
+    <voice sentence="Fchu?" />
+    <voice sentence="Rooawwrr" />
+  </voices>
+</monster>

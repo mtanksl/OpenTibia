@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<monster name="Cave Rat" nameDescription="a cave rat" speed="150">
+  <health now="30" max="30" />
+  <look typeex="0" type="56" head="0" body="0" legs="0" feer="0" corpse="5964" />
+  <voices>
+    <voice sentence="Meeeeep!" />
+    <voice sentence="Meep!" />
+  </voices>
+</monster>

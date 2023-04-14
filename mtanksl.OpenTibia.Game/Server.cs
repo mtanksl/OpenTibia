@@ -8,27 +8,52 @@ using OpenTibia.FileFormats.Xml.Items;
 using OpenTibia.FileFormats.Xml.Monsters;
 using OpenTibia.FileFormats.Xml.Npcs;
 using OpenTibia.Game.Commands;
-using OpenTibia.Network.Packets.Incoming;
 using OpenTibia.Network.Sockets;
 using OpenTibia.Threading;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 
 namespace OpenTibia.Game
 {
     public class Server : IDisposable
     {
-        private int loginServerPort;
-        
-        private int gameServerPort;
-
         public Server(int loginServerPort, int gameServerPort)
         {
-            this.loginServerPort = loginServerPort;
+            dispatcher = new Dispatcher();
 
-            this.gameServerPort = gameServerPort;
+            scheduler = new Scheduler(dispatcher);
+
+            listeners = new List<Listener>()
+            {
+                new Listener(loginServerPort, socket => new LoginConnection(this, socket) ),
+
+                new Listener(gameServerPort, socket => new GameConnection(this, socket) )
+            };
+
+            PacketsFactory = new PacketsFactory();
+
+            Logger = new Logger(new ConsoleLoggerProvider() );
+
+            Clock = new Clock(12, 0);
+
+            Randomization = new Randomization();
+
+            Channels = new ChannelCollection();
+
+            RuleViolations = new RuleViolationCollection();
+
+            Lockers = new LockerCollection();
+
+            Components = new ComponentCollection(this);
+
+            GameObjects = new GameObjectCollection();
+
+            CommandHandlers = new CommandHandlerCollection();
+
+            EventHandlers = new EventHandlerCollection();
+
+            Scripts = new ScriptsCollection(this);
         }
 
         ~Server()
@@ -60,6 +85,13 @@ namespace OpenTibia.Game
 
         public GameObjectCollection GameObjects { get; set; }
 
+        public CommandHandlerCollection CommandHandlers { get; set; }
+
+        public EventHandlerCollection EventHandlers { get; set; }
+
+        public ScriptsCollection Scripts { get; set; }
+
+
         public ItemFactory ItemFactory { get; set; }
 
         public PlayerFactory PlayerFactory { get; set; }
@@ -70,45 +102,10 @@ namespace OpenTibia.Game
 
         public IMap Map { get; set; }
 
-        public Pathfinding Pathfinding { get; set; }
-
-        public CommandHandlerCollection CommandHandlers { get; set; }
-
-        public EventHandlerCollection EventHandlers { get; set; }
-
-        public ScriptsCollection Scripts { get; set; }
+        public Pathfinding Pathfinding { get; set; }     
 
         public void Start()
         {
-            dispatcher = new Dispatcher();
-
-            scheduler = new Scheduler(dispatcher);
-
-            listeners = new List<Listener>()
-            {
-                new Listener(loginServerPort, socket => new LoginConnection(this, socket) ),
-
-                new Listener(gameServerPort, socket => new GameConnection(this, socket) )
-            };
-
-            PacketsFactory = new PacketsFactory();
-
-            Logger = new Logger();
-
-            Clock = new Clock(12, 0);
-
-            Randomization = new Randomization();
-
-            Channels = new ChannelCollection();
-
-            RuleViolations = new RuleViolationCollection();
-
-            Lockers = new LockerCollection();
-
-            Components = new ComponentCollection(this);
-
-            GameObjects = new GameObjectCollection();
-
             Logger.WriteLine("An open Tibia server developed by mtanksl");
             Logger.WriteLine("Source code: https://github.com/mtanksl/OpenTibia");
             Logger.WriteLine();
@@ -136,12 +133,6 @@ namespace OpenTibia.Game
             }
 
             Pathfinding = new Pathfinding(Map);
-
-            CommandHandlers = new CommandHandlerCollection();
-
-            EventHandlers = new EventHandlerCollection();
-
-            Scripts = new ScriptsCollection(this);
 
             Scripts.Start();
 
