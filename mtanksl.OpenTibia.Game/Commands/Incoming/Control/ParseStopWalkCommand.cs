@@ -14,12 +14,12 @@ namespace OpenTibia.Game.Commands
                 
         public override Promise Execute()
         {
+            Context.Server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(Player) );
+
             if (Context.Server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(Player) ) )
             {
                 Context.AddPacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
             }
-
-            Context.Server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(Player) );
 
             return Promise.Completed;
         }

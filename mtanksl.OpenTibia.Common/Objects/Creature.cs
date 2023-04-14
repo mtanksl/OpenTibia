@@ -75,5 +75,10 @@ namespace OpenTibia.Common.Objects
         public WarIcon WarIcon { get; set; }
 
         public bool Block { get; set; }
+
+        public override string ToString()
+        {
+            return "Id: " + Id + " Name: " + Name;
+        }
     }
 }

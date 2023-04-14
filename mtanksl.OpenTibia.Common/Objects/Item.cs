@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Structures;
+using System.Xml.Linq;
 
 namespace OpenTibia.Common.Objects
 {
@@ -87,6 +88,11 @@ namespace OpenTibia.Common.Objects
             }
 
             return false;
+        }
+
+        public override string ToString()
+        {
+            return "Id: " + Id + " OpenTibiaId: " + metadata.OpenTibiaId + " Name: " + metadata.Name;
         }
     }
 }

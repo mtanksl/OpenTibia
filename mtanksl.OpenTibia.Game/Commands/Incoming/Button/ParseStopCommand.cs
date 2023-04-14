@@ -19,14 +19,14 @@ namespace OpenTibia.Game.Commands
 
             component.Stop();
 
-            Context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
+            Context.Server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(Player) );
 
             if (Context.Server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(Player) ) )
             {
                 Context.AddPacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
             }
 
-            Context.Server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(Player) );
+            Context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
 
             return Promise.Completed;
         }

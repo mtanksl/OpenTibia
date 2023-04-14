@@ -27,7 +27,9 @@ namespace OpenTibia.Game.Commands
 
         private static Promise broken = Promise.Run( (resolve, reject) =>
         {
-            reject(new PromiseCanceledException() );
+            Exception ex = new PromiseCanceledException();
+
+            reject(ex);
         } );
 
         public static Promise Break
@@ -50,9 +52,7 @@ namespace OpenTibia.Game.Commands
         {
             return Promise.Run<TResult>( (resolve, reject) =>
             {
-                var result = run();
-
-                resolve(result);
+                resolve(run() );
             } );
         }
 
@@ -106,12 +106,14 @@ namespace OpenTibia.Game.Commands
 
             return Promise.Run( (resolve, reject) =>
             {
-                context.Server.QueueForExecution( () =>
-                {
-                    resolve();
+                context.Server.QueueForExecution( 
+                    
+                    () =>
+                    {
+                        resolve();
 
-                    return Promise.Completed;
-                } );               
+                        return Promise.Completed;
+                    } );               
             } );            
         }
 
@@ -121,12 +123,19 @@ namespace OpenTibia.Game.Commands
 
             return Promise.Run( (resolve, reject) =>
             {
-                context.Server.QueueForExecution(key, executeInMilliseconds, () =>
-                {
-                    resolve();
+                context.Server.QueueForExecution(key, executeInMilliseconds, 
+                    
+                    () =>
+                    {
+                        resolve();
 
-                    return Promise.Completed;
-                } );               
+                        return Promise.Completed;
+                    },
+                    
+                    (ex) =>
+                    {
+                        reject(ex);
+                    } );               
             } ); 
         }
 

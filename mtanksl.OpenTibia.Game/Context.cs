@@ -26,9 +26,14 @@ namespace OpenTibia.Game
             }
         }
 
-        public Context(Server server)
+        public Context(Server server, Context previousContext)
         {
             this.server = server;
+
+            if (previousContext != null)
+            {
+                this.data = previousContext.data;
+            }
         }
 
         ~Context()
@@ -118,7 +123,7 @@ namespace OpenTibia.Game
             return Next();
         }
 
-        private Dictionary<IConnection, Message> messages = null;
+        private Dictionary<IConnection, Message> messages;
 
         /// <exception cref="ObjectDisposedException"></exception>
         
@@ -172,7 +177,7 @@ namespace OpenTibia.Game
             message.Add(packets);
         }
 
-        private HashSet<IConnection> connections = null;
+        private HashSet<IConnection> connections;
 
         /// <exception cref="ObjectDisposedException"></exception>
 

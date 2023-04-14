@@ -161,13 +161,13 @@ namespace OpenTibia.Game
 
         public Handle QueueForExecution(Func<Promise> run)
         {
-            Handle handle = new Handle();
+            Context previousContext = Context.Current;
 
             var dispatcherEvent = new DispatcherEvent( () =>
             {
                 try
                 {
-                    using (var context = new Context(this) )
+                    using (var context = new Context(this, previousContext) )
                     {
                         using (var scope = new Scope<Context>(context) )
                         {
@@ -192,6 +192,8 @@ namespace OpenTibia.Game
                     Logger.WriteLine(ex.ToString(), LogLevel.Error);
                 }
             } );
+
+            Handle handle = new Handle();
 
             dispatcherEvent.StateChanged += (sender, e) =>
             {
@@ -205,7 +207,9 @@ namespace OpenTibia.Game
 
                     case DispatcherExecutionState.Canceled:
 
-                        handle.TrySetException(new PromiseCanceledException() );
+                        Exception ex = new PromiseCanceledException();
+
+                        handle.TrySetException(ex);
 
                         break;
                 }
@@ -216,17 +220,17 @@ namespace OpenTibia.Game
             return handle;
         }
 
-        public Handle QueueForExecution(string key, int executeInMilliseconds, Func<Promise> run)
+        public Handle QueueForExecution(string key, int executeInMilliseconds, Func<Promise> run, Action<Exception> canceled)
         {
-            Handle handle = new Handle();
-
             CancelQueueForExecution(key);
+
+            Context previousContext = Context.Current;
 
             var schedulerEvent = new SchedulerEvent(executeInMilliseconds, () =>
             {
                 try
                 {
-                    using (var context = new Context(this) )
+                    using (var context = new Context(this, previousContext) )
                     {
                         using (var scope = new Scope<Context>(context) )
                         {
@@ -251,6 +255,8 @@ namespace OpenTibia.Game
                     Logger.WriteLine(ex.ToString(), LogLevel.Error);
                 }
             } );
+
+            Handle handle = new Handle();
 
             schedulerEvent.StateChanged += (sender, e) =>
             {
@@ -270,9 +276,13 @@ namespace OpenTibia.Game
 
                     case DispatcherExecutionState.Canceled:
 
-                        handle.TrySetException(new PromiseCanceledException() );
+                        Exception ex = new PromiseCanceledException();
 
-                        break;                 
+                        canceled(ex);
+
+                        handle.TrySetException(ex);
+
+                        break;
                 }
             };
 
@@ -319,7 +329,15 @@ namespace OpenTibia.Game
 
         public void Stop()
         {
-            Scripts.Stop();
+            QueueForExecution( () =>
+            {
+                Context context = Context.Current;
+
+                Scripts.Stop();
+
+                return Promise.Completed;
+
+            } ).Wait();
 
             foreach (var listener in listeners)
             {

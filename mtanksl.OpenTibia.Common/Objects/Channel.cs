@@ -30,6 +30,11 @@ namespace OpenTibia.Common.Objects
         {
             return players;
         }
+
+        public override string ToString()
+        {
+            return "Id: " + Id + " Name: " + Name;
+        }
     }
 
     public class GuildChannel : Channel
