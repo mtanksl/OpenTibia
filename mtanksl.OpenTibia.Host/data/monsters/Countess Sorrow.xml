@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Countess Sorrow" nameDescription="a countess sorrow" speed="250">
-  <health now="7200" max="7200" />
-  <look typeex="0" type="241" head="20" body="0" legs="0" feer="0" corpse="6344" />
-</monster>

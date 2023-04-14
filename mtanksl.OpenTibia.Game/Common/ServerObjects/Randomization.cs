@@ -7,6 +7,8 @@ namespace OpenTibia.Game
     {
         private Random random = new Random();
 
+        /// <exception cref="ArgumentException"></exception>
+
         public int Take(int min, int max)
         {
             if (min < 0)
@@ -21,6 +23,9 @@ namespace OpenTibia.Game
 
             return random.Next(min, max);
         }
+
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
 
         public T Take<T>(T[] array)
         {
@@ -37,6 +42,9 @@ namespace OpenTibia.Game
             return array[ random.Next(0, array.Length) ];
         }
 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// 
         public T Take<T>(T[] array, int[] weights)
         {
             if (array == null)
@@ -74,6 +82,8 @@ namespace OpenTibia.Game
             throw new NotImplementedException();
         }
 
+        /// <exception cref="ArgumentNullException"></exception>
+        /// 
         public T[] Shuffle<T>(T[] array)
         {
             if (array == null)

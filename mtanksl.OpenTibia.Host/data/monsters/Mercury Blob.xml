@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Mercury Blob" nameDescription="a mercury blob" speed="210">
-  <health now="150" max="150" />
-  <look typeex="0" type="316" head="0" body="0" legs="0" feer="0" corpse="9961" />
-  <voices>
-    <voice sentence="Crackle" />
-  </voices>
-</monster>

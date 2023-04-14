@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Water Elemental" nameDescription="a water elemental" speed="450">
-  <health now="550" max="550" />
-  <look typeex="0" type="11" head="0" body="0" legs="0" feer="0" corpse="2025" />
-</monster>

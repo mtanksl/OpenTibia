@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Quara Hydromancer Scout" nameDescription="a quara hydromancer scout" speed="280">
-  <health now="1100" max="1100" />
-  <look typeex="0" type="47" head="0" body="0" legs="0" feer="0" corpse="6066" />
-  <voices>
-    <voice sentence="Qua hah tsh!" />
-  </voices>
-</monster>

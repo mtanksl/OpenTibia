@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Leviathan" nameDescription="a leviathan" speed="758">
-  <health now="6000" max="6000" />
-  <look typeex="0" type="275" head="0" body="0" legs="0" feer="0" corpse="8307" />
-  <voices>
-    <voice sentence="CHHHRRRR" />
-    <voice sentence="HISSSS" />
-  </voices>
-</monster>

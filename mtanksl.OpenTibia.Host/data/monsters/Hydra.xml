@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Hydra" nameDescription="a hydra" speed="260">
-  <health now="2350" max="2350" />
-  <look typeex="0" type="121" head="0" body="0" legs="0" feer="0" corpse="6048" />
-  <voices>
-    <voice sentence="FCHHHHH" />
-    <voice sentence="HISSSS" />
-  </voices>
-</monster>

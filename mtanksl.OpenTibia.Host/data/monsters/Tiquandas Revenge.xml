@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Tiquandas Revenge" nameDescription="a tiquandas revenge" speed="440">
-  <health now="2000" max="2000" />
-  <look typeex="0" type="120" head="0" body="0" legs="0" feer="0" corpse="6047" />
-</monster>

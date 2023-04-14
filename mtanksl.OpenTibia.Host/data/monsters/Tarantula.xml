@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Tarantula" nameDescription="a tarantula" speed="280">
-  <health now="225" max="225" />
-  <look typeex="0" type="219" head="0" body="0" legs="0" feer="0" corpse="6060" />
-</monster>

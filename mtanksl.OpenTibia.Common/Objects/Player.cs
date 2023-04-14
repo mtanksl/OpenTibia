@@ -110,6 +110,8 @@ namespace OpenTibia.Common.Objects
             Experience = (uint)( ( 50 * Math.Pow(level - 1, 3) - 150 * Math.Pow(level - 1, 2) + 400 * (level - 1) ) / 3 );
         }
 
+        /// <exception cref="InvalidOperationException"></exception>
+
         public void CalculateRook(ushort level)
         {
             if (level < 1 || level > 507)
@@ -125,6 +127,8 @@ namespace OpenTibia.Common.Objects
 
             Capacity = (uint)( 10 * level + 390 ) * 100;
         }
+
+        /// <exception cref="InvalidOperationException"></exception>
 
         public void CalculateKnight(ushort level)
         {
@@ -142,6 +146,8 @@ namespace OpenTibia.Common.Objects
             Capacity = (uint)( 25 * level + 270 ) * 100;
         }
 
+        /// <exception cref="InvalidOperationException"></exception>
+
         public void CalculatePaladin(ushort level)
         {
             if (level < 8 || level > 507)
@@ -157,6 +163,8 @@ namespace OpenTibia.Common.Objects
 
             Capacity = (uint)( 20 * level + 310 ) * 100;
         }
+
+        /// <exception cref="InvalidOperationException"></exception>
 
         public void CalculateSorcererAndDruid(ushort level)
         {

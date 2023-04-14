@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Wyvern" nameDescription="a wyvern" speed="315">
-  <health now="795" max="795" />
-  <look typeex="0" type="239" head="0" body="0" legs="0" feer="0" corpse="6302" />
-  <voices>
-    <voice sentence="Shriiiek" />
-  </voices>
-</monster>

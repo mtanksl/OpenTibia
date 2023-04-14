@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Dwarf Soldier" nameDescription="a dwarf soldier" speed="170">
-  <health now="135" max="135" />
-  <look typeex="0" type="71" head="0" body="0" legs="0" feer="0" corpse="6014" />
-  <voices>
-    <voice sentence="Hail Durin!" />
-  </voices>
-</monster>

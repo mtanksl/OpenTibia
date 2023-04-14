@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Orc Shaman" nameDescription="a orc shaman" speed="180">
-  <health now="115" max="115" />
-  <look typeex="0" type="6" head="0" body="0" legs="0" feer="0" corpse="5978" />
-  <voices>
-    <voice sentence="Huumans stinkk!" />
-  </voices>
-</monster>

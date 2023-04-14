@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Game;
+using OpenTibia.Game.Commands;
 using System;
 using System.IO;
 using System.Windows.Forms;
@@ -54,6 +55,18 @@ namespace mtanksl.OpenTibia.Host.GUI
             server.Dispose();
 
             server = null;
+        }
+
+        private void kickAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (server == null)
+            {
+                MessageBox.Show("Server is not running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            server.KickAll();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

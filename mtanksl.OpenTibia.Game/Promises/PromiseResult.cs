@@ -316,29 +316,31 @@ namespace OpenTibia.Game.Commands
 
         public void OnCompleted(Action next)
         {
-            if (status == PromiseStatus.Pending)
-            {
-                AddContinueWithFulfilled( (r) =>
-                {
-                    next();
-                } );
+            // Pending
 
-                AddContinueWithRejected( (ex) =>
-                {
-                    next();
-                } );
-            }
-            else
+            AddContinueWithFulfilled( (r) =>
             {
                 next();
-            }
+            } );     
+            
+            AddContinueWithRejected( (ex) =>
+            {
+                next();
+            } );
         }
 
         public TResult GetResult()
         {
-            return Result;
+            // Fulfilled or Rejected
+
+            if (exception != null)
+            {
+                throw exception;
+            }
+
+            return result;
         }
-    }       
+    }
 
     [DebuggerStepThrough]
 
@@ -391,9 +393,9 @@ namespace OpenTibia.Game.Commands
             Task.TrySetResult(result);
         }
 
-        public void SetException(Exception e)
+        public void SetException(Exception ex)
         {
-            Task.TrySetException(e);
+            Task.TrySetException(ex);
         }
     }
 }

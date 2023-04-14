@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Earth Elemental" nameDescription="an earth elemental" speed="330">
-  <health now="650" max="650" />
-  <look typeex="0" type="301" head="0" body="0" legs="0" feer="0" corpse="8933" />
-</monster>

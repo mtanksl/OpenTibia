@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Rotworm Queen" nameDescription="a rotworm queen" speed="126">
-  <health now="85" max="85" />
-  <look typeex="0" type="295" head="0" body="0" legs="0" feer="0" corpse="8947" />
-</monster>

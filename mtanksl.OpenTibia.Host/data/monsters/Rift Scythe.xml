@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Rift Scythe" nameDescription="a rift scythe" speed="370">
-  <health now="3600" max="3600" />
-  <look typeex="0" type="300" head="0" body="0" legs="0" feer="0" corpse="0" />
-</monster>

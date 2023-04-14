@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Necropharus" nameDescription="necropharus" speed="240">
-  <health now="750" max="750" />
-  <look typeex="0" type="209" head="0" body="0" legs="0" feer="0" corpse="6080" />
-  <voices>
-    <voice sentence="You will rise as my servant!" />
-    <voice sentence="Praise to my master Urgith!" />
-  </voices>
-</monster>

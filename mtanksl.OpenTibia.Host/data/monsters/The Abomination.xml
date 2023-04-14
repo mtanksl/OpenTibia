@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<monster name="The Abomination" nameDescription="the abomination" speed="340">
-  <health now="38050" max="38050" />
-  <look typeex="0" type="238" head="0" body="0" legs="0" feer="0" corpse="6532" />
-  <voices>
-    <voice sentence="Blubb" />
-  </voices>
-</monster>

@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Mutated Rat" nameDescription="a mutated rat" speed="245">
-  <health now="550" max="550" />
-  <look typeex="0" type="305" head="0" body="0" legs="0" feer="0" corpse="9871" />
-  <voices>
-    <voice sentence="Grrrrrrrrrrrrrr!" />
-    <voice sentence="Fcccccchhhhhh" />
-  </voices>
-</monster>

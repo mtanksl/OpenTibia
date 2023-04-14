@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Storage;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
@@ -100,42 +99,37 @@ namespace OpenTibia.Game.Commands
             return new Promise(run);
         }
 
+        /// <exception cref="InvalidOperationException"></exception>
+
         public static Promise Yield()
         {
             Context context = Context.Current;
 
-            return Promise.Run( (resolve, reject) =>
+            if (context == null)
             {
-                context.Server.QueueForExecution( 
-                    
-                    () =>
-                    {
-                        resolve();
+                throw new InvalidOperationException("Context not found.");
+            }
 
-                        return Promise.Completed;
-                    } );               
-            } );            
+            return context.Server.QueueForExecution( () => 
+            {
+                return Promise.Completed;
+            } );             
         }
+
+        /// <exception cref="InvalidOperationException"></exception>
 
         public static Promise Delay(string key, int executeInMilliseconds)
         {
             Context context = Context.Current;
 
-            return Promise.Run( (resolve, reject) =>
+            if (context == null)
             {
-                context.Server.QueueForExecution(key, executeInMilliseconds, 
-                    
-                    () =>
-                    {
-                        resolve();
+                throw new InvalidOperationException("Context not found.");
+            }
 
-                        return Promise.Completed;
-                    },
-                    
-                    (ex) =>
-                    {
-                        reject(ex);
-                    } );               
+            return context.Server.QueueForExecution(key, executeInMilliseconds, () => 
+            {
+                return Promise.Completed;
             } ); 
         }
 
@@ -252,13 +246,13 @@ namespace OpenTibia.Game.Commands
             return false;
         }
 
-        public bool TrySetException(Exception e)
+        public bool TrySetException(Exception ex)
         {
             if (status == PromiseStatus.Pending)
             {
                 status = PromiseStatus.Rejected;
 
-                exception = e;
+                exception = ex;
 
                 if (continueWithRejected != null)
                 {
@@ -489,27 +483,27 @@ namespace OpenTibia.Game.Commands
 
         public void OnCompleted(Action next)
         {
-            if (status == PromiseStatus.Pending)
-            {
-                AddContinueWithFulfilled( () =>
-                {
-                    next();
-                } );
+            // Pending
 
-                AddContinueWithRejected( (ex) =>
-                {
-                    next();
-                } );
-            }
-            else
+            AddContinueWithFulfilled( () =>
             {
                 next();
-            }
+            } );     
+            
+            AddContinueWithRejected( (ex) =>
+            {
+                next();
+            } );
         }
 
         public void GetResult()
         {
+            // Fulfilled or Rejected
 
+            if (exception != null)
+            {
+                throw exception;
+            }
         }
     }
 
@@ -564,9 +558,9 @@ namespace OpenTibia.Game.Commands
             Task.TrySetResult();
         }
 
-        public void SetException(Exception e)
+        public void SetException(Exception ex)
         {
-            Task.TrySetException(e);
+            Task.TrySetException(ex);
         }
     }
 }

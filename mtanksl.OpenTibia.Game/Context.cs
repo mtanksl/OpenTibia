@@ -236,7 +236,7 @@ namespace OpenTibia.Game
                         {
                             if (ex is PromiseCanceledException)
                             {
-
+                                
                             }
                             else
                             {

@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Blood Crab" nameDescription="a blood crab" speed="210">
-  <health now="290" max="290" />
-  <look typeex="0" type="200" head="0" body="0" legs="0" feer="0" corpse="6075" />
-</monster>

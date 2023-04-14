@@ -16,56 +16,43 @@ namespace mtanksl.OpenTibia.Host.GUI
 
         public void BeginWrite(LogLevel level)
         {
-            Color color;
-
-            switch (level)
+            richTextBox.BeginInvoke( () =>
             {
-                case LogLevel.Debug:
+                Color color;
 
-                    color = Color.Green;
-
-                    break;
-
-                case LogLevel.Information:
-
-                    color = Color.Blue;
-
-                    break;
-
-                case LogLevel.Warning:
-
-                    color = Color.Orange;
-
-                    break;
-
-                case LogLevel.Error:
-
-                    color = Color.Red;
-
-                    break;
-
-                default:
-
-                    color = richTextBox.ForeColor;
-
-                    break;
-            }
-        
-            if (richTextBox.InvokeRequired)
-            {
-                richTextBox.Invoke( () =>
+                switch (level)
                 {
-                    richTextBox.SelectionStart = richTextBox.TextLength;
+                    case LogLevel.Debug:
 
-                    richTextBox.SelectionLength = 0;
+                        color = Color.Green;
 
-                    richTextBox.SelectionColor = color;
+                        break;
 
-                    richTextBox.AppendText(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " - ");
-                } );
-            }
-            else
-            {
+                    case LogLevel.Information:
+
+                        color = Color.Blue;
+
+                        break;
+
+                    case LogLevel.Warning:
+
+                        color = Color.Orange;
+
+                        break;
+
+                    case LogLevel.Error:
+
+                        color = Color.Red;
+
+                        break;
+
+                    default:
+
+                        color = richTextBox.ForeColor;
+
+                        break;
+                }
+
                 richTextBox.SelectionStart = richTextBox.TextLength;
 
                 richTextBox.SelectionLength = 0;
@@ -73,52 +60,31 @@ namespace mtanksl.OpenTibia.Host.GUI
                 richTextBox.SelectionColor = color;
 
                 richTextBox.AppendText(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " - ");
-            }
+            } );
         }
 
         public void Write(string message)
         {
-            if (richTextBox.InvokeRequired)
-            {
-                richTextBox.Invoke( () =>
-                {
-                    richTextBox.AppendText(message);
-                } );
-            }
-            else
+            richTextBox.BeginInvoke( () =>
             {
                 richTextBox.AppendText(message);
-            }
+            } );
         }
 
         public void EndWrite()
         {
-            if (richTextBox.InvokeRequired)
-            {
-                richTextBox.Invoke( () =>
-                {
-                    richTextBox.ScrollToCaret();
-                } );
-            }
-            else
+            richTextBox.BeginInvoke( () =>
             {
                 richTextBox.ScrollToCaret();
-            }
+            } );
         }
 
         public void Line()
         {
-            if (richTextBox.InvokeRequired)
-            {
-                richTextBox.Invoke( () =>
-                {
-                    richTextBox.AppendText(Environment.NewLine);
-                } );
-            }
-            else
+            richTextBox.BeginInvoke( () =>
             {
                 richTextBox.AppendText(Environment.NewLine);
-            }
+            } );
         }
     }
 }

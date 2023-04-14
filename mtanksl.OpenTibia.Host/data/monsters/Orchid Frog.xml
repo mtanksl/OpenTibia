@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Orchid Frog" nameDescription="a orchid frog" speed="230">
-  <health now="60" max="60" />
-  <look typeex="0" type="226" head="109" body="14" legs="109" feer="114" corpse="6079" />
-</monster>

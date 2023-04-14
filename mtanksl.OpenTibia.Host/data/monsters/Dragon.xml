@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Dragon" nameDescription="a dragon" speed="180">
-  <health now="1000" max="1000" />
-  <look typeex="0" type="34" head="0" body="0" legs="0" feer="0" corpse="5973" />
-  <voices>
-    <voice sentence="GROOAAARRR" />
-    <voice sentence="FCHHHHH" />
-  </voices>
-</monster>

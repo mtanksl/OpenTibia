@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Orc Spearman" nameDescription="a orc spearman" speed="176">
-  <health now="105" max="105" />
-  <look typeex="0" type="50" head="0" body="0" legs="0" feer="0" corpse="5996" />
-  <voices>
-    <voice sentence="Ugaar!" />
-  </voices>
-</monster>

@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Hellhound" nameDescription="a hellhound" speed="310">
-  <health now="7500" max="7500" />
-  <look typeex="0" type="240" head="0" body="0" legs="0" feer="0" corpse="6332" />
-  <voices>
-    <voice sentence="GROOOWL!" />
-    <voice sentence="GRRRRR!" />
-  </voices>
-</monster>

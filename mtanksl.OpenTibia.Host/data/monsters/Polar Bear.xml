@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Polar Bear" nameDescription="a polar bear" speed="156">
-  <health now="85" max="85" />
-  <look typeex="0" type="42" head="0" body="0" legs="0" feer="0" corpse="5987" />
-  <voices>
-    <voice sentence="Grrrrrr" />
-    <voice sentence="GROARRR!" />
-  </voices>
-</monster>

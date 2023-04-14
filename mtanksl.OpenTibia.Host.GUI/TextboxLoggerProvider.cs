@@ -15,32 +15,18 @@ namespace mtanksl.OpenTibia.Host.GUI
 
         public void BeginWrite(LogLevel level)
         {
-            if (textbox.InvokeRequired)
-            {
-                textbox.Invoke( () =>
-                {
-                    textbox.AppendText(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " - ");
-                } );
-            }
-            else
+            textbox.BeginInvoke( () =>
             {
                 textbox.AppendText(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " - ");
-            }
+            } );
         }
 
         public void Write(string message)
         {
-            if (textbox.InvokeRequired)
-            {
-                textbox.Invoke( () =>
-                {
-                    textbox.AppendText(message);
-                } );
-            }
-            else
+            textbox.BeginInvoke( () =>
             {
                 textbox.AppendText(message);
-            }
+            } );
         }
 
         public void EndWrite()
@@ -50,17 +36,10 @@ namespace mtanksl.OpenTibia.Host.GUI
 
         public void Line()
         {
-            if (textbox.InvokeRequired)
-            {
-                textbox.Invoke( () =>
-                {
-                    textbox.AppendText(Environment.NewLine);
-                } );
-            }
-            else
+            textbox.BeginInvoke( () =>
             {
                 textbox.AppendText(Environment.NewLine);
-            }
+            } );
         }
     }
 }

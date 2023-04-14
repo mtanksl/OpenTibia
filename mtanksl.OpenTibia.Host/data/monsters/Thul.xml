@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Thul" nameDescription="thul" speed="300">
-  <health now="3000" max="3000" />
-  <look typeex="0" type="46" head="0" body="0" legs="0" feer="0" corpse="6065" />
-  <voices>
-    <voice sentence="Gaaahhh!" />
-  </voices>
-</monster>

@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Energy Overlord" nameDescription="an energy overlord" speed="290">
-  <health now="4000" max="4000" />
-  <look typeex="0" type="290" head="0" body="0" legs="0" feer="0" corpse="8966" />
-</monster>

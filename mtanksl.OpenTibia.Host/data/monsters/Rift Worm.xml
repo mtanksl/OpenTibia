@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Rift Worm" nameDescription="a rift worm" speed="200">
-  <health now="2800" max="2800" />
-  <look typeex="0" type="295" head="0" body="0" legs="0" feer="0" corpse="0" />
-</monster>

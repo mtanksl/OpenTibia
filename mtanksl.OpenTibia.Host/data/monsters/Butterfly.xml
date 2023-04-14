@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Butterfly" nameDescription="a butterfly" speed="300">
-  <health now="2" max="2" />
-  <look typeex="0" type="10" head="0" body="0" legs="0" feer="0" corpse="4313" />
-</monster>

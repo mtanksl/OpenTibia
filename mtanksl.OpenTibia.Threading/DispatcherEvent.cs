@@ -4,48 +4,47 @@ namespace OpenTibia.Threading
 {
     public class DispatcherEvent
     {
+        private enum DispatcheEventState
+        {
+            Pending,
+
+            Executing,
+
+            Executed,
+
+            Canceled
+        }
+
+        private DispatcheEventState state;
+
+        private Action execute;
+
         public DispatcherEvent(Action execute)
         {
-            this.state = DispatcherExecutionState.Pending;
+            this.state = DispatcheEventState.Pending;
 
             this.execute = execute;
         }
 
-        private DispatcherExecutionState state;
-
-        public DispatcherExecutionState State
-        {
-            get
-            {
-                return state;
-            }
-        }
-
-        private Action execute;
-
         public void Execute()
         {
-            if (state == DispatcherExecutionState.Pending)
+            if (state == DispatcheEventState.Pending)
             {
-                state = DispatcherExecutionState.Executing;
-
-                OnStateChanged(state);
+                state = DispatcheEventState.Executing;
 
                 execute();
                 
-                state = DispatcherExecutionState.Executed;
-
-                OnStateChanged(state);
+                state = DispatcheEventState.Executed;
             }
         }
         
         public bool Cancel()
         {
-            if (state == DispatcherExecutionState.Pending)
+            if (state == DispatcheEventState.Pending)
             {
-                state = DispatcherExecutionState.Canceled;
+                state = DispatcheEventState.Canceled;
 
-                OnStateChanged(state);
+                OnCanceled();
 
                 return true;
             }
@@ -53,13 +52,13 @@ namespace OpenTibia.Threading
             return false;
         }
 
-        public event EventHandler<DispatcherStateChangedEventArgs> StateChanged;
+        public event EventHandler<DispatcherEventCanceledEventArgs> Canceled;
 
-        protected virtual void OnStateChanged(DispatcherExecutionState state)
+        protected virtual void OnCanceled()
         {
-            if (StateChanged != null)
+            if (Canceled != null)
             {
-                StateChanged(this, new DispatcherStateChangedEventArgs(state) );
+                Canceled(this, new DispatcherEventCanceledEventArgs() );
             }
         }
     }

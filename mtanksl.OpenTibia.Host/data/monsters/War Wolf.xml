@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<monster name="War Wolf" nameDescription="a war wolf" speed="200">
-  <health now="140" max="140" />
-  <look typeex="0" type="3" head="0" body="0" legs="0" feer="0" corpse="6009" />
-  <voices>
-    <voice sentence="Grrrrrrr" />
-    <voice sentence="Yoooohhuuuu!" />
-  </voices>
-</monster>

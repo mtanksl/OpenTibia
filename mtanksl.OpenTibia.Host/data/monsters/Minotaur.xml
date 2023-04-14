@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Minotaur" nameDescription="a minotaur" speed="170">
-  <health now="100" max="100" />
-  <look typeex="0" type="25" head="0" body="0" legs="0" feer="0" corpse="5969" />
-  <voices>
-    <voice sentence="Kaplar!" />
-  </voices>
-</monster>

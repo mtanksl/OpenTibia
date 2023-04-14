@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Lizard Sentinel" nameDescription="a lizard sentinel" speed="240">
-  <health now="265" max="265" />
-  <look typeex="0" type="114" head="0" body="0" legs="0" feer="0" corpse="6040" />
-  <voices>
-    <voice sentence="Tssss!" />
-  </voices>
-</monster>

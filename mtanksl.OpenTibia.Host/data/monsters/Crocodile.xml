@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<monster name="Crocodile" nameDescription="a crocodile" speed="240">
-  <health now="105" max="105" />
-  <look typeex="0" type="119" head="0" body="0" legs="0" feer="0" corpse="6046" />
-</monster>
