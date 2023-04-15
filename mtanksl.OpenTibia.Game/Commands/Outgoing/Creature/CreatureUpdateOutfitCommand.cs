@@ -4,9 +4,9 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class CreatureUpdateOutfit : Command
+    public class CreatureUpdateOutfitCommand : Command
     {
-        public CreatureUpdateOutfit(Creature creature, Outfit outfit)
+        public CreatureUpdateOutfitCommand(Creature creature, Outfit outfit)
         {
             Creature = creature;
 

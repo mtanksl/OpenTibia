@@ -60,7 +60,7 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new CreatureUpdateOutfit(creature, outfit) );
+            return context.AddCommand(new CreatureUpdateOutfitCommand(creature, outfit) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
