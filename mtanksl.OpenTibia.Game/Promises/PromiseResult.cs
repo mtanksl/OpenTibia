@@ -118,35 +118,32 @@ namespace OpenTibia.Game.Commands
                 {
                     if (status == PromiseStatus.Pending)
                     {
-                        using (var handle = new ManualResetEvent(false) )
+                        TResult result = default(TResult);
+
+                        AddContinueWithFulfilled( (r) =>
                         {
-                            TResult result = default(TResult);
+                            result = r;
 
-                            AddContinueWithFulfilled( (r) =>
-                            {
-                                result = r;
+                            Monitor.Pulse(sync);
+                        } );
 
-                                handle.Set();
-                            } );
+                        Exception exception = null;
 
-                            Exception exception = null;
+                        AddContinueWithRejected( (ex) =>
+                        {
+                            exception = ex;
 
-                            AddContinueWithRejected( (ex) =>
-                            {
-                                exception = ex;
+                            Monitor.Pulse(sync);
+                        } );
 
-                                handle.Set();
-                            } );
+                        Monitor.Wait(sync);
 
-                            handle.WaitOne();
-
-                            if (exception != null)
-                            {
-                                throw exception;
-                            }
-
-                            return result;
+                        if (exception != null)
+                        {
+                            throw exception;
                         }
+
+                        return result;                        
                     }
                     else
                     {

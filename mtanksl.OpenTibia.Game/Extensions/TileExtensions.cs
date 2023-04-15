@@ -26,13 +26,6 @@ namespace OpenTibia.Game.Extensions
             return context.AddCommand(new TileCreateItemCommand(tile, openTibiaId, count) );
         }
 
-        public static Promise IncrementOrCreateItem(this Tile tile, ushort openTibiaId, byte count)
-        {
-            Context context = Context.Current;
-
-            return context.AddCommand(new TileIncrementOrCreateItemCommand(tile, openTibiaId, count) );
-        }
-
         public static PromiseResult<Monster> CreateMonster(this Tile tile, string name)
         {
             Context context = Context.Current;
@@ -45,6 +38,13 @@ namespace OpenTibia.Game.Extensions
             Context context = Context.Current;
 
             return context.AddCommand(new TileCreateNpcCommand(tile, name) );
+        }
+
+        public static Promise IncrementOrCreateItem(this Tile tile, ushort openTibiaId, byte count)
+        {
+            Context context = Context.Current;
+
+            return context.AddCommand(new TileIncrementOrCreateItemCommand(tile, openTibiaId, count) );
         }
 
         public static Promise RemoveCreature(this Tile tile, Creature creature)

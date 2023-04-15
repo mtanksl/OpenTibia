@@ -5,6 +5,20 @@ namespace OpenTibia.Game.Extensions
 {
     public static class PlayerExtensions
     {
+        public static Promise Destroy(this Player player)
+        {
+            Context context = Context.Current;
+
+            return context.AddCommand(new PlayerDestroyCommand(player) );
+        }
+
+        public static Promise Say(this Player player, string message)
+        {
+            Context context = Context.Current;
+
+            return context.AddCommand(new PlayerSayCommand(player, message) );
+        }
+
         public static Promise UpdateCapacity(this Player player, int capacity)
         {
             Context context = Context.Current;
@@ -38,6 +52,20 @@ namespace OpenTibia.Game.Extensions
             Context context = Context.Current;
 
             return context.AddCommand(new PlayerUpdateStaminaCommand(player, stamina) );
+        }
+
+        public static Promise Whisper(this Player player, string message)
+        {
+            Context context = Context.Current;
+
+            return context.AddCommand(new PlayerWhisperCommand(player, message) );
+        }
+
+        public static Promise Yell(this Player player, string message)
+        {
+            Context context = Context.Current;
+
+            return context.AddCommand(new PlayerYellCommand(player, message) );
         }
     }
 }
