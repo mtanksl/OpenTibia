@@ -63,7 +63,7 @@ namespace OpenTibia.Game.Commands
 
                                 if (toTile != null)
                                 {
-                                    if (IsMoveable(fromCreature))
+                                    if (IsMoveable(fromCreature) )
                                     {
                                         return Context.AddCommand(new PlayerMoveCreatureCommand(Player, fromCreature, toTile) );
                                     }

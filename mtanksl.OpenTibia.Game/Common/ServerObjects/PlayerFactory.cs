@@ -95,6 +95,8 @@ namespace OpenTibia.Game
                 Vocation = (Vocation)databasePlayer.Vocation
             };
 
+            //TODO
+
             server.GameObjects.AddGameObject(player);
 
             server.Components.AddComponent(player, new SpecialConditionBehaviour() );
@@ -111,6 +113,8 @@ namespace OpenTibia.Game
         public void Destroy(Player player)
         {
             player.Client.Player = null;
+
+            //TODO
 
             server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(player) );
 

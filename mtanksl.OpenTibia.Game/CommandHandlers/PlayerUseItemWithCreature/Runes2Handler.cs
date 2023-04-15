@@ -18,9 +18,9 @@ namespace OpenTibia.Game.CommandHandlers
 
             public int GroupCooldownInMilliseconds { get; set; }
 
-            public Func<Context, Player, Creature, bool> Condition { get; set; }
+            public Func<Player, Creature, bool> Condition { get; set; }
 
-            public Func<Context, Player, Creature, Promise> Callback { get; set; }
+            public Func<Player, Creature, Promise> Callback { get; set; }
         }
 
         private static HashSet<ushort> itemWithItemRunes = new HashSet<ushort>() { 2285, 2286, 2289, 2301, 2305, 2303, 2277, 2262, 2279, 2302, 2304, 2313, 2293, 2269 };
@@ -35,11 +35,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldownInMilliseconds = 2000,
 
-                Callback = (context, attacker, target) =>
+                Callback = (attacker, target) =>
                 {
-                    return context.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
+                    return Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
-                        SpecialConditionBehaviour component = context.Server.Components.GetComponent<SpecialConditionBehaviour>(target);
+                        SpecialConditionBehaviour component = Context.Current.Server.Components.GetComponent<SpecialConditionBehaviour>(target);
 
                         if (component != null)
                         {
@@ -49,11 +49,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 if (target is Player observer)
                                 {
-                                    context.AddPacket(observer.Client.Connection, new SetSpecialConditionOutgoingPacket(component.SpecialConditions));
+                                    Context.Current.AddPacket(observer.Client.Connection, new SetSpecialConditionOutgoingPacket(component.SpecialConditions) );
                                 }
                             }
 
-                            context.Server.CancelQueueForExecution("Combat_Condition_" + SpecialCondition.Poisoned + target.Id);
+                            Context.Current.Server.CancelQueueForExecution("Combat_Condition_" + SpecialCondition.Poisoned + target.Id);
                         }
                     } );
                 }
@@ -67,11 +67,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldownInMilliseconds = 2000,
 
-                Callback = (context, attacker, target) =>
+                Callback = (attacker, target) =>
                 {
                     var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 70, 30);
 
-                    return context.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, target, null, MagicEffectType.BlueShimmer, (attacker, target) => context.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, target, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
                 }
             },
 
@@ -83,11 +83,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldownInMilliseconds = 2000,
 
-                Callback = (context, attacker, target) =>
+                Callback = (attacker, target) =>
                 {
                     var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 250, 0);
 
-                    return context.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, target, null, MagicEffectType.BlueShimmer, (attacker, target) => context.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, target, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
                 }
             },
 
@@ -99,11 +99,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldownInMilliseconds = 2000,
 
-                Callback = (context, attacker, target) =>
+                Callback = (attacker, target) =>
                 {
                     var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 15, 5);
 
-                    return context.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, target, ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, (attacker, target) => -context.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, target, ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, (attacker, target) => -Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
                 }
             },
 
@@ -115,11 +115,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldownInMilliseconds = 2000,
 
-                Callback = (context, attacker, target) =>
+                Callback = (attacker, target) =>
                 {
                     var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 30, 10);
 
-                    return context.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, target, ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, (attacker, target) => -context.Server.Randomization.Take(damage.Min, damage.Max)));
+                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, target, ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, (attacker, target) => -Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
                 }
             },
 
@@ -131,11 +131,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldownInMilliseconds = 2000,
 
-                Callback = (context, attacker, target) =>
+                Callback = (attacker, target) =>
                 {
                     var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 150, 20);
 
-                    return context.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, target, ProjectileType.SuddenDeath, MagicEffectType.MortArea, (attacker, target) => -context.Server.Randomization.Take(damage.Min, damage.Max)));
+                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, target, ProjectileType.SuddenDeath, MagicEffectType.MortArea, (attacker, target) => -Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
                 }
             }
         };
@@ -157,13 +157,13 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if ( !component.HasCooldown(rune.Group) )
                 {
-                    if (rune.Condition == null || rune.Condition(Context, command.Player, command.ToCreature) )
+                    if (rune.Condition == null || rune.Condition(command.Player, command.ToCreature) )
                     {
                         component.AddCooldown(rune.Group, rune.GroupCooldownInMilliseconds);
 
                         return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                         {
-                            return rune.Callback(Context, command.Player, command.ToCreature);
+                            return rune.Callback(command.Player, command.ToCreature);
                         } );
                     }
                  

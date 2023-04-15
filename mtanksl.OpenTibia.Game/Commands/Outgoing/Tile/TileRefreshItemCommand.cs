@@ -22,11 +22,11 @@ namespace OpenTibia.Game.Commands
 
             if (index < Constants.ObjectsPerPoint)
             {
-                foreach (var observer in Context.Server.GameObjects.GetPlayers())
+                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                 {
-                    if (observer.Tile.Position.CanSee(Tile.Position))
+                    if (observer.Tile.Position.CanSee(Tile.Position) )
                     {
-                        Context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(Tile.Position, index, Item));
+                        Context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(Tile.Position, index, Item) );
                     }
                 }
             }

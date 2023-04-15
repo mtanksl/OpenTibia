@@ -25,9 +25,9 @@ namespace OpenTibia.Game.CommandHandlers
 
             public int Mana { get; set; }
 
-            public Func<Context, Player, bool> Condition { get; set; }
+            public Func<Player, bool> Condition { get; set; }
 
-            public Func<Context, Player, Promise> Callback { get; set; }
+            public Func<Player, Promise> Callback { get; set; }
         }
 
         private static HashSet<ushort> ropeSpots = new HashSet<ushort> { 384, 418 };
@@ -48,7 +48,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 20,
 
-                Condition = (context, attacker) =>
+                Condition = (attacker) =>
                 {
                     if (ropeSpots.Contains(attacker.Tile.Ground.Metadata.OpenTibiaId) )
                     {
@@ -58,17 +58,17 @@ namespace OpenTibia.Game.CommandHandlers
                     return false;
                 },
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
-                    Tile toTile = context.Server.Map.GetTile(attacker.Tile.Position.Offset(0, 1, -1) );
+                    Tile toTile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(0, 1, -1) );
 
-                    return context.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.Teleport) ).Then(() =>
+                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.Teleport) ).Then( () =>
                     {
-                        return context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                        return Context.Current.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
 
-                    } ).Then(() =>
+                    } ).Then( () =>
                     {
-                        return context.AddCommand(new CreatureUpdateParentCommand(attacker, toTile, Direction.South) );
+                        return Context.Current.AddCommand(new CreatureUpdateParentCommand(attacker, toTile, Direction.South) );
                     } );
                 }
             },
@@ -87,11 +87,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 50,
 
-                Condition = (context, attacker) =>
+                Condition = (attacker) =>
                 {
-                    Tile up = context.Server.Map.GetTile(attacker.Tile.Position.Offset(0, 0, -1) );
+                    Tile up = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(0, 0, -1) );
 
-                    Tile toTile = context.Server.Map.GetTile(attacker.Tile.Position.Offset(0, 0, -1).Offset(attacker.Direction) );
+                    Tile toTile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(0, 0, -1).Offset(attacker.Direction) );
 
                     if (up != null || toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) )
                     {
@@ -101,17 +101,17 @@ namespace OpenTibia.Game.CommandHandlers
                     return true;
                 },
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
-                    Tile toTile = context.Server.Map.GetTile(attacker.Tile.Position.Offset(0, 0, -1).Offset(attacker.Direction) );
+                    Tile toTile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(0, 0, -1).Offset(attacker.Direction) );
 
-                    return context.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.Teleport) ).Then(() =>
+                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.Teleport) ).Then( () =>
                     {
-                        return context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                        return Context.Current.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
 
-                    } ).Then(() =>
+                    } ).Then( () =>
                     {
-                        return context.AddCommand(new CreatureUpdateParentCommand(attacker, toTile) );
+                        return Context.Current.AddCommand(new CreatureUpdateParentCommand(attacker, toTile) );
                     } );
                 }
             },
@@ -130,11 +130,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 50,
 
-                Condition = (context, attacker) =>
+                Condition = (attacker) =>
                 {
-                    Tile next = context.Server.Map.GetTile(attacker.Tile.Position.Offset(attacker.Direction) );
+                    Tile next = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(attacker.Direction) );
 
-                    Tile toTile = context.Server.Map.GetTile(attacker.Tile.Position.Offset(0, 0, 1).Offset(attacker.Direction) );
+                    Tile toTile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(0, 0, 1).Offset(attacker.Direction) );
 
                     if (next != null || toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) )
                     {
@@ -144,17 +144,17 @@ namespace OpenTibia.Game.CommandHandlers
                     return true;
                 },
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
-                    Tile toTile = context.Server.Map.GetTile(attacker.Tile.Position.Offset(0, 0, 1).Offset(attacker.Direction) );
+                    Tile toTile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(0, 0, 1).Offset(attacker.Direction) );
 
-                    return context.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.Teleport) ).Then(() =>
+                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.Teleport) ).Then( () =>
                     {
-                        return context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                        return Context.Current.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
 
-                    } ).Then(() =>
+                    } ).Then( () =>
                     {
-                        return context.AddCommand(new CreatureUpdateParentCommand(attacker, toTile) );
+                        return Context.Current.AddCommand(new CreatureUpdateParentCommand(attacker, toTile) );
                     } );
                 }
             },
@@ -173,11 +173,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 20,
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
-                    return context.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then(() =>
+                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
-                        return context.AddCommand(new CreatureUpdateLightCommand(attacker, new Light(6, 215) ) );
+                        return Context.Current.AddCommand(new CreatureUpdateLightCommand(attacker, new Light(6, 215) ) );
                     } );
                 }
             },
@@ -196,11 +196,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 60,
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
-                    return context.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then(() =>
+                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
-                        return context.AddCommand(new CreatureUpdateLightCommand(attacker, new Light(8, 215) ) );
+                        return Context.Current.AddCommand(new CreatureUpdateLightCommand(attacker, new Light(8, 215) ) );
                     } );
                 }
             },
@@ -219,11 +219,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 140,
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
-                    return context.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then(() =>
+                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
-                        return context.AddCommand(new CreatureUpdateLightCommand(attacker, new Light(9, 215) ) );
+                        return Context.Current.AddCommand(new CreatureUpdateLightCommand(attacker, new Light(9, 215) ) );
                     } );
                 }
             },
@@ -242,13 +242,13 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 60,
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
                     var speed = HasteFormula(attacker.BaseSpeed);
 
-                    return context.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.GreenShimmer) ).Then( () =>
+                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.GreenShimmer) ).Then( () =>
                     {
-                        return context.AddCommand(new CreatureUpdateSpeedCommand(attacker, speed) );
+                        return Context.Current.AddCommand(new CreatureUpdateSpeedCommand(attacker, speed) );
                     } );
                 }
             },
@@ -267,13 +267,13 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 100,
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
                     var speed = StrongHasteFormula(attacker.BaseSpeed);
 
-                    return context.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.GreenShimmer) ).Then( () =>
+                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.GreenShimmer) ).Then( () =>
                     {
-                        return context.AddCommand(new CreatureUpdateSpeedCommand(attacker, speed) );
+                        return Context.Current.AddCommand(new CreatureUpdateSpeedCommand(attacker, speed) );
                     } );
                 }
             },
@@ -292,11 +292,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 30,
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
-                    return context.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
+                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
-                        SpecialConditionBehaviour component = context.Server.Components.GetComponent<SpecialConditionBehaviour>(attacker);
+                        SpecialConditionBehaviour component = Context.Current.Server.Components.GetComponent<SpecialConditionBehaviour>(attacker);
 
                         if (component != null)
                         {
@@ -304,10 +304,10 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 component.RemoveSpecialCondition(SpecialCondition.Poisoned);
 
-                                context.AddPacket(attacker.Client.Connection, new SetSpecialConditionOutgoingPacket(component.SpecialConditions) );
+                                Context.Current.AddPacket(attacker.Client.Connection, new SetSpecialConditionOutgoingPacket(component.SpecialConditions) );
                             }
 
-                            context.Server.CancelQueueForExecution("Combat_Condition_" + SpecialCondition.Poisoned + attacker.Id);
+                            Context.Current.Server.CancelQueueForExecution("Combat_Condition_" + SpecialCondition.Poisoned + attacker.Id);
                         }
                     } );
                 }
@@ -327,11 +327,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 20,
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
                     var damage = LightHealingFormula(attacker.Level, attacker.Skills.MagicLevel);
 
-                    return context.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, attacker, null, MagicEffectType.BlueShimmer, (attacker, target) => context.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, attacker, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
                 }
             },
 
@@ -349,11 +349,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 70,
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
                     var damage = IntenseHealingFormula(attacker.Level, attacker.Skills.MagicLevel);
                     
-                    return context.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, attacker, null, MagicEffectType.BlueShimmer, (attacker, target) => context.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, attacker, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
                 }
             },
 
@@ -371,11 +371,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 160,
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
                     var damage = UltimateHealingFormula(attacker.Level, attacker.Skills.MagicLevel);
 
-                    return context.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, attacker, null, MagicEffectType.BlueShimmer, (attacker, target) => context.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, attacker, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
                 }
             },
 
@@ -393,7 +393,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 150,
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -408,7 +408,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var damage = MassHealingFormula(attacker.Level, attacker.Skills.MagicLevel);
 
-                    return context.AddCommand(new CombatAttackAreaWithSpellAsRadialCommand(attacker, area, MagicEffectType.BlueShimmer, (attacker, target) => context.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithSpellAsRadialCommand(attacker, area, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
                 }
             },
 
@@ -426,7 +426,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 20,
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -435,7 +435,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 45, 10);
 
-                    return context.AddCommand(new CombatAttackAreaWithSpellAsBeamCommand(attacker, area, MagicEffectType.MortArea, (attacker, target) => -context.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithSpellAsBeamCommand(attacker, area, MagicEffectType.MortArea, (attacker, target) => -Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
                 }
             },
 
@@ -453,7 +453,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 20,
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -462,7 +462,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 45, 10);
 
-                    return context.AddCommand(new CombatAttackAreaWithSpellAsBeamCommand(attacker, area, MagicEffectType.FirePlume, (attacker, target) => -context.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithSpellAsBeamCommand(attacker, area, MagicEffectType.FirePlume, (attacker, target) => -Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
                 }
             },
 
@@ -480,7 +480,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 20,
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -489,7 +489,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 45, 10);
 
-                    return context.AddCommand(new CombatAttackAreaWithSpellAsBeamCommand(attacker, area, MagicEffectType.EnergyArea, (attacker, target) => -context.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithSpellAsBeamCommand(attacker, area, MagicEffectType.EnergyArea, (attacker, target) => -Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
                 }
             },
                        
@@ -507,7 +507,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 25,
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -519,7 +519,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 30, 10);
 
-                    return context.AddCommand(new CombatAttackAreaWithSpellAsBeamCommand(attacker, area, MagicEffectType.FireArea, (attacker, target) => -context.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithSpellAsBeamCommand(attacker, area, MagicEffectType.FireArea, (attacker, target) => -Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
                 }
             },
 
@@ -537,7 +537,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 40,
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -550,7 +550,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 60, 20);
 
-                    return context.AddCommand(new CombatAttackAreaWithSpellAsBeamCommand(attacker, area, MagicEffectType.EnergyArea, (attacker, target) => -context.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithSpellAsBeamCommand(attacker, area, MagicEffectType.EnergyArea, (attacker, target) => -Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
                 }
             },
 
@@ -568,7 +568,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 110,
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -583,7 +583,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 120, 80);
 
-                    return context.AddCommand(new CombatAttackAreaWithSpellAsBeamCommand(attacker, area, MagicEffectType.EnergyArea, (attacker, target) => -context.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithSpellAsBeamCommand(attacker, area, MagicEffectType.EnergyArea, (attacker, target) => -Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
                 }
             },
 
@@ -601,7 +601,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 170,
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -614,7 +614,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 150, 50);
 
-                    return context.AddCommand(new CombatAttackAreaWithSpellAsBeamCommand(attacker, area, MagicEffectType.MortArea, (attacker, target) => -context.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithSpellAsBeamCommand(attacker, area, MagicEffectType.MortArea, (attacker, target) => -Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
                 }
             },
 
@@ -632,7 +632,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 600,
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -652,7 +652,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 250, 50);
 
-                    return context.AddCommand(new CombatAttackAreaWithSpellAsBeamCommand(attacker, area, MagicEffectType.FireArea, (attacker, target) => -context.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithSpellAsBeamCommand(attacker, area, MagicEffectType.FireArea, (attacker, target) => -Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
                 }
             },
 
@@ -670,7 +670,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 700,
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -690,7 +690,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 200, 50);
 
-                    return context.AddCommand(new CombatAttackAreaWithSpellAsBeamCommand(attacker, area, MagicEffectType.GreenRings, (attacker, target) => -context.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithSpellAsBeamCommand(attacker, area, MagicEffectType.GreenRings, (attacker, target) => -Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
                 }
             },
 
@@ -708,7 +708,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Mana = 115,
 
-                Callback = (context, attacker) =>
+                Callback = (attacker) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -719,7 +719,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var damage = BerserkFormula(attacker.Level, attacker.Skills.Sword, 0);
 
-                    return context.AddCommand(new CombatAttackAreaWithSpellAsRadialCommand(attacker, area, MagicEffectType.BlackSpark, (attacker, target) => -context.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithSpellAsRadialCommand(attacker, area, MagicEffectType.BlackSpark, (attacker, target) => -Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
                 }
             }
         };
@@ -778,7 +778,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     if ( !component.HasCooldown(spell.Name) && !component.HasCooldown(spell.Group) )
                     {
-                        if (spell.Condition == null || spell.Condition(Context, command.Player) )
+                        if (spell.Condition == null || spell.Condition(command.Player) )
                         {
                             component.AddCooldown(spell.Name, spell.CooldownInMilliseconds);
     
@@ -786,7 +786,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                             return Context.AddCommand(new PlayerUpdateManaCommand(command.Player, command.Player.Mana - spell.Mana) ).Then( () =>
                             {
-                                return spell.Callback(Context, command.Player);
+                                return spell.Callback(command.Player);
 
                             } ).Then( () =>
                             {

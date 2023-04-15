@@ -11,21 +11,47 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (command.Message.StartsWith("/i ") )
             {
-                ushort toOpenTibiaId;
+                string[] split = command.Message.Split(" ");
 
-                if (ushort.TryParse(command.Message.Substring(3), out toOpenTibiaId) )
+                if (split.Length == 2)
                 {
-                    Tile toTile = Context.Server.Map.GetTile(command.Player.Tile.Position.Offset(command.Player.Direction) );
+                    ushort toOpenTibiaId;
 
-                    if (toTile != null)
+                    if (ushort.TryParse(split[1], out toOpenTibiaId) )
                     {
-                        return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
-                        {
-                            return Context.AddCommand(new TileIncrementOrCreateItemCommand(toTile, toOpenTibiaId, 1) );
-                        } );
-                    }
+                        Tile toTile = Context.Server.Map.GetTile(command.Player.Tile.Position.Offset(command.Player.Direction) );
 
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                        if (toTile != null)
+                        {
+                            return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
+                            {
+                                return Context.AddCommand(new TileIncrementOrCreateItemCommand(toTile, toOpenTibiaId, 1) );
+                            } );
+                        }
+
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                    }
+                }
+                else 
+                {
+                    ushort toOpenTibiaId;
+
+                    byte count;
+
+                    if (ushort.TryParse(split[1], out toOpenTibiaId) && byte.TryParse(split[2], out count) )
+                    {
+                        Tile toTile = Context.Server.Map.GetTile(command.Player.Tile.Position.Offset(command.Player.Direction) );
+
+                        if (toTile != null)
+                        {
+                            return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
+                            {
+                                return Context.AddCommand(new TileIncrementOrCreateItemCommand(toTile, toOpenTibiaId, count) );
+                            } );
+                        }
+
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                    }
                 }
             }
 

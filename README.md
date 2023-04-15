@@ -45,13 +45,13 @@ You can use [Remere's map editor](https://github.com/hampusborgos/rme).
 - /w `waypoint_name` - Goes to waypont
 - /goto `player_name` - Goes to player
 - /c `player_name` - Teleports player
-- /i `item_id` - Creates an item
+- /i `item_id` `n` - Creates an item with n count
 - /m `monster_name` - Creates a monster
 - /n `npc_name` - Creates a NPC
 - /r - Destroys a monster or a NPC
 - /kick `player_name` - Kicks player
 - /me `n` - Display nth magic effect
-- /pt `n` - Display nth projectile type
+- /pe `n` - Display nth projectile effect
 
 # Spells list
 
@@ -154,4 +154,4 @@ public class DisplayMagicEffectHandler : CommandHandler<PlayerSayCommand>
 }
 ```
 
-- /me `n` - Display nth magic effect
+When the player says `/me 1`, for example, it will display the first magic effect. Usefull for debug purposes.
