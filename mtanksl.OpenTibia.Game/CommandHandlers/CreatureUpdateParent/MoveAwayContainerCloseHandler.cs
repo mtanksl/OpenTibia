@@ -33,6 +33,8 @@ namespace OpenTibia.Game.CommandHandlers
                             }
                         }
                     }
+
+                    return Promise.Completed;
                 } );
             }
 

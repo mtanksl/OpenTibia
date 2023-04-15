@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            var databaseAccount = Context.DatabaseContext.PlayerRepository.GetAccount(Packet.Account, Packet.Password);
+            Data.Models.Account databaseAccount = Context.DatabaseContext.PlayerRepository.GetAccount(Packet.Account, Packet.Password);
 
             if (databaseAccount == null)
             {

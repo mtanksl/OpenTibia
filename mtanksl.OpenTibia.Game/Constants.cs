@@ -45,6 +45,7 @@ namespace OpenTibia.Game
 
         public static readonly int PlayerAutomationSchedulerEventInterval = 200;
 
+
         public static readonly int ObjectsPerPoint = 10;
     }
 }

@@ -35,7 +35,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            var builder = new CombatAttackAreaBuilder()
+            CombatAttackAreaBuilder builder = new CombatAttackAreaBuilder()
                 .WithAttacker(Attacker)
                 .WithArea(Area, Attacker.Direction)
                 .WithCenter(Center)

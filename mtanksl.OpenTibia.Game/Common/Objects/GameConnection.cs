@@ -431,7 +431,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<RotateItemIncomingPacket>(reader);
 
-                                var fromPosition = new Position(packet.X, packet.Y, packet.Z);
+                                Position fromPosition = new Position(packet.X, packet.Y, packet.Z);
 
                                 if (fromPosition.IsContainer)
                                 {
@@ -468,7 +468,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 var packet = server.PacketsFactory.Create<LookIncomingPacket>(reader);
 
-                                var fromPosition = new Position(packet.X, packet.Y, packet.Z);
+                                Position fromPosition = new Position(packet.X, packet.Y, packet.Z);
 
                                 if (fromPosition.IsContainer)
                                 {

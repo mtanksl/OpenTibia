@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -17,11 +18,18 @@ namespace OpenTibia.Game.Commands
 
             return Context.AddCommand(new TileRemoveCreatureCommand(fromTile, Player) ).Then( () =>
             {
-                //TODO: Save to database
+                //TODO
 
                 Context.Server.PlayerFactory.Destroy(Player);
 
-                Context.Disconnect(Player.Client.Connection);
+                if (Player.Health == 0)
+                {
+                    Context.AddPacket(Player.Client.Connection, new OpenYouAreDeathDialogOutgoingPacket() );
+                }
+                else
+                {
+                    Context.Disconnect(Player.Client.Connection);
+                }
 
                 Context.Server.Logger.WriteLine(Player.Name + " disconneced.", LogLevel.Information);
 

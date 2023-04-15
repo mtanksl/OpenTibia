@@ -26,7 +26,7 @@ namespace OpenTibia.Host
 
                 while ( !exit )
                 {
-                    var option = Console.ReadLine();
+                    string option = Console.ReadLine();
 
                     switch (option)
                     {

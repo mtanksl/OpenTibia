@@ -152,13 +152,13 @@ namespace OpenTibia.Game.Commands
                     {
                         if (++index == promises.Length)
                         {
-                            if (first != null)
+                            if (first == null)
                             {
-                                reject(first);
+                                resolve();
                             }
                             else
                             {
-                                resolve();
+                                reject(first);
                             }
                         }
 
@@ -171,13 +171,13 @@ namespace OpenTibia.Game.Commands
 
                         if (++index == promises.Length)
                         {
-                            if (first != null)
+                            if (first == null)
                             {
-                                reject(first);
+                                resolve();
                             }
                             else
                             {
-                                resolve();
+                                reject(first);
                             }
                         }
                     } );

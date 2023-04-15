@@ -18,7 +18,7 @@ namespace OpenTibia.IO
 
         public static string Print(this byte[] bytes)
         {
-            var builder = new StringBuilder();
+            StringBuilder builder = new StringBuilder();
 
             foreach (var b in bytes)
             {

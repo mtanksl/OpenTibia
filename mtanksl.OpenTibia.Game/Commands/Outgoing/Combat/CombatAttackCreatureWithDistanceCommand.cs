@@ -27,7 +27,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            var builder = new CombatAttackCreatureBuilder()
+            CombatAttackCreatureBuilder builder = new CombatAttackCreatureBuilder()
                 .WithAttacker(Attacker)
                 .WithTarget(Target)
                 .WithProjectileType(ProjectileType)

@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Commands
 
             Context.Server.Logger.WriteLine(player.Name + " connected.", LogLevel.Information);
 
-            //TODO: Load from database
+            //TODO
 
             return Context.AddCommand(new TileAddCreatureCommand(Tile, player) ).Then( () =>
             {

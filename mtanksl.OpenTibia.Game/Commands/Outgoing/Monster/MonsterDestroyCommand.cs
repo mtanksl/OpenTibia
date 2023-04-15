@@ -16,6 +16,8 @@ namespace OpenTibia.Game.Commands
             return Context.AddCommand(new TileRemoveCreatureCommand(Monster.Tile, Monster) ).Then( () =>
             {
                 Context.Server.MonsterFactory.Destroy(Monster);
+
+                return Promise.Completed;
             } );
         }
     }
