@@ -49,7 +49,7 @@ namespace OpenTibia.Game
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public void RemoveComponent(GameObject gameObject, Component component)
+        public bool RemoveComponent(GameObject gameObject, Component component)
         {
             if (gameObject.Id == 0)
             {
@@ -68,13 +68,17 @@ namespace OpenTibia.Game
                     }
 
                     component.GameObject = null;
-                }
 
-                if (components.Count == 0)
-                {
-                    buckets.Remove(gameObject.Id);
+                    if (components.Count == 0)
+                    {
+                        buckets.Remove(gameObject.Id);
+                    }
+
+                    return true;
                 }
             }
+
+            return false;
         }
 
         /// <exception cref="InvalidOperationException"></exception>
@@ -90,17 +94,23 @@ namespace OpenTibia.Game
 
             if (buckets.TryGetValue(gameObject.Id, out components) )
             {
-                foreach (var component in components)
+                foreach (var component in components.ToList() )
                 {
-                    if (component is Behaviour behaviour)
+                    if (components.Remove(component) )
                     {
-                        behaviour.Stop(server);
+                        if (component is Behaviour behaviour)
+                        {
+                            behaviour.Stop(server);
+                        }
+
+                        component.GameObject = null;
+
+                        if (components.Count == 0)
+                        {
+                            buckets.Remove(gameObject.Id);
+                        }
                     }
-
-                    component.GameObject = null;
-                }
-
-                buckets.Remove(gameObject.Id);
+                }                
             }
         }
 

@@ -1380,7 +1380,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Behaviours\Item\" />
     <Folder Include="Behaviours\Monster\" />
     <Folder Include="Behaviours\Npc\" />
     <Folder Include="CommandHandlers\CreatureUpdateDirection\" />

@@ -16,12 +16,14 @@ namespace OpenTibia.Game
 
         public Player Create(IConnection connection, Data.Models.Player databasePlayer)
         {
+            Client client = new Client(server)
+            {
+                Connection = connection
+            };
+
             Player player = new Player()
             {
-                Client = new Client(server)
-                {
-                    Connection = connection
-                },
+                Client = client,
 
                 DatabasePlayerId = databasePlayer.Id,
 
@@ -99,13 +101,13 @@ namespace OpenTibia.Game
 
             server.GameObjects.AddGameObject(player);
 
-            server.Components.AddComponent(player, new SpecialConditionBehaviour() );
+            server.Components.AddComponent(player, new CreatureCooldownBehaviour() );
 
-            server.Components.AddComponent(player, new CooldownBehaviour() );
+            server.Components.AddComponent(player, new CreatureSpecialConditionBehaviour() );
 
-            server.Components.AddComponent(player, new AttackAndFollowBehaviour(new CloseAttackStrategy(500, (attacker, target) => -server.Randomization.Take(0, 20) ), new FollowWalkStrategy() ) );
+            server.Components.AddComponent(player, new PlayerAttackAndFollowBehaviour(new CloseAttackStrategy(500, (attacker, target) => -server.Randomization.Take(0, 20) ), new FollowWalkStrategy() ) );
 
-            server.Logger.WriteLine(player.Name + " connected.", LogLevel.Information);
+            server.Logger.WriteLine(player.Name + " login.", LogLevel.Information);
 
             return player;
         }
@@ -116,15 +118,11 @@ namespace OpenTibia.Game
 
             //TODO
 
-            server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(player) );
-
-            server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(player) );
-
             server.GameObjects.RemoveGameObject(player);
 
             server.Components.ClearComponents(player);
 
-            server.Logger.WriteLine(player.Name + " disconneced.", LogLevel.Information);
+            server.Logger.WriteLine(player.Name + " logout.", LogLevel.Information);
         }
     }
 }

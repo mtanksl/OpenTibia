@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Components;
 using System;
 
 namespace OpenTibia.Game.CommandHandlers
@@ -15,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, command.Player.Inventory, (byte)Slot.Extra, 1, false) ).Then( () =>
                     {
-                        return Promise.Delay(Constants.PlayerAutomationSchedulerEvent(command.Player), Constants.PlayerAutomationSchedulerEventInterval);
+                        return Context.Server.Components.AddComponent(command.Player, new PlayerActionBehaviour() ).Promise;
 
                     } ).Then( () =>
                     {
@@ -23,7 +24,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     } ).Then( () =>
                     {
-                        return Promise.Delay(Constants.PlayerAutomationSchedulerEvent(command.Player), Constants.PlayerAutomationSchedulerEventInterval);
+                        return Context.Server.Components.AddComponent(command.Player, new PlayerActionBehaviour() ).Promise;
 
                     } ).Then( () =>
                     {
@@ -45,7 +46,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, (Tile)command.ToItem.Parent) ).Then( () =>
                     {
-                        return Promise.Delay(Constants.PlayerAutomationSchedulerEvent(command.Player), Constants.PlayerAutomationSchedulerEventInterval);
+                        return Context.Server.Components.AddComponent(command.Player, new PlayerActionBehaviour() ).Promise;
 
                     } ).Then( () =>
                     {

@@ -4,11 +4,10 @@ using OpenTibia.Game.Commands;
 using OpenTibia.Game.Strategies;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
-using System.Collections.Generic;
 
 namespace OpenTibia.Game.Components
 {
-    public class AttackAndFollowBehaviour : PeriodicBehaviour
+    public class PlayerAttackAndFollowBehaviour : PeriodicBehaviour
     {
         private enum State
         {
@@ -25,7 +24,7 @@ namespace OpenTibia.Game.Components
 
         private IWalkStrategy walkStrategy;
 
-        public AttackAndFollowBehaviour(IAttackStrategy attackStrategy, IWalkStrategy walkStrategy)
+        public PlayerAttackAndFollowBehaviour(IAttackStrategy attackStrategy, IWalkStrategy walkStrategy)
         {
             this.attackStrategy = attackStrategy;
 
@@ -97,21 +96,21 @@ namespace OpenTibia.Game.Components
             {
                 if (target.Tile == null)
                 {
+                    Stop();
+
                     Context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
 
                                                                 new StopAttackAndFollowOutgoingPacket(0) );
-
-                    Stop();
                 }
                 else
                 {
                     if ( !player.Tile.Position.CanHearSay(target.Tile.Position) )
                     {
+                        Stop();
+
                         Context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
 
                                                                     new StopAttackAndFollowOutgoingPacket(0) );
-
-                        Stop();
                     }
                     else
                     {

@@ -3,7 +3,7 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Components
 {
-    public class SpecialConditionBehaviour : Behaviour
+    public class CreatureSpecialConditionBehaviour : Behaviour
     {
         private Creature creature;
 
@@ -30,11 +30,15 @@ namespace OpenTibia.Game.Components
         public void AddSpecialCondition(SpecialCondition specialCondition)
         {
             specialConditions |= specialCondition;
+
+
         }
 
         public void RemoveSpecialCondition(SpecialCondition specialCondition)
         {
             specialConditions &= ~specialCondition;
+
+
         }
 
         public override void Stop(Server server)

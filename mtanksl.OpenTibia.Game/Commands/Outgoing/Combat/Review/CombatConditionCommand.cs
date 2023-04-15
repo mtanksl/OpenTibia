@@ -47,19 +47,19 @@ namespace OpenTibia.Game.Commands
 
             if (Target.Tile != null)
             {
-                SpecialConditionBehaviour component = Context.Server.Components.GetComponent<SpecialConditionBehaviour>(Target);
+                CreatureSpecialConditionBehaviour playerAttackAndFollowBehaviour = Context.Server.Components.GetComponent<CreatureSpecialConditionBehaviour>(Target);
 
-                if (component != null)
+                if (playerAttackAndFollowBehaviour != null)
                 {
                     if (index < Health.Length - 1)
                     {
-                        if ( !component.HasSpecialCondition(SpecialCondition) )
+                        if ( !playerAttackAndFollowBehaviour.HasSpecialCondition(SpecialCondition) )
                         {
-                            component.AddSpecialCondition(SpecialCondition);
+                            playerAttackAndFollowBehaviour.AddSpecialCondition(SpecialCondition);
 
                             if (Target is Player player)
                             {
-                                Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(component.SpecialConditions) );
+                                Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(playerAttackAndFollowBehaviour.SpecialConditions) );
                             }
                         }
 
@@ -72,13 +72,13 @@ namespace OpenTibia.Game.Commands
                     }
                     else
                     {
-                        if (component.HasSpecialCondition(SpecialCondition) )
+                        if (playerAttackAndFollowBehaviour.HasSpecialCondition(SpecialCondition) )
                         {
-                            component.RemoveSpecialCondition(SpecialCondition);
+                            playerAttackAndFollowBehaviour.RemoveSpecialCondition(SpecialCondition);
 
                             if (Target is Player player)
                             {
-                                Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(component.SpecialConditions) );
+                                Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(playerAttackAndFollowBehaviour.SpecialConditions) );
                             }
                         }
 

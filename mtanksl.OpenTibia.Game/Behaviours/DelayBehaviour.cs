@@ -27,7 +27,16 @@ namespace OpenTibia.Game.Components
 
         public override void Start(Server server)
         {
-            promise = Promise.Delay(key + GameObject.Id, executeInMilliseconds);
+            promise = Promise.Delay(key + GameObject.Id, executeInMilliseconds).Then( () =>
+            {
+                server.Components.RemoveComponent(GameObject, this);
+
+                return Promise.Completed;
+
+            } ).Catch( (ex) =>
+            {
+                server.Components.RemoveComponent(GameObject, this);
+            } );
         }
 
         public override void Stop(Server server)

@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
@@ -14,11 +15,21 @@ namespace OpenTibia.Game.Commands
                 
         public override Promise Execute()
         {
-            Context.Server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(Player) );
+            PlayerActionBehaviour playerActionBehaviour = Context.Server.Components.GetComponent<PlayerActionBehaviour>(Player);
 
-            if (Context.Server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(Player) ) )
+            if (playerActionBehaviour != null)
             {
-                Context.AddPacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
+                Context.Server.Components.RemoveComponent(Player, playerActionBehaviour);
+            }
+
+            PlayerWalkBehaviour playerWalkBehaviour = Context.Server.Components.GetComponent<PlayerWalkBehaviour>(Player);
+
+            if (playerWalkBehaviour != null)
+            {
+                if (Context.Server.Components.RemoveComponent(Player, playerWalkBehaviour) )
+                {
+                    Context.AddPacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
+                }
             }
 
             return Promise.Completed;

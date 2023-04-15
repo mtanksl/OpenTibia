@@ -28,25 +28,34 @@ namespace OpenTibia.Game.Commands
                 
             if (creature != null && creature != Player)
             {
-                AttackAndFollowBehaviour component = Context.Server.Components.GetComponent<AttackAndFollowBehaviour>(Player);
+                PlayerAttackAndFollowBehaviour playerAttackAndFollowBehaviour = Context.Server.Components.GetComponent<PlayerAttackAndFollowBehaviour>(Player);
 
                 if (creature is Npc)
                 {
+                    if (playerAttackAndFollowBehaviour != null)
+                    {
+                        playerAttackAndFollowBehaviour.Stop();
+                    }
+
                     Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature),
 
                                                                 new StopAttackAndFollowOutgoingPacket(0) );
-
-                    component.Stop();
                 }
                 else
                 {
                     if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
                     {
-                        component.Attack(creature);
+                        if (playerAttackAndFollowBehaviour != null)
+                        {
+                            playerAttackAndFollowBehaviour.Attack(creature);
+                        }
                     }
                     else
                     {
-                        component.AttackAndFollow(creature);
+                        if (playerAttackAndFollowBehaviour != null)
+                        {
+                            playerAttackAndFollowBehaviour.AttackAndFollow(creature);
+                        }
                     }
 
                     return Promise.Completed;

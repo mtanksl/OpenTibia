@@ -4,26 +4,24 @@ using OpenTibia.Game.Strategies;
 
 namespace OpenTibia.Game.Components
 {
-    public class WalkBehaviour : PeriodicBehaviour
+    public class CreatureAttackBehaviour : PeriodicBehaviour
     {
-        private IWalkStrategy walkStrategy;
+        private IAttackStrategy attackStrategy;
 
-        public WalkBehaviour(IWalkStrategy walkStrategy)
+        public CreatureAttackBehaviour(IAttackStrategy attackStrategy)
         {
-            this.walkStrategy = walkStrategy;
+            this.attackStrategy = attackStrategy;
         }
 
         private Creature creature;
 
         private string key;
 
-        private Tile spawn;
-
         public override void Start(Server server)
         {
             creature = (Creature)GameObject;
 
-            key = "Walk_Behaviour_" + creature.Id;
+            key = "CreatureAttackBehaviour" + creature.Id;
         }
 
         private bool running = false;
@@ -32,25 +30,20 @@ namespace OpenTibia.Game.Components
         {
             if (!running)
             {
-                if (spawn == null)
-                {
-                    spawn = creature.Tile;
-                }
-
                 foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                 {
-                    if (creature.Tile.Position.CanSee(observer.Tile.Position) )
+                    if (creature.Tile.Position.CanHearSay(observer.Tile.Position) )
                     {
-                        Tile toTile = walkStrategy.GetNext(Context.Server, spawn, creature, observer);
+                        Command command = attackStrategy.GetNext(Context.Server, creature, observer);
 
-                        if (toTile != null)
+                        if (command != null)
                         {
                             running = true;
 
-                            await Context.AddCommand(new CreatureUpdateParentCommand(creature, toTile) );
-
-                            await Promise.Delay(key, 1000 * toTile.Ground.Metadata.Speed / creature.Speed);
-
+                            await Context.AddCommand(command);
+                            
+                            await Promise.Delay(key, attackStrategy.CooldownInMilliseconds);
+                            
                             running = false;
 
                             await Update();
@@ -59,7 +52,7 @@ namespace OpenTibia.Game.Components
                         break;
                     }
                 }
-            }            
+            }
         }
 
         public override void Stop(Server server)

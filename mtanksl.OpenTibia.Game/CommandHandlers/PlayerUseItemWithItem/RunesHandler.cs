@@ -470,13 +470,13 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (runes.TryGetValue(command.Item.Metadata.OpenTibiaId, out rune) && command.ToItem.Parent is Tile toTile)
             {
-                CooldownBehaviour component = Context.Server.Components.GetComponent<CooldownBehaviour>(command.Player);
+                CreatureCooldownBehaviour creatureCooldownBehaviour = Context.Server.Components.GetComponent<CreatureCooldownBehaviour>(command.Player);
 
-                if ( !component.HasCooldown(rune.Group) )
+                if ( !creatureCooldownBehaviour.HasCooldown(rune.Group) )
                 {
                     if (rune.Condition == null || rune.Condition(command.Player, toTile) )
                     {
-                        component.AddCooldown(rune.Group, rune.GroupCooldownInMilliseconds);
+                        creatureCooldownBehaviour.AddCooldown(rune.Group, rune.GroupCooldownInMilliseconds);
 
                         return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                         {

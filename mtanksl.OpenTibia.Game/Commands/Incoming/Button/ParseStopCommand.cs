@@ -15,15 +15,28 @@ namespace OpenTibia.Game.Commands
                 
         public override Promise Execute()
         {
-            AttackAndFollowBehaviour component = Context.Server.Components.GetComponent<AttackAndFollowBehaviour>(Player);
+            PlayerActionBehaviour playerActionBehaviour = Context.Server.Components.GetComponent<PlayerActionBehaviour>(Player);
 
-            component.Stop();
-
-            Context.Server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(Player) );
-
-            if (Context.Server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(Player) ) )
+            if (playerActionBehaviour != null)
             {
-                Context.AddPacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
+                Context.Server.Components.RemoveComponent(Player, playerActionBehaviour);
+            }
+
+            PlayerWalkBehaviour playerWalkBehaviour = Context.Server.Components.GetComponent<PlayerWalkBehaviour>(Player);
+
+            if (playerWalkBehaviour != null)
+            {
+                if (Context.Server.Components.RemoveComponent(Player, playerWalkBehaviour) )
+                {
+                    Context.AddPacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
+                }
+            }
+
+            PlayerAttackAndFollowBehaviour playerAttackAndFollowBehaviour = Context.Server.Components.GetComponent<PlayerAttackAndFollowBehaviour>(Player);
+
+            if (playerAttackAndFollowBehaviour != null)
+            {
+                playerAttackAndFollowBehaviour.Stop();
             }
 
             Context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );

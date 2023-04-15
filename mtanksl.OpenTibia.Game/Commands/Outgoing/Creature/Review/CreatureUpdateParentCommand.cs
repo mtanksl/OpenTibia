@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Components;
 using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 
@@ -161,12 +162,22 @@ namespace OpenTibia.Game.Commands
                             }
                         }
 
-                        if (Context.Server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(observer) ) )
+                        PlayerActionBehaviour playerActionBehaviour = Context.Server.Components.GetComponent<PlayerActionBehaviour>(observer);
+
+                        if (playerActionBehaviour != null)
                         {
-                            Context.AddPacket(observer.Client.Connection, new StopWalkOutgoingPacket(observer.Direction) );
+                            Context.Server.Components.RemoveComponent(observer, playerActionBehaviour);
                         }
 
-                        Context.Server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(observer) );
+                        PlayerWalkBehaviour playerWalkBehaviour = Context.Server.Components.GetComponent<PlayerWalkBehaviour>(observer);
+
+                        if (playerWalkBehaviour != null)
+                        {
+                            if (Context.Server.Components.RemoveComponent(observer, playerWalkBehaviour) )
+                            {
+                                Context.AddPacket(observer.Client.Connection, new StopWalkOutgoingPacket(observer.Direction) );
+                            }
+                        }
                     }
                     else
                     {

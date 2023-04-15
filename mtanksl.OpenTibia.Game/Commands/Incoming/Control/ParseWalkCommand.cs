@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
 using System.Linq;
 
@@ -31,7 +32,7 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            return Promise.Delay(Constants.PlayerWalkSchedulerEvent(Player), 1000 * toTile.Ground.Metadata.Speed / Player.Speed).Then( () =>
+            return Context.Server.Components.AddComponent(Player, new PlayerWalkBehaviour(1000 * toTile.Ground.Metadata.Speed / Player.Speed) ).Promise.Then( () =>
             {
                 Tile toTile = Context.Server.Map.GetTile(Player.Tile.Position.Offset(MoveDirection) );
 

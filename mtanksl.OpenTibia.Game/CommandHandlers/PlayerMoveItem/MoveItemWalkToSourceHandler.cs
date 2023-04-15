@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Components;
 using System;
 
 namespace OpenTibia.Game.CommandHandlers
@@ -18,7 +19,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 return Context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, (Tile)command.Item.Parent) ).Then( () =>
                 {
-                    return Promise.Delay(Constants.PlayerAutomationSchedulerEvent(command.Player), Constants.PlayerAutomationSchedulerEventInterval);
+                    return Context.Server.Components.AddComponent(command.Player, new PlayerActionBehaviour() ).Promise;
 
                 } ).Then( () =>
                 {

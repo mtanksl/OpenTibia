@@ -1,16 +1,16 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
-using OpenTibia.Game.Strategies;
 
 namespace OpenTibia.Game.Components
 {
-    public class AttackBehaviour : PeriodicBehaviour
+    public class CreatureTalkBehaviour : PeriodicBehaviour
     {
-        private IAttackStrategy attackStrategy;
+        private string[] sentences;
 
-        public AttackBehaviour(IAttackStrategy attackStrategy)
+        public CreatureTalkBehaviour(string[] sentences)
         {
-            this.attackStrategy = attackStrategy;
+            this.sentences = sentences;
         }
 
         private Creature creature;
@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Components
         {
             creature = (Creature)GameObject;
 
-            key = "Attack_Behaviour_" + creature.Id;
+            key = "CreatureTalkBehaviour" + creature.Id;
         }
 
         private bool running = false;
@@ -34,20 +34,15 @@ namespace OpenTibia.Game.Components
                 {
                     if (creature.Tile.Position.CanHearSay(observer.Tile.Position) )
                     {
-                        Command command = attackStrategy.GetNext(Context.Server, creature, observer);
+                        running = true;
 
-                        if (command != null)
-                        {
-                            running = true;
+                        await Context.AddCommand(new ShowTextCommand(creature, TalkType.MonsterSay, Context.Server.Randomization.Take(sentences) ) );
+                        
+                        await Promise.Delay(key, 30000);
 
-                            await Context.AddCommand(command);
-                            
-                            await Promise.Delay(key, attackStrategy.CooldownInMilliseconds);
-                            
-                            running = false;
+                        running = false;
 
-                            await Update();
-                        }
+                        await Update();
 
                         break;
                     }

@@ -296,7 +296,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
-                        SpecialConditionBehaviour component = Context.Current.Server.Components.GetComponent<SpecialConditionBehaviour>(attacker);
+                        CreatureSpecialConditionBehaviour component = Context.Current.Server.Components.GetComponent<CreatureSpecialConditionBehaviour>(attacker);
 
                         if (component != null)
                         {
@@ -309,6 +309,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                             Context.Current.Server.CancelQueueForExecution("Combat_Condition_" + SpecialCondition.Poisoned + attacker.Id);
                         }
+
+                        return Promise.Completed;
                     } );
                 }
             },
@@ -772,17 +774,17 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (spells.TryGetValue(command.Message, out spell) )
             {
-                CooldownBehaviour component = Context.Server.Components.GetComponent<CooldownBehaviour>(command.Player);
+                CreatureCooldownBehaviour creatureCooldownBehaviour = Context.Server.Components.GetComponent<CreatureCooldownBehaviour>(command.Player);
 
                 if (command.Player.Mana >= spell.Mana)
                 {
-                    if ( !component.HasCooldown(spell.Name) && !component.HasCooldown(spell.Group) )
+                    if ( !creatureCooldownBehaviour.HasCooldown(spell.Name) && !creatureCooldownBehaviour.HasCooldown(spell.Group) )
                     {
                         if (spell.Condition == null || spell.Condition(command.Player) )
                         {
-                            component.AddCooldown(spell.Name, spell.CooldownInMilliseconds);
+                            creatureCooldownBehaviour.AddCooldown(spell.Name, spell.CooldownInMilliseconds);
     
-                            component.AddCooldown(spell.Group, spell.GroupCooldownInMilliseconds);
+                            creatureCooldownBehaviour.AddCooldown(spell.Group, spell.GroupCooldownInMilliseconds);
 
                             return Context.AddCommand(new PlayerUpdateManaCommand(command.Player, command.Player.Mana - spell.Mana) ).Then( () =>
                             {

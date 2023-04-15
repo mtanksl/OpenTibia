@@ -5,6 +5,7 @@ using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
+using System.Security.AccessControl;
 
 namespace OpenTibia.Game.CommandHandlers
 {
@@ -39,7 +40,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
-                        SpecialConditionBehaviour component = Context.Current.Server.Components.GetComponent<SpecialConditionBehaviour>(target);
+                        CreatureSpecialConditionBehaviour component = Context.Current.Server.Components.GetComponent<CreatureSpecialConditionBehaviour>(target);
 
                         if (component != null)
                         {
@@ -55,6 +56,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                             Context.Current.Server.CancelQueueForExecution("Combat_Condition_" + SpecialCondition.Poisoned + target.Id);
                         }
+
+                        return Promise.Completed;
                     } );
                 }
             },
@@ -153,13 +156,13 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (runes.TryGetValue(command.Item.Metadata.OpenTibiaId, out rune) )
             {
-                CooldownBehaviour component = Context.Server.Components.GetComponent<CooldownBehaviour>(command.Player);
+                CreatureCooldownBehaviour creatureCooldownBehaviour = Context.Server.Components.GetComponent<CreatureCooldownBehaviour>(command.Player);
 
-                if ( !component.HasCooldown(rune.Group) )
+                if ( !creatureCooldownBehaviour.HasCooldown(rune.Group) )
                 {
                     if (rune.Condition == null || rune.Condition(command.Player, command.ToCreature) )
                     {
-                        component.AddCooldown(rune.Group, rune.GroupCooldownInMilliseconds);
+                        creatureCooldownBehaviour.AddCooldown(rune.Group, rune.GroupCooldownInMilliseconds);
 
                         return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                         {

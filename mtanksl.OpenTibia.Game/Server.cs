@@ -133,11 +133,17 @@ namespace OpenTibia.Game
 
             Pathfinding = new Pathfinding(Map);
 
-            Scripts.Start();
-
             dispatcher.Start();
 
             scheduler.Start();
+
+            QueueForExecution( () =>
+            {
+                Scripts.Start();
+
+                return Promise.Completed;
+
+            } ).Wait();
 
             foreach (var listener in listeners)
             {
@@ -298,8 +304,6 @@ namespace OpenTibia.Game
         {
             QueueForExecution( () =>
             {
-                Context context = Context.Current;
-
                 Scripts.Stop();
 
                 return Promise.Completed;
