@@ -1,6 +1,4 @@
-﻿using OpenTibia.Game.CommandHandlers;
-
-namespace OpenTibia.Game.Scripts
+﻿namespace OpenTibia.Game.Scripts
 {
     public class CreatureUpdateDirectionScripts : IScript
     {

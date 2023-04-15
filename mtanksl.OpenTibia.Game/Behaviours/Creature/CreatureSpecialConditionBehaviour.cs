@@ -30,15 +30,11 @@ namespace OpenTibia.Game.Components
         public void AddSpecialCondition(SpecialCondition specialCondition)
         {
             specialConditions |= specialCondition;
-
-
         }
 
         public void RemoveSpecialCondition(SpecialCondition specialCondition)
         {
             specialConditions &= ~specialCondition;
-
-
         }
 
         public override void Stop(Server server)

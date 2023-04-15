@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Structures;
-using System.Xml.Linq;
 
 namespace OpenTibia.Common.Objects
 {

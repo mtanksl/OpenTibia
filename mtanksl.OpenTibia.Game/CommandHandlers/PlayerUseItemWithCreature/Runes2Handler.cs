@@ -5,7 +5,6 @@ using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
-using System.Security.AccessControl;
 
 namespace OpenTibia.Game.CommandHandlers
 {
