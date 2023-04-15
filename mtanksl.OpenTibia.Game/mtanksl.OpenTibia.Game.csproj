@@ -1388,7 +1388,6 @@
     <Folder Include="CommandHandlers\PlayerLookItem\" />
     <Folder Include="CommandHandlers\PlayerWhisper\" />
     <Folder Include="CommandHandlers\PlayerYell\" />
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 
   <ItemGroup>

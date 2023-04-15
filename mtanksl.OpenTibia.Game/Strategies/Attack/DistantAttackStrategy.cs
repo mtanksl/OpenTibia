@@ -30,9 +30,9 @@ namespace OpenTibia.Game.Strategies
             }
         }
 
-        public Command GetNext(Server server, Creature creature, Creature target)
+        public Command GetNext(Server server, Creature attacker, Creature target)
         {
-            return new CombatAttackCreatureWithDistanceCommand(creature, target, projectileType, formula);
+            return new CombatAttackCreatureWithDistanceCommand(attacker, target, projectileType, formula);
         }
     }    
 }

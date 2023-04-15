@@ -4,6 +4,6 @@ namespace OpenTibia.Game.Strategies
 {
     public interface IWalkStrategy
     {
-        Tile GetNext(Server server, Tile spawn, Creature creature, Creature target);
+        Tile GetNext(Server server, Tile spawn, Creature attacker, Creature target);
     }
 }

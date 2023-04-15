@@ -7,11 +7,11 @@ namespace OpenTibia.Game.Strategies
 {
     public class ApproachWalkStrategy : IWalkStrategy
     {
-        public Tile GetNext(Server server, Tile spawn, Creature creature, Creature target)
+        public Tile GetNext(Server server, Tile spawn, Creature attacker, Creature target)
         {
-            int deltaY = creature.Tile.Position.Y - target.Tile.Position.Y;
+            int deltaY = attacker.Tile.Position.Y - target.Tile.Position.Y;
 
-            int deltaX = creature.Tile.Position.X - target.Tile.Position.X;
+            int deltaX = attacker.Tile.Position.X - target.Tile.Position.X;
 
             HashSet<Direction> directions = new HashSet<Direction>();
 
@@ -39,7 +39,7 @@ namespace OpenTibia.Game.Strategies
 
                 foreach (var direction in server.Randomization.Shuffle(directions.ToArray() ) )
                 {
-                    Tile toTile = server.Map.GetTile(creature.Tile.Position.Offset(direction) );
+                    Tile toTile = server.Map.GetTile(attacker.Tile.Position.Offset(direction) );
 
                     if (toTile == null ||
                         
@@ -60,7 +60,7 @@ namespace OpenTibia.Game.Strategies
 
             foreach (var direction in server.Randomization.Shuffle(new[] { Direction.North, Direction.East, Direction.South, Direction.West } ) )
             {
-                Tile toTile = server.Map.GetTile(creature.Tile.Position.Offset(direction) );
+                Tile toTile = server.Map.GetTile(attacker.Tile.Position.Offset(direction) );
 
                 if (toTile == null || 
                     

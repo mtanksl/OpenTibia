@@ -99,7 +99,7 @@ namespace OpenTibia.Game.CommandHandlers
                         promises.Add(Context.AddCommand(new CreatureUpdateParentCommand(creature, east) ) );
                     }
 
-                    return Promise.WhenAll(promises.ToArray());
+                    return Promise.WhenAll(promises.ToArray() );
                 } );
             }
 

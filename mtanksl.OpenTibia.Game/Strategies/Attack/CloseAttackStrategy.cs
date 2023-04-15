@@ -25,11 +25,11 @@ namespace OpenTibia.Game.Strategies
             }
         }
 
-        public Command GetNext(Server server, Creature creature, Creature target)
+        public Command GetNext(Server server, Creature attacker, Creature target)
         {
-            if (creature.Tile.Position.IsNextTo(target.Tile.Position) )
+            if (attacker.Tile.Position.IsNextTo(target.Tile.Position) )
             {
-                return new CombatAttackCreatureWithMeleeCommand(creature, target, formula);
+                return new CombatAttackCreatureWithMeleeCommand(attacker, target, formula);
             }
 
             return null;

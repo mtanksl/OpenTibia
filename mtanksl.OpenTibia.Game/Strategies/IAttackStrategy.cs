@@ -7,6 +7,6 @@ namespace OpenTibia.Game.Strategies
     {
         int CooldownInMilliseconds { get; }
 
-        Command GetNext(Server server, Creature creature, Creature target);
+        Command GetNext(Server server, Creature attacker, Creature target);
     }
 }
