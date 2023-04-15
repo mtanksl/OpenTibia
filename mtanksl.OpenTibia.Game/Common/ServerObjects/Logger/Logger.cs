@@ -1,46 +1,63 @@
-﻿namespace OpenTibia.Game
+﻿using System;
+
+namespace OpenTibia.Game
 {
     public class Logger
     {
         private ILoggerProvider provider;
 
-        public Logger(ILoggerProvider provider)
+        private LogLevel filter;
+
+        public Logger(ILoggerProvider provider, LogLevel filter)
         {
             this.provider = provider;
+
+            this.filter = filter;
         }
 
         public StopwatchLogger Measure(string message, LogLevel level = LogLevel.Default, bool inline = true)
         {
-            StopwatchLogger logger = new StopwatchLogger(provider, message, level, inline);
+            StopwatchLogger logger = new StopwatchLogger(provider, filter, message, level, inline);
 
             logger.Start();
 
             return logger;
         }
 
-        public void WriteLine(string message, LogLevel level = LogLevel.Default)
-        {
-            provider.BeginWrite(level);
-
-            provider.Write(message);
-
-            provider.EndWrite();
-
-            provider.Line();
-        }
-
         public void Write(string message, LogLevel level = LogLevel.Default)
         {
-            provider.BeginWrite(level);
+            if (level >= filter)
+            {
+                provider.BeginWrite(level);
 
-            provider.Write(message);
+                provider.Write(message);
 
-            provider.EndWrite();
+                provider.EndWrite();
+            }
         }
 
-        public void WriteLine()
+        public void WriteLine(string message, LogLevel level = LogLevel.Default)
         {
-            provider.Line();
+            if (level >= filter)
+            {
+                provider.BeginWrite(level);
+
+                provider.Write(message + Environment.NewLine);
+
+                provider.EndWrite();
+            }
+        }
+
+        public void WriteLine(LogLevel level = LogLevel.Default)
+        {
+            if (level >= filter)
+            {
+                provider.BeginWrite(level);
+
+                provider.Write(Environment.NewLine);
+
+                provider.EndWrite();
+            }
         }
     }
 }

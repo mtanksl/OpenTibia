@@ -1,6 +1,6 @@
 ﻿using OpenTibia.Game;
-using OpenTibia.Game.Commands;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 
@@ -23,6 +23,11 @@ namespace mtanksl.OpenTibia.Host.GUI
             }
         }
 
+        private void richTextBox1_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            Process.Start("explorer.exe", e.LinkText);
+        }
+
         private void startToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (server != null)
@@ -33,9 +38,11 @@ namespace mtanksl.OpenTibia.Host.GUI
             }
 
             server = new Server(7171, 7172);
-
-            server.Logger = new Logger(new RichTextboxLoggerProvider(richTextBox1) );
-
+#if DEBUG
+            server.Logger = new Logger(new RichTextboxLoggerProvider(richTextBox1), LogLevel.Debug);
+#else
+            server.Logger = new Logger(new RichTextboxLoggerProvider(richTextBox1), LogLevel.Information);
+#endif
             server.Start();
         }
 
@@ -88,6 +95,6 @@ namespace mtanksl.OpenTibia.Host.GUI
                     e.Cancel = true;
                 }
             }
-        }
+        }        
     }
 }

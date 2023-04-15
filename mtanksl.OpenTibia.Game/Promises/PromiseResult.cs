@@ -351,11 +351,6 @@ namespace OpenTibia.Game.Commands
             return new PromiseResultMethodBuilder<T>();
         }
 
-        public PromiseResultMethodBuilder()
-        {
-
-        }
-
         public void SetStateMachine(IAsyncStateMachine stateMachine)
         {
             //

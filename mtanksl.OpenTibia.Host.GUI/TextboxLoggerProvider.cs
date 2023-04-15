@@ -33,13 +33,5 @@ namespace mtanksl.OpenTibia.Host.GUI
         {
             
         }
-
-        public void Line()
-        {
-            textbox.BeginInvoke( () =>
-            {
-                textbox.AppendText(Environment.NewLine);
-            } );
-        }
     }
 }

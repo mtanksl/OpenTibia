@@ -23,6 +23,8 @@ namespace OpenTibia.Game.Commands
 
                 Context.Disconnect(Player.Client.Connection);
 
+                Context.Server.Logger.WriteLine(Player.Name + " disconneced.", LogLevel.Information);
+
                 return Promise.Completed;
             } );
         }

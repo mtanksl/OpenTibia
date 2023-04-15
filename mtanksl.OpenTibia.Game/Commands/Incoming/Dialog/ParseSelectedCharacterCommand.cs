@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Commands
 
         public SelectedCharacterIncomingPacket Packet { get; set; }
 
-        public override Promise Execute()
+        public override async Promise Execute()
         {
             Connection.Keys = Packet.Keys;
 
@@ -29,63 +29,69 @@ namespace OpenTibia.Game.Commands
 
                 Context.Disconnect(Connection);
 
-                return Promise.Break;
+                await Promise.Break;
             }
-
-            Data.Models.Player databasePlayer = Context.DatabaseContext.PlayerRepository.GetAccountPlayer(Packet.Account, Packet.Password, Packet.Character);
-
-            if (databasePlayer == null)
+            else
             {
-                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
+                Data.Models.Player databasePlayer = Context.DatabaseContext.PlayerRepository.GetAccountPlayer(Packet.Account, Packet.Password, Packet.Character);
 
-                Context.Disconnect(Connection);
+                if (databasePlayer == null)
+                {
+                    Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
 
-                return Promise.Break;
-            }
+                    Context.Disconnect(Connection);
 
-            return Login(databasePlayer);
-        }
+                    await Promise.Break;
+                }
+                else
+                {
+                    Player onlinePlayer = Context.Server.GameObjects.GetPlayers()
+                        .Where(p => p.Name == databasePlayer.Name)
+                        .FirstOrDefault();
 
-        private async Promise Login(Data.Models.Player databasePlayer)
-        {
-            Player onlinePlayer = Context.Server.GameObjects.GetPlayers()
-                .Where(p => p.Name == databasePlayer.Name)
-                .FirstOrDefault();
+                    if (onlinePlayer != null)
+                    {
+                        await Context.AddCommand(new PlayerDestroyCommand(onlinePlayer) );
+                    }
 
-            if (onlinePlayer != null)
-            {
-                await Context.AddCommand(new PlayerDestroyCommand(onlinePlayer) );
-            }
+                    Tile toTile = Context.Server.Map.GetTile(new Position(databasePlayer.CoordinateX, databasePlayer.CoordinateY, databasePlayer.CoordinateZ) );
 
-            Tile toTile = Context.Server.Map.GetTile(new Position(databasePlayer.CoordinateX, databasePlayer.CoordinateY, databasePlayer.CoordinateZ) );
+                    if (toTile == null)
+                    {
+                        await Promise.Break;
+                    }
+                    else
+                    {
+                        Player player = await Context.AddCommand(new TileCreatePlayerCommand(toTile, Connection, databasePlayer) );
 
-            Player player = await Context.AddCommand(new TileCreatePlayerCommand(toTile, Connection, databasePlayer) );
+                        Context.AddPacket(Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs) );
 
-            Context.AddPacket(Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs) );
+                        Context.AddPacket(Connection, new SendTilesOutgoingPacket(Context.Server.Map, player.Client, toTile.Position) );
 
-            Context.AddPacket(Connection, new SendTilesOutgoingPacket(Context.Server.Map, player.Client, toTile.Position) );
+                        foreach (var pair in player.Inventory.GetIndexedContents() )
+                        {
+                            Context.AddPacket(Connection, new SlotAddOutgoingPacket(pair.Key, (Item)pair.Value) );
+                        }
 
-            foreach (var pair in player.Inventory.GetIndexedContents() )
-            {
-                Context.AddPacket(Connection, new SlotAddOutgoingPacket(pair.Key, (Item)pair.Value) );
-            }
+                        Context.AddPacket(Connection, new SendStatusOutgoingPacket(player.Health, player.MaxHealth, player.Capacity, player.Experience, player.Level, player.LevelPercent, player.Mana, player.MaxMana, player.Skills.MagicLevel, player.Skills.MagicLevelPercent, player.Soul, player.Stamina) );
 
-            Context.AddPacket(Connection, new SendStatusOutgoingPacket(player.Health, player.MaxHealth, player.Capacity, player.Experience, player.Level, player.LevelPercent, player.Mana, player.MaxMana, player.Skills.MagicLevel, player.Skills.MagicLevelPercent, player.Soul, player.Stamina) );
+                        Context.AddPacket(Connection, new SendSkillsOutgoingPacket(player.Skills.Fist, player.Skills.FistPercent, player.Skills.Club, player.Skills.ClubPercent, player.Skills.Sword, player.Skills.SwordPercent, player.Skills.Axe, player.Skills.AxePercent, player.Skills.Distance, player.Skills.DistancePercent, player.Skills.Shield, player.Skills.ShieldPercent, player.Skills.Fish, player.Skills.FishPercent) );
 
-            Context.AddPacket(Connection, new SendSkillsOutgoingPacket(player.Skills.Fist, player.Skills.FistPercent, player.Skills.Club, player.Skills.ClubPercent, player.Skills.Sword, player.Skills.SwordPercent, player.Skills.Axe, player.Skills.AxePercent, player.Skills.Distance, player.Skills.DistancePercent, player.Skills.Shield, player.Skills.ShieldPercent, player.Skills.Fish, player.Skills.FishPercent) );
+                        Context.AddPacket(Connection, new SetEnvironmentLightOutgoingPacket(Context.Server.Clock.Light) );
 
-            Context.AddPacket(Connection, new SetEnvironmentLightOutgoingPacket(Context.Server.Clock.Light) );
+                        Context.AddPacket(Connection, new SetSpecialConditionOutgoingPacket(SpecialCondition.None) );
 
-            Context.AddPacket(Connection, new SetSpecialConditionOutgoingPacket(SpecialCondition.None) );
+                        foreach (var vip in player.Client.VipCollection.GetVips() )
+                        {
+                            Context.AddPacket(Connection, new VipOutgoingPacket(vip.Id, vip.Name, false) );
+                        }
 
-            foreach (var vip in player.Client.VipCollection.GetVips() )
-            {
-                Context.AddPacket(Connection, new VipOutgoingPacket(vip.Id, vip.Name, false) );
-            }
-
-            if (onlinePlayer == null)
-            {
-                await Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                        if (onlinePlayer == null)
+                        {
+                            await Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                        }
+                    }
+                }
             }
         }
     }

@@ -38,7 +38,7 @@ namespace OpenTibia.Game
                 {
                     var builder = new DbContextOptionsBuilder<SqliteContext>();
 
-                    builder.LogTo(message => server.Logger.WriteLine(message.Split("CommandTimeout='30']")[1], LogLevel.Information), 
+                    builder.LogTo(message => server.Logger.WriteLine(message.Split("CommandTimeout='30']")[1], LogLevel.Debug), 
 
                         events: new[] { RelationalEventId.CommandExecuted }, 
 

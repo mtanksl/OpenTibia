@@ -4,7 +4,7 @@ It is an open Tibia server, a simple one, written in C# from scratch.
 
 # Why another one?
 
-I think one can only learn by doing. 
+I believe one can only learn by doing. 
 
 # Notes before proceding
 
@@ -13,13 +13,14 @@ From time to time, I take this project to have some fun and recall the good old 
 
 # First run
 
-You need Visual Studio 2022 and .NET 7.
-Download and extract the files.
-Open `mtanksl.OpenTibia.sln`.
-Set `mtanksl.OpenTibia.Host` as startup project.
-Press F5 to run the server. 
-Use Tibia 8.6 client (download below) with an IP Changer (also download below) to connect to localhost (IP address 127.0.0.1) on port 7171.
-Use account number `1` and password `1` to enter game.
+- You need Visual Studio 2022 and .NET 7.
+- Download and extract the files.
+- Open `mtanksl.OpenTibia.sln`.
+- Set `mtanksl.OpenTibia.Host` or `mtanksl.OpenTibia.Host.GUI` as startup project.
+- Press F5 to run the server. 
+- Use Tibia 8.6 client (download below) with an IP Changer (download also below) to connect to localhost (IP address 127.0.0.1) on port 7171.
+- Use account number `1` and password `1` to enter game.
+- Sqlite database location: `\bin\Debug\...\data\database.db`.
 
 ![Server and Client](/server.png)
 
@@ -49,6 +50,8 @@ You can use [Remere's map editor](https://github.com/hampusborgos/rme).
 - /n `npc_name` - Creates a NPC
 - /r - Destroys a monster or a NPC
 - /kick `player_name` - Kicks player
+- /me `n` - Display nth magic effect
+- /pt `n` - Display nth projectile type
 
 # Spells list
 

@@ -63,14 +63,14 @@
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
             // 
             // shutdownToolStripMenuItem
             // 
             this.shutdownToolStripMenuItem.Name = "shutdownToolStripMenuItem";
-            this.shutdownToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.shutdownToolStripMenuItem.Size = new System.Drawing.Size(128, 22);
             this.shutdownToolStripMenuItem.Text = "Shutdown";
             this.shutdownToolStripMenuItem.Click += new System.EventHandler(this.shutdownToolStripMenuItem_Click);
             // 
@@ -85,7 +85,7 @@
             // kickAllToolStripMenuItem
             // 
             this.kickAllToolStripMenuItem.Name = "kickAllToolStripMenuItem";
-            this.kickAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.kickAllToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.kickAllToolStripMenuItem.Text = "Kick all";
             this.kickAllToolStripMenuItem.Click += new System.EventHandler(this.kickAllToolStripMenuItem_Click);
             // 
@@ -106,6 +106,7 @@
             this.richTextBox1.Size = new System.Drawing.Size(584, 315);
             this.richTextBox1.TabIndex = 2;
             this.richTextBox1.Text = "";
+            this.richTextBox1.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBox1_LinkClicked);
             // 
             // MainForm
             // 

@@ -9,9 +9,9 @@ namespace mtanksl.OpenTibia.Host.GUI
     {
         private RichTextBox richTextBox;
 
-        public RichTextboxLoggerProvider(RichTextBox textbox)
+        public RichTextboxLoggerProvider(RichTextBox richTextBox)
         {
-            this.richTextBox = textbox;
+            this.richTextBox = richTextBox;
         }
 
         public void BeginWrite(LogLevel level)
@@ -53,6 +53,8 @@ namespace mtanksl.OpenTibia.Host.GUI
                         break;
                 }
 
+                richTextBox.SuspendLayout();
+
                 richTextBox.SelectionStart = richTextBox.TextLength;
 
                 richTextBox.SelectionLength = 0;
@@ -68,6 +70,19 @@ namespace mtanksl.OpenTibia.Host.GUI
             richTextBox.BeginInvoke( () =>
             {
                 richTextBox.AppendText(message);
+
+                if (richTextBox.Lines.Length >= 100)
+                {
+                    richTextBox.SelectionStart = 0;
+
+                    richTextBox.SelectionLength = richTextBox.GetFirstCharIndexFromLine(richTextBox.Lines.Length - 100);
+
+                    richTextBox.ReadOnly = false;
+
+                    richTextBox.SelectedText = "";
+
+                    richTextBox.ReadOnly = true;
+                }
             } );
         }
 
@@ -75,15 +90,11 @@ namespace mtanksl.OpenTibia.Host.GUI
         {
             richTextBox.BeginInvoke( () =>
             {
-                richTextBox.ScrollToCaret();
-            } );
-        }
+                richTextBox.SelectionStart = richTextBox.Text.Length;
 
-        public void Line()
-        {
-            richTextBox.BeginInvoke( () =>
-            {
-                richTextBox.AppendText(Environment.NewLine);
+                richTextBox.ScrollToCaret();
+
+                richTextBox.ResumeLayout();
             } );
         }
     }

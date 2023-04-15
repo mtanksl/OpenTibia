@@ -7,15 +7,19 @@ namespace OpenTibia.Game
     {
         private ILoggerProvider provider;
 
+        private LogLevel filter;
+
         private string message;
 
         private LogLevel level;
 
         private bool inline;
 
-        public StopwatchLogger(ILoggerProvider provider, string message, LogLevel level, bool inline)
+        public StopwatchLogger(ILoggerProvider provider, LogLevel filter, string message, LogLevel level, bool inline)
         {
             this.provider = provider;
+
+            this.filter = filter;
 
             this.message = message;
 
@@ -34,9 +38,12 @@ namespace OpenTibia.Game
 
             if (inline)
             {
-                provider.BeginWrite(level);
+                if (level >= filter)
+                {
+                    provider.BeginWrite(level);
 
-                provider.Write(message + "... ");
+                    provider.Write(message + "... ");
+                }
             }
         }
 
@@ -46,21 +53,23 @@ namespace OpenTibia.Game
 
             if (inline)
             {
-                provider.Write(stopWatch.ElapsedMilliseconds + "ms");
+                if (level >= filter)
+                {
+                    provider.Write(stopWatch.ElapsedMilliseconds + "ms" + Environment.NewLine);
 
-                provider.EndWrite();
-
-                provider.Line();
+                    provider.EndWrite();
+                }
             }
             else
             {
-                provider.BeginWrite(level);
+                if (level >= filter)
+                {
+                    provider.BeginWrite(level);
 
-                provider.Write(message + "... " + stopWatch.ElapsedMilliseconds + "ms");
+                    provider.Write(message + "... " + stopWatch.ElapsedMilliseconds + "ms" + Environment.NewLine);
 
-                provider.EndWrite();
-
-                provider.Line();
+                    provider.EndWrite();
+                }
             }
         }
     }

@@ -32,7 +32,7 @@ namespace OpenTibia.Game
 
             PacketsFactory = new PacketsFactory();
 
-            Logger = new Logger(new ConsoleLoggerProvider() );
+            Logger = new Logger(new ConsoleLoggerProvider(), LogLevel.Debug);
 
             Clock = new Clock(12, 0);
 

@@ -49,10 +49,5 @@ namespace OpenTibia.Game
         {
             
         }
-
-        public void Line()
-        {
-            Console.WriteLine();
-        }
     }
 }
