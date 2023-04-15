@@ -60,7 +60,7 @@ namespace OpenTibia.Game.Commands
 
             if (onlinePlayer != null)
             {
-                return Context.AddCommand(new PlayerDestroyCommand(onlinePlayer)).Then( () =>
+                return Context.AddCommand(new PlayerDestroyCommand(onlinePlayer) ).Then( () =>
                 {
                     return Login(toTile, databasePlayer);
                 } );

@@ -96,6 +96,29 @@ namespace OpenTibia.Game.Commands
 
             if (attacker != target || damage > 0)
             {
+                if (target is Player player)
+                {
+                    if (attacker != null)
+                    {
+                        if (damage <= 0)
+                        {
+                            Context.Current.AddPacket(player.Client.Connection, new SetFrameColorOutgoingPacket(attacker.Id, FrameColor.Black) );
+                        }
+
+                        if (damage < 0)
+                        {
+                            Context.Current.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + -damage + " hitpoints due to an attack by " + attacker.Name + ".") );
+                        }
+                    }
+                    else
+                    {
+                        if (damage < 0)
+                        {
+                            Context.Current.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + -damage + " hitpoints.") );
+                        }
+                    }
+                }
+
                 if (damage == 0)
                 {
                     if (missedMagicEffectType != null)
@@ -119,30 +142,7 @@ namespace OpenTibia.Game.Commands
                     }
 
                     await Context.Current.AddCommand(new CreatureUpdateHealthCommand(target, target.Health + damage) );
-                }   
-                
-                if (target is Player player)
-                {
-                    if (attacker != null)
-                    {
-                        if (damage <= 0)
-                        {
-                            Context.Current.AddPacket(player.Client.Connection, new SetFrameColorOutgoingPacket(attacker.Id, FrameColor.Black) );
-                        }
-
-                        if (damage < 0)
-                        {
-                            Context.Current.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + -damage + " hitpoints due to an attack by " + attacker.Name + ".") );
-                        }
-                    }
-                    else
-                    {
-                        if (damage < 0)
-                        {
-                            Context.Current.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + -damage + " hitpoints.") );
-                        }
-                    }
-                }
+                }  
             }
         }
     }

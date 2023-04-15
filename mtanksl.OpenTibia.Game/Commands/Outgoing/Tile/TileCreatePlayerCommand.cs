@@ -21,17 +21,7 @@ namespace OpenTibia.Game.Commands
 
         public override PromiseResult<Player> Execute()
         {
-            Client client = new Client(Context.Server);
-
-            client.Connection = Connection;
-
-            Player player = Context.Server.PlayerFactory.Create(DatabasePlayer);
-
-            player.Client = client;
-
-            Context.Server.Logger.WriteLine(player.Name + " connected.", LogLevel.Information);
-
-            //TODO
+            Player player = Context.Server.PlayerFactory.Create(Connection, DatabasePlayer);
 
             return Context.AddCommand(new TileAddCreatureCommand(Tile, player) ).Then( () =>
             {

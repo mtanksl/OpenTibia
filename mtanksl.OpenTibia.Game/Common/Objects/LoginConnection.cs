@@ -26,6 +26,8 @@ namespace OpenTibia.Common.Objects
             base.OnConnected();
         }
 
+        private bool first = true;
+
         protected override void OnReceived(byte[] body)
         {
             ByteArrayArrayStream stream = new ByteArrayArrayStream(body);
@@ -45,37 +47,47 @@ namespace OpenTibia.Common.Objects
 
                     }
 
-                    Command command = null;
-
                     byte identification = reader.ReadByte();
 
-                    switch (identification)
+                    if (first)
                     {
-                        case 0x01:
-                            {
-                                var packet = server.PacketsFactory.Create<EnterGameIncomingPacket>(reader);
+                        first = false;
 
-                                command = new ParseEnterGameCommand(this, packet);
-                            }
-                            break;
-                    }
 
-                    if (command != null)
-                    {
-                        server.Logger.WriteLine("Received on login server: 0x" + identification.ToString("X2"), LogLevel.Debug);
+                        Command command = null;
 
-                        server.QueueForExecution( () =>
+                        switch (identification)
                         {
-                            Context context = Context.Current;
+                            case 0x01:
+                                {
+                                    var packet = server.PacketsFactory.Create<EnterGameIncomingPacket>(reader);
 
-                            return context.AddCommand(command);
-                        } );
+                                    command = new ParseEnterGameCommand(this, packet);
+                                }
+                                break;
+                        }
+
+                        if (command != null)
+                        {
+                            server.Logger.WriteLine("Received on login server: 0x" + identification.ToString("X2"), LogLevel.Debug);
+
+                            server.QueueForExecution( () =>
+                            {
+                                Context context = Context.Current;
+
+                                return context.AddCommand(command);
+                            } );
+                        }
+                        else
+                        {
+                            server.Logger.WriteLine("Unknown packet received on login server: 0x" + identification.ToString("X2"), LogLevel.Warning);
+                        
+                            server.Logger.WriteLine(body.Print(), LogLevel.Warning);
+                        }
                     }
                     else
                     {
-                        server.Logger.WriteLine("Unknown packet received on login server: 0x" + identification.ToString("X2"), LogLevel.Warning);
-                        
-                        server.Logger.WriteLine(body.Print(), LogLevel.Warning);
+                        Disconnect();
                     }
                 }
                 else

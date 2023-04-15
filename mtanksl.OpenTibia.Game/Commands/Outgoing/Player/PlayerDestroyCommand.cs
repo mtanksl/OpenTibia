@@ -18,10 +18,6 @@ namespace OpenTibia.Game.Commands
 
             return Context.AddCommand(new TileRemoveCreatureCommand(fromTile, Player) ).Then( () =>
             {
-                //TODO
-
-                Context.Server.PlayerFactory.Destroy(Player);
-
                 if (Player.Health == 0)
                 {
                     Context.AddPacket(Player.Client.Connection, new OpenYouAreDeathDialogOutgoingPacket() );
@@ -31,7 +27,7 @@ namespace OpenTibia.Game.Commands
                     Context.Disconnect(Player.Client.Connection);
                 }
 
-                Context.Server.Logger.WriteLine(Player.Name + " disconneced.", LogLevel.Information);
+                Context.Server.PlayerFactory.Destroy(Player);
 
                 return Promise.Completed;
             } );

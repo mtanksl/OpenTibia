@@ -14,84 +14,86 @@ namespace OpenTibia.Game
             this.server = server;
         }
 
-        public Player Create(Data.Models.Player databasePlayer)
+        public Player Create(IConnection connection, Data.Models.Player databasePlayer)
         {
-            Player player = new Player();
-
-            player.DatabasePlayerId = databasePlayer.Id;
-
-            player.Name = databasePlayer.Name;
-
-            player.Health = (ushort)databasePlayer.Health;
-
-            player.MaxHealth = (ushort)databasePlayer.MaxHealth;
-
-            player.Direction = (Direction)databasePlayer.Direction;
-
-            if (databasePlayer.OutfitId == 0)
+            Player player = new Player()
             {
-                player.Outfit = new Outfit(databasePlayer.OutfitItemId);
-            }
-            else
-            {
-                player.Outfit = new Outfit(databasePlayer.OutfitId, databasePlayer.OutfitHead, databasePlayer.OutfitBody, databasePlayer.OutfitLegs, databasePlayer.OutfitFeet, (Addon)databasePlayer.OutfitAddon);
-            }
+                Client = new Client(server)
+                {
+                    Connection = connection
+                },
 
-            player.BaseSpeed = (ushort)databasePlayer.BaseSpeed;
+                DatabasePlayerId = databasePlayer.Id,
 
-            player.Speed = (ushort)databasePlayer.Speed;
+                Name = databasePlayer.Name,
 
-            player.Skills.MagicLevel = (byte)databasePlayer.SkillMagicLevel;
+                Health = (ushort)databasePlayer.Health,
 
-            player.Skills.MagicLevelPercent = (byte)databasePlayer.SkillMagicLevelPercent;
+                MaxHealth = (ushort)databasePlayer.MaxHealth,
 
-            player.Skills.Fist = (byte)databasePlayer.SkillFist;
+                Direction = (Direction)databasePlayer.Direction,
 
-            player.Skills.FistPercent = (byte)databasePlayer.SkillFistPercent;
+                Outfit = databasePlayer.OutfitId == 0 ? new Outfit(databasePlayer.OutfitItemId) : new Outfit(databasePlayer.OutfitId, databasePlayer.OutfitHead, databasePlayer.OutfitBody, databasePlayer.OutfitLegs, databasePlayer.OutfitFeet, (Addon)databasePlayer.OutfitAddon),
 
-            player.Skills.Club = (byte)databasePlayer.SkillClub;
+                BaseSpeed = (ushort)databasePlayer.BaseSpeed,
 
-            player.Skills.ClubPercent = (byte)databasePlayer.SkillClubPercent;
+                Speed = (ushort)databasePlayer.Speed,
 
-            player.Skills.Sword = (byte)databasePlayer.SkillSword;
+                Skills = {
 
-            player.Skills.SwordPercent = (byte)databasePlayer.SkillSwordPercent;
+                    MagicLevel = (byte)databasePlayer.SkillMagicLevel,
 
-            player.Skills.Axe = (byte)databasePlayer.SkillAxe;
+                    MagicLevelPercent = (byte)databasePlayer.SkillMagicLevelPercent,
 
-            player.Skills.AxePercent = (byte)databasePlayer.SkillAxePercent;
+                    Fist = (byte)databasePlayer.SkillFist,
 
-            player.Skills.Distance = (byte)databasePlayer.SkillDistance;
+                    FistPercent = (byte)databasePlayer.SkillFistPercent,
 
-            player.Skills.DistancePercent = (byte)databasePlayer.SkillDistancePercent;
+                    Club = (byte)databasePlayer.SkillClub,
 
-            player.Skills.Shield = (byte)databasePlayer.SkillShield;
+                    ClubPercent = (byte)databasePlayer.SkillClubPercent,
 
-            player.Skills.ShieldPercent = (byte)databasePlayer.SkillShieldPercent;
+                    Sword = (byte)databasePlayer.SkillSword,
 
-            player.Skills.Fish = (byte)databasePlayer.SkillFish;
+                    SwordPercent = (byte)databasePlayer.SkillSwordPercent,
 
-            player.Skills.FishPercent = (byte)databasePlayer.SkillFishPercent;
+                    Axe = (byte)databasePlayer.SkillAxe,
 
-            player.Experience = (uint)databasePlayer.Experience;
+                    AxePercent = (byte)databasePlayer.SkillAxePercent,
 
-            player.Level = (ushort)databasePlayer.Level;
+                    Distance = (byte)databasePlayer.SkillDistance,
 
-            player.LevelPercent = (byte)databasePlayer.LevelPercent;
+                    DistancePercent = (byte)databasePlayer.SkillDistancePercent,
 
-            player.Mana = (ushort)databasePlayer.Mana;
+                    Shield = (byte)databasePlayer.SkillShield,
 
-            player.MaxMana = (ushort)databasePlayer.MaxMana;
+                    ShieldPercent = (byte)databasePlayer.SkillShieldPercent,
 
-            player.Soul = (byte)databasePlayer.Soul;
+                    Fish = (byte)databasePlayer.SkillFish,
 
-            player.Capacity = (uint)databasePlayer.Capacity;
+                    FishPercent = (byte)databasePlayer.SkillFishPercent
+                },
 
-            player.Stamina = (ushort)databasePlayer.Stamina;
+                Experience = (uint)databasePlayer.Experience,
 
-            player.Gender = (Gender)databasePlayer.Gender;
+                Level = (ushort)databasePlayer.Level,
 
-            player.Vocation = (Vocation)databasePlayer.Vocation;
+                LevelPercent = (byte)databasePlayer.LevelPercent,
+
+                Mana = (ushort)databasePlayer.Mana,
+
+                MaxMana = (ushort)databasePlayer.MaxMana,
+
+                Soul = (byte)databasePlayer.Soul,
+
+                Capacity = (uint)databasePlayer.Capacity,
+
+                Stamina = (ushort)databasePlayer.Stamina,
+
+                Gender = (Gender)databasePlayer.Gender,
+
+                Vocation = (Vocation)databasePlayer.Vocation
+            };
 
             server.GameObjects.AddGameObject(player);
 
@@ -101,11 +103,15 @@ namespace OpenTibia.Game
 
             server.Components.AddComponent(player, new AttackAndFollowBehaviour(new CloseAttackStrategy(500, (attacker, target) => -server.Randomization.Take(0, 20) ), new FollowWalkStrategy() ) );
 
+            server.Logger.WriteLine(player.Name + " connected.", LogLevel.Information);
+
             return player;
         }
 
         public void Destroy(Player player)
         {
+            player.Client.Player = null;
+
             server.CancelQueueForExecution(Constants.PlayerWalkSchedulerEvent(player) );
 
             server.CancelQueueForExecution(Constants.PlayerAutomationSchedulerEvent(player) );
@@ -113,6 +119,8 @@ namespace OpenTibia.Game
             server.GameObjects.RemoveGameObject(player);
 
             server.Components.ClearComponents(player);
+
+            server.Logger.WriteLine(player.Name + " disconneced.", LogLevel.Information);
         }
     }
 }
