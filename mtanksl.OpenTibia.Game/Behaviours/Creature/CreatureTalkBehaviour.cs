@@ -1,10 +1,12 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using System;
+using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
-    public class CreatureTalkBehaviour : PeriodicBehaviour
+    public class CreatureTalkBehaviour : CreatureThinkBehaviour
     {
         private string[] sentences;
 
@@ -15,44 +17,39 @@ namespace OpenTibia.Game.Components
 
         private Creature creature;
 
-        private string key;
-
         public override void Start(Server server)
         {
             creature = (Creature)GameObject;
-
-            key = "CreatureTalkBehaviour" + creature.Id;
         }
 
-        private bool running = false;
+        private DateTime talkCooldown;
 
-        public override async Promise Update()
+        public override Promise Update()
         {
-            if (!running)
+            if (DateTime.UtcNow > talkCooldown)
             {
-                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+                var target = Context.Server.GameObjects.GetPlayers()
+                    .Where(p => creature.Tile.Position.CanHearSay(p.Tile.Position) )
+                    .FirstOrDefault();
+
+                if (target == null)
                 {
-                    if (creature.Tile.Position.CanHearSay(observer.Tile.Position) )
-                    {
-                        running = true;
+                    talkCooldown = DateTime.UtcNow.AddSeconds(30);
 
-                        await Context.AddCommand(new ShowTextCommand(creature, TalkType.MonsterSay, Context.Server.Randomization.Take(sentences) ) );
-                        
-                        await Promise.Delay(key, 30000);
-
-                        running = false;
-
-                        await Update();
-
-                        break;
-                    }
+                    return Context.AddCommand(new ShowTextCommand(creature, TalkType.MonsterSay, Context.Server.Randomization.Take(sentences) ) );
+                }
+                else
+                {
+                    talkCooldown = DateTime.UtcNow.AddSeconds(30);
                 }
             }
+
+            return Promise.Completed;
         }
 
         public override void Stop(Server server)
         {
-            server.CancelQueueForExecution(key);
+
         }
     }
 }

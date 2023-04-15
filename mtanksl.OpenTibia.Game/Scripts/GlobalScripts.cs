@@ -1,5 +1,9 @@
-﻿using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Components;
+using OpenTibia.Network.Packets.Outgoing;
+using System.Linq;
 
 namespace OpenTibia.Game.Scripts
 {
@@ -9,7 +13,7 @@ namespace OpenTibia.Game.Scripts
         {
             server.QueueForExecution( () =>
             {
-                return Promise.WhenAll(GlobalCreatures(), GlobalItems(), GlobalLight() );
+                return Promise.WhenAll(GlobalCreatures(), GlobalLight() );
             } );
         }
 
@@ -17,19 +21,25 @@ namespace OpenTibia.Game.Scripts
         {
             while (true)
             {
-                await Context.AddCommand(new GlobalCreaturesCommand() );
+                foreach (var component in Context.Server.Components.GetComponentsOfType<Creature, CreatureThinkBehaviour>().ToList() )
+                {
+                    if (component.GameObject != null)
+                    {
+                        _ = component.Update().Catch(ex =>
+                        {
+                            if (ex is PromiseCanceledException)
+                            {
+                            
+                            }
+                            else
+                            {
+                                Context.Server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                            }
+                        } );
+                    }
+                }
 
                 await Promise.Delay("GlobalCreatures", 100);
-            }
-        }
-
-        private async Promise GlobalItems()
-        {
-            while (true)
-            {
-                await Context.AddCommand(new GlobalItemsCommand() );
-
-                await Promise.Delay("GlobalItems", 60000);
             }
         }
 
@@ -37,7 +47,12 @@ namespace OpenTibia.Game.Scripts
         {
             while (true)
             {
-                await Context.AddCommand(new GlobalLightCommand() );
+                Context.Server.Clock.Tick();
+
+                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+                {
+                    Context.AddPacket(observer.Client.Connection, new SetEnvironmentLightOutgoingPacket(Context.Server.Clock.Light) );
+                }
 
                 await Promise.Delay("GlobalLight", Clock.Interval);
             }
@@ -46,8 +61,6 @@ namespace OpenTibia.Game.Scripts
         public override void Stop(Server server)
         {
             server.CancelQueueForExecution("GlobalCreatures");
-
-            server.CancelQueueForExecution("GlobalItems");
 
             server.CancelQueueForExecution("GlobalLight");
         }

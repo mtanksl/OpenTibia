@@ -1,16 +1,13 @@
-﻿using OpenTibia.Common.Objects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Components
 {
     public class CreatureCooldownBehaviour : Behaviour
     {
-        private Creature creature;
-
         public override void Start(Server server)
         {
-            creature = (Creature)GameObject;
+
         }
 
         private Dictionary<string, DateTime> cooldowns = new Dictionary<string, DateTime>();

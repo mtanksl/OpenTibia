@@ -1,10 +1,12 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Strategies;
+using System;
+using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
-    public class CreatureAttackBehaviour : PeriodicBehaviour
+    public class CreatureAttackBehaviour : CreatureThinkBehaviour
     {
         private IAttackStrategy attackStrategy;
 
@@ -15,49 +17,48 @@ namespace OpenTibia.Game.Components
 
         private Creature creature;
 
-        private string key;
-
         public override void Start(Server server)
         {
             creature = (Creature)GameObject;
-
-            key = "CreatureAttackBehaviour" + creature.Id;
         }
 
-        private bool running = false;
+        private DateTime attackCooldown;
 
-        public override async Promise Update()
+        public override Promise Update()
         {
-            if (!running)
+            if (DateTime.UtcNow > attackCooldown)
             {
-                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+                var target = Context.Server.GameObjects.GetPlayers()
+                    .Where(p => creature.Tile.Position.CanHearSay(p.Tile.Position) )
+                    .FirstOrDefault();
+
+                if (target != null)
                 {
-                    if (creature.Tile.Position.CanHearSay(observer.Tile.Position) )
+                    Command command = attackStrategy.GetNext(Context.Server, creature, target);
+
+                    if (command != null)
                     {
-                        Command command = attackStrategy.GetNext(Context.Server, creature, observer);
+                        attackCooldown = DateTime.UtcNow.AddMilliseconds(attackStrategy.CooldownInMilliseconds);
 
-                        if (command != null)
-                        {
-                            running = true;
-
-                            await Context.AddCommand(command);
-                            
-                            await Promise.Delay(key, attackStrategy.CooldownInMilliseconds);
-                            
-                            running = false;
-
-                            await Update();
-                        }
-
-                        break;
+                        return Context.AddCommand(command);
+                    }
+                    else
+                    {
+                        attackCooldown = DateTime.UtcNow.AddSeconds(2);
                     }
                 }
+                else
+                {
+                    attackCooldown = DateTime.UtcNow.AddSeconds(2);
+                }
             }
+
+            return Promise.Completed;
         }
 
         public override void Stop(Server server)
         {
-            server.CancelQueueForExecution(key);
+
         }
     }
 }

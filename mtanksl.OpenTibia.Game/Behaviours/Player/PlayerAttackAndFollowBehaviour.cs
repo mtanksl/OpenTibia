@@ -7,7 +7,7 @@ using System;
 
 namespace OpenTibia.Game.Components
 {
-    public class PlayerAttackAndFollowBehaviour : PeriodicBehaviour
+    public class PlayerAttackAndFollowBehaviour : CreatureThinkBehaviour
     {
         private enum State
         {

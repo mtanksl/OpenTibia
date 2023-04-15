@@ -1,15 +1,12 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Components
 {
     public class CreatureSpecialConditionBehaviour : Behaviour
     {
-        private Creature creature;
-
         public override void Start(Server server)
         {
-            creature = (Creature)GameObject;
+
         }
 
         private SpecialCondition specialConditions;
