@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace OpenTibia.Game.Scripts
 {
-    public class PlayerMoveCreatureScripts : IScript
+    public class PlayerMoveCreatureScripts : Script
     {
-        public void Start(Server server)
+        public override void Start(Server server)
         {
             server.CommandHandlers.Add(new MoveCreatureWalkToSourceHandler() );
 
@@ -37,7 +37,7 @@ namespace OpenTibia.Game.Scripts
             } ) );
         }
 
-        public void Stop(Server server)
+        public override void Stop(Server server)
         {
             
         }

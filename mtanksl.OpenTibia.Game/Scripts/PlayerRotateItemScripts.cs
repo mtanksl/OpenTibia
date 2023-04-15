@@ -2,16 +2,16 @@
 
 namespace OpenTibia.Game.Scripts
 {
-    public class PlayerRotateItemScripts : IScript
+    public class PlayerRotateItemScripts : Script
     {
-        public void Start(Server server)
+        public override void Start(Server server)
         {
             server.CommandHandlers.Add(new RotateItemWalkToSourceHandler() );
 
             server.CommandHandlers.Add(new RotateItemTransformHandler() );
         }
 
-        public void Stop(Server server)
+        public override void Stop(Server server)
         {
             
         }

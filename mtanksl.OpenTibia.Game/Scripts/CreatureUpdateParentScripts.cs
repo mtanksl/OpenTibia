@@ -2,9 +2,9 @@
 
 namespace OpenTibia.Game.Scripts
 {
-    public class CreatureUpdateParentScripts : IScript
+    public class CreatureUpdateParentScripts : Script
     {
-        public void Start(Server server)
+        public override void Start(Server server)
         {
             server.CommandHandlers.Add(new MoveAwayContainerCloseHandler() );        
 
@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Scripts
             server.CommandHandlers.Add(new StairsHandler() );
         }
 
-        public void Stop(Server server)
+        public override void Stop(Server server)
         {
             
         }

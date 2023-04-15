@@ -3,9 +3,9 @@ using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Scripts
 {
-    public class GlobalScripts : IScript
+    public class GlobalScripts : Script
     {
-        public void Start(Server server)
+        public override void Start(Server server)
         {
             server.QueueForExecution( () =>
             {
@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Scripts
         {
             while (true)
             {
-                await Context.Current.AddCommand(new GlobalCreaturesCommand() );
+                await Context.AddCommand(new GlobalCreaturesCommand() );
 
                 await Promise.Delay("GlobalCreatures", 100);
             }
@@ -27,7 +27,7 @@ namespace OpenTibia.Game.Scripts
         {
             while (true)
             {
-                await Context.Current.AddCommand(new GlobalItemsCommand() );
+                await Context.AddCommand(new GlobalItemsCommand() );
 
                 await Promise.Delay("GlobalItems", 60000);
             }
@@ -37,13 +37,13 @@ namespace OpenTibia.Game.Scripts
         {
             while (true)
             {
-                await Context.Current.AddCommand(new GlobalLightCommand() );
+                await Context.AddCommand(new GlobalLightCommand() );
 
                 await Promise.Delay("GlobalLight", Clock.Interval);
             }
         }
 
-        public void Stop(Server server)
+        public override void Stop(Server server)
         {
             server.CancelQueueForExecution("GlobalCreatures");
 

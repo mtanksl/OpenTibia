@@ -6,9 +6,9 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Scripts
 {
-    public class PlayerMoveItemScripts : IScript
+    public class PlayerMoveItemScripts : Script
     {
-        public void Start(Server server)
+        public override void Start(Server server)
         {
             server.CommandHandlers.Add(new MoveItemWalkToSourceHandler() );
 
@@ -79,7 +79,7 @@ namespace OpenTibia.Game.Scripts
             server.CommandHandlers.Add(new ThrowAwayContainerCloseHandler() );
         }
 
-        public void Stop(Server server)
+        public override void Stop(Server server)
         {
             
         }

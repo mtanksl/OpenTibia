@@ -2,9 +2,9 @@
 
 namespace OpenTibia.Game.Scripts
 {
-    public class PlayerUseItemWithCreatureScripts : IScript
+    public class PlayerUseItemWithCreatureScripts : Script
     {
-        public void Start(Server server)
+        public override void Start(Server server)
         {
             server.CommandHandlers.Add(new UseItemWithCreatureWalkToSourceHandler() );
 
@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Scripts
             server.CommandHandlers.Add(new GreatSpiritPotionHandler() );
         }
 
-        public void Stop(Server server)
+        public override void Stop(Server server)
         {
             
         }

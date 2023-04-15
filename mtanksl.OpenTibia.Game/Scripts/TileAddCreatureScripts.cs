@@ -2,9 +2,9 @@
 
 namespace OpenTibia.Game.Scripts
 {
-    public class TileAddCreatureScripts : IScript
+    public class TileAddCreatureScripts : Script
     {
-        public void Start(Server server)
+        public override void Start(Server server)
         {
             server.EventHandlers.Subscribe(new TilePressHandler() );
 
@@ -27,7 +27,7 @@ namespace OpenTibia.Game.Scripts
             server.EventHandlers.Subscribe(new SpikesHandler() );
         }
 
-        public void Stop(Server server)
+        public override void Stop(Server server)
         {
             
         }
