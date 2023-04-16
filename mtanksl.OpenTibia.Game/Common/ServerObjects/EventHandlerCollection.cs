@@ -16,7 +16,7 @@ namespace OpenTibia.Game
             return Subscribe(new InlineEventHandler<T>(execute) );
         }
 
-        public Guid Subscribe<T>(EventHandlers.EventHandler<T> eventHandler) where T : GameEventArgs
+        public Guid Subscribe<T>(IEventHandler<T> eventHandler) where T : GameEventArgs
         {
             Dictionary<Guid, IEventHandler> eventHandlers;
 

@@ -6,5 +6,5 @@ namespace OpenTibia.Game.CommandHandlers
     public interface ICommandHandler
     {
         Promise Handle(Func<Promise> next, Command command);
-    }
+    }   
 }

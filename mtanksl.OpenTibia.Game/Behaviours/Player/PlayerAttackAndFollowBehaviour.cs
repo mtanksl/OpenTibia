@@ -1,13 +1,14 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Events;
 using OpenTibia.Game.Strategies;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 
 namespace OpenTibia.Game.Components
 {
-    public class PlayerAttackAndFollowThinkBehaviour : ThinkBehaviour
+    public class PlayerAttackAndFollowBehaviour : Behaviour
     {
         private enum State
         {
@@ -24,7 +25,7 @@ namespace OpenTibia.Game.Components
 
         private IWalkStrategy walkStrategy;
 
-        public PlayerAttackAndFollowThinkBehaviour(IAttackStrategy attackStrategy, IWalkStrategy walkStrategy)
+        public PlayerAttackAndFollowBehaviour(IAttackStrategy attackStrategy, IWalkStrategy walkStrategy)
         {
             this.attackStrategy = attackStrategy;
 
@@ -33,9 +34,16 @@ namespace OpenTibia.Game.Components
 
         private Player player;
 
+        private Guid token;
+
         public override void Start(Server server)
         {
             player = (Player)GameObject;
+
+            token = Context.Server.EventHandlers.Subscribe<CreatureThinkGameEventArgs>( (context, e) =>
+            {
+                return Update();
+            });
         }
 
         private State state;
@@ -90,7 +98,7 @@ namespace OpenTibia.Game.Components
 
         private DateTime walkCooldown;
 
-        public override async Promise Update()
+        private async Promise Update()
         {
             if (target != null)
             {
@@ -150,7 +158,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop(Server server)
         {
-            
-        }        
+            Context.Server.EventHandlers.Unsubscribe<CreatureThinkGameEventArgs>(token);
+        }
     }
 }

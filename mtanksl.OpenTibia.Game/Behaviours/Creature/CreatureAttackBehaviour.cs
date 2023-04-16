@@ -1,30 +1,38 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Events;
 using OpenTibia.Game.Strategies;
 using System;
 using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
-    public class CreatureAttackThinkBehaviour : ThinkBehaviour
+    public class CreatureAttackBehaviour : Behaviour
     {
         private IAttackStrategy attackStrategy;
 
-        public CreatureAttackThinkBehaviour(IAttackStrategy attackStrategy)
+        public CreatureAttackBehaviour(IAttackStrategy attackStrategy)
         {
             this.attackStrategy = attackStrategy;
         }
 
         private Creature creature;
 
+        private Guid token;
+
         public override void Start(Server server)
         {
             creature = (Creature)GameObject;
+
+            token = Context.Server.EventHandlers.Subscribe<CreatureThinkGameEventArgs>( (context, e) =>
+            {
+                return Update();
+            } );
         }
 
         private DateTime attackCooldown;
 
-        public override Promise Update()
+        private Promise Update()
         {
             if (DateTime.UtcNow > attackCooldown)
             {
@@ -58,7 +66,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop(Server server)
         {
-
+            Context.Server.EventHandlers.Unsubscribe<CreatureThinkGameEventArgs>(token);
         }
     }
 }

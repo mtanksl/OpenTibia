@@ -15,7 +15,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            PlayerAttackAndFollowThinkBehaviour playerAttackAndFollowThinkBehaviour = Context.Server.Components.GetComponent<PlayerAttackAndFollowThinkBehaviour>(Player);
+            PlayerAttackAndFollowBehaviour playerAttackAndFollowThinkBehaviour = Context.Server.Components.GetComponent<PlayerAttackAndFollowBehaviour>(Player);
 
             if (playerAttackAndFollowThinkBehaviour != null)
             {

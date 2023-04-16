@@ -1,13 +1,24 @@
 ﻿using OpenTibia.Game.Commands;
 using OpenTibia.Game.Events;
+using System;
 using System.Diagnostics;
 
 namespace OpenTibia.Game.EventHandlers
 {
-    public abstract class EventHandler<T> : EventHandler where T : GameEventArgs
+    public abstract class EventHandler<T> : IEventHandler<T> where T : GameEventArgs
     {
+        public Context Context
+        {
+            get
+            {
+                return Context.Current;
+            }
+        }
+
+        public Guid Token { get; } = Guid.NewGuid();
+
         [DebuggerStepThrough]
-        public override Promise Handle(object e)
+        public Promise Handle(object e)
         {
             return Handle( (T)e);
         }

@@ -1,30 +1,38 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Events;
 using System;
 using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
-    public class CreatureTalkThinkBehaviour : ThinkBehaviour
+    public class CreatureTalkBehaviour : Behaviour
     {
         private string[] sentences;
 
-        public CreatureTalkThinkBehaviour(string[] sentences)
+        public CreatureTalkBehaviour(string[] sentences)
         {
             this.sentences = sentences;
         }
 
         private Creature creature;
 
+        private Guid token;
+
         public override void Start(Server server)
         {
             creature = (Creature)GameObject;
+
+            token = Context.Server.EventHandlers.Subscribe<CreatureThinkGameEventArgs>( (context, e) =>
+            {
+                return Update();
+            } );
         }
 
         private DateTime talkCooldown;
 
-        public override Promise Update()
+        private Promise Update()
         {
             if (DateTime.UtcNow > talkCooldown)
             {
@@ -49,7 +57,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop(Server server)
         {
-
+            Context.Server.EventHandlers.Unsubscribe<CreatureThinkGameEventArgs>(token);
         }
     }
 }

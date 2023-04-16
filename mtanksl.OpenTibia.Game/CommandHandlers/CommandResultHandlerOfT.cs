@@ -4,10 +4,18 @@ using System.Diagnostics;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public abstract class CommandHandlerResult<T, TResult> : CommandResultHandler<TResult> where T : CommandResult<TResult>
+    public abstract class CommandHandlerResult<TResult, T> : ICommandResultHandler<TResult, T> where T : CommandResult<TResult>
     {
+        public Context Context
+        {
+            get
+            {
+                return Context.Current;
+            }
+        }
+
         [DebuggerStepThrough]
-        public override PromiseResult<TResult> Handle(Func<PromiseResult<TResult>> next, CommandResult<TResult> command)
+        public PromiseResult<TResult> Handle(Func<PromiseResult<TResult>> next, CommandResult<TResult> command)
         {
             return Handle(next, (T)command);
         }

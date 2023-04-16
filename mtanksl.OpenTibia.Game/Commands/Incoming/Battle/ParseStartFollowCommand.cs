@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Commands
                 
             if (creature != null && creature != Player)
             {
-                PlayerAttackAndFollowThinkBehaviour playerAttackAndFollowThinkBehaviour = Context.Server.Components.GetComponent<PlayerAttackAndFollowThinkBehaviour>(Player);
+                PlayerAttackAndFollowBehaviour playerAttackAndFollowThinkBehaviour = Context.Server.Components.GetComponent<PlayerAttackAndFollowBehaviour>(Player);
 
                 if (playerAttackAndFollowThinkBehaviour != null)
                 {

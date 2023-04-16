@@ -1,9 +1,6 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
-using OpenTibia.Game.Components;
-using OpenTibia.Network.Packets.Outgoing;
-using System.Linq;
+using OpenTibia.Game.Events;
 
 namespace OpenTibia.Game.Scripts
 {
@@ -13,56 +10,49 @@ namespace OpenTibia.Game.Scripts
         {
             server.QueueForExecution( () =>
             {
-                return Promise.WhenAll(GlobalCreatures(), GlobalLight() );
+                return Promise.WhenAll(CreatureThink(), PlayerPing(), ClockTick() );
             } );
         }
 
-        private async Promise GlobalCreatures()
+        private async Promise CreatureThink()
         {
             while (true)
             {
-                foreach (var component in Context.Server.Components.GetComponentsOfType<Creature, ThinkBehaviour>().ToList() )
-                {
-                    if (component.GameObject != null)
-                    {
-                        _ = component.Update().Catch( (ex) =>
-                        {
-                            if (ex is PromiseCanceledException)
-                            {
-                            
-                            }
-                            else
-                            {
-                                Context.Server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
-                            }
-                        } );
-                    }
-                }
+                Context.AddEvent(new CreatureThinkGameEventArgs() );
 
-                await Promise.Delay("GlobalCreatures", 100);
+                await Promise.Delay("CreatureThink", 100);
             }
         }
 
-        private async Promise GlobalLight()
+        private async Promise PlayerPing()
+        {
+            while (true)
+            {
+                Context.AddEvent(new PlayerPingGameEventArgs() );
+
+                await Promise.Delay("PlayerPing", 60000);
+            }
+        }
+
+        private async Promise ClockTick()
         {
             while (true)
             {
                 Context.Server.Clock.Tick();
 
-                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
-                {
-                    Context.AddPacket(observer.Client.Connection, new SetEnvironmentLightOutgoingPacket(Context.Server.Clock.Light) );
-                }
+                Context.AddEvent(new ClockTickGameEventArgs(Context.Server.Clock.Hour, Context.Server.Clock.Minute) );
 
-                await Promise.Delay("GlobalLight", Clock.Interval);
+                await Promise.Delay("ClockTick", Clock.Interval);
             }
         }
 
         public override void Stop(Server server)
         {
-            server.CancelQueueForExecution("GlobalCreatures");
+            server.CancelQueueForExecution("CreatureThink");
 
-            server.CancelQueueForExecution("GlobalLight");
+            server.CancelQueueForExecution("PlayerPing");
+
+            server.CancelQueueForExecution("ClockTick");
         }
     }
 }
