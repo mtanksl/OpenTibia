@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Components
         {
             player = (Player)GameObject;
 
-            token = Context.Server.EventHandlers.Subscribe<PlayerPingGameEventArgs>((context, e) =>
+            token = Context.Server.EventHandlers.Subscribe<PlayerPingGameEventArgs>( (context, e) =>
             {
                 return Update();
             } );

@@ -2,7 +2,7 @@
 {
     public class Clock
     {
-        public static readonly int Interval = 10000;
+        public static readonly int Interval = 2500;
 
         public Clock(int hour, int minute)
         {

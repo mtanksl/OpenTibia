@@ -6,6 +6,7 @@ using OpenTibia.Threading;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace OpenTibia.Game
 {
@@ -230,7 +231,7 @@ namespace OpenTibia.Game
                 {
                     var e = events.Dequeue();
 
-                    foreach (var eventHandler in server.EventHandlers.Get(e) )
+                    foreach (var eventHandler in server.EventHandlers.Get(e).ToList() )
                     {
                         eventHandler.Handle(e).Catch( (ex) =>
                         {

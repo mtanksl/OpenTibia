@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Components
         {
             player = (Player)GameObject;
 
-            token = Context.Server.EventHandlers.Subscribe<ClockTickGameEventArgs>((context, e) =>
+            token = Context.Server.EventHandlers.Subscribe<ClockTickGameEventArgs>( (context, e) =>
             {
                 return Update();
             } );

@@ -26,10 +26,10 @@ namespace OpenTibia.Game.Components
         {
             creature = (Creature)GameObject;
 
-            token = Context.Server.EventHandlers.Subscribe<CreatureThinkGameEventArgs>((context, e) =>
+            token = Context.Server.EventHandlers.Subscribe<CreatureThinkGameEventArgs>( (context, e) =>
             {
                 return Update();
-            });
+            } );
         }
 
         private DateTime walkCooldown;

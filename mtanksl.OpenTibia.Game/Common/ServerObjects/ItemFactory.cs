@@ -3,6 +3,7 @@ using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Dat;
 using OpenTibia.FileFormats.Otb;
 using OpenTibia.FileFormats.Xml.Items;
+using OpenTibia.Game.Components;
 using System.Collections.Generic;
 using System.Linq;
 using Item = OpenTibia.Common.Objects.Item;
@@ -213,6 +214,15 @@ namespace OpenTibia.Game
             }
 
             server.GameObjects.AddGameObject(item);
+
+            if (item.Metadata.OpenTibiaId == 1479)
+            {
+                server.Components.AddComponent(item, new ItemStreetLampSwitchOnBehaviour() );
+            }
+            else if (item.Metadata.OpenTibiaId == 1480)
+            {
+                server.Components.AddComponent(item, new ItemStreetLampSwitchOffBehaviour() );
+            }
 
             return item;
         }

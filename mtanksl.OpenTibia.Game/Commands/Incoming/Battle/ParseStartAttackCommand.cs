@@ -28,13 +28,13 @@ namespace OpenTibia.Game.Commands
                 
             if (creature != null && creature != Player)
             {
-                PlayerAttackAndFollowBehaviour playerAttackAndFollowThinkBehaviour = Context.Server.Components.GetComponent<PlayerAttackAndFollowBehaviour>(Player);
+                PlayerAttackAndFollowBehaviour playerAttackAndFollowBehaviour = Context.Server.Components.GetComponent<PlayerAttackAndFollowBehaviour>(Player);
 
                 if (creature is Npc)
                 {
-                    if (playerAttackAndFollowThinkBehaviour != null)
+                    if (playerAttackAndFollowBehaviour != null)
                     {
-                        playerAttackAndFollowThinkBehaviour.Stop();
+                        playerAttackAndFollowBehaviour.Stop();
                     }
 
                     Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature),
@@ -45,16 +45,16 @@ namespace OpenTibia.Game.Commands
                 {
                     if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
                     {
-                        if (playerAttackAndFollowThinkBehaviour != null)
+                        if (playerAttackAndFollowBehaviour != null)
                         {
-                            playerAttackAndFollowThinkBehaviour.Attack(creature);
+                            playerAttackAndFollowBehaviour.Attack(creature);
                         }
                     }
                     else
                     {
-                        if (playerAttackAndFollowThinkBehaviour != null)
+                        if (playerAttackAndFollowBehaviour != null)
                         {
-                            playerAttackAndFollowThinkBehaviour.AttackAndFollow(creature);
+                            playerAttackAndFollowBehaviour.AttackAndFollow(creature);
                         }
                     }
 

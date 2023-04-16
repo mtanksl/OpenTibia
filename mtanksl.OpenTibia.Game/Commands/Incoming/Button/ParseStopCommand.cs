@@ -32,11 +32,11 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            PlayerAttackAndFollowBehaviour playerAttackAndFollowThinkBehaviour = Context.Server.Components.GetComponent<PlayerAttackAndFollowBehaviour>(Player);
+            PlayerAttackAndFollowBehaviour playerAttackAndFollowBehaviour = Context.Server.Components.GetComponent<PlayerAttackAndFollowBehaviour>(Player);
 
-            if (playerAttackAndFollowThinkBehaviour != null)
+            if (playerAttackAndFollowBehaviour != null)
             {
-                playerAttackAndFollowThinkBehaviour.Stop();
+                playerAttackAndFollowBehaviour.Stop();
             }
 
             Context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
