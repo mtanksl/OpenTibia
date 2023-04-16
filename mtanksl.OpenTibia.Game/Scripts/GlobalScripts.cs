@@ -8,42 +8,82 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start(Server server)
         {
-            server.QueueForExecution( () =>
+            CreatureThink(server);
+
+            PlayerPing(server);
+
+            ClockTick(server);
+        }
+
+        private void CreatureThink(Server server)
+        {
+            Promise.Delay("CreatureThink", 100).Then( () =>
             {
-                return Promise.WhenAll(CreatureThink(), PlayerPing(), ClockTick() );
+                CreatureThink(server);
+
+                Context.AddEvent(new CreatureThinkGameEventArgs() );
+
+                return Promise.Completed;
+
+            } ).Catch( (ex) =>
+            {
+                if (ex is PromiseCanceledException)
+                {
+                                
+                }
+                else
+                {
+                    server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                }
             } );
         }
 
-        private async Promise CreatureThink()
+        private void PlayerPing(Server server)
         {
-            while (true)
+            Promise.Delay("PlayerPing", 60000).Then( () =>
             {
-                Context.AddEvent(new CreatureThinkGameEventArgs() );
+                PlayerPing(server);
 
-                await Promise.Delay("CreatureThink", 100);
-            }
-        }
-
-        private async Promise PlayerPing()
-        {
-            while (true)
-            {
                 Context.AddEvent(new PlayerPingGameEventArgs() );
 
-                await Promise.Delay("PlayerPing", 60000);
-            }
+                return Promise.Completed;
+
+            } ).Catch( (ex) =>
+            {
+                if (ex is PromiseCanceledException)
+                {
+                                
+                }
+                else
+                {
+                    server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                }
+            } );
         }
 
-        private async Promise ClockTick()
+        private void ClockTick(Server server)
         {
-            while (true)
+            Promise.Delay("ClockTick", Clock.Interval).Then( () =>
             {
+                ClockTick(server);
+
                 Context.Server.Clock.Tick();
 
                 Context.AddEvent(new ClockTickGameEventArgs(Context.Server.Clock.Hour, Context.Server.Clock.Minute) );
 
-                await Promise.Delay("ClockTick", Clock.Interval);
-            }
+                return Promise.Completed;
+
+            } ).Catch( (ex) =>
+            {
+                if (ex is PromiseCanceledException)
+                {
+                                
+                }
+                else
+                {
+                    server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                }
+            } );
         }
 
         public override void Stop(Server server)

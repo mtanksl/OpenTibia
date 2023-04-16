@@ -3,9 +3,9 @@ using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Components
 {
-    public class ItemStreetLampSwitchOffBehaviour : ScheduledBehaviour
+    public class ItemStreetLampSwitchOnScheduledBehaviour : ScheduledBehaviour
     {
-        public ItemStreetLampSwitchOffBehaviour() : base(06, 00)
+        public ItemStreetLampSwitchOnScheduledBehaviour() : base(18, 00)
         {
             
         }
@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Components
 
         public override Promise Update()
         {
-            return Context.AddCommand(new ItemTransformCommand(item, 1479, 1) );
+            return Context.AddCommand(new ItemTransformCommand(item, 1480, 1) );
         }
 
         public override void Stop(Server server)

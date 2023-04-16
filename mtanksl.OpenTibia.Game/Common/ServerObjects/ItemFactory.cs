@@ -217,11 +217,11 @@ namespace OpenTibia.Game
 
             if (item.Metadata.OpenTibiaId == 1479)
             {
-                server.Components.AddComponent(item, new ItemStreetLampSwitchOnBehaviour() );
+                server.Components.AddComponent(item, new ItemStreetLampSwitchOnScheduledBehaviour() );
             }
             else if (item.Metadata.OpenTibiaId == 1480)
             {
-                server.Components.AddComponent(item, new ItemStreetLampSwitchOffBehaviour() );
+                server.Components.AddComponent(item, new ItemStreetLampSwitchOffScheduledBehaviour() );
             }
 
             return item;

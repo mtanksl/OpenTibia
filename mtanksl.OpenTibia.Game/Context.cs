@@ -246,8 +246,6 @@ namespace OpenTibia.Game
                         } );
                     }
                 }
-
-                events.Clear();
             }
 
             if (messages != null)
