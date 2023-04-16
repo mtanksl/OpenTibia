@@ -15,28 +15,28 @@ namespace OpenTibia.Game.Commands
                 
         public override Promise Execute()
         {
-            PlayerActionDelayBehaviour playerActionBehaviour = Context.Server.Components.GetComponent<PlayerActionDelayBehaviour>(Player);
+            PlayerActionDelayBehaviour playerActionDelayBehaviour = Context.Server.Components.GetComponent<PlayerActionDelayBehaviour>(Player);
 
-            if (playerActionBehaviour != null)
+            if (playerActionDelayBehaviour != null)
             {
-                Context.Server.Components.RemoveComponent(Player, playerActionBehaviour);
+                Context.Server.Components.RemoveComponent(Player, playerActionDelayBehaviour);
             }
 
-            PlayerWalkDelayBehaviour playerWalkBehaviour = Context.Server.Components.GetComponent<PlayerWalkDelayBehaviour>(Player);
+            PlayerWalkDelayBehaviour playerWalkDelayBehaviour = Context.Server.Components.GetComponent<PlayerWalkDelayBehaviour>(Player);
 
-            if (playerWalkBehaviour != null)
+            if (playerWalkDelayBehaviour != null)
             {
-                if (Context.Server.Components.RemoveComponent(Player, playerWalkBehaviour) )
+                if (Context.Server.Components.RemoveComponent(Player, playerWalkDelayBehaviour) )
                 {
                     Context.AddPacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
                 }
             }
 
-            PlayerAttackAndFollowExternalBehaviour playerAttackAndFollowBehaviour = Context.Server.Components.GetComponent<PlayerAttackAndFollowExternalBehaviour>(Player);
+            PlayerAttackAndFollowThinkBehaviour playerAttackAndFollowThinkBehaviour = Context.Server.Components.GetComponent<PlayerAttackAndFollowThinkBehaviour>(Player);
 
-            if (playerAttackAndFollowBehaviour != null)
+            if (playerAttackAndFollowThinkBehaviour != null)
             {
-                playerAttackAndFollowBehaviour.Stop();
+                playerAttackAndFollowThinkBehaviour.Stop();
             }
 
             Context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );

@@ -28,13 +28,13 @@ namespace OpenTibia.Game.Commands
                 
             if (creature != null && creature != Player)
             {
-                PlayerAttackAndFollowExternalBehaviour playerAttackAndFollowBehaviour = Context.Server.Components.GetComponent<PlayerAttackAndFollowExternalBehaviour>(Player);
+                PlayerAttackAndFollowThinkBehaviour playerAttackAndFollowThinkBehaviour = Context.Server.Components.GetComponent<PlayerAttackAndFollowThinkBehaviour>(Player);
 
                 if (creature is Npc)
                 {
-                    if (playerAttackAndFollowBehaviour != null)
+                    if (playerAttackAndFollowThinkBehaviour != null)
                     {
-                        playerAttackAndFollowBehaviour.Stop();
+                        playerAttackAndFollowThinkBehaviour.Stop();
                     }
 
                     Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature),
@@ -45,16 +45,16 @@ namespace OpenTibia.Game.Commands
                 {
                     if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
                     {
-                        if (playerAttackAndFollowBehaviour != null)
+                        if (playerAttackAndFollowThinkBehaviour != null)
                         {
-                            playerAttackAndFollowBehaviour.Attack(creature);
+                            playerAttackAndFollowThinkBehaviour.Attack(creature);
                         }
                     }
                     else
                     {
-                        if (playerAttackAndFollowBehaviour != null)
+                        if (playerAttackAndFollowThinkBehaviour != null)
                         {
-                            playerAttackAndFollowBehaviour.AttackAndFollow(creature);
+                            playerAttackAndFollowThinkBehaviour.AttackAndFollow(creature);
                         }
                     }
 

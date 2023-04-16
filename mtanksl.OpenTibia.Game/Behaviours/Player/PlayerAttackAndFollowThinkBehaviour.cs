@@ -7,7 +7,7 @@ using System;
 
 namespace OpenTibia.Game.Components
 {
-    public class PlayerAttackAndFollowExternalBehaviour : ThinkBehaviour
+    public class PlayerAttackAndFollowThinkBehaviour : ThinkBehaviour
     {
         private enum State
         {
@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Components
 
         private IWalkStrategy walkStrategy;
 
-        public PlayerAttackAndFollowExternalBehaviour(IAttackStrategy attackStrategy, IWalkStrategy walkStrategy)
+        public PlayerAttackAndFollowThinkBehaviour(IAttackStrategy attackStrategy, IWalkStrategy walkStrategy)
         {
             this.attackStrategy = attackStrategy;
 
@@ -114,25 +114,6 @@ namespace OpenTibia.Game.Components
                     }
                     else
                     {
-                        if (state == State.Attack || state == State.AttackAndFollow)
-                        {
-                            if (DateTime.UtcNow > attackCooldown)
-                            {
-                                Command command = attackStrategy.GetNext(Context.Server, player, target);
-
-                                if (command != null)
-                                {
-                                    attackCooldown = DateTime.UtcNow.AddMilliseconds(attackStrategy.CooldownInMilliseconds);
-
-                                    await Context.AddCommand(command);
-                                }
-                                else
-                                {
-                                    attackCooldown = DateTime.UtcNow.AddSeconds(2);
-                                }
-                            }
-                        }
-
                         if (state == State.Follow || state == State.AttackAndFollow)
                         {
                             if (DateTime.UtcNow > walkCooldown)
@@ -145,9 +126,20 @@ namespace OpenTibia.Game.Components
 
                                     await Context.AddCommand(new CreatureUpdateParentCommand(player, toTile) );
                                 }
-                                else
+                            }
+                        }
+
+                        if (state == State.Attack || state == State.AttackAndFollow)
+                        {
+                            if (DateTime.UtcNow > attackCooldown)
+                            {
+                                Command command = attackStrategy.GetNext(Context.Server, player, target);
+
+                                if (command != null)
                                 {
-                                    walkCooldown = DateTime.UtcNow.AddSeconds(2);
+                                    attackCooldown = DateTime.UtcNow.AddMilliseconds(attackStrategy.CooldownInMilliseconds);
+
+                                    await Context.AddCommand(command);
                                 }
                             }
                         }
