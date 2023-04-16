@@ -36,6 +36,8 @@ namespace OpenTibia.Game.Scripts
 
             server.CommandHandlers.Add(new SealedDoorHandler() );
 
+            server.CommandHandlers.Add(new WindowHandler() );
+
             server.CommandHandlers.Add(new GoldCoinHandler() );
 
             server.CommandHandlers.Add(new PlatinumCoinHandler() );

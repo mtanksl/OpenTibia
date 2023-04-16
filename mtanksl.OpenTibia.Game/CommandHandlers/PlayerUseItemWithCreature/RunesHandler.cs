@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class Runes2Handler : CommandHandler<PlayerUseItemWithCreatureCommand>
+    public class RunesHandler : CommandHandler<PlayerUseItemWithCreatureCommand>
     {
         private class Rune
         {

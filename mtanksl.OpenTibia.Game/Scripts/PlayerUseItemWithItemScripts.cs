@@ -10,7 +10,7 @@ namespace OpenTibia.Game.Scripts
 
             //TODO: You cannot use there.
 
-            server.CommandHandlers.Add(new RunesHandler() );
+            server.CommandHandlers.Add(new Runes2Handler() );
 
             server.CommandHandlers.Add(new FishingRodHandler() );
 

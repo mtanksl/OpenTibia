@@ -38,7 +38,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                         } ).Then( (item) =>
                         {
-                            return Context.AddCommand(new ItemDecayTransformCommand(item, 2000, decay[item.Metadata.OpenTibiaId], 1) );
+                            _ = Context.AddCommand(new ItemDecayTransformCommand(item, 2000, decay[item.Metadata.OpenTibiaId], 1) );
+
+                            return Promise.Completed;
                         } );
 
                     case Inventory inventory:
@@ -53,7 +55,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                         } ).Then( (item) =>
                         {
-                            return Context.AddCommand(new ItemDecayTransformCommand(item, 2000, decay[item.Metadata.OpenTibiaId], 1) );
+                            _ = Context.AddCommand(new ItemDecayTransformCommand(item, 2000, decay[item.Metadata.OpenTibiaId], 1) );
+
+                            return Promise.Completed;
                         } );
                 }
             }
