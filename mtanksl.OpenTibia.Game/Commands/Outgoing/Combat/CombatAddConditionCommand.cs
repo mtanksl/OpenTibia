@@ -5,9 +5,9 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class CreatureAddConditionCommand : Command
+    public class CombatAddConditionCommand : Command
     {
-        public CreatureAddConditionCommand(Creature creature, SpecialCondition specialCondition, MagicEffectType magicEffectType, AnimatedTextColor animatedTextColor, int[] health, int intervalInMilliseconds)
+        public CombatAddConditionCommand(Creature creature, SpecialCondition specialCondition, MagicEffectType magicEffectType, AnimatedTextColor animatedTextColor, int[] health, int intervalInMilliseconds)
         {
             Creature = creature;
 

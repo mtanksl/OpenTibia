@@ -171,7 +171,7 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new PlayerUpdateExperienteCommand(player, experience, level, levelPercent) );
+            return context.AddCommand(new PlayerUpdateExperienceCommand(player, experience, level, levelPercent) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>

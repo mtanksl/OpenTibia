@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
@@ -30,6 +31,8 @@ namespace OpenTibia.Game.Commands
                     Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, "pspsps") );
                 }
             }
+
+            Context.AddEvent(new PlayerWhisperEventArgs(Player, Message) );
 
             return Promise.Completed;
         }

@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Scripts
             {
                 CreatureThink(server);
 
-                Context.AddEvent(new CreatureThinkGameEventArgs() );
+                Context.AddEvent(new GlobalCreatureThinkEventArgs() );
 
                 return Promise.Completed;
 
@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Scripts
             {
                 PlayerPing(server);
 
-                Context.AddEvent(new PlayerPingGameEventArgs() );
+                Context.AddEvent(new GlobalPlayerPingEventArgs() );
 
                 return Promise.Completed;
 
@@ -69,7 +69,7 @@ namespace OpenTibia.Game.Scripts
 
                 Context.Server.Clock.Tick();
 
-                Context.AddEvent(new ClockTickGameEventArgs(Context.Server.Clock.Hour, Context.Server.Clock.Minute) );
+                Context.AddEvent(new GlobalClockTickEventArgs(Context.Server.Clock.Hour, Context.Server.Clock.Minute) );
 
                 return Promise.Completed;
 

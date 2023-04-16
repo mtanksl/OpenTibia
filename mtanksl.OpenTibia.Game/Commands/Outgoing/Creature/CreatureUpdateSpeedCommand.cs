@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
@@ -31,6 +32,8 @@ namespace OpenTibia.Game.Commands
                         Context.AddPacket(observer.Client.Connection, new SetSpeedOutgoingPacket(Creature.Id, Creature.Speed) );
                     }
                 }
+
+                Context.AddEvent(new CreatureUpdateSpeedEventArgs(Creature, Speed) );
             }
 
             return Promise.Completed;

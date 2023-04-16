@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
@@ -33,23 +34,25 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            List<Promise> promises = new List<Promise>();
+
             switch (Item.Parent)
             {
                 case Tile fromTile:
 
-                    Context.AddCommand(new TileRemoveItemCommand(fromTile, Item) );
+                    promises.Add(Context.AddCommand(new TileRemoveItemCommand(fromTile, Item) ) );
 
                     break;
 
                 case Inventory fromInventory:
 
-                    Context.AddCommand(new InventoryRemoveItemCommand(fromInventory, Item) );
+                    promises.Add(Context.AddCommand(new InventoryRemoveItemCommand(fromInventory, Item) ) );
 
                     break;
 
                 case Container fromContainer:
 
-                    Context.AddCommand(new ContainerRemoveItemCommand(fromContainer, Item) );
+                    promises.Add(Context.AddCommand(new ContainerRemoveItemCommand(fromContainer, Item) ) );
 
                     break;
             }
@@ -58,24 +61,24 @@ namespace OpenTibia.Game.Commands
             {
                 case Tile toTile:
 
-                    Context.AddCommand(new TileAddItemCommand(toTile, Item) );
+                    promises.Add(Context.AddCommand(new TileAddItemCommand(toTile, Item) ) );
 
                     break;
 
                 case Inventory toInventory:
 
-                    Context.AddCommand(new InventoryAddItemCommand(toInventory, ToIndex, Item) );
+                    promises.Add(Context.AddCommand(new InventoryAddItemCommand(toInventory, ToIndex, Item) ) );
 
                     break;
 
                 case Container toContainer:
 
-                    Context.AddCommand(new ContainerAddItemCommand(toContainer, Item) );
+                    promises.Add(Context.AddCommand(new ContainerAddItemCommand(toContainer, Item) ) );
                         
                     break;
             }
 
-            return Promise.Completed;
+            return Promise.WhenAll(promises.ToArray() );
         }
     }
 }

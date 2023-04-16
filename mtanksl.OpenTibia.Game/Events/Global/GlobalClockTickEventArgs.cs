@@ -1,8 +1,8 @@
 ﻿namespace OpenTibia.Game.Events
 {
-    public class ClockTickGameEventArgs : GameEventArgs
+    public class GlobalClockTickEventArgs : GameEventArgs
     {
-        public ClockTickGameEventArgs(int hour, int minute)
+        public GlobalClockTickEventArgs(int hour, int minute)
         {
             this.hour = hour;
 

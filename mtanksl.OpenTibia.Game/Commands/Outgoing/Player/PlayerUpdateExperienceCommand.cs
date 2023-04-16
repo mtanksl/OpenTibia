@@ -1,11 +1,12 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class PlayerUpdateExperienteCommand : Command
+    public class PlayerUpdateExperienceCommand : Command
     {
-        public PlayerUpdateExperienteCommand(Player player, uint experience, ushort level, byte levelPercent)
+        public PlayerUpdateExperienceCommand(Player player, uint experience, ushort level, byte levelPercent)
         {
             Player = player;
 
@@ -35,6 +36,8 @@ namespace OpenTibia.Game.Commands
                 Player.LevelPercent = LevelPercent;
 
                 Context.AddPacket(Player.Client.Connection, new SendStatusOutgoingPacket(Player.Health, Player.MaxHealth, Player.Capacity, Player.Experience, Player.Level, Player.LevelPercent, Player.Mana, Player.MaxMana, Player.Skills.MagicLevel, Player.Skills.MagicLevelPercent, Player.Soul, Player.Stamina) );
+              
+                Context.AddEvent(new PlayerUpdateExperienceEventArgs(Player, Experience, Level) );
             }
 
             return Promise.Completed;

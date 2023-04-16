@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Events;
 
 namespace OpenTibia.Game.Commands
 {
@@ -22,6 +23,8 @@ namespace OpenTibia.Game.Commands
         public override PromiseResult<Player> Execute()
         {
             Player player = Context.Server.PlayerFactory.Create(Connection, DatabasePlayer);
+
+            Context.AddEvent(new PlayerLoginEventArgs(player) );
 
             return Context.AddCommand(new TileAddCreatureCommand(Tile, player) ).Then( () =>
             {

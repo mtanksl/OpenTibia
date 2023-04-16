@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Components
         {
             player = (Player)GameObject;
 
-            token = Context.Server.EventHandlers.Subscribe<PlayerPingGameEventArgs>( (context, e) =>
+            token = Context.Server.EventHandlers.Subscribe<GlobalPlayerPingEventArgs>( (context, e) =>
             {
                 return Update();
             } );
@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop(Server server)
         {
-            Context.Server.EventHandlers.Unsubscribe<PlayerPingGameEventArgs>(token);
+            Context.Server.EventHandlers.Unsubscribe<GlobalPlayerPingEventArgs>(token);
         }
     }
 }

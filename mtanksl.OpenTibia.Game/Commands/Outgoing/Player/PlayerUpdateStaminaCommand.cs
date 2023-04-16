@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 
@@ -24,6 +25,8 @@ namespace OpenTibia.Game.Commands
                 Player.Stamina = Stamina;
 
                 Context.AddPacket(Player.Client.Connection, new SendStatusOutgoingPacket(Player.Health, Player.MaxHealth, Player.Capacity, Player.Experience, Player.Level, Player.LevelPercent, Player.Mana, Player.MaxMana, Player.Skills.MagicLevel, Player.Skills.MagicLevelPercent, Player.Soul, Player.Stamina) );
+               
+                Context.AddEvent(new PlayerUpdateStaminaEventArgs(Player, Stamina) );
             }
 
             return Promise.Completed;

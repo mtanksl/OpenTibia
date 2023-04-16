@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
@@ -26,6 +27,8 @@ namespace OpenTibia.Game.Commands
                     Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Yell, Player.Tile.Position, Message.ToUpper() ) );
                 }
             }
+
+            Context.AddEvent(new PlayerYellEventArgs(Player, Message) );
 
             return Promise.Completed;
         }

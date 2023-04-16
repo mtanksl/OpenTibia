@@ -5,6 +5,7 @@ using OpenTibia.Game.Events;
 using OpenTibia.Game.Strategies;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
+using System.Collections.Generic;
 
 namespace OpenTibia.Game.Components
 {
@@ -40,7 +41,7 @@ namespace OpenTibia.Game.Components
         {
             player = (Player)GameObject;
 
-            token = Context.Server.EventHandlers.Subscribe<CreatureThinkGameEventArgs>( (context, e) =>
+            token = Context.Server.EventHandlers.Subscribe<GlobalCreatureThinkEventArgs>( (context, e) =>
             {
                 return Update();
             });
@@ -98,7 +99,7 @@ namespace OpenTibia.Game.Components
 
         private DateTime walkCooldown;
 
-        private async Promise Update()
+        private Promise Update()
         {
             if (target != null)
             {
@@ -122,6 +123,8 @@ namespace OpenTibia.Game.Components
                     }
                     else
                     {
+                        List<Promise> promises = new List<Promise>();
+
                         if (state == State.Follow || state == State.AttackAndFollow)
                         {
                             if (DateTime.UtcNow > walkCooldown)
@@ -132,7 +135,7 @@ namespace OpenTibia.Game.Components
                                 {
                                     walkCooldown = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / player.Speed);
 
-                                    await Context.AddCommand(new CreatureUpdateParentCommand(player, toTile) );
+                                    promises.Add(Context.AddCommand(new CreatureUpdateParentCommand(player, toTile) ) );
                                 }
                             }
                         }
@@ -147,18 +150,22 @@ namespace OpenTibia.Game.Components
                                 {
                                     attackCooldown = DateTime.UtcNow.AddMilliseconds(attackStrategy.CooldownInMilliseconds);
 
-                                    await Context.AddCommand(command);
+                                    promises.Add(Context.AddCommand(command) );
                                 }
                             }
                         }
+
+                        return Promise.WhenAll(promises.ToArray() );
                     }
                 }
             }
+
+            return Promise.Completed;
         }
 
         public override void Stop(Server server)
         {
-            Context.Server.EventHandlers.Unsubscribe<CreatureThinkGameEventArgs>(token);
+            Context.Server.EventHandlers.Unsubscribe<GlobalCreatureThinkEventArgs>(token);
         }
     }
 }

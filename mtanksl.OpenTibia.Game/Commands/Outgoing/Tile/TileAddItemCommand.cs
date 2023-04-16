@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
@@ -30,6 +31,8 @@ namespace OpenTibia.Game.Commands
                     }
                 }
             }
+
+            Context.AddEvent(new TileAddItemEventArgs(Tile, Item, index) );
 
             return Promise.Completed;
         }

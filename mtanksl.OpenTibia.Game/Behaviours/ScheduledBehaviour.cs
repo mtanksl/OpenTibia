@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Components
 
         public override void Start(Server server)
         {
-            token = server.EventHandlers.Subscribe<ClockTickGameEventArgs>( (context, e) =>
+            token = server.EventHandlers.Subscribe<GlobalClockTickEventArgs>( (context, e) =>
             {
                 if (e.Hour == hour && e.Minute == minute)
                 {
@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop(Server server)
         {
-            server.EventHandlers.Unsubscribe<ClockTickGameEventArgs>(token);
+            server.EventHandlers.Unsubscribe<GlobalClockTickEventArgs>(token);
         }
     }
 }

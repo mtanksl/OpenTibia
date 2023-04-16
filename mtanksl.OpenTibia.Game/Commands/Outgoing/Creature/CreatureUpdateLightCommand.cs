@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
@@ -32,6 +33,8 @@ namespace OpenTibia.Game.Commands
                         Context.AddPacket(observer.Client.Connection, new SetLightOutgoingPacket(Creature.Id, Creature.Light) );
                     }
                 }
+
+                Context.AddEvent(new CreatureUpdateLightEventArgs(Creature, Light) );
             }
 
             return Promise.Completed;

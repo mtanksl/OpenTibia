@@ -109,8 +109,6 @@ namespace OpenTibia.Game
 
             server.Components.AddComponent(player, new PlayerPingBehaviour() );
 
-            server.Logger.WriteLine(player.Name + " login.", LogLevel.Information);
-
             return player;
         }
 
@@ -123,8 +121,6 @@ namespace OpenTibia.Game
             server.GameObjects.RemoveGameObject(player);
 
             server.Components.ClearComponents(player);
-
-            server.Logger.WriteLine(player.Name + " logout.", LogLevel.Information);
         }
     }
 }

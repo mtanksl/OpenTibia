@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 
@@ -49,23 +50,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                if (Creature.Health == 0)
-                {
-                    switch (Creature) 
-                    {
-                        case Monster monster:
-
-                            return Context.AddCommand(new MonsterDestroyCommand(monster) );
-
-                        case Npc npc:
-
-                            return Context.AddCommand(new NpcDestroyCommand(npc) );
-
-                        case Player player:
-
-                            return Context.AddCommand(new PlayerDestroyCommand(player) );
-                    }
-                }
+                Context.AddEvent(new CreatureUpdateHealthEventArgs(Creature, Health) );
             }
 
             return Promise.Completed;

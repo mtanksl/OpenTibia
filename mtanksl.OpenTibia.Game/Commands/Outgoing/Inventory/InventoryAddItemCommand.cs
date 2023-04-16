@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
@@ -25,6 +26,8 @@ namespace OpenTibia.Game.Commands
             Inventory.AddContent(Item, Slot);
 
             Context.AddPacket(Inventory.Player.Client.Connection, new SlotAddOutgoingPacket(Slot, Item ) );
+
+            Context.AddEvent(new InventoryAddItemEventArgs(Inventory, Item, Slot) );
 
             return Promise.Completed;
         }

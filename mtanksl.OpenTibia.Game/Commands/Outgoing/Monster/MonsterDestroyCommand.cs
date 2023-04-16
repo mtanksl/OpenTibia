@@ -15,11 +15,6 @@ namespace OpenTibia.Game.Commands
         {
             return Context.AddCommand(new TileRemoveCreatureCommand(Monster.Tile, Monster) ).Then( () =>
             {
-                if (Monster.Health == 0)
-                {
-
-                }
-
                 Context.Server.MonsterFactory.Destroy(Monster);
 
                 return Promise.Completed;
