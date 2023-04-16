@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
-    public class CreatureWalkExternalBehaviour : ExternalBehaviour
+    public class CreatureWalkExternalBehaviour : ThinkBehaviour
     {
         private IWalkStrategy walkStrategy;
 

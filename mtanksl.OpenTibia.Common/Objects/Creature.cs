@@ -76,6 +76,23 @@ namespace OpenTibia.Common.Objects
 
         public bool Block { get; set; }
 
+        public SpecialCondition SpecialConditions { get; set; }
+
+        public bool HasSpecialCondition(SpecialCondition specialCondition)
+        {
+            return (SpecialConditions & specialCondition) == specialCondition;
+        }
+
+        public void AddSpecialCondition(SpecialCondition specialCondition)
+        {
+            SpecialConditions |= specialCondition;
+        }
+
+        public void RemoveSpecialCondition(SpecialCondition specialCondition)
+        {
+            SpecialConditions &= ~specialCondition;
+        }
+
         public override string ToString()
         {
             return "Id: " + Id + " Name: " + Name;

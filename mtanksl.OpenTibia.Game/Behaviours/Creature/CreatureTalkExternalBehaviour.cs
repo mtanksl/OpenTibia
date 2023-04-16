@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
-    public class CreatureTalkExternalBehaviour : ExternalBehaviour
+    public class CreatureTalkExternalBehaviour : ThinkBehaviour
     {
         private string[] sentences;
 

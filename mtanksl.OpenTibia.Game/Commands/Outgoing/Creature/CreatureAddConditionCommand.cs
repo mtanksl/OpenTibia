@@ -36,47 +36,42 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Execute()
         {
-            CreatureSpecialConditionBehaviour creatureSpecialConditionBehaviour = Context.Server.Components.GetComponent<CreatureSpecialConditionBehaviour>(Creature);
-            
-            if (creatureSpecialConditionBehaviour != null)
+            Player player = Creature as Player;
+
+            if ( !Creature.HasSpecialCondition(SpecialCondition) )
             {
-                Player player = Creature as Player;
-
-                if ( !creatureSpecialConditionBehaviour.HasSpecialCondition(SpecialCondition) )
-                {
-                    creatureSpecialConditionBehaviour.AddSpecialCondition(SpecialCondition);
-
-                    if (player != null)
-                    {
-                        Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(creatureSpecialConditionBehaviour.SpecialConditions) );
-                    }
-                }
-
-                for (int i = 0; i < Health.Length; i++)
-                {
-                    if (player != null)
-                    {
-                        Context.Current.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + -Health[i] + " hitpoints.") );
-                    }
-
-                    await Context.Current.AddCommand(new ShowMagicEffectCommand(Creature.Tile.Position, MagicEffectType) );
-
-                    await Context.Current.AddCommand(new ShowAnimatedTextCommand(Creature.Tile.Position, AnimatedTextColor, ( -Health[i] ).ToString() ) );
-
-                    await Context.Current.AddCommand(new CreatureUpdateHealthCommand(Creature, Creature.Health + Health[i] ) );
-
-                    if (i < Health.Length - 1)
-                    {
-                        await Context.Server.Components.AddComponent(Creature, new CreatureSpecialConditionDelayBehaviour(SpecialCondition, IntervalInMilliseconds) ).Promise;
-                    }
-                }
-
-                creatureSpecialConditionBehaviour.RemoveSpecialCondition(SpecialCondition);
+                Creature.AddSpecialCondition(SpecialCondition);
 
                 if (player != null)
                 {
-                    Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(creatureSpecialConditionBehaviour.SpecialConditions) );
+                    Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(Creature.SpecialConditions) );
                 }
+            }
+
+            for (int i = 0; i < Health.Length; i++)
+            {
+                if (player != null)
+                {
+                    Context.Current.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + -Health[i] + " hitpoints.") );
+                }
+
+                await Context.Current.AddCommand(new ShowMagicEffectCommand(Creature.Tile.Position, MagicEffectType) );
+
+                await Context.Current.AddCommand(new ShowAnimatedTextCommand(Creature.Tile.Position, AnimatedTextColor, ( -Health[i] ).ToString() ) );
+
+                await Context.Current.AddCommand(new CreatureUpdateHealthCommand(Creature, Creature.Health + Health[i] ) );
+
+                if (i < Health.Length - 1)
+                {
+                    await Context.Server.Components.AddComponent(Creature, new CreatureSpecialConditionDelayBehaviour(SpecialCondition, IntervalInMilliseconds) ).Promise;
+                }
+            }
+
+            Creature.RemoveSpecialCondition(SpecialCondition);
+
+            if (player != null)
+            {
+                Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(Creature.SpecialConditions) );
             }
         }
     }

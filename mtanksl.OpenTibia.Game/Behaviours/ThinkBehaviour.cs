@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Components
 {
-    public abstract class ExternalBehaviour : Behaviour
+    public abstract class ThinkBehaviour : Behaviour
     {
         public abstract Promise Update();
     }

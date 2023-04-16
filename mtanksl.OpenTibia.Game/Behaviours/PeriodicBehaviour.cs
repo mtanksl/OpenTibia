@@ -1,23 +1,18 @@
 ﻿using OpenTibia.Game.Commands;
-using System;
 
 namespace OpenTibia.Game.Components
 {
-    public class PeriodicBehaviour : Behaviour
+    public abstract class PeriodicBehaviour : Behaviour
     {
         private string key;
         
         private int executeInMilliseconds;
 
-        private Func<Promise> run;
-
-        public PeriodicBehaviour(string key, int executeInMilliseconds, Func<Promise> run)
+        public PeriodicBehaviour(string key, int executeInMilliseconds)
         {
             this.key = key;
 
             this.executeInMilliseconds = executeInMilliseconds;
-
-            this.run = run;
         }
 
         public override void Start(Server server)
@@ -26,7 +21,7 @@ namespace OpenTibia.Game.Components
             {
                 Start(server);
 
-                return run();
+                return Update();
 
             } ).Catch( (ex) =>
             {
@@ -41,6 +36,11 @@ namespace OpenTibia.Game.Components
 
                 server.Components.RemoveComponent(GameObject, this);
             } );
+        }
+
+        public virtual Promise Update()
+        {
+            return Promise.Completed;
         }
 
         public override void Stop(Server server)

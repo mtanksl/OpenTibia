@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Scripts
         {
             while (true)
             {
-                foreach (var component in Context.Server.Components.GetComponentsOfType<Creature, ExternalBehaviour>().ToList() )
+                foreach (var component in Context.Server.Components.GetComponentsOfType<Creature, ThinkBehaviour>().ToList() )
                 {
                     if (component.GameObject != null)
                     {
