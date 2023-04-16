@@ -50,7 +50,7 @@ namespace OpenTibia.Game
 
             server.GameObjects.AddGameObject(npc);
 
-            server.Components.AddComponent(npc, new CreatureWalkBehaviour(new RandomWalkStrategy(2) ) );
+            server.Components.AddComponent(npc, new CreatureWalkExternalBehaviour(new RandomWalkStrategy(2) ) );
 
             return npc;
         }

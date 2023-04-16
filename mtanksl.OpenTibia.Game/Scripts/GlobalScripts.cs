@@ -21,11 +21,11 @@ namespace OpenTibia.Game.Scripts
         {
             while (true)
             {
-                foreach (var component in Context.Server.Components.GetComponentsOfType<Creature, CreatureThinkBehaviour>().ToList() )
+                foreach (var component in Context.Server.Components.GetComponentsOfType<Creature, ExternalBehaviour>().ToList() )
                 {
                     if (component.GameObject != null)
                     {
-                        _ = component.Update().Catch(ex =>
+                        _ = component.Update().Catch( (ex) =>
                         {
                             if (ex is PromiseCanceledException)
                             {

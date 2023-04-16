@@ -6,17 +6,17 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class EnergyFieldHandler : EventHandler<TileAddCreatureEventArgs>
+    public class CampfireHandler : EventHandler<TileAddCreatureEventArgs>
     {
-        private HashSet<ushort> energyFields = new HashSet<ushort>() { 1491, 1495 };
+        private HashSet<ushort> campfires = new HashSet<ushort>() { 1423, 1424, 1425 };
 
         public override Promise Handle(TileAddCreatureEventArgs e)
         {
             foreach (var topItem in e.Tile.GetItems() )
             {
-                if (energyFields.Contains(topItem.Metadata.OpenTibiaId) )
+                if (campfires.Contains(topItem.Metadata.OpenTibiaId) )
                 {
-                    return Context.AddCommand(new CombatConditionCommand(null, e.Creature, SpecialCondition.Electrified, MagicEffectType.EnergyDamage, new[] { -30, -25, -25 }, 2000) );
+                    return Context.AddCommand(new CreatureAddConditionCommand(e.Creature, SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { -20, -10, -10, -10, -10, -10, -10, -10 }, 2000) );
                 }
             }
 

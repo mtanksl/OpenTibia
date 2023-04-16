@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (fireFields.Contains(topItem.Metadata.OpenTibiaId) )
                 {
-                    return Context.AddCommand(new CombatConditionCommand(null, e.Creature, SpecialCondition.Burning, MagicEffectType.FirePlume, new[] { -20, -10, -10, -10, -10, -10, -10, -10 }, 2000) );
+                    return Context.AddCommand(new CreatureAddConditionCommand(e.Creature, SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { -20, -10, -10, -10, -10, -10, -10, -10 }, 2000) );
                 }
             }
 

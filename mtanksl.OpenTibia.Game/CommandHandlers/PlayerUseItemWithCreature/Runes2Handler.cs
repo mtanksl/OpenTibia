@@ -5,6 +5,7 @@ using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenTibia.Game.CommandHandlers
 {
@@ -53,7 +54,14 @@ namespace OpenTibia.Game.CommandHandlers
                                 }
                             }
 
-                            Context.Current.Server.CancelQueueForExecution("Combat_Condition_" + SpecialCondition.Poisoned + target.Id);
+                            CreatureSpecialConditionDelayBehaviour creatureSpecialConditionDelayBehaviour = Context.Current.Server.Components.GetComponents<CreatureSpecialConditionDelayBehaviour>(attacker)
+                                .Where(c => c.SpecialCondition == SpecialCondition.Poisoned)
+                                .FirstOrDefault();
+
+                            if (creatureSpecialConditionDelayBehaviour != null)
+                            {
+                                Context.Current.Server.Components.RemoveComponent(attacker, creatureSpecialConditionDelayBehaviour);
+                            }
                         }
 
                         return Promise.Completed;

@@ -296,18 +296,25 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
-                        CreatureSpecialConditionBehaviour component = Context.Current.Server.Components.GetComponent<CreatureSpecialConditionBehaviour>(attacker);
+                        CreatureSpecialConditionBehaviour creatureSpecialConditionBehaviour = Context.Current.Server.Components.GetComponent<CreatureSpecialConditionBehaviour>(attacker);
 
-                        if (component != null)
+                        if (creatureSpecialConditionBehaviour != null)
                         {
-                            if (component.HasSpecialCondition(SpecialCondition.Poisoned) )
+                            if (creatureSpecialConditionBehaviour.HasSpecialCondition(SpecialCondition.Poisoned) )
                             {
-                                component.RemoveSpecialCondition(SpecialCondition.Poisoned);
+                                creatureSpecialConditionBehaviour.RemoveSpecialCondition(SpecialCondition.Poisoned);
 
-                                Context.Current.AddPacket(attacker.Client.Connection, new SetSpecialConditionOutgoingPacket(component.SpecialConditions) );
+                                Context.Current.AddPacket(attacker.Client.Connection, new SetSpecialConditionOutgoingPacket(creatureSpecialConditionBehaviour.SpecialConditions) );
                             }
 
-                            Context.Current.Server.CancelQueueForExecution("Combat_Condition_" + SpecialCondition.Poisoned + attacker.Id);
+                            CreatureSpecialConditionDelayBehaviour creatureSpecialConditionDelayBehaviour = Context.Current.Server.Components.GetComponents<CreatureSpecialConditionDelayBehaviour>(attacker)
+                                .Where(c => c.SpecialCondition == SpecialCondition.Poisoned)
+                                .FirstOrDefault();
+
+                            if (creatureSpecialConditionDelayBehaviour != null)
+                            {
+                                Context.Current.Server.Components.RemoveComponent(attacker, creatureSpecialConditionDelayBehaviour);
+                            }
                         }
 
                         return Promise.Completed;

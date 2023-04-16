@@ -34,14 +34,14 @@ namespace OpenTibia.Game.Commands
                     {
                         if (observer == Creature)
                         {
-                            PlayerActionBehaviour playerActionBehaviour = Context.Server.Components.GetComponent<PlayerActionBehaviour>(observer);
+                            PlayerActionDelayBehaviour playerActionBehaviour = Context.Server.Components.GetComponent<PlayerActionDelayBehaviour>(observer);
 
                             if (playerActionBehaviour != null)
                             {
                                 Context.Server.Components.RemoveComponent(observer, playerActionBehaviour);
                             }
 
-                            PlayerWalkBehaviour playerWalkBehaviour = Context.Server.Components.GetComponent<PlayerWalkBehaviour>(observer);
+                            PlayerWalkDelayBehaviour playerWalkBehaviour = Context.Server.Components.GetComponent<PlayerWalkDelayBehaviour>(observer);
 
                             if (playerWalkBehaviour != null)
                             {

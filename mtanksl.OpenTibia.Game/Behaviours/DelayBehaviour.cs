@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Game.Commands;
+using System;
 
 namespace OpenTibia.Game.Components
 {
@@ -8,20 +9,29 @@ namespace OpenTibia.Game.Components
         
         private int executeInMilliseconds;
 
-        public DelayBehaviour(string key, int executeInMilliseconds)
+        private Func<Promise> run;
+
+        public DelayBehaviour(string key, int executeInMilliseconds) : this(key, executeInMilliseconds, () => { return Promise.Completed; } )
+        {
+           
+        }
+
+        public DelayBehaviour(string key, int executeInMilliseconds, Func<Promise> run)
         {
             this.key = key;
 
             this.executeInMilliseconds = executeInMilliseconds;
+
+            this.run = run;
         }
 
         private Promise promise;
 
         public Promise Promise
         {
-            get
+            get 
             {
-                return promise;
+                return promise; 
             }
         }
 
@@ -31,10 +41,19 @@ namespace OpenTibia.Game.Components
             {
                 server.Components.RemoveComponent(GameObject, this);
 
-                return Promise.Completed;
+                return run();
 
             } ).Catch( (ex) =>
             {
+                if (ex is PromiseCanceledException)
+                {
+                                
+                }
+                else
+                {
+                    server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                }
+
                 server.Components.RemoveComponent(GameObject, this);
             } );
         }

@@ -17,7 +17,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 return Context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, (Tile)command.Item.Parent) ).Then( () =>
                 {
-                    return Context.Server.Components.AddComponent(command.Player, new PlayerActionBehaviour() ).Promise;
+                    return Context.Server.Components.AddComponent(command.Player, new PlayerActionDelayBehaviour() ).Promise;
 
                 } ).Then( () =>
                 {

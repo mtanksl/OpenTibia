@@ -6,29 +6,27 @@ using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
-    public class CreatureWalkBehaviour : CreatureThinkBehaviour
+    public class CreatureAttackExternalBehaviour : ExternalBehaviour
     {
-        private IWalkStrategy walkStrategy;
+        private IAttackStrategy attackStrategy;
 
-        public CreatureWalkBehaviour(IWalkStrategy walkStrategy)
+        public CreatureAttackExternalBehaviour(IAttackStrategy attackStrategy)
         {
-            this.walkStrategy = walkStrategy;
+            this.attackStrategy = attackStrategy;
         }
 
         private Creature creature;
-
-        private Tile spawn;
 
         public override void Start(Server server)
         {
             creature = (Creature)GameObject;
         }
 
-        private DateTime walkCooldown;
+        private DateTime attackCooldown;
 
         public override Promise Update()
         {
-            if (DateTime.UtcNow > walkCooldown)
+            if (DateTime.UtcNow > attackCooldown)
             {
                 var target = Context.Server.GameObjects.GetPlayers()
                     .Where(p => creature.Tile.Position.CanHearSay(p.Tile.Position) )
@@ -36,22 +34,22 @@ namespace OpenTibia.Game.Components
 
                 if (target != null)
                 {
-                    Tile toTile = walkStrategy.GetNext(Context.Server, spawn, creature, target);
+                    Command command = attackStrategy.GetNext(Context.Server, creature, target);
 
-                    if (toTile != null)
+                    if (command != null)
                     {
-                        walkCooldown = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / creature.Speed);
+                        attackCooldown = DateTime.UtcNow.AddMilliseconds(attackStrategy.CooldownInMilliseconds);
 
-                       return Context.AddCommand(new CreatureUpdateParentCommand(creature, toTile) );
+                        return Context.AddCommand(command);
                     }
                     else
                     {
-                        walkCooldown = DateTime.UtcNow.AddSeconds(2);
+                        attackCooldown = DateTime.UtcNow.AddSeconds(2);
                     }
                 }
                 else
                 {
-                    walkCooldown = DateTime.UtcNow.AddSeconds(2);
+                    attackCooldown = DateTime.UtcNow.AddSeconds(2);
                 }
             }
 
@@ -60,7 +58,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop(Server server)
         {
-            
+
         }
     }
 }

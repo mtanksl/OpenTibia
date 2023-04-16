@@ -9,6 +9,20 @@ namespace OpenTibia.Game.Extensions
     {
         /// <exception cref="InvalidOperationException"></exception>
 
+        public static Promise AddCondition(this Creature creature, SpecialCondition specialCondition, MagicEffectType magicEffectType, AnimatedTextColor animatedTextColor, int[] health, int intervalInMilliseconds)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new CreatureAddConditionCommand(creature, specialCondition, magicEffectType, animatedTextColor, health, intervalInMilliseconds) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
         public static Promise UpdateDirection(this Creature creature, Direction direction)
         {
             Context context = Context.Current;

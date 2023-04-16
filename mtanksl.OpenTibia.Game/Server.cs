@@ -169,7 +169,7 @@ namespace OpenTibia.Game
                         {
                             using (var scope = new Scope<Context>(context) )
                             {
-                                run().Then(resolve).Catch(ex =>
+                                run().Then(resolve).Catch( (ex) =>
                                 {
                                     if (ex is PromiseCanceledException)
                                     {
@@ -229,7 +229,7 @@ namespace OpenTibia.Game
                         {
                             using (var scope = new Scope<Context>(context) )
                             {
-                                run().Then(resolve).Catch(ex =>
+                                run().Then(resolve).Catch( (ex) =>
                                 {
                                     if (ex is PromiseCanceledException)
                                     {

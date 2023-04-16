@@ -7,7 +7,7 @@ using System;
 
 namespace OpenTibia.Game.Components
 {
-    public class PlayerAttackAndFollowBehaviour : CreatureThinkBehaviour
+    public class PlayerAttackAndFollowExternalBehaviour : ExternalBehaviour
     {
         private enum State
         {
@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Components
 
         private IWalkStrategy walkStrategy;
 
-        public PlayerAttackAndFollowBehaviour(IAttackStrategy attackStrategy, IWalkStrategy walkStrategy)
+        public PlayerAttackAndFollowExternalBehaviour(IAttackStrategy attackStrategy, IWalkStrategy walkStrategy)
         {
             this.attackStrategy = attackStrategy;
 
@@ -88,7 +88,7 @@ namespace OpenTibia.Game.Components
 
         private DateTime attackCooldown;
 
-        private DateTime moveCooldown;
+        private DateTime walkCooldown;
 
         public override async Promise Update()
         {
@@ -114,21 +114,6 @@ namespace OpenTibia.Game.Components
                     }
                     else
                     {
-                        if (state == State.Follow || state == State.AttackAndFollow)
-                        {
-                            if (DateTime.UtcNow > moveCooldown)
-                            {
-                                Tile toTile = walkStrategy.GetNext(Context.Server, null, player, target);
-
-                                if (toTile != null)
-                                {
-                                    moveCooldown = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / player.Speed);
-
-                                    await Context.AddCommand(new CreatureUpdateParentCommand(player, toTile) );
-                                }
-                            }
-                        }
-
                         if (state == State.Attack || state == State.AttackAndFollow)
                         {
                             if (DateTime.UtcNow > attackCooldown)
@@ -140,7 +125,30 @@ namespace OpenTibia.Game.Components
                                     attackCooldown = DateTime.UtcNow.AddMilliseconds(attackStrategy.CooldownInMilliseconds);
 
                                     await Context.AddCommand(command);
-                                } 
+                                }
+                                else
+                                {
+                                    attackCooldown = DateTime.UtcNow.AddSeconds(2);
+                                }
+                            }
+                        }
+
+                        if (state == State.Follow || state == State.AttackAndFollow)
+                        {
+                            if (DateTime.UtcNow > walkCooldown)
+                            {
+                                Tile toTile = walkStrategy.GetNext(Context.Server, null, player, target);
+
+                                if (toTile != null)
+                                {
+                                    walkCooldown = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / player.Speed);
+
+                                    await Context.AddCommand(new CreatureUpdateParentCommand(player, toTile) );
+                                }
+                                else
+                                {
+                                    walkCooldown = DateTime.UtcNow.AddSeconds(2);
+                                }
                             }
                         }
                     }

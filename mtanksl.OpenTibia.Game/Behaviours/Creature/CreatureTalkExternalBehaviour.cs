@@ -6,11 +6,11 @@ using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
-    public class CreatureTalkBehaviour : CreatureThinkBehaviour
+    public class CreatureTalkExternalBehaviour : ExternalBehaviour
     {
         private string[] sentences;
 
-        public CreatureTalkBehaviour(string[] sentences)
+        public CreatureTalkExternalBehaviour(string[] sentences)
         {
             this.sentences = sentences;
         }
