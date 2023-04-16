@@ -30,7 +30,14 @@ namespace OpenTibia.Game.Commands
 
                 Context.Server.PlayerFactory.Destroy(Player);
 
-                Context.AddEvent(new PlayerLogoutEventArgs(Player) );
+                if (Player.Health == 0)
+                {
+                    Context.AddEvent(new PlayerDeathEventArgs(Player) );
+                }
+                else
+                {
+                    Context.AddEvent(new PlayerLogoutEventArgs(Player) );
+                }
 
                 return Promise.Completed;
             } );

@@ -1387,6 +1387,7 @@
     <Folder Include="CommandHandlers\PlayerLookItem\" />
     <Folder Include="CommandHandlers\PlayerWhisper\" />
     <Folder Include="CommandHandlers\PlayerYell\" />
+    <Folder Include="EventHandlers\PlayerDeath\" />
     <Folder Include="EventHandlers\PlayerLogout\" />
     <Folder Include="EventHandlers\PlayerLogin\" />
   </ItemGroup>
