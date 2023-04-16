@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class InlineCommandResultHandler<TResult, T> : CommandHandlerResult<TResult, T> where T : CommandResult<TResult>
+    public class InlineCommandResultHandler<TResult, T> : CommandResultHandler<TResult, T> where T : CommandResult<TResult>
     {
         private Func<Context, Func<PromiseResult<TResult>>, T, PromiseResult<TResult> > handle;
 

@@ -1382,11 +1382,6 @@
   <ItemGroup>
     <Folder Include="Behaviours\Monster\" />
     <Folder Include="Behaviours\Npc\" />
-    <Folder Include="CommandHandlers\CreatureUpdateDirection\" />
-    <Folder Include="CommandHandlers\PlayerLookCreature\" />
-    <Folder Include="CommandHandlers\PlayerLookItem\" />
-    <Folder Include="CommandHandlers\PlayerWhisper\" />
-    <Folder Include="CommandHandlers\PlayerYell\" />
     <Folder Include="EventHandlers\PlayerDeath\" />
     <Folder Include="EventHandlers\PlayerLogout\" />
     <Folder Include="EventHandlers\PlayerLogin\" />

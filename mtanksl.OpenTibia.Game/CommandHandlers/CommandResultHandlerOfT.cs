@@ -4,7 +4,7 @@ using System.Diagnostics;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public abstract class CommandHandlerResult<TResult, T> : ICommandResultHandler<TResult, T> where T : CommandResult<TResult>
+    public abstract class CommandResultHandler<TResult, T> : ICommandResultHandler<TResult, T> where T : CommandResult<TResult>
     {
         public Context Context
         {
