@@ -24,14 +24,20 @@ namespace OpenTibia.Game.Commands
         public override Promise Execute()
         {
             CombatAttackCreatureBuilder builder = new CombatAttackCreatureBuilder()
-                .WithAttacker(Attacker)
-                .WithTarget(Target)
-                .WithProjectileType(null)
-                .WithMagicEffectType(null)
-                .WithMissedMagicEffectType(MagicEffectType.Puff)
-                .WithDamageMagicEffectType(MagicEffectType.RedSpark)
-                .WithAnimatedTextColor(AnimatedTextColor.DarkRed)
-                .WithFormula(Formula);
+            {
+                Attacker = Attacker,
+                Target = Target,
+                ProjectileType = null,
+                MagicEffectType = null,
+                Formula = new DamageDto()
+                {
+                    Formula = Formula,
+                    MissedMagicEffectType = MagicEffectType.Puff,
+                    DamageMagicEffectType = MagicEffectType.RedSpark,
+                    DamageAnimatedTextColor = AnimatedTextColor.DarkRed
+                },
+                Condition = null
+            };
 
             return builder.Build();
         }

@@ -296,23 +296,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
-                        if (attacker.HasSpecialCondition(SpecialCondition.Poisoned) )
-                        {
-                            attacker.RemoveSpecialCondition(SpecialCondition.Poisoned);
-
-                            Context.Current.AddPacket(attacker.Client.Connection, new SetSpecialConditionOutgoingPacket(attacker.SpecialConditions) );
-                        }
-
-                        CreatureSpecialConditionDelayBehaviour creatureSpecialConditionDelayBehaviour = Context.Current.Server.Components.GetComponents<CreatureSpecialConditionDelayBehaviour>(attacker)
-                            .Where(c => c.SpecialCondition == SpecialCondition.Poisoned)
-                            .FirstOrDefault();
-
-                        if (creatureSpecialConditionDelayBehaviour != null)
-                        {
-                            Context.Current.Server.Components.RemoveComponent(attacker, creatureSpecialConditionDelayBehaviour);
-                        }
-
-                        return Promise.Completed;
+                        return CurePoison(attacker);
                     } );
                 }
             },
@@ -335,7 +319,10 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     var damage = LightHealingFormula(attacker.Level, attacker.Skills.MagicLevel);
 
-                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, attacker, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, attacker, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) ).Then( () =>
+                    {
+                        return CurePoison(attacker);
+                    } );
                 }
             },
 
@@ -357,7 +344,10 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     var damage = IntenseHealingFormula(attacker.Level, attacker.Skills.MagicLevel);
                     
-                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, attacker, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, attacker, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) ).Then( () =>
+                    {
+                        return CurePoison(attacker);
+                    } );
                 }
             },
 
@@ -379,7 +369,10 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     var damage = UltimateHealingFormula(attacker.Level, attacker.Skills.MagicLevel);
 
-                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, attacker, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, attacker, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) ).Then( () =>
+                    {
+                        return CurePoison(attacker);
+                    } );
                 }
             },
 
@@ -727,6 +720,27 @@ namespace OpenTibia.Game.CommandHandlers
                 }
             }
         };
+
+        private static Promise CurePoison(Player target)
+        {
+            if (target.HasSpecialCondition(SpecialCondition.Poisoned) )
+            {
+                target.RemoveSpecialCondition(SpecialCondition.Poisoned);
+
+                Context.Current.AddPacket(target.Client.Connection, new SetSpecialConditionOutgoingPacket(target.SpecialConditions) );
+            }
+
+            CreatureSpecialConditionDelayBehaviour creatureSpecialConditionDelayBehaviour = Context.Current.Server.Components.GetComponents<CreatureSpecialConditionDelayBehaviour>(target)
+                .Where(c => c.SpecialCondition == SpecialCondition.Poisoned)
+                .FirstOrDefault();
+
+            if (creatureSpecialConditionDelayBehaviour != null)
+            {
+                Context.Current.Server.Components.RemoveComponent(target, creatureSpecialConditionDelayBehaviour);
+            }
+
+            return Promise.Completed;
+        }
 
         private static ushort HasteFormula(ushort baseSpeed)
         {

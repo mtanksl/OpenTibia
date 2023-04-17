@@ -36,15 +36,24 @@ namespace OpenTibia.Game.Commands
         public override Promise Execute()
         {
             CombatAttackAreaBuilder builder = new CombatAttackAreaBuilder()
-                .WithAttacker(Attacker)
-                .WithArea(Area, null)
-                .WithCenter(Center)
-                .WithProjectileType(ProjectileType)
-                .WithMagicEffectType(MagicEffectType)
-                .WithMissedMagicEffectType(null)
-                .WithDamageMagicEffectType(null)
-                .WithAnimatedTextColor(AnimatedTextColor.DarkRed)
-                .WithFormula(Formula);
+            {
+                Attacker = Attacker,
+                Center = Center,
+                Area = Area,
+                Direction = null,
+                ProjectileType = ProjectileType,
+                MagicEffectType = MagicEffectType,
+                OpenTibiaId = null,
+                Count = null,
+                Formula = new DamageDto()
+                {
+                    Formula = Formula,
+                    MissedMagicEffectType = null,
+                    DamageMagicEffectType = null,
+                    DamageAnimatedTextColor = AnimatedTextColor.DarkRed
+                },
+                Condition = null
+            };
 
             return builder.Build();
         }

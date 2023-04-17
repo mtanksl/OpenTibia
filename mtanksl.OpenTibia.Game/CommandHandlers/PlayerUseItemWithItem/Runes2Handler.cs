@@ -51,7 +51,18 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(0, 0)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, (attacker, target) => 0) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, new ConditionDto()
+                    {
+                        SpecialCondition = SpecialCondition.Poisoned,
+
+                        MagicEffectType = MagicEffectType.GreenRings,
+
+                        AnimatedTextColor = AnimatedTextColor.Green,
+
+                        Damages = new[] { -5, -5, -5, -5, -5, -4, -4, -4, -4, -4, -3, -3, -3, -3, -3, -3, -3, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
+
+                        IntervalInMilliseconds = 2000
+                    } ) );
                 }
             },
 
@@ -82,7 +93,18 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(-1, 1) , new Offset(0, 1) , new Offset(1, 1)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, (attacker, target) => 0) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, new ConditionDto()
+                    {
+                        SpecialCondition = SpecialCondition.Poisoned,
+
+                        MagicEffectType = MagicEffectType.GreenRings,
+
+                        AnimatedTextColor = AnimatedTextColor.Green,
+
+                        Damages = new[] { -5, -5, -5, -5, -5, -4, -4, -4, -4, -4, -3, -3, -3, -3, -3, -3, -3, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
+
+                        IntervalInMilliseconds = 2000
+                    } ) );
                 }
             },
 
@@ -111,7 +133,18 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(-2, 0), new Offset(-1, 0), new Offset(0, 0), new Offset(1, 0), new Offset(2, 0)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, (attacker, target) => 0) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, new ConditionDto()
+                    {
+                        SpecialCondition = SpecialCondition.Poisoned,
+
+                        MagicEffectType = MagicEffectType.GreenRings,
+
+                        AnimatedTextColor = AnimatedTextColor.Green,
+
+                        Damages = new[] { -5, -5, -5, -5, -5, -4, -4, -4, -4, -4, -3, -3, -3, -3, -3, -3, -3, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
+
+                        IntervalInMilliseconds = 2000
+                    } ) );
                 }
             },
 
@@ -140,7 +173,18 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(0, 0)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, (attacker, target) => 0) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, new ConditionDto()
+                    {
+                        SpecialCondition = SpecialCondition.Burning,
+
+                        MagicEffectType = MagicEffectType.FirePlume,
+
+                        AnimatedTextColor = AnimatedTextColor.Orange,
+
+                        Damages = new[] { -20, -10, -10 },
+
+                        IntervalInMilliseconds = 2000
+                    } ) );
                 }
             },
 
@@ -171,7 +215,18 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(-1, 1) , new Offset(0, 1) , new Offset(1, 1)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, (attacker, target) => 0) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, new ConditionDto()
+                    {
+                        SpecialCondition = SpecialCondition.Burning,
+
+                        MagicEffectType = MagicEffectType.FirePlume,
+
+                        AnimatedTextColor = AnimatedTextColor.Orange,
+
+                        Damages = new[] { -20, -10, -10 },
+
+                        IntervalInMilliseconds = 2000
+                    } ) );
                 }
             },
 
@@ -200,7 +255,18 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(-2, 0), new Offset(-1, 0), new Offset(0, 0), new Offset(1, 0), new Offset(2, 0)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, (attacker, target) => 0) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, new ConditionDto()
+                    {
+                        SpecialCondition = SpecialCondition.Burning,
+
+                        MagicEffectType = MagicEffectType.FirePlume,
+
+                        AnimatedTextColor = AnimatedTextColor.Orange,
+
+                        Damages = new[] { -20, -10, -10 },
+
+                        IntervalInMilliseconds = 2000
+                    } ) );
                 }
             },
 
@@ -229,7 +295,18 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(0, 0)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1495, 1, (attacker, target) => 0) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1495, 1, new ConditionDto()
+                    {
+                        SpecialCondition = SpecialCondition.Electrified,
+
+                        MagicEffectType = MagicEffectType.EnergyDamage,
+
+                        AnimatedTextColor = AnimatedTextColor.LightBlue,
+
+                        Damages = new[] { -35, -25, -25 },
+
+                        IntervalInMilliseconds = 2000
+                    } ) );
                 }
             },
 
@@ -260,7 +337,18 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(-1, 1) , new Offset(0, 1) , new Offset(1, 1)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1495, 1, (attacker, target) => 0) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1495, 1, new ConditionDto()
+                    {
+                        SpecialCondition = SpecialCondition.Electrified,
+
+                        MagicEffectType = MagicEffectType.EnergyDamage,
+
+                        AnimatedTextColor = AnimatedTextColor.LightBlue,
+
+                        Damages = new[] { -35, -25, -25 },
+
+                        IntervalInMilliseconds = 2000
+                    } ) );
                 }
             },
 
@@ -289,7 +377,18 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(-2, 0), new Offset(-1, 0), new Offset(0, 0), new Offset(1, 0), new Offset(2, 0)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1495, 1, (attacker, target) => 0) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1495, 1, new ConditionDto()
+                    {
+                        SpecialCondition = SpecialCondition.Electrified,
+
+                        MagicEffectType = MagicEffectType.EnergyDamage,
+
+                        AnimatedTextColor = AnimatedTextColor.LightBlue,
+
+                        Damages = new[] { -35, -25, -25 },
+
+                        IntervalInMilliseconds = 2000
+                    } ) );
                 }
             },
 
@@ -423,7 +522,7 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(0, 0)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Energy, null, 1497, 1, (attacker, target) => 0) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Energy, null, 1497, 1, null) );
                 }
             },
 
@@ -452,7 +551,7 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(0, 0)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Energy, null, 1499, 1, (attacker, target) => 0) );
+                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Energy, null, 1499, 1, null) );
                 }
             }
         };

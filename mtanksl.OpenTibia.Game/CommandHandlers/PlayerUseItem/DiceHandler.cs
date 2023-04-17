@@ -8,6 +8,8 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class DiceHandler : CommandHandler<PlayerUseItemCommand>
     {
+        private ushort dice = 5792;
+
         private HashSet<ushort> dices = new HashSet<ushort>() { 5792, 5793, 5794, 5795, 5796, 5797 };
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
@@ -15,8 +17,6 @@ namespace OpenTibia.Game.CommandHandlers
             if (dices.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 int value = Context.Server.Randomization.Take(0, dices.Count);
-
-                ushort openTibiaId = (ushort)(5792 + value);
 
                 switch (command.Item.Root() )
                 {
@@ -28,7 +28,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                         } ).Then( () =>
                         {
-                            return Context.AddCommand(new ItemTransformCommand(command.Item, openTibiaId, 1) );
+                            return Context.AddCommand(new ItemTransformCommand(command.Item, (ushort)(dice + value), 1) );
                         } );
 
                     case Inventory inventory:
@@ -39,7 +39,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                         } ).Then( () =>
                         {
-                            return Context.AddCommand(new ItemTransformCommand(command.Item, openTibiaId, 1) );
+                            return Context.AddCommand(new ItemTransformCommand(command.Item, (ushort)(dice + value), 1) );
                         } );
                 }
             }

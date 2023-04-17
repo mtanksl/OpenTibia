@@ -40,26 +40,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
-                        if (target.HasSpecialCondition(SpecialCondition.Poisoned) )
-                        {
-                            target.RemoveSpecialCondition(SpecialCondition.Poisoned);
-
-                            if (target is Player observer)
-                            {
-                                Context.Current.AddPacket(observer.Client.Connection, new SetSpecialConditionOutgoingPacket(target.SpecialConditions) );
-                            }
-                        }
-
-                        CreatureSpecialConditionDelayBehaviour creatureSpecialConditionDelayBehaviour = Context.Current.Server.Components.GetComponents<CreatureSpecialConditionDelayBehaviour>(attacker)
-                            .Where(c => c.SpecialCondition == SpecialCondition.Poisoned)
-                            .FirstOrDefault();
-
-                        if (creatureSpecialConditionDelayBehaviour != null)
-                        {
-                            Context.Current.Server.Components.RemoveComponent(attacker, creatureSpecialConditionDelayBehaviour);
-                        }
-                        
-                        return Promise.Completed;
+                        return CurePoison(target);
                     } );
                 }
             },
@@ -76,7 +57,10 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 70, 30);
 
-                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, target, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, target, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) ).Then( () =>
+                    {
+                        return CurePoison(target);
+                    } );
                 }
             },
 
@@ -92,7 +76,10 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 250, 0);
 
-                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, target, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, target, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) ).Then( () =>
+                    {
+                        return CurePoison(target);
+                    } );
                 }
             },
 
@@ -144,6 +131,30 @@ namespace OpenTibia.Game.CommandHandlers
                 }
             }
         };
+
+        private static Promise CurePoison(Creature target)
+        {
+            if (target.HasSpecialCondition(SpecialCondition.Poisoned) )
+            {
+                target.RemoveSpecialCondition(SpecialCondition.Poisoned);
+
+                if (target is Player player)
+                {
+                    Context.Current.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(target.SpecialConditions) );
+                }
+            }
+
+            CreatureSpecialConditionDelayBehaviour creatureSpecialConditionDelayBehaviour = Context.Current.Server.Components.GetComponents<CreatureSpecialConditionDelayBehaviour>(target)
+                .Where(c => c.SpecialCondition == SpecialCondition.Poisoned)
+                .FirstOrDefault();
+
+            if (creatureSpecialConditionDelayBehaviour != null)
+            {
+                Context.Current.Server.Components.RemoveComponent(target, creatureSpecialConditionDelayBehaviour);
+            }
+
+            return Promise.Completed;
+        }
 
         private static (int Min, int Max) GenericFormula(int level, int magicLevel, int @base, int variation)
         {

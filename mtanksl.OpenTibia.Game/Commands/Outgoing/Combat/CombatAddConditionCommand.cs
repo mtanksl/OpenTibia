@@ -7,9 +7,9 @@ namespace OpenTibia.Game.Commands
 {
     public class CombatAddConditionCommand : Command
     {
-        public CombatAddConditionCommand(Creature creature, SpecialCondition specialCondition, MagicEffectType magicEffectType, AnimatedTextColor animatedTextColor, int[] health, int intervalInMilliseconds)
+        public CombatAddConditionCommand(Creature target, SpecialCondition specialCondition, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int[] damages, int intervalInMilliseconds)
         {
-            Creature = creature;
+            Target = target;
 
             SpecialCondition = specialCondition;
 
@@ -17,61 +17,57 @@ namespace OpenTibia.Game.Commands
 
             AnimatedTextColor = animatedTextColor;
 
-            Health = health;
+            Damages = damages;
 
             IntervalInMilliseconds = intervalInMilliseconds;
         }
 
-        public Creature Creature { get; set; }
+        public Creature Target { get; set; }
 
         public SpecialCondition SpecialCondition { get; set; }
 
-        private MagicEffectType MagicEffectType;
-        
-        private AnimatedTextColor AnimatedTextColor;
+        public MagicEffectType? MagicEffectType { get; set; }
 
-        public int[] Health { get; set; }
+        public AnimatedTextColor? AnimatedTextColor { get; set; }
+
+        public int[] Damages { get; set; }
 
         public int IntervalInMilliseconds { get; set; }
 
         public override async Promise Execute()
         {
-            Player player = Creature as Player;
-
-            if ( !Creature.HasSpecialCondition(SpecialCondition) )
+            if ( !Target.HasSpecialCondition(SpecialCondition) )
             {
-                Creature.AddSpecialCondition(SpecialCondition);
+                Target.AddSpecialCondition(SpecialCondition);
 
-                if (player != null)
+                if (Target is Player player)
                 {
-                    Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(Creature.SpecialConditions) );
+                    Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(Target.SpecialConditions) );
                 }
             }
 
-            for (int i = 0; i < Health.Length; i++)
+            for (int i = 0; i < Damages.Length; i++)
             {
-                if (player != null)
+                await Context.AddCommand(new CombatAddDamageCommand(null, Target, (attacker, target) => Damages[i], null, MagicEffectType, AnimatedTextColor) );
+
+                if (Target.Health == 0)
                 {
-                    Context.Current.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + -Health[i] + " hitpoints.") );
+                    return;
                 }
 
-                await Context.Current.AddCommand(new ShowMagicEffectCommand(Creature.Tile.Position, MagicEffectType) );
-
-                await Context.Current.AddCommand(new ShowAnimatedTextCommand(Creature.Tile.Position, AnimatedTextColor, ( -Health[i] ).ToString() ) );
-
-                await Context.Current.AddCommand(new CreatureUpdateHealthCommand(Creature, Creature.Health + Health[i] ) );
-
-                if (i < Health.Length - 1)
+                if (i < Damages.Length - 1)
                 {
-                    await Context.Server.Components.AddComponent(Creature, new CreatureSpecialConditionDelayBehaviour(SpecialCondition, IntervalInMilliseconds) ).Promise;
+                    await Context.Server.Components.AddComponent(Target, new CreatureSpecialConditionDelayBehaviour(SpecialCondition, IntervalInMilliseconds) ).Promise;
                 }
             }
 
-            Creature.RemoveSpecialCondition(SpecialCondition);
-
-            if (player != null)
             {
-                Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(Creature.SpecialConditions) );
+                Target.RemoveSpecialCondition(SpecialCondition);
+
+                if (Target is Player player)
+                {
+                    Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(Target.SpecialConditions));
+                }
             }
         }
     }

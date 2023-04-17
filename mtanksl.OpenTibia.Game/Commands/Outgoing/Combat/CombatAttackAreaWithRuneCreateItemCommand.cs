@@ -1,12 +1,11 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using System;
 
 namespace OpenTibia.Game.Commands
 {
     public class CombatAttackAreaWithRuneCreateItemCommand : Command
     {
-        public CombatAttackAreaWithRuneCreateItemCommand(Creature attacker, Position center, Offset[] area, ProjectileType projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, Func<Creature, Creature, int> formula)
+        public CombatAttackAreaWithRuneCreateItemCommand(Creature attacker, Position center, Offset[] area, ProjectileType projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, ConditionDto condition)
         {
             Attacker = attacker;
 
@@ -22,7 +21,7 @@ namespace OpenTibia.Game.Commands
 
             Count = count;
 
-            Formula = formula;
+            Condition = condition;
         }
 
         public Creature Attacker { get; set; }
@@ -39,21 +38,23 @@ namespace OpenTibia.Game.Commands
 
         public byte Count { get; set; }
 
-        public Func<Creature, Creature, int> Formula { get; set; }
+        public ConditionDto Condition { get; set; }
 
         public override Promise Execute()
         {
             CombatAttackAreaBuilder builder = new CombatAttackAreaBuilder()
-                .WithAttacker(Attacker)
-                .WithArea(Area, null)
-                .WithCenter(Center)
-                .WithProjectileType(ProjectileType)
-                .WithMagicEffectType(MagicEffectType)
-                .WithMissedMagicEffectType(null)
-                .WithDamageMagicEffectType(null)
-                .WithAnimatedTextColor(AnimatedTextColor.DarkRed)
-                .WithFormula(Formula)
-                .WithCreateItem(OpenTibiaId, Count);
+            {
+                Attacker = Attacker,
+                Center = Center,
+                Area = Area,
+                Direction = null,
+                ProjectileType = ProjectileType,
+                MagicEffectType = MagicEffectType,
+                OpenTibiaId = OpenTibiaId,
+                Count = Count,
+                Formula = null,
+                Condition = Condition
+            };
 
             return builder.Build();
         }

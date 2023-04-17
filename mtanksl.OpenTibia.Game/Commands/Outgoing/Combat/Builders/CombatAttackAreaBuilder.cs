@@ -1,158 +1,79 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Network.Packets.Outgoing;
-using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
     public class CombatAttackAreaBuilder
     {
-        private Creature attacker;
+        public Creature Attacker { get; set; }
 
-        public CombatAttackAreaBuilder WithAttacker(Creature attacker)
-        {
-            this.attacker = attacker;
+        public Position Center { get; set; }
 
-            return this;
-        }
-               
-        private Position center;
+        public Offset[] Area { get; set; }
 
-        public CombatAttackAreaBuilder WithCenter(Position center)
-        {
-            this.center = center;
+        public Direction? Direction { get; set; }
 
-            return this;
-        }
+        public ProjectileType? ProjectileType { get; set; }
 
-        private Offset[] area;
+        public MagicEffectType? MagicEffectType { get; set; }
 
-        private Direction? direction;
+        public ushort? OpenTibiaId { get; set; }
 
-        public CombatAttackAreaBuilder WithArea(Offset[] area, Direction? direction)
-        {
-            this.area = area;
+        public byte? Count { get; set; }
 
-            this.direction = direction;
+        public DamageDto Formula { get; set; }
 
-            return this;
-        }
-
-        private ProjectileType? projectileType;
-
-        public CombatAttackAreaBuilder WithProjectileType(ProjectileType? projectileType)
-        {
-            this.projectileType = projectileType;
-
-            return this;
-        }
-
-        private MagicEffectType? magicEffectType;
-
-        public CombatAttackAreaBuilder WithMagicEffectType(MagicEffectType? magicEffectType)
-        {
-            this.magicEffectType = magicEffectType;
-
-            return this;
-        }
-
-        private MagicEffectType? missedMagicEffectType;
-
-        public CombatAttackAreaBuilder WithMissedMagicEffectType(MagicEffectType? missedMagicEffectType)
-        {
-            this.missedMagicEffectType = missedMagicEffectType;
-
-            return this;
-        }
-
-        private MagicEffectType? damageMagicEffectType;
-
-        public CombatAttackAreaBuilder WithDamageMagicEffectType(MagicEffectType? damageMagicEffectType)
-        {
-            this.damageMagicEffectType = damageMagicEffectType;
-
-            return this;
-        }
-        
-        private AnimatedTextColor? animatedTextColor;
-
-        public CombatAttackAreaBuilder WithAnimatedTextColor(AnimatedTextColor? animatedTextColor)
-        {
-            this.animatedTextColor = animatedTextColor;
-
-            return this;
-        }
-
-        private Func<Creature, Creature, int> formula;
-
-        public CombatAttackAreaBuilder WithFormula(Func<Creature, Creature, int> formula)
-        {
-            this.formula = formula;
-
-            return this;
-        }
-
-        public ushort? openTibiaId { get; set; }
-
-        public byte? count { get; set; }
-
-        public CombatAttackAreaBuilder WithCreateItem(ushort? openTibiaId, byte? count)
-        {
-            this.openTibiaId = openTibiaId;
-
-            this.count = count;
-
-            return this;
-        }
+        public ConditionDto Condition { get; set; }
 
         public async Promise Build()
         {
-            if (projectileType != null)
+            if (ProjectileType != null)
             {
-                await Context.Current.AddCommand(new ShowProjectileCommand(attacker.Tile.Position, center, projectileType.Value) );
+                await Context.Current.AddCommand(new ShowProjectileCommand(Attacker.Tile.Position, Center, ProjectileType.Value) );
             }
 
-            foreach (var a in area)
+            foreach (var area in Area)
             {
                 Offset offset;
 
-                if (direction != null)
+                if (Direction != null)
                 {
-                    if (direction == Direction.North)
+                    if (Direction == Common.Structures.Direction.North)
                     {
-                        offset = new Offset(-a.X, -a.Y);
+                        offset = new Offset(-area.X, -area.Y);
                     }
-                    else if (direction == Direction.East)
+                    else if (Direction == Common.Structures.Direction.East)
                     {
-                        offset = new Offset(a.Y, -a.X);
+                        offset = new Offset(area.Y, -area.X);
                     }
-                    else if (direction == Direction.West)
+                    else if (Direction == Common.Structures.Direction.West)
                     {
-                        offset = new Offset(-a.Y, a.X);
+                        offset = new Offset(-area.Y, area.X);
                     }
                     else
                     {
-                        offset = a;
+                        offset = area;
                     }
                 }
                 else
                 {
-                    offset = a;
+                    offset = area;
                 }
 
-                Position position = center.Offset(offset);
+                Position position = Center.Offset(offset);
 
-                if (magicEffectType != null)
+                if (MagicEffectType != null)
                 {
-                    await Context.Current.AddCommand(new ShowMagicEffectCommand(position, magicEffectType.Value) );
+                    await Context.Current.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.Value) );
                 }
 
                 Tile toTile = Context.Current.Server.Map.GetTile(position);
 
                 if (toTile != null)
                 {
-                    if (openTibiaId != null && count != null)
+                    if (OpenTibiaId != null && Count != null)
                     {
                         if (toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
                         {
@@ -160,63 +81,33 @@ namespace OpenTibia.Game.Commands
                         }
                         else
                         {
-                            //TODO
+                            await Context.Current.AddCommand(new TileCreateItemCommand(toTile, OpenTibiaId.Value, Count.Value) ).Then( (item) =>
+                            {
+                                _ = Context.Current.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
+
+                                return Promise.Completed;
+                            } );
                         }
                     }
 
-                    foreach (var target in toTile.GetMonsters().Concat<Creature>(toTile.GetPlayers() ).ToList() )
+                    if (Formula != null)
                     {
-                        int damage = formula(attacker, target);
-
-                        if (attacker != target || damage > 0)
+                        foreach (var target in toTile.GetMonsters().Concat<Creature>(toTile.GetPlayers() ).ToList() )
                         {
-                            if (target is Player player)
+                            await Context.Current.AddCommand(new CombatAddDamageCommand(Attacker, target, Formula.Formula, Formula.MissedMagicEffectType, Formula.DamageMagicEffectType, Formula.DamageAnimatedTextColor) );
+
+                            if (target.Health == 0)
                             {
-                                if (attacker != null)
-                                {
-                                    if (damage <= 0)
-                                    {
-                                        Context.Current.AddPacket(player.Client.Connection, new SetFrameColorOutgoingPacket(attacker.Id, FrameColor.Black) );
-                                    }
-
-                                    if (damage < 0)
-                                    {
-                                        Context.Current.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + -damage + " hitpoints due to an attack by " + attacker.Name + ".") );
-                                    }
-                                }
-                                else
-                                {
-                                    if (damage < 0)
-                                    {
-                                        Context.Current.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + -damage + " hitpoints.") );
-                                    }
-                                }
+                                continue;
                             }
+                        }
+                    }
 
-                            if (damage == 0)
-                            {
-                                if (missedMagicEffectType != null)
-                                {
-                                    await Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, missedMagicEffectType.Value) );
-                                }
-                            }
-                            else
-                            {
-                                if (damage < 0)
-                                {
-                                    if (damageMagicEffectType != null)
-                                    {
-                                        await Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, damageMagicEffectType.Value) );
-                                    }
-
-                                    if (animatedTextColor != null)
-                                    {
-                                        await Context.Current.AddCommand(new ShowAnimatedTextCommand(target.Tile.Position, animatedTextColor.Value, (-damage).ToString() ) );
-                                    }
-                                }
-
-                                await Context.Current.AddCommand(new CreatureUpdateHealthCommand(target, target.Health + damage) );
-                            }
+                    if (Condition != null)
+                    {
+                        foreach (var target in toTile.GetMonsters().Concat<Creature>(toTile.GetPlayers() ).ToList() )
+                        {
+                            _ = Context.Current.AddCommand(new CombatAddConditionCommand(target, Condition.SpecialCondition, Condition.MagicEffectType, Condition.AnimatedTextColor, Condition.Damages, Condition.IntervalInMilliseconds) );
                         }
                     }
                 }
