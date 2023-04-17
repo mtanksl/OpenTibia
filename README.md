@@ -24,6 +24,16 @@ From time to time, I take this project to have some fun and recall the good old 
 
 ![Server and Client](/server.png)
 
+# Troubleshoot
+
+> MSB3821 Couldn't process file MainForm.resx due to its being in the Internet or Restricted zone or having the mark of the web on the file. Remove the mark of the web if you want to process these files.
+
+Go to MainForm.resx file in Windows File Explorer. Right-click and select properties. At the bottom of the the dialog is an "unblock" option:
+
+> Account name or password is not correct.
+
+Use account number `1` and password `1` to enter game.
+
 # Tibia 8.6 client
 
 You can download the official release direct from here [4Shared](https://www.4shared.com/s/fVTbjUnjCiq).
@@ -154,4 +164,4 @@ public class DisplayMagicEffectHandler : CommandHandler<PlayerSayCommand>
 }
 ```
 
-When the player says `/me 1`, for example, it will display the first magic effect. Usefull for debug purposes.
+When the player says `/me 1`, for example, it will display the first magic effect. Useful for debug purposes.
