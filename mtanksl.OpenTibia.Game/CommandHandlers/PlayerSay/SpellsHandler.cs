@@ -68,7 +68,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     } ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureUpdateParentCommand(attacker, toTile, Direction.South) );
+                        return Context.Current.AddCommand(new CreatureUpdateTileCommand(attacker, toTile, Direction.South) );
                     } );
                 }
             },
@@ -111,7 +111,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     } ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureUpdateParentCommand(attacker, toTile) );
+                        return Context.Current.AddCommand(new CreatureUpdateTileCommand(attacker, toTile) );
                     } );
                 }
             },
@@ -154,7 +154,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     } ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureUpdateParentCommand(attacker, toTile) );
+                        return Context.Current.AddCommand(new CreatureUpdateTileCommand(attacker, toTile) );
                     } );
                 }
             },

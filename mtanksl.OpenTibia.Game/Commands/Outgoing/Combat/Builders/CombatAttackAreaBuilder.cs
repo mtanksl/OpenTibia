@@ -90,9 +90,9 @@ namespace OpenTibia.Game.Commands
                         }
                     }
 
-                    if (Formula != null)
+                    foreach (var target in toTile.GetMonsters().Concat<Creature>(toTile.GetPlayers() ).ToList() )
                     {
-                        foreach (var target in toTile.GetMonsters().Concat<Creature>(toTile.GetPlayers() ).ToList() )
+                        if (Formula != null)
                         {
                             await Context.Current.AddCommand(new CombatAddDamageCommand(Attacker, target, Formula.Formula, Formula.MissedMagicEffectType, Formula.DamageMagicEffectType, Formula.DamageAnimatedTextColor) );
 
@@ -101,13 +101,15 @@ namespace OpenTibia.Game.Commands
                                 continue;
                             }
                         }
-                    }
 
-                    if (Condition != null)
-                    {
-                        foreach (var target in toTile.GetMonsters().Concat<Creature>(toTile.GetPlayers() ).ToList() )
+                        if (Condition != null)
                         {
                             _ = Context.Current.AddCommand(new CombatAddConditionCommand(target, Condition.SpecialCondition, Condition.MagicEffectType, Condition.AnimatedTextColor, Condition.Damages, Condition.IntervalInMilliseconds) );
+
+                            if (target.Health == 0)
+                            {
+                                continue;
+                            }
                         }
                     }
                 }

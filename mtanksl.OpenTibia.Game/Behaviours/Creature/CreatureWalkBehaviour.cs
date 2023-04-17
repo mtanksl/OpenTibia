@@ -50,7 +50,7 @@ namespace OpenTibia.Game.Components
                     {
                         walkCooldown = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / creature.Speed);
 
-                       return Context.AddCommand(new CreatureUpdateParentCommand(creature, toTile) );
+                       return Context.AddCommand(new CreatureUpdateTileCommand(creature, toTile) );
                     }
                     else
                     {

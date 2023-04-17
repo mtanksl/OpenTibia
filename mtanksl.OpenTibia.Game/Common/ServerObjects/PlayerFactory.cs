@@ -14,17 +14,12 @@ namespace OpenTibia.Game
             this.server = server;
         }
 
-        public Player Create(IConnection connection, Data.Models.Player databasePlayer)
+        public Player Create(IConnection connection, OpenTibia.Data.Models.Player databasePlayer)
         {
-            Client client = new Client(server)
-            {
-                Connection = connection
-            };
+            Client client = new Client(server);
 
             Player player = new Player()
             {
-                Client = client,
-
                 DatabasePlayerId = databasePlayer.Id,
 
                 Name = databasePlayer.Name,
@@ -96,8 +91,10 @@ namespace OpenTibia.Game
 
                 Vocation = (Vocation)databasePlayer.Vocation
             };
+     
+            client.Connection = connection;
 
-            //TODO
+            player.Client = client;
 
             server.GameObjects.AddGameObject(player);
 
@@ -114,9 +111,7 @@ namespace OpenTibia.Game
 
         public void Destroy(Player player)
         {
-            player.Client.Player = null;
-
-            //TODO
+            player.Client = null;
 
             server.GameObjects.RemoveGameObject(player);
 

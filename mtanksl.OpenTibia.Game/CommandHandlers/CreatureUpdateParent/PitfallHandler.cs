@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class PitfallHandler : CommandHandler<CreatureUpdateParentCommand>
+    public class PitfallHandler : CommandHandler<CreatureUpdateTileCommand>
     {
         private Dictionary<ushort, ushort> pitfalls = new Dictionary<ushort, ushort>() 
         {
@@ -18,7 +18,7 @@ namespace OpenTibia.Game.CommandHandlers
             {  294, 293 }
         };
 
-        public override Promise Handle(Func<Promise> next, CreatureUpdateParentCommand command)
+        public override Promise Handle(Func<Promise> next, CreatureUpdateTileCommand command)
         {
             ushort toOpenTibiaId;
 
@@ -91,7 +91,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (toTile != null)
                     {
-                        return Context.AddCommand(new CreatureUpdateParentCommand(command.Creature, toTile, direction) ).Then( () =>
+                        return Context.AddCommand(new CreatureUpdateTileCommand(command.Creature, toTile, direction) ).Then( () =>
                         {
                             return Context.AddCommand(new ItemTransformCommand(hole.Ground, toOpenTibiaId, 1) );
 

@@ -14,7 +14,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (sewers.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                return Context.AddCommand(new CreatureUpdateParentCommand(command.Player, Context.Server.Map.GetTile( ( (Tile)command.Item.Parent ).Position.Offset(0, 0, 1) ), Direction.South) );
+                return Context.AddCommand(new CreatureUpdateTileCommand(command.Player, Context.Server.Map.GetTile( ( (Tile)command.Item.Parent ).Position.Offset(0, 0, 1) ), Direction.South) );
             }
 
             return next();

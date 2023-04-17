@@ -86,6 +86,11 @@ namespace OpenTibia.Game.Commands
                     }
 
                     await Context.Current.AddCommand(new CreatureUpdateHealthCommand(Target, Target.Health + damage) );
+
+                    if (Target.Health == 0)
+                    {
+                        return;
+                    }
                 }
             }
         }

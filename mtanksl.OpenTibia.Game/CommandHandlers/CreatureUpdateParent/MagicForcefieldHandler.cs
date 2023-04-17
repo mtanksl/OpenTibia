@@ -6,11 +6,11 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class MagicForcefieldHandler : CommandHandler<CreatureUpdateParentCommand>
+    public class MagicForcefieldHandler : CommandHandler<CreatureUpdateTileCommand>
     {
         private HashSet<ushort> magicForcefields = new HashSet<ushort>() { 1387 };
 
-        public override Promise Handle(Func<Promise> next, CreatureUpdateParentCommand command)
+        public override Promise Handle(Func<Promise> next, CreatureUpdateTileCommand command)
         {
             Tile magicForcefield = command.ToTile;
 
@@ -20,7 +20,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (toTile != null)
                 {
-                    return Context.AddCommand(new CreatureUpdateParentCommand(command.Creature, toTile) ).Then( () =>
+                    return Context.AddCommand(new CreatureUpdateTileCommand(command.Creature, toTile) ).Then( () =>
                     {
                         return Context.AddCommand(new ShowMagicEffectCommand(magicForcefield.Position, MagicEffectType.Teleport) );
 
