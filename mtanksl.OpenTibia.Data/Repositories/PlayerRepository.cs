@@ -16,35 +16,72 @@ namespace OpenTibia.Data.Repositories
 
         public Account GetAccount(string accountName, string accountPassword)
         {
-            return sqliteContext.Accounts
-                .Include(a => a.Players)
-                    .ThenInclude(p => p.World)
+            Account account = sqliteContext.Accounts
                 .Where(a => a.Name == accountName &&
                             a.Password == accountPassword)
                 .FirstOrDefault();
+
+            if (account != null)
+            {
+                sqliteContext.Players
+                    .Include(p => p.World)
+                    .Where(p => p.AccountId == account.Id)
+                    .Load();
+            }
+
+            return account;
         }
 
         public Player GetAccountPlayer(string accountName, string accountPassword, string playerName)
         {
-            return sqliteContext.Players
-                .Include(p => p.PlayerItems)
-                .Include(p => p.PlayerDepotItems)
-                .Include(p => p.PlayerVips)
-                    .ThenInclude(v => v.Vip)
+            Player player = sqliteContext.Players
                 .Where(p => p.Account.Name == accountName &&
                             p.Account.Password == accountPassword &&
                             p.Name == playerName)
                 .FirstOrDefault();
+
+            if (player != null)
+            {
+                sqliteContext.PlayerItems
+                    .Where(pi => pi.PlayerId == player.Id)
+                    .Load();
+
+                sqliteContext.PlayerDepotItems
+                    .Where(pi => pi.PlayerId == player.Id)
+                    .Load();
+
+                sqliteContext.PlayerVips
+                    .Include(v => v.Vip)
+                    .Where(pi => pi.PlayerId == player.Id)
+                    .Load();
+            }
+
+            return player;
         }
 
         public Player GetPlayerById(int databasePlayerId)
         {
-            return sqliteContext.Players
-                .Include(p => p.PlayerItems)
-                .Include(p => p.PlayerDepotItems)
-                .Include(p => p.PlayerVips)
+            Player player = sqliteContext.Players
                 .Where(p => p.Id == databasePlayerId)
                 .FirstOrDefault();
+
+            if (player != null)
+            {
+                sqliteContext.PlayerItems
+                    .Where(pi => pi.PlayerId == player.Id)
+                    .Load();
+
+                sqliteContext.PlayerDepotItems
+                    .Where(pi => pi.PlayerId == player.Id)
+                    .Load();
+
+                sqliteContext.PlayerVips
+                    .Include(v => v.Vip)
+                    .Where(pi => pi.PlayerId == player.Id)
+                    .Load();
+            }
+
+            return player;
         }
 
         public Player GetPlayerByName(string name)

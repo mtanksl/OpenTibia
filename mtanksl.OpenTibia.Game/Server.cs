@@ -128,7 +128,7 @@ namespace OpenTibia.Game
 
             using (Logger.Measure("Loading map") )
             {
-                Map = new Map(ItemFactory, OtbmFile.Load("data/map/pholium3.otbm") );
+                Map = new Map(ItemFactory, OtbmFile.Load("data/map/map.otbm") );
             }
 
             Pathfinding = new Pathfinding(Map);

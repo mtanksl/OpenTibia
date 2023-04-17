@@ -102,10 +102,10 @@ namespace OpenTibia.Data.Models
 
         public World World { get; set; }
 
-        public ICollection<PlayerItem> PlayerItems { get; set; }
+        public ICollection<PlayerItem> PlayerItems { get; set; } = new List<PlayerItem>();
 
-        public ICollection<PlayerDepotItem> PlayerDepotItems { get; set; }
+        public ICollection<PlayerDepotItem> PlayerDepotItems { get; set; } = new List<PlayerDepotItem>();
 
-        public ICollection<PlayerVip> PlayerVips { get; set; }
+        public ICollection<PlayerVip> PlayerVips { get; set; } = new List<PlayerVip>();
     }
 }

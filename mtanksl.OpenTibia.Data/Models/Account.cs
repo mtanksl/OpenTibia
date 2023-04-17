@@ -18,6 +18,6 @@ namespace OpenTibia.Data.Models
         public int PremiumDays { get; set; }
 
 
-        public ICollection<Player> Players { get; set; }
+        public ICollection<Player> Players { get; set; } = new List<Player>();
     }
 }

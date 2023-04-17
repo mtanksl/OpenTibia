@@ -32,6 +32,13 @@ namespace OpenTibia.Game.CommandHandlers
             { 5120, 5119 },
             { 5136, 5135 },
 
+            // Stone
+            { 6254, 6253 },
+            { 6258, 6257 },
+
+            //Fence
+            { 1542, 1541 },
+
             //TODO: More items
         };
 
@@ -58,6 +65,13 @@ namespace OpenTibia.Game.CommandHandlers
             { 5127, 5126 },
             { 5129, 5128 },
             { 5145, 5144 },
+
+            // Stone
+            { 6251, 6250 },
+            { 6256, 6255 },
+
+            // Fence
+            { 1540, 1539 },
 
             //TODO: More items
         };

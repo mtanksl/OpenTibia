@@ -29,6 +29,10 @@ namespace OpenTibia.Game.CommandHandlers
             { 5123, 5124 },
             { 5132, 5133 },
 
+            // Stone
+            { 6259, 6260 },
+            { 6261, 6262 },
+
             //TODO: More items
         };
 
