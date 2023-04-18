@@ -18,6 +18,8 @@
 
         ElderDruid = 7,
 
-        MasterSorcerer = 8
+        MasterSorcerer = 8,
+
+        Gamemaster = 9
     }
 }

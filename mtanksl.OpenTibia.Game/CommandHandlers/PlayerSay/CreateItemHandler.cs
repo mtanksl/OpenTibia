@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
-            if (command.Message.StartsWith("/i ") )
+            if (command.Message.StartsWith("/i ") && command.Player.Vocation == Vocation.Gamemaster)
             {
                 string[] split = command.Message.Split(" ");
 

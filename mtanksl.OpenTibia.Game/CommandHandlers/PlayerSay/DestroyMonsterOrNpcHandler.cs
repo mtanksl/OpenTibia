@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
-            if (command.Message.StartsWith("/r") )
+            if (command.Message.StartsWith("/r") && command.Player.Vocation == Vocation.Gamemaster)
             {
                 Tile toTile = Context.Server.Map.GetTile(command.Player.Tile.Position.Offset(command.Player.Direction) );
 

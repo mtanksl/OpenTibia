@@ -32,7 +32,12 @@ namespace OpenTibia.Game.Strategies
 
         public Command GetNext(Server server, Creature attacker, Creature target)
         {
-            return new CombatAttackCreatureWithDistanceCommand(attacker, target, projectileType, formula);
+            if (server.Pathfinding.CanThrow(attacker.Tile.Position, target.Tile.Position) )
+            {
+                return new CombatAttackCreatureWithDistanceCommand(attacker, target, projectileType, formula);
+            }
+
+            return null;
         }
     }    
 }

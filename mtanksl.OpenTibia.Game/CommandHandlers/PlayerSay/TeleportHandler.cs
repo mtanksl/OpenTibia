@@ -11,7 +11,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             int count;
 
-            if (command.Message.StartsWith("/a ") && int.TryParse(command.Message.Substring(3), out count) && count > 0)
+            if (command.Message.StartsWith("/a ") && command.Player.Vocation == Vocation.Gamemaster && int.TryParse(command.Message.Substring(3), out count) && count > 0)
             {
                 Tile toTile = Context.Server.Map.GetTile(command.Player.Tile.Position.Offset(command.Player.Direction, count) );
 

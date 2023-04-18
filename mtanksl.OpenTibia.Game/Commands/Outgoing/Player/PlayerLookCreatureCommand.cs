@@ -85,6 +85,12 @@ namespace OpenTibia.Game.Commands
 
                         break;
 
+                    case Vocation.Gamemaster:
+
+                        builder.Append("You are a Gamemaster.");
+
+                        break;
+
                     default:
 
                         throw new NotImplementedException();
@@ -182,6 +188,12 @@ namespace OpenTibia.Game.Commands
                             case Vocation.MasterSorcerer:
 
                                 builder.Append("is a master sorcerer.");
+
+                                break;
+
+                            case Vocation.Gamemaster:
+
+                                builder.Append("is a Gamemaster.");
 
                                 break;
 

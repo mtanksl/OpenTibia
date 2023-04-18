@@ -38,10 +38,7 @@ namespace OpenTibia.Game.Components
             } );
         }
 
-        public virtual Promise Update()
-        {
-            return Promise.Completed;
-        }
+        public abstract Promise Update();
 
         public override void Stop(Server server)
         {
