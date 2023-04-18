@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Components
                     .Where(p => creature.Tile.Position.CanHearSay(p.Tile.Position) )
                     .FirstOrDefault();
 
-                if (target == null)
+                if (target != null)
                 {
                     talkCooldown = DateTime.UtcNow.AddSeconds(30);
 

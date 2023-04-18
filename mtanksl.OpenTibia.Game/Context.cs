@@ -231,7 +231,7 @@ namespace OpenTibia.Game
                 {
                     var e = events.Dequeue();
 
-                    foreach (var eventHandler in server.EventHandlers.Get(e).ToList() )
+                    foreach (var eventHandler in server.EventHandlers.Get(e) )
                     {
                         eventHandler.Handle(e).Catch( (ex) =>
                         {
