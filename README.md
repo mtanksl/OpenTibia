@@ -50,6 +50,10 @@ You can use [Remere's map editor](https://github.com/hampusborgos/rme).
 
 You can use [SQLiteStudio](https://github.com/pawelsalawa/sqlitestudio/releases).
 
+# Dat and Spr editor
+
+You can use Blackdemon's Tibia editor, download direct from here [4Shared](https://www.4shared.com/s/fYbs_yvrrge).
+
 # Project's wiki
 
 If you want to know what is implemented and how it works, please, visit the [Project's wiki](https://github.com/mtanksl/OpenTibia/wiki).
