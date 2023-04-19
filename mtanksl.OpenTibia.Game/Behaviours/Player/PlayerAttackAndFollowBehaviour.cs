@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Components
             token = Context.Server.EventHandlers.Subscribe<GlobalCreatureThinkEventArgs>( (context, e) =>
             {
                 return Update();
-            });
+            } );
         }
 
         private State state;

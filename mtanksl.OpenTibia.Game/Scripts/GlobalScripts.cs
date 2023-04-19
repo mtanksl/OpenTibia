@@ -24,17 +24,6 @@ namespace OpenTibia.Game.Scripts
                 Context.AddEvent(new GlobalCreatureThinkEventArgs() );
 
                 return Promise.Completed;
-
-            } ).Catch( (ex) =>
-            {
-                if (ex is PromiseCanceledException)
-                {
-                                
-                }
-                else
-                {
-                    server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
-                }
             } );
         }
 
@@ -47,17 +36,6 @@ namespace OpenTibia.Game.Scripts
                 Context.AddEvent(new GlobalPlayerPingEventArgs() );
 
                 return Promise.Completed;
-
-            } ).Catch( (ex) =>
-            {
-                if (ex is PromiseCanceledException)
-                {
-                                
-                }
-                else
-                {
-                    server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
-                }
             } );
         }
 
@@ -72,17 +50,6 @@ namespace OpenTibia.Game.Scripts
                 Context.AddEvent(new GlobalClockTickEventArgs(Context.Server.Clock.Hour, Context.Server.Clock.Minute) );
 
                 return Promise.Completed;
-
-            } ).Catch( (ex) =>
-            {
-                if (ex is PromiseCanceledException)
-                {
-                                
-                }
-                else
-                {
-                    server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
-                }
             } );
         }
 

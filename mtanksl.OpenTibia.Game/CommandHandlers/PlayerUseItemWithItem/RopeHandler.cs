@@ -72,7 +72,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (down.TopCreature != null)
                     {
-                        return Context.AddCommand(new CreatureUpdateTileCommand(down.TopCreature, south, Direction.South) );
+                        Creature creature = down.TopCreature;
+
+                        return Context.AddCommand(new CreatureUpdateTileCommand(creature, south, Direction.South) );
                     }
                     else if (down.TopItem != null)
                     {

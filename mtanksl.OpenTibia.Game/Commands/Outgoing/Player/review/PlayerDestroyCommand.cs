@@ -88,6 +88,20 @@ namespace OpenTibia.Game.Commands
 
             databasePlayer.Direction = (int)player.Direction;
 
+            databasePlayer.BaseOutfitItemId = player.BaseOutfit.ItemId;
+
+            databasePlayer.BaseOutfitId = player.BaseOutfit.Id;
+
+            databasePlayer.BaseOutfitHead = player.BaseOutfit.Head;
+
+            databasePlayer.BaseOutfitBody = player.BaseOutfit.Body;
+
+            databasePlayer.BaseOutfitLegs = player.BaseOutfit.Legs;
+
+            databasePlayer.BaseOutfitFeet = player.BaseOutfit.Feet;
+
+            databasePlayer.BaseOutfitAddon = (int)player.BaseOutfit.Addon;
+
             databasePlayer.OutfitItemId = player.Outfit.ItemId;
 
             databasePlayer.OutfitId = player.Outfit.Id;

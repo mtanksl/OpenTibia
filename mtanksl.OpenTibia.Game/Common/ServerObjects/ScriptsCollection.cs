@@ -32,16 +32,6 @@ namespace OpenTibia.Game
             }
         }
 
-        public T GetScript<T>()
-        {
-            return scripts.OfType<T>().FirstOrDefault();
-        }
-
-        public IEnumerable<T> GetScripts<T>()
-        {
-            return scripts.OfType<T>();
-        }
-
         public void Stop()
         {
             foreach (var script in scripts)

@@ -56,7 +56,7 @@ namespace OpenTibia.Game
             }
         }
 
-        public IEnumerable<IEventHandler> Get(GameEventArgs e)
+        public IEnumerable<IEventHandler> GetEventHandlers(GameEventArgs e)
         {
             Dictionary<Guid, IEventHandler> eventHandlers;
 
@@ -64,7 +64,7 @@ namespace OpenTibia.Game
             {
                 foreach (IEventHandler eventHandler in eventHandlers.Values.ToList() )
                 {
-                    if (!eventHandler.Canceled)
+                    if ( !eventHandler.Canceled )
                     {
                         yield return eventHandler;
                     }

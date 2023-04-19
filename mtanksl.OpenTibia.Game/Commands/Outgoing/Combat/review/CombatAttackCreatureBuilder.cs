@@ -39,15 +39,15 @@ namespace OpenTibia.Game.Commands
                 }
             }  
 
-            if (Condition != null)
-            {
-                _ = Context.Current.AddCommand(new CombatAddConditionCommand(Target, Condition.SpecialCondition, Condition.MagicEffectType, Condition.AnimatedTextColor, Condition.Damages, Condition.IntervalInMilliseconds) );
-
-                if (Target.Health == 0)
-                {
-                    return;
-                }
-            }                   
+            // if (Condition != null)
+            // {
+            //     _ = Context.Current.AddCommand(new CombatAddConditionCommand(Target, Condition.SpecialCondition, Condition.MagicEffectType, Condition.AnimatedTextColor, Condition.Damages, Condition.IntervalInMilliseconds) );
+            // 
+            //     if (Target.Health == 0)
+            //     {
+            //         return;
+            //     }
+            // }                   
         }
     }
 }

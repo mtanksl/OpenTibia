@@ -108,7 +108,7 @@ namespace OpenTibia.Game
             }
         }
 
-        public IEnumerable<ICommandHandler> Get(Command command)
+        public IEnumerable<ICommandHandler> GetCommandHandlers(Command command)
         {
             var type = typeof( ICommandHandler<> ).MakeGenericType(command.GetType() );
 
@@ -118,7 +118,7 @@ namespace OpenTibia.Game
             {
                 foreach (ICommandHandler commandHandler in commandHandlers.Values.ToList() )
                 {
-                    if (!commandHandler.Canceled)
+                    if ( !commandHandler.Canceled )
                     {
                         yield return commandHandler;
                     }
@@ -126,7 +126,7 @@ namespace OpenTibia.Game
             }
         }
 
-        public IEnumerable< ICommandResultHandler<TResult> > Get<TResult>(CommandResult<TResult> command)
+        public IEnumerable< ICommandResultHandler<TResult> > GetCommandResultHandlers<TResult>(CommandResult<TResult> command)
         {
             var type = typeof(ICommandResultHandler<,> ).MakeGenericType(typeof(TResult), command.GetType() );
 
@@ -136,7 +136,7 @@ namespace OpenTibia.Game
             {
                 foreach (ICommandResultHandler<TResult> commandHandler in commandHandlers.Values.ToList() )
                 {
-                    if (!commandHandler.Canceled)
+                    if ( !commandHandler.Canceled )
                     {
                         yield return commandHandler;
                     }

@@ -7,21 +7,27 @@ namespace OpenTibia.Game.Commands
 {
     public class CreatureUpdateOutfitCommand : Command
     {
-        public CreatureUpdateOutfitCommand(Creature creature, Outfit outfit)
+        public CreatureUpdateOutfitCommand(Creature creature, Outfit baseOutfit, Outfit outfit)
         {
             Creature = creature;
+
+            BaseOutfit = baseOutfit;
 
             Outfit = outfit;
         }
 
         public Creature Creature { get; set; }
 
+        public Outfit BaseOutfit { get; set; }
+
         public Outfit Outfit { get; set; }
 
         public override Promise Execute()
         {
-            if (Creature.Outfit != Outfit)
+            if (Creature.BaseOutfit != BaseOutfit || Creature.Outfit != Outfit)
             {
+                Creature.BaseOutfit = BaseOutfit;
+
                 Creature.Outfit = Outfit;
 
                 Tile fromTile = Creature.Tile;
@@ -34,7 +40,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                Context.AddEvent(new CreatureUpdateOutfitEventArgs(Creature, Outfit) );
+                Context.AddEvent(new CreatureUpdateOutfitEventArgs(Creature, BaseOutfit, Outfit) );
             }
 
             return Promise.Completed;

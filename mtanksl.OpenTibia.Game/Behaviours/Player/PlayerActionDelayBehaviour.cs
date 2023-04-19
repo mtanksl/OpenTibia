@@ -2,7 +2,7 @@
 {
     public class PlayerActionDelayBehaviour : DelayBehaviour
     {
-        public PlayerActionDelayBehaviour() : base("PlayerActionBehaviour", 200)
+        public PlayerActionDelayBehaviour() : base("PlayerActionDelayBehaviour", 200)
         {
             
         }

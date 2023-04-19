@@ -2,6 +2,8 @@
 {
     public class Light
     {
+        public static readonly Light None = new Light(0, 0);
+
         public static readonly Light Day = new Light(250, 215);
 
         public static readonly Light Night = new Light(40, 215);

@@ -15,6 +15,8 @@ namespace OpenTibia.Game.Scripts
             server.CommandHandlers.Add(new PitfallHandler() );
 
             server.CommandHandlers.Add(new StairsHandler() );
+
+            server.CommandHandlers.Add(new SwimHandler() );
         }
 
         public override void Stop(Server server)

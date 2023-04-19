@@ -2,6 +2,32 @@
 {
     public class Outfit
     {
+        public static readonly Outfit Invisible = new Outfit(0, 0, 0, 0, 0, Addon.None);
+
+        public static readonly Outfit Swimming = new Outfit(267, 0, 0, 0, 0, Addon.None);
+
+        public static readonly Outfit MaleCitizen = new Outfit(128, 0, 0, 0, 0, Addon.None);
+
+        public static readonly Outfit MaleHunter = new Outfit(129, 0, 0, 0, 0, Addon.None);
+
+        public static readonly Outfit MaleMage = new Outfit(130, 0, 0, 0, 0, Addon.None);
+
+        public static readonly Outfit MaleKnight = new Outfit(131, 0, 0, 0, 0, Addon.None);
+
+        public static readonly Outfit FemaleCitizen = new Outfit(136, 0, 0, 0, 0, Addon.None);
+
+        public static readonly Outfit FemaleHunter = new Outfit(137, 0, 0, 0, 0, Addon.None);
+
+        public static readonly Outfit FemaleMage = new Outfit(138, 0, 0, 0, 0, Addon.None);
+
+        public static readonly Outfit FemaleKnight = new Outfit(139, 0, 0, 0, 0, Addon.None);
+
+        public static readonly Outfit GamemasterRed = new Outfit(266, 0, 0, 0, 0, Addon.None);
+
+        public static readonly Outfit GamemasterGreen = new Outfit(302, 0, 0, 0, 0, Addon.None);
+
+        public static readonly Outfit GamemasterBlue = new Outfit(75, 0, 0, 0, 0, Addon.None);
+
         public Outfit(int itemId) : this( (ushort)itemId )
         {
 

@@ -2,7 +2,7 @@
 {
     public class PlayerWalkDelayBehaviour : DelayBehaviour
     {
-        public PlayerWalkDelayBehaviour(int executeInMilliseconds) : base("PlayerWalkBehaviour", executeInMilliseconds)
+        public PlayerWalkDelayBehaviour(int executeInMilliseconds) : base("PlayerWalkDelayBehaviour", executeInMilliseconds)
         {
             
         }

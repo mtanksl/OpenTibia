@@ -11,9 +11,9 @@ namespace OpenTibia.Common.Objects
 
             Direction = Direction.South;
 
-            Light = new Light(0, 0);
+            Light = Light.None;
 
-            Outfit = new Outfit(266, 0, 0, 0, 0, Addon.None);
+            BaseOutfit = Outfit = Outfit.MaleCitizen;
 
             BaseSpeed = Speed = 220;
 
@@ -61,6 +61,8 @@ namespace OpenTibia.Common.Objects
         public Direction Direction { get; set; }
 
         public Light Light { get; set; }
+
+        public Outfit BaseOutfit { get; set; }
 
         public Outfit Outfit { get; set; }
 

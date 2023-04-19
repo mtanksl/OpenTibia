@@ -81,7 +81,7 @@ namespace OpenTibia.Game
                 throw new ObjectDisposedException(nameof(Context) );
             }
 
-            var commandHandlers = server.CommandHandlers.Get(command).GetEnumerator();
+            var commandHandlers = server.CommandHandlers.GetCommandHandlers(command).GetEnumerator();
 
             [DebuggerStepThrough] Promise Next()
             {
@@ -107,7 +107,7 @@ namespace OpenTibia.Game
                 throw new ObjectDisposedException(nameof(Context) );
             }
 
-            var commandHandlers = server.CommandHandlers.Get(command).GetEnumerator();
+            var commandHandlers = server.CommandHandlers.GetCommandResultHandlers(command).GetEnumerator();
 
             [DebuggerStepThrough] PromiseResult<TResult> Next()
             {
@@ -231,7 +231,7 @@ namespace OpenTibia.Game
                 {
                     var e = events.Dequeue();
 
-                    foreach (var eventHandler in server.EventHandlers.Get(e) )
+                    foreach (var eventHandler in server.EventHandlers.GetEventHandlers(e) )
                     {
                         eventHandler.Handle(e).Catch( (ex) =>
                         {

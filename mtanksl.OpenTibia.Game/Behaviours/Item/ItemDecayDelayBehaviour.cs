@@ -2,7 +2,7 @@
 {
     public class ItemDecayDelayBehaviour : DelayBehaviour
     {
-        public ItemDecayDelayBehaviour(int executeInMilliseconds) : base("ItemDecayBehaviour", executeInMilliseconds)
+        public ItemDecayDelayBehaviour(int executeInMilliseconds) : base("ItemDecayDelayBehaviour", executeInMilliseconds)
         {
             
         }

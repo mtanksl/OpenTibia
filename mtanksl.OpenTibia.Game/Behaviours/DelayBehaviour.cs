@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Components
 {
-    public abstract class DelayBehaviour : Behaviour
+    public class DelayBehaviour : Behaviour
     {
         private string key;
         
@@ -43,8 +43,6 @@ namespace OpenTibia.Game.Components
                 {
                     server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
                 }
-
-                server.Components.RemoveComponent(GameObject, this);
             } );
         }
 

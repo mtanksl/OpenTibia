@@ -5,7 +5,6 @@ using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace OpenTibia.Game.CommandHandlers
 {
@@ -38,10 +37,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Callback = (attacker, target) =>
                 {
-                    return Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
-                    {
-                        return CurePoison(target);
-                    } );
+                    return Context.Current.AddCommand(new CreatureRemoveConditionCommand(target, ConditionSpecialCondition.Poisoned) );
                 }
             },
 
@@ -59,7 +55,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, target, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) ).Then( () =>
                     {
-                        return CurePoison(target);
+                        return Context.Current.AddCommand(new CreatureRemoveConditionCommand(target, ConditionSpecialCondition.Poisoned) );
                     } );
                 }
             },
@@ -78,7 +74,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, target, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) ).Then( () =>
                     {
-                        return CurePoison(target);
+                        return Context.Current.AddCommand(new CreatureRemoveConditionCommand(target, ConditionSpecialCondition.Poisoned) );
                     } );
                 }
             },
@@ -131,30 +127,6 @@ namespace OpenTibia.Game.CommandHandlers
                 }
             }
         };
-
-        private static Promise CurePoison(Creature target)
-        {
-            if (target.HasSpecialCondition(SpecialCondition.Poisoned) )
-            {
-                target.RemoveSpecialCondition(SpecialCondition.Poisoned);
-
-                if (target is Player player)
-                {
-                    Context.Current.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(target.SpecialConditions) );
-                }
-            }
-
-            CreatureSpecialConditionDelayBehaviour creatureSpecialConditionDelayBehaviour = Context.Current.Server.Components.GetComponents<CreatureSpecialConditionDelayBehaviour>(target)
-                .Where(c => c.SpecialCondition == SpecialCondition.Poisoned)
-                .FirstOrDefault();
-
-            if (creatureSpecialConditionDelayBehaviour != null)
-            {
-                Context.Current.Server.Components.RemoveComponent(target, creatureSpecialConditionDelayBehaviour);
-            }
-
-            return Promise.Completed;
-        }
 
         private static (int Min, int Max) GenericFormula(int level, int magicLevel, int @base, int variation)
         {

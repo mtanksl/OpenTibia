@@ -6,21 +6,27 @@ namespace OpenTibia.Game.Commands
 {
     public class CreatureUpdateSpeedCommand : Command
     {
-        public CreatureUpdateSpeedCommand(Creature creature, ushort speed)
+        public CreatureUpdateSpeedCommand(Creature creature, ushort baseSpeed, ushort speed)
         {
             Creature = creature;
+
+            BaseSpeed = baseSpeed;
 
             Speed = speed;
         }
 
         public Creature Creature { get; set; }
 
+        public ushort BaseSpeed { get; set; }
+
         public ushort Speed { get; set; }
 
         public override Promise Execute()
         {
-            if (Creature.Speed != Speed)
+            if (Creature.BaseSpeed != BaseSpeed || Creature.Speed != Speed)
             {
+                Creature.BaseSpeed = BaseSpeed;
+
                 Creature.Speed = Speed;
 
                 Tile fromTile = Creature.Tile;
@@ -33,7 +39,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                Context.AddEvent(new CreatureUpdateSpeedEventArgs(Creature, Speed) );
+                Context.AddEvent(new CreatureUpdateSpeedEventArgs(Creature, BaseSpeed, Speed) );
             }
 
             return Promise.Completed;

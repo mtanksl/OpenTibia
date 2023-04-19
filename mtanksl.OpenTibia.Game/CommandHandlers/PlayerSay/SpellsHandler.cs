@@ -175,10 +175,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Callback = (attacker) =>
                 {
-                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
-                    {
-                        return Context.Current.AddCommand(new CreatureUpdateLightCommand(attacker, new Light(6, 215) ) );
-                    } );
+                    return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ConditionLight(new Light(6, 215), (6 * 60 + 10) * 1000) ) );
                 }
             },
 
@@ -198,10 +195,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Callback = (attacker) =>
                 {
-                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
-                    {
-                        return Context.Current.AddCommand(new CreatureUpdateLightCommand(attacker, new Light(8, 215) ) );
-                    } );
+                    return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ConditionLight(new Light(8, 215), (11 * 60 + 35) * 1000) ) );
                 }
             },
 
@@ -221,10 +215,27 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Callback = (attacker) =>
                 {
-                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
-                    {
-                        return Context.Current.AddCommand(new CreatureUpdateLightCommand(attacker, new Light(9, 215) ) );
-                    } );
+                    return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ConditionLight(new Light(9, 215), (33 * 60 + 10) * 1000) ) );
+                }
+            },
+
+            ["utana vid"] = new Spell()
+            {
+                Name = "Invisible",
+
+                Group = "Support",
+
+                CooldownInMilliseconds = 2000,
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Premium = false,
+
+                Mana = 440,
+
+                Callback = (attacker) =>
+                {
+                    return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ConditionInvisible( (3 * 60 + 20) * 1000) ) );
                 }
             },
 
@@ -246,10 +257,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     var speed = HasteFormula(attacker.BaseSpeed);
 
-                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.GreenShimmer) ).Then( () =>
-                    {
-                        return Context.Current.AddCommand(new CreatureUpdateSpeedCommand(attacker, speed) );
-                    } );
+                    return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ConditionHaste(speed, 30 * 60 * 1000) ) );
                 }
             },
 
@@ -271,13 +279,30 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     var speed = StrongHasteFormula(attacker.BaseSpeed);
 
-                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.GreenShimmer) ).Then( () =>
-                    {
-                        return Context.Current.AddCommand(new CreatureUpdateSpeedCommand(attacker, speed) );
-                    } );
+                    return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ConditionHaste(speed, 20 * 60 * 1000) ) );
                 }
             },
        
+            ["utamo vita"] = new Spell()
+            {
+                Name = "Magic Shield",
+
+                Group = "Support",
+
+                CooldownInMilliseconds = 14000,
+
+                GroupCooldownInMilliseconds = 2000,
+
+                Premium = false,
+
+                Mana = 50,
+
+                Callback = (attacker) =>
+                {
+                    return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ConditionMagicShield(3 * 60 * 1000) ) );
+                }
+            },
+
             ["exana pox"] = new Spell()
             {
                 Name = "Cure Poison",
@@ -294,10 +319,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Callback = (attacker) =>
                 {
-                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
-                    {
-                        return CurePoison(attacker);
-                    } );
+                    return Context.Current.AddCommand(new CreatureRemoveConditionCommand(attacker, ConditionSpecialCondition.Poisoned) );
                 }
             },
 
@@ -321,7 +343,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, attacker, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) ).Then( () =>
                     {
-                        return CurePoison(attacker);
+                        return Context.Current.AddCommand(new CreatureRemoveConditionCommand(attacker, ConditionSpecialCondition.Poisoned) );
                     } );
                 }
             },
@@ -346,7 +368,7 @@ namespace OpenTibia.Game.CommandHandlers
                     
                     return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, attacker, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) ).Then( () =>
                     {
-                        return CurePoison(attacker);
+                        return Context.Current.AddCommand(new CreatureRemoveConditionCommand(attacker, ConditionSpecialCondition.Poisoned) );
                     } );
                 }
             },
@@ -371,7 +393,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, attacker, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) ).Then( () =>
                     {
-                        return CurePoison(attacker);
+                        return Context.Current.AddCommand(new CreatureRemoveConditionCommand(attacker, ConditionSpecialCondition.Poisoned) );
                     } );
                 }
             },
@@ -720,27 +742,6 @@ namespace OpenTibia.Game.CommandHandlers
                 }
             }
         };
-
-        private static Promise CurePoison(Player target)
-        {
-            if (target.HasSpecialCondition(SpecialCondition.Poisoned) )
-            {
-                target.RemoveSpecialCondition(SpecialCondition.Poisoned);
-
-                Context.Current.AddPacket(target.Client.Connection, new SetSpecialConditionOutgoingPacket(target.SpecialConditions) );
-            }
-
-            CreatureSpecialConditionDelayBehaviour creatureSpecialConditionDelayBehaviour = Context.Current.Server.Components.GetComponents<CreatureSpecialConditionDelayBehaviour>(target)
-                .Where(c => c.SpecialCondition == SpecialCondition.Poisoned)
-                .FirstOrDefault();
-
-            if (creatureSpecialConditionDelayBehaviour != null)
-            {
-                Context.Current.Server.Components.RemoveComponent(target, creatureSpecialConditionDelayBehaviour);
-            }
-
-            return Promise.Completed;
-        }
 
         private static ushort HasteFormula(ushort baseSpeed)
         {

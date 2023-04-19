@@ -18,43 +18,46 @@ namespace OpenTibia.Game.Commands
                 
         public override Promise Execute()
         {
-            List<SelectOutfit> outfits;
+            List<SelectOutfit> outfits = new List<SelectOutfit>();
 
             switch (Player.Gender)
             {
                 case Gender.Male:
 
-                    outfits = new List<SelectOutfit>()
-                    {
-                        new SelectOutfit(128, "Citizen", Addon.None),
+                    outfits.Add(new SelectOutfit(Outfit.MaleCitizen.Id, "Citizen", Addon.None) );
 
-                        new SelectOutfit(129, "Hunter", Addon.None),
+                    outfits.Add(new SelectOutfit(Outfit.MaleHunter.Id, "Hunter", Addon.None) );
 
-                        new SelectOutfit(130, "Mage", Addon.None),
+                    outfits.Add(new SelectOutfit(Outfit.MaleMage.Id, "Mage", Addon.None) );
 
-                        new SelectOutfit(131, "Knight", Addon.None)
-                    };
+                    outfits.Add(new SelectOutfit(Outfit.MaleKnight.Id, "Knight", Addon.None) );
 
                     break;
 
                 case Gender.Female:
 
-                    outfits = new List<SelectOutfit>()
-                    {
-                        new SelectOutfit(136, "Citizen", Addon.None),
+                    outfits.Add( new SelectOutfit(Outfit.FemaleCitizen.Id, "Citizen", Addon.None) );
 
-                        new SelectOutfit(137, "Hunter", Addon.None),
+                    outfits.Add( new SelectOutfit(Outfit.FemaleHunter.Id, "Hunter", Addon.None) );
 
-                        new SelectOutfit(138, "Mage", Addon.None),
+                    outfits.Add( new SelectOutfit(Outfit.FemaleMage.Id, "Mage", Addon.None) );
 
-                        new SelectOutfit(139, "Knight", Addon.None)
-                    };
+                    outfits.Add( new SelectOutfit(Outfit.FemaleKnight.Id, "Knight", Addon.None) );
 
                     break;
 
                 default:
 
                     throw new NotImplementedException();
+            }
+
+            if (Player.Vocation == Vocation.Gamemaster)
+            {
+                outfits.Add(new SelectOutfit(Outfit.GamemasterRed.Id, "Red", Addon.None) );
+
+                outfits.Add(new SelectOutfit(Outfit.GamemasterGreen.Id, "Green", Addon.None) );
+
+                outfits.Add(new SelectOutfit(Outfit.GamemasterBlue.Id, "Blue", Addon.None) );
             }
 
             Context.AddPacket(Player.Client.Connection, new OpenSelectOutfitDialogOutgoingPacket(Player.Outfit, outfits) );

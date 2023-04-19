@@ -27,14 +27,12 @@ namespace OpenTibia.Game.Components
             {
                 if (ex is PromiseCanceledException)
                 {
-
+                                
                 }
                 else
                 {
                     server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
                 }
-
-                server.Components.RemoveComponent(GameObject, this);
             } );
         }
 

@@ -21,6 +21,20 @@ namespace OpenTibia.Data.Models
 
         public int Direction { get; set; }
 
+        public int BaseOutfitItemId { get; set; }
+
+        public int BaseOutfitId { get; set; }
+
+        public int BaseOutfitHead { get; set; }
+
+        public int BaseOutfitBody { get; set; }
+
+        public int BaseOutfitLegs { get; set; }
+
+        public int BaseOutfitFeet { get; set; }
+
+        public int BaseOutfitAddon { get; set; }
+
         public int OutfitItemId { get; set; }
 
         public int OutfitId { get; set; }

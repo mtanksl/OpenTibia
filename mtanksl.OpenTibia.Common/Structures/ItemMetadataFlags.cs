@@ -5,6 +5,8 @@ namespace OpenTibia.Common.Structures
     [Flags]
     public enum ItemMetadataFlags : uint
     {
+        None = 0,
+
         IsContainer = 1,
 
         Stackable = 2,

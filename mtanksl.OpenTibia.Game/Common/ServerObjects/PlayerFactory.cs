@@ -30,6 +30,8 @@ namespace OpenTibia.Game
 
                 Direction = (Direction)databasePlayer.Direction,
 
+                BaseOutfit = databasePlayer.BaseOutfitId == 0 ? new Outfit(databasePlayer.BaseOutfitItemId) : new Outfit(databasePlayer.BaseOutfitId, databasePlayer.BaseOutfitHead, databasePlayer.BaseOutfitBody, databasePlayer.BaseOutfitLegs, databasePlayer.BaseOutfitFeet, (Addon)databasePlayer.BaseOutfitAddon),
+               
                 Outfit = databasePlayer.OutfitId == 0 ? new Outfit(databasePlayer.OutfitItemId) : new Outfit(databasePlayer.OutfitId, databasePlayer.OutfitHead, databasePlayer.OutfitBody, databasePlayer.OutfitLegs, databasePlayer.OutfitFeet, (Addon)databasePlayer.OutfitAddon),
 
                 BaseSpeed = (ushort)databasePlayer.BaseSpeed,
