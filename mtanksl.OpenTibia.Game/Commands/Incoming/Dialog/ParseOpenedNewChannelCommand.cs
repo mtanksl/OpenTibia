@@ -71,7 +71,15 @@ namespace OpenTibia.Game.Commands
 
                     return Promise.Completed;
                 }
-                
+
+                if (channel.Id == 3 || channel.Id == 4)
+                {
+                    if (Player.Vocation != Vocation.Gamemaster)
+                    {
+                        return Promise.Break;
+                    }
+                }
+
                 if ( !channel.ContainsPlayer(Player) )
                 {
                     channel.AddPlayer(Player);

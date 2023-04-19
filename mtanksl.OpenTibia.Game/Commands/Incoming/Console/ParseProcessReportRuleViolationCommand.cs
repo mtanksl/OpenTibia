@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
 using System.Linq;
 
@@ -19,24 +20,27 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Player reporter = Context.Server.GameObjects.GetPlayers()
-                .Where(p => p.Name == Name)
-                .FirstOrDefault();
-            
-            if (reporter != null)
+            if (Player.Vocation == Vocation.Gamemaster)
             {
-                RuleViolation ruleViolation = Context.Server.RuleViolations.GetRuleViolationByReporter(reporter);
-
-                if (ruleViolation != null && ruleViolation.Assignee == null)
+                Player reporter = Context.Server.GameObjects.GetPlayers()
+                    .Where(p => p.Name == Name)
+                    .FirstOrDefault();
+            
+                if (reporter != null)
                 {
-                    ruleViolation.Assignee = Player;
+                    RuleViolation ruleViolation = Context.Server.RuleViolations.GetRuleViolationByReporter(reporter);
 
-                    foreach (var observer in Context.Server.Channels.GetChannel(3).GetPlayers() )
+                    if (ruleViolation != null && ruleViolation.Assignee == null)
                     {
-                        Context.AddPacket(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
-                    }
+                        ruleViolation.Assignee = Player;
 
-                    return Promise.Completed;
+                        foreach (var observer in Context.Server.Channels.GetChannel(3).GetPlayers() )
+                        {
+                            Context.AddPacket(observer.Client.Connection, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
+                        }
+
+                        return Promise.Completed;
+                    }
                 }
             }
 

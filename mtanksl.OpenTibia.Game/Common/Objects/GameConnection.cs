@@ -582,6 +582,12 @@ namespace OpenTibia.Common.Objects
                                                 command = new ParseTalkBroadcastCommand(Client.Player, packet.Message);
 
                                                 break;
+
+                                            case TalkType.ChannelRedAnonymous:
+
+                                                command = new ParseTalkChannelRedAnonymousCommand(Client.Player, packet.ChannelId, packet.Message);
+
+                                                break;
                                         }
                                     }
                                     break;

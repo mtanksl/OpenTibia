@@ -17,6 +17,8 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            // ctrl + z
+
             return Promise.Completed;
         }
     }

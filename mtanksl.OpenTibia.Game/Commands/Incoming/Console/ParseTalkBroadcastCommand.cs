@@ -19,12 +19,19 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+            // #b <message>
+
+            if (Player.Vocation == Vocation.Gamemaster)
             {
-                Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Broadcast, Message) );
+                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+                {
+                    Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Broadcast, Message) );
+                }
+
+                return Promise.Completed;
             }
 
-            return Promise.Completed;
+            return Promise.Break;
         }
     }
 }

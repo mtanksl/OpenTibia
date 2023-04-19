@@ -21,14 +21,14 @@ namespace OpenTibia.Game.Commands
         {
             MoveDirection[] moveDirections = Context.Server.Pathfinding.GetMoveDirections(Player.Tile.Position, Tile.Position);
 
-            if (moveDirections.Length == 0)
+            if (moveDirections.Length != 0)
             {
-                Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNoWay) );
-
-                return Promise.Break;
+                return Context.AddCommand(new ParseWalkToKnownPathCommand(Player, moveDirections) );
             }
 
-            return Context.AddCommand(new ParseWalkToKnownPathCommand(Player, moveDirections) );
+            Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNoWay) );
+
+            return Promise.Break;
         }
     }
 }

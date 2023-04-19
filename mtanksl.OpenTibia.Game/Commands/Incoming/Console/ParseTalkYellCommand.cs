@@ -17,6 +17,8 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            // #y <message>
+
             return Context.AddCommand(new PlayerYellCommand(Player, Message) );
         }
     }

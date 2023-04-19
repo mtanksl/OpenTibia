@@ -13,7 +13,7 @@ namespace OpenTibia.Game.Commands
         public Player Player { get; set; }
 
         public override Promise Execute()
-    {
+        {
             PrivateChannel privateChannel = Context.Server.Channels.GetPrivateChannelByOwner(Player);
 
             if (privateChannel == null)

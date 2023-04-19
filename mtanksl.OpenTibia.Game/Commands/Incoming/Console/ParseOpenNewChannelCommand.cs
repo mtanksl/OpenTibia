@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
 using System.Collections.Generic;
 using Channel = OpenTibia.Network.Packets.Channel;
@@ -16,30 +17,32 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            List<Channel> channels = new List<Channel>()
+            List<Channel> channels = new List<Channel>();
+
+            channels.Add(new Channel(0, "Guild") );
+
+            channels.Add(new Channel(1, "Party") );
+
+            channels.Add(new Channel(2, "Tutor") );
+
+            if (Player.Vocation == Vocation.Gamemaster)
             {
-                new Channel(0, "Guild"),
+                channels.Add(new Channel(3, "Rule Violations") );
 
-                new Channel(1, "Party"),
+                channels.Add(new Channel(4, "Gamemaster") );
+            }
+            
+            channels.Add(new Channel(5, "Game Chat") );
 
-                new Channel(2, "Tutor"),
+            channels.Add(new Channel(6, "Trade") );
 
-                new Channel(3, "Rule Violations"),
+            channels.Add(new Channel(7, "Trade-Rookgaard") );
 
-                new Channel(4, "Gamemaster"),
+            channels.Add(new Channel(8, "Real Life Chat") );
 
-                new Channel(5, "Game Chat"),
+            channels.Add(new Channel(9, "Help") );
 
-                new Channel(6, "Trade"),
-
-                new Channel(7, "Trade-Rookgaard"),
-
-                new Channel(8, "Real Life Chat"),
-
-                new Channel(9, "Help"),
-
-                new Channel(65535, "Private Chat Channel")
-            };
+            channels.Add(new Channel(65535, "Private Chat Channel") );
 
             foreach (var privateChannel in Context.Server.Channels.GetPrivateChannels() )
             {

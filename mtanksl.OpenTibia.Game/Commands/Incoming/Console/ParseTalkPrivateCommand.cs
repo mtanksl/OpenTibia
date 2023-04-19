@@ -24,6 +24,8 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            // *<player>* <message>
+
             Player observer = Context.Server.GameObjects.GetPlayers()
                 .Where(p => p.Name == Name)
                 .FirstOrDefault();
