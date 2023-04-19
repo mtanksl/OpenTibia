@@ -5,7 +5,7 @@ namespace OpenTibia.Game.EventHandlers
 {
     public interface IEventHandler
     {
-        bool Canceled { get; set; }
+        bool IsDestroyed { get; set; }
 
         Guid Token { get; }
 

@@ -116,8 +116,6 @@ namespace OpenTibia.Game
             server.Components.ClearComponents(player);
 
             server.GameObjects.RemoveGameObject(player);
-
-            player.Client = null;
         }
     }
 }

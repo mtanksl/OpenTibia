@@ -11,13 +11,22 @@ namespace OpenTibia.Game
     {
         private Dictionary<Type, Dictionary<Guid, IEventHandler> > types = new Dictionary<Type, Dictionary<Guid, IEventHandler> >();
 
+        /// <exception cref="InvalidOperationException"></exception>
+
         public Guid Subscribe<T>(Func<Context, T, Promise> execute) where T : GameEventArgs
         {
             return Subscribe(new InlineEventHandler<T>(execute) );
         }
 
+        /// <exception cref="InvalidOperationException"></exception>
+        
         public Guid Subscribe<T>(IEventHandler<T> eventHandler) where T : GameEventArgs
         {
+            if (eventHandler.IsDestroyed)
+            {
+                throw new InvalidOperationException("EventHandler is destroyed.");
+            }
+
             Dictionary<Guid, IEventHandler> eventHandlers;
 
             if ( !types.TryGetValue(typeof(T), out eventHandlers) )
@@ -26,8 +35,6 @@ namespace OpenTibia.Game
 
                 types.Add(typeof(T), eventHandlers);
             }
-
-            eventHandler.Canceled = false;
 
             eventHandlers.Add(eventHandler.Token, eventHandler);
 
@@ -44,13 +51,16 @@ namespace OpenTibia.Game
 
                 if (eventHandlers.TryGetValue(token, out eventHandler) )
                 {
-                    eventHandler.Canceled = true;
-
-                    eventHandlers.Remove(token);
-
-                    if (eventHandlers.Count == 0)
+                    if ( !eventHandler.IsDestroyed )
                     {
-                        types.Remove(typeof(T) );
+                        eventHandler.IsDestroyed = true;
+
+                        eventHandlers.Remove(token);
+
+                        if (eventHandlers.Count == 0)
+                        {
+                            types.Remove(typeof(T) );
+                        }
                     }
                 }
             }
@@ -64,7 +74,7 @@ namespace OpenTibia.Game
             {
                 foreach (IEventHandler eventHandler in eventHandlers.Values.ToList() )
                 {
-                    if ( !eventHandler.Canceled )
+                    if ( !eventHandler.IsDestroyed )
                     {
                         yield return eventHandler;
                     }

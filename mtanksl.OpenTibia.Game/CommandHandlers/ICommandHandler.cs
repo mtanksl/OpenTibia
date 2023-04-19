@@ -5,7 +5,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public interface ICommandHandler
     {
-        bool Canceled { get; set; }
+        bool IsDestroyed { get; set; }
 
         Guid Token { get; }
 

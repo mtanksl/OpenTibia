@@ -14,7 +14,7 @@ namespace OpenTibia.Game.CommandHandlers
             }
         }
 
-        public bool Canceled { get; set; }
+        public bool IsDestroyed { get; set; }
 
         public Guid Token { get; } = Guid.NewGuid();
 

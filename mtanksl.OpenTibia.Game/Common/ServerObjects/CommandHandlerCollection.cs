@@ -10,13 +10,22 @@ namespace OpenTibia.Game
     {
         private Dictionary<Type, Dictionary<Guid, object> > types = new Dictionary<Type, Dictionary<Guid, object> >();
 
+        /// <exception cref="InvalidOperationException"></exception>
+
         public Guid Add<T>(Func<Context, Func<Promise>, T, Promise> handle) where T : Command
         {
             return Add(new InlineCommandHandler<T>(handle) );
         }
-                
+
+        /// <exception cref="InvalidOperationException"></exception>
+
         public Guid Add<T>(ICommandHandler<T> commandHandler) where T : Command
         {
+            if (commandHandler.IsDestroyed)
+            {
+                throw new InvalidOperationException("CommandHandler is destroyed.");
+            }
+
             var type = typeof( ICommandHandler<> ).MakeGenericType(typeof(T) );
 
             Dictionary<Guid, object> commandHandlers;
@@ -28,36 +37,41 @@ namespace OpenTibia.Game
                 types.Add(type, commandHandlers);
             }
 
-            commandHandler.Canceled = false;
-
             commandHandlers.Add(commandHandler.Token, commandHandler);
 
             return commandHandler.Token;
         }
+
+        /// <exception cref="InvalidOperationException"></exception>
 
         public Guid Add<TResult, T>(Func<Context, Func<PromiseResult<TResult>>, T, PromiseResult<TResult> > handle) where T : CommandResult<TResult>
         {
             return Add(new InlineCommandResultHandler<TResult, T>(handle) );
         }
 
-        public Guid Add<TResult, T>(ICommandResultHandler<TResult, T> commandHandler) where T : CommandResult<TResult>
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public Guid Add<TResult, T>(ICommandResultHandler<TResult, T> commandResultHandler) where T : CommandResult<TResult>
         {
-            var type = typeof(ICommandResultHandler<,> ).MakeGenericType(typeof(TResult), typeof(T) );
-
-            Dictionary<Guid, object> commandHandlers;
-
-            if ( !types.TryGetValue(type, out commandHandlers) )
+            if (commandResultHandler.IsDestroyed)
             {
-                commandHandlers = new Dictionary<Guid, object>();
-                
-                types.Add(type, commandHandlers);
+                throw new InvalidOperationException("CommandHandler is destroyed.");
             }
 
-            commandHandler.Canceled = false;
+            var type = typeof(ICommandResultHandler<,> ).MakeGenericType(typeof(TResult), typeof(T) );
 
-            commandHandlers.Add(commandHandler.Token, commandHandler);
+            Dictionary<Guid, object> commandResultHandlers;
 
-            return commandHandler.Token;
+            if ( !types.TryGetValue(type, out commandResultHandlers) )
+            {
+                commandResultHandlers = new Dictionary<Guid, object>();
+                
+                types.Add(type, commandResultHandlers);
+            }
+
+            commandResultHandlers.Add(commandResultHandler.Token, commandResultHandler);
+
+            return commandResultHandler.Token;
         }
 
         public void Remove<T>(Guid token) where T : Command
@@ -68,17 +82,22 @@ namespace OpenTibia.Game
 
             if ( types.TryGetValue(type, out commandHandlers) )
             {
-                object commandHandler;
+                object obj;
 
-                if (commandHandlers.TryGetValue(token, out commandHandler) )
+                if (commandHandlers.TryGetValue(token, out obj) )
                 {
-                    ( (ICommandHandler)commandHandler ).Canceled = true;
+                    ICommandHandler commandHandler = (ICommandHandler)obj;
 
-                    commandHandlers.Remove(token);
-
-                    if (commandHandlers.Count == 0)
+                    if ( !commandHandler.IsDestroyed)
                     {
-                        types.Remove(type);
+                        commandHandler.IsDestroyed = true;
+
+                        commandHandlers.Remove(token);
+
+                        if (commandHandlers.Count == 0)
+                        {
+                            types.Remove(type);
+                        }
                     }
                 }               
             }
@@ -88,21 +107,26 @@ namespace OpenTibia.Game
         {
             var type = typeof(ICommandResultHandler<,> ).MakeGenericType(typeof(TResult), typeof(T) );
 
-            Dictionary<Guid, object> commandHandlers;
+            Dictionary<Guid, object> commandResultHandlers;
 
-            if ( types.TryGetValue(type, out commandHandlers) )
+            if ( types.TryGetValue(type, out commandResultHandlers) )
             {
-                object commandHandler;
+                object obj;
 
-                if (commandHandlers.TryGetValue(token, out commandHandler) )
+                if (commandResultHandlers.TryGetValue(token, out obj) )
                 {
-                    ( (ICommandResultHandler<TResult>)commandHandler ).Canceled = true;
+                    ICommandResultHandler<TResult> commandResultHandler = (ICommandResultHandler<TResult>)obj;
 
-                    commandHandlers.Remove(token);
-
-                    if (commandHandlers.Count == 0)
+                    if ( !commandResultHandler.IsDestroyed)
                     {
-                        types.Remove(type);
+                        commandResultHandler.IsDestroyed = true;
+
+                        commandResultHandlers.Remove(token);
+
+                        if (commandResultHandlers.Count == 0)
+                        {
+                            types.Remove(type);
+                        }
                     }
                 }
             }
@@ -118,7 +142,7 @@ namespace OpenTibia.Game
             {
                 foreach (ICommandHandler commandHandler in commandHandlers.Values.ToList() )
                 {
-                    if ( !commandHandler.Canceled )
+                    if ( !commandHandler.IsDestroyed )
                     {
                         yield return commandHandler;
                     }
@@ -130,15 +154,15 @@ namespace OpenTibia.Game
         {
             var type = typeof(ICommandResultHandler<,> ).MakeGenericType(typeof(TResult), command.GetType() );
 
-            Dictionary<Guid, object> commandHandlers;
+            Dictionary<Guid, object> commandResultHandlers;
 
-            if ( types.TryGetValue(type, out commandHandlers) )
+            if ( types.TryGetValue(type, out commandResultHandlers) )
             {
-                foreach (ICommandResultHandler<TResult> commandHandler in commandHandlers.Values.ToList() )
+                foreach (ICommandResultHandler<TResult> commandResultHandler in commandResultHandlers.Values.ToList() )
                 {
-                    if ( !commandHandler.Canceled )
+                    if ( !commandResultHandler.IsDestroyed )
                     {
-                        yield return commandHandler;
+                        yield return commandResultHandler;
                     }
                 }
             }

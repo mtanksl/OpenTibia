@@ -100,7 +100,7 @@ namespace OpenTibia.Common.Objects
                     }
                     else
                     {
-                        if (Client.Player == null)
+                        if (Client == null || Client.Player == null || Client.Player.Tile == null)
                         {
                             Disconnect();
                         }
