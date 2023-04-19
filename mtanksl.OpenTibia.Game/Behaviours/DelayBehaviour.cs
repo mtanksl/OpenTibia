@@ -1,17 +1,16 @@
 ﻿using OpenTibia.Game.Commands;
+using System;
 
 namespace OpenTibia.Game.Components
 {
     public class DelayBehaviour : Behaviour
     {
-        private string key;
-        
+        protected string key = Guid.NewGuid().ToString();
+
         private int executeInMilliseconds;
 
-        public DelayBehaviour(string key, int executeInMilliseconds)
+        public DelayBehaviour(int executeInMilliseconds)
         {
-            this.key = key;
-
             this.executeInMilliseconds = executeInMilliseconds;
         }
 
@@ -27,12 +26,16 @@ namespace OpenTibia.Game.Components
 
         public override void Start(Server server)
         {
-            promise = Promise.Delay(key + GameObject.Id, executeInMilliseconds).Then( () =>
+            promise = Promise.Delay(key, executeInMilliseconds).Then( () =>
+            {
+                return Update();
+
+            } ).Then( () =>
             {
                 server.Components.RemoveComponent(GameObject, this);
 
-                return Update();
-
+                return Promise.Completed;
+                
             } ).Catch( (ex) =>
             {
                 if (ex is PromiseCanceledException)
@@ -43,6 +46,8 @@ namespace OpenTibia.Game.Components
                 {
                     server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
                 }
+
+                server.Components.RemoveComponent(GameObject, this);
             } );
         }
 
@@ -53,7 +58,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop(Server server)
         {
-            server.CancelQueueForExecution(key + GameObject.Id);
+            server.CancelQueueForExecution(key);
         }
     }
 }

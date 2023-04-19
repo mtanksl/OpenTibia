@@ -1,12 +1,13 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
-using System;
 
 namespace OpenTibia.Game.Commands
 {
     public class ConditionHaste : Condition
     {
+        private DelayBehaviour delayBehaviour;
+
         public ConditionHaste(ushort speed, int durationInMilliseconds) : base(ConditionSpecialCondition.Haste)
         {
             Speed = speed;
@@ -18,21 +19,26 @@ namespace OpenTibia.Game.Commands
 
         public int DurationInMilliseconds { get; set; }
 
-        public override Promise Start(Creature target)
+        public override Promise Update(Creature target)
         {
-            return Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.GreenShimmer) ).Then( () =>
+            return Context.Current.AddCommand(new CreatureUpdateSpeedCommand(target, target.BaseSpeed, Speed) ).Then( () =>
             {
-                return Context.Current.AddCommand(new CreatureUpdateSpeedCommand(target, target.BaseSpeed, Speed));
+                delayBehaviour = Context.Current.Server.Components.AddComponent(target, new DelayBehaviour(DurationInMilliseconds) );
+
+                return delayBehaviour.Promise;
 
             } ).Then( () =>
             {
-                return Context.Current.Server.Components.AddComponent(target, new DelayBehaviour(Guid.NewGuid().ToString(), DurationInMilliseconds) ).Promise;
+                return Context.Current.AddCommand(new CreatureUpdateSpeedCommand(target, target.BaseSpeed, target.BaseSpeed) );
             } );
         }
 
-        public override Promise Stop(Creature target)
+        public override void Stop(Server server)
         {
-            return Context.Current.AddCommand(new CreatureUpdateSpeedCommand(target, target.BaseSpeed, target.BaseSpeed) );
+            if (delayBehaviour != null)
+            {
+                delayBehaviour.Stop(server);
+            }
         }
     }
 }

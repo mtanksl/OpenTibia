@@ -2,13 +2,15 @@
 {
     public class PlayerActionDelayBehaviour : DelayBehaviour
     {
-        public PlayerActionDelayBehaviour() : base("PlayerActionDelayBehaviour", 200)
+        public PlayerActionDelayBehaviour() : base(200)
         {
             
         }
 
         public override void Start(Server server)
         {
+            key = "PlayerActionDelayBehaviour" + GameObject.Id;
+
             base.Start(server);
         }
 

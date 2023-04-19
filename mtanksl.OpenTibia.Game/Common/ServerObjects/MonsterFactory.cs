@@ -94,9 +94,9 @@ namespace OpenTibia.Game
 
         public void Destroy(Monster monster)
         {
-            server.GameObjects.RemoveGameObject(monster);
-
             server.Components.ClearComponents(monster);
+
+            server.GameObjects.RemoveGameObject(monster);
         }
     }
 }

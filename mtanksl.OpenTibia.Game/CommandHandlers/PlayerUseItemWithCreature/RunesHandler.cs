@@ -37,7 +37,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Callback = (attacker, target) =>
                 {
-                    return Context.Current.AddCommand(new CreatureRemoveConditionCommand(target, ConditionSpecialCondition.Poisoned) );
+                    return Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
+                    {
+                        return Context.Current.AddCommand(new CreatureRemoveConditionCommand(target, ConditionSpecialCondition.Poisoned));
+                    } );
                 }
             },
 

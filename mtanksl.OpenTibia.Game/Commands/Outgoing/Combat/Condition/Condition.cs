@@ -11,8 +11,8 @@ namespace OpenTibia.Game.Commands
 
         public ConditionSpecialCondition ConditionSpecialCondition { get; set; }
 
-        public abstract Promise Start(Creature target);
+        public abstract Promise Update(Creature target);
 
-        public abstract Promise Stop(Creature target);
+        public abstract void Stop(Server server);
     }
 }

@@ -6,21 +6,21 @@ namespace OpenTibia.Game.Commands
 {
     public class CreatureRemoveConditionCommand : Command
     {
-        public CreatureRemoveConditionCommand(Creature target, ConditionSpecialCondition combatSpecialCondition)
+        public CreatureRemoveConditionCommand(Creature target, ConditionSpecialCondition conditionSpecialCondition)
         {
             Target = target;
 
-            CombatSpecialCondition = combatSpecialCondition;
+            ConditionSpecialCondition = conditionSpecialCondition;
         }
 
         public Creature Target { get; set; }
 
-        public ConditionSpecialCondition CombatSpecialCondition { get; set; }
+        public ConditionSpecialCondition ConditionSpecialCondition { get; set; }
 
         public override Promise Execute()
         {
             CreatureConditionBehaviour creatureConditionBehaviour = Context.Server.Components.GetComponents<CreatureConditionBehaviour>(Target)
-                .Where(c => c.Condition.ConditionSpecialCondition == CombatSpecialCondition)
+                .Where(c => c.Condition.ConditionSpecialCondition == ConditionSpecialCondition)
                 .FirstOrDefault();
 
             if (creatureConditionBehaviour != null)

@@ -1,27 +1,30 @@
 ﻿using OpenTibia.Game.Commands;
+using System;
 
 namespace OpenTibia.Game.Components
 {
     public abstract class PeriodicBehaviour : Behaviour
     {
-        private string key;
-        
+        protected string key = Guid.NewGuid().ToString();
+
         private int executeInMilliseconds;
 
-        public PeriodicBehaviour(string key, int executeInMilliseconds)
+        public PeriodicBehaviour(int executeInMilliseconds)
         {
-            this.key = key;
-
             this.executeInMilliseconds = executeInMilliseconds;
         }
 
         public override void Start(Server server)
         {
-            Promise.Delay(key + GameObject.Id, executeInMilliseconds).Then( () =>
+            Promise.Delay(key, executeInMilliseconds).Then( () =>
+            {
+                return Update();
+
+            } ).Then( () =>
             {
                 Start(server);
 
-                return Update();
+                return Promise.Completed;
 
             } ).Catch( (ex) =>
             {
@@ -40,7 +43,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop(Server server)
         {
-            server.CancelQueueForExecution(key + GameObject.Id);
+            server.CancelQueueForExecution(key);
         }
     }
 }

@@ -113,11 +113,11 @@ namespace OpenTibia.Game
 
         public void Destroy(Player player)
         {
-            player.Client = null;
+            server.Components.ClearComponents(player);
 
             server.GameObjects.RemoveGameObject(player);
 
-            server.Components.ClearComponents(player);
+            player.Client = null;
         }
     }
 }

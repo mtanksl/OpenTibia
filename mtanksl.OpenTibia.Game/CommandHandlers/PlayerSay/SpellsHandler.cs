@@ -175,7 +175,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Callback = (attacker) =>
                 {
-                    return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ConditionLight(new Light(6, 215), (6 * 60 + 10) * 1000) ) );
+                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
+                    {
+                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ConditionLight(new Light(6, 215), (6 * 60 + 10) * 1000) ) );
+                    } );
                 }
             },
 
@@ -195,7 +198,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Callback = (attacker) =>
                 {
-                    return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ConditionLight(new Light(8, 215), (11 * 60 + 35) * 1000) ) );
+                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
+                    {
+                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ConditionLight(new Light(8, 215), (11 * 60 + 35) * 1000) ) );
+                    } );
                 }
             },
 
@@ -215,7 +221,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Callback = (attacker) =>
                 {
-                    return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ConditionLight(new Light(9, 215), (33 * 60 + 10) * 1000) ) );
+                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
+                    {
+                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ConditionLight(new Light(9, 215), (33 * 60 + 10) * 1000) ) );
+                    } );
                 }
             },
 
@@ -235,7 +244,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Callback = (attacker) =>
                 {
-                    return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ConditionInvisible( (3 * 60 + 20) * 1000) ) );
+                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
+                    {
+                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ConditionInvisible( (3 * 60 + 20) * 1000) ) );
+                    } );
                 }
             },
 
@@ -257,7 +269,10 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     var speed = HasteFormula(attacker.BaseSpeed);
 
-                    return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ConditionHaste(speed, 30 * 60 * 1000) ) );
+                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.GreenShimmer) ).Then( () =>
+                    {
+                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ConditionHaste(speed, 33 * 1000) ) );
+                    } );
                 }
             },
 
@@ -279,7 +294,10 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     var speed = StrongHasteFormula(attacker.BaseSpeed);
 
-                    return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ConditionHaste(speed, 20 * 60 * 1000) ) );
+                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.GreenShimmer) ).Then( () =>
+                    {
+                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ConditionHaste(speed, 22 * 1000) ) );
+                    } );
                 }
             },
        
@@ -299,7 +317,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Callback = (attacker) =>
                 {
-                    return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ConditionMagicShield(3 * 60 * 1000) ) );
+                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
+                    {
+                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ConditionMagicShield(3 * 60 * 1000) ) );
+                    } );
                 }
             },
 
@@ -319,7 +340,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Callback = (attacker) =>
                 {
-                    return Context.Current.AddCommand(new CreatureRemoveConditionCommand(attacker, ConditionSpecialCondition.Poisoned) );
+                    return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
+                    {
+                        return Context.Current.AddCommand(new CreatureRemoveConditionCommand(attacker, ConditionSpecialCondition.Poisoned));
+                    } );
                 }
             },
 

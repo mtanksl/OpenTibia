@@ -2,13 +2,15 @@
 {
     public class ItemDecayDelayBehaviour : DelayBehaviour
     {
-        public ItemDecayDelayBehaviour(int executeInMilliseconds) : base("ItemDecayDelayBehaviour", executeInMilliseconds)
+        public ItemDecayDelayBehaviour(int executeInMilliseconds) : base(executeInMilliseconds)
         {
             
         }
 
         public override void Start(Server server)
         {
+            key = "ItemDecayDelayBehaviour" + GameObject.Id;
+
             base.Start(server);
         }
 

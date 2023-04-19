@@ -44,6 +44,11 @@ namespace OpenTibia.Game.Components
 
                 if (target != null)
                 {
+                    if (spawn == null)
+                    {
+                        spawn = creature.Tile;
+                    }
+
                     Tile toTile = walkStrategy.GetNext(Context.Server, spawn, creature, target);
 
                     if (toTile != null)

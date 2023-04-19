@@ -28,9 +28,92 @@ namespace OpenTibia.Game.Components
         {
             target = (Creature)GameObject;
 
-            if ( !target.HasSpecialCondition( (SpecialCondition)condition.ConditionSpecialCondition) )
+            SpecialCondition specialCondition = SpecialCondition.None;
+
+            switch (Condition.ConditionSpecialCondition)
             {
-                target.AddSpecialCondition( (SpecialCondition)condition.ConditionSpecialCondition);
+                case ConditionSpecialCondition.Poisoned:
+
+                    specialCondition = SpecialCondition.Poisoned;
+
+                    break;
+
+                case ConditionSpecialCondition.Burning:
+
+                    specialCondition = SpecialCondition.Burning;
+
+                    break;
+
+                case ConditionSpecialCondition.Electrified:
+
+                    specialCondition = SpecialCondition.Electrified;
+
+                    break;
+
+                case ConditionSpecialCondition.Drunk:
+
+                    specialCondition = SpecialCondition.Drunk;
+
+                    break;
+
+                case ConditionSpecialCondition.MagicShield:
+
+                    specialCondition = SpecialCondition.MagicShield;
+
+                    break;
+
+                case ConditionSpecialCondition.Slowed:
+
+                    specialCondition = SpecialCondition.Slowed;
+
+                    break;
+
+                case ConditionSpecialCondition.Haste:
+
+                    specialCondition = SpecialCondition.Haste;
+
+                    break;
+
+                case ConditionSpecialCondition.LogoutBlock:
+
+                    specialCondition = SpecialCondition.LogoutBlock;
+
+                    break;
+
+                case ConditionSpecialCondition.Drowning:
+
+                    specialCondition = SpecialCondition.Drowning;                    
+
+                    break;
+
+                case ConditionSpecialCondition.Freezing:
+
+                    specialCondition = SpecialCondition.Freezing;
+
+                    break;
+
+                case ConditionSpecialCondition.Dazzled:
+
+                    specialCondition = SpecialCondition.Dazzled;
+
+                    break;
+
+                case ConditionSpecialCondition.Cursed:
+
+                    specialCondition = SpecialCondition.Cursed;
+
+                    break;
+
+                case ConditionSpecialCondition.Bleeding:
+
+                    specialCondition = SpecialCondition.Bleeding;
+
+                    break;
+            }
+
+            if (specialCondition != SpecialCondition.None && !target.HasSpecialCondition(specialCondition) )
+            {
+                target.AddSpecialCondition(specialCondition);
 
                 if (target is Player player)
                 {
@@ -38,9 +121,21 @@ namespace OpenTibia.Game.Components
                 }
             }
 
-            condition.Start(target).Then( () =>
+            condition.Update(target).Then( () =>
             {
+                if (specialCondition != SpecialCondition.None && target.HasSpecialCondition(specialCondition) )
+                {
+                    target.RemoveSpecialCondition(specialCondition);
+
+                    if (target is Player player)
+                    {
+                        Context.Current.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(target.SpecialConditions) );
+                    }
+                }
+
                 server.Components.RemoveComponent(GameObject, this);
+
+                return Promise.Completed;
 
             } ).Catch( (ex) =>
             {
@@ -52,29 +147,24 @@ namespace OpenTibia.Game.Components
                 {
                     server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
                 }
+
+                if (specialCondition != SpecialCondition.None && target.HasSpecialCondition(specialCondition) )
+                {
+                    target.RemoveSpecialCondition(specialCondition);
+
+                    if (target is Player player)
+                    {
+                        Context.Current.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(target.SpecialConditions) );
+                    }
+                }
+
+                server.Components.RemoveComponent(GameObject, this);
             } );
         }
 
         public override void Stop(Server server)
         {
-            target.RemoveSpecialCondition( (SpecialCondition)condition.ConditionSpecialCondition);
-
-            if (target is Player player)
-            {
-                Context.Current.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(target.SpecialConditions) );
-            }
-
-            condition.Stop(target).Catch( (ex) =>
-            {
-                if (ex is PromiseCanceledException)
-                {
-                                
-                }
-                else
-                {
-                    server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
-                }
-            } );
+            condition.Stop(server);
         }
     }
 }

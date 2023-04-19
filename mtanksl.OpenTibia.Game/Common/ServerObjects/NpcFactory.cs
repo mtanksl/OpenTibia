@@ -57,9 +57,9 @@ namespace OpenTibia.Game
 
         public void Destroy(Npc npc)
         {
-            server.GameObjects.RemoveGameObject(npc);
-
             server.Components.ClearComponents(npc);
+
+            server.GameObjects.RemoveGameObject(npc);
         }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
-using System;
 
 namespace OpenTibia.Game.Commands
 {
     public class ConditionLight : Condition
     {
+        private DelayBehaviour delayBehaviour;
+
         public ConditionLight(Light light, int durationInMilliseconds) : base(ConditionSpecialCondition.Light)
         {
             Light = light;
@@ -17,22 +18,28 @@ namespace OpenTibia.Game.Commands
         public Light Light { get; set; }
 
         public int DurationInMilliseconds { get; set; }
+               
 
-        public override Promise Start(Creature target)
+        public override Promise Update(Creature target)
         {
-            return Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
+            return Context.Current.AddCommand(new CreatureUpdateLightCommand(target, Light) ).Then( () =>
             {
-                return Context.Current.AddCommand(new CreatureUpdateLightCommand(target, Light) );
+                delayBehaviour = Context.Current.Server.Components.AddComponent(target, new DelayBehaviour(DurationInMilliseconds) );
+
+                return delayBehaviour.Promise;
 
             } ).Then( () =>
             {
-                return Context.Current.Server.Components.AddComponent(target, new DelayBehaviour(Guid.NewGuid().ToString(), DurationInMilliseconds) ).Promise;
+                return Context.Current.AddCommand(new CreatureUpdateLightCommand(target, Light.None) );
             } );
         }
 
-        public override Promise Stop(Creature target)
+        public override void Stop(Server server)
         {
-            return Context.Current.AddCommand(new CreatureUpdateLightCommand(target, Light.None) );
+            if (delayBehaviour != null)
+            {
+                delayBehaviour.Stop(server);
+            }
         }
     }
 }
