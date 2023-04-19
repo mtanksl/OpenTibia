@@ -34,7 +34,7 @@ namespace OpenTibia.Game
 
             Logger = new Logger(new ConsoleLoggerProvider(), LogLevel.Debug);
 
-            Clock = new Clock(5, 55);
+            Clock = new Clock(12, 00);
 
             Randomization = new Randomization();
 
