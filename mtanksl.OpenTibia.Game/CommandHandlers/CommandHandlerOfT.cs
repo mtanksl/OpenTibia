@@ -14,6 +14,10 @@ namespace OpenTibia.Game.CommandHandlers
             }
         }
 
+        public bool Canceled { get; set; }
+
+        public Guid Token { get; } = Guid.NewGuid();
+
         [DebuggerStepThrough]
         public Promise Handle(Func<Promise> next, Command command)
         {

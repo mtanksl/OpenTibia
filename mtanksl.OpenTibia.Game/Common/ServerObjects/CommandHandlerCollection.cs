@@ -8,72 +8,102 @@ namespace OpenTibia.Game
 {
     public class CommandHandlerCollection
     {
-        private Dictionary<Type, List<object> > types = new Dictionary<Type, List<object> >();
+        private Dictionary<Type, Dictionary<Guid, object> > types = new Dictionary<Type, Dictionary<Guid, object> >();
 
-        public void Add<T>(Func<Context, Func<Promise>, T, Promise> handle) where T : Command
+        public Guid Add<T>(Func<Context, Func<Promise>, T, Promise> handle) where T : Command
         {
-            Add(new InlineCommandHandler<T>(handle) );
+            return Add(new InlineCommandHandler<T>(handle) );
         }
                 
-        public void Add<T>(ICommandHandler<T> commandHandler) where T : Command
+        public Guid Add<T>(ICommandHandler<T> commandHandler) where T : Command
         {
             var type = typeof( ICommandHandler<> ).MakeGenericType(typeof(T) );
-           
-            if ( !types.TryGetValue(type, out var commandHandlers) )
+
+            Dictionary<Guid, object> commandHandlers;
+
+            if ( !types.TryGetValue(type, out commandHandlers) )
             {
-                commandHandlers = new List<object>();
+                commandHandlers = new Dictionary<Guid, object>();
 
                 types.Add(type, commandHandlers);
             }
 
-            commandHandlers.Add(commandHandler);
+            commandHandler.Canceled = false;
+
+            commandHandlers.Add(commandHandler.Token, commandHandler);
+
+            return commandHandler.Token;
         }
 
-        public void Add<TResult, T>(Func<Context, Func<PromiseResult<TResult>>, T, PromiseResult<TResult> > handle) where T : CommandResult<TResult>
+        public Guid Add<TResult, T>(Func<Context, Func<PromiseResult<TResult>>, T, PromiseResult<TResult> > handle) where T : CommandResult<TResult>
         {
-            Add(new InlineCommandResultHandler<TResult, T>(handle) );
+            return Add(new InlineCommandResultHandler<TResult, T>(handle) );
         }
 
-        public void Add<TResult, T>(ICommandResultHandler<TResult, T> commandHandler) where T : CommandResult<TResult>
+        public Guid Add<TResult, T>(ICommandResultHandler<TResult, T> commandHandler) where T : CommandResult<TResult>
         {
             var type = typeof(ICommandResultHandler<,> ).MakeGenericType(typeof(TResult), typeof(T) );
 
-            if ( !types.TryGetValue(type, out var commandHandlers) )
-            {
-                commandHandlers = new List<object>();
+            Dictionary<Guid, object> commandHandlers;
 
+            if ( !types.TryGetValue(type, out commandHandlers) )
+            {
+                commandHandlers = new Dictionary<Guid, object>();
+                
                 types.Add(type, commandHandlers);
             }
 
-            commandHandlers.Add(commandHandler);
+            commandHandler.Canceled = false;
+
+            commandHandlers.Add(commandHandler.Token, commandHandler);
+
+            return commandHandler.Token;
         }
 
-        public void Remove<T>(ICommandHandler<T> commandHandler) where T : Command
+        public void Remove<T>(Guid token) where T : Command
         {
             var type = typeof( ICommandHandler<> ).MakeGenericType(typeof(T) );
-           
-            if ( types.TryGetValue(type, out var commandHandlers) )
-            {
-                commandHandlers.Remove(commandHandler);
 
-                if (commandHandlers.Count == 0)
+            Dictionary<Guid, object> commandHandlers;
+
+            if ( types.TryGetValue(type, out commandHandlers) )
+            {
+                object commandHandler;
+
+                if (commandHandlers.TryGetValue(token, out commandHandler) )
                 {
-                    types.Remove(type);
-                }
+                    ( (ICommandHandler)commandHandler ).Canceled = true;
+
+                    commandHandlers.Remove(token);
+
+                    if (commandHandlers.Count == 0)
+                    {
+                        types.Remove(type);
+                    }
+                }               
             }
         }
 
-        public void Remove<TResult, T>(ICommandResultHandler<TResult, T> commandHandler) where T : CommandResult<TResult>
+        public void Remove<TResult, T>(Guid token) where T : CommandResult<TResult>
         {
             var type = typeof(ICommandResultHandler<,> ).MakeGenericType(typeof(TResult), typeof(T) );
 
-            if ( types.TryGetValue(type, out var commandHandlers) )
-            {
-                commandHandlers.Remove(commandHandler);
+            Dictionary<Guid, object> commandHandlers;
 
-                if (commandHandlers.Count == 0)
+            if ( types.TryGetValue(type, out commandHandlers) )
+            {
+                object commandHandler;
+
+                if (commandHandlers.TryGetValue(token, out commandHandler) )
                 {
-                    types.Remove(type);
+                    ( (ICommandResultHandler<TResult>)commandHandler ).Canceled = true;
+
+                    commandHandlers.Remove(token);
+
+                    if (commandHandlers.Count == 0)
+                    {
+                        types.Remove(type);
+                    }
                 }
             }
         }
@@ -82,24 +112,36 @@ namespace OpenTibia.Game
         {
             var type = typeof( ICommandHandler<> ).MakeGenericType(command.GetType() );
 
-            if ( types.TryGetValue(type, out var commandHandlers) )
-            {
-                return commandHandlers.Cast<ICommandHandler>();
-            }
+            Dictionary<Guid, object> commandHandlers;
 
-            return Enumerable.Empty<ICommandHandler>();
+            if ( types.TryGetValue(type, out commandHandlers) )
+            {
+                foreach (ICommandHandler commandHandler in commandHandlers.Values.ToList() )
+                {
+                    if (!commandHandler.Canceled)
+                    {
+                        yield return commandHandler;
+                    }
+                }
+            }
         }
 
         public IEnumerable< ICommandResultHandler<TResult> > Get<TResult>(CommandResult<TResult> command)
         {
             var type = typeof(ICommandResultHandler<,> ).MakeGenericType(typeof(TResult), command.GetType() );
 
-            if ( types.TryGetValue(type, out var commandHandlers) )
-            {
-                return commandHandlers.Cast< ICommandResultHandler<TResult> >();
-            }
+            Dictionary<Guid, object> commandHandlers;
 
-            return Enumerable.Empty< ICommandResultHandler<TResult> >();
+            if ( types.TryGetValue(type, out commandHandlers) )
+            {
+                foreach (ICommandResultHandler<TResult> commandHandler in commandHandlers.Values.ToList() )
+                {
+                    if (!commandHandler.Canceled)
+                    {
+                        yield return commandHandler;
+                    }
+                }
+            }
         }
     }
 }

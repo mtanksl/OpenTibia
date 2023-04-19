@@ -27,6 +27,8 @@ namespace OpenTibia.Game
                 types.Add(typeof(T), eventHandlers);
             }
 
+            eventHandler.Canceled = false;
+
             eventHandlers.Add(eventHandler.Token, eventHandler);
 
             return eventHandler.Token;
@@ -38,11 +40,18 @@ namespace OpenTibia.Game
 
             if ( types.TryGetValue(typeof(T), out eventHandlers) )
             {
-                eventHandlers.Remove(token);
+                IEventHandler eventHandler;
 
-                if (eventHandlers.Count == 0)
+                if (eventHandlers.TryGetValue(token, out eventHandler) )
                 {
-                    types.Remove(typeof(T) );
+                    eventHandler.Canceled = true;
+
+                    eventHandlers.Remove(token);
+
+                    if (eventHandlers.Count == 0)
+                    {
+                        types.Remove(typeof(T) );
+                    }
                 }
             }
         }
@@ -53,10 +62,14 @@ namespace OpenTibia.Game
 
             if ( types.TryGetValue(e.GetType(), out eventHandlers) )
             {
-                return eventHandlers.Values;
+                foreach (IEventHandler eventHandler in eventHandlers.Values.ToList() )
+                {
+                    if (!eventHandler.Canceled)
+                    {
+                        yield return eventHandler;
+                    }
+                }
             }
-
-            return Enumerable.Empty<IEventHandler>();
         }
     }
 }

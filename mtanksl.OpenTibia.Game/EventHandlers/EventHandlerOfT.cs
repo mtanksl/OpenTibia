@@ -15,6 +15,8 @@ namespace OpenTibia.Game.EventHandlers
             }
         }
 
+        public bool Canceled { get; set; }
+
         public Guid Token { get; } = Guid.NewGuid();
 
         [DebuggerStepThrough]

@@ -376,11 +376,11 @@ namespace OpenTibia.Game.Commands
 
     [DebuggerStepThrough]
 
-    public class PromiseResultMethodBuilder<T>
+    public class PromiseResultMethodBuilder<TResult>
     {
-        public static PromiseResultMethodBuilder<T> Create()
+        public static PromiseResultMethodBuilder<TResult> Create()
         {
-            return new PromiseResultMethodBuilder<T>();
+            return new PromiseResultMethodBuilder<TResult>();
         }
 
         public void SetStateMachine(IAsyncStateMachine stateMachine)
@@ -405,17 +405,17 @@ namespace OpenTibia.Game.Commands
             awaiter.UnsafeOnCompleted(stateMachine.MoveNext);
         }
 
-        private PromiseResult<T> promise;
+        private PromiseResult<TResult> promise;
 
-        public PromiseResult<T> Task
+        public PromiseResult<TResult> Task
         {
             get
             {
-                return promise ?? (promise = new PromiseResult<T>() );
+                return promise ?? (promise = new PromiseResult<TResult>() );
             }
         }
 
-        public void SetResult(T result)
+        public void SetResult(TResult result)
         {
             Task.TrySetResult(result);
         }
