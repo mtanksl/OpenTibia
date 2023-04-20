@@ -5,6 +5,19 @@ namespace OpenTibia.Game.Components
 {
     public class CreatureCooldownBehaviour : Behaviour
     {
+        public CreatureCooldownBehaviour()
+        {
+            
+        }
+
+        public override bool IsUnique
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         public override void Start(Server server)
         {
 

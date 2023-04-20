@@ -35,13 +35,36 @@ namespace OpenTibia.Game
                 buckets.Add(gameObject.Id, components);
             }
 
-            components.Add(component);
-
-            component.GameObject = gameObject;
-
-            if (component is Behaviour behaviour)
             {
-                behaviour.Start(server);
+                if (component is Behaviour behaviour)
+                {
+                    if (behaviour.IsUnique)
+                    {
+                        foreach (var oldComponent in components.OfType<T>().ToList() )
+                        {
+                            if (components.Remove(oldComponent) )
+                            {
+                                if (oldComponent is Behaviour oldBehaviour)
+                                {
+                                    oldBehaviour.Stop(server);
+                                }
+
+                                oldComponent.GameObject = null;
+                            }
+                        }
+                    }
+                }
+            }
+
+            {
+                components.Add(component);
+
+                component.GameObject = gameObject;
+
+                if (component is Behaviour behaviour)
+                {
+                    behaviour.Start(server);
+                }
             }
 
             return component;
@@ -127,7 +150,7 @@ namespace OpenTibia.Game
 
             if (buckets.TryGetValue(gameObject.Id, out components) )
             {
-                return components.OfType<T>().FirstOrDefault();
+                return components.OfType<T>().Where(c => c.GameObject != null).FirstOrDefault();
             }
 
             return default(T);
@@ -146,10 +169,14 @@ namespace OpenTibia.Game
 
             if (buckets.TryGetValue(gameObject.Id, out components) )
             {
-                return components.OfType<T>();
+                foreach (var component in components.OfType<T>().ToList() ) 
+                {
+                    if (component.GameObject != null)
+                    {
+                        yield return component;
+                    }
+                }
             }
-
-            return Enumerable.Empty<T>();
         }
     }
 }

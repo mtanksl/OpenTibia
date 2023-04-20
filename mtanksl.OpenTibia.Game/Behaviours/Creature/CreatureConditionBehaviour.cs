@@ -12,6 +12,14 @@ namespace OpenTibia.Game.Components
             this.condition = condition;
         }
 
+        public override bool IsUnique
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         private Condition condition;
 
         public Condition Condition

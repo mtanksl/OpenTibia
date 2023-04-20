@@ -5,13 +5,19 @@ namespace OpenTibia.Game.Components
 {
     public class DelayBehaviour : Behaviour
     {
-        protected string key = Guid.NewGuid().ToString();
-
         private int executeInMilliseconds;
 
         public DelayBehaviour(int executeInMilliseconds)
         {
             this.executeInMilliseconds = executeInMilliseconds;
+        }
+
+        public override bool IsUnique
+        {
+            get
+            {
+                return false;
+            }
         }
 
         private Promise promise;
@@ -24,13 +30,11 @@ namespace OpenTibia.Game.Components
             }
         }
 
+        private string key = Guid.NewGuid().ToString();
+
         public override void Start(Server server)
         {
-            promise = Promise.Delay(key, executeInMilliseconds).Then( () =>
-            {
-                return Update();
-
-            } ).Then( () =>
+            promise = Promise.Delay(key, executeInMilliseconds).Then(Update).Then( () =>
             {
                 server.Components.RemoveComponent(GameObject, this);
 

@@ -8,7 +8,20 @@ namespace OpenTibia.Game.Components
 {
     public class PlayerPingBehaviour : Behaviour
     {
-        Player player;
+        public PlayerPingBehaviour()
+        {
+            
+        }
+
+        public override bool IsUnique
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        private Player player;
 
         private Guid token;
 

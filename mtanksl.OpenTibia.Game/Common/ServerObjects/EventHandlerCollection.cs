@@ -51,7 +51,7 @@ namespace OpenTibia.Game
 
                 if (eventHandlers.TryGetValue(token, out eventHandler) )
                 {
-                    if ( !eventHandler.IsDestroyed )
+                    if ( !eventHandler.IsDestroyed)
                     {
                         eventHandler.IsDestroyed = true;
 
@@ -74,7 +74,7 @@ namespace OpenTibia.Game
             {
                 foreach (IEventHandler eventHandler in eventHandlers.Values.ToList() )
                 {
-                    if ( !eventHandler.IsDestroyed )
+                    if ( !eventHandler.IsDestroyed)
                     {
                         yield return eventHandler;
                     }

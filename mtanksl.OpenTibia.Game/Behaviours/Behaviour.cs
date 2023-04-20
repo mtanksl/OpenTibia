@@ -12,6 +12,8 @@ namespace OpenTibia.Game.Components
             }
         }
 
+        public abstract bool IsUnique { get; }
+
         public abstract void Start(Server server);
 
         public abstract void Stop(Server server);

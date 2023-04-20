@@ -33,6 +33,14 @@ namespace OpenTibia.Game.Components
             this.walkStrategy = walkStrategy;
         }
 
+        public override bool IsUnique
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         private Player player;
 
         private Guid token;

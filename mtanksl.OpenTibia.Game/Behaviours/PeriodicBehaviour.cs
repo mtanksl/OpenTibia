@@ -5,8 +5,6 @@ namespace OpenTibia.Game.Components
 {
     public abstract class PeriodicBehaviour : Behaviour
     {
-        protected string key = Guid.NewGuid().ToString();
-
         private int executeInMilliseconds;
 
         public PeriodicBehaviour(int executeInMilliseconds)
@@ -14,13 +12,19 @@ namespace OpenTibia.Game.Components
             this.executeInMilliseconds = executeInMilliseconds;
         }
 
+        public override bool IsUnique
+        {
+            get
+            {
+                return false;
+            }
+        }
+
+        private string key = Guid.NewGuid().ToString();
+
         public override void Start(Server server)
         {
-            Promise.Delay(key, executeInMilliseconds).Then( () =>
-            {
-                return Update();
-
-            } ).Then( () =>
+            Promise.Delay(key, executeInMilliseconds).Then(Update).Then( () =>
             {
                 Start(server);
 

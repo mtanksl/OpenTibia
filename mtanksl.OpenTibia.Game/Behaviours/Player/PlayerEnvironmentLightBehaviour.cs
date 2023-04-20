@@ -8,7 +8,20 @@ namespace OpenTibia.Game.Components
 {
     public class PlayerEnvironmentLightBehaviour : Behaviour
     {
-        Player player;
+        public PlayerEnvironmentLightBehaviour()
+        {
+            
+        }
+
+        public override bool IsUnique
+        {
+            get
+            {
+                return true;
+            }
+        }
+
+        private Player player;
 
         private Guid token;
 

@@ -16,6 +16,14 @@ namespace OpenTibia.Game.Components
             this.walkStrategy = walkStrategy;
         }
 
+        public override bool IsUnique
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         private Creature creature;
 
         private Tile spawn;

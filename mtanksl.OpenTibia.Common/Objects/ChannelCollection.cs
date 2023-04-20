@@ -62,7 +62,7 @@ namespace OpenTibia.Common.Objects
                 .FirstOrDefault();
         }
 
-        public PrivateChannel GetPrivateChannelByOwner(Player owner)
+        public PrivateChannel GetPrivateChannel(Player owner)
         {
             return GetPrivateChannels()
                 .Where(c => c.Owner == owner)

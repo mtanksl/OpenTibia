@@ -10,6 +10,14 @@ namespace OpenTibia.Game.Components
             
         }
 
+        public override bool IsUnique
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         private Item item;
 
         public override void Start(Server server)

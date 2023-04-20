@@ -16,6 +16,14 @@ namespace OpenTibia.Game.Components
             this.attackStrategy = attackStrategy;
         }
 
+        public override bool IsUnique
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         private Creature creature;
 
         private Guid token;

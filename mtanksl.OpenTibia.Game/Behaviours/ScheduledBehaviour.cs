@@ -17,6 +17,14 @@ namespace OpenTibia.Game.Components
             this.minute = minute;
         }
 
+        public override bool IsUnique
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         private Guid token;
 
         public override void Start(Server server)

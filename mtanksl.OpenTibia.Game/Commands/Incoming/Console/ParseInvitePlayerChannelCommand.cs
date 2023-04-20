@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Commands
         {
             // #i <player>
 
-            PrivateChannel privateChannel = Context.Server.Channels.GetPrivateChannelByOwner(Player);
+            PrivateChannel privateChannel = Context.Server.Channels.GetPrivateChannel(Player);
 
             if (privateChannel != null)
             {

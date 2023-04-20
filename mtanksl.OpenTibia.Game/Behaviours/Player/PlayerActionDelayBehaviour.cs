@@ -4,13 +4,19 @@
     {
         public PlayerActionDelayBehaviour() : base(200)
         {
-            
+
+        }
+
+        public override bool IsUnique
+        {
+            get
+            {
+                return true;
+            }
         }
 
         public override void Start(Server server)
         {
-            key = "PlayerActionDelayBehaviour" + GameObject.Id;
-
             base.Start(server);
         }
 
