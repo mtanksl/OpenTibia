@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.Components
 {
-    public class CreatureCooldownBehaviour : Behaviour
+    public class PlayerCooldownBehaviour : Behaviour
     {
-        public CreatureCooldownBehaviour()
+        public PlayerCooldownBehaviour()
         {
             
         }

@@ -760,7 +760,7 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1)
                     };
 
-                    var damage = BerserkFormula(attacker.Level, attacker.Skills.Sword, 0);
+                    var damage = BerserkFormula(attacker.Level, attacker.Skills.Fist, 0);
 
                     return Context.Current.AddCommand(new CombatAttackAreaWithSpellAsRadialCommand(attacker, area, MagicEffectType.BlackSpark, (attacker, target) => -Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
                 }
@@ -815,17 +815,17 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (spells.TryGetValue(command.Message, out spell) )
             {
-                CreatureCooldownBehaviour creatureCooldownBehaviour = Context.Server.Components.GetComponent<CreatureCooldownBehaviour>(command.Player);
+                PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.Components.GetComponent<PlayerCooldownBehaviour>(command.Player);
 
                 if (command.Player.Mana >= spell.Mana)
                 {
-                    if ( !creatureCooldownBehaviour.HasCooldown(spell.Name) && !creatureCooldownBehaviour.HasCooldown(spell.Group) )
+                    if ( !playerCooldownBehaviour.HasCooldown(spell.Name) && !playerCooldownBehaviour.HasCooldown(spell.Group) )
                     {
                         if (spell.Condition == null || spell.Condition(command.Player) )
                         {
-                            creatureCooldownBehaviour.AddCooldown(spell.Name, spell.CooldownInMilliseconds);
+                            playerCooldownBehaviour.AddCooldown(spell.Name, spell.CooldownInMilliseconds);
     
-                            creatureCooldownBehaviour.AddCooldown(spell.Group, spell.GroupCooldownInMilliseconds);
+                            playerCooldownBehaviour.AddCooldown(spell.Group, spell.GroupCooldownInMilliseconds);
 
                             return Context.AddCommand(new PlayerUpdateManaCommand(command.Player, command.Player.Mana - spell.Mana) ).Then( () =>
                             {

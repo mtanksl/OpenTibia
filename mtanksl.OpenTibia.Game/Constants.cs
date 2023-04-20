@@ -36,6 +36,8 @@
 
         public static readonly string YouMayNotAttackThisCreature = "You may not attack this creature.";
 
+        public static readonly string YouAreFull = "You are full.";
+
         public static readonly int ObjectsPerPoint = 10;
     }
 }

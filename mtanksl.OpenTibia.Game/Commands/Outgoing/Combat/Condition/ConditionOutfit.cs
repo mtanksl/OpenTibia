@@ -1,8 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using OpenTibia.Common.Objects;
+﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
-using System;
 
 namespace OpenTibia.Game.Commands
 {

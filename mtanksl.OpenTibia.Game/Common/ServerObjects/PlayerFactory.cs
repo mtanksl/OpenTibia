@@ -100,7 +100,7 @@ namespace OpenTibia.Game
 
             server.GameObjects.AddGameObject(player);
 
-            server.Components.AddComponent(player, new CreatureCooldownBehaviour() );
+            server.Components.AddComponent(player, new PlayerCooldownBehaviour() );
 
             server.Components.AddComponent(player, new PlayerAttackAndFollowBehaviour(new CloseAttackStrategy(500, (attacker, target) => -server.Randomization.Take(0, 20) ), new FollowWalkStrategy() ) );
 
