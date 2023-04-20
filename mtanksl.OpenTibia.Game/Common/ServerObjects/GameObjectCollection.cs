@@ -29,8 +29,15 @@ namespace OpenTibia.Game
             return uniqueId;
         }
 
+        /// <exception cref="InvalidOperationException"></exception>
+
         public void AddGameObject(GameObject gameObject)
         {
+            if (gameObject.IsDestroyed)
+            {
+                throw new InvalidOperationException("GameObject is destroyed.");
+            }
+
             if (gameObject.Id == 0)
             {
                 gameObject.Id = GenerateId();
@@ -61,26 +68,31 @@ namespace OpenTibia.Game
 
         public void RemoveGameObject(GameObject gameObject)
         {
-            if (gameObject is Creature)
+            if ( !gameObject.IsDestroyed)
             {
-                buckets[ typeof(Creature) ].Remove(gameObject.Id);
+                gameObject.IsDestroyed = true;
 
-                if (gameObject is Monster)
+                if (gameObject is Creature)
                 {
-                    buckets[ typeof(Monster) ].Remove(gameObject.Id);
+                    buckets[ typeof(Creature) ].Remove(gameObject.Id);
+
+                    if (gameObject is Monster)
+                    {
+                        buckets[ typeof(Monster) ].Remove(gameObject.Id);
+                    }
+                    else if (gameObject is Npc)
+                    {
+                        buckets[ typeof(Npc) ].Remove(gameObject.Id);
+                    }
+                    else if (gameObject is Player)
+                    {
+                        buckets[ typeof(Player) ].Remove(gameObject.Id);
+                    }
                 }
-                else if (gameObject is Npc)
+                else if (gameObject is Item)
                 {
-                    buckets[ typeof(Npc) ].Remove(gameObject.Id);
+                    buckets[ typeof(Item) ].Remove(gameObject.Id);
                 }
-                else if (gameObject is Player)
-                {
-                    buckets[ typeof(Player) ].Remove(gameObject.Id);
-                }
-            }
-            else if (gameObject is Item)
-            {
-                buckets[ typeof(Item) ].Remove(gameObject.Id);
             }
         }
 
@@ -94,7 +106,10 @@ namespace OpenTibia.Game
 
                 if (gameObjects.TryGetValue(id, out gameObject) )
                 {
-                    return (T)gameObject;
+                    if ( !gameObject.IsDestroyed)
+                    {
+                        return (T)gameObject;
+                    }
                 }
             }
 
@@ -132,16 +147,22 @@ namespace OpenTibia.Game
 
             if (buckets.TryGetValue(typeof(T), out gameObjects) )
             {
-                return gameObjects.Values.Cast<T>();
+                foreach (var gameObject in gameObjects.Values.Cast<T>().ToList() )
+                {
+                    if ( !gameObject.IsDestroyed)
+                    {
+                        yield return gameObject;
+                    }
+                }
             }
-
-            return Enumerable.Empty<T>();
         }
 
+        /*
         public IEnumerable<Creature> GetCreatures()
         {
             return GetGameObjects<Creature>();
         }
+        */
 
         public IEnumerable<Monster> GetMonsters()
         {
@@ -158,9 +179,11 @@ namespace OpenTibia.Game
             return GetGameObjects<Player>();
         }
 
+        /*
         public IEnumerable<Item> GetItems()
         {
             return GetGameObjects<Item>();
         }
+        */
     }
 }

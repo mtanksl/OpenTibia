@@ -290,7 +290,7 @@ namespace OpenTibia.Game
 
                 List<Promise> promises = new List<Promise>();
 
-                foreach (var player in context.Server.GameObjects.GetPlayers().ToList() )
+                foreach (var player in context.Server.GameObjects.GetPlayers() )
                 {
                     promises.Add(context.AddCommand(new PlayerDestroyCommand(player) ) );
                 }
