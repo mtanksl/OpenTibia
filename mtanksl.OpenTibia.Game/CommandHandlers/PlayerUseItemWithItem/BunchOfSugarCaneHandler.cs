@@ -26,7 +26,11 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (bunchOfSugarCanes.Contains(command.Item.Metadata.OpenTibiaId) && distillingMachines.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) ).Then( (item) =>
+                return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
+                {
+                    return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+
+                } ).Then( (item) =>
                 {
                     _ = Context.AddCommand(new ItemDecayTransformCommand(item, 10000, decay[item.Metadata.OpenTibiaId], 1) );
 
