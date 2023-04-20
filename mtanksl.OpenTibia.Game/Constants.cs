@@ -38,6 +38,8 @@
 
         public static readonly string YouAreFull = "You are full.";
 
+        public static readonly string PutTheContructionKitOnTheFloorFirst = "Put the construction kit on the floor first";
+
         public static readonly int ObjectsPerPoint = 10;
     }
 }

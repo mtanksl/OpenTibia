@@ -32,9 +32,19 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            Item item = Player.Inventory.GetContent( (byte)Slot.Extra) as Item;
+            toContainer = Player.Inventory.GetContent( (byte)Slot.Extra) as Container;
 
-            if (item == null)
+            if (toContainer != null)
+            {
+                if (toContainer.Count < toContainer.Metadata.Capacity)
+                {
+                    return Context.AddCommand(new ContainerCreateItemCommand(toContainer, OpenTibiaId, Count) );
+                }
+            }
+
+            Item toItem = Player.Inventory.GetContent( (byte)Slot.Extra) as Item;
+
+            if (toItem == null)
             {
                 return Context.AddCommand(new InventoryCreateItemCommand(Player.Inventory, (byte)Slot.Extra, OpenTibiaId, Count) );
             }
