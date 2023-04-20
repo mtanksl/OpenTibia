@@ -34,25 +34,31 @@ Go to MainForm.resx file in Windows File Explorer. Right-click and select proper
 
 Use account number `1` and password `1` to enter game.
 
-# Tibia 8.6 client
+# Resources
+
+### Tibia 8.6 client
 
 You can download the official release direct from here [4Shared](https://www.4shared.com/s/fVTbjUnjCiq).
 
-# IP changer 
+### IP changer 
 
 You can use [jo3bingham's IP changer](https://github.com/jo3bingham/tibia-ip-changer), [OtLand IP changer](https://otland.net/threads/otland-ip-changer.134369/) or download direct from here [4Shared](https://www.4shared.com/s/f2VQahgxIiq).
 
-# Map editor
+### Map editor (.otbm)
 
 You can use [Remere's map editor](https://github.com/hampusborgos/rme).
 
-# SQLite database manager
+### SQLite database manager (.db)
 
 You can use [SQLiteStudio](https://github.com/pawelsalawa/sqlitestudio/releases).
 
-# Dat and Spr editor
+### Item editor (.dat and .spr)
 
 You can use Blackdemon's Tibia editor, download direct from here [4Shared](https://www.4shared.com/s/fYbs_yvrrge).
+
+### Item editor (.otb)
+
+You can use [OTItemEditor](https://github.com/opentibia/item-editor).
 
 # Project's wiki
 
