@@ -6,7 +6,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class ShovelHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private HashSet<ushort> shovels = new HashSet<ushort>() { 2554, 5710 };
+        private HashSet<ushort> shovels = new HashSet<ushort>() { 2554, 5710, 10513, 10515, 10511 };
 
         private Dictionary<ushort, ushort> stonePiles = new Dictionary<ushort, ushort>()
         {

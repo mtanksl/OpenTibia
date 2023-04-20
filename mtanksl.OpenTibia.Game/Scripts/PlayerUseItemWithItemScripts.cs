@@ -18,8 +18,6 @@ namespace OpenTibia.Game.Scripts
 
             server.CommandHandlers.Add(new BakingTrayWithDoughHandler() );
 
-            server.CommandHandlers.Add(new FluidItemHandler() );
-
             server.CommandHandlers.Add(new BunchOfSugarCaneHandler() );
 
             server.CommandHandlers.Add(new DestroyFieldHandler() );
@@ -27,6 +25,10 @@ namespace OpenTibia.Game.Scripts
             server.CommandHandlers.Add(new FireBugHandler() );
 
             server.CommandHandlers.Add(new FlourHandler() );
+
+            server.CommandHandlers.Add(new FluidItemHandler() );
+
+            server.CommandHandlers.Add(new JuiceSqueezerHandler() );
 
             server.CommandHandlers.Add(new KnifeHandler() );
 

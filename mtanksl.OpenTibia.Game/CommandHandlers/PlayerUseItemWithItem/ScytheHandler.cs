@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class ScytheHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private HashSet<ushort> scythes = new HashSet<ushort>() { 2550 };
+        private HashSet<ushort> scythes = new HashSet<ushort>() { 2550, 10513 };
 
         private Dictionary<ushort, ushort> wheats = new Dictionary<ushort, ushort>()
         {

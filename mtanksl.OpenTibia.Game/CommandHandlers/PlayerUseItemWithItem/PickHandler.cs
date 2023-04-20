@@ -8,7 +8,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class PickHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private HashSet<ushort> picks = new HashSet<ushort>() { 2553 };
+        private HashSet<ushort> picks = new HashSet<ushort>() { 2553, 10513, 10515, 10511 };
 
         private Dictionary<ushort, ushort> fragileIces = new Dictionary<ushort, ushort>()
         {

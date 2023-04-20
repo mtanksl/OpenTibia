@@ -6,7 +6,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class MacheteHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private HashSet<ushort> machetes = new HashSet<ushort>() { 2420 };
+        private HashSet<ushort> machetes = new HashSet<ushort>() { 2420, 10513, 10515, 10511 };
 
         private Dictionary<ushort, ushort> jungleGrass = new Dictionary<ushort, ushort>()
         {
