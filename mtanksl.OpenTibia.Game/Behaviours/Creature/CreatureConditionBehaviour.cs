@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Components
         {
             target = (Creature)GameObject;
 
-            SpecialCondition specialCondition = SpecialCondition.None;
+            SpecialCondition specialCondition;
 
             switch (Condition.ConditionSpecialCondition)
             {
@@ -115,6 +115,12 @@ namespace OpenTibia.Game.Components
                 case ConditionSpecialCondition.Bleeding:
 
                     specialCondition = SpecialCondition.Bleeding;
+
+                    break;
+
+                default:
+
+                    specialCondition = SpecialCondition.None;
 
                     break;
             }

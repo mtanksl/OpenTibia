@@ -8,7 +8,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class SwimHandler : CommandHandler<CreatureUpdateTileCommand>
     {
-        private HashSet<ushort> shallowWaters = new HashSet<ushort>() { 4608, 4609, 4610, 4611, 4612, 4613, 4614, 4615, 4616, 4617, 4618, 4619, 4620, 4621, 4622, 4623, 4624, 4625 };
+        private HashSet<ushort> shallowWaters = new HashSet<ushort>() { 4608, 4609, 4610, 4611, 4612, 4613, 4614, 4615, 4616, 4617, 4618, 4619, 4620, 4621, 4622, 4623, 4624, 4625, 4820, 4821, 4822, 4823, 4824, 4825 };
 
         public override Promise Handle(Func<Promise> next, CreatureUpdateTileCommand command)
         {
@@ -22,7 +22,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.AddCommand(new CreatureUpdateOutfitCommand(command.Creature, command.Creature.BaseOutfit, Outfit.Swimming) );
 
-                } ).Then(() =>
+                } ).Then( () =>
                 {
                     return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.WaterSplash) );
                 } );
