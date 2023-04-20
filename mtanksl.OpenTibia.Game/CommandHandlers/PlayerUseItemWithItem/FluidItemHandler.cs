@@ -6,10 +6,8 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class BucketHandler : CommandHandler<PlayerUseItemWithItemCommand>
+    public class FluidItemHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private HashSet<ushort> buckets = new HashSet<ushort>() { 1775, 2005, 2008, 2009, 2011, 2012, 2013, 2015, 2023, 3941, 3942 };
-
         private HashSet<ushort> drawWell = new HashSet<ushort> { 1368, 1369 };
 
         private HashSet<ushort> shallowWaters = new HashSet<ushort> { 4608, 4609, 4610, 4611, 4612, 4613, 4612, 4615, 4616, 4617, 4618, 4619, 4620, 4621, 4622, 4623, 4624, 4625, 4664, 4665, 4666 };
@@ -18,12 +16,14 @@ namespace OpenTibia.Game.CommandHandlers
 
         private HashSet<ushort> lavas = new HashSet<ushort>() { 598, 599, 600, 601 };
 
+        private HashSet<ushort> distillingMachines = new HashSet<ushort>() { 5513, 5514 };
+
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
-            if (buckets.Contains(command.Item.Metadata.OpenTibiaId) )
-            {
-                FluidItem fromItem = (FluidItem)command.Item;
+            FluidItem fromItem = command.Item as FluidItem;
 
+            if (fromItem != null)
+            {
                 if (fromItem.FluidType == FluidType.Empty)
                 {
                     if (drawWell.Contains(command.ToItem.Metadata.OpenTibiaId) )
@@ -51,13 +51,17 @@ namespace OpenTibia.Game.CommandHandlers
                             return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Lava) );
                         } );
                     }
+                    else if (distillingMachines.Contains(command.ToItem.Metadata.OpenTibiaId))
+                    {
+                        return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Rum) );
+                    }
                 }
                 else
                 {
-                    if (buckets.Contains(command.ToItem.Metadata.OpenTibiaId) )
-                    {
-                        FluidItem toItem = (FluidItem)command.ToItem;
+                    FluidItem toItem = command.ToItem as FluidItem;
 
+                    if (toItem != null)
+                    {
                         if (toItem.FluidType == FluidType.Empty)
                         {
                             return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(toItem, fromItem.FluidType) ).Then( () =>

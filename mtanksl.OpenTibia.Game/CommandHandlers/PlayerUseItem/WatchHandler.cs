@@ -8,7 +8,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class WatchHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private HashSet<ushort> watches = new HashSet<ushort>() { 2036 };
+        private HashSet<ushort> watches = new HashSet<ushort>() { 1728, 1729, 1730, 1731, 1873, 1874, 1875, 1876, 1877, 1881, 2036, 3900, 7828, 9235, 9236, 9237, 9238 };
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
