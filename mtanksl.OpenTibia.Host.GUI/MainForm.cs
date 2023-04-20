@@ -17,7 +17,7 @@ namespace mtanksl.OpenTibia.Host.GUI
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if ( !File.Exists("data\\database.db") )
+            if (!File.Exists("data\\database.db"))
             {
                 File.Copy("data\\template.db", "data\\database.db");
             }
@@ -44,9 +44,17 @@ namespace mtanksl.OpenTibia.Host.GUI
             server.Logger = new Logger(new RichTextboxLoggerProvider(richTextBox1), LogLevel.Information);
 #endif
             server.Start();
+
+            startToolStripMenuItem.Enabled = false;
+
+            restartToolStripMenuItem.Enabled = true;
+
+            stopToolStripMenuItem.Enabled = true;
+
+            kickAllToolStripMenuItem.Enabled = true;
         }
 
-        private void shutdownToolStripMenuItem_Click(object sender, EventArgs e)
+        private void restartToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (server == null)
             {
@@ -62,6 +70,41 @@ namespace mtanksl.OpenTibia.Host.GUI
             server.Dispose();
 
             server = null;
+
+
+            server = new Server(7171, 7172);
+#if DEBUG
+            server.Logger = new Logger(new RichTextboxLoggerProvider(richTextBox1), LogLevel.Debug);
+#else
+            server.Logger = new Logger(new RichTextboxLoggerProvider(richTextBox1), LogLevel.Information);
+#endif
+            server.Start();
+        }
+
+        private void stopToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (server == null)
+            {
+                MessageBox.Show("Server is not running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            server.KickAll();
+
+            server.Stop();
+
+            server.Dispose();
+
+            server = null;
+
+            startToolStripMenuItem.Enabled = true;
+
+            restartToolStripMenuItem.Enabled = false;
+
+            stopToolStripMenuItem.Enabled = false;
+
+            kickAllToolStripMenuItem.Enabled = false;
         }
 
         private void kickAllToolStripMenuItem_Click(object sender, EventArgs e)
@@ -89,12 +132,20 @@ namespace mtanksl.OpenTibia.Host.GUI
                     server.Dispose();
 
                     server = null;
+
+                    startToolStripMenuItem.Enabled = true;
+
+                    restartToolStripMenuItem.Enabled = false;
+
+                    stopToolStripMenuItem.Enabled = false;
+
+                    kickAllToolStripMenuItem.Enabled = false;
                 }
                 else
                 {
                     e.Cancel = true;
                 }
             }
-        }        
+        }
     }
 }

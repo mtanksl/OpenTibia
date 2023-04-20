@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -26,51 +27,111 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Inventory fromInventory = Player.Inventory;
+            int count = Count(Player.Inventory, FromItemId);
 
-            foreach (var pair in fromInventory.GetIndexedContents() )
+            if (count > 0)
             {
-                Item fromItem = (Item)pair.Value;
+                Item fromItem = Search(Player.Inventory, FromItemId);
 
-                if (fromItem.Metadata.TibiaId == FromItemId)
+                string message;
+
+                if (count == 1)
                 {
-                    Tile toTile = Context.Server.Map.GetTile(ToPosition);
+                    message = "Using the last " + fromItem.Metadata.Name + "...";
+                }
+                else
+                {
+                    message = "Using one of " + count + " " + (fromItem.Metadata.Plural ?? fromItem.Metadata.Name) + "...";
+                }
 
-                    if (toTile != null)
+                Tile toTile = Context.Server.Map.GetTile(ToPosition);
+
+                if (toTile != null)
+                {
+                    switch (toTile.GetContent(ToIndex) )
                     {
-                        switch (toTile.GetContent(ToIndex) )
-                        {
-                            case Item toItem:
+                        case Item toItem:
 
-                                if (toItem.Metadata.TibiaId == ToItemId)
+                            if (toItem.Metadata.TibiaId == ToItemId)
+                            {
+                                if ( IsUseable(fromItem) )
                                 {
-                                    if ( IsUseable(fromItem) )
-                                    {
-                                        return Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) );
-                                    }
+                                    Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
+
+                                    return Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) );
                                 }
+                            }
 
-                                break;
+                            break;
 
-                            case Creature toCreature:
+                        case Creature toCreature:
 
-                                if (ToItemId == 99)
+                            if (ToItemId == 99)
+                            {
+                                if ( IsUseable(fromItem) )
                                 {
-                                    if ( IsUseable(fromItem) )
-                                    {
-                                        return Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) );
-                                    }
-                                }
+                                    Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
 
-                                break;
-                        }
+                                    return Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) );
+                                }
+                            }
+
+                            break;
                     }
-
-                    break;
                 }
             }
 
             return Promise.Break;
+        }
+
+        private static int Count(IContainer parent, ushort itemId)
+        {
+            int count = 0;
+
+            foreach (Item content in parent.GetContents())
+            {
+                if (content is Container container)
+                {
+                    count += Count(container, itemId);
+                }
+
+                if (content.Metadata.TibiaId == itemId)
+                {
+                    if (content is StackableItem stackableItem)
+                    {
+                        count += stackableItem.Count;
+                    }
+                    else
+                    {
+                        count += 1;
+                    }
+                }
+            }
+
+            return count;
+        }
+
+        private static Item Search(IContainer parent, ushort itemId)
+        {
+            foreach (Item content in parent.GetContents() )
+            {
+                if (content is Container container)
+                {
+                    Item item = Search(container, itemId);
+
+                    if (item != null)
+                    {
+                        return item;
+                    }
+                }
+
+                if (content.Metadata.TibiaId == itemId)
+                {
+                    return content;
+                }
+            }
+
+            return null;
         }
     }
 }
