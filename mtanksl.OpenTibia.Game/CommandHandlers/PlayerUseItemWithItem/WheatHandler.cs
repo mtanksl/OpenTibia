@@ -17,11 +17,9 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (wheats.Contains(command.Item.Metadata.OpenTibiaId) && millstones.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
-                Tile toTile = command.Player.Tile;
-
                 return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                 {
-                    return Context.AddCommand(new TileIncrementOrCreateItemCommand(toTile, flour, 1) );
+                    return Context.AddCommand(new PlayerInventoryContainerTileCreateItem(command.Player, flour, 1) );
                 } );
             }
 

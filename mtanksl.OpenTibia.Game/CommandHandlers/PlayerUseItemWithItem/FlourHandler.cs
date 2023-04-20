@@ -20,8 +20,6 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (flours.Contains(command.Item.Metadata.OpenTibiaId) && buckets.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
-                Tile toTile = command.Player.Tile;
-
                 FluidItem toFluidItem = (FluidItem)command.ToItem;
 
                 if (toFluidItem.FluidType == FluidType.Water)
@@ -32,7 +30,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     } ).Then( () =>
                     {
-                        return Context.AddCommand(new TileIncrementOrCreateItemCommand(toTile, lumpOfDough, 1) );
+                        return Context.AddCommand(new PlayerInventoryContainerTileCreateItem(command.Player, lumpOfDough, 1) );
                     } );
                 }
                 else if (toFluidItem.FluidType == FluidType.Milk)
@@ -43,7 +41,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     } ).Then( () =>
                     {
-                        return Context.AddCommand(new TileIncrementOrCreateItemCommand(toTile, lumpOfCakeDough, 1) );
+                        return Context.AddCommand(new PlayerInventoryContainerTileCreateItem(command.Player, lumpOfCakeDough, 1) );
                     } );
                 }
             }

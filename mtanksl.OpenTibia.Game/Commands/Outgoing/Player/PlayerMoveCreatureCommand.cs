@@ -4,11 +4,11 @@ namespace OpenTibia.Game.Commands
 {
     public class PlayerMoveCreatureCommand : Command
     {
-        public PlayerMoveCreatureCommand(Player player, Creature item, Tile toTile)
+        public PlayerMoveCreatureCommand(Player player, Creature creature, Tile toTile)
         {
             Player = player;
 
-            Creature = item;
+            Creature = creature;
 
             ToTile = toTile;
         }

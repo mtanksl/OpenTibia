@@ -134,6 +134,20 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
+        public static Promise InventoryContainerTileCreateItem(this Player player, ushort openTibiaId, byte count)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new PlayerInventoryContainerTileCreateItem(player, openTibiaId, count) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
         public static Promise Say(this Player player, string message)
         {
             Context context = Context.Current;
