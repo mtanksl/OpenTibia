@@ -18,7 +18,7 @@ From time to time, I take this project to have some fun and recall the good old 
 - Open `mtanksl.OpenTibia.sln`.
 - Set `mtanksl.OpenTibia.Host` or `mtanksl.OpenTibia.Host.GUI` as startup project.
 - Press F5 to run the server. 
-- Use Tibia 8.6 client (download below) with an IP Changer (download also below) to connect to localhost (IP address 127.0.0.1) on port 7171.
+- Use Tibia 8.6 client (download below) with an IP changer (download also below) to connect to localhost (IP address 127.0.0.1) on port 7171.
 - Use account number `1` and password `1` to enter game.
 - Sqlite database location: `\bin\Debug\...\data\database.db`.
 
@@ -28,21 +28,17 @@ From time to time, I take this project to have some fun and recall the good old 
 
 > MSB3821 Couldn't process file MainForm.resx due to its being in the Internet or Restricted zone or having the mark of the web on the file. Remove the mark of the web if you want to process these files.
 
-Go to MainForm.resx file in Windows File Explorer. Right-click and select properties. At the bottom of the the dialog is an "unblock" option.
+Go to `mtanksl.OpenTibia.Host.GUI\MainForm.resx` file in Windows File Explorer. Right-click and select properties. At the bottom of the the dialog is an "unblock" option.
 
-> Account name or password is not correct.
-
-Use account number `1` and password `1` to enter game.
-
-# Resources
-
-### Tibia 8.6 client
+# Tibia 8.6 client
 
 You can download the official release direct from here [4Shared](https://www.4shared.com/s/fVTbjUnjCiq).
 
-### IP changer 
+# IP changer 
 
 You can use [jo3bingham's IP changer](https://github.com/jo3bingham/tibia-ip-changer), [OtLand IP changer](https://otland.net/threads/otland-ip-changer.134369/) or download direct from here [4Shared](https://www.4shared.com/s/f2VQahgxIiq).
+
+# Other resources
 
 ### Map editor (.otbm)
 

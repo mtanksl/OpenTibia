@@ -25,11 +25,16 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     IContainer afterContainer = command.Item.Parent;
 
+                    if (beforeContainer != afterContainer)
+                    {
+                        return Promise.Break;
+                    }
+
                     byte afterIndex = afterContainer.GetIndex(command.Item);
 
                     byte afterCount = command.Count;
 
-                    if (beforeContainer != afterContainer || beforeIndex != afterIndex || beforeCount != afterCount)
+                    if (beforeIndex != afterIndex || beforeCount != afterCount)
                     {
                         return Promise.Break;
                     }

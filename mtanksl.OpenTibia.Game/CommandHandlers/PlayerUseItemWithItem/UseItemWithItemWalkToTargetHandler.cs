@@ -20,7 +20,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     } ).Then( () =>
                     {
-                        return Context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, (Tile)command.ToItem.Parent) );
+                        return Context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, toTile) );
 
                     } ).Then( () =>
                     {
@@ -30,12 +30,12 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         Item item = command.Player.Inventory.GetContent( (byte)Slot.Extra) as Item;
 
-                        if (item != null && item.Metadata.OpenTibiaId == command.Item.Metadata.OpenTibiaId)
+                        if (item == null || item.Metadata.OpenTibiaId != command.Item.Metadata.OpenTibiaId)
                         {
-                            return Context.AddCommand(new PlayerUseItemWithItemCommand(command.Player, item, command.ToItem) );
+                            return Promise.Break;
                         }
 
-                        return Promise.Break;
+                        return Context.AddCommand(new PlayerUseItemWithItemCommand(command.Player, item, command.ToItem) );
                     } );
                 }
                 else
@@ -44,7 +44,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     byte beforeIndex = beforeContainer.GetIndex(command.Item);
 
-                    return Context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, (Tile)command.ToItem.Parent) ).Then( () =>
+                    return Context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, toTile) ).Then( () =>
                     {
                         return Context.Server.Components.AddComponent(command.Player, new PlayerActionDelayBehaviour() ).Promise;
 
@@ -52,9 +52,14 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         IContainer afterContainer = command.Item.Parent;
 
+                        if (beforeContainer != afterContainer)
+                        {
+                            return Promise.Break;
+                        }
+
                         byte afterIndex = afterContainer.GetIndex(command.Item);
 
-                        if (beforeContainer != afterContainer || beforeIndex != afterIndex)
+                        if (beforeIndex != afterIndex)
                         {
                             return Promise.Break;
                         }
