@@ -38,7 +38,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     byte count;
 
-                    if (ushort.TryParse(split[1], out toOpenTibiaId) && byte.TryParse(split[2], out count) )
+                    if (ushort.TryParse(split[1], out toOpenTibiaId) && byte.TryParse(split[2], out count) && count >= 1 && count <= 100)
                     {
                         Tile toTile = Context.Server.Map.GetTile(command.Player.Tile.Position.Offset(command.Player.Direction) );
 
