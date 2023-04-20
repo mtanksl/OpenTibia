@@ -14,13 +14,15 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (healthPotions.Contains(command.Item.Metadata.OpenTibiaId) && command.ToCreature is Player player)
             {
+                Tile toTile = player.Tile;
+
                 return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                 {
                     return Context.AddCommand(new CreatureUpdateHealthCommand(player, player.Health + Context.Server.Randomization.Take(50, 100) ) ); 
                     
                 } ).Then( () =>
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.RedShimmer) );
+                    return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.RedShimmer) );
 
                 } ).Then( () =>
                 {

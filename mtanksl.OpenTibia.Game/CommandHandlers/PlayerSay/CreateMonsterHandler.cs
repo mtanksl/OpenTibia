@@ -13,17 +13,24 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 string name = command.Message.Substring(3);
 
-                Tile toTile = Context.Server.Map.GetTile(command.Player.Tile.Position.Offset(command.Player.Direction) );
+                Tile fromTile = command.Player.Tile;
+
+                Tile toTile = Context.Server.Map.GetTile(fromTile.Position.Offset(command.Player.Direction) );
 
                 if (toTile != null)
                 {
                     return Context.AddCommand(new TileCreateMonsterCommand(toTile, name) ).Then( (moster) =>
                     {
-                        return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) );
+                        if (moster != null)
+                        {
+                            return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer));
+                        }
+
+                        return Context.AddCommand(new ShowMagicEffectCommand(fromTile.Position, MagicEffectType.Puff) );                     
                     } );
                 }
 
-                return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                return Context.AddCommand(new ShowMagicEffectCommand(fromTile.Position, MagicEffectType.Puff) );
             }
 
             return next();

@@ -21,7 +21,9 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Tile toTile = Context.Server.Map.GetTile(Player.Tile.Position.Offset(MoveDirection) );
+            Tile fromTile = Player.Tile;
+
+            Tile toTile = Context.Server.Map.GetTile(fromTile.Position.Offset(MoveDirection) );
 
             if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || toTile.GetCreatures().Any(c => c.Block) )
             {
@@ -34,8 +36,6 @@ namespace OpenTibia.Game.Commands
 
             return Context.Server.Components.AddComponent(Player, new PlayerWalkDelayBehaviour(1000 * toTile.Ground.Metadata.Speed / Player.Speed) ).Promise.Then( () =>
             {
-                Tile toTile = Context.Server.Map.GetTile(Player.Tile.Position.Offset(MoveDirection) );
-
                 if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || toTile.GetCreatures().Any(c => c.Block) )
                 {
                     Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible),
