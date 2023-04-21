@@ -35,7 +35,7 @@ namespace OpenTibia.Game.Commands
         {
             for (int i = 0; i < Damages.Length; i++)
             {
-                await Context.Current.AddCommand(new CombatAddDamageCommand(null, target, (attacker, target) => Damages[i], null, MagicEffectType, AnimatedTextColor) );
+                await Context.Current.AddCommand(new CreatureAttackCreatureCommand(null, target, new SimpleAttack(null, MagicEffectType, AnimatedTextColor, Damages[i] ) ) );
 
                 if (i < Damages.Length - 1)
                 {

@@ -116,7 +116,7 @@ namespace OpenTibia.Game
 
                 for (int i = 0; i < positions.Length - 1 && !positions[i].IsNextTo(toPosition); i++)
                 {
-                    moveDirections.Add( positions[i].ToMoveDirection(positions[i + 1] ) );
+                    moveDirections.Add(positions[i].ToMoveDirection(positions[i + 1] ).Value);
                 }
             }
 

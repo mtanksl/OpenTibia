@@ -1,20 +1,15 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
-using System;
 
 namespace OpenTibia.Game.Strategies
 {
-    public class CloseAttackStrategy : IAttackStrategy
+    public class MeleeAttackStrategy : IAttackStrategy
     {
         private int cooldownInMilliseconds;
 
-        private Func<Creature, Creature, int> formula;
-
-        public CloseAttackStrategy(int cooldownInMilliseconds, Func<Creature, Creature, int> formula)
+        public MeleeAttackStrategy(int cooldownInMilliseconds)
         {
             this.cooldownInMilliseconds = cooldownInMilliseconds;
-
-            this.formula = formula;
         }
 
         public int CooldownInMilliseconds
@@ -29,7 +24,7 @@ namespace OpenTibia.Game.Strategies
         {
             if (attacker.Tile.Position.IsNextTo(target.Tile.Position) )
             {
-                return new CombatAttackCreatureWithMeleeCommand(attacker, target, formula);
+                return new CreatureAttackCreatureCommand(attacker, target, new MeleeAttack() );
             }
 
             return null;

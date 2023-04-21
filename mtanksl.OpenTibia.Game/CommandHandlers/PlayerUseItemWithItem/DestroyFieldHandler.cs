@@ -16,13 +16,13 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (destroyFields.Contains(command.Item.Metadata.OpenTibiaId) && fields.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
-                return Context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.Puff) ).Then( () =>
+                return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                 {
-                    return Context.AddCommand(new ItemDestroyCommand(command.ToItem) );
+                    return Context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.Puff) );
 
                 } ).Then( () =>
                 {
-                    return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
+                    return Context.AddCommand(new ItemDestroyCommand(command.ToItem) );
                 } );
             }
 

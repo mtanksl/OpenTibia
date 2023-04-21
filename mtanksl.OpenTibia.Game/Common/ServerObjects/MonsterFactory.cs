@@ -59,13 +59,13 @@ namespace OpenTibia.Game
 
             if (monster.Name == "Amazon")
             {
-                server.Components.AddComponent(monster, new CreatureAttackBehaviour(new DistantAttackStrategy(ProjectileType.ThrowingKnife, 2000, (attacker, target) => -server.Randomization.Take(0, 30) ) ) );
+                server.Components.AddComponent(monster, new CreatureAttackBehaviour(new DistanceAttackStrategy(ProjectileType.ThrowingKnife, 2000) ) );
 
                 server.Components.AddComponent(monster, new CreatureWalkBehaviour(new KeepDistanceWalkStrategy(3) ) );
             }
             else if (monster.Name == "Valkyrie")
             {
-                server.Components.AddComponent(monster, new CreatureAttackBehaviour(new DistantAttackStrategy(ProjectileType.Spear, 2000, (attacker, target) => -server.Randomization.Take(0, 45) ) ) );
+                server.Components.AddComponent(monster, new CreatureAttackBehaviour(new DistanceAttackStrategy(ProjectileType.Spear, 2000) ) );
 
                 server.Components.AddComponent(monster, new CreatureWalkBehaviour(new KeepDistanceWalkStrategy(3) ) );
             }
@@ -79,7 +79,7 @@ namespace OpenTibia.Game
             }
             else
             {
-                server.Components.AddComponent(monster, new CreatureAttackBehaviour(new CloseAttackStrategy(2000, (attacker, target) => -server.Randomization.Take(0, 20) ) ) );
+                server.Components.AddComponent(monster, new CreatureAttackBehaviour(new MeleeAttackStrategy(2000) ) );
 
                 server.Components.AddComponent(monster, new CreatureWalkBehaviour(new FollowWalkStrategy() ) );
             }

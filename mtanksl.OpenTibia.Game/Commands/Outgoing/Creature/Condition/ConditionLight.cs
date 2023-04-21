@@ -18,7 +18,6 @@ namespace OpenTibia.Game.Commands
         public Light Light { get; set; }
 
         public int DurationInMilliseconds { get; set; }
-               
 
         public override Promise Update(Creature target)
         {

@@ -35,9 +35,9 @@ namespace OpenTibia.Game.Commands
 
             bool updateDirection = false;
 
-            Direction expected = fromTile.Position.ToDirection(ToTile.Position);
+            Direction? expected = fromTile.Position.ToDirection(ToTile.Position);
 
-            if (expected == Direction.None)
+            if (expected == null)
             {
                 updateDirection = true;
 
@@ -51,7 +51,7 @@ namespace OpenTibia.Game.Commands
                 expected = ChangeDirectionOnMove.Value;
             }
 
-            Creature.Direction = expected;
+            Creature.Direction = expected.Value;
 
             foreach (var observer in Context.Server.GameObjects.GetPlayers() )
             {

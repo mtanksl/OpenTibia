@@ -195,7 +195,7 @@
             }
         }
 
-        public Direction ToDirection(Position that)
+        public Direction? ToDirection(Position that)
         {
             int deltaY = that.y - this.y;
 
@@ -221,10 +221,10 @@
                 return Direction.East;
             }
 
-            return Direction.None;
+            return null;
         }
 
-        public MoveDirection ToMoveDirection(Position that)
+        public MoveDirection? ToMoveDirection(Position that)
         {
             int deltaY = that.y - this.y;
 
@@ -272,7 +272,7 @@
                 }
             }
 
-            return MoveDirection.None;
+            return null;
         }
 
         public bool IsInClientRange(Position that)

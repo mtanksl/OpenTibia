@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Commands
 
         public bool AddRegeneration(int regeneration)
         {
-            if (this.regeneration + regeneration > 1200) // 20 minutes
+            if (this.regeneration + regeneration > 20 * 60) 
             {
                 return false;
             }

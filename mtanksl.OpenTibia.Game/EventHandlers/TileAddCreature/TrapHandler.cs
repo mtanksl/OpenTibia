@@ -21,7 +21,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (traps.TryGetValue(topItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
                 {
-                    return Context.AddCommand(new CombatAttackCreatureWithEnvironmentCommand(e.Creature, MagicEffectType.BlackSpark, -30) ).Then( () =>
+                    return Context.AddCommand(new CreatureAttackCreatureCommand(null, e.Creature, new SimpleAttack(null, MagicEffectType.BlackSpark, AnimatedTextColor.DarkRed, -30) ) ).Then( () =>
                     {
                         return Context.AddCommand(new ItemTransformCommand(topItem, toOpenTibiaId, 1) );
                     } );

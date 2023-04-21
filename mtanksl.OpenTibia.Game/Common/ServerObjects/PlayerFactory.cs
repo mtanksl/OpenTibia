@@ -102,7 +102,7 @@ namespace OpenTibia.Game
 
             server.Components.AddComponent(player, new PlayerCooldownBehaviour() );
 
-            server.Components.AddComponent(player, new PlayerAttackAndFollowBehaviour(new CloseAttackStrategy(500, (attacker, target) => -server.Randomization.Take(0, 20) ), new FollowWalkStrategy() ) );
+            server.Components.AddComponent(player, new PlayerAttackAndFollowBehaviour(new MeleeAttackStrategy(500), new FollowWalkStrategy() ) );
 
             server.Components.AddComponent(player, new PlayerEnvironmentLightBehaviour() );
 

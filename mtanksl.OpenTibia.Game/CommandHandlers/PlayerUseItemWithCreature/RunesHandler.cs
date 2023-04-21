@@ -39,7 +39,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureRemoveConditionCommand(target, ConditionSpecialCondition.Poisoned));
+                        return Context.Current.AddCommand(new CreatureRemoveConditionCommand(target, ConditionSpecialCondition.Poisoned) );
                     } );
                 }
             },
@@ -54,12 +54,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Callback = (attacker, target) =>
                 {
-                    var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 70, 30);
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 70, 30);
 
-                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, target, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) ).Then( () =>
-                    {
-                        return Context.Current.AddCommand(new CreatureRemoveConditionCommand(target, ConditionSpecialCondition.Poisoned) );
-                    } );
+                    var damage = Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
+
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, new HealingAttack(MagicEffectType.BlueShimmer, damage) ) );
                 }
             },
 
@@ -73,12 +72,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Callback = (attacker, target) =>
                 {
-                    var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 250, 0);
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 250, 0);
 
-                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, target, null, MagicEffectType.BlueShimmer, (attacker, target) => Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) ).Then( () =>
-                    {
-                        return Context.Current.AddCommand(new CreatureRemoveConditionCommand(target, ConditionSpecialCondition.Poisoned) );
-                    } );
+                    var damage = Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
+
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, new HealingAttack(MagicEffectType.BlueShimmer, damage) ) );
                 }
             },
 
@@ -92,9 +90,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Callback = (attacker, target) =>
                 {
-                    var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 15, 5);
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 15, 5);
 
-                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, target, ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, (attacker, target) => -Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    var damage = -Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
+
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, new SimpleAttack(ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, damage) ) );
                 }
             },
 
@@ -108,9 +108,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Callback = (attacker, target) =>
                 {
-                    var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 30, 10);
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 30, 10);
 
-                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, target, ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, (attacker, target) => -Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    var damage = -Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
+
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, new SimpleAttack(ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, damage) ) );
                 }
             },
 
@@ -124,9 +126,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Callback = (attacker, target) =>
                 {
-                    var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 150, 20);
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 150, 20);
 
-                    return Context.Current.AddCommand(new CombatAttackCreatureWithRuneOrSpellCommand(attacker, target, ProjectileType.SuddenDeath, MagicEffectType.MortArea, (attacker, target) => -Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    var damage = -Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
+
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, new SimpleAttack(ProjectileType.SuddenDeath, MagicEffectType.MortArea, AnimatedTextColor.DarkRed, damage) ) );
                 }
             }
         };

@@ -1,25 +1,20 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
-using System;
 
 namespace OpenTibia.Game.Strategies
 {
-    public class DistantAttackStrategy : IAttackStrategy
+    public class DistanceAttackStrategy : IAttackStrategy
     {
         private ProjectileType projectileType;
 
         private int cooldownInMilliseconds;
 
-        private Func<Creature, Creature, int> formula;
-
-        public DistantAttackStrategy(ProjectileType projectileType, int cooldownInMilliseconds, Func<Creature, Creature, int> formula)
+        public DistanceAttackStrategy(ProjectileType projectileType, int cooldownInMilliseconds)
         {
             this.projectileType = projectileType;
 
             this.cooldownInMilliseconds = cooldownInMilliseconds;
-
-            this.formula = formula;
         }
 
         public int CooldownInMilliseconds
@@ -34,7 +29,7 @@ namespace OpenTibia.Game.Strategies
         {
             if (server.Pathfinding.CanThrow(attacker.Tile.Position, target.Tile.Position) )
             {
-                return new CombatAttackCreatureWithDistanceCommand(attacker, target, projectileType, formula);
+                return new CreatureAttackCreatureCommand(attacker, target, new DistanceAttack(projectileType) );
             }
 
             return null;

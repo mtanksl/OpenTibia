@@ -23,6 +23,34 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
+        public static Promise AttackArea(this Creature creature, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, Attack attack)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new CreatureAttackAreaCommand(creature, beam, center, area, projectileType, magicEffectType, attack) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public static Promise AttackCreature(this Creature creature, Creature target, Attack attack)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new CreatureAttackCreatureCommand(creature, target, attack) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
         public static Promise RemoveCondition(this Creature creature, ConditionSpecialCondition conditionSpecialCondition)
         {
             Context context = Context.Current;

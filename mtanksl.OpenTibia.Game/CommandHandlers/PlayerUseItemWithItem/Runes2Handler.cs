@@ -44,25 +44,35 @@ namespace OpenTibia.Game.CommandHandlers
                     return true;
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = async (attacker, tile) =>
                 {
                     Offset[] area = new Offset[]
                     {
                         new Offset(0, 0)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, new ConditionDto()
+                    await Context.Current.AddCommand(new ShowProjectileCommand(attacker.Tile.Position, tile.Position, ProjectileType.Poison) );
+
+                    foreach (var offset in area)
                     {
-                        SpecialCondition = SpecialCondition.Poisoned,
+                        await Context.Current.AddCommand(new ShowMagicEffectCommand(tile.Position.Offset(offset), MagicEffectType.GreenRings) );
 
-                        MagicEffectType = MagicEffectType.GreenRings,
+                        Tile toTile = Context.Current.Server.Map.GetTile(tile.Position.Offset(offset) );
 
-                        AnimatedTextColor = AnimatedTextColor.Green,
+                        if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                        {
 
-                        Damages = new[] { -5, -5, -5, -5, -5, -4, -4, -4, -4, -4, -3, -3, -3, -3, -3, -3, -3, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
+                        }
+                        else
+                        {
+                            await Context.Current.AddCommand(new TileCreateItemCommand(toTile, 1496, 1) ).Then( (item) =>
+                            {
+                                _ = Context.Current.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
 
-                        IntervalInMilliseconds = 2000
-                    } ) );
+                                return Promise.Completed;
+                            } );
+                        }    
+                    }
                 }
             },
 
@@ -84,7 +94,7 @@ namespace OpenTibia.Game.CommandHandlers
                     return true;
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = async (attacker, tile) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -93,18 +103,28 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(-1, 1) , new Offset(0, 1) , new Offset(1, 1)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, new ConditionDto()
+                    await Context.Current.AddCommand(new ShowProjectileCommand(attacker.Tile.Position, tile.Position, ProjectileType.Poison) );
+
+                    foreach (var offset in area)
                     {
-                        SpecialCondition = SpecialCondition.Poisoned,
+                        await Context.Current.AddCommand(new ShowMagicEffectCommand(tile.Position.Offset(offset), MagicEffectType.GreenRings) );
 
-                        MagicEffectType = MagicEffectType.GreenRings,
+                        Tile toTile = Context.Current.Server.Map.GetTile(tile.Position.Offset(offset) );
 
-                        AnimatedTextColor = AnimatedTextColor.Green,
+                        if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                        {
 
-                        Damages = new[] { -5, -5, -5, -5, -5, -4, -4, -4, -4, -4, -3, -3, -3, -3, -3, -3, -3, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
+                        }
+                        else
+                        {
+                            await Context.Current.AddCommand(new TileCreateItemCommand(toTile, 1496, 1) ).Then( (item) =>
+                            {
+                                _ = Context.Current.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
 
-                        IntervalInMilliseconds = 2000
-                    } ) );
+                                return Promise.Completed;
+                            } );
+                        }                         
+                    }
                 }
             },
 
@@ -126,25 +146,35 @@ namespace OpenTibia.Game.CommandHandlers
                     return true;
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = async (attacker, tile) =>
                 {
                     Offset[] area = new Offset[]
                     {
                         new Offset(-2, 0), new Offset(-1, 0), new Offset(0, 0), new Offset(1, 0), new Offset(2, 0)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, new ConditionDto()
+                    await Context.Current.AddCommand(new ShowProjectileCommand(attacker.Tile.Position, tile.Position, ProjectileType.Poison) );
+
+                    foreach (var offset in area)
                     {
-                        SpecialCondition = SpecialCondition.Poisoned,
+                        await Context.Current.AddCommand(new ShowMagicEffectCommand(tile.Position.Offset(offset), MagicEffectType.GreenRings) );
 
-                        MagicEffectType = MagicEffectType.GreenRings,
+                        Tile toTile = Context.Current.Server.Map.GetTile(tile.Position.Offset(offset) );
 
-                        AnimatedTextColor = AnimatedTextColor.Green,
+                        if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                        {
 
-                        Damages = new[] { -5, -5, -5, -5, -5, -4, -4, -4, -4, -4, -3, -3, -3, -3, -3, -3, -3, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 },
+                        }
+                        else
+                        {
+                            await Context.Current.AddCommand(new TileCreateItemCommand(toTile, 1496, 1) ).Then( (item) =>
+                            {
+                                _ = Context.Current.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
 
-                        IntervalInMilliseconds = 2000
-                    } ) );
+                                return Promise.Completed;
+                            } );
+                        }   
+                    }
                 }
             },
 
@@ -166,25 +196,35 @@ namespace OpenTibia.Game.CommandHandlers
                     return true;
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = async (attacker, tile) =>
                 {
                     Offset[] area = new Offset[]
                     {
                         new Offset(0, 0)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, new ConditionDto()
+                    await Context.Current.AddCommand(new ShowProjectileCommand(attacker.Tile.Position, tile.Position, ProjectileType.Fire) );
+
+                    foreach (var offset in area)
                     {
-                        SpecialCondition = SpecialCondition.Burning,
+                        await Context.Current.AddCommand(new ShowMagicEffectCommand(tile.Position.Offset(offset), MagicEffectType.FirePlume) );
 
-                        MagicEffectType = MagicEffectType.FirePlume,
+                        Tile toTile = Context.Current.Server.Map.GetTile(tile.Position.Offset(offset) );
 
-                        AnimatedTextColor = AnimatedTextColor.Orange,
+                        if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                        {
 
-                        Damages = new[] { -20, -10, -10 },
+                        }
+                        else
+                        {
+                            await Context.Current.AddCommand(new TileCreateItemCommand(toTile, 1492, 1) ).Then( (item) =>
+                            {
+                                _ = Context.Current.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
 
-                        IntervalInMilliseconds = 2000
-                    } ) );
+                                return Promise.Completed;
+                            } );
+                        }  
+                    }
                 }
             },
 
@@ -206,7 +246,7 @@ namespace OpenTibia.Game.CommandHandlers
                     return true;
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = async (attacker, tile) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -215,18 +255,28 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(-1, 1) , new Offset(0, 1) , new Offset(1, 1)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, new ConditionDto()
+                    await Context.Current.AddCommand(new ShowProjectileCommand(attacker.Tile.Position, tile.Position, ProjectileType.Fire) );
+
+                    foreach (var offset in area)
                     {
-                        SpecialCondition = SpecialCondition.Burning,
+                        await Context.Current.AddCommand(new ShowMagicEffectCommand(tile.Position.Offset(offset), MagicEffectType.FirePlume) );
 
-                        MagicEffectType = MagicEffectType.FirePlume,
+                        Tile toTile = Context.Current.Server.Map.GetTile(tile.Position.Offset(offset) );
 
-                        AnimatedTextColor = AnimatedTextColor.Orange,
+                        if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                        {
 
-                        Damages = new[] { -20, -10, -10 },
+                        }
+                        else
+                        {
+                            await Context.Current.AddCommand(new TileCreateItemCommand(toTile, 1492, 1) ).Then( (item) =>
+                            {
+                                _ = Context.Current.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
 
-                        IntervalInMilliseconds = 2000
-                    } ) );
+                                return Promise.Completed;
+                            } );
+                        }  
+                    }
                 }
             },
 
@@ -248,25 +298,35 @@ namespace OpenTibia.Game.CommandHandlers
                     return true;
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = async (attacker, tile) =>
                 {
                     Offset[] area = new Offset[]
                     {
                         new Offset(-2, 0), new Offset(-1, 0), new Offset(0, 0), new Offset(1, 0), new Offset(2, 0)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, new ConditionDto()
+                    await Context.Current.AddCommand(new ShowProjectileCommand(attacker.Tile.Position, tile.Position, ProjectileType.Fire) );
+
+                    foreach (var offset in area)
                     {
-                        SpecialCondition = SpecialCondition.Burning,
+                        await Context.Current.AddCommand(new ShowMagicEffectCommand(tile.Position.Offset(offset), MagicEffectType.FirePlume) );
 
-                        MagicEffectType = MagicEffectType.FirePlume,
+                        Tile toTile = Context.Current.Server.Map.GetTile(tile.Position.Offset(offset) );
 
-                        AnimatedTextColor = AnimatedTextColor.Orange,
+                        if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                        {
 
-                        Damages = new[] { -20, -10, -10 },
+                        }
+                        else
+                        {
+                            await Context.Current.AddCommand(new TileCreateItemCommand(toTile, 1492, 1) ).Then( (item) =>
+                            {
+                                _ = Context.Current.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
 
-                        IntervalInMilliseconds = 2000
-                    } ) );
+                                return Promise.Completed;
+                            } );
+                        }  
+                    }
                 }
             },
 
@@ -288,25 +348,35 @@ namespace OpenTibia.Game.CommandHandlers
                     return true;
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = async (attacker, tile) =>
                 {
                     Offset[] area = new Offset[]
                     {
                         new Offset(0, 0)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1495, 1, new ConditionDto()
+                    await Context.Current.AddCommand(new ShowProjectileCommand(attacker.Tile.Position, tile.Position, ProjectileType.Energy) );
+
+                    foreach (var offset in area)
                     {
-                        SpecialCondition = SpecialCondition.Electrified,
+                        await Context.Current.AddCommand(new ShowMagicEffectCommand(tile.Position.Offset(offset), MagicEffectType.EnergyDamage) );
 
-                        MagicEffectType = MagicEffectType.EnergyDamage,
+                        Tile toTile = Context.Current.Server.Map.GetTile(tile.Position.Offset(offset) );
 
-                        AnimatedTextColor = AnimatedTextColor.LightBlue,
+                        if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                        {
 
-                        Damages = new[] { -35, -25, -25 },
+                        }
+                        else
+                        {
+                            await Context.Current.AddCommand(new TileCreateItemCommand(toTile, 1495, 1) ).Then( (item) =>
+                            {
+                                _ = Context.Current.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
 
-                        IntervalInMilliseconds = 2000
-                    } ) );
+                                return Promise.Completed;
+                            } );
+                        }  
+                    }
                 }
             },
 
@@ -328,7 +398,7 @@ namespace OpenTibia.Game.CommandHandlers
                     return true;
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = async (attacker, tile) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -337,18 +407,28 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(-1, 1) , new Offset(0, 1) , new Offset(1, 1)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1495, 1, new ConditionDto()
+                    await Context.Current.AddCommand(new ShowProjectileCommand(attacker.Tile.Position, tile.Position, ProjectileType.Energy) );
+
+                    foreach (var offset in area)
                     {
-                        SpecialCondition = SpecialCondition.Electrified,
+                        await Context.Current.AddCommand(new ShowMagicEffectCommand(tile.Position.Offset(offset), MagicEffectType.EnergyDamage) );
 
-                        MagicEffectType = MagicEffectType.EnergyDamage,
+                        Tile toTile = Context.Current.Server.Map.GetTile(tile.Position.Offset(offset) );
 
-                        AnimatedTextColor = AnimatedTextColor.LightBlue,
+                        if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                        {
 
-                        Damages = new[] { -35, -25, -25 },
+                        }
+                        else
+                        {
+                            await Context.Current.AddCommand(new TileCreateItemCommand(toTile, 1495, 1) ).Then( (item) =>
+                            {
+                                _ = Context.Current.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
 
-                        IntervalInMilliseconds = 2000
-                    } ) );
+                                return Promise.Completed;
+                            } );
+                        }  
+                    }
                 }
             },
 
@@ -370,25 +450,35 @@ namespace OpenTibia.Game.CommandHandlers
                     return true;
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = async (attacker, tile) =>
                 {
                     Offset[] area = new Offset[]
                     {
                         new Offset(-2, 0), new Offset(-1, 0), new Offset(0, 0), new Offset(1, 0), new Offset(2, 0)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1495, 1, new ConditionDto()
+                    await Context.Current.AddCommand(new ShowProjectileCommand(attacker.Tile.Position, tile.Position, ProjectileType.Energy) );
+
+                    foreach (var offset in area)
                     {
-                        SpecialCondition = SpecialCondition.Electrified,
+                        await Context.Current.AddCommand(new ShowMagicEffectCommand(tile.Position.Offset(offset), MagicEffectType.EnergyDamage) );
 
-                        MagicEffectType = MagicEffectType.EnergyDamage,
+                        Tile toTile = Context.Current.Server.Map.GetTile(tile.Position.Offset(offset) );
 
-                        AnimatedTextColor = AnimatedTextColor.LightBlue,
+                        if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                        {
 
-                        Damages = new[] { -35, -25, -25 },
+                        }
+                        else
+                        {
+                            await Context.Current.AddCommand(new TileCreateItemCommand(toTile, 1495, 1) ).Then( (item) =>
+                            {
+                                _ = Context.Current.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
 
-                        IntervalInMilliseconds = 2000
-                    } ) );
+                                return Promise.Completed;
+                            } );
+                        }  
+                    }
                 }
             },
 
@@ -421,9 +511,11 @@ namespace OpenTibia.Game.CommandHandlers
                                             new Offset(-1, 2),  new Offset(0, 2),  new Offset(1, 2)
                     };
 
-                    var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 20, 5);
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 20, 5);
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneAsRadialCommand(attacker, tile.Position, area, ProjectileType.Fire, MagicEffectType.FireArea, (attacker, target) => -Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    var damage = -Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
+
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FireArea, new SimpleAttack(null, null, AnimatedTextColor.Orange, damage) ) );
                 }
             },
 
@@ -458,9 +550,11 @@ namespace OpenTibia.Game.CommandHandlers
                                                                 new Offset(-1, 3),  new Offset(0, 3),  new Offset(1, 3)
                     };
 
-                    var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 50, 15);
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 50, 15);
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneAsRadialCommand(attacker, tile.Position, area, ProjectileType.Fire, MagicEffectType.FireArea, (attacker, target) => -Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    var damage = -Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
+
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FireArea, new SimpleAttack(null, null, AnimatedTextColor.Orange, damage) ) );
                 }
             },
 
@@ -491,9 +585,11 @@ namespace OpenTibia.Game.CommandHandlers
                                             new Offset(0, 1)
                     };
 
-                    var damage = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 60, 40);
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 60, 40);
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneAsRadialCommand(attacker, tile.Position, area, ProjectileType.Explosion, MagicEffectType.ExplosionArea, (attacker, target) => -Context.Current.Server.Randomization.Take(damage.Min, damage.Max) ) );
+                    var damage = -Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
+
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Explosion, MagicEffectType.ExplosionArea, new SimpleAttack(null, null, AnimatedTextColor.DarkRed, damage) ) );
                 }
             },
 
@@ -515,14 +611,24 @@ namespace OpenTibia.Game.CommandHandlers
                     return true;
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = async (attacker, tile) =>
                 {
                     Offset[] area = new Offset[]
                     {
                         new Offset(0, 0)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Energy, null, 1497, 1, null) );
+                    await Context.Current.AddCommand(new ShowProjectileCommand(attacker.Tile.Position, tile.Position, ProjectileType.Energy) );
+
+                    foreach (var offset in area)
+                    {
+                        await Context.Current.AddCommand(new TileCreateItemCommand(tile, 1497, 1) ).Then( (item) =>
+                        {
+                            _ = Context.Current.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
+
+                            return Promise.Completed;
+                        } );
+                    }
                 }
             },
 
@@ -544,14 +650,24 @@ namespace OpenTibia.Game.CommandHandlers
                     return true;
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = async (attacker, tile) =>
                 {
                     Offset[] area = new Offset[]
                     {
                         new Offset(0, 0)
                     };
 
-                    return Context.Current.AddCommand(new CombatAttackAreaWithRuneCreateItemCommand(attacker, tile.Position, area, ProjectileType.Energy, null, 1499, 1, null) );
+                    await Context.Current.AddCommand(new ShowProjectileCommand(attacker.Tile.Position, tile.Position, ProjectileType.Energy) );
+
+                    foreach (var offset in area)
+                    {
+                        await Context.Current.AddCommand(new TileCreateItemCommand(tile, 1499, 1) ).Then( (item) =>
+                        {
+                            _ = Context.Current.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
+
+                            return Promise.Completed;
+                        } );
+                    }
                 }
             }
         };
