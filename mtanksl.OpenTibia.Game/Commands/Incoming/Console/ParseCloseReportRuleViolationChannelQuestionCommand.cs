@@ -29,12 +29,14 @@ namespace OpenTibia.Game.Commands
 
                     return Promise.Completed;
                 }
+                else
+                {
+                    Context.Server.RuleViolations.RemoveRuleViolation(ruleViolation);
 
-                Context.Server.RuleViolations.RemoveRuleViolation(ruleViolation);
+                    Context.AddPacket(ruleViolation.Assignee.Client.Connection, new CancelRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
 
-                Context.AddPacket(ruleViolation.Assignee.Client.Connection, new CancelRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
-
-                return Promise.Completed;
+                    return Promise.Completed;
+                }
             }
 
             return Promise.Break;

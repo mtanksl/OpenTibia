@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using System;
+using System.Linq;
 
 namespace OpenTibia.Game.CommandHandlers
 {
@@ -10,7 +11,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return next().Then( () =>
             {
-                foreach (var channel in Context.Server.Channels.GetChannels() )
+                foreach (var channel in Context.Server.Channels.GetChannels().ToList() )
                 {
                     if (channel is PrivateChannel privateChannel)
                     {
