@@ -29,31 +29,18 @@ namespace OpenTibia.Game.Commands
                     {
                         if (toStackableItem.Count + Count > 100)
                         {
-                            Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, (byte)(toStackableItem.Count + Count - 100) ) );
-
-                            Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) );
+                            return Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) ).Then( () =>
+                            {
+                                return Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, (byte)(toStackableItem.Count + Count - 100) ) );
+                            } );
                         }
-                        else
-                        {
-                            Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + Count) ) );
-                        }
-                    }
-                    else
-                    {
-                        Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, Count) );
+                        
+                        return Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + Count) ) );
                     }
                 }
-                else
-                {
-                    Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, Count) );
-                }
-            }
-            else
-            {
-                Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, Count) );
             }
 
-            return Promise.Completed;
+            return Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, Count) );
         }
     }
 }

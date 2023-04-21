@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -15,9 +16,25 @@ namespace OpenTibia.Game.Commands
         {
             if (Context.Server.ItemFactory.Detach(Item) )
             {
+                if (Item is Container parent)
+                {
+                    foreach (var child in parent.GetItems() )
+                    {
+                        Detach(child);
+                    }
+                }
+
                 Context.Server.QueueForExecution( () =>
                 {
                     Context.Server.ItemFactory.Destroy(Item);
+
+                    if (Item is Container parent)
+                    {
+                        foreach (var child in parent.GetItems() )
+                        {
+                            Destroy(child);
+                        }
+                    }
 
                     switch (Item.Parent)
                     {
@@ -32,13 +49,41 @@ namespace OpenTibia.Game.Commands
                         case Container container:
 
                             return Context.AddCommand(new ContainerRemoveItemCommand(container, Item) );
-                    }
 
-                    return Promise.Completed;
+                        default:
+
+                            throw new NotImplementedException();
+                    }
                 } );
             }
 
             return Promise.Completed;
+        }
+
+        private void Detach(Item parent)
+        {
+            Context.Server.ItemFactory.Detach(parent);
+
+            if (parent is Container container)
+	        {
+		        foreach (var child in container.GetItems() )
+		        {
+                    Detach(child);
+		        }
+	        }
+        }
+
+        private void Destroy(Item parent)
+        {
+            Context.Server.ItemFactory.Destroy(parent);
+
+            if (parent is Container container)
+	        {
+		        foreach (var child in container.GetItems() )
+		        {
+                    Destroy(child);
+		        }
+	        }
         }
     }
 }

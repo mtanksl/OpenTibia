@@ -1373,7 +1373,6 @@
   <ItemGroup>
     <Folder Include="Behaviours\Monster\" />
     <Folder Include="Behaviours\Npc\" />
-    <Folder Include="EventHandlers\PlayerDeath\" />
     <Folder Include="EventHandlers\PlayerLogout\" />
     <Folder Include="EventHandlers\PlayerLogin\" />
   </ItemGroup>
