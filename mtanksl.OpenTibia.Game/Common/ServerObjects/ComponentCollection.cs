@@ -21,11 +21,6 @@ namespace OpenTibia.Game
 
         public T AddComponent<T>(GameObject gameObject, T component) where T : Component
         {
-            if (gameObject.Id == 0)
-            {
-                throw new InvalidOperationException("GameObject is not initialized.");
-            }
-
             if (component.IsDestroyed)
             {
                 throw new InvalidOperationException("Component is destroyed.");
@@ -83,11 +78,6 @@ namespace OpenTibia.Game
 
         public bool RemoveComponent(GameObject gameObject, Component component)
         {
-            if (gameObject.Id == 0)
-            {
-                throw new InvalidOperationException("GameObject is not initialized.");
-            }
-
             List<Component> components;
 
             if (buckets.TryGetValue(gameObject.Id, out components) )
@@ -123,11 +113,6 @@ namespace OpenTibia.Game
 
         public void ClearComponents(GameObject gameObject)
         {
-            if (gameObject.Id == 0)
-            {
-                throw new InvalidOperationException("GameObject is not initialized.");
-            }
-
             List<Component> components;
 
             if (buckets.TryGetValue(gameObject.Id, out components) )
@@ -162,11 +147,6 @@ namespace OpenTibia.Game
 
         public T GetComponent<T>(GameObject gameObject) where T : Component
         {
-            if (gameObject.Id == 0)
-            {
-                throw new InvalidOperationException("GameObject is not initialized.");
-            }
-
             List<Component> components;
 
             if (buckets.TryGetValue(gameObject.Id, out components) )
@@ -181,11 +161,6 @@ namespace OpenTibia.Game
 
         public IEnumerable<T> GetComponents<T>(GameObject gameObject) where T : Component
         {
-            if (gameObject.Id == 0)
-            {
-                throw new InvalidOperationException("GameObject is not initialized.");
-            }
-
             List<Component> components;
 
             if (buckets.TryGetValue(gameObject.Id, out components) )
