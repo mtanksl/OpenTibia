@@ -238,7 +238,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (creatureConditionBehaviour == null)
                 {
-                    return Context.AddCommand(new CreatureAddConditionCommand(command.Player, new ConditionRegeneration(food.Regeneration) ) ).Then( () =>
+                    return Context.AddCommand(new CreatureAddConditionCommand(command.Player, new RegenerationCondition(food.Regeneration) ) ).Then( () =>
                     {
                         return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
 
@@ -248,7 +248,7 @@ namespace OpenTibia.Game.CommandHandlers
                     } );
                 }
 
-                ConditionRegeneration conditionRegeneration = (ConditionRegeneration)creatureConditionBehaviour.Condition;
+                RegenerationCondition conditionRegeneration = (RegenerationCondition)creatureConditionBehaviour.Condition;
 
                 if (conditionRegeneration.AddRegeneration(food.Regeneration) )
                 {
