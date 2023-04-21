@@ -19,13 +19,13 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Player player = Context.Server.GameObjects.GetPlayers()
+            Player observer = Context.Server.GameObjects.GetPlayers()
                 .Where(p => p.Name == Name)
                 .FirstOrDefault();
 
-            if (player != null && player != Player)
+            if (observer != null && observer != Player)
             {
-                Vip vip = Player.Client.VipCollection.AddVip(player.Name);
+                Vip vip = Player.Client.VipCollection.AddVip(observer.Name);
 
                 Context.AddPacket(Player.Client.Connection, new VipOutgoingPacket(vip.Id, vip.Name, false) );
 

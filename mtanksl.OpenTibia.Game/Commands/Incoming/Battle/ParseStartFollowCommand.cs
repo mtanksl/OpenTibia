@@ -22,15 +22,15 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Creature creature = Context.Server.GameObjects.GetCreature(CreatureId);
+            Creature target = Context.Server.GameObjects.GetCreature(CreatureId);
                 
-            if (creature != null && creature != Player)
+            if (target != null && target != Player)
             {
                 PlayerAttackAndFollowBehaviour playerAttackAndFollowBehaviour = Context.Server.Components.GetComponent<PlayerAttackAndFollowBehaviour>(Player);
 
                 if (playerAttackAndFollowBehaviour != null)
                 {
-                    playerAttackAndFollowBehaviour.Follow(creature);
+                    playerAttackAndFollowBehaviour.Follow(target);
                 }
 
                 return Promise.Completed;

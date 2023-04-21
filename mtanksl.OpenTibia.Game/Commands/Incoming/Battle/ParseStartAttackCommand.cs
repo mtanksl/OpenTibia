@@ -24,13 +24,13 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Creature creature = Context.Server.GameObjects.GetCreature(CreatureId);
+            Creature target = Context.Server.GameObjects.GetCreature(CreatureId);
                 
-            if (creature != null && creature != Player)
+            if (target != null && target != Player)
             {
                 PlayerAttackAndFollowBehaviour playerAttackAndFollowBehaviour = Context.Server.Components.GetComponent<PlayerAttackAndFollowBehaviour>(Player);
 
-                if (creature is Npc)
+                if (target is Npc || (target is Player player && player.Vocation == Vocation.Gamemaster) )
                 {
                     if (playerAttackAndFollowBehaviour != null)
                     {
@@ -47,14 +47,14 @@ namespace OpenTibia.Game.Commands
                     {
                         if (playerAttackAndFollowBehaviour != null)
                         {
-                            playerAttackAndFollowBehaviour.Attack(creature);
+                            playerAttackAndFollowBehaviour.Attack(target);
                         }
                     }
                     else
                     {
                         if (playerAttackAndFollowBehaviour != null)
                         {
-                            playerAttackAndFollowBehaviour.AttackAndFollow(creature);
+                            playerAttackAndFollowBehaviour.AttackAndFollow(target);
                         }
                     }
 

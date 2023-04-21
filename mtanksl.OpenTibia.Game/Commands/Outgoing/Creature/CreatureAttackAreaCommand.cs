@@ -142,7 +142,7 @@ namespace OpenTibia.Game.Commands
                         }
                     }
 
-                    foreach (var monster in toTile.GetMonsters().Concat<Creature>(toTile.GetPlayers() ).ToList() )
+                    foreach (var monster in toTile.GetMonsters().Concat<Creature>(toTile.GetPlayers().Where(p => p.Vocation != Vocation.Gamemaster) ).ToList() )
                     {
                         if (Attack != null)
                         {

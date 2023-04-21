@@ -173,7 +173,7 @@ namespace OpenTibia.Game
                                 {
                                     if (ex is PromiseCanceledException)
                                     {
-                                        
+                                        //
                                     }
                                     else
                                     {
@@ -233,7 +233,7 @@ namespace OpenTibia.Game
                                 {
                                     if (ex is PromiseCanceledException)
                                     {
-                                        
+                                        //
                                     }
                                     else
                                     {
@@ -290,9 +290,9 @@ namespace OpenTibia.Game
 
                 List<Promise> promises = new List<Promise>();
 
-                foreach (var player in context.Server.GameObjects.GetPlayers() )
+                foreach (var observer in context.Server.GameObjects.GetPlayers() )
                 {
-                    promises.Add(context.AddCommand(new PlayerDestroyCommand(player) ) );
+                    promises.Add(context.AddCommand(new PlayerDestroyCommand(observer) ) );
                 }
 
                 return Promise.WhenAll(promises.ToArray() );

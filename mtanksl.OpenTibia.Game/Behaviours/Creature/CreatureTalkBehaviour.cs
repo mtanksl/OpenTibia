@@ -3,7 +3,6 @@ using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Events;
 using System;
-using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
@@ -24,13 +23,13 @@ namespace OpenTibia.Game.Components
             }
         }
 
-        private Creature creature;
+        private Creature attacker;
 
         private Guid token;
 
         public override void Start(Server server)
         {
-            creature = (Creature)GameObject;
+            attacker = (Creature)GameObject;
 
             token = Context.Server.EventHandlers.Subscribe<GlobalCreatureThinkEventArgs>( (context, e) =>
             {
@@ -44,20 +43,9 @@ namespace OpenTibia.Game.Components
         {
             if (DateTime.UtcNow > talkCooldown)
             {
-                var target = Context.Server.GameObjects.GetPlayers()
-                    .Where(p => creature.Tile.Position.CanHearSay(p.Tile.Position) )
-                    .FirstOrDefault();
+                talkCooldown = DateTime.UtcNow.AddSeconds(30);
 
-                if (target != null)
-                {
-                    talkCooldown = DateTime.UtcNow.AddSeconds(30);
-
-                    return Context.AddCommand(new ShowTextCommand(creature, TalkType.MonsterSay, Context.Server.Randomization.Take(sentences) ) );
-                }
-                else
-                {
-                    talkCooldown = DateTime.UtcNow.AddSeconds(30);
-                }
+                return Context.AddCommand(new ShowTextCommand(attacker, TalkType.MonsterSay, Context.Server.Randomization.Take(sentences) ) );
             }
 
             return Promise.Completed;

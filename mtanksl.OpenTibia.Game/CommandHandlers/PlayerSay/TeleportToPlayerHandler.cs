@@ -14,13 +14,13 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 string name = command.Message.Substring(6);
 
-                Player player = Context.Server.GameObjects.GetPlayers()
+                Player observer = Context.Server.GameObjects.GetPlayers()
                     .Where(p => p.Name == name)
                     .FirstOrDefault();
 
-                if (player != null && player != command.Player)
+                if (observer != null && observer != command.Player)
                 {
-                    Tile toTile = player.Tile;
+                    Tile toTile = observer.Tile;
 
                     if (toTile != null)
                     {

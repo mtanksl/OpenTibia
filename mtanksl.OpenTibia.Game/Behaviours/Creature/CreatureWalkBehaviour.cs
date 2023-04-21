@@ -3,16 +3,19 @@ using OpenTibia.Game.Commands;
 using OpenTibia.Game.Events;
 using OpenTibia.Game.Strategies;
 using System;
-using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
     public class CreatureWalkBehaviour : Behaviour
     {
+        private IChooseTargetStrategy chooseTargetStrategy;
+
         private IWalkStrategy walkStrategy;
 
-        public CreatureWalkBehaviour(IWalkStrategy walkStrategy)
+        public CreatureWalkBehaviour(IChooseTargetStrategy chooseTargetStrategy, IWalkStrategy walkStrategy)
         {
+            this.chooseTargetStrategy = chooseTargetStrategy;
+
             this.walkStrategy = walkStrategy;
         }
 
@@ -24,7 +27,7 @@ namespace OpenTibia.Game.Components
             }
         }
 
-        private Creature creature;
+        private Creature attacker;
 
         private Tile spawn;
 
@@ -32,7 +35,7 @@ namespace OpenTibia.Game.Components
 
         public override void Start(Server server)
         {
-            creature = (Creature)GameObject;
+            attacker = (Creature)GameObject;
 
             token = Context.Server.EventHandlers.Subscribe<GlobalCreatureThinkEventArgs>( (context, e) =>
             {
@@ -46,24 +49,22 @@ namespace OpenTibia.Game.Components
         {
             if (DateTime.UtcNow > walkCooldown)
             {
-                var target = Context.Server.GameObjects.GetPlayers()
-                    .Where(p => creature.Tile.Position.CanHearSay(p.Tile.Position) )
-                    .FirstOrDefault();
+                var target = chooseTargetStrategy.GetNext(Context.Server, attacker);
 
                 if (target != null)
                 {
                     if (spawn == null)
                     {
-                        spawn = creature.Tile;
+                        spawn = attacker.Tile;
                     }
 
-                    Tile toTile = walkStrategy.GetNext(Context.Server, spawn, creature, target);
+                    Tile toTile = walkStrategy.GetNext(Context.Server, spawn, attacker, target);
 
                     if (toTile != null)
                     {
-                        walkCooldown = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / creature.Speed);
+                        walkCooldown = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / attacker.Speed);
 
-                       return Context.AddCommand(new CreatureUpdateTileCommand(creature, toTile) );
+                       return Context.AddCommand(new CreatureUpdateTileCommand(attacker, toTile) );
                     }
                     else
                     {

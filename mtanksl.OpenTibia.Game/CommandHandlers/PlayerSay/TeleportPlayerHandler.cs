@@ -14,11 +14,11 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 string name = command.Message.Substring(3);
 
-                Player player = Context.Server.GameObjects.GetPlayers()
+                Player observer = Context.Server.GameObjects.GetPlayers()
                     .Where(p => p.Name == name)
                     .FirstOrDefault();
 
-                if (player != null && player != command.Player)
+                if (observer != null && observer != command.Player)
                 {
                     Tile toTile = command.Player.Tile;
 
@@ -26,7 +26,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) ).Then( () =>
                         {
-                            return Context.AddCommand(new CreatureUpdateTileCommand(player, toTile) );
+                            return Context.AddCommand(new CreatureUpdateTileCommand(observer, toTile) );
                         } );
                     }
                 }

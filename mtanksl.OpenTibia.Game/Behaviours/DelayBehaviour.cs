@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Components
             {
                 if (ex is PromiseCanceledException)
                 {
-                                
+                    //
                 }
                 else
                 {
