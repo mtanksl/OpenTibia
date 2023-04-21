@@ -49,11 +49,9 @@ namespace OpenTibia.Game.Commands
                         case Container container:
 
                             return Context.AddCommand(new ContainerRemoveItemCommand(container, Item) );
-
-                        default:
-
-                            throw new NotImplementedException();
                     }
+
+                    return Promise.Completed;
                 } );
             }
 
