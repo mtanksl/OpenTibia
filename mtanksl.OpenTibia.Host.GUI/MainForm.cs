@@ -18,7 +18,7 @@ namespace mtanksl.OpenTibia.Host.GUI
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if (!File.Exists("data\\database.db"))
+            if (!File.Exists("data\\database.db") )
             {
                 File.Copy("data\\template.db", "data\\database.db");
             }

@@ -242,7 +242,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
 
-                    } ).Then(() =>
+                    } ).Then( () =>
                     {
                         return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, food.Sound) );
                     } );
@@ -252,7 +252,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (conditionRegeneration.AddRegenerationTick(food.Regeneration) )
                 {
-                    return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(() =>
+                    return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                     {
                         return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, food.Sound) );
                     } );

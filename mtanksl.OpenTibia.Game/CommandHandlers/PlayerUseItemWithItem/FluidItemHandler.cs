@@ -51,7 +51,7 @@ namespace OpenTibia.Game.CommandHandlers
                             return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Lava) );
                         } );
                     }
-                    else if (distillingMachines.Contains(command.ToItem.Metadata.OpenTibiaId))
+                    else if (distillingMachines.Contains(command.ToItem.Metadata.OpenTibiaId) )
                     {
                         return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Rum) );
                     }

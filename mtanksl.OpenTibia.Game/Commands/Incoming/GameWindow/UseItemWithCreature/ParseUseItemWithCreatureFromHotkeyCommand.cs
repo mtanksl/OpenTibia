@@ -56,7 +56,7 @@ namespace OpenTibia.Game.Commands
         {
             int count = 0;
 
-            foreach (Item content in parent.GetContents())
+            foreach (Item content in parent.GetContents() )
             {
                 if (content is Container container)
                 {

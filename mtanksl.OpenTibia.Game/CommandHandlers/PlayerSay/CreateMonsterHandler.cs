@@ -23,7 +23,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         if (moster != null)
                         {
-                            return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer));
+                            return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) );
                         }
 
                         return Context.AddCommand(new ShowMagicEffectCommand(fromTile.Position, MagicEffectType.Puff) );                     
