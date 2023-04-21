@@ -4,11 +4,11 @@ using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ConditionOutfit : Condition
+    public class OutfitCondition : Condition
     {
         private DelayBehaviour delayBehaviour;
 
-        public ConditionOutfit(Outfit outfit, int durationInMilliseconds) : base(ConditionSpecialCondition.Outfit)
+        public OutfitCondition(Outfit outfit, int durationInMilliseconds) : base(ConditionSpecialCondition.Outfit)
         {
             Outfit = outfit;
 

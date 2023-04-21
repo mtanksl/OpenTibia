@@ -3,11 +3,11 @@ using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ConditionMagicShield : Condition
+    public class MagicShieldCondition : Condition
     {
         private DelayBehaviour delayBehaviour;
 
-        public ConditionMagicShield(int durationInMilliseconds) : base(ConditionSpecialCondition.MagicShield)
+        public MagicShieldCondition(int durationInMilliseconds) : base(ConditionSpecialCondition.MagicShield)
         {
             DurationInMilliseconds = durationInMilliseconds;
         }

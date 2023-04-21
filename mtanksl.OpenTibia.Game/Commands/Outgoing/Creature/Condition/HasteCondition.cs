@@ -3,11 +3,11 @@ using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ConditionHaste : Condition
+    public class HasteCondition : Condition
     {
         private DelayBehaviour delayBehaviour;
 
-        public ConditionHaste(ushort speed, int durationInMilliseconds) : base(ConditionSpecialCondition.Haste)
+        public HasteCondition(ushort speed, int durationInMilliseconds) : base(ConditionSpecialCondition.Haste)
         {
             Speed = speed;
 

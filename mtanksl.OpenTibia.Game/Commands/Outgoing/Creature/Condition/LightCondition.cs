@@ -4,11 +4,11 @@ using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ConditionLight : Condition
+    public class LightCondition : Condition
     {
         private DelayBehaviour delayBehaviour;
 
-        public ConditionLight(Light light, int durationInMilliseconds) : base(ConditionSpecialCondition.Light)
+        public LightCondition(Light light, int durationInMilliseconds) : base(ConditionSpecialCondition.Light)
         {
             Light = light;
 

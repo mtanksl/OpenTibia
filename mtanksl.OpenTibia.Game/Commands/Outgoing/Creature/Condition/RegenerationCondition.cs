@@ -5,11 +5,11 @@ using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ConditionRegeneration : Condition
+    public class RegenerationCondition : Condition
     {
         private DelayBehaviour delayBehaviour;
 
-        public ConditionRegeneration(int regeneration) : base(ConditionSpecialCondition.Regeneration)
+        public RegenerationCondition(int regeneration) : base(ConditionSpecialCondition.Regeneration)
         {
             this.regeneration = regeneration;
         }

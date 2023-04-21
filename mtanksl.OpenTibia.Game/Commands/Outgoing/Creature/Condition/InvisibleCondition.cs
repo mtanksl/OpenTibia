@@ -2,9 +2,9 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class ConditionInvisible : ConditionOutfit
+    public class InvisibleCondition : OutfitCondition
     {
-        public ConditionInvisible(int durationInMilliseconds) : base(Outfit.Invisible, durationInMilliseconds)
+        public InvisibleCondition(int durationInMilliseconds) : base(Outfit.Invisible, durationInMilliseconds)
         {
 
         }

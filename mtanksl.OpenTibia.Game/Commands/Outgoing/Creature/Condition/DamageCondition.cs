@@ -4,11 +4,11 @@ using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ConditionDamage : Condition
+    public class DamageCondition : Condition
     {
         private DelayBehaviour delayBehaviour;
 
-        public ConditionDamage(SpecialCondition specialCondition, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int[] damages, int intervalInMilliseconds) : base( (ConditionSpecialCondition)specialCondition)
+        public DamageCondition(SpecialCondition specialCondition, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int[] damages, int intervalInMilliseconds) : base( (ConditionSpecialCondition)specialCondition)
         {
             SpecialCondition = specialCondition;
 
