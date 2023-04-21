@@ -23,6 +23,46 @@ namespace OpenTibia.Game.Commands
             Attack = attack;
         }
 
+        public CreatureAttackAreaCommand(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count)
+        {
+            Attacker = attacker;
+
+            Beam = beam;
+
+            Center = center;
+
+            Area = area;
+
+            ProjectileType = projectileType;
+
+            MagicEffectType = magicEffectType;
+
+            OpenTibiaId = openTibiaId;
+
+            Count = count;
+        }
+
+        public CreatureAttackAreaCommand(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, Condition condition)
+        {
+            Attacker = attacker;
+
+            Beam = beam;
+
+            Center = center;
+
+            Area = area;
+
+            ProjectileType = projectileType;
+
+            MagicEffectType = magicEffectType;
+
+            OpenTibiaId = openTibiaId;
+
+            Count = count;
+
+            Condition = condition;
+        }
+
         public Creature Attacker { get; set; }
 
         public bool Beam { get; set; }
@@ -35,7 +75,13 @@ namespace OpenTibia.Game.Commands
 
         public MagicEffectType? MagicEffectType { get; set; }
 
-        public Attack Attack { get; set; }
+        public ushort? OpenTibiaId { get; set; }
+
+        public byte? Count { get; set; }
+
+        public Attack? Attack { get; set; }
+
+        public Condition? Condition { get; set; }
 
         public override async Promise Execute()
         {
@@ -83,14 +129,30 @@ namespace OpenTibia.Game.Commands
 
                 if (toTile != null)
                 {
-                    foreach (var monster in toTile.GetMonsters().ToList() )
+                    if (OpenTibiaId != null)
                     {
-                        await Context.Current.AddCommand(new CreatureAttackCreatureCommand(Attacker, monster, Attack) );
+                        if ( !toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                        {
+                            await Context.Current.AddCommand(new TileCreateItemCommand(toTile, OpenTibiaId.Value, Count.Value) ).Then( (item) =>
+                            {
+                                _ = Context.Current.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
+
+                                return Promise.Completed;
+                            } );
+                        }
                     }
 
-                    foreach (var player in toTile.GetPlayers().ToList() )
+                    foreach (var monster in toTile.GetMonsters().Concat<Creature>(toTile.GetPlayers() ).ToList() )
                     {
-                        await Context.Current.AddCommand(new CreatureAttackCreatureCommand(Attacker, player, Attack) );
+                        if (Attack != null)
+                        {
+                            await Context.Current.AddCommand(new CreatureAttackCreatureCommand(Attacker, monster, Attack) );
+                        }
+
+                        if (Condition != null)
+                        {
+                            await Context.Current.AddCommand(new CreatureAddConditionCommand(monster, Condition) );
+                        }
                     }
                 }
             }
