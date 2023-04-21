@@ -1,5 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 
 namespace OpenTibia.Game.Commands
 {
@@ -55,6 +57,10 @@ namespace OpenTibia.Game.Commands
                     promises.Add(Context.AddCommand(new ContainerRemoveItemCommand(fromContainer, Item) ) );
 
                     break;
+
+                default:
+
+                    throw new NotImplementedException();
             }
 
             switch (ToContainer)
@@ -76,6 +82,10 @@ namespace OpenTibia.Game.Commands
                     promises.Add(Context.AddCommand(new ContainerAddItemCommand(toContainer, Item) ) );
                         
                     break;
+
+                default:
+
+                    throw new NotImplementedException();
             }
 
             return Promise.WhenAll(promises.ToArray() );

@@ -203,6 +203,10 @@ namespace OpenTibia.Game.Commands
                         }
 
                         break;
+
+                    default:
+
+                        throw new NotImplementedException();
                 }
             }
 

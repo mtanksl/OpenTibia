@@ -65,6 +65,10 @@ namespace OpenTibia.Game.CommandHandlers
                         }
 
                         break;
+
+                    default:
+
+                        throw new NotImplementedException();
                 }
 
                 return next().Then( () =>
@@ -121,6 +125,10 @@ namespace OpenTibia.Game.CommandHandlers
                             }
 
                             break;
+
+                        default:
+
+                            throw new NotImplementedException();
                     }
 
                     foreach (var observer in isNextFrom.Except(isNextTo) )

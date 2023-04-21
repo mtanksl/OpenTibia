@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -58,7 +59,11 @@ namespace OpenTibia.Game.Commands
                         } ).Then( () =>
                         {
                             return Promise.FromResult(toItem);
-                        } );                 
+                        } );
+
+                    default:
+
+                        throw new NotImplementedException();
                 }
             }
 

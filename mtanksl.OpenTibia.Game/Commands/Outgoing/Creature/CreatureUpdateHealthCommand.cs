@@ -67,6 +67,10 @@ namespace OpenTibia.Game.Commands
                         case Player player:
 
                             return Context.AddCommand(new PlayerDestroyCommand(player) );
+
+                        default:
+
+                            throw new NotImplementedException();
                     }
                 }
             }
