@@ -33,17 +33,21 @@ namespace OpenTibia.Game.CommandHandlers
 
                             if (toStackableItem.Count + command.Count > 100)
                             {
-                                Context.AddCommand(new TileCreateItemCommand(toTile, fromStackableItem.Metadata.OpenTibiaId, (byte)(toStackableItem.Count + command.Count - 100) ) );
+                                return Context.AddCommand(new TileCreateItemCommand(toTile, fromStackableItem.Metadata.OpenTibiaId, (byte)(toStackableItem.Count + command.Count - 100) ) ).Then( (item) =>
+                                {
+                                    return Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) );
 
-                                Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) );
-
-                                Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                } ).Then( () =>
+                                {
+                                    return Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                } );
                             }
                             else
                             {
-                                Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + command.Count) ) );
-
-                                Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                return Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + command.Count) ) ).Then( () =>
+                                {
+                                    return Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                } );
                             }
                         }
                         else
@@ -56,9 +60,10 @@ namespace OpenTibia.Game.CommandHandlers
                             }
                             else
                             {
-                                Context.AddCommand(new TileCreateItemCommand(toTile, fromStackableItem.Metadata.OpenTibiaId, command.Count) );
-
-                                Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                return Context.AddCommand(new TileCreateItemCommand(toTile, fromStackableItem.Metadata.OpenTibiaId, command.Count) ).Then( (item) =>
+                                {
+                                    return Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                } );
                             }
                         }
                     }
@@ -96,15 +101,17 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 byte count = (byte)(100 - toStackableItem.Count);
 
-                                Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) );
-
-                                Context.AddCommand(new ItemDecrementCommand(fromStackableItem, count) );
+                                return Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) ).Then( () =>
+                                {
+                                    return Context.AddCommand(new ItemDecrementCommand(fromStackableItem, count) );
+                                } );
                             }
                             else
                             {
-                                Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + command.Count) ) );
-
-                                Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                return Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + command.Count) ) ).Then( () =>
+                                {
+                                    return Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                } );
                             }
                         }
                         else
@@ -119,9 +126,10 @@ namespace OpenTibia.Game.CommandHandlers
                                 }
                                 else
                                 {
-                                    Context.AddCommand(new InventoryCreateItemCommand(toInventory, command.ToIndex, fromStackableItem.Metadata.OpenTibiaId, command.Count) );
-
-                                    Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                    return Context.AddCommand(new InventoryCreateItemCommand(toInventory, command.ToIndex, fromStackableItem.Metadata.OpenTibiaId, command.Count) ).Then( (item) =>
+                                    {
+                                        return Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                    } );
                                 }
                             }
                             else
@@ -175,26 +183,31 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 if (toContainer.Count < toContainer.Metadata.Capacity)
                                 {
-                                    Context.AddCommand(new ContainerCreateItemCommand(toContainer, fromStackableItem.Metadata.OpenTibiaId, (byte)(toStackableItem.Count + command.Count - 100) ) );
+                                    return Context.AddCommand(new ContainerCreateItemCommand(toContainer, fromStackableItem.Metadata.OpenTibiaId, (byte)(toStackableItem.Count + command.Count - 100) ) ).Then( (item) =>
+                                    {
+                                        return Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) );
 
-                                    Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) );
-
-                                    Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                    } ).Then( () =>
+                                    {
+                                        return Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                    } );
                                 }
                                 else
                                 {
                                     byte count = (byte)(100 - toStackableItem.Count);
 
-                                    Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) );
-
-                                    Context.AddCommand(new ItemDecrementCommand(fromStackableItem, count) );
+                                    return Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) ).Then( () =>
+                                    {
+                                        return Context.AddCommand(new ItemDecrementCommand(fromStackableItem, count) );
+                                    } );
                                 }
                             }
                             else
                             {
-                                Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + command.Count) ) );
-
-                                Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                return Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + command.Count) ) ).Then( () =>
+                                {
+                                    return Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                } );
                             }
                         }
                         else
@@ -209,9 +222,10 @@ namespace OpenTibia.Game.CommandHandlers
                                 }
                                 else
                                 {
-                                    Context.AddCommand(new ContainerCreateItemCommand(toContainer, fromStackableItem.Metadata.OpenTibiaId, command.Count) );
-
-                                    Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                    return Context.AddCommand(new ContainerCreateItemCommand(toContainer, fromStackableItem.Metadata.OpenTibiaId, command.Count) ).Then( (item) =>
+                                    {
+                                        return Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
+                                    } );
                                 }
                             }
                             else

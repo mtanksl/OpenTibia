@@ -28,10 +28,10 @@ namespace OpenTibia.Game.Commands
                     if (Tile.TopItem is StackableItem toStackableItem)
                     {
                         if (toStackableItem.Count + Count > 100)
-                        {
-                            return Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) ).Then( () =>
+                        { 
+                            return Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, (byte)(toStackableItem.Count + Count - 100) ) ).Then( (item) =>
                             {
-                                return Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, (byte)(toStackableItem.Count + Count - 100) ) );
+                                return Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) );
                             } );
                         }
                         
