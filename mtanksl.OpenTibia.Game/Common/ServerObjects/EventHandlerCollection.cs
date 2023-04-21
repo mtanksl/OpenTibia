@@ -41,7 +41,7 @@ namespace OpenTibia.Game
             return eventHandler.Token;
         }
 
-        public void Unsubscribe<T>(Guid token) where T : GameEventArgs
+        public bool Unsubscribe<T>(Guid token) where T : GameEventArgs
         {
             Dictionary<Guid, IEventHandler> eventHandlers;
 
@@ -61,9 +61,13 @@ namespace OpenTibia.Game
                         {
                             types.Remove(typeof(T) );
                         }
+
+                        return true;
                     }
                 }
             }
+
+            return false;
         }
 
         public IEnumerable<IEventHandler> GetEventHandlers(GameEventArgs e)

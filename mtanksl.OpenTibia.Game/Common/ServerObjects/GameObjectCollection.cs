@@ -66,7 +66,7 @@ namespace OpenTibia.Game
             }
         }
 
-        public void RemoveGameObject(GameObject gameObject)
+        public bool RemoveGameObject(GameObject gameObject)
         {
             if ( !gameObject.IsDestroyed)
             {
@@ -93,7 +93,11 @@ namespace OpenTibia.Game
                 {
                     buckets[ typeof(Item) ].Remove(gameObject.Id);
                 }
+
+                return true;
             }
+
+            return false;
         }
 
         private T GetGameObject<T>(uint id) where T : GameObject

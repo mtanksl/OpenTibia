@@ -250,7 +250,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 RegenerationCondition conditionRegeneration = (RegenerationCondition)creatureConditionBehaviour.Condition;
 
-                if (conditionRegeneration.AddRegeneration(food.Regeneration) )
+                if (conditionRegeneration.AddRegenerationTick(food.Regeneration) )
                 {
                     return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(() =>
                     {

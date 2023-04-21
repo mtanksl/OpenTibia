@@ -92,11 +92,14 @@ namespace OpenTibia.Game
             return monster;
         }
 
+        public bool Detach(Monster monster)
+        {
+            return server.GameObjects.RemoveGameObject(monster);
+        }
+
         public void Destroy(Monster monster)
         {
             server.Components.ClearComponents(monster);
-
-            server.GameObjects.RemoveGameObject(monster);
         }
     }
 }

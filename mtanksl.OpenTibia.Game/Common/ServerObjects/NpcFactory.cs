@@ -55,11 +55,14 @@ namespace OpenTibia.Game
             return npc;
         }
 
+        public bool Detach(Npc npc)
+        {
+            return server.GameObjects.RemoveGameObject(npc);
+        }
+
         public void Destroy(Npc npc)
         {
             server.Components.ClearComponents(npc);
-
-            server.GameObjects.RemoveGameObject(npc);
         }
     }
 }

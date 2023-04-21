@@ -111,11 +111,14 @@ namespace OpenTibia.Game
             return player;
         }
 
+        public bool Detach(Player player)
+        {
+            return server.GameObjects.RemoveGameObject(player);
+        }
+
         public void Destroy(Player player)
         {
             server.Components.ClearComponents(player);
-
-            server.GameObjects.RemoveGameObject(player);
         }
     }
 }

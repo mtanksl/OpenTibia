@@ -227,10 +227,13 @@ namespace OpenTibia.Game
             return item;
         }
 
+        public bool Detach(Item item)
+        {
+            return server.GameObjects.RemoveGameObject(item);
+        }
+
         public void Destroy(Item item)
         {
-            server.GameObjects.RemoveGameObject(item);
-
             server.Components.ClearComponents(item);
         }
     }

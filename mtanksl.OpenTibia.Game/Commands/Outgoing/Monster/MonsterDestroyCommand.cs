@@ -13,12 +13,17 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Context.AddCommand(new TileRemoveCreatureCommand(Monster.Tile, Monster) ).Then( () =>
+            if (Context.Server.MonsterFactory.Detach(Monster) )
             {
-                Context.Server.MonsterFactory.Destroy(Monster);
+                Context.Server.QueueForExecution( () =>
+                {
+                    Context.Server.MonsterFactory.Destroy(Monster);
 
-                return Promise.Completed;
-            } );
+                    return Context.AddCommand(new TileRemoveCreatureCommand(Monster.Tile, Monster) );
+                } );
+            }
+
+            return Promise.Completed;
         }
     }
 }

@@ -9,29 +9,29 @@ namespace OpenTibia.Game.Commands
     {
         private DelayBehaviour delayBehaviour;
 
-        public RegenerationCondition(int regeneration) : base(ConditionSpecialCondition.Regeneration)
+        public RegenerationCondition(int regenerationTick) : base(ConditionSpecialCondition.Regeneration)
         {
-            this.regeneration = regeneration;
+            this.regenerationTick = regenerationTick;
         }
 
-        private int regeneration;
+        private int regenerationTick;
 
-        public int Regeneration
+        public int RegenerationTick
         {
             get
             {
-                return regeneration;
+                return regenerationTick;
             }
         }
 
-        public bool AddRegeneration(int regeneration)
+        public bool AddRegenerationTick(int regenerationTick)
         {
-            if (this.regeneration + regeneration > 20 * 60) 
+            if (this.regenerationTick + regenerationTick > 20 * 60) 
             {
                 return false;
             }
 
-            this.regeneration += regeneration;
+            this.regenerationTick += regenerationTick;
 
             return true;
         }
@@ -148,17 +148,13 @@ namespace OpenTibia.Game.Commands
 
             int manaTick = manaDelayInSeconds;
 
-            while (regeneration > 0)
+            while (regenerationTick > 0)
             {
                 delayBehaviour = Context.Current.Server.Components.AddComponent(player, new DelayBehaviour(1000) );
 
                 await delayBehaviour.Promise;
 
-                regeneration--;
-
                 healthTick--;
-
-                manaTick--;
 
                 if (healthTick == 0)
                 {
@@ -167,12 +163,16 @@ namespace OpenTibia.Game.Commands
                     await Context.Current.AddCommand(new CreatureUpdateHealthCommand(player, player.Health + health) );
                 }
 
+                manaTick--;
+
                 if (manaTick == 0)
                 {
                     manaTick = manaDelayInSeconds;
 
                     await Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana + mana) );
                 }
+
+                regenerationTick--;
             }
         }
 

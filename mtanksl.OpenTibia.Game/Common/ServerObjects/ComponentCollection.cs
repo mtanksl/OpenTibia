@@ -26,6 +26,11 @@ namespace OpenTibia.Game
                 throw new InvalidOperationException("GameObject is not initialized.");
             }
 
+            if (component.IsDestroyed)
+            {
+                throw new InvalidOperationException("Component is destroyed.");
+            }
+
             List<Component> components;
 
             if ( !buckets.TryGetValue(gameObject.Id, out components) )
@@ -35,36 +40,40 @@ namespace OpenTibia.Game
                 buckets.Add(gameObject.Id, components);
             }
 
-            {
-                if (component is Behaviour behaviour)
-                {
-                    if (behaviour.IsUnique)
-                    {
-                        foreach (var oldComponent in components.OfType<T>().ToList() )
-                        {
-                            if (components.Remove(oldComponent) )
-                            {
-                                if (oldComponent is Behaviour oldBehaviour)
-                                {
-                                    oldBehaviour.Stop(server);
-                                }
+            Behaviour behaviour = component as Behaviour;
 
-                                oldComponent.GameObject = null;
+            if (behaviour != null)
+            {
+                if (behaviour.IsUnique)
+                {
+                    foreach (var _component in components.OfType<T>().ToList() )
+                    {
+                        if ( !_component.IsDestroyed)
+                        {
+                            _component.IsDestroyed = true;
+
+                            components.Remove(_component);
+                        
+                            Behaviour _behaviour = _component as Behaviour;
+
+                            if (_behaviour != null)
+                            {
+                                _behaviour.Stop(server);
                             }
+
+                            _component.GameObject = null;
                         }
                     }
                 }
             }
 
+            components.Add(component);
+
+            component.GameObject = gameObject;
+
+            if (behaviour != null)
             {
-                components.Add(component);
-
-                component.GameObject = gameObject;
-
-                if (component is Behaviour behaviour)
-                {
-                    behaviour.Start(server);
-                }
+                behaviour.Start(server);
             }
 
             return component;
@@ -83,9 +92,15 @@ namespace OpenTibia.Game
 
             if (buckets.TryGetValue(gameObject.Id, out components) )
             {
-                if (components.Remove(component) )
+                if ( !component.IsDestroyed)
                 {
-                    if (component is Behaviour behaviour)
+                    component.IsDestroyed = true;
+
+                    components.Remove(component);
+                
+                    Behaviour behaviour = component as Behaviour;
+
+                    if (behaviour != null)
                     {
                         behaviour.Stop(server);
                     }
@@ -119,9 +134,15 @@ namespace OpenTibia.Game
             {
                 foreach (var component in components.ToList() )
                 {
-                    if (components.Remove(component) )
+                    if ( !component.IsDestroyed)
                     {
-                        if (component is Behaviour behaviour)
+                        component.IsDestroyed = true;
+
+                        components.Remove(component);
+
+                        Behaviour behaviour = component as Behaviour;
+
+                        if (behaviour != null)
                         {
                             behaviour.Stop(server);
                         }
@@ -150,7 +171,7 @@ namespace OpenTibia.Game
 
             if (buckets.TryGetValue(gameObject.Id, out components) )
             {
-                return components.OfType<T>().Where(c => c.GameObject != null).FirstOrDefault();
+                return components.OfType<T>().Where(component => !component.IsDestroyed).FirstOrDefault();
             }
 
             return default(T);
@@ -171,7 +192,7 @@ namespace OpenTibia.Game
             {
                 foreach (var component in components.OfType<T>().ToList() ) 
                 {
-                    if (component.GameObject != null)
+                    if ( !component.IsDestroyed)
                     {
                         yield return component;
                     }

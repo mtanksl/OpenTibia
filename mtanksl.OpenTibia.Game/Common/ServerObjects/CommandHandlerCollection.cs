@@ -74,7 +74,7 @@ namespace OpenTibia.Game
             return commandResultHandler.Token;
         }
 
-        public void Remove<T>(Guid token) where T : Command
+        public bool Remove<T>(Guid token) where T : Command
         {
             var type = typeof( ICommandHandler<> ).MakeGenericType(typeof(T) );
 
@@ -98,12 +98,16 @@ namespace OpenTibia.Game
                         {
                             types.Remove(type);
                         }
+
+                        return true;
                     }
                 }               
             }
+
+            return false;
         }
 
-        public void Remove<TResult, T>(Guid token) where T : CommandResult<TResult>
+        public bool Remove<TResult, T>(Guid token) where T : CommandResult<TResult>
         {
             var type = typeof(ICommandResultHandler<,> ).MakeGenericType(typeof(TResult), typeof(T) );
 
@@ -127,9 +131,13 @@ namespace OpenTibia.Game
                         {
                             types.Remove(type);
                         }
+
+                        return true;
                     }
                 }
             }
+
+            return false;
         }
 
         public IEnumerable<ICommandHandler> GetCommandHandlers(Command command)
