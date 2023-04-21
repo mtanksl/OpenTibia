@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace mtanksl.OpenTibia.Host.GUI
@@ -28,7 +29,7 @@ namespace mtanksl.OpenTibia.Host.GUI
             Process.Start("explorer.exe", e.LinkText);
         }
 
-        private void startToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void startToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (server != null)
             {
@@ -37,24 +38,36 @@ namespace mtanksl.OpenTibia.Host.GUI
                 return;
             }
 
-            server = new Server(7171, 7172);
+            try
+            {
+                Enabled = false;
+
+                await Task.Run( () =>
+                {
+                    server = new Server(7171, 7172);
 #if DEBUG
-            server.Logger = new Logger(new RichTextboxLoggerProvider(richTextBox1), LogLevel.Debug);
+                    server.Logger = new Logger(new RichTextboxLoggerProvider(richTextBox1), LogLevel.Debug);
 #else
-            server.Logger = new Logger(new RichTextboxLoggerProvider(richTextBox1), LogLevel.Information);
+                    server.Logger = new Logger(new RichTextboxLoggerProvider(richTextBox1), LogLevel.Information);
 #endif
-            server.Start();
+                    server.Start();
+                } );
+            }
+            finally
+            {
+                Enabled = true;
 
-            startToolStripMenuItem.Enabled = false;
+                startToolStripMenuItem.Enabled = false;
 
-            restartToolStripMenuItem.Enabled = true;
+                restartToolStripMenuItem.Enabled = true;
 
-            stopToolStripMenuItem.Enabled = true;
+                stopToolStripMenuItem.Enabled = true;
 
-            kickAllToolStripMenuItem.Enabled = true;
+                kickAllToolStripMenuItem.Enabled = true;
+            }
         }
 
-        private void restartToolStripMenuItem_Click(object sender, EventArgs e)
+        private async void restartToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (server == null)
             {
@@ -63,67 +76,11 @@ namespace mtanksl.OpenTibia.Host.GUI
                 return;
             }
 
-            server.KickAll();
-
-            server.Stop();
-
-            server.Dispose();
-
-            server = null;
-
-
-            server = new Server(7171, 7172);
-#if DEBUG
-            server.Logger = new Logger(new RichTextboxLoggerProvider(richTextBox1), LogLevel.Debug);
-#else
-            server.Logger = new Logger(new RichTextboxLoggerProvider(richTextBox1), LogLevel.Information);
-#endif
-            server.Start();
-        }
-
-        private void stopToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (server == null)
+            try
             {
-                MessageBox.Show("Server is not running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Enabled = false;
 
-                return;
-            }
-
-            server.KickAll();
-
-            server.Stop();
-
-            server.Dispose();
-
-            server = null;
-
-            startToolStripMenuItem.Enabled = true;
-
-            restartToolStripMenuItem.Enabled = false;
-
-            stopToolStripMenuItem.Enabled = false;
-
-            kickAllToolStripMenuItem.Enabled = false;
-        }
-
-        private void kickAllToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (server == null)
-            {
-                MessageBox.Show("Server is not running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                return;
-            }
-
-            server.KickAll();
-        }
-
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (server != null)
-            {
-                if (MessageBox.Show("Server is running, do you really want to shutdown?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
+                await Task.Run( () =>
                 {
                     server.KickAll();
 
@@ -133,13 +90,116 @@ namespace mtanksl.OpenTibia.Host.GUI
 
                     server = null;
 
-                    startToolStripMenuItem.Enabled = true;
+                    server = new Server(7171, 7172);
+#if DEBUG
+                    server.Logger = new Logger(new RichTextboxLoggerProvider(richTextBox1), LogLevel.Debug);
+#else
+                    server.Logger = new Logger(new RichTextboxLoggerProvider(richTextBox1), LogLevel.Information);
+#endif
+                    server.Start();
+                } );
+            }
+            finally
+            {
+                Enabled = true;
+            }
+        }
 
-                    restartToolStripMenuItem.Enabled = false;
+        private async void stopToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (server == null)
+            {
+                MessageBox.Show("Server is not running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
-                    stopToolStripMenuItem.Enabled = false;
+                return;
+            }
 
-                    kickAllToolStripMenuItem.Enabled = false;
+            try
+            {
+                Enabled = false;
+
+                await Task.Run( () =>
+                {
+                    server.KickAll();
+
+                    server.Stop();
+
+                    server.Dispose();
+
+                    server = null;
+                } );
+            }
+            finally
+            {
+                Enabled = true;
+
+                startToolStripMenuItem.Enabled = true;
+
+                restartToolStripMenuItem.Enabled = false;
+
+                stopToolStripMenuItem.Enabled = false;
+
+                kickAllToolStripMenuItem.Enabled = false;
+            }
+        }
+
+        private async void kickAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (server == null)
+            {
+                MessageBox.Show("Server is not running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            try
+            {
+                Enabled = false;
+
+                await Task.Run( () =>
+                {
+                    server.KickAll();
+                } );
+            }
+            finally
+            {
+                Enabled = true;
+            }
+        }
+
+        private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (server != null)
+            {
+                if (MessageBox.Show("Server is running, do you really want to shutdown?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    try
+                    {
+                        Enabled = false;
+
+                        await Task.Run( () =>
+                        {
+                            server.KickAll();
+
+                            server.Stop();
+
+                            server.Dispose();
+
+                            server = null;
+                        } );
+                    }
+                    finally
+                    {
+                        Enabled = true;
+
+                        startToolStripMenuItem.Enabled = true;
+
+                        restartToolStripMenuItem.Enabled = false;
+
+                        stopToolStripMenuItem.Enabled = false;
+
+                        kickAllToolStripMenuItem.Enabled = false;
+                    }                                      
                 }
                 else
                 {
