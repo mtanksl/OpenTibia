@@ -15,22 +15,26 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     foreach (var pair in player.Client.ContainerCollection.GetIndexedContainers() )
                     {
-                        IContainer root = pair.Value.Root();
-
-                        if (root == null)
+                        switch (pair.Value.Root() )
                         {
-                            player.Client.ContainerCollection.CloseContainer(pair.Key);
+                            case null:
 
-                            Context.AddPacket(player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
-                        }
-                        else if (root is Tile tile)
-                        {
-                            if ( !command.ToTile.Position.IsNextTo(tile.Position) )
-                            {
                                 player.Client.ContainerCollection.CloseContainer(pair.Key);
 
                                 Context.AddPacket(player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
-                            }
+
+                                break;
+
+                            case Tile tile:
+
+                                if ( !command.ToTile.Position.IsNextTo(tile.Position) )
+                                {
+                                    player.Client.ContainerCollection.CloseContainer(pair.Key);
+
+                                    Context.AddPacket(player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                                }
+
+                                break;
                         }
                     }
 

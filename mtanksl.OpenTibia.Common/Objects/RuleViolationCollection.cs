@@ -24,13 +24,6 @@ namespace OpenTibia.Common.Objects
                 .FirstOrDefault();
         }
         
-        public RuleViolation GetRuleViolationByAssignee(Player assignee)
-        {
-            return GetRuleViolations()
-                .Where(r => r.Assignee == assignee)
-                .FirstOrDefault();
-        }
-
         public IEnumerable<RuleViolation> GetRuleViolations()
         {
             return ruleViolations;

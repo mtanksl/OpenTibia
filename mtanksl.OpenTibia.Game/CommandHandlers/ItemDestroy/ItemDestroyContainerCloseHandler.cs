@@ -11,7 +11,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return next().Then( () =>
             {
-                
+                Close(command.Item);
 
                 return Promise.Completed;
             } );
@@ -23,15 +23,20 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 foreach (var observer in container.GetPlayers() )
                 {
-                    foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers())
+                    foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
                     {
                         if (pair.Value == container)
                         {
                             observer.Client.ContainerCollection.CloseContainer(pair.Key);
 
-                            Context.AddPacket(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key));
+                            Context.AddPacket(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
                         }
                     }
+                }
+
+                foreach (var child in container.GetItems() )
+                {
+                    Close(child);
                 }
             }
         }

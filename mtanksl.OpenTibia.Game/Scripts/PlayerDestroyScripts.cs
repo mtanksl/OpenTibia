@@ -9,6 +9,10 @@ namespace OpenTibia.Game.Scripts
             server.CommandHandlers.Add(new PlayerDestroyContainerCloseHandler() );
 
             server.CommandHandlers.Add(new PlayerDestroyWindowCloseHandler() );
+
+            server.CommandHandlers.Add(new PlayerDestroyChannelCloseHandler() );
+
+            server.CommandHandlers.Add(new PlayerDestroyRuleViolationCloseHandler() );
         }
 
         public override void Stop(Server server)
