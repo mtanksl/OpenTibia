@@ -21,5 +21,7 @@ namespace OpenTibia.Common.Objects
         ChaseMode ChaseMode { get; set; }
 
         SafeMode SafeMode { get; set; }
+
+        bool TryGetIndex(IContent content, out byte _index);
     }
 }

@@ -88,19 +88,19 @@ namespace OpenTibia.Common.Objects
             throw new InvalidOperationException("Content not found.");
         }
 
-        public bool TryGetIndex(IContent content, out byte i)
+        public bool TryGetIndex(IContent content, out byte _index)
         {
             for (byte index = 0; index < contents.Count; index++)
             {
                 if (contents[index] == content)
                 {
-                    i = index;
+                    _index = index;
 
                     return true;
                 }
             }
 
-            i = 0;
+            _index = 0;
 
             return false;
         }

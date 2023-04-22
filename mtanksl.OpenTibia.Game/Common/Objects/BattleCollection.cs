@@ -39,7 +39,14 @@ namespace OpenTibia.Common.Objects
                         {
                             Creature creature = server.GameObjects.GetCreature(id);
 
-                            if (creature == null || !client.Player.Tile.Position.CanSee(creature.Tile.Position) )
+                            if (creature == null)
+                            {
+                                return true;
+                            }
+
+                            byte index;
+
+                            if ( !client.TryGetIndex(creature, out index) )
                             {
                                 return true;
                             }

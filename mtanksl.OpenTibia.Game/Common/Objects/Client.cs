@@ -85,5 +85,103 @@ namespace OpenTibia.Common.Objects
         public ChaseMode ChaseMode { get; set; }
 
         public SafeMode SafeMode { get; set; }
+
+        public bool TryGetIndex(IContent content, out byte _index)
+        {
+            if (content is Item item)
+            {
+                switch (item.Parent)
+                {
+                    case Tile tile:
+
+                        if (Player.Tile.Position.CanSee(tile.Position) )
+                        {
+                            byte index = 0;
+
+                            foreach (var _content in tile.GetContents() )
+                            {
+                                if (index >= Constants.ObjectsPerPoint)
+                                {
+                                    break;
+                                }
+
+                                if (_content is Creature _creature && _creature != Player && _creature.Invisible)
+                                {
+                                    continue;
+                                }
+
+                                if (_content == item)
+                                {
+                                    _index = index;
+
+                                    return true;
+                                }
+
+                                index++;
+                            }
+                        }
+
+                        break;
+
+                    case Inventory inventory:
+
+                        if (Player.Inventory == inventory)
+                        {
+                            _index = inventory.GetIndex(content);
+
+                            return true;
+                        }
+
+                        break;
+
+                    case Container container:
+
+                        foreach (var pair in ContainerCollection.GetIndexedContainers() )
+                        {
+                            if (pair.Value == container)
+                            {
+                                _index = container.GetIndex(content);
+
+                                return true;
+                            }
+                        }
+
+                        break;
+                }
+            }
+            else if (content is Creature creature)
+            {
+                if (Player.Tile.Position.CanSee(creature.Tile.Position) )
+                {
+                    byte index = 0;
+
+                    foreach (var _content in creature.Tile.GetContents() )
+                    {
+                        if (index >= Constants.ObjectsPerPoint)
+                        {
+                            break;
+                        }
+
+                        if (_content is Creature _creature && _creature != Player && _creature.Invisible)
+                        {
+                            continue;
+                        }
+
+                        if (_content == creature)
+                        {
+                            _index = index;
+
+                            return true;
+                        }
+
+                        index++;
+                    }
+                }
+            }
+
+            _index = 0;
+
+            return false;
+        }
     }
 }

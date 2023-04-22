@@ -24,11 +24,11 @@ namespace OpenTibia.Game.Commands
             {
                 Creature.SkullIcon = SkullIcon;
 
-                Tile fromTile = Creature.Tile;
-
                 foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                 {
-                    if (observer.Tile.Position.CanSee(fromTile.Position) )
+                    byte index;
+
+                    if (observer.Client.TryGetIndex(Creature, out index) )
                     {
                         Context.AddPacket(observer.Client.Connection, new SetSkullIconOutgoingPacket(Creature.Id, Creature.SkullIcon) );
                     }

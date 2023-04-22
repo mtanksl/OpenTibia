@@ -89,8 +89,15 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         private void GetTileDescription(ByteArrayStreamWriter writer, Tile tile)
         {
-            foreach (var content in tile.GetContents().Take(10) ) // Constants.ObjectsPerPoint
+            byte index = 0;
+
+            foreach (var content in tile.GetContents() )
             {
+                if (index >= 10) // Constants.ObjectsPerPoint
+                {
+                    break;
+                }
+
                 switch (content)
                 {
                     case Item item:
@@ -100,6 +107,11 @@ namespace OpenTibia.Network.Packets.Outgoing
                         break;
 
                     case Creature creature:
+
+                        if (creature != client.Player && creature.Invisible)
+                        {
+                            continue;
+                        }
 
                         uint removeId;
 
@@ -114,6 +126,8 @@ namespace OpenTibia.Network.Packets.Outgoing
 
                         break;
                 }
+
+                index++;
             }
         }
 

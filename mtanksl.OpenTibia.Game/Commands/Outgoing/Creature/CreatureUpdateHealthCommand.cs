@@ -36,16 +36,16 @@ namespace OpenTibia.Game.Commands
 
                 Creature.MaxHealth = MaxHealth;
 
-                Tile fromTile = Creature.Tile;
-
                 foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                 {
                     if (observer == Creature)
                     {
                         Context.AddPacket(observer.Client.Connection, new SendStatusOutgoingPacket(observer.Health, observer.MaxHealth, observer.Capacity, observer.Experience, observer.Level, observer.LevelPercent, observer.Mana, observer.MaxMana, observer.Skills.MagicLevel, observer.Skills.MagicLevelPercent, observer.Soul, observer.Stamina) );
                     }
-                    
-                    if (observer.Tile.Position.CanSee(fromTile.Position) )
+
+                    byte index;
+
+                    if (observer.Client.TryGetIndex(Creature, out index) )
                     {
                         Context.AddPacket(observer.Client.Connection, new SetHealthOutgoingPacket(Creature.Id, Creature.HealthPercentage) );
                     }

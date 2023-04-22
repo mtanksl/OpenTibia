@@ -25,38 +25,33 @@ namespace OpenTibia.Game.Commands
             {
                 Creature.Direction = Direction;
 
-                Tile fromTile = Creature.Tile;
-
-                byte index = fromTile.GetIndex(Creature);
-
-                if (index < Constants.ObjectsPerPoint)
+                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                 {
-                    foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+                    if (observer == Creature)
                     {
-                        if (observer == Creature)
+                        PlayerActionDelayBehaviour playerActionDelayBehaviour = Context.Server.Components.GetComponent<PlayerActionDelayBehaviour>(observer);
+
+                        if (playerActionDelayBehaviour != null)
                         {
-                            PlayerActionDelayBehaviour playerActionDelayBehaviour = Context.Server.Components.GetComponent<PlayerActionDelayBehaviour>(observer);
-
-                            if (playerActionDelayBehaviour != null)
-                            {
-                                Context.Server.Components.RemoveComponent(observer, playerActionDelayBehaviour);
-                            }
-
-                            PlayerWalkDelayBehaviour playerWalkDelayBehaviour = Context.Server.Components.GetComponent<PlayerWalkDelayBehaviour>(observer);
-
-                            if (playerWalkDelayBehaviour != null)
-                            {
-                                if (Context.Server.Components.RemoveComponent(observer, playerWalkDelayBehaviour) )
-                                {
-                                    Context.AddPacket(observer.Client.Connection, new StopWalkOutgoingPacket(observer.Direction) );
-                                }
-                            }
+                            Context.Server.Components.RemoveComponent(observer, playerActionDelayBehaviour);
                         }
 
-                        if (observer.Tile.Position.CanSee(fromTile.Position) )
+                        PlayerWalkDelayBehaviour playerWalkDelayBehaviour = Context.Server.Components.GetComponent<PlayerWalkDelayBehaviour>(observer);
+
+                        if (playerWalkDelayBehaviour != null)
                         {
-                            Context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(fromTile.Position, index, Creature.Id, Creature.Direction) );
+                            if (Context.Server.Components.RemoveComponent(observer, playerWalkDelayBehaviour) )
+                            {
+                                Context.AddPacket(observer.Client.Connection, new StopWalkOutgoingPacket(observer.Direction) );
+                            }
                         }
+                    }
+
+                    byte index;
+
+                    if (observer.Client.TryGetIndex(Creature, out index) )
+                    {
+                        Context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(Creature.Tile.Position, index, Creature.Id, Creature.Direction) );
                     }
                 }
 
