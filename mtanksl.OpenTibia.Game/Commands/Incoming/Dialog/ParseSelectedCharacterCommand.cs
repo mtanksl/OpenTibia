@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
 
             if (Packet.Version != 860)
             {
-                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.OnlyProtocol86Allowed) );
+                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.OnlyProtocol86Allowed) );
 
                 Context.Disconnect(Connection);
 
@@ -36,18 +36,36 @@ namespace OpenTibia.Game.Commands
 
             if (databasePlayer == null)
             {
-                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
+                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.AccountNameOrPasswordIsNotCorrect) );
 
                 Context.Disconnect(Connection);
 
                 return Promise.Break;
             }
 
-            Tile toTile = Context.Server.Map.GetTile(new Position(databasePlayer.CoordinateX, databasePlayer.CoordinateY, databasePlayer.CoordinateZ) );
+            Offset[] offsets = new Offset[]
+            {
+                new Offset(0, 0), new Offset(0, -1), new Offset(0, 1), new Offset(-1, 0), new Offset(1, 0), new Offset(-1, -1), new Offset(1, -1), new Offset(-1, 1), new Offset(1, 1) 
+            };
+
+            Tile toTile = offsets
+                .Select(offset =>
+                {
+                    Tile toTile = Context.Server.Map.GetTile(new Position(databasePlayer.CoordinateX, databasePlayer.CoordinateY, databasePlayer.CoordinateZ).Offset(offset) );
+
+                    if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || toTile.GetCreatures().Any(c => c.Block) )
+                    {
+                        return null;
+                    }
+
+                    return toTile;
+                } )
+                .Where(t => t != null)
+                .FirstOrDefault(); 
 
             if (toTile == null)
             {
-                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.DestinationIsOutOfReach) );
+                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.DestinationIsOutOfReach) );
 
                 Context.Disconnect(Connection);
 
