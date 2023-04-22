@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game;
+using System;
 
 namespace OpenTibia.Common.Objects
 {
@@ -86,7 +87,39 @@ namespace OpenTibia.Common.Objects
 
         public SafeMode SafeMode { get; set; }
 
-        public bool TryGetIndex(IContent content, out byte _index)
+        public IContent GetContent(IContainer container, byte clientIndex)
+        {
+            if (container is Tile tile)
+            {
+                byte index = 0;
+
+                foreach (var _content in tile.GetContents() )
+                {
+                    if (index >= Constants.ObjectsPerPoint)
+                    {
+                        break;
+                    }
+
+                    if (_content is Creature _creature && _creature != Player && _creature.Invisible)
+                    {
+                        continue;
+                    }
+
+                    if (clientIndex == index)
+                    {
+                        return _content;
+                    }
+
+                    index++;
+                }
+
+                return null;
+            }
+
+            return container.GetContent(clientIndex);
+        }
+
+        public bool TryGetIndex(IContent content, out byte clientIndex)
         {
             if (content is Item item)
             {
@@ -112,7 +145,7 @@ namespace OpenTibia.Common.Objects
 
                                 if (_content == item)
                                 {
-                                    _index = index;
+                                    clientIndex = index;
 
                                     return true;
                                 }
@@ -127,7 +160,7 @@ namespace OpenTibia.Common.Objects
 
                         if (Player.Inventory == inventory)
                         {
-                            _index = inventory.GetIndex(content);
+                            clientIndex = inventory.GetIndex(content);
 
                             return true;
                         }
@@ -140,7 +173,7 @@ namespace OpenTibia.Common.Objects
                         {
                             if (pair.Value == container)
                             {
-                                _index = container.GetIndex(content);
+                                clientIndex = container.GetIndex(content);
 
                                 return true;
                             }
@@ -169,7 +202,7 @@ namespace OpenTibia.Common.Objects
 
                         if (_content == creature)
                         {
-                            _index = index;
+                            clientIndex = index;
 
                             return true;
                         }
@@ -179,7 +212,7 @@ namespace OpenTibia.Common.Objects
                 }
             }
 
-            _index = 0;
+            clientIndex = 0;
 
             return false;
         }
