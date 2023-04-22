@@ -29,7 +29,7 @@ namespace OpenTibia.Game.Components
         {
             player = (Player)GameObject;
 
-            token = Context.Server.EventHandlers.Subscribe<GlobalClockTickEventArgs>( (context, e) =>
+            token = Context.Server.EventHandlers.Subscribe<GlobalTibiaClockTickEventArgs>( (context, e) =>
             {
                 return Update();
             } );
@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop(Server server)
         {
-            Context.Server.EventHandlers.Unsubscribe<GlobalClockTickEventArgs>(token);
+            Context.Server.EventHandlers.Unsubscribe<GlobalTibiaClockTickEventArgs>(token);
         }
     }
 }

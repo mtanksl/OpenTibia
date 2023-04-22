@@ -52,7 +52,7 @@ namespace OpenTibia.Game.Components
         {
             player = (Player)GameObject;
 
-            token = Context.Server.EventHandlers.Subscribe<GlobalCreatureThinkEventArgs>( (context, e) =>
+            token = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
             {
                 return Update();
             } );
@@ -164,7 +164,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop(Server server)
         {
-            Context.Server.EventHandlers.Unsubscribe<GlobalCreatureThinkEventArgs>(token);
+            Context.Server.EventHandlers.Unsubscribe<GlobalTickEventArgs>(token);
         }
     }
 }

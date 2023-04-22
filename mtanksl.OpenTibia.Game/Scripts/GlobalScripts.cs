@@ -8,20 +8,34 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start(Server server)
         {
-            CreatureThink(server);
+            Tick(server);
+
+            TibiaClockTick(server);
 
             PlayerPing(server);
-
-            ClockTick(server);
         }
 
-        private void CreatureThink(Server server)
+        private void Tick(Server server)
         {
-            Promise.Delay("CreatureThink", 100).Then( () =>
+            Promise.Delay("Tick", 100).Then( () =>
             {
-                CreatureThink(server);
+                Tick(server);
 
-                Context.AddEvent(new GlobalCreatureThinkEventArgs() );
+                Context.AddEvent(new GlobalTickEventArgs() );
+
+                return Promise.Completed;
+            } );
+        }
+
+        private void TibiaClockTick(Server server)
+        {
+            Promise.Delay("TibiaClockTick", Clock.Interval).Then( () =>
+            {
+                TibiaClockTick(server);
+
+                Context.Server.Clock.Tick();
+
+                Context.AddEvent(new GlobalTibiaClockTickEventArgs(Context.Server.Clock.Hour, Context.Server.Clock.Minute) );
 
                 return Promise.Completed;
             } );
@@ -39,27 +53,13 @@ namespace OpenTibia.Game.Scripts
             } );
         }
 
-        private void ClockTick(Server server)
-        {
-            Promise.Delay("ClockTick", Clock.Interval).Then( () =>
-            {
-                ClockTick(server);
-
-                Context.Server.Clock.Tick();
-
-                Context.AddEvent(new GlobalClockTickEventArgs(Context.Server.Clock.Hour, Context.Server.Clock.Minute) );
-
-                return Promise.Completed;
-            } );
-        }
-
         public override void Stop(Server server)
         {
-            server.CancelQueueForExecution("CreatureThink");
+            server.CancelQueueForExecution("Tick");
+
+            server.CancelQueueForExecution("TibiaClockTick");
 
             server.CancelQueueForExecution("PlayerPing");
-
-            server.CancelQueueForExecution("ClockTick");
         }
     }
 }
