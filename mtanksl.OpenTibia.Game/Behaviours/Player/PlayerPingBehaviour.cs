@@ -21,6 +21,7 @@ namespace OpenTibia.Game.Components
             }
         }
 
+       
         private Player player;
 
         private Guid token;
@@ -29,22 +30,36 @@ namespace OpenTibia.Game.Components
         {
             player = (Player)GameObject;
 
-            token = Context.Server.EventHandlers.Subscribe<GlobalPlayerPingEventArgs>( (context, e) =>
+            token = Context.Server.EventHandlers.Subscribe<GlobalPingEventArgs>( (context, e) =>
             {
                 return Update();
             } );
         }
 
+        private DateTime lastPingResponse = DateTime.UtcNow;
+
+        public void SetLastPingResponse()
+        {
+            lastPingResponse = DateTime.UtcNow;
+        }
+
         private Promise Update()
         {
-            Context.AddPacket(player.Client.Connection, new PingOutgoingPacket() );
+            if ( (DateTime.UtcNow - lastPingResponse).TotalMinutes > 1)
+            {
+                return Context.AddCommand(new ParseLogOutCommand(player) );
+            }
+            else
+            {
+                Context.AddPacket(player.Client.Connection, new PingOutgoingPacket() );
 
-            return Promise.Completed;
+                return Promise.Completed;
+            }
         }
 
         public override void Stop(Server server)
         {
-            Context.Server.EventHandlers.Unsubscribe<GlobalPlayerPingEventArgs>(token);
+            Context.Server.EventHandlers.Unsubscribe<GlobalPingEventArgs>(token);
         }
     }
 }

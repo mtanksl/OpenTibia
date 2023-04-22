@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.Commands
 {
@@ -13,6 +14,13 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            PlayerPingBehaviour playerPingBehaviour = Context.Server.Components.GetComponent<PlayerPingBehaviour>(Player);
+
+            if (playerPingBehaviour != null)
+            {
+                playerPingBehaviour.SetLastPingResponse();
+            }
+
             return Promise.Completed;
         }
     }

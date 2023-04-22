@@ -12,7 +12,7 @@ namespace OpenTibia.Game.Scripts
 
             TibiaClockTick(server);
 
-            PlayerPing(server);
+            Ping(server);
         }
 
         private void Tick(Server server)
@@ -41,13 +41,13 @@ namespace OpenTibia.Game.Scripts
             } );
         }
 
-        private void PlayerPing(Server server)
+        private void Ping(Server server)
         {
-            Promise.Delay("PlayerPing", 60000).Then( () =>
+            Promise.Delay("Ping", 10000).Then( () =>
             {
-                PlayerPing(server);
+                Ping(server);
 
-                Context.AddEvent(new GlobalPlayerPingEventArgs() );
+                Context.AddEvent(new GlobalPingEventArgs() );
 
                 return Promise.Completed;
             } );
@@ -59,7 +59,7 @@ namespace OpenTibia.Game.Scripts
 
             server.CancelQueueForExecution("TibiaClockTick");
 
-            server.CancelQueueForExecution("PlayerPing");
+            server.CancelQueueForExecution("Ping");
         }
     }
 }

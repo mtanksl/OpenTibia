@@ -1,6 +1,6 @@
 ﻿namespace OpenTibia.Game.Events
 {
-    public class GlobalPlayerPingEventArgs : GameEventArgs
+    public class GlobalPingEventArgs : GameEventArgs
     {
 
     }
