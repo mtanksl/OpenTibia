@@ -66,15 +66,9 @@ namespace OpenTibia.Game.Components
 
                        return Context.AddCommand(new CreatureUpdateTileCommand(attacker, toTile) );
                     }
-                    else
-                    {
-                        walkCooldown = DateTime.UtcNow.AddSeconds(2);
-                    }
                 }
-                else
-                {
-                    walkCooldown = DateTime.UtcNow.AddSeconds(2);
-                }
+
+                walkCooldown = DateTime.UtcNow.AddSeconds(2);
             }
 
             return Promise.Completed;

@@ -1,5 +1,4 @@
-﻿using OpenTibia.Common.Events;
-using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game;
 using OpenTibia.Game.Commands;
 using OpenTibia.IO;

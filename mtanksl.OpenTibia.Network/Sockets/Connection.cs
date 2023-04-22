@@ -1,5 +1,4 @@
-﻿using OpenTibia.Common.Events;
-using OpenTibia.Common.Objects;
+﻿using OpenTibia.Common.Objects;
 using System;
 using System.Net.Sockets;
 using System.Threading;

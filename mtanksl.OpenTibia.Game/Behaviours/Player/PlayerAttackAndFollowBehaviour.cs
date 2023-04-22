@@ -111,25 +111,9 @@ namespace OpenTibia.Game.Components
         {
             if (target != null)
             {
-                if (target.Tile == null)
+                if ( !target.IsDestroyed)
                 {
-                    Stop();
-
-                    Context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
-
-                                                                new StopAttackAndFollowOutgoingPacket(0) );
-                }
-                else
-                {
-                    if ( !player.Tile.Position.CanHearSay(target.Tile.Position) )
-                    {
-                        Stop();
-
-                        Context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
-
-                                                                    new StopAttackAndFollowOutgoingPacket(0) );
-                    }
-                    else
+                    if (player.Tile.Position.CanHearSay(target.Tile.Position) )
                     {
                         List<Promise> promises = new List<Promise>();
 
@@ -164,8 +148,12 @@ namespace OpenTibia.Game.Components
                         }
 
                         return Promise.WhenAll(promises.ToArray() );
-                    }
+                    }                    
                 }
+
+                Stop();
+
+                Context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost), new StopAttackAndFollowOutgoingPacket(0) );
             }
 
             return Promise.Completed;

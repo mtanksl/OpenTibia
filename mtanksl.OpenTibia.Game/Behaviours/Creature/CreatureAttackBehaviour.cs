@@ -59,15 +59,9 @@ namespace OpenTibia.Game.Components
 
                         return Context.AddCommand(command);
                     }
-                    else
-                    {
-                        attackCooldown = DateTime.UtcNow.AddSeconds(2);
-                    }
                 }
-                else
-                {
-                    attackCooldown = DateTime.UtcNow.AddSeconds(2);
-                }
+
+                attackCooldown = DateTime.UtcNow.AddSeconds(2);
             }
 
             return Promise.Completed;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OpenTibia.Common.Events
+namespace OpenTibia.Network.Sockets
 {
     public class DisconnectedEventArgs : EventArgs
     {
