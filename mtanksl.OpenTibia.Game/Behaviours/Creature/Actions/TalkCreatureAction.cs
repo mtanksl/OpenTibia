@@ -5,11 +5,11 @@ using System;
 
 namespace OpenTibia.Game.Components
 {
-    public class TalkAction : Action
+    public class TalkCreatureAction : CreatureAction
     {
         private string[] sentences;
 
-        public TalkAction(string[] sentences)
+        public TalkCreatureAction(string[] sentences)
         {
             this.sentences = sentences;
         }

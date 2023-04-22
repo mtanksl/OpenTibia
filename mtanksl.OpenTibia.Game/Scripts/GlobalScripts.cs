@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Events;
+using System;
 
 namespace OpenTibia.Game.Scripts
 {
@@ -17,7 +18,7 @@ namespace OpenTibia.Game.Scripts
 
         private void Tick(Server server)
         {
-            Promise.Delay("Tick", 100).Then( () =>
+            Promise.Delay("Tick", TimeSpan.FromMilliseconds(100) ).Then( () =>
             {
                 Tick(server);
 
@@ -29,7 +30,7 @@ namespace OpenTibia.Game.Scripts
 
         private void TibiaClockTick(Server server)
         {
-            Promise.Delay("TibiaClockTick", Clock.Interval).Then( () =>
+            Promise.Delay("TibiaClockTick", TimeSpan.FromMilliseconds(Clock.Interval) ).Then( () =>
             {
                 TibiaClockTick(server);
 
@@ -43,7 +44,7 @@ namespace OpenTibia.Game.Scripts
 
         private void Ping(Server server)
         {
-            Promise.Delay("Ping", 10000).Then( () =>
+            Promise.Delay("Ping", TimeSpan.FromSeconds(10) ).Then( () =>
             {
                 Ping(server);
 

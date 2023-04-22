@@ -1,8 +1,10 @@
-﻿namespace OpenTibia.Game.Components
+﻿using System;
+
+namespace OpenTibia.Game.Components
 {
     public class PlayerWalkDelayBehaviour : DelayBehaviour
     {
-        public PlayerWalkDelayBehaviour(int executeInMilliseconds) : base(executeInMilliseconds)
+        public PlayerWalkDelayBehaviour(TimeSpan executeIn) : base(executeIn)
         {
             
         }

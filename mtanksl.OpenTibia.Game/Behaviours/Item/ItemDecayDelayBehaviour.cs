@@ -1,8 +1,10 @@
-﻿namespace OpenTibia.Game.Components
+﻿using System;
+
+namespace OpenTibia.Game.Components
 {
     public class ItemDecayDelayBehaviour : DelayBehaviour
     {
-        public ItemDecayDelayBehaviour(int executeInMilliseconds) : base(executeInMilliseconds)
+        public ItemDecayDelayBehaviour(TimeSpan executeIn) : base(executeIn)
         {
             
         }

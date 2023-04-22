@@ -4,11 +4,11 @@ using System;
 
 namespace OpenTibia.Game.Components
 {
-    public class WalkAction : Action
+    public class WalkCreatureAction : CreatureAction
     {
         private IWalkStrategy walkStrategy;
 
-        public WalkAction(IWalkStrategy walkStrategy)
+        public WalkCreatureAction(IWalkStrategy walkStrategy)
         {
             this.walkStrategy = walkStrategy;
         }

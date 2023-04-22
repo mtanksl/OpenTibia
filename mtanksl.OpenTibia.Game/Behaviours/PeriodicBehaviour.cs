@@ -5,11 +5,11 @@ namespace OpenTibia.Game.Components
 {
     public abstract class PeriodicBehaviour : Behaviour
     {
-        private int executeInMilliseconds;
+        private TimeSpan executeIn;
 
-        public PeriodicBehaviour(int executeInMilliseconds)
+        public PeriodicBehaviour(TimeSpan executeIn)
         {
-            this.executeInMilliseconds = executeInMilliseconds;
+            this.executeIn = executeIn;
         }
 
         public override bool IsUnique
@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Components
 
         public override void Start(Server server)
         {
-            Promise.Delay(key, executeInMilliseconds).Then(Update).Then( () =>
+            Promise.Delay(key, executeIn).Then(Update).Then( () =>
             {
                 Start(server);
 

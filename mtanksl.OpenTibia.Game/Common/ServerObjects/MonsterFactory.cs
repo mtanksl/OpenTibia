@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Xml.Monsters;
 using OpenTibia.Game.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Monster = OpenTibia.Common.Objects.Monster;
@@ -56,38 +57,38 @@ namespace OpenTibia.Game
                         
             server.GameObjects.AddGameObject(monster);
 
-            List<Action> actions = new List<Action>();
+            List<CreatureAction> actions = new List<CreatureAction>();
 
             if (monster.Name == "Amazon")
             {
-                actions.Add(new AttackAction(new DistanceAttackStrategy(ProjectileType.ThrowingKnife, 0, 20), 2000) );
+                actions.Add(new AttackCreatureAction(new DistanceAttackStrategy(ProjectileType.ThrowingKnife, 0, 20), TimeSpan.FromSeconds(2) ) );
 
-                actions.Add(new WalkAction(new KeepDistanceWalkStrategy(3) ) );
+                actions.Add(new WalkCreatureAction(new KeepDistanceWalkStrategy(3) ) );
             }
             else if (monster.Name == "Valkyrie")
             {
-                actions.Add(new AttackAction(new DistanceAttackStrategy(ProjectileType.Spear, 0, 30), 2000) );
+                actions.Add(new AttackCreatureAction(new DistanceAttackStrategy(ProjectileType.Spear, 0, 30), TimeSpan.FromSeconds(2) ) );
 
-                actions.Add(new WalkAction(new KeepDistanceWalkStrategy(3) ) );
+                actions.Add(new WalkCreatureAction(new KeepDistanceWalkStrategy(3) ) );
             }
             else if (monster.Name == "Deer")
             {
-                actions.Add(new WalkAction(new RunAwayWalkStrategy() ) );
+                actions.Add(new WalkCreatureAction(new RunAwayWalkStrategy() ) );
             }
             else if (monster.Name == "Dog")
             {
-                actions.Add(new WalkAction(new ApproachWalkStrategy() ) );
+                actions.Add(new WalkCreatureAction(new ApproachWalkStrategy() ) );
             }
             else
             {
-                actions.Add(new AttackAction(new MeleeAttackStrategy(0, 20), 2000) );
+                actions.Add(new AttackCreatureAction(new MeleeAttackStrategy(0, 20), TimeSpan.FromSeconds(2) ) );
 
-                actions.Add(new WalkAction(new FollowWalkStrategy() ) );
+                actions.Add(new WalkCreatureAction(new FollowWalkStrategy() ) );
             }
 
             if (monster.Metadata.Sentences != null)
             {
-                actions.Add(new TalkAction(monster.Metadata.Sentences) );
+                actions.Add(new TalkCreatureAction(monster.Metadata.Sentences) );
             }
 
             if (actions.Count > 0)

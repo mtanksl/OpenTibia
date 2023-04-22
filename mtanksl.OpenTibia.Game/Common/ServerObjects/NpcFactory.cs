@@ -49,7 +49,7 @@ namespace OpenTibia.Game
 
             server.GameObjects.AddGameObject(npc);
 
-            server.Components.AddComponent(npc, new CreatureThinkBehaviour(new AnyoneNearChooseTargetStrategy(), new[] { new WalkAction(new RandomWalkStrategy(2) ) } ) );
+            server.Components.AddComponent(npc, new CreatureThinkBehaviour(new AnyoneNearChooseTargetStrategy(), new[] { new WalkCreatureAction(new RandomWalkStrategy(2) ) } ) );
 
             return npc;
         }

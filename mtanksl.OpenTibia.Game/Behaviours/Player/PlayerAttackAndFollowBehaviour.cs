@@ -23,15 +23,15 @@ namespace OpenTibia.Game.Components
 
         private IAttackStrategy attackStrategy;
 
-        private int cooldownInMilliseconds;
+        private TimeSpan cooldown;
 
         private IWalkStrategy walkStrategy;
 
-        public PlayerAttackAndFollowBehaviour(IAttackStrategy attackStrategy, int cooldownInMilliseconds, IWalkStrategy walkStrategy)
+        public PlayerAttackAndFollowBehaviour(IAttackStrategy attackStrategy, TimeSpan cooldown, IWalkStrategy walkStrategy)
         {
             this.attackStrategy = attackStrategy;
 
-            this.cooldownInMilliseconds = cooldownInMilliseconds;
+            this.cooldown = cooldown;
 
             this.walkStrategy = walkStrategy;
         }
@@ -143,7 +143,7 @@ namespace OpenTibia.Game.Components
 
                                 if (command != null)
                                 {
-                                    attackCooldown = DateTime.UtcNow.AddMilliseconds(cooldownInMilliseconds);
+                                    attackCooldown = DateTime.UtcNow.Add(cooldown);
 
                                     promises.Add(Context.AddCommand(command) );
                                 }

@@ -37,9 +37,9 @@ namespace OpenTibia.Game.Components
             return false;
         }
 
-        public void AddCooldown(string name, int cooldownInMilliseconds)
+        public void AddCooldown(string name, TimeSpan cooldown)
         {
-            cooldowns[name] = DateTime.UtcNow.AddMilliseconds(cooldownInMilliseconds);
+            cooldowns[name] = DateTime.UtcNow.Add(cooldown);
         }
 
         public override void Stop(Server server)

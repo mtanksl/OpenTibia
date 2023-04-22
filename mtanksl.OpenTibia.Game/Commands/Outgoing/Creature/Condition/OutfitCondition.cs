@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -8,22 +9,22 @@ namespace OpenTibia.Game.Commands
     {
         private DelayBehaviour delayBehaviour;
 
-        public OutfitCondition(Outfit outfit, int durationInMilliseconds) : base(ConditionSpecialCondition.Outfit)
+        public OutfitCondition(Outfit outfit, TimeSpan duration) : base(ConditionSpecialCondition.Outfit)
         {
             Outfit = outfit;
 
-            DurationInMilliseconds = durationInMilliseconds;
+            Duration = duration;
         }
 
         public Outfit Outfit { get; set; }
 
-        public int DurationInMilliseconds { get; set; }
+        public TimeSpan Duration { get; set; }
 
         public override Promise Update(Creature target)
         {
             return Context.Current.AddCommand(new CreatureUpdateOutfitCommand(target, target.BaseOutfit, Outfit) ).Then( () =>
             {
-                delayBehaviour = Context.Current.Server.Components.AddComponent(target, new DelayBehaviour(DurationInMilliseconds) );
+                delayBehaviour = Context.Current.Server.Components.AddComponent(target, new DelayBehaviour(Duration) );
 
                 return delayBehaviour.Promise;
 

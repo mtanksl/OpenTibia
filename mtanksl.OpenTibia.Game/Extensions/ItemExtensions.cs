@@ -8,7 +8,7 @@ namespace OpenTibia.Game.Extensions
     {
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise DecayDestroy(this Item item, int executeInMilliseconds)
+        public static Promise DecayDestroy(this Item item, TimeSpan executeIn)
         {
             Context context = Context.Current;
 
@@ -17,12 +17,12 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new ItemDecayDestroyCommand(item, executeInMilliseconds) );
+            return context.AddCommand(new ItemDecayDestroyCommand(item, executeIn) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static PromiseResult<Item> DecayTransform(this Item item, int executeInMilliseconds, ushort openTibiaId, byte count)
+        public static PromiseResult<Item> DecayTransform(this Item item, TimeSpan executeIn, ushort openTibiaId, byte count)
         {
             Context context = Context.Current;
 
@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new ItemDecayTransformCommand(item, executeInMilliseconds, openTibiaId, count) );
+            return context.AddCommand(new ItemDecayTransformCommand(item, executeIn, openTibiaId, count) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>

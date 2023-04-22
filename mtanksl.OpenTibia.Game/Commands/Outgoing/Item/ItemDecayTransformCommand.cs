@@ -1,15 +1,16 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Components;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
     public class ItemDecayTransformCommand : CommandResult<Item>
     {
-        public ItemDecayTransformCommand(Item item, int executeInMilliseconds, ushort openTibiaId, byte count)
+        public ItemDecayTransformCommand(Item item, TimeSpan executeIn, ushort openTibiaId, byte count)
         {
             Item = item;
 
-            ExecuteInMilliseconds = executeInMilliseconds;
+            ExecuteIn = executeIn;
 
             OpenTibiaId = openTibiaId;
 
@@ -18,7 +19,7 @@ namespace OpenTibia.Game.Commands
 
         public Item Item { get; set; }
 
-        public int ExecuteInMilliseconds { get; set; }
+        public TimeSpan ExecuteIn { get; set; }
 
         public ushort OpenTibiaId { get; set; }
 
@@ -26,7 +27,7 @@ namespace OpenTibia.Game.Commands
 
         public override PromiseResult<Item> Execute()
         {
-            return Context.Server.Components.AddComponent(Item, new ItemDecayDelayBehaviour(ExecuteInMilliseconds) ).Promise.Then( () =>
+            return Context.Server.Components.AddComponent(Item, new ItemDecayDelayBehaviour(ExecuteIn) ).Promise.Then( () =>
             { 
                 return Context.AddCommand(new ItemTransformCommand(Item, OpenTibiaId, Count) );
             } );

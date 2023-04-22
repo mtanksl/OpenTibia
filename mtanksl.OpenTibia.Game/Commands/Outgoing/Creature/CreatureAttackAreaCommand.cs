@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using System;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
@@ -135,7 +136,7 @@ namespace OpenTibia.Game.Commands
                         {
                             await Context.Current.AddCommand(new TileCreateItemCommand(toTile, OpenTibiaId.Value, Count.Value) ).Then( (item) =>
                             {
-                                _ = Context.Current.AddCommand(new ItemDecayDestroyCommand(item, 10000) );
+                                _ = Context.Current.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(10) ) );
 
                                 return Promise.Completed;
                             } );

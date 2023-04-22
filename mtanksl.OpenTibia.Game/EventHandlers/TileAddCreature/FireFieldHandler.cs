@@ -2,11 +2,12 @@
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.EventHandlers;
 using OpenTibia.Game.Events;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class FireFieldHandler : EventHandler<TileAddCreatureEventArgs>
+    public class FireFieldHandler : EventHandlers.EventHandler<TileAddCreatureEventArgs>
     {
         private HashSet<ushort> fireFields = new HashSet<ushort>() { 1487, 1488, 1492, 1493 };
 
@@ -16,7 +17,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (fireFields.Contains(topItem.Metadata.OpenTibiaId) )
                 {
-                    return Context.AddCommand(new CreatureAddConditionCommand(e.Creature, new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { -20, -10, -10, -10, -10, -10, -10, -10 }, 2000) ) );
+                    return Context.AddCommand(new CreatureAddConditionCommand(e.Creature, new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { -20, -10, -10, -10, -10, -10, -10, -10 }, TimeSpan.FromSeconds(2) ) ) );
                 }
             }
 

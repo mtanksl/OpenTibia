@@ -4,17 +4,17 @@ using System;
 
 namespace OpenTibia.Game.Components
 {
-    public class AttackAction : Action
+    public class AttackCreatureAction : CreatureAction
     {
         private IAttackStrategy attackStrategy;
 
-        private int cooldownInMilliseconds;
+        private TimeSpan cooldown;
 
-        public AttackAction(IAttackStrategy attackStrategy, int cooldownInMilliseconds)
+        public AttackCreatureAction(IAttackStrategy attackStrategy, TimeSpan cooldown)
         {
             this.attackStrategy = attackStrategy;
 
-            this.cooldownInMilliseconds = cooldownInMilliseconds;
+            this.cooldown = cooldown;
         }
 
         private DateTime attackCooldown;
@@ -27,7 +27,7 @@ namespace OpenTibia.Game.Components
 
                 if (command != null)
                 {
-                    attackCooldown = DateTime.UtcNow.AddMilliseconds(cooldownInMilliseconds);
+                    attackCooldown = DateTime.UtcNow.Add(cooldown);
 
                     return Context.Current.AddCommand(command);
                 }

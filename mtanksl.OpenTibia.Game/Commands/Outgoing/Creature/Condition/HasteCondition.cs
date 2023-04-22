@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Components;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -7,22 +8,22 @@ namespace OpenTibia.Game.Commands
     {
         private DelayBehaviour delayBehaviour;
 
-        public HasteCondition(ushort speed, int durationInMilliseconds) : base(ConditionSpecialCondition.Haste)
+        public HasteCondition(ushort speed, TimeSpan duration) : base(ConditionSpecialCondition.Haste)
         {
             Speed = speed;
 
-            DurationInMilliseconds = durationInMilliseconds;
+            Duration = duration;
         }
 
         public ushort Speed { get; set; }
 
-        public int DurationInMilliseconds { get; set; }
+        public TimeSpan Duration { get; set; }
 
         public override Promise Update(Creature target)
         {
             return Context.Current.AddCommand(new CreatureUpdateSpeedCommand(target, target.BaseSpeed, Speed) ).Then( () =>
             {
-                delayBehaviour = Context.Current.Server.Components.AddComponent(target, new DelayBehaviour(DurationInMilliseconds) );
+                delayBehaviour = Context.Current.Server.Components.AddComponent(target, new DelayBehaviour(Duration) );
 
                 return delayBehaviour.Promise;
 

@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
@@ -34,7 +35,7 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            return Context.Server.Components.AddComponent(Player, new PlayerWalkDelayBehaviour(1000 * toTile.Ground.Metadata.Speed / Player.Speed) ).Promise.Then( () =>
+            return Context.Server.Components.AddComponent(Player, new PlayerWalkDelayBehaviour(TimeSpan.FromMilliseconds(1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise.Then( () =>
             {
                 if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || toTile.GetCreatures().Any(c => c.Block) )
                 {

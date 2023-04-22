@@ -1,24 +1,25 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Components;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
     public class ItemDecayDestroyCommand : Command
     {
-        public ItemDecayDestroyCommand(Item item, int executeInMilliseconds)
+        public ItemDecayDestroyCommand(Item item, TimeSpan executeIn)
         {
             Item = item;
 
-            ExecuteInMilliseconds = executeInMilliseconds;
+            ExecuteIn = executeIn;
         }
 
         public Item Item { get; set; }
 
-        public int ExecuteInMilliseconds { get; set; }
+        public TimeSpan ExecuteIn { get; set; }
 
         public override Promise Execute()
         {
-            return Context.Server.Components.AddComponent(Item, new ItemDecayDelayBehaviour(ExecuteInMilliseconds) ).Promise.Then( () =>
+            return Context.Server.Components.AddComponent(Item, new ItemDecayDelayBehaviour(ExecuteIn) ).Promise.Then( () =>
             { 
                 return Context.AddCommand(new ItemDestroyCommand(Item) );
             } );

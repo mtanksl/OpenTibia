@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             public string Group { get; set; }
 
-            public int GroupCooldownInMilliseconds { get; set; }
+            public TimeSpan GroupCooldown { get; set; }
 
             public Func<Player, Creature, bool> Condition { get; set; }
 
@@ -33,7 +33,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Healing",
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Callback = (attacker, target) =>
                 {
@@ -50,7 +50,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Healing",
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Callback = (attacker, target) =>
                 {
@@ -68,7 +68,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Healing",
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Callback = (attacker, target) =>
                 {
@@ -86,7 +86,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Callback = (attacker, target) =>
                 {
@@ -104,7 +104,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Callback = (attacker, target) =>
                 {
@@ -122,7 +122,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Callback = (attacker, target) =>
                 {
@@ -161,7 +161,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     if (rune.Condition == null || rune.Condition(command.Player, command.ToCreature) )
                     {
-                        playerCooldownBehaviour.AddCooldown(rune.Group, rune.GroupCooldownInMilliseconds);
+                        playerCooldownBehaviour.AddCooldown(rune.Group, rune.GroupCooldown);
 
                         return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                         {

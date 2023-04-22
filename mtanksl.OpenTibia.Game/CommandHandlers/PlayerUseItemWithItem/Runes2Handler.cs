@@ -17,7 +17,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             public string Group { get; set; }
 
-            public int GroupCooldownInMilliseconds { get; set; }
+            public TimeSpan GroupCooldown { get; set; }
 
             public Func<Player, Tile, bool> Condition { get; set; }
 
@@ -32,7 +32,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Condition = (attacker, tile) =>
                 {
@@ -53,7 +53,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, 
                         
-                                                      new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, AnimatedTextColor.Green, new[] { -5, -5, -5, -5, -5, -4, -4, -4, -4, -4, -3, -3, -3, -3, -3, -3, -3, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }, 2000) ) );
+                                                      new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, AnimatedTextColor.Green, new[] { -5, -5, -5, -5, -5, -4, -4, -4, -4, -4, -3, -3, -3, -3, -3, -3, -3, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }, TimeSpan.FromSeconds(2) ) ) );
                 }
             },
 
@@ -63,7 +63,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Condition = (attacker, tile) =>
                 {
@@ -86,7 +86,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, 
                         
-                                                      new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, AnimatedTextColor.Green, new[] { -5, -5, -5, -5, -5, -4, -4, -4, -4, -4, -3, -3, -3, -3, -3, -3, -3, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }, 2000) ) );
+                                                      new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, AnimatedTextColor.Green, new[] { -5, -5, -5, -5, -5, -4, -4, -4, -4, -4, -3, -3, -3, -3, -3, -3, -3, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }, TimeSpan.FromSeconds(2) ) ) );
                 }
             },
 
@@ -96,7 +96,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Condition = (attacker, tile) =>
                 {
@@ -117,7 +117,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1496, 1, 
                         
-                                                      new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, AnimatedTextColor.Green, new[] { -5, -5, -5, -5, -5, -4, -4, -4, -4, -4, -3, -3, -3, -3, -3, -3, -3, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }, 2000) ) );
+                                                      new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, AnimatedTextColor.Green, new[] { -5, -5, -5, -5, -5, -4, -4, -4, -4, -4, -3, -3, -3, -3, -3, -3, -3, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 }, TimeSpan.FromSeconds(2) ) ) );
                 }
             },
 
@@ -127,7 +127,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Condition = (attacker, tile) =>
                 {
@@ -148,7 +148,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, 
                         
-                                                      new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { -20, -10, -10, -10, -10, -10, -10, -10 }, 2000) ) );
+                                                      new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { -20, -10, -10, -10, -10, -10, -10, -10 }, TimeSpan.FromSeconds(2) ) ) );
                 }
             },
 
@@ -158,7 +158,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Condition = (attacker, tile) =>
                 {
@@ -181,7 +181,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, 
                         
-                                                      new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { -20, -10, -10, -10, -10, -10, -10, -10 }, 2000) ) );
+                                                      new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { -20, -10, -10, -10, -10, -10, -10, -10 }, TimeSpan.FromSeconds(2) ) ) );
                 }
             },
 
@@ -191,7 +191,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Condition = (attacker, tile) =>
                 {
@@ -212,7 +212,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1492, 1, 
                         
-                                                      new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { -20, -10, -10, -10, -10, -10, -10, -10 }, 2000) ) );
+                                                      new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { -20, -10, -10, -10, -10, -10, -10, -10 }, TimeSpan.FromSeconds(2) ) ) );
                 }
             },
 
@@ -222,7 +222,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Condition = (attacker, tile) =>
                 {
@@ -243,7 +243,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1495, 1, 
                         
-                                                      new DamageCondition(SpecialCondition.Electrified, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, new[] { -30, -25, -25 }, 2000) ) );
+                                                      new DamageCondition(SpecialCondition.Electrified, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, new[] { -30, -25, -25 }, TimeSpan.FromSeconds(2) ) ) );
                 }
             },
 
@@ -253,7 +253,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Condition = (attacker, tile) =>
                 {
@@ -276,7 +276,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1495, 1, 
                         
-                                                      new DamageCondition(SpecialCondition.Electrified, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, new[] { -30, -25, -25 }, 2000) ) );
+                                                      new DamageCondition(SpecialCondition.Electrified, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, new[] { -30, -25, -25 }, TimeSpan.FromSeconds(2) ) ) );
                 }
             },
 
@@ -286,7 +286,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Condition = (attacker, tile) =>
                 {
@@ -307,7 +307,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1495, 1, 
                         
-                                                      new DamageCondition(SpecialCondition.Electrified, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, new[] { -30, -25, -25 }, 2000) ) );
+                                                      new DamageCondition(SpecialCondition.Electrified, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, new[] { -30, -25, -25 }, TimeSpan.FromSeconds(2) ) ) );
                 }
             },
 
@@ -317,7 +317,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Condition = (attacker, tile) =>
                 {
@@ -354,7 +354,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Condition = (attacker, tile) =>
                 {
@@ -393,7 +393,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Condition = (attacker, tile) =>
                 {
@@ -428,7 +428,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Support",
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Condition = (attacker, tile) =>
                 {
@@ -457,7 +457,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Support",
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Condition = (attacker, tile) =>
                 {
@@ -500,7 +500,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     if (rune.Condition == null || rune.Condition(command.Player, toTile) )
                     {
-                        playerCooldownBehaviour.AddCooldown(rune.Group, rune.GroupCooldownInMilliseconds);
+                        playerCooldownBehaviour.AddCooldown(rune.Group, rune.GroupCooldown);
 
                         return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                         {

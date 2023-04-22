@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -8,7 +9,7 @@ namespace OpenTibia.Game.Commands
     {
         private DelayBehaviour delayBehaviour;
 
-        public DamageCondition(SpecialCondition specialCondition, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int[] damages, int intervalInMilliseconds) : base( (ConditionSpecialCondition)specialCondition)
+        public DamageCondition(SpecialCondition specialCondition, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int[] damages, TimeSpan interval) : base( (ConditionSpecialCondition)specialCondition)
         {
             SpecialCondition = specialCondition;
 
@@ -18,7 +19,7 @@ namespace OpenTibia.Game.Commands
 
             Damages = damages;
 
-            IntervalInMilliseconds = intervalInMilliseconds;
+            Interval = interval;
         }
 
         public SpecialCondition SpecialCondition { get; set; }
@@ -29,7 +30,7 @@ namespace OpenTibia.Game.Commands
 
         public int[] Damages { get; set; }
 
-        public int IntervalInMilliseconds { get; set; }
+        public TimeSpan Interval { get; set; }
 
         public override async Promise Update(Creature target)
         {
@@ -39,7 +40,7 @@ namespace OpenTibia.Game.Commands
 
                 if (i < Damages.Length - 1)
                 {
-                    delayBehaviour = Context.Current.Server.Components.AddComponent(target, new DelayBehaviour(IntervalInMilliseconds) );
+                    delayBehaviour = Context.Current.Server.Components.AddComponent(target, new DelayBehaviour(Interval) );
 
                     await delayBehaviour.Promise;
                 }

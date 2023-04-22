@@ -9,9 +9,9 @@ namespace OpenTibia.Game.Components
     {
         private IChooseTargetStrategy chooseTargetStrategy;
 
-        private Action[] actions;
+        private CreatureAction[] actions;
 
-        public CreatureThinkBehaviour(IChooseTargetStrategy chooseTargetStrategy, Action[] actions)
+        public CreatureThinkBehaviour(IChooseTargetStrategy chooseTargetStrategy, CreatureAction[] actions)
         {
             this.chooseTargetStrategy = chooseTargetStrategy;
 

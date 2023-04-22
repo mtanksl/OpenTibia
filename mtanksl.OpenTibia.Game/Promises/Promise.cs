@@ -118,7 +118,7 @@ namespace OpenTibia.Game.Commands
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise Delay(string key, int executeInMilliseconds)
+        public static Promise Delay(string key, TimeSpan executeIn)
         {
             Context context = Context.Current;
 
@@ -127,7 +127,7 @@ namespace OpenTibia.Game.Commands
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.Server.QueueForExecution(key, executeInMilliseconds, () => 
+            return context.Server.QueueForExecution(key, executeIn, () => 
             {
                 return Promise.Completed;
             } ); 

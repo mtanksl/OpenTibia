@@ -2,11 +2,12 @@
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.EventHandlers;
 using OpenTibia.Game.Events;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class SpikesHandler : EventHandler<TileAddCreatureEventArgs>
+    public class SpikesHandler : EventHandlers.EventHandler<TileAddCreatureEventArgs>
     {
         private ushort activeSpike = 1513;
 
@@ -34,7 +35,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     } ).Then( (item) =>
                     {
-                        _ = Context.AddCommand(new ItemDecayTransformCommand(item, 10000, decay[toOpenTibiaId], 1) );
+                        _ = Context.AddCommand(new ItemDecayTransformCommand(item, TimeSpan.FromSeconds(10), decay[toOpenTibiaId], 1) );
 
                         return Promise.Completed;
                     } );

@@ -1,11 +1,12 @@
 ﻿using OpenTibia.Game.Commands;
 using OpenTibia.Game.EventHandlers;
 using OpenTibia.Game.Events;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class SnowPressHandler : EventHandler<TileAddCreatureEventArgs>
+    public class SnowPressHandler : EventHandlers.EventHandler<TileAddCreatureEventArgs>
     {
         private Dictionary<ushort, ushort> tiles = new Dictionary<ushort, ushort>()
         {
@@ -53,7 +54,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 return Context.AddCommand(new ItemTransformCommand(e.Tile.Ground, toOpenTibiaId, 1) ).Then( (item) =>
                 {
-                    _ = Context.AddCommand(new ItemDecayTransformCommand(item, 10000, decay[item.Metadata.OpenTibiaId], 1) );
+                    _ = Context.AddCommand(new ItemDecayTransformCommand(item, TimeSpan.FromSeconds(10), decay[item.Metadata.OpenTibiaId], 1) );
 
                     return Promise.Completed;
                 } );

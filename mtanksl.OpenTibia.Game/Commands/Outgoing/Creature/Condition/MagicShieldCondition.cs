@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Components;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -7,16 +8,16 @@ namespace OpenTibia.Game.Commands
     {
         private DelayBehaviour delayBehaviour;
 
-        public MagicShieldCondition(int durationInMilliseconds) : base(ConditionSpecialCondition.MagicShield)
+        public MagicShieldCondition(TimeSpan duration) : base(ConditionSpecialCondition.MagicShield)
         {
-            DurationInMilliseconds = durationInMilliseconds;
+            Duration = duration;
         }
 
-        public int DurationInMilliseconds { get; set; }
+        public TimeSpan Duration { get; set; }
 
         public override Promise Update(Creature target)
         {
-            delayBehaviour = Context.Current.Server.Components.AddComponent(target, new DelayBehaviour(DurationInMilliseconds) );
+            delayBehaviour = Context.Current.Server.Components.AddComponent(target, new DelayBehaviour(Duration) );
 
             return delayBehaviour.Promise;
         }

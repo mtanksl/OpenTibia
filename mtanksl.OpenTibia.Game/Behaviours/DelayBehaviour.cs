@@ -5,11 +5,11 @@ namespace OpenTibia.Game.Components
 {
     public class DelayBehaviour : Behaviour
     {
-        private int executeInMilliseconds;
+        private TimeSpan executeIn;
 
-        public DelayBehaviour(int executeInMilliseconds)
+        public DelayBehaviour(TimeSpan executeIn)
         {
-            this.executeInMilliseconds = executeInMilliseconds;
+            this.executeIn = executeIn;
         }
 
         public override bool IsUnique
@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Components
 
         public override void Start(Server server)
         {
-            promise = Promise.Delay(key, executeInMilliseconds).Then(Update).Then( () =>
+            promise = Promise.Delay(key, executeIn).Then(Update).Then( () =>
             {
                 server.Components.RemoveComponent(GameObject, this);
 

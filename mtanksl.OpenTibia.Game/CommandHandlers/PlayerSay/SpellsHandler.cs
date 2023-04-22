@@ -17,9 +17,9 @@ namespace OpenTibia.Game.CommandHandlers
 
             public string Group { get; set; }
 
-            public int CooldownInMilliseconds { get; set; }
+            public TimeSpan Cooldown { get; set; }
 
-            public int GroupCooldownInMilliseconds { get; set; }
+            public TimeSpan GroupCooldown { get; set; }
 
             public bool Premium { get; set; }
 
@@ -40,9 +40,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Support",
 
-                CooldownInMilliseconds = 2000,
+                Cooldown = TimeSpan.FromSeconds(2),
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Premium = true,
 
@@ -79,9 +79,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Support",
 
-                CooldownInMilliseconds = 2000,
+                Cooldown = TimeSpan.FromSeconds(2),
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Premium = true,
 
@@ -122,9 +122,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Support",
 
-                CooldownInMilliseconds = 2000,
+                Cooldown = TimeSpan.FromSeconds(2),
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Premium = true,
 
@@ -165,9 +165,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Support",
 
-                CooldownInMilliseconds = 2000,
+                Cooldown = TimeSpan.FromSeconds(2),
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Premium = false,
 
@@ -177,7 +177,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new LightCondition(new Light(6, 215), (6 * 60 + 10) * 1000) ) );
+                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new LightCondition(new Light(6, 215), new TimeSpan(0, 6, 10) ) ) );
                     } );
                 }
             },
@@ -188,9 +188,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Support",
 
-                CooldownInMilliseconds = 2000,
+                Cooldown = TimeSpan.FromSeconds(2),
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Premium = false,
 
@@ -200,7 +200,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new LightCondition(new Light(8, 215), (11 * 60 + 35) * 1000) ) );
+                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new LightCondition(new Light(8, 215), new TimeSpan(0, 11, 35) ) ) );
                     } );
                 }
             },
@@ -211,9 +211,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Support",
 
-                CooldownInMilliseconds = 2000,
+                Cooldown = TimeSpan.FromSeconds(2),
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Premium = true,
 
@@ -223,7 +223,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new LightCondition(new Light(9, 215), (33 * 60 + 10) * 1000) ) );
+                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new LightCondition(new Light(9, 215), new TimeSpan(0, 33, 10) ) ) );
                     } );
                 }
             },
@@ -234,9 +234,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Support",
 
-                CooldownInMilliseconds = 2000,
+                Cooldown = TimeSpan.FromSeconds(2),
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Premium = false,
 
@@ -246,7 +246,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new InvisibleCondition( (3 * 60 + 20) * 1000) ) );
+                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new InvisibleCondition(new TimeSpan(0, 3, 20) ) ) );
                     } );
                 }
             },
@@ -257,9 +257,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Support",
 
-                CooldownInMilliseconds = 2000,
+                Cooldown = TimeSpan.FromSeconds(2),
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Premium = true,
 
@@ -271,7 +271,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.GreenShimmer) ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new HasteCondition(speed, 33 * 1000) ) );
+                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new HasteCondition(speed, new TimeSpan(0, 0, 33) ) ) );
                     } );
                 }
             },
@@ -282,9 +282,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Support",
 
-                CooldownInMilliseconds = 2000,
+                Cooldown = TimeSpan.FromSeconds(2),
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Premium = true,
 
@@ -296,7 +296,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.GreenShimmer) ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new HasteCondition(speed, 22 * 1000) ) );
+                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new HasteCondition(speed, new TimeSpan(0, 0, 22) ) ) );
                     } );
                 }
             },
@@ -307,9 +307,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Support",
 
-                CooldownInMilliseconds = 14000,
+                Cooldown = TimeSpan.FromSeconds(14),
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Premium = false,
 
@@ -319,7 +319,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new MagicShieldCondition(3 * 60 * 1000) ) );
+                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new MagicShieldCondition(new TimeSpan(0, 3, 0) ) ) );
                     } );
                 }
             },
@@ -330,9 +330,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Healing",
 
-                CooldownInMilliseconds = 6000,
+                Cooldown = TimeSpan.FromSeconds(6),
 
-                GroupCooldownInMilliseconds = 1000,
+                GroupCooldown = TimeSpan.FromSeconds(1),
 
                 Premium = false,
 
@@ -353,9 +353,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Healing",
 
-                CooldownInMilliseconds = 1000,
+                Cooldown = TimeSpan.FromSeconds(1),
 
-                GroupCooldownInMilliseconds = 1000,
+                GroupCooldown = TimeSpan.FromSeconds(1),
 
                 Premium = false,
 
@@ -377,9 +377,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Healing",
 
-                CooldownInMilliseconds = 1000,
+                Cooldown = TimeSpan.FromSeconds(1),
 
-                GroupCooldownInMilliseconds = 1000,
+                GroupCooldown = TimeSpan.FromSeconds(1),
 
                 Premium = false,
 
@@ -401,9 +401,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Healing",
 
-                CooldownInMilliseconds = 1000,
+                Cooldown = TimeSpan.FromSeconds(1),
 
-                GroupCooldownInMilliseconds = 1000,
+                GroupCooldown = TimeSpan.FromSeconds(1),
 
                 Premium = false,
 
@@ -425,9 +425,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Healing",
 
-                CooldownInMilliseconds = 2000,
+                Cooldown = TimeSpan.FromSeconds(2),
 
-                GroupCooldownInMilliseconds = 1000,
+                GroupCooldown = TimeSpan.FromSeconds(1),
 
                 Premium = true,
 
@@ -460,9 +460,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                CooldownInMilliseconds = 2000,
+                Cooldown = TimeSpan.FromSeconds(2),
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Premium = true,
 
@@ -489,9 +489,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                CooldownInMilliseconds = 2000,
+                Cooldown = TimeSpan.FromSeconds(2),
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Premium = true,
 
@@ -518,9 +518,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                CooldownInMilliseconds = 2000,
+                Cooldown = TimeSpan.FromSeconds(2),
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Premium = true,
 
@@ -547,9 +547,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                CooldownInMilliseconds = 4000,
+                Cooldown = TimeSpan.FromSeconds(4),
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Premium = false,
 
@@ -579,9 +579,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                CooldownInMilliseconds = 4000,
+                Cooldown = TimeSpan.FromSeconds(4),
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Premium = false,
 
@@ -612,9 +612,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                CooldownInMilliseconds = 6000,
+                Cooldown = TimeSpan.FromSeconds(6),
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Premium = false,
 
@@ -647,9 +647,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                CooldownInMilliseconds = 8000,
+                Cooldown = TimeSpan.FromSeconds(8),
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Premium = false,
 
@@ -680,9 +680,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                CooldownInMilliseconds = 40000,
+                Cooldown = TimeSpan.FromSeconds(40),
 
-                GroupCooldownInMilliseconds = 4000,
+                GroupCooldown = TimeSpan.FromSeconds(4),
 
                 Premium = true,
 
@@ -720,9 +720,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                CooldownInMilliseconds = 40000,
+                Cooldown = TimeSpan.FromSeconds(40),
 
-                GroupCooldownInMilliseconds = 4000,
+                GroupCooldown = TimeSpan.FromSeconds(4),
 
                 Premium = true,
 
@@ -760,9 +760,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Group = "Attack",
 
-                CooldownInMilliseconds = 4000,
+                Cooldown = TimeSpan.FromSeconds(4),
 
-                GroupCooldownInMilliseconds = 2000,
+                GroupCooldown = TimeSpan.FromSeconds(2),
 
                 Premium = true,
 
@@ -842,9 +842,9 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         if (spell.Condition == null || spell.Condition(command.Player) )
                         {
-                            playerCooldownBehaviour.AddCooldown(spell.Name, spell.CooldownInMilliseconds);
+                            playerCooldownBehaviour.AddCooldown(spell.Name, spell.Cooldown);
     
-                            playerCooldownBehaviour.AddCooldown(spell.Group, spell.GroupCooldownInMilliseconds);
+                            playerCooldownBehaviour.AddCooldown(spell.Group, spell.GroupCooldown);
 
                             return Context.AddCommand(new PlayerUpdateManaCommand(command.Player, command.Player.Mana - spell.Mana) ).Then( () =>
                             {

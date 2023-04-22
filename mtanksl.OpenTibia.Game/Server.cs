@@ -204,7 +204,7 @@ namespace OpenTibia.Game
             } );
         }
 
-        public Promise QueueForExecution(string key, int executeInMilliseconds, Func<Promise> run)
+        public Promise QueueForExecution(string key, TimeSpan executeIn, Func<Promise> run)
         {
             return Promise.Run( (resolve, reject) =>
             {
@@ -219,7 +219,7 @@ namespace OpenTibia.Game
 
                 Context previousContext = Context.Current;
 
-                schedulerEvent = new SchedulerEvent(executeInMilliseconds, () =>
+                schedulerEvent = new SchedulerEvent(executeIn, () =>
                 {
                     schedulerEvents.Remove(key);
 
