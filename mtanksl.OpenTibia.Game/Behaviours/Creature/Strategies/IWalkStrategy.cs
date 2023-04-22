@@ -1,6 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 
-namespace OpenTibia.Game.Strategies
+namespace OpenTibia.Game.Components
 {
     public interface IWalkStrategy
     {

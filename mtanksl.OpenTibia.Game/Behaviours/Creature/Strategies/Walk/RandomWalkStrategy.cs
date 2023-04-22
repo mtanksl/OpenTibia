@@ -3,7 +3,7 @@ using OpenTibia.Common.Structures;
 using System;
 using System.Linq;
 
-namespace OpenTibia.Game.Strategies
+namespace OpenTibia.Game.Components
 {
     public class RandomWalkStrategy : IWalkStrategy
     {

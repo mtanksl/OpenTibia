@@ -2,7 +2,6 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Events;
-using OpenTibia.Game.Strategies;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
@@ -24,11 +23,15 @@ namespace OpenTibia.Game.Components
 
         private IAttackStrategy attackStrategy;
 
+        private int cooldownInMilliseconds;
+
         private IWalkStrategy walkStrategy;
 
-        public PlayerAttackAndFollowBehaviour(IAttackStrategy attackStrategy, IWalkStrategy walkStrategy)
+        public PlayerAttackAndFollowBehaviour(IAttackStrategy attackStrategy, int cooldownInMilliseconds, IWalkStrategy walkStrategy)
         {
             this.attackStrategy = attackStrategy;
+
+            this.cooldownInMilliseconds = cooldownInMilliseconds;
 
             this.walkStrategy = walkStrategy;
         }
@@ -140,7 +143,7 @@ namespace OpenTibia.Game.Components
 
                                 if (command != null)
                                 {
-                                    attackCooldown = DateTime.UtcNow.AddMilliseconds(attackStrategy.CooldownInMilliseconds);
+                                    attackCooldown = DateTime.UtcNow.AddMilliseconds(cooldownInMilliseconds);
 
                                     promises.Add(Context.AddCommand(command) );
                                 }

@@ -3,10 +3,15 @@ using OpenTibia.Common.Structures;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OpenTibia.Game.Strategies
+namespace OpenTibia.Game.Components
 {
     public class ApproachWalkStrategy : IWalkStrategy
     {
+        public ApproachWalkStrategy()
+        {
+            
+        }
+
         public Tile GetNext(Server server, Tile spawn, Creature attacker, Creature target)
         {
             int deltaY = attacker.Tile.Position.Y - target.Tile.Position.Y;

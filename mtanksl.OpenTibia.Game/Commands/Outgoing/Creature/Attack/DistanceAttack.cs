@@ -5,18 +5,31 @@ namespace OpenTibia.Game.Commands
 {
     public class DistanceAttack : Attack
     {
-        public DistanceAttack(ProjectileType projectileType)
+        public DistanceAttack(ProjectileType projectileType, int? min, int? max)
         {
             ProjectileType = projectileType;
+
+            Min = min;
+
+            Max = max;
         }
 
         public ProjectileType ProjectileType { get; set; }
 
+        public int? Min { get; set; }
+
+        public int? Max { get; set; }
+
         public override int Calculate(Creature attacker, Creature target)
         {
-            //TODO: Calculate distance damage
+            if (Min == null || Max == null)
+            {
+                //TODO: Calculate distance damage
 
-            return -Context.Current.Server.Randomization.Take(0, 30);
+                return -Context.Current.Server.Randomization.Take(0, 30);
+            }
+
+            return -Context.Current.Server.Randomization.Take(Min.Value, Max.Value);
         }
 
         public override Promise Missed(Creature attacker, Creature target)

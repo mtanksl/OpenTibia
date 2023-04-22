@@ -1,22 +1,21 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Events;
-using OpenTibia.Game.Strategies;
 using System;
 
 namespace OpenTibia.Game.Components
 {
-    public class CreatureAttackBehaviour : Behaviour
+    public class CreatureThinkBehaviour : Behaviour
     {
         private IChooseTargetStrategy chooseTargetStrategy;
 
-        private IAttackStrategy attackStrategy;
+        private Action[] actions;
 
-        public CreatureAttackBehaviour(IChooseTargetStrategy chooseTargetStrategy, IAttackStrategy attackStrategy)
+        public CreatureThinkBehaviour(IChooseTargetStrategy chooseTargetStrategy, Action[] actions)
         {
             this.chooseTargetStrategy = chooseTargetStrategy;
 
-            this.attackStrategy = attackStrategy;
+            this.actions = actions;
         }
 
         public override bool IsUnique
@@ -41,30 +40,17 @@ namespace OpenTibia.Game.Components
             } );
         }
 
-        private DateTime attackCooldown;
-
-        private Promise Update()
+        private async Promise Update()
         {
-            if (DateTime.UtcNow > attackCooldown)
+            Creature target = chooseTargetStrategy.GetNext(Context.Server, attacker);
+
+            if (target != null)
             {
-                var target = chooseTargetStrategy.GetNext(Context.Server, attacker);
-
-                if (target != null)
+                foreach (var action in actions)
                 {
-                    Command command = attackStrategy.GetNext(Context.Server, attacker, target);
-
-                    if (command != null)
-                    {
-                        attackCooldown = DateTime.UtcNow.AddMilliseconds(attackStrategy.CooldownInMilliseconds);
-
-                        return Context.AddCommand(command);
-                    }
+                    await action.Update(attacker, target);
                 }
-
-                attackCooldown = DateTime.UtcNow.AddSeconds(2);
             }
-
-            return Promise.Completed;
         }
 
         public override void Stop(Server server)

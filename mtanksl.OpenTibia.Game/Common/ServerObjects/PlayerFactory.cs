@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
-using OpenTibia.Game.Strategies;
 
 namespace OpenTibia.Game
 {
@@ -102,7 +101,7 @@ namespace OpenTibia.Game
 
             server.Components.AddComponent(player, new PlayerCooldownBehaviour() );
 
-            server.Components.AddComponent(player, new PlayerAttackAndFollowBehaviour(new MeleeAttackStrategy(500), new FollowWalkStrategy() ) );
+            server.Components.AddComponent(player, new PlayerAttackAndFollowBehaviour(new MeleeAttackStrategy(null, null), 500, new FollowWalkStrategy() ) );
 
             server.Components.AddComponent(player, new PlayerEnvironmentLightBehaviour() );
 

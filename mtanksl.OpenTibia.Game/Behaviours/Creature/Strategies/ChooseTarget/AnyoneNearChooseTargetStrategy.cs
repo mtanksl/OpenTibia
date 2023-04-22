@@ -2,25 +2,27 @@
 using OpenTibia.Common.Structures;
 using System.Linq;
 
-namespace OpenTibia.Game.Strategies
+namespace OpenTibia.Game.Components
 {
-    public class RandomChooseTargetStrategy : IChooseTargetStrategy
+    public class AnyoneNearChooseTargetStrategy : IChooseTargetStrategy
     {
+        public AnyoneNearChooseTargetStrategy()
+        {
+            
+        }
+
         private Player target;
 
         public Player GetNext(Server server, Creature attacker)
         {
             if (target == null || target.IsDestroyed || !attacker.Tile.Position.CanHearSay(target.Tile.Position) )
             {
-                Player[] players = server.GameObjects.GetPlayers()
+                Player player = server.GameObjects.GetPlayers()
                     .Where(p => p.Vocation != Vocation.Gamemaster &&
                                 attacker.Tile.Position.CanHearSay(p.Tile.Position) )
-                    .ToArray();
+                    .FirstOrDefault();
 
-                if (players.Length > 0)
-                {
-                    target = server.Randomization.Take(players);
-                }
+                target = player;
             }
 
             return target;
