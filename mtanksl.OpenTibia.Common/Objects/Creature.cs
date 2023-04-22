@@ -78,6 +78,8 @@ namespace OpenTibia.Common.Objects
 
         public bool Block { get; set; }
 
+        public bool Invisible { get; set; }
+
         public SpecialCondition SpecialConditions { get; set; }
 
         public bool HasSpecialCondition(SpecialCondition specialCondition)
