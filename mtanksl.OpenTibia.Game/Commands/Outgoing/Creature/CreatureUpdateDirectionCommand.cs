@@ -47,11 +47,11 @@ namespace OpenTibia.Game.Commands
                         }
                     }
 
-                    byte index;
+                    byte clientIndex;
 
-                    if (observer.Client.TryGetIndex(Creature, out index) )
+                    if (observer.Client.TryGetIndex(Creature, out clientIndex) )
                     {
-                        Context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(Creature.Tile.Position, index, Creature.Id, Creature.Direction) );
+                        Context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(Creature.Tile.Position, clientIndex, Creature.Id, Creature.Direction) );
                     }
                 }
 

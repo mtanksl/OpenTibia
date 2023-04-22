@@ -80,9 +80,9 @@ namespace OpenTibia.Game.Commands
 
         public byte? Count { get; set; }
 
-        public Attack? Attack { get; set; }
+        public Attack Attack { get; set; }
 
-        public Condition? Condition { get; set; }
+        public Condition Condition { get; set; }
 
         public override async Promise Execute()
         {

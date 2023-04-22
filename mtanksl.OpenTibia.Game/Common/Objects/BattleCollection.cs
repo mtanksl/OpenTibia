@@ -44,9 +44,9 @@ namespace OpenTibia.Common.Objects
                                 return true;
                             }
 
-                            byte index;
+                            byte clientIndex;
 
-                            if ( !client.TryGetIndex(creature, out index) )
+                            if ( !client.TryGetIndex(creature, out clientIndex) )
                             {
                                 return true;
                             }

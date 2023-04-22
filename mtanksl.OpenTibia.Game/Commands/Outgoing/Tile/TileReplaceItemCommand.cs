@@ -27,16 +27,15 @@ namespace OpenTibia.Game.Commands
 
             Tile.ReplaceContent(index, ToItem);
 
-            if (index < Constants.ObjectsPerPoint)
+            foreach (var observer in Context.Server.GameObjects.GetPlayers() )
             {
-                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+                byte clientIndex;
+
+                if (observer.Client.TryGetIndex(ToItem, out clientIndex) )
                 {
-                    if (observer.Tile.Position.CanSee(Tile.Position) )
-                    {
-                        Context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(Tile.Position, index, ToItem) );
-                    }
+                    Context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(Tile.Position, clientIndex, ToItem) );
                 }
-            }
+            }            
 
             Context.AddEvent(new TileReplaceItemEventArgs(Tile, FromItem, ToItem, index) );
 

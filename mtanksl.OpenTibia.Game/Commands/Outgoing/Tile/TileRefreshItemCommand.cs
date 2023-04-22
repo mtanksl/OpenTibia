@@ -20,14 +20,13 @@ namespace OpenTibia.Game.Commands
         {
             byte index = Tile.GetIndex(Item);
 
-            if (index < Constants.ObjectsPerPoint)
+            foreach (var observer in Context.Server.GameObjects.GetPlayers() )
             {
-                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+                byte clientIndex;
+
+                if (observer.Client.TryGetIndex(Item, out clientIndex) )
                 {
-                    if (observer.Tile.Position.CanSee(Tile.Position) )
-                    {
-                        Context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(Tile.Position, index, Item) );
-                    }
+                    Context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(Tile.Position, clientIndex, Item) );
                 }
             }
 

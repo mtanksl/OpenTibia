@@ -22,6 +22,8 @@ namespace OpenTibia.Common.Objects
 
         SafeMode SafeMode { get; set; }
 
-        bool TryGetIndex(IContent content, out byte _index);
+        IContent GetContent(IContainer container, byte clientIndex);
+
+        bool TryGetIndex(IContent content, out byte clientIndex);
     }
 }

@@ -43,9 +43,9 @@ namespace OpenTibia.Game.Commands
                         Context.AddPacket(observer.Client.Connection, new SendStatusOutgoingPacket(observer.Health, observer.MaxHealth, observer.Capacity, observer.Experience, observer.Level, observer.LevelPercent, observer.Mana, observer.MaxMana, observer.Skills.MagicLevel, observer.Skills.MagicLevelPercent, observer.Soul, observer.Stamina) );
                     }
 
-                    byte index;
+                    byte clientIndex;
 
-                    if (observer.Client.TryGetIndex(Creature, out index) )
+                    if (observer.Client.TryGetIndex(Creature, out clientIndex) )
                     {
                         Context.AddPacket(observer.Client.Connection, new SetHealthOutgoingPacket(Creature.Id, Creature.HealthPercentage) );
                     }

@@ -32,9 +32,9 @@ namespace OpenTibia.Game.Commands
 
                 foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                 {
-                    byte index;
+                    byte clientIndex;
 
-                    if (observer.Client.TryGetIndex(Creature, out index) )
+                    if (observer.Client.TryGetIndex(Creature, out clientIndex) )
                     {
                         Context.AddPacket(observer.Client.Connection, new SetOutfitOutgoingPacket(Creature.Id, Creature.Outfit) );
                     }
