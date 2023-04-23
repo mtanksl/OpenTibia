@@ -11,7 +11,6 @@ using OpenTibia.Network.Sockets;
 using OpenTibia.Threading;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace OpenTibia.Game
 {

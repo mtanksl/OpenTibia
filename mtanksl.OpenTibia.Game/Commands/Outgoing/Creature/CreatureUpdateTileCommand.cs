@@ -1,7 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Game.Components;
-using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
@@ -27,6 +25,27 @@ namespace OpenTibia.Game.Commands
         {
             Tile fromTile = Creature.Tile;
 
+            Direction? direction = fromTile.Position.ToDirection(ToTile.Position);
+
+            if (direction != null)
+            {
+                Creature.Direction = direction.Value;
+            }
+
+            Context.AddCommand(new TileRemoveCreatureCommand(fromTile, Creature) );
+
+            Context.AddCommand(new TileAddCreatureCommand(ToTile, Creature) );
+
+            if (Creature is Player observer)
+            {
+                Context.AddPacket(observer.Client.Connection, new SendTilesOutgoingPacket(Context.Server.Map, observer.Client, ToTile.Position) );
+            }
+
+            return Promise.Completed;
+
+            /*
+            Tile fromTile = Creature.Tile;
+
             byte fromIndex = fromTile.GetIndex(Creature);
 
             fromTile.RemoveContent(fromIndex);
@@ -35,7 +54,6 @@ namespace OpenTibia.Game.Commands
 
             bool updateDirection = false;
 
-            Direction? expected = fromTile.Position.ToDirection(ToTile.Position);
 
             if (expected == null)
             {
@@ -227,6 +245,7 @@ namespace OpenTibia.Game.Commands
             Context.AddEvent(new TileAddCreatureEventArgs(ToTile, Creature, toIndex) );
 
             return Promise.Completed;
+            */
         }
     }
 }

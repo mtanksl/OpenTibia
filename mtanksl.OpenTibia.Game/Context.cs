@@ -6,7 +6,6 @@ using OpenTibia.Threading;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 
 namespace OpenTibia.Game
 {
