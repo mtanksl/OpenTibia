@@ -16,23 +16,26 @@ namespace OpenTibia.Game.CommandHandlers
 
             Tile toTile = command.ToTile;
 
-            if ( !shallowWaters.Contains(fromTile.Ground.Metadata.OpenTibiaId) && shallowWaters.Contains(toTile.Ground.Metadata.OpenTibiaId) )
+            if (fromTile.Ground != null && toTile.Ground != null)
             {
-                return next().Then( () =>
+                if ( !shallowWaters.Contains(fromTile.Ground.Metadata.OpenTibiaId) && shallowWaters.Contains(toTile.Ground.Metadata.OpenTibiaId) )
                 {
-                    return Context.AddCommand(new CreatureUpdateOutfitCommand(command.Creature, command.Creature.BaseOutfit, Outfit.Swimming) );
+                    return next().Then( () =>
+                    {
+                        return Context.AddCommand(new CreatureUpdateOutfitCommand(command.Creature, command.Creature.BaseOutfit, Outfit.Swimming) );
 
-                } ).Then( () =>
+                    } ).Then( () =>
+                    {
+                        return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.WaterSplash) );
+                    } );
+                }
+                else if (shallowWaters.Contains(fromTile.Ground.Metadata.OpenTibiaId) && !shallowWaters.Contains(toTile.Ground.Metadata.OpenTibiaId) )
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.WaterSplash) );
-                } );
-            }
-            else if (shallowWaters.Contains(fromTile.Ground.Metadata.OpenTibiaId) && !shallowWaters.Contains(toTile.Ground.Metadata.OpenTibiaId) )
-            {
-                return next().Then( () =>
-                {
-                    return Context.AddCommand(new CreatureUpdateOutfitCommand(command.Creature, command.Creature.BaseOutfit, command.Creature.BaseOutfit) );
-                } );
+                    return next().Then( () =>
+                    {
+                        return Context.AddCommand(new CreatureUpdateOutfitCommand(command.Creature, command.Creature.BaseOutfit, command.Creature.BaseOutfit) );
+                    } );
+                }
             }
 
             return next();

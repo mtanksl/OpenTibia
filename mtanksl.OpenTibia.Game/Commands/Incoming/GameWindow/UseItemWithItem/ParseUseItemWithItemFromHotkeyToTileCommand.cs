@@ -48,7 +48,7 @@ namespace OpenTibia.Game.Commands
 
                 if (toTile != null)
                 {
-                    switch (toTile.GetContent(ToIndex) )
+                    switch (Player.Client.GetContent(toTile, ToIndex) )
                     {
                         case Item toItem:
 

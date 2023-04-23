@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Commands
             {
                 if (Player.Tile.Position.CanSee(fromTile.Position) )
                 {
-                    Item fromItem = fromTile.GetContent(FromIndex) as Item;
+                    Item fromItem = Player.Client.GetContent(fromTile, FromIndex) as Item;
 
                     if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
                     {
@@ -48,7 +48,7 @@ namespace OpenTibia.Game.Commands
 
                         if (toTile != null)
                         {
-                            switch (toTile.GetContent(ToIndex) )
+                            switch (Player.Client.GetContent(toTile, ToIndex) )
                             {
                                 case Item toItem:
 

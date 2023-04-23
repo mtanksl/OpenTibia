@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
@@ -21,6 +22,8 @@ namespace OpenTibia.Game.Commands
             byte slot = Inventory.GetIndex(Item);
 
             Context.AddPacket(Inventory.Player.Client.Connection, new SlotAddOutgoingPacket(slot, Item) );
+
+            Context.AddEvent(new InventoryRefreshItemEventArgs(Inventory, Item, slot) );
 
             return Promise.Completed;
         }

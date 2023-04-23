@@ -60,7 +60,7 @@ namespace OpenTibia.Game.Commands
                 outfits.Add(new SelectOutfit(Outfit.GamemasterBlue.Id, "Blue", Addon.None) );
             }
 
-            Context.AddPacket(Player.Client.Connection, new OpenSelectOutfitDialogOutgoingPacket(Player.Outfit, outfits) );
+            Context.AddPacket(Player.Client.Connection, new OpenSelectOutfitDialogOutgoingPacket(Player.BaseOutfit, outfits) );
 
             return Promise.Completed;
         }

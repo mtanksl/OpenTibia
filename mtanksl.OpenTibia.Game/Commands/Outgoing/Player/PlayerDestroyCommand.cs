@@ -129,6 +129,8 @@ Context.DatabaseContext.Commit();
 
             databasePlayer.OutfitAddon = (int)player.Outfit.Addon;
 
+            databasePlayer.Invisible = player.Invisible;
+
             databasePlayer.CoordinateX = fromTile.Position.X;
 
             databasePlayer.CoordinateY = fromTile.Position.Y;

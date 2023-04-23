@@ -1,6 +1,8 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
+using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
@@ -19,26 +21,33 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            var updates = new Queue< (Player Player, byte ClientIndex) >();
+
+            foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+            {
+                byte clientIndex;
+
+                if (observer.Client.TryGetIndex(Item, out clientIndex) )
+                {
+                    updates.Enqueue( (observer, clientIndex) );
+                }
+            }
+
             byte index = Tile.GetIndex(Item);
 
             Tile.RemoveContent(index);
 
-            if (index < Constants.ObjectsPerPoint || Tile.Count >= Constants.ObjectsPerPoint)
+            while (updates.Count > 0)
             {
-                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
-                {
-                    if (observer.Tile.Position.CanSee(Tile.Position) )
-                    {
-                        if (index < Constants.ObjectsPerPoint)
-                        {
-                            Context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(Tile.Position, index) );
-                        }
+                var update = updates.Dequeue();
 
-                        if (Tile.Count >= Constants.ObjectsPerPoint)
-                        {
-                            Context.AddPacket(observer.Client.Connection, new SendTileOutgoingPacket(Context.Server.Map, observer.Client, Tile.Position) );
-                        }
-                    }
+                if (Tile.Count >= Constants.ObjectsPerPoint)
+                {
+                    Context.AddPacket(update.Player.Client.Connection, new SendTileOutgoingPacket(Context.Server.Map, update.Player.Client, Tile.Position) );
+                }
+                else
+                {
+                    Context.AddPacket(update.Player.Client.Connection, new ThingRemoveOutgoingPacket(Tile.Position, update.ClientIndex) );
                 }
             }
 

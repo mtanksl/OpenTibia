@@ -53,6 +53,8 @@ namespace OpenTibia.Data.Models
 
         public int Speed { get; set; }
 
+        public bool Invisible { get; set; }
+
         public int SkillMagicLevel { get; set; }
 
         public int SkillMagicLevelPercent { get; set; }

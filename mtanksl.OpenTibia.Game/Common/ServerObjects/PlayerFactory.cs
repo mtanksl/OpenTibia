@@ -38,6 +38,8 @@ namespace OpenTibia.Game
 
                 Speed = (ushort)databasePlayer.Speed,
 
+                Invisible = databasePlayer.Invisible,
+
                 Skills = {
 
                     MagicLevel = (byte)databasePlayer.SkillMagicLevel,

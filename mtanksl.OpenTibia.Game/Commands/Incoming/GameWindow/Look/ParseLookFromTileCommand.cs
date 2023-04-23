@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Commands
             {
                 if (Player.Tile.Position.CanSee(fromTile.Position) )
                 {
-                    switch ( fromTile.GetContent(FromIndex) )
+                    switch (Player.Client.GetContent(fromTile, FromIndex) )
                     {
                         case Item item:
 
