@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.IO;
-using System.Linq;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
