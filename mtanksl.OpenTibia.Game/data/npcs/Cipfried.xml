@@ -2,4 +2,10 @@
 <npc name="Cipfried" nameDescription="Cipfried" speed="220">
 	<health now="100" max="100"/>
 	<look type="57" head="0" body="0" legs="0" feet="0"/>
+  <voices>
+    <voice sentence="Feeling lost, my child? Ask me for hints or help!" />
+    <voice sentence="Come to me if you need healing!" />
+    <voice sentence="Welcome to the temple of Rookgaard!" />
+    <voice sentence="Don't despair! Help is near!" />
+  </voices>
 </npc>

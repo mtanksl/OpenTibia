@@ -3,6 +3,7 @@ using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Xml.Npcs;
 using OpenTibia.Game.Components;
 using System.Collections.Generic;
+using System.Linq;
 using Npc = OpenTibia.Common.Objects.Npc;
 
 namespace OpenTibia.Game
@@ -29,8 +30,10 @@ namespace OpenTibia.Game
 
                     MaxHealth = (ushort)xmlNpc.Health.Max,
 
-                    Outfit = new Outfit(xmlNpc.Look.Type, xmlNpc.Look.Head, xmlNpc.Look.Body, xmlNpc.Look.Legs, xmlNpc.Look.Feet, Addon.None)
-                } ); 
+                    Outfit = new Outfit(xmlNpc.Look.Type, xmlNpc.Look.Head, xmlNpc.Look.Body, xmlNpc.Look.Legs, xmlNpc.Look.Feet, Addon.None),
+
+                    Sentences = xmlNpc.Voices?.Select(v => v.Sentence).ToArray()
+                }); 
             }
         }
 
@@ -49,8 +52,20 @@ namespace OpenTibia.Game
 
             server.GameObjects.AddGameObject(npc);
 
-            server.Components.AddComponent(npc, new CreatureThinkBehaviour(new AnyoneNearChooseTargetStrategy(), new[] { new WalkCreatureAction(new RandomWalkStrategy(2) ) } ) );
+            List<BehaviourAction> actions = new List<BehaviourAction>();
 
+            actions.Add(new CreatureWalkAction(new RandomWalkStrategy(2) ) );
+
+            if (npc.Metadata.Sentences != null)
+            {
+                actions.Add(new NpcSayAction(npc.Metadata.Sentences) );
+            }
+
+            if (actions.Count > 0)
+            {
+                server.Components.AddComponent(npc, new NpcThinkBehaviour(new FirstChooseTargetStrategy(), actions.ToArray() ) );
+            }
+            
             return npc;
         }
 

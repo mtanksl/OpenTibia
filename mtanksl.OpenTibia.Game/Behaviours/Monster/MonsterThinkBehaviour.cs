@@ -5,13 +5,13 @@ using System;
 
 namespace OpenTibia.Game.Components
 {
-    public class CreatureThinkBehaviour : Behaviour
+    public class MonsterThinkBehaviour : Behaviour
     {
         private IChooseTargetStrategy chooseTargetStrategy;
 
-        private CreatureAction[] actions;
+        private BehaviourAction[] actions;
 
-        public CreatureThinkBehaviour(IChooseTargetStrategy chooseTargetStrategy, CreatureAction[] actions)
+        public MonsterThinkBehaviour(IChooseTargetStrategy chooseTargetStrategy, BehaviourAction[] actions)
         {
             this.chooseTargetStrategy = chooseTargetStrategy;
 

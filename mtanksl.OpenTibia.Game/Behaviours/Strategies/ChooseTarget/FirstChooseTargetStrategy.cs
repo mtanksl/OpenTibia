@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
-    public class AnyoneNearChooseTargetStrategy : IChooseTargetStrategy
+    public class FirstChooseTargetStrategy : IChooseTargetStrategy
     {
-        public AnyoneNearChooseTargetStrategy()
+        public FirstChooseTargetStrategy()
         {
             
         }

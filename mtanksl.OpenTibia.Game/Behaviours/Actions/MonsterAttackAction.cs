@@ -4,13 +4,13 @@ using System;
 
 namespace OpenTibia.Game.Components
 {
-    public class AttackCreatureAction : CreatureAction
+    public class MonsterAttackAction : BehaviourAction
     {
         private IAttackStrategy attackStrategy;
 
         private TimeSpan cooldown;
 
-        public AttackCreatureAction(IAttackStrategy attackStrategy, TimeSpan cooldown)
+        public MonsterAttackAction(IAttackStrategy attackStrategy, TimeSpan cooldown)
         {
             this.attackStrategy = attackStrategy;
 
