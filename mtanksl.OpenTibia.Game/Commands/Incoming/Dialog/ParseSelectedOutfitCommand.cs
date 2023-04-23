@@ -18,11 +18,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            bool isInvisible = (Player.Outfit == Outfit.Invisible);
-
-            bool isSwimming = (Player.Outfit == Outfit.Swimming);
-
-            return Context.AddCommand(new CreatureUpdateOutfitCommand(Player, Outfit, (isInvisible || isSwimming) ? Player.Outfit : Outfit) );
+            return Context.AddCommand(new CreatureUpdateOutfitCommand(Player, Outfit, Outfit) );
         }
     }
 }

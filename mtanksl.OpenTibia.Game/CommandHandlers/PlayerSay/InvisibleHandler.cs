@@ -12,14 +12,22 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if ( !command.Player.Invisible)
                 {
-                    return Context.AddCommand(new CreatureUpdateInvisibleCommand(command.Player, true) ).Then( () =>
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
+                    {
+                        return Context.AddCommand(new CreatureUpdateInvisibleCommand(command.Player, true) );
+
+                    } ).Then( () =>
                     {
                         return Context.AddCommand(new CreatureUpdateOutfitCommand(command.Player, command.Player.BaseOutfit, Outfit.Invisible) );
                     } );
                 }
                 else
                 {
-                    return Context.AddCommand(new CreatureUpdateInvisibleCommand(command.Player, false) ).Then( () =>
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Teleport) ).Then( () =>
+                    {
+                        return Context.AddCommand(new CreatureUpdateInvisibleCommand(command.Player, false) );
+
+                    } ).Then( () =>
                     {
                         return Context.AddCommand(new CreatureUpdateOutfitCommand(command.Player, command.Player.BaseOutfit, command.Player.BaseOutfit) );
                     } );
