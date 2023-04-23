@@ -4,6 +4,8 @@ namespace OpenTibia.Game
 {
     public class Logger
     {
+        private readonly object sync = new object();
+
         private ILoggerProvider provider;
 
         private LogLevel filter;
@@ -28,11 +30,14 @@ namespace OpenTibia.Game
         {
             if (level >= filter)
             {
-                provider.BeginWrite(level);
+                lock (sync)
+                {
+                    provider.BeginWrite(level);
 
-                provider.Write(message);
+                    provider.Write(message);
 
-                provider.EndWrite();
+                    provider.EndWrite();
+                }
             }
         }
 
@@ -40,11 +45,14 @@ namespace OpenTibia.Game
         {
             if (level >= filter)
             {
-                provider.BeginWrite(level);
+                lock (sync)
+                {
+                    provider.BeginWrite(level);
 
-                provider.Write(message + Environment.NewLine);
+                    provider.Write(message + Environment.NewLine);
 
-                provider.EndWrite();
+                    provider.EndWrite();
+                }
             }
         }
 
@@ -52,11 +60,14 @@ namespace OpenTibia.Game
         {
             if (level >= filter)
             {
-                provider.BeginWrite(level);
+                lock (sync)
+                {
+                    provider.BeginWrite(level);
 
-                provider.Write(Environment.NewLine);
+                    provider.Write(Environment.NewLine);
 
-                provider.EndWrite();
+                    provider.EndWrite();
+                }
             }
         }
     }
