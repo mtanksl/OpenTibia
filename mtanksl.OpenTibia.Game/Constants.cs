@@ -22,6 +22,8 @@
 
         public static readonly string YouDoNotHaveEnoughMana = "You do not have enough mana";
 
+        public static readonly string YouDoNotHaveEnoughLevel = "You do not have enough level";
+
         public static readonly string YouCanNotMoveThisObject = "You cannot move this object.";
 
         public static readonly string YouCannotPutMoreObjectsInThisContainer = "You cannot put more objects in this container.";

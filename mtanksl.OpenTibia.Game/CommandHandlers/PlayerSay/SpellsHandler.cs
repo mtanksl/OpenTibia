@@ -21,9 +21,11 @@ namespace OpenTibia.Game.CommandHandlers
 
             public TimeSpan GroupCooldown { get; set; }
 
-            public bool Premium { get; set; }
+            public int Level { get; set; }
 
             public int Mana { get; set; }
+
+            public bool Premium { get; set; }
 
             public Func<Player, bool> Condition { get; set; }
 
@@ -44,9 +46,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
-                Premium = true,
+                Level = 9,
 
                 Mana = 20,
+
+                Premium = true,
 
                 Condition = (attacker) =>
                 {
@@ -83,9 +87,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
-                Premium = true,
+                Level = 12,
 
                 Mana = 50,
+
+                Premium = true,
 
                 Condition = (attacker) =>
                 {
@@ -126,9 +132,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
-                Premium = true,
+                Level = 12,
 
                 Mana = 50,
+
+                Premium = true,
 
                 Condition = (attacker) =>
                 {
@@ -169,9 +177,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
-                Premium = false,
+                Level = 8,
 
                 Mana = 20,
+
+                Premium = false,
 
                 Callback = (attacker) =>
                 {
@@ -192,9 +202,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
-                Premium = false,
+                Level = 13,
 
                 Mana = 60,
+
+                Premium = false,
 
                 Callback = (attacker) =>
                 {
@@ -215,9 +227,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
-                Premium = true,
+                Level = 26,
 
                 Mana = 140,
+
+                Premium = true,
 
                 Callback = (attacker) =>
                 {
@@ -238,9 +252,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
-                Premium = false,
+                Level = 35,
 
                 Mana = 440,
+
+                Premium = false,
 
                 Callback = (attacker) =>
                 {
@@ -261,9 +277,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
-                Premium = true,
+                Level = 14,
 
                 Mana = 60,
+
+                Premium = true,
 
                 Callback = (attacker) =>
                 {
@@ -286,9 +304,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
-                Premium = true,
+                Level = 20,
 
                 Mana = 100,
+
+                Premium = true,
 
                 Callback = (attacker) =>
                 {
@@ -311,9 +331,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
-                Premium = false,
+                Level = 14,
 
                 Mana = 50,
+
+                Premium = false,
 
                 Callback = (attacker) =>
                 {
@@ -334,9 +356,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(1),
 
-                Premium = false,
+                Level = 10,
 
                 Mana = 30,
+
+                Premium = false,
 
                 Callback = (attacker) =>
                 {
@@ -357,9 +381,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(1),
 
-                Premium = false,
+                Level = 9,
 
                 Mana = 20,
+
+                Premium = false,
 
                 Callback = (attacker) =>
                 {
@@ -381,9 +407,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(1),
 
-                Premium = false,
+                Level = 11,
 
                 Mana = 70,
+
+                Premium = false,
 
                 Callback = (attacker) =>
                 {
@@ -405,9 +433,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(1),
 
-                Premium = false,
+                Level = 20,
 
                 Mana = 160,
+
+                Premium = false,
 
                 Callback = (attacker) =>
                 {
@@ -429,9 +459,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(1),
 
-                Premium = true,
+                Level = 36,
 
                 Mana = 150,
+
+                Premium = true,
 
                 Callback = (attacker) =>
                 {
@@ -464,9 +496,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
-                Premium = true,
+                Level = 16,
 
                 Mana = 20,
+
+                Premium = true,
 
                 Callback = (attacker) =>
                 {
@@ -493,9 +527,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
-                Premium = true,
+                Level = 12,
 
                 Mana = 20,
+
+                Premium = true,
 
                 Callback = (attacker) =>
                 {
@@ -522,9 +558,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
-                Premium = true,
+                Level = 12,
 
                 Mana = 20,
+
+                Premium = true,
 
                 Callback = (attacker) =>
                 {
@@ -551,9 +589,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
-                Premium = false,
+                Level = 18,
 
                 Mana = 25,
+
+                Premium = false,
 
                 Callback = (attacker) =>
                 {
@@ -583,9 +623,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
-                Premium = false,
+                Level = 23,
 
                 Mana = 40,
+
+                Premium = false,
 
                 Callback = (attacker) =>
                 {
@@ -616,9 +658,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
-                Premium = false,
-
+                Level = 29,
+                
                 Mana = 110,
+
+                Premium = false,
 
                 Callback = (attacker) =>
                 {
@@ -651,9 +695,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
-                Premium = false,
+                Level = 38,
 
                 Mana = 170,
+
+                Premium = false,
 
                 Callback = (attacker) =>
                 {
@@ -684,9 +730,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(4),
 
-                Premium = true,
+                Level = 55,
 
                 Mana = 600,
+
+                Premium = true,
 
                 Callback = (attacker) =>
                 {
@@ -724,9 +772,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(4),
 
-                Premium = true,
+                Level = 60,
 
                 Mana = 700,
+
+                Premium = true,
 
                 Callback = (attacker) =>
                 {
@@ -764,9 +814,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
-                Premium = true,
+                Level = 35,
 
                 Mana = 115,
+
+                Premium = true,
 
                 Callback = (attacker) =>
                 {
@@ -836,45 +888,55 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.Components.GetComponent<PlayerCooldownBehaviour>(command.Player);
 
-                if (command.Player.Mana >= spell.Mana)
+                if (command.Player.Level >= spell.Level)
                 {
-                    if ( !playerCooldownBehaviour.HasCooldown(spell.Name) && !playerCooldownBehaviour.HasCooldown(spell.Group) )
+                    if (command.Player.Mana >= spell.Mana)
                     {
-                        if (spell.Condition == null || spell.Condition(command.Player) )
+                        if ( !playerCooldownBehaviour.HasCooldown(spell.Name) && !playerCooldownBehaviour.HasCooldown(spell.Group) )
                         {
-                            playerCooldownBehaviour.AddCooldown(spell.Name, spell.Cooldown);
+                            if (spell.Condition == null || spell.Condition(command.Player) )
+                            {
+                                playerCooldownBehaviour.AddCooldown(spell.Name, spell.Cooldown);
     
-                            playerCooldownBehaviour.AddCooldown(spell.Group, spell.GroupCooldown);
+                                playerCooldownBehaviour.AddCooldown(spell.Group, spell.GroupCooldown);
 
-                            return Context.AddCommand(new PlayerUpdateManaCommand(command.Player, command.Player.Mana - spell.Mana) ).Then( () =>
-                            {
-                                return spell.Callback(command.Player);
+                                return Context.AddCommand(new PlayerUpdateManaCommand(command.Player, command.Player.Mana - spell.Mana) ).Then( () =>
+                                {
+                                    return spell.Callback(command.Player);
 
-                            } ).Then( () =>
+                                } ).Then( () =>
+                                {
+                                    return next();
+                                } );
+                            }
+
+                            return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
                             {
-                                return next();
+                                Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+
+                                return Promise.Break;
                             } );
                         }
 
                         return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
                         {
-                            Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
-
+                            Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
+                           
                             return Promise.Break;
                         } );
                     }
 
                     return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
                     {
-                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
-                           
+                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMana) );
+                         
                         return Promise.Break;
                     } );
                 }
 
                 return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
                 {
-                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMana) );
+                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughLevel) );
                          
                     return Promise.Break;
                 } );
