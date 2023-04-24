@@ -19,6 +19,10 @@ namespace OpenTibia.Game.CommandHandlers
 
             public TimeSpan GroupCooldown { get; set; }
 
+            public int Level { get; set; }
+
+            public int MagicLevel { get; set; }
+
             public Func<Player, Tile, bool> Condition { get; set; }
 
             public Func<Player, Tile, Promise> Callback { get; set; }
@@ -33,6 +37,10 @@ namespace OpenTibia.Game.CommandHandlers
                 Group = "Attack",
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
+
+                Level = 14,
+
+                MagicLevel = 0,
 
                 Condition = (attacker, tile) =>
                 {
@@ -64,6 +72,10 @@ namespace OpenTibia.Game.CommandHandlers
                 Group = "Attack",
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
+
+                Level = 25,
+
+                MagicLevel = 4,
 
                 Condition = (attacker, tile) =>
                 {
@@ -98,6 +110,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
+                Level = 29,
+
+                MagicLevel = 5,
+
                 Condition = (attacker, tile) =>
                 {
                     if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
@@ -129,6 +145,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
+                Level = 15,
+
+                MagicLevel = 1,
+
                 Condition = (attacker, tile) =>
                 {
                     if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
@@ -159,6 +179,10 @@ namespace OpenTibia.Game.CommandHandlers
                 Group = "Attack",
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
+
+                Level = 27,
+
+                MagicLevel = 5,
 
                 Condition = (attacker, tile) =>
                 {
@@ -193,6 +217,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
+                Level = 33,
+
+                MagicLevel = 6,
+
                 Condition = (attacker, tile) =>
                 {
                     if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
@@ -224,6 +252,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
+                Level = 18,
+
+                MagicLevel = 3,
+
                 Condition = (attacker, tile) =>
                 {
                     if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
@@ -254,6 +286,10 @@ namespace OpenTibia.Game.CommandHandlers
                 Group = "Attack",
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
+
+                Level = 37,
+
+                MagicLevel = 10,
 
                 Condition = (attacker, tile) =>
                 {
@@ -288,6 +324,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
+                Level = 41,
+
+                MagicLevel = 9,
+
                 Condition = (attacker, tile) =>
                 {
                     if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
@@ -318,6 +358,10 @@ namespace OpenTibia.Game.CommandHandlers
                 Group = "Attack",
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
+
+                Level = 27,
+
+                MagicLevel = 4,
 
                 Condition = (attacker, tile) =>
                 {
@@ -355,6 +399,10 @@ namespace OpenTibia.Game.CommandHandlers
                 Group = "Attack",
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
+
+                Level = 30,
+
+                MagicLevel = 4,
 
                 Condition = (attacker, tile) =>
                 {
@@ -395,6 +443,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
+                Level = 31,
+
+                MagicLevel = 6,
+
                 Condition = (attacker, tile) =>
                 {
                     if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
@@ -430,6 +482,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
+                Level = 27,
+
+                MagicLevel = 9,
+
                 Condition = (attacker, tile) =>
                 {
                     if (tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || tile.GetCreatures().Any(c => c.Block) )
@@ -458,6 +514,10 @@ namespace OpenTibia.Game.CommandHandlers
                 Group = "Support",
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
+
+                Level = 27,
+
+                MagicLevel = 8,
 
                 Condition = (attacker, tile) =>
                 {
@@ -494,32 +554,52 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (runes.TryGetValue(command.Item.Metadata.OpenTibiaId, out rune) && command.ToItem.Parent is Tile toTile)
             {
-                PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.Components.GetComponent<PlayerCooldownBehaviour>(command.Player);
-
-                if ( !playerCooldownBehaviour.HasCooldown(rune.Group) )
+                if (command.Player.Level >= rune.Level)
                 {
-                    if (rune.Condition == null || rune.Condition(command.Player, toTile) )
+                    if (command.Player.Skills.MagicLevel >= rune.MagicLevel)
                     {
-                        playerCooldownBehaviour.AddCooldown(rune.Group, rune.GroupCooldown);
+                        PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.Components.GetComponent<PlayerCooldownBehaviour>(command.Player);
 
-                        return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
+                        if ( !playerCooldownBehaviour.HasCooldown(rune.Group) )
                         {
-                            return rune.Callback(command.Player, toTile);
+                            if (rune.Condition == null || rune.Condition(command.Player, toTile) )
+                            {
+                                playerCooldownBehaviour.AddCooldown(rune.Group, rune.GroupCooldown);
+
+                                return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
+                                {
+                                    return rune.Callback(command.Player, toTile);
+                                } );
+                            }
+
+                            return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
+                            {
+                                Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
+
+                                return Promise.Break;
+                            } );
+                        }
+
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
+                        {
+                            Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
+
+                            return Promise.Break;
                         } );
                     }
 
                     return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
                     {
-                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
-
+                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMagicLevel) );
+                         
                         return Promise.Break;
                     } );
                 }
 
                 return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
                 {
-                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
-
+                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughLevel) );
+                         
                     return Promise.Break;
                 } );
             }

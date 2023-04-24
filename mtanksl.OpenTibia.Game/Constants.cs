@@ -24,6 +24,8 @@
 
         public static readonly string YouDoNotHaveEnoughLevel = "You do not have enough level";
 
+        public static readonly string YouDoNotHaveEnoughMagicLevel = "You do not have enough magic level";
+
         public static readonly string YouCanNotMoveThisObject = "You cannot move this object.";
 
         public static readonly string YouCannotPutMoreObjectsInThisContainer = "You cannot put more objects in this container.";

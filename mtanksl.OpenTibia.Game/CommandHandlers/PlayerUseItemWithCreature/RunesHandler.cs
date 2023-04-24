@@ -18,6 +18,10 @@ namespace OpenTibia.Game.CommandHandlers
 
             public TimeSpan GroupCooldown { get; set; }
 
+            public int Level { get; set; }
+
+            public int MagicLevel { get; set; }
+
             public Func<Player, Creature, bool> Condition { get; set; }
 
             public Func<Player, Creature, Promise> Callback { get; set; }
@@ -35,6 +39,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
+                Level = 15,
+
+                MagicLevel = 0,
+
                 Callback = (attacker, target) =>
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
@@ -51,6 +59,10 @@ namespace OpenTibia.Game.CommandHandlers
                 Group = "Healing",
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
+
+                Level = 15,
+
+                MagicLevel = 1,
 
                 Callback = (attacker, target) =>
                 {
@@ -70,6 +82,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
+                Level = 24,
+
+                MagicLevel = 4,
+
                 Callback = (attacker, target) =>
                 {
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 250, 0);
@@ -87,6 +103,10 @@ namespace OpenTibia.Game.CommandHandlers
                 Group = "Attack",
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
+
+                Level = 15,
+
+                MagicLevel = 0,
 
                 Callback = (attacker, target) =>
                 {
@@ -106,6 +126,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
+                Level = 25,
+
+                MagicLevel = 3,
+
                 Callback = (attacker, target) =>
                 {
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 30, 10);
@@ -123,6 +147,10 @@ namespace OpenTibia.Game.CommandHandlers
                 Group = "Attack",
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
+
+                Level = 45,
+
+                MagicLevel = 15,
 
                 Callback = (attacker, target) =>
                 {
@@ -155,34 +183,54 @@ namespace OpenTibia.Game.CommandHandlers
                     return Promise.Break;
                 }
 
-                PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.Components.GetComponent<PlayerCooldownBehaviour>(command.Player);
-
-                if ( !playerCooldownBehaviour.HasCooldown(rune.Group) )
+                if (command.Player.Level >= rune.Level)
                 {
-                    if (rune.Condition == null || rune.Condition(command.Player, command.ToCreature) )
+                    if (command.Player.Skills.MagicLevel >= rune.MagicLevel)
                     {
-                        playerCooldownBehaviour.AddCooldown(rune.Group, rune.GroupCooldown);
+                        PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.Components.GetComponent<PlayerCooldownBehaviour>(command.Player);
 
-                        return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
+                        if ( !playerCooldownBehaviour.HasCooldown(rune.Group) )
                         {
-                            return rune.Callback(command.Player, command.ToCreature);
-                        } );
-                    }
+                            if (rune.Condition == null || rune.Condition(command.Player, command.ToCreature) )
+                            {
+                                playerCooldownBehaviour.AddCooldown(rune.Group, rune.GroupCooldown);
+
+                                return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
+                                {
+                                    return rune.Callback(command.Player, command.ToCreature);
+                                } );
+                            }
                  
+                            return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
+                            {
+                                Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
+
+                                return Promise.Break;
+                            } );                    
+                        }
+
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
+                        {
+                            Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
+
+                            return Promise.Break;
+                        } );                              
+                    }
+
                     return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
                     {
-                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
-
+                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMagicLevel) );
+                         
                         return Promise.Break;
-                    } );                    
+                    } );
                 }
 
                 return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
                 {
-                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
-
+                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughLevel) );
+                         
                     return Promise.Break;
-                } );                              
+                } );
             }
             else if (itemWithItemRunes.Contains(command.Item.Metadata.OpenTibiaId) )
             {
