@@ -2,11 +2,13 @@
 {
     public static class Constants
     {
-        public static readonly string OnlyProtocol86Allowed = "Only protocol 8.6 allowed.";
-
         public static readonly string AccountNameOrPasswordIsNotCorrect = "Account name or password is not correct.";
 
         public static readonly string DestinationIsOutOfReach = "Destination is out of reach.";
+
+        public static readonly string OnlyProtocol86Allowed = "Only protocol 8.6 allowed.";
+
+        public static readonly string PutTheContructionKitOnTheFloorFirst = "Put the construction kit on the floor first";
 
         public static readonly string SorryNotPossible = "Sorry, not possible.";
 
@@ -20,11 +22,7 @@
 
         public static readonly string YouAreExhausted = "You are exhausted.";
 
-        public static readonly string YouDoNotHaveEnoughMana = "You do not have enough mana";
-
-        public static readonly string YouDoNotHaveEnoughLevel = "You do not have enough level";
-
-        public static readonly string YouDoNotHaveEnoughMagicLevel = "You do not have enough magic level";
+        public static readonly string YouAreFull = "You are full.";
 
         public static readonly string YouCanNotMoveThisObject = "You cannot move this object.";
 
@@ -38,11 +36,15 @@
 
         public static readonly string YouCanNotUseThisObject = "You cannot use this object.";
 
+        public static readonly string YouDoNotHaveEnoughLevel = "You do not have enough level";
+
+        public static readonly string YouDoNotHaveEnoughMagicLevel = "You do not have enough magic level";
+
+        public static readonly string YouDoNotHaveEnoughMana = "You do not have enough mana";
+
+        public static readonly string YouDoNotHaveEnoughSoul = "You do not have enough soul";
+
         public static readonly string YouMayNotAttackThisCreature = "You may not attack this creature.";
-
-        public static readonly string YouAreFull = "You are full.";
-
-        public static readonly string PutTheContructionKitOnTheFloorFirst = "Put the construction kit on the floor first";
 
         public static readonly int ObjectsPerPoint = 10;
     }

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using OpenTibia.Data.Contexts;
 using OpenTibia.Data.Repositories;
 using System;
+using System.Linq;
 
 namespace OpenTibia.Game
 {
@@ -38,11 +39,17 @@ namespace OpenTibia.Game
                 {
                     var builder = new DbContextOptionsBuilder<SqliteContext>();
 
-                    builder.LogTo(message => server.Logger.WriteLine(message.Split("CommandTimeout='30']")[1], LogLevel.Debug), 
+                    builder.LogTo(
 
-                        events: new[] { RelationalEventId.CommandExecuted }, 
+                        action:                         
+                            message => server.Logger.WriteLine(message.Substring(message.IndexOf("CommandType='Text', CommandTimeout='30'") + 40), LogLevel.Debug),
 
-                        options: DbContextLoggerOptions.SingleLine );
+                        events: 
+                            new[] { RelationalEventId.CommandExecuted }, 
+
+                        options:                         
+                            DbContextLoggerOptions.SingleLine
+                    );
 
                     sqliteContext = new SqliteContext(builder.Options);
                 }

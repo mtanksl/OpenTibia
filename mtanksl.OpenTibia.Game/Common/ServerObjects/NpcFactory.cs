@@ -33,7 +33,7 @@ namespace OpenTibia.Game
                     Outfit = new Outfit(xmlNpc.Look.Type, xmlNpc.Look.Head, xmlNpc.Look.Body, xmlNpc.Look.Legs, xmlNpc.Look.Feet, Addon.None),
 
                     Sentences = xmlNpc.Voices?.Select(v => v.Sentence).ToArray()
-                }); 
+                } ); 
             }
         }
 

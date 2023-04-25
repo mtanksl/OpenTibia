@@ -14,7 +14,7 @@ namespace OpenTibia.Game
             this.server = server;
         }
 
-        public Player Create(IConnection connection, OpenTibia.Data.Models.Player databasePlayer)
+        public Player Create(IConnection connection, Data.Models.Player databasePlayer)
         {
             Client client = new Client(server);
 
