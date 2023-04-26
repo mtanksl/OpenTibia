@@ -56,6 +56,14 @@ namespace OpenTibia.Common.Objects
             }
         }
 
+        public int Height
+        {
+            get
+            {
+                return GetItems().Where(i => i.Metadata.Flags.Is(ItemMetadataFlags.HasHeight) ).Count();
+            }
+        }
+
         public int Count
         {
             get

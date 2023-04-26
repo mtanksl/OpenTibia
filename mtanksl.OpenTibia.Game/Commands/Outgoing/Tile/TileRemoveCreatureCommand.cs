@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            var updates = new Queue< (Player Player, byte ClientIndex) >();
+            var canSeeFrom = new Dictionary<Player, byte>();
 
             foreach (var observer in Context.Server.GameObjects.GetPlayers() )
             {
@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
 
                     if (observer.Client.TryGetIndex(Creature, out clientIndex) )
                     {
-                        updates.Enqueue( (observer, clientIndex) );
+                        canSeeFrom.Add(observer, clientIndex);
                     }
                 }
             }
@@ -39,17 +39,15 @@ namespace OpenTibia.Game.Commands
 
             Tile.RemoveContent(index);
 
-            while (updates.Count > 0)
+            foreach (var pair in canSeeFrom)
             {
-                var update = updates.Dequeue();
-
                 if (Tile.Count >= Constants.ObjectsPerPoint)
                 {
-                    Context.AddPacket(update.Player.Client.Connection, new SendTileOutgoingPacket(Context.Server.Map, update.Player.Client, Tile.Position) );
+                    Context.AddPacket(pair.Key.Client.Connection, new SendTileOutgoingPacket(Context.Server.Map, pair.Key.Client, Tile.Position) );
                 }
                 else
                 {
-                    Context.AddPacket(update.Player.Client.Connection, new ThingRemoveOutgoingPacket(Tile.Position, update.ClientIndex) );
+                    Context.AddPacket(pair.Key.Client.Connection, new ThingRemoveOutgoingPacket(Tile.Position, pair.Value) );
                 }
             }
 
