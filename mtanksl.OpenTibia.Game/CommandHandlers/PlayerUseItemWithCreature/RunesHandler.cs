@@ -176,7 +176,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (runes.TryGetValue(command.Item.Metadata.OpenTibiaId, out rune) )
             {
-                if (command.Player != command.ToCreature && (command.ToCreature is Npc || (command.ToCreature is Player player && player.Vocation == Vocation.Gamemaster) ) )
+                if (command.ToCreature is Npc || (command.ToCreature is Player player && player.Vocation == Vocation.Gamemaster) )
                 {
                     Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature) );
 
