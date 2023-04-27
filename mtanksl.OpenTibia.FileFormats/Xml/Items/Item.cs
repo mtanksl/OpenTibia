@@ -83,11 +83,67 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                                 break;
 	                    }
+
                         break;
 
                     case "containerSize":
 
                         item.ContainerSize = (byte)(int)value;
+
+                        break;
+
+                    case "slotType":
+
+                        switch ( (string)value)
+                        {
+                            case "head":
+
+                                item.SlotType = Slot.Head;
+
+                                break;
+
+                            case "necklace":
+
+                                item.SlotType = Slot.Amulet;
+
+                                break;
+
+                            case "backpack":
+
+                                item.SlotType = Slot.Container;
+
+                                break;
+
+                            case "body":
+
+                                item.SlotType = Slot.Armor;
+
+                                break;
+
+                            case "legs":
+
+                                item.SlotType = Slot.Legs;
+
+                                break;
+
+                            case "feet":
+
+                                item.SlotType = Slot.Feet;
+
+                                break;
+
+                            case "ring":
+
+                                item.SlotType = Slot.Ring;
+
+                                break;
+
+                            case "ammo":
+
+                                item.SlotType = Slot.Extra;
+
+                                break;
+                        }
 
                         break;
                 }
@@ -109,5 +165,7 @@ namespace OpenTibia.FileFormats.Xml.Items
         public FloorChange FloorChange { get; set; }
 
         public byte ContainerSize { get; set; }
+
+        public Slot? SlotType { get; set; }
     }
 }

@@ -26,6 +26,8 @@
 
         public static readonly string YouAreFull = "You are full.";
 
+        public static readonly string YouCanNotDressThisObjectThere = "You cannot dress this object there.";
+
         public static readonly string YouCanNotMoveThisObject = "You cannot move this object.";
 
         public static readonly string YouCannotPutMoreObjectsInThisContainer = "You cannot put more objects in this container.";

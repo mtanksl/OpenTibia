@@ -25,5 +25,7 @@ namespace OpenTibia.Common.Objects
         public byte Capacity { get; set; }
 
         public FloorChange FloorChange { get; set; }
+
+        public Slot? SlotType { get; set; }
     }
 }

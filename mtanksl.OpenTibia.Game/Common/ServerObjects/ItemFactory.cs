@@ -154,6 +154,8 @@ namespace OpenTibia.Game
                     metadata.Capacity = xmlItem.ContainerSize;
 
                     metadata.FloorChange = xmlItem.FloorChange;
+
+                    metadata.SlotType = xmlItem.SlotType;
                 }
             }
         }

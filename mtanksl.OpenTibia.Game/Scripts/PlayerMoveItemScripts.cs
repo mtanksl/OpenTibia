@@ -77,6 +77,8 @@ namespace OpenTibia.Game.Scripts
             server.CommandHandlers.Add(new SplitStackableItemHandler() );
 
             server.CommandHandlers.Add(new ThrowAwayContainerCloseHandler() );
+
+            server.CommandHandlers.Add(new InventoryHandler() );
         }
 
         public override void Stop(Server server)
