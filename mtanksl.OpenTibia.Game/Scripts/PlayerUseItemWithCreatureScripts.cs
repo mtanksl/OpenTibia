@@ -31,6 +31,8 @@ namespace OpenTibia.Game.Scripts
             server.CommandHandlers.Add(new StrongManaPotionHandler() );
 
             server.CommandHandlers.Add(new GreatSpiritPotionHandler() );
+
+            server.CommandHandlers.Add(new FluidItemHandler() );
         }
 
         public override void Stop(Server server)

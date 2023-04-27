@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Scripts
 
             server.CommandHandlers.Add(new FlourHandler() );
 
-            server.CommandHandlers.Add(new FluidItemHandler() );
+            server.CommandHandlers.Add(new FluidItem2Handler() );
 
             server.CommandHandlers.Add(new JuiceSqueezerHandler() );
 

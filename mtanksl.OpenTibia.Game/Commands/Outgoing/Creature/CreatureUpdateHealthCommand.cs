@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
@@ -29,6 +30,11 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            if (Creature is Npc || (Creature is Player player && player.Vocation == Vocation.Gamemaster) )
+            {
+                return Promise.Completed;
+            }
+
             if (Creature.Health != Health || Creature.MaxHealth != MaxHealth)
             {
                 Creature.Health = Health;
@@ -64,9 +70,9 @@ namespace OpenTibia.Game.Commands
 
                             return Context.AddCommand(new NpcDestroyCommand(npc) );
 
-                        case Player player:
+                        case Player _player:
 
-                            return Context.AddCommand(new PlayerDestroyCommand(player) );
+                            return Context.AddCommand(new PlayerDestroyCommand(_player) );
 
                         default:
 
