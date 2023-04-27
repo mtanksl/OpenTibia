@@ -23,110 +23,96 @@ namespace OpenTibia.Game.Commands
         {
             StringBuilder builder = new StringBuilder();
 
-            builder.Append("You see ");
-
-            if (Player == Creature)
+            switch (Creature)
             {
-                builder.Append("yourself. ");
+                case Player player:
 
-                switch (Player.Vocation)
-                {
-                    case Vocation.None:
+                    if (player == Player)
+                    {
+                        builder.Append("You see yourself.");
 
-                        builder.Append("You have no vocation.");
+                        switch (player.Vocation)
+                        {
+                            case Vocation.None:
 
-                        break;
+                                builder.Append(" You have no vocation.");
 
-                    case Vocation.Knight:
+                                break;
 
-                        builder.Append("You are a knight.");
+                            case Vocation.Knight:
 
-                        break;
+                                builder.Append(" You are a knight.");
 
-                    case Vocation.Paladin:
+                                break;
 
-                        builder.Append("You are a paladin.");
+                            case Vocation.Paladin:
 
-                        break;
+                                builder.Append(" You are a paladin.");
 
-                    case Vocation.Druid:
+                                break;
 
-                        builder.Append("You are a druid.");
+                            case Vocation.Druid:
 
-                        break;
+                                builder.Append(" You are a druid.");
 
-                    case Vocation.Sorcerer:
+                                break;
 
-                        builder.Append("You are a sorcerer.");
+                            case Vocation.Sorcerer:
 
-                        break;
+                                builder.Append(" You are a sorcerer.");
 
-                    case Vocation.EliteKnight:
+                                break;
 
-                        builder.Append("You are an elite knight.");
+                            case Vocation.EliteKnight:
 
-                        break;
+                                builder.Append(" You are an elite knight.");
 
-                    case Vocation.RoyalPaladin:
+                                break;
 
-                        builder.Append("You are a royal paladin.");
+                            case Vocation.RoyalPaladin:
 
-                        break;
+                                builder.Append(" You are a royal paladin.");
 
-                    case Vocation.ElderDruid:
+                                break;
 
-                        builder.Append("You are an elder druid.");
+                            case Vocation.ElderDruid:
 
-                        break;
+                                builder.Append(" You are an elder druid.");
 
-                    case Vocation.MasterSorcerer:
+                                break;
 
-                        builder.Append("You are a master sorcerer.");
+                            case Vocation.MasterSorcerer:
 
-                        break;
+                                builder.Append(" You are a master sorcerer.");
 
-                    case Vocation.Gamemaster:
+                                break;
 
-                        builder.Append("You are a Gamemaster.");
+                            case Vocation.Gamemaster:
 
-                        break;
+                                builder.Append(" You are a Gamemaster.");
 
-                    default:
+                                break;
 
-                        throw new NotImplementedException();
-                }
-            }
-            else
-            {
-                switch (Creature)
-                {
-                    case Monster monster:
+                            default:
 
-                        builder.Append(monster.Name + ".");
-
-                        break;
-
-                    case Npc npc:
-
-                        builder.Append(npc.Name + ".");
-
-                        break;
-
-                    case Player player:
-
-                        builder.Append(player.Name + " (Level " + player.Level + "). ");
+                                throw new NotImplementedException();
+                        }
+                    }
+                    else
+                    {
+                        builder.Append("You see " + player.Name + " (Level: " + player.Level + ").");
 
                         switch (player.Gender)
                         {
                             case Gender.Male:
 
-                                builder.Append("He ");
+                                builder.Append(" He");
 
                                 break;
 
                             case Gender.Female:
 
-                                builder.Append("She ");
+                                builder.Append(" She");
 
                                 break;
 
@@ -139,61 +125,61 @@ namespace OpenTibia.Game.Commands
                         {
                             case Vocation.None:
 
-                                builder.Append("has no vocation.");
+                                builder.Append(" has no vocation.");
 
                                 break;
 
                             case Vocation.Knight:
 
-                                builder.Append("is a knight.");
+                                builder.Append(" is a knight.");
 
                                 break;
 
                             case Vocation.Paladin:
 
-                                builder.Append("is a paladin.");
+                                builder.Append(" is a paladin.");
 
                                 break;
 
                             case Vocation.Druid:
 
-                                builder.Append("is a druid.");
+                                builder.Append(" is a druid.");
 
                                 break;
 
                             case Vocation.Sorcerer:
 
-                                builder.Append("is a sorcerer.");
+                                builder.Append(" is a sorcerer.");
 
                                 break;
 
                             case Vocation.EliteKnight:
 
-                                builder.Append("is an elite knight.");
+                                builder.Append(" is an elite knight.");
 
                                 break;
 
                             case Vocation.RoyalPaladin:
 
-                                builder.Append("is a royal paladin.");
+                                builder.Append(" is a royal paladin.");
 
                                 break;
 
                             case Vocation.ElderDruid:
 
-                                builder.Append("is an elder druid.");
+                                builder.Append(" is an elder druid.");
 
                                 break;
 
                             case Vocation.MasterSorcerer:
 
-                                builder.Append("is a master sorcerer.");
+                                builder.Append(" is a master sorcerer.");
 
                                 break;
 
                             case Vocation.Gamemaster:
 
-                                builder.Append("is a Gamemaster.");
+                                builder.Append(" is a Gamemaster.");
 
                                 break;
 
@@ -201,13 +187,21 @@ namespace OpenTibia.Game.Commands
 
                                 throw new NotImplementedException();
                         }
+                    }
 
-                        break;
+                    break;
 
-                    default:
+                case Monster monster:
 
-                        throw new NotImplementedException();
-                }
+                    builder.Append("You see " + monster.Name + ".");
+
+                    break;
+
+                case Npc npc:
+
+                    builder.Append("You see " + npc.Name + ".");
+
+                    break;
             }
 
             Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, builder.ToString() ) );

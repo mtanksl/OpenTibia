@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using OpenTibia.Data.Contexts;
 using OpenTibia.Data.Repositories;
 using System;
-using System.Linq;
 
 namespace OpenTibia.Game
 {
