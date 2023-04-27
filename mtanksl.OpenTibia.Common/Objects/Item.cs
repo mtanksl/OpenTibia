@@ -19,6 +19,10 @@ namespace OpenTibia.Common.Objects
             }
         }
 
+        public ushort ActionId { get; set; }
+
+        public ushort UniqueId { get; set; }
+
         public TopOrder TopOrder
         {
             get

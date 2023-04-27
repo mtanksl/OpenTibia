@@ -24,6 +24,10 @@ namespace OpenTibia.Game.Commands
         {
             Item toItem = Context.Server.ItemFactory.Create(OpenTibiaId, Count);
 
+            toItem.ActionId = FromItem.ActionId;
+
+            toItem.UniqueId = FromItem.UniqueId;
+
             if (toItem != null)
             {
                 switch (FromItem.Parent)

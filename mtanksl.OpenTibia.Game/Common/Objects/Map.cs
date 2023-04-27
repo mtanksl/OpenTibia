@@ -150,6 +150,10 @@ namespace OpenTibia.Common.Objects
                             {
                                 Item item = itemFactory.Create(otbmItem.OpenTibiaId, otbmItem.Count);
 
+                                item.ActionId = otbmItem.ActionId;
+
+                                item.UniqueId = otbmItem.UniqueId;
+
                                 switch (item)
                                 {
                                     case TeleportItem teleport:
