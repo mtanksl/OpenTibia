@@ -26,6 +26,10 @@ namespace OpenTibia.Game.Components
                 {
                     target = server.Randomization.Take(players);
                 }
+                else
+                {
+                    target = null;
+                }
             }
 
             return target;
