@@ -62,7 +62,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     Tile up = Context.Server.Map.GetTile( ( (Tile)command.ToItem.Parent ).Position.Offset(0, 1, -1) );
 
-                    return Context.AddCommand(new CreatureUpdateTileCommand(command.Player, up, Direction.South) );
+                    return Context.AddCommand(new CreatureWalkCommand(command.Player, up, Direction.South) );
                 }
                 else if (holes.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
@@ -74,7 +74,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         Creature creature = down.TopCreature;
 
-                        return Context.AddCommand(new CreatureUpdateTileCommand(creature, south, Direction.South) );
+                        return Context.AddCommand(new CreatureWalkCommand(creature, south, Direction.South) );
                     }
                     else if (down.TopItem != null && !down.TopItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
                     {

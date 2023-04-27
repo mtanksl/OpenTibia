@@ -138,7 +138,7 @@ namespace OpenTibia.Game.Components
                     {
                         walkCooldown = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / player.Speed);
 
-                        promises.Add(Context.AddCommand(new CreatureUpdateTileCommand(player, toTile) ) );
+                        promises.Add(Context.AddCommand(new CreatureWalkCommand(player, toTile) ) );
                     }
                 }
             }

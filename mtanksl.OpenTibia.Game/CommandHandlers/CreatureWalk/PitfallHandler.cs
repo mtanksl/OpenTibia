@@ -6,55 +6,25 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class HoleHandler : CommandHandler<CreatureUpdateTileCommand>
+    public class PitfallHandler : CommandHandler<CreatureWalkCommand>
     {
-        private HashSet<ushort> holes = new HashSet<ushort>() 
-        { 
-            // Pitfall
-            294,
-
-            // Hole
-            383, 469, 470, 482, 484, 485, 369, 409, 410, 411, 
-
-            // Invisible
-            459, 
-
-            // Wooden
-            369, 409, 410, 411,
-
-            // Wooden
-            423, 427, 428, 429,
-
-            // White marble
-            432, 433,
-
-            // Dark wooden
-            3135, 3136, 3137, 3138,
-
-            // Stone
-            3219, 3220,
-
-            // Black marble
-            4834, 4835, 
-
-            // Gray marble
-            4836, 4837,
-
-            // Stone
-            475, 476, 479, 480, 6127, 6128, 6129, 6130,
-
-            // Snow
-            6917, 6918, 6919, 6920, 6921, 6922, 6923, 6924,
-
-            // Earth
-            8559, 8560, 8561, 8562, 8563, 8564, 8565, 8566
+        private Dictionary<ushort, ushort> pitfalls = new Dictionary<ushort, ushort>() 
+        {
+            {  293, 294 }
         };
 
-        public override Promise Handle(Func<Promise> next, CreatureUpdateTileCommand command)
+        private Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
         {
+            {  294, 293 }
+        };
+
+        public override Promise Handle(Func<Promise> next, CreatureWalkCommand command)
+        {
+            ushort toOpenTibiaId;
+
             Tile hole = command.ToTile;
 
-            if (hole.Ground != null && holes.Contains(hole.Ground.Metadata.OpenTibiaId) )
+            if (hole.Ground != null && pitfalls.TryGetValue(hole.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
                 Tile down = Context.Server.Map.GetTile(hole.Position.Offset(0, 0, 1) );
 
@@ -121,7 +91,16 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (toTile != null)
                     {
-                        return Context.AddCommand(new CreatureUpdateTileCommand(command.Creature, toTile, direction) ); 
+                        return Context.AddCommand(new CreatureWalkCommand(command.Creature, toTile, direction) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(hole.Ground, toOpenTibiaId, 1) );
+
+                        } ).Then( (item) =>
+                        {
+                            _ = Context.AddCommand(new ItemDecayTransformCommand(item, TimeSpan.FromSeconds(10), decay[toOpenTibiaId], 1) );
+
+                            return Promise.Completed;
+                        } );
                     }
                 }
             }

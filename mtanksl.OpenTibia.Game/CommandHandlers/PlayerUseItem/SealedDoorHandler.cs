@@ -53,7 +53,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) ).Then( (item) =>
                 {
-                    return Context.AddCommand(new CreatureUpdateTileCommand(command.Player, (Tile)item.Parent) );
+                    return Context.AddCommand(new CreatureWalkCommand(command.Player, (Tile)item.Parent) );
                 } );
             }
 

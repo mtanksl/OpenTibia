@@ -163,7 +163,7 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdateTile(this Creature creature, Tile toTile)
+        public static Promise Walk(this Creature creature, Tile toTile)
         {
             Context context = Context.Current;
 
@@ -172,7 +172,7 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new CreatureUpdateTileCommand(creature, toTile) );
+            return context.AddCommand(new CreatureWalkCommand(creature, toTile) );
         }
     }
 }

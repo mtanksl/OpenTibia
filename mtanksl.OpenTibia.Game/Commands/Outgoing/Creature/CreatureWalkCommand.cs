@@ -8,14 +8,14 @@ using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
-    public class CreatureUpdateTileCommand : Command
+    public class CreatureWalkCommand : Command
     {
-        public CreatureUpdateTileCommand(Creature creature, Tile toTile) : this(creature, toTile, null)
+        public CreatureWalkCommand(Creature creature, Tile toTile) : this(creature, toTile, null)
         {
 
         }
 
-        public CreatureUpdateTileCommand(Creature creature, Tile toTile, Direction? changeDirectionOnMove)
+        public CreatureWalkCommand(Creature creature, Tile toTile, Direction? changeDirectionOnMove)
         {
             Creature = creature;
 
@@ -250,6 +250,8 @@ namespace OpenTibia.Game.Commands
             Context.AddEvent(new TileRemoveCreatureEventArgs(fromTile, Creature, fromIndex) );
 
             Context.AddEvent(new TileAddCreatureEventArgs(ToTile, Creature, toIndex) );
+
+            Context.AddEvent(new CreatureWalkEventArgs(Creature, fromTile, fromIndex, ToTile, toIndex) );
 
             return Promise.Completed;
         }

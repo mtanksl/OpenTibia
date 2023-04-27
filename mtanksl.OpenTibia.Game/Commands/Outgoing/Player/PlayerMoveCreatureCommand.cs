@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Context.AddCommand(new CreatureUpdateTileCommand(Creature, ToTile) );
+            return Context.AddCommand(new CreatureWalkCommand(Creature, ToTile) );
         }
     }
 }

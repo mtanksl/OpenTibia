@@ -76,7 +76,7 @@ namespace OpenTibia.Game.Commands
                     return Promise.Break;
                 }
 
-                return Context.AddCommand(new CreatureUpdateTileCommand(Player, toTile) );
+                return Context.AddCommand(new CreatureWalkCommand(Player, toTile) );
             } );
         }
     }

@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Scripts
 {
-    public class CreatureUpdateParentScripts : Script
+    public class CreatureWalkScripts : Script
     {
         public override void Start(Server server)
         {

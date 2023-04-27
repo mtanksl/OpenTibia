@@ -68,7 +68,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.Teleport) ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureUpdateTileCommand(attacker, toTile, Direction.South) );
+                        return Context.Current.AddCommand(new CreatureWalkCommand(attacker, toTile, Direction.South) );
 
                     } ).Then( () =>
                     {
@@ -113,7 +113,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.Teleport) ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureUpdateTileCommand(attacker, toTile) );
+                        return Context.Current.AddCommand(new CreatureWalkCommand(attacker, toTile) );
 
                     } ).Then( () =>
                     {
@@ -158,7 +158,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.Teleport) ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureUpdateTileCommand(attacker, toTile) );
+                        return Context.Current.AddCommand(new CreatureWalkCommand(attacker, toTile) );
 
                     } ).Then( () =>
                     {

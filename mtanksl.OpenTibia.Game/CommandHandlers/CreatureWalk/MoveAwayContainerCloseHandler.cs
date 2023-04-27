@@ -5,9 +5,9 @@ using System;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class MoveAwayContainerCloseHandler : CommandHandler<CreatureUpdateTileCommand>
+    public class MoveAwayContainerCloseHandler : CommandHandler<CreatureWalkCommand>
     {
-        public override Promise Handle(Func<Promise> next, CreatureUpdateTileCommand command)
+        public override Promise Handle(Func<Promise> next, CreatureWalkCommand command)
         {
             if (command.Creature is Player player)
             {
