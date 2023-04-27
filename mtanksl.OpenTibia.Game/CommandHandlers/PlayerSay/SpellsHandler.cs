@@ -68,11 +68,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.Teleport) ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                        return Context.Current.AddCommand(new CreatureUpdateTileCommand(attacker, toTile, Direction.South) );
 
                     } ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureUpdateTileCommand(attacker, toTile, Direction.South) );
+                        return Context.Current.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
                     } );
                 }
             },
@@ -113,11 +113,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.Teleport) ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                        return Context.Current.AddCommand(new CreatureUpdateTileCommand(attacker, toTile) );
 
                     } ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureUpdateTileCommand(attacker, toTile) );
+                        return Context.Current.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
                     } );
                 }
             },
@@ -158,11 +158,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.Teleport) ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                        return Context.Current.AddCommand(new CreatureUpdateTileCommand(attacker, toTile) );
 
                     } ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureUpdateTileCommand(attacker, toTile) );
+                        return Context.Current.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
                     } );
                 }
             },

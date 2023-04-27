@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Scripts
 
             server.CommandHandlers.Add(new CreateNpcHandler() );
 
-            server.CommandHandlers.Add(new DestroyMonsterOrNpcHandler() );
+            server.CommandHandlers.Add(new DestroyMonsterNpcItemHandler() );
 
             server.CommandHandlers.Add(new InvisibleHandler() );
 

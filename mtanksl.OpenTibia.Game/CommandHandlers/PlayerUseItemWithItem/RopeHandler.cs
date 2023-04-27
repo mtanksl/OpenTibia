@@ -76,7 +76,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                         return Context.AddCommand(new CreatureUpdateTileCommand(creature, south, Direction.South) );
                     }
-                    else if (down.TopItem != null)
+                    else if (down.TopItem != null && !down.TopItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
                     {
                         Item item = down.TopItem;
 

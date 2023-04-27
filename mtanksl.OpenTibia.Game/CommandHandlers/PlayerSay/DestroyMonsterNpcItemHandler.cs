@@ -5,7 +5,7 @@ using System;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class DestroyMonsterOrNpcHandler : CommandHandler<PlayerSayCommand>
+    public class DestroyMonsterNpcItemHandler : CommandHandler<PlayerSayCommand>
     {
         public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
@@ -30,6 +30,20 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 return Context.AddCommand(new NpcDestroyCommand(npc) );
                             } );
+
+                        default:
+
+                            switch (toTile.TopItem)
+                            {
+                                case Item item:
+
+                                    return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.RedShimmer) ).Then( () =>
+                                    {
+                                        return Context.AddCommand(new ItemDestroyCommand(item) );
+                                    } );
+                            }
+
+                            break;
                     }
                 }
 
