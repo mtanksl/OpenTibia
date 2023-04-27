@@ -30,6 +30,8 @@ namespace OpenTibia.Game.Scripts
 
             server.CommandHandlers.Add(new JuiceSqueezerHandler() );
 
+            server.CommandHandlers.Add(new KeyHandler() );
+
             server.CommandHandlers.Add(new KnifeHandler() );
 
             server.CommandHandlers.Add(new LumpOfCakeDoughHandler() );
