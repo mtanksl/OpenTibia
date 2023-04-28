@@ -33,9 +33,11 @@ LoadLocker(Context, DatabasePlayer);
 
 LoadVip(player, DatabasePlayer);
 
-            return Context.AddCommand(new TileAddCreatureCommand(Tile, player) ).Then( () =>
+            Tile toTile = Tile;
+
+            return Context.AddCommand(new TileAddCreatureCommand(toTile, player) ).Then( () =>
             {
-                Context.AddEvent(new PlayerLoginEventArgs(player) );
+                Context.AddEvent(new PlayerLoginEventArgs(toTile, player) );
 
                 return Promise.FromResult(player); 
             } );

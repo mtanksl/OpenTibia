@@ -44,9 +44,11 @@ SaveVip(Context, Player, databasePlayer);
 
 Context.DatabaseContext.Commit();
 
-                    return Context.AddCommand(new TileRemoveCreatureCommand(Player.Tile, Player) ).Then( () =>
+                    Tile fromTile = Player.Tile;
+
+                    return Context.AddCommand(new TileRemoveCreatureCommand(fromTile, Player) ).Then( () =>
                     {
-                        Context.AddEvent(new PlayerLogoutEventArgs(Player) );
+                        Context.AddEvent(new PlayerLogoutEventArgs(fromTile, Player) );
 
                         if (Player.Health == 0)
                         {
