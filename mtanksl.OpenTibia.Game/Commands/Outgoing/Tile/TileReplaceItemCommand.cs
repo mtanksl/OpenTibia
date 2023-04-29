@@ -35,6 +35,8 @@ namespace OpenTibia.Game.Commands
                 if (observer.Client.TryGetIndex(ToItem, out clientIndex) )
                 {
                     Context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(Tile.Position, clientIndex, ToItem) );
+
+                    Context.AddEvent(observer, new TileReplaceItemEventArgs(Tile, FromItem, ToItem, index) );
                 }
             }            
 

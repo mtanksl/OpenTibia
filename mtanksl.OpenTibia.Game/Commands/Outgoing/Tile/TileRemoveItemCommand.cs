@@ -47,6 +47,8 @@ namespace OpenTibia.Game.Commands
                 {
                     Context.AddPacket(pair.Key.Client.Connection, new ThingRemoveOutgoingPacket(Tile.Position, pair.Value) );
                 }
+
+                Context.AddEvent(pair.Key, new TileRemoveItemEventArgs(Tile, Item, index) );
             }
 
             Context.AddEvent(new TileRemoveItemEventArgs(Tile, Item, index) );
