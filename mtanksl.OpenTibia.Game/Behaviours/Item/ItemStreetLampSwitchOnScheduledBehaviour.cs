@@ -10,31 +10,11 @@ namespace OpenTibia.Game.Components
             
         }
 
-        public override bool IsUnique
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        private Item item;
-
-        public override void Start(Server server)
-        {
-            item = (Item)GameObject;
-
-            base.Start(server);
-        }
-
         public override Promise Update()
         {
-            return Context.AddCommand(new ItemTransformCommand(item, 1480, 1) );
-        }
+            Item item = (Item)GameObject;
 
-        public override void Stop(Server server)
-        {
-            base.Stop(server);
+            return Context.AddCommand(new ItemTransformCommand(item, 1480, 1) );
         }
     }
 }

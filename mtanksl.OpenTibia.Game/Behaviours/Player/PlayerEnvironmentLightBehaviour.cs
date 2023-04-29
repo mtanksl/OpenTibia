@@ -8,38 +8,18 @@ namespace OpenTibia.Game.Components
 {
     public class PlayerEnvironmentLightBehaviour : Behaviour
     {
-        public PlayerEnvironmentLightBehaviour()
-        {
-            
-        }
-
-        public override bool IsUnique
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        private Player player;
-
         private Guid token;
 
         public override void Start(Server server)
         {
-            player = (Player)GameObject;
+            Player player = (Player)GameObject;
 
             token = Context.Server.EventHandlers.Subscribe<GlobalTibiaClockTickEventArgs>( (context, e) =>
             {
-                return Update();
+                Context.AddPacket(player.Client.Connection, new SetEnvironmentLightOutgoingPacket(Context.Server.Clock.Light) );
+
+                return Promise.Completed;
             } );
-        }
-
-        private Promise Update()
-        {
-            Context.AddPacket(player.Client.Connection, new SetEnvironmentLightOutgoingPacket(Context.Server.Clock.Light) );
-
-            return Promise.Completed;
         }
 
         public override void Stop(Server server)

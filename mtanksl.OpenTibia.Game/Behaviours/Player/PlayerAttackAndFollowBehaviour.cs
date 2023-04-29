@@ -36,31 +36,71 @@ namespace OpenTibia.Game.Components
             this.walkStrategy = walkStrategy;
         }
 
-        public override bool IsUnique
-        {
-            get
-            {
-                return true;
-            }
-        }
-
-        private Player player;
-
         private Guid token;
-
-        public override void Start(Server server)
-        {
-            player = (Player)GameObject;
-
-            token = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
-            {
-                return Update();
-            } );
-        }
 
         private State state;
 
         private Creature target;
+
+        public override void Start(Server server)
+        {
+            Player player = (Player)GameObject;
+
+            DateTime attackCooldown = DateTime.MinValue;
+
+            DateTime walkCooldown = DateTime.MinValue;
+
+            token = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
+            {
+                if (target == null)
+                {
+                    return Promise.Completed;
+                }
+
+                if (target.IsDestroyed || !player.Tile.Position.CanHearSay(target.Tile.Position) )
+                {
+                    Stop();
+
+                    Context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost), new StopAttackAndFollowOutgoingPacket(0) );
+
+                    return Promise.Completed;
+                }
+            
+                List<Promise> promises = new List<Promise>();
+
+                if (state == State.Follow || state == State.AttackAndFollow)
+                {
+                    if (DateTime.UtcNow > walkCooldown)
+                    {
+                        Tile toTile = walkStrategy.GetNext(Context.Server, null, player, target);
+
+                        if (toTile != null)
+                        {
+                            walkCooldown = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / player.Speed);
+
+                            promises.Add(Context.AddCommand(new CreatureWalkCommand(player, toTile) ) );
+                        }
+                    }
+                }
+
+                if (state == State.Attack || state == State.AttackAndFollow)
+                {
+                    if (DateTime.UtcNow > attackCooldown)
+                    {
+                        Command command = attackStrategy.GetNext(Context.Server, player, target);
+
+                        if (command != null)
+                        {
+                            attackCooldown = DateTime.UtcNow.Add(cooldown);
+
+                            promises.Add(Context.AddCommand(command) );
+                        }
+                    }
+                }
+
+                return Promise.WhenAll(promises.ToArray() );
+            } );
+        }
 
         public void Attack(Creature creature)
         {
@@ -104,61 +144,6 @@ namespace OpenTibia.Game.Components
             state = State.None;
 
             target = null;
-        }
-
-        private DateTime attackCooldown;
-
-        private DateTime walkCooldown;
-
-        private Promise Update()
-        {
-            if (target == null)
-            {
-                return Promise.Completed;
-            }
-
-            if (target.IsDestroyed || !player.Tile.Position.CanHearSay(target.Tile.Position) )
-            {
-                Stop();
-
-                Context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost), new StopAttackAndFollowOutgoingPacket(0) );
-
-                return Promise.Completed;
-            }
-            
-            List<Promise> promises = new List<Promise>();
-
-            if (state == State.Follow || state == State.AttackAndFollow)
-            {
-                if (DateTime.UtcNow > walkCooldown)
-                {
-                    Tile toTile = walkStrategy.GetNext(Context.Server, null, player, target);
-
-                    if (toTile != null)
-                    {
-                        walkCooldown = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / player.Speed);
-
-                        promises.Add(Context.AddCommand(new CreatureWalkCommand(player, toTile) ) );
-                    }
-                }
-            }
-
-            if (state == State.Attack || state == State.AttackAndFollow)
-            {
-                if (DateTime.UtcNow > attackCooldown)
-                {
-                    Command command = attackStrategy.GetNext(Context.Server, player, target);
-
-                    if (command != null)
-                    {
-                        attackCooldown = DateTime.UtcNow.Add(cooldown);
-
-                        promises.Add(Context.AddCommand(command) );
-                    }
-                }
-            }
-
-            return Promise.WhenAll(promises.ToArray() );
         }
 
         public override void Stop(Server server)

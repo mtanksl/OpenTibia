@@ -30,12 +30,8 @@ namespace OpenTibia.Game.Components
             }
         }
 
-        private Creature target;
-
         public override void Start(Server server)
         {
-            target = (Creature)GameObject;
-
             SpecialCondition specialCondition;
 
             switch (Condition.ConditionSpecialCondition)
@@ -124,6 +120,8 @@ namespace OpenTibia.Game.Components
 
                     break;
             }
+
+            Creature target = (Creature)GameObject;
 
             if (specialCondition != SpecialCondition.None && !target.HasSpecialCondition(specialCondition) )
             {

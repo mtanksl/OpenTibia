@@ -12,7 +12,13 @@ namespace OpenTibia.Game.Components
             }
         }
 
-        public abstract bool IsUnique { get; }
+        public virtual bool IsUnique
+        {
+            get
+            {
+                return true;
+            }
+        }
 
         public abstract void Start(Server server);
 
