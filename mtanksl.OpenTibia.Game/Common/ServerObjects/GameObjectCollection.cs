@@ -161,12 +161,10 @@ namespace OpenTibia.Game
             }
         }
 
-        /*
         public IEnumerable<Creature> GetCreatures()
         {
             return GetGameObjects<Creature>();
         }
-        */
 
         public IEnumerable<Monster> GetMonsters()
         {
@@ -183,11 +181,9 @@ namespace OpenTibia.Game
             return GetGameObjects<Player>();
         }
 
-        /*
         public IEnumerable<Item> GetItems()
         {
             return GetGameObjects<Item>();
         }
-        */
     }
 }

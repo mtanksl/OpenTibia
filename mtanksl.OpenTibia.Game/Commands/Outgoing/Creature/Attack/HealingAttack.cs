@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Hit(Creature attacker, Creature target, int damage)
         {
-            return Promise.Completed.Then( () =>
+            return Promise.Run( () =>
             {
                 if (MagicEffectType != null)
                 {

@@ -23,15 +23,6 @@ namespace OpenTibia.Game.Commands
                     Detach(child);
                 }
 
-                Context.Server.QueueForExecution( () =>
-                {
-                    Context.Server.PlayerFactory.Destroy(Player);
-
-                    foreach (var child in Player.Inventory.GetItems() )
-                    {
-                        Destroy(child);
-                    }
-
 //TODO: Review
 
 Data.Models.Player databasePlayer = SavePlayer(Context, Player, Player.Tile);
@@ -43,6 +34,15 @@ SaveLocker(Context, Player, databasePlayer);
 SaveVip(Context, Player, databasePlayer);
 
 Context.DatabaseContext.Commit();
+
+                Context.Server.QueueForExecution( () =>
+                {
+                    Context.Server.PlayerFactory.Destroy(Player);
+
+                    foreach (var child in Player.Inventory.GetItems() )
+                    {
+                        Destroy(child);
+                    }
 
                     Tile fromTile = Player.Tile;
 

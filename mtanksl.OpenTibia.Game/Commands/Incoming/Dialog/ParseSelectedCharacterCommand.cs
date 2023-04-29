@@ -43,56 +43,28 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            Offset[] offsets = new Offset[]
-            {
-                new Offset(0, 0), new Offset(0, -1), new Offset(0, 1), new Offset(-1, 0), new Offset(1, 0), new Offset(-1, -1), new Offset(1, -1), new Offset(-1, 1), new Offset(1, 1) 
-            };
-
-            Tile toTile = offsets
-                .Select(offset =>
-                {
-                    Tile toTile = Context.Server.Map.GetTile(new Position(databasePlayer.CoordinateX, databasePlayer.CoordinateY, databasePlayer.CoordinateZ).Offset(offset) );
-
-                    if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || toTile.GetCreatures().Any(c => c.Block) )
-                    {
-                        return null;
-                    }
-
-                    return toTile;
-                } )
-                .Where(t => t != null)
-                .FirstOrDefault(); 
-
-            if (toTile == null)
-            {
-                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.DestinationIsOutOfReach) );
-
-                Context.Disconnect(Connection);
-
-                return Promise.Break;
-            }
+            Tile toTile = null;
 
             Player onlinePlayer = Context.Server.GameObjects.GetPlayers()
                 .Where(p => p.Name == databasePlayer.Name)
                 .FirstOrDefault();
 
-            if (onlinePlayer != null)
+            return Promise.Run( () =>
             {
-                return Context.AddCommand(new PlayerDestroyCommand(onlinePlayer) ).Then( () =>
+                if (onlinePlayer != null)
                 {
-                    return Login(toTile, databasePlayer);
-                } );
-            }
+                    return Context.AddCommand(new PlayerDestroyCommand(onlinePlayer) );
+                }
 
-            return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) ).Then( () =>
+                return Promise.Completed;
+
+            } ).Then( () =>
             {
-                return Login(toTile, databasePlayer);
-            } );
-        }
+                toTile = Context.Server.Map.GetTile(new Position(databasePlayer.CoordinateX, databasePlayer.CoordinateY, databasePlayer.CoordinateZ) );
 
-        private Promise Login(Tile toTile, Data.Models.Player databasePlayer)
-        {
-            return Context.AddCommand(new TileCreatePlayerCommand(toTile, Connection, databasePlayer) ).Then( (player) =>
+                return Context.AddCommand(new TileCreatePlayerCommand(toTile, Connection, databasePlayer) );
+
+            } ).Then( (player) =>
             {
                 Context.AddPacket(Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs) );
 
@@ -114,6 +86,15 @@ namespace OpenTibia.Game.Commands
                 foreach (var vip in player.Client.VipCollection.GetVips() )
                 {
                     Context.AddPacket(Connection, new VipOutgoingPacket(vip.Id, vip.Name, false) );
+                }
+
+                return Promise.Completed;
+
+            } ).Then( () =>
+            {
+                if (onlinePlayer == null)
+                {
+                    return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
                 }
 
                 return Promise.Completed;
