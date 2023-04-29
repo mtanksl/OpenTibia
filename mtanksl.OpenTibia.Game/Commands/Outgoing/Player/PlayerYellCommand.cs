@@ -25,6 +25,8 @@ namespace OpenTibia.Game.Commands
                 if (observer.Tile.Position.CanHearYell(Player.Tile.Position) )
                 {
                     Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Yell, Player.Tile.Position, Message.ToUpper() ) );
+                 
+                    Context.AddEvent(observer, new PlayerYellEventArgs(Player, Message) );
                 }
             }
 

@@ -30,6 +30,8 @@ namespace OpenTibia.Game.Commands
                         Context.AddPacket(observer.Client.Connection, new ContainerAddOutgoingPacket(pair.Key, Item) );
                     }
                 }
+
+                Context.AddEvent(observer, new ContainerAddItemEventArgs(Container, Item, index) );
             }
 
             Context.AddEvent(new ContainerAddItemEventArgs(Container, Item, index) );

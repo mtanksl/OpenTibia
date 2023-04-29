@@ -25,10 +25,14 @@ namespace OpenTibia.Game.Commands
                 if (observer.Tile.Position.CanHearWhisper(Player.Tile.Position) )
                 {
                     Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, Message) );
+
+                    Context.AddEvent(observer, new PlayerWhisperEventArgs(Player, Message) );
                 }
                 else if (observer.Tile.Position.CanHearSay(Player.Tile.Position) )
                 {
                     Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, "pspsps") );
+
+                    Context.AddEvent(observer, new PlayerWhisperEventArgs(Player, Message) );
                 }
             }
 

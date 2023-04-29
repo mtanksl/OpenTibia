@@ -26,6 +26,8 @@ namespace OpenTibia.Game.Commands
 
                 Context.AddPacket(Player.Client.Connection, new SendStatusOutgoingPacket(Player.Health, Player.MaxHealth, Player.Capacity, Player.Experience, Player.Level, Player.LevelPercent, Player.Mana, Player.MaxMana, Player.Skills.MagicLevel, Player.Skills.MagicLevelPercent, Player.Soul, Player.Stamina) );
               
+                Context.AddEvent(Player, new PlayerUpdateSoulEventArgs(Player, Soul) );
+
                 Context.AddEvent(new PlayerUpdateSoulEventArgs(Player, Soul) );
             }
 
