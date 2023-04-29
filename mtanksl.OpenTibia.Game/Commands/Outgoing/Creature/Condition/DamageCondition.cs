@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Commands
 
                 if (i < Damages.Length - 1)
                 {
-                    delayBehaviour = Context.Current.Server.Components.AddComponent(target, new DelayBehaviour(Interval) );
+                    delayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent(target, new DelayBehaviour(Interval) );
 
                     await delayBehaviour.Promise;
                 }

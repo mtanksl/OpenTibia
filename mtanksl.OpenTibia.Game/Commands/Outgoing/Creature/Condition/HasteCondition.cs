@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
         {
             return Context.Current.AddCommand(new CreatureUpdateSpeedCommand(target, target.BaseSpeed, Speed) ).Then( () =>
             {
-                delayBehaviour = Context.Current.Server.Components.AddComponent(target, new DelayBehaviour(Duration) );
+                delayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent(target, new DelayBehaviour(Duration) );
 
                 return delayBehaviour.Promise;
 

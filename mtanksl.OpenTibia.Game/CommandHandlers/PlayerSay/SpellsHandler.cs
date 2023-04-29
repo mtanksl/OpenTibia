@@ -886,7 +886,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (spells.TryGetValue(command.Message, out spell) )
             {
-                PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.Components.GetComponent<PlayerCooldownBehaviour>(command.Player);
+                PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerCooldownBehaviour>(command.Player);
 
                 if (command.Player.Level >= spell.Level)
                 {

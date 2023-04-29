@@ -14,7 +14,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            PlayerPingBehaviour playerPingBehaviour = Context.Server.Components.GetComponent<PlayerPingBehaviour>(Player);
+            PlayerPingBehaviour playerPingBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerPingBehaviour>(Player);
 
             if (playerPingBehaviour != null)
             {

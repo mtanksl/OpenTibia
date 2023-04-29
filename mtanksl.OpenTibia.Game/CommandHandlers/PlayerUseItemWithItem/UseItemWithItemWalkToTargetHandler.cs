@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, command.Player.Inventory, (byte)Slot.Extra, 1, false) ).Then( () =>
                     {
-                        return Context.Server.Components.AddComponent(command.Player, new PlayerActionDelayBehaviour() ).Promise;
+                        return Context.Server.GameObjectComponents.AddComponent(command.Player, new PlayerActionDelayBehaviour() ).Promise;
 
                     } ).Then( () =>
                     {
@@ -24,7 +24,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     } ).Then( () =>
                     {
-                        return Context.Server.Components.AddComponent(command.Player, new PlayerActionDelayBehaviour() ).Promise;
+                        return Context.Server.GameObjectComponents.AddComponent(command.Player, new PlayerActionDelayBehaviour() ).Promise;
 
                     } ).Then( () =>
                     {
@@ -46,7 +46,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, toTile) ).Then( () =>
                     {
-                        return Context.Server.Components.AddComponent(command.Player, new PlayerActionDelayBehaviour() ).Promise;
+                        return Context.Server.GameObjectComponents.AddComponent(command.Player, new PlayerActionDelayBehaviour() ).Promise;
 
                     } ).Then( () =>
                     {

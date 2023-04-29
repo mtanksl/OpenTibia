@@ -65,7 +65,7 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            return Context.Server.Components.AddComponent(Player, new PlayerWalkDelayBehaviour(TimeSpan.FromMilliseconds(1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise.Then( () =>
+            return Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkDelayBehaviour(TimeSpan.FromMilliseconds(1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise.Then( () =>
             {
                 if (toTile.GetCreatures().Any(c => c.Block) )
                 {

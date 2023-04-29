@@ -19,13 +19,13 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            CreatureConditionBehaviour creatureConditionBehaviour = Context.Server.Components.GetComponents<CreatureConditionBehaviour>(Target)
+            CreatureConditionBehaviour creatureConditionBehaviour = Context.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(Target)
                 .Where(c => c.Condition.ConditionSpecialCondition == ConditionSpecialCondition)
                 .FirstOrDefault();
 
             if (creatureConditionBehaviour != null)
             {
-                Context.Server.Components.RemoveComponent(Target, creatureConditionBehaviour);
+                Context.Server.GameObjectComponents.RemoveComponent(Target, creatureConditionBehaviour);
             }
 
             return Promise.Completed;

@@ -232,7 +232,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (foods.TryGetValue(command.Item.Metadata.OpenTibiaId, out food) )
             {
-                CreatureConditionBehaviour creatureConditionBehaviour = Context.Server.Components.GetComponents<CreatureConditionBehaviour>(command.Player)
+                CreatureConditionBehaviour creatureConditionBehaviour = Context.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(command.Player)
                     .Where(c => c.Condition.ConditionSpecialCondition == ConditionSpecialCondition.Regeneration)
                     .FirstOrDefault();
 

@@ -145,7 +145,7 @@ namespace OpenTibia.Game.Components
                     }
                 }
 
-                server.Components.RemoveComponent(GameObject, this);
+                server.GameObjectComponents.RemoveComponent(GameObject, this);
 
                 return Promise.Completed;
 
@@ -170,7 +170,7 @@ namespace OpenTibia.Game.Components
                     }
                 }
 
-                server.Components.RemoveComponent(GameObject, this);
+                server.GameObjectComponents.RemoveComponent(GameObject, this);
             } );
         }
 

@@ -29,18 +29,18 @@ namespace OpenTibia.Game.Commands
                 {
                     if (observer == Creature)
                     {
-                        PlayerActionDelayBehaviour playerActionDelayBehaviour = Context.Server.Components.GetComponent<PlayerActionDelayBehaviour>(observer);
+                        PlayerActionDelayBehaviour playerActionDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerActionDelayBehaviour>(observer);
 
                         if (playerActionDelayBehaviour != null)
                         {
-                            Context.Server.Components.RemoveComponent(observer, playerActionDelayBehaviour);
+                            Context.Server.GameObjectComponents.RemoveComponent(observer, playerActionDelayBehaviour);
                         }
 
-                        PlayerWalkDelayBehaviour playerWalkDelayBehaviour = Context.Server.Components.GetComponent<PlayerWalkDelayBehaviour>(observer);
+                        PlayerWalkDelayBehaviour playerWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkDelayBehaviour>(observer);
 
                         if (playerWalkDelayBehaviour != null)
                         {
-                            if (Context.Server.Components.RemoveComponent(observer, playerWalkDelayBehaviour) )
+                            if (Context.Server.GameObjectComponents.RemoveComponent(observer, playerWalkDelayBehaviour) )
                             {
                                 Context.AddPacket(observer.Client.Connection, new StopWalkOutgoingPacket(observer.Direction) );
                             }

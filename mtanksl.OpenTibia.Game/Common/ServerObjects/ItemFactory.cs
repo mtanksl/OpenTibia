@@ -219,11 +219,11 @@ namespace OpenTibia.Game
 
             if (item.Metadata.OpenTibiaId == 1479)
             {
-                server.Components.AddComponent(item, new ItemStreetLampSwitchOnScheduledBehaviour() );
+                server.GameObjectComponents.AddComponent(item, new ItemStreetLampSwitchOnScheduledBehaviour() );
             }
             else if (item.Metadata.OpenTibiaId == 1480)
             {
-                server.Components.AddComponent(item, new ItemStreetLampSwitchOffScheduledBehaviour() );
+                server.GameObjectComponents.AddComponent(item, new ItemStreetLampSwitchOffScheduledBehaviour() );
             }
 
             return item;
@@ -236,7 +236,7 @@ namespace OpenTibia.Game
 
         public void Destroy(Item item)
         {
-            server.Components.ClearComponents(item);
+            server.GameObjectComponents.ClearComponents(item);
 
             server.GameObjectEventHandlers.ClearEventHandlers(item);
         }

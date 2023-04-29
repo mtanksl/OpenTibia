@@ -63,7 +63,7 @@ namespace OpenTibia.Game
 
             if (actions.Count > 0)
             {
-                server.Components.AddComponent(npc, new NpcThinkBehaviour(new FirstChooseTargetStrategy(), actions.ToArray() ) );
+                server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(new FirstChooseTargetStrategy(), actions.ToArray() ) );
             }
             
             return npc;
@@ -76,7 +76,7 @@ namespace OpenTibia.Game
 
         public void Destroy(Npc npc)
         {
-            server.Components.ClearComponents(npc);
+            server.GameObjectComponents.ClearComponents(npc);
 
             server.GameObjectEventHandlers.ClearEventHandlers(npc);
         }

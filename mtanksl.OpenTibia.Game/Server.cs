@@ -45,7 +45,7 @@ namespace OpenTibia.Game
 
             GameObjects = new GameObjectCollection();
 
-            Components = new GameObjectComponentCollection(this);
+            GameObjectComponents = new GameObjectComponentCollection(this);
 
             GameObjectEventHandlers = new GameObjectEventHandlerCollection();
 
@@ -83,7 +83,7 @@ namespace OpenTibia.Game
 
         public GameObjectCollection GameObjects { get; set; }
 
-        public GameObjectComponentCollection Components { get; set; }
+        public GameObjectComponentCollection GameObjectComponents { get; set; }
 
         public GameObjectEventHandlerCollection GameObjectEventHandlers { get; set; }
 

@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
             {
                 Player.Client.ChaseMode = ChaseMode;
 
-                PlayerAttackAndFollowBehaviour playerAttackAndFollowBehaviour = Context.Server.Components.GetComponent<PlayerAttackAndFollowBehaviour>(Player);
+                PlayerAttackAndFollowBehaviour playerAttackAndFollowBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerAttackAndFollowBehaviour>(Player);
 
                 if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
                 {

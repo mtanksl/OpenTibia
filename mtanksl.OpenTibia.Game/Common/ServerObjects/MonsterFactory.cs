@@ -93,7 +93,7 @@ namespace OpenTibia.Game
 
             if (actions.Count > 0)
             {
-                server.Components.AddComponent(monster, new MonsterThinkBehaviour(new RandomChooseTargetStrategy(), actions.ToArray() ) );
+                server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(new RandomChooseTargetStrategy(), actions.ToArray() ) );
             }
 
             return monster;
@@ -106,7 +106,7 @@ namespace OpenTibia.Game
 
         public void Destroy(Monster monster)
         {
-            server.Components.ClearComponents(monster);
+            server.GameObjectComponents.ClearComponents(monster);
 
             server.GameObjectEventHandlers.ClearEventHandlers(monster);
         }

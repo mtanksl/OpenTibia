@@ -558,7 +558,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     if (command.Player.Skills.MagicLevel >= rune.MagicLevel)
                     {
-                        PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.Components.GetComponent<PlayerCooldownBehaviour>(command.Player);
+                        PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerCooldownBehaviour>(command.Player);
 
                         if ( !playerCooldownBehaviour.HasCooldown(rune.Group) )
                         {

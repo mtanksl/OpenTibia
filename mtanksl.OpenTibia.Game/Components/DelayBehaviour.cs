@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Components
         {
             promise = Promise.Delay(key, executeIn).Then(Update).Then( () =>
             {
-                server.Components.RemoveComponent(GameObject, this);
+                server.GameObjectComponents.RemoveComponent(GameObject, this);
 
                 return Promise.Completed;
                 
@@ -51,7 +51,7 @@ namespace OpenTibia.Game.Components
                     server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
                 }
 
-                server.Components.RemoveComponent(GameObject, this);
+                server.GameObjectComponents.RemoveComponent(GameObject, this);
             } );
         }
 

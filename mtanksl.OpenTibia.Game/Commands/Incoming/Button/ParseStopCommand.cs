@@ -15,24 +15,24 @@ namespace OpenTibia.Game.Commands
                 
         public override Promise Execute()
         {
-            PlayerActionDelayBehaviour playerActionDelayBehaviour = Context.Server.Components.GetComponent<PlayerActionDelayBehaviour>(Player);
+            PlayerActionDelayBehaviour playerActionDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerActionDelayBehaviour>(Player);
 
             if (playerActionDelayBehaviour != null)
             {
-                Context.Server.Components.RemoveComponent(Player, playerActionDelayBehaviour);
+                Context.Server.GameObjectComponents.RemoveComponent(Player, playerActionDelayBehaviour);
             }
 
-            PlayerWalkDelayBehaviour playerWalkDelayBehaviour = Context.Server.Components.GetComponent<PlayerWalkDelayBehaviour>(Player);
+            PlayerWalkDelayBehaviour playerWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkDelayBehaviour>(Player);
 
             if (playerWalkDelayBehaviour != null)
             {
-                if (Context.Server.Components.RemoveComponent(Player, playerWalkDelayBehaviour) )
+                if (Context.Server.GameObjectComponents.RemoveComponent(Player, playerWalkDelayBehaviour) )
                 {
                     Context.AddPacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
                 }
             }
 
-            PlayerAttackAndFollowBehaviour playerAttackAndFollowBehaviour = Context.Server.Components.GetComponent<PlayerAttackAndFollowBehaviour>(Player);
+            PlayerAttackAndFollowBehaviour playerAttackAndFollowBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerAttackAndFollowBehaviour>(Player);
 
             if (playerAttackAndFollowBehaviour != null)
             {

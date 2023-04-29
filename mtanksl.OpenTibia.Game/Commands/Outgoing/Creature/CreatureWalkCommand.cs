@@ -184,18 +184,18 @@ namespace OpenTibia.Game.Commands
                     }
                 }     
                 
-                PlayerActionDelayBehaviour playerActionDelayBehaviour = Context.Server.Components.GetComponent<PlayerActionDelayBehaviour>(player);
+                PlayerActionDelayBehaviour playerActionDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerActionDelayBehaviour>(player);
 
                 if (playerActionDelayBehaviour != null)
                 {
-                    Context.Server.Components.RemoveComponent(player, playerActionDelayBehaviour);
+                    Context.Server.GameObjectComponents.RemoveComponent(player, playerActionDelayBehaviour);
                 }
 
-                PlayerWalkDelayBehaviour playerWalkDelayBehaviour = Context.Server.Components.GetComponent<PlayerWalkDelayBehaviour>(player);
+                PlayerWalkDelayBehaviour playerWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkDelayBehaviour>(player);
 
                 if (playerWalkDelayBehaviour != null)
                 {
-                    if (Context.Server.Components.RemoveComponent(player, playerWalkDelayBehaviour) )
+                    if (Context.Server.GameObjectComponents.RemoveComponent(player, playerWalkDelayBehaviour) )
                     {
                         Context.AddPacket(player.Client.Connection, new StopWalkOutgoingPacket(player.Direction) );
                     }

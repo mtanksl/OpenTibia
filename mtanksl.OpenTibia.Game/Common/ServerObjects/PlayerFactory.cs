@@ -102,13 +102,13 @@ namespace OpenTibia.Game
 
             server.GameObjects.AddGameObject(player);
 
-            server.Components.AddComponent(player, new PlayerCooldownBehaviour() );
+            server.GameObjectComponents.AddComponent(player, new PlayerCooldownBehaviour() );
 
-            server.Components.AddComponent(player, new PlayerAttackAndFollowBehaviour(new MeleeAttackStrategy(null, null), TimeSpan.FromMilliseconds(500), new FollowWalkStrategy() ) );
+            server.GameObjectComponents.AddComponent(player, new PlayerAttackAndFollowBehaviour(new MeleeAttackStrategy(null, null), TimeSpan.FromMilliseconds(500), new FollowWalkStrategy() ) );
 
-            server.Components.AddComponent(player, new PlayerEnvironmentLightBehaviour() );
+            server.GameObjectComponents.AddComponent(player, new PlayerEnvironmentLightBehaviour() );
 
-            server.Components.AddComponent(player, new PlayerPingBehaviour() );
+            server.GameObjectComponents.AddComponent(player, new PlayerPingBehaviour() );
 
             return player;
         }
@@ -120,7 +120,7 @@ namespace OpenTibia.Game
 
         public void Destroy(Player player)
         {
-            server.Components.ClearComponents(player);
+            server.GameObjectComponents.ClearComponents(player);
 
             server.GameObjectEventHandlers.ClearEventHandlers(player);
         }

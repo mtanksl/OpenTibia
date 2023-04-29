@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Commands
                 
             if (target != null && target != Player)
             {
-                PlayerAttackAndFollowBehaviour playerAttackAndFollowBehaviour = Context.Server.Components.GetComponent<PlayerAttackAndFollowBehaviour>(Player);
+                PlayerAttackAndFollowBehaviour playerAttackAndFollowBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerAttackAndFollowBehaviour>(Player);
 
                 if (playerAttackAndFollowBehaviour != null)
                 {
