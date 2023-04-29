@@ -1,7 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
-using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -20,13 +20,20 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            foreach (var observer in Context.Server.Map.GetObservers(Npc.Tile.Position).OfType<Player>() )
+            foreach (var observer in Context.Server.Map.GetObservers(Npc.Tile.Position) )
             {
                 if (observer.Tile.Position.CanHearSay(Npc.Tile.Position) )
                 {
-                    Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Npc.Name, 0, TalkType.Say, Npc.Tile.Position, Message) );
+                    if (observer is Player player)
+                    {
+                        Context.AddPacket(player.Client.Connection, new ShowTextOutgoingPacket(0, Npc.Name, 0, TalkType.Say, Npc.Tile.Position, Message) );
+                    }
+
+                    Context.AddEvent(observer, new NpcSayEventArgs(Npc, Message) );
                 }
             }
+
+            Context.AddEvent(new NpcSayEventArgs(Npc, Message) );
 
             return Promise.Completed;
         }

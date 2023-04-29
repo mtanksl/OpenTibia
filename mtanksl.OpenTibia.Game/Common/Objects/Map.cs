@@ -302,19 +302,24 @@ namespace OpenTibia.Common.Objects
         {
             int Div(int a, int b)
             {
-                return a >= 0 ? a / b : (a - b + 1) / b;
+                if (a >= 0)
+                {
+                    return a / b;
+                }
+
+                return (a - b + 1) / b;
             }
 
             HashSet<Creature> GetObservers(int positionX, int positionY)
             {
                 int j = Div(positionY - minY, 13);
 
-                int i = Div(positionX - minX, 17);
-
                 if (j < 0 || j > observers.Length)
                 {
                     return null;
                 }
+
+                int i = Div(positionX - minX, 17);
 
                 if (i < 0 || i > observers[0].Length)
                 {
