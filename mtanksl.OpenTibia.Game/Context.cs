@@ -127,6 +127,32 @@ namespace OpenTibia.Game
             return Next();
         }
 
+        private Queue< (GameObject, GameEventArgs) > events;
+
+        /// <exception cref="ObjectDisposedException"></exception>
+
+        public void AddEvent(GameEventArgs e)
+        {
+            AddEvent(null, e);
+        }
+
+        /// <exception cref="ObjectDisposedException"></exception>
+
+        public void AddEvent(GameObject gameObject, GameEventArgs e)
+        {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(Context) );
+            }
+
+            if (events == null)
+            {
+                events = new Queue< (GameObject, GameEventArgs) >();
+            }
+
+            events.Enqueue( (gameObject, e) );
+        }
+
         private Dictionary<IConnection, Message> messages;
 
         /// <exception cref="ObjectDisposedException"></exception>
@@ -200,25 +226,6 @@ namespace OpenTibia.Game
             connections.Add(connection);
         }
 
-        private Queue<GameEventArgs> events;
-
-        /// <exception cref="ObjectDisposedException"></exception>
-
-        public void AddEvent(GameEventArgs e)
-        {
-            if (disposed)
-            {
-                throw new ObjectDisposedException(nameof(Context) );
-            }
-
-            if (events == null)
-            {
-                events = new Queue<GameEventArgs>();
-            }
-
-            events.Enqueue(e);
-        }
-
         /// <exception cref="ObjectDisposedException"></exception>
 
         public void Flush()
@@ -234,19 +241,39 @@ namespace OpenTibia.Game
                 {
                     var e = events.Dequeue();
 
-                    foreach (var eventHandler in server.EventHandlers.GetEventHandlers(e) )
+                    if (e.Item1 == null)
                     {
-                        eventHandler.Handle(e).Catch( (ex) =>
+                        foreach (var eventHandler in server.EventHandlers.GetEventHandlers(e.Item2) )
                         {
-                            if (ex is PromiseCanceledException)
+                            eventHandler.Handle(e.Item2).Catch( (ex) =>
                             {
-                                //
-                            }
-                            else
+                                if (ex is PromiseCanceledException)
+                                {
+                                    //
+                                }
+                                else
+                                {
+                                    server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                                }
+                            } );
+                        }
+                    }
+                    else
+                    {
+                        foreach (var eventHandler in server.GameObjectEventHandlers.GetEventHandlers(e.Item1, e.Item2) )
+                        {
+                            eventHandler.Handle(e.Item2).Catch( (ex) =>
                             {
-                                server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
-                            }
-                        } );
+                                if (ex is PromiseCanceledException)
+                                {
+                                    //
+                                }
+                                else
+                                {
+                                    server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                                }
+                            } );
+                        }
                     }
                 }
             }

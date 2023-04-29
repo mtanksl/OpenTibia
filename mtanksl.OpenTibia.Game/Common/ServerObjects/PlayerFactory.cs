@@ -121,6 +121,8 @@ namespace OpenTibia.Game
         public void Destroy(Player player)
         {
             server.Components.ClearComponents(player);
+
+            server.GameObjectEventHandlers.ClearEventHandlers(player);
         }
     }
 }

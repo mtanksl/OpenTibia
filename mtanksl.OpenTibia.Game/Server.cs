@@ -43,9 +43,11 @@ namespace OpenTibia.Game
 
             Lockers = new LockerCollection();
 
-            Components = new ComponentCollection(this);
-
             GameObjects = new GameObjectCollection();
+
+            Components = new GameObjectComponentCollection(this);
+
+            GameObjectEventHandlers = new GameObjectEventHandlerCollection();
 
             CommandHandlers = new CommandHandlerCollection();
 
@@ -79,9 +81,11 @@ namespace OpenTibia.Game
 
         public LockerCollection Lockers { get; set; }
 
-        public ComponentCollection Components { get; set; }
-
         public GameObjectCollection GameObjects { get; set; }
+
+        public GameObjectComponentCollection Components { get; set; }
+
+        public GameObjectEventHandlerCollection GameObjectEventHandlers { get; set; }
 
         public CommandHandlerCollection CommandHandlers { get; set; }
 

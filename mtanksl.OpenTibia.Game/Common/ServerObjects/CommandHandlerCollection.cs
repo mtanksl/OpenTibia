@@ -175,5 +175,10 @@ namespace OpenTibia.Game
                 }
             }
         }
+
+        public void Clear()
+        {
+            types.Clear();
+        }
     }
 }

@@ -1,23 +1,20 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Components;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace OpenTibia.Game
 {
-    public class ComponentCollection
+    public class GameObjectComponentCollection
     {
         private Server server;
 
-        public ComponentCollection(Server server)
+        public GameObjectComponentCollection(Server server)
         {
             this.server = server;
         }
 
         private Dictionary<uint, List<Component> > buckets = new Dictionary<uint, List<Component> >();
-
-        /// <exception cref="InvalidOperationException"></exception>
 
         public T AddComponent<T>(GameObject gameObject, T component) where T : Component
         {
@@ -65,8 +62,6 @@ namespace OpenTibia.Game
             return component;
         }
 
-        /// <exception cref="InvalidOperationException"></exception>
-
         public bool RemoveComponent(GameObject gameObject, Component component)
         {
             List<Component> components;
@@ -94,7 +89,29 @@ namespace OpenTibia.Game
             return false;
         }
 
-        /// <exception cref="InvalidOperationException"></exception>
+        public T GetComponent<T>(GameObject gameObject) where T : Component
+        {
+            List<Component> components;
+
+            if (buckets.TryGetValue(gameObject.Id, out components) )
+            {
+                return components.OfType<T>().FirstOrDefault();
+            }
+
+            return default(T);
+        }
+
+        public IEnumerable<T> GetComponents<T>(GameObject gameObject) where T : Component
+        {
+            List<Component> components;
+
+            if (buckets.TryGetValue(gameObject.Id, out components) )
+            {
+                return components.OfType<T>();
+            }
+
+            return Enumerable.Empty<T>();
+        }
 
         public void ClearComponents(GameObject gameObject)
         {
@@ -120,34 +137,6 @@ namespace OpenTibia.Game
                     }
                 }                
             }
-        }
-
-        /// <exception cref="InvalidOperationException"></exception>
-
-        public T GetComponent<T>(GameObject gameObject) where T : Component
-        {
-            List<Component> components;
-
-            if (buckets.TryGetValue(gameObject.Id, out components) )
-            {
-                return components.OfType<T>().FirstOrDefault();
-            }
-
-            return default(T);
-        }
-
-        /// <exception cref="InvalidOperationException"></exception>
-
-        public IEnumerable<T> GetComponents<T>(GameObject gameObject) where T : Component
-        {
-            List<Component> components;
-
-            if (buckets.TryGetValue(gameObject.Id, out components) )
-            {
-                return components.OfType<T>();
-            }
-
-            return Enumerable.Empty<T>();
         }
     }
 }

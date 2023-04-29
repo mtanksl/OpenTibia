@@ -237,6 +237,8 @@ namespace OpenTibia.Game
         public void Destroy(Item item)
         {
             server.Components.ClearComponents(item);
+
+            server.GameObjectEventHandlers.ClearEventHandlers(item);
         }
     }
 }
