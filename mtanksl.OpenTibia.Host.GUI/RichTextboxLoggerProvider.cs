@@ -71,11 +71,11 @@ namespace mtanksl.OpenTibia.Host.GUI
             {
                 richTextBox.AppendText(message);
 
-                if (richTextBox.Lines.Length >= 100)
+                if (richTextBox.Lines.Length >= 1000)
                 {
                     richTextBox.SelectionStart = 0;
 
-                    richTextBox.SelectionLength = richTextBox.GetFirstCharIndexFromLine(richTextBox.Lines.Length - 100);
+                    richTextBox.SelectionLength = richTextBox.GetFirstCharIndexFromLine(richTextBox.Lines.Length - 1000);
 
                     richTextBox.ReadOnly = false;
 
