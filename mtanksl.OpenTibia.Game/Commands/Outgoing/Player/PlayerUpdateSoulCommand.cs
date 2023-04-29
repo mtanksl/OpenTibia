@@ -20,6 +20,11 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            if (Player.Vocation == Vocation.Gamemaster)
+            {
+                return Promise.Completed;
+            }
+
             if (Player.Soul != Soul)
             {
                 Player.Soul = Soul;

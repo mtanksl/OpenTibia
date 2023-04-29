@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
@@ -20,6 +21,11 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            if (Player.Vocation == Vocation.Gamemaster)
+            {
+                return Promise.Completed;
+            }
+
             if (Player.Stamina != Stamina)
             {
                 Player.Stamina = Stamina;
