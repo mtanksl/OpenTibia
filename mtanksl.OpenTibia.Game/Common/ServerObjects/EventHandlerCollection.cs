@@ -11,6 +11,14 @@ namespace OpenTibia.Game
     {
         private Dictionary<Type, Dictionary<Guid, IEventHandler> > types = new Dictionary<Type, Dictionary<Guid, IEventHandler> >();
 
+        public int Count
+        {
+            get
+            {
+                return types.Count;
+            }
+        }
+
         /// <exception cref="InvalidOperationException"></exception>
 
         public Guid Subscribe<T>(Func<Context, T, Promise> execute) where T : GameEventArgs

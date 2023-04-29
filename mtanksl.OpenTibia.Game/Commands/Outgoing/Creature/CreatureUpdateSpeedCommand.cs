@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
+using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -29,13 +30,13 @@ namespace OpenTibia.Game.Commands
 
                 Creature.Speed = Speed;
 
-                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+                foreach (var observer in Context.Server.Map.GetObservers(Creature.Tile.Position).OfType<Player>() )
                 {
                     byte clientIndex;
 
                     if (observer.Client.TryGetIndex(Creature, out clientIndex) )
                     {
-                        Context.AddPacket(observer.Client.Connection, new SetSpeedOutgoingPacket(Creature.Id, Creature.Speed));
+                        Context.AddPacket(observer.Client.Connection, new SetSpeedOutgoingPacket(Creature.Id, Creature.Speed) );
                     }
                 }
 

@@ -17,8 +17,8 @@ namespace OpenTibia.Game.Components
         {
             if (target == null || target.IsDestroyed || !attacker.Tile.Position.CanHearSay(target.Tile.Position) )
             {
-                Player[] players = server.GameObjects.GetPlayers()
-                    .Where(p => p.Vocation != Vocation.Gamemaster &&
+                Player[] players = server.Map.GetObservers(attacker.Tile.Position).OfType<Player>()
+                    .Where(p => p.Vocation != Vocation.Gamemaster && 
                                 attacker.Tile.Position.CanHearSay(p.Tile.Position) )
                     .ToArray();
 

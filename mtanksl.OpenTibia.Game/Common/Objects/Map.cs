@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Otbm;
 using OpenTibia.Game;
+using System;
 using System.Collections.Generic;
 using OtbmItem = OpenTibia.FileFormats.Otbm.Item;
 
@@ -44,6 +45,14 @@ namespace OpenTibia.Common.Objects
                 return obj.GetHashCode();
             }
         }
+
+        private int minX = int.MaxValue;
+
+        private int minY = int.MaxValue;
+
+        private int maxX = 0;
+
+        private int maxY = 0;
 
         public Map(ItemFactory itemFactory, OtbmFile otbmFile)
         {
@@ -89,43 +98,35 @@ namespace OpenTibia.Common.Objects
 
             int count = 0;
 
-            int minX = int.MaxValue;
-
-            int minY = int.MaxValue;
-
-            int maxX = 0;
-            
-            int maxY = 0;
-
             foreach (var otbmArea in otbmFile.Areas)
             {
                 foreach (var otbmTile in otbmArea.Tiles)
                 {
                     count++;
-                }
 
-                if (otbmArea.Position.X < minX)
-                {
-                    minX = otbmArea.Position.X;
-                }
+                    if (otbmArea.Position.X + otbmTile.OffsetX < minX)
+                    {
+                        minX = otbmArea.Position.X + otbmTile.OffsetX;
+                    }
 
-                if (otbmArea.Position.Y < minY)
-                {
-                    minY = otbmArea.Position.Y;
-                }
+                    if (otbmArea.Position.Y + otbmTile.OffsetY < minY)
+                    {
+                        minY = otbmArea.Position.Y + otbmTile.OffsetY;
+                    }
 
-                if (otbmArea.Position.X > maxX)
-                {
-                    maxX = otbmArea.Position.X;
-                }
+                    if (otbmArea.Position.X + otbmTile.OffsetX > maxX)
+                    {
+                        maxX = otbmArea.Position.X + otbmTile.OffsetX;
+                    }
 
-                if (otbmArea.Position.Y > maxY)
-                {
-                    maxY = otbmArea.Position.Y;
+                    if (otbmArea.Position.Y + otbmTile.OffsetY > maxY)
+                    {
+                        maxY = otbmArea.Position.Y + otbmTile.OffsetY;
+                    }
                 }
             }
 
-            this.tiles = new Dictionary<Position, Tile>(count, new PositionEqualityComparer(minX, minY, maxX + 256, maxY + 256) );
+            this.tiles = new Dictionary<Position, Tile>(count, new PositionEqualityComparer(minX, minY, maxX, maxY) );
 
             foreach (var otbmArea in otbmFile.Areas)
             {
@@ -194,6 +195,18 @@ namespace OpenTibia.Common.Objects
                     }
                 }
             }
+
+            observers = new HashSet<Creature>[ (int)Math.Ceiling( (maxY - minY) / 13.0) ][];
+
+            for (int j = 0; j < observers.Length; j++)
+            {
+                observers[j] = new HashSet<Creature>[ (int)Math.Ceiling( (maxX - minX) / 17.0) ];
+
+                for (int i = 0; i < observers[j].Length; i++)
+                {
+                    observers[j][i] = null;
+                }
+            }
         }
 
         private Dictionary<string, Town> towns;
@@ -242,6 +255,106 @@ namespace OpenTibia.Common.Objects
         public IEnumerable<Tile> GetTiles()
         {
             return tiles.Values;
+        }
+
+        //TODO: Implement Quadtree
+
+        private HashSet<Creature>[][] observers;
+
+        public void AddObserver(Position position, Creature creature)
+        {
+            int j = (position.Y - minY) / 13;
+
+            int i = (position.X - minX) / 17;
+
+            HashSet<Creature> set = observers[j][i];
+
+            if (set == null)
+            {
+                set = new HashSet<Creature>();
+
+                observers[j][i] = set;
+            }
+
+            set.Add(creature);
+        }
+
+        public void RemoveObserver(Position position, Creature creature)
+        {
+            int j = (position.Y - minY) / 13;
+
+            int i = (position.X - minX) / 17;
+
+            HashSet<Creature> set = observers[j][i];
+
+            if (set != null)
+            {
+                set.Remove(creature);
+
+                if (set.Count == 0)
+                {
+                    observers[j][i] = null;
+                }
+            }
+        }
+
+        public IEnumerable<Creature> GetObservers(Position position)
+        {
+            int Div(int a, int b)
+            {
+                return a >= 0 ? a / b : (a - b + 1) / b;
+            }
+
+            HashSet<Creature> GetObservers(int positionX, int positionY)
+            {
+                int j = Div(positionY - minY, 13);
+
+                int i = Div(positionX - minX, 17);
+
+                if (j < 0 || j > observers.Length)
+                {
+                    return null;
+                }
+
+                if (i < 0 || i > observers[0].Length)
+                {
+                    return null;
+                }
+
+                return observers[j][i];
+            }
+
+            HashSet<Creature> creatures = new HashSet<Creature>();
+
+            HashSet<Creature> topLeft = GetObservers(position.X - 8, position.Y - 6);
+
+            if (topLeft != null)
+            {
+                creatures.UnionWith(topLeft);
+            }
+
+            HashSet<Creature> topRight = GetObservers(position.X + 9, position.Y - 6);
+
+            if (topRight != null)
+            {
+                creatures.UnionWith(topRight);
+            }
+
+            HashSet<Creature> bottomLeft = GetObservers(position.X - 8, position.Y + 7);
+
+            if (bottomLeft != null)
+            {
+                creatures.UnionWith(bottomLeft);
+            }
+
+            HashSet<Creature> bottomRight = GetObservers(position.X + 9, position.Y + 7);
+
+            if (bottomRight != null)
+            {
+                creatures.UnionWith(bottomRight);
+            }
+
+            return creatures;
         }
     }
 }

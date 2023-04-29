@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
         {
             var canSeeFrom = new Dictionary<Player, byte>();
 
-            foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+            foreach (var observer in Context.Server.Map.GetObservers(Creature.Tile.Position).OfType<Player>() )
             {
                 byte clientIndex;
 
@@ -50,11 +50,15 @@ namespace OpenTibia.Game.Commands
 
             fromTile.RemoveContent(fromIndex);
 
+            Context.Server.Map.RemoveObserver(fromTile.Position, Creature);
+
             byte toIndex = ToTile.AddContent(Creature);
+
+            Context.Server.Map.AddObserver(ToTile.Position, Creature);
 
             var canSeeTo = new Dictionary<Player, byte>();
 
-            foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+            foreach (var observer in Context.Server.Map.GetObservers(Creature.Tile.Position).OfType<Player>() )
             {
                 byte clientIndex;
 

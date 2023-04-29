@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
+using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -27,7 +28,7 @@ namespace OpenTibia.Game.Commands
 
             Tile.ReplaceContent(index, ToItem);
 
-            foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+            foreach (var observer in Context.Server.Map.GetObservers(Tile.Position).OfType<Player>() )
             {
                 byte clientIndex;
 

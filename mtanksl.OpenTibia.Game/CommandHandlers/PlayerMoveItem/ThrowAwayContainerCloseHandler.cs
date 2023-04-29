@@ -19,7 +19,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     case Tile fromTile:
 
-                        foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+                        foreach (var observer in Context.Server.Map.GetObservers(fromTile.Position).OfType<Player>() )
                         {
                             if (observer.Tile.Position.IsNextTo(fromTile.Position) )
                             {
@@ -47,7 +47,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                             case Tile fromTile:
 
-                                foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+                                foreach (var observer in Context.Server.Map.GetObservers(fromTile.Position).OfType<Player>() )
                                 {
                                     if (observer.Tile.Position.IsNextTo(fromTile.Position) )
                                     {
@@ -79,7 +79,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         case Tile toTile:
 
-                            foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+                            foreach (var observer in Context.Server.Map.GetObservers(toTile.Position).OfType<Player>() )
                             {
                                 if (observer.Tile.Position.IsNextTo(toTile.Position) )
                                 {
@@ -107,7 +107,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 case Tile toTile:
 
-                                    foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+                                    foreach (var observer in Context.Server.Map.GetObservers(toTile.Position).OfType<Player>() )
                                     {
                                         if (observer.Tile.Position.IsNextTo(toTile.Position) )
                                         {

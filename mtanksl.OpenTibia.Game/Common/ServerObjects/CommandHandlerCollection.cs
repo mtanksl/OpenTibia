@@ -10,6 +10,14 @@ namespace OpenTibia.Game
     {
         private Dictionary<Type, Dictionary<Guid, object> > types = new Dictionary<Type, Dictionary<Guid, object> >();
 
+        public int Count
+        {
+            get
+            {
+                return types.Count;
+            }
+        }
+
         /// <exception cref="InvalidOperationException"></exception>
 
         public Guid Add<T>(Func<Context, Func<Promise>, T, Promise> handle) where T : Command
