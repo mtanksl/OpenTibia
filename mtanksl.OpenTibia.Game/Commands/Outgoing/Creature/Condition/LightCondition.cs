@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
 
         public TimeSpan Duration { get; set; }
 
-        public override Promise Update(Creature target)
+        public override Promise Start(Server server, Creature target)
         {
             return Context.Current.AddCommand(new CreatureUpdateLightCommand(target, Light) ).Then( () =>
             {

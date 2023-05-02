@@ -133,7 +133,7 @@ namespace OpenTibia.Game.Components
                 }
             }
 
-            condition.Update(target).Then( () =>
+            condition.Start(server, target).Then( () =>
             {
                 if (specialCondition != SpecialCondition.None && target.HasSpecialCondition(specialCondition) )
                 {

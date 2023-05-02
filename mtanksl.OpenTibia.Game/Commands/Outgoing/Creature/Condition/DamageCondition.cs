@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Commands
 
         public TimeSpan Interval { get; set; }
 
-        public override async Promise Update(Creature target)
+        public override async Promise Start(Server server, Creature target)
         {
             for (int i = 0; i < Damages.Length; i++)
             {

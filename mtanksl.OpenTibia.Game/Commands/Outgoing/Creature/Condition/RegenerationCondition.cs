@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        public override async Promise Update(Creature target)
+        public override async Promise Start(Server server, Creature target)
         {
             Player player = (Player)target;
 
