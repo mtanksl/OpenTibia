@@ -113,33 +113,36 @@ namespace OpenTibia.Game.Components
 
             creatureWalk = server.EventHandlers.Subscribe<CreatureWalkEventArgs>( (context, e) =>
             {
-                if (npc.Tile.Position.IsInRange(e.ToTile.Position, 3) )
+                if (e.Creature is Player player)
                 {
-                    if (queue.Peek() == e.Creature)
+                    if (npc.Tile.Position.IsInRange(e.ToTile.Position, 3) )
                     {
-                        Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(e.Creature.Tile.Position).Value) );
-                    }
-                }
-                else
-                {
-                    if (queue.Peek() == e.Creature)
-                    {
-                        queue.Remove( (Player)e.Creature);
-
-                        if (queue.Count > 0)
+                        if (queue.Peek() == e.Creature)
                         {
-                            Context.AddCommand(new NpcSayCommand(npc, "Hello, " + queue.Peek().Name + "! Feel free to ask me for help.") );
-
-                            Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(queue.Peek().Tile.Position).Value) );
-                        }
-                        else
-                        {
-                            Context.AddCommand(new NpcSayCommand(npc, "Well, bye then.") );
+                            Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(e.Creature.Tile.Position).Value) );
                         }
                     }
                     else
                     {
-                        queue.Remove( (Player)e.Creature);
+                        if (queue.Peek() == e.Creature)
+                        {
+                            queue.Remove(player);
+
+                            if (queue.Count > 0)
+                            {
+                                Context.AddCommand(new NpcSayCommand(npc, "Hello, " + queue.Peek().Name + "! Feel free to ask me for help.") );
+
+                                Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(queue.Peek().Tile.Position).Value) );
+                            }
+                            else
+                            {
+                                Context.AddCommand(new NpcSayCommand(npc, "Well, bye then.") );
+                            }
+                        }
+                        else
+                        {
+                            queue.Remove(player);
+                        }
                     }
                 }
 
