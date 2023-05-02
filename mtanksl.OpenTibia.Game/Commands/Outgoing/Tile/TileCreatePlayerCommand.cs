@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Game.Events;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
@@ -25,26 +24,22 @@ namespace OpenTibia.Game.Commands
         {
             Player player = Context.Server.PlayerFactory.Create(Connection, DatabasePlayer);
 
-//TODO: Review
+            #region TODO: Review
 
-LoadInventory(Context, player, DatabasePlayer);
+            LoadInventory(Context, player, DatabasePlayer);
 
-LoadLocker(Context, DatabasePlayer);
+            LoadLocker(Context, DatabasePlayer);
 
-LoadVip(player, DatabasePlayer);
+            LoadVip(player, DatabasePlayer);
 
-            Tile toTile = Tile;
+            #endregion
 
-            return Context.AddCommand(new TileAddCreatureCommand(toTile, player) ).Then( () =>
+            return Context.AddCommand(new TileAddCreatureCommand(Tile, player) ).Then( () =>
             {
-                Context.AddEvent(new PlayerLoginEventArgs(toTile, player) );
-
                 return Promise.FromResult(player); 
             } );
         }    
         
-        //TODO: Review
-
         private static void LoadInventory(Context context, Player player, Data.Models.Player databasePlayer)
         {
             void AddItems(Container container, int sequenceId)

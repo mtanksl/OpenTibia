@@ -8,5 +8,13 @@ namespace OpenTibia.Game.Components
         {
             
         }
+
+        public override bool IsUnique
+        {
+            get
+            {
+                return true;
+            }
+        }
     }
 }

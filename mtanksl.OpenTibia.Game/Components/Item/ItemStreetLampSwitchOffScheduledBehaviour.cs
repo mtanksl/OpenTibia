@@ -10,6 +10,14 @@ namespace OpenTibia.Game.Components
             
         }
 
+        public override bool IsUnique
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         public override Promise Update()
         {
             Item item = (Item)GameObject;

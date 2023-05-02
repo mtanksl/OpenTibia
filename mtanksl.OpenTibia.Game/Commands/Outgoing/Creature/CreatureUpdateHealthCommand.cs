@@ -54,8 +54,6 @@ namespace OpenTibia.Game.Commands
                     if (observer.Client.TryGetIndex(Creature, out clientIndex) )
                     {
                         Context.AddPacket(observer.Client.Connection, new SetHealthOutgoingPacket(Creature.Id, Creature.HealthPercentage) );
-
-                        Context.AddEvent(observer, new CreatureUpdateHealthEventArgs(Creature, Health) );
                     }
                 }
 

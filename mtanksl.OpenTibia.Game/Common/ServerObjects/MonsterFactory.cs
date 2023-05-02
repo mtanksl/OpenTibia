@@ -88,7 +88,7 @@ namespace OpenTibia.Game
 
             if (monster.Metadata.Sentences != null)
             {
-                actions.Add(new MonsterSayAction(monster.Metadata.Sentences) );
+                actions.Add(new MonsterSayAction(monster.Metadata.Sentences, TimeSpan.FromSeconds(30) ) );
             }
 
             if (actions.Count > 0)

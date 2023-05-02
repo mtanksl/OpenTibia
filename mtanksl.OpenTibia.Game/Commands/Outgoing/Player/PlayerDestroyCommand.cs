@@ -23,17 +23,19 @@ namespace OpenTibia.Game.Commands
                     Detach(child);
                 }
 
-//TODO: Review
+                #region TODO: Review
 
-Data.Models.Player databasePlayer = SavePlayer(Context, Player, Player.Tile);
+                Data.Models.Player databasePlayer = SavePlayer(Context, Player, Player.Tile);
 
-SaveInventory(Context, Player, databasePlayer);
+                SaveInventory(Context, Player, databasePlayer);
 
-SaveLocker(Context, Player, databasePlayer);
+                SaveLocker(Context, Player, databasePlayer);
 
-SaveVip(Context, Player, databasePlayer);
+                SaveVip(Context, Player, databasePlayer);
 
-Context.DatabaseContext.Commit();
+                Context.DatabaseContext.Commit();
+
+                #endregion
 
                 Context.Server.QueueForExecution( () =>
                 {
@@ -44,17 +46,11 @@ Context.DatabaseContext.Commit();
                         Destroy(child);
                     }
 
-                    Tile fromTile = Player.Tile;
-
-                    return Context.AddCommand(new TileRemoveCreatureCommand(fromTile, Player) ).Then( () =>
+                    return Context.AddCommand(new TileRemoveCreatureCommand(Player.Tile, Player) ).Then( () =>
                     {
-                        Context.AddEvent(new PlayerLogoutEventArgs(fromTile, Player) );
-
                         if (Player.Health == 0)
                         {
                             Context.AddPacket(Player.Client.Connection, new OpenYouAreDeathDialogOutgoingPacket() );
-
-                            Context.AddEvent(new PlayerDeathEventArgs(Player) );
                         }
                         else
                         {
@@ -94,8 +90,6 @@ Context.DatabaseContext.Commit();
 		        }
 	        }
         }
-
-        //TODO: Review
 
         private static Data.Models.Player SavePlayer(Context context, Player player, Tile fromTile)
         {

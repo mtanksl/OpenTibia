@@ -17,13 +17,13 @@ namespace OpenTibia.Game.Components
             this.actions = actions;
         }
 
-        private Guid token;
+        private Guid globalTick;
 
         public override void Start(Server server)
         {
             Creature attacker = (Creature)GameObject;
 
-            token = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>(async (context, e) =>
+            globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>(async (context, e) =>
             {
                 Creature target = chooseTargetStrategy.GetNext(Context.Server, attacker);
 
@@ -39,7 +39,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop(Server server)
         {
-            Context.Server.EventHandlers.Unsubscribe<GlobalTickEventArgs>(token);
+            Context.Server.EventHandlers.Unsubscribe<GlobalTickEventArgs>(globalTick);
         }
     }
 }

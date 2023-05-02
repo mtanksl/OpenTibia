@@ -40,8 +40,6 @@ namespace OpenTibia.Game.Commands
                                 {
                                     Context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(Creature.Tile.Position, clientIndex) );
                                 }
-
-                                Context.AddEvent(observer, new CreatureUpdateInvisibleEventArgs(Creature, Invisible) );
                             }
                         }
                     }
@@ -70,8 +68,6 @@ namespace OpenTibia.Game.Commands
                                 {
                                     Context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Creature.Tile.Position, clientIndex, removeId, Creature) );
                                 }
-
-                                Context.AddEvent(observer, new CreatureUpdateInvisibleEventArgs(Creature, Invisible) );
                             }
                         }
                     }

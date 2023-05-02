@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Xml.Npcs;
 using OpenTibia.Game.Components;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Npc = OpenTibia.Common.Objects.Npc;
@@ -54,18 +55,18 @@ namespace OpenTibia.Game
 
             List<BehaviourAction> actions = new List<BehaviourAction>();
 
-            actions.Add(new CreatureWalkAction(new RandomWalkStrategy(2) ) );
+            actions.Add(new CreatureWalkAction(new RandomWalkStrategy(1) ) );
 
             if (npc.Metadata.Sentences != null)
             {
-                actions.Add(new NpcSayAction(npc.Metadata.Sentences) );
+                actions.Add(new NpcSayAction(npc.Metadata.Sentences, TimeSpan.FromSeconds(30) ) );
             }
 
             if (actions.Count > 0)
             {
-                server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(new FirstChooseTargetStrategy(), actions.ToArray() ) );
+                server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(actions.ToArray() ) );
             }
-            
+
             return npc;
         }
 

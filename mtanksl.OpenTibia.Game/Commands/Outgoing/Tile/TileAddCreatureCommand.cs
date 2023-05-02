@@ -42,13 +42,16 @@ namespace OpenTibia.Game.Commands
                         {
                             Context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Tile.Position, clientIndex, removeId, Creature) );
                         }
-    
-                        Context.AddEvent(observer, new TileAddCreatureEventArgs(Tile, Creature, index) );
                     }
                 }
             }
 
             Context.AddEvent(new TileAddCreatureEventArgs(Tile, Creature, index) );
+
+            if (Creature is Player player)
+            {
+                Context.AddEvent(new PlayerLoginEventArgs(Tile, player) );
+            }
 
             return Promise.Completed;
         }

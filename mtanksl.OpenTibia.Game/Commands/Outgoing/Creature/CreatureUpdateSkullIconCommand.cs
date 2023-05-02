@@ -32,8 +32,6 @@ namespace OpenTibia.Game.Commands
                     if (observer.Client.TryGetIndex(Creature, out clientIndex) )
                     {
                         Context.AddPacket(observer.Client.Connection, new SetSkullIconOutgoingPacket(Creature.Id, Creature.SkullIcon) );
-
-                        Context.AddEvent(observer, new CreatureUpdateSkullIconEventArgs(Creature, SkullIcon) );
                     }
                 }
 

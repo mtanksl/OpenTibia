@@ -135,25 +135,25 @@
             return Offset(offset.X, offset.Y, offset.Z);
         }
 
-        public Position Offset(Direction direction, int count = 1)
+        public Position Offset(Direction direction, int range = 1)
         {
             switch (direction)
             {
                 case Direction.East:
 
-                    return Offset(count, 0, 0);
+                    return Offset(range, 0, 0);
 
                 case Direction.North:
 
-                    return Offset(0, -count, 0);
+                    return Offset(0, -range, 0);
 
                 case Direction.West:
 
-                    return Offset(-count, 0, 0);
+                    return Offset(-range, 0, 0);
 
                 default:
 
-                    return Offset(0, count, 0);
+                    return Offset(0, range, 0);
             }
         }
 
@@ -331,6 +331,22 @@
             int deltaX = that.x - this.x;
 
             if (deltaZ != 0 || deltaY < -1 || deltaY > 1 || deltaX < -1 || deltaX > 1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool IsInRange(Position that, int range)
+        {
+            int deltaZ = that.z - this.z;
+
+            int deltaY = that.y - this.y;
+
+            int deltaX = that.x - this.x;
+
+            if (deltaZ != 0 || deltaY < -range || deltaY > range || deltaX < -range || deltaX > range)
             {
                 return false;
             }

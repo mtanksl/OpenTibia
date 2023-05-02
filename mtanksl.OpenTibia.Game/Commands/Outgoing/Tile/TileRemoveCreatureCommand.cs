@@ -52,11 +52,14 @@ namespace OpenTibia.Game.Commands
                 {
                     Context.AddPacket(pair.Key.Client.Connection, new ThingRemoveOutgoingPacket(Tile.Position, pair.Value) );
                 }
-                            
-                Context.AddEvent(pair.Key, new TileRemoveCreatureEventArgs(Tile, Creature, index) );
             }
 
             Context.AddEvent(new TileRemoveCreatureEventArgs(Tile, Creature, index) );
+
+            if (Creature is Player player)
+            {
+                Context.AddEvent(new PlayerLogoutEventArgs(Tile, player) );
+            }
 
             return Promise.Completed;
         }

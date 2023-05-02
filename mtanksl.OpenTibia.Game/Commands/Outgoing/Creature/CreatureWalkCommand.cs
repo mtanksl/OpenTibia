@@ -204,8 +204,6 @@ namespace OpenTibia.Game.Commands
                         Context.AddPacket(player.Client.Connection, new StopWalkOutgoingPacket(player.Direction) );
                     }
                 }
-
-                Context.AddEvent(player, new CreatureWalkEventArgs(Creature, fromTile, fromIndex, ToTile, toIndex) );
             }
 
             foreach (var observer in canSeeFrom.Keys.Intersect(canSeeTo.Keys) )
@@ -218,8 +216,6 @@ namespace OpenTibia.Game.Commands
                     {
                         Context.AddPacket(observer.Client.Connection, new SendTileOutgoingPacket(Context.Server.Map, observer.Client, fromTile.Position) );
                     }
-
-                    Context.AddEvent(observer, new CreatureWalkEventArgs(Creature, fromTile, fromIndex, ToTile, toIndex) );
                 }
             }
 
@@ -235,8 +231,6 @@ namespace OpenTibia.Game.Commands
                     {
                         Context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(fromTile.Position, canSeeFrom[observer] ) );
                     }
-
-                    Context.AddEvent(observer, new CreatureWalkEventArgs(Creature, fromTile, fromIndex, ToTile, toIndex) );
                 }
             }
 
@@ -254,8 +248,6 @@ namespace OpenTibia.Game.Commands
                     {
                         Context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(ToTile.Position, canSeeTo[observer], removeId, Creature) );
                     }
-
-                    Context.AddEvent(observer, new CreatureWalkEventArgs(Creature, fromTile, fromIndex, ToTile, toIndex) );
                 }
             }
 

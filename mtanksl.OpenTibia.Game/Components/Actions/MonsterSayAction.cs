@@ -9,9 +9,13 @@ namespace OpenTibia.Game.Components
     {
         private string[] sentences;
 
-        public MonsterSayAction(string[] sentences)
+        private TimeSpan cooldown;
+
+        public MonsterSayAction(string[] sentences, TimeSpan cooldown)
         {
             this.sentences = sentences;
+
+            this.cooldown = cooldown;
         }
 
         private DateTime talkCooldown;
@@ -20,7 +24,7 @@ namespace OpenTibia.Game.Components
         {
             if (DateTime.UtcNow > talkCooldown)
             {
-                talkCooldown = DateTime.UtcNow.AddSeconds(30);
+                talkCooldown = DateTime.UtcNow.Add(cooldown);
 
                 return Context.Current.AddCommand(new ShowTextCommand(attacker, TalkType.MonsterSay, Context.Current.Server.Randomization.Take(sentences) ) );
             }

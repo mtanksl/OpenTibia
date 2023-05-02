@@ -5,9 +5,9 @@ namespace OpenTibia.Common.Objects
 {
     public class QueueDictionary<TKey, TValue>
     {
-        private LinkedList<Tuple<TKey, TValue>> queue = new LinkedList<Tuple<TKey, TValue>>();
+        private LinkedList< Tuple<TKey, TValue> > queue = new LinkedList< Tuple<TKey, TValue> >();
 
-        private Dictionary<TKey, LinkedListNode<Tuple<TKey, TValue>>> dictionary = new Dictionary<TKey, LinkedListNode<Tuple<TKey, TValue>>>();
+        private Dictionary< TKey, LinkedListNode< Tuple<TKey, TValue> > > dictionary = new Dictionary< TKey, LinkedListNode< Tuple<TKey, TValue> > >();
 
         public int Count
         {
@@ -15,6 +15,16 @@ namespace OpenTibia.Common.Objects
             {
                 return queue.Count;
             }
+        }
+
+        public TValue Peek()
+        {
+            if (queue.First != null)
+            {
+                return queue.First.Value.Item2;
+            }
+
+            return default(TValue);
         }
 
         public TValue Dequeue()
@@ -28,11 +38,18 @@ namespace OpenTibia.Common.Objects
             return node.Value.Item2;
         }
 
-        public void Add(TKey key, TValue value)
+        public bool Add(TKey key, TValue value)
         {
-            var node = queue.AddLast(Tuple.Create(key, value) );
+            if ( !dictionary.TryGetValue(key, out var node) )
+            {
+                node = queue.AddLast(Tuple.Create(key, value) );
 
-            dictionary.Add(key, node);
+                dictionary.Add(key, node);
+
+                return true;
+            }
+
+            return false;
         }
 
         public bool Remove(TKey key)
@@ -47,6 +64,11 @@ namespace OpenTibia.Common.Objects
             }
 
             return false;           
+        }
+
+        public bool Contains(TKey key)
+        {
+            return dictionary.ContainsKey(key);
         }
     }
 }
