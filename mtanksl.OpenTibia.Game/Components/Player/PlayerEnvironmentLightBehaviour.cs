@@ -8,13 +8,13 @@ namespace OpenTibia.Game.Components
 {
     public class PlayerEnvironmentLightBehaviour : Behaviour
     {
-        private Guid token;
+        private Guid globalTibiaClockTick;
 
         public override void Start(Server server)
         {
             Player player = (Player)GameObject;
 
-            token = Context.Server.EventHandlers.Subscribe<GlobalTibiaClockTickEventArgs>( (context, e) =>
+            globalTibiaClockTick = Context.Server.EventHandlers.Subscribe<GlobalTibiaClockTickEventArgs>( (context, e) =>
             {
                 Context.AddPacket(player.Client.Connection, new SetEnvironmentLightOutgoingPacket(Context.Server.Clock.Light) );
 
@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop(Server server)
         {
-            Context.Server.EventHandlers.Unsubscribe<GlobalTibiaClockTickEventArgs>(token);
+            Context.Server.EventHandlers.Unsubscribe<GlobalTibiaClockTickEventArgs>(globalTibiaClockTick);
         }
     }
 }

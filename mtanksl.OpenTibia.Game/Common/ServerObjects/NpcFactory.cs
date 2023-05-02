@@ -64,11 +64,11 @@ namespace OpenTibia.Game
 
             if (npc.Name == "Aldee")
             {
-                server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(nonTargetActions.ToArray(), new AldeeNpcScript() ) );
+                server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(nonTargetActions.ToArray(), new AldeeNpcEventHandler() ) );
             }
             else if (npc.Name == "Cipfried")
             {
-                server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(nonTargetActions.ToArray(), new CipfriedNpcScript() ) );
+                server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(nonTargetActions.ToArray(), new CipfriedNpcEventHandler() ) );
             }
 
             return npc;

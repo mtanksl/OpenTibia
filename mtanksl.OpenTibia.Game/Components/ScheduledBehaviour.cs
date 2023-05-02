@@ -25,11 +25,11 @@ namespace OpenTibia.Game.Components
             }
         }
 
-        private Guid token;
+        private Guid globalTibiaClockTick;
 
         public override void Start(Server server)
         {
-            token = server.EventHandlers.Subscribe<GlobalTibiaClockTickEventArgs>( (context, e) =>
+            globalTibiaClockTick = server.EventHandlers.Subscribe<GlobalTibiaClockTickEventArgs>( (context, e) =>
             {
                 if (e.Hour == hour && e.Minute == minute)
                 {
@@ -54,7 +54,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop(Server server)
         {
-            server.EventHandlers.Unsubscribe<GlobalTibiaClockTickEventArgs>(token);
+            server.EventHandlers.Unsubscribe<GlobalTibiaClockTickEventArgs>(globalTibiaClockTick);
         }
     }
 }

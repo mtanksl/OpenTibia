@@ -9,13 +9,13 @@ namespace OpenTibia.Game.Components
     {
         private NonTargetAction[] nonTargetActions;
 
-        private NpcScript npcScript;
+        private NpcEventHandler npcEventHandler;
 
-        public NpcThinkBehaviour(NonTargetAction[] nonTargetActions, NpcScript npcScript)
+        public NpcThinkBehaviour(NonTargetAction[] nonTargetActions, NpcEventHandler npcEventHandler)
         {
             this.nonTargetActions = nonTargetActions;
 
-            this.npcScript = npcScript;
+            this.npcEventHandler = npcEventHandler;
         }
 
         private Guid globalTick;
@@ -43,7 +43,7 @@ namespace OpenTibia.Game.Components
                 }
             } );
 
-            playerSay = server.GameObjectEventHandlers.Subscribe<PlayerSayEventArgs>(GameObject, (context, e) =>
+            playerSay = server.GameObjectEventHandlers.Subscribe<PlayerSayEventArgs>(GameObject, async (context, e) =>
             {
                 if (npc.Tile.Position.IsInRange(e.Player.Tile.Position, 3) )
                 {
@@ -51,9 +51,9 @@ namespace OpenTibia.Game.Components
                     {
                         if (e.Message == "hi" || e.Message == "hello")
                         {
-                            Context.AddCommand(new NpcSayCommand(npc, npcScript.Address(npc, e.Player) ) );
+                            await npcEventHandler.OnGreet(npc, e.Player);
 
-                            Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(e.Player.Tile.Position).Value) );
+                            await Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(e.Player.Tile.Position).Value) );
 
                             queue.Add(e.Player);
                         }
@@ -68,43 +68,36 @@ namespace OpenTibia.Game.Components
 
                                 if (queue.Count > 0)
                                 {
-                                    Context.AddCommand(new NpcSayCommand(npc, npcScript.Address(npc, queue.Peek() ) ) );
+                                    await npcEventHandler.OnGreet(npc, queue.Peek() );
 
-                                    Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(queue.Peek().Tile.Position).Value) );
+                                    await Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(queue.Peek().Tile.Position).Value) );
                                 }
                                 else
                                 {
-                                    Context.AddCommand(new NpcSayCommand(npc, npcScript.Idle(npc, e.Player) ) );
+                                    await npcEventHandler.OnFarewell(npc, e.Player);
                                 }
                             }
                             else
                             {
-                                var answer = npcScript.Handle(npc, e.Player, e.Message);
-
-                                if (answer != null)
-                                {
-                                    Context.AddCommand(new NpcSayCommand(npc, answer) );
-                                }
+                                await npcEventHandler.OnSay(npc, e.Player, e.Message);
                             }
                         }
                         else
                         {
                             if (e.Message == "hi" || e.Message == "hello")
                             {
-                                Context.AddCommand(new NpcSayCommand(npc, npcScript.Busy(npc, e.Player) ) );
+                                await npcEventHandler.OnGreetBusy(npc, e.Player);
 
                                 queue.Add(e.Player);
                             }
                         }
                     }
                 }
-
-                return Promise.Completed;
             } );
 
             //TODO: Use local event
 
-            creatureWalk = server.EventHandlers.Subscribe<CreatureWalkEventArgs>( (context, e) =>
+            creatureWalk = server.EventHandlers.Subscribe<CreatureWalkEventArgs>(async (context, e) =>
             {
                 if (e.Creature is Player player)
                 {
@@ -112,7 +105,7 @@ namespace OpenTibia.Game.Components
                     {
                         if (queue.Peek() == e.Creature)
                         {
-                            Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(e.Creature.Tile.Position).Value) );
+                            await Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(e.Creature.Tile.Position).Value) );
                         }
                     }
                     else
@@ -123,13 +116,13 @@ namespace OpenTibia.Game.Components
 
                             if (queue.Count > 0)
                             {
-                                Context.AddCommand(new NpcSayCommand(npc, npcScript.Address(npc, queue.Peek() ) ) );
+                                await npcEventHandler.OnGreet(npc, queue.Peek() );
 
-                                Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(queue.Peek().Tile.Position).Value) );
+                                await Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(queue.Peek().Tile.Position).Value) );
                             }
                             else
                             {
-                                Context.AddCommand(new NpcSayCommand(npc, npcScript.Vanish(npc) ) );
+                                await npcEventHandler.OnDisappear(npc);
                             }
                         }
                         else
@@ -138,13 +131,11 @@ namespace OpenTibia.Game.Components
                         }
                     }
                 }
-
-                return Promise.Completed;
             } );
 
             //TODO: Use local event
 
-            playerLogout = server.EventHandlers.Subscribe<PlayerLogoutEventArgs>( (context, e) =>
+            playerLogout = server.EventHandlers.Subscribe<PlayerLogoutEventArgs>(async (context, e) =>
             {
                 if (queue.Peek() == e.Player)
                 {
@@ -152,21 +143,19 @@ namespace OpenTibia.Game.Components
 
                     if (queue.Count > 0)
                     {
-                        Context.AddCommand(new NpcSayCommand(npc, npcScript.Address(npc, queue.Peek() ) ) );
+                        await npcEventHandler.OnGreet(npc, queue.Peek() );
 
-                        Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(queue.Peek().Tile.Position).Value) );
+                        await Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(queue.Peek().Tile.Position).Value) );
                     }
                     else
                     {
-                        Context.AddCommand(new NpcSayCommand(npc, npcScript.Vanish(npc) ) );
+                        await npcEventHandler.OnDisappear(npc);
                     }
                 }
                 else
                 {
                     queue.Remove(e.Player);
                 }
-
-                return Promise.Completed;
             } );
         }
 

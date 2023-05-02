@@ -8,7 +8,7 @@ namespace OpenTibia.Game.Components
 {
     public class PlayerPingBehaviour : Behaviour
     {
-        private Guid token;
+        private Guid globalPing;
 
         private DateTime lastPingResponse = DateTime.UtcNow;
 
@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Components
         {
             Player player = (Player)GameObject;
 
-            token = Context.Server.EventHandlers.Subscribe<GlobalPingEventArgs>( (context, e) =>
+            globalPing = Context.Server.EventHandlers.Subscribe<GlobalPingEventArgs>( (context, e) =>
             {
                 if ( (DateTime.UtcNow - lastPingResponse).TotalMinutes > 1)
                 {
@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop(Server server)
         {
-            Context.Server.EventHandlers.Unsubscribe<GlobalPingEventArgs>(token);
+            Context.Server.EventHandlers.Unsubscribe<GlobalPingEventArgs>(globalPing);
         }
     }
 }
