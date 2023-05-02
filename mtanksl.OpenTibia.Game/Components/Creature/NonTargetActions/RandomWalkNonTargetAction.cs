@@ -1,20 +1,49 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Commands;
 using System;
 using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
-    public class RandomWalkStrategy : IWalkStrategy
+    public class RandomWalkNonTargetAction : NonTargetAction
     {
         private int radius;
 
-        public RandomWalkStrategy(int radius)
+        public RandomWalkNonTargetAction(int radius)
         {
             this.radius = radius;
         }
 
-        public Tile GetNext(Server server, Tile spawn, Creature attacker, Creature target)
+        private Tile spawn;
+
+        private DateTime walkCooldown;
+
+        public override Promise Update(Creature creature)
+        {
+            if (DateTime.UtcNow > walkCooldown)
+            {
+                if (spawn == null)
+                {
+                    spawn = creature.Tile;
+                }
+
+                Tile toTile = GetNext(Context.Current.Server, spawn, creature);
+
+                if (toTile != null)
+                {
+                    walkCooldown = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / creature.Speed);
+
+                    return Context.Current.AddCommand(new CreatureWalkCommand(creature, toTile) );
+                }
+
+                walkCooldown = DateTime.UtcNow.AddMilliseconds(500);
+            }
+
+            return Promise.Completed;
+        }
+
+        private Tile GetNext(Server server, Tile spawn, Creature attacker)
         {
             foreach (var direction in server.Randomization.Shuffle(new[] { Direction.North, Direction.East, Direction.South, Direction.West } ) )
             {

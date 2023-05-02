@@ -1,32 +1,19 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using System;
 
 namespace OpenTibia.Game.Components
 {
-    public class CreatureWalkAction : BehaviourAction
+    public class FollowWalkTargetAction : TargetAction
     {
-        private IWalkStrategy walkStrategy;
-
-        public CreatureWalkAction(IWalkStrategy walkStrategy)
-        {
-            this.walkStrategy = walkStrategy;
-        }
-
-        private Tile spawn;
-
         private DateTime walkCooldown;
 
         public override Promise Update(Creature attacker, Creature target)
         {
             if (DateTime.UtcNow > walkCooldown)
             {
-                if (spawn == null)
-                {
-                    spawn = attacker.Tile;
-                }
-
-                Tile toTile = walkStrategy.GetNext(Context.Current.Server, spawn, attacker, target);
+                Tile toTile = GetNext(Context.Current.Server, attacker, target);
 
                 if (toTile != null)
                 {
@@ -35,10 +22,22 @@ namespace OpenTibia.Game.Components
                     return Context.Current.AddCommand(new CreatureWalkCommand(attacker, toTile) );
                 }
 
-                walkCooldown = DateTime.UtcNow.AddSeconds(2);
+                walkCooldown = DateTime.UtcNow.AddMilliseconds(500);
             }
 
             return Promise.Completed;
+        }
+
+        private Tile GetNext(Server server, Creature attacker, Creature target)
+        {
+            MoveDirection[] moveDirections = server.Pathfinding.GetMoveDirections(attacker.Tile.Position, target.Tile.Position);
+
+            if (moveDirections.Length != 0)
+            {
+                return server.Map.GetTile(attacker.Tile.Position.Offset(moveDirections[0] ) );
+            }
+
+            return null;
         }
     }
 }

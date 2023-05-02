@@ -57,44 +57,43 @@ namespace OpenTibia.Game
                         
             server.GameObjects.AddGameObject(monster);
 
-            List<BehaviourAction> actions = new List<BehaviourAction>();
+            List<TargetAction> targetActions = new List<TargetAction>();
+
+            List<NonTargetAction> nonTargetActions = new List<NonTargetAction>();
 
             if (monster.Name == "Amazon")
             {
-                actions.Add(new CreatureWalkAction(new KeepDistanceWalkStrategy(3) ) );
+                targetActions.Add(new KeepDistanceWalkTargetAction(3) );
 
-                actions.Add(new MonsterAttackAction(new DistanceAttackStrategy(ProjectileType.ThrowingKnife, 0, 20), TimeSpan.FromSeconds(2) ) );
+                targetActions.Add(new DistanceAttackTargetAction(ProjectileType.ThrowingKnife, 0, 20, TimeSpan.FromSeconds(2) ) );
             }
             else if (monster.Name == "Valkyrie")
             {
-                actions.Add(new CreatureWalkAction(new KeepDistanceWalkStrategy(3) ) );
+                targetActions.Add(new KeepDistanceWalkTargetAction(3) );
 
-                actions.Add(new MonsterAttackAction(new DistanceAttackStrategy(ProjectileType.Spear, 0, 30), TimeSpan.FromSeconds(2) ) );
+                targetActions.Add(new DistanceAttackTargetAction(ProjectileType.Spear, 0, 30, TimeSpan.FromSeconds(2) ) );
             }
             else if (monster.Name == "Deer")
             {
-                actions.Add(new CreatureWalkAction(new RunAwayWalkStrategy() ) );
+                targetActions.Add(new RunAwayWalkTargetAction() );
             }
             else if (monster.Name == "Dog")
             {
-                actions.Add(new CreatureWalkAction(new ApproachWalkStrategy() ) );
+                targetActions.Add(new ApproachWalkTargetAction() );
             }
             else
             {
-                actions.Add(new CreatureWalkAction(new FollowWalkStrategy() ) );
+                targetActions.Add(new FollowWalkTargetAction() );
 
-                actions.Add(new MonsterAttackAction(new MeleeAttackStrategy(0, 20), TimeSpan.FromSeconds(2) ) );
+                targetActions.Add(new MeleeAttackTargetAction(0, 20, TimeSpan.FromSeconds(2) ) );
             }
 
             if (monster.Metadata.Sentences != null)
             {
-                actions.Add(new MonsterSayAction(monster.Metadata.Sentences, TimeSpan.FromSeconds(30) ) );
+                nonTargetActions.Add(new MonsterSayNonTargetAction(monster.Metadata.Sentences, TimeSpan.FromSeconds(30) ) );
             }
 
-            if (actions.Count > 0)
-            {
-                server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(new RandomChooseTargetStrategy(), actions.ToArray() ) );
-            }
+            server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(targetActions.ToArray(), nonTargetActions.ToArray() ) );
 
             return monster;
         }

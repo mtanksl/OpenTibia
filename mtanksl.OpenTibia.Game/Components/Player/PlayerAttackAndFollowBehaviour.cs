@@ -21,22 +21,11 @@ namespace OpenTibia.Game.Components
             AttackAndFollow
         }
 
-        private IAttackStrategy attackStrategy;
+        private TargetAction attackTargetAction = new MeleeAttackTargetAction(null, null, TimeSpan.FromMilliseconds(500) );
 
-        private TimeSpan cooldown;
+        private TargetAction walkTargetAction = new FollowWalkTargetAction();
 
-        private IWalkStrategy walkStrategy;
-
-        public PlayerAttackAndFollowBehaviour(IAttackStrategy attackStrategy, TimeSpan cooldown, IWalkStrategy walkStrategy)
-        {
-            this.attackStrategy = attackStrategy;
-
-            this.cooldown = cooldown;
-
-            this.walkStrategy = walkStrategy;
-        }
-
-        private Guid token;
+        private Guid globalTick;
 
         private State state;
 
@@ -46,11 +35,7 @@ namespace OpenTibia.Game.Components
         {
             Player player = (Player)GameObject;
 
-            DateTime attackCooldown = DateTime.MinValue;
-
-            DateTime walkCooldown = DateTime.MinValue;
-
-            token = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
+            globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
             {
                 if (target == null)
                 {
@@ -70,32 +55,12 @@ namespace OpenTibia.Game.Components
 
                 if (state == State.Follow || state == State.AttackAndFollow)
                 {
-                    if (DateTime.UtcNow > walkCooldown)
-                    {
-                        Tile toTile = walkStrategy.GetNext(Context.Server, null, player, target);
-
-                        if (toTile != null)
-                        {
-                            walkCooldown = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / player.Speed);
-
-                            promises.Add(Context.AddCommand(new CreatureWalkCommand(player, toTile) ) );
-                        }
-                    }
+                    promises.Add(walkTargetAction.Update(player, target) );
                 }
 
                 if (state == State.Attack || state == State.AttackAndFollow)
                 {
-                    if (DateTime.UtcNow > attackCooldown)
-                    {
-                        Command command = attackStrategy.GetNext(Context.Server, player, target);
-
-                        if (command != null)
-                        {
-                            attackCooldown = DateTime.UtcNow.Add(cooldown);
-
-                            promises.Add(Context.AddCommand(command) );
-                        }
-                    }
+                    promises.Add(attackTargetAction.Update(player, target) );
                 }
 
                 return Promise.WhenAll(promises.ToArray() );
@@ -148,7 +113,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop(Server server)
         {
-            Context.Server.EventHandlers.Unsubscribe<GlobalTickEventArgs>(token);
+            Context.Server.EventHandlers.Unsubscribe<GlobalTickEventArgs>(globalTick);
         }
     }
 }

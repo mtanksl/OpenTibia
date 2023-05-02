@@ -4,15 +4,19 @@ using System;
 
 namespace OpenTibia.Game.Components
 {
-    public class MonsterAttackAction : BehaviourAction
+    public class MeleeAttackTargetAction : TargetAction
     {
-        private IAttackStrategy attackStrategy;
+        private int? min;
+
+        private int? max;
 
         private TimeSpan cooldown;
 
-        public MonsterAttackAction(IAttackStrategy attackStrategy, TimeSpan cooldown)
+        public MeleeAttackTargetAction(int? min, int? max, TimeSpan cooldown)
         {
-            this.attackStrategy = attackStrategy;
+            this.min = min;
+
+            this.max = max;
 
             this.cooldown = cooldown;
         }
@@ -23,16 +27,14 @@ namespace OpenTibia.Game.Components
         {
             if (DateTime.UtcNow > attackCooldown)
             {
-                Command command = attackStrategy.GetNext(Context.Current.Server, attacker, target);
-
-                if (command != null)
+                if (attacker.Tile.Position.IsNextTo(target.Tile.Position) )
                 {
                     attackCooldown = DateTime.UtcNow.Add(cooldown);
 
-                    return Context.Current.AddCommand(command);
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, new MeleeAttack(min, max) ) );
                 }
 
-                attackCooldown = DateTime.UtcNow.AddSeconds(2);
+                attackCooldown = DateTime.UtcNow.AddMilliseconds(500);
             }
 
             return Promise.Completed;

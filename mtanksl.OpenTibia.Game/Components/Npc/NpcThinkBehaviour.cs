@@ -7,11 +7,15 @@ namespace OpenTibia.Game.Components
 {
     public class NpcThinkBehaviour : Behaviour
     {
-        private BehaviourAction[] actions;
+        private NonTargetAction[] nonTargetActions;
 
-        public NpcThinkBehaviour(BehaviourAction[] actions)
+        private NpcScript npcScript;
+
+        public NpcThinkBehaviour(NonTargetAction[] nonTargetActions, NpcScript npcScript)
         {
-            this.actions = actions;
+            this.nonTargetActions = nonTargetActions;
+
+            this.npcScript = npcScript;
         }
 
         private Guid globalTick;
@@ -32,9 +36,9 @@ namespace OpenTibia.Game.Components
             {
                 if (queue.Count == 0)
                 {
-                    foreach (var action in actions)
+                    foreach (var nonTargetAction in nonTargetActions)
                     {
-                        await action.Update(npc, null);
+                        await nonTargetAction.Update(npc);
                     }
                 }
             } );
@@ -47,7 +51,7 @@ namespace OpenTibia.Game.Components
                     {
                         if (e.Message == "hi" || e.Message == "hello")
                         {
-                            Context.AddCommand(new NpcSayCommand(npc, "Hello, " + e.Player.Name + "! Feel free to ask me for help.") );
+                            Context.AddCommand(new NpcSayCommand(npc, npcScript.Address(npc, e.Player) ) );
 
                             Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(e.Player.Tile.Position).Value) );
 
@@ -64,41 +68,30 @@ namespace OpenTibia.Game.Components
 
                                 if (queue.Count > 0)
                                 {
-                                    Context.AddCommand(new NpcSayCommand(npc, "Hello, " + queue.Peek().Name + "! Feel free to ask me for help.") );
+                                    Context.AddCommand(new NpcSayCommand(npc, npcScript.Address(npc, queue.Peek() ) ) );
 
                                     Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(queue.Peek().Tile.Position).Value) );
                                 }
                                 else
                                 {
-                                    Context.AddCommand(new NpcSayCommand(npc, "Farewell, " + e.Player.Name + "!") );
+                                    Context.AddCommand(new NpcSayCommand(npc, npcScript.Idle(npc, e.Player) ) );
                                 }
-                            }
-                            else if (e.Message == "name")
-                            {
-                                Context.AddCommand(new NpcSayCommand(npc, "My name is Cipfried.") );
-                            }
-                            else if (e.Message == "job")
-                            {
-                                Context.AddCommand(new NpcSayCommand(npc, "I am just a humble monk. Ask me if you need help or healing.") );
-                            }
-                            else if (e.Message == "monk")
-                            {
-                                Context.AddCommand(new NpcSayCommand(npc, "I sacrifice my life to serve the good gods of Tibia.") );
-                            }
-                            else if (e.Message == "tibia")
-                            {
-                                Context.AddCommand(new NpcSayCommand(npc, "That's where we are. The world of Tibia.") );
                             }
                             else
                             {
-                                //...
+                                var answer = npcScript.Handle(npc, e.Player, e.Message);
+
+                                if (answer != null)
+                                {
+                                    Context.AddCommand(new NpcSayCommand(npc, answer) );
+                                }
                             }
                         }
                         else
                         {
                             if (e.Message == "hi" || e.Message == "hello")
                             {
-                                Context.AddCommand(new NpcSayCommand(npc, "Please wait, " + e.Player.Name + ". I already talk to someone!") );
+                                Context.AddCommand(new NpcSayCommand(npc, npcScript.Busy(npc, e.Player) ) );
 
                                 queue.Add(e.Player);
                             }
@@ -130,13 +123,13 @@ namespace OpenTibia.Game.Components
 
                             if (queue.Count > 0)
                             {
-                                Context.AddCommand(new NpcSayCommand(npc, "Hello, " + queue.Peek().Name + "! Feel free to ask me for help.") );
+                                Context.AddCommand(new NpcSayCommand(npc, npcScript.Address(npc, queue.Peek() ) ) );
 
                                 Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(queue.Peek().Tile.Position).Value) );
                             }
                             else
                             {
-                                Context.AddCommand(new NpcSayCommand(npc, "Well, bye then.") );
+                                Context.AddCommand(new NpcSayCommand(npc, npcScript.Vanish(npc) ) );
                             }
                         }
                         else
@@ -159,13 +152,13 @@ namespace OpenTibia.Game.Components
 
                     if (queue.Count > 0)
                     {
-                        Context.AddCommand(new NpcSayCommand(npc, "Hello, " + queue.Peek().Name + "! Feel free to ask me for help.") );
+                        Context.AddCommand(new NpcSayCommand(npc, npcScript.Address(npc, queue.Peek() ) ) );
 
                         Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(queue.Peek().Tile.Position).Value) );
                     }
                     else
                     {
-                        Context.AddCommand(new NpcSayCommand(npc, "Well, bye then.") );
+                        Context.AddCommand(new NpcSayCommand(npc, npcScript.Vanish(npc) ) );
                     }
                 }
                 else

@@ -1,20 +1,22 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Events;
 using System;
+using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
     public class MonsterThinkBehaviour : Behaviour
     {
-        private IChooseTargetStrategy chooseTargetStrategy;
+        private TargetAction[] targetActions;
 
-        private BehaviourAction[] actions;
+        private NonTargetAction[] nonTargetActions;
 
-        public MonsterThinkBehaviour(IChooseTargetStrategy chooseTargetStrategy, BehaviourAction[] actions)
+        public MonsterThinkBehaviour(TargetAction[] targetActions, NonTargetAction[] nonTargetActions)
         {
-            this.chooseTargetStrategy = chooseTargetStrategy;
+            this.targetActions = targetActions;
 
-            this.actions = actions;
+            this.nonTargetActions = nonTargetActions;
         }
 
         private Guid globalTick;
@@ -23,16 +25,35 @@ namespace OpenTibia.Game.Components
         {
             Creature attacker = (Creature)GameObject;
 
+            Player target = null;
+
             globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>(async (context, e) =>
             {
-                Creature target = chooseTargetStrategy.GetNext(Context.Server, attacker);
+                if (target == null || target.IsDestroyed || !attacker.Tile.Position.CanHearSay(target.Tile.Position) )
+                {
+                    Player[] players = server.Map.GetObservers(attacker.Tile.Position).OfType<Player>().Where(p => p.Vocation != Vocation.Gamemaster && attacker.Tile.Position.CanHearSay(p.Tile.Position) ).ToArray();
+
+                    if (players.Length > 0)
+                    {
+                        target = server.Randomization.Take(players);
+                    }
+                    else
+                    {
+                        target = null;
+                    }
+                }
 
                 if (target != null)
                 {
-                    foreach (var action in actions)
+                    foreach (var targetAction in targetActions)
                     {
-                        await action.Update(attacker, target);
+                        await targetAction.Update(attacker, target);
                     }
+                }
+
+                foreach (var nonTargetAction in nonTargetActions)
+                {
+                    await nonTargetAction.Update(attacker);
                 }
             } );
         }

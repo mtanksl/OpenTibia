@@ -3,8 +3,8 @@ using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Components
 {
-    public interface IAttackStrategy
+    public abstract class NonTargetAction
     {
-        Command GetNext(Server server, Creature attacker, Creature target);
+        public abstract Promise Update(Creature creature);
     }
 }

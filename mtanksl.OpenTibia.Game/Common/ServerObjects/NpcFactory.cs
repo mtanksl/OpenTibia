@@ -53,18 +53,22 @@ namespace OpenTibia.Game
 
             server.GameObjects.AddGameObject(npc);
 
-            List<BehaviourAction> actions = new List<BehaviourAction>();
+            List<NonTargetAction> nonTargetActions = new List<NonTargetAction>();
 
-            actions.Add(new CreatureWalkAction(new RandomWalkStrategy(1) ) );
+            nonTargetActions.Add(new RandomWalkNonTargetAction(1) );
 
             if (npc.Metadata.Sentences != null)
             {
-                actions.Add(new NpcSayAction(npc.Metadata.Sentences, TimeSpan.FromSeconds(30) ) );
+                nonTargetActions.Add(new NpcSayNonTargetAction(npc.Metadata.Sentences, TimeSpan.FromSeconds(30) ) );
             }
 
-            if (actions.Count > 0)
+            if (npc.Name == "Aldee")
             {
-                server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(actions.ToArray() ) );
+                server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(nonTargetActions.ToArray(), new AldeeNpcScript() ) );
+            }
+            else if (npc.Name == "Cipfried")
+            {
+                server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(nonTargetActions.ToArray(), new CipfriedNpcScript() ) );
             }
 
             return npc;

@@ -4,13 +4,13 @@ using System;
 
 namespace OpenTibia.Game.Components
 {
-    public class NpcSayAction : BehaviourAction
+    public class MonsterSayNonTargetAction : NonTargetAction
     {
         private string[] sentences;
 
         private TimeSpan cooldown;
 
-        public NpcSayAction(string[] sentences, TimeSpan cooldown)
+        public MonsterSayNonTargetAction(string[] sentences, TimeSpan cooldown)
         {
             this.sentences = sentences;
 
@@ -19,13 +19,13 @@ namespace OpenTibia.Game.Components
 
         private DateTime talkCooldown;
 
-        public override Promise Update(Creature attacker, Creature target)
+        public override Promise Update(Creature creature)
         {
             if (DateTime.UtcNow > talkCooldown)
             {
                 talkCooldown = DateTime.UtcNow.Add(cooldown);
 
-                return Context.Current.AddCommand(new NpcSayCommand( (Npc)attacker, Context.Current.Server.Randomization.Take(sentences) ) );
+                return Context.Current.AddCommand(new MonsterSayCommand( (Monster)creature, Context.Current.Server.Randomization.Take(sentences) ) );
             }
 
             return Promise.Completed;

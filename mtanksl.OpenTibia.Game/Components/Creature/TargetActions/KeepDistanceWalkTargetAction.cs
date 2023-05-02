@@ -1,20 +1,43 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Commands;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
-    public class KeepDistanceWalkStrategy : IWalkStrategy
+    public class KeepDistanceWalkTargetAction : TargetAction
     {
         private int radius;
 
-        public KeepDistanceWalkStrategy(int radius)
+        public KeepDistanceWalkTargetAction(int radius)
         {
             this.radius = radius;
         }
 
-        public Tile GetNext(Server server, Tile spawn, Creature attacker, Creature target)
+        private DateTime walkCooldown;
+
+        public override Promise Update(Creature attacker, Creature target)
+        {
+            if (DateTime.UtcNow > walkCooldown)
+            {
+                Tile toTile = GetNext(Context.Current.Server, attacker, target);
+
+                if (toTile != null)
+                {
+                    walkCooldown = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / attacker.Speed);
+
+                    return Context.Current.AddCommand(new CreatureWalkCommand(attacker, toTile) );
+                }
+
+                walkCooldown = DateTime.UtcNow.AddMilliseconds(500);
+            }
+
+            return Promise.Completed;
+        }
+
+        private Tile GetNext(Server server, Creature attacker, Creature target)
         {
             int deltaY = attacker.Tile.Position.Y - target.Tile.Position.Y;
 
