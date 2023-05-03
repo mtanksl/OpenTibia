@@ -23,21 +23,21 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            int count = Count(Player.Inventory, FromItemId);
+            int sum = Sum(Player.Inventory, FromItemId);
 
-            if (count > 0)
+            if (sum > 0)
             {
                 Item fromItem = Search(Player.Inventory, FromItemId);
 
                 string message;
 
-                if (count == 1)
+                if (sum == 1)
                 {
                     message = "Using the last " + fromItem.Metadata.Name + "...";
                 }
                 else
                 {
-                    message = "Using one of " + count + " " + (fromItem.Metadata.Plural ?? fromItem.Metadata.Name) + "...";
+                    message = "Using one of " + sum + " " + (fromItem.Metadata.Plural ?? fromItem.Metadata.Name) + "...";
                 }
 
                 Inventory toInventory = Player.Inventory;
@@ -58,31 +58,31 @@ namespace OpenTibia.Game.Commands
             return Promise.Break;
         }
 
-        private static int Count(IContainer parent, ushort itemId)
+        private static int Sum(IContainer parent, ushort itemId)
         {
-            int count = 0;
+            int sum = 0;
 
             foreach (Item content in parent.GetContents() )
             {
                 if (content is Container container)
                 {
-                    count += Count(container, itemId);
+                    sum += Sum(container, itemId);
                 }
 
                 if (content.Metadata.TibiaId == itemId)
                 {
                     if (content is StackableItem stackableItem)
                     {
-                        count += stackableItem.Count;
+                        sum += stackableItem.Count;
                     }
                     else
                     {
-                        count += 1;
+                        sum += 1;
                     }
                 }
             }
 
-            return count;
+            return sum;
         }
 
         private static Item Search(IContainer parent, ushort itemId)

@@ -51,11 +51,11 @@ namespace OpenTibia.Game.Components
                     {
                         if (e.Message == "hi" || e.Message == "hello")
                         {
+                            queue.Add(e.Player);
+
                             await npcEventHandler.OnGreet(npc, e.Player);
 
                             await Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(e.Player.Tile.Position).Value) );
-
-                            queue.Add(e.Player);
                         }
                     }
                     else
@@ -86,9 +86,9 @@ namespace OpenTibia.Game.Components
                         {
                             if (e.Message == "hi" || e.Message == "hello")
                             {
-                                await npcEventHandler.OnGreetBusy(npc, e.Player);
-
                                 queue.Add(e.Player);
+
+                                await npcEventHandler.OnGreetBusy(npc, e.Player);
                             }
                         }
                     }

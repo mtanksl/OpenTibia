@@ -162,6 +162,15 @@ namespace OpenTibia.Game
 
         private Dictionary<ushort, ItemMetadata> metadatas;
 
+        public ItemMetadata GetItemMetadata(ushort openTibiaId)
+        {
+            ItemMetadata metadata;
+
+            metadatas.TryGetValue(openTibiaId, out metadata);
+
+            return metadata;
+        }
+
         public Item Create(ushort openTibiaId, byte count)
         {
             ItemMetadata metadata;
