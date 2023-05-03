@@ -1,6 +1,8 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenTibia.Game.Components.Conversations
 {
@@ -12,30 +14,9 @@ namespace OpenTibia.Game.Components.Conversations
 
             int crystal = 0;
 
-            if (price / 10000 > 0)
-            {
-                crystal += price / 10000;
-
-                price -= crystal * 10000;
-            }
-
             int platinum = 0;
 
-            if (price / 100 > 0)
-            {
-                platinum += price / 100;
-
-                price -= platinum * 100;
-            }
-
             int gold = 0;
-
-            if (price / 1 > 0)
-            {
-                gold += price / 1;
-
-                price -= gold * 1;
-            }
 
             List<Item> crystals = new List<Item>();
 
@@ -43,111 +24,191 @@ namespace OpenTibia.Game.Components.Conversations
 
             List<Item> golds = new List<Item>();
 
-            Search(player.Inventory, crystals, platinums, golds);
+            Sum(player.Inventory, crystals, platinums, golds);
 
-            foreach (Item item in crystals) 
+            int sumCrystal = crystals.Sum(i => ( (StackableItem)i ).Count);
+
+            int sumPlatinum = platinums.Sum(i => ( (StackableItem)i ).Count);
+
+            int sumGold = golds.Sum(i => ( (StackableItem)i ).Count);
+
+            while (price > 0)
             {
-                if (crystal == 0)
+                var n = Math.Min(price / 10000, sumCrystal);
+
+                if (n > 0)
                 {
-                    break;
+                    price -= n * 10000;
+
+                    sumCrystal -= n;
+
+                    crystal -= n;
                 }
 
-                int count = ( (StackableItem)item ).Count;
+                n = Math.Min(price / 100, sumPlatinum);
 
-                if (count < crystal)
+                if (n > 0)
                 {
-                    await Context.Current.AddCommand(new ItemDecrementCommand(item, (byte)count) );
+                    price -= n * 100;
+
+                    sumPlatinum -= n;
+
+                    platinum -= n;
+                }
+
+                n = Math.Min(price / 1, sumGold);
+
+                if (n > 0)
+                {
+                    price -= n * 1;
+
+                    sumGold -= n;
+
+                    gold -= n;
+                }
+
+                if (price > 0)
+                {          
+                    if (sumPlatinum > 0)
+                    {
+                        sumPlatinum -= 1;
+
+                        platinum -= 1;
+
+                        sumGold += 100;
+
+                        gold += 100;
+                    }
+                    else if (sumCrystal > 0)
+                    {
+                        sumCrystal -= 1;
+
+                        crystal -= 1;
+
+                        sumPlatinum += 100;
+
+                        platinum += 100;
+                    }                
+                }
+            }
+
+            if (crystal > 0)
+            {
+                while (crystal > 0)
+                {
+                    byte count = (byte)Math.Min(100, crystal);
+
+                    await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItem(player, 2160, count) );
 
                     crystal -= count;
                 }
-                else
+            }
+            else
+            {
+                foreach (Item item in crystals) 
                 {
-                    await Context.Current.AddCommand(new ItemDecrementCommand(item, (byte)crystal) );
+                    if (crystal == 0)
+                    {
+                        break;
+                    }
 
-                    crystal = 0;
+                    byte count = (byte)Math.Min( ( (StackableItem)item ).Count, -crystal);
+
+                    await Context.Current.AddCommand(new ItemDecrementCommand(item, count) );
+
+                    crystal += count;
                 }
             }
 
-            platinum += crystal * 100;
-
-            foreach (Item item in platinums)
+            if (platinum > 0)
             {
-                if (platinum == 0)
+                while (platinum > 0)
                 {
-                    break;
-                }
+                    byte count = (byte)Math.Min(100, platinum);
 
-                int count = ( (StackableItem)item ).Count;
-
-                if (count < platinum)
-                {
-                    await Context.Current.AddCommand(new ItemDecrementCommand(item, (byte)count) );
+                    await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItem(player, 2152, count) );
 
                     platinum -= count;
                 }
-                else
-                {
-                    await Context.Current.AddCommand(new ItemDecrementCommand(item, (byte)platinum) );
-
-                    platinum = 0;
-                }
             }
-
-            gold += platinum * 100;
-
-            foreach (Item item in golds)
+            else
             {
-                if (gold == 0)
+                foreach (Item item in platinums)
                 {
-                    break;
-                }
+                    if (platinum == 0)
+                    {
+                        break;
+                    }
 
-                int count = ( (StackableItem)item ).Count;
+                    byte count = (byte)Math.Min( ( (StackableItem)item).Count, -platinum);
 
-                if (count < gold)
-                {
-                    await Context.Current.AddCommand(new ItemDecrementCommand(item, (byte)count) );
+                    await Context.Current.AddCommand(new ItemDecrementCommand(item, count) );
 
-                    gold -= count;
-                }
-                else
-                {
-                    await Context.Current.AddCommand(new ItemDecrementCommand(item, (byte)gold) );
-
-                    gold = 0;
+                    platinum += count;
                 }
             }
 
             if (gold > 0)
             {
-                //TODO: Convert crystal coin to platinum coin and remove
-                
-                //TODO: Convert platinum coin to gold coin and remove
+                while (gold > 0)
+                {
+                    byte count = (byte)Math.Min(100, gold);
+
+                    await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItem(player, 2148, count) );
+
+                    gold -= count;
+                }
+            }
+            else
+            {
+                foreach (Item item in golds)
+                {
+                    if (gold == 0)
+                    {
+                        break;
+                    }
+
+                    byte count = (byte)Math.Min( ( (StackableItem)item ).Count, -gold);
+
+                    await Context.Current.AddCommand(new ItemDecrementCommand(item, count) );
+
+                    gold += count;
+                }
             }
         }
 
-        private static void Search(IContainer parent, List<Item> crystals, List<Item> platinums, List<Item> golds)
+        private static int Sum(IContainer parent, List<Item> crystals, List<Item> platinums, List<Item> golds)
         {
+            int sum = 0;
+
             foreach (Item content in parent.GetContents() )
             {
                 if (content is Container container)
                 {
-                    Search(container, crystals, platinums, golds);
+                    sum += Sum(container, crystals, platinums, golds);
                 }
 
                 if (content.Metadata.OpenTibiaId == 2160) // Crystal coin
                 {
                     crystals.Add(content);
+
+                    sum += ( (StackableItem)content ).Count * 10000;
                 }
                 else if (content.Metadata.OpenTibiaId == 2152) // Platinum coin
                 {
                     platinums.Add(content);
+
+                    sum += ( (StackableItem)content ).Count * 100;
                 }
                 else if (content.Metadata.OpenTibiaId == 2148) // Gold coin
                 {
                     golds.Add(content);
+
+                    sum += ( (StackableItem)content ).Count * 1;
                 }
             }
+
+            return sum;
         }
     }
 }

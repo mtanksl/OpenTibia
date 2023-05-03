@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Components.Conversations
@@ -14,7 +15,7 @@ namespace OpenTibia.Game.Components.Conversations
 
             List<Item> items = new List<Item>();
 
-            Search(player.Inventory, openTibiaId, items);
+            Sum(player.Inventory, openTibiaId, items);
 
             foreach (Item item in items)
             {
@@ -25,20 +26,11 @@ namespace OpenTibia.Game.Components.Conversations
 
                 if (item is StackableItem stackableItem)
                 {
-                    int count = stackableItem.Count;
+                    byte count = (byte)Math.Min(stackableItem.Count, amount);
 
-                    if (count < amount)
-                    {
-                        await Context.Current.AddCommand(new ItemDecrementCommand(item, (byte)count) );
+                    await Context.Current.AddCommand(new ItemDecrementCommand(item, count) );
 
-                        amount -= count;
-                    }
-                    else
-                    {
-                        await Context.Current.AddCommand(new ItemDecrementCommand(item, (byte)amount) );
-
-                        amount = 0;
-                    }
+                    amount -= count;
                 }
                 else
                 {
@@ -49,20 +41,33 @@ namespace OpenTibia.Game.Components.Conversations
             }
         }
 
-        private static void Search(IContainer parent, ushort openTibiaId, List<Item> items)
+        private static int Sum(IContainer parent, ushort openTibiaId, List<Item> items)
         {
+            int sum = 0;
+
             foreach (Item content in parent.GetContents() )
             {
                 if (content is Container container)
                 {
-                    Search(container, openTibiaId, items);
+                    sum += Sum(container, openTibiaId, items);
                 }
 
                 if (content.Metadata.OpenTibiaId == openTibiaId)
                 {
                     items.Add(content);
+
+                    if (content is StackableItem stackableItem)
+                    {
+                        sum += stackableItem.Count;
+                    }
+                    else
+                    {
+                        sum += 1;
+                    }
                 }
             }
+
+            return sum;
         }
     }
 }

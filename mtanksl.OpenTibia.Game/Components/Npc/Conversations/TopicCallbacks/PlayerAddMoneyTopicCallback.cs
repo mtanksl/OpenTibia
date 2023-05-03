@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
+using System;
 
 namespace OpenTibia.Game.Components.Conversations
 {
@@ -11,77 +12,62 @@ namespace OpenTibia.Game.Components.Conversations
 
             int crystal = 0;
 
-            if (price / 10000 > 0)
-            {
-                crystal += price / 10000;
-
-                price -= crystal * 10000;
-            }
-
             int platinum = 0;
-
-            if (price / 100 > 0)
-            {
-                platinum += price / 100;
-
-                price -= platinum * 100;
-            }
 
             int gold = 0;
 
-            if (price / 1 > 0)
-            {
-                gold += price / 1;
+            int n = price / 10000;
 
-                price -= gold * 1;
+            if (n > 0)
+            {
+                price -= n * 10000;
+
+                crystal += n;
+            }
+
+            n = price / 100;
+
+            if (n > 0)
+            {
+                price -= n * 100;
+
+                platinum += n;
+            }
+
+            n = price / 1;
+
+            if (n > 0)
+            {
+                price -= n * 1;
+
+                gold += n;
             }
 
             while (crystal > 0)
             {
-                if (crystal > 100)
-                {
-                    await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItem(player, 2160, 100) );
+                byte count = (byte)Math.Min(100, crystal);
 
-                    crystal -= 100;
-                }
-                else
-                {
-                    await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItem(player, 2160, (byte)crystal) );
+                await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItem(player, 2160, count) );
 
-                    crystal = 0;
-                }
+                crystal -= count;
             }
 
             while (platinum > 0)
             {
-                if (platinum > 100)
-                {
-                    await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItem(player, 2152, 100) );
+                byte count = (byte)Math.Min(100, platinum);
 
-                    platinum -= 100;
-                }
-                else
-                {
-                    await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItem(player, 2152, (byte)platinum) );
+                await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItem(player, 2152, count) );
 
-                    platinum = 0;
-                }
+                platinum -= count;
             }
 
             while (gold > 0)
             {
-                if (gold > 100)
-                {
-                    await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItem(player, 2148, 100) );
+                byte count = (byte)Math.Min(100, gold);
 
-                    gold -= 100;
-                }
-                else
-                {
-                    await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItem(player, 2148, (byte)gold) );
+                await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItem(player, 2148, count) );
 
-                    gold = 0;
-                }
+                gold -= count;
             }
         }
     }

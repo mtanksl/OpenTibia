@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using System;
 
 namespace OpenTibia.Game.Components.Conversations
 {
@@ -18,18 +19,11 @@ namespace OpenTibia.Game.Components.Conversations
             {
                 while (amount > 0)
                 {
-                    if (amount > 100)
-                    {
-                        await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItem(player, openTibiaId, 100) );
+                    byte count = (byte)Math.Min(100, amount);
 
-                        amount -= 100;
-                    }
-                    else
-                    {
-                        await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItem(player, openTibiaId, (byte)amount) );
+                    await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItem(player, openTibiaId, count) );
 
-                        amount = 0;
-                    }
+                    amount -= count;
                 }
             }
             else
