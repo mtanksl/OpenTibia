@@ -18,6 +18,13 @@ namespace OpenTibia.Game.Components.Conversations
             topicCallbacks.Add(topicCallback);
         }
 
+        public override AggregateTopicCallback And(TopicCallback topicCallback)
+        {
+            Add(topicCallback);
+
+            return this;
+        }
+
         public override async Promise Handle(Conversation conversation, Npc npc, Player player)
         {
             foreach (var topicCondition in topicCallbacks)

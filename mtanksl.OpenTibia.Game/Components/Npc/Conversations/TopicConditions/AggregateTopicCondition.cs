@@ -17,6 +17,13 @@ namespace OpenTibia.Game.Components.Conversations
             topicConditions.Add(topicCondition);
         }
 
+        public override AggregateTopicCondition And(TopicCondition topicCondition)
+        {
+            Add(topicCondition);
+
+            return this;
+        }
+
         public override bool Handle(Conversation conversation, Npc npc, Player player, string message)
         {
             foreach (var topicCondition in topicConditions)
