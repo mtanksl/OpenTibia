@@ -70,6 +70,10 @@ namespace OpenTibia.Game
             {
                 server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(nonTargetActions.ToArray(), new CipfriedNpcEventHandler() ) );
             }
+            else if (npc.Name == "Rachel")
+            {
+                server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(nonTargetActions.ToArray(), new RachelNpcEventHandler() ) );
+            }
 
             return npc;
         }

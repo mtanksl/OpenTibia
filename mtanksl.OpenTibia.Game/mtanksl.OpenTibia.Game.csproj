@@ -348,6 +348,7 @@
     <None Remove="data\monsters\Zugurosh.xml" />
     <None Remove="data\npcs\Aldee.xml" />
     <None Remove="data\npcs\Cipfried.xml" />
+    <None Remove="data\npcs\Rachel.xml" />
     <None Remove="data\template.db" />
   </ItemGroup>
 
@@ -1364,6 +1365,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\npcs\Aldee.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\npcs\Rachel.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\npcs\Cipfried.xml">

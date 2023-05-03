@@ -11,26 +11,30 @@ namespace OpenTibia.Game.Components.Conversations
         {
             ushort openTibiaId = (ushort)(int)conversation.Data["Type"];
 
+            byte count = conversation.Data.ContainsKey("Data") ? (byte)(int)conversation.Data["Data"] : (byte)1;
+
             int amount = (int)conversation.Data["Amount"];
 
             ItemMetadata itemMetadata = Context.Current.Server.ItemFactory.GetItemMetadata(openTibiaId);
 
             if (itemMetadata.Flags.Is(ItemMetadataFlags.Stackable) )
             {
+                amount = amount * count;
+
                 while (amount > 0)
                 {
-                    byte count = (byte)Math.Min(100, amount);
+                    byte _count = (byte)Math.Min(100, amount);
 
-                    await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItem(player, openTibiaId, count) );
+                    await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItem(player, openTibiaId, _count) );
 
-                    amount -= count;
+                    amount -= _count;
                 }
             }
             else
             {
                 for (int i = 0; i < amount; i++)
                 {
-                    await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItem(player, openTibiaId, 1) );
+                    await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItem(player, openTibiaId, count) );
                 }
             }
         }

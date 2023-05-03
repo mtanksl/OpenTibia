@@ -8,6 +8,8 @@ namespace OpenTibia.Game.Components.Conversations
         {
             ushort openTibiaId = (ushort)(int)conversation.Data["Type"];
 
+            //byte count = (byte)(int)conversation.Data["Data"];
+
             int amount = (int)conversation.Data["Amount"];
 
             if (Sum(player.Inventory, openTibiaId) >= amount)

@@ -75,9 +75,7 @@ namespace OpenTibia.Game.Components
             foreach (var item in new (string Question, string Name, int OpenTibiaId, int Price)[] 
             {
                 ("sell axe", "an axe", 2386, 7),
-
                 ("sell sword", "a sword", 2376, 25),
-
                 ("sell mace", "a mace", 2398, 30)
             } )
             {
@@ -94,9 +92,7 @@ namespace OpenTibia.Game.Components
             foreach (var item in new (string Question, string Name, int OpenTibiaId, int Price)[] 
             {
                 ("sell (\\d+) axe", "axes", 2386, 7),
-
                 ("sell (\\d+) sword", "swords", 2376, 25),
-
                 ("sell (\\d+) mace", "maces", 2398, 30)
             } )
             {

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Rachel" nameDescription="Rachel" speed="220">
+	<health now="100" max="100"/>
+	<look type="136" head="58" body="84" legs="86" feet="114"/>
+</npc>

@@ -6,6 +6,7 @@ using OpenTibia.FileFormats.Otbm;
 using OpenTibia.FileFormats.Xml.Items;
 using OpenTibia.FileFormats.Xml.Monsters;
 using OpenTibia.FileFormats.Xml.Npcs;
+using OpenTibia.FileFormats.Xml.Spawns;
 using OpenTibia.Game.Commands;
 using OpenTibia.Network.Sockets;
 using OpenTibia.Threading;
@@ -133,7 +134,7 @@ namespace OpenTibia.Game
             {
                 Map = new Map(ItemFactory, OtbmFile.Load("data/map/map.otbm") );
             }
-
+            
             Pathfinding = new Pathfinding(Map);
 
             dispatcher.Start();
@@ -154,6 +155,26 @@ namespace OpenTibia.Game
             }
 
             Logger.WriteLine("Server online");
+
+            //TODO: Spawn script
+
+            QueueForExecution(async () =>
+            {
+                SpawnFile spawnFile = SpawnFile.Load("data/map/map-spawn.xml");
+
+                foreach (var spawn in spawnFile.Spawns)
+                {
+                    foreach (var xmlMonster in spawn.Monsters)
+                    {
+                        await Context.Current.AddCommand(new TileCreateMonsterCommand(Map.GetTile(xmlMonster.Position), xmlMonster.Name) );
+                    }
+
+                    foreach (var xmlNpc in spawn.Npcs)
+                    {
+                        await Context.Current.AddCommand(new TileCreateNpcCommand(Map.GetTile(xmlNpc.Position), xmlNpc.Name) );
+                    }
+                }
+            } );
         }
 
         private Dictionary<string, SchedulerEvent> schedulerEvents = new Dictionary<string, SchedulerEvent>();
