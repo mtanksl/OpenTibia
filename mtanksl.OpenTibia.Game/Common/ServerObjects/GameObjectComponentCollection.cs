@@ -26,9 +26,7 @@ namespace OpenTibia.Game
                 {
                     if (components.Remove(_component) )
                     {
-                        Behaviour _behaviour = _component as Behaviour;
-
-                        if (_behaviour != null)
+                        if (_component is Behaviour _behaviour)
                         {
                             _behaviour.Stop();
                         }
@@ -40,9 +38,7 @@ namespace OpenTibia.Game
 
             component.GameObject = gameObject;
 
-            Behaviour behaviour = component as Behaviour;
-
-            if (behaviour != null)
+            if (component is Behaviour behaviour)
             {
                 behaviour.Start();
             }
@@ -50,7 +46,7 @@ namespace OpenTibia.Game
             return component;
         }
 
-        public bool RemoveComponent(GameObject gameObject, Component component)
+        public bool RemoveComponent<T>(GameObject gameObject, T component) where T : Component
         {
             List<Component> components;
 
@@ -58,9 +54,7 @@ namespace OpenTibia.Game
             {
                 if (components.Remove(component) )
                 {
-                    Behaviour behaviour = component as Behaviour;
-
-                    if (behaviour != null)
+                    if (component is Behaviour behaviour)
                     {
                         behaviour.Stop();
                     }
@@ -111,9 +105,7 @@ namespace OpenTibia.Game
                 {
                     if (components.Remove(component) )
                     {
-                        Behaviour behaviour = component as Behaviour;
-
-                        if (behaviour != null)
+                        if (component is Behaviour behaviour)
                         {
                             behaviour.Stop();
                         }

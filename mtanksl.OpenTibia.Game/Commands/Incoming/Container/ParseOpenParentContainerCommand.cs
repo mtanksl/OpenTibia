@@ -23,20 +23,18 @@ namespace OpenTibia.Game.Commands
 
             if (container != null)
             {
-                Container parentContainer = container.Parent as Container;
-
-                if (parentContainer != null)
+                if (container.Parent is Container parentContainer)
                 {
                     Player.Client.ContainerCollection.ReplaceContainer(parentContainer, ContainerId);
 
                     List<Item> items = new List<Item>();
 
-                    foreach (var item in parentContainer.GetItems() )
+                    foreach (var item in parentContainer.GetItems())
                     {
                         items.Add(item);
                     }
 
-                    Context.AddPacket(Player.Client.Connection, new OpenContainerOutgoingPacket(ContainerId, parentContainer.Metadata.TibiaId, parentContainer.Metadata.Name, parentContainer.Metadata.Capacity, parentContainer.Parent is Container, items) );
+                    Context.AddPacket(Player.Client.Connection, new OpenContainerOutgoingPacket(ContainerId, parentContainer.Metadata.TibiaId, parentContainer.Metadata.Name, parentContainer.Metadata.Capacity, parentContainer.Parent is Container, items));
 
                     return Promise.Completed;
                 }

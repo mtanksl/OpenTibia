@@ -6,13 +6,13 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.Add(new PlayerDestroyContainerCloseHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new PlayerDestroyContainerCloseHandler() );
 
-            Context.Server.CommandHandlers.Add(new PlayerDestroyWindowCloseHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new PlayerDestroyWindowCloseHandler() );
 
-            Context.Server.CommandHandlers.Add(new PlayerDestroyChannelCloseHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new PlayerDestroyChannelCloseHandler() );
 
-            Context.Server.CommandHandlers.Add(new PlayerDestroyRuleViolationCloseHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new PlayerDestroyRuleViolationCloseHandler() );
         }
 
         public override void Stop()

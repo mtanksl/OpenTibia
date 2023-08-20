@@ -20,14 +20,14 @@ namespace OpenTibia.Game
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public Guid Add<T>(Func<Context, Func<Promise>, T, Promise> handle) where T : Command
+        public Guid AddCommandHandler<T>(Func<Context, Func<Promise>, T, Promise> handle) where T : Command
         {
-            return Add(new InlineCommandHandler<T>(handle) );
+            return AddCommandHandler(new InlineCommandHandler<T>(handle) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public Guid Add<T>(ICommandHandler<T> commandHandler) where T : Command
+        public Guid AddCommandHandler<T>(ICommandHandler<T> commandHandler) where T : Command
         {
             if (commandHandler.IsDestroyed)
             {
@@ -52,14 +52,14 @@ namespace OpenTibia.Game
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public Guid Add<TResult, T>(Func<Context, Func<PromiseResult<TResult>>, T, PromiseResult<TResult> > handle) where T : CommandResult<TResult>
+        public Guid AddCommandHandler<TResult, T>(Func<Context, Func<PromiseResult<TResult>>, T, PromiseResult<TResult> > handle) where T : CommandResult<TResult>
         {
-            return Add(new InlineCommandResultHandler<TResult, T>(handle) );
+            return AddCommandHandler(new InlineCommandResultHandler<TResult, T>(handle) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public Guid Add<TResult, T>(ICommandResultHandler<TResult, T> commandResultHandler) where T : CommandResult<TResult>
+        public Guid AddCommandHandler<TResult, T>(ICommandResultHandler<TResult, T> commandResultHandler) where T : CommandResult<TResult>
         {
             if (commandResultHandler.IsDestroyed)
             {
@@ -82,7 +82,7 @@ namespace OpenTibia.Game
             return commandResultHandler.Token;
         }
 
-        public bool Remove<T>(Guid token) where T : Command
+        public bool RemoveCommandHandler<T>(Guid token) where T : Command
         {
             var type = typeof( ICommandHandler<> ).MakeGenericType(typeof(T) );
 
@@ -115,7 +115,7 @@ namespace OpenTibia.Game
             return false;
         }
 
-        public bool Remove<TResult, T>(Guid token) where T : CommandResult<TResult>
+        public bool RemoveCommandHandler<TResult, T>(Guid token) where T : CommandResult<TResult>
         {
             var type = typeof(ICommandResultHandler<,> ).MakeGenericType(typeof(TResult), typeof(T) );
 

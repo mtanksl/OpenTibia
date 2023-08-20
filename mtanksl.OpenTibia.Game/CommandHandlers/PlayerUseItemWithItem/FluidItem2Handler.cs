@@ -30,9 +30,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
-            FluidItem fromItem = command.Item as FluidItem;
-
-            if (fromItem != null)
+            if (command.Item is FluidItem fromItem)
             {
                 if (fromItem.FluidType == FluidType.Empty)
                 {
@@ -88,10 +86,8 @@ namespace OpenTibia.Game.CommandHandlers
                 }
                 else
                 {
-                    FluidItem toItem = command.ToItem as FluidItem;
-
-                    if (toItem != null)
-                    {
+                    if (command.ToItem is FluidItem toItem)
+                    { 
                         if (toItem.FluidType == FluidType.Empty)
                         {
                             return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(toItem, fromItem.FluidType) ).Then( () =>

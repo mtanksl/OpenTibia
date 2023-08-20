@@ -23,13 +23,11 @@ namespace OpenTibia.Game.Commands
             
             if (channel != null)
             {
-                PrivateChannel privateChannel = channel as PrivateChannel;
-
-                if (privateChannel != null)
+                if (channel is PrivateChannel privateChannel)
                 {
-                    if ( !privateChannel.ContainsPlayer(Player) )
+                    if (!privateChannel.ContainsPlayer(Player) )
                     {
-                        if ( !privateChannel.ContainsInvitation(Player) )
+                        if (!privateChannel.ContainsInvitation(Player) )
                         {
                             return Promise.Break;
                         }
@@ -43,12 +41,10 @@ namespace OpenTibia.Game.Commands
 
                     return Promise.Completed;
                 }
-                                                
-                GuildChannel guildChannel = channel as GuildChannel;
 
-                if (guildChannel != null)
+                if (channel is GuildChannel guildChannel)
                 {
-                    if ( !guildChannel.ContainsPlayer(Player) )
+                    if (!guildChannel.ContainsPlayer(Player) )
                     {
                         guildChannel.AddPlayer(Player);
                     }
@@ -57,12 +53,10 @@ namespace OpenTibia.Game.Commands
 
                     return Promise.Completed;
                 }
-               
-                PartyChannel partyChannel = channel as PartyChannel;
 
-                if (partyChannel != null)
+                if (channel is PartyChannel partyChannel)
                 {
-                    if ( !partyChannel.ContainsPlayer(Player) )
+                    if (!partyChannel.ContainsPlayer(Player) )
                     {
                         partyChannel.AddPlayer(Player);
                     }

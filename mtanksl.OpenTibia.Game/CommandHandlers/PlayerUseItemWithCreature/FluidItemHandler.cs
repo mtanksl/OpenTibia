@@ -10,9 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithCreatureCommand command)
         {
-            FluidItem fromItem = command.Item as FluidItem;
-
-            if (fromItem != null)
+            if (command.Item is FluidItem fromItem)
             {
                 if (fromItem.FluidType == FluidType.Empty)
                 {

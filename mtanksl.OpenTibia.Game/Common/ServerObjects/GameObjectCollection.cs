@@ -100,11 +100,11 @@ namespace OpenTibia.Game
             return false;
         }
 
-        private T GetGameObject<T>(uint id) where T : GameObject
+        private GameObject GetGameObject(uint id, Type type)
         {
             Dictionary<uint, GameObject> gameObjects;
 
-            if (buckets.TryGetValue(typeof(T), out gameObjects) )
+            if (buckets.TryGetValue(type, out gameObjects) )
             {
                 GameObject gameObject;
 
@@ -112,12 +112,17 @@ namespace OpenTibia.Game
                 {
                     if ( !gameObject.IsDestroyed)
                     {
-                        return (T)gameObject;
+                        return gameObject;
                     }
                 }
             }
 
-            return default(T);
+            return null;
+        }
+
+        private T GetGameObject<T>(uint id) where T : GameObject
+        {
+            return (T)GetGameObject(id, typeof(T) );
         }
 
         public Creature GetCreature(uint id)
@@ -145,13 +150,13 @@ namespace OpenTibia.Game
             return GetGameObject<Item>(id);
         }
 
-        private IEnumerable<T> GetGameObjects<T>() where T : GameObject
+        private IEnumerable<GameObject> GetGameObjects(Type type)
         {
             Dictionary<uint, GameObject> gameObjects;
 
-            if (buckets.TryGetValue(typeof(T), out gameObjects) )
+            if (buckets.TryGetValue(type, out gameObjects) )
             {
-                foreach (var gameObject in gameObjects.Values.Cast<T>().ToList() )
+                foreach (var gameObject in gameObjects.Values.ToList() )
                 {
                     if ( !gameObject.IsDestroyed)
                     {
@@ -159,6 +164,11 @@ namespace OpenTibia.Game
                     }
                 }
             }
+        }
+
+        private IEnumerable<T> GetGameObjects<T>() where T : GameObject
+        {
+            return GetGameObjects(typeof(T) ).Cast<T>();
         }
 
         public IEnumerable<Creature> GetCreatures()

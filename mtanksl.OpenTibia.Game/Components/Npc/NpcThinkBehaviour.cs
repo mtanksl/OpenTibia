@@ -71,7 +71,38 @@ namespace OpenTibia.Game.Components
 
             globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
             {
-                //TODO
+                if (targets.Count == 0)
+                {
+                    CreatureWalkBehaviour creatureWalkBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureWalkBehaviour>(npc);
+
+                    if (creatureWalkBehaviour == null)
+                    {
+                        Context.Server.GameObjectComponents.AddComponent(npc, new CreatureWalkBehaviour(walkStrategy, null) );
+                    }
+
+                    CreatureFocusBehaviour creatureFocusBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureFocusBehaviour>(npc);
+
+                    if (creatureFocusBehaviour != null)
+                    {
+                        Context.Server.GameObjectComponents.RemoveComponent(npc, creatureFocusBehaviour);
+                    }
+                }
+                else
+                {
+                    CreatureWalkBehaviour creatureWalkBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureWalkBehaviour>(npc);
+
+                    if (creatureWalkBehaviour != null)
+                    {
+                        Context.Server.GameObjectComponents.RemoveComponent(npc, creatureWalkBehaviour);
+                    }
+
+                    CreatureFocusBehaviour creatureFocusBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureFocusBehaviour>(npc);
+
+                    if (creatureFocusBehaviour == null || creatureFocusBehaviour.Target != targets.Peek() )
+                    {
+                        Context.Server.GameObjectComponents.AddComponent(npc, new CreatureFocusBehaviour(targets.Peek() ) );
+                    }
+                }
 
                 return Promise.Completed;
             } );

@@ -10,9 +10,9 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.Add(new MoveItemWalkToSourceHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new MoveItemWalkToSourceHandler() );
 
-            Context.Server.CommandHandlers.Add(new InlineCommandHandler<PlayerMoveItemCommand>( (context, next, command) => 
+            Context.Server.CommandHandlers.AddCommandHandler(new InlineCommandHandler<PlayerMoveItemCommand>( (context, next, command) => 
             {
                 if (command.ToContainer is Tile toTile)
                 {
@@ -52,33 +52,33 @@ namespace OpenTibia.Game.Scripts
                 return next();
             } ) );
 
-            Context.Server.CommandHandlers.Add(new DustbinHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new DustbinHandler() );
 
-            Context.Server.CommandHandlers.Add(new ShallowWaterHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new ShallowWaterHandler() );
 
-            Context.Server.CommandHandlers.Add(new SwampHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new SwampHandler() );
 
-            Context.Server.CommandHandlers.Add(new LavaHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new LavaHandler() );
 
-            Context.Server.CommandHandlers.Add(new TarHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new TarHandler() );
 
-            Context.Server.CommandHandlers.Add(new MagicForcefield2Handler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new MagicForcefield2Handler() );
 
-            Context.Server.CommandHandlers.Add(new Hole2Handler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new Hole2Handler() );
 
-            Context.Server.CommandHandlers.Add(new Pitfall2Handler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new Pitfall2Handler() );
 
-            Context.Server.CommandHandlers.Add(new Stairs2Handler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new Stairs2Handler() );
 
-            Context.Server.CommandHandlers.Add(new CandlestickMoveHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new CandlestickMoveHandler() );
 
-            Context.Server.CommandHandlers.Add(new TrapMoveHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new TrapMoveHandler() );
 
-            Context.Server.CommandHandlers.Add(new SplitStackableItemHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new SplitStackableItemHandler() );
 
-            Context.Server.CommandHandlers.Add(new ThrowAwayContainerCloseHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new ThrowAwayContainerCloseHandler() );
 
-            Context.Server.CommandHandlers.Add(new InventoryHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new InventoryHandler() );
         }
 
         public override void Stop()

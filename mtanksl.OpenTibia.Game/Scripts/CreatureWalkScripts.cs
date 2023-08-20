@@ -6,17 +6,17 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.Add(new MoveAwayContainerCloseHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new MoveAwayContainerCloseHandler() );
 
-            Context.Server.CommandHandlers.Add(new MagicForcefieldHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new MagicForcefieldHandler() );
 
-            Context.Server.CommandHandlers.Add(new HoleHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new HoleHandler() );
 
-            Context.Server.CommandHandlers.Add(new PitfallHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new PitfallHandler() );
 
-            Context.Server.CommandHandlers.Add(new StairsHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new StairsHandler() );
 
-            Context.Server.CommandHandlers.Add(new SwimHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new SwimHandler() );
         }
 
         public override void Stop()

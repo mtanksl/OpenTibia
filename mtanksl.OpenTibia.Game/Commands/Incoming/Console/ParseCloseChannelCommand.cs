@@ -28,20 +28,18 @@ namespace OpenTibia.Game.Commands
                     channel.RemovePlayer(Player);
                 }
 
-                PrivateChannel privateChannel = channel as PrivateChannel;
-
-                if (privateChannel != null)
+                if (channel is PrivateChannel privateChannel)
                 {
                     if (privateChannel.Owner == Player)
                     {
-                        foreach (var observer in privateChannel.GetPlayers().ToList() )
+                        foreach (var observer in privateChannel.GetPlayers().ToList())
                         {
-                            Context.AddPacket(observer.Client.Connection, new CloseChannelOutgoingPacket(channel.Id) );
+                            Context.AddPacket(observer.Client.Connection, new CloseChannelOutgoingPacket(channel.Id));
 
                             privateChannel.RemovePlayer(observer);
                         }
 
-                        foreach (var observer in privateChannel.GetInvitations().ToList() )
+                        foreach (var observer in privateChannel.GetInvitations().ToList())
                         {
                             privateChannel.RemoveInvitation(observer);
                         }

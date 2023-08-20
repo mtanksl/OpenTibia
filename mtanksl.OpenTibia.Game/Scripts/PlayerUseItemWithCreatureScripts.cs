@@ -6,33 +6,33 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.Add(new UseItemWithCreatureWalkToSourceHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithCreatureWalkToSourceHandler() );
 
             //TODO: You cannot use there.
 
-            Context.Server.CommandHandlers.Add(new RunesHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new RunesHandler() );
 
-            Context.Server.CommandHandlers.Add(new UseItemWithCreatureWalkToTargetHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithCreatureWalkToTargetHandler() );
 
-            Context.Server.CommandHandlers.Add(new SmallHealthPotionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new SmallHealthPotionHandler() );
 
-            Context.Server.CommandHandlers.Add(new HealthPotionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new HealthPotionHandler() );
 
-            Context.Server.CommandHandlers.Add(new GreatHealthPotionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new GreatHealthPotionHandler() );
 
-            Context.Server.CommandHandlers.Add(new StrongHealthPotionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new StrongHealthPotionHandler() );
 
-            Context.Server.CommandHandlers.Add(new UltimateHealthPotionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new UltimateHealthPotionHandler() );
 
-            Context.Server.CommandHandlers.Add(new ManaPotionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new ManaPotionHandler() );
 
-            Context.Server.CommandHandlers.Add(new GreatManaPotionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new GreatManaPotionHandler() );
 
-            Context.Server.CommandHandlers.Add(new StrongManaPotionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new StrongManaPotionHandler() );
 
-            Context.Server.CommandHandlers.Add(new GreatSpiritPotionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new GreatSpiritPotionHandler() );
 
-            Context.Server.CommandHandlers.Add(new FluidItemHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new FluidItemHandler() );
         }
 
         public override void Stop()

@@ -106,6 +106,18 @@ namespace OpenTibia.Game.CommandHandlers
             { 2084, 2085 },
             { 2085, 2084 },
 
+            // Stone table
+            { 3805, 3806 },
+            { 3806, 3805 },
+
+            // Tusk table
+            { 3807, 3808 },
+            { 3808, 3807 },
+
+            // Bamboo table
+            { 3809, 3810 },
+            { 3810, 3809 },
+
             // Tusk chair
             { 3813, 3816 },
             { 3816, 3814 },
@@ -128,6 +140,12 @@ namespace OpenTibia.Game.CommandHandlers
             { 6359, 6361 },
             { 6361, 6363 },
             { 6363, 6357 },
+
+            // Bookcase
+            { 6368, 6369 },
+            { 6369, 6370 },
+            { 6370, 6371 },
+            { 6371, 6368 },
 
             //TODO: More items
         };

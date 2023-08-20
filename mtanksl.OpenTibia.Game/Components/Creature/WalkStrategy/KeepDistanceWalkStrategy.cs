@@ -74,7 +74,7 @@ namespace OpenTibia.Game.Components
                 {
                     Tile toTile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(direction) );
 
-                    if (toTile == null ||  toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || toTile.GetCreatures().Any(c => c.Block) )
+                    if (toTile == null || toTile.Ground == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || toTile.GetCreatures().Any(c => c.Block) )
                     {
 
                     }
@@ -91,7 +91,7 @@ namespace OpenTibia.Game.Components
             {
                 Tile toTile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(direction) );
 
-                if (toTile == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || toTile.GetCreatures().Any(c => c.Block) )
+                if (toTile == null || toTile.Ground == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || toTile.GetCreatures().Any(c => c.Block) )
                 {
 
                 }

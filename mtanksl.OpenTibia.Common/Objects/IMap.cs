@@ -25,8 +25,8 @@ namespace OpenTibia.Common.Objects
 
         IEnumerable<Player> GetObserversOfTypePlayer(Position position);
 
-        IEnumerable<Monster> GetObserversTypeOfMonster(Position position);
+        IEnumerable<Monster> GetObserversOfTypeMonster(Position position);
 
-        IEnumerable<Npc> GetObserversTypeOfNpc(Position position);
+        IEnumerable<Npc> GetObserversOfTypeNpc(Position position);
     }
 }
