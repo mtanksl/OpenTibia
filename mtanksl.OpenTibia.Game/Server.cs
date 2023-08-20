@@ -3,6 +3,7 @@ using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Dat;
 using OpenTibia.FileFormats.Otb;
 using OpenTibia.FileFormats.Otbm;
+using OpenTibia.FileFormats.Xml.Houses;
 using OpenTibia.FileFormats.Xml.Items;
 using OpenTibia.FileFormats.Xml.Monsters;
 using OpenTibia.FileFormats.Xml.Npcs;
@@ -144,7 +145,7 @@ namespace OpenTibia.Game
 
                 using (Logger.Measure("Loading map") )
                 {
-                    Map = new Map(ItemFactory, OtbmFile.Load("data/world/map.otbm"), SpawnFile.Load("data/world/map-spawn.xml") );
+                    Map = new Map(ItemFactory, OtbmFile.Load("data/world/map.otbm"), SpawnFile.Load("data/world/map-spawn.xml"), HouseFile.Load("data/world/map-house.xml") );
                 }
 
                 Pathfinding = new Pathfinding(Map);
