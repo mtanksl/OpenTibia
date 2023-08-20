@@ -27,7 +27,7 @@ namespace OpenTibia.Game.GameObjectScripts
                 .WithFarewell("Bye, bye.")
                 .WithDismiss("Bye, bye.");
 
-            Context.Server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(builder.Build(), new RandomWalkStrategy() ) );
+            Context.Server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(builder.Build(), new RandomWalkStrategy(2) ) );
         }
 
         public override void Stop(Npc npc)
