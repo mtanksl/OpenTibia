@@ -1,4 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
+using OpenTibia.Game.Components;
+using System;
 
 namespace OpenTibia.Game.GameObjectScripts
 {
@@ -16,7 +19,7 @@ namespace OpenTibia.Game.GameObjectScripts
         {
             base.Start(monster);
 
-
+            Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(new DistanceAttackStrategy(ProjectileType.Spear, 0, 30, TimeSpan.FromSeconds(2) ), new KeepDistanceWalkStrategy(3) ) );
         }
 
         public override void Stop(Monster monster)

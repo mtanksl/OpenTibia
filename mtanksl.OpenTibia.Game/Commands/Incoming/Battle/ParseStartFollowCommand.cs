@@ -26,11 +26,11 @@ namespace OpenTibia.Game.Commands
                 
             if (target != null && target != Player)
             {
-                PlayerAttackAndWalkBehaviour playerAttackAndFollowBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerAttackAndWalkBehaviour>(Player);
+                PlayerThinkBehaviour playerThinkBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerThinkBehaviour>(Player);
 
-                if (playerAttackAndFollowBehaviour != null)
+                if (playerThinkBehaviour != null)
                 {
-                    playerAttackAndFollowBehaviour.Follow(target);
+                    playerThinkBehaviour.Follow(target);
                 }
 
                 return Promise.Completed;

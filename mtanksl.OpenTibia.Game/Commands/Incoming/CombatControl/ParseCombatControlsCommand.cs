@@ -36,20 +36,20 @@ namespace OpenTibia.Game.Commands
             {
                 Player.Client.ChaseMode = ChaseMode;
 
-                PlayerAttackAndWalkBehaviour playerAttackAndFollowBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerAttackAndWalkBehaviour>(Player);
+                PlayerThinkBehaviour playerThinkBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerThinkBehaviour>(Player);
 
                 if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
                 {
-                    if (playerAttackAndFollowBehaviour != null)
+                    if (playerThinkBehaviour != null)
                     {
-                        playerAttackAndFollowBehaviour.StopFollow();                        
+                        playerThinkBehaviour.StopFollow();                        
                     }
                 }
                 else
                 {
-                    if (playerAttackAndFollowBehaviour != null)
+                    if (playerThinkBehaviour != null)
                     {
-                        playerAttackAndFollowBehaviour.StartFollow();
+                        playerThinkBehaviour.StartFollow();
                     }
                 }
             }

@@ -9,21 +9,21 @@ namespace OpenTibia.Game.Components
     {
         private IAttackStrategy attackStrategy;
 
-        public CreatureAttackBehaviour(IAttackStrategy attackStrategy)
+        public CreatureAttackBehaviour(IAttackStrategy attackStrategy, Creature target)
         {
             this.attackStrategy = attackStrategy;
+
+            this.target = target;
         }
 
         private Creature target;
 
-        public void Attack(Creature creature)
+        public Creature Target
         {
-            target = creature;
-        }
-
-        public void StopAttackAndFollow()
-        {
-            target = null;
+            get 
+            {
+                return target; 
+            }
         }
 
         private Guid globalTick;
@@ -32,28 +32,27 @@ namespace OpenTibia.Game.Components
         {
             Creature creature = (Creature)GameObject;
 
-            DateTime lastCreatureAttack = DateTime.MinValue;
+            DateTime lastAttack = DateTime.MinValue;
 
             globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
             {
-                if (target != null)
+                if (target.Tile == null || target.IsDestroyed || !creature.Tile.Position.CanHearSay(target.Tile.Position) )
                 {
-                    if (target.Tile == null || target.IsDestroyed)
+                    Context.Server.GameObjectComponents.RemoveComponent(creature, this);
+                }
+                else
+                {
+                    if (DateTime.UtcNow > lastAttack)
                     {
-                        StopAttackAndFollow();
-                    }
-                    else
-                    {
-                        if (DateTime.UtcNow > lastCreatureAttack)
+                        if (attackStrategy.CanAttack(creature, target) )
                         {
-                            if (attackStrategy.CanAttack(creature, target) )
-                            {
-                                lastCreatureAttack = DateTime.UtcNow.Add(attackStrategy.Cooldown);
+                            lastAttack = DateTime.UtcNow.Add(attackStrategy.Cooldown);
 
-                                return attackStrategy.Attack(creature, target);
-                            }
-
-                            lastCreatureAttack = DateTime.UtcNow.AddMilliseconds(500);
+                            return attackStrategy.Attack(creature, target);
+                        }
+                        else
+                        {
+                            lastAttack = DateTime.UtcNow.AddMilliseconds(500);
                         }
                     }
                 }

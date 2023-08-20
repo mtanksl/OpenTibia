@@ -9,6 +9,17 @@ namespace OpenTibia.Game.Components
 {
     public class MonsterThinkBehaviour : Behaviour
     {
+        private IAttackStrategy attackStrategy;
+
+        private IWalkStrategy walkStrategy;
+
+        public MonsterThinkBehaviour(IAttackStrategy attackStrategy, IWalkStrategy walkStrategy)
+        {
+            this.attackStrategy = attackStrategy;
+
+            this.walkStrategy = walkStrategy;
+        }
+
         private Guid globalTick;
 
         public override void Start()
@@ -19,17 +30,31 @@ namespace OpenTibia.Game.Components
 
             globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
             {
-                if (target == null || target.Tile == null || target.IsDestroyed || !monster.Tile.Position.CanSee(target.Tile.Position) )
+                if (target == null || target.Tile == null || target.IsDestroyed || !monster.Tile.Position.CanHearSay(target.Tile.Position) )
                 {
-                    Player[] players = Context.Server.Map.GetObservers(monster.Tile.Position).OfType<Player>().Where(p => p.Vocation != Vocation.Gamemaster && monster.Tile.Position.CanHearSay(p.Tile.Position) ).ToArray();
+                    target = Context.Server.Map.GetObservers(monster.Tile.Position).OfType<Player>().Where(p => p.Vocation != Vocation.Gamemaster && monster.Tile.Position.CanHearSay(p.Tile.Position) ).FirstOrDefault();
+                }
 
-                    if (players.Length > 0)
+                if (target != null)
+                {
+                    if (attackStrategy != null)
                     {
-                        target = Context.Server.Randomization.Take(players);
+                        CreatureAttackBehaviour creatureAttackBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureAttackBehaviour>(monster);
+
+                        if (creatureAttackBehaviour == null || creatureAttackBehaviour.Target != target)
+                        {
+                            Context.Server.GameObjectComponents.AddComponent(monster, new CreatureAttackBehaviour(attackStrategy, target) );
+                        }
                     }
-                    else
+
+                    if (walkStrategy != null)
                     {
-                        target = null;
+                        CreatureWalkBehaviour creatureWalkBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureWalkBehaviour>(monster);
+
+                        if (creatureWalkBehaviour == null || creatureWalkBehaviour.Target != target)
+                        {
+                            Context.Server.GameObjectComponents.AddComponent(monster, new CreatureWalkBehaviour(walkStrategy, target) );
+                        }
                     }
                 }
 

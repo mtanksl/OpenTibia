@@ -22,7 +22,7 @@ namespace OpenTibia.Game.GameObjectScripts
                 Context.Server.GameObjectComponents.AddComponent(monster, new CreatureTalkBehaviour(TalkType.MonsterSay, monster.Metadata.Sentences) );
             }
 
-            Context.Server.GameObjectComponents.AddComponent(monster, new CreatureWalkBehaviour(new RandomWalkStrategy() ) );
+            Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(new MeleeAttackStrategy(0, 20, TimeSpan.FromSeconds(2) ), new FollowWalkStrategy() ) );
         }
 
         public override void Stop(Monster monster)

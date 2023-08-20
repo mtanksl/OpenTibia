@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.Components
 {
-    public class PlayerAttackAndWalkBehaviour : Behaviour
+    public class PlayerThinkBehaviour : Behaviour
     {
         private enum State
         {
@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Components
 
         private IWalkStrategy walkStrategy;
 
-        public PlayerAttackAndWalkBehaviour(IAttackStrategy attackStrategy, IWalkStrategy walkStrategy)
+        public PlayerThinkBehaviour(IAttackStrategy attackStrategy, IWalkStrategy walkStrategy)
         {
             this.attackStrategy = attackStrategy;
 
@@ -116,8 +116,10 @@ namespace OpenTibia.Game.Components
 
                                     promises.Add(Context.AddCommand(new CreatureWalkCommand(player, toTile) ) );
                                 }
-
-                                lastWalk = DateTime.UtcNow.AddMilliseconds(500);
+                                else
+                                {
+                                    lastWalk = DateTime.UtcNow.AddMilliseconds(500);
+                                }
                             }
                         }
 
@@ -131,8 +133,10 @@ namespace OpenTibia.Game.Components
 
                                     promises.Add(attackStrategy.Attack(player, target) );
                                 }
-
-                                lastAttack = DateTime.UtcNow.AddMilliseconds(500);
+                                else
+                                {
+                                    lastAttack = DateTime.UtcNow.AddMilliseconds(500);
+                                }
                             }
                         }
 

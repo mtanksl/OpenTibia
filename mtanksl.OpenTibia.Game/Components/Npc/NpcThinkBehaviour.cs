@@ -9,9 +9,13 @@ namespace OpenTibia.Game.Components
     {
         private IConversationStrategy conversationStrategy;
 
-        public NpcThinkBehaviour(IConversationStrategy conversationStrategy)
+        private IWalkStrategy walkStrategy;
+
+        public NpcThinkBehaviour(IConversationStrategy conversationStrategy, IWalkStrategy walkStrategy)
         {
             this.conversationStrategy = conversationStrategy;
+
+            this.walkStrategy = walkStrategy;
         }
 
         private Guid playerSay;
@@ -22,132 +26,21 @@ namespace OpenTibia.Game.Components
         {
             Npc npc = (Npc)GameObject;
 
-            DateTime lastSentence = DateTime.UtcNow;
+            DateTime lastSentence = DateTime.MinValue;
 
             QueueHashSet<Player> targets = new QueueHashSet<Player>();
 
             playerSay = Context.Server.EventHandlers.Subscribe<PlayerSayEventArgs>( (context, e) =>
             {
-                var player = e.Player;
-
-                if (npc.Tile.Position.IsInRange(player.Tile.Position, 3) )
-                {
-                    if (targets.Count == 0)
-                    {
-                        if (e.Message == "hi" || e.Message == "hello")
-                        {
-                            lastSentence = DateTime.UtcNow;
-
-                            targets.Add(player);
-
-                            return conversationStrategy.Greeting(npc, player);
-                        }
-                    }
-                    else
-                    {
-                        if (player == targets.Peek() )
-                        {
-                            if (e.Message == "bye" || e.Message == "farewell")
-                            {
-                                targets.Remove(player);
-
-                                while (targets.Count > 0)
-                                {
-                                    var next = targets.Peek();
-
-                                    if (next.Tile == null || next.IsDestroyed || !npc.Tile.Position.IsInRange(next.Tile.Position, 3) )
-                                    {
-                                        targets.Remove(next);
-                                    }
-                                    else
-                                    {
-                                        break;
-                                    }
-                                }
-
-                                if (targets.Count > 0)
-                                {
-                                    lastSentence = DateTime.UtcNow;
-
-                                    var next = targets.Peek();
-
-                                    return conversationStrategy.Greeting(npc, next);
-                                }
-                                else
-                                {
-                                    return conversationStrategy.Farewell(npc, player);
-                                }
-                            }
-                            else
-                            {
-                                lastSentence = DateTime.UtcNow;
-
-                                return conversationStrategy.Say(npc, player, e.Message);
-                            }
-                        }
-                        else
-                        {
-                            if (e.Message == "hi" || e.Message == "hello")
-                            {
-                                targets.Add(player);
-
-                                return conversationStrategy.Busy(npc, player);
-                            }
-                        }
-                    }
-                }
+                //TODO
 
                 return Promise.Completed;
             } );
 
             globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
             {
-                if (targets.Count > 0)
-                {
-                    var player = targets.Peek();
+                //TODO
 
-                    if (player.Tile == null || player.IsDestroyed || !npc.Tile.Position.IsInRange(player.Tile.Position, 3) || (DateTime.UtcNow - lastSentence).TotalSeconds > 15)
-                    {
-                        targets.Remove(player);
-
-                        while (targets.Count > 0)
-                        {
-                            var next = targets.Peek();
-
-                            if (next.Tile == null || next.IsDestroyed || !npc.Tile.Position.IsInRange(next.Tile.Position, 3) )
-                            {
-                                targets.Remove(next);
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-
-                        if (targets.Count > 0)
-                        {
-                            lastSentence = DateTime.UtcNow;
-
-                            var next = targets.Peek();
-
-                            return conversationStrategy.Greeting(npc, next);
-                        }
-                        else
-                        {
-                            return conversationStrategy.Dismiss(npc, player);
-                        }
-                    }
-                    else
-                    {
-                        var direction = npc.Tile.Position.ToDirection(player.Tile.Position);
-
-                        if (direction != null && direction != npc.Direction)
-                        {
-                            return Context.AddCommand(new CreatureUpdateDirectionCommand(npc, direction.Value) );
-                        }
-                    }
-                }
-                                            
                 return Promise.Completed;
             } );
         }

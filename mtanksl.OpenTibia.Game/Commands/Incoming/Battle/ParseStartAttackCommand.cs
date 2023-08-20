@@ -28,13 +28,13 @@ namespace OpenTibia.Game.Commands
                 
             if (target != null && target != Player)
             {
-                PlayerAttackAndWalkBehaviour playerAttackAndFollowBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerAttackAndWalkBehaviour>(Player);
+                PlayerThinkBehaviour playerThinkBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerThinkBehaviour>(Player);
 
                 if (target is Npc || (target is Player player && player.Vocation == Vocation.Gamemaster) )
                 {
-                    if (playerAttackAndFollowBehaviour != null)
+                    if (playerThinkBehaviour != null)
                     {
-                        playerAttackAndFollowBehaviour.StopAttackAndFollow();
+                        playerThinkBehaviour.StopAttackAndFollow();
                     }
 
                     Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature),
@@ -45,16 +45,16 @@ namespace OpenTibia.Game.Commands
                 {
                     if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)
                     {
-                        if (playerAttackAndFollowBehaviour != null)
+                        if (playerThinkBehaviour != null)
                         {
-                            playerAttackAndFollowBehaviour.Attack(target);
+                            playerThinkBehaviour.Attack(target);
                         }
                     }
                     else
                     {
-                        if (playerAttackAndFollowBehaviour != null)
+                        if (playerThinkBehaviour != null)
                         {
-                            playerAttackAndFollowBehaviour.AttackAndFollow(target);
+                            playerThinkBehaviour.AttackAndFollow(target);
                         }
                     }
 

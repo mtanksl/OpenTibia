@@ -9,21 +9,21 @@ namespace OpenTibia.Game.Components
     {
         private IWalkStrategy walkStrategy;
 
-        public CreatureWalkBehaviour(IWalkStrategy walkStrategy)
+        public CreatureWalkBehaviour(IWalkStrategy walkStrategy, Creature target)
         {
             this.walkStrategy = walkStrategy;
+
+            this.target = target;
         }
 
         private Creature target;
 
-        public void Follow(Creature creature)
+        public Creature Target
         {
-            target = creature;
-        }
-
-        public void StopAttackAndFollow()
-        {
-            target = null;
+            get
+            {
+                return target;
+            }
         }
 
         private Guid globalTick;
@@ -36,25 +36,24 @@ namespace OpenTibia.Game.Components
 
             globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
             {
-                if (target != null)
+                if (target != null && (target.Tile == null || target.IsDestroyed || !creature.Tile.Position.CanHearSay(target.Tile.Position) ) )
                 {
-                    if (target.Tile == null || target.IsDestroyed || !creature.Tile.Position.CanHearSay(target.Tile.Position) )
+                    Context.Server.GameObjectComponents.RemoveComponent(creature, this);
+                }
+                else
+                {
+                    if (DateTime.UtcNow > lastWalk)
                     {
-                        StopAttackAndFollow();
-                    }
-                    else
-                    {
-                        if (DateTime.UtcNow > lastWalk)
+                        Tile toTile;
+
+                        if (walkStrategy.CanWalk(creature, target, out toTile) )
                         {
-                            Tile toTile;
+                            lastWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / creature.Speed);
 
-                            if (walkStrategy.CanWalk(creature, target, out toTile) )
-                            {
-                                lastWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / creature.Speed);
-
-                                return Context.AddCommand(new CreatureWalkCommand(creature, toTile) );
-                            }
-
+                            return Context.AddCommand(new CreatureWalkCommand(creature, toTile) );
+                        }
+                        else
+                        {
                             lastWalk = DateTime.UtcNow.AddMilliseconds(500);
                         }
                     }

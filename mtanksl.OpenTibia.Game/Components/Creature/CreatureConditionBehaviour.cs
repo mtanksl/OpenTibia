@@ -21,12 +21,12 @@ namespace OpenTibia.Game.Components
 
         public override void Start()
         {
-            
+            //TODO
         }
 
         public override void Stop()
         {
-            
+            //TODO
         }
     }
 }

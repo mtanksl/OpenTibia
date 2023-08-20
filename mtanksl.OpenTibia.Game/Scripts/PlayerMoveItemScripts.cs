@@ -16,9 +16,9 @@ namespace OpenTibia.Game.Scripts
             {
                 if (command.ToContainer is Tile toTile)
                 {
-                    if (command.Pathfinding && !context.Server.Pathfinding.CanThrow(command.Player.Tile.Position, toTile.Position) )
+                    if (command.Pathfinding && !Context.Server.Pathfinding.CanThrow(command.Player.Tile.Position, toTile.Position) )
                     {
-                        context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
+                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
 
                         return Promise.Break;
                     }
@@ -27,7 +27,7 @@ namespace OpenTibia.Game.Scripts
                 {
                     if ( !command.Item.Metadata.Flags.Is(ItemMetadataFlags.Pickupable) )
                     {
-                        context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTakeThisObject) );
+                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTakeThisObject) );
 
                         return Promise.Break;
                     }
@@ -36,14 +36,14 @@ namespace OpenTibia.Game.Scripts
                 {
                     if ( !command.Item.Metadata.Flags.Is(ItemMetadataFlags.Pickupable) )
                     {
-                        context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTakeThisObject) );
+                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTakeThisObject) );
 
                         return Promise.Break;
                     }
 
                     if ( toContainer.IsContentOf(command.Item) )
                     {
-                        context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
+                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
 
                         return Promise.Break;
                     }
