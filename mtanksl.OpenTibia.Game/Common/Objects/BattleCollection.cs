@@ -8,21 +8,13 @@ namespace OpenTibia.Common.Objects
     {
         private Server server;
 
+        private IClient client;
+
         public BattleCollection(Server server, IClient client)
         {
             this.server = server;
 
             this.client = client;
-        }
-
-        private IClient client;
-
-        private IClient Client
-        {
-            get
-            {
-                return client;
-            }
         }
 
         private HashSet<uint> creatureIds = new HashSet<uint>();
