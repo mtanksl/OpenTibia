@@ -34,7 +34,10 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Missed(Creature attacker, Creature target)
         {
-            return Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.Puff) );
+            return Context.Current.AddCommand(new ShowProjectileCommand(attacker.Tile.Position, target.Tile.Position, ProjectileType) ).Then( () =>
+            {
+                return Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.Puff) );
+            } );
         }
 
         public override Promise Hit(Creature attacker, Creature target, int damage)

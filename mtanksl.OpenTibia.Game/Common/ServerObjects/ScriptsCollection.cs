@@ -8,27 +8,23 @@ namespace OpenTibia.Game
 {
     public class ScriptsCollection
     {
-        private Server server;
-
-        public ScriptsCollection(Server server)
+        public ScriptsCollection()
         {
-            this.server = server;
+            foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(Script).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract) )
+            {
+                Script script = (Script)Activator.CreateInstance(type);
+
+                scripts.Add(script);
+            }
         }
 
         private List<Script> scripts = new List<Script>();
 
         public void Start()
         {
-            foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(Script).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract ) )
-            {
-                Script script = (Script)Activator.CreateInstance(type);
-
-                scripts.Add(script);
-            }
-
             foreach (var script in scripts)
             {
-                script.Start(server);
+                script.Start();
             }
         }
 
@@ -36,7 +32,7 @@ namespace OpenTibia.Game
         {
             foreach (var script in scripts)
             {
-                script.Stop(server);
+                script.Stop();
             }
         }
     }

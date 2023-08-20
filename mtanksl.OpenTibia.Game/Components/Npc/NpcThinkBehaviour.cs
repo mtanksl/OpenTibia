@@ -7,167 +7,156 @@ namespace OpenTibia.Game.Components
 {
     public class NpcThinkBehaviour : Behaviour
     {
-        private NonTargetAction[] nonTargetActions;
+        private IConversationStrategy conversationStrategy;
 
-        private NpcEventHandler npcEventHandler;
-
-        public NpcThinkBehaviour(NonTargetAction[] nonTargetActions, NpcEventHandler npcEventHandler)
+        public NpcThinkBehaviour(IConversationStrategy conversationStrategy)
         {
-            this.nonTargetActions = nonTargetActions;
-
-            this.npcEventHandler = npcEventHandler;
+            this.conversationStrategy = conversationStrategy;
         }
-
-        private Guid globalTick;
 
         private Guid playerSay;
 
-        private Guid creatureWalk;
+        private Guid globalTick;
 
-        private Guid playerLogout;
-
-        public override void Start(Server server)
+        public override void Start()
         {
             Npc npc = (Npc)GameObject;
 
-            QueueHashSet<Player> queue = new QueueHashSet<Player>();
+            DateTime lastSentence = DateTime.UtcNow;
 
-            globalTick = server.EventHandlers.Subscribe<GlobalTickEventArgs>(async (context, e) =>
-            {
-                if (queue.Count == 0)
-                {
-                    foreach (var nonTargetAction in nonTargetActions)
-                    {
-                        await nonTargetAction.Update(npc);
-                    }
-                }
-            } );
+            QueueHashSet<Player> targets = new QueueHashSet<Player>();
 
-            playerSay = server.GameObjectEventHandlers.Subscribe<PlayerSayEventArgs>(GameObject, async (context, e) =>
+            playerSay = Context.Server.EventHandlers.Subscribe<PlayerSayEventArgs>( (context, e) =>
             {
-                if (npc.Tile.Position.IsInRange(e.Player.Tile.Position, 3) )
+                var player = e.Player;
+
+                if (npc.Tile.Position.IsInRange(player.Tile.Position, 3) )
                 {
-                    if (queue.Count == 0)
+                    if (targets.Count == 0)
                     {
                         if (e.Message == "hi" || e.Message == "hello")
                         {
-                            queue.Add(e.Player);
+                            lastSentence = DateTime.UtcNow;
 
-                            await npcEventHandler.OnGreet(npc, e.Player);
+                            targets.Add(player);
 
-                            await Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(e.Player.Tile.Position).Value) );
+                            return conversationStrategy.Greeting(npc, player);
                         }
                     }
                     else
                     {
-                        if (queue.Peek() == e.Player)
+                        if (player == targets.Peek() )
                         {
                             if (e.Message == "bye" || e.Message == "farewell")
                             {
-                                queue.Remove(e.Player);
+                                targets.Remove(player);
 
-                                if (queue.Count > 0)
+                                while (targets.Count > 0)
                                 {
-                                    await npcEventHandler.OnGreet(npc, queue.Peek() );
+                                    var next = targets.Peek();
 
-                                    await Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(queue.Peek().Tile.Position).Value) );
+                                    if (next.Tile == null || next.IsDestroyed || !npc.Tile.Position.IsInRange(next.Tile.Position, 3) )
+                                    {
+                                        targets.Remove(next);
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+
+                                if (targets.Count > 0)
+                                {
+                                    lastSentence = DateTime.UtcNow;
+
+                                    var next = targets.Peek();
+
+                                    return conversationStrategy.Greeting(npc, next);
                                 }
                                 else
                                 {
-                                    await npcEventHandler.OnFarewell(npc, e.Player);
+                                    return conversationStrategy.Farewell(npc, player);
                                 }
                             }
                             else
                             {
-                                await npcEventHandler.OnSay(npc, e.Player, e.Message);
+                                lastSentence = DateTime.UtcNow;
+
+                                return conversationStrategy.Say(npc, player, e.Message);
                             }
                         }
                         else
                         {
                             if (e.Message == "hi" || e.Message == "hello")
                             {
-                                queue.Add(e.Player);
+                                targets.Add(player);
 
-                                await npcEventHandler.OnGreetBusy(npc, e.Player);
+                                return conversationStrategy.Busy(npc, player);
                             }
                         }
                     }
                 }
+
+                return Promise.Completed;
             } );
 
-            //TODO: Use local event
-
-            creatureWalk = server.EventHandlers.Subscribe<CreatureWalkEventArgs>(async (context, e) =>
+            globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
             {
-                if (e.Creature is Player player)
+                if (targets.Count > 0)
                 {
-                    if (npc.Tile.Position.IsInRange(e.ToTile.Position, 3) )
-                    {
-                        if (queue.Peek() == e.Creature)
-                        {
-                            await Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(e.Creature.Tile.Position).Value) );
-                        }
-                    }
-                    else
-                    {
-                        if (queue.Peek() == e.Creature)
-                        {
-                            queue.Remove(player);
+                    var player = targets.Peek();
 
-                            if (queue.Count > 0)
+                    if (player.Tile == null || player.IsDestroyed || !npc.Tile.Position.IsInRange(player.Tile.Position, 3) || (DateTime.UtcNow - lastSentence).TotalSeconds > 15)
+                    {
+                        targets.Remove(player);
+
+                        while (targets.Count > 0)
+                        {
+                            var next = targets.Peek();
+
+                            if (next.Tile == null || next.IsDestroyed || !npc.Tile.Position.IsInRange(next.Tile.Position, 3) )
                             {
-                                await npcEventHandler.OnGreet(npc, queue.Peek() );
-
-                                await Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(queue.Peek().Tile.Position).Value) );
+                                targets.Remove(next);
                             }
                             else
                             {
-                                await npcEventHandler.OnDisappear(npc);
+                                break;
                             }
+                        }
+
+                        if (targets.Count > 0)
+                        {
+                            lastSentence = DateTime.UtcNow;
+
+                            var next = targets.Peek();
+
+                            return conversationStrategy.Greeting(npc, next);
                         }
                         else
                         {
-                            queue.Remove(player);
+                            return conversationStrategy.Dismiss(npc, player);
                         }
-                    }
-                }
-            } );
-
-            //TODO: Use local event
-
-            playerLogout = server.EventHandlers.Subscribe<PlayerLogoutEventArgs>(async (context, e) =>
-            {
-                if (queue.Peek() == e.Player)
-                {
-                    queue.Remove(e.Player);
-
-                    if (queue.Count > 0)
-                    {
-                        await npcEventHandler.OnGreet(npc, queue.Peek() );
-
-                        await Context.AddCommand(new CreatureUpdateDirectionCommand(npc, npc.Tile.Position.ToDirection(queue.Peek().Tile.Position).Value) );
                     }
                     else
                     {
-                        await npcEventHandler.OnDisappear(npc);
+                        var direction = npc.Tile.Position.ToDirection(player.Tile.Position);
+
+                        if (direction != null && direction != npc.Direction)
+                        {
+                            return Context.AddCommand(new CreatureUpdateDirectionCommand(npc, direction.Value) );
+                        }
                     }
                 }
-                else
-                {
-                    queue.Remove(e.Player);
-                }
+                                            
+                return Promise.Completed;
             } );
         }
 
-        public override void Stop(Server server)
+        public override void Stop()
         {
-            server.EventHandlers.Unsubscribe<GlobalTickEventArgs>(globalTick);
+            Context.Server.EventHandlers.Unsubscribe<PlayerSayEventArgs>(playerSay);
 
-            server.GameObjectEventHandlers.Unsubscribe<PlayerSayEventArgs>(GameObject, playerSay);
-
-            server.EventHandlers.Unsubscribe<CreatureWalkEventArgs>(creatureWalk);
-
-            server.EventHandlers.Unsubscribe<PlayerLogoutEventArgs>(playerLogout);
+            Context.Server.EventHandlers.Unsubscribe<GlobalTickEventArgs>(globalTick);
         }
     }
 }

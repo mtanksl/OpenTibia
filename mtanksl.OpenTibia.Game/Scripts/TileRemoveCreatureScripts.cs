@@ -4,14 +4,14 @@ namespace OpenTibia.Game.Scripts
 {
     public class TileRemoveCreatureScripts : Script
     {
-        public override void Start(Server server)
+        public override void Start()
         {
-            server.EventHandlers.Subscribe(new TileDepressHandler() );
+            Context.Server.EventHandlers.Subscribe(new TileDepressHandler() );
 
-            server.EventHandlers.Subscribe(new CloseDoorAutomaticallyHandler() );
+            Context.Server.EventHandlers.Subscribe(new CloseDoorAutomaticallyHandler() );
         }
 
-        public override void Stop(Server server)
+        public override void Stop()
         {
             
         }

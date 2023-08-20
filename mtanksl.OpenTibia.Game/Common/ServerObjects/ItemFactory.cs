@@ -3,9 +3,11 @@ using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Dat;
 using OpenTibia.FileFormats.Otb;
 using OpenTibia.FileFormats.Xml.Items;
-using OpenTibia.Game.Components;
+using OpenTibia.Game.GameObjectScripts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Item = OpenTibia.Common.Objects.Item;
 using ItemFlags = OpenTibia.FileFormats.Dat.ItemFlags;
 
@@ -158,6 +160,15 @@ namespace OpenTibia.Game
                     metadata.SlotType = xmlItem.SlotType;
                 }
             }
+
+            scripts = new Dictionary<ushort, GameObjectScript<ushort, Item> >();
+
+            foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(GameObjectScript<ushort, Item>).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract) )
+            {
+                GameObjectScript<ushort, Item> script = (GameObjectScript<ushort, Item>)Activator.CreateInstance(type);
+
+                scripts.Add(script.Key, script);
+            }
         }
 
         private Dictionary<ushort, ItemMetadata> metadatas;
@@ -166,16 +177,38 @@ namespace OpenTibia.Game
         {
             ItemMetadata metadata;
 
-            metadatas.TryGetValue(openTibiaId, out metadata);
+            if (metadatas.TryGetValue(openTibiaId, out metadata) )
+            {
+                return metadata;
+            }
 
-            return metadata;
+            return null;
+        }
+
+        private Dictionary<ushort, GameObjectScript<ushort, Item> > scripts;
+
+        public GameObjectScript<ushort, Item> GetItemScript(ushort openTibiaId)
+        {
+            GameObjectScript<ushort, Item> script;
+
+            if (scripts.TryGetValue(openTibiaId, out script) )
+            {
+                return script;
+            }
+            
+            if (scripts.TryGetValue(0, out script) )
+            {
+                return script;
+            }
+
+            return null;
         }
 
         public Item Create(ushort openTibiaId, byte count)
         {
-            ItemMetadata metadata;
+            ItemMetadata metadata = GetItemMetadata(openTibiaId);
 
-            if ( !metadatas.TryGetValue(openTibiaId, out metadata) )
+            if (metadata == null)
             {
                 return null;
             }
@@ -226,13 +259,11 @@ namespace OpenTibia.Game
 
             server.GameObjects.AddGameObject(item);
 
-            if (item.Metadata.OpenTibiaId == 1479)
+            GameObjectScript<ushort, Item> script = GetItemScript(item.Metadata.OpenTibiaId);
+
+            if (script != null)
             {
-                server.GameObjectComponents.AddComponent(item, new ItemStreetLampSwitchOnScheduledBehaviour() );
-            }
-            else if (item.Metadata.OpenTibiaId == 1480)
-            {
-                server.GameObjectComponents.AddComponent(item, new ItemStreetLampSwitchOffScheduledBehaviour() );
+                script.Start(item);
             }
 
             return item;
@@ -240,7 +271,19 @@ namespace OpenTibia.Game
 
         public bool Detach(Item item)
         {
-            return server.GameObjects.RemoveGameObject(item);
+            if (server.GameObjects.RemoveGameObject(item) )
+            {
+                GameObjectScript<ushort, Item> script = GetItemScript(item.Metadata.OpenTibiaId);
+
+                if (script != null)
+                {
+                    script.Stop(item);
+                }
+
+                return true;
+            }
+
+            return false;
         }
 
         public void Destroy(Item item)

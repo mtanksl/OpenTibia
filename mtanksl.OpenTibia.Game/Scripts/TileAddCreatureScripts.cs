@@ -4,30 +4,30 @@ namespace OpenTibia.Game.Scripts
 {
     public class TileAddCreatureScripts : Script
     {
-        public override void Start(Server server)
+        public override void Start()
         {
-            server.EventHandlers.Subscribe(new TilePressHandler() );
+            Context.Server.EventHandlers.Subscribe(new TilePressHandler() );
 
-            server.EventHandlers.Subscribe(new SnowPressHandler() );
+            Context.Server.EventHandlers.Subscribe(new SnowPressHandler() );
 
-            server.EventHandlers.Subscribe(new CampfireHandler() );
+            Context.Server.EventHandlers.Subscribe(new CampfireHandler() );
 
-            server.EventHandlers.Subscribe(new FireFieldHandler() );
+            Context.Server.EventHandlers.Subscribe(new FireFieldHandler() );
 
-            server.EventHandlers.Subscribe(new PoisonFieldHandler() );
+            Context.Server.EventHandlers.Subscribe(new PoisonFieldHandler() );
 
-            server.EventHandlers.Subscribe(new EnergyFieldHandler() );
+            Context.Server.EventHandlers.Subscribe(new EnergyFieldHandler() );
 
-            server.EventHandlers.Subscribe(new TrapHandler() );
+            Context.Server.EventHandlers.Subscribe(new TrapHandler() );
 
-            server.EventHandlers.Subscribe(new JungleMawHandler() );
+            Context.Server.EventHandlers.Subscribe(new JungleMawHandler() );
 
-            server.EventHandlers.Subscribe(new BladesHandler() );
+            Context.Server.EventHandlers.Subscribe(new BladesHandler() );
 
-            server.EventHandlers.Subscribe(new SpikesHandler() );
+            Context.Server.EventHandlers.Subscribe(new SpikesHandler() );
         }
 
-        public override void Stop(Server server)
+        public override void Stop()
         {
             
         }

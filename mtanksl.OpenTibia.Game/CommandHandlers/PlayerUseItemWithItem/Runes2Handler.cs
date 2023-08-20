@@ -386,9 +386,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 20, 5);
 
-                    var damage = -Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
-
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FireArea, new SimpleAttack(null, null, AnimatedTextColor.Orange, damage) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FireArea, new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -429,9 +427,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 50, 15);
 
-                    var damage = -Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
-
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FireArea, new SimpleAttack(null, null, AnimatedTextColor.Orange, damage) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FireArea, new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -468,9 +464,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 60, 40);
 
-                    var damage = -Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
-
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Explosion, MagicEffectType.ExplosionArea, new SimpleAttack(null, null, AnimatedTextColor.DarkRed, damage) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Explosion, MagicEffectType.ExplosionArea, new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
                 }
             },
 

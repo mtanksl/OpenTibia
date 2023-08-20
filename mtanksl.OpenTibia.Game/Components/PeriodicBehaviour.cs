@@ -22,11 +22,11 @@ namespace OpenTibia.Game.Components
 
         private string key = Guid.NewGuid().ToString();
 
-        public override void Start(Server server)
+        public override void Start()
         {
             Promise.Delay(key, executeIn).Then(Update).Then( () =>
             {
-                Start(server);
+                Start();
 
                 return Promise.Completed;
 
@@ -38,16 +38,16 @@ namespace OpenTibia.Game.Components
                 }
                 else
                 {
-                    server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                    Context.Server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
                 }
             } );
         }
 
         public abstract Promise Update();
 
-        public override void Stop(Server server)
+        public override void Stop()
         {
-            server.CancelQueueForExecution(key);
+            Context.Server.CancelQueueForExecution(key);
         }
     }
 }

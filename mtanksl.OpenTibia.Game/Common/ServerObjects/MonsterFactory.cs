@@ -1,10 +1,11 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Xml.Monsters;
-using OpenTibia.Game.Components;
+using OpenTibia.Game.GameObjectScripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Monster = OpenTibia.Common.Objects.Monster;
 
 namespace OpenTibia.Game
@@ -40,67 +41,88 @@ namespace OpenTibia.Game
                     Sentences = xmlMonster.Voices?.Select(v => v.Sentence).ToArray()
                 } );
             }
+
+            scripts = new Dictionary<string, GameObjectScript<string, Monster> >();
+
+            foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(GameObjectScript<string, Monster>).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract) )
+            {
+                GameObjectScript<string, Monster> script = (GameObjectScript<string, Monster>)Activator.CreateInstance(type);
+
+                scripts.Add(script.Key, script);
+            }
         }
 
         private Dictionary<string, MonsterMetadata> metadatas;
 
-        public Monster Create(string name)
+        public MonsterMetadata GetMonsterMetadata(string name)
         {
             MonsterMetadata metadata;
 
-            if ( !metadatas.TryGetValue(name, out metadata) )
+            if (metadatas.TryGetValue(name, out metadata) )
             {
-                return null;                
+                return metadata;
+            }
+
+            return null;
+        }
+
+        private Dictionary<string, GameObjectScript<string, Monster> > scripts;
+
+        public GameObjectScript<string, Monster> GetMonsterScript(string name)
+        {
+            GameObjectScript<string, Monster> script;
+
+            if (scripts.TryGetValue(name, out script) )
+            {
+                return script;
+            }
+            
+            if (scripts.TryGetValue("", out script) )
+            {
+                return script;
+            }
+
+            return null;
+        }
+
+        public Monster Create(string name)
+        {
+            MonsterMetadata metadata = GetMonsterMetadata(name);
+
+            if (metadata == null)
+            {
+                return null;
             }
 
             Monster monster = new Monster(metadata);
                         
             server.GameObjects.AddGameObject(monster);
 
-            List<TargetAction> targetActions = new List<TargetAction>();
+            GameObjectScript<string, Monster> script = GetMonsterScript(monster.Name);
 
-            List<NonTargetAction> nonTargetActions = new List<NonTargetAction>();
-
-            if (monster.Name == "Amazon")
+            if (script != null)
             {
-                targetActions.Add(new KeepDistanceWalkTargetAction(3) );
-
-                targetActions.Add(new DistanceAttackTargetAction(ProjectileType.ThrowingKnife, 0, 20, TimeSpan.FromSeconds(2) ) );
+                script.Start(monster);
             }
-            else if (monster.Name == "Valkyrie")
-            {
-                targetActions.Add(new KeepDistanceWalkTargetAction(3) );
-
-                targetActions.Add(new DistanceAttackTargetAction(ProjectileType.Spear, 0, 30, TimeSpan.FromSeconds(2) ) );
-            }
-            else if (monster.Name == "Deer")
-            {
-                targetActions.Add(new RunAwayWalkTargetAction() );
-            }
-            else if (monster.Name == "Dog")
-            {
-                targetActions.Add(new ApproachWalkTargetAction() );
-            }
-            else
-            {
-                targetActions.Add(new FollowWalkTargetAction() );
-
-                targetActions.Add(new MeleeAttackTargetAction(0, 20, TimeSpan.FromSeconds(2) ) );
-            }
-
-            if (monster.Metadata.Sentences != null)
-            {
-                nonTargetActions.Add(new MonsterSayNonTargetAction(monster.Metadata.Sentences, TimeSpan.FromSeconds(30) ) );
-            }
-
-            server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(targetActions.ToArray(), nonTargetActions.ToArray() ) );
 
             return monster;
         }
 
         public bool Detach(Monster monster)
         {
-            return server.GameObjects.RemoveGameObject(monster);
+            if (server.GameObjects.RemoveGameObject(monster) )
+            {
+                GameObjectScript<string, Monster> script = GetMonsterScript(monster.Name);
+
+                if (script != null)
+                {
+                    script.Stop(monster);
+                }
+
+                return true;
+            }
+
+            return false;
         }
 
         public void Destroy(Monster monster)

@@ -1,10 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Events;
-using OpenTibia.Network.Packets.Outgoing;
 using System;
-using System.Collections.Generic;
 
 namespace OpenTibia.Game.Components
 {
@@ -21,51 +18,9 @@ namespace OpenTibia.Game.Components
             AttackAndFollow
         }
 
-        private TargetAction attackTargetAction = new MeleeAttackTargetAction(null, null, TimeSpan.FromMilliseconds(500) );
-
-        private TargetAction walkTargetAction = new FollowWalkTargetAction();
-
-        private Guid globalTick;
-
         private State state;
 
         private Creature target;
-
-        public override void Start(Server server)
-        {
-            Player player = (Player)GameObject;
-
-            globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
-            {
-                if (target == null)
-                {
-                    return Promise.Completed;
-                }
-
-                if (target.IsDestroyed || !player.Tile.Position.CanHearSay(target.Tile.Position) )
-                {
-                    Stop();
-
-                    Context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost), new StopAttackAndFollowOutgoingPacket(0) );
-
-                    return Promise.Completed;
-                }
-            
-                List<Promise> promises = new List<Promise>();
-
-                if (state == State.Follow || state == State.AttackAndFollow)
-                {
-                    promises.Add(walkTargetAction.Update(player, target) );
-                }
-
-                if (state == State.Attack || state == State.AttackAndFollow)
-                {
-                    promises.Add(attackTargetAction.Update(player, target) );
-                }
-
-                return Promise.WhenAll(promises.ToArray() );
-            } );
-        }
 
         public void Attack(Creature creature)
         {
@@ -104,14 +59,44 @@ namespace OpenTibia.Game.Components
             }
         }
 
-        public void Stop()
+        public void StopAttackAndFollow()
         {
             state = State.None;
 
             target = null;
         }
 
-        public override void Stop(Server server)
+        private Guid globalTick;
+
+        public override void Start()
+        {
+            Player player = (Player)GameObject;
+
+            globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
+            {
+                if (target == null || target.Tile == null || target.IsDestroyed)
+                {
+                    return Promise.Completed;
+                }
+
+                if (state == State.Attack)
+                {
+
+                }
+                else if (state == State.Follow)
+                {
+
+                }
+                else if (state == State.AttackAndFollow)
+                {
+
+                }
+
+                return Promise.Completed;
+            } );
+        }
+
+        public override void Stop()
         {
             Context.Server.EventHandlers.Unsubscribe<GlobalTickEventArgs>(globalTick);
         }

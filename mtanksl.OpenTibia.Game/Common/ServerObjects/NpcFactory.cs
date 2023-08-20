@@ -1,10 +1,11 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Xml.Npcs;
-using OpenTibia.Game.Components;
+using OpenTibia.Game.GameObjectScripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Npc = OpenTibia.Common.Objects.Npc;
 
 namespace OpenTibia.Game
@@ -36,15 +37,55 @@ namespace OpenTibia.Game
                     Sentences = xmlNpc.Voices?.Select(v => v.Sentence).ToArray()
                 } ); 
             }
+
+            scripts = new Dictionary<string, GameObjectScript<string, Npc> >();
+
+            foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(GameObjectScript<string, Npc>).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract) )
+            {
+                GameObjectScript<string, Npc> script = (GameObjectScript<string, Npc>)Activator.CreateInstance(type);
+
+                scripts.Add(script.Key, script);
+            }
         }
 
         private Dictionary<string, NpcMetadata> metadatas;
 
-        public Npc Create(string name)
+        public NpcMetadata GetNpcMetadata(string name)
         {
             NpcMetadata metadata;
 
-            if ( !metadatas.TryGetValue(name, out metadata) )
+            if (metadatas.TryGetValue(name, out metadata) )
+            {
+                return metadata;
+            }
+
+            return null;
+        }
+
+        private Dictionary<string, GameObjectScript<string, Npc> > scripts;
+
+        public GameObjectScript<string, Npc> GetNpcScript(string name)
+        {
+            GameObjectScript<string, Npc> script;
+
+            if (scripts.TryGetValue(name, out script) )
+            {
+                return script;
+            }
+            
+            if (scripts.TryGetValue("", out script) )
+            {
+                return script;
+            }
+
+            return null;
+        }
+
+        public Npc Create(string name)
+        {
+            NpcMetadata metadata = GetNpcMetadata(name);
+
+            if (metadata == null)
             {
                 return null;
             }
@@ -53,34 +94,31 @@ namespace OpenTibia.Game
 
             server.GameObjects.AddGameObject(npc);
 
-            List<NonTargetAction> nonTargetActions = new List<NonTargetAction>();
+            GameObjectScript<string, Npc> script = GetNpcScript(npc.Name);
 
-            nonTargetActions.Add(new RandomWalkNonTargetAction(1) );
-
-            if (npc.Metadata.Sentences != null)
+            if (script != null)
             {
-                nonTargetActions.Add(new NpcSayNonTargetAction(npc.Metadata.Sentences, TimeSpan.FromSeconds(30) ) );
+                script.Start(npc);
             }
-
-            if (npc.Name == "Aldee")
-            {
-                server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(nonTargetActions.ToArray(), new AldeeNpcEventHandler() ) );
-            }
-            else if (npc.Name == "Cipfried")
-            {
-                server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(nonTargetActions.ToArray(), new CipfriedNpcEventHandler() ) );
-            }
-            else if (npc.Name == "Rachel")
-            {
-                server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(nonTargetActions.ToArray(), new RachelNpcEventHandler() ) );
-            }
-
+            
             return npc;
         }
 
         public bool Detach(Npc npc)
         {
-            return server.GameObjects.RemoveGameObject(npc);
+            if (server.GameObjects.RemoveGameObject(npc) )
+            {
+                GameObjectScript<string, Npc> script = GetNpcScript(npc.Name);
+
+                if (script != null)
+                {
+                    script.Stop(npc);
+                }
+
+                return true;
+            }
+
+            return false;
         }
 
         public void Destroy(Npc npc)

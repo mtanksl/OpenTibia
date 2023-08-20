@@ -5,20 +5,15 @@ namespace OpenTibia.Game.Components
 {
     public class PlayerCooldownBehaviour : Behaviour
     {
-        public override void Start(Server server)
-        {
-
-        }
-
         private Dictionary<string, DateTime> cooldowns = new Dictionary<string, DateTime>();
 
         public bool HasCooldown(string name)
         {
             DateTime cooldown;
 
-            if ( cooldowns.TryGetValue(name, out cooldown) )
+            if (cooldowns.TryGetValue(name, out cooldown) )
             {
-               return DateTime.UtcNow < cooldown;
+                return DateTime.UtcNow < cooldown;
             }
 
             return false;
@@ -29,7 +24,12 @@ namespace OpenTibia.Game.Components
             cooldowns[name] = DateTime.UtcNow.Add(cooldown);
         }
 
-        public override void Stop(Server server)
+        public override void Start()
+        {
+
+        }
+
+        public override void Stop()
         {
             
         }

@@ -32,11 +32,11 @@ namespace OpenTibia.Game.Commands
 
         public TimeSpan Interval { get; set; }
 
-        public override async Promise Start(Server server, Creature target)
+        public override async Promise Start(Creature target)
         {
             for (int i = 0; i < Damages.Length; i++)
             {
-                await Context.Current.AddCommand(new CreatureAttackCreatureCommand(null, target, new SimpleAttack(null, MagicEffectType, AnimatedTextColor, Damages[i] ) ) );
+                await Context.Current.AddCommand(new CreatureAttackCreatureCommand(null, target, new SimpleAttack(null, MagicEffectType, AnimatedTextColor, Damages[i], Damages[i] ) ) );
 
                 if (i < Damages.Length - 1)
                 {
@@ -47,11 +47,11 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        public override void Stop(Server server)
+        public override void Stop()
         {
             if (delayBehaviour != null)
             {
-                delayBehaviour.Stop(server);
+                delayBehaviour.Stop();
             }
         }
     }

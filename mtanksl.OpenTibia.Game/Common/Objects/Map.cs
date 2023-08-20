@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Otbm;
+using OpenTibia.FileFormats.Xml.Spawns;
 using OpenTibia.Game;
 using System;
 using System.Collections.Generic;
@@ -54,7 +55,7 @@ namespace OpenTibia.Common.Objects
 
         private int maxY = 0;
 
-        public Map(ItemFactory itemFactory, OtbmFile otbmFile)
+        public Map(ItemFactory itemFactory, OtbmFile otbmFile, SpawnFile spawnFile)
         {
             if (otbmFile.Towns != null)
             {

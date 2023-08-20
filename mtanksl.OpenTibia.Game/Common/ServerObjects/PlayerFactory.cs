@@ -1,7 +1,10 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Game.Components;
+using OpenTibia.Game.GameObjectScripts;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace OpenTibia.Game
 {
@@ -12,6 +15,34 @@ namespace OpenTibia.Game
         public PlayerFactory(Server server)
         {
             this.server = server;
+
+            scripts = new Dictionary<string, GameObjectScript<string, Player> >();
+
+            foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(GameObjectScript<string, Player>).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract) )
+            {
+                GameObjectScript<string, Player> script = (GameObjectScript<string, Player>)Activator.CreateInstance(type);
+
+                scripts.Add(script.Key, script);
+            }
+        }
+
+        private Dictionary<string, GameObjectScript<string, Player> > scripts;
+
+        public GameObjectScript<string, Player> GetPlayerScript(string name)
+        {
+            GameObjectScript<string, Player> script;
+
+            if (scripts.TryGetValue(name, out script) )
+            {
+                return script;
+            }
+            
+            if (scripts.TryGetValue("", out script) )
+            {
+                return script;
+            }
+
+            return null;
         }
 
         public Player Create(IConnection connection, Data.Models.Player databasePlayer)
@@ -102,20 +133,31 @@ namespace OpenTibia.Game
 
             server.GameObjects.AddGameObject(player);
 
-            server.GameObjectComponents.AddComponent(player, new PlayerCooldownBehaviour() );
+            GameObjectScript<string, Player> script = GetPlayerScript(player.Name);
 
-            server.GameObjectComponents.AddComponent(player, new PlayerAttackAndFollowBehaviour() );
-
-            server.GameObjectComponents.AddComponent(player, new PlayerEnvironmentLightBehaviour() );
-
-            server.GameObjectComponents.AddComponent(player, new PlayerPingBehaviour() );
+            if (script != null)
+            {
+                script.Start(player);
+            }
 
             return player;
         }
 
         public bool Detach(Player player)
         {
-            return server.GameObjects.RemoveGameObject(player);
+            if (server.GameObjects.RemoveGameObject(player) )
+            {
+                GameObjectScript<string, Player> script = GetPlayerScript(player.Name);
+
+                if (script != null)
+                {
+                    script.Stop(player);
+                }
+
+                return true;
+            }
+
+            return false;
         }
 
         public void Destroy(Player player)

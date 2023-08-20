@@ -4,72 +4,72 @@ namespace OpenTibia.Game.Scripts
 {
     public class PlayerUseItemScripts : Script
     {
-        public override void Start(Server server)
+        public override void Start()
         {
-            server.CommandHandlers.Add(new UseItemWalkToSourceHandler() );
+            Context.Server.CommandHandlers.Add(new UseItemWalkToSourceHandler() );
 
-            server.CommandHandlers.Add(new ContainerOpenHandler() );
+            Context.Server.CommandHandlers.Add(new ContainerOpenHandler() );
 
-            server.CommandHandlers.Add(new BlueberryBushHandler() );
+            Context.Server.CommandHandlers.Add(new BlueberryBushHandler() );
 
-            server.CommandHandlers.Add(new BookHandler() );
+            Context.Server.CommandHandlers.Add(new BookHandler() );
 
-            server.CommandHandlers.Add(new ConstructionKitHandler() );
+            Context.Server.CommandHandlers.Add(new ConstructionKitHandler() );
 
-            server.CommandHandlers.Add(new CloseDoorHandler() );
+            Context.Server.CommandHandlers.Add(new CloseDoorHandler() );
 
-            server.CommandHandlers.Add(new CrystalCoinHandler() );
+            Context.Server.CommandHandlers.Add(new CrystalCoinHandler() );
 
-            server.CommandHandlers.Add(new DiceHandler() );
+            Context.Server.CommandHandlers.Add(new DiceHandler() );
 
-            server.CommandHandlers.Add(new FireworksRocketHandler() ); 
+            Context.Server.CommandHandlers.Add(new FireworksRocketHandler() );
 
-            server.CommandHandlers.Add(new FoodHandler() );
+            Context.Server.CommandHandlers.Add(new FoodHandler() );
 
-            server.CommandHandlers.Add(new GateOfExpertiseHandler() );
+            Context.Server.CommandHandlers.Add(new GateOfExpertiseHandler() );
 
-            server.CommandHandlers.Add(new GoldCoinHandler() );
+            Context.Server.CommandHandlers.Add(new GoldCoinHandler() );
 
-            server.CommandHandlers.Add(new LadderHandler() );
+            Context.Server.CommandHandlers.Add(new LadderHandler() );
 
-            server.CommandHandlers.Add(new LockedDoorHandler() );
+            Context.Server.CommandHandlers.Add(new LockedDoorHandler() );
 
-            server.CommandHandlers.Add(new MusicalInstrumentHandler() );
+            Context.Server.CommandHandlers.Add(new MusicalInstrumentHandler() );
 
-            server.CommandHandlers.Add(new OpenDoorHandler() );
+            Context.Server.CommandHandlers.Add(new OpenDoorHandler() );
 
-            server.CommandHandlers.Add(new PandaTeddyHandler() );
+            Context.Server.CommandHandlers.Add(new PandaTeddyHandler() );
 
-            server.CommandHandlers.Add(new PartyHatHandler() );
+            Context.Server.CommandHandlers.Add(new PartyHatHandler() );
 
-            server.CommandHandlers.Add(new PartyTrumpetHandler() );
+            Context.Server.CommandHandlers.Add(new PartyTrumpetHandler() );
 
-            server.CommandHandlers.Add(new PiggyBankHandler() );    
+            Context.Server.CommandHandlers.Add(new PiggyBankHandler() );
 
-            server.CommandHandlers.Add(new PlatinumCoinHandler() );
+            Context.Server.CommandHandlers.Add(new PlatinumCoinHandler() );
 
-            server.CommandHandlers.Add(new SantaDollHandler() );
+            Context.Server.CommandHandlers.Add(new SantaDollHandler() );
 
-            server.CommandHandlers.Add(new SealedDoorHandler() );
+            Context.Server.CommandHandlers.Add(new SealedDoorHandler() );
 
-            server.CommandHandlers.Add(new SewerHandler() );
+            Context.Server.CommandHandlers.Add(new SewerHandler() );
 
-            server.CommandHandlers.Add(new SnowHeapHandler() );
+            Context.Server.CommandHandlers.Add(new SnowHeapHandler() );
 
-            server.CommandHandlers.Add(new StuffedDragonHandler() );     
+            Context.Server.CommandHandlers.Add(new StuffedDragonHandler() );
 
-            server.CommandHandlers.Add(new SurpriseBagBlueHandler() );
+            Context.Server.CommandHandlers.Add(new SurpriseBagBlueHandler() );
 
-            server.CommandHandlers.Add(new SurpriseBagRedHandler() );
+            Context.Server.CommandHandlers.Add(new SurpriseBagRedHandler() );
 
-            server.CommandHandlers.Add(new UseItemTransformHandler() );
+            Context.Server.CommandHandlers.Add(new UseItemTransformHandler() );
 
-            server.CommandHandlers.Add(new WatchHandler() );
+            Context.Server.CommandHandlers.Add(new WatchHandler() );
 
-            server.CommandHandlers.Add(new WindowHandler() );
+            Context.Server.CommandHandlers.Add(new WindowHandler() );
         }
 
-        public override void Stop(Server server)
+        public override void Stop()
         {
             
         }

@@ -9,9 +9,7 @@
     <None Remove="data\items\items.otb" />
     <None Remove="data\items\items.xml" />
     <None Remove="data\items\tibia.dat" />
-    <None Remove="data\map\pholium3-house.xml" />
-    <None Remove="data\map\pholium3-spawn.xml" />
-    <None Remove="data\map\pholium3.otbm" />
+
     <None Remove="data\monsters\Acid Blob.xml" />
     <None Remove="data\monsters\Acolyte of the Cult.xml" />
     <None Remove="data\monsters\Adept of the Cult.xml" />
@@ -1394,13 +1392,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="data\map\map-house.xml">
+    <None Update="data\world\map-house.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="data\map\map-spawn.xml">
+    <None Update="data\world\map-spawn.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="data\map\map.otbm">
+    <None Update="data\world\map.otbm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -4,42 +4,42 @@ namespace OpenTibia.Game.Scripts
 {
     public class PlayerSayScripts : Script
     {
-        public override void Start(Server server)
+        public override void Start()
         {
-            server.CommandHandlers.Add(new SpellsHandler() );
+            Context.Server.CommandHandlers.Add(new SpellsHandler() );
 
-            server.CommandHandlers.Add(new DisplayMagicEffectHandler() );
+            Context.Server.CommandHandlers.Add(new DisplayMagicEffectHandler() );
 
-             server.CommandHandlers.Add(new DisplayProjectileTypeHandler() );
+            Context.Server.CommandHandlers.Add(new DisplayProjectileTypeHandler() );
 
-            server.CommandHandlers.Add(new KickPlayerHandler() );
+            Context.Server.CommandHandlers.Add(new KickPlayerHandler() );
 
-            server.CommandHandlers.Add(new TeleportDownHandler() );
+            Context.Server.CommandHandlers.Add(new TeleportDownHandler() );
 
-            server.CommandHandlers.Add(new TeleportToPlayerHandler() );
+            Context.Server.CommandHandlers.Add(new TeleportToPlayerHandler() );
 
-            server.CommandHandlers.Add(new TeleportUpHandler() );
+            Context.Server.CommandHandlers.Add(new TeleportUpHandler() );
 
-            server.CommandHandlers.Add(new CreateItemHandler() );
+            Context.Server.CommandHandlers.Add(new CreateItemHandler() );
 
-            server.CommandHandlers.Add(new CreateMonsterHandler() );
+            Context.Server.CommandHandlers.Add(new CreateMonsterHandler() );
 
-            server.CommandHandlers.Add(new CreateNpcHandler() );
+            Context.Server.CommandHandlers.Add(new CreateNpcHandler() );
 
-            server.CommandHandlers.Add(new DestroyMonsterNpcItemHandler() );
+            Context.Server.CommandHandlers.Add(new DestroyMonsterNpcItemHandler() );
 
-            server.CommandHandlers.Add(new InvisibleHandler() );
+            Context.Server.CommandHandlers.Add(new InvisibleHandler() );
 
-            server.CommandHandlers.Add(new TeleportHandler() );
+            Context.Server.CommandHandlers.Add(new TeleportHandler() );
 
-            server.CommandHandlers.Add(new TeleportPlayerHandler() );
+            Context.Server.CommandHandlers.Add(new TeleportPlayerHandler() );
 
-            server.CommandHandlers.Add(new TeleportToTownHandler() );
+            Context.Server.CommandHandlers.Add(new TeleportToTownHandler() );
 
-            server.CommandHandlers.Add(new TeleportToWaypointHandler() );
+            Context.Server.CommandHandlers.Add(new TeleportToWaypointHandler() );
         }
 
-        public override void Stop(Server server)
+        public override void Stop()
         {
             
         }

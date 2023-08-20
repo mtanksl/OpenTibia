@@ -72,9 +72,7 @@ namespace OpenTibia.Common.Objects
 
                             server.QueueForExecution( () =>
                             {
-                                Context context = Context.Current;
-
-                                return context.AddCommand(command);
+                                return Context.Current.AddCommand(command);
                             } );
                         }
                         else

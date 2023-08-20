@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        public override async Promise Start(Server server, Creature target)
+        public override async Promise Start(Creature target)
         {
             Player player = (Player)target;
 
@@ -176,11 +176,11 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        public override void Stop(Server server)
+        public override void Stop()
         {
             if (delayBehaviour != null)
             {
-                delayBehaviour.Stop(server);
+                delayBehaviour.Stop();
             }
         }
     }

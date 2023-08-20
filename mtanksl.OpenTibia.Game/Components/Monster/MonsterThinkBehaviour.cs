@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Commands;
 using OpenTibia.Game.Events;
 using System;
 using System.Linq;
@@ -8,34 +9,23 @@ namespace OpenTibia.Game.Components
 {
     public class MonsterThinkBehaviour : Behaviour
     {
-        private TargetAction[] targetActions;
-
-        private NonTargetAction[] nonTargetActions;
-
-        public MonsterThinkBehaviour(TargetAction[] targetActions, NonTargetAction[] nonTargetActions)
-        {
-            this.targetActions = targetActions;
-
-            this.nonTargetActions = nonTargetActions;
-        }
-
         private Guid globalTick;
 
-        public override void Start(Server server)
+        public override void Start()
         {
-            Creature attacker = (Creature)GameObject;
+            Monster monster = (Monster)GameObject;
 
             Player target = null;
 
-            globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>(async (context, e) =>
+            globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
             {
-                if (target == null || target.IsDestroyed || !attacker.Tile.Position.CanHearSay(target.Tile.Position) )
+                if (target == null || target.Tile == null || target.IsDestroyed || !monster.Tile.Position.CanSee(target.Tile.Position) )
                 {
-                    Player[] players = server.Map.GetObservers(attacker.Tile.Position).OfType<Player>().Where(p => p.Vocation != Vocation.Gamemaster && attacker.Tile.Position.CanHearSay(p.Tile.Position) ).ToArray();
+                    Player[] players = Context.Server.Map.GetObservers(monster.Tile.Position).OfType<Player>().Where(p => p.Vocation != Vocation.Gamemaster && monster.Tile.Position.CanHearSay(p.Tile.Position) ).ToArray();
 
                     if (players.Length > 0)
                     {
-                        target = server.Randomization.Take(players);
+                        target = Context.Server.Randomization.Take(players);
                     }
                     else
                     {
@@ -43,22 +33,11 @@ namespace OpenTibia.Game.Components
                     }
                 }
 
-                if (target != null)
-                {
-                    foreach (var targetAction in targetActions)
-                    {
-                        await targetAction.Update(attacker, target);
-                    }
-                }
-
-                foreach (var nonTargetAction in nonTargetActions)
-                {
-                    await nonTargetAction.Update(attacker);
-                }
+                return Promise.Completed;
             } );
         }
 
-        public override void Stop(Server server)
+        public override void Stop()
         {
             Context.Server.EventHandlers.Unsubscribe<GlobalTickEventArgs>(globalTick);
         }

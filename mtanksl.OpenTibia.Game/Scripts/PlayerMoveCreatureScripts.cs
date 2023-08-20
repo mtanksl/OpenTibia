@@ -8,15 +8,15 @@ namespace OpenTibia.Game.Scripts
 {
     public class PlayerMoveCreatureScripts : Script
     {
-        public override void Start(Server server)
+        public override void Start()
         {
-            server.CommandHandlers.Add(new MoveCreatureWalkToSourceHandler() );
+            Context.Server.CommandHandlers.Add(new MoveCreatureWalkToSourceHandler() );
 
-            server.CommandHandlers.Add(new InlineCommandHandler<PlayerMoveCreatureCommand>( (context, next, command) => 
+            Context.Server.CommandHandlers.Add(new InlineCommandHandler<PlayerMoveCreatureCommand>( (context, next, command) => 
             {
                 if ( !command.Creature.Tile.Position.IsNextTo(command.ToTile.Position) )
                 {
-                    context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.DestinationIsOutOfReach) );
+                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.DestinationIsOutOfReach) );
 
                     return Promise.Break;
                 }
@@ -24,11 +24,11 @@ namespace OpenTibia.Game.Scripts
                 return next();
             } ) );
 
-            server.CommandHandlers.Add(new InlineCommandHandler<PlayerMoveCreatureCommand>( (context, next, command) => 
+            Context.Server.CommandHandlers.Add(new InlineCommandHandler<PlayerMoveCreatureCommand>( (context, next, command) => 
             {
                 if (command.ToTile.Ground == null || command.ToTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || command.ToTile.GetCreatures().Any(c => c.Block) )
                 {
-                    context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtRoom) );
+                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtRoom) );
 
                     return Promise.Break;
                 }
@@ -37,7 +37,7 @@ namespace OpenTibia.Game.Scripts
             } ) );
         }
 
-        public override void Stop(Server server)
+        public override void Stop()
         {
             
         }

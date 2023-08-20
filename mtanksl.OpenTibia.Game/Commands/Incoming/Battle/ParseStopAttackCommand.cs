@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Commands
 
             if (playerAttackAndFollowBehaviour != null)
             {
-                playerAttackAndFollowBehaviour.Stop();
+                playerAttackAndFollowBehaviour.StopAttackAndFollow();
             }
 
             Context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );

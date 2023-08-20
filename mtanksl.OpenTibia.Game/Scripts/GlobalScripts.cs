@@ -7,20 +7,20 @@ namespace OpenTibia.Game.Scripts
 {
     public class GlobalScripts : Script
     {
-        public override void Start(Server server)
+        public override void Start()
         {
-            Tick(server);
+            Tick();
 
-            TibiaClockTick(server);
+            TibiaClockTick();
 
-            Ping(server);
+            Ping();
         }
 
-        private void Tick(Server server)
+        private void Tick()
         {
             Promise.Delay("Tick", TimeSpan.FromMilliseconds(100) ).Then( () =>
             {
-                Tick(server);
+                Tick();
 
                 Context.AddEvent(new GlobalTickEventArgs() );
 
@@ -28,11 +28,11 @@ namespace OpenTibia.Game.Scripts
             } );
         }
 
-        private void TibiaClockTick(Server server)
+        private void TibiaClockTick()
         {
             Promise.Delay("TibiaClockTick", TimeSpan.FromMilliseconds(Clock.Interval) ).Then( () =>
             {
-                TibiaClockTick(server);
+                TibiaClockTick();
 
                 Context.Server.Clock.Tick();
 
@@ -42,11 +42,11 @@ namespace OpenTibia.Game.Scripts
             } );
         }
 
-        private void Ping(Server server)
+        private void Ping()
         {
             Promise.Delay("Ping", TimeSpan.FromSeconds(10) ).Then( () =>
             {
-                Ping(server);
+                Ping();
 
                 Context.AddEvent(new GlobalPingEventArgs() );
 
@@ -54,13 +54,13 @@ namespace OpenTibia.Game.Scripts
             } );
         }
 
-        public override void Stop(Server server)
+        public override void Stop()
         {
-            server.CancelQueueForExecution("Tick");
+            Context.Server.CancelQueueForExecution("Tick");
 
-            server.CancelQueueForExecution("TibiaClockTick");
+            Context.Server.CancelQueueForExecution("TibiaClockTick");
 
-            server.CancelQueueForExecution("Ping");
+            Context.Server.CancelQueueForExecution("Ping");
         }
     }
 }

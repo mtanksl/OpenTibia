@@ -5,17 +5,17 @@ namespace OpenTibia.Game.Scripts
 {
     public class PlayerLoginScripts : Script
     {
-        public override void Start(Server server)
+        public override void Start()
         {
-            server.EventHandlers.Subscribe<PlayerLoginEventArgs>( (context, e) =>
+            Context.Server.EventHandlers.Subscribe<PlayerLoginEventArgs>( (context, e) =>
             {
-                server.Logger.WriteLine(e.Player.Name + " login.", LogLevel.Information);
+                Context.Server.Logger.WriteLine(e.Player.Name + " login.", LogLevel.Information);
 
                 return Promise.Completed;
             } );
         }
 
-        public override void Stop(Server server)
+        public override void Stop()
         {
             
         }

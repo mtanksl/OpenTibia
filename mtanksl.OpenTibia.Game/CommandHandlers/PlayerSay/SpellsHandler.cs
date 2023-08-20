@@ -391,9 +391,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     var formula = LightHealingFormula(attacker.Level, attacker.Skills.MagicLevel);
 
-                    var damage = Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
-
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, attacker, new HealingAttack(MagicEffectType.BlueShimmer, damage) ) );
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, attacker, new HealingAttack(MagicEffectType.BlueShimmer, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -417,9 +415,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     var formula = IntenseHealingFormula(attacker.Level, attacker.Skills.MagicLevel);
                     
-                    var damage = Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
-
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, attacker, new HealingAttack(MagicEffectType.BlueShimmer, damage) ) );
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, attacker, new HealingAttack(MagicEffectType.BlueShimmer, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -445,7 +441,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var damage = Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
 
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, attacker, new HealingAttack(MagicEffectType.BlueShimmer, damage) ) );
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, attacker, new HealingAttack(MagicEffectType.BlueShimmer, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -480,9 +476,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = MassHealingFormula(attacker.Level, attacker.Skills.MagicLevel);
 
-                    var damage = Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
-
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.BlueShimmer, new HealingAttack(null, damage) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.BlueShimmer, new HealingAttack(null, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -511,9 +505,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 45, 10);
 
-                    var damage = -Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
-
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.MortArea, new SimpleAttack(null, null, AnimatedTextColor.DarkRed, damage) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.MortArea, new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -542,9 +534,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 45, 10);
 
-                    var damage = -Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
-
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.FirePlume, new SimpleAttack(null, null, AnimatedTextColor.Orange, damage) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.FirePlume, new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -573,9 +563,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 45, 10);
 
-                    var damage = -Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
-
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.EnergyArea, new SimpleAttack(null, null, AnimatedTextColor.LightBlue, damage) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.EnergyArea, new SimpleAttack(null, null, AnimatedTextColor.LightBlue, formula.Min, formula.Max) ) );
                 }
             },
                        
@@ -607,9 +595,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 30, 10);
 
-                    var damage = -Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
-
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.FireArea, new SimpleAttack(null, null, AnimatedTextColor.Orange, damage) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.FireArea, new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -642,9 +628,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 60, 20);
 
-                    var damage = -Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
-
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.EnergyArea, new SimpleAttack(null, null, AnimatedTextColor.LightBlue, damage) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.EnergyArea, new SimpleAttack(null, null, AnimatedTextColor.LightBlue, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -679,9 +663,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 120, 80);
 
-                    var damage = -Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
-
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.EnergyArea, new SimpleAttack(null, null, AnimatedTextColor.LightBlue, damage) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.EnergyArea, new SimpleAttack(null, null, AnimatedTextColor.LightBlue, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -714,9 +696,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 150, 50);
 
-                    var damage = -Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
-
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.MortArea, new SimpleAttack(null, null, AnimatedTextColor.DarkRed, damage) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.MortArea, new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -756,9 +736,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 250, 50);
 
-                    var damage = -Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
-
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.FireArea, new SimpleAttack(null, null, AnimatedTextColor.Orange, damage) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.FireArea, new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -798,9 +776,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 200, 50);
 
-                    var damage = -Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
-
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.GreenRings, new SimpleAttack(null, null, AnimatedTextColor.Green, damage) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.GreenRings, new SimpleAttack(null, null, AnimatedTextColor.Green, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -831,9 +807,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = BerserkFormula(attacker.Level, attacker.Skills.Fist, 0);
 
-                    var damage = -Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
-
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.BlackSpark, new SimpleAttack(null, null, AnimatedTextColor.DarkRed, damage) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.BlackSpark, new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
                 }
             }
         };

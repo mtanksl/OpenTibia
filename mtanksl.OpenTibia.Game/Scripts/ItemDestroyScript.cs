@@ -4,12 +4,12 @@ namespace OpenTibia.Game.Scripts
 {
     public class ItemDestroyScript : Script
     {
-        public override void Start(Server server)
+        public override void Start()
         {
-            server.CommandHandlers.Add(new ItemDestroyContainerCloseHandler() );
+            Context.Server.CommandHandlers.Add(new ItemDestroyContainerCloseHandler() );
         }
 
-        public override void Stop(Server server)
+        public override void Stop()
         {
             
         }

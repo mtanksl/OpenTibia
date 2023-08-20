@@ -32,11 +32,11 @@ namespace OpenTibia.Game.Components
 
         private string key = Guid.NewGuid().ToString();
 
-        public override void Start(Server server)
+        public override void Start()
         {
             promise = Promise.Delay(key, executeIn).Then(Update).Then( () =>
             {
-                server.GameObjectComponents.RemoveComponent(GameObject, this);
+                Context.Server.GameObjectComponents.RemoveComponent(GameObject, this);
 
                 return Promise.Completed;
                 
@@ -48,10 +48,10 @@ namespace OpenTibia.Game.Components
                 }
                 else
                 {
-                    server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                    Context.Server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
                 }
 
-                server.GameObjectComponents.RemoveComponent(GameObject, this);
+                Context.Server.GameObjectComponents.RemoveComponent(GameObject, this);
             } );
         }
 
@@ -60,9 +60,9 @@ namespace OpenTibia.Game.Components
             return Promise.Completed;
         }
 
-        public override void Stop(Server server)
+        public override void Stop()
         {
-            server.CancelQueueForExecution(key);
+            Context.Server.CancelQueueForExecution(key);
         }
     }
 }

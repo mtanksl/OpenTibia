@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Commands
 
         public TimeSpan Duration { get; set; }
 
-        public override Promise Start(Server server, Creature target)
+        public override Promise Start(Creature target)
         {
             return Context.Current.AddCommand(new CreatureUpdateSpeedCommand(target, target.BaseSpeed, Speed) ).Then( () =>
             {
@@ -33,11 +33,11 @@ namespace OpenTibia.Game.Commands
             } );
         }
 
-        public override void Stop(Server server)
+        public override void Stop()
         {
             if (delayBehaviour != null)
             {
-                delayBehaviour.Stop(server);
+                delayBehaviour.Stop();
             }
         }
     }

@@ -15,18 +15,18 @@ namespace OpenTibia.Game.Commands
 
         public TimeSpan Duration { get; set; }
 
-        public override Promise Start(Server server, Creature target)
+        public override Promise Start(Creature target)
         {
             delayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent(target, new DelayBehaviour(Duration) );
 
             return delayBehaviour.Promise;
         }
 
-        public override void Stop(Server server)
+        public override void Stop()
         {
             if (delayBehaviour != null)
             {
-                delayBehaviour.Stop(server);
+                delayBehaviour.Stop();
             }            
         }
     }

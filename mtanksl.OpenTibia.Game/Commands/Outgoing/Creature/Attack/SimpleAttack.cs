@@ -5,7 +5,7 @@ namespace OpenTibia.Game.Commands
 {
     public class SimpleAttack : Attack
     {
-        public SimpleAttack(ProjectileType? projectileType, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int damage)
+        public SimpleAttack(ProjectileType? projectileType, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int min, int max)
         {
             ProjectileType = projectileType;
 
@@ -13,7 +13,9 @@ namespace OpenTibia.Game.Commands
 
             AnimatedTextColor = animatedTextColor;
 
-            Damage = damage;
+            Min = min;
+
+            Max = max;
         }
 
         public ProjectileType? ProjectileType { get; set; }
@@ -22,11 +24,13 @@ namespace OpenTibia.Game.Commands
 
         public AnimatedTextColor? AnimatedTextColor { get; set; }
 
-        public int Damage { get; set; }
+        public int Min { get; set; }
+
+        public int Max { get; set; }
 
         public override int Calculate(Creature attacker, Creature target)
         {
-            return Damage;
+            return -Context.Current.Server.Randomization.Take(Min, Max);
         }
 
         public override Promise Missed(Creature attacker, Creature target)

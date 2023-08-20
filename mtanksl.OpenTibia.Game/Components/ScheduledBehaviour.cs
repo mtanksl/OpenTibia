@@ -27,9 +27,9 @@ namespace OpenTibia.Game.Components
 
         private Guid globalTibiaClockTick;
 
-        public override void Start(Server server)
+        public override void Start()
         {
-            globalTibiaClockTick = server.EventHandlers.Subscribe<GlobalTibiaClockTickEventArgs>( (context, e) =>
+            globalTibiaClockTick = Context.Server.EventHandlers.Subscribe<GlobalTibiaClockTickEventArgs>( (context, e) =>
             {
                 if (e.Hour == hour && e.Minute == minute)
                 {
@@ -41,7 +41,7 @@ namespace OpenTibia.Game.Components
                         }
                         else
                         {
-                            server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                            Context.Server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
                         }
                     } );
                 }
@@ -52,9 +52,9 @@ namespace OpenTibia.Game.Components
 
         public abstract Promise Update();
 
-        public override void Stop(Server server)
+        public override void Stop()
         {
-            server.EventHandlers.Unsubscribe<GlobalTibiaClockTickEventArgs>(globalTibiaClockTick);
+            Context.Server.EventHandlers.Unsubscribe<GlobalTibiaClockTickEventArgs>(globalTibiaClockTick);
         }
     }
 }

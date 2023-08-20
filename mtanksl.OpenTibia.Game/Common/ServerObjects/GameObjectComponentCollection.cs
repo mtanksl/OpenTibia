@@ -7,13 +7,6 @@ namespace OpenTibia.Game
 {
     public class GameObjectComponentCollection
     {
-        private Server server;
-
-        public GameObjectComponentCollection(Server server)
-        {
-            this.server = server;
-        }
-
         private Dictionary<uint, List<Component> > buckets = new Dictionary<uint, List<Component> >();
 
         public T AddComponent<T>(GameObject gameObject, T component) where T : Component
@@ -41,7 +34,7 @@ namespace OpenTibia.Game
 
                             if (_behaviour != null)
                             {
-                                _behaviour.Stop(server);
+                                _behaviour.Stop();
                             }
 
                             _component.GameObject = null;
@@ -56,7 +49,7 @@ namespace OpenTibia.Game
 
             if (behaviour != null)
             {
-                behaviour.Start(server);
+                behaviour.Start();
             }
 
             return component;
@@ -74,7 +67,7 @@ namespace OpenTibia.Game
 
                     if (behaviour != null)
                     {
-                        behaviour.Stop(server);
+                        behaviour.Stop();
                     }
 
                     if (components.Count == 0)
@@ -127,7 +120,7 @@ namespace OpenTibia.Game
 
                         if (behaviour != null)
                         {
-                            behaviour.Stop(server);
+                            behaviour.Stop();
                         }
 
                         if (components.Count == 0)

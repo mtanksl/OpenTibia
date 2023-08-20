@@ -10,8 +10,8 @@
             }
         }
 
-        public abstract void Start(Server server);
+        public abstract void Start();
 
-        public abstract void Stop(Server server);
+        public abstract void Stop();
     }
 }

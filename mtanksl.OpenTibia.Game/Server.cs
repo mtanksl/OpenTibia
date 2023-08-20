@@ -46,7 +46,7 @@ namespace OpenTibia.Game
 
             GameObjects = new GameObjectCollection();
 
-            GameObjectComponents = new GameObjectComponentCollection(this);
+            GameObjectComponents = new GameObjectComponentCollection();
 
             GameObjectEventHandlers = new GameObjectEventHandlerCollection();
 
@@ -54,7 +54,7 @@ namespace OpenTibia.Game
 
             EventHandlers = new EventHandlerCollection();
 
-            Scripts = new ScriptsCollection(this);
+            Scripts = new ScriptsCollection();
         }
 
         ~Server()
@@ -94,7 +94,6 @@ namespace OpenTibia.Game
 
         public ScriptsCollection Scripts { get; set; }
 
-
         public ItemFactory ItemFactory { get; set; }
 
         public PlayerFactory PlayerFactory { get; set; }
@@ -109,72 +108,54 @@ namespace OpenTibia.Game
 
         public void Start()
         {
-            Logger.WriteLine("An open Tibia server developed by mtanksl");
-            Logger.WriteLine("Source code: https://github.com/mtanksl/OpenTibia");
-            Logger.WriteLine();
-
-            using (Logger.Measure("Loading items") )
-            {
-                ItemFactory = new ItemFactory(this, OtbFile.Load("data/items/items.otb"), DatFile.Load("data/items/tibia.dat"), ItemsFile.Load("data/items/items.xml") );
-            }
-
-            PlayerFactory = new PlayerFactory(this);
-
-            using (Logger.Measure("Loading monsters") )
-            {
-                MonsterFactory = new MonsterFactory(this, MonsterFile.Load("data/monsters") );
-            }
-
-            using (Logger.Measure("Loading npcs") )
-            {
-                NpcFactory = new NpcFactory(this, NpcFile.Load("data/npcs") );
-            }
-
-            using (Logger.Measure("Loading map") )
-            {
-                Map = new Map(ItemFactory, OtbmFile.Load("data/map/map.otbm") );
-            }
-            
-            Pathfinding = new Pathfinding(Map);
-
             dispatcher.Start();
 
             scheduler.Start();
-
-            QueueForExecution( () =>
-            {
-                Scripts.Start();
-
-                return Promise.Completed;
-
-            } ).Wait();
 
             foreach (var listener in listeners)
             {
                 listener.Start();
             }
 
-            Logger.WriteLine("Server online");
-
-            //TODO: Spawn script
-
-            QueueForExecution(async () =>
+            QueueForExecution( () =>
             {
-                SpawnFile spawnFile = SpawnFile.Load("data/map/map-spawn.xml");
+                Logger.WriteLine("An open Tibia server developed by mtanksl");
 
-                foreach (var spawn in spawnFile.Spawns)
+                Logger.WriteLine("Source code: https://github.com/mtanksl/OpenTibia");
+
+                Logger.WriteLine();
+
+                using (Logger.Measure("Loading items") )
                 {
-                    foreach (var xmlMonster in spawn.Monsters)
-                    {
-                        await Context.Current.AddCommand(new TileCreateMonsterCommand(Map.GetTile(xmlMonster.Position), xmlMonster.Name) );
-                    }
-
-                    foreach (var xmlNpc in spawn.Npcs)
-                    {
-                        await Context.Current.AddCommand(new TileCreateNpcCommand(Map.GetTile(xmlNpc.Position), xmlNpc.Name) );
-                    }
+                    ItemFactory = new ItemFactory(this, OtbFile.Load("data/items/items.otb"), DatFile.Load("data/items/tibia.dat"), ItemsFile.Load("data/items/items.xml") );
                 }
-            } );
+
+                PlayerFactory = new PlayerFactory(this);
+
+                using (Logger.Measure("Loading monsters") )
+                {
+                    MonsterFactory = new MonsterFactory(this, MonsterFile.Load("data/monsters") );
+                }
+
+                using (Logger.Measure("Loading npcs") )
+                {
+                    NpcFactory = new NpcFactory(this, NpcFile.Load("data/npcs") );
+                }
+
+                using (Logger.Measure("Loading map") )
+                {
+                    Map = new Map(ItemFactory, OtbmFile.Load("data/world/map.otbm"), SpawnFile.Load("data/world/map-spawn.xml") );
+                }
+
+                Pathfinding = new Pathfinding(Map);
+
+                Scripts.Start();
+
+                Logger.WriteLine("Server online");
+
+                return Promise.Completed;
+
+            } ).Wait();
         }
 
         private Dictionary<string, SchedulerEvent> schedulerEvents = new Dictionary<string, SchedulerEvent>();
@@ -310,13 +291,11 @@ namespace OpenTibia.Game
         {
             QueueForExecution( () =>
             {
-                Context context = Context.Current;
-
                 List<Promise> promises = new List<Promise>();
 
-                foreach (var observer in context.Server.GameObjects.GetPlayers() )
+                foreach (var observer in Context.Current.Server.GameObjects.GetPlayers() )
                 {
-                    promises.Add(context.AddCommand(new PlayerDestroyCommand(observer) ) );
+                    promises.Add(Context.Current.AddCommand(new PlayerDestroyCommand(observer) ) );
                 }
 
                 return Promise.WhenAll(promises.ToArray() );
@@ -330,6 +309,8 @@ namespace OpenTibia.Game
             {
                 Scripts.Stop();
 
+                Logger.WriteLine("Server offline");
+
                 return Promise.Completed;
 
             } ).Wait();
@@ -341,9 +322,7 @@ namespace OpenTibia.Game
 
             scheduler.Stop();
 
-            dispatcher.Stop();
-
-            Logger.WriteLine("Server offline");
+            dispatcher.Stop();            
         }
 
         private bool disposed = false;

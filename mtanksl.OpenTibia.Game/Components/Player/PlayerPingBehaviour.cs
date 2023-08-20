@@ -8,11 +8,16 @@ namespace OpenTibia.Game.Components
 {
     public class PlayerPingBehaviour : Behaviour
     {
-        private Guid globalPing;
-
         private DateTime lastPingResponse = DateTime.UtcNow;
 
-        public override void Start(Server server)
+        public void SetLastPingResponse()
+        {
+            lastPingResponse = DateTime.UtcNow;
+        }
+
+        private Guid globalPing;
+
+        public override void Start()
         {
             Player player = (Player)GameObject;
 
@@ -29,12 +34,7 @@ namespace OpenTibia.Game.Components
             } );
         }
 
-        public void SetLastPingResponse()
-        {
-            lastPingResponse = DateTime.UtcNow;
-        }
-
-        public override void Stop(Server server)
+        public override void Stop()
         {
             Context.Server.EventHandlers.Unsubscribe<GlobalPingEventArgs>(globalPing);
         }

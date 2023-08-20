@@ -21,6 +21,11 @@ namespace OpenTibia.Game
                 throw new ArgumentException();
             }
 
+            if (min == max)
+            {
+                return min;
+            }
+
             return random.Next(min, max);
         }
 

@@ -10,7 +10,7 @@ namespace OpenTibia.Game.Components
     {
         private Guid globalTibiaClockTick;
 
-        public override void Start(Server server)
+        public override void Start()
         {
             Player player = (Player)GameObject;
 
@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Components
             } );
         }
 
-        public override void Stop(Server server)
+        public override void Stop()
         {
             Context.Server.EventHandlers.Unsubscribe<GlobalTibiaClockTickEventArgs>(globalTibiaClockTick);
         }

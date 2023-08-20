@@ -26,9 +26,7 @@ namespace OpenTibia.Common.Objects
 
             server.QueueForExecution( () =>
             {
-                Context context = Context.Current;
-
-                context.AddPacket(this, new SendConnectionInfoOutgoingPacket() );
+                Context.Current.AddPacket(this, new SendConnectionInfoOutgoingPacket() );
 
                 return Promise.Completed;
             } );
@@ -85,9 +83,7 @@ namespace OpenTibia.Common.Objects
 
                             server.QueueForExecution( () =>
                             {
-                                Context context = Context.Current;
-
-                                return context.AddCommand(command);
+                                return Context.Current.AddCommand(command);
                             } );
                         }
                         else
@@ -99,7 +95,7 @@ namespace OpenTibia.Common.Objects
                     }
                     else
                     {
-                        if (Client == null || Client.Player == null || Client.Player.IsDestroyed)
+                        if (Client == null || Client.Player == null || Client.Player.Tile == null || Client.Player.IsDestroyed)
                         {
                             Disconnect();
                         }
@@ -828,9 +824,7 @@ namespace OpenTibia.Common.Objects
 
                                 server.QueueForExecution( () =>
                                 {
-                                    Context context = Context.Current;
-
-                                    return context.AddCommand(command);
+                                    return Context.Current.AddCommand(command);
                                 } );
                             }
                             else
@@ -865,9 +859,7 @@ namespace OpenTibia.Common.Objects
             {
                 server.QueueForExecution( () =>
                 {
-                    Context context = Context.Current;
-
-                    return context.AddCommand(new ParseLogOutCommand(Client.Player) );
+                    return Context.Current.AddCommand(new ParseLogOutCommand(Client.Player) );
                 } );
             }
             
