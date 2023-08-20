@@ -12,14 +12,6 @@ namespace OpenTibia.Game.Components
             }
         }
 
-        public virtual bool IsUnique
-        {
-            get
-            {
-                return true;
-            }
-        }
-
         public abstract void Start();
 
         public abstract void Stop();

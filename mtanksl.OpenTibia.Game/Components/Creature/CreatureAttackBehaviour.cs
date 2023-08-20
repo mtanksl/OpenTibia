@@ -14,6 +14,18 @@ namespace OpenTibia.Game.Components
             this.attackStrategy = attackStrategy;
         }
 
+        private Creature target;
+
+        public void Attack(Creature creature)
+        {
+            target = creature;
+        }
+
+        public void StopAttackAndFollow()
+        {
+            target = null;
+        }
+
         private Guid globalTick;
 
         public override void Start()
@@ -24,16 +36,26 @@ namespace OpenTibia.Game.Components
 
             globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
             {
-                if (DateTime.UtcNow > lastCreatureAttack)
+                if (target != null)
                 {
-                    if (attackStrategy.CanAttack(creature, null) )
+                    if (target.Tile == null || target.IsDestroyed)
                     {
-                        lastCreatureAttack = DateTime.UtcNow.Add(attackStrategy.Cooldown);
-
-                        return attackStrategy.Attack(creature, null);
+                        StopAttackAndFollow();
                     }
+                    else
+                    {
+                        if (DateTime.UtcNow > lastCreatureAttack)
+                        {
+                            if (attackStrategy.CanAttack(creature, target) )
+                            {
+                                lastCreatureAttack = DateTime.UtcNow.Add(attackStrategy.Cooldown);
 
-                    lastCreatureAttack = DateTime.UtcNow.AddMilliseconds(500);
+                                return attackStrategy.Attack(creature, target);
+                            }
+
+                            lastCreatureAttack = DateTime.UtcNow.AddMilliseconds(500);
+                        }
+                    }
                 }
 
                 return Promise.Completed;

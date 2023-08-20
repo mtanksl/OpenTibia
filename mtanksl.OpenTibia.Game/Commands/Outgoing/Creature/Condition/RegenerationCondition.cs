@@ -150,7 +150,7 @@ namespace OpenTibia.Game.Commands
 
             while (regenerationTick > 0)
             {
-                delayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent(player, new DelayBehaviour(TimeSpan.FromSeconds(1) ) );
+                delayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent(player, new DelayBehaviour(TimeSpan.FromSeconds(1) ), false);
 
                 await delayBehaviour.Promise;
 

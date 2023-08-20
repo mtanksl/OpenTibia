@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
         {
             return Context.Current.AddCommand(new CreatureUpdateLightCommand(target, Light) ).Then( () =>
             {
-                delayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent(target, new DelayBehaviour(Duration) );
+                delayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent(target, new DelayBehaviour(Duration), false);
 
                 return delayBehaviour.Promise;
 

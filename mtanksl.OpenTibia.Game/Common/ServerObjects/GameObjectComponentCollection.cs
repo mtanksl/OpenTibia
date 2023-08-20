@@ -9,7 +9,7 @@ namespace OpenTibia.Game
     {
         private Dictionary<uint, List<Component> > buckets = new Dictionary<uint, List<Component> >();
 
-        public T AddComponent<T>(GameObject gameObject, T component) where T : Component
+        public T AddComponent<T>(GameObject gameObject, T component, bool isUnique = true) where T : Component
         {
             List<Component> components;
 
@@ -20,25 +20,20 @@ namespace OpenTibia.Game
                 buckets.Add(gameObject.Id, components);
             }
 
-            Behaviour behaviour = component as Behaviour;
-
-            if (behaviour != null)
+            if (isUnique)
             {
-                if (behaviour.IsUnique)
+                foreach (var _component in components.OfType<T>().ToList() )
                 {
-                    foreach (var _component in components.OfType<T>().ToList() )
+                    if (components.Remove(_component) )
                     {
-                        if (components.Remove(_component) )
+                        Behaviour _behaviour = _component as Behaviour;
+
+                        if (_behaviour != null)
                         {
-                            Behaviour _behaviour = _component as Behaviour;
-
-                            if (_behaviour != null)
-                            {
-                                _behaviour.Stop();
-                            }
-
-                            _component.GameObject = null;
+                            _behaviour.Stop();
                         }
+
+                        _component.GameObject = null;
                     }
                 }
             }
@@ -46,6 +41,8 @@ namespace OpenTibia.Game
             components.Add(component);
 
             component.GameObject = gameObject;
+
+            Behaviour behaviour = component as Behaviour;
 
             if (behaviour != null)
             {

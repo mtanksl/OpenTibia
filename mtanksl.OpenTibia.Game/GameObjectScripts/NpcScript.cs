@@ -19,7 +19,7 @@ namespace OpenTibia.Game.GameObjectScripts
         {
             if (npc.Metadata.Sentences != null)
             {
-                Context.Server.GameObjectComponents.AddComponent(npc, new CreatureTalkBehaviour(TimeSpan.FromSeconds(30), TalkType.Say, npc.Metadata.Sentences) );
+                Context.Server.GameObjectComponents.AddComponent(npc, new CreatureTalkBehaviour(TalkType.Say, npc.Metadata.Sentences) );
             }
 
             Context.Server.GameObjectComponents.AddComponent(npc, new CreatureWalkBehaviour(new RandomWalkStrategy() ) );

@@ -14,28 +14,50 @@ namespace OpenTibia.Game.Components
             this.walkStrategy = walkStrategy;
         }
 
+        private Creature target;
+
+        public void Follow(Creature creature)
+        {
+            target = creature;
+        }
+
+        public void StopAttackAndFollow()
+        {
+            target = null;
+        }
+
         private Guid globalTick;
 
         public override void Start()
         {
             Creature creature = (Creature)GameObject;
 
-            DateTime lastCreatureWalk = DateTime.MinValue;
+            DateTime lastWalk = DateTime.MinValue;
 
             globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
             {
-                if (DateTime.UtcNow > lastCreatureWalk)
+                if (target != null)
                 {
-                    Tile toTile;
-
-                    if (walkStrategy.CanWalk(creature, null, out toTile) )
+                    if (target.Tile == null || target.IsDestroyed || !creature.Tile.Position.CanHearSay(target.Tile.Position) )
                     {
-                        lastCreatureWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / creature.Speed);
-
-                        return Context.AddCommand(new CreatureWalkCommand(creature, toTile) );
+                        StopAttackAndFollow();
                     }
+                    else
+                    {
+                        if (DateTime.UtcNow > lastWalk)
+                        {
+                            Tile toTile;
 
-                    lastCreatureWalk = DateTime.UtcNow.AddMilliseconds(500);
+                            if (walkStrategy.CanWalk(creature, target, out toTile) )
+                            {
+                                lastWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / creature.Speed);
+
+                                return Context.AddCommand(new CreatureWalkCommand(creature, toTile) );
+                            }
+
+                            lastWalk = DateTime.UtcNow.AddMilliseconds(500);
+                        }
+                    }
                 }
 
                 return Promise.Completed;

@@ -7,16 +7,13 @@ namespace OpenTibia.Game.Components
     {
         public bool CanWalk(Creature attacker, Creature target, out Tile tile)
         {
-            if (target != null)
+            MoveDirection[] moveDirections = Context.Current.Server.Pathfinding.GetMoveDirections(attacker.Tile.Position, target.Tile.Position);
+
+            if (moveDirections.Length != 0)
             {
-                MoveDirection[] moveDirections = Context.Current.Server.Pathfinding.GetMoveDirections(attacker.Tile.Position, target.Tile.Position);
+                tile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(moveDirections[0] ) );
 
-                if (moveDirections.Length != 0)
-                {
-                    tile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(moveDirections[0] ) );
-
-                    return true;
-                }
+                return true;
             }
 
             tile = null;

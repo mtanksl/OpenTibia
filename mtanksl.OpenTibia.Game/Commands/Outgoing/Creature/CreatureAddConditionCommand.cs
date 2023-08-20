@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Commands
                 Context.Server.GameObjectComponents.RemoveComponent(Target, creatureConditionBehaviour);
             }
 
-            Context.Server.GameObjectComponents.AddComponent(Target, new CreatureConditionBehaviour(Condition) );
+            Context.Server.GameObjectComponents.AddComponent(Target, new CreatureConditionBehaviour(Condition), false);
 
             return Promise.Completed;
         }

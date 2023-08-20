@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Start(Creature target)
         {
-            delayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent(target, new DelayBehaviour(Duration) );
+            delayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent(target, new DelayBehaviour(Duration), false);
 
             return delayBehaviour.Promise;
         }

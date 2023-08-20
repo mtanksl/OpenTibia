@@ -12,14 +12,6 @@ namespace OpenTibia.Game.Components
             this.executeIn = executeIn;
         }
 
-        public override bool IsUnique
-        {
-            get
-            {
-                return false;
-            }
-        }
-
         private string key = Guid.NewGuid().ToString();
 
         public override void Start()

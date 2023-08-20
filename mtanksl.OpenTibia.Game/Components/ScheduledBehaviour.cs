@@ -17,14 +17,6 @@ namespace OpenTibia.Game.Components
             this.minute = minute;
         }
 
-        public override bool IsUnique
-        {
-            get
-            {
-                return false;
-            }
-        }
-
         private Guid globalTibiaClockTick;
 
         public override void Start()

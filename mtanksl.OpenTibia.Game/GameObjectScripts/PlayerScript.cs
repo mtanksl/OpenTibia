@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Components;
+using System;
 
 namespace OpenTibia.Game.GameObjectScripts
 {
@@ -15,7 +16,7 @@ namespace OpenTibia.Game.GameObjectScripts
 
         public override void Start(Player player)
         {
-            Context.Server.GameObjectComponents.AddComponent(player, new PlayerAttackAndFollowBehaviour() );
+            Context.Server.GameObjectComponents.AddComponent(player, new PlayerAttackAndWalkBehaviour(new MeleeAttackStrategy(null, null, TimeSpan.FromMilliseconds(500) ), new FollowWalkStrategy() ) );
 
             Context.Server.GameObjectComponents.AddComponent(player, new PlayerCooldownBehaviour() );
 

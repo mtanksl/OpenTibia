@@ -8,16 +8,12 @@ namespace OpenTibia.Game.Components
 {
     public class CreatureTalkBehaviour : Behaviour
     {
-        private TimeSpan cooldown;
-
         private TalkType talkType;
 
         private string[] sentences;
 
-        public CreatureTalkBehaviour(TimeSpan cooldown, TalkType talkType, string[] sentences)
+        public CreatureTalkBehaviour(TalkType talkType, string[] sentences)
         {
-            this.cooldown = cooldown;
-
             this.talkType = talkType;
 
             this.sentences = sentences;
@@ -29,13 +25,13 @@ namespace OpenTibia.Game.Components
         {
             Creature creature = (Creature)GameObject;
 
-            DateTime lastCreatureTalk = DateTime.MinValue;
+            DateTime lastTalk = DateTime.MinValue;
 
             globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
             {
-                if (DateTime.UtcNow > lastCreatureTalk)
+                if (DateTime.UtcNow > lastTalk)
                 {
-                    lastCreatureTalk = DateTime.UtcNow.Add(cooldown);
+                    lastTalk = DateTime.UtcNow.Add(TimeSpan.FromSeconds(30) );
 
                     return Context.AddCommand(new ShowTextCommand(creature, talkType, Context.Server.Randomization.Take(sentences) ) );
                 }

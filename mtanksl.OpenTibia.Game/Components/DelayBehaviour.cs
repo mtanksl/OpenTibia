@@ -12,14 +12,6 @@ namespace OpenTibia.Game.Components
             this.executeIn = executeIn;
         }
 
-        public override bool IsUnique
-        {
-            get
-            {
-                return false;
-            }
-        }
-
         private Promise promise;
 
         public Promise Promise

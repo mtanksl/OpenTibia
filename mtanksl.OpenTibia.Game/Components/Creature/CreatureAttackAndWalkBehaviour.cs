@@ -1,11 +1,12 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Data.Models;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Events;
 using System;
 
 namespace OpenTibia.Game.Components
 {
-    public class PlayerAttackAndFollowBehaviour : Behaviour
+    public class CreatureAttackAndWalkBehaviour : Behaviour
     {
         private enum State
         {
@@ -16,6 +17,17 @@ namespace OpenTibia.Game.Components
             Follow,
 
             AttackAndFollow
+        }
+
+        private IAttackStrategy attackStrategy;
+
+        private IWalkStrategy walkStrategy;
+
+        public CreatureAttackAndWalkBehaviour(IAttackStrategy attackStrategy, IWalkStrategy walkStrategy)
+        {
+            this.attackStrategy = attackStrategy;
+
+            this.walkStrategy = walkStrategy;
         }
 
         private State state;
@@ -43,22 +55,6 @@ namespace OpenTibia.Game.Components
             target = creature;
         }
 
-        public void StartFollow()
-        {
-            if (state == State.Attack)
-            {
-                state = State.AttackAndFollow;
-            }
-        }
-
-        public void StopFollow()
-        {
-            if (state == State.AttackAndFollow)
-            {
-                state = State.Attack;
-            }
-        }
-
         public void StopAttackAndFollow()
         {
             state = State.None;
@@ -70,26 +66,32 @@ namespace OpenTibia.Game.Components
 
         public override void Start()
         {
-            Player player = (Player)GameObject;
+            Creature creature = (Creature)GameObject;
+
+            DateTime lastAttack = DateTime.MinValue;
 
             globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
             {
-                if (target == null || target.Tile == null || target.IsDestroyed)
+                if (target != null)
                 {
-                    return Promise.Completed;
-                }
+                    if (target.Tile == null || target.IsDestroyed || !creature.Tile.Position.CanHearSay(target.Tile.Position) )
+                    {
+                        StopAttackAndFollow();
+                    }
+                    else
+                    {
+                        if (DateTime.UtcNow > lastAttack)
+                        {
+                            if (attackStrategy.CanAttack(creature, target) )
+                            {
+                                lastAttack = DateTime.UtcNow.Add(attackStrategy.Cooldown);
 
-                if (state == State.Attack)
-                {
+                                return attackStrategy.Attack(creature, target);
+                            }
 
-                }
-                else if (state == State.Follow)
-                {
-
-                }
-                else if (state == State.AttackAndFollow)
-                {
-
+                            lastAttack = DateTime.UtcNow.AddMilliseconds(500);
+                        }
+                    }
                 }
 
                 return Promise.Completed;
