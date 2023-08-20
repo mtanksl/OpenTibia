@@ -60,7 +60,7 @@ namespace OpenTibia.Game.Components
 
                                 return conversationStrategy.Farewell(npc, e.Player);
                             }
-                         
+
                             return conversationStrategy.Say(npc, e.Player, e.Message);
                         }
                     }

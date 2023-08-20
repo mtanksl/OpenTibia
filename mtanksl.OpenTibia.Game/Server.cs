@@ -145,7 +145,7 @@ namespace OpenTibia.Game
 
                 using (Logger.Measure("Loading map") )
                 {
-                    Map = new Map(ItemFactory, OtbmFile.Load("data/world/map.otbm"), SpawnFile.Load("data/world/map-spawn.xml"), HouseFile.Load("data/world/map-house.xml") );
+                    Map = new Map(this, OtbmFile.Load("data/world/map.otbm"), SpawnFile.Load("data/world/map-spawn.xml"), HouseFile.Load("data/world/map-house.xml") );
                 }
 
                 Pathfinding = new Pathfinding(Map);

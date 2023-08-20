@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Events;
 using System;
@@ -35,8 +36,8 @@ namespace OpenTibia.Game.Components
                     Context.Server.GameObjectComponents.RemoveComponent(creature, this);
                 }
                 else
-                {                    
-                    var direction = creature.Tile.Position.ToDirection(target.Tile.Position);
+                {
+                    Direction? direction = creature.Tile.Position.ToDirection(target.Tile.Position);
 
                     if (direction != null && direction.Value != creature.Direction)
                     {

@@ -57,7 +57,7 @@ namespace OpenTibia.Common.Objects
 
         private int maxY = 0;
 
-        public Map(ItemFactory itemFactory, OtbmFile otbmFile, SpawnFile spawnFile, HouseFile houseFile)
+        public Map(Server server, OtbmFile otbmFile, SpawnFile spawnFile, HouseFile houseFile)
         {
             if (otbmFile.Towns != null)
             {
@@ -141,7 +141,7 @@ namespace OpenTibia.Common.Objects
 
                     if (otbmTile.OpenTibiaItemId > 0)
                     {
-                        Item ground = itemFactory.Create(otbmTile.OpenTibiaItemId, 1);
+                        Item ground = server.ItemFactory.Create(otbmTile.OpenTibiaItemId, 1);
                         
                         tile.AddContent(ground);
                     }
@@ -152,7 +152,7 @@ namespace OpenTibia.Common.Objects
                         {
                             foreach (var otbmItem in items)
                             {
-                                Item item = itemFactory.Create(otbmItem.OpenTibiaId, otbmItem.Count);
+                                Item item = server.ItemFactory.Create(otbmItem.OpenTibiaId, otbmItem.Count);
 
                                 item.ActionId = otbmItem.ActionId;
 
@@ -196,6 +196,23 @@ namespace OpenTibia.Common.Objects
 
                         AddItems(tile, otbmTile.Items);
                     }
+                }
+            }
+
+            foreach (var spawn in spawnFile.Spawns)
+            {
+                foreach (var xmlMonster in spawn.Monsters)
+                {
+                    var tile = GetTile(xmlMonster.Position);
+
+                    tile.AddContent(server.MonsterFactory.Create(xmlMonster.Name, tile) );
+                }
+
+                foreach (var xmlNpc in spawn.Npcs)
+                {
+                    var tile = GetTile(xmlNpc.Position);
+
+                    tile.AddContent(server.NpcFactory.Create(xmlNpc.Name, tile) );
                 }
             }
 
