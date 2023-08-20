@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Data.Models;
 using OpenTibia.Game.GameObjectScripts;
 using System;
 using System.Collections.Generic;
@@ -45,7 +46,7 @@ namespace OpenTibia.Game
             return null;
         }
 
-        public Player Create(IConnection connection, Data.Models.Player databasePlayer)
+        public Player Create(IConnection connection, DbPlayer databasePlayer, Tile spawn)
         {
             Client client = new Client(server);
 
@@ -126,10 +127,12 @@ namespace OpenTibia.Game
 
                 Vocation = (Vocation)databasePlayer.Vocation
             };
-     
+                 
             client.Connection = connection;
 
             player.Client = client;
+
+            player.Spawn = spawn;
 
             server.GameObjects.AddGameObject(player);
 

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OpenTibia.Data.Models
 {
-    public class Player
+    public class DbPlayer
     {
         public int Id { get; set; }
 
@@ -114,14 +114,14 @@ namespace OpenTibia.Data.Models
         public int CoordinateZ { get; set; }
 
 
-        public Account Account { get; set; }
+        public DbAccount Account { get; set; }
 
-        public World World { get; set; }
+        public DbWorld World { get; set; }
 
-        public ICollection<PlayerItem> PlayerItems { get; set; } = new List<PlayerItem>();
+        public ICollection<DbPlayerItem> PlayerItems { get; set; } = new List<DbPlayerItem>();
 
-        public ICollection<PlayerDepotItem> PlayerDepotItems { get; set; } = new List<PlayerDepotItem>();
+        public ICollection<DbPlayerDepotItem> PlayerDepotItems { get; set; } = new List<DbPlayerDepotItem>();
 
-        public ICollection<PlayerVip> PlayerVips { get; set; } = new List<PlayerVip>();
+        public ICollection<DbPlayerVip> PlayerVips { get; set; } = new List<DbPlayerVip>();
     }
 }

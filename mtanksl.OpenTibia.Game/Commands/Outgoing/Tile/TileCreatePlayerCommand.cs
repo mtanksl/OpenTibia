@@ -1,11 +1,12 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Data.Models;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
     public class TileCreatePlayerCommand : CommandResult<Player>
     {
-        public TileCreatePlayerCommand(Tile tile, IConnection connection, Data.Models.Player databasePlayer)
+        public TileCreatePlayerCommand(Tile tile, IConnection connection, DbPlayer databasePlayer)
         {
             Tile = tile;
 
@@ -18,11 +19,11 @@ namespace OpenTibia.Game.Commands
 
         public IConnection Connection { get; set; }
 
-        public Data.Models.Player DatabasePlayer { get; set; }
+        public DbPlayer DatabasePlayer { get; set; }
 
         public override PromiseResult<Player> Execute()
         {
-            Player player = Context.Server.PlayerFactory.Create(Connection, DatabasePlayer);
+            Player player = Context.Server.PlayerFactory.Create(Connection, DatabasePlayer, Tile);
 
             #region TODO: Review
 
@@ -40,7 +41,7 @@ namespace OpenTibia.Game.Commands
             } );
         }    
         
-        private static void LoadInventory(Context context, Player player, Data.Models.Player databasePlayer)
+        private static void LoadInventory(Context context, Player player, DbPlayer databasePlayer)
         {
             void AddItems(Container container, int sequenceId)
             {
@@ -70,7 +71,7 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        private static void LoadLocker(Context context, Data.Models.Player databasePlayer)
+        private static void LoadLocker(Context context, DbPlayer databasePlayer)
         {
             void AddItems(Container container, int sequenceId)
             {
@@ -97,7 +98,7 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        private static void LoadVip(Player player, Data.Models.Player databasePlayer)
+        private static void LoadVip(Player player, DbPlayer databasePlayer)
         {
             foreach (var playerVip in databasePlayer.PlayerVips)
             {

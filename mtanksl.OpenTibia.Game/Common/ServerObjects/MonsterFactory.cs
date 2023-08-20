@@ -85,7 +85,7 @@ namespace OpenTibia.Game
             return null;
         }
 
-        public Monster Create(string name)
+        public Monster Create(string name, Tile spawn)
         {
             MonsterMetadata metadata = GetMonsterMetadata(name);
 
@@ -95,7 +95,9 @@ namespace OpenTibia.Game
             }
 
             Monster monster = new Monster(metadata);
-                        
+
+            monster.Spawn = spawn;
+
             server.GameObjects.AddGameObject(monster);
 
             GameObjectScript<string, Monster> script = GetMonsterScript(monster.Name);

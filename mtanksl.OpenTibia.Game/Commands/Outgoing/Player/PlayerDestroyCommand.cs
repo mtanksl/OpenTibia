@@ -1,5 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Game.Events;
+using OpenTibia.Data.Models;
 using OpenTibia.Network.Packets.Outgoing;
 using System.Linq;
 
@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
 
                 #region TODO: Review
 
-                Data.Models.Player databasePlayer = SavePlayer(Context, Player, Player.Tile);
+                DbPlayer databasePlayer = SavePlayer(Context, Player, Player.Tile);
 
                 SaveInventory(Context, Player, databasePlayer);
 
@@ -91,9 +91,9 @@ namespace OpenTibia.Game.Commands
 	        }
         }
 
-        private static Data.Models.Player SavePlayer(Context context, Player player, Tile fromTile)
+        private static DbPlayer SavePlayer(Context context, Player player, Tile fromTile)
         {
-            Data.Models.Player databasePlayer = context.DatabaseContext.PlayerRepository.GetPlayerById(player.DatabasePlayerId);
+            DbPlayer databasePlayer = context.DatabaseContext.PlayerRepository.GetPlayerById(player.DatabasePlayerId);
 
             databasePlayer.Direction = (int)player.Direction;
 
@@ -138,11 +138,11 @@ namespace OpenTibia.Game.Commands
             return databasePlayer;
         }
 
-        private static void SaveInventory(Context context, Player player, Data.Models.Player databasePlayer)
+        private static void SaveInventory(Context context, Player player, DbPlayer databasePlayer)
         {
             void AddItems(ref int sequence, int index, Item item)
             {
-                Data.Models.PlayerItem playerItem = new Data.Models.PlayerItem()
+                DbPlayerItem playerItem = new DbPlayerItem()
                 {
                     PlayerId = player.DatabasePlayerId,
 
@@ -183,11 +183,11 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        private static void SaveLocker(Context context, Player player, Data.Models.Player databasePlayer)
+        private static void SaveLocker(Context context, Player player, DbPlayer databasePlayer)
         {
             void AddItems(ref int sequence, int index, Item item)
             {
-                Data.Models.PlayerDepotItem playerDepotItem = new Data.Models.PlayerDepotItem()
+                DbPlayerDepotItem playerDepotItem = new DbPlayerDepotItem()
                 {
                     PlayerId = player.DatabasePlayerId,
 
@@ -228,7 +228,7 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        private static void SaveVip(Context context, Player player, Data.Models.Player databasePlayer)
+        private static void SaveVip(Context context, Player player, DbPlayer databasePlayer)
         {
             foreach (var playerVip in databasePlayer.PlayerVips.ToList() )
             {
@@ -239,7 +239,7 @@ namespace OpenTibia.Game.Commands
 
             foreach (var vip in player.Client.VipCollection.GetVips() )
             {
-                var playerVip = new Data.Models.PlayerVip()
+                var playerVip = new DbPlayerVip()
                 {
                     PlayerId = player.DatabasePlayerId,
 

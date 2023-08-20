@@ -1,6 +1,6 @@
 ﻿namespace OpenTibia.Data.Models
 {
-    public class PlayerVip
+    public class DbPlayerVip
     {
         public int PlayerId { get; set; }
 
@@ -9,8 +9,8 @@
         public int VipId { get; set; }
 
 
-        public Player Player { get; set; }
+        public DbPlayer Player { get; set; }
 
-        public Player Vip { get; set; }
+        public DbPlayer Vip { get; set; }
     }
 }

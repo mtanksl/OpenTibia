@@ -81,7 +81,7 @@ namespace OpenTibia.Game
             return null;
         }
 
-        public Npc Create(string name)
+        public Npc Create(string name, Tile spawn)
         {
             NpcMetadata metadata = GetNpcMetadata(name);
 
@@ -91,6 +91,8 @@ namespace OpenTibia.Game
             }
 
             Npc npc = new Npc(metadata);
+
+            npc.Spawn = spawn;
 
             server.GameObjects.AddGameObject(npc);
 

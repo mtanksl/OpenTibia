@@ -24,21 +24,21 @@ namespace OpenTibia.Data.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<PlayerItem>()
+            modelBuilder.Entity<DbPlayerItem>()
                 .HasKey(m => new { m.PlayerId, m.SequenceId } );
 
-            modelBuilder.Entity<PlayerDepotItem>()
+            modelBuilder.Entity<DbPlayerDepotItem>()
                 .HasKey(m => new { m.PlayerId, m.SequenceId } );
 
-            modelBuilder.Entity<PlayerVip>()
+            modelBuilder.Entity<DbPlayerVip>()
                 .HasKey(m => new { m.PlayerId, m.SequenceId } );
 
-            modelBuilder.Entity<PlayerVip>()
+            modelBuilder.Entity<DbPlayerVip>()
                 .HasOne(v => v.Player)
                 .WithMany(p => p.PlayerVips)
                 .HasForeignKey(v => v.PlayerId);
 
-            modelBuilder.Entity<PlayerVip>()
+            modelBuilder.Entity<DbPlayerVip>()
                 .HasOne(v => v.Vip)
                 .WithMany()
                 .HasForeignKey(v => v.VipId);
@@ -46,16 +46,16 @@ namespace OpenTibia.Data.Contexts
             base.OnModelCreating(modelBuilder);
         }
 
-        public DbSet<Account> Accounts { get; set; }
+        public DbSet<DbAccount> Accounts { get; set; }
 
-        public DbSet<Player> Players { get; set; }
+        public DbSet<DbPlayer> Players { get; set; }
 
-        public DbSet<PlayerItem> PlayerItems { get; set; }
+        public DbSet<DbPlayerItem> PlayerItems { get; set; }
 
-        public DbSet<PlayerDepotItem> PlayerDepotItems { get; set; }
+        public DbSet<DbPlayerDepotItem> PlayerDepotItems { get; set; }
 
-        public DbSet<PlayerVip> PlayerVips { get; set; }
+        public DbSet<DbPlayerVip> PlayerVips { get; set; }
 
-        public DbSet<World> Worlds { get; set; }
+        public DbSet<DbWorld> Worlds { get; set; }
     }
 }

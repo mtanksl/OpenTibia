@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Commands
 
         public override PromiseResult<Monster> Execute()
         {
-            Monster monster = Context.Server.MonsterFactory.Create(Name);
+            Monster monster = Context.Server.MonsterFactory.Create(Name, Tile);
 
             if (monster != null)
             {

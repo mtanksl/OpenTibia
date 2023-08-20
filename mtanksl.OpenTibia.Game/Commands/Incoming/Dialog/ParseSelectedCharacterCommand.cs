@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Data.Models;
 using OpenTibia.Network.Packets.Incoming;
 using OpenTibia.Network.Packets.Outgoing;
 using System.Linq;
@@ -32,7 +33,7 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            Data.Models.Player databasePlayer = Context.DatabaseContext.PlayerRepository.GetAccountPlayer(Packet.Account, Packet.Password, Packet.Character);
+            DbPlayer databasePlayer = Context.DatabaseContext.PlayerRepository.GetAccountPlayer(Packet.Account, Packet.Password, Packet.Character);
 
             if (databasePlayer == null)
             {

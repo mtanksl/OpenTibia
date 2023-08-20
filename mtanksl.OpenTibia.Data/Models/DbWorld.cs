@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Data.Models
 {
-    public class World
+    public class DbWorld
     {
         public int Id { get; set; }
 
