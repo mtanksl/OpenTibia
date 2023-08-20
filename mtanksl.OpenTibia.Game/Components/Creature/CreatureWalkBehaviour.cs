@@ -36,14 +36,14 @@ namespace OpenTibia.Game.Components
 
             globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
             {
-                if (target != null && (target.Tile == null || target.IsDestroyed || !creature.Tile.Position.CanHearSay(target.Tile.Position) ) )
+                if (DateTime.UtcNow > lastWalk)
                 {
-                    Context.Server.GameObjectComponents.RemoveComponent(creature, this);
-                }
-                else
-                {
-                    if (DateTime.UtcNow > lastWalk)
+                    if (target != null && (target.Tile == null || target.IsDestroyed || !creature.Tile.Position.CanHearSay(target.Tile.Position) ) )
                     {
+                        Context.Server.GameObjectComponents.RemoveComponent(creature, this);
+                    }
+                    else
+                    {                    
                         Tile toTile;
 
                         if (walkStrategy.CanWalk(creature, target, out toTile) )
@@ -51,10 +51,6 @@ namespace OpenTibia.Game.Components
                             lastWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / creature.Speed);
 
                             return Context.AddCommand(new CreatureWalkCommand(creature, toTile) );
-                        }
-                        else
-                        {
-                            lastWalk = DateTime.UtcNow.AddMilliseconds(500);
                         }
                     }
                 }

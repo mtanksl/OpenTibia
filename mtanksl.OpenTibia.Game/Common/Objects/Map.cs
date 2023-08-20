@@ -5,6 +5,7 @@ using OpenTibia.FileFormats.Xml.Spawns;
 using OpenTibia.Game;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using OtbmItem = OpenTibia.FileFormats.Otbm.Item;
 
 namespace OpenTibia.Common.Objects
@@ -300,7 +301,7 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        public IEnumerable<Creature> GetObservers(Position position)
+        public IEnumerable<Creature> GetObserversOfTypeCreature(Position position)
         {
             int Div(int a, int b)
             {
@@ -362,6 +363,21 @@ namespace OpenTibia.Common.Objects
             }
 
             return creatures;
+        }
+
+        public IEnumerable<Player> GetObserversOfTypePlayer(Position position)
+        {
+            return GetObserversOfTypeCreature(position).OfType<Player>();
+        }
+
+        public IEnumerable<Monster> GetObserversOfTypeMonster(Position position)
+        {
+            return GetObserversOfTypeCreature(position).OfType<Monster>();
+        }
+
+        public IEnumerable<Npc> GetObserversOfTypeNpc(Position position)
+        {
+            return GetObserversOfTypeCreature(position).OfType<Npc>();
         }
     }
 }

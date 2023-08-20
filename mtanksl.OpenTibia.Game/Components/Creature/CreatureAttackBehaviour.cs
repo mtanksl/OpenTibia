@@ -36,23 +36,19 @@ namespace OpenTibia.Game.Components
 
             globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
             {
-                if (target.Tile == null || target.IsDestroyed || !creature.Tile.Position.CanHearSay(target.Tile.Position) )
+                if (DateTime.UtcNow > lastAttack)
                 {
-                    Context.Server.GameObjectComponents.RemoveComponent(creature, this);
-                }
-                else
-                {
-                    if (DateTime.UtcNow > lastAttack)
+                    if (target.Tile == null || target.IsDestroyed || !creature.Tile.Position.CanHearSay(target.Tile.Position) )
                     {
+                        Context.Server.GameObjectComponents.RemoveComponent(creature, this);
+                    }
+                    else
+                    {                    
                         if (attackStrategy.CanAttack(creature, target) )
                         {
                             lastAttack = DateTime.UtcNow.Add(attackStrategy.Cooldown);
 
                             return attackStrategy.Attack(creature, target);
-                        }
-                        else
-                        {
-                            lastAttack = DateTime.UtcNow.AddMilliseconds(500);
                         }
                     }
                 }

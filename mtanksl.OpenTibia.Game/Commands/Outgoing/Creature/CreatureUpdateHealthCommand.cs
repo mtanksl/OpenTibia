@@ -3,7 +3,6 @@ using OpenTibia.Common.Structures;
 using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
-using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -42,7 +41,7 @@ namespace OpenTibia.Game.Commands
 
                 Creature.MaxHealth = MaxHealth;
 
-                foreach (var observer in Context.Server.Map.GetObservers(Creature.Tile.Position).OfType<Player>() )
+                foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Creature.Tile.Position) )
                 {
                     if (observer == Creature)
                     {

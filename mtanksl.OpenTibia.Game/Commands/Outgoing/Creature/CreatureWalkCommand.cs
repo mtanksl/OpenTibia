@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
         {
             var canSeeFrom = new Dictionary<Player, byte>();
 
-            foreach (var observer in Context.Server.Map.GetObservers(Creature.Tile.Position).OfType<Player>() )
+            foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Creature.Tile.Position) )
             {
                 byte clientIndex;
 
@@ -58,7 +58,7 @@ namespace OpenTibia.Game.Commands
 
             var canSeeTo = new Dictionary<Player, byte>();
 
-            foreach (var observer in Context.Server.Map.GetObservers(Creature.Tile.Position).OfType<Player>() )
+            foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Creature.Tile.Position) )
             {
                 byte clientIndex;
 
@@ -128,9 +128,7 @@ namespace OpenTibia.Game.Commands
                     while (deltaZ < 0)
                     {
                         Context.AddPacket(player.Client.Connection, new SendMapUpOutgoingPacket(Context.Server.Map, player.Client, position),
-
                                                                     new SendMapWestOutgoingPacket(Context.Server.Map, player.Client, position.Offset(0, 1, -1) ),
-
                                                                     new SendMapNorthOutgoingPacket(Context.Server.Map, player.Client, position.Offset(0, 0, -1) ) );
 
                         position = position.Offset(0, 0, -1);
@@ -141,9 +139,7 @@ namespace OpenTibia.Game.Commands
                     while (deltaZ > 0)
                     {
                         Context.AddPacket(player.Client.Connection, new SendMapDownOutgoingPacket(Context.Server.Map, player.Client, position),
-
                                                                     new SendMapEastOutgoingPacket(Context.Server.Map, player.Client, position.Offset(0, -1, 1) ),
-
                                                                     new SendMapSouthOutgoingPacket(Context.Server.Map, player.Client, position.Offset(0, 0, 1) ) );
 
                         position = position.Offset(0, 0, 1);

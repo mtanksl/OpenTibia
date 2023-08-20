@@ -32,8 +32,6 @@ namespace OpenTibia.Game
                         {
                             _behaviour.Stop();
                         }
-
-                        _component.GameObject = null;
                     }
                 }
             }

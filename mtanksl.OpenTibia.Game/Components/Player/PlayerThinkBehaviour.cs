@@ -94,53 +94,55 @@ namespace OpenTibia.Game.Components
             {
                 if (target != null)
                 {
-                    if (target.Tile == null || target.IsDestroyed || !player.Tile.Position.CanHearSay(target.Tile.Position) )
+                    if (target.Tile == null || target.IsDestroyed)
                     {
                         StopAttackAndFollow();
-
-                        Context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost), new StopAttackAndFollowOutgoingPacket(0) );
+                           
+                        Context.AddPacket(player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
                     }
                     else
                     {
-                        List<Promise> promises = new List<Promise>();
-
-                        if (state == State.Follow || state == State.AttackAndFollow)
+                        if ( !player.Tile.Position.CanHearSay(target.Tile.Position) )
                         {
-                            if (DateTime.UtcNow > lastWalk)
+                            StopAttackAndFollow();
+
+                            Context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
+                                                                        new StopAttackAndFollowOutgoingPacket(0) );
+                        }
+                        else
+                        {
+                            List<Promise> promises = new List<Promise>();
+
+                            if (state == State.Follow || state == State.AttackAndFollow)
                             {
-                                Tile toTile;
-
-                                if (walkStrategy.CanWalk(player, target, out toTile) )
+                                if (DateTime.UtcNow > lastWalk)
                                 {
-                                    lastWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / player.Speed);
+                                    Tile toTile;
 
-                                    promises.Add(Context.AddCommand(new CreatureWalkCommand(player, toTile) ) );
-                                }
-                                else
-                                {
-                                    lastWalk = DateTime.UtcNow.AddMilliseconds(500);
+                                    if (walkStrategy.CanWalk(player, target, out toTile) )
+                                    {
+                                        lastWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / player.Speed);
+
+                                        promises.Add(Context.AddCommand(new CreatureWalkCommand(player, toTile) ) );
+                                    }
                                 }
                             }
-                        }
 
-                        if (state == State.Attack || state == State.AttackAndFollow)
-                        {
-                            if (DateTime.UtcNow > lastAttack)
+                            if (state == State.Attack || state == State.AttackAndFollow)
                             {
-                                if (attackStrategy.CanAttack(player, target) )
+                                if (DateTime.UtcNow > lastAttack)
                                 {
-                                    lastAttack = DateTime.UtcNow.Add(attackStrategy.Cooldown);
+                                    if (attackStrategy.CanAttack(player, target) )
+                                    {
+                                        lastAttack = DateTime.UtcNow.Add(attackStrategy.Cooldown);
 
-                                    promises.Add(attackStrategy.Attack(player, target) );
-                                }
-                                else
-                                {
-                                    lastAttack = DateTime.UtcNow.AddMilliseconds(500);
+                                        promises.Add(attackStrategy.Attack(player, target) );
+                                    }
                                 }
                             }
-                        }
 
-                        return Promise.WhenAll(promises.ToArray() );
+                            return Promise.WhenAll(promises.ToArray() );
+                        }
                     }
                 }
 

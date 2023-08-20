@@ -26,13 +26,45 @@ namespace OpenTibia.Game.Components
         {
             Npc npc = (Npc)GameObject;
 
-            DateTime lastSentence = DateTime.MinValue;
-
             QueueHashSet<Player> targets = new QueueHashSet<Player>();
 
             playerSay = Context.Server.EventHandlers.Subscribe<PlayerSayEventArgs>( (context, e) =>
             {
-                //TODO
+                if (npc.Tile.Position.IsInRange(e.Player.Tile.Position, 3) )
+                {
+                    if (targets.Count == 0)
+                    {
+                        if (e.Message == "hi" || e.Message == "hello")
+                        {
+                            targets.Add(e.Player);
+
+                            return conversationStrategy.Greeting(npc, e.Player);
+                        }
+                    }
+                    else
+                    {
+                        if (e.Player != targets.Peek() )
+                        {
+                            if (e.Message == "hi" || e.Message == "hello")
+                            {
+                                targets.Add(e.Player);
+
+                                return conversationStrategy.Busy(npc, e.Player);
+                            }
+                        }
+                        else
+                        {
+                            if (e.Message == "bye" || e.Message == "farewell")
+                            {
+                                targets.Remove(e.Player);
+
+                                return conversationStrategy.Farewell(npc, e.Player);
+                            }
+                         
+                            return conversationStrategy.Say(npc, e.Player, e.Message);
+                        }
+                    }
+                }
 
                 return Promise.Completed;
             } );

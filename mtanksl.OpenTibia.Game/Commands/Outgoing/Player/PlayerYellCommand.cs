@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            foreach (var observer in Context.Server.Map.GetObservers(Player.Tile.Position) )
+            foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(Player.Tile.Position) )
             {
                 if (observer.Tile.Position.CanHearYell(Player.Tile.Position) )
                 {

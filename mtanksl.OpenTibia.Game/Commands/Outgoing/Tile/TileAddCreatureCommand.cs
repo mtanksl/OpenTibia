@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
-using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -24,7 +23,7 @@ namespace OpenTibia.Game.Commands
 
             Context.Server.Map.AddObserver(Tile.Position, Creature);
 
-            foreach (var observer in Context.Server.Map.GetObservers(Tile.Position).OfType<Player>() )
+            foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Tile.Position) )
             {
                 if (observer != Creature)
                 {

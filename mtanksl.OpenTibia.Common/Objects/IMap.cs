@@ -21,6 +21,12 @@ namespace OpenTibia.Common.Objects
 
         void RemoveObserver(Position position, Creature creature);
 
-        IEnumerable<Creature> GetObservers(Position position);
+        IEnumerable<Creature> GetObserversOfTypeCreature(Position position);
+
+        IEnumerable<Player> GetObserversOfTypePlayer(Position position);
+
+        IEnumerable<Monster> GetObserversTypeOfMonster(Position position);
+
+        IEnumerable<Npc> GetObserversTypeOfNpc(Position position);
     }
 }

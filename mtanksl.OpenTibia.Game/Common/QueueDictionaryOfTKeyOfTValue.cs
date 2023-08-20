@@ -40,7 +40,9 @@ namespace OpenTibia.Common.Objects
 
         public bool Add(TKey key, TValue value)
         {
-            if ( !dictionary.TryGetValue(key, out var node) )
+            LinkedListNode<Tuple<TKey, TValue> > node;
+
+            if ( !dictionary.TryGetValue(key, out node) )
             {
                 node = queue.AddLast(Tuple.Create(key, value) );
 
@@ -54,7 +56,9 @@ namespace OpenTibia.Common.Objects
 
         public bool Remove(TKey key)
         {
-            if (dictionary.TryGetValue(key, out var node) )
+            LinkedListNode<Tuple<TKey, TValue> > node;
+
+            if (dictionary.TryGetValue(key, out node) )
             {
                 queue.Remove(node);
 

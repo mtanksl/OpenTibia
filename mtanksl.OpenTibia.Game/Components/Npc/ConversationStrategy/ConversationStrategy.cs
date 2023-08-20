@@ -28,7 +28,9 @@ namespace OpenTibia.Game.Components
 
         public Promise Say(Npc npc, Player player, string question)
         {
-            if ( (SayMessage ?? new Dictionary<string, string>() { { "name", "My name is {npc.Name}." } } ).TryGetValue(question, out var answer) )
+            string answer;
+
+            if ( (SayMessage ?? new Dictionary<string, string>() { { "name", "My name is {npc.Name}." } } ).TryGetValue(question, out answer) )
             {
                 return Context.Current.AddCommand(new NpcSayCommand(npc, Replace(npc, player, answer) ) );
             }
