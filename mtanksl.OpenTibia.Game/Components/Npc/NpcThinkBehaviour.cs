@@ -30,38 +30,63 @@ namespace OpenTibia.Game.Components
 
             playerSay = Context.Server.EventHandlers.Subscribe<PlayerSayEventArgs>( (context, e) =>
             {
-                if (npc.Tile.Position.IsInRange(e.Player.Tile.Position, 3) )
-                {
+                Player player = e.Player;
+
+                if (npc.Tile.Position.IsInRange(player.Tile.Position, 3) )
+                {               
+                    string message = e.Message;
+
                     if (targets.Count == 0)
                     {
-                        if (e.Message == "hi" || e.Message == "hello")
+                        if (message == "hi" || message == "hello")
                         {
-                            targets.Add(e.Player);
+                            targets.Add(player);
 
-                            return conversationStrategy.Greeting(npc, e.Player);
+                            return conversationStrategy.Greeting(npc, player);
                         }
                     }
                     else
                     {
-                        if (e.Player != targets.Peek() )
+                        if (player != targets.Peek() )
                         {
-                            if (e.Message == "hi" || e.Message == "hello")
+                            if (message == "hi" || message == "hello")
                             {
-                                targets.Add(e.Player);
+                                targets.Add(player);
 
-                                return conversationStrategy.Busy(npc, e.Player);
+                                return conversationStrategy.Busy(npc, player);
                             }
                         }
                         else
                         {
-                            if (e.Message == "bye" || e.Message == "farewell")
+                            if (message == "bye" || message == "farewell")
                             {
-                                targets.Remove(e.Player);
+                                targets.Remove(player);
 
-                                return conversationStrategy.Farewell(npc, e.Player);
+                                while (targets.Count > 0)
+                                {
+                                    Player next = targets.Peek();
+
+                                    if (next.Tile == null || next.IsDestroyed || !npc.Tile.Position.IsInRange(next.Tile.Position, 3) )
+                                    {
+                                        targets.Remove(next);
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+
+                                if (targets.Count > 0)
+                                {
+                                    Player next = targets.Peek();
+
+                                    return conversationStrategy.Greeting(npc, next);
+                                }
+                                   
+                                return conversationStrategy.Farewell(npc, player);
                             }
-
-                            return conversationStrategy.Say(npc, e.Player, e.Message);
+                                
+                            return conversationStrategy.Say(npc, player, message);
                         }
                     }
                 }
@@ -102,6 +127,39 @@ namespace OpenTibia.Game.Components
                     {
                         Context.Server.GameObjectComponents.AddComponent(npc, new CreatureFocusBehaviour(targets.Peek() ) );
                     }
+                }
+
+                if (targets.Count > 0)
+                {
+                    var player = targets.Peek();
+
+                    if (player.Tile == null || player.IsDestroyed || !npc.Tile.Position.IsInRange(player.Tile.Position, 3) )
+	                {
+		                targets.Remove(player);
+
+		                while (targets.Count > 0)
+		                {
+			                var next = targets.Peek();
+
+			                if (next.Tile == null || next.IsDestroyed || !npc.Tile.Position.IsInRange(next.Tile.Position, 3) )
+			                {
+				                targets.Remove(next);
+			                }
+			                else
+			                {
+				                break;
+			                }
+		                }
+
+		                if (targets.Count > 0)
+		                {
+			                var next = targets.Peek();
+
+			                return conversationStrategy.Greeting(npc, next);
+		                }
+
+                        return conversationStrategy.Dismiss(npc, player);
+	                }
                 }
 
                 return Promise.Completed;

@@ -34,9 +34,9 @@ namespace OpenTibia.Game.Components
                 {
                     Player[] players = Context.Server.Map.GetObserversOfTypePlayer(monster.Tile.Position)
                     
-                        .Where(p => p.Vocation != Vocation.Gamemaster)
-                    
                         .Where(p => monster.Tile.Position.CanHearSay(p.Tile.Position) )
+
+                        .Where(p => p.Vocation != Vocation.Gamemaster)
                     
                         .ToArray();
 
