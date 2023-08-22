@@ -6,7 +6,7 @@ namespace OpenTibia.Game.Commands
 {
     public class CreatureAddConditionCommand : Command
     {
-        public CreatureAddConditionCommand(Creature target, Condition condition)
+        public CreatureAddConditionCommand(Creature target, CreatureConditionBehaviour condition)
         {
             Target = target;
 
@@ -15,12 +15,12 @@ namespace OpenTibia.Game.Commands
 
         public Creature Target { get; set; }
 
-        public Condition Condition { get; set; }
+        public CreatureConditionBehaviour Condition { get; set; }
 
         public override Promise Execute()
         {
             CreatureConditionBehaviour creatureConditionBehaviour = Context.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(Target)
-                .Where(c => c.Condition.ConditionSpecialCondition == Condition.ConditionSpecialCondition)
+                .Where(c => c.ConditionSpecialCondition == Condition.ConditionSpecialCondition)
                 .FirstOrDefault();
 
             if (creatureConditionBehaviour != null)
@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Commands
                 Context.Server.GameObjectComponents.RemoveComponent(Target, creatureConditionBehaviour);
             }
 
-            Context.Server.GameObjectComponents.AddComponent(Target, new CreatureConditionBehaviour(Condition), false);
+            Context.Server.GameObjectComponents.AddComponent(Target, Condition, false);
 
             return Promise.Completed;
         }

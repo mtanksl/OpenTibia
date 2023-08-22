@@ -25,17 +25,7 @@ namespace OpenTibia.Game.Components
             {
                 if (e.Hour == hour && e.Minute == minute)
                 {
-                    return Update().Catch( (ex) =>
-                    {
-                        if (ex is PromiseCanceledException)
-                        {
-                            //
-                        }
-                        else
-                        {
-                            Context.Server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
-                        }
-                    } );
+                    return Update();
                 }
 
                 return Promise.Completed;

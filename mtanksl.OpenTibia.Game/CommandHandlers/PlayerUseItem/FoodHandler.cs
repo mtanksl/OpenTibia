@@ -233,7 +233,7 @@ namespace OpenTibia.Game.CommandHandlers
             if (foods.TryGetValue(command.Item.Metadata.OpenTibiaId, out food) )
             {
                 CreatureConditionBehaviour creatureConditionBehaviour = Context.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(command.Player)
-                    .Where(c => c.Condition.ConditionSpecialCondition == ConditionSpecialCondition.Regeneration)
+                    .Where(c => c.ConditionSpecialCondition == ConditionSpecialCondition.Regeneration)
                     .FirstOrDefault();
 
                 if (creatureConditionBehaviour == null)
@@ -248,7 +248,7 @@ namespace OpenTibia.Game.CommandHandlers
                     } );
                 }
 
-                RegenerationCondition conditionRegeneration = (RegenerationCondition)creatureConditionBehaviour.Condition;
+                RegenerationCondition conditionRegeneration = (RegenerationCondition)creatureConditionBehaviour;
 
                 if (conditionRegeneration.AddRegenerationTick(food.Regeneration) )
                 {

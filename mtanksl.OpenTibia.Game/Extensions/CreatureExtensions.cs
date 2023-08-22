@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Components;
 using System;
 
 namespace OpenTibia.Game.Extensions
@@ -9,7 +10,7 @@ namespace OpenTibia.Game.Extensions
     {
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise AddCondition(this Creature creature, Condition condition)
+        public static Promise AddCondition(this Creature creature, CreatureConditionBehaviour condition)
         {
             Context context = Context.Current;
 

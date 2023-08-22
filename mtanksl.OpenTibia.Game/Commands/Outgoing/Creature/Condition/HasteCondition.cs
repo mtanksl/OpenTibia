@@ -4,10 +4,8 @@ using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class HasteCondition : Condition
+    public class HasteCondition : CreatureConditionBehaviour
     {
-        private DelayBehaviour delayBehaviour;
-
         public HasteCondition(ushort speed, TimeSpan duration) : base(ConditionSpecialCondition.Haste)
         {
             Speed = speed;
@@ -19,26 +17,34 @@ namespace OpenTibia.Game.Commands
 
         public TimeSpan Duration { get; set; }
 
-        public override Promise Start(Creature target)
+        private string key = Guid.NewGuid().ToString();
+
+        public override async void Start()
         {
-            return Context.Current.AddCommand(new CreatureUpdateSpeedCommand(target, target.BaseSpeed, Speed) ).Then( () =>
-            {
-                delayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent(target, new DelayBehaviour(Duration), false);
+            base.Start();
 
-                return delayBehaviour.Promise;
+            Creature creature = (Creature)GameObject;
 
-            } ).Then( () =>
+            try
             {
-                return Context.Current.AddCommand(new CreatureUpdateSpeedCommand(target, target.BaseSpeed, target.BaseSpeed) );
-            } );
+                await Context.AddCommand(new CreatureUpdateSpeedCommand(creature, creature.BaseSpeed, Speed) );
+
+                await Promise.Delay(key, Duration);
+
+                Context.Server.GameObjectComponents.RemoveComponent(creature, this);
+            }
+            catch (PromiseCanceledException) { }
         }
 
-        public override void Stop()
+        public override async void Stop()
         {
-            if (delayBehaviour != null)
-            {
-                delayBehaviour.Stop();
-            }
+            base.Stop();
+
+            Creature creature = (Creature)GameObject;
+
+            await Context.AddCommand(new CreatureUpdateSpeedCommand(creature, creature.BaseSpeed, creature.BaseSpeed) );
+
+            Context.Server.CancelQueueForExecution(key);
         }
     }
 }

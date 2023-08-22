@@ -5,10 +5,8 @@ using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class OutfitCondition : Condition
+    public class OutfitCondition : CreatureConditionBehaviour
     {
-        private DelayBehaviour delayBehaviour;
-
         public OutfitCondition(Outfit outfit, TimeSpan duration) : base(ConditionSpecialCondition.Outfit)
         {
             Outfit = outfit;
@@ -20,26 +18,34 @@ namespace OpenTibia.Game.Commands
 
         public TimeSpan Duration { get; set; }
 
-        public override Promise Start(Creature target)
+        private string key = Guid.NewGuid().ToString();
+
+        public override async void Start()
         {
-            return Context.Current.AddCommand(new CreatureUpdateOutfitCommand(target, target.BaseOutfit, Outfit) ).Then( () =>
-            {
-                delayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent(target, new DelayBehaviour(Duration), false);
+            base.Start();
 
-                return delayBehaviour.Promise;
+            Creature creature = (Creature)GameObject;
 
-            } ).Then( () =>
+            try
             {
-                return Context.Current.AddCommand(new CreatureUpdateOutfitCommand(target, target.BaseOutfit, target.BaseOutfit) );
-            } );
+                await Context.AddCommand(new CreatureUpdateOutfitCommand(creature, creature.BaseOutfit, Outfit));
+
+                await Promise.Delay(key, Duration);
+
+                Context.Server.GameObjectComponents.RemoveComponent(creature, this);
+            }
+            catch (PromiseCanceledException) { }
         }
 
-        public override void Stop()
+        public override async void Stop()
         {
-            if (delayBehaviour != null)
-            {
-                delayBehaviour.Stop();
-            }
+            base.Stop();
+
+            Creature creature = (Creature)GameObject;
+
+            await Context.AddCommand(new CreatureUpdateOutfitCommand(creature, creature.BaseOutfit, creature.BaseOutfit) );
+
+            Context.Server.CancelQueueForExecution(key);
         }
     }
 }

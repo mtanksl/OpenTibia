@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Components;
 using System;
 using System.Linq;
 
@@ -43,7 +44,7 @@ namespace OpenTibia.Game.Commands
             Count = count;
         }
 
-        public CreatureAttackAreaCommand(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, Condition condition)
+        public CreatureAttackAreaCommand(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, CreatureConditionBehaviour condition)
         {
             Attacker = attacker;
 
@@ -82,7 +83,7 @@ namespace OpenTibia.Game.Commands
 
         public Attack Attack { get; set; }
 
-        public Condition Condition { get; set; }
+        public CreatureConditionBehaviour Condition { get; set; }
 
         public override async Promise Execute()
         {

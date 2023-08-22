@@ -42,8 +42,6 @@ namespace OpenTibia.Game.Components
                 {
                     Context.Server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
                 }
-
-                Context.Server.GameObjectComponents.RemoveComponent(GameObject, this);
             } );
         }
 

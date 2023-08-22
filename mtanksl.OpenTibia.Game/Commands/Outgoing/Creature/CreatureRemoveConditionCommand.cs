@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
         public override Promise Execute()
         {
             CreatureConditionBehaviour creatureConditionBehaviour = Context.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(Target)
-                .Where(c => c.Condition.ConditionSpecialCondition == ConditionSpecialCondition)
+                .Where(c => c.ConditionSpecialCondition == ConditionSpecialCondition)
                 .FirstOrDefault();
 
             if (creatureConditionBehaviour != null)

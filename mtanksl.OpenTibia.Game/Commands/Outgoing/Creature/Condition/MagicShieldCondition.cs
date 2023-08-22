@@ -4,10 +4,8 @@ using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class MagicShieldCondition : Condition
+    public class MagicShieldCondition : CreatureConditionBehaviour
     {
-        private DelayBehaviour delayBehaviour;
-
         public MagicShieldCondition(TimeSpan duration) : base(ConditionSpecialCondition.MagicShield)
         {
             Duration = duration;
@@ -15,19 +13,30 @@ namespace OpenTibia.Game.Commands
 
         public TimeSpan Duration { get; set; }
 
-        public override Promise Start(Creature target)
-        {
-            delayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent(target, new DelayBehaviour(Duration), false);
+        private string key = Guid.NewGuid().ToString();
 
-            return delayBehaviour.Promise;
+        public override async void Start()
+        {
+            base.Start();
+
+            Creature creature = (Creature)GameObject;
+
+            try
+            {
+                await Promise.Delay(key, Duration);
+
+                Context.Server.GameObjectComponents.RemoveComponent(creature, this);
+            }
+            catch (PromiseCanceledException) { }
         }
 
         public override void Stop()
         {
-            if (delayBehaviour != null)
-            {
-                delayBehaviour.Stop();
-            }            
+            base.Stop();
+
+            Creature creature = (Creature)GameObject;
+
+            Context.Server.CancelQueueForExecution(key);
         }
     }
 }

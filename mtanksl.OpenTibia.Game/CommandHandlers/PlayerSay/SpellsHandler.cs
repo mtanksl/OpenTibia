@@ -439,8 +439,6 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     var formula = UltimateHealingFormula(attacker.Level, attacker.Skills.MagicLevel);
 
-                    var damage = Context.Current.Server.Randomization.Take(formula.Min, formula.Max);
-
                     return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, attacker, new HealingAttack(MagicEffectType.BlueShimmer, formula.Min, formula.Max) ) );
                 }
             },

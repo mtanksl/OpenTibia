@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTibia.Common.Structures;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -44,5 +45,102 @@ namespace OpenTibia.Game.Commands
         Soul = 524288,
 
         Muted = 1048576
+    }
+
+    public static class SpecialConditionExtensions
+    {
+        public static SpecialCondition ToSpecialCondition(this ConditionSpecialCondition conditionSpecialCondition)
+        {
+            SpecialCondition specialCondition;
+
+            switch (conditionSpecialCondition)
+            {
+                case ConditionSpecialCondition.Poisoned:
+
+                    specialCondition = SpecialCondition.Poisoned;
+
+                    break;
+
+                case ConditionSpecialCondition.Burning:
+
+                    specialCondition = SpecialCondition.Burning;
+
+                    break;
+
+                case ConditionSpecialCondition.Electrified:
+
+                    specialCondition = SpecialCondition.Electrified;
+
+                    break;
+
+                case ConditionSpecialCondition.Drunk:
+
+                    specialCondition = SpecialCondition.Drunk;
+
+                    break;
+
+                case ConditionSpecialCondition.MagicShield:
+
+                    specialCondition = SpecialCondition.MagicShield;
+
+                    break;
+
+                case ConditionSpecialCondition.Slowed:
+
+                    specialCondition = SpecialCondition.Slowed;
+
+                    break;
+
+                case ConditionSpecialCondition.Haste:
+
+                    specialCondition = SpecialCondition.Haste;
+
+                    break;
+
+                case ConditionSpecialCondition.LogoutBlock:
+
+                    specialCondition = SpecialCondition.LogoutBlock;
+
+                    break;
+
+                case ConditionSpecialCondition.Drowning:
+
+                    specialCondition = SpecialCondition.Drowning;
+
+                    break;
+
+                case ConditionSpecialCondition.Freezing:
+
+                    specialCondition = SpecialCondition.Freezing;
+
+                    break;
+
+                case ConditionSpecialCondition.Dazzled:
+
+                    specialCondition = SpecialCondition.Dazzled;
+
+                    break;
+
+                case ConditionSpecialCondition.Cursed:
+
+                    specialCondition = SpecialCondition.Cursed;
+
+                    break;
+
+                case ConditionSpecialCondition.Bleeding:
+
+                    specialCondition = SpecialCondition.Bleeding;
+
+                    break;
+
+                default:
+
+                    specialCondition = SpecialCondition.None;
+
+                    break;
+            }
+
+            return specialCondition;
+        }
     }
 }

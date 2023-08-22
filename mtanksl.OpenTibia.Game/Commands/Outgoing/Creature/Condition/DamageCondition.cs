@@ -5,10 +5,8 @@ using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class DamageCondition : Condition
+    public class DamageCondition : CreatureConditionBehaviour
     {
-        private DelayBehaviour delayBehaviour;
-
         public DamageCondition(SpecialCondition specialCondition, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int[] damages, TimeSpan interval) : base( (ConditionSpecialCondition)specialCondition)
         {
             SpecialCondition = specialCondition;
@@ -32,27 +30,38 @@ namespace OpenTibia.Game.Commands
 
         public TimeSpan Interval { get; set; }
 
-        public override async Promise Start(Creature target)
+        private string key = Guid.NewGuid().ToString();
+
+        public override async void Start()
         {
-            for (int i = 0; i < Damages.Length; i++)
+            base.Start();
+
+            Creature creature = (Creature)GameObject;
+
+            try
             {
-                await Context.Current.AddCommand(new CreatureAttackCreatureCommand(null, target, new SimpleAttack(null, MagicEffectType, AnimatedTextColor, Damages[i], Damages[i] ) ) );
-
-                if (i < Damages.Length - 1)
+                for (int i = 0; i < Damages.Length; i++)
                 {
-                    delayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent(target, new DelayBehaviour(Interval), false);
+                    await Context.AddCommand(new CreatureAttackCreatureCommand(null, creature, new SimpleAttack(null, MagicEffectType, AnimatedTextColor, Damages[i], Damages[i] ) ) );
 
-                    await delayBehaviour.Promise;
+                    if (i != Damages.Length - 1)
+                    {
+                        await Promise.Delay(key, Interval);
+                    }
                 }
+
+                Context.Server.GameObjectComponents.RemoveComponent(creature, this);
             }
+            catch (PromiseCanceledException) { }
         }
 
         public override void Stop()
         {
-            if (delayBehaviour != null)
-            {
-                delayBehaviour.Stop();
-            }
+            base.Stop();
+
+            Creature creature = (Creature)GameObject;
+
+            Context.Server.CancelQueueForExecution(key);
         }
     }
 }
