@@ -28,9 +28,9 @@ namespace OpenTibia.Common.Objects
 
                 this.y = minY;
 
-                this.width = maxX - minX;
+                this.width = maxX - minX + 1;
 
-                this.height = maxY - minY;
+                this.height = maxY - minY + 1;
             }
 
             public bool Equals(Position objA, Position objB)
@@ -216,11 +216,11 @@ namespace OpenTibia.Common.Objects
                 }
             }
 
-            observers = new HashSet<Creature>[ (int)Math.Ceiling( (maxY - minY) / 13.0) ][];
+            observers = new HashSet<Creature>[ (int)Math.Ceiling( (maxY - minY + 1) / 14.0) ][];
 
             for (int j = 0; j < observers.Length; j++)
             {
-                observers[j] = new HashSet<Creature>[ (int)Math.Ceiling( (maxX - minX) / 17.0) ];
+                observers[j] = new HashSet<Creature>[ (int)Math.Ceiling( (maxX - minX + 1) / 18.0) ];
 
                 for (int i = 0; i < observers[j].Length; i++)
                 {
@@ -283,9 +283,9 @@ namespace OpenTibia.Common.Objects
 
         public void AddObserver(Position position, Creature creature)
         {
-            int j = (position.Y - minY) / 13;
+            int j = (position.Y - minY + 1) / 14;
 
-            int i = (position.X - minX) / 17;
+            int i = (position.X - minX + 1) / 18;
 
             HashSet<Creature> set = observers[j][i];
 
@@ -301,9 +301,9 @@ namespace OpenTibia.Common.Objects
 
         public void RemoveObserver(Position position, Creature creature)
         {
-            int j = (position.Y - minY) / 13;
+            int j = (position.Y - minY + 1) / 14;
 
-            int i = (position.X - minX) / 17;
+            int i = (position.X - minX + 1) / 18;
 
             HashSet<Creature> set = observers[j][i];
 
@@ -322,24 +322,20 @@ namespace OpenTibia.Common.Objects
         {
             int Div(int a, int b)
             {
-                if (a >= 0)
+                if (a < 0)
                 {
-                    return a / b;
+                    return -1;
                 }
 
-                return (a - b + 1) / b;
+                return a / b;
             }
 
-            HashSet<Creature> GetObservers(int positionX, int positionY)
+            HashSet<Creature> GetObservers(int j, int i)
             {
-                int j = Div(positionY - minY, 13);
-
                 if (j < 0 || j > observers.Length)
                 {
                     return null;
                 }
-
-                int i = Div(positionX - minX, 17);
 
                 if (i < 0 || i > observers[0].Length)
                 {
@@ -351,32 +347,25 @@ namespace OpenTibia.Common.Objects
 
             HashSet<Creature> creatures = new HashSet<Creature>();
 
-            HashSet<Creature> topLeft = GetObservers(position.X - 8, position.Y - 6);
+            int minJ = Div(position.Y - 6 - minY + 1, 14);
 
-            if (topLeft != null)
+            int maxJ = Div(position.Y + 7 - minY + 1, 14);
+
+            int minI = Div(position.X - 8 - minX + 1, 18);
+
+            int maxI = Div(position.X + 9 - minX + 1, 18);
+
+            for (int j = minJ; j <= maxJ; j++)
             {
-                creatures.UnionWith(topLeft);
-            }
+                for (int i = minI; i <= maxI; i++)
+                {
+                    var observers = GetObservers(j, i);
 
-            HashSet<Creature> topRight = GetObservers(position.X + 9, position.Y - 6);
-
-            if (topRight != null)
-            {
-                creatures.UnionWith(topRight);
-            }
-
-            HashSet<Creature> bottomLeft = GetObservers(position.X - 8, position.Y + 7);
-
-            if (bottomLeft != null)
-            {
-                creatures.UnionWith(bottomLeft);
-            }
-
-            HashSet<Creature> bottomRight = GetObservers(position.X + 9, position.Y + 7);
-
-            if (bottomRight != null)
-            {
-                creatures.UnionWith(bottomRight);
+                    if (observers != null)
+                    {
+                        creatures.UnionWith(observers);
+                    }
+                }
             }
 
             return creatures;
