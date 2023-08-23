@@ -29,7 +29,7 @@ namespace OpenTibia.Game.Components
 
             globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
             {
-                if (DateTime.UtcNow > lastTalk)
+                if (DateTime.UtcNow >= lastTalk)
                 {
                     lastTalk = DateTime.UtcNow.Add(TimeSpan.FromSeconds(30) );
 

@@ -115,7 +115,7 @@ namespace OpenTibia.Game.Components
 
                             if (state == State.Follow || state == State.AttackAndFollow)
                             {
-                                if (DateTime.UtcNow > lastWalk)
+                                if (DateTime.UtcNow >= lastWalk)
                                 {
                                     Tile toTile;
 
@@ -130,7 +130,7 @@ namespace OpenTibia.Game.Components
 
                             if (state == State.Attack || state == State.AttackAndFollow)
                             {
-                                if (DateTime.UtcNow > lastAttack)
+                                if (DateTime.UtcNow >= lastAttack)
                                 {
                                     if (attackStrategy.CanAttack(player, target) )
                                     {

@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Components
 
             globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
             {
-                if (DateTime.UtcNow > lastWalk)
+                if (DateTime.UtcNow >= lastWalk)
                 {
                     if (target != null && (target.Tile == null || target.IsDestroyed || !creature.Tile.Position.CanHearSay(target.Tile.Position) ) )
                     {
