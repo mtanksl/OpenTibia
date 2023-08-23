@@ -347,13 +347,13 @@ namespace OpenTibia.Common.Objects
 
             HashSet<Creature> creatures = new HashSet<Creature>();
 
-            int minJ = Div(position.Y - 6 - minY + 1, 14);
+            int minJ = Div(position.Y - 13 - minY + 1, 14);
 
-            int maxJ = Div(position.Y + 7 - minY + 1, 14);
+            int maxJ = Div(position.Y + 14 - minY + 1, 14);
 
-            int minI = Div(position.X - 8 - minX + 1, 18);
+            int minI = Div(position.X - 17 - minX + 1, 18);
 
-            int maxI = Div(position.X + 9 - minX + 1, 18);
+            int maxI = Div(position.X + 18 - minX + 1, 18);
 
             for (int j = minJ; j <= maxJ; j++)
             {

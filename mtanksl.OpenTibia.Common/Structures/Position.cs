@@ -275,7 +275,7 @@
             return null;
         }
 
-        public bool IsInClientRange(Position that)
+        private bool IsInClient(Position that)
         {
             int deltaZ = that.z - this.z;
 
@@ -306,15 +306,20 @@
             return true;
         }
 
-        public bool IsInBattleRange(Position that)
+        private bool IsInExtendedViewport(Position that)
         {
             int deltaZ = that.z - this.z;
+
+            if (deltaZ != 0)
+            {
+                return false;
+            }
 
             int deltaY = that.y - this.y;
 
             int deltaX = that.x - this.x;
 
-            if (deltaZ != 0 || deltaY < -6 || deltaY > 7 || deltaX < -8 || deltaX > 9)
+            if (deltaY < -6 || deltaY > 7 || deltaX < -8 || deltaX > 9)
             {
                 return false;
             }
@@ -322,15 +327,20 @@
             return true;
         }
 
-        public bool IsNextTo(Position that)
+        private bool IsInViewport(Position that)
         {
             int deltaZ = that.z - this.z;
+
+            if (deltaZ != 0)
+            {
+                return false;
+            }
 
             int deltaY = that.y - this.y;
 
             int deltaX = that.x - this.x;
 
-            if (deltaZ != 0 || deltaY < -1 || deltaY > 1 || deltaX < -1 || deltaX > 1)
+            if (deltaY < -5 || deltaY > 5 || deltaX < -7 || deltaX > 7)
             {
                 return false;
             }
@@ -342,11 +352,16 @@
         {
             int deltaZ = that.z - this.z;
 
+            if (deltaZ != 0)
+            {
+                return false;
+            }
+
             int deltaY = that.y - this.y;
 
             int deltaX = that.x - this.x;
 
-            if (deltaZ != 0 || deltaY < -range || deltaY > range || deltaX < -range || deltaX > range)
+            if (deltaY < -range || deltaY > range || deltaX < -range || deltaX > range)
             {
                 return false;
             }
@@ -354,14 +369,19 @@
             return true;
         }
 
+        public bool IsNextTo(Position that)
+        {
+            return IsInRange(that, 1);
+        }
+
         public bool CanSee(Position that)
         {
-            return IsInClientRange(that);
+            return IsInClient(that);
         }
 
         public bool CanHearSay(Position that)
         {
-            return IsInBattleRange(that);
+            return IsInExtendedViewport(that);
         }
 
         public bool CanHearWhisper(Position that)
