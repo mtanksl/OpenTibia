@@ -120,95 +120,101 @@ namespace OpenTibia.Common.Objects
 
         public bool TryGetIndex(IContent content, out byte clientIndex)
         {
-            if (content is Item item)
+            switch (content)
             {
-                switch (item.Parent)
-                {
-                    case Tile tile:
+                case Item item:
 
-                        if (Player.Tile.Position.CanSee(tile.Position) )
-                        {
-                            byte index = 0;
+                    switch (item.Parent)
+                    {
+                        case Tile tile:
 
-                            foreach (var _content in tile.GetContents() )
+                            if (Player.Tile.Position.CanSee(tile.Position) )
                             {
-                                if (index >= Constants.ObjectsPerPoint)
+                                byte index = 0;
+
+                                foreach (var _content in tile.GetContents() )
                                 {
-                                    break;
+                                    if (index >= Constants.ObjectsPerPoint)
+                                    {
+                                        break;
+                                    }
+
+                                    if (_content is Creature _creature && _creature != Player && _creature.Invisible)
+                                    {
+                                        continue;
+                                    }
+
+                                    if (_content == item)
+                                    {
+                                        clientIndex = index;
+
+                                        return true;
+                                    }
+
+                                    index++;
                                 }
-
-                                if (_content is Creature _creature && _creature != Player && _creature.Invisible)
-                                {
-                                    continue;
-                                }
-
-                                if (_content == item)
-                                {
-                                    clientIndex = index;
-
-                                    return true;
-                                }
-
-                                index++;
                             }
-                        }
 
-                        break;
+                            break;
 
-                    case Inventory inventory:
+                        case Inventory inventory:
 
-                        if (Player.Inventory == inventory)
-                        {
-                            clientIndex = inventory.GetIndex(content);
-
-                            return true;
-                        }
-
-                        break;
-
-                    case Container container:
-
-                        foreach (var pair in ContainerCollection.GetIndexedContainers() )
-                        {
-                            if (pair.Value == container)
+                            if (Player.Inventory == inventory)
                             {
-                                clientIndex = container.GetIndex(content);
+                                clientIndex = inventory.GetIndex(content);
 
                                 return true;
                             }
-                        }
 
-                        break;
-                }
-            }
-            else if (content is Creature creature)
-            {
-                if (Player.Tile.Position.CanSee(creature.Tile.Position) )
-                {
-                    byte index = 0;
-
-                    foreach (var _content in creature.Tile.GetContents() )
-                    {
-                        if (index >= Constants.ObjectsPerPoint)
-                        {
                             break;
-                        }
 
-                        if (_content is Creature _creature && _creature != Player && _creature.Invisible)
-                        {
-                            continue;
-                        }
+                        case Container container:
 
-                        if (_content == creature)
-                        {
-                            clientIndex = index;
+                            foreach (var pair in ContainerCollection.GetIndexedContainers() )
+                            {
+                                if (pair.Value == container)
+                                {
+                                    clientIndex = container.GetIndex(content);
 
-                            return true;
-                        }
+                                    return true;
+                                }
+                            }
 
-                        index++;
+                            break;
                     }
-                }
+
+                    break;
+
+                case Creature creature:
+
+                    if (Player.Tile.Position.CanSee(creature.Tile.Position) )
+                    {
+                        byte index = 0;
+
+                        foreach (var _content in creature.Tile.GetContents() )
+                        {
+                            if (index >= Constants.ObjectsPerPoint)
+                            {
+                                break;
+                            }
+
+                            if (_content is Creature _creature && _creature != Player && _creature.Invisible)
+                            {
+                                continue;
+                            }
+
+                            if (_content == creature)
+                            {
+                                clientIndex = index;
+
+                                return true;
+                            }
+
+                            index++;
+                        }
+                    }
+
+                    break;
             }
 
             clientIndex = 0;

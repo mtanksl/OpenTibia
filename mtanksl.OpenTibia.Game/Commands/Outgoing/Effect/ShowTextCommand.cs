@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
         {
             foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Creature.Tile.Position) )
             {
-                if (observer.Tile.Position.CanSee(Creature.Tile.Position) )
+                if (observer.Tile.Position.CanHearSay(Creature.Tile.Position) )
                 {
                     Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Creature.Name, 0, TalkType, Creature.Tile.Position, Message) );
                 }

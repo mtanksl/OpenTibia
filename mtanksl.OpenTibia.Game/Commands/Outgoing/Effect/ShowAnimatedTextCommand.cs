@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
         {
             foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Position) )
             {
-                if (observer.Tile.Position.CanSee(Position) )
+                if (observer.Tile.Position.CanHearSay(Position) )
                 {
                     Context.AddPacket(observer.Client.Connection, new ShowAnimatedTextOutgoingPacket(Position, AnimatedTextColor, Message) );
                 }
