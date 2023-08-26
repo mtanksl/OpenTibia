@@ -43,7 +43,11 @@ namespace OpenTibia.Data.Contexts
 
         public DbSet<DbBan> Bans { get; set; }
 
+        public DbSet<DbBugReport> BugReports { get; set; }
+
         public DbSet<DbMotd> Motd { get; set; }
+
+        public DbSet<DbRuleViolationReport> RuleViolationReports { get; set; }
 
         public DbSet<DbPlayer> Players { get; set; }
 

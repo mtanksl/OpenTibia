@@ -1,4 +1,8 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
+using OpenTibia.Data.Models;
+using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -19,7 +23,23 @@ namespace OpenTibia.Game.Commands
         {
             // ctrl + z
 
-            return Promise.Completed;
+            if (Player.CanReportBugs)
+            {
+                Context.Database.BugReportRepository.AddBugReport(new DbBugReport()
+                {
+                    PlayerId = Player.DatabasePlayerId,
+                    Message = Message,
+                    CreationDate = DateTime.UtcNow
+                } );
+
+                Context.Database.Commit();
+
+                Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "Your report has been sent.") );
+
+                return Promise.Completed;
+            }
+
+            return Promise.Break;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace OpenTibia.Data.Models
 {
@@ -18,6 +19,8 @@ namespace OpenTibia.Data.Models
         [Required]
         [StringLength(255)]
         public string Message { get; set; }
+
+        public DateTime CreationDate { get; set; }
 
 
         public DbAccount Account { get; set; }

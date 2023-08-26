@@ -30,7 +30,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                             PlayerId = databasePlayer.Id,
 
-                            Message = "This player has been banned by " + command.Player.Name + "."
+                            Message = "This player has been banned by " + command.Player.Name + ".",
+
+                            CreationDate = DateTime.UtcNow
                         };
 
                         Context.Database.BanRepository.AddBan(databaseBan);

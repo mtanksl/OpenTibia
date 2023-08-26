@@ -67,6 +67,26 @@ namespace OpenTibia.Game
             }
         }
 
+        private BugReportRepository bugReportRepository;
+
+        public BugReportRepository BugReportRepository
+        {
+            get
+            {
+                return bugReportRepository ?? (bugReportRepository = new BugReportRepository(DatabaseContext) );
+            }
+        }
+
+        private RuleViolationReportRepository ruleViolationReportRepository;
+
+        public RuleViolationReportRepository RuleViolationReportRepository
+        {
+            get
+            {
+                return ruleViolationReportRepository ?? (ruleViolationReportRepository = new RuleViolationReportRepository(DatabaseContext) );
+            }
+        }
+
         private PlayerRepository playerRepository;
 
         public PlayerRepository PlayerRepository
