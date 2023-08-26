@@ -21,11 +21,11 @@ namespace OpenTibia.Game.Commands
         {
             bool open = true;
 
-            foreach (var pair in Player.Client.ContainerCollection.GetIndexedContainers() )
+            foreach (var pair in Player.Client.Containers.GetIndexedContainers() )
             {
                 if (pair.Value == Container)
                 {
-                    Player.Client.ContainerCollection.CloseContainer(pair.Key);
+                    Player.Client.Containers.CloseContainer(pair.Key);
 
                     Context.AddPacket(Player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
 
@@ -35,7 +35,7 @@ namespace OpenTibia.Game.Commands
 
             if (open)
             {
-                byte containerId = Player.Client.ContainerCollection.OpenContainer(Container);
+                byte containerId = Player.Client.Containers.OpenContainer(Container);
 
                 List<Item> items = new List<Item>();
 

@@ -6,9 +6,9 @@ using System.Reflection;
 
 namespace OpenTibia.Game
 {
-    public class ScriptsCollection
+    public class ScriptCollection
     {
-        public ScriptsCollection()
+        public ScriptCollection()
         {
             foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(Script).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract) )
             {

@@ -9,9 +9,9 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return next().Then( () =>
             {
-                foreach (var pair in command.Player.Client.WindowCollection.GetIndexedWindows() )
+                foreach (var pair in command.Player.Client.Windows.GetIndexedWindows() )
                 {
-                    command.Player.Client.WindowCollection.CloseWindow(pair.Key);                    
+                    command.Player.Client.Windows.CloseWindow(pair.Key);                    
                 }
 
                 return Promise.Completed;

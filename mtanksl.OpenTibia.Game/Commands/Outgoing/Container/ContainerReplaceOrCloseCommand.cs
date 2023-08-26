@@ -25,11 +25,11 @@ namespace OpenTibia.Game.Commands
         {
             bool replace = true;
 
-            foreach (var pair in Player.Client.ContainerCollection.GetIndexedContainers() )
+            foreach (var pair in Player.Client.Containers.GetIndexedContainers() )
             {
                 if (pair.Value == Container)
                 {
-                    Player.Client.ContainerCollection.CloseContainer(pair.Key);
+                    Player.Client.Containers.CloseContainer(pair.Key);
 
                     Context.AddPacket(Player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
 
@@ -39,7 +39,7 @@ namespace OpenTibia.Game.Commands
 
             if (replace)
             {
-                Player.Client.ContainerCollection.ReplaceContainer(Container, ContainerId);
+                Player.Client.Containers.ReplaceContainer(Container, ContainerId);
 
                 List<Item> items = new List<Item>();
 

@@ -1,8 +1,8 @@
 ﻿namespace OpenTibia.Network.Packets
 {
-    public class Mission
+    public class MissionDto
     {
-        public Mission(string name, string description)
+        public MissionDto(string name, string description)
         {
             this.Name = name;
 

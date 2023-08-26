@@ -114,7 +114,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
                         uint removeId;
 
-                        if (client.CreatureCollection.IsKnownCreature(creature.Id, out removeId) )
+                        if (client.Battles.IsKnownCreature(creature.Id, out removeId) )
                         {
                             writer.Write(creature);
                         }

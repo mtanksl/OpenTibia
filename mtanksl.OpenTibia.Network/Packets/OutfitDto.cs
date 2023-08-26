@@ -2,9 +2,9 @@
 
 namespace OpenTibia.Network.Packets
 {
-    public class SelectOutfit
+    public class OutfitDto
     {
-        public SelectOutfit(ushort outfitId, string name, Addon addon)
+        public OutfitDto(ushort outfitId, string name, Addon addon)
         {
             this.OutfitId = outfitId;
 

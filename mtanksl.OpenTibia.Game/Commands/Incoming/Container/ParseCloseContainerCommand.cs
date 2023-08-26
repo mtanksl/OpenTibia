@@ -18,11 +18,11 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Container container = Player.Client.ContainerCollection.GetContainer(ContainerId);
+            Container container = Player.Client.Containers.GetContainer(ContainerId);
 
             if (container != null)
             {
-                Player.Client.ContainerCollection.CloseContainer(ContainerId);
+                Player.Client.Containers.CloseContainer(ContainerId);
 
                 Context.AddPacket(Player.Client.Connection, new CloseContainerOutgoingPacket(ContainerId) );
 

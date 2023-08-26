@@ -1,4 +1,8 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.FileFormats.Xml.Quests;
+using OpenTibia.Network.Packets;
+using OpenTibia.Network.Packets.Outgoing;
+using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
@@ -17,7 +21,31 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Completed;
+            Quest quest = Context.Server.Quests.GetQuestById(QuestId);
+
+            if (quest != null)
+            {
+                List<MissionDto> missions = new List<MissionDto>();
+
+                foreach (var mission in quest.Missions)
+                {
+                    int value;
+
+                    if (Player.Client.Storages.TryGetValue(mission.StorageKey, out value) )
+                    {
+                        if (mission.StorageValue == value)
+                        {
+                            missions.Add(new MissionDto(mission.Name, mission.Description) );
+                        }
+                    }
+                }
+
+                Context.AddPacket(Player.Client.Connection, new OpenQuestLineDialogOutgoingPacket(QuestId, missions) );
+
+                return Promise.Completed;
+            }
+
+            return Promise.Break;
         }
     }
 }

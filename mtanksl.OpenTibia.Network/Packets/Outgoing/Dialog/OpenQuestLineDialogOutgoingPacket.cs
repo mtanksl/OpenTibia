@@ -5,7 +5,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class OpenQuestLineDialogOutgoingPacket : IOutgoingPacket
     {
-        public OpenQuestLineDialogOutgoingPacket(ushort questId, List<Mission> missions)
+        public OpenQuestLineDialogOutgoingPacket(ushort questId, List<MissionDto> missions)
         {
             this.QuestId = questId;
 
@@ -14,13 +14,13 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public ushort QuestId { get; set; }
 
-        private List<Mission> missions;
+        private List<MissionDto> missions;
 
-        public List<Mission> Missions
+        public List<MissionDto> Missions
         {
             get
             {
-                return missions ?? ( missions = new List<Mission>() );
+                return missions ?? ( missions = new List<MissionDto>() );
             }
             set
             {

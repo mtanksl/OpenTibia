@@ -348,6 +348,7 @@
     <None Remove="data\npcs\Cipfried.xml" />
     <None Remove="data\npcs\Rachel.xml" />
     <None Remove="data\template.db" />
+    <None Remove="data\xml\quests.xml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -1372,6 +1373,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="data\template.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="data\xml\quests.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

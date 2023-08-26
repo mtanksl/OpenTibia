@@ -9,9 +9,9 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return next().Then( () =>
             {
-                foreach (var pair in command.Player.Client.ContainerCollection.GetIndexedContainers() )
+                foreach (var pair in command.Player.Client.Containers.GetIndexedContainers() )
                 {
-                    command.Player.Client.ContainerCollection.CloseContainer(pair.Key);
+                    command.Player.Client.Containers.CloseContainer(pair.Key);
                 }
 
                 return Promise.Completed;

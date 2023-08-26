@@ -23,11 +23,11 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 foreach (var observer in container.GetPlayers() )
                 {
-                    foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
+                    foreach (var pair in observer.Client.Containers.GetIndexedContainers() )
                     {
                         if (pair.Value == container)
                         {
-                            observer.Client.ContainerCollection.CloseContainer(pair.Key);
+                            observer.Client.Containers.CloseContainer(pair.Key);
 
                             Context.AddPacket(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
                         }

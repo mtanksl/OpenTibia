@@ -6,20 +6,20 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class OpenSelectCharacterDialogOutgoingPacket : IOutgoingPacket
     {
-        public OpenSelectCharacterDialogOutgoingPacket(List<Character> characters, ushort premiumDays)
+        public OpenSelectCharacterDialogOutgoingPacket(List<CharacterDto> characters, ushort premiumDays)
         {
             this.Characters = characters;
 
             this.PremiumDays = premiumDays;
         }
 
-        private List<Character> characters;
+        private List<CharacterDto> characters;
 
-        public List<Character> Characters
+        public List<CharacterDto> Characters
         {
             get
             {
-                return characters ?? ( characters = new List<Character>() );
+                return characters ?? ( characters = new List<CharacterDto>() );
             }
             set
             {

@@ -73,11 +73,11 @@ namespace OpenTibia.Game.Commands
                 Context.AddPacket(Connection, new OpenMessageOfTheDayDialogOutgoingPacket(databaseMotd.Id, databaseMotd.Message) );    
             }
 
-            List<Character> characters = new List<Character>();
+            List<CharacterDto> characters = new List<CharacterDto>();
 
             foreach (var player in databaseAccount.Players)
             {
-                characters.Add( new Character(player.Name, player.World.Name, player.World.Ip, (ushort)player.World.Port) );
+                characters.Add( new CharacterDto(player.Name, player.World.Name, player.World.Ip, (ushort)player.World.Port) );
             }
 
             Context.AddPacket(Connection, new OpenSelectCharacterDialogOutgoingPacket(characters, (ushort)databaseAccount.PremiumDays) );

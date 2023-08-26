@@ -19,13 +19,13 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Container container = Player.Client.ContainerCollection.GetContainer(ContainerId);
+            Container container = Player.Client.Containers.GetContainer(ContainerId);
 
             if (container != null)
             {
                 if (container.Parent is Container parentContainer)
                 {
-                    Player.Client.ContainerCollection.ReplaceContainer(parentContainer, ContainerId);
+                    Player.Client.Containers.ReplaceContainer(parentContainer, ContainerId);
 
                     List<Item> items = new List<Item>();
 

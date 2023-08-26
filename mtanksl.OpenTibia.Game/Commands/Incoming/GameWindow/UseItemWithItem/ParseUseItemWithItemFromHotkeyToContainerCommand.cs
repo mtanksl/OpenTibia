@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Commands
                     message = "Using one of " + sum + " " + (fromItem.Metadata.Plural ?? fromItem.Metadata.Name) + "...";
                 }
 
-                Container toContainer = Player.Client.ContainerCollection.GetContainer(ToContainerId);
+                Container toContainer = Player.Client.Containers.GetContainer(ToContainerId);
 
                 if (toContainer != null)
                 {

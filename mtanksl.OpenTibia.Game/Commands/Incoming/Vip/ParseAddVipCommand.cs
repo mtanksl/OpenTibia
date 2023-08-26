@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
 
             if (observer != null && observer != Player)
             {
-                Vip vip = Player.Client.VipCollection.AddVip(observer.Name);
+                Vip vip = Player.Client.Vips.AddVip(observer.Name);
 
                 Context.AddPacket(Player.Client.Connection, new VipOutgoingPacket(vip.Id, vip.Name, false) );
 

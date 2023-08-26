@@ -113,7 +113,7 @@ namespace OpenTibia.Game.Commands
                     {
                         uint removeId;
 
-                        if (player.Client.CreatureCollection.IsKnownCreature(Creature.Id, out removeId) )
+                        if (player.Client.Battles.IsKnownCreature(Creature.Id, out removeId) )
                         {
                             Context.AddPacket(player.Client.Connection, new ThingAddOutgoingPacket(ToTile.Position, canSeeTo[player], Creature) );
                         }
@@ -236,7 +236,7 @@ namespace OpenTibia.Game.Commands
                 {
                     uint removeId;
 
-                    if (observer.Client.CreatureCollection.IsKnownCreature(Creature.Id, out removeId) )
+                    if (observer.Client.Battles.IsKnownCreature(Creature.Id, out removeId) )
                     {
                         Context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(ToTile.Position, canSeeTo[observer], Creature) );
                     }

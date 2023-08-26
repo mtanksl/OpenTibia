@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Commands
 
                     if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
                     {
-                        Container toContainer = Player.Client.ContainerCollection.GetContainer(ToContainerId);
+                        Container toContainer = Player.Client.Containers.GetContainer(ToContainerId);
 
                         if (toContainer != null)
                         {

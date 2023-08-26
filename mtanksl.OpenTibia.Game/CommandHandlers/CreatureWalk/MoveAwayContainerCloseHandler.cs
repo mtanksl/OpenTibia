@@ -13,13 +13,13 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 return next().Then( () =>
                 {
-                    foreach (var pair in player.Client.ContainerCollection.GetIndexedContainers() )
+                    foreach (var pair in player.Client.Containers.GetIndexedContainers() )
                     {
                         switch (pair.Value.Root() )
                         {
                             case null:
 
-                                player.Client.ContainerCollection.CloseContainer(pair.Key);
+                                player.Client.Containers.CloseContainer(pair.Key);
 
                                 Context.AddPacket(player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
 
@@ -29,7 +29,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 if ( !command.ToTile.Position.IsNextTo(tile.Position) )
                                 {
-                                    player.Client.ContainerCollection.CloseContainer(pair.Key);
+                                    player.Client.Containers.CloseContainer(pair.Key);
 
                                     Context.AddPacket(player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
                                 }

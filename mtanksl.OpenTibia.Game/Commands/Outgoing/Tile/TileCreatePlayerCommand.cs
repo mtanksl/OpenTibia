@@ -102,7 +102,7 @@ namespace OpenTibia.Game.Commands
         {
             foreach (var playerVip in databasePlayer.PlayerVips)
             {
-                player.Client.VipCollection.AddVip(playerVip.Vip.Name);
+                player.Client.Vips.AddVip(playerVip.Vip.Name);
             }
         }
     }

@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using OpenTibia.Common.Objects;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace OpenTibia.Common.Objects
+namespace OpenTibia.Game
 {
     public class RuleViolationCollection
     {

@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
+            Container fromContainer = Player.Client.Containers.GetContainer(FromContainerId);
 
             if (fromContainer != null)
             {

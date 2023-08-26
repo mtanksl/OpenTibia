@@ -29,7 +29,7 @@ namespace OpenTibia.Game.Commands
 
             foreach (var observer in Container.GetPlayers() )
             {
-                foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
+                foreach (var pair in observer.Client.Containers.GetIndexedContainers() )
                 {
                     if (pair.Value == Container)
                     {

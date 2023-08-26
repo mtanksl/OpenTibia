@@ -7,6 +7,7 @@ using OpenTibia.FileFormats.Xml.Houses;
 using OpenTibia.FileFormats.Xml.Items;
 using OpenTibia.FileFormats.Xml.Monsters;
 using OpenTibia.FileFormats.Xml.Npcs;
+using OpenTibia.FileFormats.Xml.Quests;
 using OpenTibia.FileFormats.Xml.Spawns;
 using OpenTibia.Game.Commands;
 using OpenTibia.Network.Sockets;
@@ -57,7 +58,7 @@ namespace OpenTibia.Game
 
             EventHandlers = new EventHandlerCollection();
 
-            Scripts = new ScriptsCollection();
+            Scripts = new ScriptCollection();
         }
 
         ~Server()
@@ -97,7 +98,7 @@ namespace OpenTibia.Game
 
         public EventHandlerCollection EventHandlers { get; set; }
 
-        public ScriptsCollection Scripts { get; set; }
+        public ScriptCollection Scripts { get; set; }
 
         public ItemFactory ItemFactory { get; set; }
 
@@ -109,7 +110,9 @@ namespace OpenTibia.Game
 
         public IMap Map { get; set; }
 
-        public Pathfinding Pathfinding { get; set; }     
+        public Pathfinding Pathfinding { get; set; }
+
+        public QuestCollection Quests { get; set; }
 
         public void Start()
         {
@@ -150,6 +153,11 @@ namespace OpenTibia.Game
                 using (Logger.Measure("Loading map") )
                 {
                     Map = new Map(this, OtbmFile.Load("data/world/map.otbm"), SpawnFile.Load("data/world/map-spawn.xml"), HouseFile.Load("data/world/map-house.xml") );
+                }
+
+                using (Logger.Measure("Loading quests") )
+                {
+                    Quests = new QuestCollection( QuestFile.Load("data/xml/quests.xml") );
                 }
 
                 Pathfinding = new Pathfinding(Map);

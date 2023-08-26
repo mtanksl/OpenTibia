@@ -130,7 +130,7 @@ namespace OpenTibia.Game.Commands
 
                 Context.AddPacket(Connection, new SetSpecialConditionOutgoingPacket(SpecialCondition.None) );
 
-                foreach (var vip in player.Client.VipCollection.GetVips() )
+                foreach (var vip in player.Client.Vips.GetVips() )
                 {
                     Context.AddPacket(Connection, new VipOutgoingPacket(vip.Id, vip.Name, false) );
                 }

@@ -5,18 +5,18 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class InviteNpcTradeOutgoingPacket : IOutgoingPacket
     {
-        public InviteNpcTradeOutgoingPacket(List<Offer> offers)
+        public InviteNpcTradeOutgoingPacket(List<OfferDto> offers)
         {
             this.Offers = offers;
         }
 
-        private List<Offer> offers;
+        private List<OfferDto> offers;
 
-        public List<Offer> Offers
+        public List<OfferDto> Offers
         {
             get
             {
-                return offers ?? ( offers = new List<Offer>() );
+                return offers ?? ( offers = new List<OfferDto>() );
             }
             set
             {

@@ -5,18 +5,18 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class OpenChannelDialogOutgoingPacket : IOutgoingPacket
     {
-        public OpenChannelDialogOutgoingPacket(List<Channel> channels)
+        public OpenChannelDialogOutgoingPacket(List<ChannelDto> channels)
         {
             this.channels = channels;
         }
 
-        private List<Channel> channels;
+        private List<ChannelDto> channels;
 
-        public List<Channel> Channels
+        public List<ChannelDto> Channels
         {
             get
             {
-                return channels ?? ( channels = new List<Channel>() );
+                return channels ?? ( channels = new List<ChannelDto>() );
             }
             set
             {

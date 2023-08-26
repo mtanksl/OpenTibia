@@ -1,16 +1,19 @@
 ﻿using OpenTibia.Common.Structures;
+using System.Collections.Generic;
 
 namespace OpenTibia.Common.Objects
 {
     public interface IClient 
     {
-        IBattleCollection CreatureCollection { get; }
+        IBattleCollection Battles { get; }
 
-        IVipCollection VipCollection { get; }
+        IVipCollection Vips { get; }
 
-        IContainerCollection ContainerCollection { get; }
+        IContainerCollection Containers { get; }
 
-        IWindowCollection WindowCollection { get; }
+        IWindowCollection Windows { get; }
+
+        IStorageCollection Storages { get; }
 
         Player Player { get; set;  }
 

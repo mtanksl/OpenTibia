@@ -5,18 +5,18 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class OpenQuestLogDialogOutgoingPacket : IOutgoingPacket
     {
-        public OpenQuestLogDialogOutgoingPacket(List<Quest> quests)
+        public OpenQuestLogDialogOutgoingPacket(List<QuestDto> quests)
         {
             this.Quests = quests;
         }
 
-        private List<Quest> quests;
+        private List<QuestDto> quests;
 
-        public List<Quest> Quests
+        public List<QuestDto> Quests
         {
             get
             {
-                return quests ?? ( quests = new List<Quest>() );
+                return quests ?? ( quests = new List<QuestDto>() );
             }
             set
             {

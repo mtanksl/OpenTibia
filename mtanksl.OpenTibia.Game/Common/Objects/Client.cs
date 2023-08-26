@@ -7,22 +7,26 @@ namespace OpenTibia.Common.Objects
     {
         public Client(Server server)
         {
-            this.CreatureCollection = new BattleCollection(server, this);
+            this.Battles = new BattleCollection(server, this);
 
-            this.VipCollection = new VipCollection(this);
+            this.Vips = new VipCollection(this);
 
-            this.ContainerCollection = new ContainerCollection(this);
+            this.Containers = new ContainerCollection(this);
 
-            this.WindowCollection = new WindowCollection(this);
+            this.Windows = new WindowCollection(this);
+
+            this.Storages = new StorageCollection();
         }
 
-        public IBattleCollection CreatureCollection { get; }
+        public IBattleCollection Battles { get; }
 
-        public IVipCollection VipCollection { get; }
+        public IVipCollection Vips { get; }
 
-        public IContainerCollection ContainerCollection { get; }
+        public IContainerCollection Containers { get; }
 
-        public IWindowCollection WindowCollection { get; }
+        public IWindowCollection Windows { get; }
+
+        public IStorageCollection Storages { get; }
 
         private Player player;
 
@@ -170,7 +174,7 @@ namespace OpenTibia.Common.Objects
 
                         case Container container:
 
-                            foreach (var pair in ContainerCollection.GetIndexedContainers() )
+                            foreach (var pair in Containers.GetIndexedContainers() )
                             {
                                 if (pair.Value == container)
                                 {

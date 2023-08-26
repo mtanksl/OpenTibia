@@ -5,7 +5,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class JoinNpcTradeOutgoingPacket : IOutgoingPacket
     {
-        public JoinNpcTradeOutgoingPacket(uint money, List<CounterOffer> offers)
+        public JoinNpcTradeOutgoingPacket(uint money, List<CounterOfferDto> offers)
         {
             this.Money = money;
 
@@ -14,13 +14,13 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public uint Money { get; set; }
 
-        private List<CounterOffer> offers;
+        private List<CounterOfferDto> offers;
 
-        public List<CounterOffer> Offers
+        public List<CounterOfferDto> Offers
         {
             get
             {
-                return offers ?? ( offers = new List<CounterOffer>() );
+                return offers ?? ( offers = new List<CounterOfferDto>() );
             }
             set
             {

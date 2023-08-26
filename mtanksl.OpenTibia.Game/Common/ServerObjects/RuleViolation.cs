@@ -1,6 +1,7 @@
-﻿using System;
+﻿using OpenTibia.Common.Objects;
+using System;
 
-namespace OpenTibia.Common.Objects
+namespace OpenTibia.Game
 {
     public class RuleViolation
     {

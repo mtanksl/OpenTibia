@@ -133,11 +133,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                     foreach (var observer in isNextFrom.Except(isNextTo) )
                     {
-                        foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
+                        foreach (var pair in observer.Client.Containers.GetIndexedContainers() )
                         {
                             if (pair.Value.IsContentOf(container) )
                             {
-                                observer.Client.ContainerCollection.CloseContainer(pair.Key);
+                                observer.Client.Containers.CloseContainer(pair.Key);
 
                                 Context.AddPacket(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
                             }
@@ -146,7 +146,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     foreach (var observer in isNextFrom.Intersect(isNextTo) )
                     {
-                        foreach (var pair in observer.Client.ContainerCollection.GetIndexedContainers() )
+                        foreach (var pair in observer.Client.Containers.GetIndexedContainers() )
                         {
                             if (pair.Value == container)
                             {

@@ -1,16 +1,20 @@
 ﻿namespace OpenTibia.Network.Packets
 {
-    public class Channel
+    public class QuestDto
     {
-        public Channel(ushort id, string name)
+        public QuestDto(ushort id, string name, bool completed)
         {
             this.Id = id;
 
             this.Name = name;
+
+            this.Completed = completed;
         }
 
         public ushort Id { get; set; }
 
         public string Name { get; set; }
+
+        public bool Completed { get; set; }
     }
 }

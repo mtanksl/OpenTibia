@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Container fromContainer = Player.Client.ContainerCollection.GetContainer(FromContainerId);
+            Container fromContainer = Player.Client.Containers.GetContainer(FromContainerId);
 
             if (fromContainer != null)
             {
@@ -41,7 +41,7 @@ namespace OpenTibia.Game.Commands
 
                 if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
                 {
-                    Container toContainer = Player.Client.ContainerCollection.GetContainer(ToContainerId);
+                    Container toContainer = Player.Client.Containers.GetContainer(ToContainerId);
 
                     if (ToContainerIndex == 254)
                     {

@@ -1,8 +1,8 @@
 ﻿namespace OpenTibia.Network.Packets
 {
-    public class Character
+    public class CharacterDto
     {
-        public Character(string name, string world, string ip, ushort port)
+        public CharacterDto(string name, string world, string ip, ushort port)
         {
             this.Name = name;
 

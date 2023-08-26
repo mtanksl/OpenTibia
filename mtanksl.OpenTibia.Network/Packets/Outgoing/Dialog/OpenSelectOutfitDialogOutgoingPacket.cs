@@ -6,7 +6,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class OpenSelectOutfitDialogOutgoingPacket : IOutgoingPacket
     {
-        public OpenSelectOutfitDialogOutgoingPacket(Outfit outfit, List<SelectOutfit> outfits)
+        public OpenSelectOutfitDialogOutgoingPacket(Outfit outfit, List<OutfitDto> outfits)
         {
             this.Outfit = outfit;
 
@@ -15,13 +15,13 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public Outfit Outfit { get; set; }
 
-        private List<SelectOutfit> outfits;
+        private List<OutfitDto> outfits;
 
-        public List<SelectOutfit> Outfits
+        public List<OutfitDto> Outfits
         {
             get
             {
-                return outfits ?? ( outfits = new List<SelectOutfit>() );
+                return outfits ?? ( outfits = new List<OutfitDto>() );
             }
             set
             {

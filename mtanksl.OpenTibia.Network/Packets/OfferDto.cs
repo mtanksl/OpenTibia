@@ -1,8 +1,8 @@
 ﻿namespace OpenTibia.Network.Packets
 {
-    public class Offer
+    public class OfferDto
     {
-        public Offer(ushort itemId, byte type, string name, uint weight, uint buyPrice, uint sellPrice)
+        public OfferDto(ushort itemId, byte type, string name, uint weight, uint buyPrice, uint sellPrice)
         {
             ItemId = itemId;
 

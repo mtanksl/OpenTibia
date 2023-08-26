@@ -237,7 +237,7 @@ namespace OpenTibia.Game.Commands
 
             int sequenceId = 1;
 
-            foreach (var vip in player.Client.VipCollection.GetVips() )
+            foreach (var vip in player.Client.Vips.GetVips() )
             {
                 var playerVip = new DbPlayerVip()
                 {

@@ -1,8 +1,8 @@
 ﻿namespace OpenTibia.Network.Packets
 {
-    public class CounterOffer
+    public class CounterOfferDto
     {
-        public CounterOffer(ushort itemId, byte count)
+        public CounterOfferDto(ushort itemId, byte count)
         {
             ItemId = itemId;
 

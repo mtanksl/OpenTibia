@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using OpenTibia.Common.Objects;
+using System.Collections.Generic;
 
-namespace OpenTibia.Common.Objects
+namespace OpenTibia.Game
 {
     public class Channel
     {
