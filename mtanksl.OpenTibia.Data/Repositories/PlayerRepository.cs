@@ -63,10 +63,10 @@ namespace OpenTibia.Data.Repositories
             return player;
         }
 
-        public DbPlayer GetPlayerById(int databasePlayerId)
+        public DbPlayer GetPlayerById(int id)
         {
             DbPlayer player = context.Players
-                .Where(p => p.Id == databasePlayerId)
+                .Where(p => p.Id == id)
                 .FirstOrDefault();
 
             if (player != null)

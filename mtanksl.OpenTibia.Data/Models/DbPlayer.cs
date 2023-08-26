@@ -118,9 +118,11 @@ namespace OpenTibia.Data.Models
 
         public DbWorld World { get; set; }
 
+        public ICollection<DbPlayerDepotItem> PlayerDepotItems { get; set; } = new List<DbPlayerDepotItem>();
+
         public ICollection<DbPlayerItem> PlayerItems { get; set; } = new List<DbPlayerItem>();
 
-        public ICollection<DbPlayerDepotItem> PlayerDepotItems { get; set; } = new List<DbPlayerDepotItem>();
+        public ICollection<DbPlayerStorage> PlayerStorages { get; set; } = new List<DbPlayerStorage>();
 
         public ICollection<DbPlayerVip> PlayerVips { get; set; } = new List<DbPlayerVip>();
     }

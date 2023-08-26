@@ -33,9 +33,9 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            DbAccount databaseAccount = Context.Database.PlayerRepository.GetAccount(Packet.Account, Packet.Password);
+            DbAccount dbAccount = Context.Database.PlayerRepository.GetAccount(Packet.Account, Packet.Password);
 
-            if (databaseAccount == null)
+            if (dbAccount == null)
             {
                 Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
 
@@ -44,43 +44,43 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            DbBan databaseBan = Context.Database.BanRepository.GetBanByIpAddress(Connection.IpAddress);
+            DbBan dbBan = Context.Database.BanRepository.GetBanByIpAddress(Connection.IpAddress);
 
-            if (databaseBan != null)
+            if (dbBan != null)
             {
-                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, databaseBan.Message));
+                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, dbBan.Message));
 
                 Context.Disconnect(Connection);
 
                 return Promise.Break;
             }
 
-            databaseBan = Context.Database.BanRepository.GetBanByAccountId(databaseAccount.Id);
+            dbBan = Context.Database.BanRepository.GetBanByAccountId(dbAccount.Id);
 
-            if (databaseBan != null)
+            if (dbBan != null)
             {
-                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, databaseBan.Message) );
+                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, dbBan.Message) );
 
                 Context.Disconnect(Connection);
 
                 return Promise.Break;
             }
 
-            DbMotd databaseMotd = Context.Database.MotdRepository.GetLastMessageOfTheDay();
+            DbMotd dbMotd = Context.Database.MotdRepository.GetLastMessageOfTheDay();
 
-            if (databaseMotd != null)
+            if (dbMotd != null)
             {
-                Context.AddPacket(Connection, new OpenMessageOfTheDayDialogOutgoingPacket(databaseMotd.Id, databaseMotd.Message) );    
+                Context.AddPacket(Connection, new OpenMessageOfTheDayDialogOutgoingPacket(dbMotd.Id, dbMotd.Message) );    
             }
 
             List<CharacterDto> characters = new List<CharacterDto>();
 
-            foreach (var player in databaseAccount.Players)
+            foreach (var player in dbAccount.Players)
             {
                 characters.Add( new CharacterDto(player.Name, player.World.Name, player.World.Ip, (ushort)player.World.Port) );
             }
 
-            Context.AddPacket(Connection, new OpenSelectCharacterDialogOutgoingPacket(characters, (ushort)databaseAccount.PremiumDays) );
+            Context.AddPacket(Connection, new OpenSelectCharacterDialogOutgoingPacket(characters, (ushort)dbAccount.PremiumDays) );
 
             Context.Disconnect(Connection);
 

@@ -4,20 +4,20 @@ namespace OpenTibia.Game.Commands
 {
     public class ParseRemoveVipCommand : Command
     {
-        public ParseRemoveVipCommand(Player player, uint creatureId)
+        public ParseRemoveVipCommand(Player player, uint databasePlayerId)
         {
             Player = player;
 
-            CreatureId = creatureId;
+            DatabasePlayerId = databasePlayerId;
         }
 
         public Player Player { get; set; }
 
-        public uint CreatureId { get; set; }
+        public uint DatabasePlayerId { get; set; }
 
         public override Promise Execute()
         {
-            Player.Client.Vips.RemoveVip(CreatureId);
+            Player.Client.Vips.RemoveVip( (int)DatabasePlayerId);
 
             return Promise.Completed;
         }

@@ -4,18 +4,18 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class VipLogoutOutgoingPacket : IOutgoingPacket
     {
-        public VipLogoutOutgoingPacket(uint creatureId)
+        public VipLogoutOutgoingPacket(uint id)
         {
-            this.CreatureId = creatureId;
+            this.Id = id;
         }
 
-        public uint CreatureId { get; set; }
+        public uint Id { get; set; }
 
         public void Write(ByteArrayStreamWriter writer)
         {
             writer.Write( (byte)0xD4 );
 
-            writer.Write(CreatureId);
+            writer.Write(Id);
         }
     }
 }

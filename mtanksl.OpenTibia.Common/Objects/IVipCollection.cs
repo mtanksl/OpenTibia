@@ -4,10 +4,12 @@ namespace OpenTibia.Common.Objects
 {
     public interface IVipCollection
     {
-        Vip AddVip(string name);
+        bool TryGetVip(int databasePlayerId, out string name);
 
-        void RemoveVip(uint creatureId);
+        bool AddVip(int databasePlayerId, string name);
 
-        IEnumerable<Vip> GetVips();
+        void RemoveVip(int databasePlayerId);
+
+        IEnumerable< KeyValuePair<int, string> > GetIndexed();
     }
 }

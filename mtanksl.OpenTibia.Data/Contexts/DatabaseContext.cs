@@ -27,7 +27,7 @@ namespace OpenTibia.Data.Contexts
                 .HasKey(m => new { m.PlayerId, m.Key } );
 
             modelBuilder.Entity<DbPlayerVip>()
-                .HasKey(m => new { m.PlayerId, m.SequenceId } );
+                .HasKey(m => new { m.PlayerId, m.VipId } );
 
             modelBuilder.Entity<DbPlayerVip>()
                 .HasOne(v => v.Player)

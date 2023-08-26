@@ -4,16 +4,16 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class VipOutgoingPacket : IOutgoingPacket
     {
-        public VipOutgoingPacket(uint creatureId, string name, bool online)
+        public VipOutgoingPacket(uint id, string name, bool online)
         {
-            this.CreatureId = creatureId;
+            this.Id = id;
 
             this.Name = name;
 
             this.Online = online;
         }
 
-        public uint CreatureId { get; set; }
+        public uint Id { get; set; }
 
         public string Name { get; set; }
 
@@ -23,7 +23,7 @@ namespace OpenTibia.Network.Packets.Outgoing
         {
             writer.Write( (byte)0xD2 );
 
-            writer.Write(CreatureId);
+            writer.Write(Id);
 
             writer.Write(Name);
 

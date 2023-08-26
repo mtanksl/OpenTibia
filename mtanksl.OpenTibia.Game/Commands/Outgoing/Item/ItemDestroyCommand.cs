@@ -13,27 +13,11 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            if (Context.Server.ItemFactory.Detach(Item) )
+            if (Detach(Item) )
             {
-                if (Item is Container parent)
-                {
-                    foreach (var child in parent.GetItems() )
-                    {
-                        Detach(child);
-                    }
-                }
-
                 Context.Server.QueueForExecution( () =>
                 {
-                    Context.Server.ItemFactory.Destroy(Item);
-
-                    if (Item is Container parent)
-                    {
-                        foreach (var child in parent.GetItems() )
-                        {
-                            Destroy(child);
-                        }
-                    }
+                    Destroy(Item);
 
                     switch (Item.Parent)
                     {
@@ -57,24 +41,29 @@ namespace OpenTibia.Game.Commands
             return Promise.Completed;
         }
 
-        private void Detach(Item parent)
+        private bool Detach(Item item)
         {
-            Context.Server.ItemFactory.Detach(parent);
+            if (Context.Server.ItemFactory.Detach(item) )
+            {
+                if (item is Container container)
+                {
+                    foreach (var child in container.GetItems() )
+                    {
+                        Detach(child);
+                    }
+                }
 
-            if (parent is Container container)
-	        {
-		        foreach (var child in container.GetItems() )
-		        {
-                    Detach(child);
-		        }
-	        }
+                return true;
+            }
+
+            return false;
         }
 
-        private void Destroy(Item parent)
+        private void Destroy(Item item)
         {
-            Context.Server.ItemFactory.Destroy(parent);
+            Context.Server.ItemFactory.Destroy(item);
 
-            if (parent is Container container)
+            if (item is Container container)
 	        {
 		        foreach (var child in container.GetItems() )
 		        {

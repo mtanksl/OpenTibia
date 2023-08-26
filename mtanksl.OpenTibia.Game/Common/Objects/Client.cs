@@ -9,24 +9,24 @@ namespace OpenTibia.Common.Objects
         {
             this.Battles = new BattleCollection(server, this);
 
-            this.Vips = new VipCollection(this);
-
             this.Containers = new ContainerCollection(this);
 
             this.Windows = new WindowCollection(this);
 
             this.Storages = new StorageCollection();
+
+            this.Vips = new VipCollection();
         }
 
         public IBattleCollection Battles { get; }
-
-        public IVipCollection Vips { get; }
 
         public IContainerCollection Containers { get; }
 
         public IWindowCollection Windows { get; }
 
         public IStorageCollection Storages { get; }
+
+        public IVipCollection Vips { get; }
 
         private Player player;
 

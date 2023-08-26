@@ -6,36 +6,9 @@ namespace OpenTibia.Common.Objects
     {
         private Dictionary<int, int> storages = new Dictionary<int, int>();
 
-        public bool ContainsKey(int key)
+        public bool TryGetValue(int key, out int value)
         {
-            int _value;
-
-            if (storages.TryGetValue(key, out _value) )
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool ContainsValue(int key, int value)
-        {
-            int _value;
-
-            if (storages.TryGetValue(key, out _value) )
-            {
-                if (value == _value)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        public bool TryGetValue(int key, out int _value)
-        {
-            return storages.TryGetValue(key, out _value);
+            return storages.TryGetValue(key, out value);
         }
 
         public void SetValue(int key, int value)
@@ -46,6 +19,14 @@ namespace OpenTibia.Common.Objects
         public void RemoveValue(int key)
         {
             storages.Remove(key);
+        }
+                
+        public IEnumerable< KeyValuePair<int, int> > GetIndexed()
+        {
+            foreach (var item in storages)
+            {
+                yield return item;
+            }
         }
     }
 }

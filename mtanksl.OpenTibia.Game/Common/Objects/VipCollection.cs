@@ -4,62 +4,36 @@ namespace OpenTibia.Common.Objects
 {
     public class VipCollection : IVipCollection
     {
-        public VipCollection(IClient client)
+        private Dictionary<int, string> vips = new Dictionary<int, string>();
+
+        public bool TryGetVip(int databasePlayerId, out string name)
         {
-            this.client = client;
+            return vips.TryGetValue(databasePlayerId, out name);
         }
 
-        private IClient client;
-
-        private IClient Client
+        public bool AddVip(int databasePlayerId, string name)
         {
-            get
+            if ( !vips.ContainsKey(databasePlayerId) )
             {
-                return client;
+                vips.Add(databasePlayerId, name);
+
+                return true;
             }
+
+            return false;
         }
 
-        private uint uniqueId = 0;
-
-        private uint GenerateId()
+        public void RemoveVip(int databasePlayerId)
         {
-            uniqueId++;
-
-            return uniqueId;
+            vips.Remove(databasePlayerId);
         }
 
-        private List<Vip> vips = new List<Vip>();
-
-        public Vip AddVip(string name)
+        public IEnumerable< KeyValuePair<int, string> > GetIndexed()
         {
-            Vip vip = new Vip()
+            foreach (var item in vips)
             {
-                Id = GenerateId(),
-
-                Name = name
-            };
-
-            vips.Add(vip);
-
-            return vip;
-        }
-
-        public void RemoveVip(uint id)
-        {
-            for (int i = 0; i < vips.Count; i++)
-            {
-                if (vips[i].Id == id)
-                {
-                    vips.RemoveAt(i);
-
-                    break;
-                }
+                yield return item;
             }
-        }
-
-        public IEnumerable<Vip> GetVips()
-        {
-            return vips;
         }
     }
 }

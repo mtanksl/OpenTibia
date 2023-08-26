@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Structures;
-using System.Collections.Generic;
 
 namespace OpenTibia.Common.Objects
 {
@@ -7,13 +6,13 @@ namespace OpenTibia.Common.Objects
     {
         IBattleCollection Battles { get; }
 
-        IVipCollection Vips { get; }
-
         IContainerCollection Containers { get; }
 
         IWindowCollection Windows { get; }
 
         IStorageCollection Storages { get; }
+
+        IVipCollection Vips { get; }
 
         Player Player { get; set;  }
 

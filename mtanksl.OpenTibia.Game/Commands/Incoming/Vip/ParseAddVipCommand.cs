@@ -1,6 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Data.Models;
 using OpenTibia.Network.Packets.Outgoing;
-using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -19,17 +19,16 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Player observer = Context.Server.GameObjects.GetPlayers()
-                .Where(p => p.Name == Name)
-                .FirstOrDefault();
+            DbPlayer dbPlayer = Context.Database.PlayerRepository.GetPlayerByName(Name);
 
-            if (observer != null && observer != Player)
+            if (dbPlayer != null && dbPlayer.Id != Player.DatabasePlayerId)
             {
-                Vip vip = Player.Client.Vips.AddVip(observer.Name);
+                if (Player.Client.Vips.AddVip(dbPlayer.Id, dbPlayer.Name) )
+                {
+                    Context.AddPacket(Player.Client.Connection, new VipOutgoingPacket( (uint)dbPlayer.Id, dbPlayer.Name, false) );
 
-                Context.AddPacket(Player.Client.Connection, new VipOutgoingPacket(vip.Id, vip.Name, false) );
-
-                return Promise.Completed;
+                    return Promise.Completed;
+                }
             }
 
             return Promise.Break;

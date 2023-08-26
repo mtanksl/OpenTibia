@@ -33,9 +33,9 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            DbPlayer databasePlayer = Context.Database.PlayerRepository.GetAccountPlayer(Packet.Account, Packet.Password, Packet.Character);
+            DbPlayer dbPlayer = Context.Database.PlayerRepository.GetAccountPlayer(Packet.Account, Packet.Password, Packet.Character);
 
-            if (databasePlayer == null)
+            if (dbPlayer == null)
             {
                 Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.AccountNameOrPasswordIsNotCorrect) );
 
@@ -44,33 +44,33 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            DbBan databaseBan = Context.Database.BanRepository.GetBanByIpAddress(Connection.IpAddress);
+            DbBan dbBan = Context.Database.BanRepository.GetBanByIpAddress(Connection.IpAddress);
 
-            if (databaseBan != null)
+            if (dbBan != null)
             {
-                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, databaseBan.Message) );
+                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, dbBan.Message) );
 
                 Context.Disconnect(Connection);
 
                 return Promise.Break;
             }
 
-            databaseBan = Context.Database.BanRepository.GetBanByAccountId(databasePlayer.AccountId);
+            dbBan = Context.Database.BanRepository.GetBanByAccountId(dbPlayer.AccountId);
 
-            if (databaseBan != null)
+            if (dbBan != null)
             {
-                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, databaseBan.Message) );
+                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, dbBan.Message) );
 
                 Context.Disconnect(Connection);
 
                 return Promise.Break;
             }
 
-            databaseBan = Context.Database.BanRepository.GetBanByPlayerId(databasePlayer.Id);
+            dbBan = Context.Database.BanRepository.GetBanByPlayerId(dbPlayer.Id);
 
-            if (databaseBan != null)
+            if (dbBan != null)
             {
-                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, databaseBan.Message) );
+                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, dbBan.Message) );
 
                 Context.Disconnect(Connection);
 
@@ -81,7 +81,7 @@ namespace OpenTibia.Game.Commands
 
             byte time;
 
-            if ( !Context.Server.WaitingList.CanLogin(databasePlayer.Id, out position, out time) )
+            if ( !Context.Server.WaitingList.CanLogin(dbPlayer.Id, out position, out time) )
             {
                 Context.AddPacket(Connection, new OpenPleaseWaitDialogOutgoingPacket("Too many players online. You are at " + position + " place on the waiting list.", time) );
 
@@ -93,7 +93,7 @@ namespace OpenTibia.Game.Commands
             Tile toTile = null;
 
             Player onlinePlayer = Context.Server.GameObjects.GetPlayers()
-                .Where(p => p.Name == databasePlayer.Name)
+                .Where(p => p.Name == dbPlayer.Name)
                 .FirstOrDefault();
 
             return Promise.Run( () =>
@@ -107,9 +107,9 @@ namespace OpenTibia.Game.Commands
 
             } ).Then( () =>
             {
-                toTile = Context.Server.Map.GetTile(new Position(databasePlayer.CoordinateX, databasePlayer.CoordinateY, databasePlayer.CoordinateZ) );
+                toTile = Context.Server.Map.GetTile(new Position(dbPlayer.CoordinateX, dbPlayer.CoordinateY, dbPlayer.CoordinateZ) );
 
-                return Context.AddCommand(new TileCreatePlayerCommand(toTile, Connection, databasePlayer) );
+                return Context.AddCommand(new TileCreatePlayerCommand(toTile, Connection, dbPlayer) );
 
             } ).Then( (player) =>
             {
@@ -117,22 +117,22 @@ namespace OpenTibia.Game.Commands
 
                 Context.AddPacket(Connection, new SendTilesOutgoingPacket(Context.Server.Map, player.Client, toTile.Position) );
 
+                Context.AddPacket(Connection, new SetEnvironmentLightOutgoingPacket(Context.Server.Clock.Light) );
+                                
+                Context.AddPacket(Connection, new SendStatusOutgoingPacket(player.Health, player.MaxHealth, player.Capacity, player.Experience, player.Level, player.LevelPercent, player.Mana, player.MaxMana, player.Skills.MagicLevel, player.Skills.MagicLevelPercent, player.Soul, player.Stamina) );
+
+                Context.AddPacket(Connection, new SendSkillsOutgoingPacket(player.Skills.Fist, player.Skills.FistPercent, player.Skills.Club, player.Skills.ClubPercent, player.Skills.Sword, player.Skills.SwordPercent, player.Skills.Axe, player.Skills.AxePercent, player.Skills.Distance, player.Skills.DistancePercent, player.Skills.Shield, player.Skills.ShieldPercent, player.Skills.Fish, player.Skills.FishPercent) );
+
+                Context.AddPacket(Connection, new SetSpecialConditionOutgoingPacket(SpecialCondition.None) );
+
                 foreach (var pair in player.Inventory.GetIndexedContents() )
                 {
                     Context.AddPacket(Connection, new SlotAddOutgoingPacket(pair.Key, (Item)pair.Value) );
                 }
 
-                Context.AddPacket(Connection, new SendStatusOutgoingPacket(player.Health, player.MaxHealth, player.Capacity, player.Experience, player.Level, player.LevelPercent, player.Mana, player.MaxMana, player.Skills.MagicLevel, player.Skills.MagicLevelPercent, player.Soul, player.Stamina) );
-
-                Context.AddPacket(Connection, new SendSkillsOutgoingPacket(player.Skills.Fist, player.Skills.FistPercent, player.Skills.Club, player.Skills.ClubPercent, player.Skills.Sword, player.Skills.SwordPercent, player.Skills.Axe, player.Skills.AxePercent, player.Skills.Distance, player.Skills.DistancePercent, player.Skills.Shield, player.Skills.ShieldPercent, player.Skills.Fish, player.Skills.FishPercent) );
-
-                Context.AddPacket(Connection, new SetEnvironmentLightOutgoingPacket(Context.Server.Clock.Light) );
-
-                Context.AddPacket(Connection, new SetSpecialConditionOutgoingPacket(SpecialCondition.None) );
-
-                foreach (var vip in player.Client.Vips.GetVips() )
+                foreach (var pair in player.Client.Vips.GetIndexed() )
                 {
-                    Context.AddPacket(Connection, new VipOutgoingPacket(vip.Id, vip.Name, false) );
+                    Context.AddPacket(Connection, new VipOutgoingPacket( (uint)pair.Key, pair.Value, false) );
                 }
 
                 return Promise.Completed;

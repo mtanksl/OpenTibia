@@ -4,8 +4,6 @@
     {
         public int PlayerId { get; set; }
 
-        public int SequenceId { get; set; }
-
         public int VipId { get; set; }
 
 

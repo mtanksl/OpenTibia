@@ -69,7 +69,7 @@ namespace OpenTibia.Game
                 BaseSpeed = (ushort)databasePlayer.BaseSpeed,
 
                 Speed = (ushort)databasePlayer.Speed,
-
+                
                 Invisible = databasePlayer.Invisible,
 
                 Skills = {
