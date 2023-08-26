@@ -39,6 +39,8 @@ namespace OpenTibia.Game
 
             Randomization = new Randomization();
 
+            WaitingList = new WaitingList(this);
+
             Channels = new ChannelCollection();
 
             RuleViolations = new RuleViolationCollection();
@@ -76,6 +78,8 @@ namespace OpenTibia.Game
         public Clock Clock { get; set; }
 
         public Randomization Randomization { get; set; }
+
+        public WaitingList WaitingList { get; set; }
 
         public ChannelCollection Channels { get; set; }
 

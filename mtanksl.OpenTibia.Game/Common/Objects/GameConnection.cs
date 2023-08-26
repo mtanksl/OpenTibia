@@ -857,10 +857,17 @@ namespace OpenTibia.Common.Objects
 
             if (e.Type == DisconnectionType.SocketClosed || e.Type == DisconnectionType.SocketException)
             {
-                server.QueueForExecution( () =>
+                if (Client == null || Client.Player == null || Client.Player.Tile == null || Client.Player.IsDestroyed)
                 {
-                    return Context.Current.AddCommand(new ParseLogOutCommand(Client.Player) );
-                } );
+                    
+                }
+                else
+                {
+                    server.QueueForExecution( () =>
+                    {
+                        return Context.Current.AddCommand(new ParseLogOutCommand(Client.Player) );
+                    } );
+                }
             }
             
             base.OnDisconnected(e);

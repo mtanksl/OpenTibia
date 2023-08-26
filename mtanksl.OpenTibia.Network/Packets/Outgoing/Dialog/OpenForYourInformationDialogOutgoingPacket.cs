@@ -25,6 +25,7 @@ namespace OpenTibia.Network.Packets.Outgoing
             {
                 writer.Write( (byte)0x15 );                
             }
+
             writer.Write(Message);
         }
     }

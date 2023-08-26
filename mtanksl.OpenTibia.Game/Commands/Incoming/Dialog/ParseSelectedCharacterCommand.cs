@@ -77,6 +77,19 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
+            int position;
+
+            byte time;
+
+            if ( !Context.Server.WaitingList.CanLogin(databasePlayer.Id, out position, out time) )
+            {
+                Context.AddPacket(Connection, new OpenPleaseWaitDialogOutgoingPacket("Too many players online. You are at " + position + " place on the waiting list.", time) );
+
+                Context.Disconnect(Connection);
+
+                return Promise.Break;
+            }
+
             Tile toTile = null;
 
             Player onlinePlayer = Context.Server.GameObjects.GetPlayers()
