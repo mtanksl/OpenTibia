@@ -13,11 +13,11 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            if (Detach(Item) )
+            if (Detach(Context, Item) )
             {
                 Context.Server.QueueForExecution( () =>
                 {
-                    Destroy(Item);
+                    Destroy(Context, Item);
 
                     switch (Item.Parent)
                     {
@@ -41,15 +41,15 @@ namespace OpenTibia.Game.Commands
             return Promise.Completed;
         }
 
-        private bool Detach(Item item)
+        private static bool Detach(Context context, Item item)
         {
-            if (Context.Server.ItemFactory.Detach(item) )
+            if (context.Server.ItemFactory.Detach(item) )
             {
                 if (item is Container container)
                 {
                     foreach (var child in container.GetItems() )
                     {
-                        Detach(child);
+                        Detach(context, child);
                     }
                 }
 
@@ -59,15 +59,15 @@ namespace OpenTibia.Game.Commands
             return false;
         }
 
-        private void Destroy(Item item)
+        private static void Destroy(Context context, Item item)
         {
-            Context.Server.ItemFactory.Destroy(item);
+            context.Server.ItemFactory.Destroy(item);
 
             if (item is Container container)
 	        {
 		        foreach (var child in container.GetItems() )
 		        {
-                    Destroy(child);
+                    Destroy(context, child);
 		        }
 	        }
         }

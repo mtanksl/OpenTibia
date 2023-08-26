@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Data.Models;
 using OpenTibia.Network.Packets.Outgoing;
+using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -19,36 +20,20 @@ namespace OpenTibia.Game.Commands
             {
                 foreach (var child in Player.Inventory.GetItems() )
                 {
-                    Detach(child);
+                    Detach(Context, child);
                 }
 
                 DbPlayer dbPlayer = Context.Database.PlayerRepository.GetPlayerById(Player.DatabasePlayerId);
 
-                dbPlayer.PlayerStorages.Clear();
+                    SavePlayer(Context, dbPlayer, Player);
 
-                foreach (var pair in Player.Client.Storages.GetIndexed() )
-                {
-                    dbPlayer.PlayerStorages.Add(new DbPlayerStorage()
-                    {
-                        PlayerId = dbPlayer.Id,
+                    SaveLocker(Context, dbPlayer, Player);
 
-                        Key = pair.Key,
+                    SaveInventory(Context, dbPlayer, Player);
 
-                        Value = pair.Value
-                    } );
-                }
+                    SaveStorage(Context, dbPlayer, Player);
 
-                dbPlayer.PlayerVips.Clear();
-
-                foreach (var pair in Player.Client.Vips.GetIndexed() )
-                {
-                    dbPlayer.PlayerVips.Add(new DbPlayerVip()
-                    {
-                        PlayerId = dbPlayer.Id,
-
-                        VipId = pair.Key
-                    } );
-                }
+                    SaveVip(Context, dbPlayer, Player);
 
                 Context.Database.Commit();
 
@@ -58,7 +43,7 @@ namespace OpenTibia.Game.Commands
 
                     foreach (var child in Player.Inventory.GetItems() )
                     {
-                        Destroy(child);
+                        Destroy(Context, child);
                     }
 
                     return Context.AddCommand(new TileRemoveCreatureCommand(Player.Tile, Player) ).Then( () =>
@@ -79,16 +64,16 @@ namespace OpenTibia.Game.Commands
 
             return Promise.Completed;
         }
-        
-        private bool Detach(Item item)
+
+        private static bool Detach(Context context, Item item)
         {
-            if (Context.Server.ItemFactory.Detach(item) )
+            if (context.Server.ItemFactory.Detach(item) )
             {
                 if (item is Container container)
                 {
                     foreach (var child in container.GetItems() )
                     {
-                        Detach(child);
+                        Detach(context, child);
                     }
                 }
 
@@ -98,17 +83,234 @@ namespace OpenTibia.Game.Commands
             return false;
         }
 
-        private void Destroy(Item item)
+        private static void Destroy(Context context, Item item)
         {
-            Context.Server.ItemFactory.Destroy(item);
+            context.Server.ItemFactory.Destroy(item);
 
             if (item is Container container)
 	        {
 		        foreach (var child in container.GetItems() )
 		        {
-                    Destroy(child);
+                    Destroy(context, child);
 		        }
 	        }
+        }
+
+        private static void SavePlayer(Context context, DbPlayer dbPlayer, Player player)
+        {
+            // dbPlayer.Health = player.Health;
+
+            // dbPlayer.MaxHealth = player.MaxHealth;
+
+            dbPlayer.Direction = (int)player.Direction;
+
+            dbPlayer.BaseOutfitItemId = player.BaseOutfit.ItemId;
+
+            dbPlayer.BaseOutfitId = player.BaseOutfit.Id;
+
+            dbPlayer.BaseOutfitHead = player.BaseOutfit.Head;
+
+            dbPlayer.BaseOutfitBody = player.BaseOutfit.Body;
+
+            dbPlayer.BaseOutfitLegs = player.BaseOutfit.Legs;
+
+            dbPlayer.BaseOutfitFeet = player.BaseOutfit.Feet;
+
+            dbPlayer.BaseOutfitAddon = (int)player.BaseOutfit.Addon;
+
+            dbPlayer.OutfitItemId = player.Outfit.ItemId;
+
+            dbPlayer.OutfitId = player.Outfit.Id;
+
+            dbPlayer.OutfitHead = player.Outfit.Head;
+
+            dbPlayer.OutfitBody = player.Outfit.Body;
+
+            dbPlayer.OutfitLegs = player.Outfit.Legs;
+
+            dbPlayer.OutfitFeet = player.Outfit.Feet;
+
+            dbPlayer.OutfitAddon = (int)player.Outfit.Addon;
+
+            // dbPlayer.BaseSpeed = player.BaseSpeed;
+
+            // dbPlayer.Speed = player.Speed;
+
+            dbPlayer.Invisible = player.Invisible;
+
+            dbPlayer.SkillMagicLevel = player.Skills.MagicLevel;
+
+            dbPlayer.SkillMagicLevelPercent = player.Skills.MagicLevelPercent;
+
+            dbPlayer.SkillFist = player.Skills.Fist;
+
+            dbPlayer.SkillFistPercent = player.Skills.FistPercent;
+
+            dbPlayer.SkillClub = player.Skills.Club;
+
+            dbPlayer.SkillClubPercent = player.Skills.ClubPercent;
+
+            dbPlayer.SkillSword = player.Skills.Sword;
+
+            dbPlayer.SkillSwordPercent = player.Skills.SwordPercent;
+
+            dbPlayer.SkillAxe = player.Skills.Axe;
+
+            dbPlayer.SkillAxePercent = player.Skills.AxePercent;
+
+            dbPlayer.SkillDistance = player.Skills.Distance;
+
+            dbPlayer.SkillDistancePercent = player.Skills.DistancePercent;
+
+            dbPlayer.SkillShield = player.Skills.Shield;
+
+            dbPlayer.SkillShieldPercent = player.Skills.ShieldPercent;
+
+            dbPlayer.SkillFish = player.Skills.Fish;
+
+            dbPlayer.SkillFishPercent = player.Skills.FishPercent;
+
+            dbPlayer.Experience = (int)player.Experience;
+
+            dbPlayer.Level = player.Level;
+
+            dbPlayer.LevelPercent = player.LevelPercent;
+
+            // dbPlayer.Mana = player.Mana;
+
+            // dbPlayer.MaxMana = player.MaxMana;
+
+            dbPlayer.Soul = player.Soul;
+
+            dbPlayer.Capacity = (int)player.Capacity;
+
+            dbPlayer.Stamina = player.Stamina;
+
+            dbPlayer.Gender = (int)player.Gender;
+
+            dbPlayer.Vocation = (int)player.Vocation;
+
+            dbPlayer.CoordinateX = player.Tile.Position.X;
+
+            dbPlayer.CoordinateY = player.Tile.Position.Y;
+
+            dbPlayer.CoordinateZ = player.Tile.Position.Z;
+        }
+
+        private static void SaveLocker(Context context, DbPlayer dbPlayer, Player player)
+        {
+            int sequenceId = 101;
+
+            void AddItems(int parentId, Item item)
+            {
+                DbPlayerDepotItem dbPlayerDepotItem = new DbPlayerDepotItem()
+                {
+                    PlayerId = dbPlayer.Id,
+
+                    SequenceId = sequenceId++,
+
+                    ParentId = parentId,
+
+                    OpenTibiaId = item.Metadata.OpenTibiaId,
+
+                    Count = item is StackableItem stackableItem ? stackableItem.Count :
+
+                            item is FluidItem fluidItem ? (int)fluidItem.FluidType :
+
+                            item is SplashItem splashItem ? (int)splashItem.FluidType : 1
+                };
+
+                dbPlayer.PlayerDepotItems.Add(dbPlayerDepotItem);
+
+                if (item is Container container)
+                {
+                    foreach (var child in container.GetItems().Reverse() )
+                    {
+                        AddItems(dbPlayerDepotItem.SequenceId, child);
+                    }
+                }
+            }
+
+            dbPlayer.PlayerDepotItems.Clear();
+
+            foreach (var pair in context.Server.Lockers.GetIndexedLockers(dbPlayer.Id) )
+            {
+                AddItems(pair.Key, pair.Value);
+            }
+        }
+
+        private static void SaveInventory(Context context, DbPlayer dbPlayer, Player player)
+        {
+            int sequenceId = 101;
+
+            void AddItems(int parentId, Item item)
+            {
+                DbPlayerItem dbPlayerItem = new DbPlayerItem()
+                {
+                    PlayerId = dbPlayer.Id,
+
+                    SequenceId = sequenceId++,
+
+                    ParentId = parentId,
+
+                    OpenTibiaId = item.Metadata.OpenTibiaId,
+
+                    Count = item is StackableItem stackableItem ? stackableItem.Count :
+
+                            item is FluidItem fluidItem ? (int)fluidItem.FluidType :
+
+                            item is SplashItem splashItem ? (int)splashItem.FluidType : 1
+                };
+
+                dbPlayer.PlayerItems.Add(dbPlayerItem);
+
+                if (item is Container container)
+                {
+                    foreach (var child in container.GetItems().Reverse() )
+                    {
+                        AddItems(dbPlayerItem.SequenceId, child);
+                    }
+                }
+            }
+
+            dbPlayer.PlayerItems.Clear();
+
+            foreach (var pair in player.Inventory.GetIndexedContents() )
+            {
+                AddItems(pair.Key, (Item)pair.Value);
+            }
+        }
+
+        private static void SaveStorage(Context context, DbPlayer dbPlayer, Player player)
+        {
+            dbPlayer.PlayerStorages.Clear();
+
+            foreach (var pair in player.Client.Storages.GetIndexed() )
+            {
+                dbPlayer.PlayerStorages.Add(new DbPlayerStorage()
+                {
+                    PlayerId = dbPlayer.Id,
+
+                    Key = pair.Key,
+
+                    Value = pair.Value
+                } );
+            }            
+        }
+
+        private static void SaveVip(Context context, DbPlayer dbPlayer, Player player)
+        {
+            dbPlayer.PlayerVips.Clear();
+
+            foreach (var pair in player.Client.Vips.GetIndexed() )
+            {
+                dbPlayer.PlayerVips.Add(new DbPlayerVip()
+                {
+                    PlayerId = dbPlayer.Id,
+
+                    VipId = pair.Key
+                } );
+            }
         }
     }
 }

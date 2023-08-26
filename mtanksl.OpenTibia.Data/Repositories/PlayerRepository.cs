@@ -98,50 +98,5 @@ namespace OpenTibia.Data.Repositories
                 .Where(p => p.Name == name)
                 .FirstOrDefault();
         }
-
-        public void UpdatePlayer(DbPlayer player)
-        {
-            context.Entry(player).State = EntityState.Modified;
-        }
-
-        public void AddPlayerItem(DbPlayerItem playerItem)
-        {
-            context.PlayerItems.Add(playerItem);
-        }
-
-        public void RemovePlayerItem(DbPlayerItem playerItem)
-        {
-            context.PlayerItems.Remove(playerItem);
-        }
-
-        public void AddPlayerDepotItem(DbPlayerDepotItem playerDepotItem)
-        {
-            context.PlayerDepotItems.Add(playerDepotItem);
-        }
-
-        public void RemovePlayerDepotItem(DbPlayerDepotItem playerDepotItem)
-        {
-            context.PlayerDepotItems.Remove(playerDepotItem);
-        }
-
-        public void AddPlayerVip(DbPlayerVip playerVip)
-        {
-            context.PlayerVips.Add(playerVip);
-        }
-
-        public void RemovePlayerVip(DbPlayerVip playerVip)
-        {
-            context.PlayerVips.Remove(playerVip);
-        }
-
-        public void AddPlayerStorage(DbPlayerStorage playerStorage)
-        {
-            context.PlayerStorages.Add(playerStorage);
-        }
-
-        public void RemovePlayerStorage(DbPlayerStorage playerStorage)
-        {
-            context.PlayerStorages.Remove(playerStorage);
-        }
     }
 }
