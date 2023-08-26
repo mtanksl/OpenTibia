@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             menuStrip1 = new System.Windows.Forms.MenuStrip();
             serverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,7 +39,10 @@
             kickAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             statusStrip1 = new System.Windows.Forms.StatusStrip();
             richTextBox1 = new System.Windows.Forms.RichTextBox();
+            contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(components);
+            clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             menuStrip1.SuspendLayout();
+            contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
@@ -108,6 +112,7 @@
             // 
             // richTextBox1
             // 
+            richTextBox1.ContextMenuStrip = contextMenuStrip1;
             richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             richTextBox1.Location = new System.Drawing.Point(0, 24);
             richTextBox1.Name = "richTextBox1";
@@ -116,6 +121,19 @@
             richTextBox1.TabIndex = 2;
             richTextBox1.Text = "";
             richTextBox1.LinkClicked += richTextBox1_LinkClicked;
+            // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { clearToolStripMenuItem });
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new System.Drawing.Size(181, 48);
+            // 
+            // clearToolStripMenuItem
+            // 
+            clearToolStripMenuItem.Name = "clearToolStripMenuItem";
+            clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            clearToolStripMenuItem.Text = "Clear";
+            clearToolStripMenuItem.Click += clearToolStripMenuItem_Click;
             // 
             // MainForm
             // 
@@ -134,6 +152,7 @@
             Load += MainForm_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -149,5 +168,7 @@
         private System.Windows.Forms.ToolStripMenuItem commandToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem kickAllToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem restartToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
     }
 }

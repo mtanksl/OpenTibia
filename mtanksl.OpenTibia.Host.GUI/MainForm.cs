@@ -18,7 +18,7 @@ namespace mtanksl.OpenTibia.Host.GUI
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if (!File.Exists("data\\database.db") )
+            if (!File.Exists("data\\database.db"))
             {
                 File.Copy("data\\template.db", "data\\database.db");
             }
@@ -167,6 +167,11 @@ namespace mtanksl.OpenTibia.Host.GUI
             }
         }
 
+        private void clearToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Clear();
+        }
+
         private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (server != null)
@@ -199,7 +204,7 @@ namespace mtanksl.OpenTibia.Host.GUI
                         stopToolStripMenuItem.Enabled = false;
 
                         kickAllToolStripMenuItem.Enabled = false;
-                    }                                      
+                    }
                 }
                 else
                 {
