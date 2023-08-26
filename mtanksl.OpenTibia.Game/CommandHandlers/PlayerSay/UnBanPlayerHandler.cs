@@ -14,17 +14,17 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 string name = command.Message.Substring(7);
 
-                DbPlayer databasePlayer = Context.DatabaseContext.PlayerRepository.GetPlayerByName(name);
+                DbPlayer databasePlayer = Context.Database.PlayerRepository.GetPlayerByName(name);
 
                 if (databasePlayer != null)
                 {
-                    DbBan databaseBan = Context.DatabaseContext.BanRepository.GetBanByPlayerId(databasePlayer.Id);
+                    DbBan databaseBan = Context.Database.BanRepository.GetBanByPlayerId(databasePlayer.Id);
 
                     if (databaseBan != null)
                     {
-                        Context.DatabaseContext.BanRepository.RemoveBan(databaseBan);
+                        Context.Database.BanRepository.RemoveBan(databaseBan);
 
-                        Context.DatabaseContext.Commit();
+                        Context.Database.Commit();
                     }
 
                     Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, databasePlayer.Name + " has been unbanned.") );

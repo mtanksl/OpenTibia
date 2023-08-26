@@ -6,14 +6,14 @@ using System;
 
 namespace OpenTibia.Game
 {
-    public class DatabaseContext : IDisposable
+    public class Database : IDisposable
     {
-        public DatabaseContext(Server server)
+        public Database(Server server)
         {
             this.server = server;
         }
 
-        ~DatabaseContext()
+        ~Database()
         {
             Dispose(false);
         }
@@ -28,13 +28,13 @@ namespace OpenTibia.Game
             }
         }
 
-        private SqliteContext sqliteContext;
+        private DatabaseContext databaseContext;
 
-        public SqliteContext SqliteContext
+        public DatabaseContext DatabaseContext
         {
             get
             {
-                if (sqliteContext == null)
+                if (databaseContext == null)
                 {
                     var builder = new DbContextOptionsBuilder<SqliteContext>();
 
@@ -50,10 +50,10 @@ namespace OpenTibia.Game
                             DbContextLoggerOptions.SingleLine
                     );
 
-                    sqliteContext = new SqliteContext(builder.Options);
+                    databaseContext = new SqliteContext(builder.Options);
                 }
 
-                return sqliteContext;
+                return databaseContext;
             }
         }
 
@@ -63,7 +63,7 @@ namespace OpenTibia.Game
         {
             get
             {
-                return banRepository ?? (banRepository = new BanRepository(SqliteContext) );
+                return banRepository ?? (banRepository = new BanRepository(DatabaseContext) );
             }
         }
 
@@ -73,13 +73,23 @@ namespace OpenTibia.Game
         {
             get
             {
-                return playerRepository ?? (playerRepository = new PlayerRepository(SqliteContext) );
+                return playerRepository ?? (playerRepository = new PlayerRepository(DatabaseContext) );
+            }
+        }
+
+        private MotdRepository motdRepository;
+
+        public MotdRepository MotdRepository
+        {
+            get
+            {
+                return motdRepository ?? (motdRepository = new MotdRepository(DatabaseContext) );
             }
         }
 
         public void Commit()
         {
-            SqliteContext.SaveChanges();
+            DatabaseContext.SaveChanges();
         }
 
         private bool disposed = false;
@@ -99,9 +109,9 @@ namespace OpenTibia.Game
 
                 if (disposing)
                 {
-                    if (sqliteContext != null)
+                    if (databaseContext != null)
                     {
-                        sqliteContext.Dispose();
+                        databaseContext.Dispose();
                     }
                 }
             }

@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
 
                 SaveVip(Context, Player, databasePlayer);
 
-                Context.DatabaseContext.Commit();
+                Context.Database.Commit();
 
                 #endregion
 
@@ -93,7 +93,7 @@ namespace OpenTibia.Game.Commands
 
         private static DbPlayer SavePlayer(Context context, Player player, Tile fromTile)
         {
-            DbPlayer databasePlayer = context.DatabaseContext.PlayerRepository.GetPlayerById(player.DatabasePlayerId);
+            DbPlayer databasePlayer = context.Database.PlayerRepository.GetPlayerById(player.DatabasePlayerId);
 
             databasePlayer.Direction = (int)player.Direction;
 
@@ -133,7 +133,7 @@ namespace OpenTibia.Game.Commands
 
             databasePlayer.CoordinateZ = fromTile.Position.Z;
 
-            context.DatabaseContext.PlayerRepository.UpdatePlayer(databasePlayer);
+            context.Database.PlayerRepository.UpdatePlayer(databasePlayer);
 
             return databasePlayer;
         }
@@ -159,7 +159,7 @@ namespace OpenTibia.Game.Commands
                             item is SplashItem splashItem ? (int)splashItem.FluidType : 1,
                 };
 
-                context.DatabaseContext.PlayerRepository.AddPlayerItem(playerItem);
+                context.Database.PlayerRepository.AddPlayerItem(playerItem);
 
                 if (item is Container container)
                 {
@@ -172,7 +172,7 @@ namespace OpenTibia.Game.Commands
 
             foreach (var playerItem in databasePlayer.PlayerItems.ToList() )
             {
-                context.DatabaseContext.PlayerRepository.RemovePlayerItem(playerItem);
+                context.Database.PlayerRepository.RemovePlayerItem(playerItem);
             }
 
             int sequenceId = 101;
@@ -204,7 +204,7 @@ namespace OpenTibia.Game.Commands
                             item is SplashItem splashItem ? (int)splashItem.FluidType : 1,
                 };
 
-                context.DatabaseContext.PlayerRepository.AddPlayerDepotItem(playerDepotItem);
+                context.Database.PlayerRepository.AddPlayerDepotItem(playerDepotItem);
 
                 if (item is Container container)
                 {
@@ -217,7 +217,7 @@ namespace OpenTibia.Game.Commands
 
             foreach (var playerDepotItem in databasePlayer.PlayerDepotItems.ToList() )
             {
-                context.DatabaseContext.PlayerRepository.RemovePlayerDepotItem(playerDepotItem);
+                context.Database.PlayerRepository.RemovePlayerDepotItem(playerDepotItem);
             }
 
             int sequenceId = 101;
@@ -232,7 +232,7 @@ namespace OpenTibia.Game.Commands
         {
             foreach (var playerVip in databasePlayer.PlayerVips.ToList() )
             {
-                context.DatabaseContext.PlayerRepository.RemovePlayerVip(playerVip);
+                context.Database.PlayerRepository.RemovePlayerVip(playerVip);
             }
 
             int sequenceId = 1;
@@ -245,10 +245,10 @@ namespace OpenTibia.Game.Commands
 
                     SequenceId = sequenceId++,
 
-                    VipId = context.DatabaseContext.PlayerRepository.GetPlayerByName(vip.Name).Id
+                    VipId = context.Database.PlayerRepository.GetPlayerByName(vip.Name).Id
                 };
 
-                context.DatabaseContext.PlayerRepository.AddPlayerVip(playerVip);
+                context.Database.PlayerRepository.AddPlayerVip(playerVip);
             }
         }
     }

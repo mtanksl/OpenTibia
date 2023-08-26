@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            DbAccount databaseAccount = Context.DatabaseContext.PlayerRepository.GetAccount(Packet.Account, Packet.Password);
+            DbAccount databaseAccount = Context.Database.PlayerRepository.GetAccount(Packet.Account, Packet.Password);
 
             if (databaseAccount == null)
             {
@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            DbBan databaseBan = Context.DatabaseContext.BanRepository.GetBanByIpAddress(Connection.IpAddress);
+            DbBan databaseBan = Context.Database.BanRepository.GetBanByIpAddress(Connection.IpAddress);
 
             if (databaseBan != null)
             {
@@ -55,7 +55,7 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            databaseBan = Context.DatabaseContext.BanRepository.GetBanByAccountId(databaseAccount.Id);
+            databaseBan = Context.Database.BanRepository.GetBanByAccountId(databaseAccount.Id);
 
             if (databaseBan != null)
             {
@@ -64,6 +64,13 @@ namespace OpenTibia.Game.Commands
                 Context.Disconnect(Connection);
 
                 return Promise.Break;
+            }
+
+            DbMotd databaseMotd = Context.Database.MotdRepository.GetMotd();
+
+            if (databaseMotd != null)
+            {
+                Context.AddPacket(Connection, new OpenMessageOfTheDayDialogOutgoingPacket(databaseMotd.Id, databaseMotd.Message) );    
             }
 
             List<Character> characters = new List<Character>();

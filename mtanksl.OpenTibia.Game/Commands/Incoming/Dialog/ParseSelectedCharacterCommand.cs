@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            DbPlayer databasePlayer = Context.DatabaseContext.PlayerRepository.GetAccountPlayer(Packet.Account, Packet.Password, Packet.Character);
+            DbPlayer databasePlayer = Context.Database.PlayerRepository.GetAccountPlayer(Packet.Account, Packet.Password, Packet.Character);
 
             if (databasePlayer == null)
             {
@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            DbBan databaseBan = Context.DatabaseContext.BanRepository.GetBanByIpAddress(Connection.IpAddress);
+            DbBan databaseBan = Context.Database.BanRepository.GetBanByIpAddress(Connection.IpAddress);
 
             if (databaseBan != null)
             {
@@ -55,7 +55,7 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            databaseBan = Context.DatabaseContext.BanRepository.GetBanByAccountId(databasePlayer.AccountId);
+            databaseBan = Context.Database.BanRepository.GetBanByAccountId(databasePlayer.AccountId);
 
             if (databaseBan != null)
             {
@@ -66,7 +66,7 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            databaseBan = Context.DatabaseContext.BanRepository.GetBanByPlayerId(databasePlayer.Id);
+            databaseBan = Context.Database.BanRepository.GetBanByPlayerId(databasePlayer.Id);
 
             if (databaseBan != null)
             {

@@ -6,42 +6,42 @@ namespace OpenTibia.Data.Repositories
 {
     public class BanRepository
     {
-        private SqliteContext sqliteContext;
+        private DatabaseContext context;
 
-        public BanRepository(SqliteContext sqliteContext)
+        public BanRepository(DatabaseContext context)
         {
-            this.sqliteContext = sqliteContext;
+            this.context = context;
         }
 
         public DbBan GetBanByAccountId(int accountId)
         {
-            return sqliteContext.Bans
-                .Where(p => p.AccountId == accountId)
+            return context.Bans
+                .Where(b => b.AccountId == accountId)
                 .FirstOrDefault();
         }
 
         public DbBan GetBanByPlayerId(int playerId)
         {
-            return sqliteContext.Bans
-                .Where(p => p.PlayerId == playerId)
+            return context.Bans
+                .Where(b => b.PlayerId == playerId)
                 .FirstOrDefault();
         }
 
         public DbBan GetBanByIpAddress(string ipAddress)
         {
-            return sqliteContext.Bans
-                .Where(p => p.IpAddress == ipAddress)
+            return context.Bans
+                .Where(b => b.IpAddress == ipAddress)
                 .FirstOrDefault();
         }
 
         public void AddBan(DbBan ban)
         {
-            sqliteContext.Bans.Add(ban);
+            context.Bans.Add(ban);
         }
 
         public void RemoveBan(DbBan ban)
         {
-            sqliteContext.Bans.Remove(ban);
+            context.Bans.Remove(ban);
         }
     }
 }

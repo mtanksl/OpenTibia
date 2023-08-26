@@ -16,11 +16,11 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 string name = command.Message.Substring(5);
 
-                DbPlayer databasePlayer = Context.DatabaseContext.PlayerRepository.GetPlayerByName(name);
+                DbPlayer databasePlayer = Context.Database.PlayerRepository.GetPlayerByName(name);
 
                 if (databasePlayer != null)
                 {
-                    DbBan databaseBan = Context.DatabaseContext.BanRepository.GetBanByPlayerId(databasePlayer.Id);
+                    DbBan databaseBan = Context.Database.BanRepository.GetBanByPlayerId(databasePlayer.Id);
 
                     if (databaseBan == null)
                     {
@@ -33,9 +33,9 @@ namespace OpenTibia.Game.CommandHandlers
                             Message = "This player has been banned by " + command.Player.Name + "."
                         };
 
-                        Context.DatabaseContext.BanRepository.AddBan(databaseBan);
+                        Context.Database.BanRepository.AddBan(databaseBan);
 
-                        Context.DatabaseContext.Commit();
+                        Context.Database.Commit();
                     }
 
                     Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, databasePlayer.Name + " has been banned.") );

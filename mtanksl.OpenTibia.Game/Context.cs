@@ -51,13 +51,13 @@ namespace OpenTibia.Game
             }
         }
 
-        private DatabaseContext databaseContext;
+        private Database database;
 
-        public DatabaseContext DatabaseContext
+        public Database Database
         {
             get
             {
-                return databaseContext ?? (databaseContext = new DatabaseContext(server) );
+                return database ?? (database = new Database(server) );
             }
         }
 
@@ -320,9 +320,9 @@ namespace OpenTibia.Game
 
                 if (disposing)
                 {
-                    if (databaseContext != null)
+                    if (database != null)
                     {
-                        databaseContext.Dispose();
+                        database.Dispose();
                     }
                 }
             }
