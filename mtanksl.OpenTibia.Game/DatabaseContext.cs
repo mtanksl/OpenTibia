@@ -57,6 +57,16 @@ namespace OpenTibia.Game
             }
         }
 
+        private BanRepository banRepository;
+
+        public BanRepository BanRepository
+        {
+            get
+            {
+                return banRepository ?? (banRepository = new BanRepository(SqliteContext) );
+            }
+        }
+
         private PlayerRepository playerRepository;
 
         public PlayerRepository PlayerRepository

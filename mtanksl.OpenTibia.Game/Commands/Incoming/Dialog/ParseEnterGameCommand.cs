@@ -44,6 +44,28 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
+            DbBan databaseBan = Context.DatabaseContext.BanRepository.GetBanByIpAddress(Connection.IpAddress);
+
+            if (databaseBan != null)
+            {
+                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, databaseBan.Message));
+
+                Context.Disconnect(Connection);
+
+                return Promise.Break;
+            }
+
+            databaseBan = Context.DatabaseContext.BanRepository.GetBanByAccountId(databaseAccount.Id);
+
+            if (databaseBan != null)
+            {
+                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, databaseBan.Message) );
+
+                Context.Disconnect(Connection);
+
+                return Promise.Break;
+            }
+
             List<Character> characters = new List<Character>();
 
             foreach (var player in databaseAccount.Players)

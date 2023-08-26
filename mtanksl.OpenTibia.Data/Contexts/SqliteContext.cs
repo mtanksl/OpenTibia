@@ -48,6 +48,8 @@ namespace OpenTibia.Data.Contexts
 
         public DbSet<DbAccount> Accounts { get; set; }
 
+        public DbSet<DbBan> Bans { get; set; }
+
         public DbSet<DbPlayer> Players { get; set; }
 
         public DbSet<DbPlayerItem> PlayerItems { get; set; }

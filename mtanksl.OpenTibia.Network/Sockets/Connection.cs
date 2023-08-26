@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using System;
+using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
@@ -23,6 +24,14 @@ namespace OpenTibia.Network.Sockets
         ~Connection()
         {
             Dispose(false);
+        }
+
+        public string IpAddress
+        {
+            get
+            {
+                return ( (IPEndPoint)socket.RemoteEndPoint ).Address.ToString();
+            }
         }
 
         private IClient client;

@@ -37,6 +37,10 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CommandHandlers.AddCommandHandler(new TeleportToTownHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new TeleportToWaypointHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new BanPlayerHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new UnBanPlayerHandler() );
         }
 
         public override void Stop()

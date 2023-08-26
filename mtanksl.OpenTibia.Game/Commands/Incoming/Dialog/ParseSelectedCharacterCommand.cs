@@ -44,6 +44,39 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
+            DbBan databaseBan = Context.DatabaseContext.BanRepository.GetBanByIpAddress(Connection.IpAddress);
+
+            if (databaseBan != null)
+            {
+                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, databaseBan.Message) );
+
+                Context.Disconnect(Connection);
+
+                return Promise.Break;
+            }
+
+            databaseBan = Context.DatabaseContext.BanRepository.GetBanByAccountId(databasePlayer.AccountId);
+
+            if (databaseBan != null)
+            {
+                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, databaseBan.Message) );
+
+                Context.Disconnect(Connection);
+
+                return Promise.Break;
+            }
+
+            databaseBan = Context.DatabaseContext.BanRepository.GetBanByPlayerId(databasePlayer.Id);
+
+            if (databaseBan != null)
+            {
+                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, databaseBan.Message) );
+
+                Context.Disconnect(Connection);
+
+                return Promise.Break;
+            }
+
             Tile toTile = null;
 
             Player onlinePlayer = Context.Server.GameObjects.GetPlayers()
