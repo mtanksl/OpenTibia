@@ -1,0 +1,63 @@
+# To do
+
+- Player information
+	- Capacity
+	- Soul
+- Fight system
+	- Bow and arrow
+	- Wands and rods
+	- Double-hand swords
+	- Respawn
+	- vs Monster
+	- vs Player
+	- Logout block
+	- Protection zone block
+	- Experience, level, magic level and skills
+	- Skull icon
+	- War icon
+	- PVP vs non-PVP configuration
+- Guild system
+- Party system
+- Trade system
+- NPC Trade system
+- Write items
+- Read items
+- Hang items
+- ...
+
+# Done
+
+- Motd
+- Waiting list
+- Ban system
+- Quests system
+- VIP system
+- Controlling the character 
+	- Login
+	- Walk
+	- Turn
+	- Change outfit
+	- Logout
+- Interacting with other players
+	- Say
+		- Gamemaster in-game commands
+		- Spells
+	- Whisper
+	- Yell
+	- Direct chat
+	- Channels
+	- Private channel
+	- Rule violation channel
+- Interacting with the game world 
+	- Look item 
+	- Move item
+	- Rotate item
+	- Use item
+		- Tools
+	- Use item with creature
+		- Runes
+	- Use item with item
+	- Containers
+	- Report bug
+	- Report rule violation
+	- Basic fight system
