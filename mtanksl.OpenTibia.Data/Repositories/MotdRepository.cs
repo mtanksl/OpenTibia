@@ -13,7 +13,7 @@ namespace OpenTibia.Data.Repositories
             this.context = context;
         }
 
-        public DbMotd GetMotd()
+        public DbMotd GetLastMessageOfTheDay()
         {
             return context.Motd
                 .OrderByDescending(m => m.Id)

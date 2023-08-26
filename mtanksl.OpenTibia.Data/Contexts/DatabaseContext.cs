@@ -17,11 +17,14 @@ namespace OpenTibia.Data.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<DbPlayerDepotItem>()
+                .HasKey(m => new { m.PlayerId, m.SequenceId } );
+
             modelBuilder.Entity<DbPlayerItem>()
                 .HasKey(m => new { m.PlayerId, m.SequenceId } );
 
-            modelBuilder.Entity<DbPlayerDepotItem>()
-                .HasKey(m => new { m.PlayerId, m.SequenceId } );
+            modelBuilder.Entity<DbPlayerStorage>()
+                .HasKey(m => new { m.PlayerId, m.Key } );
 
             modelBuilder.Entity<DbPlayerVip>()
                 .HasKey(m => new { m.PlayerId, m.SequenceId } );
@@ -47,15 +50,17 @@ namespace OpenTibia.Data.Contexts
 
         public DbSet<DbMotd> Motd { get; set; }
 
-        public DbSet<DbRuleViolationReport> RuleViolationReports { get; set; }
-
         public DbSet<DbPlayer> Players { get; set; }
-
-        public DbSet<DbPlayerItem> PlayerItems { get; set; }
 
         public DbSet<DbPlayerDepotItem> PlayerDepotItems { get; set; }
 
+        public DbSet<DbPlayerItem> PlayerItems { get; set; }
+
+        public DbSet<DbPlayerStorage> PlayerStorages { get; set; }
+
         public DbSet<DbPlayerVip> PlayerVips { get; set; }
+
+        public DbSet<DbRuleViolationReport> RuleViolationReports { get; set; }
 
         public DbSet<DbWorld> Worlds { get; set; }
     }

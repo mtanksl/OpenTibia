@@ -42,11 +42,15 @@ namespace OpenTibia.Data.Repositories
 
             if (player != null)
             {
+                context.PlayerDepotItems
+                    .Where(pi => pi.PlayerId == player.Id)
+                    .Load();
+
                 context.PlayerItems
                     .Where(pi => pi.PlayerId == player.Id)
                     .Load();
 
-                context.PlayerDepotItems
+                context.PlayerStorages
                     .Where(pi => pi.PlayerId == player.Id)
                     .Load();
 
@@ -67,11 +71,15 @@ namespace OpenTibia.Data.Repositories
 
             if (player != null)
             {
+                context.PlayerDepotItems
+                    .Where(pi => pi.PlayerId == player.Id)
+                    .Load();
+
                 context.PlayerItems
                     .Where(pi => pi.PlayerId == player.Id)
                     .Load();
 
-                context.PlayerDepotItems
+                context.PlayerStorages
                     .Where(pi => pi.PlayerId == player.Id)
                     .Load();
 
@@ -124,6 +132,16 @@ namespace OpenTibia.Data.Repositories
         public void RemovePlayerVip(DbPlayerVip playerVip)
         {
             context.PlayerVips.Remove(playerVip);
+        }
+
+        public void AddPlayerStorage(DbPlayerStorage playerStorage)
+        {
+            context.PlayerStorages.Add(playerStorage);
+        }
+
+        public void RemovePlayerStorage(DbPlayerStorage playerStorage)
+        {
+            context.PlayerStorages.Remove(playerStorage);
         }
     }
 }

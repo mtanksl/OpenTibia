@@ -66,7 +66,7 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            DbMotd databaseMotd = Context.Database.MotdRepository.GetMotd();
+            DbMotd databaseMotd = Context.Database.MotdRepository.GetLastMessageOfTheDay();
 
             if (databaseMotd != null)
             {
