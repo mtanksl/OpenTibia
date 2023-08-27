@@ -37,7 +37,10 @@ namespace OpenTibia.Game.Commands
 
                     if (toPlayer != null && toPlayer != Player)
                     {
-                        return Promise.Completed;
+                        if ( IsPickupable(fromItem) )
+                        {
+                            return Context.AddCommand(new PlayerTradeWithCommand(Player, fromItem, toPlayer) );
+                        }
                     }
                 }
             }

@@ -17,9 +17,9 @@ namespace OpenTibia.Game.CommandHandlers
             } );
         }
 
-        private void Close(Item parent)
+        private void Close(Item item)
         {
-            if (parent is Container container)
+            if (item is Container container)
             {
                 foreach (var observer in container.GetPlayers() )
                 {
