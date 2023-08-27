@@ -29,7 +29,7 @@ namespace OpenTibia.Game.Commands
 
                     List<Item> items = new List<Item>();
 
-                    foreach (var item in parentContainer.GetItems())
+                    foreach (var item in parentContainer.GetItems() )
                     {
                         items.Add(item);
                     }

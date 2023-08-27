@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -13,7 +14,49 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Promise.Completed;
+            Trading trading = Context.Server.Tradings.GetTradingByOfferPlayer(Player);
+
+            if (trading != null)
+            {
+                trading.OfferPlayerAccepted = true;
+
+                if (trading.OfferPlayerAccepted && trading.CounterOfferPlayerAccepted)
+                {
+                    //TODO: Move items
+
+                    Context.AddPacket(trading.OfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
+
+                    Context.AddPacket(trading.CounterOfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
+
+                    Context.Server.Tradings.RemoveTrading(trading);
+
+                    return Promise.Completed;
+                }
+            }
+            else
+            {
+                trading = Context.Server.Tradings.GetTradingByCounterOfferPlayer(Player);
+
+                if (trading != null)
+                {
+                    trading.CounterOfferPlayerAccepted = true;
+
+                    if (trading.OfferPlayerAccepted && trading.CounterOfferPlayerAccepted)
+                    {
+                        //TODO: Move items
+
+                        Context.AddPacket(trading.OfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
+
+                        Context.AddPacket(trading.CounterOfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
+
+                        Context.Server.Tradings.RemoveTrading(trading);
+
+                        return Promise.Completed;
+                    }
+                }
+            }
+
+            return Promise.Break;
         }
     }
 }

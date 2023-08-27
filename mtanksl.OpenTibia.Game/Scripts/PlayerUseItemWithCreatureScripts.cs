@@ -8,7 +8,7 @@ namespace OpenTibia.Game.Scripts
         {
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithCreatureWalkToSourceHandler() );
 
-            //TODO: You cannot use there.
+            //TODO: "You cannot use there."
 
             Context.Server.CommandHandlers.AddCommandHandler(new RunesHandler() );
 

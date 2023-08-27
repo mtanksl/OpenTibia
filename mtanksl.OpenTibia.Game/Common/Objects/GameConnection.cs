@@ -326,7 +326,7 @@ namespace OpenTibia.Common.Objects
 
                                 case 0x80:
                             
-                                    command = new ParseCancelTradeCommand(Client.Player);
+                                    command = new ParseCancelOrRejectTradeCommand(Client.Player);
                             
                                     break;
 

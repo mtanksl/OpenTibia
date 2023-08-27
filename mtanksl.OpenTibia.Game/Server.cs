@@ -46,6 +46,8 @@ namespace OpenTibia.Game
 
             RuleViolations = new RuleViolationCollection();
 
+            Tradings = new TradingCollection();
+
             Lockers = new LockerCollection();
 
             GameObjects = new GameObjectCollection();
@@ -85,6 +87,8 @@ namespace OpenTibia.Game
         public ChannelCollection Channels { get; set; }
 
         public RuleViolationCollection RuleViolations { get; set; }
+
+        public TradingCollection Tradings { get; set; }
 
         public LockerCollection Lockers { get; set; }
 

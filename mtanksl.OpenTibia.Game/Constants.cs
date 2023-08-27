@@ -22,6 +22,12 @@
 
         public static readonly string ThisIsImpossible = "This is impossible.";
 
+        public static readonly string ThisPlayerIsAlreadyTrading = "This player is already trading.";
+
+        public static readonly string TradeCancelled = "Trade cancelled.";
+
+        public static readonly string YouAreAlreadyTrading = "You are already trading.";
+
         public static readonly string YouAreExhausted = "You are exhausted.";
 
         public static readonly string YouAreFull = "You are full.";
@@ -33,6 +39,8 @@
         public static readonly string YouCannotPutMoreObjectsInThisContainer = "You cannot put more objects in this container.";
 
         public static readonly string YouCanNotTakeThisObject = "You cannot take this object.";
+
+        public static readonly string YouCanNotTradeMoreThan100Items = "You cannot trade more than 100 items.";
 
         public static readonly string YouCanNotThrowThere = "You cannot throw there.";
 

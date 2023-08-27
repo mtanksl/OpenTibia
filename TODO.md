@@ -16,9 +16,9 @@
 	- Skull icon
 	- War icon
 	- PVP vs non-PVP configuration
+	- ...
 - Guild system
 - Party system
-- Trade system
 - NPC Trade system
 - Write items
 - Read items
@@ -30,8 +30,9 @@
 - Motd
 - Waiting list
 - Ban system
-- Quests system
+- Quest system
 - VIP system
+- Trade system
 - Controlling the character 
 	- Login
 	- Walk
