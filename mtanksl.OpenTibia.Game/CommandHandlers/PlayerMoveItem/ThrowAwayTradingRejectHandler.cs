@@ -6,19 +6,16 @@ using System;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class ItemDestroyTradingRejectHandler : CommandHandler<ItemDestroyCommand>
+    public class ThrowAwayTradingRejectHandler : CommandHandler<PlayerMoveItemCommand>
     {
-        public override Promise Handle(Func<Promise> next, ItemDestroyCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {
-            return next().Then( () =>
+            if (Context.Server.Tradings.Count > 0)
             {
-                if (Context.Server.Tradings.Count > 0)
-                {
-                    Reject(command.Item);
-                }
+                Reject(command.Item);
+            }
 
-                return Promise.Completed;
-            } );
+            return next();
         }
 
         private void Reject(Item item)

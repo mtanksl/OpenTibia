@@ -14,40 +14,11 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 return next().Then( () =>
                 {
-                    Trading reject = null;
-
-                    Trading trading = Context.Server.Tradings.GetTradingByOfferPlayer(player);
-
-                    if (trading != null)
+                    if (Context.Server.Tradings.Count > 0)
                     {
-                        if ( !trading.OfferPlayer.Tile.Position.IsInRange(trading.CounterOfferPlayer.Tile.Position, 2) )
-                        {
-                            reject = trading;
-                        }
-                        else
-                        {
-                            switch (trading.Offer.Root() )
-                            {
-                                case null:
+                        Trading reject = null;
 
-                                    reject = trading;
-
-                                    break;
-
-                                case Tile tile:
-
-                                    if ( !trading.OfferPlayer.Tile.Position.IsNextTo(tile.Position) )
-                                    {
-                                        reject = trading;
-                                    }
-
-                                    break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        trading = Context.Server.Tradings.GetTradingByCounterOfferPlayer(player);
+                        Trading trading = Context.Server.Tradings.GetTradingByOfferPlayer(player);
 
                         if (trading != null)
                         {
@@ -57,7 +28,7 @@ namespace OpenTibia.Game.CommandHandlers
                             }
                             else
                             {
-                                switch (trading.CounterOffer.Root() )
+                                switch (trading.Offer.Root() )
                                 {
                                     case null:
 
@@ -76,19 +47,54 @@ namespace OpenTibia.Game.CommandHandlers
                                 }
                             }
                         }
-                    }
+                        else
+                        {
+                            trading = Context.Server.Tradings.GetTradingByCounterOfferPlayer(player);
 
-                    if (reject != null)
-                    {
-                        Context.AddPacket(reject.OfferPlayer.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TradeCancelled) );
+                            if (trading != null)
+                            {
+                                if ( !trading.CounterOfferPlayer.Tile.Position.IsInRange(trading.OfferPlayer.Tile.Position, 2) )
+                                {
+                                    reject = trading;
+                                }
+                                else
+                                {
+                                    if (trading.CounterOffer != null)
+                                    {
+                                        switch (trading.CounterOffer.Root() )
+                                        {
+                                            case null:
 
-                        Context.AddPacket(reject.OfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
+                                                reject = trading;
 
-                        Context.AddPacket(reject.CounterOfferPlayer.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TradeCancelled) );
+                                                break;
 
-                        Context.AddPacket(reject.CounterOfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
+                                            case Tile tile:
 
-                        Context.Server.Tradings.RemoveTrading(reject);
+                                                if ( !trading.CounterOfferPlayer.Tile.Position.IsNextTo(tile.Position) )
+                                                {
+                                                    reject = trading;
+                                                }
+
+                                                break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        if (reject != null)
+                        {
+                            Context.AddPacket(reject.OfferPlayer.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TradeCancelled) );
+
+                            Context.AddPacket(reject.OfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
+
+                            Context.AddPacket(reject.CounterOfferPlayer.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TradeCancelled) );
+
+                            Context.AddPacket(reject.CounterOfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
+
+                            Context.Server.Tradings.RemoveTrading(reject);
+                        }
                     }
 
                     return Promise.Completed;

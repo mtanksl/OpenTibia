@@ -78,6 +78,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new ThrowAwayContainerCloseHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler(new ThrowAwayTradingRejectHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler(new InventoryHandler() );
         }
 

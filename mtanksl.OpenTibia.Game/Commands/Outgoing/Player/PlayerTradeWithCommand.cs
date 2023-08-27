@@ -24,20 +24,34 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            void AddItems(Item item, List<Item> items)
+            bool CanTrade(Item item, List<Item> items)
             {
+                Trading trading = Context.Server.Tradings.GetTradingByOffer(item) ?? Context.Server.Tradings.GetTradingByCounterOffer(item);
+
+                if (trading != null)
+                {
+                    return false;
+                }
+
                 items.Add(item);
 
                 if (item is Container container)
                 {
                     foreach (var child in container.GetItems() )
                     {
-                        AddItems(child, items);
+                        if ( !CanTrade(child, items) )
+                        {
+                            return false;
+                        }
                     }
                 }
+
+                return true;
             }
 
-            //TODO: "This item is already being traded."
+            //TODO: If trading a container, check if items were added
+
+            //TODO: Check if items where refreshed
 
             if ( !Player.Tile.Position.IsInRange(ToPlayer.Tile.Position, 2) )
             {
@@ -61,7 +75,12 @@ namespace OpenTibia.Game.Commands
             {
                 List<Item> items = new List<Item>();
 
-                AddItems(Item, items);
+                if ( !CanTrade(Item, items) )
+                {
+                    Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisItemIsAlreadyBeingTraded) );
+
+                    return Promise.Break;                    
+                }
 
                 if (items.Count > 100)
                 {
@@ -100,7 +119,12 @@ namespace OpenTibia.Game.Commands
                 
                 List<Item> items = new List<Item>();
 
-                AddItems(Item, items);
+                if ( !CanTrade(Item, items) )
+                {
+                    Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisItemIsAlreadyBeingTraded) );
+
+                    return Promise.Break;                    
+                }
 
                 if (items.Count > 100)
                 {

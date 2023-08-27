@@ -11,19 +11,22 @@ namespace OpenTibia.Game.CommandHandlers
         {
             return next().Then( () =>
             {
-                Trading trading = Context.Server.Tradings.GetTradingByOfferPlayer(command.Player) ?? Context.Server.Tradings.GetTradingByCounterOfferPlayer(command.Player);
-
-                if (trading != null)
+                if (Context.Server.Tradings.Count > 0)
                 {
-                    Context.AddPacket(trading.OfferPlayer.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TradeCancelled) );
+                    Trading trading = Context.Server.Tradings.GetTradingByOfferPlayer(command.Player) ?? Context.Server.Tradings.GetTradingByCounterOfferPlayer(command.Player);
 
-                    Context.AddPacket(trading.OfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
+                    if (trading != null)
+                    {
+                        Context.AddPacket(trading.OfferPlayer.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TradeCancelled) );
 
-                    Context.AddPacket(trading.CounterOfferPlayer.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TradeCancelled) );
+                        Context.AddPacket(trading.OfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
 
-                    Context.AddPacket(trading.CounterOfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
+                        Context.AddPacket(trading.CounterOfferPlayer.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TradeCancelled) );
 
-                    Context.Server.Tradings.RemoveTrading(trading);
+                        Context.AddPacket(trading.CounterOfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
+
+                        Context.Server.Tradings.RemoveTrading(trading);
+                    }
                 }
 
                 return Promise.Completed;

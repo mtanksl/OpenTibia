@@ -8,6 +8,14 @@ namespace OpenTibia.Game
     {
         private List<Trading> tradings = new List<Trading>();
 
+        public int Count
+        {
+            get 
+            {
+                return tradings.Count; 
+            }
+        }
+
         public void AddTrading(Trading trading)
         {
             tradings.Add(trading);

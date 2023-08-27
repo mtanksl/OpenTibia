@@ -22,15 +22,13 @@ namespace OpenTibia.Game.Commands
 
                 if (trading.OfferPlayerAccepted && trading.CounterOfferPlayerAccepted)
                 {
-                    //TODO: Move items
-
                     Context.AddPacket(trading.OfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
 
                     Context.AddPacket(trading.CounterOfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
 
                     Context.Server.Tradings.RemoveTrading(trading);
 
-                    return Promise.Completed;
+                    return Context.AddCommand(new ItemTradeCommand(trading) );
                 }
             }
             else
@@ -43,15 +41,13 @@ namespace OpenTibia.Game.Commands
 
                     if (trading.OfferPlayerAccepted && trading.CounterOfferPlayerAccepted)
                     {
-                        //TODO: Move items
-
                         Context.AddPacket(trading.OfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
 
                         Context.AddPacket(trading.CounterOfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
 
                         Context.Server.Tradings.RemoveTrading(trading);
 
-                        return Promise.Completed;
+                        return Context.AddCommand(new ItemTradeCommand(trading) );
                     }
                 }
             }
