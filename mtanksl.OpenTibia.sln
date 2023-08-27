@@ -29,7 +29,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtanksl.OpenTibia.Host", "m
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtanksl.OpenTibia.Host.GUI", "mtanksl.OpenTibia.Host.GUI\mtanksl.OpenTibia.Host.GUI.csproj", "{49AB4E09-DC7D-4818-A36B-D7486AB35B71}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{285BA51D-E965-4FF4-97FE-0670132AAC24}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{98AE4E72-0A59-4D36-87FB-B6527CE5417D}"
 	ProjectSection(SolutionItems) = preProject
 		TODO.md = TODO.md
 	EndProjectSection

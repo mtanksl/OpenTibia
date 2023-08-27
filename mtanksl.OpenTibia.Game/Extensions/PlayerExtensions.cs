@@ -143,7 +143,7 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new PlayerInventoryContainerTileCreateItem(player, openTibiaId, count) );
+            return context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(player, openTibiaId, count) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>

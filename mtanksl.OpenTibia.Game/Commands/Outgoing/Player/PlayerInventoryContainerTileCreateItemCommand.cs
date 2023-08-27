@@ -3,9 +3,9 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class PlayerInventoryContainerTileCreateItem : Command
+    public class PlayerInventoryContainerTileCreateItemCommand : Command
     {
-        public PlayerInventoryContainerTileCreateItem(Player player, ushort openTibiaId, byte count)
+        public PlayerInventoryContainerTileCreateItemCommand(Player player, ushort openTibiaId, byte count)
         {
             Player = player;
 

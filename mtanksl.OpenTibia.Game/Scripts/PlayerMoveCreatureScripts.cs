@@ -12,7 +12,7 @@ namespace OpenTibia.Game.Scripts
         {
             Context.Server.CommandHandlers.AddCommandHandler(new MoveCreatureWalkToSourceHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new InlineCommandHandler<PlayerMoveCreatureCommand>( (context, next, command) => 
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveCreatureCommand>( (context, next, command) => 
             {
                 if ( !command.Creature.Tile.Position.IsNextTo(command.ToTile.Position) )
                 {
@@ -22,9 +22,9 @@ namespace OpenTibia.Game.Scripts
                 }
 
                 return next();
-            } ) );
+            } );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new InlineCommandHandler<PlayerMoveCreatureCommand>( (context, next, command) => 
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveCreatureCommand>( (context, next, command) => 
             {
                 if (command.ToTile.Ground == null || command.ToTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || command.ToTile.GetCreatures().Any(c => c.Block) )
                 {
@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Scripts
                 }
 
                 return next();
-            } ) );
+            } );
         }
 
         public override void Stop()

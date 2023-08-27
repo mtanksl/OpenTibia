@@ -12,7 +12,7 @@ namespace OpenTibia.Game.Scripts
         {
             Context.Server.CommandHandlers.AddCommandHandler(new MoveItemWalkToSourceHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new InlineCommandHandler<PlayerMoveItemCommand>( (context, next, command) => 
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveItemCommand>( (context, next, command) => 
             {
                 if (command.ToContainer is Tile toTile)
                 {
@@ -50,7 +50,7 @@ namespace OpenTibia.Game.Scripts
                 }
 
                 return next();
-            } ) );
+            } );
 
             Context.Server.CommandHandlers.AddCommandHandler(new DustbinHandler() );
 
