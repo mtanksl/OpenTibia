@@ -8,6 +8,8 @@ namespace OpenTibia.Game.Scripts
         {
             Context.Server.CommandHandlers.AddCommandHandler(new MoveAwayContainerCloseHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler(new MoveAwayTradingRejectHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler(new MagicForcefieldHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new HoleHandler() );

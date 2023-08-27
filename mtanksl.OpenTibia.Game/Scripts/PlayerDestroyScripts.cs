@@ -8,6 +8,8 @@ namespace OpenTibia.Game.Scripts
         {
             Context.Server.CommandHandlers.AddCommandHandler(new PlayerDestroyContainerCloseHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler(new PlayerDestroyTradingRejectHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler(new PlayerDestroyWindowCloseHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new PlayerDestroyChannelCloseHandler() );

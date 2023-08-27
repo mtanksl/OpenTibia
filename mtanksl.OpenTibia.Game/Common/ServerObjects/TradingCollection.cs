@@ -19,16 +19,31 @@ namespace OpenTibia.Game
         }
         
         public Trading GetTradingByOfferPlayer(Player offerPlayer)
-        {
+        {          
             return GetTradings()
-                .Where(r => r.OfferPlayer == offerPlayer)
+                .Where(t => t.OfferPlayer == offerPlayer)
                 .FirstOrDefault();
         }
 
         public Trading GetTradingByCounterOfferPlayer(Player counterOfferPlayer)
         {
             return GetTradings()
-                .Where(r => r.CounterOfferPlayer == counterOfferPlayer)
+                .Where(t => t.CounterOfferPlayer == counterOfferPlayer)
+                .FirstOrDefault();
+        }
+
+        public Trading GetTradingByOffer(Item offer)
+        {
+            return GetTradings()
+                .Where(t => t.OfferIncludes.Contains(offer) )
+                .FirstOrDefault();
+        }
+
+        public Trading GetTradingByCounterOffer(Item counterOffer)
+        {
+            return GetTradings()
+                .Where(t => t.CounterOfferIncludes != null && 
+                            t.CounterOfferIncludes.Contains(counterOffer) )
                 .FirstOrDefault();
         }
 

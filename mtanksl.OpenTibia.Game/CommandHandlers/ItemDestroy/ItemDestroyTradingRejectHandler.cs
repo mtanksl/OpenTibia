@@ -1,21 +1,26 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Commands;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
-namespace OpenTibia.Game.Commands
+namespace OpenTibia.Game.CommandHandlers
 {
-    public class ParseCancelOrRejectTradeCommand : Command
+    public class ItemDestroyTradingRejectHandler : CommandHandler<ItemDestroyCommand>
     {
-        public ParseCancelOrRejectTradeCommand(Player player)
+        public override Promise Handle(Func<Promise> next, ItemDestroyCommand command)
         {
-            Player = player;
+            return next().Then( () =>
+            {
+                Reject(command.Item);
+
+                return Promise.Completed;
+            } );
         }
 
-        public Player Player { get; set; }
-
-        public override Promise Execute()
+        private void Reject(Item item)
         {
-            Trading trading = Context.Server.Tradings.GetTradingByOfferPlayer(Player) ?? Context.Server.Tradings.GetTradingByCounterOfferPlayer(Player);
+            Trading trading = Context.Server.Tradings.GetTradingByOffer(item) ?? Context.Server.Tradings.GetTradingByCounterOffer(item);
 
             if (trading != null)
             {
@@ -28,11 +33,15 @@ namespace OpenTibia.Game.Commands
                 Context.AddPacket(trading.CounterOfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
 
                 Context.Server.Tradings.RemoveTrading(trading);
-                                  
-                return Promise.Completed;
             }
 
-            return Promise.Break;
+            if (item is Container container)
+            {
+                foreach (var child in container.GetItems() )
+                {
+                    Reject(child);
+                }
+            }
         }
     }
 }

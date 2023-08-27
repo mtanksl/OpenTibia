@@ -37,14 +37,6 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            //TODO: Walk away cancel trading
-
-            //TODO: Move item cancel trading
-
-            //TODO: Destroy player cancel trading
-
-            //TODO: Destroy item cancel trading
-
             //TODO: "This item is already being traded."
 
             if ( !Player.Tile.Position.IsInRange(ToPlayer.Tile.Position, 2) )

@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Game.Commands;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
 
 namespace OpenTibia.Game.CommandHandlers
@@ -12,6 +13,8 @@ namespace OpenTibia.Game.CommandHandlers
                 foreach (var pair in command.Player.Client.Containers.GetIndexedContainers() )
                 {
                     command.Player.Client.Containers.CloseContainer(pair.Key);
+                         
+                    Context.AddPacket(command.Player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
                 }
 
                 return Promise.Completed;
