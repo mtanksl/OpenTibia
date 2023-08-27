@@ -78,20 +78,6 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise IncrementOrCreateItem(this Tile tile, ushort openTibiaId, byte count)
-        {
-            Context context = Context.Current;
-
-            if (context == null)
-            {
-                throw new InvalidOperationException("Context not found.");
-            }
-
-            return context.AddCommand(new TileIncrementOrCreateItemCommand(tile, openTibiaId, count) );
-        }
-
-        /// <exception cref="InvalidOperationException"></exception>
-
         public static Promise RemoveCreature(this Tile tile, Creature creature)
         {
             Context context = Context.Current;

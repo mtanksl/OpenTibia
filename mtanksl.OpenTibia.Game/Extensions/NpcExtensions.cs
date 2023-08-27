@@ -19,5 +19,19 @@ namespace OpenTibia.Game.Extensions
 
             return context.AddCommand(new NpcDestroyCommand(npc) );
         }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public static Promise Say(this Npc player, string message)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new NpcSayCommand(player, message) );
+        }
     }
 }
