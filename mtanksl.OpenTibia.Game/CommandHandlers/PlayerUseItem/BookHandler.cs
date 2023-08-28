@@ -22,7 +22,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 uint windowId = command.Player.Client.Windows.OpenWindow(window);
 
-                Context.AddPacket(command.Player.Client.Connection, new OpenEditTextDialogOutgoingPacket(windowId, command.Item.Metadata.TibiaId, 255, readableItem.Text, readableItem.Author, readableItem.Date) );
+                Context.AddPacket(command.Player.Client.Connection, new OpenShowOrEditTextDialogOutgoingPacket(windowId, command.Item.Metadata.TibiaId, 1024, readableItem.Text, readableItem.Author, readableItem.Date) );
 
                 return Promise.Completed;
             }

@@ -30,11 +30,14 @@ namespace OpenTibia.Game.Commands
 
                 ReadableItem readableItem = (ReadableItem)window.GetContent(0);
 
-                readableItem.Text = Text;
+                if (Text != readableItem.Text)
+                {
+                    readableItem.Text = Text;
 
-                readableItem.Author = Player.Name;
+                    readableItem.Author = Player.Name;
 
-                readableItem.Date = DateTime.UtcNow.ToString("dd/MM/yyyy HH:mm:ss");
+                    readableItem.Date = DateTime.UtcNow.ToString("dd/MM/yyyy HH:mm:ss");
+                }
 
                 return Promise.Completed;
             }
