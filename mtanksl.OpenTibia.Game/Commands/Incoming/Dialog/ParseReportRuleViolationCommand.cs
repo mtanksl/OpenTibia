@@ -27,15 +27,18 @@ namespace OpenTibia.Game.Commands
             Context.Database.RuleViolationReportRepository.AddRuleViolationReport(new DbRuleViolationReport()
             {
                 PlayerId = Player.DatabasePlayerId,
+                Type = Packet.Type,
+                RuleViolation = Packet.RuleViolation,
                 Name = Packet.Name,
                 Comment = Packet.Comment,
                 Translation = Packet.Translation,
+                Statment = Packet.Type == 0x01 ? Context.Server.Channels.GetStatement(Packet.StatmentId).Message : null,
                 CreationDate = DateTime.UtcNow
             } );
 
             Context.Database.Commit();
 
-            Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "Your report has been sent.") );
+            Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "Your report has been received.") );
 
             return Promise.Completed;
         }

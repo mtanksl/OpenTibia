@@ -77,6 +77,16 @@ namespace OpenTibia.Game
             }
         }
 
+        private DebugAssertRepository debugAssertRepository;
+
+        public DebugAssertRepository DebugAssertRepository
+        {
+            get
+            {
+                return debugAssertRepository ?? (debugAssertRepository = new DebugAssertRepository(DatabaseContext) );
+            }
+        }
+
         private RuleViolationReportRepository ruleViolationReportRepository;
 
         public RuleViolationReportRepository RuleViolationReportRepository

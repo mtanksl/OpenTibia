@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if (observer is Player player)
                     {
-                        Context.AddPacket(player.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, Message) );
+                        Context.AddPacket(player.Client.Connection, new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, Message) );
                     }
 
                     Context.AddEvent(observer, new PlayerWhisperEventArgs(Player, Message) );
@@ -35,7 +35,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if (observer is Player player)
                     {
-                        Context.AddPacket(player.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, "pspsps") );
+                        Context.AddPacket(player.Client.Connection, new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, "pspsps") );
                     }
 
                     Context.AddEvent(observer, new PlayerWhisperEventArgs(Player, Message) );

@@ -7,6 +7,35 @@ namespace OpenTibia.Game
 {
     public class ChannelCollection
     {
+        private uint statementId = 0;
+
+        public uint GenerateStatementId(int databasePlayerId, string message)
+        {
+            statementId++;
+
+            statements.Add(statementId, new Statement()
+            {
+                Id = statementId,
+
+                DatabasePlayerId = databasePlayerId,
+
+                Message = message
+            } );
+
+            return statementId;
+        }
+
+        private Dictionary<uint, Statement> statements = new Dictionary<uint, Statement>();
+
+        public Statement GetStatement(uint statementId)
+        {
+            Statement statement;
+
+            statements.TryGetValue(statementId, out statement);
+
+            return statement;
+        }
+
         private List<Channel> channels = new List<Channel>
         {
             new Channel() { Id = 2, Name = "Tutor" },

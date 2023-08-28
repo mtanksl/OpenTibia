@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if (observer is Player player)
                     {
-                        Context.AddPacket(player.Client.Connection, new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Say, Player.Tile.Position, Message) );
+                        Context.AddPacket(player.Client.Connection, new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.Say, Player.Tile.Position, Message) );
                     }
                    
                     Context.AddEvent(observer, new PlayerSayEventArgs(Player, Message) );

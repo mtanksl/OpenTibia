@@ -497,6 +497,18 @@ namespace OpenTibia.Common.Objects
                                     }
                                     break;
 
+                                //case 0x89:
+
+                                    //TODO: Text Window
+
+                                    //break;
+
+                                //case 0x8A:
+
+                                    //TODO: House Window
+
+                                    //break;
+
                                 case 0x8C:
                                     {
                                         var packet = server.PacketsFactory.Create<LookIncomingPacket>(reader);
@@ -757,6 +769,18 @@ namespace OpenTibia.Common.Objects
 
                                     break;
 
+                                //case 0xC9:
+
+                                    //TODO: Update Tile
+
+                                    //break;
+
+                                //case 0xCA:
+
+                                    //TODO: Update Container
+
+                                    //break;
+
                                 case 0xD2:
 
                                     command = new ParseSetOutfitCommand(Client.Player);
@@ -792,6 +816,20 @@ namespace OpenTibia.Common.Objects
                                         var packet = server.PacketsFactory.Create<ReportBugIncomingPacket>(reader);
 
                                         command = new ParseReportBugCommand(Client.Player, packet.Message);
+                                    }
+                                    break;
+
+                                //case 0xE7:
+
+                                    //TODO: Violation Window
+
+                                    //break;
+
+                                case 0xE8:
+                                    {
+                                        var packet = server.PacketsFactory.Create<DebugAssertIncomingPacket>(reader);
+
+                                        command = new ParseDebugAssertCommand(Client.Player, packet.AssertLine, packet.ReportDate, packet.Description, packet.Comment);
                                     }
                                     break;
 

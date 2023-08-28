@@ -61,4 +61,5 @@
 	- Containers
 	- Report bug
 	- Report rule violation
+	- Debug assert
 	- Basic fight system

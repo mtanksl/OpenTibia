@@ -48,6 +48,8 @@ namespace OpenTibia.Data.Contexts
 
         public DbSet<DbBugReport> BugReports { get; set; }
 
+        public DbSet<DbDebugAssert> DebugAsserts { get; set; }
+
         public DbSet<DbMotd> Motd { get; set; }
 
         public DbSet<DbPlayer> Players { get; set; }
