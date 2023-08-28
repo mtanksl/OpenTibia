@@ -497,17 +497,21 @@ namespace OpenTibia.Common.Objects
                                     }
                                     break;
 
-                                //case 0x89:
+                                case 0x89:
+                                    {
+                                        var packet = server.PacketsFactory.Create<EditTextDialogIncomingPacket>(reader);
 
-                                    //TODO: Text Window
+                                        command = new ParseEditTextDialogCommand(Client.Player, packet.WindowId, packet.Text);
+                                    }
+                                    break;
 
-                                    //break;
+                                case 0x8A:
+                                    {
+                                        var packet = server.PacketsFactory.Create<EditListDialogIncomingPacket>(reader);
 
-                                //case 0x8A:
-
-                                    //TODO: House Window
-
-                                    //break;
+                                        command = new ParseEditListDialogCommand(Client.Player, packet.DoorId, packet.WindowId, packet.Text);
+                                    }
+                                    break;
 
                                 case 0x8C:
                                     {
@@ -851,7 +855,7 @@ namespace OpenTibia.Common.Objects
                                     {
                                         var packet = server.PacketsFactory.Create<ReportRuleViolationIncomingPacket>(reader);
 
-                                        command = new ParseReportRuleViolationCommand(Client.Player, packet);
+                                        command = new ParseReportRuleViolationCommand(Client.Player, packet.Type, packet.RuleViolation, packet.Name, packet.Comment, packet.Translation, packet.StatmentId);
                                     }
                                     break;
                             }

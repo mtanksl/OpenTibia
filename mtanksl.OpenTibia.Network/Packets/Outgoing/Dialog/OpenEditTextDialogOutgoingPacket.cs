@@ -2,9 +2,9 @@
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
-    public class OpenTextDialogOutgoingPacket : IOutgoingPacket
+    public class OpenEditTextDialogOutgoingPacket : IOutgoingPacket
     {
-        public OpenTextDialogOutgoingPacket(uint windowId, ushort itemId, ushort maxLength, string text, string author, string date)
+        public OpenEditTextDialogOutgoingPacket(uint windowId, ushort itemId, ushort maxLength, string text, string author, string date)
         {
             this.WindowId = windowId;
 

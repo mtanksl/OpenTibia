@@ -4,12 +4,16 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class OpenEditListDialogOutgoingPacket : IOutgoingPacket
     {
-        public OpenEditListDialogOutgoingPacket(uint windowId, string text)
+        public OpenEditListDialogOutgoingPacket(byte doorId, uint windowId, string text)
         {
+            this.DoorId = doorId;
+
             this.WindowId = windowId;
 
             this.Text = text;
         }
+
+        public byte DoorId { get; set; }
 
         public uint WindowId { get; set; }
               
@@ -19,7 +23,7 @@ namespace OpenTibia.Network.Packets.Outgoing
         {
             writer.Write( (byte)0x97 );
 
-            writer.Write( (byte)0x00 );
+            writer.Write(DoorId);
 
             writer.Write(WindowId);
 

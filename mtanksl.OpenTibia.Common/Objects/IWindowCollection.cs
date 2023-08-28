@@ -4,16 +4,16 @@ namespace OpenTibia.Common.Objects
 {
     public interface IWindowCollection
     {
-        byte OpenWindow(Window window);
+        uint OpenWindow(Window window);
 
-        void ReplaceWindow(Window window, byte windowId);
+        void ReplaceWindow(Window window, uint windowId);
 
-        void CloseWindow(byte windowId);
+        void CloseWindow(uint windowId);
 
-        Window GetWindow(byte windowId);
+        Window GetWindow(uint windowId);
 
         IEnumerable<Window> GetWindows();
 
-        IEnumerable< KeyValuePair<byte, Window> > GetIndexedWindows();
+        IEnumerable< KeyValuePair<uint, Window> > GetIndexedWindows();
     }
 }

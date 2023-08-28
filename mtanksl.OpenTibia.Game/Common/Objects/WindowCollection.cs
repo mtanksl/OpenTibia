@@ -24,9 +24,9 @@ namespace OpenTibia.Common.Objects
      
         /// <exception cref="InvalidOperationException"></exception>
 
-        private byte GenerateWindowId()
+        private uint GenerateWindowId()
         {
-            for (byte windowId = 0; windowId < windows.Length; windowId++)
+            for (uint windowId = 0; windowId < windows.Length; windowId++)
             {
                 if (windows[windowId] == null)
                 {
@@ -37,9 +37,9 @@ namespace OpenTibia.Common.Objects
             throw new InvalidOperationException("Window limit exceeded.");
         }
 
-        public byte OpenWindow(Window window)
+        public uint OpenWindow(Window window)
         {
-            byte windowId = GenerateWindowId();
+            uint windowId = GenerateWindowId();
 
             windows[windowId] = window;
 
@@ -48,7 +48,7 @@ namespace OpenTibia.Common.Objects
             return windowId;
         }
 
-        public void ReplaceWindow(Window newWindow, byte windowId)
+        public void ReplaceWindow(Window newWindow, uint windowId)
         {
             Window oldWindow = GetWindow(windowId);
 
@@ -59,7 +59,7 @@ namespace OpenTibia.Common.Objects
             newWindow.AddPlayer(client.Player);
         }
 
-        public void CloseWindow(byte windowId)
+        public void CloseWindow(uint windowId)
         {
             Window window = GetWindow(windowId);
 
@@ -68,7 +68,7 @@ namespace OpenTibia.Common.Objects
             window.RemovePlayer(client.Player);
         }
 
-        public Window GetWindow(byte windowId)
+        public Window GetWindow(uint windowId)
         {
             if (windowId < 0 || windowId > windows.Length - 1)
             {
@@ -89,13 +89,13 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        public IEnumerable< KeyValuePair<byte, Window> > GetIndexedWindows()
+        public IEnumerable< KeyValuePair<uint, Window> > GetIndexedWindows()
         {
-            for (byte windowId = 0; windowId < windows.Length; windowId++)
+            for (uint windowId = 0; windowId < windows.Length; windowId++)
             {
                 if (windows[windowId] != null)
                 {
-                    yield return new KeyValuePair<byte, Window>(windowId, windows[windowId] );
+                    yield return new KeyValuePair<uint, Window>(windowId, windows[windowId] );
                 }
             }
         }

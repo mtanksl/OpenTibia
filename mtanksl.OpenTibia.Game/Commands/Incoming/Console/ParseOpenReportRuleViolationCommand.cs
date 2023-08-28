@@ -19,6 +19,8 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            // ctrl + R
+
             RuleViolation ruleViolation = Context.Server.RuleViolations.GetRuleViolationByReporter(Player);
 
             if (ruleViolation == null)

@@ -85,7 +85,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     // if it is already occupied by a container, move an item to container
 
-                    return Context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toContainer2, 254, command.Count, false) );
+                    return Context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toContainer2, 255, command.Count, false) );
                 }
                 else
                 {
@@ -167,7 +167,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     // if it is already occupied by a container, move an item to container
 
-                    return Context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toContainer2, 254, command.Count, false) );
+                    return Context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toContainer2, 255, command.Count, false) );
                 }
                 else
                 {

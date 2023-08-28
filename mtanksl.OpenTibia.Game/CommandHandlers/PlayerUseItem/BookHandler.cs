@@ -8,7 +8,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class BookHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private HashSet<ushort> books = new HashSet<ushort>() { 1955 };
+        private HashSet<ushort> books = new HashSet<ushort>() { 1955, 2597 };
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
@@ -16,7 +16,13 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 ReadableItem readableItem = (ReadableItem)command.Item;
 
-                Context.AddPacket(command.Player.Client.Connection, new OpenTextDialogOutgoingPacket(0, command.Item.Metadata.TibiaId, 255, readableItem.Text, readableItem.Author, readableItem.Date) );
+                Window window = new Window();
+
+                window.AddContent(readableItem);
+
+                uint windowId = command.Player.Client.Windows.OpenWindow(window);
+
+                Context.AddPacket(command.Player.Client.Connection, new OpenEditTextDialogOutgoingPacket(windowId, command.Item.Metadata.TibiaId, 255, readableItem.Text, readableItem.Author, readableItem.Date) );
 
                 return Promise.Completed;
             }
