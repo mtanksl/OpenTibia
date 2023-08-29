@@ -20,8 +20,6 @@
 - Guild system
 - Party system
 - NPC Trade system
-- Write items
-- Read items
 - Hang items
 - ...
 
@@ -63,3 +61,4 @@
 	- Report rule violation
 	- Debug assert
 	- Basic fight system
+	- Read and write items
