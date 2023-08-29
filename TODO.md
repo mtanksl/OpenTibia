@@ -53,6 +53,7 @@
 	- Rotate item
 	- Use item
 		- Tools
+		- Depot and lockers
 	- Use item with creature
 		- Runes
 	- Use item with item

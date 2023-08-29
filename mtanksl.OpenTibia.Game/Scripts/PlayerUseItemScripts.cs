@@ -8,6 +8,8 @@ namespace OpenTibia.Game.Scripts
         {
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemWalkToSourceHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler(new LockerOpenHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler(new ContainerOpenHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new BlueberryBushHandler() );

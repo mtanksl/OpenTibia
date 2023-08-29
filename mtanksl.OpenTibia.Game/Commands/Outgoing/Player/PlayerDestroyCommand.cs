@@ -23,6 +23,11 @@ namespace OpenTibia.Game.Commands
                     Detach(Context, child);
                 }
 
+                foreach (var pair in Context.Server.Lockers.GetIndexedLockers(Player.DatabasePlayerId) )
+                {
+                    Detach(Context, pair.Value);
+                }
+
                 DbPlayer dbPlayer = Context.Database.PlayerRepository.GetPlayerById(Player.DatabasePlayerId);
 
                     SavePlayer(Context, dbPlayer, Player);
@@ -45,6 +50,13 @@ namespace OpenTibia.Game.Commands
                     {
                         Destroy(Context, child);
                     }
+
+                    foreach (var pair in Context.Server.Lockers.GetIndexedLockers(Player.DatabasePlayerId) )
+                    {
+                        Destroy(Context, pair.Value);
+                    }
+
+                    Context.Server.Lockers.ClearLocker(Player.DatabasePlayerId);
 
                     return Context.AddCommand(new TileRemoveCreatureCommand(Player.Tile, Player) ).Then( () =>
                     {
