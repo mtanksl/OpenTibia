@@ -823,12 +823,6 @@ namespace OpenTibia.Common.Objects
                                     }
                                     break;
 
-                                //case 0xE7:
-
-                                    //TODO: Violation Window
-
-                                    //break;
-
                                 case 0xE8:
                                     {
                                         var packet = server.PacketsFactory.Create<DebugAssertIncomingPacket>(reader);
