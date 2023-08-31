@@ -61,6 +61,8 @@ namespace OpenTibia.Game
             EventHandlers = new EventHandlerCollection();
 
             Scripts = new ScriptCollection();
+
+            LuaScripts = new LuaScriptCollection(this);
         }
 
         ~Server()
@@ -103,6 +105,8 @@ namespace OpenTibia.Game
         public EventHandlerCollection EventHandlers { get; set; }
 
         public ScriptCollection Scripts { get; set; }
+
+        public LuaScriptCollection LuaScripts { get; set; }
 
         public ItemFactory ItemFactory { get; set; }
 
@@ -359,6 +363,8 @@ namespace OpenTibia.Game
 
                 if (disposing)
                 {
+                    LuaScripts.Dispose();
+
                     foreach (var listener in listeners)
                     {
                         listener.Dispose();

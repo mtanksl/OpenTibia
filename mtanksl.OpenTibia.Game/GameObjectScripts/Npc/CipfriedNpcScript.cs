@@ -17,6 +17,7 @@ namespace OpenTibia.Game.GameObjectScripts
         {
             base.Start(npc);
 
+            /*
             var builder = new ConversationStrategyBuilder()
                 .WithGreeting("Hello, {player.Name}! Feel free to ask me for help.")
                 .WithBusy("Please wait, {player.Name}. I already talk to someone!")
@@ -28,6 +29,9 @@ namespace OpenTibia.Game.GameObjectScripts
                 .WithDismiss("Well, bye then.");
 
             Context.Server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(builder.Build(), new RandomWalkStrategy(2) ) );
+            */
+                            
+            Context.Server.GameObjectComponents.AddComponent(npc, new NpcScriptingBehaviour("cipfried.lua", new RandomWalkStrategy(2) ) );   
         }
 
         public override void Stop(Npc npc)

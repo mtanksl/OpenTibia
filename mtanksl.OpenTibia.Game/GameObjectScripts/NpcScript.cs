@@ -21,7 +21,11 @@ namespace OpenTibia.Game.GameObjectScripts
                 Context.Server.GameObjectComponents.AddComponent(npc, new CreatureTalkBehaviour(TalkType.Say, npc.Metadata.Sentences) );
             }
 
+            /*
             Context.Server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(new ConversationStrategy(), new RandomWalkStrategy(2) ) );
+            */
+
+            Context.Server.GameObjectComponents.AddComponent(npc, new NpcScriptingBehaviour("default.lua", new RandomWalkStrategy(2) ) );
         }
 
         public override void Stop(Npc npc)
