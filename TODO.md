@@ -25,6 +25,7 @@
 
 # Done
 
+- Lua scripting
 - Motd
 - Waiting list
 - Ban system
