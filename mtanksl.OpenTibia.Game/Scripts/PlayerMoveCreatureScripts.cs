@@ -12,6 +12,8 @@ namespace OpenTibia.Game.Scripts
         {
             Context.Server.CommandHandlers.AddCommandHandler(new MoveCreatureWalkToSourceHandler() );
 
+            //TODO: Re-validate rules for incoming packet
+
             Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveCreatureCommand>( (context, next, command) => 
             {
                 if ( !command.Creature.Tile.Position.IsNextTo(command.ToTile.Position) )

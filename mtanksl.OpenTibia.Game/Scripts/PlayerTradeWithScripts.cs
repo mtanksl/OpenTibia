@@ -7,6 +7,8 @@ namespace OpenTibia.Game.Scripts
         public override void Start()
         {
             Context.Server.CommandHandlers.AddCommandHandler(new TradeWithCreatureWalkToSourceHandler() );
+
+            //TODO: Re-validate rules for incoming packet
         }
 
         public override void Stop()

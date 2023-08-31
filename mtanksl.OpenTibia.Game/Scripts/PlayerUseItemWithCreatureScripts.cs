@@ -8,6 +8,8 @@ namespace OpenTibia.Game.Scripts
         {
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithCreatureWalkToSourceHandler() );
 
+            //TODO: Re-validate rules for incoming packet
+
             //TODO: "You cannot use there."
 
             Context.Server.CommandHandlers.AddCommandHandler(new RunesHandler() );

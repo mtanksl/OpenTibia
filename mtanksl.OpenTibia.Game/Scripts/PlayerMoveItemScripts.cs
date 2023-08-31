@@ -12,6 +12,8 @@ namespace OpenTibia.Game.Scripts
         {
             Context.Server.CommandHandlers.AddCommandHandler(new MoveItemWalkToSourceHandler() );
 
+            //TODO: Re-validate rules for incoming packet
+
             Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveItemCommand>( (context, next, command) => 
             {
                 if (command.ToContainer is Tile toTile)
