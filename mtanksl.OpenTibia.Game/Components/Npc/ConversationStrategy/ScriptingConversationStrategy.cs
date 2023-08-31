@@ -105,7 +105,7 @@ namespace OpenTibia.Game.Components
 
         public void Stop()
         {
-            
+            lua.Dispose();
         }
     }
 }

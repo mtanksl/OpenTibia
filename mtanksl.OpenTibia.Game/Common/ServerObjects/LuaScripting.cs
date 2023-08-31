@@ -257,6 +257,11 @@ namespace OpenTibia.Game
                 
                 Next(args);
             } );
-        }       
+        }
+
+        public void Dispose()
+        {
+            env.Dispose();
+        }
     }
 }
