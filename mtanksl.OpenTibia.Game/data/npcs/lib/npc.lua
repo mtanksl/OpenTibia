@@ -80,17 +80,23 @@ function topic:add(question, answer)
     if type(question) == "function" then
         condition = question
     else 
-        if question == "" then
+        if type(question) == "table" then
             condition = function(npc, player, message)
-                return topicondition:new(true, true)
+                return question
             end
-        else
-            condition = function(npc, player, message)
-                local captures = { string.match(message, question) }
-                if #captures == 0 then
-                    return topicondition:new(false)
+        else 
+            if question == "" then
+                condition = function(npc, player, message)
+                    return topicondition:new(true, true)
                 end
-                return topicondition:new(true, false, captures)
+            else
+                condition = function(npc, player, message)
+                    local captures = { string.match(message, question) }
+                    if #captures == 0 then
+                        return topicondition:new(false)
+                    end
+                    return topicondition:new(true, false, captures)
+                end
             end
         end
     end
@@ -98,8 +104,14 @@ function topic:add(question, answer)
     if type(answer) == "function" then
         callback = answer
     else
-        callback = function(npc, player, message, captures, parameters)
-            return topiccallback:new( { }, answer)
+        if type(answer) == "table" then
+            callback = function(npc, player, message, captures, parameters)
+                return answer
+            end
+        else
+            callback = function(npc, player, message, captures, parameters)
+                return topiccallback:new( { }, answer)
+            end
         end
     end
     table.insert(self.matches, topicmatch:new(condition, callback) )

@@ -6,10 +6,10 @@ say:add("name", "My name is Al Dee, but you can call me Al. Do you want to buy s
 say:add("job", "I am a merchant. What can I do for you?")
 say:add("wares", "I sell weapons, shields, armor, helmets, and equipment. For what do you want to ask?")
 say:add("offer", "I sell weapons, shields, armor, helmets, and equipment. For what do you want to ask?")
-say:add("sell (%d+) spear", function(npc, player, message, captures, parameters) return topiccallback:new( { item = 2389, count = tonumber(captures[1] ), price = 2 * tonumber(captures[1] ), topic = sell }, "Do you want to sell this garbage? I give you {price} gold, ok?") end)
-say:add("sell spear", function(npc, player, message, captures, parameters) return topiccallback:new( { item = 2389, count = 1, price = 2, topic = sell }, "Do you want to sell this garbage? I give you {price} gold, ok?") end)
-say:add("(%d+) spear", function(npc, player, message, captures, parameters) return topiccallback:new( { item = 2389, count = tonumber(captures[1] ), price = 10 * tonumber(captures[1] ), topic = buy }, "Do you want to buy {count} spear for {price} gold?") end)
-say:add("spear", function(npc, player, message, captures, parameters) return topiccallback:new( { item = 2389, count = 1, price = 10, topic = buy }, "Do you want to buy a spear for {price} gold?" ) end)
+say:add("sell (%d+) spear", function(npc, player, message, captures, parameters) local count = math.max(1, math.min(100, tonumber(captures[1] ) ) ) return topiccallback:new( { item = 2389, count = count, price = 2 * count, topic = sell }, "Do you want to sell this garbage? I give you {price} gold, ok?") end)
+say:add("sell spear", topiccallback:new( { item = 2389, count = 1, price = 2, topic = sell }, "Do you want to sell this garbage? I give you {price} gold, ok?") )
+say:add("(%d+) spear", function(npc, player, message, captures, parameters) local count = math.max(1, math.min(100, tonumber(captures[1] ) ) ) return topiccallback:new( { item = 2389, count = count, price = 10 * count, topic = buy }, "Do you want to buy {count} spear for {price} gold?") end)
+say:add("spear", topiccallback:new( { item = 2389, count = 1, price = 10, topic = buy }, "Do you want to buy a spear for {price} gold?" ) )
 
 sell:add("yes", function(npc, player, message, captures, parameters) 
     if npcremoveitem(player, parameters.item, parameters.count) then
@@ -22,7 +22,7 @@ sell:add("yes", function(npc, player, message, captures, parameters)
     return topiccallback:new( { topic = say }, "Sorry, you do not have one.")        
 end)
 
-sell:add("", function(npc, player, message, captures, parameters) return topiccallback:new( { topic = say }, "Maybe next time.") end)
+sell:add("", topiccallback:new( { topic = say }, "Maybe next time.") )
 
 buy:add("yes", function(npc, player, message, captures, parameters) 
     if npcdeletemoney(player, parameters.price) then
@@ -32,7 +32,7 @@ buy:add("yes", function(npc, player, message, captures, parameters)
     return topiccallback:new( { topic = say }, "Sorry, you do not have enough gold.")
 end)
 
-buy:add("", function(npc, player, message, captures, parameters) return topiccallback:new( { topic = say }, "Maybe you will buy it another time.") end)
+buy:add("", topiccallback:new( { topic = say }, "Maybe you will buy it another time.") )
 
 local handler = npchandler:new( {
     greet = "Hello, hello, {playername}! Please come in, look, and buy!",
