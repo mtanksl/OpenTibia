@@ -15,7 +15,7 @@ namespace OpenTibia.Game
 
                 luaScripting.RegisterFunction("print", parameters =>
                 {
-                    server.Logger.WriteLine(string.Join("\t", parameters) );
+                    server.Logger.WriteLine(string.Join("\t", parameters), LogLevel.Debug);
 
                     return Promise.FromResult(Array.Empty<object>() );
                 } );

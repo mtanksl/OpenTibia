@@ -28,7 +28,9 @@ namespace OpenTibia.Game.Components
 
             QueueHashSet<Player> targets = new QueueHashSet<Player>();
 
-            playerSay = Context.Server.EventHandlers.Subscribe<PlayerSayEventArgs>( (context, e) =>
+            conversationStrategy.Start(npc);
+
+            playerSay = Context.Server.EventHandlers.Subscribe<PlayerSayEventArgs>(async (context, e) =>
             {
                 Player player = e.Player;
 
@@ -38,27 +40,27 @@ namespace OpenTibia.Game.Components
 
                     if (targets.Count == 0)
                     {
-                        if (message == "hi" || message == "hello")
+                        if (await conversationStrategy.ShouldGreet(npc, player, message) )
                         {
                             targets.Add(player);
 
-                            return conversationStrategy.Greeting(npc, player);
+                            await conversationStrategy.OnGreet(npc, player);
                         }
                     }
                     else
                     {
                         if (player != targets.Peek() )
                         {
-                            if (message == "hi" || message == "hello")
+                            if (await conversationStrategy.ShouldGreet(npc, player, message) )
                             {
                                 targets.Add(player);
 
-                                return conversationStrategy.Busy(npc, player);
+                                await conversationStrategy.OnBusy(npc, player);
                             }
                         }
                         else
                         {
-                            if (message == "bye" || message == "farewell")
+                            if (await conversationStrategy.ShouldFarewell(npc, player, message) )
                             {
                                 targets.Remove(player);
 
@@ -80,21 +82,23 @@ namespace OpenTibia.Game.Components
                                 {
                                     Player next = targets.Peek();
 
-                                    return conversationStrategy.Greeting(npc, next);
+                                    await conversationStrategy.OnGreet(npc, next);
                                 }
-                                   
-                                return conversationStrategy.Farewell(npc, player);
+                                else
+                                {
+                                    await conversationStrategy.OnFarewell(npc, player);
+                                }
                             }
-                                
-                            return conversationStrategy.Say(npc, player, message);
+                            else
+                            {
+                                await conversationStrategy.OnSay(npc, player, message);
+                            }
                         }
                     }
                 }
-
-                return Promise.Completed;
             } );
 
-            globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
+            globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>(async (context, e) =>
             {
                 if (targets.Count == 0)
                 {
@@ -155,19 +159,21 @@ namespace OpenTibia.Game.Components
 		                {
 			                var next = targets.Peek();
 
-			                return conversationStrategy.Greeting(npc, next);
+			                await conversationStrategy.OnGreet(npc, next);
 		                }
-
-                        return conversationStrategy.Dismiss(npc, player);
+                        else
+                        {
+                            await conversationStrategy.OnDismiss(npc, player);
+                        }
 	                }
                 }
-
-                return Promise.Completed;
             } );
         }
 
         public override void Stop()
         {
+            conversationStrategy.Stop();
+
             Context.Server.EventHandlers.Unsubscribe<PlayerSayEventArgs>(playerSay);
 
             Context.Server.EventHandlers.Unsubscribe<GlobalTickEventArgs>(globalTick);

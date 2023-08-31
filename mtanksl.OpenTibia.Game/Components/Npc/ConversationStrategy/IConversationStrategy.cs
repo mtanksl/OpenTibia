@@ -5,14 +5,22 @@ namespace OpenTibia.Game.Components
 {
     public interface IConversationStrategy
     {
-        Promise Greeting(Npc npc, Player player);
-        
-        Promise Busy(Npc npc, Player player);
+        void Start(Npc npc);
 
-        Promise Say(Npc npc, Player player, string message);
+        PromiseResult<bool> ShouldGreet(Npc npc, Player player, string message);
+
+        PromiseResult<bool> ShouldFarewell(Npc npc, Player player, string message);
+
+        Promise OnGreet(Npc npc, Player player);
         
-        Promise Farewell(Npc npc, Player player);
+        Promise OnBusy(Npc npc, Player player);
+
+        Promise OnSay(Npc npc, Player player, string message);
         
-        Promise Dismiss(Npc npc, Player player);
+        Promise OnFarewell(Npc npc, Player player);
+        
+        Promise OnDismiss(Npc npc, Player player);
+
+        void Stop();
     }
 }

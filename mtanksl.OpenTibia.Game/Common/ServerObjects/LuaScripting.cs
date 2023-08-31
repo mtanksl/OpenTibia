@@ -33,16 +33,15 @@ namespace OpenTibia.Game
                     return coroutine.yield(method)
                 end
 
-                function bridge.pcall(func, ...)
-                    return pcall(func, ...)
-                end
-
                 function bridge.wrap(func)
                     local co = coroutine.create(func)
                     return function(...)
                         local result = { coroutine.resume(co, ...) }
+                        if not result[1] then
+                            return false, result[2]
+                        end
                         local completed = coroutine.status(co) == "dead"
-                        return completed, select(2, table.unpack(result) )
+                        return true, completed, select(2, table.unpack(result) )
                     end
                 end
 
@@ -63,13 +62,17 @@ namespace OpenTibia.Game
                     end
                     local func, errorMessage = load(chunk, nil, "t", env)
                     if func then
-                        local success, errorMessage = bridge.pcall(func)
+                        local success, errorMessage = pcall(func)
                         if success then
                             return true, env
                         end
                         return false, errorMessage
                     end
                     return false, errorMessage
+                end
+
+                function print(...)
+                    return bridge.call("print", ...)
                 end
 
                 """);
@@ -200,7 +203,7 @@ namespace OpenTibia.Game
 
                 void Next(object[] args)
                 {
-                    var pcallResult = ( (LuaFunction)this["bridge.pcall"] ).Call(new object[] { wrapResult }.Concat(args).ToArray() ); // pcallResult = success, completed, result = bridge.pcall(wrapResult, arg0, arg1, arg2)
+                    var pcallResult = wrapResult.Call(args); // pcallResult = success, completed, result = wrapResult(arg0, arg1, arg2)
 
                     var success = (bool)pcallResult[0];
 

@@ -17,21 +17,7 @@ namespace OpenTibia.Game.GameObjectScripts
         {
             base.Start(npc);
 
-            /*
-            var builder = new ConversationStrategyBuilder()
-                .WithGreeting("Welcome {player.Name}! Whats your need?")
-                .WithBusy("Wait, {player.Name}! One after the other.")
-                .WithSay("name", "I am the illusterous Rachel, of course.")
-                .WithSay("job", "I am the head alchemist of Carlin. I keep the secret recipies of our ancestors. Besides, I am selling mana and life fluids, spellbooks, wands, rods and runes.")
-                .WithSay("rune", "I sell blank runes and spell runes.")
-                .WithSay("runes", "I sell blank runes and spell runes.")
-                .WithFarewell("Good bye,{player.Name}.")
-                .WithDismiss("These impatient young brats!");
-
-            Context.Server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(builder.Build(), new RandomWalkStrategy(2) ) );
-            */
-
-            Context.Server.GameObjectComponents.AddComponent(npc, new NpcScriptingBehaviour("rachel.lua", new RandomWalkStrategy(2) ) );   
+            Context.Server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(new ScriptingConversationStrategy("rachel.lua"), new RandomWalkStrategy(2) ) );
         }
 
         public override void Stop(Npc npc)
