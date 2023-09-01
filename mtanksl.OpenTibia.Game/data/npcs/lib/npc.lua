@@ -117,14 +117,14 @@ function topic:add(question, answer)
     table.insert(self.matches, topicmatch:new(condition, callback) )
 end
 
-function topic:addsell(responses, trades)
+function topic:addsell(responses, offers)
     local confirm = topic:new(self)
-    for _, trade in ipairs(trades) do
-        self:add("sell (%d+) " .. trade.name, function(npc, player, message, captures, parameters)
+    for _, offer in ipairs(offers) do
+        self:add("sell (%d+) " .. offer.name, function(npc, player, message, captures, parameters)
             local count = math.max(1, math.min(100, tonumber(captures[1] ) ) ) 
-            return topiccallback:new( { plural = trade.plural, item = trade.item, type = trade.type, count = count, price = trade.price * count, topic = confirm }, responses.questionitems) 
+            return topiccallback:new( { plural = offer.plural, item = offer.item, type = offer.type, count = count, price = offer.price * count, topic = confirm }, responses.questionitems) 
         end)
-        self:add("sell " .. trade.name, topiccallback:new( { article = trade.article, name = trade.name, item = trade.item, type = trade.type, count = 1, price = trade.price, topic = confirm }, responses.questionitem) )
+        self:add("sell " .. offer.name, topiccallback:new( { article = offer.article, name = offer.name, item = offer.item, type = offer.type, count = 1, price = offer.price, topic = confirm }, responses.questionitem) )
     end
     confirm:add("yes", function(npc, player, message, captures, parameters) 
         if npcremoveitem(player, parameters.item, parameters.type, parameters.count) then
@@ -139,19 +139,19 @@ function topic:addsell(responses, trades)
     confirm:add("", topiccallback:new( { topic = self }, responses.no) )
 end
 
-function topic:addbuy(responses, trades)
+function topic:addbuy(responses, offers)
     local confirm = topic:new(self)
-    for _, trade in ipairs(trades) do
-        self:add("buy (%d+) " .. trade.name, function(npc, player, message, captures, parameters) 
+    for _, offer in ipairs(offers) do
+        self:add("buy (%d+) " .. offer.name, function(npc, player, message, captures, parameters) 
             local count = math.max(1, math.min(100, tonumber(captures[1] ) ) )
-            return topiccallback:new( { plural = trade.plural,item = trade.item,type = trade.type, count = count, price = trade.price * count, topic = confirm }, responses.questionitems) 
+            return topiccallback:new( { plural = offer.plural,item = offer.item, type = offer.type, count = count, price = offer.price * count, topic = confirm }, responses.questionitems) 
         end)
-        self:add("(%d+) " .. trade.name, function(npc, player, message, captures, parameters) 
+        self:add("(%d+) " .. offer.name, function(npc, player, message, captures, parameters) 
             local count = math.max(1, math.min(100, tonumber(captures[1] ) ) )
-            return topiccallback:new( { plural = trade.plural, item = trade.item, type = trade.type, count = count, price = trade.price * count, topic = confirm }, responses.questionitems) 
+            return topiccallback:new( { plural = offer.plural, item = offer.item, type = offer.type, count = count, price = offer.price * count, topic = confirm }, responses.questionitems) 
         end)
-        self:add("buy " .. trade.name, topiccallback:new( { article = trade.article, name = trade.name, item = trade.item, type = trade.type, count = 1, price = trade.price, topic = confirm }, responses.questionitem) )
-        self:add("" .. trade.name, topiccallback:new( { article = trade.article, name = trade.name, item = trade.item, type = trade.type, count = 1, price = trade.price, topic = confirm }, responses.questionitem) )
+        self:add("buy " .. offer.name, topiccallback:new( { article = offer.article, name = offer.name, item = offer.item, type = offer.type, count = 1, price = offer.price, topic = confirm }, responses.questionitem) )
+        self:add("" .. offer.name, topiccallback:new( { article = offer.article, name = offer.name, item = offer.item, type = offer.type, count = 1, price = offer.price, topic = confirm }, responses.questionitem) )
     end
     confirm:add("yes", function(npc, player, message, captures, parameters) 
         if npcdeletemoney(player, parameters.price) then
@@ -166,7 +166,7 @@ end
 function topic:addtravel(responses, destinations)
     local confirm = topic:new(self)
     for _, destination in ipairs(destinations) do
-	    self:add("" .. destination.name, topiccallback:new( { titlecasename = destination.titlecasename, price = destination.price, topic = confirm }, responses.question) )
+	    self:add("" .. destination.name, topiccallback:new( { city = destination.city, price = destination.price, position = destination.position, topic = confirm }, responses.question) )
     end
     confirm:add("yes", function(npc, player, message, captures, parameters) 
         if npcdeletemoney(player, parameters.price) then            

@@ -1,15 +1,15 @@
 ﻿local say = topic:new()
 say:addtravel( {
-    question = "Do you seek a passage to {titlecasename} for {price} gold?",
+    question = "Do you seek a passage to {town} for {price} gold?",
     yes = "Set the sails!",
     notenoughtgold = "You don't have enough money.",
     no = "We would like to serve you some time."
 }, {
-    { name = "carlin", titlecasename = "Carlin", price = 110 },
-    { name = "ab'dendriel", titlecasename = "Ab'Dendriel", price = 110 },
-    { name = "edron", titlecasename = "Edron", price = 110 },
-    { name = "venore", titlecasename = "Venore", price = 110 },
-    { name = "port hope", titlecasename = "Port Hope", price = 110 }
+    { name = "carlin", town = "Carlin", position = { x = 0, y = 0, z = 7 }, price = 110 },
+    { name = "ab'dendriel", town = "Ab'Dendriel", position = { x = 0, y = 0, z = 7 }, price = 130 },
+    { name = "edron", town = "Edron", position = { x = 0, y = 0, z = 7 }, price = 160 },
+    { name = "venore", town = "Venore", position = { x = 0, y = 0, z = 7 }, price = 170 },
+    { name = "port hope", town = "Port Hope", position = { x = 0, y = 0, z = 7 }, price = 160 }
 } )
 say:add("name", "My name is Captain Bluebear from the Royal Tibia Line.")
 say:add("job", "I am the captain of this sailing-ship.")
