@@ -117,6 +117,67 @@ function topic:add(question, answer)
     table.insert(self.matches, topicmatch:new(condition, callback) )
 end
 
+function topic:addsell(responses, trades)
+    local confirm = topic:new(self)
+    for _, trade in ipairs(trades) do
+        self:add("sell (%d+) " .. trade.name, function(npc, player, message, captures, parameters)
+            local count = math.max(1, math.min(100, tonumber(captures[1] ) ) ) 
+            return topiccallback:new( { plural = trade.plural, item = trade.item, type = trade.type, count = count, price = trade.price * count, topic = confirm }, responses.questionitems) 
+        end)
+        self:add("sell " .. trade.name, topiccallback:new( { article = trade.article, name = trade.name, item = trade.item, type = trade.type, count = 1, price = trade.price, topic = confirm }, responses.questionitem) )
+    end
+    confirm:add("yes", function(npc, player, message, captures, parameters) 
+        if npcremoveitem(player, parameters.item, parameters.type, parameters.count) then
+            npcaddmoney(player, parameters.price)
+            return topiccallback:new( { topic = self }, responses.yes)
+        end
+        if parameters.count > 1 then
+            return topiccallback:new( { topic = self }, responses.notenoughitems)
+        end
+        return topiccallback:new( { topic = self }, responses.notenoughitem)        
+    end)
+    confirm:add("", topiccallback:new( { topic = self }, responses.no) )
+end
+
+function topic:addbuy(responses, trades)
+    local confirm = topic:new(self)
+    for _, trade in ipairs(trades) do
+        self:add("buy (%d+) " .. trade.name, function(npc, player, message, captures, parameters) 
+            local count = math.max(1, math.min(100, tonumber(captures[1] ) ) )
+            return topiccallback:new( { plural = trade.plural,item = trade.item,type = trade.type, count = count, price = trade.price * count, topic = confirm }, responses.questionitems) 
+        end)
+        self:add("(%d+) " .. trade.name, function(npc, player, message, captures, parameters) 
+            local count = math.max(1, math.min(100, tonumber(captures[1] ) ) )
+            return topiccallback:new( { plural = trade.plural, item = trade.item, type = trade.type, count = count, price = trade.price * count, topic = confirm }, responses.questionitems) 
+        end)
+        self:add("buy " .. trade.name, topiccallback:new( { article = trade.article, name = trade.name, item = trade.item, type = trade.type, count = 1, price = trade.price, topic = confirm }, responses.questionitem) )
+        self:add("" .. trade.name, topiccallback:new( { article = trade.article, name = trade.name, item = trade.item, type = trade.type, count = 1, price = trade.price, topic = confirm }, responses.questionitem) )
+    end
+    confirm:add("yes", function(npc, player, message, captures, parameters) 
+        if npcdeletemoney(player, parameters.price) then
+            npcadditem(player, parameters.item, parameters.type, parameters.count)
+            return topiccallback:new( { topic = self }, responses.yes)
+        end
+        return topiccallback:new( { topic = self }, responses.notenoughtgold)
+    end)
+    confirm:add("", topiccallback:new( { topic = self }, responses.no) )
+end
+
+function topic:addtravel(responses, destinations)
+    local confirm = topic:new(self)
+    for _, destination in ipairs(destinations) do
+	    self:add("" .. destination.name, topiccallback:new( { titlecasename = destination.titlecasename, price = destination.price, topic = confirm }, responses.question) )
+    end
+    confirm:add("yes", function(npc, player, message, captures, parameters) 
+        if npcdeletemoney(player, parameters.price) then            
+            -- TODO
+            return topiccallback:new( { topic = self }, responses.yes)
+        end
+        return topiccallback:new( { topic = self }, responses.notenoughtgold)
+    end)
+    confirm:add("", topiccallback:new( { topic = self }, responses.no) )
+end
+
 function topic:match(npc, player, message)
     local result = nil
     local current = self

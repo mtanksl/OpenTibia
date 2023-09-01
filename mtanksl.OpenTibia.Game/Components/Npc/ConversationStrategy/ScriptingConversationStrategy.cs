@@ -313,6 +313,44 @@ namespace OpenTibia.Game.Components
                     }
                 } );
 
+                lua.RegisterFunction("npccountmoney", async parameters =>
+                {
+                    Player player = (Player)parameters[0];
+
+                   
+                    int sum = Sum(player.Inventory);
+
+                    return new object[] { sum };
+
+                    int Sum(IContainer parent)
+                    {
+                        int sum = 0;
+
+                        foreach (Item content in parent.GetContents() )
+                        {
+                            if (content is Container container)
+                            {
+                                sum += Sum(container);
+                            }
+
+                            if (content.Metadata.OpenTibiaId == 2160) // Crystal coin
+                            {
+                                sum += ( (StackableItem)content ).Count * 10000;
+                            }
+                            else if (content.Metadata.OpenTibiaId == 2152) // Platinum coin
+                            {
+                                sum += ( (StackableItem)content ).Count * 100;
+                            }
+                            else if (content.Metadata.OpenTibiaId == 2148) // Gold coin
+                            {
+                                sum += ( (StackableItem)content ).Count * 1;
+                            }
+                        }
+
+                        return sum;
+                    }
+                } );
+
                 lua.RegisterFunction("npcadditem", async parameters =>
                 {
                     Player player = (Player)parameters[0];
@@ -406,11 +444,70 @@ namespace OpenTibia.Game.Components
 
                             if (content.Metadata.OpenTibiaId == openTibiaId)
                             {
-                                items.Add(content);
+                                if (content is StackableItem stackableItem)
+                                {                                
+                                    items.Add(content);
 
+                                    sum += stackableItem.Count;
+                                }
+                                else if (content is FluidItem fluidItem)
+                                {
+                                    if (fluidItem.FluidType == (FluidType)type)
+                                    {
+                                        items.Add(content);
+
+                                        sum += 1;
+                                    }
+                                }
+                                else
+                                {
+                                    items.Add(content);
+
+                                    sum += 1;
+                                }
+                            }
+                        }
+
+                        return sum;
+                    }
+                } );
+
+                lua.RegisterFunction("npccountitem", async parameters =>
+                {
+                    Player player = (Player)parameters[0];
+
+                    ushort openTibiaId = (ushort)(long)parameters[1];
+
+                    byte type = (byte)(long)parameters[2];
+                    
+
+                    int sum = Sum(player.Inventory, openTibiaId);
+                                     
+                    return new object[] { sum };
+
+                    int Sum(IContainer parent, ushort openTibiaId)
+                    {
+                        int sum = 0;
+
+                        foreach (Item content in parent.GetContents() )
+                        {
+                            if (content is Container container)
+                            {
+                                sum += Sum(container, openTibiaId);
+                            }
+
+                            if (content.Metadata.OpenTibiaId == openTibiaId)
+                            {
                                 if (content is StackableItem stackableItem)
                                 {
                                     sum += stackableItem.Count;
+                                }
+                                else if (content is FluidItem fluidItem)
+                                {
+                                    if (fluidItem.FluidType == (FluidType)type)
+                                    {
+                                        sum += 1;
+                                    }
                                 }
                                 else
                                 {

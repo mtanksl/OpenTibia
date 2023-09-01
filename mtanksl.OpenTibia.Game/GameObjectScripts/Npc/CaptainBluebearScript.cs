@@ -3,13 +3,13 @@ using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.GameObjectScripts
 {
-    public class AldeeNpcScript : NpcScript
+    public class CaptainBluebearScript : NpcScript
     {
         public override string Key
         {
             get
             {
-                return "Al Dee";
+                return "Captain Bluebear";
             }
         }
 
@@ -17,7 +17,7 @@ namespace OpenTibia.Game.GameObjectScripts
         {
             base.Start(npc);
 
-            Context.Server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(new ScriptingConversationStrategy("al dee.lua"), new RandomWalkStrategy(2) ) );
+            Context.Server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(new ScriptingConversationStrategy("captain bluebear.lua"), new RandomWalkStrategy(2) ) );
         }
 
         public override void Stop(Npc npc)

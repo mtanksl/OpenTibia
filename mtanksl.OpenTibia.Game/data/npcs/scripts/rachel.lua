@@ -1,8 +1,35 @@
 ﻿local say = topic:new()
+local confirm = topic:new(say)
+
+say:addbuy( {
+    questionitems = "Do you want to buy {count} {plural} for {price} gold?",
+    questionitem = "Do you want to buy {article} {name} for {price} gold?",
+    yes = "Here you are.",
+    notenoughtgold = "Come back when you have enough money.",
+    no = "Hmm, maybe next time."
+}, {
+    { article = "a", name = "blank rune", plural = "blank runes", item = 2260, type = 1, price = 10 },
+    { article = "a", name = "mana fluid", plural = "mana fluids", item = 11396, type = 7, price = 55 },
+    { article = "a", name = "life fluid", plural = "life fluids", item = 11396, type = 10, price = 60 }
+} )
 say:add("name", "I am the illusterous Rachel, of course.")
 say:add("job", "I am the head alchemist of Carlin. I keep the secret recipies of our ancestors. Besides, I am selling mana and life fluids, spellbooks, wands, rods and runes.")
-say:add("wares", "I sell blank runes and spell runes.")
-say:add("offer", "I sell blank runes and spell runes.")
+say:add("rune", "I sell blank runes and spell runes.")
+say:add("deposit", topiccallback:new( { topic = confirm }, "I will pay you 5 gold for every empty vial. Ok?")  )
+say:add("vial", topiccallback:new( { topic = confirm }, "I will pay you 5 gold for every empty vial. Ok?")  )
+say:add("flask", topiccallback:new( { topic = confirm }, "I will pay you 5 gold for every empty vial. Ok?")  )
+
+confirm:add("yes", function(npc, player, message, captures, parameters) 
+    local count = npccountitem(player, 11396, 0)
+    if count > 0 then
+        if npcremoveitem(player, 11396, 0, count) then
+            npcaddmoney(player, 5 * count)
+            return topiccallback:new( { price = 5 * count, topic = say }, "Here you are... {price} gold.")
+        end
+    end
+    return topiccallback:new( { topic = say }, "You don't have any empty vials.")        
+end)
+confirm:add("", topiccallback:new( { topic = say }, "Hmm, but please keep Tibia litter free.") )
 
 local handler = npchandler:new( {
     greet = "Welcome {playername}! Whats your need?",

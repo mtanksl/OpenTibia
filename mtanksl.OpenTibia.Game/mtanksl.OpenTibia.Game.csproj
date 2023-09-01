@@ -1036,7 +1036,7 @@
     <None Update="data\monsters\Zugurosh.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="data\npcs\Aldee.xml">
+    <None Update="data\npcs\Al Dee.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="data\npcs\Cipfried.xml">
@@ -1045,7 +1045,13 @@
     <None Update="data\npcs\lib\npc.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="data\npcs\Captain Bluebear.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="data\npcs\Rachel.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="data\npcs\scripts\captain bluebear.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="data\npcs\scripts\cipfried.lua">
@@ -1054,7 +1060,7 @@
     <None Update="data\npcs\scripts\rachel.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="data\npcs\scripts\aldee.lua">
+    <None Update="data\npcs\scripts\al dee.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="data\npcs\scripts\default.lua">
