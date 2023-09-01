@@ -52,7 +52,7 @@ namespace OpenTibia.Game
 
         public LuaScope Load(params string[] paths)
         {
-            LuaScope lua = luaScripting.LoadChunk(GetChunk(paths[0] ) );
+            LuaScope lua = luaScripting.LoadChunk(GetChunk(paths[0] ), string.Join(", ", paths) );
 
             for (int i = 1; i < paths.Length; i++)
             {

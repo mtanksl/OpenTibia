@@ -15,11 +15,11 @@ say:add("name", "I am the illusterous Rachel, of course.")
 say:add("job", "I am the head alchemist of Carlin. I keep the secret recipies of our ancestors. Besides, I am selling mana and life fluids, spellbooks, wands, rods and runes.")
 say:add("rune", "I sell blank runes and spell runes.")
 say:add("vial",  function(npc, player, message, captures, parameters) 
-    local count = npccountitem(player, 11396, 0)
+    local count = math.max(1, npccountitem(player, 11396, 0) )
     return topiccallback:new( { item = 11396, type = 0, count = count, price = 5 * count, topic = confirm }, "I will pay you 5 gold for every empty vial. Ok?") 
 end)
 confirm:add("yes", function(npc, player, message, captures, parameters) 
-    if npcremoveitem(player, parameters.item, parameters.data, parameters.count) then
+    if npcremoveitem(player, parameters.item, parameters.type, parameters.count) then
         npcaddmoney(player, parameters.price)
         return topiccallback:new( { topic = say }, "Here you are... {price} gold.")
     end
