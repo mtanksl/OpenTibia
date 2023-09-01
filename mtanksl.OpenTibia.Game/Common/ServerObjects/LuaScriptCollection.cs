@@ -1,6 +1,8 @@
-﻿using OpenTibia.Game.Commands;
+﻿using NLua;
+using OpenTibia.Game.Commands;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace OpenTibia.Game
@@ -12,6 +14,17 @@ namespace OpenTibia.Game
         public LuaScriptCollection(Server server)
         {
             luaScripting = new LuaScripting();
+
+                luaScripting.RegisterFunction("debugger", parameters =>
+                {
+                    LuaTable locals = (LuaTable)parameters[0];
+
+                    LuaTable upvalues = (LuaTable)parameters[1];
+
+                    Debugger.Break();
+
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
 
                 luaScripting.RegisterFunction("print", parameters =>
                 {

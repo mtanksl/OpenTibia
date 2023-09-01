@@ -75,6 +75,41 @@ namespace OpenTibia.Game
                     return bridge.call("print", ...)
                 end
 
+                function debugger()
+                    function locals()
+                        local variables = {}
+                        local i = 1
+                        while true do
+                            local ln, lv = debug.getlocal(3, i)
+                            if ln ~= nil then
+                                variables[ln] = lv
+                            else
+                                break
+                            end
+                            i = 1 + i
+                        end
+                        return variables
+                    end
+                
+                    function upvalues()
+                        local variables = {}
+                        local i = 1
+                        local func = debug.getinfo(3, "f").func
+                        while true do
+                            local ln, lv = debug.getupvalue(func, i)
+                            if ln ~= nil then
+                                variables[ln] = lv
+                            else
+                                break
+                            end
+                            i = 1 + i
+                        end
+                        return variables
+                    end
+
+                    return bridge.call("debugger", locals(), upvalues())
+                end
+
                 """);
         }
 
@@ -126,7 +161,7 @@ namespace OpenTibia.Game
             {
                 var errorMessage = (string)loadResult[1];
 
-                throw new Exception(errorMessage);
+                throw new Exception(debugger + ": " + errorMessage);
             }
         }
 
