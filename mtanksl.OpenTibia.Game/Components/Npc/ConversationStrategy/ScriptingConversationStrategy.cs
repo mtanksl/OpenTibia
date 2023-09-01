@@ -391,7 +391,7 @@ namespace OpenTibia.Game.Components
                         }
                     }
 
-                    return new object[] { false };
+                    return new object[] { true };
 
                     int Sum(IContainer parent, ushort openTibiaId, List<Item> items)
                     {
