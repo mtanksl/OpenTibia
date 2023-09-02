@@ -7,20 +7,20 @@ namespace OpenTibia.Game
 {
     public class LuaScriptCollection : IDisposable
     {
-        private LuaScripting luaScripting;
+        private LuaScope luaScope;
 
         public LuaScriptCollection(Server server)
         {
-            luaScripting = new LuaScripting(server);
+            luaScope = new LuaScope(server);
 
-                luaScripting.RegisterFunction("print", parameters =>
+                luaScope.RegisterFunction("print", parameters =>
                 {
                     server.Logger.WriteLine(string.Join("\t", parameters), LogLevel.Debug);
 
                     return Promise.FromResult(Array.Empty<object>() );
                 } );
 
-                luaScripting.RegisterFunction("delay", parameters =>
+                luaScope.RegisterFunction("delay", parameters =>
                 {
                     return Promise.Delay(Guid.NewGuid().ToString(), TimeSpan.FromSeconds( (long)parameters[0] ) ).Then( () =>
                     {
@@ -52,7 +52,7 @@ namespace OpenTibia.Game
 
         public LuaScope Load(params string[] paths)
         {
-            LuaScope lua = luaScripting.LoadChunk(GetChunk(paths[0] ), paths[0] );
+            LuaScope lua = luaScope.LoadNewChunk(GetChunk(paths[0] ), paths[0] );
 
             for (int i = 1; i < paths.Length; i++)
             {
@@ -79,9 +79,9 @@ namespace OpenTibia.Game
 
                 if (disposing)
                 {
-                    if (luaScripting != null)
+                    if (luaScope != null)
                     {
-                        luaScripting.Dispose();
+                        luaScope.Dispose();
                     }
                 }
             }

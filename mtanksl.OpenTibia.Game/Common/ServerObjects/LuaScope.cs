@@ -7,33 +7,24 @@ using System.Linq;
 
 namespace OpenTibia.Game
 {
-    public interface ILuaScope
-    {
-        ILuaScope Parent { get; }
-
-        bool TryGetFunction(string name, out Func<object[], PromiseResult<object[]>> callback);
-    }
-
-    public class LuaScripting : ILuaScope, IDisposable
-    {
-        private Lua env;
-
-        public LuaScripting(Server server)
+    public class LuaScope
+    {      
+        public LuaScope(Server server)
         {
-            env = new Lua();
+            var lua = new Lua();
 
-            env["package.path"] = Path.Combine(server.PathResolver.GetFullPath("data/lualibs"), "?.lua");
+            lua["package.path"] = Path.Combine(server.PathResolver.GetFullPath("data/lualibs"), "?.lua");
 
-            env["package.cpath"] = Path.Combine(server.PathResolver.GetFullPath("data/clibs"), "?.dll");
+            lua["package.cpath"] = Path.Combine(server.PathResolver.GetFullPath("data/clibs"), "?.dll");
 
-            env.DoString("""
+            lua.DoString("""
 
 	            debugger = require("mobdebug")
 	            debugger.coro()
 
 	            """);
 
-            env.DoString("""
+            lua.DoString("""
 
                 bridge = {}
 
@@ -88,7 +79,30 @@ namespace OpenTibia.Game
                 end
 
                 """);
+
+            parent = null;
+
+            env = (LuaTable)lua["_G"];
         }
+
+        public LuaScope(LuaScope parent, LuaTable env)
+        {
+            this.parent = parent;
+
+            this.env = env;
+        }
+
+        private LuaScope parent;
+
+        public LuaScope Parent
+        {
+            get
+            {
+                return parent;
+            }
+        }
+
+        private LuaTable env;
 
         public object this[string key]
         {
@@ -102,14 +116,6 @@ namespace OpenTibia.Game
             }
         }
 
-        public ILuaScope Parent
-        {
-            get
-            {
-                return null;
-            }
-        }
-
         private Dictionary<string, Func<object[], PromiseResult<object[]>>> callbacks = new Dictionary<string, Func<object[], PromiseResult<object[]>>>();
 
         public void RegisterFunction(string name, Func<object[], PromiseResult<object[]>> callback)
@@ -120,9 +126,9 @@ namespace OpenTibia.Game
         public bool TryGetFunction(string name, out Func<object[], PromiseResult<object[]>> callback)
         {
             return callbacks.TryGetValue(name, out callback);
-        }
+        }        
 
-        public LuaScope LoadChunk(string chunk, string chunkName)
+        public LuaScope LoadNewChunk(string chunk, string chunkName)
         {
             var loadResult = ( (LuaFunction)this["bridge.load"] ).Call(chunk, chunkName); // loadResult = success, env = bridge.load(chunk, chunkName)
 
@@ -142,64 +148,19 @@ namespace OpenTibia.Game
             }
         }
 
-        public void Dispose()
-        {
-            env.Dispose();
-        }
-    }
-
-    public class LuaScope : ILuaScope
-    {
-        private LuaTable env;
-
-        public LuaScope(ILuaScope parent, LuaTable env)
-        {
-            this.parent = parent;
-
-            this.env = env;
-        }
-
-        public object this[string key]
-        {
-            get
-            {
-                return env[key];
-            }
-            set
-            { 
-                env[key] = value; 
-            }
-        }
-
-        private ILuaScope parent;
-
-        public ILuaScope Parent
-        {
-            get
-            {
-                return parent; 
-            }
-        }
-
-        public Dictionary<string, Func<object[], PromiseResult<object[]>>> callbacks = new Dictionary<string, Func<object[], PromiseResult<object[]>>>();
-
-        public void RegisterFunction(string name, Func<object[], PromiseResult<object[]>> callback)
-        {
-            callbacks[name] = callback;
-        }
-
-        public bool TryGetFunction(string name, out Func<object[], PromiseResult<object[]>> callback)
-        {
-            return callbacks.TryGetValue(name, out callback);
-        }
-
         public void LoadChunk(string chunk, string chunkName)
         {
             var loadResult = ( (LuaFunction)this["bridge.load"] ).Call(chunk, chunkName, env); // loadResult = success, env = bridge.load(chunk, chunkName, env)
 
             var success = (bool)loadResult[0];
 
-            if ( !success)
+            if (success)
+            {
+                var env = (LuaTable)loadResult[1];
+
+                
+            }
+            else
             {
                 var errorMessage = (string)loadResult[1];
 
@@ -235,7 +196,7 @@ namespace OpenTibia.Game
 
                             var name = (string)method["name"];
 
-                            ILuaScope current = this;
+                            LuaScope current = this;
 
                             while (true)
                             {
