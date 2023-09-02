@@ -24,6 +24,8 @@ From time to time, I take this project to have some fun and recall the good old 
 
 ![Server and Client](/server.png)
 
+![Debugging .lua scripts](/debugging-lua-scripts.png)
+
 # Troubleshoot
 
 > MSB3821 Couldn't process file MainForm.resx due to its being in the Internet or Restricted zone or having the mark of the web on the file. Remove the mark of the web if you want to process these files.
