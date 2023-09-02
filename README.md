@@ -20,7 +20,7 @@ From time to time, I take this project to have some fun and recall the good old 
 - Press F5 to run the server. 
 - Use Tibia 8.6 client (download below) with an IP changer (download also below) to connect to localhost (IP address 127.0.0.1) on port 7171.
 - Use account number `1` and password `1` to enter game.
-- Sqlite database location: `\bin\Debug\...\data\database.db`.
+- Sqlite database location: `\mtanksl.OpenTibia.GameData\data\database.db`.
 
 ![Server and Client](/server.png)
 
@@ -55,6 +55,10 @@ You can use Blackdemon's Tibia editor, download direct from here [4Shared](https
 ### Item editor (.otb)
 
 You can use [OTItemEditor](https://github.com/opentibia/item-editor).
+
+### Lua IDE (.lua)
+
+You can use [ZeroBrane Studio IDE](https://studio.zerobrane.com).
 
 # Project's wiki
 

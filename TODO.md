@@ -26,6 +26,7 @@
 # Done
 
 - Lua scripting
+- Lua debugging with ZeroBrane
 - Motd
 - Waiting list
 - Ban system
