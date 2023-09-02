@@ -4,14 +4,17 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace OpenTibia.Game
 {
     public class LuaScope
-    {      
+    {
+        private Lua lua;
+
         public LuaScope(Server server)
         {
-            var lua = new Lua();
+            lua = new Lua();
 
             lua["package.path"] = Path.Combine(server.PathResolver.GetFullPath("data/lualibs"), "?.lua");
 
@@ -74,15 +77,11 @@ namespace OpenTibia.Game
                     return false, errorMessage
                 end
 
-                function print(...)
-                    return bridge.call("print", ...)
-                end
-
                 """);
 
-            parent = null;
+            this.parent = null;
 
-            env = (LuaTable)lua["_G"];
+            this.env = (LuaTable)lua["_G"];
         }
 
         public LuaScope(LuaScope parent, LuaTable env)
@@ -116,14 +115,26 @@ namespace OpenTibia.Game
             }
         }
 
+        public void RegisterFunction(string name, object target, MethodBase method)
+        {
+            if (parent == null)
+            {
+                lua.RegisterFunction(name, target, method);
+            }
+            else
+            {
+                parent.RegisterFunction(name, target, method);
+            }
+        }
+
         private Dictionary<string, Func<object[], PromiseResult<object[]>>> callbacks = new Dictionary<string, Func<object[], PromiseResult<object[]>>>();
 
-        public void RegisterFunction(string name, Func<object[], PromiseResult<object[]>> callback)
+        public void RegisterCoFunction(string name, Func<object[], PromiseResult<object[]>> callback)
         {
             callbacks[name] = callback;
         }
 
-        public bool TryGetFunction(string name, out Func<object[], PromiseResult<object[]>> callback)
+        public bool TryGetCoFunction(string name, out Func<object[], PromiseResult<object[]>> callback)
         {
             return callbacks.TryGetValue(name, out callback);
         }        
@@ -207,7 +218,7 @@ namespace OpenTibia.Game
                                     break;
                                 }
 
-                                if (current.TryGetFunction(name, out var callback) )
+                                if (current.TryGetCoFunction(name, out var callback) )
                                 {
                                     var parameters = ( (LuaTable)method["parameters"] ).Values.Cast<object>().ToArray();
 

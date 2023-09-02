@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Components
         {
             lua = Context.Current.Server.LuaScripts.Load(Context.Current.Server.PathResolver.GetFullPath("data/npcs/lib/npc.lua"), Context.Current.Server.PathResolver.GetFullPath("data/npcs/scripts/" + script) );
 
-                lua.RegisterFunction("npcsay", parameters =>
+                lua.RegisterCoFunction("npcsay", parameters =>
                 {
                     return Context.Current.AddCommand(new NpcSayCommand(npc, (string)parameters[0] ) ).Then( () =>
                     {
@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Components
                     } );
                 } );
 
-                lua.RegisterFunction("npcaddmoney", async parameters =>
+                lua.RegisterCoFunction("npcaddmoney", async parameters =>
                 {
                     Player player = (Player)parameters[0];
 
@@ -100,7 +100,7 @@ namespace OpenTibia.Game.Components
                     return Array.Empty<object>();
                 } );
 
-                lua.RegisterFunction("npcdeletemoney", async parameters =>
+                lua.RegisterCoFunction("npcdeletemoney", async parameters =>
                 {
                     Player player = (Player)parameters[0];
 
@@ -313,7 +313,7 @@ namespace OpenTibia.Game.Components
                     }
                 } );
 
-                lua.RegisterFunction("npccountmoney", async parameters =>
+                lua.RegisterCoFunction("npccountmoney", async parameters =>
                 {
                     Player player = (Player)parameters[0];
 
@@ -351,7 +351,7 @@ namespace OpenTibia.Game.Components
                     }
                 } );
 
-                lua.RegisterFunction("npcadditem", async parameters =>
+                lua.RegisterCoFunction("npcadditem", async parameters =>
                 {
                     Player player = (Player)parameters[0];
 
@@ -386,7 +386,7 @@ namespace OpenTibia.Game.Components
                     return Array.Empty<object>();
                 } );
 
-                lua.RegisterFunction("npcremoveitem", async parameters =>
+                lua.RegisterCoFunction("npcremoveitem", async parameters =>
                 {
                     Player player = (Player)parameters[0];
 
@@ -472,7 +472,7 @@ namespace OpenTibia.Game.Components
                     }
                 } );
 
-                lua.RegisterFunction("npccountitem", async parameters =>
+                lua.RegisterCoFunction("npccountitem", async parameters =>
                 {
                     Player player = (Player)parameters[0];
 

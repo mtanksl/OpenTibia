@@ -1,4 +1,6 @@
-﻿using OpenTibia.Game.Commands;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Commands;
+using OpenTibia.Game.Components;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,24 +9,33 @@ namespace OpenTibia.Game
 {
     public class LuaScriptCollection : IDisposable
     {
+        private Server server;
+
         private LuaScope luaScope;
 
         public LuaScriptCollection(Server server)
         {
+            this.server = server;
+
             luaScope = new LuaScope(server);
 
-                luaScope.RegisterFunction("print", parameters =>
-                {
-                    server.Logger.WriteLine(string.Join("\t", parameters), LogLevel.Debug);
+                luaScope.RegisterFunction("print", this, GetType().GetMethod(nameof(Print) ) );
 
-                    return Promise.FromResult(Array.Empty<object>() );
-                } );
-
-                luaScope.RegisterFunction("delay", parameters =>
+                luaScope.RegisterCoFunction("delay", parameters =>
                 {
                     return Promise.Delay(Guid.NewGuid().ToString(), TimeSpan.FromSeconds( (long)parameters[0] ) ).Then( () =>
                     {
                         return Promise.FromResult(Array.Empty<object>() );
+                    } );
+                } );
+
+                luaScope.RegisterCoFunction("delaygameobject", parameters =>
+                {
+                    GameObject gameObject = (GameObject)parameters[0];
+
+                    return Context.Current.Server.GameObjectComponents.AddComponent(gameObject, new DelayBehaviour(TimeSpan.FromSeconds( (long)parameters[0] ) ), false).Promise.Then( () =>
+                    {
+                        return Promise.FromResult(Array.Empty<object>());
                     } );
                 } );
         }
@@ -32,6 +43,11 @@ namespace OpenTibia.Game
         ~LuaScriptCollection()
         {
             Dispose(false);
+        }
+
+        public void Print(params object[] parameters)
+        {
+            server.Logger.WriteLine(string.Join("\t", parameters), LogLevel.Debug);
         }
 
         private Dictionary<string, string> chunks = new Dictionary<string, string>();
