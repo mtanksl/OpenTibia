@@ -18,10 +18,7 @@ namespace mtanksl.OpenTibia.Host.GUI
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            if (!File.Exists("data\\database.db"))
-            {
-                File.Copy("data\\template.db", "data\\database.db");
-            }
+
         }
 
         private void richTextBox1_LinkClicked(object sender, LinkClickedEventArgs e)

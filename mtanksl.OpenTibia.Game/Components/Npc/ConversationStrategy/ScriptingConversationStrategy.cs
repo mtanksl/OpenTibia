@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Components
 
         public void Start(Npc npc)
         {
-            lua = Context.Current.Server.LuaScripts.Load("data/npcs/lib/npc.lua", "data/npcs/scripts/" + script);
+            lua = Context.Current.Server.LuaScripts.Load(Context.Current.Server.PathResolver.GetFullPath("data/npcs/lib/npc.lua"), Context.Current.Server.PathResolver.GetFullPath("data/npcs/scripts/" + script) );
 
                 lua.RegisterFunction("npcsay", parameters =>
                 {

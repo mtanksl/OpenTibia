@@ -50,7 +50,7 @@ namespace OpenTibia.Game
                             DbContextLoggerOptions.SingleLine
                     );
 
-                    databaseContext = new SqliteContext(builder.Options);
+                    databaseContext = new SqliteContext(server.PathResolver.GetFullPath("data/database.db"), builder.Options);
                 }
 
                 return databaseContext;

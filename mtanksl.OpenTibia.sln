@@ -34,6 +34,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TODO.md = TODO.md
 	EndProjectSection
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "mtanksl.OpenTibia.GameData", "mtanksl.OpenTibia.GameData\mtanksl.OpenTibia.GameData.shproj", "{0269E0F5-D24C-4799-918F-C3819A5D43B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -198,5 +200,8 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {92639E7B-CD2A-40A0-89B0-DCF462B2A027}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		mtanksl.OpenTibia.GameData\mtanksl.OpenTibia.GameData.projitems*{0269e0f5-d24c-4799-918f-c3819a5d43b7}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

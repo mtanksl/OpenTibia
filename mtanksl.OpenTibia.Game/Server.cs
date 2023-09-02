@@ -14,6 +14,7 @@ using OpenTibia.Network.Sockets;
 using OpenTibia.Threading;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace OpenTibia.Game
 {
@@ -31,6 +32,8 @@ namespace OpenTibia.Game
 
                 new Listener(gameServerPort, socket => new GameConnection(this, socket) )
             };
+
+            PathResolver = new PathResolver();
 
             PacketsFactory = new PacketsFactory();
 
@@ -75,6 +78,8 @@ namespace OpenTibia.Game
         private Scheduler scheduler;
 
         private List<Listener> listeners;
+
+        public PathResolver PathResolver { get; set; }
 
         public PacketsFactory PacketsFactory { get; set; }
 
@@ -124,6 +129,15 @@ namespace OpenTibia.Game
 
         public void Start()
         {
+            if ( !PathResolver.Exists("data/database.db") )
+            {
+                var template = PathResolver.GetFullPath("data/template.db");
+
+                var database = Path.Combine(Path.GetDirectoryName(template), "database.db");
+
+                File.Copy(template, database);
+            }
+
             dispatcher.Start();
 
             scheduler.Start();
@@ -143,29 +157,29 @@ namespace OpenTibia.Game
 
                 using (Logger.Measure("Loading items") )
                 {
-                    ItemFactory = new ItemFactory(this, OtbFile.Load("data/items/items.otb"), DatFile.Load("data/items/tibia.dat"), ItemsFile.Load("data/items/items.xml") );
+                    ItemFactory = new ItemFactory(this, OtbFile.Load(PathResolver.GetFullPath("data/items/items.otb") ), DatFile.Load(PathResolver.GetFullPath("data/items/tibia.dat") ), ItemsFile.Load(PathResolver.GetFullPath("data/items/items.xml") ) );
                 }
 
                 PlayerFactory = new PlayerFactory(this);
 
                 using (Logger.Measure("Loading monsters") )
                 {
-                    MonsterFactory = new MonsterFactory(this, MonsterFile.Load("data/monsters") );
+                    MonsterFactory = new MonsterFactory(this, MonsterFile.Load(PathResolver.GetFullPath("data/monsters") ) );
                 }
 
                 using (Logger.Measure("Loading npcs") )
                 {
-                    NpcFactory = new NpcFactory(this, NpcFile.Load("data/npcs") );
+                    NpcFactory = new NpcFactory(this, NpcFile.Load(PathResolver.GetFullPath("data/npcs") ) );
                 }
 
                 using (Logger.Measure("Loading map") )
                 {
-                    Map = new Map(this, OtbmFile.Load("data/world/map.otbm"), SpawnFile.Load("data/world/map-spawn.xml"), HouseFile.Load("data/world/map-house.xml") );
+                    Map = new Map(this, OtbmFile.Load(PathResolver.GetFullPath("data/world/map.otbm") ), SpawnFile.Load(PathResolver.GetFullPath("data/world/map-spawn.xml") ), HouseFile.Load(PathResolver.GetFullPath("data/world/map-house.xml") ) );
                 }
 
                 using (Logger.Measure("Loading quests") )
                 {
-                    Quests = new QuestCollection( QuestFile.Load("data/xml/quests.xml") );
+                    Quests = new QuestCollection(QuestFile.Load(PathResolver.GetFullPath("data/xml/quests.xml") ) );
                 }
 
                 Pathfinding = new Pathfinding(Map);

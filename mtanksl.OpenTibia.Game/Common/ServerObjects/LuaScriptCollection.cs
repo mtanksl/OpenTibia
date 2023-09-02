@@ -1,8 +1,6 @@
-﻿using NLua;
-using OpenTibia.Game.Commands;
+﻿using OpenTibia.Game.Commands;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 
 namespace OpenTibia.Game
@@ -13,18 +11,7 @@ namespace OpenTibia.Game
 
         public LuaScriptCollection(Server server)
         {
-            luaScripting = new LuaScripting();
-
-                luaScripting.RegisterFunction("debugger", parameters =>
-                {
-                    LuaTable locals = (LuaTable)parameters[0];
-
-                    LuaTable upvalues = (LuaTable)parameters[1];
-
-                    Debugger.Break();
-
-                    return Promise.FromResult(Array.Empty<object>() );
-                } );
+            luaScripting = new LuaScripting(server);
 
                 luaScripting.RegisterFunction("print", parameters =>
                 {
@@ -65,11 +52,11 @@ namespace OpenTibia.Game
 
         public LuaScope Load(params string[] paths)
         {
-            LuaScope lua = luaScripting.LoadChunk(GetChunk(paths[0] ), string.Join(", ", paths) );
+            LuaScope lua = luaScripting.LoadChunk(GetChunk(paths[0] ), paths[0] );
 
             for (int i = 1; i < paths.Length; i++)
             {
-                lua.LoadChunk(GetChunk(paths[i] ) );
+                lua.LoadChunk(GetChunk(paths[i] ), paths[i] );
             }
             
             return lua;

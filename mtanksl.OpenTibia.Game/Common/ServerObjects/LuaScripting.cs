@@ -2,6 +2,7 @@
 using OpenTibia.Game.Commands;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace OpenTibia.Game
@@ -17,9 +18,20 @@ namespace OpenTibia.Game
     {
         private Lua env;
 
-        public LuaScripting()
+        public LuaScripting(Server server)
         {
             env = new Lua();
+
+            env["package.path"] = Path.Combine(server.PathResolver.GetFullPath("data/lualibs"), "?.lua");
+
+            env["package.cpath"] = Path.Combine(server.PathResolver.GetFullPath("data/clibs"), "?.dll");
+
+            env.DoString("""
+
+	            debugger = require("mobdebug")
+	            debugger.coro()
+
+	            """);
 
             env.DoString("""
 
@@ -45,7 +57,7 @@ namespace OpenTibia.Game
                     end
                 end
 
-                function bridge.load(chunk, env)
+                function bridge.load(chunk, chunkName, env)
                     if not env then
                         env = {}
                         setmetatable(env, {
@@ -60,7 +72,7 @@ namespace OpenTibia.Game
                             end
                         } )
                     end
-                    local func, errorMessage = load(chunk, nil, "t", env)
+                    local func, errorMessage = load(chunk, chunkName, "t", env)
                     if func then
                         local success, errorMessage = pcall(func)
                         if success then
@@ -73,41 +85,6 @@ namespace OpenTibia.Game
 
                 function print(...)
                     return bridge.call("print", ...)
-                end
-
-                function debugger()
-                    function locals()
-                        local variables = {}
-                        local i = 1
-                        while true do
-                            local ln, lv = debug.getlocal(3, i)
-                            if ln ~= nil then
-                                variables[ln] = lv
-                            else
-                                break
-                            end
-                            i = 1 + i
-                        end
-                        return variables
-                    end
-                
-                    function upvalues()
-                        local variables = {}
-                        local i = 1
-                        local func = debug.getinfo(3, "f").func
-                        while true do
-                            local ln, lv = debug.getupvalue(func, i)
-                            if ln ~= nil then
-                                variables[ln] = lv
-                            else
-                                break
-                            end
-                            i = 1 + i
-                        end
-                        return variables
-                    end
-
-                    return bridge.call("debugger", locals(), upvalues())
                 end
 
                 """);
@@ -145,9 +122,9 @@ namespace OpenTibia.Game
             return callbacks.TryGetValue(name, out callback);
         }
 
-        public LuaScope LoadChunk(string chunk, string debugger)
+        public LuaScope LoadChunk(string chunk, string chunkName)
         {
-            var loadResult = ( (LuaFunction)this["bridge.load"] ).Call(chunk); // loadResult = success, env = bridge.load(chunk)
+            var loadResult = ( (LuaFunction)this["bridge.load"] ).Call(chunk, chunkName); // loadResult = success, env = bridge.load(chunk, chunkName)
 
             var success = (bool)loadResult[0];
 
@@ -155,13 +132,13 @@ namespace OpenTibia.Game
             {
                 var env = (LuaTable)loadResult[1];
 
-                return new LuaScope(this, env, debugger);
+                return new LuaScope(this, env);
             }
             else
             {
                 var errorMessage = (string)loadResult[1];
 
-                throw new Exception(debugger + ": " + errorMessage);
+                throw new Exception(errorMessage);
             }
         }
 
@@ -175,15 +152,11 @@ namespace OpenTibia.Game
     {
         private LuaTable env;
 
-        private string debugger;
-
-        public LuaScope(ILuaScope parent, LuaTable env, string debugger)
+        public LuaScope(ILuaScope parent, LuaTable env)
         {
             this.parent = parent;
 
             this.env = env;
-
-            this.debugger = debugger;
         }
 
         public object this[string key]
@@ -220,9 +193,9 @@ namespace OpenTibia.Game
             return callbacks.TryGetValue(name, out callback);
         }
 
-        public void LoadChunk(string chunk)
+        public void LoadChunk(string chunk, string chunkName)
         {
-            var loadResult = ( (LuaFunction)this["bridge.load"] ).Call(chunk, env); // loadResult = success, env = bridge.load(chunk)
+            var loadResult = ( (LuaFunction)this["bridge.load"] ).Call(chunk, chunkName, env); // loadResult = success, env = bridge.load(chunk, chunkName, env)
 
             var success = (bool)loadResult[0];
 
@@ -230,7 +203,7 @@ namespace OpenTibia.Game
             {
                 var errorMessage = (string)loadResult[1];
 
-                throw new Exception(debugger + ": " + errorMessage);
+                throw new Exception(errorMessage);
             }
         }
 
@@ -290,7 +263,7 @@ namespace OpenTibia.Game
                     {
                         var errorMessage = (string)pcallResult[1];
 
-                        reject(new Exception(debugger + ": " + errorMessage) );
+                        reject(new Exception(errorMessage) );
                     }
                 }
                 
