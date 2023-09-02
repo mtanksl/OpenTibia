@@ -237,7 +237,7 @@ function npchandler:onbusy(npc, player)
 end
 
 function npchandler:onsay(npc, player, message)
-    debugger.start()
+    --debugger.start()
     local topic = self.players[player.Id].topic
     local topicmatchresult = topic:match(npc, player, message)
     if topicmatchresult then
