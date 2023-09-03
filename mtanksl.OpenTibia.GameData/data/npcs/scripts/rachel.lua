@@ -1,5 +1,8 @@
 ﻿local say = topic:new()
 local confirm = topic:new(say)
+say:add("name", "I am the illusterous Rachel, of course.")
+say:add("job", "I am the head alchemist of Carlin. I keep the secret recipies of our ancestors. Besides, I am selling mana and life fluids, spellbooks, wands, rods and runes.")
+say:add("rune", "I sell blank runes and spell runes.")
 say:addbuy( {
     questionitems = "Do you want to buy {count} {plural} for {price} gold?",
     questionitem = "Do you want to buy {article} {name} for {price} gold?",
@@ -7,13 +10,11 @@ say:addbuy( {
     notenoughtgold = "Come back when you have enough money.",
     no = "Hmm, maybe next time."
 }, {
+    { article = "a", name = "spellbook", plural = "spellbooks", item = 2175, type = 1, price = 150 },
     { article = "a", name = "blank rune", plural = "blank runes", item = 2260, type = 1, price = 10 },
     { article = "a", name = "mana fluid", plural = "mana fluids", item = 11396, type = 7, price = 55 },
     { article = "a", name = "life fluid", plural = "life fluids", item = 11396, type = 10, price = 60 }
 } )
-say:add("name", "I am the illusterous Rachel, of course.")
-say:add("job", "I am the head alchemist of Carlin. I keep the secret recipies of our ancestors. Besides, I am selling mana and life fluids, spellbooks, wands, rods and runes.")
-say:add("rune", "I sell blank runes and spell runes.")
 say:add("vial",  function(npc, player, message, captures, parameters) 
     local count = math.max(1, npccountitem(player, 11396, 0) )
     return topiccallback:new( { item = 11396, type = 0, count = count, price = 5 * count, topic = confirm }, "I will pay you 5 gold for every empty vial. Ok?") 

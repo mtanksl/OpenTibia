@@ -1,4 +1,7 @@
 ﻿local say = topic:new()
+say:add("name", "My name is Captain Bluebear from the Royal Tibia Line.")
+say:add("job", "I am the captain of this sailing-ship.")
+say:add("thais", "This is Thais. Where do you want to go?")
 say:addtravel( {
     question = "Do you seek a passage to {town} for {price} gold?",
     yes = "Set the sails!",
@@ -11,9 +14,6 @@ say:addtravel( {
     { name = "venore", town = "Venore", position = { x = 0, y = 0, z = 7 }, price = 170 },
     { name = "port hope", town = "Port Hope", position = { x = 0, y = 0, z = 7 }, price = 160 }
 } )
-say:add("name", "My name is Captain Bluebear from the Royal Tibia Line.")
-say:add("job", "I am the captain of this sailing-ship.")
-say:add("thais", "This is Thais. Where do you want to go?")
 
 local handler = npchandler:new( {
     greet = "Welcome on board, Sir {playername}.",

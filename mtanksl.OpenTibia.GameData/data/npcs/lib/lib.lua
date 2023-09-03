@@ -1,4 +1,4 @@
-﻿topicondition = { }
+﻿topicondition = {}
 
 topicondition.mt = {
     __index = topicondition
@@ -14,7 +14,7 @@ function topicondition:new(success, continue, captures)
     return o
 end
 
-topiccallback = { }
+topiccallback = {}
 
 topiccallback.mt = {
     __index = topiccallback
@@ -29,7 +29,7 @@ function topiccallback:new(parameters, answer)
     return o
 end
 
-topicmatch = { }
+topicmatch = {}
 
 topicmatch.mt = {
     __index = topicmatch
@@ -44,7 +44,7 @@ function topicmatch:new(condition, callback)
     return o
 end
 
-topicmatchresult = { }
+topicmatchresult = {}
 
 topicmatchresult.mt = {
     __index = topicmatchresult
@@ -60,7 +60,7 @@ function topicmatchresult:new(topic, captures, callback)
     return o
 end
 
-topic = { }
+topic = {}
 
 topic.mt = {
     __index = topic
@@ -69,7 +69,7 @@ topic.mt = {
 function topic:new(parent)
     local o = {
         parent = parent,
-        matches = { }
+        matches = {}
     }
     setmetatable(o, self.mt)
     return o
@@ -90,12 +90,21 @@ function topic:add(question, answer)
                     return topicondition:new(true, true)
                 end
             else
-                condition = function(npc, player, message)
-                    local captures = { string.match(message, question) }
-                    if #captures == 0 then
-                        return topicondition:new(false)
-                    end
-                    return topicondition:new(true, false, captures)
+                if string.find(question, "%(.+%)") then
+                  condition = function(npc, player, message)
+                      local captures = { string.match(message, question) }
+                      if #captures > 0 then
+                          return topicondition:new(true, false, captures)
+                      end
+                      return topicondition:new(false)
+                  end
+                else
+                  condition = function(npc, player, message)
+                      if message == question then
+                        return topicondition:new(true, false, {} )
+                      end
+                      return topicondition:new(false)
+                  end
                 end
             end
         end
@@ -110,7 +119,7 @@ function topic:add(question, answer)
             end
         else
             callback = function(npc, player, message, captures, parameters)
-                return topiccallback:new( { }, answer)
+                return topiccallback:new( {}, answer)
             end
         end
     end
@@ -200,7 +209,7 @@ function topic:match(npc, player, message)
     return result
 end
 
-npchandler = { }
+npchandler = {}
 
 npchandler.mt = {
     __index = npchandler
@@ -209,7 +218,7 @@ npchandler.mt = {
 function npchandler:new(responses)
     local o = {
         responses = responses,
-        players = { }
+        players = {}
     }
     setmetatable(o, self.mt)
     return o
@@ -237,7 +246,6 @@ function npchandler:onbusy(npc, player)
 end
 
 function npchandler:onsay(npc, player, message)
-    --debugger.start()
     local topic = self.players[player.Id].topic
     local topicmatchresult = topic:match(npc, player, message)
     if topicmatchresult then

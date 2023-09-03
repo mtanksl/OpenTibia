@@ -68,6 +68,31 @@ namespace OpenTibia.Game
 
         private Dictionary<string, LuaScope> libs = new Dictionary<string, LuaScope>();
 
+        public LuaScope Create(string libPath1, string libPath2, string scriptPath)
+        {
+            LuaScope lib2;
+
+            if ( !libs.TryGetValue(libPath2, out lib2) )
+            {
+                LuaScope lib1;
+
+                if ( !libs.TryGetValue(libPath1, out lib1) )
+                {
+                    lib1 = lua.LoadNewChunk(GetChunk(libPath1), libPath1);
+
+                    libs.Add(libPath1, lib1);
+                }
+
+                lib2 = lib1.LoadNewChunk(GetChunk(libPath2), libPath2);
+                                 
+                libs.Add(libPath2, lib2);
+            }
+
+            LuaScope script = lib2.LoadNewChunk(GetChunk(scriptPath), scriptPath);
+
+            return script;
+        }
+
         public LuaScope Create(string libPath, string scriptPath)
         {
             LuaScope lib;
@@ -75,9 +100,18 @@ namespace OpenTibia.Game
             if ( !libs.TryGetValue(libPath, out lib) )
             {
                 lib = lua.LoadNewChunk(GetChunk(libPath), libPath);
+
+                libs.Add(libPath, lib);
             }
 
             LuaScope script = lib.LoadNewChunk(GetChunk(scriptPath), scriptPath);
+
+            return script;
+        }
+
+        public LuaScope Create(string scriptPath)
+        {
+            LuaScope script = lua.LoadNewChunk(GetChunk(scriptPath), scriptPath);
 
             return script;
         }
