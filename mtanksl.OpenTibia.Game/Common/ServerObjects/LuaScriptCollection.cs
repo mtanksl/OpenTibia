@@ -11,17 +11,17 @@ namespace OpenTibia.Game
     {
         private Server server;
 
-        private LuaScope luaScope;
+        private LuaScope lua;
 
         public LuaScriptCollection(Server server)
         {
             this.server = server;
 
-            luaScope = new LuaScope(server);
+            lua = new LuaScope(server);
 
-                luaScope.RegisterFunction("print", this, GetType().GetMethod(nameof(Print) ) );
+                lua.RegisterFunction("print", this, GetType().GetMethod(nameof(Print) ) );
 
-                luaScope.RegisterCoFunction("delay", parameters =>
+                lua.RegisterCoFunction("delay", parameters =>
                 {
                     return Promise.Delay(Guid.NewGuid().ToString(), TimeSpan.FromSeconds( (long)parameters[0] ) ).Then( () =>
                     {
@@ -29,13 +29,13 @@ namespace OpenTibia.Game
                     } );
                 } );
 
-                luaScope.RegisterCoFunction("delaygameobject", parameters =>
+                lua.RegisterCoFunction("delaygameobject", parameters =>
                 {
                     GameObject gameObject = (GameObject)parameters[0];
 
                     return Context.Current.Server.GameObjectComponents.AddComponent(gameObject, new DelayBehaviour(TimeSpan.FromSeconds( (long)parameters[0] ) ), false).Promise.Then( () =>
                     {
-                        return Promise.FromResult(Array.Empty<object>());
+                        return Promise.FromResult(Array.Empty<object>() );
                     } );
                 } );
         }
@@ -66,16 +66,20 @@ namespace OpenTibia.Game
             return chunk;
         }
 
-        public LuaScope Load(params string[] paths)
-        {
-            LuaScope lua = luaScope.LoadNewChunk(GetChunk(paths[0] ), paths[0] );
+        private Dictionary<string, LuaScope> libs = new Dictionary<string, LuaScope>();
 
-            for (int i = 1; i < paths.Length; i++)
+        public LuaScope Create(string libPath, string scriptPath)
+        {
+            LuaScope lib;
+
+            if ( !libs.TryGetValue(libPath, out lib) )
             {
-                lua.LoadChunk(GetChunk(paths[i] ), paths[i] );
+                lib = lua.LoadNewChunk(GetChunk(libPath), libPath);
             }
-            
-            return lua;
+
+            LuaScope script = lib.LoadNewChunk(GetChunk(scriptPath), scriptPath);
+
+            return script;
         }
 
         private bool disposed = false;
@@ -95,9 +99,14 @@ namespace OpenTibia.Game
 
                 if (disposing)
                 {
-                    if (luaScope != null)
+                    foreach (var lib in libs)
                     {
-                        luaScope.Dispose();
+                        lib.Value.Dispose();
+                    }
+
+                    if (lua != null)
+                    {
+                        lua.Dispose();
                     }
                 }
             }

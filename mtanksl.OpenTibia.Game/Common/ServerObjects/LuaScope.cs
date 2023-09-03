@@ -51,21 +51,19 @@ namespace OpenTibia.Game
                     end
                 end
 
-                function bridge.load(chunk, chunkName, env)
-                    if not env then
-                        env = {}
-                        setmetatable(env, {
-                            __index = function(table, key)
-                                local value = _G[key]
-                                if value then
-                                    return value
-                                end
-                                return function(...)
-                                    return bridge.call(key, ...)
-                                end
+                function bridge.load(chunk, chunkName, parent)
+                    local env = {}
+                    setmetatable(env, {
+                        __index = function(table, key)
+                            local value = parent[key]
+                            if value then
+                                return value
                             end
-                        } )
-                    end
+                            return function(...)
+                                return bridge.call(key, ...)
+                            end
+                        end
+                    } )
                     local func, errorMessage = load(chunk, chunkName, "t", env)
                     if func then
                         local success, errorMessage = pcall(func)
@@ -89,6 +87,11 @@ namespace OpenTibia.Game
             this.parent = parent;
 
             this.env = env;
+        }
+
+        ~LuaScope()
+        {
+            Dispose(false);
         }
 
         private LuaScope parent;
@@ -141,7 +144,7 @@ namespace OpenTibia.Game
 
         public LuaScope LoadNewChunk(string chunk, string chunkName)
         {
-            var loadResult = ( (LuaFunction)this["bridge.load"] ).Call(chunk, chunkName); // loadResult = success, env = bridge.load(chunk, chunkName)
+            var loadResult = ( (LuaFunction)this["bridge.load"] ).Call(chunk, chunkName, env); // loadResult = success, env = bridge.load(chunk, chunkName, env)
 
             var success = (bool)loadResult[0];
 
@@ -159,27 +162,7 @@ namespace OpenTibia.Game
             }
         }
 
-        public void LoadChunk(string chunk, string chunkName)
-        {
-            var loadResult = ( (LuaFunction)this["bridge.load"] ).Call(chunk, chunkName, env); // loadResult = success, env = bridge.load(chunk, chunkName, env)
-
-            var success = (bool)loadResult[0];
-
-            if (success)
-            {
-                var env = (LuaTable)loadResult[1];
-
-                
-            }
-            else
-            {
-                var errorMessage = (string)loadResult[1];
-
-                throw new Exception(errorMessage);
-            }
-        }
-
-        public PromiseResult<object[]> Call(string name, params object[] args)
+        public PromiseResult<object[]> CallFunction(string name, params object[] args)
         {
             return Promise.Run<object[]>( (resolve, reject) =>
             {
@@ -243,9 +226,34 @@ namespace OpenTibia.Game
             } );
         }
 
+        private bool disposed = false;
+
         public void Dispose()
         {
-            env.Dispose();
+            Dispose(true);
+
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                disposed = true;
+
+                if (disposing)
+                {
+                    if (env != null)
+                    {
+                        env.Dispose();
+                    }
+
+                    if (lua != null)
+                    {
+                        lua.Dispose();
+                    }
+                }
+            }
         }
     }
 }

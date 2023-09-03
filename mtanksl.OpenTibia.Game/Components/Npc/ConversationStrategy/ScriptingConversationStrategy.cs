@@ -9,20 +9,20 @@ namespace OpenTibia.Game.Components
 {
     public class ScriptingConversationStrategy : IConversationStrategy
     {
-        private string script;
+        private string fileName;
 
-        public ScriptingConversationStrategy(string script)
+        public ScriptingConversationStrategy(string fileName)
         {
-            this.script = script;
+            this.fileName = fileName;
         }
 
-        private LuaScope lua;
+        private LuaScope script;
 
         public void Start(Npc npc)
         {
-            lua = Context.Current.Server.LuaScripts.Load(Context.Current.Server.PathResolver.GetFullPath("data/npcs/lib/npc.lua"), Context.Current.Server.PathResolver.GetFullPath("data/npcs/scripts/" + script) );
+            script = Context.Current.Server.LuaScripts.Create(Context.Current.Server.PathResolver.GetFullPath("data/npcs/lib/npc.lua"), Context.Current.Server.PathResolver.GetFullPath("data/npcs/scripts/" + fileName) );
 
-                lua.RegisterCoFunction("npcsay", parameters =>
+                script.RegisterCoFunction("npcsay", parameters =>
                 {
                     return Context.Current.AddCommand(new NpcSayCommand(npc, (string)parameters[0] ) ).Then( () =>
                     {
@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Components
                     } );
                 } );
 
-                lua.RegisterCoFunction("npcaddmoney", async parameters =>
+                script.RegisterCoFunction("npcaddmoney", async parameters =>
                 {
                     Player player = (Player)parameters[0];
 
@@ -100,7 +100,7 @@ namespace OpenTibia.Game.Components
                     return Array.Empty<object>();
                 } );
 
-                lua.RegisterCoFunction("npcdeletemoney", async parameters =>
+                script.RegisterCoFunction("npcdeletemoney", async parameters =>
                 {
                     Player player = (Player)parameters[0];
 
@@ -313,7 +313,7 @@ namespace OpenTibia.Game.Components
                     }
                 } );
 
-                lua.RegisterCoFunction("npccountmoney", async parameters =>
+                script.RegisterCoFunction("npccountmoney", async parameters =>
                 {
                     Player player = (Player)parameters[0];
 
@@ -351,7 +351,7 @@ namespace OpenTibia.Game.Components
                     }
                 } );
 
-                lua.RegisterCoFunction("npcadditem", async parameters =>
+                script.RegisterCoFunction("npcadditem", async parameters =>
                 {
                     Player player = (Player)parameters[0];
 
@@ -386,7 +386,7 @@ namespace OpenTibia.Game.Components
                     return Array.Empty<object>();
                 } );
 
-                lua.RegisterCoFunction("npcremoveitem", async parameters =>
+                script.RegisterCoFunction("npcremoveitem", async parameters =>
                 {
                     Player player = (Player)parameters[0];
 
@@ -472,7 +472,7 @@ namespace OpenTibia.Game.Components
                     }
                 } );
 
-                lua.RegisterCoFunction("npccountitem", async parameters =>
+                script.RegisterCoFunction("npccountitem", async parameters =>
                 {
                     Player player = (Player)parameters[0];
 
@@ -523,7 +523,7 @@ namespace OpenTibia.Game.Components
 
         public PromiseResult<bool> ShouldGreet(Npc npc, Player player, string message)
         {
-            return lua.Call("shouldgreet", npc, player, message).Then(result =>
+            return script.CallFunction("shouldgreet", npc, player, message).Then(result =>
             {
                 return Promise.FromResult( (bool)result[0] );
             } );
@@ -531,7 +531,7 @@ namespace OpenTibia.Game.Components
 
         public PromiseResult<bool> ShouldFarewell(Npc npc, Player player, string message)
         {
-            return lua.Call("shouldfarewell", npc, player, message).Then(result =>
+            return script.CallFunction("shouldfarewell", npc, player, message).Then(result =>
             {
                 return Promise.FromResult( (bool)result[0] );
             } );
@@ -539,32 +539,32 @@ namespace OpenTibia.Game.Components
 
         public Promise OnGreet(Npc npc, Player player)
         {
-            return lua.Call("ongreet", npc, player);
+            return script.CallFunction("ongreet", npc, player);
         }
 
         public Promise OnBusy(Npc npc, Player player)
         {
-            return lua.Call("onbusy", npc, player);
+            return script.CallFunction("onbusy", npc, player);
         }
 
         public Promise OnSay(Npc npc, Player player, string message)
         {
-            return lua.Call("onsay", npc, player, message);
+            return script.CallFunction("onsay", npc, player, message);
         }
 
         public Promise OnFarewell(Npc npc, Player player)
         {
-            return lua.Call("onfarewell", npc, player);
+            return script.CallFunction("onfarewell", npc, player);
         }
 
         public Promise OnDismiss(Npc npc, Player player)
         {
-            return lua.Call("ondismiss", npc, player);
+            return script.CallFunction("ondismiss", npc, player);
         }
 
         public void Stop()
         {
-            lua.Dispose();
+            script.Dispose();
         }
     }
 }
