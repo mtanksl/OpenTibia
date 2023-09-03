@@ -161,13 +161,13 @@ namespace OpenTibia.Game
                 }
             }
 
-            scripts = new Dictionary<ushort, GameObjectScript<ushort, Item> >();
+            gameObjectScripts = new Dictionary<ushort, GameObjectScript<ushort, Item> >();
 
             foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(GameObjectScript<ushort, Item>).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract) )
             {
-                GameObjectScript<ushort, Item> script = (GameObjectScript<ushort, Item>)Activator.CreateInstance(type);
+                GameObjectScript<ushort, Item> gameObjectScript = (GameObjectScript<ushort, Item>)Activator.CreateInstance(type);
 
-                scripts.Add(script.Key, script);
+                gameObjectScripts.Add(gameObjectScript.Key, gameObjectScript);
             }
         }
 
@@ -185,20 +185,20 @@ namespace OpenTibia.Game
             return null;
         }
 
-        private Dictionary<ushort, GameObjectScript<ushort, Item> > scripts;
+        private Dictionary<ushort, GameObjectScript<ushort, Item> > gameObjectScripts;
 
-        public GameObjectScript<ushort, Item> GetItemScript(ushort openTibiaId)
+        public GameObjectScript<ushort, Item> GetItemGameObjectScript(ushort openTibiaId)
         {
-            GameObjectScript<ushort, Item> script;
+            GameObjectScript<ushort, Item> gameObjectScript;
 
-            if (scripts.TryGetValue(openTibiaId, out script) )
+            if (gameObjectScripts.TryGetValue(openTibiaId, out gameObjectScript) )
             {
-                return script;
+                return gameObjectScript;
             }
             
-            if (scripts.TryGetValue(0, out script) )
+            if (gameObjectScripts.TryGetValue(0, out gameObjectScript) )
             {
-                return script;
+                return gameObjectScript;
             }
 
             return null;
@@ -259,11 +259,11 @@ namespace OpenTibia.Game
 
             server.GameObjects.AddGameObject(item);
 
-            GameObjectScript<ushort, Item> script = GetItemScript(item.Metadata.OpenTibiaId);
+            GameObjectScript<ushort, Item> gameObjectScript = GetItemGameObjectScript(item.Metadata.OpenTibiaId);
 
-            if (script != null)
+            if (gameObjectScript != null)
             {
-                script.Start(item);
+                gameObjectScript.Start(item);
             }
 
             return item;
@@ -273,11 +273,11 @@ namespace OpenTibia.Game
         {
             if (server.GameObjects.RemoveGameObject(item) )
             {
-                GameObjectScript<ushort, Item> script = GetItemScript(item.Metadata.OpenTibiaId);
+                GameObjectScript<ushort, Item> gameObjectScript = GetItemGameObjectScript(item.Metadata.OpenTibiaId);
 
-                if (script != null)
+                if (gameObjectScript != null)
                 {
-                    script.Stop(item);
+                    gameObjectScript.Stop(item);
                 }
 
                 return true;

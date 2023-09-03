@@ -7,7 +7,6 @@ using OpenTibia.FileFormats.Xml.Houses;
 using OpenTibia.FileFormats.Xml.Items;
 using OpenTibia.FileFormats.Xml.Monsters;
 using OpenTibia.FileFormats.Xml.Npcs;
-using OpenTibia.FileFormats.Xml.Quests;
 using OpenTibia.FileFormats.Xml.Spawns;
 using OpenTibia.Game.Commands;
 using OpenTibia.Network.Sockets;
@@ -33,15 +32,15 @@ namespace OpenTibia.Game
                 new Listener(gameServerPort, socket => new GameConnection(this, socket) )
             };
 
+            Logger = new Logger(new ConsoleLoggerProvider(), LogLevel.Debug);
+
             PathResolver = new PathResolver();
+
+            Randomization = new Randomization();
 
             PacketsFactory = new PacketsFactory();
 
-            Logger = new Logger(new ConsoleLoggerProvider(), LogLevel.Debug);
-
             Clock = new Clock(12, 00);
-
-            Randomization = new Randomization();
 
             WaitingList = new WaitingList(this);
 
@@ -63,9 +62,9 @@ namespace OpenTibia.Game
 
             EventHandlers = new EventHandlerCollection();
 
-            Scripts = new ScriptCollection();
-
             LuaScripts = new LuaScriptCollection(this);
+
+            Scripts = new ScriptCollection();
         }
 
         ~Server()
@@ -79,15 +78,15 @@ namespace OpenTibia.Game
 
         private List<Listener> listeners;
 
+        public Logger Logger { get; set; }
+
         public PathResolver PathResolver { get; set; }
+
+        public Randomization Randomization { get; set; }
 
         public PacketsFactory PacketsFactory { get; set; }
 
-        public Logger Logger { get; set; }
-
         public Clock Clock { get; set; }
-
-        public Randomization Randomization { get; set; }
 
         public WaitingList WaitingList { get; set; }
 
@@ -109,9 +108,11 @@ namespace OpenTibia.Game
 
         public EventHandlerCollection EventHandlers { get; set; }
 
-        public ScriptCollection Scripts { get; set; }
-
         public LuaScriptCollection LuaScripts { get; set; }
+
+        public PluginCollection Plugins { get; set; }
+
+        public ScriptCollection Scripts { get; set; }
 
         public ItemFactory ItemFactory { get; set; }
 
@@ -155,6 +156,16 @@ namespace OpenTibia.Game
 
                 Logger.WriteLine();
 
+                using (Logger.Measure("Loading quests") )
+                {
+                    Quests = new QuestCollection(this);
+                }
+
+                using (Logger.Measure("Loading plugins") )
+                {
+                    Plugins = new PluginCollection(this);
+                }
+
                 using (Logger.Measure("Loading items") )
                 {
                     ItemFactory = new ItemFactory(this, OtbFile.Load(PathResolver.GetFullPath("data/items/items.otb") ), DatFile.Load(PathResolver.GetFullPath("data/items/tibia.dat") ), ItemsFile.Load(PathResolver.GetFullPath("data/items/items.xml") ) );
@@ -177,14 +188,12 @@ namespace OpenTibia.Game
                     Map = new Map(this, OtbmFile.Load(PathResolver.GetFullPath("data/world/map.otbm") ), SpawnFile.Load(PathResolver.GetFullPath("data/world/map-spawn.xml") ), HouseFile.Load(PathResolver.GetFullPath("data/world/map-house.xml") ) );
                 }
 
-                using (Logger.Measure("Loading quests") )
-                {
-                    Quests = new QuestCollection(QuestFile.Load(PathResolver.GetFullPath("data/xml/quests.xml") ) );
-                }
-
                 Pathfinding = new Pathfinding(Map);
 
-                Scripts.Start();
+                using (Logger.Measure("Starting scripts") )
+                {
+                    Scripts.Start();
+                }
 
                 Logger.WriteLine("Server online");
 
@@ -342,7 +351,10 @@ namespace OpenTibia.Game
         {
             QueueForExecution( () =>
             {
-                Scripts.Stop();
+                using (Logger.Measure("Stopping scripts") )
+                {
+                    Scripts.Stop();
+                }
 
                 Logger.WriteLine("Server offline");
 
@@ -377,6 +389,10 @@ namespace OpenTibia.Game
 
                 if (disposing)
                 {
+                    Quests.Dispose();
+
+                    Plugins.Dispose();
+
                     LuaScripts.Dispose();
 
                     foreach (var listener in listeners)

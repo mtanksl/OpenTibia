@@ -9,27 +9,8 @@
     <Import_RootNamespace>mtanksl.OpenTibia.GameData</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)data\clibs\mime\core.dll" />
-    <None Include="$(MSBuildThisFileDirectory)data\clibs\socket\core.dll" />
     <None Include="$(MSBuildThisFileDirectory)data\items\items.otb" />
     <None Include="$(MSBuildThisFileDirectory)data\items\tibia.dat" />
-    <None Include="$(MSBuildThisFileDirectory)data\lib\lib.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\lualibs\ltn12.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\lualibs\mime.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\lualibs\mobdebug.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\lualibs\socket.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\lualibs\socket\ftp.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\lualibs\socket\headers.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\lualibs\socket\http.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\lualibs\socket\smtp.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\lualibs\socket\tp.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\lualibs\socket\url.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\npcs\lib\lib.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\npcs\scripts\al dee.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\npcs\scripts\captain bluebear.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\npcs\scripts\cipfried.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\npcs\scripts\default.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\npcs\scripts\rachel.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\template.db" />
     <None Include="$(MSBuildThisFileDirectory)data\world\map.otbm" />
   </ItemGroup>

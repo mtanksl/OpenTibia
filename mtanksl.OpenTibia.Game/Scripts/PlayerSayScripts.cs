@@ -6,6 +6,13 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
+            foreach (var plugin in Context.Server.Plugins.PlayerSayPlugins.Values)
+            {
+                plugin.Start();
+            }
+
+            Context.Server.CommandHandlers.AddCommandHandler(new PlayerSayScriptingHandler(Context.Server.Plugins.PlayerSayPlugins) );
+
             Context.Server.CommandHandlers.AddCommandHandler(new SpellsHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new DisplayMagicEffectHandler() );
@@ -45,7 +52,10 @@ namespace OpenTibia.Game.Scripts
 
         public override void Stop()
         {
-            
+            foreach (var plugin in Context.Server.Plugins.PlayerSayPlugins.Values)
+            {
+                plugin.Stop();
+            }
         }
     }
 }

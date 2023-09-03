@@ -38,13 +38,13 @@ namespace OpenTibia.Game
                 } ); 
             }
 
-            scripts = new Dictionary<string, GameObjectScript<string, Npc> >();
+            gameObjectScripts = new Dictionary<string, GameObjectScript<string, Npc> >();
 
             foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(GameObjectScript<string, Npc>).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract) )
             {
-                GameObjectScript<string, Npc> script = (GameObjectScript<string, Npc>)Activator.CreateInstance(type);
+                GameObjectScript<string, Npc> gameObjectScript = (GameObjectScript<string, Npc>)Activator.CreateInstance(type);
 
-                scripts.Add(script.Key, script);
+                gameObjectScripts.Add(gameObjectScript.Key, gameObjectScript);
             }
         }
 
@@ -62,20 +62,20 @@ namespace OpenTibia.Game
             return null;
         }
 
-        private Dictionary<string, GameObjectScript<string, Npc> > scripts;
+        private Dictionary<string, GameObjectScript<string, Npc> > gameObjectScripts;
 
-        public GameObjectScript<string, Npc> GetNpcScript(string name)
+        public GameObjectScript<string, Npc> GetNpcGameObjectScript(string name)
         {
-            GameObjectScript<string, Npc> script;
+            GameObjectScript<string, Npc> gameObjectScript;
 
-            if (scripts.TryGetValue(name, out script) )
+            if (gameObjectScripts.TryGetValue(name, out gameObjectScript) )
             {
-                return script;
+                return gameObjectScript;
             }
             
-            if (scripts.TryGetValue("", out script) )
+            if (gameObjectScripts.TryGetValue("", out gameObjectScript) )
             {
-                return script;
+                return gameObjectScript;
             }
 
             return null;
@@ -96,11 +96,11 @@ namespace OpenTibia.Game
 
             server.GameObjects.AddGameObject(npc);
 
-            GameObjectScript<string, Npc> script = GetNpcScript(npc.Name);
+            GameObjectScript<string, Npc> gameObjectScript = GetNpcGameObjectScript(npc.Name);
 
-            if (script != null)
+            if (gameObjectScript != null)
             {
-                script.Start(npc);
+                gameObjectScript.Start(npc);
             }
             
             return npc;
@@ -110,11 +110,11 @@ namespace OpenTibia.Game
         {
             if (server.GameObjects.RemoveGameObject(npc) )
             {
-                GameObjectScript<string, Npc> script = GetNpcScript(npc.Name);
+                GameObjectScript<string, Npc> gameObjectScript = GetNpcGameObjectScript(npc.Name);
 
-                if (script != null)
+                if (gameObjectScript != null)
                 {
-                    script.Stop(npc);
+                    gameObjectScript.Stop(npc);
                 }
 
                 return true;

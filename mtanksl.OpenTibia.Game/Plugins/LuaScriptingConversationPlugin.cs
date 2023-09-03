@@ -7,20 +7,24 @@ using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
-    public class ScriptingConversationStrategy : IConversationStrategy
+    public class LuaScriptingConversationPlugin : ConversationPlugin
     {
+        private Npc npc;
+
         private string fileName;
 
-        public ScriptingConversationStrategy(string fileName)
+        public LuaScriptingConversationPlugin(Npc npc, string fileName)
         {
+            this.npc = npc;
+
             this.fileName = fileName;
         }
 
         private LuaScope script;
 
-        public void Start(Npc npc)
+        public override void Start()
         {
-            script = Context.Current.Server.LuaScripts.Create(Context.Current.Server.PathResolver.GetFullPath("data/lib/lib.lua"), Context.Current.Server.PathResolver.GetFullPath("data/npcs/lib/lib.lua"), Context.Current.Server.PathResolver.GetFullPath("data/npcs/scripts/" + fileName) );
+            script = Context.Current.Server.LuaScripts.Create(Context.Current.Server.PathResolver.GetFullPath("data/plugins/lib.lua"), Context.Current.Server.PathResolver.GetFullPath("data/plugins/npcs/lib.lua"), Context.Current.Server.PathResolver.GetFullPath(fileName) );
 
                 script.RegisterCoFunction("npcsay", parameters =>
                 {
@@ -521,7 +525,7 @@ namespace OpenTibia.Game.Components
                 } );
         }
 
-        public PromiseResult<bool> ShouldGreet(Npc npc, Player player, string message)
+        public override PromiseResult<bool> ShouldGreet(Npc npc, Player player, string message)
         {
             return script.CallFunction("shouldgreet", npc, player, message).Then(result =>
             {
@@ -529,7 +533,7 @@ namespace OpenTibia.Game.Components
             } );
         }
 
-        public PromiseResult<bool> ShouldFarewell(Npc npc, Player player, string message)
+        public override PromiseResult<bool> ShouldFarewell(Npc npc, Player player, string message)
         {
             return script.CallFunction("shouldfarewell", npc, player, message).Then(result =>
             {
@@ -537,32 +541,32 @@ namespace OpenTibia.Game.Components
             } );
         }
 
-        public Promise OnGreet(Npc npc, Player player)
+        public override Promise OnGreet(Npc npc, Player player)
         {
             return script.CallFunction("ongreet", npc, player);
         }
 
-        public Promise OnBusy(Npc npc, Player player)
+        public override Promise OnBusy(Npc npc, Player player)
         {
             return script.CallFunction("onbusy", npc, player);
         }
 
-        public Promise OnSay(Npc npc, Player player, string message)
+        public override Promise OnSay(Npc npc, Player player, string message)
         {
             return script.CallFunction("onsay", npc, player, message);
         }
 
-        public Promise OnFarewell(Npc npc, Player player)
+        public override Promise OnFarewell(Npc npc, Player player)
         {
             return script.CallFunction("onfarewell", npc, player);
         }
 
-        public Promise OnDismiss(Npc npc, Player player)
+        public override Promise OnDismiss(Npc npc, Player player)
         {
             return script.CallFunction("ondismiss", npc, player);
         }
 
-        public void Stop()
+        public override void Stop()
         {
             script.Dispose();
         }

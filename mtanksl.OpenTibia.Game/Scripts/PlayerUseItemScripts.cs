@@ -9,6 +9,13 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemWalkToSourceHandler() );
 
             //TODO: Re-validate rules for incoming packet
+            
+            foreach (var plugin in Context.Server.Plugins.PlayerUseItemPlugins.Values)
+            {
+                plugin.Start();
+            }
+
+            Context.Server.CommandHandlers.AddCommandHandler(new UseItemScriptingHandler(Context.Server.Plugins.PlayerUseItemPlugins) );
 
             Context.Server.CommandHandlers.AddCommandHandler(new LockerOpenHandler() );
 
@@ -75,7 +82,10 @@ namespace OpenTibia.Game.Scripts
 
         public override void Stop()
         {
-            
+            foreach (var plugin in Context.Server.Plugins.PlayerUseItemPlugins.Values)
+            {
+                plugin.Stop();
+            }
         }
     }
 }

@@ -8,6 +8,7 @@
   <ItemGroup>
     <Folder Include="EventHandlers\PlayerLogout\" />
     <Folder Include="EventHandlers\PlayerLogin\" />
+    <Folder Include="GameObjectScripts\Npc\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.FileFormats.Xml.Quests;
 using OpenTibia.Network.Packets;
 using OpenTibia.Network.Packets.Outgoing;
 using System.Collections.Generic;
