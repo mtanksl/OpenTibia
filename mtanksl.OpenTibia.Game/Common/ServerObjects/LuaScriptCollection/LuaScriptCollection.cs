@@ -3,6 +3,7 @@ using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Components;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -162,6 +163,13 @@ namespace OpenTibia.Game
                 {
                     return Promise.FromResult(Array.Empty<object>() );
                 } );
+            } );
+
+            lua.RegisterCoFunction("showwindowtext", parameters =>
+            {
+                Context.Current.AddPacket( ( (Player)parameters[0] ).Client.Connection, new ShowWindowTextOutgoingPacket( (TextColor)(long)parameters[1], (string)parameters[2] ) );
+
+                return Promise.FromResult(Array.Empty<object>() );
             } );
 
             lua.RegisterCoFunction("fluiditemupdatefluidtype", parameters =>
@@ -758,6 +766,29 @@ namespace OpenTibia.Game
                 {
                     return Promise.FromResult(Array.Empty<object>() );
                 } );
+            } );
+
+            lua.RegisterCoFunction("playergetstorage", parameters =>
+            {
+                Player player = (Player)parameters[0];
+
+                int value;
+
+                if (player.Client.Storages.TryGetValue( (int)(long)parameters[1], out value) )
+                {
+                    return Promise.FromResult(new object[] { true, value } );
+                }
+
+                return Promise.FromResult(new object[] { false } );
+            } );
+
+            lua.RegisterCoFunction("playersetstorage", parameters =>
+            {
+                Player player = (Player)parameters[0];
+
+                player.Client.Storages.SetValue( (int)(long)parameters[1], (int)(long)parameters[2] );
+
+                return Promise.FromResult(Array.Empty<object>() );
             } );
 
             lua.RegisterCoFunction("splashitemupdatefluidtype", parameters =>

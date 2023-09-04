@@ -35,6 +35,8 @@
 -- void playerupdatemana(Player player, int mana)
 -- void playerupdatesoul(Player player, int soul)
 -- void playerupdatestamina(Player player, int stamina)
+-- (bool, int) playergetstorage(Player player, int key)
+-- void playersetstorage(Player player, int key, int value)
 -- void splashitemupdatefluidtype(SplashItem splashItem, FluidType fluidType)
 -- void stackableitemupdatecount(StackableItem stackableItem, byte count)
 
