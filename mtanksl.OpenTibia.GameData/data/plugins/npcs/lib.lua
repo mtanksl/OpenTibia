@@ -237,12 +237,12 @@ function npchandler:ongreet(npc, player)
     self.players[player.Id] = {
         topic = self.responses.say
     }
-    npcsay(self:replace(npc, player, greet) )
+    npcsay(npc, self:replace(npc, player, greet) )
 end
 
 function npchandler:onbusy(npc, player)
     local busy = self.responses.busy
-    npcsay(self:replace(npc, player, busy) )
+    npcsay(npc, self:replace(npc, player, busy) )
 end
 
 function npchandler:onsay(npc, player, message)
@@ -254,18 +254,18 @@ function npchandler:onsay(npc, player, message)
         for key, value in pairs(topiccallback.parameters) do
 	        self.players[player.Id][key] = value
         end
-        npcsay(self:replace(npc, player, topiccallback.answer) )
+        npcsay(npc, self:replace(npc, player, topiccallback.answer) )
     end
 end
 
 function npchandler:onfarewell(npc, player)
     local farewell = self.responses.farewell
-    npcsay(self:replace(npc, player, farewell) )
+    npcsay(npc, self:replace(npc, player, farewell) )
 end
 
 function npchandler:ondismiss(npc, player)
     local dismiss = self.responses.dismiss
-    npcsay(self:replace(npc, player, dismiss) )
+    npcsay(npc, self:replace(npc, player, dismiss) )
 end
 
 function npchandler:replace(npc, player, message)    

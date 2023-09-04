@@ -11,6 +11,20 @@
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)data\items\items.otb" />
     <None Include="$(MSBuildThisFileDirectory)data\items\tibia.dat" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\actions\lib.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\actions\rotate.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\actions\use.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\config.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\lib.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\npcs\al dee.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\npcs\captain bluebear.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\npcs\cipfried.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\npcs\default.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\npcs\lib.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\npcs\rachel.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\talkactions\lib.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\talkactions\say.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\quests\config.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\template.db" />
     <None Include="$(MSBuildThisFileDirectory)data\world\map.otbm" />
   </ItemGroup>
@@ -356,6 +370,5 @@
     <Content Include="$(MSBuildThisFileDirectory)data\npcs\Rachel.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\world\map-house.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\world\map-spawn.xml" />
-    <Content Include="$(MSBuildThisFileDirectory)data\xml\quests.xml" />
   </ItemGroup>
 </Project>

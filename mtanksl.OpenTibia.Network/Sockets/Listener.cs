@@ -135,12 +135,18 @@ namespace OpenTibia.Network.Sockets
 
                 if (disposing)
                 {
-                    foreach (var connection in connections)
+                    if (connections != null)
                     {
-                        connection.Dispose();
+                        foreach (var connection in connections)
+                        {
+                            connection.Dispose();
+                        }
                     }
 
-                    socket.Dispose();
+                    if (socket != null)
+                    {
+                        socket.Dispose();
+                    }
                 }
             }
         }

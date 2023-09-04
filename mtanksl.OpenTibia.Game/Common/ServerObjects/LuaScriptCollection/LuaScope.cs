@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace OpenTibia.Game
 {
-    public class LuaScope
+    public class LuaScope : IDisposable
     {
         private Lua lua;
 

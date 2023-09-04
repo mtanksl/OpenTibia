@@ -17,10 +17,13 @@ namespace OpenTibia.Game
     {
         private Server server;
 
-        public ItemFactory(Server server, OtbFile otbFile, DatFile datFile, ItemsFile itemsFile)
+        public ItemFactory(Server server)
         {
             this.server = server;
+        }
 
+        public void Start(OtbFile otbFile, DatFile datFile, ItemsFile itemsFile)
+        {
             metadatas = new Dictionary<ushort, ItemMetadata>(datFile.Items.Count);
 
             foreach (var otbItem in otbFile.Items)

@@ -261,7 +261,10 @@ namespace OpenTibia.Network.Sockets
 
                 if (disposing)
                 {
-                    socket.Dispose();
+                    if (socket != null)
+                    {
+                        socket.Dispose();
+                    }
                 }
             }
         }        

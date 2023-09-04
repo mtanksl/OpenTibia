@@ -49,6 +49,8 @@ namespace OpenTibia.Common.Objects
             }
         }
 
+        private Server server;
+
         private int minX = int.MaxValue;
 
         private int minY = int.MaxValue;
@@ -57,7 +59,12 @@ namespace OpenTibia.Common.Objects
 
         private int maxY = 0;
 
-        public Map(Server server, OtbmFile otbmFile, SpawnFile spawnFile, HouseFile houseFile)
+        public Map(Server server)
+        {
+            this.server = server;
+        }
+
+        public void Start(OtbmFile otbmFile, SpawnFile spawnFile, HouseFile houseFile)
         {
             if (otbmFile.Towns != null)
             {

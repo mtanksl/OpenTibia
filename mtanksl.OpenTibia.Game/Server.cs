@@ -64,6 +64,22 @@ namespace OpenTibia.Game
 
             LuaScripts = new LuaScriptCollection(this);
 
+            Quests = new QuestCollection(this);
+
+            Plugins = new PluginCollection(this);
+
+            ItemFactory = new ItemFactory(this);
+
+            PlayerFactory = new PlayerFactory(this);
+
+            MonsterFactory = new MonsterFactory(this);
+
+            NpcFactory = new NpcFactory(this);
+
+            Map = new Map(this);
+
+            Pathfinding = new Pathfinding(Map);
+
             Scripts = new ScriptCollection();
         }
 
@@ -110,9 +126,9 @@ namespace OpenTibia.Game
 
         public LuaScriptCollection LuaScripts { get; set; }
 
-        public PluginCollection Plugins { get; set; }
+        public QuestCollection Quests { get; set; }
 
-        public ScriptCollection Scripts { get; set; }
+        public PluginCollection Plugins { get; set; }
 
         public ItemFactory ItemFactory { get; set; }
 
@@ -122,11 +138,11 @@ namespace OpenTibia.Game
         
         public NpcFactory NpcFactory { get; set; }
 
-        public IMap Map { get; set; }
+        public Map Map { get; set; }
 
         public Pathfinding Pathfinding { get; set; }
 
-        public QuestCollection Quests { get; set; }
+        public ScriptCollection Scripts { get; set; }
 
         public void Start()
         {
@@ -158,39 +174,44 @@ namespace OpenTibia.Game
 
                 using (Logger.Measure("Loading quests") )
                 {
-                    Quests = new QuestCollection(this);
+                    Quests.Start();
                 }
 
                 using (Logger.Measure("Loading plugins") )
                 {
-                    Plugins = new PluginCollection(this);
+                    Plugins.Start();
                 }
 
                 using (Logger.Measure("Loading items") )
                 {
-                    ItemFactory = new ItemFactory(this, OtbFile.Load(PathResolver.GetFullPath("data/items/items.otb") ), DatFile.Load(PathResolver.GetFullPath("data/items/tibia.dat") ), ItemsFile.Load(PathResolver.GetFullPath("data/items/items.xml") ) );
+                    ItemFactory.Start(OtbFile.Load(PathResolver.GetFullPath("data/items/items.otb") ), 
+                                      DatFile.Load(PathResolver.GetFullPath("data/items/tibia.dat") ), 
+                                      ItemsFile.Load(PathResolver.GetFullPath("data/items/items.xml") ) );
                 }
 
-                PlayerFactory = new PlayerFactory(this);
+                using (Logger.Measure("Loading players") )
+                {
+                    PlayerFactory.Start();
+                }
 
                 using (Logger.Measure("Loading monsters") )
                 {
-                    MonsterFactory = new MonsterFactory(this, MonsterFile.Load(PathResolver.GetFullPath("data/monsters") ) );
+                    MonsterFactory.Start(MonsterFile.Load(PathResolver.GetFullPath("data/monsters") ) );
                 }
 
                 using (Logger.Measure("Loading npcs") )
                 {
-                    NpcFactory = new NpcFactory(this, NpcFile.Load(PathResolver.GetFullPath("data/npcs") ) );
+                    NpcFactory.Start(NpcFile.Load(PathResolver.GetFullPath("data/npcs") ) );
                 }
 
                 using (Logger.Measure("Loading map") )
                 {
-                    Map = new Map(this, OtbmFile.Load(PathResolver.GetFullPath("data/world/map.otbm") ), SpawnFile.Load(PathResolver.GetFullPath("data/world/map-spawn.xml") ), HouseFile.Load(PathResolver.GetFullPath("data/world/map-house.xml") ) );
+                    Map.Start(OtbmFile.Load(PathResolver.GetFullPath("data/world/map.otbm") ), 
+                              SpawnFile.Load(PathResolver.GetFullPath("data/world/map-spawn.xml") ), 
+                              HouseFile.Load(PathResolver.GetFullPath("data/world/map-house.xml") ) );
                 }
 
-                Pathfinding = new Pathfinding(Map);
-
-                using (Logger.Measure("Starting scripts") )
+                using (Logger.Measure("Loading scripts") )
                 {
                     Scripts.Start();
                 }
@@ -351,17 +372,16 @@ namespace OpenTibia.Game
         {
             QueueForExecution( () =>
             {
-                using (Logger.Measure("Stopping scripts") )
-                {
-                    Scripts.Stop();
-                }
+                Plugins.Stop();
+
+                Scripts.Stop();
 
                 Logger.WriteLine("Server offline");
 
                 return Promise.Completed;
 
             } ).Wait();
-
+                        
             foreach (var listener in listeners)
             {
                 listener.Stop();
@@ -369,7 +389,7 @@ namespace OpenTibia.Game
 
             scheduler.Stop();
 
-            dispatcher.Stop();            
+            dispatcher.Stop();
         }
 
         private bool disposed = false;
@@ -389,15 +409,27 @@ namespace OpenTibia.Game
 
                 if (disposing)
                 {
-                    Quests.Dispose();
-
-                    Plugins.Dispose();
-
-                    LuaScripts.Dispose();
-
-                    foreach (var listener in listeners)
+                    if (Plugins != null)
                     {
-                        listener.Dispose();
+                        Plugins.Dispose();
+                    }
+
+                    if (Quests != null)
+                    {
+                        Quests.Dispose();
+                    }
+
+                    if (LuaScripts != null)
+                    {
+                        LuaScripts.Dispose();
+                    }
+
+                    if (listeners != null)
+                    {
+                        foreach (var listener in listeners)
+                        {
+                            listener.Dispose();
+                        }
                     }
                 }
             }

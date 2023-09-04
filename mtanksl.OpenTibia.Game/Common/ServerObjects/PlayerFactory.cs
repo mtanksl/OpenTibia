@@ -14,7 +14,10 @@ namespace OpenTibia.Game
         public PlayerFactory(Server server)
         {
             this.server = server;
+        }
 
+        public void Start()
+        {
             gameObjectScripts = new Dictionary<string, GameObjectScript<string, Player> >();
 
             foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(GameObjectScript<string, Player>).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract) )

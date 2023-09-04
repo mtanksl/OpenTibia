@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
-using System;
 
 namespace OpenTibia.Game.GameObjectScripts
 {
@@ -22,18 +21,10 @@ namespace OpenTibia.Game.GameObjectScripts
                 Context.Server.GameObjectComponents.AddComponent(npc, new CreatureTalkBehaviour(TalkType.Say, npc.Metadata.Sentences) );
             }
 
-            Func<Npc, ConversationPlugin> factory;
+            ConversationPlugin conversationPlugin = Context.Server.Plugins.GetConversationPlugin(npc.Name);
 
-            if (Context.Server.Plugins.ConversationPlugins.TryGetValue(npc.Name, out factory) )
+            if (conversationPlugin != null)
             {
-                ConversationPlugin conversationPlugin = factory(npc);
-
-                Context.Server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(conversationPlugin, new RandomWalkStrategy(2) ) );
-            }
-            else
-            {
-                ConversationPlugin conversationPlugin = new LuaScriptingConversationPlugin(npc, "data/plugins/npcs/default.lua");
-
                 Context.Server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(conversationPlugin, new RandomWalkStrategy(2) ) );
             }
         }

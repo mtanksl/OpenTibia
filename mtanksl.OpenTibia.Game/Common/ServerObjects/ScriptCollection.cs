@@ -8,7 +8,7 @@ namespace OpenTibia.Game
 {
     public class ScriptCollection
     {
-        public ScriptCollection()
+        public void Start()
         {
             foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(Script).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract) )
             {
@@ -16,17 +16,14 @@ namespace OpenTibia.Game
 
                 scripts.Add(script);
             }
-        }
 
-        private List<Script> scripts = new List<Script>();
-
-        public void Start()
-        {
             foreach (var script in scripts)
             {
                 script.Start();
             }
         }
+
+        private List<Script> scripts = new List<Script>();
 
         public void Stop()
         {

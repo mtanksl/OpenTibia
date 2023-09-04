@@ -1,15 +1,21 @@
 ﻿using NLua;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace OpenTibia.Game
 {
     public class QuestCollection : IDisposable
     {
-        LuaScope script;
+        private Server server;
 
         public QuestCollection(Server server)
+        {
+            this.server = server;
+        }
+
+        LuaScope script;
+
+        public void Start()
         {
             script = server.LuaScripts.Create(server.PathResolver.GetFullPath("data/quests/config.lua") );
 
@@ -38,20 +44,27 @@ namespace OpenTibia.Game
                     quest.Missions.Add(mission);
                 }
 
-                quests.Add(quest);
+                quests.Add(quest.Id, quest);
             }
         }
 
-        private List<Quest> quests = new List<Quest>();
+        private Dictionary<ushort, Quest> quests = new Dictionary<ushort, Quest>();
 
         public Quest GetQuestById(ushort id)
         {
-            return quests.Where(q => q.Id == id).FirstOrDefault();
+            Quest quest;
+
+            if (quests.TryGetValue(id, out quest) )
+            {
+                return quest;
+            }
+
+            return null;
         }
 
         public IEnumerable<Quest> GetQuests()
         {
-            return quests;
+            return quests.Values;
         }
 
         public void Dispose()

@@ -14,10 +14,13 @@ namespace OpenTibia.Game
     {
         private Server server;
 
-        public NpcFactory(Server server, NpcFile npcFile)
+        public NpcFactory(Server server)
         {
-            this.server = server;
+            this.server = server;            
+        }
 
+        public void Start(NpcFile npcFile)
+        {
             metadatas = new Dictionary<string, NpcMetadata>(npcFile.Npcs.Count);
 
             foreach (var xmlNpc in npcFile.Npcs)

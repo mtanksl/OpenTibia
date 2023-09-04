@@ -14,10 +14,13 @@ namespace OpenTibia.Game
     {
         private Server server;
 
-        public MonsterFactory(Server server, MonsterFile monsterFile)
+        public MonsterFactory(Server server)
         {
             this.server = server;
+        }
 
+        public void Start(MonsterFile monsterFile)
+        {
             metadatas = new Dictionary<string, MonsterMetadata>(monsterFile.Monsters.Count);
 
             foreach (var xmlMonster in monsterFile.Monsters)

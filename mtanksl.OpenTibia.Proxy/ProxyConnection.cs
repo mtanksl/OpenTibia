@@ -274,9 +274,15 @@ namespace OpenTibia.Proxy
 
                 if (disposing)
                 {
-                    client.Dispose();
+                    if (client != null)
+                    {
+                        client.Dispose();
+                    }
 
-                    server.Dispose();
+                    if (server != null)
+                    {
+                        server.Dispose();
+                    }
                 }
             }
         }        
