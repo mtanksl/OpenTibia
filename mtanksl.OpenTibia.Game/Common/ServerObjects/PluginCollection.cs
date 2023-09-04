@@ -42,6 +42,37 @@ namespace OpenTibia.Game
                         playerUseItemPluginFactories.Add(openTibiaId, () => new LuaScriptingPlayerUseItemPlugin("data/plugins/actions/" + filename) );
                   
                         break;
+
+                    case "PlayerUseItemWithItem":
+                        { 
+                            bool allowFarUse = (bool)plugin["allowfaruse"];
+
+                            if (allowFarUse)
+                            {
+                                playerUseItemWithItemPluginFactoriesAllowFarUse.Add(openTibiaId, () => new LuaScriptingPlayerUseItemWithtemPlugin("data/plugins/actions/" + filename) );
+                            }
+                            else
+                            {
+                                playerUseItemWithItemPluginFactories.Add(openTibiaId, () => new LuaScriptingPlayerUseItemWithtemPlugin("data/plugins/actions/" + filename) );
+                            }
+                        }
+                        break;
+
+                    case "PlayerUseItemWithCreature":
+                        { 
+                            bool allowFarUse = (bool)plugin["allowfaruse"];
+
+                            if (allowFarUse)
+                            {
+                                playerUseItemWithCreaturePluginFactoriesAllowFarUse.Add(openTibiaId, () => new LuaScriptingPlayerUseItemWithCreaturePlugin("data/plugins/actions/" + filename) );
+
+                            }
+                            else
+                            {
+                                playerUseItemWithCreaturePluginFactories.Add(openTibiaId, () => new LuaScriptingPlayerUseItemWithCreaturePlugin("data/plugins/actions/" + filename) );
+                            }
+                        }
+                        break;
                 }
             }
 
@@ -132,6 +163,102 @@ namespace OpenTibia.Game
             return plugin;
         }
 
+        private Dictionary<ushort, Func<PlayerUseItemWithItemPlugin>> playerUseItemWithItemPluginFactoriesAllowFarUse = new Dictionary<ushort, Func<PlayerUseItemWithItemPlugin>>();
+
+        private Dictionary<ushort, PlayerUseItemWithItemPlugin> playerUseItemWithCreaturePluginsAllowFarUse = new Dictionary<ushort, PlayerUseItemWithItemPlugin>();
+
+        private Dictionary<ushort, Func<PlayerUseItemWithItemPlugin>> playerUseItemWithItemPluginFactories = new Dictionary<ushort, Func<PlayerUseItemWithItemPlugin>>();
+
+        private Dictionary<ushort, PlayerUseItemWithItemPlugin> playerUseItemWithCreaturePlugins = new Dictionary<ushort, PlayerUseItemWithItemPlugin>();
+
+        public PlayerUseItemWithItemPlugin GetPlayerUseItemWithItemPlugin(bool allowFarUse, ushort openTibiaId)
+        {
+            PlayerUseItemWithItemPlugin plugin;
+
+            if (allowFarUse)
+            {
+                if ( !playerUseItemWithCreaturePluginsAllowFarUse.TryGetValue(openTibiaId, out plugin) )
+                {
+                    Func<PlayerUseItemWithItemPlugin> factory;
+
+                    if ( playerUseItemWithItemPluginFactoriesAllowFarUse.TryGetValue(openTibiaId, out factory)  )
+                    {
+                        plugin = factory();
+
+                        plugin.Start();
+
+                        playerUseItemWithCreaturePluginsAllowFarUse.Add(openTibiaId, plugin);
+                    }
+                }
+            }
+            else
+            {
+                if ( !playerUseItemWithCreaturePlugins.TryGetValue(openTibiaId, out plugin) )
+                {
+                    Func<PlayerUseItemWithItemPlugin> factory;
+
+                    if (playerUseItemWithItemPluginFactories.TryGetValue(openTibiaId, out factory) )
+                    {
+                        plugin = factory();
+
+                        plugin.Start();
+
+                        playerUseItemWithCreaturePlugins.Add(openTibiaId, plugin);
+                    }
+                }
+            }
+
+            return plugin;
+        }
+
+        private Dictionary<ushort, Func<PlayerUseItemWithCreaturePlugin>> playerUseItemWithCreaturePluginFactoriesAllowFarUse = new Dictionary<ushort, Func<PlayerUseItemWithCreaturePlugin>>();
+
+        private Dictionary<ushort, PlayerUseItemWithCreaturePlugin> playerUseItemWithItemPluginsAllowFarUse = new Dictionary<ushort, PlayerUseItemWithCreaturePlugin>();
+
+        private Dictionary<ushort, Func<PlayerUseItemWithCreaturePlugin>> playerUseItemWithCreaturePluginFactories = new Dictionary<ushort, Func<PlayerUseItemWithCreaturePlugin>>();
+
+        private Dictionary<ushort, PlayerUseItemWithCreaturePlugin> playerUseItemWithItemPlugins = new Dictionary<ushort, PlayerUseItemWithCreaturePlugin>();
+
+        public PlayerUseItemWithCreaturePlugin GetPlayerUseItemWithCreaturePlugin(bool allowFarUse, ushort openTibiaId)
+        {
+            PlayerUseItemWithCreaturePlugin plugin;
+
+            if (allowFarUse)
+            {
+                if ( !playerUseItemWithItemPluginsAllowFarUse.TryGetValue(openTibiaId, out plugin) )
+                {
+                    Func<PlayerUseItemWithCreaturePlugin> factory;
+
+                    if ( playerUseItemWithCreaturePluginFactoriesAllowFarUse.TryGetValue(openTibiaId, out factory) )
+                    {
+                        plugin = factory();
+
+                        plugin.Start();
+
+                        playerUseItemWithItemPluginsAllowFarUse.Add(openTibiaId, plugin);
+                    }
+                }
+            }
+            else
+            {
+                if ( !playerUseItemWithItemPlugins.TryGetValue(openTibiaId, out plugin) )
+                {   
+                    Func<PlayerUseItemWithCreaturePlugin> factory;
+
+                    if ( playerUseItemWithCreaturePluginFactories.TryGetValue(openTibiaId, out factory) )
+                    {
+                        plugin = factory();
+
+                        plugin.Start();
+
+                        playerUseItemWithItemPlugins.Add(openTibiaId, plugin);
+                    }
+                }
+            }
+
+            return plugin;
+        }
+
         private Dictionary<string, Func<PlayerSayPlugin>> playerSayPluginFactories = new Dictionary<string, Func<PlayerSayPlugin>>();
 
         private Dictionary<string, PlayerSayPlugin> playerSayPlugins = new Dictionary<string, PlayerSayPlugin>();
@@ -187,6 +314,26 @@ namespace OpenTibia.Game
             }
 
             foreach (var plugin in playerUseItemPlugins.Values)
+            {
+                plugin.Stop();
+            }
+
+            foreach (var plugin in playerUseItemWithCreaturePluginsAllowFarUse.Values)
+            {
+                plugin.Stop();
+            }
+
+            foreach (var plugin in playerUseItemWithCreaturePlugins.Values)
+            {
+                plugin.Stop();
+            }
+
+            foreach (var plugin in playerUseItemWithItemPluginsAllowFarUse.Values)
+            {
+                plugin.Stop();
+            }
+
+            foreach (var plugin in playerUseItemWithItemPlugins.Values)
             {
                 plugin.Stop();
             }

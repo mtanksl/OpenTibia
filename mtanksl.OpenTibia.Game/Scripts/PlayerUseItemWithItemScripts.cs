@@ -12,11 +12,15 @@ namespace OpenTibia.Game.Scripts
 
             //TODO: "You cannot use there."
 
+            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithItemScriptingHandler(true) );
+
             Context.Server.CommandHandlers.AddCommandHandler(new Runes2Handler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new FishingRodHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithItemWalkToTargetHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithItemScriptingHandler(false) );
 
             Context.Server.CommandHandlers.AddCommandHandler(new BakingTrayWithDoughHandler() );
 

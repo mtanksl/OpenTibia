@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
 
@@ -14,9 +15,16 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
-            if (fishingRods.Contains(command.Item.Metadata.OpenTibiaId) && shallowWaters.Contains(command.ToItem.Metadata.OpenTibiaId) )
+            if (fishingRods.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                return Context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.BlueRings) );
+                if (shallowWaters.Contains(command.ToItem.Metadata.OpenTibiaId) )
+                {
+                    return Context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.BlueRings) );
+                }
+
+                Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+
+                return Promise.Break;
             }
 
             return next();

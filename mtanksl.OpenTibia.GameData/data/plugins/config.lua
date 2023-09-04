@@ -1,10 +1,12 @@
 ﻿plugins = {
   actions = {
-    { type = "PlayerRotateItem", opentibiaid = 1740, filename = "rotate.lua" },
-    { type = "PlayerUseItem", opentibiaid = 1740, filename = "use.lua" },
+    -- { type = "PlayerRotateItem", opentibiaid = 1740, filename = "rotate item.lua" },
+    -- { type = "PlayerUseItem", opentibiaid = 1740, filename = "use item.lua" },
+    -- { type = "PlayerUseItemWithItem", opentibiaid = 2580, allowfaruse = true, filename = "use item with item.lua" },
+    -- { type = "PlayerUseItemWithCreature", opentibiaid = 2580, allowfaruse = true, filename = "use item with creature.lua" }
   },
   talkactions = {
-    { type = "PlayerSay", message = "hello world", filename = "say.lua" },
+    -- { type = "PlayerSay", message = "hello world", filename = "say.lua" },
   },
   npcs = {
     { type = "Dialogue", name = "Al Dee", filename = "al dee.lua" },

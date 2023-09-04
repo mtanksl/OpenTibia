@@ -12,9 +12,13 @@ namespace OpenTibia.Game.Scripts
 
             //TODO: "You cannot use there."
 
+            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithCreatureScriptingHandler(true) );
+
             Context.Server.CommandHandlers.AddCommandHandler(new RunesHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithCreatureWalkToTargetHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithCreatureScriptingHandler(false) );
 
             Context.Server.CommandHandlers.AddCommandHandler(new SmallHealthPotionHandler() );
 
