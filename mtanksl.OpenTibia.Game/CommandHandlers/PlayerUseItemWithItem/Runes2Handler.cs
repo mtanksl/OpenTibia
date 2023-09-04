@@ -28,6 +28,8 @@ namespace OpenTibia.Game.CommandHandlers
             public Func<Player, Tile, Promise> Callback { get; set; }
         }
 
+        private static HashSet<ushort> itemWithCreatureRunes = new HashSet<ushort>() { 2266, 2265, 2273, 2287, 2311, 2268 };
+
         private static Dictionary<ushort, Rune> runes = new Dictionary<ushort, Rune>()
         {
             [2285] = new Rune()
@@ -546,29 +548,39 @@ namespace OpenTibia.Game.CommandHandlers
         {
             Rune rune;
 
-            if (runes.TryGetValue(command.Item.Metadata.OpenTibiaId, out rune) && command.ToItem.Parent is Tile toTile)
+            if (runes.TryGetValue(command.Item.Metadata.OpenTibiaId, out rune) )
             {
-                if (command.Player.Level >= rune.Level)
+                if (command.ToItem.Parent is Tile toTile)
                 {
-                    if (command.Player.Skills.MagicLevel >= rune.MagicLevel)
+                    if (command.Player.Level >= rune.Level)
                     {
-                        PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerCooldownBehaviour>(command.Player);
-
-                        if ( !playerCooldownBehaviour.HasCooldown(rune.Group) )
+                        if (command.Player.Skills.MagicLevel >= rune.MagicLevel)
                         {
-                            if (rune.Condition == null || rune.Condition(command.Player, toTile) )
-                            {
-                                playerCooldownBehaviour.AddCooldown(rune.Group, rune.GroupCooldown);
+                            PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerCooldownBehaviour>(command.Player);
 
-                                return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
+                            if ( !playerCooldownBehaviour.HasCooldown(rune.Group) )
+                            {
+                                if (rune.Condition == null || rune.Condition(command.Player, toTile) )
                                 {
-                                    return rune.Callback(command.Player, toTile);
+                                    playerCooldownBehaviour.AddCooldown(rune.Group, rune.GroupCooldown);
+
+                                    return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
+                                    {
+                                        return rune.Callback(command.Player, toTile);
+                                    } );
+                                }
+
+                                return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
+                                {
+                                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
+
+                                    return Promise.Break;
                                 } );
                             }
 
                             return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
                             {
-                                Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
+                                Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
 
                                 return Promise.Break;
                             } );
@@ -576,26 +588,29 @@ namespace OpenTibia.Game.CommandHandlers
 
                         return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
                         {
-                            Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
-
+                            Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMagicLevel) );
+                         
                             return Promise.Break;
                         } );
                     }
 
                     return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
                     {
-                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMagicLevel) );
+                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughLevel) );
                          
                         return Promise.Break;
                     } );
                 }
 
-                return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
-                {
-                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughLevel) );
-                         
-                    return Promise.Break;
-                } );
+                Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+
+                return Promise.Break;
+            }
+            else if (itemWithCreatureRunes.Contains(command.Item.Metadata.OpenTibiaId) )
+            {
+                Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+
+                return Promise.Break;
             }
 
             return next();
