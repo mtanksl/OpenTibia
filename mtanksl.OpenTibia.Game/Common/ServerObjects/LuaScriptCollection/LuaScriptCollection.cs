@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Objects;
+﻿using NLua;
+using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Components;
@@ -32,6 +33,160 @@ namespace OpenTibia.Game
                 GameObject gameObject = (GameObject)parameters[0];
 
                 return Context.Current.Server.GameObjectComponents.AddComponent(gameObject, new DelayBehaviour(TimeSpan.FromSeconds( (long)parameters[0] ) ), false).Promise.Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            //TODO: Creature add condition, creature attack area, creature attack creature, creature remove condition
+
+            lua.RegisterCoFunction("creaturewalk", parameters =>
+            {
+                return Context.Current.AddCommand(new CreatureWalkCommand( (Creature)parameters[0], ToTile(parameters[1] ) ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("creatureupdatedirection", parameters =>
+            {
+                return Context.Current.AddCommand(new CreatureUpdateDirectionCommand( (Creature)parameters[0], (Direction)(long)parameters[1] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("creatureupdatehealth", parameters =>
+            {
+                return Context.Current.AddCommand(new CreatureUpdateHealthCommand( (Creature)parameters[0], (int)(long)parameters[1] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("creatureupdateinvisible", parameters =>
+            {
+                return Context.Current.AddCommand(new CreatureUpdateInvisibleCommand( (Creature)parameters[0], (bool)parameters[1] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("creatureupdatelight", parameters =>
+            {
+                return Context.Current.AddCommand(new CreatureUpdateLightCommand( (Creature)parameters[0], ToLight(parameters[1] ) ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("creatureupdateoutfit", parameters =>
+            {
+                return Context.Current.AddCommand(new CreatureUpdateOutfitCommand( (Creature)parameters[0], ToOutfit(parameters[1] ), ToOutfit(parameters[2] ) ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("creatureupdatepartyicon", parameters =>
+            {
+                return Context.Current.AddCommand(new CreatureUpdatePartyIconCommand( (Creature)parameters[0], (PartyIcon)(long)parameters[1] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("creatureupdateskullicon", parameters =>
+            {
+                return Context.Current.AddCommand(new CreatureUpdateSkullIconCommand( (Creature)parameters[0], (SkullIcon)(long)parameters[1] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("creatureupdatespeed", parameters =>
+            {
+                return Context.Current.AddCommand(new CreatureUpdateSpeedCommand( (Creature)parameters[0], (ushort)(long)parameters[1], (ushort)(long)parameters[2] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("showanimatedtext", parameters =>
+            {
+                return Context.Current.AddCommand(new ShowAnimatedTextCommand( (Position)parameters[0], (AnimatedTextColor)(long)parameters[1], (string)parameters[2] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("showmagiceffect", parameters =>
+            {
+                return Context.Current.AddCommand(new ShowMagicEffectCommand( (Position)parameters[0], (MagicEffectType)(long)parameters[1] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("showprojectile", parameters =>
+            {
+                return Context.Current.AddCommand(new ShowProjectileCommand( (Position)parameters[0], (Position)parameters[1], (ProjectileType)(long)parameters[2] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("showtext", parameters =>
+            {
+                return Context.Current.AddCommand(new ShowTextCommand( (Creature)parameters[0], (TalkType)(long)parameters[1], (string)parameters[2] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("fluiditemupdatefluidtype", parameters =>
+            {
+                return Context.Current.AddCommand(new FluidItemUpdateFluidTypeCommand( (FluidItem)parameters[0], (FluidType)(long)parameters[1] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("itemdestroy", parameters =>
+            {
+                return Context.Current.AddCommand(new ItemDestroyCommand( (Item)parameters[0] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("itemtransform", parameters =>
+            {
+                return Context.Current.AddCommand(new ItemTransformCommand( (Item)parameters[0], (ushort)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( (item) =>
+                {
+                    return Promise.FromResult(new object[] { item } );
+                } );
+            } );
+
+            lua.RegisterCoFunction("monsterdestroy", parameters =>
+            {
+                return Context.Current.AddCommand(new MonsterDestroyCommand( (Monster)parameters[0] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+            
+            lua.RegisterCoFunction("monstersay", parameters =>
+            {
+                return Context.Current.AddCommand(new MonsterSayCommand( (Monster)parameters[0], (string)parameters[1] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("npcdestroy", parameters =>
+            {
+                return Context.Current.AddCommand(new NpcDestroyCommand( (Npc)parameters[0] ) ).Then( () =>
                 {
                     return Promise.FromResult(Array.Empty<object>() );
                 } );
@@ -328,14 +483,14 @@ namespace OpenTibia.Game
                 }
             } );
 
-            lua.RegisterCoFunction("npccountmoney", async parameters =>
+            lua.RegisterCoFunction("npccountmoney", parameters =>
             {
                 Player player = (Player)parameters[0];
 
                    
                 int sum = Sum(player.Inventory);
 
-                return new object[] { sum };
+                return Promise.FromResult(new object[] { sum } );
 
                 int Sum(IContainer parent)
                 {
@@ -487,7 +642,7 @@ namespace OpenTibia.Game
                 }
             } );
 
-            lua.RegisterCoFunction("npccountitem", async parameters =>
+            lua.RegisterCoFunction("npccountitem", parameters =>
             {
                 Player player = (Player)parameters[0];
 
@@ -498,7 +653,7 @@ namespace OpenTibia.Game
 
                 int sum = Sum(player.Inventory, openTibiaId);
                                      
-                return new object[] { sum };
+                return Promise.FromResult(new object[] { sum } );
 
                 int Sum(IContainer parent, ushort openTibiaId)
                 {
@@ -534,7 +689,73 @@ namespace OpenTibia.Game
                     return sum;
                 }
             } );
-          
+
+            //TODO: Player update axe, club, distance, fish, fist, magic level, shield and sword skills
+
+            lua.RegisterCoFunction("playerdestroy", parameters =>
+            {
+                return Context.Current.AddCommand(new PlayerDestroyCommand( (Player)parameters[0] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("playerupdatecapacity", parameters =>
+            {
+                return Context.Current.AddCommand(new PlayerUpdateCapacityCommand( (Player)parameters[0], (int)(long)parameters[1] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("playerupdateexperience", parameters =>
+            {
+                return Context.Current.AddCommand(new PlayerUpdateExperienceCommand( (Player)parameters[0], (uint)(long)parameters[1], (ushort)(long)parameters[2], (byte)(long)parameters[3] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("playerupdatemana", parameters =>
+            {
+                return Context.Current.AddCommand(new PlayerUpdateManaCommand( (Player)parameters[0], (int)(long)parameters[1] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("playerupdatesoul", parameters =>
+            {
+                return Context.Current.AddCommand(new PlayerUpdateSoulCommand( (Player)parameters[0], (int)(long)parameters[1] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("playerupdatestamina", parameters =>
+            {
+                return Context.Current.AddCommand(new PlayerUpdateStaminaCommand( (Player)parameters[0], (int)(long)parameters[1] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("splashitemupdatefluidtype", parameters =>
+            {
+                return Context.Current.AddCommand(new SplashItemUpdateFluidTypeCommand( (SplashItem)parameters[0], (FluidType)(long)parameters[1] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+                                    
+            lua.RegisterCoFunction("stackableitemupdatecount", parameters =>
+            {
+                return Context.Current.AddCommand(new StackableItemUpdateCountCommand( (StackableItem)parameters[0], (byte)parameters[1] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
             this.server = server;
         }
 
@@ -548,6 +769,77 @@ namespace OpenTibia.Game
         public void Print(params object[] parameters)
         {
             server.Logger.WriteLine(string.Join("\t", parameters), LogLevel.Debug);
+        }
+
+        private Light ToLight(object parameter)
+        {
+            if (parameter is Light)
+            {
+                return (Light)parameter;
+            }
+            
+            if (parameter is LuaTable)
+            {
+                LuaTable table = (LuaTable)parameter;
+
+                return new Light( (byte)(long)table["level"], (byte)(long)table["color"] );
+            }
+         
+            throw new ArgumentException();
+        }
+
+        private Outfit ToOutfit(object parameter)
+        {
+            if (parameter is Light)
+            {
+                return (Outfit)parameter;
+            }
+            
+            if (parameter is LuaTable)
+            {
+                LuaTable table = (LuaTable)parameter;
+
+                if (table["itemid"] != null)
+                {
+                    return new Outfit( (ushort)(long)table["itemid"] );
+                }
+
+                return new Outfit( (ushort)(long)table["id"], (byte)(long)table["head"], (byte)(long)table["body"], (byte)(long)table["legs"], (byte)(long)table["feet"], (Addon)(long)table["addon"] );
+            }
+         
+            throw new ArgumentException();
+        }
+
+        private Position ToPosition(object parameter)
+        {
+            if (parameter is Position)
+            {
+                return (Position)parameter;
+            }
+            
+            if (parameter is LuaTable)
+            {
+                LuaTable table = (LuaTable)parameter;
+
+                return new Position( (int)table["x"], (int)table["y"], (int)table["z"] );
+            }
+         
+            throw new ArgumentException();
+        }
+
+        private Tile ToTile(object parameter)
+        {
+            if (parameter is Tile)
+            {
+                return (Tile)parameter;
+            }
+            
+            if (parameter is LuaTable)
+            {
+                return Context.Current.Server.Map.GetTile(ToPosition(parameter) );
+            }
+         
+            throw new ArgumentException();
         }
 
         private Dictionary<string, string> chunks = new Dictionary<string, string>();
