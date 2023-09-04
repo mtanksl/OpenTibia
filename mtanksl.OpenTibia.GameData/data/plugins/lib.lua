@@ -1,8 +1,8 @@
 ﻿-- Functions
 
 -- void print(params object[] paramaters)
--- void delay(int seconds)
--- void delaygameobject(GameObject gameObject, int seconds)
+-- void delay(int seconds, Action callback = null)
+-- void delaygameobject(GameObject gameObject, int seconds, Action callback = null)
 -- void creaturewalk(Creature creature, Tile tile)
 -- void creatureupdatedirection(Creature creature, Direction direction)
 -- void creatureupdatehealth(Creature creature, int health)
@@ -16,6 +16,7 @@
 -- void showmagiceffect(Position position, MagicEffectType magicEffectType)
 -- void showprojectile(Position fromPosition, Position toPosition, ProjectileType projectileType)
 -- void showtext(Creature creature, TalkType talkType, string message)
+-- void showwindowtext(Player player, TextColor textColor, string message)
 -- void fluiditemupdatefluidtype(FluidItem fluidItem, FluidType fluidType)
 -- void itemdestroy(Item item)
 -- Item itemtransform(Item item, ushort openTibiaId, byte count)
@@ -249,4 +250,19 @@ talktype = {
 	channelredanonymous = 17,
 	monstersay = 19,
 	monsteryell = 20
+}
+
+textcolor = {
+	yellowdefault = 1,
+	purpledefault = 4,
+	tealdefaultandnpcs = 5,
+	tealdefault = 6,
+	redserverlog = 12,
+	reddefault = 16,
+	orangedefault = 19,
+	redcentergamewindowandserverlog = 21,
+	whitecentergamewindowandserverlog = 22,
+	whitebottomgamewindowandserverlog = 23,
+	greencentergamewindowandserverlog = 25,
+	whitebottomgamewindow = 26
 }

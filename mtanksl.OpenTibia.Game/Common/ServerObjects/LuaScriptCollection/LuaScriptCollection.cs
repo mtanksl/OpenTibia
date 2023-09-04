@@ -22,17 +22,37 @@ namespace OpenTibia.Game
 
             lua.RegisterCoFunction("delay", parameters =>
             {
+                if (parameters.Length == 2)
+                {
+                    _ = Promise.Delay(Guid.NewGuid().ToString(), TimeSpan.FromSeconds( (long)parameters[0] ) ).Then( () =>
+                    {
+                        ( (LuaFunction)parameters[1] ).Call();
+                    } ); 
+
+                    return Promise.FromResult(Array.Empty<object>() );
+                }
+
                 return Promise.Delay(Guid.NewGuid().ToString(), TimeSpan.FromSeconds( (long)parameters[0] ) ).Then( () =>
                 {
                     return Promise.FromResult(Array.Empty<object>() );
-                } );
+                } );                
             } );
 
             lua.RegisterCoFunction("delaygameobject", parameters =>
             {
                 GameObject gameObject = (GameObject)parameters[0];
 
-                return Context.Current.Server.GameObjectComponents.AddComponent(gameObject, new DelayBehaviour(TimeSpan.FromSeconds( (long)parameters[0] ) ), false).Promise.Then( () =>
+                if (parameters.Length == 3)
+                {
+                    _ = Context.Current.Server.GameObjectComponents.AddComponent(gameObject, new DelayBehaviour(TimeSpan.FromSeconds( (long)parameters[1] ) ), false).Promise.Then( () =>
+                    {
+                        ( (LuaFunction)parameters[2] ).Call();
+                    } );
+
+                    return Promise.FromResult(Array.Empty<object>() );
+                }
+
+                return Context.Current.Server.GameObjectComponents.AddComponent(gameObject, new DelayBehaviour(TimeSpan.FromSeconds( (long)parameters[1] ) ), false).Promise.Then( () =>
                 {
                     return Promise.FromResult(Array.Empty<object>() );
                 } );
