@@ -27,6 +27,7 @@
 
 - Lua scripting
 - Lua debugging with ZeroBrane
+- Plugin system
 - Motd
 - Waiting list
 - Ban system
