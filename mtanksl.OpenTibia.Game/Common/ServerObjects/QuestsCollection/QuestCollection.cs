@@ -13,7 +13,7 @@ namespace OpenTibia.Game
             this.server = server;
         }
 
-        LuaScope script;
+        private LuaScope script;
 
         public void Start()
         {
