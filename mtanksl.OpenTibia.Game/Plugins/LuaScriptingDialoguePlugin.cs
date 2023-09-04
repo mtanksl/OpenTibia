@@ -3,11 +3,11 @@ using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Components
 {
-    public class LuaScriptingConversationPlugin : ConversationPlugin
+    public class LuaScriptingDialoguePlugin : DialoguePlugin
     {
         private string fileName;
 
-        public LuaScriptingConversationPlugin(string fileName)
+        public LuaScriptingDialoguePlugin(string fileName)
         {
             this.fileName = fileName;
         }

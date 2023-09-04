@@ -4,7 +4,7 @@ using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Components
 {
-    public abstract class ConversationPlugin : Plugin
+    public abstract class DialoguePlugin : Plugin
     {
         public abstract PromiseResult<bool> ShouldGreet(Npc npc, Player player, string message);
 

@@ -21,11 +21,11 @@ namespace OpenTibia.Game.GameObjectScripts
                 Context.Server.GameObjectComponents.AddComponent(npc, new CreatureTalkBehaviour(TalkType.Say, npc.Metadata.Sentences) );
             }
 
-            ConversationPlugin conversationPlugin = Context.Server.Plugins.GetConversationPlugin(npc.Name);
+            DialoguePlugin dialoguePlugin = Context.Server.Plugins.GetDialoguePlugin(npc.Name);
 
-            if (conversationPlugin != null)
+            if (dialoguePlugin != null)
             {
-                Context.Server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(conversationPlugin, new RandomWalkStrategy(2) ) );
+                Context.Server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(dialoguePlugin, new RandomWalkStrategy(2) ) );
             }
         }
 

@@ -6,13 +6,13 @@ namespace OpenTibia.Game.Components
 {
     public class NpcThinkBehaviour : Behaviour
     {
-        private ConversationPlugin conversationPlugin;
+        private DialoguePlugin dialoguePlugin;
 
         private IWalkStrategy walkStrategy;
 
-        public NpcThinkBehaviour(ConversationPlugin conversationPlugin, IWalkStrategy walkStrategy)
+        public NpcThinkBehaviour(DialoguePlugin dialoguePlugin, IWalkStrategy walkStrategy)
         {
-            this.conversationPlugin = conversationPlugin;
+            this.dialoguePlugin = dialoguePlugin;
 
             this.walkStrategy = walkStrategy;
         }
@@ -23,11 +23,9 @@ namespace OpenTibia.Game.Components
 
         public override void Start()
         {
-            conversationPlugin.Start();
-
             Npc npc = (Npc)GameObject;
 
-            QueueHashSet<Player> targets = new QueueHashSet<Player>();
+            QueueHashSet<Player> queue = new QueueHashSet<Player>();
 
             playerSay = Context.Server.EventHandlers.Subscribe<PlayerSayEventArgs>(async (context, e) =>
             {
@@ -37,39 +35,39 @@ namespace OpenTibia.Game.Components
                 {               
                     string message = e.Message;
 
-                    if (targets.Count == 0)
+                    if (queue.Count == 0)
                     {
-                        if (await conversationPlugin.ShouldGreet(npc, player, message) )
+                        if (await dialoguePlugin.ShouldGreet(npc, player, message) )
                         {
-                            targets.Add(player);
+                            queue.Add(player);
 
-                            await conversationPlugin.OnGreet(npc, player);
+                            await dialoguePlugin.OnGreet(npc, player);
                         }
                     }
                     else
                     {
-                        if (player != targets.Peek() )
+                        if (player != queue.Peek() )
                         {
-                            if (await conversationPlugin.ShouldGreet(npc, player, message) )
+                            if (await dialoguePlugin.ShouldGreet(npc, player, message) )
                             {
-                                targets.Add(player);
+                                queue.Add(player);
 
-                                await conversationPlugin.OnBusy(npc, player);
+                                await dialoguePlugin.OnBusy(npc, player);
                             }
                         }
                         else
                         {
-                            if (await conversationPlugin.ShouldFarewell(npc, player, message) )
+                            if (await dialoguePlugin.ShouldFarewell(npc, player, message) )
                             {
-                                targets.Remove(player);
+                                queue.Remove(player);
 
-                                while (targets.Count > 0)
+                                while (queue.Count > 0)
                                 {
-                                    Player next = targets.Peek();
+                                    Player next = queue.Peek();
 
                                     if (next.Tile == null || next.IsDestroyed || !npc.Tile.Position.IsInRange(next.Tile.Position, 3) )
                                     {
-                                        targets.Remove(next);
+                                        queue.Remove(next);
                                     }
                                     else
                                     {
@@ -77,20 +75,20 @@ namespace OpenTibia.Game.Components
                                     }
                                 }
 
-                                if (targets.Count > 0)
+                                if (queue.Count > 0)
                                 {
-                                    Player next = targets.Peek();
+                                    Player next = queue.Peek();
 
-                                    await conversationPlugin.OnGreet(npc, next);
+                                    await dialoguePlugin.OnGreet(npc, next);
                                 }
                                 else
                                 {
-                                    await conversationPlugin.OnFarewell(npc, player);
+                                    await dialoguePlugin.OnFarewell(npc, player);
                                 }
                             }
                             else
                             {
-                                await conversationPlugin.OnSay(npc, player, message);
+                                await dialoguePlugin.OnSay(npc, player, message);
                             }
                         }
                     }
@@ -99,7 +97,7 @@ namespace OpenTibia.Game.Components
 
             globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>(async (context, e) =>
             {
-                if (targets.Count == 0)
+                if (queue.Count == 0)
                 {
                     CreatureWalkBehaviour creatureWalkBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureWalkBehaviour>(npc);
 
@@ -126,27 +124,27 @@ namespace OpenTibia.Game.Components
 
                     CreatureFocusBehaviour creatureFocusBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureFocusBehaviour>(npc);
 
-                    if (creatureFocusBehaviour == null || creatureFocusBehaviour.Target != targets.Peek() )
+                    if (creatureFocusBehaviour == null || creatureFocusBehaviour.Target != queue.Peek() )
                     {
-                        Context.Server.GameObjectComponents.AddComponent(npc, new CreatureFocusBehaviour(targets.Peek() ) );
+                        Context.Server.GameObjectComponents.AddComponent(npc, new CreatureFocusBehaviour(queue.Peek() ) );
                     }
                 }
 
-                if (targets.Count > 0)
+                if (queue.Count > 0)
                 {
-                    var player = targets.Peek();
+                    var player = queue.Peek();
 
                     if (player.Tile == null || player.IsDestroyed || !npc.Tile.Position.IsInRange(player.Tile.Position, 3) )
 	                {
-		                targets.Remove(player);
+		                queue.Remove(player);
 
-		                while (targets.Count > 0)
+		                while (queue.Count > 0)
 		                {
-			                var next = targets.Peek();
+			                var next = queue.Peek();
 
 			                if (next.Tile == null || next.IsDestroyed || !npc.Tile.Position.IsInRange(next.Tile.Position, 3) )
 			                {
-				                targets.Remove(next);
+				                queue.Remove(next);
 			                }
 			                else
 			                {
@@ -154,15 +152,15 @@ namespace OpenTibia.Game.Components
 			                }
 		                }
 
-		                if (targets.Count > 0)
+		                if (queue.Count > 0)
 		                {
-			                var next = targets.Peek();
+			                var next = queue.Peek();
 
-			                await conversationPlugin.OnGreet(npc, next);
+			                await dialoguePlugin.OnGreet(npc, next);
 		                }
                         else
                         {
-                            await conversationPlugin.OnDismiss(npc, player);
+                            await dialoguePlugin.OnDismiss(npc, player);
                         }
 	                }
                 }
@@ -171,8 +169,6 @@ namespace OpenTibia.Game.Components
 
         public override void Stop()
         {
-            conversationPlugin.Stop();
-
             Context.Server.EventHandlers.Unsubscribe<PlayerSayEventArgs>(playerSay);
 
             Context.Server.EventHandlers.Unsubscribe<GlobalTickEventArgs>(globalTick);

@@ -73,9 +73,9 @@ namespace OpenTibia.Game
 
                 switch (type)
                 {
-                    case "Conversation":
+                    case "Dialogue":
 
-                        conversationPluginFactories.Add(name, () => new LuaScriptingConversationPlugin("data/plugins/npcs/" + filename) );
+                        dialoguePluginFactories.Add(name, () => new LuaScriptingDialoguePlugin("data/plugins/npcs/" + filename) );
                                        
                         break;
                 }
@@ -157,23 +157,23 @@ namespace OpenTibia.Game
             return plugin;
         }
 
-        private Dictionary<string, Func<ConversationPlugin>> conversationPluginFactories = new Dictionary<string, Func<ConversationPlugin>>();
+        private Dictionary<string, Func<DialoguePlugin>> dialoguePluginFactories = new Dictionary<string, Func<DialoguePlugin>>();
 
-        private List<ConversationPlugin> conversationPlugins = new List<ConversationPlugin>();
+        private List<DialoguePlugin> dialoguePlugins = new List<DialoguePlugin>();
 
-        public ConversationPlugin GetConversationPlugin(string name)
+        public DialoguePlugin GetDialoguePlugin(string name)
         {
-            ConversationPlugin plugin = null;
+            DialoguePlugin plugin = null;
 
-            Func<ConversationPlugin> factory;
+            Func<DialoguePlugin> factory;
 
-            if (conversationPluginFactories.TryGetValue(name, out factory) )
+            if (dialoguePluginFactories.TryGetValue(name, out factory) )
             {
                 plugin = factory();
 
                 plugin.Start();
 
-                conversationPlugins.Add(plugin);
+                dialoguePlugins.Add(plugin);
             }
 
             return plugin;
@@ -196,7 +196,7 @@ namespace OpenTibia.Game
                 plugin.Stop();
             }
 
-            foreach (var plugin in conversationPlugins)
+            foreach (var plugin in dialoguePlugins)
             {
                 plugin.Stop();
             }
