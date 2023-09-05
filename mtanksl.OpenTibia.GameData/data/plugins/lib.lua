@@ -272,3 +272,26 @@ textcolor = {
 	greencentergamewindowandserverlog = 25,
 	whitebottomgamewindow = 26
 }
+
+conditionspecialcondition = {
+	none = 0,
+	poisoned = 1,
+	burning = 2,
+	electrified = 4,
+	drunk = 8,
+	magicshield = 16,
+	slowed = 32,
+	haste = 64,
+	logoutblock = 128,
+	drowning = 256,
+	freezing = 512,
+	dazzled = 1024,
+	cursed = 2048,
+	bleeding = 4096,
+	outfit = 32768,
+	invisible = 65536,
+	light = 131072,
+	regeneration = 262144,
+	soul = 524288,
+	muted = 1048576
+}

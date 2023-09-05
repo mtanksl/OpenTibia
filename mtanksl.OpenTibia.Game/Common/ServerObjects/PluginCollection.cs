@@ -73,6 +73,12 @@ namespace OpenTibia.Game
                             }
                         }
                         break;
+
+                    case "PlayerMoveItem":
+
+                        playerMoveItemPluginFactories.Add(openTibiaId, () => new LuaScriptingPlayerMoveItemPlugin("data/plugins/actions/" + filename) );
+
+                        break;
                 }
             }
 
@@ -259,6 +265,31 @@ namespace OpenTibia.Game
             return plugin;
         }
 
+        private Dictionary<ushort, Func<PlayerMoveItemPlugin>> playerMoveItemPluginFactories = new Dictionary<ushort, Func<PlayerMoveItemPlugin>>();
+
+        private Dictionary<ushort, PlayerMoveItemPlugin> playerMoveItemPlugins = new Dictionary<ushort, PlayerMoveItemPlugin>();
+
+        public PlayerMoveItemPlugin GetPlayerMoveItemPlugin(ushort openTibiaId)
+        {
+            PlayerMoveItemPlugin plugin;
+
+            if ( !playerMoveItemPlugins.TryGetValue(openTibiaId, out plugin) )
+            {
+                Func<PlayerMoveItemPlugin> factory;
+
+                if (playerMoveItemPluginFactories.TryGetValue(openTibiaId, out factory) )
+                {
+                    plugin = factory();
+
+                    plugin.Start();
+
+                    playerMoveItemPlugins.Add(openTibiaId, plugin);
+                }
+            }
+
+            return plugin;
+        }
+
         private Dictionary<string, Func<PlayerSayPlugin>> playerSayPluginFactories = new Dictionary<string, Func<PlayerSayPlugin>>();
 
         private Dictionary<string, PlayerSayPlugin> playerSayPlugins = new Dictionary<string, PlayerSayPlugin>();
@@ -334,6 +365,11 @@ namespace OpenTibia.Game
             }
 
             foreach (var plugin in playerUseItemWithItemPlugins.Values)
+            {
+                plugin.Stop();
+            }
+
+            foreach (var plugin in playerMoveItemPlugins.Values)
             {
                 plugin.Stop();
             }

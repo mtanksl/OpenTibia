@@ -55,22 +55,22 @@ namespace OpenTibia.Game.Components
                                
                     Context.Current.Server.GameObjectComponents.RemoveComponent(GameObject, this);
 
-                    return Condition.RemoveCondition(creature);
+                    break;
 
                 case State.Canceled:
                              
                     Context.Current.Server.GameObjectComponents.RemoveComponent(GameObject, this);
 
-                    return Condition.RemoveCondition(creature);
+                    break;
 
                 case State.Stopped:
                              
                     Condition.Cancel();
 
-                    return Condition.RemoveCondition(creature);
+                    break;
             }
 
-            return Promise.Completed;
+            return Condition.RemoveCondition(creature);
         }
     }
 }
