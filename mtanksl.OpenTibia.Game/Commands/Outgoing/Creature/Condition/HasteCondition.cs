@@ -1,10 +1,9 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Game.Components;
 using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class HasteCondition : CreatureConditionBehaviour
+    public class HasteCondition : Condition
     {
         public HasteCondition(ushort speed, TimeSpan duration) : base(ConditionSpecialCondition.Haste)
         {
@@ -19,32 +18,22 @@ namespace OpenTibia.Game.Commands
 
         private string key = Guid.NewGuid().ToString();
 
-        public override async void Start()
+        public override Promise AddCondition(Creature creature)
         {
-            base.Start();
-
-            Creature creature = (Creature)GameObject;
-
-            try
+            return Context.Current.AddCommand(new CreatureUpdateSpeedCommand(creature, creature.BaseSpeed, Speed) ).Then( () =>
             {
-                await Context.AddCommand(new CreatureUpdateSpeedCommand(creature, creature.BaseSpeed, Speed) );
-
-                await Promise.Delay(key, Duration);
-
-                Context.Server.GameObjectComponents.RemoveComponent(creature, this);
-            }
-            catch (PromiseCanceledException) { }
+                return Promise.Delay(key, Duration);
+            } );
         }
 
-        public override async void Stop()
+        public override Promise RemoveCondition(Creature creature)
         {
-            base.Stop();
+            return Context.Current.AddCommand(new CreatureUpdateSpeedCommand(creature, creature.BaseSpeed, creature.BaseSpeed) );
+        }
 
-            Creature creature = (Creature)GameObject;
-
-            await Context.AddCommand(new CreatureUpdateSpeedCommand(creature, creature.BaseSpeed, creature.BaseSpeed) );
-
-            Context.Server.CancelQueueForExecution(key);
+        public override void Cancel()
+        {
+            Context.Current.Server.CancelQueueForExecution(key);
         }
     }
 }

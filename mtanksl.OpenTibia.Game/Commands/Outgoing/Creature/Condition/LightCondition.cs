@@ -1,11 +1,10 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Game.Components;
 using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class LightCondition : CreatureConditionBehaviour
+    public class LightCondition : Condition
     {
         public LightCondition(Light light, TimeSpan duration) : base(ConditionSpecialCondition.Light)
         {
@@ -20,32 +19,22 @@ namespace OpenTibia.Game.Commands
 
         private string key = Guid.NewGuid().ToString();
 
-        public override async void Start()
+        public override Promise AddCondition(Creature creature)
         {
-            base.Start();
-
-            Creature creature = (Creature)GameObject;
-            
-            try
+            return Context.Current.AddCommand(new CreatureUpdateLightCommand(creature, Light) ).Then( () =>
             {
-                await Context.AddCommand(new CreatureUpdateLightCommand(creature, Light) );
-
-                await Promise.Delay(key, Duration);
-
-                Context.Server.GameObjectComponents.RemoveComponent(creature, this);
-            }
-            catch (PromiseCanceledException) { }
+                return Promise.Delay(key, Duration);
+            } );
         }
 
-        public override async void Stop()
+        public override Promise RemoveCondition(Creature creature)
         {
-            base.Stop();
+            return Context.Current.AddCommand(new CreatureUpdateLightCommand(creature, Light.None) );
+        }
 
-            Creature creature = (Creature)GameObject;
-
-            await Context.AddCommand(new CreatureUpdateLightCommand(creature, Light.None) );
-
-            Context.Server.CancelQueueForExecution(key);
+        public override void Cancel()
+        {
+            Context.Current.Server.CancelQueueForExecution(key);
         }
     }
 }

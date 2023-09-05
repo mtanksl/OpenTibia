@@ -1,8 +1,11 @@
 ﻿-- Functions
 
 -- void print(params object[] paramaters)
--- void delay(int seconds, Action callback = null)
--- void delaygameobject(GameObject gameObject, int seconds, Action callback = null)
+-- void delay(int seconds)
+-- string delay(int seconds, Action callback)
+-- void delaygameobject(GameObject gameObject, int seconds)
+-- string delaygameobject(GameObject gameObject, int seconds, Action callback)
+-- bool canceldelay(string key)
 -- void creaturewalk(Creature creature, Tile tile)
 -- void creatureupdatedirection(Creature creature, Direction direction)
 -- void creatureupdatehealth(Creature creature, int health)
@@ -27,6 +30,7 @@
 -- void npcaddmoney(Player player, int price)
 -- void npcdeletemoney(Player player, int price)
 -- int npccountmoney(Player player)
+-- void npcadditem(Player player, ushort openTibiaId, byte type, int count)
 -- void npcremoveitem(Player player, ushort openTibiaId, byte type, int count)
 -- int npccountitem(Player player, ushort openTibiaId, byte type)
 -- void playerdestroy(Player player)

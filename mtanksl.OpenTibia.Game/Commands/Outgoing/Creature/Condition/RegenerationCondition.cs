@@ -1,11 +1,10 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Game.Components;
 using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class RegenerationCondition : CreatureConditionBehaviour
+    public class RegenerationCondition : Condition
     {
         public RegenerationCondition(int regenerationTick) : base(ConditionSpecialCondition.Regeneration)
         {
@@ -36,11 +35,9 @@ namespace OpenTibia.Game.Commands
 
         private string key = Guid.NewGuid().ToString();
 
-        public override async void Start()
+        public override async Promise AddCondition(Creature creature)
         {
-            base.Start();
-
-            Player player = (Player)GameObject;
+            Player player = (Player)creature;
 
             int health;
             int healthDelayInSeconds;
@@ -150,45 +147,40 @@ namespace OpenTibia.Game.Commands
 
             int manaTick = manaDelayInSeconds;
 
-            try
+            while (regenerationTick > 0)
             {
-                while (regenerationTick > 0)
+                await Promise.Delay(key, TimeSpan.FromSeconds(1) );
+
+                healthTick--;
+
+                if (healthTick == 0)
                 {
-                    await Promise.Delay(key, TimeSpan.FromSeconds(1) );
+                    healthTick = healthDelayInSeconds;
 
-                    healthTick--;
-
-                    if (healthTick == 0)
-                    {
-                        healthTick = healthDelayInSeconds;
-
-                        await Context.AddCommand(new CreatureUpdateHealthCommand(player, player.Health + health));
-                    }
-
-                    manaTick--;
-
-                    if (manaTick == 0)
-                    {
-                        manaTick = manaDelayInSeconds;
-
-                        await Context.AddCommand(new PlayerUpdateManaCommand(player, player.Mana + mana));
-                    }
-
-                    regenerationTick--;
+                    await Context.Current.AddCommand(new CreatureUpdateHealthCommand(player, player.Health + health) );
                 }
 
-                Context.Server.GameObjectComponents.RemoveComponent(player, this);
+                manaTick--;
+
+                if (manaTick == 0)
+                {
+                    manaTick = manaDelayInSeconds;
+
+                    await Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana + mana) );
+                }
+
+                regenerationTick--;
             }
-            catch (PromiseCanceledException) { }
         }
 
-        public override void Stop()
+        public override Promise RemoveCondition(Creature creature)
         {
-            base.Stop();
+            return Promise.Completed;
+        }
 
-            Player player = (Player)GameObject;
-
-            Context.Server.CancelQueueForExecution(key);
+        public override void Cancel()
+        {
+            Context.Current.Server.CancelQueueForExecution(key);
         }
     }
 }

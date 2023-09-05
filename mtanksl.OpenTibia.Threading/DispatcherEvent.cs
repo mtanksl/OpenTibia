@@ -4,7 +4,7 @@ namespace OpenTibia.Threading
 {
     public class DispatcherEvent
     {
-        private enum DispatcheEventState
+        private enum DispatcherEventState
         {
             Pending,
 
@@ -15,34 +15,34 @@ namespace OpenTibia.Threading
             Canceled
         }
 
-        private DispatcheEventState state;
+        private DispatcherEventState state;
 
         private Action execute;
 
         public DispatcherEvent(Action execute)
         {
-            this.state = DispatcheEventState.Pending;
+            this.state = DispatcherEventState.Pending;
 
             this.execute = execute;
         }
 
         public void Execute()
         {
-            if (state == DispatcheEventState.Pending)
+            if (state == DispatcherEventState.Pending)
             {
-                state = DispatcheEventState.Executing;
+                state = DispatcherEventState.Executing;
 
                 execute();
                 
-                state = DispatcheEventState.Executed;
+                state = DispatcherEventState.Executed;
             }
         }
         
         public bool Cancel()
         {
-            if (state == DispatcheEventState.Pending)
+            if (state == DispatcherEventState.Pending)
             {
-                state = DispatcheEventState.Canceled;
+                state = DispatcherEventState.Canceled;
 
                 OnCanceled();
 

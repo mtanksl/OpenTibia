@@ -5,20 +5,20 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Components
 {
-    public abstract class CreatureConditionBehaviour : Behaviour
+    public class CreatureConditionBehaviour : StateBehaviour
     {
-        public CreatureConditionBehaviour(ConditionSpecialCondition conditionSpecialCondition)
+        public CreatureConditionBehaviour(Condition condition)
         {
-            ConditionSpecialCondition = conditionSpecialCondition;
+            Condition = condition;
         }
 
-        public ConditionSpecialCondition ConditionSpecialCondition { get; set; }
+        public Condition Condition { get; set; }
 
-        public override void Start()
+        protected override Promise OnStart()
         {
             Creature creature = (Creature)GameObject;
 
-            SpecialCondition specialCondition = ConditionSpecialCondition.ToSpecialCondition();
+            SpecialCondition specialCondition = Condition.ConditionSpecialCondition.ToSpecialCondition();
 
             if (specialCondition != SpecialCondition.None && !creature.HasSpecialCondition(specialCondition) )
             {
@@ -29,13 +29,15 @@ namespace OpenTibia.Game.Components
                     Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(creature.SpecialConditions) );
                 }
             }
+
+            return Condition.AddCondition(creature);
         }
 
-        public override void Stop()
+        protected override Promise OnStop(State state)
         {
             Creature creature = (Creature)GameObject;
 
-            SpecialCondition specialCondition = ConditionSpecialCondition.ToSpecialCondition();
+            SpecialCondition specialCondition = Condition.ConditionSpecialCondition.ToSpecialCondition();
 
             if (specialCondition != SpecialCondition.None && creature.HasSpecialCondition(specialCondition) )
             {
@@ -46,6 +48,29 @@ namespace OpenTibia.Game.Components
                     Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(creature.SpecialConditions) );
                 }
             }
+
+            switch (state)
+            {
+                case State.Success:
+                               
+                    Context.Current.Server.GameObjectComponents.RemoveComponent(GameObject, this);
+
+                    return Condition.RemoveCondition(creature);
+
+                case State.Canceled:
+                             
+                    Context.Current.Server.GameObjectComponents.RemoveComponent(GameObject, this);
+
+                    return Condition.RemoveCondition(creature);
+
+                case State.Stopped:
+                             
+                    Condition.Cancel();
+
+                    return Condition.RemoveCondition(creature);
+            }
+
+            return Promise.Completed;
         }
     }
 }

@@ -34,6 +34,7 @@
 - Quest system
 - VIP system
 - Trade system
+- NPC system
 - Controlling the character 
 	- Login
 	- Walk
@@ -55,11 +56,12 @@
 	- Move item
 	- Rotate item
 	- Use item
-		- Tools
+		- Objects
 		- Depot and lockers
 	- Use item with creature
 		- Runes
 	- Use item with item
+		- Tools
 	- Containers
 	- Report bug
 	- Report rule violation

@@ -3,7 +3,7 @@ using System;
 
 namespace OpenTibia.Game.Components
 {
-    public class DelayBehaviour : Behaviour
+    public class DelayBehaviour : StateBehaviour
     {
         private TimeSpan executeIn;
 
@@ -16,43 +16,53 @@ namespace OpenTibia.Game.Components
 
         public Promise Promise
         {
-            get 
+            get
             {
-                return promise; 
+                return promise;
             }
         }
 
         private string key = Guid.NewGuid().ToString();
 
-        public override void Start()
+        public string Key
         {
-            promise = Promise.Delay(key, executeIn).Then(Update).Then( () =>
+            get
             {
-                Context.Server.GameObjectComponents.RemoveComponent(GameObject, this);
-
-                return Promise.Completed;
-                
-            } ).Catch( (ex) =>
-            {
-                if (ex is PromiseCanceledException)
-                {
-                    //
-                }
-                else
-                {
-                    Context.Server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
-                }
-            } );
+                return key;
+            }
         }
 
-        public virtual Promise Update()
+        protected override Promise OnStart()
         {
+            promise = Promise.Delay(key, executeIn);
+
+            return promise;
+        }
+
+        protected override Promise OnStop(State state)
+        {
+            switch (state)
+            {
+                case State.Success:
+                               
+                    Context.Current.Server.GameObjectComponents.RemoveComponent(GameObject, this);
+
+                    break;
+
+                case State.Canceled:
+                             
+                    Context.Current.Server.GameObjectComponents.RemoveComponent(GameObject, this);
+
+                    break;
+
+                case State.Stopped:
+                             
+                    Context.Current.Server.CancelQueueForExecution(key);
+
+                    break;
+            }
+
             return Promise.Completed;
-        }
-
-        public override void Stop()
-        {
-            Context.Server.CancelQueueForExecution(key);
         }
     }
 }

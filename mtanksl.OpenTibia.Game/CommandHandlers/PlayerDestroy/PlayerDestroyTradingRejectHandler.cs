@@ -17,11 +17,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (trading != null)
                     {
-                        Context.AddPacket(trading.OfferPlayer.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TradeCancelled) );
+                        Context.AddPacket(trading.OfferPlayer.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TradeCanceled) );
 
                         Context.AddPacket(trading.OfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
 
-                        Context.AddPacket(trading.CounterOfferPlayer.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TradeCancelled) );
+                        Context.AddPacket(trading.CounterOfferPlayer.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TradeCanceled) );
 
                         Context.AddPacket(trading.CounterOfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
 

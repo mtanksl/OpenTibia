@@ -10,7 +10,7 @@ namespace OpenTibia.Game.Extensions
     {
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise AddCondition(this Creature creature, CreatureConditionBehaviour condition)
+        public static Promise AddCondition(this Creature creature, Condition condition)
         {
             Context context = Context.Current;
 

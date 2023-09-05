@@ -26,7 +26,7 @@
 
         public static readonly string ThisItemIsAlreadyBeingTraded = "This item is already being traded.";
 
-        public static readonly string TradeCancelled = "Trade cancelled.";
+        public static readonly string TradeCanceled = "Trade canceled.";
 
         public static readonly string YouAreAlreadyTrading = "You are already trading.";
 

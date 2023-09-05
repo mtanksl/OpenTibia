@@ -22,18 +22,22 @@ namespace OpenTibia.Game
             lua.RegisterFunction("print", this, GetType().GetMethod(nameof(Print) ) );
 
             lua.RegisterCoFunction("delay", parameters =>
-            {
+            {                   
+                string key = Guid.NewGuid().ToString();
+
+                Promise promise = Promise.Delay(key, TimeSpan.FromSeconds( (long)parameters[0] ) );
+
                 if (parameters.Length == 2)
                 {
-                    _ = Promise.Delay(Guid.NewGuid().ToString(), TimeSpan.FromSeconds( (long)parameters[0] ) ).Then( () =>
+                    _ = promise.Then( () =>
                     {
                         ( (LuaFunction)parameters[1] ).Call();
                     } ); 
 
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResult(new object[] { key } );
                 }
 
-                return Promise.Delay(Guid.NewGuid().ToString(), TimeSpan.FromSeconds( (long)parameters[0] ) ).Then( () =>
+                return promise.Then( () =>
                 {
                     return Promise.FromResult(Array.Empty<object>() );
                 } );                
@@ -41,22 +45,29 @@ namespace OpenTibia.Game
 
             lua.RegisterCoFunction("delaygameobject", parameters =>
             {
-                GameObject gameObject = (GameObject)parameters[0];
+                DelayBehaviour delayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)parameters[0], new DelayBehaviour(TimeSpan.FromSeconds( (long)parameters[1] ) ), false);
 
                 if (parameters.Length == 3)
                 {
-                    _ = Context.Current.Server.GameObjectComponents.AddComponent(gameObject, new DelayBehaviour(TimeSpan.FromSeconds( (long)parameters[1] ) ), false).Promise.Then( () =>
+                    _ = delayBehaviour.Promise.Then( () =>
                     {
                         ( (LuaFunction)parameters[2] ).Call();
                     } );
 
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResult(new object[] { delayBehaviour.Key } );
                 }
 
-                return Context.Current.Server.GameObjectComponents.AddComponent(gameObject, new DelayBehaviour(TimeSpan.FromSeconds( (long)parameters[1] ) ), false).Promise.Then( () =>
+                return delayBehaviour.Promise.Then( () =>
                 {
                     return Promise.FromResult(Array.Empty<object>() );
                 } );
+            } );
+
+            lua.RegisterCoFunction("canceldelay", parameters =>
+            {
+                bool canceled = Context.Current.Server.CancelQueueForExecution( (string)parameters[0] );
+
+                return Promise.FromResult(new object[] { canceled } );
             } );
 
             //TODO: Creature add condition, creature attack area, creature attack creature, creature remove condition
