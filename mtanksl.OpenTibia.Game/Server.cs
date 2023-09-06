@@ -216,11 +216,12 @@ namespace OpenTibia.Game
                     Scripts.Start();
                 }
 
-                Logger.WriteLine("Server online");
-
                 return Promise.Completed;
 
             } ).Wait();
+
+              
+            Logger.WriteLine("Server online");
         }
 
         private Dictionary<string, SchedulerEvent> schedulerEvents = new Dictionary<string, SchedulerEvent>();
@@ -366,6 +367,22 @@ namespace OpenTibia.Game
                 return Promise.WhenAll(promises.ToArray() );
 
             } ).Wait();
+
+            Logger.WriteLine("Kick all complete");
+
+        }
+
+        public void Save()
+        {
+            QueueForExecution( () =>
+            {
+                //TODO
+
+                return Promise.Completed;
+
+            } ).Wait();
+
+            Logger.WriteLine("Save complete");
         }
 
         public void Stop()
@@ -375,9 +392,7 @@ namespace OpenTibia.Game
                 Plugins.Stop();
 
                 Scripts.Stop();
-
-                Logger.WriteLine("Server offline");
-
+                           
                 return Promise.Completed;
 
             } ).Wait();
@@ -390,6 +405,8 @@ namespace OpenTibia.Game
             scheduler.Stop();
 
             dispatcher.Stop();
+            
+            Logger.WriteLine("Server offline");
         }
 
         private bool disposed = false;

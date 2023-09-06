@@ -42,6 +42,8 @@ namespace OpenTibia.Host
 
                 server.KickAll();
 
+                server.Save();
+
                 server.Stop();
             }
 

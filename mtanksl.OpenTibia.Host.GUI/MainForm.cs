@@ -81,6 +81,8 @@ namespace mtanksl.OpenTibia.Host.GUI
                 {
                     server.KickAll();
 
+                    server.Save();
+
                     server.Stop();
 
                     server.Dispose();
@@ -118,6 +120,8 @@ namespace mtanksl.OpenTibia.Host.GUI
                 await Task.Run( () =>
                 {
                     server.KickAll();
+
+                    server.Save();
 
                     server.Stop();
 
@@ -164,6 +168,32 @@ namespace mtanksl.OpenTibia.Host.GUI
             }
         }
 
+        /*
+        private async void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (server == null)
+            {
+                MessageBox.Show("Server is not running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            try
+            {
+                Enabled = false;
+
+                await Task.Run( () =>
+                {
+                    server.Save();
+                } );
+            }
+            finally
+            {
+                Enabled = true;
+            }
+        }
+        */
+
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
             richTextBox1.Clear();
@@ -182,6 +212,8 @@ namespace mtanksl.OpenTibia.Host.GUI
                         await Task.Run( () =>
                         {
                             server.KickAll();
+
+                            server.Save();
 
                             server.Stop();
 
