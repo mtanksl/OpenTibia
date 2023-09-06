@@ -558,6 +558,12 @@ namespace OpenTibia.Common.Objects
 
                                                 break;
 
+                                            case TalkType.PrivatePlayerToNpc:
+
+                                                command = new ParseTalkPrivatePlayerToNpcCommand(Client.Player, packet.Message);
+
+                                                break;
+
                                             case TalkType.Private:
 
                                                 command = new ParseTalkPrivateCommand(Client.Player, packet.Name, packet.Message);

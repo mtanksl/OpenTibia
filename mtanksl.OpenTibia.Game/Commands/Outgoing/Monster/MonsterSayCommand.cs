@@ -20,14 +20,11 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(Monster.Tile.Position) )
+            foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Monster.Tile.Position) )
             {
                 if (observer.Tile.Position.CanHearSay(Monster.Tile.Position) )
                 {
-                    if (observer is Player player)
-                    {
-                        Context.AddPacket(player.Client.Connection, new ShowTextOutgoingPacket(0, Monster.Name, 0, TalkType.MonsterSay, Monster.Tile.Position, Message) );
-                    }
+                    Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Monster.Name, 0, TalkType.MonsterSay, Monster.Tile.Position, Message) );
 
                     Context.AddEvent(observer, new MonsterSayEventArgs(Monster, Message) );
                 }
