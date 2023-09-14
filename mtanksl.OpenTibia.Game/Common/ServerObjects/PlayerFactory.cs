@@ -47,19 +47,14 @@ namespace OpenTibia.Game
             return null;
         }
 
-        public Player Create(IConnection connection, string name, Tile spawn)
+        public Player Create(string name, Tile spawn)
         {
-            Player player = new Player();
+            Player player = new Player()
+            {
+                Name = name,
 
-            player.Name = name;
-
-            player.Spawn = spawn;
-
-            Client client = new Client(server);
-
-            client.Connection = connection;
-
-            player.Client = client;
+                Spawn = spawn
+            };
 
             server.GameObjects.AddGameObject(player);
 

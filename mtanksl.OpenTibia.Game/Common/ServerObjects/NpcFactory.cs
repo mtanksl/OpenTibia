@@ -93,9 +93,10 @@ namespace OpenTibia.Game
                 return null;
             }
 
-            Npc npc = new Npc(metadata);
-
-            npc.Spawn = spawn;
+            Npc npc = new Npc(metadata)
+            {
+                Spawn = spawn
+            };
 
             server.GameObjects.AddGameObject(npc);
 

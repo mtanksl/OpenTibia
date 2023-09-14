@@ -97,9 +97,10 @@ namespace OpenTibia.Game
                 return null;
             }
 
-            Monster monster = new Monster(metadata);
-
-            monster.Spawn = spawn;
+            Monster monster = new Monster(metadata)
+            {
+                Spawn = spawn
+            };
 
             server.GameObjects.AddGameObject(monster);
 

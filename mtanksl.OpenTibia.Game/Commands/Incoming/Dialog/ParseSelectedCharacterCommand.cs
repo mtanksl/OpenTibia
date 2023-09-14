@@ -106,9 +106,11 @@ namespace OpenTibia.Game.Commands
                     toTile = Context.Server.Map.GetTile(new Position(dbPlayer.TownX, dbPlayer.TownY, dbPlayer.TownZ) );
                 }
 
-                Player player = await Context.AddCommand(new TileCreatePlayerCommand(toTile, Connection, dbPlayer) );
+                Client client = new Client(Context.Server);
 
-                await Context.AddCommand(new PlayerLoginCommand(player) );
+                client.Connection = Connection;
+
+                await Context.AddCommand(new TileCreatePlayerCommand(toTile, client, dbPlayer) );
 
                 if (onlinePlayer == null)
                 {

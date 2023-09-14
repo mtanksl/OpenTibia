@@ -7,27 +7,29 @@ namespace OpenTibia.Game.Commands
 {
     public class TileCreatePlayerCommand : CommandResult<Player>
     {
-        public TileCreatePlayerCommand(Tile tile, IConnection connection, DbPlayer dbPlayer)
+        public TileCreatePlayerCommand(Tile tile, Client client, DbPlayer dbPlayer)
         {
             Tile = tile;
 
-            Connection = connection;
+            Client = client;
 
             DbPlayer = dbPlayer;
         }
 
         public Tile Tile { get; set; }
 
-        public IConnection Connection { get; set; }
+        public Client Client { get; set; }
 
         public DbPlayer DbPlayer { get; set; }
 
         public override PromiseResult<Player> Execute()
         {
-            Player player = Context.Server.PlayerFactory.Create(Connection, DbPlayer.Name, Tile);
+            Player player = Context.Server.PlayerFactory.Create(DbPlayer.Name, Tile);
 
             if (player != null)
             {
+                player.Client = Client;
+
                 LoadPlayer(Context, DbPlayer, player);
 
                 LoadLocker(Context, DbPlayer, player);
@@ -39,6 +41,10 @@ namespace OpenTibia.Game.Commands
                 LoadVip(Context, DbPlayer, player);
 
                 return Context.AddCommand(new TileAddCreatureCommand(Tile, player) ).Then( () =>
+                {
+                    return Context.AddCommand(new PlayerLoginCommand(player) );     
+                    
+                } ).Then( () =>
                 {
                     return Promise.FromResult(player); 
                 } );
