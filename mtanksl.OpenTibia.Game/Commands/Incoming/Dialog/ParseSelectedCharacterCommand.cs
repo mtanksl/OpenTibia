@@ -90,61 +90,30 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            Tile toTile = null;
-
-            Player onlinePlayer = Context.Server.GameObjects.GetPlayers()
-                .Where(p => p.Name == dbPlayer.Name)
-                .FirstOrDefault();
-
-            return Promise.Run( () =>
+            return Promise.Run(async () =>
             {
+                Player onlinePlayer = Context.Server.GameObjects.GetPlayers().Where(p => p.Name == dbPlayer.Name).FirstOrDefault();
+
                 if (onlinePlayer != null)
                 {
-                    return Context.AddCommand(new PlayerDestroyCommand(onlinePlayer) );
+                    await Context.AddCommand(new PlayerDestroyCommand(onlinePlayer) );
                 }
 
-                return Promise.Completed;
+                Tile toTile = Context.Server.Map.GetTile(new Position(dbPlayer.SpawnX, dbPlayer.SpawnY, dbPlayer.SpawnZ) );
 
-            } ).Then( () =>
-            {
-                toTile = Context.Server.Map.GetTile(new Position(dbPlayer.CoordinateX, dbPlayer.CoordinateY, dbPlayer.CoordinateZ) );
-
-                return Context.AddCommand(new TileCreatePlayerCommand(toTile, Connection, dbPlayer) );
-
-            } ).Then( (player) =>
-            {
-                Context.AddPacket(Connection, new SendInfoOutgoingPacket(player.Id, player.CanReportBugs) );
-
-                Context.AddPacket(Connection, new SendTilesOutgoingPacket(Context.Server.Map, player.Client, toTile.Position) );
-
-                Context.AddPacket(Connection, new SetEnvironmentLightOutgoingPacket(Context.Server.Clock.Light) );
-                                
-                Context.AddPacket(Connection, new SendStatusOutgoingPacket(player.Health, player.MaxHealth, player.Capacity, player.Experience, player.Level, player.LevelPercent, player.Mana, player.MaxMana, player.Skills.MagicLevel, player.Skills.MagicLevelPercent, player.Soul, player.Stamina) );
-
-                Context.AddPacket(Connection, new SendSkillsOutgoingPacket(player.Skills.Fist, player.Skills.FistPercent, player.Skills.Club, player.Skills.ClubPercent, player.Skills.Sword, player.Skills.SwordPercent, player.Skills.Axe, player.Skills.AxePercent, player.Skills.Distance, player.Skills.DistancePercent, player.Skills.Shield, player.Skills.ShieldPercent, player.Skills.Fish, player.Skills.FishPercent) );
-
-                Context.AddPacket(Connection, new SetSpecialConditionOutgoingPacket(SpecialCondition.None) );
-
-                foreach (var pair in player.Inventory.GetIndexedContents() )
+                if (toTile == null)
                 {
-                    Context.AddPacket(Connection, new SlotAddOutgoingPacket(pair.Key, (Item)pair.Value) );
+                    toTile = Context.Server.Map.GetTile(new Position(dbPlayer.TownX, dbPlayer.TownY, dbPlayer.TownZ) );
                 }
 
-                foreach (var pair in player.Client.Vips.GetIndexed() )
-                {
-                    Context.AddPacket(Connection, new VipOutgoingPacket( (uint)pair.Key, pair.Value, false) );
-                }
+                Player player = await Context.AddCommand(new TileCreatePlayerCommand(toTile, Connection, dbPlayer) );
 
-                return Promise.Completed;
+                await Context.AddCommand(new PlayerLoginCommand(player) );
 
-            } ).Then( () =>
-            {
                 if (onlinePlayer == null)
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                    await Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
                 }
-
-                return Promise.Completed;
             } );
         }
     }

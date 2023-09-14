@@ -1,6 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Data.Models;
-using OpenTibia.Network.Packets.Outgoing;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
@@ -58,18 +57,11 @@ namespace OpenTibia.Game.Commands
 
                     Context.Server.Lockers.ClearLocker(Player.DatabasePlayerId);
 
-                    return Context.AddCommand(new TileRemoveCreatureCommand(Player.Tile, Player) ).Then( () =>
-                    {
-                        if (Player.Health == 0)
-                        {
-                            Context.AddPacket(Player.Client.Connection, new OpenYouAreDeathDialogOutgoingPacket() );
-                        }
-                        else
-                        {
-                            Context.Disconnect(Player.Client.Connection);
-                        }
+                    Tile fromTile = Player.Tile;
 
-                        return Promise.Completed;
+                    return Context.AddCommand(new TileRemoveCreatureCommand(fromTile, Player) ).Then( () =>
+                    {
+                        return Context.AddCommand(new PlayerLogoutCommand(Player, fromTile) );
                     } );
                 } );
             }
@@ -202,11 +194,11 @@ namespace OpenTibia.Game.Commands
 
             dbPlayer.Vocation = (int)player.Vocation;
 
-            dbPlayer.CoordinateX = player.Tile.Position.X;
+            dbPlayer.SpawnX = player.Tile.Position.X;
 
-            dbPlayer.CoordinateY = player.Tile.Position.Y;
+            dbPlayer.SpawnY = player.Tile.Position.Y;
 
-            dbPlayer.CoordinateZ = player.Tile.Position.Z;
+            dbPlayer.SpawnZ = player.Tile.Position.Z;
         }
 
         private static void SaveLocker(Context context, DbPlayer dbPlayer, Player player)
