@@ -52,6 +52,8 @@ namespace OpenTibia.Game
 
             Lockers = new LockerCollection();
 
+            GameObjectPool = new GameObjectPool();
+
             GameObjects = new GameObjectCollection();
 
             GameObjectComponents = new GameObjectComponentCollection();
@@ -113,6 +115,8 @@ namespace OpenTibia.Game
         public TradingCollection Tradings { get; set; }
 
         public LockerCollection Lockers { get; set; }
+
+        public GameObjectPool GameObjectPool { get; set; }
 
         public GameObjectCollection GameObjects { get; set; }
 

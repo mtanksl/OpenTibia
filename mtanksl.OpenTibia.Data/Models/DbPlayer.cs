@@ -107,11 +107,17 @@ namespace OpenTibia.Data.Models
 
         public int Vocation { get; set; }
 
-        public int CoordinateX { get; set; }
+        public int SpawnX { get; set; }
 
-        public int CoordinateY { get; set; }
+        public int SpawnY { get; set; }
 
-        public int CoordinateZ { get; set; }
+        public int SpawnZ { get; set; }
+
+        public int TownX { get; set; }
+
+        public int TownY { get; set; }
+
+        public int TownZ { get; set; }
 
 
         public DbAccount Account { get; set; }
