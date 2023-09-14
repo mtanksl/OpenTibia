@@ -163,11 +163,6 @@ namespace OpenTibia.Game
 
             scheduler.Start();
 
-            foreach (var listener in listeners)
-            {
-                listener.Start();
-            }
-
             QueueForExecution( () =>
             {
                 Logger.WriteLine("An open Tibia server developed by mtanksl");
@@ -224,7 +219,11 @@ namespace OpenTibia.Game
 
             } ).Wait();
 
-              
+            foreach (var listener in listeners)
+            {
+                listener.Start();
+            }
+
             Logger.WriteLine("Server online");
         }
 

@@ -21,6 +21,8 @@ namespace OpenTibia.Game.Commands
 
             if (monster != null)
             {
+                Context.Server.MonsterFactory.Attach(monster);
+
                 return Context.AddCommand(new TileAddCreatureCommand(Tile, monster) ).Then( () =>
                 {
                     return Promise.FromResult(monster); 

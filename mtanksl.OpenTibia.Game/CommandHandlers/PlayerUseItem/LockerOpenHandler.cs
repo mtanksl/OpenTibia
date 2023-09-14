@@ -16,7 +16,13 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     container = (Container)Context.Server.ItemFactory.Create(2591, 1);
 
-                    container.AddContent( Context.Server.ItemFactory.Create(2594, 1) );
+                    Context.Server.ItemFactory.Attach(container);
+
+                    Item depot = Context.Server.ItemFactory.Create(2594, 1);
+
+                    Context.Server.ItemFactory.Attach(depot);
+
+                    container.AddContent(depot);
 
                     Context.Server.Lockers.AddLocker(command.Player.DatabasePlayerId, locker.TownId, container);
                 }

@@ -24,6 +24,8 @@ namespace OpenTibia.Game.Commands
         {
             Item toItem = Context.Server.ItemFactory.Create(OpenTibiaId, Count);
 
+            Context.Server.ItemFactory.Attach(toItem);
+
             toItem.ActionId = FromItem.ActionId;
 
             toItem.UniqueId = FromItem.UniqueId;

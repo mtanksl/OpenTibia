@@ -1,11 +1,13 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Otbm;
 using OpenTibia.FileFormats.Xml.Houses;
+using OpenTibia.FileFormats.Xml.Monsters;
 using OpenTibia.FileFormats.Xml.Spawns;
 using OpenTibia.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using OtbmItem = OpenTibia.FileFormats.Otbm.Item;
 
 namespace OpenTibia.Common.Objects
@@ -149,7 +151,9 @@ namespace OpenTibia.Common.Objects
                     if (otbmTile.OpenTibiaItemId > 0)
                     {
                         Item ground = server.ItemFactory.Create(otbmTile.OpenTibiaItemId, 1);
-                        
+
+                        server.ItemFactory.Attach(ground);
+
                         tile.AddContent(ground);
                     }
 
@@ -160,6 +164,8 @@ namespace OpenTibia.Common.Objects
                             foreach (var otbmItem in items)
                             {
                                 Item item = server.ItemFactory.Create(otbmItem.OpenTibiaId, otbmItem.Count);
+
+                                server.ItemFactory.Attach(item);
 
                                 item.ActionId = otbmItem.ActionId;
 
@@ -210,16 +216,24 @@ namespace OpenTibia.Common.Objects
             {
                 foreach (var xmlMonster in spawn.Monsters)
                 {
-                    var tile = GetTile(xmlMonster.Position);
+                    Tile tile = GetTile(xmlMonster.Position);
 
-                    tile.AddContent(server.MonsterFactory.Create(xmlMonster.Name, tile) );
+                    Monster monster = server.MonsterFactory.Create(xmlMonster.Name, tile);
+
+                    server.MonsterFactory.Attach(monster);
+
+                    tile.AddContent(monster);
                 }
 
                 foreach (var xmlNpc in spawn.Npcs)
                 {
-                    var tile = GetTile(xmlNpc.Position);
+                    Tile tile = GetTile(xmlNpc.Position);
 
-                    tile.AddContent(server.NpcFactory.Create(xmlNpc.Name, tile) );
+                    Npc npc = server.NpcFactory.Create(xmlNpc.Name, tile);
+
+                    server.NpcFactory.Attach(npc);
+
+                    tile.AddContent(npc);
                 }
             }
 
@@ -366,7 +380,7 @@ namespace OpenTibia.Common.Objects
             {
                 for (int i = minI; i <= maxI; i++)
                 {
-                    var observers = GetObservers(j, i);
+                    HashSet<Creature> observers = GetObservers(j, i);
 
                     if (observers != null)
                     {

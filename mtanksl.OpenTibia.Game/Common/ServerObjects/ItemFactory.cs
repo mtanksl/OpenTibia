@@ -260,6 +260,13 @@ namespace OpenTibia.Game
                 item = new Item(metadata);
             }
 
+            return item;
+        }
+
+        public void Attach(Item item)
+        {
+            item.IsDestroyed = false;
+
             server.GameObjects.AddGameObject(item);
 
             GameObjectScript<ushort, Item> gameObjectScript = GetItemGameObjectScript(item.Metadata.OpenTibiaId);
@@ -268,8 +275,6 @@ namespace OpenTibia.Game
             {
                 gameObjectScript.Start(item);
             }
-
-            return item;
         }
 
         public bool Detach(Item item)

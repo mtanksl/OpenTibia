@@ -98,6 +98,13 @@ namespace OpenTibia.Game
                 Spawn = spawn
             };
 
+            return npc;
+        }
+
+        public void Attach(Npc npc)
+        {
+            npc.IsDestroyed = false;
+
             server.GameObjects.AddGameObject(npc);
 
             GameObjectScript<string, Npc> gameObjectScript = GetNpcGameObjectScript(npc.Name);
@@ -106,8 +113,6 @@ namespace OpenTibia.Game
             {
                 gameObjectScript.Start(npc);
             }
-            
-            return npc;
         }
 
         public bool Detach(Npc npc)

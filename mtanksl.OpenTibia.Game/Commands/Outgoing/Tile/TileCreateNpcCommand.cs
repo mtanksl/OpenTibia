@@ -21,6 +21,8 @@ namespace OpenTibia.Game.Commands
 
             if (npc != null)
             {
+                Context.Server.NpcFactory.Attach(npc);
+
                 return Context.AddCommand(new TileAddCreatureCommand(Tile, npc) ).Then( () =>
                 {
                     return Promise.FromResult(npc);

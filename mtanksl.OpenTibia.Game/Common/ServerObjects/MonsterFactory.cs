@@ -102,6 +102,13 @@ namespace OpenTibia.Game
                 Spawn = spawn
             };
 
+            return monster;
+        }
+
+        public void Attach(Monster monster)
+        {
+            monster.IsDestroyed = false;
+
             server.GameObjects.AddGameObject(monster);
 
             GameObjectScript<string, Monster> gameObjectScript = GetMonsterGameObjectScript(monster.Name);
@@ -110,8 +117,6 @@ namespace OpenTibia.Game
             {
                 gameObjectScript.Start(monster);
             }
-
-            return monster;
         }
 
         public bool Detach(Monster monster)

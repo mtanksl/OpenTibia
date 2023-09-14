@@ -29,6 +29,8 @@ namespace OpenTibia.Game.Commands
 
             if (item != null)
             {
+                Context.Server.ItemFactory.Attach(item);
+
                 return Context.AddCommand(new InventoryAddItemCommand(Inventory, Slot, item) ).Then( () =>
                 {
                      return Promise.FromResult(item);

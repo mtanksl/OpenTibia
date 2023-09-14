@@ -28,6 +28,8 @@ namespace OpenTibia.Game.Commands
 
             if (player != null)
             {
+                Context.Server.PlayerFactory.Attach(player);
+
                 player.Client = Client;
 
                 LoadPlayer(Context, DbPlayer, player);
@@ -134,6 +136,8 @@ namespace OpenTibia.Game.Commands
                 {
                     var item = context.Server.ItemFactory.Create( (ushort)playerDepotItem.OpenTibiaId, (byte)playerDepotItem.Count);
 
+                    context.Server.ItemFactory.Attach(item);
+
                     if (item is Container container)
                     {
                         AddItems(container, playerDepotItem.SequenceId);
@@ -146,6 +150,8 @@ namespace OpenTibia.Game.Commands
             foreach (var playerDepotItem in dbPlayer.PlayerDepotItems.Where(i => i.ParentId >= 0 /* Town Id */ && i.ParentId <= 100 /* Town Id */ ) )
             {
                 var container = (Container)context.Server.ItemFactory.Create(2591, 1);
+
+                context.Server.ItemFactory.Attach(container);
 
                 AddItems(container, playerDepotItem.SequenceId);
 
@@ -161,6 +167,8 @@ namespace OpenTibia.Game.Commands
                 {
                     var item = context.Server.ItemFactory.Create( (ushort)dbPlayerItem.OpenTibiaId, (byte)dbPlayerItem.Count);
 
+                    context.Server.ItemFactory.Attach(item);
+
                     if (item is Container container)
                     {
                         AddItems(container, dbPlayerItem.SequenceId);
@@ -173,6 +181,8 @@ namespace OpenTibia.Game.Commands
             foreach (var dbPlayerItem in dbPlayer.PlayerItems.Where(i => i.ParentId >= 1 /* Slot.Head */ && i.ParentId <= 10 /* Slot.Extra */ ) )
             {
                 var item = context.Server.ItemFactory.Create( (ushort)dbPlayerItem.OpenTibiaId, (byte)dbPlayerItem.Count);
+
+                context.Server.ItemFactory.Attach(item);
 
                 if (item is Container container)
                 {

@@ -56,6 +56,13 @@ namespace OpenTibia.Game
                 Spawn = spawn
             };
 
+            return player;
+        }
+
+        public void Attach(Player player)
+        {
+            player.IsDestroyed = false;
+
             server.GameObjects.AddGameObject(player);
 
             GameObjectScript<string, Player> gameObjectScript = GetPlayerGameObjectScript(player.Name);
@@ -64,8 +71,6 @@ namespace OpenTibia.Game
             {
                 gameObjectScript.Start(player);
             }
-
-            return player;
         }
 
         public bool Detach(Player player)
