@@ -23,6 +23,7 @@ namespace OpenTibia.Game
             lua.DoString("""
 
 	            debugger = require("mobdebug")
+
 	            debugger.coro()
 
 	            """);

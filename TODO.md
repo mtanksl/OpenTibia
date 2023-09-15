@@ -3,7 +3,7 @@
 - Player information
 	- Capacity
 	- Soul
-- Fight system
+- Fight
 	- Bow and arrow
 	- Wands and rods
 	- Double-hand swords
@@ -13,29 +13,39 @@
 	- Logout block
 	- Protection zone block
 	- Experience, level, magic level and skills
-	- Skull icon
-	- War icon
-	- PVP vs non-PVP configuration
+	- Skull
+	- War
+	- PVP vs non-PVP
+	- Corpse and rewards
+	- Splash
 	- ...
-- Guild system
-- Party system
-- NPC Trade system
-- Hang items
+- Rings
+- Armor and weapon attributes
+- Mail
+- Guild
+- Party
+- NPC Trade
+- Hangable items
+- Sign
+- Addons
+- House
+- Bed
+- Depot and towns
 - ...
 
-# Done
+# Done (or good enough for now)
 
 - Lua scripting
 - Lua debugging with ZeroBrane
-- Plugin system
+- Plugins
 - Motd
 - Waiting list
-- Ban system
-- Quest system
-- VIP system
-- Trade system
-- NPC system
-- Controlling the character 
+- Ban
+- Quest
+- VIP
+- Trade
+- NPC
+- Controlling the character
 	- Login
 	- Walk
 	- Turn
@@ -52,7 +62,7 @@
 	- Private channel
 	- Rule violation channel
 - Interacting with the game world 
-	- Look item 
+	- Look item
 	- Move item
 	- Rotate item
 	- Use item
@@ -66,5 +76,5 @@
 	- Report bug
 	- Report rule violation
 	- Debug assert
-	- Basic fight system
+	- Basic fight
 	- Read and write items
