@@ -22,13 +22,9 @@ namespace OpenTibia.Game
 
             lua.DoString("""
 
-	            debugger = require("mobdebug")
+                debugger = require("mobdebug")
 
-	            debugger.coro()
-
-	            """);
-
-            lua.DoString("""
+                debugger.coro()
 
                 bridge = {}
 
@@ -81,13 +77,17 @@ namespace OpenTibia.Game
             this.parent = null;
 
             this.env = (LuaTable)lua["_G"];
+
+            this.chunkName = "LuaScope.cs";
         }
 
-        public LuaScope(LuaScope parent, LuaTable env)
+        public LuaScope(LuaScope parent, LuaTable env, string chunkName)
         {
             this.parent = parent;
 
             this.env = env;
+
+            this.chunkName = chunkName;
         }
 
         ~LuaScope()
@@ -141,11 +141,11 @@ namespace OpenTibia.Game
         public bool TryGetCoFunction(string name, out Func<object[], PromiseResult<object[]>> callback)
         {
             return callbacks.TryGetValue(name, out callback);
-        }        
+        }
 
         public LuaScope LoadNewChunk(string chunk, string chunkName)
         {
-            var loadResult = ( (LuaFunction)this["bridge.load"] ).Call(chunk, chunkName, env); // loadResult = success, env = bridge.load(chunk, chunkName, env)
+            var loadResult = ( (LuaFunction)env["bridge.load"] ).Call(chunk, chunkName, env);
 
             var success = (bool)loadResult[0];
 
@@ -153,25 +153,27 @@ namespace OpenTibia.Game
             {
                 var env = (LuaTable)loadResult[1];
 
-                return new LuaScope(this, env);
+                return new LuaScope(this, env, chunkName);
             }
             else
             {
                 var errorMessage = (string)loadResult[1];
 
-                throw new Exception(errorMessage);
+                throw new LuaException(chunkName, errorMessage);
             }
         }
+
+        private string chunkName;
 
         public PromiseResult<object[]> CallFunction(string name, params object[] args)
         {
             return Promise.Run<object[]>( (resolve, reject) =>
             {
-                var wrapResult = (LuaFunction)( (LuaFunction)this["bridge.wrap"] ).Call( (LuaFunction)this[name] )[0]; // wrapResult = bridge.wrap(func)
+                var wrapResult = (LuaFunction)( (LuaFunction)env["bridge.wrap"] ).Call( (LuaFunction)env[name] )[0];
 
                 void Next(object[] args)
                 {
-                    var pcallResult = wrapResult.Call(args); // pcallResult = success, completed, result = wrapResult(arg0, arg1, arg2)
+                    var pcallResult = wrapResult.Call(args);
 
                     var success = (bool)pcallResult[0];
 
@@ -187,7 +189,7 @@ namespace OpenTibia.Game
                         }
                         else
                         {
-                            var method = (LuaTable)result[0]; // method = { name = ..., parameters = { ... } }
+                            var method = (LuaTable)result[0];
 
                             var name = (string)method["name"];
 
@@ -197,7 +199,7 @@ namespace OpenTibia.Game
                             {
                                 if (current == null)
                                 {
-                                    reject(new NotImplementedException("Function " + name + " is not registered.") );
+                                    reject(new LuaException(chunkName, "Function " + name + " is not registered.") );
 
                                     break;
                                 }
@@ -219,7 +221,7 @@ namespace OpenTibia.Game
                     {
                         var errorMessage = (string)pcallResult[1];
 
-                        reject(new Exception(errorMessage) );
+                        reject(new LuaException(chunkName, errorMessage) );
                     }
                 }
                 
