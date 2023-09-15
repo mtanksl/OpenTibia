@@ -65,7 +65,6 @@ namespace OpenTibia.Game
                             if (allowFarUse)
                             {
                                 playerUseItemWithCreaturePluginFactoriesAllowFarUse.Add(openTibiaId, () => new LuaScriptingPlayerUseItemWithCreaturePlugin("data/plugins/actions/" + filename) );
-
                             }
                             else
                             {
