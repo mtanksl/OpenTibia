@@ -6,8 +6,8 @@ return {
 			start = {
 				type = "function",
 				description = "",
-				args = "",
-				returns = "" 
+				args = "()",
+				returns = "void" 
 			}
 		}
 	},
