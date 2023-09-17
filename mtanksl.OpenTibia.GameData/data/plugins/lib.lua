@@ -1,6 +1,6 @@
 ﻿-- Functions
 
--- void print(params object[] paramaters)
+-- void print(params object[] parameters)
 -- void command.delay(int seconds)
 -- string command.delay(int seconds, Action callback)
 -- void command.delaygameobject(GameObject gameObject, int seconds)

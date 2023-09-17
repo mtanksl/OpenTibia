@@ -23,7 +23,6 @@ namespace OpenTibia.Game
             lua.DoString("""
 
                 bridge = {}
-
                 function bridge.call(name, ...)
                 	local method = { 
                 		name = name,
@@ -31,7 +30,6 @@ namespace OpenTibia.Game
                 	};
                 	return coroutine.yield(method)
                 end
-
                 function bridge.wrap(func)
                 	local co = coroutine.create(func)
                 	return function(...)
@@ -43,7 +41,6 @@ namespace OpenTibia.Game
                 		return true, completed, select(2, table.unpack(result) )
                 	end
                 end
-
                 function bridge.load(chunk, chunkName, parent)
                 	local env = {}
                 	env.mt = {
@@ -64,7 +61,6 @@ namespace OpenTibia.Game
                 end
 
                 command = {}
-
                 command.mt = {
                 	__index = function(table, key)
                 		return function(...)
@@ -72,11 +68,9 @@ namespace OpenTibia.Game
                 		end
                 	end
                 }
-
                 setmetatable(command, command.mt)
 
                 debugger = require("mobdebug")
-
                 debugger.coro()
 
                 """);
