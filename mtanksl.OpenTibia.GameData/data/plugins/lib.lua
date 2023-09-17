@@ -1,71 +1,71 @@
 ﻿-- Functions
 
 -- void print(params object[] paramaters)
--- void delay(int seconds)
--- string delay(int seconds, Action callback)
--- void delaygameobject(GameObject gameObject, int seconds)
--- string delaygameobject(GameObject gameObject, int seconds, Action callback)
--- bool canceldelay(string key)
--- void creaturewalk(Creature creature, Tile tile)
--- void creatureupdatedirection(Creature creature, Direction direction)
--- void creatureupdatehealth(Creature creature, int health)
--- void creatureupdateinvisible(Creature creature, bool invisible)
--- void creatureupdatelight(Creature creature, Light light)
--- void creatureupdateoutfit(Creature creature, Outfit baseOutfit, Outfit outfit)
--- void creatureupdatepartyicon(Creature creature, PartyIcon partyIcon)
--- void creatureupdateskullicon(Creature creature, SkullIcon skullIcon)
--- void creatureupdatespeed(Creature creature, ushort baseSpeed, ushort speed)
--- void showanimatedtext(Position position, AnimatedTextColor animatedTextColor, string message)
--- void showmagiceffect(Position position, MagicEffectType magicEffectType)
--- void showprojectile(Position fromPosition, Position toPosition, ProjectileType projectileType)
--- void showtext(Creature creature, TalkType talkType, string message)
--- void showwindowtext(Player player, TextColor textColor, string message)
--- void fluiditemupdatefluidtype(FluidItem fluidItem, FluidType fluidType)
--- void itemdestroy(Item item)
--- Item itemtransform(Item item, ushort openTibiaId, byte count)
--- void monsterdestroy(Monster monster)
--- void monstersay(Monster monster, string message)
--- void npcdestroy(Npc npc)
--- void npcsay(Npc npc, string message)
--- void npcaddmoney(Player player, int price)
--- void npcdeletemoney(Player player, int price)
--- int npccountmoney(Player player)
--- void npcadditem(Player player, ushort openTibiaId, byte type, int count)
--- void npcremoveitem(Player player, ushort openTibiaId, byte type, int count)
--- int npccountitem(Player player, ushort openTibiaId, byte type)
--- void playerdestroy(Player player)
--- void playerupdatecapacity(Player player, int capacity)
--- void playerupdateexperience(Player player, int experience, ushort level, byte levelPercent)
--- void playerupdatemana(Player player, int mana)
--- void playerupdatesoul(Player player, int soul)
--- void playerupdatestamina(Player player, int stamina)
--- (bool, int) playergetstorage(Player player, int key)
--- void playersetstorage(Player player, int key, int value)
--- void splashitemupdatefluidtype(SplashItem splashItem, FluidType fluidType)
--- void stackableitemupdatecount(StackableItem stackableItem, byte count)
+-- void command.delay(int seconds)
+-- string command.delay(int seconds, Action callback)
+-- void command.delaygameobject(GameObject gameObject, int seconds)
+-- string command.delaygameobject(GameObject gameObject, int seconds, Action callback)
+-- bool command.canceldelay(string key)
+-- void command.creaturewalk(Creature creature, Tile tile)
+-- void command.creatureupdatedirection(Creature creature, Direction direction)
+-- void command.creatureupdatehealth(Creature creature, int health)
+-- void command.creatureupdateinvisible(Creature creature, bool invisible)
+-- void command.creatureupdatelight(Creature creature, Light light)
+-- void command.creatureupdateoutfit(Creature creature, Outfit baseOutfit, Outfit outfit)
+-- void command.creatureupdatepartyicon(Creature creature, PartyIcon partyIcon)
+-- void command.creatureupdateskullicon(Creature creature, SkullIcon skullIcon)
+-- void command.creatureupdatespeed(Creature creature, ushort baseSpeed, ushort speed)
+-- void command.showanimatedtext(Position position, AnimatedTextColor animatedTextColor, string message)
+-- void command.showmagiceffect(Position position, MagicEffectType magicEffectType)
+-- void command.showprojectile(Position fromPosition, Position toPosition, ProjectileType projectileType)
+-- void command.showtext(Creature creature, TalkType talkType, string message)
+-- void command.showwindowtext(Player player, TextColor textColor, string message)
+-- void command.fluiditemupdatefluidtype(FluidItem fluidItem, FluidType fluidType)
+-- void command.itemdestroy(Item item)
+-- Item command.itemtransform(Item item, ushort openTibiaId, byte count)
+-- void command.monsterdestroy(Monster monster)
+-- void command.monstersay(Monster monster, string message)
+-- void command.npcdestroy(Npc npc)
+-- void command.npcsay(Npc npc, string message)
+-- void command.npcaddmoney(Player player, int price)
+-- void command.npcdeletemoney(Player player, int price)
+-- int command.npccountmoney(Player player)
+-- void command.npcadditem(Player player, ushort openTibiaId, byte type, int count)
+-- void command.npcremoveitem(Player player, ushort openTibiaId, byte type, int count)
+-- int command.npccountitem(Player player, ushort openTibiaId, byte type)
+-- void command.playerdestroy(Player player)
+-- void command.playerupdatecapacity(Player player, int capacity)
+-- void command.playerupdateexperience(Player player, int experience, ushort level, byte levelPercent)
+-- void command.playerupdatemana(Player player, int mana)
+-- void command.playerupdatesoul(Player player, int soul)
+-- void command.playerupdatestamina(Player player, int stamina)
+-- (bool, int) command.playergetstorage(Player player, int key)
+-- void command.playersetstorage(Player player, int key, int value)
+-- void command.splashitemupdatefluidtype(SplashItem splashItem, FluidType fluidType)
+-- void command.stackableitemupdatecount(StackableItem stackableItem, byte count)
 
 -- Enums
 
 addon = {
-    none = 0,
-    first = 1,
-    second = 2,
-    both = 3
+	none = 0,
+	first = 1,
+	second = 2,
+	both = 3
 }
 
 animatedTextColor = {
-  blue = 5,
-  green = 30,
-  lightblue = 35,
-  crystal = 65,
-  purple = 83,
-  platinum = 89,
-  lightgrey = 129,
-  darkred = 144,
-  red = 180,
-  orange = 198,
-  gold = 210,
-  white = 215
+	blue = 5,
+	green = 30,
+	lightblue = 35,
+	crystal = 65,
+	purple = 83,
+	platinum = 89,
+	lightgrey = 129,
+	darkred = 144,
+	red = 180,
+	orange = 198,
+	gold = 210,
+	white = 215
 }
 
 direction = {

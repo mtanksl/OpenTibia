@@ -16,67 +16,72 @@ namespace OpenTibia.Game
         {
             lua = new Lua();
 
-            lua["package.path"] = Path.Combine(server.PathResolver.GetFullPath("data/lualibs"), "?.lua");
+                lua["package.path"] = Path.Combine(server.PathResolver.GetFullPath("data/lualibs"), "?.lua");
 
-            lua["package.cpath"] = Path.Combine(server.PathResolver.GetFullPath("data/clibs"), "?.dll");
+                lua["package.cpath"] = Path.Combine(server.PathResolver.GetFullPath("data/clibs"), "?.dll");
 
             lua.DoString("""
+
+                bridge = {}
+
+                function bridge.call(name, ...)
+                	local method = { 
+                		name = name,
+                		parameters = { ... } 
+                	};
+                	return coroutine.yield(method)
+                end
+
+                function bridge.wrap(func)
+                	local co = coroutine.create(func)
+                	return function(...)
+                		local result = { coroutine.resume(co, ...) }
+                		if not result[1] then
+                			return false, result[2]
+                		end
+                		local completed = coroutine.status(co) == "dead"
+                		return true, completed, select(2, table.unpack(result) )
+                	end
+                end
+
+                function bridge.load(chunk, chunkName, parent)
+                	local env = {}
+                	env.mt = {
+                		__index = function(table, key)
+                			return parent[key]
+                		end
+                	}
+                	setmetatable(env, env.mt)
+                	local func, errorMessage = load(chunk, chunkName, "t", env)
+                	if func then
+                		local success, errorMessage = pcall(func)
+                		if success then
+                			return true, env
+                		end
+                		return false, errorMessage
+                	end
+                	return false, errorMessage
+                end
+
+                command = {}
+
+                command.mt = {
+                	__index = function(table, key)
+                		return function(...)
+                			return bridge.call(key, ...)
+                		end
+                	end
+                }
+
+                setmetatable(command, command.mt)
 
                 debugger = require("mobdebug")
 
                 debugger.coro()
 
-                bridge = {}
-
-                function bridge.call(name, ...)
-                    local method = { 
-                        name = name,
-                        parameters = { ... } 
-                    };
-                    return coroutine.yield(method)
-                end
-
-                function bridge.wrap(func)
-                    local co = coroutine.create(func)
-                    return function(...)
-                        local result = { coroutine.resume(co, ...) }
-                        if not result[1] then
-                            return false, result[2]
-                        end
-                        local completed = coroutine.status(co) == "dead"
-                        return true, completed, select(2, table.unpack(result) )
-                    end
-                end
-
-                function bridge.load(chunk, chunkName, parent)
-                    local env = {}
-                    setmetatable(env, {
-                        __index = function(table, key)
-                            local value = parent[key]
-                            if value then
-                                return value
-                            end
-                            return function(...)
-                                return bridge.call(key, ...)
-                            end
-                        end
-                    } )
-                    local func, errorMessage = load(chunk, chunkName, "t", env)
-                    if func then
-                        local success, errorMessage = pcall(func)
-                        if success then
-                            return true, env
-                        end
-                        return false, errorMessage
-                    end
-                    return false, errorMessage
-                end
-
                 """);
 
-            this.parent = null;
-
-            this.env = (LuaTable)lua["_G"];
+            this.env = lua.GetTable("_G");
 
             this.chunkName = "LuaScope.cs";
         }
