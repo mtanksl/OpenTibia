@@ -7,8 +7,6 @@ namespace OpenTibia.Common.Objects
 {
     public class WaitingList
     {
-        private static readonly int MaxPlayers = 100;
-
         private class Item
         {
             public int PlayerId { get; set; }
@@ -31,7 +29,7 @@ namespace OpenTibia.Common.Objects
 
             if (queue.Count == 0)
             {
-                if (onlinePlayers < MaxPlayers)
+                if (onlinePlayers < server.Config.GameMaxPlayers)
                 {
                     position = 0;
 
@@ -72,7 +70,7 @@ namespace OpenTibia.Common.Objects
 
                 time = GetTime(position);
 
-                if (onlinePlayers + position > MaxPlayers)
+                if (onlinePlayers + position > server.Config.GameMaxPlayers)
                 {
                     item.Timeout = DateTime.UtcNow.AddSeconds(time + 1);
 

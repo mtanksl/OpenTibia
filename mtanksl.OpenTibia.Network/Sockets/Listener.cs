@@ -14,14 +14,10 @@ namespace OpenTibia.Network.Sockets
         
             private AutoResetEvent syncStop = new AutoResetEvent(false);
 
-        private int port;
-
         private Func<Socket, Connection> factory;
 
-        public Listener(int port, Func<Socket, Connection> factory)
+        public Listener(Func<Socket, Connection> factory)
         {
-            this.port = port;
-
             this.factory = factory;
         }
 
@@ -32,7 +28,7 @@ namespace OpenTibia.Network.Sockets
 
         private Socket socket;
         
-        public void Start()
+        public void Start(int port)
         {
             lock (sync)
             {

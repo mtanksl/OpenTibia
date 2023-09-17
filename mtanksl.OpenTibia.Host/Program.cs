@@ -7,7 +7,7 @@ namespace OpenTibia.Host
     {
         static void Main(string[] args)
         {
-            using (var server = new Server(7171, 7172) )
+            using (var server = new Server() )
             {
 #if DEBUG
                 server.Logger = new Logger(new ConsoleLoggerProvider(), LogLevel.Debug);

@@ -41,7 +41,7 @@ namespace mtanksl.OpenTibia.Host.GUI
 
                 await Task.Run( () =>
                 {
-                    server = new Server(7171, 7172);
+                    server = new Server();
 #if DEBUG
                     server.Logger = new Logger(new RichTextboxLoggerProvider(richTextBox1), LogLevel.Debug);
 #else
@@ -89,7 +89,7 @@ namespace mtanksl.OpenTibia.Host.GUI
 
                     server = null;
 
-                    server = new Server(7171, 7172);
+                    server = new Server();
 #if DEBUG
                     server.Logger = new Logger(new RichTextboxLoggerProvider(richTextBox1), LogLevel.Debug);
 #else

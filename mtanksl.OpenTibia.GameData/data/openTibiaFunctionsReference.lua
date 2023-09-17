@@ -192,12 +192,12 @@ return {
 				args = "(Player player, int price)",
 				returns = "void",
 			},
-			-- void command.npcdeletemoney(Player player, int price)
+			-- bool command.npcdeletemoney(Player player, int price)
 			npcdeletemoney = {
 				type = "function",
 				description = "",
 				args = "(Player player, int price)",
-				returns = "void",
+				returns = "bool",
 			},
 			-- int command.npccountmoney(Player player)
 			npccountmoney = {
@@ -213,12 +213,12 @@ return {
 				args = "(Player player, ushort openTibiaId, byte type, int count)",
 				returns = "void",
 			},
-			-- void command.npcremoveitem(Player player, ushort openTibiaId, byte type, int count)
+			-- bool command.npcremoveitem(Player player, ushort openTibiaId, byte type, int count)
 			npcremoveitem = {
 				type = "function",
 				description = "",
 				args = "(Player player, ushort openTibiaId, byte type, int count)",
-				returns = "void",
+				returns = "bool",
 			},
 			-- int command.npccountitem(Player player, ushort openTibiaId, byte type)
 			npccountitem = {

@@ -13,24 +13,20 @@ using OpenTibia.Network.Sockets;
 using OpenTibia.Threading;
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace OpenTibia.Game
 {
     public class Server : IDisposable
     {
-        public Server(int loginServerPort, int gameServerPort)
+        public Server()
         {
             dispatcher = new Dispatcher();
 
             scheduler = new Scheduler(dispatcher);
 
-            listeners = new List<Listener>()
-            {
-                new Listener(loginServerPort, socket => new LoginConnection(this, socket) ),
+            loginServer = new Listener(socket => new LoginConnection(this, socket) );
 
-                new Listener(gameServerPort, socket => new GameConnection(this, socket) )
-            };
+            gameServer = new Listener(socket => new GameConnection(this, socket) );
 
             Logger = new Logger(new ConsoleLoggerProvider(), LogLevel.Debug);
 
@@ -66,6 +62,8 @@ namespace OpenTibia.Game
 
             LuaScripts = new LuaScriptCollection(this);
 
+            Config = new Config(this);
+
             Quests = new QuestCollection(this);
 
             Plugins = new PluginCollection(this);
@@ -94,7 +92,9 @@ namespace OpenTibia.Game
 
         private Scheduler scheduler;
 
-        private List<Listener> listeners;
+        private Listener loginServer;
+
+        private Listener gameServer;
 
         public Logger Logger { get; set; }
 
@@ -130,6 +130,8 @@ namespace OpenTibia.Game
 
         public LuaScriptCollection LuaScripts { get; set; }
 
+        public Config Config { get; set; }
+
         public QuestCollection Quests { get; set; }
 
         public PluginCollection Plugins { get; set; }
@@ -150,15 +152,6 @@ namespace OpenTibia.Game
 
         public void Start()
         {
-            if ( !PathResolver.Exists("data/database.db") )
-            {
-                var template = PathResolver.GetFullPath("data/template.db");
-
-                var database = Path.Combine(Path.GetDirectoryName(template), "database.db");
-
-                File.Copy(template, database);
-            }
-
             dispatcher.Start();
 
             scheduler.Start();
@@ -170,6 +163,8 @@ namespace OpenTibia.Game
                 Logger.WriteLine("Source code: https://github.com/mtanksl/OpenTibia");
 
                 Logger.WriteLine();
+
+                Config.Start();
 
                 using (Logger.Measure("Loading quests") )
                 {
@@ -219,10 +214,9 @@ namespace OpenTibia.Game
 
             } ).Wait();
 
-            foreach (var listener in listeners)
-            {
-                listener.Start();
-            }
+            loginServer.Start(Config.LoginPort);
+
+            gameServer.Start(Config.GamePort);
 
             Logger.WriteLine("Server online");
         }
@@ -399,11 +393,10 @@ namespace OpenTibia.Game
                 return Promise.Completed;
 
             } ).Wait();
-                        
-            foreach (var listener in listeners)
-            {
-                listener.Stop();
-            }
+
+            loginServer.Stop();
+
+            gameServer.Stop();
 
             scheduler.Stop();
 
@@ -439,17 +432,24 @@ namespace OpenTibia.Game
                         Quests.Dispose();
                     }
 
+                    if (Config != null)
+                    {
+                        Config.Dispose();
+                    }
+
                     if (LuaScripts != null)
                     {
                         LuaScripts.Dispose();
                     }
 
-                    if (listeners != null)
+                    if (loginServer != null)
                     {
-                        foreach (var listener in listeners)
-                        {
-                            listener.Dispose();
-                        }
+                        loginServer.Dispose();
+                    }
+
+                    if (gameServer != null)
+                    {
+                        gameServer.Dispose();
                     }
                 }
             }
