@@ -30,7 +30,7 @@ From time to time, I take this project to have some fun and recall the good old 
 
 > MSB3821 Couldn't process file MainForm.resx due to its being in the Internet or Restricted zone or having the mark of the web on the file. Remove the mark of the web if you want to process these files.
 
-Go to `mtanksl.OpenTibia.Host.GUI\MainForm.resx` file in Windows File Explorer. Right-click and select properties. At the bottom of the the dialog is an "unblock" option.
+Go to `\mtanksl.OpenTibia.Host.GUI\MainForm.resx` file in Windows File Explorer. Right-click and select properties. At the bottom of the the dialog is an "unblock" option.
 
 # Tibia 8.6 client
 
