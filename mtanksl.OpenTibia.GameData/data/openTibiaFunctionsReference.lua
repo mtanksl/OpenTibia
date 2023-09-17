@@ -20,16 +20,16 @@ return {
 			delay = {
 				type = "function",
 				description = "",
-				args = "(int seconds | int seconds, Action callback)",
-				returns = "void | string",
+				args = "(int seconds [, Action callback])",
+				returns = "string",
 			},
 			-- void command.delaygameobject(GameObject gameObject, int seconds)
 			-- string command.delaygameobject(GameObject gameObject, int seconds, Action callback)
 			delaygameobject = {
 				type = "function",
 				description = "",
-				args = "(GameObject gameObject, int seconds | GameObject gameObject, int seconds, Action callback)",
-				returns = "void | string",
+				args = "(GameObject gameObject, int seconds [, Action callback])",
+				returns = "string",
 			},
 			-- bool command.canceldelay(string key)
 			canceldelay = {
