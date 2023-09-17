@@ -37,6 +37,7 @@
 
 - Lua scripting
 - Lua debugging with ZeroBrane
+- Lua autocomplete intellisense
 - Plugins
 - Motd
 - Waiting list
