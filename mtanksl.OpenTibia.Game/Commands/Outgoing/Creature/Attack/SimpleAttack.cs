@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -38,47 +39,56 @@ namespace OpenTibia.Game.Commands
             return Promise.Completed;
         }
 
-        public override Promise Hit(Creature attacker, Creature target, int damage)
+        public override async Promise Hit(Creature attacker, Creature target, int damage)
         {
-            return Promise.Run( () =>
+            if (attacker != target)
             {
-                if (ProjectileType != null)
+                if (target is Player player)
                 {
-                    return Context.Current.AddCommand(new ShowProjectileCommand(attacker.Tile.Position, target.Tile.Position, ProjectileType.Value) );
-                }
-
-                return Promise.Completed;
-
-            } ).Then( () =>
-            {
-                if (MagicEffectType != null)
-                {
-                     return Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.Value) );
-                }
-
-                return Promise.Completed;
-
-            } ).Then( () =>
-            {
-                if (AnimatedTextColor != null)
-                {
-                    if (attacker != target)
+                    if (attacker != null)
                     {
-                        return Context.Current.AddCommand(new ShowAnimatedTextCommand(target.Tile.Position, AnimatedTextColor.Value, (-damage).ToString() ) );
+                        Context.Current.AddPacket(player.Client.Connection, new SetFrameColorOutgoingPacket(attacker.Id, FrameColor.Black) );
                     }
                 }
+            }
 
-                return Promise.Completed;
+            if (ProjectileType != null)
+            {
+                await Context.Current.AddCommand(new ShowProjectileCommand(attacker.Tile.Position, target.Tile.Position, ProjectileType.Value) );
+            }
 
-            } ).Then( () =>
+            if (MagicEffectType != null)
+            {
+                await Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.Value) );
+            }
+
+            if (AnimatedTextColor != null)
             {
                 if (attacker != target)
                 {
-                    return Context.Current.AddCommand(new CreatureUpdateHealthCommand(target, target.Health + damage) );
-                }
+                    if ( !(attacker is Player) && target is Player player)
+                    {
+                        await Context.Current.AddCommand(new ShowAnimatedTextCommand(target.Tile.Position, AnimatedTextColor.Value, (-damage).ToString() ) );
 
-                return Promise.Completed;
-            } );
+                        if (attacker != null)
+                        {
+                            Context.Current.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + -damage + " hitpoints due to an attack by " + attacker.Name + ".") );
+                        }
+                        else
+                        {
+                            Context.Current.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + -damage + " hitpoints.") );
+                        }
+                    }
+                }
+            }
+
+            if (attacker != target)
+            {
+                if ( !(attacker is Player) && target is Player player)
+                {
+                    await Context.Current.AddCommand(new CreatureUpdateHealthCommand(target, target.Health + damage) );
+                }
+            }
         }
     }
 }

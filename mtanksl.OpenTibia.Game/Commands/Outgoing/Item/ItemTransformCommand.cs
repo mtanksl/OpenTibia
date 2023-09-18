@@ -1,5 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Extensions;
 using System;
+using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -24,14 +26,26 @@ namespace OpenTibia.Game.Commands
         {
             Item toItem = Context.Server.ItemFactory.Create(OpenTibiaId, Count);
 
-            Context.Server.ItemFactory.Attach(toItem);
-
-            toItem.ActionId = FromItem.ActionId;
-
-            toItem.UniqueId = FromItem.UniqueId;
-
             if (toItem != null)
             {
+                Context.Server.ItemFactory.Attach(toItem);
+
+                toItem.ActionId = FromItem.ActionId;
+
+                toItem.UniqueId = FromItem.UniqueId;
+
+                if (FromItem is Container fromContainer && toItem is Container toContainer)
+                {
+                    while (fromContainer.Count > 0)
+                    {
+                        IContent content = fromContainer.GetContent( (byte)(fromContainer.Count - 1) );
+
+                        fromContainer.RemoveContent( (byte)(fromContainer.Count - 1) );
+
+                        toContainer.AddContent(content);
+                    }
+                }
+
                 switch (FromItem.Parent)
                 {
                     case Tile tile:

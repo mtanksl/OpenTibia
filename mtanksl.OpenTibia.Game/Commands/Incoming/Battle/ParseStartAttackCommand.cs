@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
             {
                 PlayerThinkBehaviour playerThinkBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerThinkBehaviour>(Player);
 
-                if (target is Npc || (target is Player player && player.Vocation == Vocation.Gamemaster) )
+                if (target is Npc || target is Player)
                 {
                     if (playerThinkBehaviour != null)
                     {

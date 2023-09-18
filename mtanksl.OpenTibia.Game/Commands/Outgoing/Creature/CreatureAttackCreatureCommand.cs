@@ -1,6 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -27,46 +25,9 @@ namespace OpenTibia.Game.Commands
 
             if (damage == 0)
             {
-                if (Target is Player player)
-                {
-                    if (Attacker == null)
-                    {
-                        //
-                    }
-                    else
-                    {
-                        if (Attacker != Target)
-                        {
-                            Context.AddPacket(player.Client.Connection, new SetFrameColorOutgoingPacket(Attacker.Id, FrameColor.Black) );
-                        }
-                    }
-                }
-
                 return Attack.Missed(Attacker, Target);
             }
-
-            if (damage < 0)
-            {
-                if (Target is Player player)
-                {
-                    if (Attacker == null)
-                    {
-                        Context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + -damage + " hitpoints.") );
-                    }
-                    else
-                    {
-                        if (Attacker != Target)
-                        {
-                            Context.AddPacket(player.Client.Connection, new SetFrameColorOutgoingPacket(Attacker.Id, FrameColor.Black) );
-
-                            Context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + -damage + " hitpoints due to an attack by " + Attacker.Name + ".") );
-                        }
-                    }
-                }
-
-                return Attack.Hit(Attacker, Target, damage);
-            }
-
+             
             return Attack.Hit(Attacker, Target, damage);
         }
     }
