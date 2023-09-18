@@ -30,7 +30,6 @@
     <None Include="$(MSBuildThisFileDirectory)data\plugins\talkactions\say.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\quests\config.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\server\config.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\template.db" />
     <None Include="$(MSBuildThisFileDirectory)data\world\map.otbm" />
   </ItemGroup>
   <ItemGroup>

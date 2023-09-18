@@ -47,11 +47,6 @@ namespace OpenTibia.Game.Commands
 
             Context.AddEvent(new TileAddCreatureEventArgs(Tile, Creature, index) );
 
-            if (Creature is Player player)
-            {
-                Context.AddEvent(new PlayerLoginEventArgs(Tile, player) );
-            }
-
             return Promise.Completed;
         }
     }

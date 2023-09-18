@@ -1,5 +1,7 @@
-﻿using OpenTibia.Common.Objects;
+﻿using mtanksl.OpenTibia.Data.MySql;
+using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Data.Sqlite.Contexts;
 using OpenTibia.FileFormats.Dat;
 using OpenTibia.FileFormats.Otb;
 using OpenTibia.FileFormats.Otbm;
@@ -27,6 +29,24 @@ namespace OpenTibia.Game
             loginServer = new Listener(socket => new LoginConnection(this, socket) );
 
             gameServer = new Listener(socket => new GameConnection(this, socket) );
+
+            DatabaseFactory = new DatabaseFactory(this, builder =>
+            {
+                switch (Config.DatabaseType)
+                {
+                    case "sqlite":
+
+                        return new SqliteContext("Data Source=" + PathResolver.GetFullPath(Config.DatabaseSource), builder.Options);
+
+                    case "mysql":
+
+                        return new MySqlContext("server=" + Config.DatabaseHost + ";port=" + Config.DatabasePort + ";database=" + Config.DatabaseName + ";user=" + Config.DatabaseUser + ";password=" + Config.DatabasePassword, builder.Options);
+
+                    default:
+
+                        throw new NotImplementedException();
+                }
+            } );
 
             Logger = new Logger(new ConsoleLoggerProvider(), LogLevel.Debug);
 
@@ -95,6 +115,8 @@ namespace OpenTibia.Game
         private Listener loginServer;
 
         private Listener gameServer;
+
+        public DatabaseFactory DatabaseFactory { get; set; }
 
         public Logger Logger { get; set; }
 

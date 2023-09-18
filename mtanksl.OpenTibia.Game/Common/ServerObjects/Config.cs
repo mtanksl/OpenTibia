@@ -23,6 +23,8 @@
 
             DatabaseType = (string)script["server.database.type"];
 
+            DatabaseSource = (string)script["server.database.source"];
+
             DatabaseHost = (string)script["server.database.host"];
 
             DatabasePort = (int)(long)script["server.database.port"];
@@ -32,8 +34,6 @@
             DatabasePassword = (string)script["server.database.password"];
 
             DatabaseName = (string)script["server.database.name"];
-
-            DatabaseFile = (string)script["server.database.file"];
         }
 
         public int LoginPort { get; set; }
@@ -44,6 +44,8 @@
 
         public string DatabaseType { get; set; }
 
+        public string DatabaseSource { get; set; }
+
         public string DatabaseHost { get; set; }
     
         public int DatabasePort { get; set; }
@@ -52,9 +54,7 @@
     
         public string DatabasePassword { get; set; }
     
-        public string DatabaseName { get; set; }
-        
-        public string DatabaseFile { get; set; }
+        public string DatabaseName { get; set; }        
 
         public void Dispose()
         {

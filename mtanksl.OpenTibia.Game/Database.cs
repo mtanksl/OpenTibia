@@ -1,9 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using OpenTibia.Data.Contexts;
+﻿using OpenTibia.Data.Contexts;
 using OpenTibia.Data.Repositories;
 using System;
-using System.IO;
 
 namespace OpenTibia.Game
 {
@@ -35,35 +32,7 @@ namespace OpenTibia.Game
         {
             get
             {
-                if (databaseContext == null)
-                {
-                    if ( !server.PathResolver.Exists(server.Config.DatabaseFile) )
-                    {
-                        var template = server.PathResolver.GetFullPath("data/template.db");
-
-                        var database = Path.Combine(Path.GetDirectoryName(template), Path.GetFileName(server.Config.DatabaseFile) );
-
-                        File.Copy(template, database);
-                    }
-
-                    var builder = new DbContextOptionsBuilder<SqliteContext>();
-
-                    builder.LogTo(
-
-                        action:                         
-                            message => server.Logger.WriteLine(message.Substring(message.IndexOf("CommandType='Text', CommandTimeout='30'") + 40), LogLevel.Debug),
-
-                        events: 
-                            new[] { RelationalEventId.CommandExecuted }, 
-
-                        options:                         
-                            DbContextLoggerOptions.SingleLine
-                    );
-
-                    databaseContext = new SqliteContext(server.PathResolver.GetFullPath(server.Config.DatabaseFile), builder.Options);
-                }
-
-                return databaseContext;
+                return databaseContext ?? (databaseContext = server.DatabaseFactory.Create() );
             }
         }
 

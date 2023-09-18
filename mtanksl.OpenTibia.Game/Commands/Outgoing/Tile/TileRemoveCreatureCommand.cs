@@ -55,11 +55,6 @@ namespace OpenTibia.Game.Commands
 
             Context.AddEvent(new TileRemoveCreatureEventArgs(Tile, Creature, index) );
 
-            if (Creature is Player player)
-            {
-                Context.AddEvent(new PlayerLogoutEventArgs(Tile, player) );
-            }
-
             return Promise.Completed;
         }
     }

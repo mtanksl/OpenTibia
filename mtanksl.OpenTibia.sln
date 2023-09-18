@@ -36,6 +36,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "mtanksl.OpenTibia.GameData", "mtanksl.OpenTibia.GameData\mtanksl.OpenTibia.GameData.shproj", "{0269E0F5-D24C-4799-918F-C3819A5D43B7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Data.Sqlite", "mtanksl.OpenTibia.Data.Sqlite\mtanksl.OpenTibia.Data.Sqlite.csproj", "{1851FE24-0BF2-4BE8-BAB8-C66016BE41E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Data.MySql", "mtanksl.OpenTibia.Data.MySql\mtanksl.OpenTibia.Data.MySql.csproj", "{B60731E9-1BB2-4F2B-AD5E-217C5EAA6A8F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -190,6 +194,30 @@ Global
 		{49AB4E09-DC7D-4818-A36B-D7486AB35B71}.Release|x64.Build.0 = Release|Any CPU
 		{49AB4E09-DC7D-4818-A36B-D7486AB35B71}.Release|x86.ActiveCfg = Release|Any CPU
 		{49AB4E09-DC7D-4818-A36B-D7486AB35B71}.Release|x86.Build.0 = Release|Any CPU
+		{1851FE24-0BF2-4BE8-BAB8-C66016BE41E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1851FE24-0BF2-4BE8-BAB8-C66016BE41E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1851FE24-0BF2-4BE8-BAB8-C66016BE41E6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1851FE24-0BF2-4BE8-BAB8-C66016BE41E6}.Debug|x64.Build.0 = Debug|Any CPU
+		{1851FE24-0BF2-4BE8-BAB8-C66016BE41E6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1851FE24-0BF2-4BE8-BAB8-C66016BE41E6}.Debug|x86.Build.0 = Debug|Any CPU
+		{1851FE24-0BF2-4BE8-BAB8-C66016BE41E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1851FE24-0BF2-4BE8-BAB8-C66016BE41E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1851FE24-0BF2-4BE8-BAB8-C66016BE41E6}.Release|x64.ActiveCfg = Release|Any CPU
+		{1851FE24-0BF2-4BE8-BAB8-C66016BE41E6}.Release|x64.Build.0 = Release|Any CPU
+		{1851FE24-0BF2-4BE8-BAB8-C66016BE41E6}.Release|x86.ActiveCfg = Release|Any CPU
+		{1851FE24-0BF2-4BE8-BAB8-C66016BE41E6}.Release|x86.Build.0 = Release|Any CPU
+		{B60731E9-1BB2-4F2B-AD5E-217C5EAA6A8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B60731E9-1BB2-4F2B-AD5E-217C5EAA6A8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B60731E9-1BB2-4F2B-AD5E-217C5EAA6A8F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B60731E9-1BB2-4F2B-AD5E-217C5EAA6A8F}.Debug|x64.Build.0 = Debug|Any CPU
+		{B60731E9-1BB2-4F2B-AD5E-217C5EAA6A8F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B60731E9-1BB2-4F2B-AD5E-217C5EAA6A8F}.Debug|x86.Build.0 = Debug|Any CPU
+		{B60731E9-1BB2-4F2B-AD5E-217C5EAA6A8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B60731E9-1BB2-4F2B-AD5E-217C5EAA6A8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B60731E9-1BB2-4F2B-AD5E-217C5EAA6A8F}.Release|x64.ActiveCfg = Release|Any CPU
+		{B60731E9-1BB2-4F2B-AD5E-217C5EAA6A8F}.Release|x64.Build.0 = Release|Any CPU
+		{B60731E9-1BB2-4F2B-AD5E-217C5EAA6A8F}.Release|x86.ActiveCfg = Release|Any CPU
+		{B60731E9-1BB2-4F2B-AD5E-217C5EAA6A8F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
