@@ -9,6 +9,7 @@
     <Import_RootNamespace>mtanksl.OpenTibia.GameData</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)data\database.db" />
     <None Include="$(MSBuildThisFileDirectory)data\items\items.otb" />
     <None Include="$(MSBuildThisFileDirectory)data\items\tibia.dat" />
     <None Include="$(MSBuildThisFileDirectory)data\openTibiaFunctionsReference.lua" />
