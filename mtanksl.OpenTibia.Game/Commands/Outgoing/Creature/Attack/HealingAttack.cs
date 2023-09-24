@@ -30,29 +30,18 @@ namespace OpenTibia.Game.Commands
             return Promise.Completed;
         }
 
-        public override Promise Hit(Creature attacker, Creature target, int damage)
+        public override async Promise Hit(Creature attacker, Creature target, int damage)
         {
-            return Promise.Run( () =>
+            if (MagicEffectType != null)
             {
-                if (MagicEffectType != null)
-                {
-                     return Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.Value) );
-                }
+                await Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.Value) );
+            }
 
-                return Promise.Completed;
+            await Context.Current.AddCommand(new CreatureUpdateHealthCommand(target, target.Health + damage) );
 
-            } ).Then( () =>
-            {
-                return Context.Current.AddCommand(new CreatureUpdateHealthCommand(target, target.Health + damage) );
+            await Context.Current.AddCommand(new CreatureRemoveConditionCommand(target, ConditionSpecialCondition.Poisoned) );
 
-            } ).Then( () =>
-            {
-                return Context.Current.AddCommand(new CreatureRemoveConditionCommand(target, ConditionSpecialCondition.Poisoned) );
-
-            } ).Then( () =>
-            {
-                return Context.Current.AddCommand(new CreatureRemoveConditionCommand(target, ConditionSpecialCondition.Slowed) );
-            } );
+            await Context.Current.AddCommand(new CreatureRemoveConditionCommand(target, ConditionSpecialCondition.Slowed) );
         }
     }
 }

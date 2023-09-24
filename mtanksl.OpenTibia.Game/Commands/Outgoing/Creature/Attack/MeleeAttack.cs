@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -28,21 +29,46 @@ namespace OpenTibia.Game.Commands
             return -Context.Current.Server.Randomization.Take(Min.Value, Max.Value);
         }
 
-        public override Promise Missed(Creature attacker, Creature target)
+        public override async Promise Missed(Creature attacker, Creature target)
         {
-            return Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.Puff) );
+            await Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.Puff) );
+
+            if ( !(attacker is Player && (target is Player || target is Npc) ) )
+            {
+                if (target is Player player)
+                {
+                    if (attacker != null)
+                    {
+                        Context.Current.AddPacket(player.Client.Connection, new SetFrameColorOutgoingPacket(attacker.Id, FrameColor.Black) );
+                    }
+                }
+            }
         }
 
-        public override Promise Hit(Creature attacker, Creature target, int damage)
+        public override async Promise Hit(Creature attacker, Creature target, int damage)
         {
-            return Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.RedSpark) ).Then( () =>
-            {
-                return Context.Current.AddCommand(new ShowAnimatedTextCommand(target.Tile.Position, AnimatedTextColor.DarkRed, (-damage).ToString() ) );
+            await Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.RedSpark) );
 
-            } ).Then( () =>
+            if ( !(attacker is Player && (target is Player || target is Npc) ) )
             {
-                return Context.Current.AddCommand(new CreatureUpdateHealthCommand(target, target.Health + damage) );
-            } );
+                await Context.Current.AddCommand(new ShowAnimatedTextCommand(target.Tile.Position, AnimatedTextColor.DarkRed, (-damage).ToString() ) );
+
+                if (target is Player player)
+                {
+                    if (attacker == null)
+                    {
+                        Context.Current.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + -damage + " hitpoints.") );
+                    }
+                    else
+                    {
+                        Context.Current.AddPacket(player.Client.Connection, new SetFrameColorOutgoingPacket(attacker.Id, FrameColor.Black) );
+
+                        Context.Current.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + -damage + " hitpoints due to an attack by " + attacker.Name + ".") );
+                    }
+                }
+
+                await Context.Current.AddCommand(new CreatureUpdateHealthCommand(target, target.Health + damage) );
+            }
         }       
     }
 }
