@@ -156,9 +156,33 @@ namespace OpenTibia.Game
 
                     metadata.Plural = xmlItem.Plural;
 
-                    metadata.Capacity = xmlItem.ContainerSize;
+                    metadata.Description = xmlItem.Description;
+
+                    metadata.RuneSpellName = xmlItem.RuneSpellName;
+
+                    metadata.Weight = xmlItem.Weight;
+
+                    metadata.Armor = xmlItem.Armor;
+
+                    metadata.Defense = xmlItem.Defense;
+
+                    metadata.Attack = xmlItem.Attack;
 
                     metadata.FloorChange = xmlItem.FloorChange;
+
+                    metadata.Capacity = xmlItem.ContainerSize;
+
+                    metadata.WeaponType = xmlItem.WeaponType;
+
+                    metadata.AmmoType = xmlItem.AmmoType;
+
+                    metadata.ProjectileType = xmlItem.ProjectileType;
+
+                    metadata.MagicEffectType = xmlItem.MagicEffectType;
+
+                    metadata.Range = xmlItem.Range;
+
+                    metadata.Charges = xmlItem.Charges;
 
                     metadata.SlotType = xmlItem.SlotType;
                 }

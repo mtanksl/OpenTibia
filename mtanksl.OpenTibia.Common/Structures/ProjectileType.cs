@@ -26,7 +26,7 @@
 
         BigStone = 12,
 
-        SnowBall = 13,
+        Snowball = 13,
 
         PowerBolt = 14,
 

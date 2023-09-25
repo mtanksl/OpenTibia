@@ -48,7 +48,7 @@ namespace OpenTibia.Game.Commands
                     items.Add(item);
                 }
 
-                Context.AddPacket(Player.Client.Connection, new OpenContainerOutgoingPacket(ContainerId, Container.Metadata.TibiaId, Container.Metadata.Name, Container.Metadata.Capacity, Container.Parent is Container, items) );
+                Context.AddPacket(Player.Client.Connection, new OpenContainerOutgoingPacket(ContainerId, Container.Metadata.TibiaId, Container.Metadata.Name, Container.Metadata.Capacity.Value, Container.Parent is Container, items) );
             }
 
             return Promise.Completed;

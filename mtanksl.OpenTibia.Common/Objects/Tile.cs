@@ -52,7 +52,17 @@ namespace OpenTibia.Common.Objects
         {
             get
             {
-                return GetItems().Aggregate(FloorChange.None, (s, i) => s |= i.Metadata.FloorChange);
+                FloorChange floorChange = FloorChange.None;
+
+                foreach (var item in GetItems() )
+                {
+                    if (item.Metadata.FloorChange != null)
+                    {
+                        floorChange |= item.Metadata.FloorChange.Value;
+                    }
+                }
+
+                return floorChange;
             }
         }
 
@@ -60,7 +70,17 @@ namespace OpenTibia.Common.Objects
         {
             get
             {
-                return GetItems().Where(i => i.Metadata.Flags.Is(ItemMetadataFlags.HasHeight) ).Count();
+                int height = 0;
+
+                foreach (var item in GetItems() )
+                {
+                    if (item.Metadata.Flags.Is(ItemMetadataFlags.HasHeight) )
+                    {
+                        height++;
+                    }
+                }
+
+                return height;
             }
         }
 

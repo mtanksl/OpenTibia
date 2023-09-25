@@ -157,7 +157,7 @@ namespace OpenTibia.Game.CommandHandlers
                                     items.Add(item);
                                 }
 
-                                Context.AddPacket(observer.Client.Connection, new OpenContainerOutgoingPacket(pair.Key, container.Metadata.TibiaId, container.Metadata.Name, container.Metadata.Capacity, container.Parent is Container, items) );
+                                Context.AddPacket(observer.Client.Connection, new OpenContainerOutgoingPacket(pair.Key, container.Metadata.TibiaId, container.Metadata.Name, container.Metadata.Capacity.Value, container.Parent is Container, items) );
                             }                           
                         }
                     }

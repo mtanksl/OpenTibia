@@ -12,9 +12,9 @@
 
         Armor = 4,
 
-        Shield = 5,
+        Right = 5,
 
-        Weapon = 6,
+        Left = 6,
 
         Legs = 7,
 

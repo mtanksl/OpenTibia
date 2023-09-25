@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
+using System.Collections.Generic;
 using System.Text;
 
 namespace OpenTibia.Game.Commands
@@ -20,247 +21,295 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            StringBuilder builder = new StringBuilder();
+            string name;
 
-            if (Item is StackableItem stackableItem && stackableItem.Count > 1)
+            if (Item.Metadata.Article != null)
             {
-                builder.Append("You see " + stackableItem.Count + " " + (Item.Metadata.Plural != null ? Item.Metadata.Plural : Item.Metadata.Name) );
+                name = Item.Metadata.Article + " " + Item.Metadata.Name;
             }
             else
             {
-                builder.Append("You see " + (Item.Metadata.Article != null ? Item.Metadata.Article + " " : null) + Item.Metadata.Name);
+                name = Item.Metadata.Name;
             }
 
-            switch (Item)
+            string description = Item.Metadata.Description;
+
+            List<string> attributes = new List<string>();
+
+            if (Item is Container container)
             {
-                case Container container:
+                attributes.Add("Vol: " + container.Metadata.Capacity);
+            }
+            else if (Item is StackableItem stackableItem)
+            {
+                if (Item.Metadata.RuneSpellName != null)
+                {
+                    attributes.Add("\"" + Item.Metadata.RuneSpellName + "\"");
 
-                    builder.Append(" (Vol: " + container.Metadata.Capacity + ").");
-
-                    break;
-
-                case FluidItem fluidItem:
-
-                    switch (fluidItem.FluidType)
+                    attributes.Add("Charges: " + stackableItem.Count);
+                }
+                else
+                {
+                    if (stackableItem.Count > 1)
                     {
-                        case FluidType.Empty:
-
-                            builder.Append(". It is empty.");
-
-                            break;
-
-                        case FluidType.Water:
-
-                            builder.Append(" of water.");
-
-                            break;
-
-                        case FluidType.Blood:
-
-                            builder.Append(" of blood.");
-
-                            break;
-
-                        case FluidType.Beer:
-
-                            builder.Append(" of beer.");
-
-                            break;
-
-                        case FluidType.Slime:
-
-                            builder.Append(" of slime.");
-
-                            break;
-
-                        case FluidType.Lemonade:
-
-                            builder.Append(" of lemonade.");
-
-                            break;
-
-                        case FluidType.Milk:
-
-                            builder.Append(" of milk.");
-
-                            break;
-
-                        case FluidType.Manafluid:
-
-                            builder.Append(" of manafluid.");
-
-                            break;
-
-                        case FluidType.Lifefluid:
-
-                            builder.Append(" of lifefluid.");
-
-                            break;
-
-                        case FluidType.Oil:
-
-                            builder.Append(" of oil.");
-
-                            break;
-
-                        case FluidType.Urine:
-
-                            builder.Append(" of urine.");
-
-                            break;
-
-                        case FluidType.CoconutMilk:
-
-                            builder.Append(" of coconut milk.");
-
-                            break;
-
-                        case FluidType.Wine:
-
-                            builder.Append(" of wine.");
-
-                            break;
-
-                        case FluidType.Mud:
-
-                            builder.Append(" of mud.");
-
-                            break;
-
-                        case FluidType.FruitJuice:
-
-                            builder.Append(" of fruit juice.");
-
-                            break;
-
-                        case FluidType.Lava:
-
-                            builder.Append(" of lava.");
-                            break;
-
-                        case FluidType.Rum:
-
-                            builder.Append(" of rum.");
-
-                            break;
+                        name = stackableItem.Count + " " + Item.Metadata.Plural;
                     }
+                }
+            }
+            else if (Item is FluidItem fluidItem)
+            {
+                switch (fluidItem.FluidType)
+                {
+                    case FluidType.Empty:
 
-                    break;
+                        description = "It is empty.";
 
-                case SplashItem splashItem:
+                        break;
 
-                    switch (splashItem.FluidType)
-                    {
-                        case FluidType.Water:
+                    case FluidType.Water:
 
-                            builder.Append(" of water.");
+                        name += " of water";
 
-                            break;
+                        break;
 
-                        case FluidType.Blood:
+                    case FluidType.Blood:
 
-                            builder.Append(" of blood.");
+                        name += " of blood";
 
-                            break;
+                        break;
 
-                        case FluidType.Beer:
+                    case FluidType.Beer:
 
-                            builder.Append(" of beer.");
+                        name += " of beer";
 
-                            break;
+                        break;
 
-                        case FluidType.Slime:
+                    case FluidType.Slime:
 
-                            builder.Append(" of slime.");
+                        name += " of slime";
 
-                            break;
+                        break;
 
-                        case FluidType.Lemonade:
+                    case FluidType.Lemonade:
 
-                            builder.Append(" of lemonade.");
+                        name += " of lemonade";
 
-                            break;
+                        break;
 
-                        case FluidType.Milk:
+                    case FluidType.Milk:
 
-                            builder.Append(" of milk.");
+                        name += " of milk";
 
-                            break;
+                        break;
 
-                        case FluidType.Manafluid:
+                    case FluidType.Manafluid:
 
-                            builder.Append(" of manafluid.");
+                        name += " of manafluid";
 
-                            break;
+                        break;
 
-                        case FluidType.Lifefluid:
+                    case FluidType.Lifefluid:
 
-                            builder.Append(" of lifefluid.");
+                        name += " of lifefluid";
 
-                            break;
+                        break;
 
-                        case FluidType.Oil:
+                    case FluidType.Oil:
 
-                            builder.Append(" of oil.");
+                        name += " of oil";
 
-                            break;
+                        break;
 
-                        case FluidType.Urine:
+                    case FluidType.Urine:
 
-                            builder.Append(" of urine.");
+                        name += " of urine";
 
-                            break;
+                        break;
 
-                        case FluidType.CoconutMilk:
+                    case FluidType.CoconutMilk:
 
-                            builder.Append(" of coconut milk.");
+                        name += " of coconut milk";
 
-                            break;
+                        break;
 
-                        case FluidType.Wine:
+                    case FluidType.Wine:
 
-                            builder.Append(" of wine.");
+                        name += " of wine";
 
-                            break;
+                        break;
 
-                        case FluidType.Mud:
+                    case FluidType.Mud:
 
-                            builder.Append(" of mud.");
+                        name += " of mud";
 
-                            break;
+                        break;
 
-                        case FluidType.FruitJuice:
+                    case FluidType.FruitJuice:
 
-                            builder.Append(" of fruit juice.");
+                        name += " of fruit juice";
 
-                            break;
+                        break;
 
-                        case FluidType.Lava:
+                    case FluidType.Lava:
 
-                            builder.Append(" of lava.");
-                            break;
+                        name += " of lava";
 
-                        case FluidType.Rum:
+                        break;
 
-                            builder.Append(" of rum.");
+                    case FluidType.Rum:
 
-                            break;
-                    }
+                        name += " of rum";
 
-                    break;
+                        break;
+                }
+            }
+            else if (Item is SplashItem splashItem)
+            {
+                switch (splashItem.FluidType)
+                {
+                    case FluidType.Empty:
 
-                default:
+                        description = "It is empty.";
 
-                    builder.Append(".");
+                        break;
 
-                    break;
+                    case FluidType.Water:
+
+                        name += " of water";
+
+                        break;
+
+                    case FluidType.Blood:
+
+                        name += " of blood";
+
+                        break;
+
+                    case FluidType.Beer:
+
+                        name += " of beer";
+
+                        break;
+
+                    case FluidType.Slime:
+
+                        name += " of slime";
+
+                        break;
+
+                    case FluidType.Lemonade:
+
+                        name += " of lemonade";
+
+                        break;
+
+                    case FluidType.Milk:
+
+                        name += " of milk";
+
+                        break;
+
+                    case FluidType.Manafluid:
+
+                        name += " of manafluid";
+
+                        break;
+
+                    case FluidType.Lifefluid:
+
+                        name += " of lifefluid";
+
+                        break;
+
+                    case FluidType.Oil:
+
+                        name += " of oil";
+
+                        break;
+
+                    case FluidType.Urine:
+
+                        name += " of urine";
+
+                        break;
+
+                    case FluidType.CoconutMilk:
+
+                        name += " of coconut milk";
+
+                        break;
+
+                    case FluidType.Wine:
+
+                        name += " of wine";
+
+                        break;
+
+                    case FluidType.Mud:
+
+                        name += " of mud";
+
+                        break;
+
+                    case FluidType.FruitJuice:
+
+                        name += " of fruit juice";
+
+                        break;
+
+                    case FluidType.Lava:
+
+                        name += " of lava";
+
+                        break;
+
+                    case FluidType.Rum:
+
+                        name += " of rum";
+
+                        break;
+                }
+            }
+
+            if (Item.Metadata.Armor != null)
+            {
+                attributes.Add("Arm: " + Item.Metadata.Armor);
+            }
+
+            if (Item.Metadata.Range != null)
+            {
+                attributes.Add("Range: " + Item.Metadata.Range);
+            }
+
+            if (Item.Metadata.Attack != null)
+            {
+                attributes.Add("Atk: " + Item.Metadata.Attack);
+            }
+
+            if (Item.Metadata.Defense != null)
+            {
+                attributes.Add("Def: " + Item.Metadata.Defense);
             }
 
             if (Player.Vocation == Vocation.Gamemaster)
             {
-                builder.Remove(builder.Length - 1, 1);
+                attributes.Add("Item Id: " + Item.Metadata.OpenTibiaId);
+            }
 
-                builder.Append(" (Item Id: " + Item.Metadata.OpenTibiaId + ").");
+            StringBuilder builder = new StringBuilder();
+
+            builder.Append("You see " + name);
+
+            if (attributes.Count > 0)
+            {
+                builder.Append(" (" + string.Join(", ", attributes) + ")");
+            }
+
+            builder.Append(".");
+
+            if (description != null)
+            {
+                builder.Append(" " + description);
             }
 
             Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, builder.ToString() ) );
