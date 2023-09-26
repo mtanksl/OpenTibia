@@ -56,6 +56,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new SantaDollHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler(new GarlicBreadOrCookie() );
+
             Context.Server.CommandHandlers.AddCommandHandler(new SealedDoorHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new SewerHandler() );

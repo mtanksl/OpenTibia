@@ -24,6 +24,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new BakingTrayWithDoughHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler(new BakingTrayWithGarlicDoughHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler(new BunchOfSugarCaneHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new DestroyFieldHandler() );
@@ -45,6 +47,10 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CommandHandlers.AddCommandHandler(new LumpOfChocolateDoughHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new LumpOfDoughHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new LumpOfHolyWaterDoughHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new LumpOfGarlicDoughHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new MacheteHandler() );
 

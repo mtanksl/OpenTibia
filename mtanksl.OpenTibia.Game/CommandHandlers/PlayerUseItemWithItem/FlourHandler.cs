@@ -12,36 +12,56 @@ namespace OpenTibia.Game.CommandHandlers
 
         private HashSet<ushort> buckets = new HashSet<ushort>() { 1775, 2005 };
 
+        private HashSet<ushort> holyWater = new HashSet<ushort>() { 7494 };
+
         private ushort lumpOfDough = 2693;
 
         private ushort lumpOfCakeDough = 6277;
 
+        private ushort lumpOfHolyWaterDough = 9112;
+
+        private ushort emptyVial = 11396;
+
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
-            if (flours.Contains(command.Item.Metadata.OpenTibiaId) && buckets.Contains(command.ToItem.Metadata.OpenTibiaId) )
+            if (flours.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                FluidItem toFluidItem = (FluidItem)command.ToItem;
-
-                if (toFluidItem.FluidType == FluidType.Water)
+                if (buckets.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
-                    return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
-                    {
-                        return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(toFluidItem, FluidType.Empty) );
+                    FluidItem toFluidItem = (FluidItem)command.ToItem;
 
-                    } ).Then( () =>
+                    if (toFluidItem.FluidType == FluidType.Water)
                     {
-                        return Context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(command.Player, lumpOfDough, 1) );
-                    } );
+                        return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
+                        {
+                            return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(toFluidItem, FluidType.Empty) );
+
+                        } ).Then( () =>
+                        {
+                            return Context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(command.Player, lumpOfDough, 1) );
+                        } );
+                    }
+                    else if (toFluidItem.FluidType == FluidType.Milk)
+                    {
+                        return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
+                        {
+                            return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(toFluidItem, FluidType.Empty) );
+
+                        } ).Then( () =>
+                        {
+                            return Context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(command.Player, lumpOfCakeDough, 1) );
+                        } );
+                    }
                 }
-                else if (toFluidItem.FluidType == FluidType.Milk)
+                else if (holyWater.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
                     return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                     {
-                        return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(toFluidItem, FluidType.Empty) );
+                        return Context.AddCommand(new ItemTransformCommand(command.ToItem, emptyVial, 0) );
 
-                    } ).Then( () =>
+                    } ).Then( (item) =>
                     {
-                        return Context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(command.Player, lumpOfCakeDough, 1) );
+                        return Context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(command.Player, lumpOfHolyWaterDough, 1) );
                     } );
                 }
             }
