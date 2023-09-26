@@ -14,8 +14,6 @@
 
         Wand = 6,
 
-        Ammo = 7,
-
-        Fist = 8
+        Ammo = 7
     }
 }

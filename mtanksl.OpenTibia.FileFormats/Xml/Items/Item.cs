@@ -179,12 +179,6 @@ namespace OpenTibia.FileFormats.Xml.Items
                                 item.WeaponType = Common.Structures.WeaponType.Ammo;
 
                                 break;
-
-                            case "fist":
-
-                                item.WeaponType = Common.Structures.WeaponType.Fist;
-
-                                break;
                         }
 
                         break;
