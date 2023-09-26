@@ -185,43 +185,43 @@ return {
 				args = "(Npc npc, string message)",
 				returns = "void",
 			},
-			-- void command.npcaddmoney(Player player, int price)
-			npcaddmoney = {
+			-- void command.playeraddmoney(Player player, int price)
+			playeraddmoney = {
 				type = "function",
 				description = "",
 				args = "(Player player, int price)",
 				returns = "void",
 			},
-			-- bool command.npcdeletemoney(Player player, int price)
-			npcdeletemoney = {
+			-- bool command.playerremovemoney(Player player, int price)
+			playerremovemoney = {
 				type = "function",
 				description = "",
 				args = "(Player player, int price)",
 				returns = "bool",
 			},
-			-- int command.npccountmoney(Player player)
-			npccountmoney = {
+			-- int command.playercountmoney(Player player)
+			playercountmoney = {
 				type = "function",
 				description = "",
 				args = "(Player player)",
 				returns = "int",
 			},
-			-- void command.npcadditem(Player player, ushort openTibiaId, byte type, int count)
-			npcadditem = {
+			-- void command.playeradditem(Player player, ushort openTibiaId, byte type, int count)
+			playeradditem = {
 				type = "function",
 				description = "",
 				args = "(Player player, ushort openTibiaId, byte type, int count)",
 				returns = "void",
 			},
-			-- bool command.npcremoveitem(Player player, ushort openTibiaId, byte type, int count)
-			npcremoveitem = {
+			-- bool command.playerremoveitem(Player player, ushort openTibiaId, byte type, int count)
+			playerremoveitem = {
 				type = "function",
 				description = "",
 				args = "(Player player, ushort openTibiaId, byte type, int count)",
 				returns = "bool",
 			},
-			-- int command.npccountitem(Player player, ushort openTibiaId, byte type)
-			npccountitem = {
+			-- int command.playercountitem(Player player, ushort openTibiaId, byte type)
+		  playercountitem = {
 				type = "function",
 				description = "",
 				args = "(Player player, ushort openTibiaId, byte type)",

@@ -136,8 +136,8 @@ function topic:addsell(responses, offers)
 		self:add("sell " .. offer.name, topiccallback:new( { article = offer.article, name = offer.name, item = offer.item, type = offer.type, count = 1, price = offer.price, topic = confirm }, responses.questionitem) )
 	end
 	confirm:add("yes", function(npc, player, message, captures, parameters) 
-		if command.npcremoveitem(player, parameters.item, parameters.type, parameters.count) then
-			command.npcaddmoney(player, parameters.price)
+		if command.playerremoveitem(player, parameters.item, parameters.type, parameters.count) then
+			command.playeraddmoney(player, parameters.price)
 			return topiccallback:new( { topic = self }, responses.yes)
 		end
 		if parameters.count > 1 then
@@ -163,8 +163,8 @@ function topic:addbuy(responses, offers)
 		self:add("" .. offer.name, topiccallback:new( { article = offer.article, name = offer.name, item = offer.item, type = offer.type, count = 1, price = offer.price, topic = confirm }, responses.questionitem) )
 	end
 	confirm:add("yes", function(npc, player, message, captures, parameters) 
-		if command.npcdeletemoney(player, parameters.price) then
-			command.npcadditem(player, parameters.item, parameters.type, parameters.count)
+		if command.playerremovemoney(player, parameters.price) then
+			command.playeradditem(player, parameters.item, parameters.type, parameters.count)
 			return topiccallback:new( { topic = self }, responses.yes)
 		end
 		return topiccallback:new( { topic = self }, responses.notenoughtgold)
@@ -178,7 +178,7 @@ function topic:addtravel(responses, destinations)
 		self:add("" .. destination.name, topiccallback:new( { city = destination.city, price = destination.price, position = destination.position, topic = confirm }, responses.question) )
 	end
 	confirm:add("yes", function(npc, player, message, captures, parameters) 
-		if command.npcdeletemoney(player, parameters.price) then			
+		if command.playerremovemoney(player, parameters.price) then			
 			-- TODO
 			return topiccallback:new( { topic = self }, responses.yes)
 		end

@@ -16,12 +16,12 @@ say:addbuy( {
     { article = "a", name = "life fluid", plural = "life fluids", item = 11396, type = 10, price = 60 }
 } )
 say:add("vial",  function(npc, player, message, captures, parameters) 
-    local count = math.max(1, command.npccountitem(player, 11396, 0) )
+    local count = math.max(1, command.playercountitem(player, 11396, 0) )
     return topiccallback:new( { item = 11396, type = 0, count = count, price = 5 * count, topic = confirm }, "I will pay you 5 gold for every empty vial. Ok?") 
 end)
 confirm:add("yes", function(npc, player, message, captures, parameters) 
-    if command.npcremoveitem(player, parameters.item, parameters.type, parameters.count) then
-        command.npcaddmoney(player, parameters.price)
+    if command.playerremoveitem(player, parameters.item, parameters.type, parameters.count) then
+        command.playeraddmoney(player, parameters.price)
         return topiccallback:new( { topic = say }, "Here you are... {price} gold.")
     end
     return topiccallback:new( { topic = say }, "You don't have any empty vials.")        

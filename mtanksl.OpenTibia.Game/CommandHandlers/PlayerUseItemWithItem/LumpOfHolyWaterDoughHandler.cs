@@ -10,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         private HashSet<ushort> garlic = new HashSet<ushort>() { 9114 };
 
-        private ushort lumpOfHolyWaterAndGarlicDough = 9113;
+        private ushort lumpOfGarlicDough = 9113;
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
@@ -22,7 +22,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 } ).Then( () =>
                 {
-                    return Context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(command.Player, lumpOfHolyWaterAndGarlicDough, 1) );
+                    return Context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(command.Player, lumpOfGarlicDough, 1) );
                 } );
             }
 

@@ -9,13 +9,13 @@ namespace OpenTibia.Game.Components
     {
         private ProjectileType projectileType;
 
-        private int? min;
+        private int min;
 
-        private int? max;
+        private int max;
 
         private TimeSpan cooldown;
 
-        public DistanceAttackStrategy(ProjectileType projectileType, int? min, int? max, TimeSpan cooldown)
+        public DistanceAttackStrategy(ProjectileType projectileType, int min, int max, TimeSpan cooldown)
         {
             this.projectileType = projectileType;
 
@@ -45,7 +45,7 @@ namespace OpenTibia.Game.Components
         }
 
         public Promise Attack(Creature attacker, Creature target)
-        {
+        {            
             return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, new DistanceAttack(projectileType, min, max) ) );
         }
     }

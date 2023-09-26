@@ -6,13 +6,13 @@ namespace OpenTibia.Game.Components
 {
     public class MeleeAttackStrategy : IAttackStrategy
     {
-        private int? min;
+        private int min;
 
-        private int? max;
+        private int max;
 
         private TimeSpan cooldown;
 
-        public MeleeAttackStrategy(int? min, int? max, TimeSpan cooldown)
+        public MeleeAttackStrategy(int min, int max, TimeSpan cooldown)
         {
             this.min = min;
 
@@ -41,7 +41,7 @@ namespace OpenTibia.Game.Components
 
         public Promise Attack(Creature attacker, Creature target)
         {
-            return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, new MeleeAttack(min, max) ) );
+            return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, new MeleeAttack(min, max) ) );            
         }
     }
 }
