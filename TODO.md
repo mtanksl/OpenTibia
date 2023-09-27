@@ -4,53 +4,50 @@
 	- Capacity
 	- Soul
 - Fight
-	- Bow and arrow
-	- Wands and rods
-	- Double-hand swords
 	- Respawn
-	- vs Monster
 	- vs Player
+	- PVP vs non-PVP configuration
 	- Logout block
 	- Protection zone block
 	- Experience, level, magic level and skills
 	- Skull
 	- War
-	- PVP vs non-PVP
 	- Corpse and rewards
 	- Splash
 	- ...
-- Rings
-- Armor and weapon attributes
 - Mail
 - Guild
 - Party
-- NPC Trade
+- NPC trade window
+- Rings and amulets
 - Hangable items
-- Sign
+- Sign items
 - Addons
 - House
 - Bed
-- Depot and towns
 - ...
 
 # Done (or good enough for now)
 
-- Lua scripting
-- Lua debugging with ZeroBrane
-- Lua autocomplete intellisense
-- Plugins
-- Motd
-- Waiting list
-- Ban
-- Quest
-- VIP
-- Trade
-- NPC
+- Tibia and Open Tibia's file format interpreters (.dat, .otb, .otbm, .pic, .spr)
+- TCP socket management for login and game servers
+- Packets and communication protocol (with RSA, Xtea, Adler32)
+- Task scheduler thread
+- Main game dispatcher thread
+- The base objects
+- The base structures
+- Interacting with the client
+	- Message of the day
+	- Waiting list
+	- Quests
+	- Report bug
+	- Report rule violation
+	- Debug assert
 - Controlling the character
 	- Login
-	- Walk
-	- Turn
-	- Change outfit
+	- Walking
+	- Turning
+	- Changing outfit
 	- Logout
 - Interacting with other players
 	- Say
@@ -62,20 +59,32 @@
 	- Channels
 	- Private channel
 	- Rule violation channel
+	- VIP
+	- Trade
+- Interacting with npc
+	- Dialogue
+	- Buy and sell items
+- Interacting with monsters
+	- Fight system
+	- Weapon attributes (atk, def, arm)
+	- Ammunition
+	- Bow and arrow
+	- Wand and rod
+	- Two-handed items
 - Interacting with the game world 
 	- Look item
 	- Move item
 	- Rotate item
 	- Use item
-		- Objects
-		- Depot and lockers
+		- Containers
+		- Depot and towns
+		- Read and write items
 	- Use item with creature
 		- Runes
 	- Use item with item
 		- Tools
-	- Containers
-	- Report bug
-	- Report rule violation
-	- Debug assert
-	- Basic fight
-	- Read and write items
+- Plugins
+	- Lua scripting
+	- Lua debugging with ZeroBrane
+	- Lua autocomplete intellisense
+- Ban system
