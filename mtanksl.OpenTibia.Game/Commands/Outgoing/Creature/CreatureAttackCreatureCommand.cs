@@ -13,22 +13,42 @@ namespace OpenTibia.Game.Commands
             Attack = attack;
         }
 
+        public CreatureAttackCreatureCommand(Creature attacker, Creature target, Attack attack, Condition condition)
+        {
+            Attacker = attacker;
+
+            Target = target;
+
+            Attack = attack;
+
+            Condition = condition;
+        }
+
         public Creature Attacker { get; set; }
 
         public Creature Target { get; set; }
 
         public Attack Attack { get; set; }
 
-        public override Promise Execute()
+        public Condition Condition { get; set; }
+
+        public override async Promise Execute()
         {
             int damage = Attack.Calculate(Attacker, Target);
 
             if (damage == 0)
             {
-                return Attack.Missed(Attacker, Target);
+                await Attack.Missed(Attacker, Target);
             }
-             
-            return Attack.Hit(Attacker, Target, damage);
+            else
+            {
+                await Attack.Hit(Attacker, Target, damage);
+
+                if (Condition != null)
+                {
+                    await Context.AddCommand(new CreatureAddConditionCommand(Target, Condition) );
+                }
+            }
         }
     }
 }

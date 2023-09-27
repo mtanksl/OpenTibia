@@ -16,7 +16,7 @@ namespace OpenTibia.Game.GameObjectScripts
 
         public override void Start(Player player)
         {
-            Context.Server.GameObjectComponents.AddComponent(player, new PlayerThinkBehaviour(new InventoryWeaponAttackStrategy(TimeSpan.FromMilliseconds(500) ), new FollowWalkStrategy() ) );
+            Context.Server.GameObjectComponents.AddComponent(player, new PlayerThinkBehaviour(new InventoryWeaponAttackStrategy(TimeSpan.FromSeconds(1) ), new FollowWalkStrategy() ) );
 
             Context.Server.GameObjectComponents.AddComponent(player, new PlayerCooldownBehaviour() );
 

@@ -903,8 +903,8 @@ namespace OpenTibia.Game.CommandHandlers
                         }
                         
                         return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
-                        {
-                            
+                        {                            
+                            Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourVocationCannotUseThisSpell) );
 
                             return Promise.Break;
                         } );

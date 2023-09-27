@@ -15,6 +15,13 @@ return {
 		type = "lib",
 		description = "",
 		childs = {
+			-- string command.type(object obj)
+			type = {
+				type = "function",
+				description = "",
+				args = "(object obj)",
+				returns = "string",
+			},
 			-- void command.delay(int seconds)
 			-- string command.delay(int seconds, Action callback)
 			delay = {

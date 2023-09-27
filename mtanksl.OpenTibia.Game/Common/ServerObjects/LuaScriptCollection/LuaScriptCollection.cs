@@ -20,6 +20,11 @@ namespace OpenTibia.Game
 
             lua.RegisterFunction("print", this, GetType().GetMethod(nameof(Print) ) );
 
+            lua.RegisterCoFunction("type", parameters =>
+            {
+                return Promise.FromResult(new object[] { parameters[0].GetType().Name } );
+            } );
+
             lua.RegisterCoFunction("delay", parameters =>
             {                   
                 string key = Guid.NewGuid().ToString();
@@ -238,6 +243,8 @@ namespace OpenTibia.Game
                 } );
             } );
 
+            //TODO: Player update axe, club, distance, fish, fist, magic level, shield and sword skills
+
             lua.RegisterCoFunction("playeraddmoney", parameters =>
             {
                 return Context.Current.AddCommand(new PlayerAddMoneyCommand((Player)parameters[0], (int)(long)parameters[1] ) ).Then( () =>
@@ -285,8 +292,6 @@ namespace OpenTibia.Game
                     return Promise.FromResult(new object[] { count } );
                 } );                
             } );
-
-            //TODO: Player update axe, club, distance, fish, fist, magic level, shield and sword skills
 
             lua.RegisterCoFunction("playerdestroy", parameters =>
             {

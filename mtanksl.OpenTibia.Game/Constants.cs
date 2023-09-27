@@ -58,6 +58,8 @@
 
         public static readonly string YouDoNotHaveEnoughSoul = "You do not have enough soul";
 
+        public static readonly string YourVocationCannotUseThisSpell = "Your vocation cannot use this spell";
+
         public static readonly string YouMayNotAttackThisCreature = "You may not attack this creature.";
 
         public static readonly int ObjectsPerPoint = 10;
