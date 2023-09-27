@@ -133,7 +133,7 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                         break;
 
-                    case "weapontype":
+                    case "weaponType":
 
                         switch ( (string)value)
                         {

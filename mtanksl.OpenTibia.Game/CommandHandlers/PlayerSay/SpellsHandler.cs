@@ -27,6 +27,8 @@ namespace OpenTibia.Game.CommandHandlers
 
             public bool Premium { get; set; }
 
+            public Vocation[] Vocations { get; set; }
+
             public Func<Player, bool> Condition { get; set; }
 
             public Func<Player, Promise> Callback { get; set; }
@@ -864,36 +866,46 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     if (command.Player.Mana >= spell.Mana)
                     {
-                        if ( !playerCooldownBehaviour.HasCooldown(spell.Name) && !playerCooldownBehaviour.HasCooldown(spell.Group) )
+                        if (spell.Vocations == null || spell.Vocations.Contains(command.Player.Vocation) )
                         {
-                            if (spell.Condition == null || spell.Condition(command.Player) )
+                            if ( !playerCooldownBehaviour.HasCooldown(spell.Name) && !playerCooldownBehaviour.HasCooldown(spell.Group) )
                             {
-                                playerCooldownBehaviour.AddCooldown(spell.Name, spell.Cooldown);
+                                if (spell.Condition == null || spell.Condition(command.Player) )
+                                {
+                                    playerCooldownBehaviour.AddCooldown(spell.Name, spell.Cooldown);
     
-                                playerCooldownBehaviour.AddCooldown(spell.Group, spell.GroupCooldown);
+                                    playerCooldownBehaviour.AddCooldown(spell.Group, spell.GroupCooldown);
 
-                                return Context.AddCommand(new PlayerUpdateManaCommand(command.Player, command.Player.Mana - spell.Mana) ).Then( () =>
-                                {
-                                    return spell.Callback(command.Player);
+                                    return Context.AddCommand(new PlayerUpdateManaCommand(command.Player, command.Player.Mana - spell.Mana) ).Then( () =>
+                                    {
+                                        return spell.Callback(command.Player);
 
-                                } ).Then( () =>
+                                    } ).Then( () =>
+                                    {
+                                        return next();
+                                    } );
+                                }
+
+                                return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
                                 {
-                                    return next();
+                                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+
+                                    return Promise.Break;
                                 } );
                             }
 
                             return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
                             {
-                                Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
-
+                                Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
+                           
                                 return Promise.Break;
                             } );
                         }
-
+                        
                         return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
                         {
-                            Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
-                           
+                            
+
                             return Promise.Break;
                         } );
                     }

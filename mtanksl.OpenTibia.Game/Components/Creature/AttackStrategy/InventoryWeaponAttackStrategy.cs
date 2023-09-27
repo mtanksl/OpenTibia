@@ -2,11 +2,57 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
     public class InventoryWeaponAttackStrategy : IAttackStrategy
     {
+        private class Weapon
+        {
+            public int Level { get; set; }
+
+            public int Mana { get; set; }
+
+            public int AttackStrength { get; set; }
+
+            public int AttackVariation { get; set; }
+
+            public Vocation[] Vocations { get; set; }
+        }
+
+        private static Dictionary<ushort, Weapon> weapons = new Dictionary<ushort, Weapon>()
+        {
+            [2190 /* Wand of vortex */] = new Weapon()
+            {
+                Level = 6,
+
+                Mana = 2,
+
+                AttackStrength = 13,
+
+                AttackVariation = 5,
+
+                Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer }
+            },
+
+            [2182 /* snakebite rod */] = new Weapon()
+            {
+                Level = 6,
+
+                Mana = 2,
+
+                AttackStrength = 13,
+
+                AttackVariation = 5,
+
+                Vocations = new[] { Vocation.Druid, Vocation.ElderDruid }
+            },
+
+            //TODO: More items
+        };
+
         private TimeSpan cooldown;
 
         public InventoryWeaponAttackStrategy(TimeSpan cooldown)
@@ -26,34 +72,66 @@ namespace OpenTibia.Game.Components
         {
             Player player = (Player)attacker;
 
-            Item weapon = GetWeapon(player);
+            Item item = GetWeapon(player);
 
-            if (weapon != null)
+            if (item != null)
             {
-                if (weapon.Metadata.WeaponType == WeaponType.Distance)
-                {
-                    //TODO: Has vocation?
-                    //TODO: Has ammo?
+                Weapon weapon;
 
-                    if (Context.Current.Server.Pathfinding.CanThrow(attacker.Tile.Position, target.Tile.Position) )
+                if (weapons.TryGetValue(item.Metadata.OpenTibiaId, out weapon) )
+                {
+                    if (player.Level < weapon.Level || player.Mana < weapon.Mana || (weapon.Vocations != null && !weapon.Vocations.Contains(player.Vocation) ) )
                     {
-                        return true;
+                        return false;
                     }
                 }
-                else if (weapon.Metadata.WeaponType == WeaponType.Wand)
-                {
-                    //TODO: Has mana?
 
-                    if (Context.Current.Server.Pathfinding.CanThrow(attacker.Tile.Position, target.Tile.Position) )
+                if (item.Metadata.Range != null && !player.Tile.Position.IsInRange(target.Tile.Position, item.Metadata.Range.Value) )
+                {
+                    return false;
+                }
+
+                if (item.Metadata.WeaponType == WeaponType.Distance)
+                {
+                    if (item.Metadata.AmmoType == null)
+                    {
+                        if (Context.Current.Server.Pathfinding.CanThrow(player.Tile.Position, target.Tile.Position) )
+                        {
+                            return true;
+                        }
+
+                        return false;
+                    }
+                    else
+                    {
+                        Item item2 = GetAmmunition(player);
+
+                        if (item2 != null)
+                        {
+                            if (item.Metadata.AmmoType == item2.Metadata.AmmoType)
+                            {
+                                if (Context.Current.Server.Pathfinding.CanThrow(player.Tile.Position, target.Tile.Position) )
+                                {
+                                    return true;
+                                }
+                            }
+                        }
+
+                        return false;
+                    }                  
+                }
+                else if (item.Metadata.WeaponType == WeaponType.Wand)
+                {
+                    if (Context.Current.Server.Pathfinding.CanThrow(player.Tile.Position, target.Tile.Position) )
                     {
                         return true;
                     }
+
+                    return false;
                 }
             }
 
-            //TODO: Has vocation?
-
-            if (attacker.Tile.Position.IsNextTo(target.Tile.Position) )
+            if (player.Tile.Position.IsNextTo(target.Tile.Position) )
             {
                 return true;
             }
@@ -65,41 +143,58 @@ namespace OpenTibia.Game.Components
         {
             Player player = (Player)attacker;
 
-            Item weapon = GetWeapon(player);
+            Item item = GetWeapon(player);
 
             Attack attack;
 
-            if (weapon != null)
+            if (item != null)
             {
-                if (weapon.Metadata.WeaponType == WeaponType.Sword)
-                {
-                    var formula = MeleeFormula(player.Level, player.Skills.Sword, weapon.Metadata.Attack ?? 0, player.Client.FightMode);
+                Weapon weapon;
 
+                weapons.TryGetValue(item.Metadata.OpenTibiaId, out weapon);
+
+                if (item.Metadata.WeaponType == WeaponType.Sword)
+                {
+                    var formula = MeleeFormula(player.Level, player.Skills.Sword, item.Metadata.Attack.Value, player.Client.FightMode); 
+                    
                     attack = new MeleeAttack(formula.Min, formula.Max);
                 }
-                else if (weapon.Metadata.WeaponType == WeaponType.Club)
+                else if (item.Metadata.WeaponType == WeaponType.Club)
                 {
-                    var formula = MeleeFormula(player.Level, player.Skills.Club, weapon.Metadata.Attack ?? 0, player.Client.FightMode);
-
+                    var formula = MeleeFormula(player.Level, player.Skills.Club, item.Metadata.Attack.Value, player.Client.FightMode);
+                    
                     attack = new MeleeAttack(formula.Min, formula.Max);
                 }
-                else if (weapon.Metadata.WeaponType == WeaponType.Axe)
+                else if (item.Metadata.WeaponType == WeaponType.Axe)
                 {
-                    var formula = MeleeFormula(player.Level, player.Skills.Axe, weapon.Metadata.Attack ?? 0, player.Client.FightMode);
-
+                    var formula = MeleeFormula(player.Level, player.Skills.Axe, item.Metadata.Attack.Value, player.Client.FightMode); 
+                    
                     attack = new MeleeAttack(formula.Min, formula.Max);
                 }
-                else if (weapon.Metadata.WeaponType == WeaponType.Distance)
+                else if (item.Metadata.WeaponType == WeaponType.Distance)
                 {
-                    var formula = DistanceFormula(player.Level, player.Skills.Distance, weapon.Metadata.Attack ?? 0, player.Client.FightMode);
+                    if (item.Metadata.AmmoType == null)
+                    {
+                        var formula = DistanceFormula(player.Level, player.Skills.Distance, item.Metadata.Attack.Value, player.Client.FightMode); 
+                        
+                        attack = new DistanceAttack(item.Metadata.ProjectileType.Value, formula.Min, formula.Max);
+                    }
+                    else
+                    {
+                        Item item2 = GetAmmunition(player);
 
-                    attack = new DistanceAttack(ProjectileType.Arrow, formula.Min, formula.Max);
+                        var formula = DistanceFormula(player.Level, player.Skills.Distance, item2.Metadata.Attack.Value, player.Client.FightMode); 
+                        
+                        attack = new DistanceAttack(item2.Metadata.ProjectileType.Value, formula.Min, formula.Max);
+                    }
                 }
-                else if (weapon.Metadata.WeaponType == WeaponType.Wand)
+                else if (item.Metadata.WeaponType == WeaponType.Wand)
                 {
-                    var formula = DistanceFormula(player.Level, player.Skills.Distance, weapon.Metadata.Attack ?? 0, player.Client.FightMode);
+                    var min = weapon.AttackStrength - weapon.AttackVariation;
 
-                    attack = new DistanceAttack(ProjectileType.Energy, formula.Min, formula.Max);
+                    var max = weapon.AttackStrength + weapon.AttackVariation;
+
+                    attack = new DistanceAttack(item.Metadata.ProjectileType.Value, min, max);
                 }
                 else
                 {
@@ -108,12 +203,12 @@ namespace OpenTibia.Game.Components
             }
             else
             {
-                var formula = MeleeFormula(player.Level, player.Skills.Fist, 7, player.Client.FightMode);
-
+                var formula = MeleeFormula(player.Level, player.Skills.Fist, 7, player.Client.FightMode); 
+                
                 attack = new MeleeAttack(formula.Min, formula.Max);
             }
 
-            return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, attack) );
+            return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, attack) );
         }
 
         private static Item GetWeapon(Player player)
