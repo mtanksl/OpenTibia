@@ -8,7 +8,6 @@
 	- vs Player
 	- PVP vs non-PVP configuration
 	- Logout block
-	- Protection zone block
 	- Experience, level, magic level and skills
 	- Skull
 	- War
@@ -40,6 +39,7 @@
 	- Message of the day
 	- Waiting list
 	- Quests
+	- Hotkeys
 	- Report bug
 	- Report rule violation
 	- Debug assert
@@ -71,6 +71,7 @@
 	- Bow and arrow
 	- Wand and rod
 	- Two-handed items
+	- Protection zone block
 - Interacting with the game world 
 	- Look item
 	- Move item
@@ -79,10 +80,13 @@
 		- Containers
 		- Depot and towns
 		- Read and write items
+		- etc
 	- Use item with creature
 		- Runes
+		- etc
 	- Use item with item
 		- Tools
+		- etc
 - Plugins
 	- Lua scripting
 	- Lua debugging with ZeroBrane
