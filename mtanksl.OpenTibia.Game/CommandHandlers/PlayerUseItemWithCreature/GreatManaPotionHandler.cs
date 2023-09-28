@@ -16,13 +16,18 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (manaPotions.Contains(command.Item.Metadata.OpenTibiaId) && command.ToCreature is Player player)
             {
+                if (player.Level < 80 || !(player.Vocation == Vocation.Druid || player.Vocation == Vocation.Sorcerer || player.Vocation == Vocation.ElderDruid || player.Vocation == Vocation.MasterSorcerer) )
+                {
+                    return Context.AddCommand(new ShowTextCommand(player, TalkType.MonsterSay, "Only sorcerers and druids of level 80 or above may drink this fluid.") );
+                }
+
                 Tile toTile = player.Tile;
 
                 return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(() =>
                 {
                     return Context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(command.Player, emptyPotionFlask, 1) );
 
-                }) .Then( () =>
+                } ) .Then( () =>
                 {
                     return Context.AddCommand(new PlayerUpdateManaCommand(player, (ushort)(player.Mana + Context.Server.Randomization.Take(200, 300) ) ) );
                     

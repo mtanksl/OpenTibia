@@ -56,7 +56,7 @@ namespace OpenTibia.Game.CommandHandlers
             { 6115, 6111 }, // Armor rack
             { 6372, 6357 }, // Oven
             { 6373, 6371 }, // Bookcase
-            { 8692, 8688 }, // Chimney
+            { 8692, 8688 }  // Chimney
         };
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)

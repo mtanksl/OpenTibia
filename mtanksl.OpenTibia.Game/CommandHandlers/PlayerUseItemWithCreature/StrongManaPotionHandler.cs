@@ -16,6 +16,11 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (manaPotions.Contains(command.Item.Metadata.OpenTibiaId) && command.ToCreature is Player player)
             {
+                if (player.Level < 50 || !(player.Vocation == Vocation.Paladin || player.Vocation == Vocation.Druid || player.Vocation == Vocation.Sorcerer || player.Vocation == Vocation.RoyalPaladin || player.Vocation == Vocation.ElderDruid || player.Vocation == Vocation.MasterSorcerer) )
+                {
+                    return Context.AddCommand(new ShowTextCommand(player, TalkType.MonsterSay, "Only sorcerers, druids and paladins of level 50 or above may drink this fluid.") );
+                }
+
                 Tile toTile = player.Tile;
 
                 return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(() =>

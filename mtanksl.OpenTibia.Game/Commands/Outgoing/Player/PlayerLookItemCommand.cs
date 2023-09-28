@@ -52,7 +52,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if (stackableItem.Count > 1)
                     {
-                        name = stackableItem.Count + " " + Item.Metadata.Plural;
+                        name = stackableItem.Count + " " + (Item.Metadata.Plural ?? Item.Metadata.Name);
                     }
                 }
             }

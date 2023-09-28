@@ -36,7 +36,7 @@ namespace OpenTibia.Game.CommandHandlers
             { 6254, 6253 },
             { 6258, 6257 },
 
-            //Fence
+            // Fence
             { 1542, 1541 },
 
             //TODO: More items

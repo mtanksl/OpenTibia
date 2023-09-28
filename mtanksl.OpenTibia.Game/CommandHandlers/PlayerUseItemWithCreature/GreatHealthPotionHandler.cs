@@ -16,6 +16,11 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (healthPotions.Contains(command.Item.Metadata.OpenTibiaId) && command.ToCreature is Player player)
             {
+                if (player.Level < 80 || !(player.Vocation == Vocation.Knight || player.Vocation == Vocation.EliteKnight) )
+                {
+                    return Context.AddCommand(new ShowTextCommand(player, TalkType.MonsterSay, "Only knights of level 80 or above may drink this fluid.") );
+                }
+
                 Tile toTile = player.Tile;
 
                 return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
