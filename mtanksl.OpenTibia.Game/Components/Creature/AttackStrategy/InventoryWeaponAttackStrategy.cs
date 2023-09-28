@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Components
 
             public Vocation[] Vocations { get; set; }
 
-            public Func<Player, Creature, Item, Item, Promise> Callback { get; set; }
+            public Func<Player, Creature, Item, Promise> Callback { get; set; }
         }
 
         private class Ammunition
@@ -159,7 +159,21 @@ namespace OpenTibia.Game.Components
                 AttackStrength = 19,
 
                 AttackVariation = 6
-            }
+            },
+
+            [7366 /* Viper star */] = new Weapon()
+            {
+                Callback = (attacker, target, weapon) =>
+                {
+                    var formula = DistanceFormula(attacker.Level, attacker.Skills.Distance, weapon.Metadata.Attack.Value, attacker.Client.FightMode);
+
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
+
+                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max),
+
+                        new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, AnimatedTextColor.Green, new[] { 2, 2, 2, 2, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(4) ) ) );
+                }
+            },
         };
 
         private static Dictionary<ushort, Ammunition> ammunitions = new Dictionary<ushort, Ammunition>()
@@ -219,8 +233,6 @@ namespace OpenTibia.Game.Components
 
             Item itemWeapon = GetWeapon(player);
 
-            Item itemAmmunition = GetAmmunition(player);
-
             if (itemWeapon != null)
             {
                 Weapon weapon;
@@ -256,6 +268,8 @@ namespace OpenTibia.Game.Components
                     }
                     else
                     {
+                        Item itemAmmunition = GetAmmunition(player);
+
                         if (itemAmmunition == null || itemWeapon.Metadata.AmmoType != itemAmmunition.Metadata.AmmoType || !Context.Current.Server.Pathfinding.CanThrow(player.Tile.Position, target.Tile.Position) )
                         {
                             return false;
@@ -291,19 +305,17 @@ namespace OpenTibia.Game.Components
 
             Item itemWeapon = GetWeapon(player);
 
-            Item itemAmmunition = GetAmmunition(player);
-
             if (itemWeapon != null)
             {
-                Weapon weapon;
-
-                if (weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) && weapon.Callback != null)
+                if (itemWeapon.Metadata.WeaponType == WeaponType.Sword)
                 {
-                    return weapon.Callback(player, target, itemWeapon, itemAmmunition);
-                }
-                else
-                {            
-                    if (itemWeapon.Metadata.WeaponType == WeaponType.Sword)
+                    Weapon weapon;
+
+                    if (weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) && weapon.Callback != null)
+                    {
+                        return weapon.Callback(player, target, itemWeapon);
+                    }
+                    else
                     {
                         var formula = MeleeFormula(player.Level, player.Skills.Sword, itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
 
@@ -311,7 +323,16 @@ namespace OpenTibia.Game.Components
                             
                             new MeleeAttack(formula.Min, formula.Max) ) );
                     }
-                    else if (itemWeapon.Metadata.WeaponType == WeaponType.Club)
+                }
+                else if (itemWeapon.Metadata.WeaponType == WeaponType.Club)
+                {
+                    Weapon weapon;
+
+                    if (weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) && weapon.Callback != null)
+                    {
+                        return weapon.Callback(player, target, itemWeapon);
+                    }
+                    else
                     {
                         var formula = MeleeFormula(player.Level, player.Skills.Club, itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
 
@@ -319,7 +340,16 @@ namespace OpenTibia.Game.Components
                             
                             new MeleeAttack(formula.Min, formula.Max) ) );
                     }
-                    else if (itemWeapon.Metadata.WeaponType == WeaponType.Axe)
+                }
+                else if (itemWeapon.Metadata.WeaponType == WeaponType.Axe)
+                {
+                    Weapon weapon;
+
+                    if (weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) && weapon.Callback != null)
+                    {
+                        return weapon.Callback(player, target, itemWeapon);
+                    }
+                    else
                     {
                         var formula = MeleeFormula(player.Level, player.Skills.Axe, itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
 
@@ -327,55 +357,84 @@ namespace OpenTibia.Game.Components
                             
                             new MeleeAttack(formula.Min, formula.Max) ) );
                     }
-                    else if (itemWeapon.Metadata.WeaponType == WeaponType.Distance)
+                }
+                else if (itemWeapon.Metadata.WeaponType == WeaponType.Distance)
+                {
+                    if (itemWeapon.Metadata.AmmoType == null)
                     {
-                        if (itemWeapon.Metadata.AmmoType == null)
+                        Weapon weapon;
+
+                        if (weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) && weapon.Callback != null)
                         {
-                            var formula = DistanceFormula(player.Level, player.Skills.Distance, itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
-                  
-                            return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
-                                
-                                new DistanceAttack(itemWeapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) ).Then( () =>
+                            return Context.Current.AddCommand(new ItemDecrementCommand(itemWeapon, 1) ).Then( () =>
                             {
-                                return Context.Current.AddCommand(new ItemDecrementCommand(itemWeapon, 1) );
+                                return weapon.Callback(player, target, itemWeapon);
                             } );
                         }
                         else
                         {
-                            Ammunition ammunition;
+                            return Context.Current.AddCommand(new ItemDecrementCommand(itemWeapon, 1) ).Then( () =>
+                            {
+                                var formula = DistanceFormula(player.Level, player.Skills.Distance, itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
 
-                            if (ammunitions.TryGetValue(itemAmmunition.Metadata.OpenTibiaId, out ammunition) && ammunition.Callback != null)
-                            {
-                                return ammunition.Callback(player, target, itemWeapon, itemAmmunition).Then( () =>
-                                {
-                                    return Context.Current.AddCommand(new ItemDecrementCommand(itemAmmunition, 1) );
-                                } );                         
-                            }
-                            else
-                            {
-                                var formula = DistanceFormula(player.Level, player.Skills.Distance, itemAmmunition.Metadata.Attack.Value, player.Client.FightMode); 
-             
                                 return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
-                                    
-                                    new DistanceAttack(itemAmmunition.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) ).Then( () =>
-                                {
-                                    return Context.Current.AddCommand(new ItemDecrementCommand(itemAmmunition, 1) );
-                                } );
-                            }                        
+                                
+                                    new DistanceAttack(itemWeapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
+                            } );
                         }
-                    }
-                    else if (itemWeapon.Metadata.WeaponType == WeaponType.Wand)
-                    {
-                        var formula = WandFormula(weapon.AttackStrength, weapon.AttackVariation);
-
-                        return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
-                            
-                            new DistanceAttack(itemWeapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
                     }
                     else
                     {
-                        throw new NotImplementedException();
+                        Item itemAmmunition = GetAmmunition(player);
+
+                        Ammunition ammunition;
+
+                        if (ammunitions.TryGetValue(itemAmmunition.Metadata.OpenTibiaId, out ammunition) && ammunition.Callback != null)
+                        {
+                            return Context.Current.AddCommand(new ItemDecrementCommand(itemAmmunition, 1) ).Then( () =>
+                            {
+                                return ammunition.Callback(player, target, itemWeapon, itemAmmunition);
+                            } );                        
+                        }
+                        else
+                        {
+                            return Context.Current.AddCommand(new ItemDecrementCommand(itemAmmunition, 1) ).Then( () =>
+                            {
+                                var formula = DistanceFormula(player.Level, player.Skills.Distance, itemAmmunition.Metadata.Attack.Value, player.Client.FightMode);
+
+                                return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
+                                
+                                    new DistanceAttack(itemAmmunition.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
+                            } );
+                        }                        
                     }
+                }
+                else if (itemWeapon.Metadata.WeaponType == WeaponType.Wand)
+                {
+                    Weapon weapon;
+
+                    if (weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) && weapon.Callback != null)
+                    {
+                        return Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - weapon.Mana) ).Then( () =>
+                        {
+                            return weapon.Callback(player, target, itemWeapon);
+                        } );
+                    }
+                    else
+                    {
+                        return Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - weapon.Mana) ).Then( () =>
+                        {
+                            var formula = WandFormula(weapon.AttackStrength, weapon.AttackVariation);
+
+                            return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target,
+                            
+                                new DistanceAttack(itemWeapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
+                        } );
+                    }
+                }
+                else
+                {
+                    throw new NotImplementedException();
                 }
             }
             else
@@ -384,7 +443,7 @@ namespace OpenTibia.Game.Components
 
                 return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                     
-                    new MeleeAttack(formula.Min, formula.Max) ) );            
+                    new MeleeAttack(formula.Min, formula.Max) ) );
             }
         }
 

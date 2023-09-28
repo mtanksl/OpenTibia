@@ -5,12 +5,10 @@ namespace OpenTibia.Game.Commands
     public class CreatureAttackCreatureCommand : Command
     {
         public CreatureAttackCreatureCommand(Creature attacker, Creature target, Attack attack)
+
+            : this(attacker, target, attack, null)
         {
-            Attacker = attacker;
-
-            Target = target;
-
-            Attack = attack;
+           
         }
 
         public CreatureAttackCreatureCommand(Creature attacker, Creature target, Attack attack, Condition condition)

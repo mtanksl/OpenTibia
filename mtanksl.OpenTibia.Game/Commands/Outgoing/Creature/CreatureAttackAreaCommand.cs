@@ -7,22 +7,12 @@ using System.Linq;
 namespace OpenTibia.Game.Commands
 {
     public class CreatureAttackAreaCommand : Command
-    {
+    {     
         public CreatureAttackAreaCommand(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, Attack attack)
+      
+            : this(attacker, beam, center, area, projectileType, magicEffectType, attack, null)
         {
-            Attacker = attacker;
 
-            Beam = beam;
-
-            Center = center;
-
-            Area = area;
-
-            ProjectileType = projectileType;
-
-            MagicEffectType = magicEffectType;
-
-            Attack = attack;
         }
 
         public CreatureAttackAreaCommand(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, Attack attack, Condition condition)
@@ -45,43 +35,17 @@ namespace OpenTibia.Game.Commands
         }
 
         public CreatureAttackAreaCommand(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count)
+
+            : this(attacker, beam, center, area, projectileType, magicEffectType, openTibiaId, count, null, null)
         {
-            Attacker = attacker;
-
-            Beam = beam;
-
-            Center = center;
-
-            Area = area;
-
-            ProjectileType = projectileType;
-
-            MagicEffectType = magicEffectType;
-
-            OpenTibiaId = openTibiaId;
-
-            Count = count;
+           
         }
 
         public CreatureAttackAreaCommand(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, Attack attack)
+
+            : this(attacker, beam, center, area, projectileType, magicEffectType, openTibiaId, count, attack, null) 
         {
-            Attacker = attacker;
-
-            Beam = beam;
-
-            Center = center;
-
-            Area = area;
-
-            ProjectileType = projectileType;
-
-            MagicEffectType = magicEffectType;
-
-            OpenTibiaId = openTibiaId;
-
-            Count = count;
-
-            Attack = attack;
+        
         }
 
         public CreatureAttackAreaCommand(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, Attack attack, Condition condition)
