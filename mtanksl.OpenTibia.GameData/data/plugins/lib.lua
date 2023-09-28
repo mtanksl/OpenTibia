@@ -5,7 +5,7 @@
 	both = 3
 }
 
-animatedTextColor = {
+animatedtextcolor = {
 	blue = 5,
 	green = 30,
 	lightblue = 35,

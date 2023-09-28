@@ -3,6 +3,7 @@ return {
 		type = "lib",
 		description = "",
 		childs = {
+			--void debugger.start()
 			start = {
 				type = "function",
 				description = "",
@@ -228,11 +229,67 @@ return {
 				returns = "bool",
 			},
 			-- int command.playercountitem(Player player, ushort openTibiaId, byte type)
-		  playercountitem = {
+			playercountitem = {
 				type = "function",
 				description = "",
 				args = "(Player player, ushort openTibiaId, byte type)",
 				returns = "int",
+			},
+			-- void command.playerupdateaxe(Player player, byte skill, byte skillPercent)
+			playerupdateaxe = {
+				type = "function",
+				description = "",
+				args = "(Player player, byte skill, byte skillPercent)",
+				returns = "void",
+			},
+			-- void command.playerupdateclub(Player player, byte skill, byte skillPercent)
+			playerupdateclub = {
+				type = "function",
+				description = "",
+				args = "(Player player, byte skill, byte skillPercent)",
+				returns = "void",
+			},
+			-- void command.playerupdatedistance(Player player, byte skill, byte skillPercent)
+			playerupdatedistance = {
+				type = "function",
+				description = "",
+				args = "(Player player, byte skill, byte skillPercent)",
+				returns = "void",
+			},
+			-- void command.playerupdatefish(Player player, byte skill, byte skillPercent)
+			playerupdatefish = {
+				type = "function",
+				description = "",
+				args = "(Player player, byte skill, byte skillPercent)",
+				returns = "void",
+			},
+			-- void command.playerupdatefist(Player player, byte skill, byte skillPercent)
+			playerupdatefist = {
+				type = "function",
+				description = "",
+				args = "(Player player, byte skill, byte skillPercent)",
+				returns = "void",
+			},
+			-- void command.playerupdatemagiclevel(Player player, byte skill, byte skillPercent)
+			playerupdatemagiclevel = {
+				type = "function",
+				description = "",
+				args = "(Player player, byte skill, byte skillPercent)",
+				returns = "void",
+			},
+			-- void command.playerupdateshield(Player player, byte skill, byte skillPercent)
+			playerupdateshield = {
+				type = "function",
+				description = "",
+				args = "(Player player, byte skill, byte skillPercent)",
+				returns = "void",
+			},
+			-- void command.playerupdatesword(Player player, byte skill, byte skillPercent)
+			playerupdatesword = {
+				type = "function",
+				description = "",
+				args = "(Player player, byte skill, byte skillPercent)",
+				returns = "void",
 			},
 			-- void command.playerdestroy(Player player)
 			playerdestroy = {

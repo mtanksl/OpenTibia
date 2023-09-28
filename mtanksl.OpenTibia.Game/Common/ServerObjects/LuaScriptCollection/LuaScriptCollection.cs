@@ -20,10 +20,7 @@ namespace OpenTibia.Game
 
             lua.RegisterFunction("print", this, GetType().GetMethod(nameof(Print) ) );
 
-            lua.RegisterCoFunction("type", parameters =>
-            {
-                return Promise.FromResult(new object[] { parameters[0].GetType().Name } );
-            } );
+            lua.RegisterFunction("typeof", this, GetType().GetMethod(nameof(TypeOf) ) );
 
             lua.RegisterCoFunction("delay", parameters =>
             {                   
@@ -243,8 +240,6 @@ namespace OpenTibia.Game
                 } );
             } );
 
-            //TODO: Player update axe, club, distance, fish, fist, magic level, shield and sword skills
-
             lua.RegisterCoFunction("playeraddmoney", parameters =>
             {
                 return Context.Current.AddCommand(new PlayerAddMoneyCommand((Player)parameters[0], (int)(long)parameters[1] ) ).Then( () =>
@@ -291,6 +286,70 @@ namespace OpenTibia.Game
                 {
                     return Promise.FromResult(new object[] { count } );
                 } );                
+            } );
+
+            lua.RegisterCoFunction("playerupdateaxe", parameters =>
+            {
+                return Context.Current.AddCommand(new PlayerUpdateAxeCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("playerupdateclub", parameters =>
+            {
+                return Context.Current.AddCommand(new PlayerUpdateClubCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("playerupdatedistance", parameters =>
+            {
+                return Context.Current.AddCommand(new PlayerUpdateDistanceCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("playerupdatefish", parameters =>
+            {
+                return Context.Current.AddCommand(new PlayerUpdateFishCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("playerupdatefist", parameters =>
+            {
+                return Context.Current.AddCommand(new PlayerUpdateFistCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("playerupdatemagiclevel", parameters =>
+            {
+                return Context.Current.AddCommand(new PlayerUpdateMagicLevelCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("playerupdateshield", parameters =>
+            {
+                return Context.Current.AddCommand(new PlayerUpdateShieldCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("playerupdatesword", parameters =>
+            {
+                return Context.Current.AddCommand(new PlayerUpdateSwordCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
             } );
 
             lua.RegisterCoFunction("playerdestroy", parameters =>
@@ -393,6 +452,11 @@ namespace OpenTibia.Game
         public void Print(params object[] parameters)
         {
             server.Logger.WriteLine(string.Join("\t", parameters), LogLevel.Debug);
+        }
+
+        public string TypeOf(object parameter)
+        {
+            return parameter.GetType().Name;
         }
 
         private Light ToLight(object parameter)
