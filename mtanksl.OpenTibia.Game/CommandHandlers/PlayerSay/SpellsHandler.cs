@@ -54,6 +54,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Premium = true,
 
+                Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
+
                 Condition = (attacker) =>
                 {
                     if (ropeSpots.Contains(attacker.Tile.Ground.Metadata.OpenTibiaId) )
@@ -94,6 +96,8 @@ namespace OpenTibia.Game.CommandHandlers
                 Mana = 50,
 
                 Premium = true,
+
+                Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
                 Condition = (attacker) =>
                 {
@@ -140,6 +144,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Premium = true,
 
+                Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
+
                 Condition = (attacker) =>
                 {
                     Tile next = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(attacker.Direction) );
@@ -185,6 +191,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Premium = false,
 
+                Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
+
                 Callback = (attacker) =>
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
@@ -211,6 +219,8 @@ namespace OpenTibia.Game.CommandHandlers
                 Mana = 60,
 
                 Premium = false,
+
+                Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
                 Callback = (attacker) =>
                 {
@@ -239,6 +249,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Premium = true,
 
+                Vocations = new[] { Vocation.Druid, Vocation.Sorcerer, Vocation.ElderDruid, Vocation.MasterSorcerer },
+
                 Callback = (attacker) =>
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
@@ -266,6 +278,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Premium = false,
 
+                Vocations = new[] { Vocation.Druid, Vocation.Sorcerer, Vocation.ElderDruid, Vocation.MasterSorcerer },
+
                 Callback = (attacker) =>
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
@@ -292,6 +306,8 @@ namespace OpenTibia.Game.CommandHandlers
                 Mana = 60,
 
                 Premium = true,
+
+                Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
                 Callback = (attacker) =>
                 {
@@ -322,6 +338,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Premium = true,
 
+                Vocations = new[] { Vocation.Druid, Vocation.Sorcerer, Vocation.ElderDruid, Vocation.MasterSorcerer },
+
                 Callback = (attacker) =>
                 {
                     var speed = StrongHasteFormula(attacker.BaseSpeed);
@@ -351,6 +369,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Premium = false,
 
+                Vocations = new[] { Vocation.Druid, Vocation.Sorcerer, Vocation.ElderDruid, Vocation.MasterSorcerer },
+
                 Callback = (attacker) =>
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
@@ -378,6 +398,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Premium = false,
 
+                Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
+
                 Callback = (attacker) =>
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
@@ -402,6 +424,8 @@ namespace OpenTibia.Game.CommandHandlers
                 Mana = 20,
 
                 Premium = false,
+
+                Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
                 Callback = (attacker) =>
                 {
@@ -429,6 +453,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Premium = false,
 
+                Vocations = new[] { Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
+
                 Callback = (attacker) =>
                 {
                     var formula = IntenseHealingFormula(attacker.Level, attacker.Skills.MagicLevel);
@@ -455,6 +481,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Premium = false,
 
+                Vocations = new[] { Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
+
                 Callback = (attacker) =>
                 {
                     var formula = UltimateHealingFormula(attacker.Level, attacker.Skills.MagicLevel);
@@ -480,6 +508,8 @@ namespace OpenTibia.Game.CommandHandlers
                 Mana = 150,
 
                 Premium = true,
+
+                Vocations = new[] { Vocation.Druid, Vocation.ElderDruid },
 
                 Callback = (attacker) =>
                 {
@@ -518,6 +548,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Premium = true,
 
+                Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
+
                 Callback = (attacker) =>
                 {
                     Offset[] area = new Offset[]
@@ -548,6 +580,8 @@ namespace OpenTibia.Game.CommandHandlers
                 Mana = 20,
 
                 Premium = true,
+
+                Vocations = new[] { Vocation.Druid, Vocation.Sorcerer, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
                 Callback = (attacker) =>
                 {
@@ -580,6 +614,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Premium = true,
 
+                Vocations = new[] { Vocation.Druid, Vocation.Sorcerer, Vocation.ElderDruid, Vocation.MasterSorcerer },
+
                 Callback = (attacker) =>
                 {
                     Offset[] area = new Offset[]
@@ -610,6 +646,8 @@ namespace OpenTibia.Game.CommandHandlers
                 Mana = 25,
 
                 Premium = false,
+
+                Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
                 Callback = (attacker) =>
                 {
@@ -645,6 +683,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Premium = false,
 
+                Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
+
                 Callback = (attacker) =>
                 {
                     Offset[] area = new Offset[]
@@ -679,6 +719,8 @@ namespace OpenTibia.Game.CommandHandlers
                 Mana = 110,
 
                 Premium = false,
+
+                Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
                 Callback = (attacker) =>
                 {
@@ -717,6 +759,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Premium = false,
 
+                Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
+
                 Callback = (attacker) =>
                 {
                     Offset[] area = new Offset[]
@@ -751,6 +795,8 @@ namespace OpenTibia.Game.CommandHandlers
                 Mana = 600,
 
                 Premium = true,
+
+                Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
                 Callback = (attacker) =>
                 {
@@ -794,6 +840,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Premium = true,
 
+                Vocations = new[] { Vocation.Druid, Vocation.ElderDruid },
+
                 Callback = (attacker) =>
                 {
                     Offset[] area = new Offset[]
@@ -836,6 +884,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Premium = true,
 
+                Vocations = new[] { Vocation.Knight, Vocation.EliteKnight },
+
                 Callback = (attacker) =>
                 {
                     Offset[] area = new Offset[]
@@ -845,11 +895,47 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1)
                     };
 
-                    var formula = BerserkFormula(attacker.Level, attacker.Skills.Fist, 0);
+                    Item itemWeapon = GetWeapon(attacker);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.BlackSpark,
+                    if (itemWeapon == null)
+                    {
+                        var formula = BerserkFormula(attacker.Level, attacker.Skills.Fist, 7);
+
+                        return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.BlackSpark,
                         
-                        new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+                            new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+                    }
+                    else
+                    {
+                        if (itemWeapon.Metadata.WeaponType == WeaponType.Sword)
+                        {
+                            var formula = BerserkFormula(attacker.Level, attacker.Skills.Sword, itemWeapon.Metadata.Attack.Value);
+
+                            return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.BlackSpark,
+                        
+                                new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+                        }
+                        else if (itemWeapon.Metadata.WeaponType == WeaponType.Axe)
+                        {
+                            var formula = BerserkFormula(attacker.Level, attacker.Skills.Axe, itemWeapon.Metadata.Attack.Value);
+
+                            return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.BlackSpark,
+                        
+                                new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+                        }
+                        else if (itemWeapon.Metadata.WeaponType == WeaponType.Club)
+                        {
+                            var formula = BerserkFormula(attacker.Level, attacker.Skills.Club, itemWeapon.Metadata.Attack.Value);
+
+                            return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.BlackSpark,
+                        
+                                new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+                        }
+                        else
+                        {
+                            throw new NotImplementedException();
+                        }
+                    }
                 }
             }
         };
@@ -894,6 +980,25 @@ namespace OpenTibia.Game.CommandHandlers
             var formula = 3 * magicLevel + 2 * level;
 
            return (formula * (@base - variation) / 100, formula * (@base + variation) / 100);
+        }
+
+        private static Item GetWeapon(Player player)
+        {
+            Item item = player.Inventory.GetContent( (byte)Slot.Left) as Item;
+
+            if (item != null && (item.Metadata.WeaponType == WeaponType.Sword || item.Metadata.WeaponType == WeaponType.Club || item.Metadata.WeaponType == WeaponType.Axe) )
+            {
+                return item;
+            }
+
+            item = player.Inventory.GetContent( (byte)Slot.Right) as Item;
+
+            if (item != null && (item.Metadata.WeaponType == WeaponType.Sword || item.Metadata.WeaponType == WeaponType.Club || item.Metadata.WeaponType == WeaponType.Axe) )
+            {
+                return item;
+            }
+
+            return null;
         }
 
         public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
