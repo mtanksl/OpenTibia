@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
-using OpenTibia.Game.Components;
 using System;
 
 namespace OpenTibia.Game.Extensions
@@ -34,6 +33,48 @@ namespace OpenTibia.Game.Extensions
             }
 
             return context.AddCommand(new CreatureAttackAreaCommand(creature, beam, center, area, projectileType, magicEffectType, attack) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public static Promise AttackArea(this Creature creature, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, Attack attack, Condition condition)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new CreatureAttackAreaCommand(creature, beam, center, area, projectileType, magicEffectType, attack, condition) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public static Promise AttackArea(this Creature creature, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, Attack attack)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new CreatureAttackAreaCommand(creature, beam, center, area, projectileType, magicEffectType, openTibiaId, count, attack) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public static Promise AttackArea(this Creature creature, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, Attack attack, Condition condition)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new CreatureAttackAreaCommand(creature, beam, center, area, projectileType, magicEffectType, openTibiaId, count, attack, condition) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>

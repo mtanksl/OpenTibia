@@ -189,7 +189,9 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new LightCondition(new Light(6, 215), new TimeSpan(0, 6, 10) ) ) );
+                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, 
+                            
+                            new LightCondition(new Light(6, 215), new TimeSpan(0, 6, 10) ) ) );
                     } );
                 }
             },
@@ -214,7 +216,9 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new LightCondition(new Light(8, 215), new TimeSpan(0, 11, 35) ) ) );
+                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, 
+                            
+                            new LightCondition(new Light(8, 215), new TimeSpan(0, 11, 35) ) ) );
                     } );
                 }
             },
@@ -239,7 +243,9 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new LightCondition(new Light(9, 215), new TimeSpan(0, 33, 10) ) ) );
+                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, 
+                            
+                            new LightCondition(new Light(9, 215), new TimeSpan(0, 33, 10) ) ) );
                     } );
                 }
             },
@@ -264,7 +270,9 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new InvisibleCondition(new TimeSpan(0, 3, 20) ) ) );
+                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, 
+                            
+                            new InvisibleCondition(new TimeSpan(0, 3, 20) ) ) );
                     } );
                 }
             },
@@ -291,7 +299,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.GreenShimmer) ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new HasteCondition(speed, new TimeSpan(0, 0, 33) ) ) );
+                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, 
+                            
+                            new HasteCondition(speed, new TimeSpan(0, 0, 33) ) ) );
                     } );
                 }
             },
@@ -318,7 +328,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.GreenShimmer) ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new HasteCondition(speed, new TimeSpan(0, 0, 22) ) ) );
+                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, 
+                            
+                            new HasteCondition(speed, new TimeSpan(0, 0, 22) ) ) );
                     } );
                 }
             },
@@ -343,7 +355,9 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
-                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new MagicShieldCondition(new TimeSpan(0, 3, 0) ) ) );
+                        return Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, 
+                            
+                            new MagicShieldCondition(new TimeSpan(0, 3, 0) ) ) );
                     } );
                 }
             },
@@ -393,7 +407,9 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     var formula = LightHealingFormula(attacker.Level, attacker.Skills.MagicLevel);
 
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, attacker, new HealingAttack(MagicEffectType.BlueShimmer, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, attacker, 
+                        
+                        new HealingAttack(MagicEffectType.BlueShimmer, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -417,7 +433,9 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     var formula = IntenseHealingFormula(attacker.Level, attacker.Skills.MagicLevel);
                     
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, attacker, new HealingAttack(MagicEffectType.BlueShimmer, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, attacker, 
+                        
+                        new HealingAttack(MagicEffectType.BlueShimmer, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -441,7 +459,9 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     var formula = UltimateHealingFormula(attacker.Level, attacker.Skills.MagicLevel);
 
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, attacker, new HealingAttack(MagicEffectType.BlueShimmer, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, attacker, 
+                        
+                        new HealingAttack(MagicEffectType.BlueShimmer, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -476,7 +496,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = MassHealingFormula(attacker.Level, attacker.Skills.MagicLevel);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.BlueShimmer, new HealingAttack(null, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.BlueShimmer, 
+                        
+                        new HealingAttack(null, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -505,7 +527,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 45, 10);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.MortArea, new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.MortArea, 
+                        
+                        new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -534,7 +558,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 45, 10);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.FirePlume, new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.FirePlume, 
+                        
+                        new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -563,7 +589,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 45, 10);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.EnergyArea, new SimpleAttack(null, null, AnimatedTextColor.LightBlue, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.EnergyArea, 
+                        
+                        new SimpleAttack(null, null, AnimatedTextColor.LightBlue, formula.Min, formula.Max) ) );
                 }
             },
                        
@@ -595,7 +623,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 30, 10);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.FireArea, new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.FireArea, 
+                        
+                        new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -628,7 +658,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 60, 20);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.EnergyArea, new SimpleAttack(null, null, AnimatedTextColor.LightBlue, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.EnergyArea,
+                        
+                        new SimpleAttack(null, null, AnimatedTextColor.LightBlue, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -663,7 +695,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 120, 80);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.EnergyArea, new SimpleAttack(null, null, AnimatedTextColor.LightBlue, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.EnergyArea, 
+                        
+                        new SimpleAttack(null, null, AnimatedTextColor.LightBlue, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -696,7 +730,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 150, 50);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.MortArea, new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.MortArea, 
+                        
+                        new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -736,7 +772,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 250, 50);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.FireArea, new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.FireArea, 
+                        
+                        new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -776,7 +814,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 200, 50);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.GreenRings, new SimpleAttack(null, null, AnimatedTextColor.Green, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.GreenRings, 
+                        
+                        new SimpleAttack(null, null, AnimatedTextColor.Green, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -807,7 +847,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = BerserkFormula(attacker.Level, attacker.Skills.Fist, 0);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.BlackSpark, new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.BlackSpark,
+                        
+                        new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
                 }
             }
         };

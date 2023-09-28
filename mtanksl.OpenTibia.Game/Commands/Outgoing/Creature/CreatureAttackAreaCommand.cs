@@ -25,6 +25,25 @@ namespace OpenTibia.Game.Commands
             Attack = attack;
         }
 
+        public CreatureAttackAreaCommand(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, Attack attack, Condition condition)
+        {
+            Attacker = attacker;
+
+            Beam = beam;
+
+            Center = center;
+
+            Area = area;
+
+            ProjectileType = projectileType;
+
+            MagicEffectType = magicEffectType;
+
+            Attack = attack;
+
+            Condition = condition;
+        }
+
         public CreatureAttackAreaCommand(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count)
         {
             Attacker = attacker;
@@ -44,7 +63,7 @@ namespace OpenTibia.Game.Commands
             Count = count;
         }
 
-        public CreatureAttackAreaCommand(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, Condition condition)
+        public CreatureAttackAreaCommand(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, Attack attack)
         {
             Attacker = attacker;
 
@@ -61,6 +80,29 @@ namespace OpenTibia.Game.Commands
             OpenTibiaId = openTibiaId;
 
             Count = count;
+
+            Attack = attack;
+        }
+
+        public CreatureAttackAreaCommand(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, Attack attack, Condition condition)
+        {
+            Attacker = attacker;
+
+            Beam = beam;
+
+            Center = center;
+
+            Area = area;
+
+            ProjectileType = projectileType;
+
+            MagicEffectType = magicEffectType;
+                        
+            OpenTibiaId = openTibiaId;
+
+            Count = count;
+
+            Attack = attack;
 
             Condition = condition;
         }

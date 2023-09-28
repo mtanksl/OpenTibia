@@ -68,7 +68,9 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 70, 30);
 
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, new HealingAttack(MagicEffectType.BlueShimmer, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, 
+                        
+                        new HealingAttack(MagicEffectType.BlueShimmer, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -88,7 +90,9 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 250, 0);
 
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, new HealingAttack(MagicEffectType.BlueShimmer, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
+                        
+                        new HealingAttack(MagicEffectType.BlueShimmer, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -108,7 +112,9 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 15, 5);
 
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, new SimpleAttack(ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, 
+                        
+                        new SimpleAttack(ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -128,7 +134,9 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 30, 10);
 
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, new SimpleAttack(ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, 
+                        
+                        new SimpleAttack(ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -148,7 +156,9 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 150, 20);
 
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, new SimpleAttack(ProjectileType.SuddenDeath, MagicEffectType.MortArea, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, 
+                        
+                        new SimpleAttack(ProjectileType.SuddenDeath, MagicEffectType.MortArea, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
                 }
             }
         };

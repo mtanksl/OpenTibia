@@ -46,7 +46,9 @@ namespace OpenTibia.Game.Components
 
         public Promise Attack(Creature attacker, Creature target)
         {            
-            return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, new DistanceAttack(projectileType, min, max) ) );
+            return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, 
+                
+                new DistanceAttack(projectileType, min, max) ) );
         }
     }
 }

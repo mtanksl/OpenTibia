@@ -61,9 +61,11 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(0, 0)
                     };
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1503, 1, 
-                        
-                                                      new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, AnimatedTextColor.Green, new[] { 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(2) ) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1503, 1,
+
+                        new SimpleAttack(null, MagicEffectType.GreenRings, AnimatedTextColor.Green, 5, 5),
+
+                        new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, AnimatedTextColor.Green, new[] { 5, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(2) ) ) );
                 }
             },
 
@@ -98,9 +100,11 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(-1, 1) , new Offset(0, 1) , new Offset(1, 1)
                     };
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1503, 1, 
-                        
-                                                      new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, AnimatedTextColor.Green, new[] { 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(2) ) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Poison, MagicEffectType.GreenRings,1503, 1,
+
+                        new SimpleAttack(null, MagicEffectType.GreenRings, AnimatedTextColor.Green, 5, 5),
+
+                        new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, AnimatedTextColor.Green, new[] { 5, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(2) ) ) );
                 }
             },
 
@@ -133,9 +137,11 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(-2, 0), new Offset(-1, 0), new Offset(0, 0), new Offset(1, 0), new Offset(2, 0)
                     };
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1503, 1, 
-                        
-                                                      new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, AnimatedTextColor.Green, new[] { 5, 5, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(2) ) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1503, 1,
+
+                        new SimpleAttack(null, MagicEffectType.GreenRings, AnimatedTextColor.Green, 5, 5),
+
+                        new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, AnimatedTextColor.Green, new[] { 5, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(2) ) ) );
                 }
             },
 
@@ -169,8 +175,10 @@ namespace OpenTibia.Game.CommandHandlers
                     };
 
                     return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1500, 1, 
-                        
-                                                      new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { 20, 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(2) ) ) );
+
+                        new SimpleAttack(null, MagicEffectType.FirePlume, AnimatedTextColor.Orange, 20, 20),
+                                                                                                                         
+                        new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(2) ) ) );
                 }
             },
 
@@ -206,8 +214,10 @@ namespace OpenTibia.Game.CommandHandlers
                     };
 
                     return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1500, 1, 
-                        
-                                                      new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { 20, 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(2) ) ) );
+
+                        new SimpleAttack(null, MagicEffectType.FirePlume, AnimatedTextColor.Orange, 20, 20),
+                                                                                                                         
+                        new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(2) ) ) );
                 }
             },
 
@@ -241,8 +251,10 @@ namespace OpenTibia.Game.CommandHandlers
                     };
 
                     return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1500, 1, 
-                        
-                                                      new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { 20, 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(2) ) ) );
+
+                        new SimpleAttack(null, MagicEffectType.FirePlume, AnimatedTextColor.Orange, 20, 20),
+                                                                                                                         
+                        new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(2) ) ) );
                 }
             },
 
@@ -276,8 +288,10 @@ namespace OpenTibia.Game.CommandHandlers
                     };
 
                     return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1504, 1, 
-                        
-                                                      new DamageCondition(SpecialCondition.Electrified, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, new[] { 30, 25, 25 }, TimeSpan.FromSeconds(2) ) ) );
+    
+                        new SimpleAttack(null, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, 30, 30),
+                                                                                                                         
+                        new DamageCondition(SpecialCondition.Electrified, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, new[] { 25, 25 }, TimeSpan.FromSeconds(2) ) ) );
                 }
             },
 
@@ -313,8 +327,10 @@ namespace OpenTibia.Game.CommandHandlers
                     };
 
                     return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1504, 1, 
-                        
-                                                      new DamageCondition(SpecialCondition.Electrified, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, new[] { 30, 25, 25 }, TimeSpan.FromSeconds(2) ) ) );
+    
+                        new SimpleAttack(null, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, 30, 30),
+                                                                                                                         
+                        new DamageCondition(SpecialCondition.Electrified, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, new[] { 25, 25 }, TimeSpan.FromSeconds(2) ) ) );
                 }
             },
 
@@ -348,8 +364,10 @@ namespace OpenTibia.Game.CommandHandlers
                     };
 
                     return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1504, 1, 
-                        
-                                                      new DamageCondition(SpecialCondition.Electrified, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, new[] { 30, 25, 25 }, TimeSpan.FromSeconds(2) ) ) );
+    
+                        new SimpleAttack(null, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, 30, 30),
+                                                                                                                         
+                        new DamageCondition(SpecialCondition.Electrified, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, new[] { 25, 25 }, TimeSpan.FromSeconds(2) ) ) );
                 }
             },
 
@@ -388,7 +406,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 20, 5);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FireArea, new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FireArea, 
+                        
+                        new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -429,7 +449,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 50, 15);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FireArea, new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FireArea, 
+                        
+                        new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -466,7 +488,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 60, 40);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Explosion, MagicEffectType.ExplosionArea, new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Explosion, MagicEffectType.ExplosionArea, 
+                        
+                        new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
                 }
             },
 

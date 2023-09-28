@@ -35,7 +35,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                     } ).Then( () =>
                     {
-                        return Context.AddCommand(new CreatureAttackCreatureCommand(null, command.Player, new SimpleAttack(null, MagicEffectType.ExplosionDamage, AnimatedTextColor.Orange, 5, 5) ) );
+                        return Context.AddCommand(new CreatureAttackCreatureCommand(null, command.Player, 
+                            
+                            new SimpleAttack(null, MagicEffectType.ExplosionDamage, AnimatedTextColor.Orange, 5, 5) ) );
                     } );
                 }
 

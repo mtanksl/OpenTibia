@@ -170,9 +170,11 @@ namespace OpenTibia.Game.Components
                 {
                     var formula = DistanceFormula(attacker.Level, attacker.Skills.Distance, ammunition.Metadata.Attack.Value, attacker.Client.FightMode);
 
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, new DistanceAttack(ammunition.Metadata.ProjectileType.Value, formula.Min, formula.Max),
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, 
 
-                                                                                                          new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, AnimatedTextColor.Green, new[] { 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(4) ) ) );
+                        new DistanceAttack(ammunition.Metadata.ProjectileType.Value, formula.Min, formula.Max),
+                                                                                                                                 
+                        new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, AnimatedTextColor.Green, new[] { 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(4) ) ) );
                 }
             },
 
@@ -189,7 +191,9 @@ namespace OpenTibia.Game.Components
 
                     var formula = DistanceFormula(attacker.Level, attacker.Skills.Distance, ammunition.Metadata.Attack.Value, attacker.Client.FightMode);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, target.Tile.Position, area, ammunition.Metadata.ProjectileType.Value, MagicEffectType.FireArea, new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, target.Tile.Position, area, ammunition.Metadata.ProjectileType.Value, MagicEffectType.FireArea, 
+                        
+                        new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
                 }
             }
         };
@@ -303,19 +307,25 @@ namespace OpenTibia.Game.Components
                     {
                         var formula = MeleeFormula(player.Level, player.Skills.Sword, itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
 
-                        return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, new MeleeAttack(formula.Min, formula.Max) ) );
+                        return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target,
+                            
+                            new MeleeAttack(formula.Min, formula.Max) ) );
                     }
                     else if (itemWeapon.Metadata.WeaponType == WeaponType.Club)
                     {
                         var formula = MeleeFormula(player.Level, player.Skills.Club, itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
 
-                        return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, new MeleeAttack(formula.Min, formula.Max) ) );
+                        return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
+                            
+                            new MeleeAttack(formula.Min, formula.Max) ) );
                     }
                     else if (itemWeapon.Metadata.WeaponType == WeaponType.Axe)
                     {
                         var formula = MeleeFormula(player.Level, player.Skills.Axe, itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
 
-                        return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, new MeleeAttack(formula.Min, formula.Max) ) );
+                        return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
+                            
+                            new MeleeAttack(formula.Min, formula.Max) ) );
                     }
                     else if (itemWeapon.Metadata.WeaponType == WeaponType.Distance)
                     {
@@ -323,7 +333,9 @@ namespace OpenTibia.Game.Components
                         {
                             var formula = DistanceFormula(player.Level, player.Skills.Distance, itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
                   
-                            return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, new DistanceAttack(itemWeapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) ).Then( () =>
+                            return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
+                                
+                                new DistanceAttack(itemWeapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) ).Then( () =>
                             {
                                 return Context.Current.AddCommand(new ItemDecrementCommand(itemWeapon, 1) );
                             } );
@@ -343,7 +355,9 @@ namespace OpenTibia.Game.Components
                             {
                                 var formula = DistanceFormula(player.Level, player.Skills.Distance, itemAmmunition.Metadata.Attack.Value, player.Client.FightMode); 
              
-                                return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, new DistanceAttack(itemAmmunition.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) ).Then( () =>
+                                return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
+                                    
+                                    new DistanceAttack(itemAmmunition.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) ).Then( () =>
                                 {
                                     return Context.Current.AddCommand(new ItemDecrementCommand(itemAmmunition, 1) );
                                 } );
@@ -354,7 +368,9 @@ namespace OpenTibia.Game.Components
                     {
                         var formula = WandFormula(weapon.AttackStrength, weapon.AttackVariation);
 
-                        return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, new DistanceAttack(itemWeapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
+                        return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
+                            
+                            new DistanceAttack(itemWeapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
                     }
                     else
                     {
@@ -366,7 +382,9 @@ namespace OpenTibia.Game.Components
             {
                 var formula = MeleeFormula(player.Level, player.Skills.Fist, 7, player.Client.FightMode); 
 
-                return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, new MeleeAttack(formula.Min, formula.Max) ) );            
+                return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
+                    
+                    new MeleeAttack(formula.Min, formula.Max) ) );            
             }
         }
 

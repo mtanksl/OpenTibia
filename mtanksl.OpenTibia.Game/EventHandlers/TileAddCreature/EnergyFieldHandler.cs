@@ -16,7 +16,11 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (energyFields.Contains(topItem.Metadata.OpenTibiaId) )
                 {
-                    return Context.AddCommand(new CreatureAddConditionCommand(e.Creature, new DamageCondition(SpecialCondition.Electrified, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, new[] { 30, 25, 25 }, TimeSpan.FromSeconds(2) ) ) );
+                    return Context.AddCommand(new CreatureAttackCreatureCommand(null, e.Creature, 
+
+                        new SimpleAttack(null, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, 30, 30),
+                                                                                                                         
+                        new DamageCondition(SpecialCondition.Electrified, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, new[] { 25, 25 }, TimeSpan.FromSeconds(2) ) ) );
                 }
             }
 

@@ -16,7 +16,11 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (campfires.Contains(topItem.Metadata.OpenTibiaId) )
                 {
-                    return Context.AddCommand(new CreatureAddConditionCommand(e.Creature, new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { 20, 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(2) ) ) );
+                    return Context.AddCommand(new CreatureAttackCreatureCommand(null, e.Creature, 
+
+                        new SimpleAttack(null, MagicEffectType.FirePlume, AnimatedTextColor.Orange, 20, 20),
+                                                                                                                         
+                        new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(2) ) ) );
                 }
             }
 
