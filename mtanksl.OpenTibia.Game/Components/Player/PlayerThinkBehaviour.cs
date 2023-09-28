@@ -94,7 +94,7 @@ namespace OpenTibia.Game.Components
             {
                 if (target != null)
                 {
-                    if (target.Tile == null || target.IsDestroyed)
+                    if (target.Tile == null || target.IsDestroyed || target.Tile.ProtectionZone || player.Tile.ProtectionZone)
                     {
                         StopAttackAndFollow();
                            

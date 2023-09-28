@@ -180,34 +180,54 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     if (command.Player.Skills.MagicLevel >= rune.MagicLevel)
                     {
-                        PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerCooldownBehaviour>(command.Player);
-
-                        if ( !playerCooldownBehaviour.HasCooldown(rune.Group) )
+                        if ( !command.Player.Tile.ProtectionZone)
                         {
-                            if (rune.Condition == null || rune.Condition(command.Player, command.ToCreature) )
+                            if ( !command.ToCreature.Tile.ProtectionZone)
                             {
-                                playerCooldownBehaviour.AddCooldown(rune.Group, rune.GroupCooldown);
+                                PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerCooldownBehaviour>(command.Player);
 
-                                return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
+                                if ( !playerCooldownBehaviour.HasCooldown(rune.Group) )
                                 {
-                                    return rune.Callback(command.Player, command.ToCreature);
-                                } );
-                            }
+                                    if (rune.Condition == null || rune.Condition(command.Player, command.ToCreature) )
+                                    {
+                                        playerCooldownBehaviour.AddCooldown(rune.Group, rune.GroupCooldown);
+
+                                        return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
+                                        {
+                                            return rune.Callback(command.Player, command.ToCreature);
+                                        } );
+                                    }
                  
+                                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
+                                    {
+                                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
+
+                                        return Promise.Break;
+                                    } );                    
+                                }
+
+                                return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
+                                {
+                                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
+
+                                    return Promise.Break;
+                                } );  
+                            }
+
                             return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
                             {
-                                Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
-
+                                Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackAPersonInAProtectionZone) );
+                         
                                 return Promise.Break;
-                            } );                    
+                            } );
                         }
 
                         return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
                         {
-                            Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
-
+                            Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackAPersonWhileYouAreInAProtectionZone) );
+                         
                             return Promise.Break;
-                        } );                              
+                        } );                   
                     }
 
                     return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>

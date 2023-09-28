@@ -115,7 +115,6 @@ namespace OpenTibia.Game.CommandHandlers
             { 2163, 2162 },
 
             // Trap
-            { 2578, 2579 },
             { 2579, 2578 },
 
             //TODO: More items

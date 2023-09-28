@@ -22,6 +22,8 @@ namespace OpenTibia.Common.Objects
             }
         }
 
+        public bool ProtectionZone { get; set; }
+
         public Item Ground
         {
             get

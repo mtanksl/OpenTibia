@@ -146,6 +146,8 @@ namespace OpenTibia.Common.Objects
                 {
                     Tile tile = new Tile(otbmArea.Position.Offset(otbmTile.OffsetX, otbmTile.OffsetY, 0) );
 
+                    tile.ProtectionZone = (otbmTile.Flags & TileFlags.ProtectionZone) == TileFlags.ProtectionZone;
+
                     tiles.Add(tile.Position, tile);
 
                     if (otbmTile.OpenTibiaItemId > 0)

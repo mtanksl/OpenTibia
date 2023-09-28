@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class TrapHandler : EventHandler<TileAddCreatureEventArgs>
+    public class OpenTrapHandler : EventHandler<TileAddCreatureEventArgs>
     {
         private Dictionary<ushort, ushort> traps = new Dictionary<ushort, ushort>()
         {
