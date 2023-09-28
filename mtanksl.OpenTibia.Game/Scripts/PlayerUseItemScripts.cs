@@ -72,6 +72,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemTransformHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler(new TrapHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler(new WatchHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new WindowHandler() );

@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.EventHandlers.Subscribe(new EnergyFieldHandler() );
 
-            Context.Server.EventHandlers.Subscribe(new TrapHandler() );
+            Context.Server.EventHandlers.Subscribe(new OpenTrapHandler() );
 
             Context.Server.EventHandlers.Subscribe(new JungleMawHandler() );
 
