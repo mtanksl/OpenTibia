@@ -6,6 +6,8 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
+            Context.Server.EventHandlers.Subscribe(new ProtectionZoneHandler() );
+
             Context.Server.EventHandlers.Subscribe(new TilePressHandler() );
 
             Context.Server.EventHandlers.Subscribe(new SnowPressHandler() );
