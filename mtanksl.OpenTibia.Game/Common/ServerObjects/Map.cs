@@ -1,13 +1,11 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Otbm;
 using OpenTibia.FileFormats.Xml.Houses;
-using OpenTibia.FileFormats.Xml.Monsters;
 using OpenTibia.FileFormats.Xml.Spawns;
 using OpenTibia.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using OtbmItem = OpenTibia.FileFormats.Otbm.Item;
 
 namespace OpenTibia.Common.Objects

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace OpenTibia.Game
+﻿namespace OpenTibia.Game
 {
     public class Statement
     {
