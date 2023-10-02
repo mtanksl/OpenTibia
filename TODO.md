@@ -18,7 +18,7 @@
 - Guild
 - Party
 - NPC trade window
-- Rings and amulets
+- Rings and amulets charges
 - Hangable items
 - Sign items
 - Addons
@@ -66,12 +66,12 @@
 	- Buy and sell items
 - Interacting with monsters
 	- Fight system
-	- Weapon attributes (atk, def, arm)
+	- Weapon attributes (range, atk, def, arm)
 	- Ammunition
 	- Bow and arrow
 	- Wand and rod
 	- Two-handed items
-	- Protection zone block
+	- Protection zone
 - Interacting with the game world 
 	- Look item
 	- Move item

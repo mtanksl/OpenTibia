@@ -85,6 +85,8 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CommandHandlers.AddCommandHandler(new ThrowAwayTradingRejectHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new InventoryHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new RingHandler() );
         }
 
         public override void Stop()
