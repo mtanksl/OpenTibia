@@ -12,6 +12,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.EventHandlers.Subscribe(new SnowPressHandler() );
 
+            Context.Server.EventHandlers.Subscribe(new SearingFireHandler() );
+
             Context.Server.EventHandlers.Subscribe(new CampfireHandler() );
 
             Context.Server.EventHandlers.Subscribe(new FireFieldHandler() );
