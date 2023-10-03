@@ -1,4 +1,5 @@
-﻿using mtanksl.OpenTibia.Data.MySql;
+﻿using mtanksl.OpenTibia.Data.MsSql;
+using mtanksl.OpenTibia.Data.MySql;
 using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Data.Sqlite.Contexts;
@@ -40,7 +41,11 @@ namespace OpenTibia.Game
 
                     case "mysql":
 
-                        return new MySqlContext("server=" + Config.DatabaseHost + ";port=" + Config.DatabasePort + ";database=" + Config.DatabaseName + ";user=" + Config.DatabaseUser + ";password=" + Config.DatabasePassword, builder.Options);
+                        return new MySqlContext("Server=" + Config.DatabaseHost + ";Port=" + Config.DatabasePort + ";Database=" + Config.DatabaseName + ";User=" + Config.DatabaseUser + ";Password=" + Config.DatabasePassword + ";", builder.Options);
+
+                    case "mssql":
+
+                        return new MsSqlContext("Server=" + Config.DatabaseHost + ";Database=" + Config.DatabaseName + ";User Id=" + Config.DatabaseUser + ";Password=" + Config.DatabasePassword + ";TrustServerCertificate=True;", builder.Options);
 
                     default:
 

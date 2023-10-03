@@ -7,16 +7,16 @@ server = {
 		maxplayers = 1000
 	},		
 	database = {
-		type = "sqlite",
+		type = "mysql",
 
 		-- sqlite
 		source = "data/database.db",
 
-		-- mysql
+		-- mysql or mssql
 		host = "localhost",
 		port = 3306,
 		user = "root",
-		password = "",
-		name = "mtots"
+		password = "123456",
+		name = "mtots",
 	}
 }
