@@ -6,6 +6,10 @@
 		-- { type = "PlayerUseItemWithCreature", opentibiaid = 2580, allowfaruse = true, filename = "use item with creature.lua" },
 		-- { type = "PlayerMoveItem", opentibiaid = 1740, filename = "move item.lua" }
 	},
+	movements = {
+		-- { type = "CreatureStepIn", opentibiaid = 446, filename = "step in.lua" },
+		-- { type = "CreatureStepOut", opentibiaid = 446, filename = "step out.lua" }
+	},
 	talkactions = {
 		-- { type = "PlayerSay", message = "hello world", filename = "say.lua" },
 	},

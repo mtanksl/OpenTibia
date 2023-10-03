@@ -154,6 +154,30 @@ namespace OpenTibia.Game
                 }
             }
 
+            foreach (LuaTable plugin in ( (LuaTable)script["plugins.movements"] ).Values)
+            {
+                string type = (string)plugin["type"];
+
+                ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
+
+                string filename = (string)plugin["filename"];
+
+                switch (type)
+                {
+                    case "CreatureStepIn":
+
+                        creatureStepInPlugins.AddPlugin(openTibiaId, () => new LuaScriptingCreatureStepInPlugin("data/plugins/movements/" + filename) );
+
+                        break;
+
+                    case "CreatureStepOut":
+
+                        creatureStepOutPlugins.AddPlugin(openTibiaId, () => new LuaScriptingCreatureStepOutPlugin("data/plugins/movements/" + filename) );
+
+                        break;
+                }
+            }
+
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.talkactions"] ).Values)
             {
                 string type = (string)plugin["type"];
@@ -244,6 +268,20 @@ namespace OpenTibia.Game
             return playerMoveItemPlugins.GetPlugin(openTibiaId);
         }
 
+        private PluginDictionaryCached<ushort, CreatureStepInPlugin> creatureStepInPlugins = new PluginDictionaryCached<ushort, CreatureStepInPlugin>();
+
+        public CreatureStepInPlugin GetCreatureStepInPlugin(ushort openTibiaId)
+        {
+            return creatureStepInPlugins.GetPlugin(openTibiaId);
+        }
+
+        private PluginDictionaryCached<ushort, CreatureStepOutPlugin> creatureStepOutPlugins = new PluginDictionaryCached<ushort, CreatureStepOutPlugin>();
+
+        public CreatureStepOutPlugin GetCreatureStepOutPlugin(ushort openTibiaId)
+        {
+            return creatureStepOutPlugins.GetPlugin(openTibiaId);
+        }
+
         private PluginDictionaryCached<string, PlayerSayPlugin> playerSayPlugins = new PluginDictionaryCached<string, PlayerSayPlugin>();
 
         public PlayerSayPlugin GetPlayerSayPlugin(string message)
@@ -291,6 +329,16 @@ namespace OpenTibia.Game
             }
 
             foreach (var plugin in playerMoveItemPlugins.GetPlugins() )
+            {
+                plugin.Stop();
+            }
+
+            foreach (var plugin in creatureStepInPlugins.GetPlugins() )
+            {
+                plugin.Stop();
+            }
+
+            foreach (var plugin in creatureStepOutPlugins.GetPlugins() )
             {
                 plugin.Stop();
             }

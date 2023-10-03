@@ -49,7 +49,7 @@ namespace OpenTibia.Game
 
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        /// 
+
         public T Take<T>(T[] array, int[] weights)
         {
             if (array == null)
@@ -88,7 +88,7 @@ namespace OpenTibia.Game
         }
 
         /// <exception cref="ArgumentNullException"></exception>
-        /// 
+
         public T[] Shuffle<T>(T[] array)
         {
             if (array == null)

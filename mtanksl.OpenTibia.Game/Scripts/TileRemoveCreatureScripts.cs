@@ -6,6 +6,8 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
+            Context.Server.EventHandlers.Subscribe(new TileRemoveCreatureScriptingHandler() );
+
             Context.Server.EventHandlers.Subscribe(new TileDepressHandler() );
 
             Context.Server.EventHandlers.Subscribe(new CloseDoorAutomaticallyHandler() );
