@@ -4,7 +4,7 @@ namespace OpenTibia.Game.Events
 {
     public class TileReplaceItemEventArgs : GameEventArgs
     {
-        public TileReplaceItemEventArgs(Tile tile, Item fromItem, Item toItem, byte index)
+        public TileReplaceItemEventArgs(Tile tile, Item fromItem, Item toItem, int index)
         {
             Tile = tile;
 
@@ -21,6 +21,6 @@ namespace OpenTibia.Game.Events
 
         public Item ToItem { get; set; }
 
-        public byte Index { get; set; }
+        public int Index { get; set; }
     }
 }

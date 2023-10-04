@@ -165,7 +165,7 @@ namespace OpenTibia.Common.Objects
 
                             if (Player.Inventory == inventory)
                             {
-                                clientIndex = inventory.GetIndex(content);
+                                clientIndex = (byte)inventory.GetIndex(content);
 
                                 return true;
                             }
@@ -178,7 +178,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 if (pair.Value == container)
                                 {
-                                    clientIndex = container.GetIndex(content);
+                                    clientIndex = (byte)container.GetIndex(content);
 
                                     return true;
                                 }

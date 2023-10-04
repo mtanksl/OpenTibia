@@ -35,7 +35,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            byte index = Tile.GetIndex(Creature);
+            int index = Tile.GetIndex(Creature);
 
             Tile.RemoveContent(index);
 

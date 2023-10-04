@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            byte index = Tile.AddContent(Creature);
+            int index = Tile.AddContent(Creature);
 
             Context.Server.Map.AddObserver(Tile.Position, Creature);
 

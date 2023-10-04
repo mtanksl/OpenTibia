@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
 
             foreach (var pair in Player.Inventory.GetIndexedContents() )
             {
-                Context.AddPacket(Player.Client.Connection, new SlotAddOutgoingPacket(pair.Key, (Item)pair.Value) );
+                Context.AddPacket(Player.Client.Connection, new SlotAddOutgoingPacket( (byte)pair.Key, (Item)pair.Value) );
             }
 
             foreach (var pair in Player.Client.Vips.GetIndexed() )

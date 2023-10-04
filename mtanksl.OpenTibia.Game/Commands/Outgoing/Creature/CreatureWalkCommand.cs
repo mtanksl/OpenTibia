@@ -46,13 +46,13 @@ namespace OpenTibia.Game.Commands
 
             Tile fromTile = Creature.Tile;
 
-            byte fromIndex = fromTile.GetIndex(Creature);
+            int fromIndex = fromTile.GetIndex(Creature);
 
             fromTile.RemoveContent(fromIndex);
 
             Context.Server.Map.RemoveObserver(fromTile.Position, Creature);
 
-            byte toIndex = ToTile.AddContent(Creature);
+            int toIndex = ToTile.AddContent(Creature);
 
             Context.Server.Map.AddObserver(ToTile.Position, Creature);
 

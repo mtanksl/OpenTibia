@@ -4,22 +4,22 @@ namespace OpenTibia.Common.Objects
 {
     public interface IContainer
     {
-        byte AddContent(IContent content);
+        int AddContent(IContent content);
 
-        void AddContent(IContent content, byte index);
+        void AddContent(IContent content, int index);
 
-        void ReplaceContent(byte index, IContent content);
+        void ReplaceContent(int index, IContent content);
 
-        void RemoveContent(byte index);
-        
-        byte GetIndex(IContent content);
+        void RemoveContent(int index);
 
-        bool TryGetIndex(IContent content, out byte index);
+        int GetIndex(IContent content);
 
-        IContent GetContent(byte index);
+        bool TryGetIndex(IContent content, out int index);
+
+        IContent GetContent(int index);
 
         IEnumerable<IContent> GetContents();
 
-        IEnumerable< KeyValuePair<byte, IContent> > GetIndexedContents();
+        IEnumerable< KeyValuePair<int, IContent> > GetIndexedContents();
     }
 }

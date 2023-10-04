@@ -4,7 +4,7 @@ namespace OpenTibia.Game.Events
 {
     public class TileAddCreatureEventArgs : GameEventArgs
     {
-        public TileAddCreatureEventArgs(Tile tile, Creature creature, byte index)
+        public TileAddCreatureEventArgs(Tile tile, Creature creature, int index)
         {
             Tile = tile;
 
@@ -17,6 +17,6 @@ namespace OpenTibia.Game.Events
 
         public Creature Creature { get; set; }
 
-        public byte Index { get; set; }
+        public int Index { get; set; }
     }
 }

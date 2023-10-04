@@ -13,7 +13,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 IContainer beforeContainer = command.Creature.Parent;
 
-                byte beforeIndex = beforeContainer.GetIndex(command.Creature);
+                int beforeIndex = beforeContainer.GetIndex(command.Creature);
 
                 return Context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, command.Creature.Tile) ).Then( () =>
                 {
@@ -28,7 +28,7 @@ namespace OpenTibia.Game.CommandHandlers
                         return Promise.Break;
                     }
 
-                    byte afterIndex = afterContainer.GetIndex(command.Creature);
+                    int afterIndex = afterContainer.GetIndex(command.Creature);
 
                     if (beforeIndex != afterIndex)
                     {

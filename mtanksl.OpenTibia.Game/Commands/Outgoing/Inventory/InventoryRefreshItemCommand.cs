@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            byte slot = Inventory.GetIndex(Item);
+            byte slot = (byte)Inventory.GetIndex(Item);
 
             Context.AddPacket(Inventory.Player.Client.Connection, new SlotAddOutgoingPacket(slot, Item) );
 

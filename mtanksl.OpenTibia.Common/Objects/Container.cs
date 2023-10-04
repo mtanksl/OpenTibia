@@ -11,11 +11,11 @@ namespace OpenTibia.Common.Objects
 
         }
 
-        public byte Count
+        public int Count
         {
             get
             {
-                return (byte)contents.Count;
+                return contents.Count;
             }
         }
 
@@ -23,14 +23,14 @@ namespace OpenTibia.Common.Objects
 
         /// <exception cref="ArgumentException"></exception>
 
-        public byte AddContent(IContent content)
+        public int AddContent(IContent content)
         {
             if ( !(content is Item) )
             {
                 throw new ArgumentException("Content must be an item.");
             }
 
-            byte index = 0;
+            int index = 0;
 
             contents.Insert(index, content);
 
@@ -41,14 +41,14 @@ namespace OpenTibia.Common.Objects
 
         /// <exception cref="NotSupportedException"></exception>
 
-        public void AddContent(IContent content, byte index)
+        public void AddContent(IContent content, int index)
         {
             throw new NotSupportedException();
         }
 
         /// <exception cref="ArgumentException"></exception>
 
-        public void ReplaceContent(byte index, IContent content)
+        public void ReplaceContent(int index, IContent content)
         {
             if ( !(content is Item) )
             {
@@ -64,7 +64,7 @@ namespace OpenTibia.Common.Objects
             content.Parent = this;
         }
 
-        public void RemoveContent(byte index)
+        public void RemoveContent(int index)
         {
             IContent content = GetContent(index);
 
@@ -75,9 +75,9 @@ namespace OpenTibia.Common.Objects
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public byte GetIndex(IContent content)
+        public int GetIndex(IContent content)
         {
-            for (byte index = 0; index < contents.Count; index++)
+            for (int index = 0; index < contents.Count; index++)
             {
                 if (contents[index] == content)
                 {
@@ -88,9 +88,9 @@ namespace OpenTibia.Common.Objects
             throw new InvalidOperationException("Content not found.");
         }
 
-        public bool TryGetIndex(IContent content, out byte _index)
+        public bool TryGetIndex(IContent content, out int _index)
         {
-            for (byte index = 0; index < contents.Count; index++)
+            for (int index = 0; index < contents.Count; index++)
             {
                 if (contents[index] == content)
                 {
@@ -105,7 +105,7 @@ namespace OpenTibia.Common.Objects
             return false;
         }
 
-        public IContent GetContent(byte index)
+        public IContent GetContent(int index)
         {
             if (index < 0 || index > contents.Count - 1)
             {
@@ -120,11 +120,11 @@ namespace OpenTibia.Common.Objects
             return contents;
         }
 
-        public IEnumerable< KeyValuePair<byte, IContent> > GetIndexedContents()
+        public IEnumerable< KeyValuePair<int, IContent> > GetIndexedContents()
         {
-            for (byte index = 0; index < contents.Count; index++)
+            for (int index = 0; index < contents.Count; index++)
             {
-                yield return new KeyValuePair<byte, IContent>( index, contents[index] );
+                yield return new KeyValuePair<int, IContent>( index, contents[index] );
             }
         }
 

@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
         
         public override Promise Execute()
         {
-            byte index = Container.GetIndex(FromItem);
+            byte index = (byte)Container.GetIndex(FromItem);
 
             Container.ReplaceContent(index, ToItem);
 

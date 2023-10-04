@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            byte index = Tile.GetIndex(Item);
+            int index = Tile.GetIndex(Item);
 
             foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Tile.Position) )
             {

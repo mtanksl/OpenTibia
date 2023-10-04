@@ -4,7 +4,7 @@ namespace OpenTibia.Game.Events
 {
     public class CreatureWalkEventArgs : GameEventArgs
     {
-        public CreatureWalkEventArgs(Creature creature, Tile fromTile, byte fromIndex, Tile toTile, byte toIndex)
+        public CreatureWalkEventArgs(Creature creature, Tile fromTile, int fromIndex, Tile toTile, int toIndex)
         {
             Creature = creature;
 
@@ -21,10 +21,10 @@ namespace OpenTibia.Game.Events
 
         public Tile FromTile { get; set; }
 
-        public byte FromIndex { get; set; }   
+        public int FromIndex { get; set; }   
 
         public Tile ToTile { get; set; }
 
-        public byte ToIndex { get; set; }
+        public int ToIndex { get; set; }
     }
 }

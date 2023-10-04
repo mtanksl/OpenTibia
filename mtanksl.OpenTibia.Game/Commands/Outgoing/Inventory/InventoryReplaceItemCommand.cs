@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {          
-            byte slot = Inventory.GetIndex(FromItem);
+            byte slot = (byte)Inventory.GetIndex(FromItem);
 
             Inventory.ReplaceContent(slot, ToItem);
 
