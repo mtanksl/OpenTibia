@@ -173,7 +173,7 @@ namespace OpenTibia.Game.Components
 
                         new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, AnimatedTextColor.Green, new[] { 2, 2, 2, 2, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(4) ) ) );
                 }
-            },
+            }
         };
 
         private static Dictionary<ushort, Ammunition> ammunitions = new Dictionary<ushort, Ammunition>()
