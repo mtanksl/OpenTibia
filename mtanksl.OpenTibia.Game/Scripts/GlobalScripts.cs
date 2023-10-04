@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Scripts
 
         private void Tick()
         {
-            Promise.Delay("Tick", TimeSpan.FromMilliseconds(100) ).Then( () =>
+            Promise.Delay("Tick", TimeSpan.FromMilliseconds(200) ).Then( () =>
             {
                 Tick();
 

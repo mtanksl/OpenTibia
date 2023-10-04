@@ -16,7 +16,7 @@ namespace OpenTibia.Game.GameObjectScripts
 
         public override void Start(Npc npc)
         {
-            if (npc.Metadata.Sentences != null)
+            if (npc.Metadata.Sentences != null && npc.Metadata.Sentences.Length > 0)
             {
                 Context.Server.GameObjectComponents.AddComponent(npc, new CreatureTalkBehaviour(TalkType.Say, npc.Metadata.Sentences) );
             }

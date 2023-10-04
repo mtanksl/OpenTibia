@@ -220,9 +220,16 @@ namespace OpenTibia.Common.Objects
 
                     Monster monster = server.MonsterFactory.Create(xmlMonster.Name, tile);
 
-                    server.MonsterFactory.Attach(monster);
+                    if (monster != null)
+                    {
+                        server.MonsterFactory.Attach(monster);
 
-                    tile.AddContent(monster);
+                        tile.AddContent(monster);
+                    }
+                    else
+                    {
+                        unknownMonsters.Add(xmlMonster.Name);
+                    }
                 }
 
                 foreach (var xmlNpc in spawn.Npcs)
@@ -231,9 +238,16 @@ namespace OpenTibia.Common.Objects
 
                     Npc npc = server.NpcFactory.Create(xmlNpc.Name, tile);
 
-                    server.NpcFactory.Attach(npc);
+                    if (npc != null)
+                    {
+                        server.NpcFactory.Attach(npc);
 
-                    tile.AddContent(npc);
+                        tile.AddContent(npc);
+                    }
+                    else
+                    {
+                        unknownNpcs.Add(xmlNpc.Name);
+                    }
                 }
             }
 
@@ -247,6 +261,26 @@ namespace OpenTibia.Common.Objects
                 {
                     observers[j][i] = null;
                 }
+            }
+        }
+
+        private HashSet<string> unknownMonsters = new HashSet<string>();
+
+        public HashSet<string> UnknownMonsters
+        {
+            get
+            {
+                return unknownMonsters;
+            }
+        }
+
+        private HashSet<string> unknownNpcs = new HashSet<string>();
+
+        public HashSet<string> UnknownNpcs
+        {
+            get
+            {
+                return unknownNpcs;
             }
         }
 
@@ -353,12 +387,12 @@ namespace OpenTibia.Common.Objects
 
             HashSet<Creature> GetObservers(int j, int i)
             {
-                if (j < 0 || j > observers.Length)
+                if (j < 0 || j > observers.Length - 1)
                 {
                     return null;
                 }
 
-                if (i < 0 || i > observers[0].Length)
+                if (i < 0 || i > observers[0].Length - 1)
                 {
                     return null;
                 }

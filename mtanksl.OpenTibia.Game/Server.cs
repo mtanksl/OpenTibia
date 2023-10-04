@@ -232,6 +232,16 @@ namespace OpenTibia.Game
                               HouseFile.Load(PathResolver.GetFullPath("data/world/map-house.xml") ) );
                 }
 
+                if (Map.UnknownMonsters.Count > 0)
+                {
+                    Logger.WriteLine("Unable to load monsters: " + string.Join(", ", Map.UnknownMonsters), LogLevel.Warning);
+                }
+
+                if (Map.UnknownNpcs.Count > 0)
+                {
+                    Logger.WriteLine("Unable to load npcs: " + string.Join(", ", Map.UnknownNpcs), LogLevel.Warning);
+                }
+
                 using (Logger.Measure("Loading scripts") )
                 {
                     Scripts.Start();
@@ -240,6 +250,13 @@ namespace OpenTibia.Game
                 return Promise.Completed;
 
             } ).Wait();
+
+            using (Logger.Measure("Clean up") )
+            {
+                GC.Collect();
+
+                GC.WaitForPendingFinalizers();
+            }
 
             loginServer.Start(Config.LoginPort);
 
