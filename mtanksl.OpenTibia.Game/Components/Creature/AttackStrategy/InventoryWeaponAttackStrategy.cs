@@ -212,6 +212,64 @@ namespace OpenTibia.Game.Components
             }
         };
 
+        private static Item GetWeapon(Player player)
+        {
+            Item item = player.Inventory.GetContent( (byte)Slot.Left) as Item;
+
+            if (item != null && (item.Metadata.WeaponType == WeaponType.Sword || item.Metadata.WeaponType == WeaponType.Club || item.Metadata.WeaponType == WeaponType.Axe || item.Metadata.WeaponType == WeaponType.Distance || item.Metadata.WeaponType == WeaponType.Wand) )
+            {
+                return item;
+            }
+
+            item = player.Inventory.GetContent( (byte)Slot.Right) as Item;
+
+            if (item != null && (item.Metadata.WeaponType == WeaponType.Sword || item.Metadata.WeaponType == WeaponType.Club || item.Metadata.WeaponType == WeaponType.Axe || item.Metadata.WeaponType == WeaponType.Distance || item.Metadata.WeaponType == WeaponType.Wand) )
+            {
+                return item;
+            }
+
+            return null;
+        }
+
+        private static Item GetAmmunition(Player player)
+        {
+            Item item = player.Inventory.GetContent( (byte)Slot.Extra) as Item;
+
+            if (item != null && item.Metadata.WeaponType == WeaponType.Ammo)
+            {
+                return item;
+            }
+
+            return null;
+        }
+
+        private static (int Min, int Max) MeleeFormula(int level, int skill, int attack, FightMode fightMode)
+        {
+            int min = 0;
+
+            int max = (int)Math.Floor(0.085 * (fightMode == FightMode.Offensive ? 1 : fightMode == FightMode.Balanced ? 0.75 : 0.5) * skill * attack) + (int)Math.Floor(level / 5.0);
+
+            return (min, max);
+        }
+
+        private static (int Min, int Max) DistanceFormula(int level, int skill, int attack, FightMode fightMode)
+        {
+            int min = (int)Math.Floor(level / 5.0);
+
+            int max = (int)Math.Floor(0.09 * (fightMode == FightMode.Offensive ? 1 : fightMode == FightMode.Balanced ? 0.75 : 0.5) * skill * attack) + min;
+
+            return (min, max);
+        }
+
+        private static (int Min, int Max) WandFormula(int attackStrength, int attackVariation)
+        {
+            int min = attackStrength - attackVariation;
+
+            int max = attackStrength + attackVariation;
+
+            return (min, max);
+        }
+
         private TimeSpan cooldown;
 
         public InventoryWeaponAttackStrategy(TimeSpan cooldown)
@@ -445,64 +503,6 @@ namespace OpenTibia.Game.Components
                     
                     new MeleeAttack(formula.Min, formula.Max) ) );
             }
-        }
-
-        private static Item GetWeapon(Player player)
-        {
-            Item item = player.Inventory.GetContent( (byte)Slot.Left) as Item;
-
-            if (item != null && (item.Metadata.WeaponType == WeaponType.Sword || item.Metadata.WeaponType == WeaponType.Club || item.Metadata.WeaponType == WeaponType.Axe || item.Metadata.WeaponType == WeaponType.Distance || item.Metadata.WeaponType == WeaponType.Wand) )
-            {
-                return item;
-            }
-
-            item = player.Inventory.GetContent( (byte)Slot.Right) as Item;
-
-            if (item != null && (item.Metadata.WeaponType == WeaponType.Sword || item.Metadata.WeaponType == WeaponType.Club || item.Metadata.WeaponType == WeaponType.Axe || item.Metadata.WeaponType == WeaponType.Distance || item.Metadata.WeaponType == WeaponType.Wand) )
-            {
-                return item;
-            }
-
-            return null;
-        }
-
-        private static Item GetAmmunition(Player player)
-        {
-            Item item = player.Inventory.GetContent( (byte)Slot.Extra) as Item;
-
-            if (item != null && item.Metadata.WeaponType == WeaponType.Ammo)
-            {
-                return item;
-            }
-
-            return null;
-        }
-
-        private static (int Min, int Max) MeleeFormula(int level, int skill, int attack, FightMode fightMode)
-        {
-            int min = 0;
-
-            int max = (int)Math.Floor(0.085 * (fightMode == FightMode.Offensive ? 1 : fightMode == FightMode.Balanced ? 0.75 : 0.5) * skill * attack) + (int)Math.Floor(level / 5.0);
-
-            return (min, max);
-        }
-
-        private static (int Min, int Max) DistanceFormula(int level, int skill, int attack, FightMode fightMode)
-        {
-            int min = (int)Math.Floor(level / 5.0);
-
-            int max = (int)Math.Floor(0.09 * (fightMode == FightMode.Offensive ? 1 : fightMode == FightMode.Balanced ? 0.75 : 0.5) * skill * attack) + min;
-
-            return (min, max);
-        }
-
-        private static (int Min, int Max) WandFormula(int attackStrength, int attackVariation)
-        {
-            int min = attackStrength - attackVariation;
-
-            int max = attackStrength + attackVariation;
-
-            return (min, max);
-        }
+        }        
     }
 }
