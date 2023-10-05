@@ -46,7 +46,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Condition = (attacker, tile) =>
                 {
-                    if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) )  )
+                    if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
                     {
                         return false;
                     }
@@ -100,7 +100,7 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(-1, 1) , new Offset(0, 1) , new Offset(1, 1)
                     };
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Poison, MagicEffectType.GreenRings,1503, 1,
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1503, 1,
 
                         new SimpleAttack(null, MagicEffectType.GreenRings, AnimatedTextColor.Green, 5, 5),
 
@@ -174,10 +174,10 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(0, 0)
                     };
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1500, 1, 
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1500, 1,
 
                         new SimpleAttack(null, MagicEffectType.FirePlume, AnimatedTextColor.Orange, 20, 20),
-                                                                                                                         
+
                         new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(4) ) ) );
                 }
             },
@@ -213,10 +213,10 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(-1, 1) , new Offset(0, 1) , new Offset(1, 1)
                     };
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1500, 1, 
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1500, 1,
 
                         new SimpleAttack(null, MagicEffectType.FirePlume, AnimatedTextColor.Orange, 20, 20),
-                                                                                                                         
+
                         new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(4) ) ) );
                 }
             },
@@ -250,10 +250,10 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(-2, 0), new Offset(-1, 0), new Offset(0, 0), new Offset(1, 0), new Offset(2, 0)
                     };
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1500, 1, 
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1500, 1,
 
                         new SimpleAttack(null, MagicEffectType.FirePlume, AnimatedTextColor.Orange, 20, 20),
-                                                                                                                         
+
                         new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(4) ) ) );
                 }
             },
@@ -287,10 +287,10 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(0, 0)
                     };
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1504, 1, 
-    
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1504, 1,
+
                         new SimpleAttack(null, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, 30, 30),
-                                                                                                                         
+
                         new DamageCondition(SpecialCondition.Electrified, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, new[] { 25, 25 }, TimeSpan.FromSeconds(4) ) ) );
                 }
             },
@@ -326,10 +326,10 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(-1, 1) , new Offset(0, 1) , new Offset(1, 1)
                     };
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1504, 1, 
-    
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1504, 1,
+
                         new SimpleAttack(null, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, 30, 30),
-                                                                                                                         
+
                         new DamageCondition(SpecialCondition.Electrified, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, new[] { 25, 25 }, TimeSpan.FromSeconds(4) ) ) );
                 }
             },
@@ -363,10 +363,10 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(-2, 0), new Offset(-1, 0), new Offset(0, 0), new Offset(1, 0), new Offset(2, 0)
                     };
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1504, 1, 
-    
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1504, 1,
+
                         new SimpleAttack(null, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, 30, 30),
-                                                                                                                         
+
                         new DamageCondition(SpecialCondition.Electrified, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, new[] { 25, 25 }, TimeSpan.FromSeconds(4) ) ) );
                 }
             },
@@ -406,8 +406,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 20, 5);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FireArea, 
-                        
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FireArea,
+
                         new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
                 }
             },
@@ -449,8 +449,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 50, 15);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FireArea, 
-                        
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FireArea,
+
                         new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
                 }
             },
@@ -488,8 +488,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 60, 40);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Explosion, MagicEffectType.ExplosionArea, 
-                        
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, tile.Position, area, ProjectileType.Explosion, MagicEffectType.ExplosionArea,
+
                         new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
                 }
             },
@@ -574,81 +574,81 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (runes.TryGetValue(command.Item.Metadata.OpenTibiaId, out rune) )
             {
-                if (command.ToItem.Parent is Tile toTile)
+                if (command.ToItem.Parent is not Tile toTile)
                 {
-                    if (command.Player.Level >= rune.Level)
-                    {
-                        if (command.Player.Skills.MagicLevel >= rune.MagicLevel)
-                        {
-                            if ( !command.Player.Tile.ProtectionZone)
-                            {
-                                if ( !toTile.ProtectionZone)
-                                {
-                                    PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerCooldownBehaviour>(command.Player);
+                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
 
-                                    if ( !playerCooldownBehaviour.HasCooldown(rune.Group) )
-                                    {
-                                        if (rune.Condition == null || rune.Condition(command.Player, toTile) )
-                                        {
-                                            playerCooldownBehaviour.AddCooldown(rune.Group, rune.GroupCooldown);
+                    return Promise.Break;
+                }
 
-                                            return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
-                                            {
-                                                return rune.Callback(command.Player, toTile);
-                                            } );
-                                        }
-
-                                        return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
-                                        {
-                                            Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
-
-                                            return Promise.Break;
-                                        } );
-                                    }
-
-                                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
-                                    {
-                                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
-
-                                        return Promise.Break;
-                                    } );
-                                }
-
-                                return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
-                                {
-                                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackAPersonInAProtectionZone) );
-                         
-                                    return Promise.Break;
-                                } );
-                            }
-
-                            return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
-                            {
-                                Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackAPersonWhileYouAreInAProtectionZone) );
-                         
-                                return Promise.Break;
-                            } );  
-                        }
-
-                        return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
-                        {
-                            Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMagicLevel) );
-                         
-                            return Promise.Break;
-                        } );
-                    }
-
+                if (command.Player.Level < rune.Level)
+                {
                     return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
                     {
                         Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughLevel) );
-                         
+
                         return Promise.Break;
                     } );
                 }
 
-                Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+                if (command.Player.Skills.MagicLevel < rune.MagicLevel)
+                {
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
+                    {
+                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMagicLevel) );
 
-                return Promise.Break;
+                        return Promise.Break;
+                    } );
+                }
+
+                if (command.Player.Tile.ProtectionZone)
+                {
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
+                    {
+                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackAPersonWhileYouAreInAProtectionZone) );
+
+                        return Promise.Break;
+                    } );
+                }
+
+                if (toTile.ProtectionZone)
+                {
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
+                    {
+                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackAPersonInAProtectionZone) );
+
+                        return Promise.Break;
+                    } );
+                }
+
+                PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerCooldownBehaviour>(command.Player);
+
+                if (playerCooldownBehaviour.HasCooldown(rune.Group) )
+                {
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
+                    {
+                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
+
+                        return Promise.Break;
+                    } );
+                }
+
+                if (rune.Condition != null && !rune.Condition(command.Player, toTile) )
+                {
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
+                    {
+                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
+
+                        return Promise.Break;
+                    } );
+                }
+
+                playerCooldownBehaviour.AddCooldown(rune.Group, rune.GroupCooldown);
+
+                return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
+                {
+                    return rune.Callback(command.Player, toTile);
+                } );
             }
             else if (itemWithCreatureRunes.Contains(command.Item.Metadata.OpenTibiaId) )
             {
