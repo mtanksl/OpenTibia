@@ -8,7 +8,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class LadderHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private HashSet<ushort> ladders = new HashSet<ushort>() { 1386, 3678, 5543 };
+        private HashSet<ushort> ladders = new HashSet<ushort>() { 1386, 3678, 5543, 8599, 10035 };
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
