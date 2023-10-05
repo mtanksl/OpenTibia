@@ -765,8 +765,8 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     Offset[] area = new Offset[]
                     {
-                                            new Offset(0, 1),
-                                            new Offset(0, 2),
+                                           new Offset(0, 1),
+                                           new Offset(0, 2),
                         new Offset(-1, 3), new Offset(0, 3), new Offset(1, 3),
                         new Offset(-1, 4), new Offset(0, 4), new Offset(1, 4),
                         new Offset(-1, 5), new Offset(0, 5), new Offset(1, 5),
@@ -868,6 +868,81 @@ namespace OpenTibia.Game.CommandHandlers
                 }
             },
 
+            ["exori mas"] = new Spell()
+            {
+                Name = "Groundshaker",
+
+                Group = "Attack",
+
+                Cooldown = TimeSpan.FromSeconds(8),
+
+                GroupCooldown = TimeSpan.FromSeconds(2),
+
+                Level = 33,
+
+                Mana = 160,
+
+                Premium = true,
+
+                Vocations = new[] { Vocation.Knight, Vocation.EliteKnight },
+
+                Callback = (attacker) =>
+                {
+                    Offset[] area = new Offset[]
+                    {
+                                                                new Offset(-1, -3), new Offset(0, -3), new Offset(1, -3),
+                                            new Offset(-2, -2), new Offset(-1, -2), new Offset(0, -2), new Offset(1, -2), new Offset(2, -2),
+                        new Offset(-3, -1), new Offset(-2, -1), new Offset(-1, -1), new Offset(0, -1), new Offset(1, -1), new Offset(2, -1), new Offset(3, -1),
+                        new Offset(-3, 0),  new Offset(-2, 0),  new Offset(-1, 0),  new Offset(0, 0),  new Offset(1, 0),  new Offset(2, 0),  new Offset(3, 0),
+                        new Offset(-3, 1),  new Offset(-2, 1),  new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1),  new Offset(2, 1),  new Offset(3, 1),
+                                            new Offset(-2, 2),  new Offset(-1, 2),  new Offset(0, 2),  new Offset(1, 2),  new Offset(2, 2),
+                                                                new Offset(-1, 3),  new Offset(0, 3),  new Offset(1, 3)
+                    };
+
+                    Item itemWeapon = GetWeapon(attacker);
+
+                    if (itemWeapon == null)
+                    {
+                        var formula = GroundshakerFormula(attacker.Level, attacker.Skills.Fist, 7);
+
+                        return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.GroundShaker,
+                        
+                            new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+                    }
+                    else
+                    {
+                        if (itemWeapon.Metadata.WeaponType == WeaponType.Sword)
+                        {
+                            var formula = GroundshakerFormula(attacker.Level, attacker.Skills.Sword, itemWeapon.Metadata.Attack.Value);
+
+                            return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.GroundShaker,
+                        
+                                new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+                        }
+                        else if (itemWeapon.Metadata.WeaponType == WeaponType.Axe)
+                        {
+                            var formula = GroundshakerFormula(attacker.Level, attacker.Skills.Axe, itemWeapon.Metadata.Attack.Value);
+
+                            return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.GroundShaker,
+                        
+                                new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+                        }
+                        else if (itemWeapon.Metadata.WeaponType == WeaponType.Club)
+                        {
+                            var formula = GroundshakerFormula(attacker.Level, attacker.Skills.Club, itemWeapon.Metadata.Attack.Value);
+
+                            return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.GroundShaker,
+                        
+                                new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+                        }
+                        else
+                        {
+                            throw new NotImplementedException();
+                        }
+                    }
+                }
+            },
+
             ["exori"] = new Spell()
             {
                 Name = "Berserk",
@@ -891,7 +966,7 @@ namespace OpenTibia.Game.CommandHandlers
                     Offset[] area = new Offset[]
                     {
                         new Offset(-1, -1), new Offset(0, -1), new Offset(1, -1),
-                        new Offset(-1, 0),                     new Offset(1, 0),
+                        new Offset(-1, 0),  new Offset(0, 0),  new Offset(1, 0),
                         new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1)
                     };
 
@@ -937,6 +1012,77 @@ namespace OpenTibia.Game.CommandHandlers
                         }
                     }
                 }
+            },
+
+            ["exori gran"] = new Spell()
+            {
+                Name = "Fierce Berserk",
+
+                Group = "Attack",
+
+                Cooldown = TimeSpan.FromSeconds(6),
+
+                GroupCooldown = TimeSpan.FromSeconds(2),
+
+                Level = 70,
+
+                Mana = 340,
+
+                Premium = true,
+
+                Vocations = new[] { Vocation.Knight, Vocation.EliteKnight },
+
+                Callback = (attacker) =>
+                {
+                    Offset[] area = new Offset[]
+                    {
+                        new Offset(-1, -1), new Offset(0, -1), new Offset(1, -1),
+                        new Offset(-1, 0),  new Offset(0, 0),  new Offset(1, 0),
+                        new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1)
+                    };
+
+                    Item itemWeapon = GetWeapon(attacker);
+
+                    if (itemWeapon == null)
+                    {
+                        var formula = FierceBerserkFormula(attacker.Level, attacker.Skills.Fist, 7);
+
+                        return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.BlackSpark,
+                        
+                            new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+                    }
+                    else
+                    {
+                        if (itemWeapon.Metadata.WeaponType == WeaponType.Sword)
+                        {
+                            var formula = FierceBerserkFormula(attacker.Level, attacker.Skills.Sword, itemWeapon.Metadata.Attack.Value);
+
+                            return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.BlackSpark,
+                        
+                                new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+                        }
+                        else if (itemWeapon.Metadata.WeaponType == WeaponType.Axe)
+                        {
+                            var formula = FierceBerserkFormula(attacker.Level, attacker.Skills.Axe, itemWeapon.Metadata.Attack.Value);
+
+                            return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.BlackSpark,
+                        
+                                new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+                        }
+                        else if (itemWeapon.Metadata.WeaponType == WeaponType.Club)
+                        {
+                            var formula = FierceBerserkFormula(attacker.Level, attacker.Skills.Club, itemWeapon.Metadata.Attack.Value);
+
+                            return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.BlackSpark,
+                        
+                                new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+                        }
+                        else
+                        {
+                            throw new NotImplementedException();
+                        }
+                    }
+                }
             }
         };
 
@@ -970,9 +1116,19 @@ namespace OpenTibia.Game.CommandHandlers
             return ( (int)(level * 0.2 + magicLevel * 7.22 + 44), (int)(level * 0.2 + magicLevel * 12.79 + 79) );
         }
 
+        private static (int Min, int Max) GroundshakerFormula(int level, int skill, int weapon)
+        {
+            return ( (int)( (skill + weapon) * 0.5 + level * 0.2), (int)( (skill + weapon) * 1.1 + level * 0.2) );
+        }
+
         private static (int Min, int Max) BerserkFormula(int level, int skill, int weapon)
         {
             return ( (int)( (skill + weapon) * 0.5 + level * 0.2), (int)( (skill + weapon) * 1.5 + level * 0.2) );
+        }
+
+        private static (int Min, int Max) FierceBerserkFormula(int level, int skill, int weapon)
+        {
+            return ( (int)( (skill + weapon * 2) * 1.1 + level * 0.2), (int)( (skill + weapon * 2) * 3 + level * 0.2) );
         }
 
         private static (int Min, int Max) GenericFormula(int level, int magicLevel, int @base, int variation)
