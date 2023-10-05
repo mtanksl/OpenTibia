@@ -34,7 +34,11 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             return next().Then( () =>
                             {
-                                return Context.AddCommand(new CreatureAddConditionCommand(command.Player, new DrowningCondition(20, TimeSpan.FromSeconds(4) ) ) );
+                                return Context.AddCommand(new CreatureAttackCreatureCommand(null, command.Player, 
+
+                                    new SimpleAttack(null, MagicEffectType.BlueRings, AnimatedTextColor.Crystal, 20, 20),
+
+                                    new DrowningCondition(20, TimeSpan.FromSeconds(4) ) ) );
                             } );
                         }
                     }

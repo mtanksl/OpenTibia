@@ -25,7 +25,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                         if (item == null || item.Metadata.OpenTibiaId != helmetOfTheDeep)
                         {
-                            return Context.AddCommand(new CreatureAddConditionCommand(e.Creature, new DrowningCondition(20, TimeSpan.FromSeconds(4) ) ) );
+                            return Context.AddCommand(new CreatureAttackCreatureCommand(null, e.Creature, 
+
+                                new SimpleAttack(null, MagicEffectType.BlueRings, AnimatedTextColor.Crystal, 20, 20),
+
+                                new DrowningCondition(20, TimeSpan.FromSeconds(4) ) ) );
                         }
                     }
                 }
