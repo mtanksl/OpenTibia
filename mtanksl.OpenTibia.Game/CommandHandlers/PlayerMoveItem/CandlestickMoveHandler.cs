@@ -11,10 +11,13 @@ namespace OpenTibia.Game.CommandHandlers
 
         private Dictionary<ushort, ushort> transformations = new Dictionary<ushort, ushort>()
         {
+            // Pumkinhead
             { 2096, 2097 },
 
+            // Cake
             { 6279, 6280 },
 
+            // Skull candle
             { 5813, 5812 }
         };
 

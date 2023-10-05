@@ -38,11 +38,11 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {
-            if (command.ToContainer is Inventory toInventory && (Slot)command.ToIndex == Slot.Ring)
-            {
-                ushort toOpenTibiaId;
+            ushort toOpenTibiaId;
 
-                if (equip.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
+            if (equip.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
+            {
+                if (command.ToContainer is Inventory toInventory && (Slot)command.ToIndex == Slot.Ring)
                 {
                     return next().Then( () =>
                     {
@@ -50,11 +50,9 @@ namespace OpenTibia.Game.CommandHandlers
                     } );
                 }
             }
-            else if (command.Item.Parent is Inventory fromInventory && (Slot)fromInventory.GetIndex(command.Item) == Slot.Ring)
+            else if (dequip.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                ushort toOpenTibiaId;
-
-                if (dequip.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
+                if (command.Item.Parent is Inventory fromInventory && (Slot)fromInventory.GetIndex(command.Item) == Slot.Ring)
                 {
                     return next().Then( () =>
                     {

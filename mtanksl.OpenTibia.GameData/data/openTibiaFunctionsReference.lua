@@ -1,4 +1,18 @@
 return {
+	-- void print(params object[] parameters)
+	typeof = {
+		type = "function",
+		description = "",
+		args = "(params object[] parameters)",
+		returns = "void",
+	},
+	-- string typeof(object parameter)
+	typeof = {
+		type = "function",
+		description = "",
+		args = "(object parameter)",
+		returns = "string",
+	},
 	debugger = {
 		type = "lib",
 		description = "",
@@ -15,14 +29,7 @@ return {
 	command = {
 		type = "lib",
 		description = "",
-		childs = {
-			-- string command.type(object obj)
-			type = {
-				type = "function",
-				description = "",
-				args = "(object obj)",
-				returns = "string",
-			},
+		childs = {			
 			-- void command.delay(int seconds)
 			-- string command.delay(int seconds, Action callback)
 			delay = {

@@ -10,6 +10,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.EventHandlers.Subscribe(new ProtectionZoneHandler() );
 
+            Context.Server.EventHandlers.Subscribe(new OceanFloorHandler() );
+
             Context.Server.EventHandlers.Subscribe(new TilePressHandler() );
 
             Context.Server.EventHandlers.Subscribe(new SnowPressHandler() );

@@ -13,17 +13,23 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (e.Creature is Player player)
             {
-                if ( !player.HasSpecialCondition(SpecialCondition.ProtectionZone) && e.Tile.ProtectionZone)
+                if (e.Tile.ProtectionZone)
                 {
-                    player.AddSpecialCondition(SpecialCondition.ProtectionZone);
+                    if ( !player.HasSpecialCondition(SpecialCondition.ProtectionZone) )
+                    {
+                        player.AddSpecialCondition(SpecialCondition.ProtectionZone);
 
-                    Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(player.SpecialConditions) );
+                        Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(player.SpecialConditions) );
+                    }
                 }
-                else if ( player.HasSpecialCondition(SpecialCondition.ProtectionZone) && !e.Tile.ProtectionZone)
+                else
                 {
-                    player.RemoveSpecialCondition(SpecialCondition.ProtectionZone);
+                    if (player.HasSpecialCondition(SpecialCondition.ProtectionZone) )
+                    {
+                        player.RemoveSpecialCondition(SpecialCondition.ProtectionZone);
 
-                    Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(player.SpecialConditions));
+                        Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(player.SpecialConditions) );
+                    }
                 }
             }
 
