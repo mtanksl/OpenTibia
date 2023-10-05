@@ -11,7 +11,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> oceanFloors = new HashSet<ushort>() { 5405, 5406, 5407, 5408, 5409, 5410 };
 
-        private ushort helmetOfTheDeep = 5461;
+        private HashSet<ushort> helmetOfTheDeeps = new HashSet<ushort>() { 5461 };
 
         public override Promise Handle(TileAddCreatureEventArgs e)
         {
@@ -23,7 +23,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         Item item = player.Inventory.GetContent( (int)Slot.Head) as Item;
 
-                        if (item == null || item.Metadata.OpenTibiaId != helmetOfTheDeep)
+                        if (item == null || !helmetOfTheDeeps.Contains(item.Metadata.OpenTibiaId) )
                         {
                             return Context.AddCommand(new CreatureAttackCreatureCommand(null, e.Creature, 
 

@@ -10,11 +10,11 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> oceanFloors = new HashSet<ushort>() { 5405, 5406, 5407, 5408, 5409, 5410 };
 
-        private ushort helmetOfTheDeep = 5461;
+        private HashSet<ushort> helmetOfTheDeeps = new HashSet<ushort>() { 5461 };
 
         public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {
-            if (command.Item.Metadata.OpenTibiaId == helmetOfTheDeep)
+            if (helmetOfTheDeeps.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 if (command.ToContainer is Inventory toInventory && (Slot)command.ToIndex == Slot.Head)
                 {
