@@ -11,12 +11,24 @@
 		-- { type = "CreatureStepOut", opentibiaid = 446, filename = "step out.lua" }
 	},
 	talkactions = {
-		-- { type = "PlayerSay", message = "hello world", filename = "say.lua" },
+		-- { type = "PlayerSay", message = "/hello", filename = "say.lua" }
 	},
 	npcs = {
 		{ type = "Dialogue", name = "Al Dee", filename = "al dee.lua" },
 		{ type = "Dialogue", name = "Rachel", filename = "rachel.lua" },
 		{ type = "Dialogue", name = "Cipfried", filename = "cipfried.lua" },
 		{ type = "Dialogue", name = "Captain Bluebear", filename = "captain bluebear.lua" }
+	},
+	spells = {
+		-- { words = "exevo flam hur", name = "Fire Wave", group = "Attack", cooldown = 4, groupcooldown = 2, level = 18, mana = 25, premium = false, vocations = { vocation.sorcerer, vocation.mastersorcerer }, filename = "fire wave.lua" }
+	},
+	runes = {
+		--TODO
+	},
+	weapons = {
+		--TODO
+	},
+	ammunitions = {
+		--TODO
 	}
 }

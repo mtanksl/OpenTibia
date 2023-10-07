@@ -1,8 +1,10 @@
 ﻿using mtanksl.OpenTibia.Game.Plugins;
 using NLua;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenTibia.Game
 {
@@ -92,7 +94,7 @@ namespace OpenTibia.Game
 
         public void Start()
         {
-            script = server.LuaScripts.Create(server.PathResolver.GetFullPath("data/plugins/config.lua") );
+            script = server.LuaScripts.Create(server.PathResolver.GetFullPath("data/plugins/lib.lua"), server.PathResolver.GetFullPath("data/plugins/config.lua") );
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.actions"] ).Values)
             {
@@ -213,6 +215,43 @@ namespace OpenTibia.Game
                         break;
                 }
             }
+
+            foreach (LuaTable plugin in ( (LuaTable)script["plugins.spells"] ).Values)
+            {
+                spellPlugins.AddPlugin( (string)plugin["words"], () => new LuaScriptingSpellPlugin("data/plugins/spells/" + (string)plugin["filename"], new Spell()
+                {
+                    Name = (string)plugin["name"],
+
+                    Group = (string)plugin["group"],
+
+                    Cooldown = TimeSpan.FromSeconds( (int)(long)plugin["cooldown"] ),
+
+                    GroupCooldown = TimeSpan.FromSeconds( (int)(long)plugin["groupcooldown"] ),
+
+                    Level = (int)(long)plugin["level"],
+
+                    Mana = (int)(long)plugin["mana"],
+
+                    Premium = (bool)plugin["premium"],
+
+                    Vocations = ( (LuaTable)plugin["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
+                } ) );
+            }
+
+            foreach (LuaTable plugin in ( (LuaTable)script["plugins.runes"] ).Values)
+            {
+                
+            }
+
+            foreach (LuaTable plugin in ( (LuaTable)script["plugins.weapons"] ).Values)
+            {
+                
+            }
+
+            foreach (LuaTable plugin in ((LuaTable)script["plugins.ammunitions"] ).Values)
+            {
+
+            }
         }
 
         private PluginDictionaryCached<ushort, PlayerRotateItemPlugin> playerRotateItemPlugins = new PluginDictionaryCached<ushort, PlayerRotateItemPlugin>();
@@ -296,61 +335,48 @@ namespace OpenTibia.Game
             return dialoguePlugins.GetPlugin(name);
         }
 
+        private PluginDictionaryCached<string, SpellPlugin> spellPlugins = new PluginDictionaryCached<string, SpellPlugin>();
+
+        public SpellPlugin GetSpellPlugin(string words)
+        {
+            return spellPlugins.GetPlugin(words);
+        }
+
         public void Stop()
         {
-            foreach (var plugin in playerRotateItemPlugins.GetPlugins() )
+            var pluginLists = new IEnumerable<Plugin>[]
             {
-                plugin.Stop();
-            }
+                playerRotateItemPlugins.GetPlugins(),                  
+                   
+                playerUseItemPlugins.GetPlugins(),
 
-            foreach (var plugin in playerUseItemPlugins.GetPlugins() )
-            {
-                plugin.Stop();
-            }
+                playerUseItemWithCreaturePluginsAllowFarUse.GetPlugins(),
 
-            foreach (var plugin in playerUseItemWithCreaturePluginsAllowFarUse.GetPlugins() )
-            {
-                plugin.Stop();
-            }
+                playerUseItemWithCreaturePlugins.GetPlugins(),
 
-            foreach (var plugin in playerUseItemWithCreaturePlugins.GetPlugins() )
-            {
-                plugin.Stop();
-            }
+                playerUseItemWithItemPluginsAllowFarUse.GetPlugins(),
 
-            foreach (var plugin in playerUseItemWithItemPluginsAllowFarUse.GetPlugins() )
-            {
-                plugin.Stop();
-            }
+                playerUseItemWithItemPlugins.GetPlugins(),
 
-            foreach (var plugin in playerUseItemWithItemPlugins.GetPlugins() )
-            {
-                plugin.Stop();
-            }
+                playerMoveItemPlugins.GetPlugins(),
 
-            foreach (var plugin in playerMoveItemPlugins.GetPlugins() )
-            {
-                plugin.Stop();
-            }
+                creatureStepInPlugins.GetPlugins(),
 
-            foreach (var plugin in creatureStepInPlugins.GetPlugins() )
-            {
-                plugin.Stop();
-            }
+                creatureStepOutPlugins.GetPlugins(),
 
-            foreach (var plugin in creatureStepOutPlugins.GetPlugins() )
-            {
-                plugin.Stop();
-            }
+                playerSayPlugins.GetPlugins(),
 
-            foreach (var plugin in playerSayPlugins.GetPlugins() )
-            {
-                plugin.Stop();
-            }
+                dialoguePlugins.GetPlugins(),
 
-            foreach (var plugin in dialoguePlugins.GetPlugins() )
+                spellPlugins.GetPlugins()
+            };
+
+            foreach (var pluginList in pluginLists)
             {
-                plugin.Stop();
+                foreach (var plugin in pluginList)
+                {
+                    plugin.Stop();
+                }
             }
         }
 

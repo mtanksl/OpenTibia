@@ -53,13 +53,34 @@ return {
 				args = "(string key)",
 				returns = "bool",
 			},
-			-- void command.creaturewalk(Creature creature, Tile tile)
-			creaturewalk = {
+			-- void command.creatureaddcondition(Creature target, Condition condition)
+			creatureaddcondition = {
 				type = "function",
 				description = "",
-				args = "(Creature creature, Tile tile)",
+				args = "(Creature target, Condition condition)",
 				returns = "void",
-			},
+			},	
+			-- void command.creatureattackarea(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, Attack attack, Condition condition)
+			creatureattackarea = {
+				type = "function",
+				description = "",
+				args = "(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, Attack attack, Condition condition)",
+				returns = "void",
+			},	
+			-- void command.creatureattackcreature(Creature attacker, Creature target, Attack attack, Condition condition)
+			creatureattackcreature = {
+				type = "function",
+				description = "",
+				args = "(Creature attacker, Creature target, Attack attack, Condition condition)",
+				returns = "void",
+			},	
+			-- void command.creatureremovecondition(Creature creature, ConditionSpecialCondition conditionSpecialCondition)
+			creatureremovecondition = {
+				type = "function",
+				description = "",
+				args = "(Creature creature, ConditionSpecialCondition conditionSpecialCondition)",
+				returns = "void",
+			},			
 			-- void command.creatureupdatedirection(Creature creature, Direction direction)
 			creatureupdatedirection = {
 				type = "function",
@@ -114,6 +135,13 @@ return {
 				type = "function",
 				description = "",
 				args = "(Creature creature, ushort baseSpeed, ushort speed)",
+				returns = "void",
+			},
+			-- void command.creaturewalk(Creature creature, Tile tile)
+			creaturewalk = {
+				type = "function",
+				description = "",
+				args = "(Creature creature, Tile tile)",
 				returns = "void",
 			},
 			-- void command.showanimatedtext(Position position, AnimatedTextColor animatedTextColor, string message)

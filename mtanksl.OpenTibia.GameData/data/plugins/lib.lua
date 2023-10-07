@@ -247,3 +247,58 @@ conditionspecialcondition = {
 	soul = 524288,
 	muted = 1048576
 }
+
+vocation = {
+	none = 0,
+	knight = 1,
+	paladin = 2,
+	druid = 3,
+	sorcerer = 4,
+	eliteknight = 5,
+	royalpaladin = 6,
+	elderdruid = 7,
+	mastersorcerer = 8,
+	gamemaster = 9
+}
+
+attack = {
+	distance = function(projectiletype, min, max)
+		return { type = "distance", projectiletype = projectiletype, min = min, max = max }
+	end,
+	healing = function(magiceffecttype, min, max)
+		return { type = "healing", magiceffecttype = magiceffecttype, min = min, max = max }
+	end,
+	melee = function(min, max)
+		return { type = "melee", min = min, max = max }
+	end,
+	simple = function(projectiletype, magiceffecttype, animatedtextcolor, min, max)
+		return { type = "simple", projectiletype = projectiletype, magiceffecttype = magiceffecttype, animatedtextcolor = animatedtextcolor, min = min, max = max }
+	end
+}
+
+condition = {
+	damage = function(specialcondition, magiceffecttype, animatedtextcolor, damages, interval)
+		return { type = "damage", specialcondition = specialcondition, magiceffecttype = magiceffecttype, animatedtextcolor = animatedtextcolor, damages = damages, interval = interval }
+	end,
+	drowning = function(damage, interval)
+		return { type = "drowning", damage = damage, interval = interval }
+	end,
+	haste = function(speed, duration)
+		return { type = "haste", speed = speed, duration = duration }
+	end,
+	invisible = function(duration)
+		return { type = "invisible", duration = duration }
+	end,
+	light = function(light, duration)
+		return { type = "light", light = light, duration = duration }
+	end,
+	magicshield = function(duration)
+		return { type = "magicshield", duration = duration }
+	end,
+	outfit = function(outfit, duration)
+		return { type = "outfit", outfit = outfit, duration = duration }
+	end,
+	regeneration = function(regenerationtick)
+		return { type = "regeneration", regenerationtick = regenerationtick }
+	end
+}

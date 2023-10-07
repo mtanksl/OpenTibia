@@ -7,6 +7,7 @@ using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace OpenTibia.Game
 {
@@ -71,11 +72,33 @@ namespace OpenTibia.Game
                 return Promise.FromResult(new object[] { canceled } );
             } );
 
-            //TODO: Creature add condition, creature attack area, creature attack creature, creature remove condition
-
-            lua.RegisterCoFunction("creaturewalk", parameters =>
+            lua.RegisterCoFunction("creatureaddcondition", parameters =>
             {
-                return Context.Current.AddCommand(new CreatureWalkCommand( (Creature)parameters[0], ToTile(parameters[1] ) ) ).Then( () =>
+                return Context.Current.AddCommand(new CreatureAddConditionCommand( (Creature)parameters[0], ToCondition(parameters[1] ) ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("creatureattackarea", parameters =>
+            {
+                return Context.Current.AddCommand(new CreatureAttackAreaCommand( (Creature)parameters[0], (bool)parameters[1], ToPosition(parameters[2] ), ToOffsetArray(parameters[3] ), (ProjectileType?)(long?)parameters[4], (MagicEffectType?)(long?)parameters[5], ToAttack(parameters[6] ), ToCondition(parameters[7] ) ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("creatureattackcreature", parameters =>
+            {
+                return Context.Current.AddCommand(new CreatureAttackCreatureCommand( (Creature)parameters[0], (Creature)parameters[1], ToAttack(parameters[2] ), ToCondition(parameters[3] ) ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("creatureremovecondition", parameters =>
+            {
+                return Context.Current.AddCommand(new CreatureRemoveConditionCommand( (Creature)parameters[0], (ConditionSpecialCondition)(long)parameters[1] ) ).Then( () =>
                 {
                     return Promise.FromResult(Array.Empty<object>() );
                 } );
@@ -140,6 +163,14 @@ namespace OpenTibia.Game
             lua.RegisterCoFunction("creatureupdatespeed", parameters =>
             {
                 return Context.Current.AddCommand(new CreatureUpdateSpeedCommand( (Creature)parameters[0], (ushort)(long)parameters[1], (ushort)(long)parameters[2] ) ).Then( () =>
+                {
+                    return Promise.FromResult(Array.Empty<object>() );
+                } );
+            } );
+
+            lua.RegisterCoFunction("creaturewalk", parameters =>
+            {
+                return Context.Current.AddCommand(new CreatureWalkCommand( (Creature)parameters[0], ToTile(parameters[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResult(Array.Empty<object>() );
                 } );
@@ -461,6 +492,11 @@ namespace OpenTibia.Game
 
         private Light ToLight(object parameter)
         {
+            if (parameter == null)
+            {
+                return null;
+            }
+
             if (parameter is Light)
             {
                 return (Light)parameter;
@@ -478,6 +514,11 @@ namespace OpenTibia.Game
 
         private Outfit ToOutfit(object parameter)
         {
+            if (parameter == null)
+            {
+                return null;
+            }
+
             if (parameter is Light)
             {
                 return (Outfit)parameter;
@@ -498,8 +539,52 @@ namespace OpenTibia.Game
             throw new ArgumentException();
         }
 
+        private Offset ToOffset(object parameter)
+        {
+            if (parameter is Offset)
+            {
+                return (Offset)parameter;
+            }
+
+            if (parameter is LuaTable)
+            {
+                LuaTable table = (LuaTable)parameter;
+
+                return new Offset( (int)(long)table[1], (int)(long)table[2] );
+            }
+            
+            throw new ArgumentException();
+        }
+
+        private Offset[] ToOffsetArray(object parameter)
+        {
+            if (parameter == null)
+            {
+                return null;
+            }
+
+            if (parameter is Offset[] )
+            {
+                return (Offset[] )parameter;
+            }
+
+            if (parameter is LuaTable)
+            {
+                LuaTable table = (LuaTable)parameter;
+
+                return table.Values.Cast<LuaTable>().Select(v => ToOffset(v) ).ToArray();
+            }
+
+            throw new ArgumentException();
+        }
+
         private Position ToPosition(object parameter)
         {
+            if (parameter == null)
+            {
+                return null;
+            }
+
             if (parameter is Position)
             {
                 return (Position)parameter;
@@ -517,6 +602,11 @@ namespace OpenTibia.Game
 
         private Tile ToTile(object parameter)
         {
+            if (parameter == null)
+            {
+                return null;
+            }
+
             if (parameter is Tile)
             {
                 return (Tile)parameter;
@@ -525,6 +615,101 @@ namespace OpenTibia.Game
             if (parameter is LuaTable)
             {
                 return Context.Current.Server.Map.GetTile(ToPosition(parameter) );
+            }
+         
+            throw new ArgumentException();
+        }
+
+        private Attack ToAttack(object parameter)
+        {
+            if (parameter == null)
+            {
+                return null;
+            }
+
+            if (parameter is Attack)
+            {
+                return (Attack)parameter;
+            }
+            
+            if (parameter is LuaTable)
+            {
+                LuaTable table = (LuaTable)parameter;
+
+                switch ( (string)table["type"] )
+                {
+                    case "distance":
+
+                        return new DistanceAttack( (ProjectileType)(long)table["projectiletype"], (int)(long)table["min"], (int)(long)table["max"] );
+
+                    case "healing":
+
+                        return new HealingAttack( (MagicEffectType?)(long?)table["magiceffecttype"], (int)(long)table["min"], (int)(long)table["max"] );
+
+                    case "melee":
+
+                        return new MeleeAttack( (int)(long)table["min"], (int)(long)table["max"] );
+
+                    case "simple":
+
+                        return new SimpleAttack( (ProjectileType?)(long?)table["projectiletype"], (MagicEffectType?)(long?)table["magiceffecttype"], (AnimatedTextColor?)(long?)table["animatedtextcolor"], (int)(long)table["min"], (int)(long)table["max"] );
+                }
+            }
+
+            throw new ArgumentException();
+        }
+
+        private Condition ToCondition(object parameter)
+        {
+            if (parameter == null)
+            {
+                return null;
+            }
+
+            if (parameter is Condition)
+            {
+                return (Condition)parameter;
+            }
+            
+            if (parameter is LuaTable)
+            {
+                LuaTable table = (LuaTable)parameter;
+
+                switch ( (string)table["type"] )
+                {
+                    case "damage":
+
+                        return new DamageCondition( (SpecialCondition)(long)table["specialcondition"], (MagicEffectType?)(long?)table["magiceffecttype"], (AnimatedTextColor?)(long?)table["animatedtextcolor"], ( (LuaTable)table["damages"] ).Values.Cast<long>().Select(v => (int)v ).ToArray(), TimeSpan.FromSeconds( (int)(long)table["interval"] ) );
+
+                    case "drowning":
+
+                        return new DrowningCondition( (int)(long)table["damage"], TimeSpan.FromSeconds( (int)(long)table["interval"] ) );
+
+                    case "haste":
+
+                        return new HasteCondition( (ushort)(long)table["speed"], TimeSpan.FromSeconds( (int)(long)table["duration"] ) );
+
+                    case "invisible":
+
+                        return new InvisibleCondition( TimeSpan.FromSeconds( (int)(long)table["duration"] ) );
+
+                    case "light":
+
+                        return new LightCondition(ToLight(table["light"] ), TimeSpan.FromSeconds( (int)(long)table["duration"] ) );
+
+                    case "magicshield":
+
+                        return new MagicShieldCondition( TimeSpan.FromSeconds( (int)(long)table["duration"] ) );
+
+                    case "outfit":
+
+                        return new OutfitCondition(ToOutfit(table["outfit"] ), TimeSpan.FromSeconds( (int)(long)table["duration"] ) );
+
+                    case "regeneration":
+
+                       return new RegenerationCondition( (int)(long)table["regenerationtick"] );
+
+                }
             }
          
             throw new ArgumentException();

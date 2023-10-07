@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Objects;
+﻿using mtanksl.OpenTibia.Game.Plugins;
+using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Components;
@@ -11,29 +12,6 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class SpellsHandler : CommandHandler<PlayerSayCommand>
     {
-        private class Spell
-        {
-            public string Name { get; set; }
-
-            public string Group { get; set; }
-
-            public TimeSpan Cooldown { get; set; }
-
-            public TimeSpan GroupCooldown { get; set; }
-
-            public int Level { get; set; }
-
-            public int Mana { get; set; }
-
-            public bool Premium { get; set; }
-
-            public Vocation[] Vocations { get; set; }
-
-            public Func<Player, bool> Condition { get; set; }
-
-            public Func<Player, Promise> Callback { get; set; }
-        }
-
         private static HashSet<ushort> ropeSpots = new HashSet<ushort> { 384, 418 };
 
         private Dictionary<string, Spell> spells = new Dictionary<string, Spell>()
@@ -56,17 +34,17 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Condition = (attacker) =>
+                Condition = (attacker, message) =>
                 {
                     if (ropeSpots.Contains(attacker.Tile.Ground.Metadata.OpenTibiaId) )
                     {
-                        return true;
+                        return Promise.FromResult(true);
                     }
 
-                    return false;
+                    return Promise.FromResult(false);
                 },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     Tile toTile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(0, 1, -1) );
 
@@ -99,7 +77,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Condition = (attacker) =>
+                Condition = (attacker, message) =>
                 {
                     Tile up = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(0, 0, -1) );
 
@@ -107,13 +85,13 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (up != null || toTile == null || toTile.Ground == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) )
                     {
-                        return false;
+                        return Promise.FromResult(false);
                     }
 
-                    return true;
+                    return Promise.FromResult(true);
                 },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     Tile toTile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(0, 0, -1).Offset(attacker.Direction) );
 
@@ -146,7 +124,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Condition = (attacker) =>
+                Condition = (attacker, message) =>
                 {
                     Tile next = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(attacker.Direction) );
 
@@ -154,13 +132,13 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (next != null || toTile == null || toTile.Ground == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) )
                     {
-                        return false;
+                        return Promise.FromResult(false);
                     }
 
-                    return true;
+                    return Promise.FromResult(true);
                 },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     Tile toTile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(0, 0, 1).Offset(attacker.Direction) );
 
@@ -193,7 +171,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
@@ -222,7 +200,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
@@ -251,7 +229,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Druid, Vocation.Sorcerer, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
@@ -280,7 +258,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Druid, Vocation.Sorcerer, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
@@ -309,7 +287,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     var speed = HasteFormula(attacker.BaseSpeed);
 
@@ -340,7 +318,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Druid, Vocation.Sorcerer, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     var speed = StrongHasteFormula(attacker.BaseSpeed);
 
@@ -371,7 +349,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Druid, Vocation.Sorcerer, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
@@ -400,7 +378,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
@@ -419,17 +397,17 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(1),
 
-                Level = 9,
+                Level = 8,
 
                 Mana = 20,
 
                 Premium = false,
 
-                Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
+                Vocations = new[] { Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
-                    var formula = LightHealingFormula(attacker.Level, attacker.Skills.MagicLevel);
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 1.4, 8, 1.795, 11);
 
                     return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, attacker, 
                         
@@ -447,7 +425,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(1),
 
-                Level = 11,
+                Level = 20,
 
                 Mana = 70,
 
@@ -455,9 +433,65 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
-                    var formula = IntenseHealingFormula(attacker.Level, attacker.Skills.MagicLevel);
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 3.184, 20, 5.59, 35);
+                    
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, attacker, 
+                        
+                        new HealingAttack(MagicEffectType.BlueShimmer, formula.Min, formula.Max) ) );
+                }
+            },
+
+            ["exura ico"] = new Spell()
+            {
+                Name = "Wound Cleansing",
+
+                Group = "Healing",
+
+                Cooldown = TimeSpan.FromSeconds(1),
+
+                GroupCooldown = TimeSpan.FromSeconds(1),
+
+                Level = 8,
+
+                Mana = 40,
+
+                Premium = false,
+
+                Vocations = new[] { Vocation.Knight, Vocation.EliteKnight },
+
+                Callback = (attacker, message) =>
+                {
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 4, 25, 7.95, 51);
+                    
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, attacker, 
+                        
+                        new HealingAttack(MagicEffectType.BlueShimmer, formula.Min, formula.Max) ) );
+                }
+            },
+
+            ["exura san"] = new Spell()
+            {
+                Name = "Divine Healing",
+
+                Group = "Healing",
+
+                Cooldown = TimeSpan.FromSeconds(1),
+
+                GroupCooldown = TimeSpan.FromSeconds(1),
+
+                Level = 35,
+
+                Mana = 160,
+
+                Premium = false,
+
+                Vocations = new[] { Vocation.Paladin, Vocation.RoyalPaladin },
+
+                Callback = (attacker, message) =>
+                {
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 18.5, 0, 25, 0);
                     
                     return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, attacker, 
                         
@@ -475,17 +509,17 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(1),
 
-                Level = 20,
+                Level = 30,
 
                 Mana = 160,
 
                 Premium = false,
 
-                Vocations = new[] { Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
+                Vocations = new[] { Vocation.Druid, Vocation.Sorcerer, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
-                    var formula = UltimateHealingFormula(attacker.Level, attacker.Skills.MagicLevel);
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 7.22, 44, 12.79, 79);
 
                     return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, attacker, 
                         
@@ -511,7 +545,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Druid, Vocation.ElderDruid },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -524,7 +558,7 @@ namespace OpenTibia.Game.CommandHandlers
                                                                 new Offset(-1, 3),  new Offset(0, 3),  new Offset(1, 3)
                     };
 
-                    var formula = MassHealingFormula(attacker.Level, attacker.Skills.MagicLevel);
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 5.7, 26, 10.43, 62);
 
                     return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.BlueShimmer, 
                         
@@ -550,7 +584,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -575,7 +609,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 GroupCooldown = TimeSpan.FromSeconds(2),
 
-                Level = 12,
+                Level = 14,
 
                 Mana = 20,
 
@@ -583,7 +617,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Druid, Vocation.Sorcerer, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -616,7 +650,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Druid, Vocation.Sorcerer, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -649,7 +683,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -659,7 +693,7 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(-2, 4), new Offset(-1, 4), new Offset(0, 4), new Offset(1, 4), new Offset(2, 4)
                     };
 
-                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 30, 10);
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 1.2, 0, 2, 0);
 
                     return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.FireArea, 
                         
@@ -685,7 +719,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -696,7 +730,7 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(0, 5)
                     };
 
-                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 60, 20);
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 2.5, 0, 4, 0);
 
                     return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.EnergyArea,
                         
@@ -722,7 +756,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -735,7 +769,7 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(0, 7)
                     };
 
-                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 120, 80);
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 4, 0, 7, 0);
 
                     return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.EnergyArea, 
                         
@@ -743,9 +777,9 @@ namespace OpenTibia.Game.CommandHandlers
                 }
             },
 
-            ["exevo mort hur"] = new Spell()
+            ["exevo vis hur"] = new Spell()
             {
-                Name = "Great Energy Beam",
+                Name = "Energy Wave",
 
                 Group = "Attack",
 
@@ -761,7 +795,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -772,11 +806,11 @@ namespace OpenTibia.Game.CommandHandlers
                         new Offset(-1, 5), new Offset(0, 5), new Offset(1, 5),
                     };
 
-                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 150, 50);
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 4.5, 0, 9, 0);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.MortArea, 
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, MagicEffectType.EnergyArea, 
                         
-                        new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+                        new SimpleAttack(null, null, AnimatedTextColor.LightBlue, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -798,7 +832,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -816,17 +850,17 @@ namespace OpenTibia.Game.CommandHandlers
 
                     };
 
-                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 250, 50);
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 5, 0, 12, 0);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.FireArea, 
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.BigClouds, 
                         
-                        new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
+                        new SimpleAttack(null, null, AnimatedTextColor.LightBlue, formula.Min, formula.Max) ) );
                 }
             },
 
-            ["exevo gran mas pox"] = new Spell()
+            ["exevo gran mas flam"] = new Spell()
             {
-                Name = "Poison Storm",
+                Name = "Hell's Core",
 
                 Group = "Attack",
 
@@ -836,13 +870,13 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Level = 60,
 
-                Mana = 700,
+                Mana = 1100,
 
                 Premium = true,
 
-                Vocations = new[] { Vocation.Druid, Vocation.ElderDruid },
+                Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -860,11 +894,99 @@ namespace OpenTibia.Game.CommandHandlers
 
                     };
 
-                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 200, 50);
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 7, 0, 14, 0);
 
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.GreenRings, 
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.FireArea, 
+                        
+                        new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
+                }
+            },
+
+            ["exevo gran mas tera"] = new Spell()
+            {
+                Name = "Wrath of Nature",
+
+                Group = "Attack",
+
+                Cooldown = TimeSpan.FromSeconds(40),
+
+                GroupCooldown = TimeSpan.FromSeconds(4),
+
+                Level = 55,
+
+                Mana = 700,
+
+                Premium = true,
+
+                Vocations = new[] { Vocation.Druid, Vocation.ElderDruid },
+
+                Callback = (attacker, message) =>
+                {
+                    Offset[] area = new Offset[]
+                    {
+                                                                                                                            new Offset(0, -5),
+                                                                                    new Offset(-2, -4), new Offset(-1, -4), new Offset(0, -4), new Offset(1, -4), new Offset(2, -4),
+                                                                new Offset(-3, -3), new Offset(-2, -3), new Offset(-1, -3), new Offset(0, -3), new Offset(1, -3), new Offset(2, -3), new Offset(3, -3),
+                                            new Offset(-4, -2), new Offset(-3, -2), new Offset(-2, -2), new Offset(-1, -2), new Offset(0, -2), new Offset(1, -2), new Offset(2, -2), new Offset(3, -2), new Offset(4, -2),
+                                            new Offset(-4, -1), new Offset(-3, -1), new Offset(-2, -1), new Offset(-1, -1), new Offset(0, -1), new Offset(1, -1), new Offset(2, -1), new Offset(3, -1), new Offset(4, -1),
+                         new Offset(-5, 0), new Offset(-4, 0),  new Offset(-3, 0),  new Offset(-2, 0),  new Offset(-1, 0),  new Offset(0, 0),  new Offset(1, 0),  new Offset(2, 0),  new Offset(3, 0),  new Offset(4, 0),  new Offset(5, 0),
+                                            new Offset(-4, 1),  new Offset(-3, 1),  new Offset(-2, 1),  new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1),  new Offset(2, 1),  new Offset(3, 1),  new Offset(4, 1),
+                                            new Offset(-4, 2),  new Offset(-3, 2),  new Offset(-2, 2),  new Offset(-1, 2),  new Offset(0, 2),  new Offset(1, 2),  new Offset(2, 2),  new Offset(3, 2),  new Offset(4, 2),
+                                                                new Offset(-3, 3),  new Offset(-2, 3),  new Offset(-1, 3),  new Offset(0, 3),  new Offset(1, 3),  new Offset(2, 3),  new Offset(3, 3),
+                                                                                    new Offset(-2, 4),  new Offset(-1, 4),  new Offset(0, 4),  new Offset(1, 4),  new Offset(2, 4),
+                                                                                                                            new Offset(0, 5),
+
+                    };
+
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 5, 0, 10, 0);
+
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.PlantAttack, 
                         
                         new SimpleAttack(null, null, AnimatedTextColor.Green, formula.Min, formula.Max) ) );
+                }
+            },
+
+            ["exevo gran mas frigo"] = new Spell()
+            {
+                Name = "Eternal Winter",
+
+                Group = "Attack",
+
+                Cooldown = TimeSpan.FromSeconds(40),
+
+                GroupCooldown = TimeSpan.FromSeconds(4),
+
+                Level = 60,
+
+                Mana = 1050,
+
+                Premium = true,
+
+                Vocations = new[] { Vocation.Druid, Vocation.ElderDruid },
+
+                Callback = (attacker, message) =>
+                {
+                    Offset[] area = new Offset[]
+                    {
+                                                                                                                            new Offset(0, -5),
+                                                                                    new Offset(-2, -4), new Offset(-1, -4), new Offset(0, -4), new Offset(1, -4), new Offset(2, -4),
+                                                                new Offset(-3, -3), new Offset(-2, -3), new Offset(-1, -3), new Offset(0, -3), new Offset(1, -3), new Offset(2, -3), new Offset(3, -3),
+                                            new Offset(-4, -2), new Offset(-3, -2), new Offset(-2, -2), new Offset(-1, -2), new Offset(0, -2), new Offset(1, -2), new Offset(2, -2), new Offset(3, -2), new Offset(4, -2),
+                                            new Offset(-4, -1), new Offset(-3, -1), new Offset(-2, -1), new Offset(-1, -1), new Offset(0, -1), new Offset(1, -1), new Offset(2, -1), new Offset(3, -1), new Offset(4, -1),
+                         new Offset(-5, 0), new Offset(-4, 0),  new Offset(-3, 0),  new Offset(-2, 0),  new Offset(-1, 0),  new Offset(0, 0),  new Offset(1, 0),  new Offset(2, 0),  new Offset(3, 0),  new Offset(4, 0),  new Offset(5, 0),
+                                            new Offset(-4, 1),  new Offset(-3, 1),  new Offset(-2, 1),  new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1),  new Offset(2, 1),  new Offset(3, 1),  new Offset(4, 1),
+                                            new Offset(-4, 2),  new Offset(-3, 2),  new Offset(-2, 2),  new Offset(-1, 2),  new Offset(0, 2),  new Offset(1, 2),  new Offset(2, 2),  new Offset(3, 2),  new Offset(4, 2),
+                                                                new Offset(-3, 3),  new Offset(-2, 3),  new Offset(-1, 3),  new Offset(0, 3),  new Offset(1, 3),  new Offset(2, 3),  new Offset(3, 3),
+                                                                                    new Offset(-2, 4),  new Offset(-1, 4),  new Offset(0, 4),  new Offset(1, 4),  new Offset(2, 4),
+                                                                                                                            new Offset(0, 5),
+
+                    };
+
+                    var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 6, 0, 12, 0);
+
+                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, MagicEffectType.IceTornado, 
+                        
+                        new SimpleAttack(null, null, AnimatedTextColor.Crystal, formula.Min, formula.Max) ) );
                 }
             },
 
@@ -886,7 +1008,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Knight, Vocation.EliteKnight },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -961,7 +1083,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Knight, Vocation.EliteKnight },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -1032,7 +1154,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Knight, Vocation.EliteKnight },
 
-                Callback = (attacker) =>
+                Callback = (attacker, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -1096,26 +1218,6 @@ namespace OpenTibia.Game.CommandHandlers
             return (ushort)(baseSpeed * 1.7 - 56);
         }
 
-        private static (int Min, int Max) LightHealingFormula(int level, int magicLevel)
-        {
-            return ( (int)(level * 0.2 + magicLevel * 1.4 + 8), (int)(level * 0.2 + magicLevel * 1.795 + 11) );
-        }
-
-        private static (int Min, int Max) IntenseHealingFormula(int level, int magicLevel)
-        {
-            return ( (int)(level * 0.2 + magicLevel * 3.184 + 20), (int)(level * 0.2 + magicLevel * 5.59 + 35) );
-        }
-
-        private static (int Min, int Max) MassHealingFormula(int level, int magicLevel)
-        {
-            return ( (int)(level * 0.2 + magicLevel * 5.7 + 26), (int)(level * 0.2 + magicLevel * 10.43 + 62) );
-        }
-
-        private static (int Min, int Max) UltimateHealingFormula(int level, int magicLevel)
-        {
-            return ( (int)(level * 0.2 + magicLevel * 7.22 + 44), (int)(level * 0.2 + magicLevel * 12.79 + 79) );
-        }
-
         private static (int Min, int Max) GroundshakerFormula(int level, int skill, int weapon)
         {
             return ( (int)( (skill + weapon) * 0.5 + level * 0.2), (int)( (skill + weapon) * 1.1 + level * 0.2) );
@@ -1129,6 +1231,11 @@ namespace OpenTibia.Game.CommandHandlers
         private static (int Min, int Max) FierceBerserkFormula(int level, int skill, int weapon)
         {
             return ( (int)( (skill + weapon * 2) * 1.1 + level * 0.2), (int)( (skill + weapon * 2) * 3 + level * 0.2) );
+        }
+
+        private static (int Min, int Max) GenericFormula(int level, int magicLevel, double minx, double miny, double maxx, double maxy)
+        {
+            return ( (int)(level * 0.2 + magicLevel * minx + miny), (int)(level * 0.2 + magicLevel * maxx + maxy) );
         }
 
         private static (int Min, int Max) GenericFormula(int level, int magicLevel, int @base, int variation)
@@ -1157,89 +1264,88 @@ namespace OpenTibia.Game.CommandHandlers
             return null;
         }
 
-        public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
+        public override async Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
             Spell spell;
 
-            if (spells.TryGetValue(command.Message, out spell) )
+            if ( !spells.TryGetValue(command.Message, out spell) )
+            {
+                SpellPlugin plugin = Context.Server.Plugins.GetSpellPlugin(command.Message);
+
+                if (plugin != null)
+                {
+                    spell = plugin.Spell;
+                }
+            }
+
+            if (spell != null)
             {
                 if (command.Player.Level < spell.Level)
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
-                    {
-                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughLevel) );
+                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughLevel) );
 
-                        return Promise.Break;
-                    } );
+                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+
+                    await Promise.Break;
                 }
                  
                 if (command.Player.Mana < spell.Mana)
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
-                    {
-                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMana) );
+                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMana) );
 
-                        return Promise.Break;
-                    } );
+                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+
+                    await Promise.Break;
                 }
 
                 if (spell.Vocations != null && !spell.Vocations.Contains(command.Player.Vocation) )
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
-                    {
-                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourVocationCannotUseThisSpell) );
+                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourVocationCannotUseThisSpell) );
 
-                        return Promise.Break;
-                    } );
+                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+
+                    await Promise.Break;
                 }
                  
                 if (spell.Group == "Attack" && command.Player.Tile.ProtectionZone)
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
-                    {
-                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisActionIsNotPermittedInAProtectionZone) );
+                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisActionIsNotPermittedInAProtectionZone) );
 
-                        return Promise.Break;
-                    } );
+                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+
+                    await Promise.Break;
                 }
 
                 PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerCooldownBehaviour>(command.Player);
 
                 if (playerCooldownBehaviour.HasCooldown(spell.Name) || playerCooldownBehaviour.HasCooldown(spell.Group) )
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
-                    {
-                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
+                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
 
-                        return Promise.Break;
-                    } );
+                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+
+                    await Promise.Break;
                 }
 
-                if (spell.Condition != null && !spell.Condition(command.Player) )
+                if (spell.Condition != null && !await spell.Condition(command.Player, command.Message) )
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
-                    {
-                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
 
-                        return Promise.Break;
-                    } );
+                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+
+                    await Promise.Break;
                 }
 
                 playerCooldownBehaviour.AddCooldown(spell.Name, spell.Cooldown);
 
                 playerCooldownBehaviour.AddCooldown(spell.Group, spell.GroupCooldown);
 
-                return Context.AddCommand(new PlayerUpdateManaCommand(command.Player, command.Player.Mana - spell.Mana) ).Then( () =>
-                {
-                    return spell.Callback(command.Player);
+                await Context.AddCommand(new PlayerUpdateManaCommand(command.Player, command.Player.Mana - spell.Mana) );
 
-                } ).Then( () =>
-                {
-                    return next();
-                } );
+                await spell.Callback(command.Player, command.Message);
             }
 
-            return next();
+            await next();
         }
     }
 }

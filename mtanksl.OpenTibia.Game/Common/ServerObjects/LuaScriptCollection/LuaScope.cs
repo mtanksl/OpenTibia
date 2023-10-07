@@ -26,7 +26,7 @@ namespace OpenTibia.Game
                 function bridge.call(name, ...)
                 	local method = { 
                 		name = name,
-                		parameters = { ... } 
+                		parameters = table.pack(...)
                 	};
                 	return coroutine.yield(method)
                 end
@@ -192,6 +192,8 @@ namespace OpenTibia.Game
 
                             var name = (string)method["name"];
 
+                            var parameters = (LuaTable)method["parameters"];
+
                             LuaScope current = this;
 
                             while (true)
@@ -205,9 +207,14 @@ namespace OpenTibia.Game
 
                                 if (current.TryGetCoFunction(name, out var callback) )
                                 {
-                                    var parameters = ( (LuaTable)method["parameters"] ).Values.Cast<object>().ToArray();
+                                    List<object> values = new List<object>();
 
-                                    callback(parameters).Then(Next).Catch(reject);
+                                    for (int i = 1; i <= (int)(long)parameters["n"]; i++)
+                                    {
+                                        values.Add(parameters[i] );
+                                    }
+
+                                    callback(values.ToArray() ).Then(Next).Catch(reject);
 
                                     break;
                                 }
