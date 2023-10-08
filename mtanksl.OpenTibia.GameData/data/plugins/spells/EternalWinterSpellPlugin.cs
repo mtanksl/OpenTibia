@@ -6,9 +6,9 @@ using OpenTibia.Game.Components;
 
 namespace mtanksl.OpenTibia.GameData.Plugins.Spells
 {
-    public class EthernalWinterSpellPlugin : SpellPlugin
+    public class EternalWinterSpellPlugin : SpellPlugin
     {
-        public EthernalWinterSpellPlugin(Spell spell) : base(spell)
+        public EternalWinterSpellPlugin(Spell spell) : base(spell)
         {
 
         }

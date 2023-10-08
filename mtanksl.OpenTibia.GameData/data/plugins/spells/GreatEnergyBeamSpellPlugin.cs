@@ -6,9 +6,9 @@ using OpenTibia.Game.Components;
 
 namespace mtanksl.OpenTibia.GameData.Plugins.Spells
 {
-    public class GreatEneryBeamSpellPlugin : SpellPlugin
+    public class GreatEnergyBeamSpellPlugin : SpellPlugin
     {
-        public GreatEneryBeamSpellPlugin(Spell spell) : base(spell)
+        public GreatEnergyBeamSpellPlugin(Spell spell) : base(spell)
         {
 
         }

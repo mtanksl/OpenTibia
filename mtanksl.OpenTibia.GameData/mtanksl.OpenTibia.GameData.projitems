@@ -391,13 +391,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\FierceBerserkSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\BerserkSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\GroundshakerSpellPlugin.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\EthernalWinterSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\EternalWinterSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\WrathOfNatureSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\HellsCoreSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\RageOfTheSkiesSpellPlugin.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\EneryWaveSpellPlugin.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\GreatEneryBeamSpellPlugin.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\EneryBeamSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\EnergyWaveSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\GreatEnergyBeamSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\EnergyBeamSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\EnergyStrikeSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\FlameStrikeSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\DeathStrikeSpellPlugin.cs" />
