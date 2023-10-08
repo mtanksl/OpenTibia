@@ -387,4 +387,36 @@
     <Content Include="$(MSBuildThisFileDirectory)data\world\map-house.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\world\map-spawn.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\FierceBerserkSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\BerserkSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\GroundshakerSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\EthernalWinterSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\WrathOfNatureSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\HellsCoreSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\RageOfTheSkiesSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\EneryWaveSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\GreatEneryBeamSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\EneryBeamSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\EnergyStrikeSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\FlameStrikeSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\DeathStrikeSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\MassHealingSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\UltimateHealingSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\DivineHealingSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\WoundCleansingSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\IntenseHealingSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\LightHealingSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\CurePoisonSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\MagicShieldSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\StrongHasteSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\InvisibleSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\HasteSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\UltimateLightSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\LevitateDownSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\GreatLightSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\LightSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\LevitateUpSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\MagicRopeSpellPlugin.cs" />
+  </ItemGroup>
 </Project>

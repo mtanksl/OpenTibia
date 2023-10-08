@@ -1,4 +1,5 @@
 ﻿using mtanksl.OpenTibia.Game.Plugins;
+using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Components
@@ -17,19 +18,19 @@ namespace OpenTibia.Game.Components
         public override void Start()
         {
             script = Context.Server.LuaScripts.Create(Context.Server.PathResolver.GetFullPath("data/plugins/lib.lua"), Context.Server.PathResolver.GetFullPath("data/plugins/spells/lib.lua"), Context.Server.PathResolver.GetFullPath(fileName) );
+        }
 
-            Spell.Condition = (player, target, message) =>
+        public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
+        {
+            return script.CallFunction("oncasting", player, target, message).Then(result =>
             {
-                return script.CallFunction("oncasting", player, target, message).Then(result =>
-                {
-                    return Promise.FromResult( (bool)result[0] );
-                } );
-            };
+                return Promise.FromResult( (bool)result[0] );
+            } );
+        }
 
-            Spell.Callback = (player, target, message) =>
-            {
-                return script.CallFunction("oncast", player, target, message);
-            };
+        public override Promise OnCast(Player player, Creature target, string message)
+        {
+            return script.CallFunction("oncast", player, target, message);
         }
 
         public override void Stop()

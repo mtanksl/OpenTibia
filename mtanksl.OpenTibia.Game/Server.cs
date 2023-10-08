@@ -190,8 +190,11 @@ namespace OpenTibia.Game
                 Logger.WriteLine("Source code: https://github.com/mtanksl/OpenTibia");
 
                 Logger.WriteLine();
-
-                Config.Start();
+                               
+                using (Logger.Measure("Loading config") )
+                {
+                    Config.Start();
+                }
 
                 using (Logger.Measure("Loading quests") )
                 {

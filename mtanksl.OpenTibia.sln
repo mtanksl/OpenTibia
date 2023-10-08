@@ -245,5 +245,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		mtanksl.OpenTibia.GameData\mtanksl.OpenTibia.GameData.projitems*{0269e0f5-d24c-4799-918f-c3819a5d43b7}*SharedItemsImports = 13
+		mtanksl.OpenTibia.GameData\mtanksl.OpenTibia.GameData.projitems*{f2039e58-6507-4227-965e-8e4104585594}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal
