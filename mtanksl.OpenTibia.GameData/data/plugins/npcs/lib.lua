@@ -179,7 +179,7 @@ function topic:addtravel(responses, destinations)
 	end
 	confirm:add("yes", function(npc, player, message, captures, parameters) 
 		if command.playerremovemoney(player, parameters.price) then			
-			-- TODO
+			--TODO
 			return topiccallback:new( { topic = self }, responses.yes)
 		end
 		return topiccallback:new( { topic = self }, responses.notenoughtgold)

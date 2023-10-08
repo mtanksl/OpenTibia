@@ -23,8 +23,8 @@ namespace mtanksl.OpenTibia.Game.Plugins
 
         public Vocation[] Vocations { get; set; }
 
-        public Func<Player, string, PromiseResult<bool> > Condition { get; set; }
+        public Func<Player, Creature, string, PromiseResult<bool> > Condition { get; set; }
 
-        public Func<Player, string, Promise> Callback { get; set; }
+        public Func<Player, Creature, string, Promise> Callback { get; set; }
     }
 }

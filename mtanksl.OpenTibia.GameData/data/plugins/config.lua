@@ -20,10 +20,10 @@
 		{ type = "Dialogue", name = "Captain Bluebear", filename = "captain bluebear.lua" }
 	},
 	spells = {
-		-- { words = "exevo flam hur", name = "Fire Wave", group = "Attack", cooldown = 4, groupcooldown = 2, level = 18, mana = 25, premium = false, vocations = { vocation.sorcerer, vocation.mastersorcerer }, filename = "fire wave.lua" }
+		-- { words = "exevo flam hur", name = "Fire Wave", group = "Attack", cooldown = 4, groupcooldown = 2, level = 18, mana = 25, premium = false, vocations = { vocation.sorcerer, vocation.mastersorcerer }, requirestarget = false, filename = "fire wave.lua" }
 	},
 	runes = {
-		--TODO
+		-- { opentibiaid = 2304, name = "Great Fireball Rune", group = "Attack", groupcooldown = 2, level = 30, magiclevel = 4, requirestarget = false, filename = "great fireball rune.lua" }
 	},
 	weapons = {
 		-- { opentibiaid = 2187, level = 33, mana = 13, vocations = { vocation.sorcerer, vocation.mastersorcerer }, filename = "wand of inferno.lua" }

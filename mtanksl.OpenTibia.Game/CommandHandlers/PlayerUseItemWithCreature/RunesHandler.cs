@@ -1,4 +1,4 @@
-﻿using OpenTibia.Common.Objects;
+﻿using mtanksl.OpenTibia.Game.Plugins;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Components;
@@ -10,23 +10,6 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class RunesHandler : CommandHandler<PlayerUseItemWithCreatureCommand>
     {
-        private class Rune
-        {
-            public string Name { get; set; }
-
-            public string Group { get; set; }
-
-            public TimeSpan GroupCooldown { get; set; }
-
-            public int Level { get; set; }
-
-            public int MagicLevel { get; set; }
-
-            public Func<Player, Creature, bool> Condition { get; set; }
-
-            public Func<Player, Creature, Promise> Callback { get; set; }
-        }
-
         private static HashSet<ushort> itemWithItemRunes = new HashSet<ushort>() { 2285, 2286, 2289, 2301, 2305, 2303, 2277, 2262, 2279, 2302, 2304, 2313, 2293, 2269 };
 
         private static Dictionary<ushort, Rune> runes = new Dictionary<ushort, Rune>()
@@ -43,7 +26,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 MagicLevel = 0,
 
-                Callback = (attacker, target) =>
+                Callback = (attacker, target, tile, item) =>
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
@@ -64,7 +47,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 MagicLevel = 1,
 
-                Callback = (attacker, target) =>
+                Callback = (attacker, target, tile, item) =>
                 {
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 70, 30);
 
@@ -86,7 +69,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 MagicLevel = 4,
 
-                Callback = (attacker, target) =>
+                Callback = (attacker, target, tile, item) =>
                 {
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 250, 0);
 
@@ -108,7 +91,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 MagicLevel = 0,
 
-                Callback = (attacker, target) =>
+                Callback = (attacker, target, tile, item) =>
                 {
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 15, 5);
 
@@ -130,7 +113,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 MagicLevel = 3,
 
-                Callback = (attacker, target) =>
+                Callback = (attacker, target, tile, item) =>
                 {
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 30, 10);
 
@@ -152,7 +135,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 MagicLevel = 15,
 
-                Callback = (attacker, target) =>
+                Callback = (attacker, target, tile, item) =>
                 {
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 150, 20);
 
@@ -170,87 +153,94 @@ namespace OpenTibia.Game.CommandHandlers
             return (formula * (@base - variation) / 100, formula * (@base + variation) / 100);
         }
 
-        public override Promise Handle(Func<Promise> next, PlayerUseItemWithCreatureCommand command)
+        public override async Promise Handle(Func<Promise> next, PlayerUseItemWithCreatureCommand command)
         {
             Rune rune;
 
-            if (runes.TryGetValue(command.Item.Metadata.OpenTibiaId, out rune) )
+            if ( !runes.TryGetValue(command.Item.Metadata.OpenTibiaId, out rune) )
+            {
+                RunePlugin plugin = Context.Server.Plugins.GetRunePlugin(true, command.Item.Metadata.OpenTibiaId);
+
+                if (plugin != null)
+                {
+                    rune = plugin.Rune;
+                }
+            }
+
+            if (rune != null)
             {
                 if (command.Player.Level < rune.Level)
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
-                    {
-                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughLevel) );
+                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughLevel) );
 
-                        return Promise.Break;
-                    } );
+                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+
+                    await Promise.Break;
                 }
 
                 if (command.Player.Skills.MagicLevel < rune.MagicLevel)
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
-                    {
-                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMagicLevel) );
+                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMagicLevel) );
 
-                        return Promise.Break;
-                    } );
+                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+
+                    await Promise.Break;
                 }
 
                 if (command.Player.Tile.ProtectionZone)
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
-                    {
-                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackAPersonWhileYouAreInAProtectionZone) );
+                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackAPersonWhileYouAreInAProtectionZone) );
 
-                        return Promise.Break;
-                    } );
+                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+
+                    await Promise.Break;
                 }
 
                 if (command.ToCreature.Tile.ProtectionZone)
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
-                    {
-                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackAPersonInAProtectionZone) );
+                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackAPersonInAProtectionZone) );
 
-                        return Promise.Break;
-                    } );
+                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+
+                    await Promise.Break;
                 }
 
                 PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerCooldownBehaviour>(command.Player);
 
                 if (playerCooldownBehaviour.HasCooldown(rune.Group) )
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
-                    {
-                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
+                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
 
-                        return Promise.Break;
-                    } );
+                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+
+                    await Promise.Break;
                 }
 
-                if (rune.Condition != null && !rune.Condition(command.Player, command.ToCreature) )
+                if (rune.Condition != null && !await rune.Condition(command.Player, command.ToCreature, null, command.Item) )
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
-                    {
-                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
+                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
 
-                        return Promise.Break;
-                    } );
+                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+
+                    await Promise.Break;
                 }
 
                 playerCooldownBehaviour.AddCooldown(rune.Group, rune.GroupCooldown);
 
-                return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
-                {
-                    return rune.Callback(command.Player, command.ToCreature);
-                } );
+                await Context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
+
+                await rune.Callback(command.Player, command.ToCreature, null, command.Item);
+
+                return;
             }
             else if (itemWithItemRunes.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                return Context.AddCommand(new PlayerUseItemWithItemCommand(command.Player, command.Item, command.ToCreature.Tile.Ground) );
+                await Context.AddCommand(new PlayerUseItemWithItemCommand(command.Player, command.Item, command.ToCreature.Tile.Ground) );
+
+                return;
             }
 
-            return next();
+            await next();
         }
     }
 }

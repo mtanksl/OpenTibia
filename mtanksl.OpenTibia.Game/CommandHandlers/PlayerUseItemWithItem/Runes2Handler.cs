@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Objects;
+﻿using mtanksl.OpenTibia.Game.Plugins;
+using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Components;
@@ -11,23 +12,6 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class Runes2Handler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private class Rune
-        {
-            public string Name { get; set; }
-
-            public string Group { get; set; }
-
-            public TimeSpan GroupCooldown { get; set; }
-
-            public int Level { get; set; }
-
-            public int MagicLevel { get; set; }
-
-            public Func<Player, Tile, bool> Condition { get; set; }
-
-            public Func<Player, Tile, Promise> Callback { get; set; }
-        }
-
         private static HashSet<ushort> itemWithCreatureRunes = new HashSet<ushort>() { 2266, 2265, 2273, 2287, 2311, 2268 };
 
         private static Dictionary<ushort, Rune> runes = new Dictionary<ushort, Rune>()
@@ -44,17 +28,17 @@ namespace OpenTibia.Game.CommandHandlers
 
                 MagicLevel = 0,
 
-                Condition = (attacker, tile) =>
+                Condition = (attacker, target, tile, item) =>
                 {
                     if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
                     {
-                        return false;
+                        return Promise.FromResult(false);
                     }
 
-                    return true;
+                    return Promise.FromResult(true);
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = (attacker, target, tile, item) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -81,17 +65,17 @@ namespace OpenTibia.Game.CommandHandlers
 
                 MagicLevel = 4,
 
-                Condition = (attacker, tile) =>
+                Condition = (attacker, target, tile, item) =>
                 {
                     if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
                     {
-                        return false;
+                        return Promise.FromResult(false);
                     }
 
-                    return true;
+                    return Promise.FromResult(true);
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = (attacker, target, tile, item) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -120,17 +104,17 @@ namespace OpenTibia.Game.CommandHandlers
 
                 MagicLevel = 5,
 
-                Condition = (attacker, tile) =>
+                Condition = (attacker, target, tile, item) =>
                 {
                     if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
                     {
-                        return false;
+                        return Promise.FromResult(false);
                     }
 
-                    return true;
+                    return Promise.FromResult(true);
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = (attacker, target, tile, item) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -157,17 +141,17 @@ namespace OpenTibia.Game.CommandHandlers
 
                 MagicLevel = 1,
 
-                Condition = (attacker, tile) =>
+                Condition = (attacker, target, tile, item) =>
                 {
                     if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
                     {
-                        return false;
+                        return Promise.FromResult(false);
                     }
 
-                    return true;
+                    return Promise.FromResult(true);
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = (attacker, target, tile, item) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -194,17 +178,17 @@ namespace OpenTibia.Game.CommandHandlers
 
                 MagicLevel = 5,
 
-                Condition = (attacker, tile) =>
+                Condition = (attacker, target, tile, item) =>
                 {
                     if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
                     {
-                        return false;
+                        return Promise.FromResult(false);
                     }
 
-                    return true;
+                    return Promise.FromResult(true);
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = (attacker, target, tile, item) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -233,17 +217,17 @@ namespace OpenTibia.Game.CommandHandlers
 
                 MagicLevel = 6,
 
-                Condition = (attacker, tile) =>
+                Condition = (attacker, target, tile, item) =>
                 {
                     if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
                     {
-                        return false;
+                        return Promise.FromResult(false);
                     }
 
-                    return true;
+                    return Promise.FromResult(true);
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = (attacker, target, tile, item) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -270,17 +254,17 @@ namespace OpenTibia.Game.CommandHandlers
 
                 MagicLevel = 3,
 
-                Condition = (attacker, tile) =>
+                Condition = (attacker, target, tile, item) =>
                 {
                     if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
                     {
-                        return false;
+                        return Promise.FromResult(false);
                     }
 
-                    return true;
+                    return Promise.FromResult(true);
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = (attacker, target, tile, item) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -307,17 +291,17 @@ namespace OpenTibia.Game.CommandHandlers
 
                 MagicLevel = 10,
 
-                Condition = (attacker, tile) =>
+                Condition = (attacker, target, tile, item) =>
                 {
                     if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
                     {
-                        return false;
+                        return Promise.FromResult(false);
                     }
 
-                    return true;
+                    return Promise.FromResult(true);
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = (attacker, target, tile, item) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -346,17 +330,17 @@ namespace OpenTibia.Game.CommandHandlers
 
                 MagicLevel = 9,
 
-                Condition = (attacker, tile) =>
+                Condition = (attacker, target, tile, item) =>
                 {
                     if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
                     {
-                        return false;
+                        return Promise.FromResult(false);
                     }
 
-                    return true;
+                    return Promise.FromResult(true);
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = (attacker, target, tile, item) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -383,17 +367,17 @@ namespace OpenTibia.Game.CommandHandlers
 
                 MagicLevel = 4,
 
-                Condition = (attacker, tile) =>
+                Condition = (attacker, target, tile, item) =>
                 {
                     if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
                     {
-                        return false;
+                        return Promise.FromResult(false);
                     }
 
-                    return true;
+                    return Promise.FromResult(true);
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = (attacker, target, tile, item) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -424,17 +408,17 @@ namespace OpenTibia.Game.CommandHandlers
 
                 MagicLevel = 4,
 
-                Condition = (attacker, tile) =>
+                Condition = (attacker, target, tile, item) =>
                 {
                     if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
                     {
-                        return false;
+                        return Promise.FromResult(false);
                     }
 
-                    return true;
+                    return Promise.FromResult(true);
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = (attacker, target, tile, item) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -467,17 +451,17 @@ namespace OpenTibia.Game.CommandHandlers
 
                 MagicLevel = 6,
 
-                Condition = (attacker, tile) =>
+                Condition = (attacker, target, tile, item) =>
                 {
                     if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
                     {
-                        return false;
+                        return Promise.FromResult(false);
                     }
 
-                    return true;
+                    return Promise.FromResult(true);
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = (attacker, target, tile, item) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -506,17 +490,17 @@ namespace OpenTibia.Game.CommandHandlers
 
                 MagicLevel = 9,
 
-                Condition = (attacker, tile) =>
+                Condition = (attacker, target, tile, item) =>
                 {
                     if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || tile.GetCreatures().Any(c => c.Block) )
                     {
-                        return false;
+                        return Promise.FromResult(false);
                     }
 
-                    return true;
+                    return Promise.FromResult(true);
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = (attacker, target, tile, item) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -539,17 +523,17 @@ namespace OpenTibia.Game.CommandHandlers
 
                 MagicLevel = 8,
 
-                Condition = (attacker, tile) =>
+                Condition = (attacker, target, tile, item) =>
                 {
                     if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || tile.GetCreatures().Any(c => c.Block) )
                     {
-                        return false;
+                        return Promise.FromResult(false);
                     }
 
-                    return true;
+                    return Promise.FromResult(true);
                 },
 
-                Callback = (attacker, tile) =>
+                Callback = (attacker, target, tile, item) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -568,96 +552,103 @@ namespace OpenTibia.Game.CommandHandlers
             return (formula * (@base - variation) / 100, formula * (@base + variation) / 100);
         }
 
-        public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
+        public override async Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
             Rune rune;
 
-            if (runes.TryGetValue(command.Item.Metadata.OpenTibiaId, out rune) )
+            if ( !runes.TryGetValue(command.Item.Metadata.OpenTibiaId, out rune) )
             {
-                if (command.ToItem.Parent is not Tile toTile)
+                RunePlugin plugin = Context.Server.Plugins.GetRunePlugin(false, command.Item.Metadata.OpenTibiaId);
+
+                if (plugin != null)
+                {
+                    rune = plugin.Rune;
+                }
+            }
+
+            if (rune != null)
+            {
+                if ( !(command.ToItem.Parent is Tile toTile) )
                 {
                     Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
 
-                    return Promise.Break;
+                    await Promise.Break;
                 }
-
-                if (command.Player.Level < rune.Level)
+                else
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
+                    if (command.Player.Level < rune.Level)
                     {
                         Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughLevel) );
 
-                        return Promise.Break;
-                    } );
-                }
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
 
-                if (command.Player.Skills.MagicLevel < rune.MagicLevel)
-                {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
+                        await Promise.Break;
+                    }
+
+                    if (command.Player.Skills.MagicLevel < rune.MagicLevel)
                     {
                         Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMagicLevel) );
 
-                        return Promise.Break;
-                    } );
-                }
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
 
-                if (command.Player.Tile.ProtectionZone)
-                {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
+                        await Promise.Break;
+                    }
+
+                    if (command.Player.Tile.ProtectionZone)
                     {
                         Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackAPersonWhileYouAreInAProtectionZone) );
 
-                        return Promise.Break;
-                    } );
-                }
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
 
-                if (toTile.ProtectionZone)
-                {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
+                        await Promise.Break;
+                    }
+
+                    if (toTile.ProtectionZone)
                     {
                         Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackAPersonInAProtectionZone) );
 
-                        return Promise.Break;
-                    } );
-                }
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
 
-                PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerCooldownBehaviour>(command.Player);
+                        await Promise.Break;
+                    }
 
-                if (playerCooldownBehaviour.HasCooldown(rune.Group) )
-                {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
-                    {
+                    PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerCooldownBehaviour>(command.Player);
+
+                    if (playerCooldownBehaviour.HasCooldown(rune.Group) )
+                    {                     
                         Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
 
-                        return Promise.Break;
-                    } );
-                }
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
 
-                if (rune.Condition != null && !rune.Condition(command.Player, toTile) )
-                {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
+                        await Promise.Break;
+                    }
+
+                    if (rune.Condition != null && !await rune.Condition(command.Player, null, toTile, command.Item) )
                     {
                         Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
 
-                        return Promise.Break;
-                    } );
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+
+                        await Promise.Break;
+                    }
+
+                    playerCooldownBehaviour.AddCooldown(rune.Group, rune.GroupCooldown);
+
+                    await Context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
+                
+                    await rune.Callback(command.Player, null, toTile, command.Item);
+
+                    return;               
                 }
-
-                playerCooldownBehaviour.AddCooldown(rune.Group, rune.GroupCooldown);
-
-                return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
-                {
-                    return rune.Callback(command.Player, toTile);
-                } );
             }
             else if (itemWithCreatureRunes.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
 
-                return Promise.Break;
+                await Promise.Break;
             }
 
-            return next();
+            await next();
         }
     }
 }

@@ -17,9 +17,9 @@ namespace OpenTibia.Game.Components
         {
             script = Context.Server.LuaScripts.Create(Context.Server.PathResolver.GetFullPath("data/plugins/lib.lua"), Context.Server.PathResolver.GetFullPath("data/plugins/weapons/lib.lua"), Context.Server.PathResolver.GetFullPath(fileName) );
 
-            Weapon.Callback = (player, creature, weapon) =>
+            Weapon.Callback = (player, target, weapon) =>
             {
-                return script.CallFunction("onuseweapon", player, creature, weapon);
+                return script.CallFunction("onuseweapon", player, target, weapon);
             };
         }
 

@@ -218,29 +218,86 @@ namespace OpenTibia.Game
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.spells"] ).Values)
             {
-                spellPlugins.AddPlugin( (string)plugin["words"], () => new LuaScriptingSpellPlugin("data/plugins/spells/" + (string)plugin["filename"], new Spell()
+                bool requiresTarget = (bool)plugin["requirestarget"];
+
+                if (requiresTarget)
                 {
-                    Name = (string)plugin["name"],
+                    spellPluginsRequiresTarget.AddPlugin( (string)plugin["words"], () => new LuaScriptingSpellPlugin("data/plugins/spells/" + (string)plugin["filename"], new Spell()
+                    {
+                        Name = (string)plugin["name"],
 
-                    Group = (string)plugin["group"],
+                        Group = (string)plugin["group"],
 
-                    Cooldown = TimeSpan.FromSeconds( (int)(long)plugin["cooldown"] ),
+                        Cooldown = TimeSpan.FromSeconds( (int)(long)plugin["cooldown"] ),
 
-                    GroupCooldown = TimeSpan.FromSeconds( (int)(long)plugin["groupcooldown"] ),
+                        GroupCooldown = TimeSpan.FromSeconds( (int)(long)plugin["groupcooldown"] ),
 
-                    Level = (int)(long)plugin["level"],
+                        Level = (int)(long)plugin["level"],
 
-                    Mana = (int)(long)plugin["mana"],
+                        Mana = (int)(long)plugin["mana"],
 
-                    Premium = (bool)plugin["premium"],
+                        Premium = (bool)plugin["premium"],
 
-                    Vocations = ( (LuaTable)plugin["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
-                } ) );
+                        Vocations = ( (LuaTable)plugin["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
+                    } ) );
+                }
+                else
+                {
+                    spellPlugins.AddPlugin( (string)plugin["words"], () => new LuaScriptingSpellPlugin("data/plugins/spells/" + (string)plugin["filename"], new Spell()
+                    {
+                        Name = (string)plugin["name"],
+
+                        Group = (string)plugin["group"],
+
+                        Cooldown = TimeSpan.FromSeconds( (int)(long)plugin["cooldown"] ),
+
+                        GroupCooldown = TimeSpan.FromSeconds( (int)(long)plugin["groupcooldown"] ),
+
+                        Level = (int)(long)plugin["level"],
+
+                        Mana = (int)(long)plugin["mana"],
+
+                        Premium = (bool)plugin["premium"],
+
+                        Vocations = ( (LuaTable)plugin["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
+                    } ) );
+                }
             }
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.runes"] ).Values)
             {
-                
+                bool requiresTarget = (bool)plugin["requirestarget"];
+
+                if (requiresTarget)
+                {
+                    runePluginsRequiresTarget.AddPlugin( (ushort)(long)plugin["opentibiaid"], () => new LuaScriptingRunePlugin("data/plugins/runes/" + (string)plugin["filename"], new Rune()
+                    {
+                        Name = (string)plugin["name"],
+
+                        Group = (string)plugin["group"],
+
+                        GroupCooldown = TimeSpan.FromSeconds( (int)(long)plugin["groupcooldown"] ),
+
+                        Level = (int)(long)plugin["level"],
+
+                        MagicLevel = (int)(long)plugin["magiclevel"]
+                    } ) );
+                }
+                else
+                {
+                    runePlugins.AddPlugin( (ushort)(long)plugin["opentibiaid"], () => new LuaScriptingRunePlugin("data/plugins/runes/" + (string)plugin["filename"], new Rune()
+                    {
+                        Name = (string)plugin["name"],
+
+                        Group = (string)plugin["group"],
+
+                        GroupCooldown = TimeSpan.FromSeconds( (int)(long)plugin["groupcooldown"] ),
+
+                        Level = (int)(long)plugin["level"],
+
+                        MagicLevel = (int)(long)plugin["magiclevel"]
+                    } ) );
+                }
             }
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.weapons"] ).Values)
@@ -345,11 +402,36 @@ namespace OpenTibia.Game
             return dialoguePlugins.GetPlugin(name);
         }
 
+        private PluginDictionaryCached<string, SpellPlugin> spellPluginsRequiresTarget = new PluginDictionaryCached<string, SpellPlugin>();
+
         private PluginDictionaryCached<string, SpellPlugin> spellPlugins = new PluginDictionaryCached<string, SpellPlugin>();
 
-        public SpellPlugin GetSpellPlugin(string words)
+        public SpellPlugin GetSpellPlugin(bool requirestarget, string words)
         {
-            return spellPlugins.GetPlugin(words);
+            if (requirestarget)
+            {
+                return spellPluginsRequiresTarget.GetPlugin(words);
+            }
+            else
+            {
+                return spellPlugins.GetPlugin(words);
+            }
+        }
+
+        private PluginDictionaryCached<ushort, RunePlugin> runePluginsRequiresTarget = new PluginDictionaryCached<ushort, RunePlugin>();
+
+        private PluginDictionaryCached<ushort, RunePlugin> runePlugins = new PluginDictionaryCached<ushort, RunePlugin>();
+
+        public RunePlugin GetRunePlugin(bool requirestarget, ushort openTibiaId)
+        {
+            if (requirestarget)
+            {
+                return runePluginsRequiresTarget.GetPlugin(openTibiaId);
+            }
+            else
+            {
+                return runePlugins.GetPlugin(openTibiaId);
+            }
         }
 
         private PluginDictionaryCached<ushort, WeaponPlugin> weaponPlugins = new PluginDictionaryCached<ushort, WeaponPlugin>();
@@ -392,7 +474,13 @@ namespace OpenTibia.Game
 
                 dialoguePlugins.GetPlugins(),
 
+                spellPluginsRequiresTarget.GetPlugins(),
+
                 spellPlugins.GetPlugins(),
+
+                runePluginsRequiresTarget.GetPlugins(),
+
+                runePlugins.GetPlugins(),
 
                 weaponPlugins.GetPlugins(),
 

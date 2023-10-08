@@ -18,17 +18,17 @@ namespace OpenTibia.Game.Components
         {
             script = Context.Server.LuaScripts.Create(Context.Server.PathResolver.GetFullPath("data/plugins/lib.lua"), Context.Server.PathResolver.GetFullPath("data/plugins/spells/lib.lua"), Context.Server.PathResolver.GetFullPath(fileName) );
 
-            Spell.Condition = (player, message) =>
+            Spell.Condition = (player, target, message) =>
             {
-                return script.CallFunction("oncasting", player, message).Then(result =>
+                return script.CallFunction("oncasting", player, target, message).Then(result =>
                 {
                     return Promise.FromResult( (bool)result[0] );
                 } );
             };
 
-            Spell.Callback = (player, message) =>
+            Spell.Callback = (player, target, message) =>
             {
-                return script.CallFunction("oncast", player, message);
+                return script.CallFunction("oncast", player, target, message);
             };
         }
 

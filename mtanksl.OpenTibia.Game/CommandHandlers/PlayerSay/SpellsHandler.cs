@@ -34,7 +34,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Condition = (attacker, message) =>
+                Condition = (attacker, target, message) =>
                 {
                     if (ropeSpots.Contains(attacker.Tile.Ground.Metadata.OpenTibiaId) )
                     {
@@ -44,7 +44,7 @@ namespace OpenTibia.Game.CommandHandlers
                     return Promise.FromResult(false);
                 },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     Tile toTile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(0, 1, -1) );
 
@@ -77,7 +77,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Condition = (attacker, message) =>
+                Condition = (attacker, target, message) =>
                 {
                     Tile up = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(0, 0, -1) );
 
@@ -91,7 +91,7 @@ namespace OpenTibia.Game.CommandHandlers
                     return Promise.FromResult(true);
                 },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     Tile toTile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(0, 0, -1).Offset(attacker.Direction) );
 
@@ -124,7 +124,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Condition = (attacker, message) =>
+                Condition = (attacker, target, message) =>
                 {
                     Tile next = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(attacker.Direction) );
 
@@ -138,7 +138,7 @@ namespace OpenTibia.Game.CommandHandlers
                     return Promise.FromResult(true);
                 },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     Tile toTile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(0, 0, 1).Offset(attacker.Direction) );
 
@@ -171,7 +171,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
@@ -200,7 +200,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
@@ -229,7 +229,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Druid, Vocation.Sorcerer, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
@@ -258,7 +258,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Druid, Vocation.Sorcerer, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
@@ -287,7 +287,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     var speed = HasteFormula(attacker.BaseSpeed);
 
@@ -318,7 +318,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Druid, Vocation.Sorcerer, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     var speed = StrongHasteFormula(attacker.BaseSpeed);
 
@@ -349,7 +349,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Druid, Vocation.Sorcerer, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
@@ -378,7 +378,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Knight, Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.EliteKnight, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     return Context.Current.AddCommand(new ShowMagicEffectCommand(attacker.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
                     {
@@ -405,7 +405,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 1.4, 8, 1.795, 11);
 
@@ -433,7 +433,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Paladin, Vocation.Druid, Vocation.Sorcerer, Vocation.RoyalPaladin, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 3.184, 20, 5.59, 35);
                     
@@ -461,7 +461,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Knight, Vocation.EliteKnight },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 4, 25, 7.95, 51);
                     
@@ -489,7 +489,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Paladin, Vocation.RoyalPaladin },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 18.5, 0, 25, 0);
                     
@@ -517,7 +517,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Druid, Vocation.Sorcerer, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     var formula = GenericFormula(attacker.Level, attacker.Skills.MagicLevel, 7.22, 44, 12.79, 79);
 
@@ -545,7 +545,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Druid, Vocation.ElderDruid },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -584,7 +584,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -617,7 +617,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Druid, Vocation.Sorcerer, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -650,7 +650,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Druid, Vocation.Sorcerer, Vocation.ElderDruid, Vocation.MasterSorcerer },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -683,7 +683,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -719,7 +719,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -756,7 +756,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -795,7 +795,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -832,7 +832,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -876,7 +876,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -920,7 +920,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Druid, Vocation.ElderDruid },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -964,7 +964,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Druid, Vocation.ElderDruid },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -1008,7 +1008,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Knight, Vocation.EliteKnight },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -1083,7 +1083,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Knight, Vocation.EliteKnight },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -1154,7 +1154,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Vocations = new[] { Vocation.Knight, Vocation.EliteKnight },
 
-                Callback = (attacker, message) =>
+                Callback = (attacker, target, message) =>
                 {
                     Offset[] area = new Offset[]
                     {
@@ -1270,7 +1270,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if ( !spells.TryGetValue(command.Message, out spell) )
             {
-                SpellPlugin plugin = Context.Server.Plugins.GetSpellPlugin(command.Message);
+                SpellPlugin plugin = Context.Server.Plugins.GetSpellPlugin(false, command.Message);
 
                 if (plugin != null)
                 {
@@ -1327,7 +1327,7 @@ namespace OpenTibia.Game.CommandHandlers
                     await Promise.Break;
                 }
 
-                if (spell.Condition != null && !await spell.Condition(command.Player, command.Message) )
+                if (spell.Condition != null && !await spell.Condition(command.Player, null, command.Message) )
                 {
                     Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
 
@@ -1342,7 +1342,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 await Context.AddCommand(new PlayerUpdateManaCommand(command.Player, command.Player.Mana - spell.Mana) );
 
-                await spell.Callback(command.Player, command.Message);
+                await spell.Callback(command.Player, null, command.Message);
             }
 
             await next();

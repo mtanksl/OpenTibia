@@ -32,6 +32,7 @@
     <None Include="$(MSBuildThisFileDirectory)data\plugins\npcs\default.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\npcs\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\npcs\rachel.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\runes\great fireball rune.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\runes\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\spells\fire wave.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\spells\lib.lua" />

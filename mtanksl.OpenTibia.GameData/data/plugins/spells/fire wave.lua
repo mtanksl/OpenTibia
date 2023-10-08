@@ -1,8 +1,8 @@
-function oncasting(player, message)
+function oncasting(player, target, message)
 	return true
 end
 
-function oncast(player, message)
+function oncast(player, target, message)
 	local area = {
 						  {0, 1},
 				 {-1, 2}, {0, 2}, {1, 2},
