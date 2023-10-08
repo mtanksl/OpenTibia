@@ -389,6 +389,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\ammunitions\PoisonArrowAmmunitionPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\HeavyMagicMissileRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\SuddenDeathRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\LightMagicMissileRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\UltimateHealingRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\IntenseHealingRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\CurePoisonRunePlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\FierceBerserkSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\BerserkSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\GroundshakerSpellPlugin.cs" />

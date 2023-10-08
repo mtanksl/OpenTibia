@@ -53,7 +53,27 @@
 		{ words = "exori gran", name = "Fierce Berserk", group = "Attack", cooldown = 6, groupcooldown = 2, level = 90, mana = 340, premium = true, vocations = { vocation.knight, vocation.eliteknight }, requirestarget = false, filename = "mtanksl.OpenTibia.GameData.Plugins.Spells.FierceBerserkSpellPlugin" }
 	},
 	runes = {
-		-- { opentibiaid = 2304, name = "Great Fireball Rune", group = "Attack", groupcooldown = 2, level = 30, magiclevel = 4, requirestarget = false, filename = "great fireball rune.lua" }
+		{ opentibiaid = 2266, name = "Cure Poison Rune", group = "Healing", groupcooldown = 2, level = 15, magiclevel = 0, requirestarget = true, filename = "mtanksl.OpenTibia.GameData.Plugins.Runes.CurePoisonRunePlugin" },
+		{ opentibiaid = 2265, name = "Intense Healing Rune", group = "Healing", groupcooldown = 2, level = 15, magiclevel = 1, requirestarget = true, filename = "mtanksl.OpenTibia.GameData.Plugins.Runes.IntenseHealingRunePlugin" },
+		{ opentibiaid = 2273, name = "Ultimate Healing Rune", group = "Healing", groupcooldown = 2, level = 24, magiclevel = 4, requirestarget = true, filename = "mtanksl.OpenTibia.GameData.Plugins.Runes.UltimateHealingRunePlugin" },
+		{ opentibiaid = 2287, name = "Light Magic Missile Rune", group = "Attack", groupcooldown = 2, level = 15, magiclevel = 0, requirestarget = true, filename = "mtanksl.OpenTibia.GameData.Plugins.Runes.LightMagicMissileRunePlugin" },
+		{ opentibiaid = 2311, name = "Heavy Magic Missile Rune", group = "Attack", groupcooldown = 2, level = 25, magiclevel = 3, requirestarget = true, filename = "mtanksl.OpenTibia.GameData.Plugins.Runes.HeavyMagicMissileRunePlugin" },
+		{ opentibiaid = 2268, name = "Sudden Death Rune", group = "Attack", groupcooldown = 2, level = 45, magiclevel = 15, requirestarget = true, filename = "mtanksl.OpenTibia.GameData.Plugins.Runes.SuddenDeathRunePlugin" },
+		
+		{ opentibiaid = 2285, name = "Poison Field Rune", group = "Attack", groupcooldown = 2, level = 14, magiclevel = 0, requirestarget = false, filename = "mtanksl.OpenTibia.GameData.Plugins.Runes.PoisonFieldRunePlugin" },
+		{ opentibiaid = 2286, name = "Poison Bomb Rune", group = "Attack", groupcooldown = 2, level = 25, magiclevel = 4, requirestarget = false, filename = "mtanksl.OpenTibia.GameData.Plugins.Runes.PoisonBombRunePlugin" },
+		{ opentibiaid = 2289, name = "Poison Wall Rune", group = "Attack", groupcooldown = 2, level = 29, magiclevel = 5, requirestarget = false, filename = "mtanksl.OpenTibia.GameData.Plugins.Runes.PoisonWallRunePlugin" },
+		{ opentibiaid = 2301, name = "Fire Field Rune", group = "Attack", groupcooldown = 2, level = 15, magiclevel = 1, requirestarget = false, filename = "mtanksl.OpenTibia.GameData.Plugins.Runes.FireFieldRunePlugin" },
+		{ opentibiaid = 2305, name = "Fire Bomb Rune", group = "Attack", groupcooldown = 2, level = 27, magiclevel = 5, requirestarget = false, filename = "mtanksl.OpenTibia.GameData.Plugins.Runes.FireBombRunePlugin" },
+		{ opentibiaid = 2303, name = "Fire Wall Rune", group = "Attack", groupcooldown = 2, level = 33, magiclevel = 6, requirestarget = false, filename = "mtanksl.OpenTibia.GameData.Plugins.Runes.FireWallRunePlugin" },
+		{ opentibiaid = 2277, name = "Energy Field Rune", group = "Attack", groupcooldown = 2, level = 18, magiclevel = 3, requirestarget = false, filename = "mtanksl.OpenTibia.GameData.Plugins.Runes.EnergyFieldRunePlugin" },
+		{ opentibiaid = 2262, name = "Energy Bomb Rune", group = "Attack", groupcooldown = 2, level = 37, magiclevel = 10, requirestarget = false, filename = "mtanksl.OpenTibia.GameData.Plugins.Runes.EnergyBombRunePlugin" },
+		{ opentibiaid = 2279, name = "Energy Wall Rune", group = "Attack", groupcooldown = 2, level = 41, magiclevel = 9, requirestarget = false, filename = "mtanksl.OpenTibia.GameData.Plugins.Runes.EnergyWallRunePlugin" },
+		{ opentibiaid = 2302, name = "Fireball Rune", group = "Attack", groupcooldown = 2, level = 27, magiclevel = 4, requirestarget = false, filename = "mtanksl.OpenTibia.GameData.Plugins.Runes.FireballRunePlugin" },
+		{ opentibiaid = 2304, name = "Great Fireball Rune", group = "Attack", groupcooldown = 2, level = 30, magiclevel = 4, requirestarget = false, filename = "great fireball rune.lua" },
+		{ opentibiaid = 2313, name = "Explosion Rune", group = "Attack", groupcooldown = 2, level = 31, magiclevel = 6, requirestarget = false, filename = "mtanksl.OpenTibia.GameData.Plugins.Runes.ExplosionRunePlugin" },
+		{ opentibiaid = 2293, name = "Magic Wall Rune", group = "Support", groupcooldown = 2, level = 27, magiclevel = 9, requirestarget = false, filename = "mtanksl.OpenTibia.GameData.Plugins.Runes.MagicWallRunePlugin" },
+		{ opentibiaid = 2269, name = "Wild Growth Rune", group = "Support", groupcooldown = 2, level = 27, magiclevel = 8, requirestarget = false, filename = "mtanksl.OpenTibia.GameData.Plugins.Runes.WildGrowthRunePlugin" }
 	},
 	weapons = {
 		{ opentibiaid = 2187, level = 33, mana = 13, vocations = { vocation.sorcerer, vocation.mastersorcerer }, filename = "wand of inferno.lua" },		

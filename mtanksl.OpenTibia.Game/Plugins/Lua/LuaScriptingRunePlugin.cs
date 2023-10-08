@@ -1,4 +1,5 @@
 ﻿using mtanksl.OpenTibia.Game.Plugins;
+using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Components
@@ -17,19 +18,19 @@ namespace OpenTibia.Game.Components
         public override void Start()
         {
             script = Context.Server.LuaScripts.Create(Context.Server.PathResolver.GetFullPath("data/plugins/lib.lua"), Context.Server.PathResolver.GetFullPath("data/plugins/runes/lib.lua"), Context.Server.PathResolver.GetFullPath(fileName) );
+        }
 
-            Rune.Condition = (player, target, tile, item) =>
+        public override PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile tile, Item item)
+        {
+            return script.CallFunction("onusingrune", player, target, tile, item).Then(result =>
             {
-                return script.CallFunction("onusingrune", player, target, tile, item).Then(result =>
-                {
-                    return Promise.FromResult((bool)result[0]);
-                } );
-            };
+                return Promise.FromResult( (bool)result[0]);
+            } );
+        }
 
-            Rune.Callback = (player, target, tile, item) =>
-            {
-                return script.CallFunction("onuserune", player, target, tile, item);
-            };
+        public override Promise OnUseRune(Player player, Creature target, Tile tile, Item item)
+        {
+            return script.CallFunction("onuserune", player, target, tile, item);
         }
 
         public override void Stop()

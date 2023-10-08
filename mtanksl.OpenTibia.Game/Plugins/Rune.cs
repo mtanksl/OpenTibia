@@ -1,6 +1,4 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Game.Commands;
-using System;
+﻿using System;
 
 namespace mtanksl.OpenTibia.Game.Plugins
 {
@@ -15,9 +13,5 @@ namespace mtanksl.OpenTibia.Game.Plugins
         public int Level { get; set; }
 
         public int MagicLevel { get; set; }
-
-        public Func<Player, Creature, Tile, Item, PromiseResult<bool>> Condition { get; set; }
-
-        public Func<Player, Creature, Tile, Item, Promise> Callback { get; set; }
     }
 }
