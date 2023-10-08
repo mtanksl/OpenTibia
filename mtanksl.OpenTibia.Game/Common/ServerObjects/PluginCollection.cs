@@ -218,106 +218,144 @@ namespace OpenTibia.Game
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.spells"] ).Values)
             {
+                Spell spell = new Spell()
+                {
+                    Name = (string)plugin["name"],
+
+                    Group = (string)plugin["group"],
+
+                    Cooldown = TimeSpan.FromSeconds( (int)(long)plugin["cooldown"]),
+
+                    GroupCooldown = TimeSpan.FromSeconds( (int)(long)plugin["groupcooldown"]),
+
+                    Level = (int)(long)plugin["level"],
+
+                    Mana = (int)(long)plugin["mana"],
+
+                    Premium = (bool)plugin["premium"],
+
+                    Vocations = ( (LuaTable)plugin["vocations"]).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
+                };
+
+                string words = (string)plugin["words"];
+
+                string fileName = (string)plugin["filename"];
+
                 bool requiresTarget = (bool)plugin["requirestarget"];
 
-                if (requiresTarget)
+                if (fileName.EndsWith(".lua") )
                 {
-                    spellPluginsRequiresTarget.AddPlugin( (string)plugin["words"], () => new LuaScriptingSpellPlugin("data/plugins/spells/" + (string)plugin["filename"], new Spell()
+                    if (requiresTarget)
                     {
-                        Name = (string)plugin["name"],
-
-                        Group = (string)plugin["group"],
-
-                        Cooldown = TimeSpan.FromSeconds( (int)(long)plugin["cooldown"] ),
-
-                        GroupCooldown = TimeSpan.FromSeconds( (int)(long)plugin["groupcooldown"] ),
-
-                        Level = (int)(long)plugin["level"],
-
-                        Mana = (int)(long)plugin["mana"],
-
-                        Premium = (bool)plugin["premium"],
-
-                        Vocations = ( (LuaTable)plugin["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
-                    } ) );
+                        spellPluginsRequiresTarget.AddPlugin(words, () => new LuaScriptingSpellPlugin("data/plugins/spells/" + fileName, spell) );
+                    }
+                    else
+                    {
+                        spellPlugins.AddPlugin(words, () => new LuaScriptingSpellPlugin("data/plugins/spells/" + fileName, spell) );
+                    }
                 }
                 else
                 {
-                    spellPlugins.AddPlugin( (string)plugin["words"], () => new LuaScriptingSpellPlugin("data/plugins/spells/" + (string)plugin["filename"], new Spell()
+                    if (requiresTarget)
                     {
-                        Name = (string)plugin["name"],
-
-                        Group = (string)plugin["group"],
-
-                        Cooldown = TimeSpan.FromSeconds( (int)(long)plugin["cooldown"] ),
-
-                        GroupCooldown = TimeSpan.FromSeconds( (int)(long)plugin["groupcooldown"] ),
-
-                        Level = (int)(long)plugin["level"],
-
-                        Mana = (int)(long)plugin["mana"],
-
-                        Premium = (bool)plugin["premium"],
-
-                        Vocations = ( (LuaTable)plugin["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
-                    } ) );
+                        spellPluginsRequiresTarget.AddPlugin(words, () => (SpellPlugin)Activator.CreateInstance(Type.GetType(fileName), spell) );
+                    }
+                    else
+                    {
+                        spellPlugins.AddPlugin(words, () => (SpellPlugin)Activator.CreateInstance(Type.GetType(fileName), spell) );
+                    }
                 }
             }
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.runes"] ).Values)
             {
+                Rune rune = new Rune()
+                {
+                    Name = (string)plugin["name"],
+
+                    Group = (string)plugin["group"],
+
+                    GroupCooldown = TimeSpan.FromSeconds( (int)(long)plugin["groupcooldown"]),
+
+                    Level = (int)(long)plugin["level"],
+
+                    MagicLevel = (int)(long)plugin["magiclevel"]
+                };
+
+                ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
+
+                string fileName = (string)plugin["filename"];
+
                 bool requiresTarget = (bool)plugin["requirestarget"];
 
-                if (requiresTarget)
+                if (fileName.EndsWith(".lua") )
                 {
-                    runePluginsRequiresTarget.AddPlugin( (ushort)(long)plugin["opentibiaid"], () => new LuaScriptingRunePlugin("data/plugins/runes/" + (string)plugin["filename"], new Rune()
+                    if (requiresTarget)
                     {
-                        Name = (string)plugin["name"],
-
-                        Group = (string)plugin["group"],
-
-                        GroupCooldown = TimeSpan.FromSeconds( (int)(long)plugin["groupcooldown"] ),
-
-                        Level = (int)(long)plugin["level"],
-
-                        MagicLevel = (int)(long)plugin["magiclevel"]
-                    } ) );
+                        runePluginsRequiresTarget.AddPlugin(openTibiaId, () => new LuaScriptingRunePlugin("data/plugins/runes/" + fileName, rune) );
+                    }
+                    else
+                    {
+                        runePlugins.AddPlugin(openTibiaId, () => new LuaScriptingRunePlugin("data/plugins/runes/" + fileName, rune) );
+                    }
                 }
                 else
                 {
-                    runePlugins.AddPlugin( (ushort)(long)plugin["opentibiaid"], () => new LuaScriptingRunePlugin("data/plugins/runes/" + (string)plugin["filename"], new Rune()
+                    if (requiresTarget)
                     {
-                        Name = (string)plugin["name"],
-
-                        Group = (string)plugin["group"],
-
-                        GroupCooldown = TimeSpan.FromSeconds( (int)(long)plugin["groupcooldown"] ),
-
-                        Level = (int)(long)plugin["level"],
-
-                        MagicLevel = (int)(long)plugin["magiclevel"]
-                    } ) );
-                }
+                        runePluginsRequiresTarget.AddPlugin(openTibiaId, () => (RunePlugin)Activator.CreateInstance(Type.GetType(fileName), rune) );
+                    }
+                    else
+                    {
+                        runePlugins.AddPlugin(openTibiaId, () => (RunePlugin)Activator.CreateInstance(Type.GetType(fileName), rune) );
+                    }
+                }                
             }
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.weapons"] ).Values)
             {
-                weaponPlugins.AddPlugin( (ushort)(long)plugin["opentibiaid"], () => new LuaScriptingWeaponPlugin("data/plugins/weapons/" + (string)plugin["filename"], new Weapon()
+                Weapon weapon = new Weapon()
                 {
                     Level = (int)(long)plugin["level"],
 
                     Mana = (int)(long)plugin["mana"],
 
-                    Vocations = ( (LuaTable)plugin["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
-                } ) );
+                    Vocations = ( (LuaTable)plugin["vocations"]).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
+                };
+
+                ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
+
+                string fileName = (string)plugin["filename"];
+
+                if (fileName.EndsWith(".lua") )
+                {
+                    weaponPlugins.AddPlugin(openTibiaId, () => new LuaScriptingWeaponPlugin("data/plugins/weapons/" + fileName, weapon) );
+                }
+                else
+                {                    
+                    weaponPlugins.AddPlugin(openTibiaId, () => (WeaponPlugin)Activator.CreateInstance(Type.GetType(fileName), weapon) );
+                }
             }
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.ammunitions"] ).Values)
             {
-                ammunitionPlugins.AddPlugin( (ushort)(long)plugin["opentibiaid"], () => new LuaScriptingAmmunitionPlugin("data/plugins/ammunitions/" + (string)plugin["filename"], new Ammunition()
+                Ammunition ammunition = new Ammunition()
                 {
-                    
-                } ) );
+
+                };
+
+                ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
+
+                string fileName = (string)plugin["filename"];
+
+                if (fileName.EndsWith(".lua") )
+                {
+                    ammunitionPlugins.AddPlugin(openTibiaId, () => new LuaScriptingAmmunitionPlugin("data/plugins/ammunitions/" + fileName, ammunition) );
+                }
+                else
+                {
+                    ammunitionPlugins.AddPlugin(openTibiaId, () => (AmmunitionPlugin)Activator.CreateInstance(Type.GetType(fileName), ammunition) );
+                }
             }
         }
 
