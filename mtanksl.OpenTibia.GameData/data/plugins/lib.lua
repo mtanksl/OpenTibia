@@ -27,6 +27,12 @@ direction = {
 	west = 3
 }
 
+fightmode =  {
+	offensive = 1,
+	balanced = 2,
+	defensive = 3
+}
+
 fluidtype = {
 	empty = 0,
 	water = 1,

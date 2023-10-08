@@ -245,12 +245,22 @@ namespace OpenTibia.Game
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.weapons"] ).Values)
             {
-                
+                weaponPlugins.AddPlugin( (ushort)(long)plugin["opentibiaid"], () => new LuaScriptingWeaponPlugin("data/plugins/weapons/" + (string)plugin["filename"], new Weapon()
+                {
+                    Level = (int)(long)plugin["level"],
+
+                    Mana = (int)(long)plugin["mana"],
+
+                    Vocations = ( (LuaTable)plugin["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
+                } ) );
             }
 
-            foreach (LuaTable plugin in ((LuaTable)script["plugins.ammunitions"] ).Values)
+            foreach (LuaTable plugin in ( (LuaTable)script["plugins.ammunitions"] ).Values)
             {
-
+                ammunitionPlugins.AddPlugin( (ushort)(long)plugin["opentibiaid"], () => new LuaScriptingAmmunitionPlugin("data/plugins/ammunitions/" + (string)plugin["filename"], new Ammunition()
+                {
+                    
+                } ) );
             }
         }
 
@@ -342,6 +352,20 @@ namespace OpenTibia.Game
             return spellPlugins.GetPlugin(words);
         }
 
+        private PluginDictionaryCached<ushort, WeaponPlugin> weaponPlugins = new PluginDictionaryCached<ushort, WeaponPlugin>();
+
+        public WeaponPlugin GetWeaponPlugin(ushort openTibiaId)
+        {
+            return weaponPlugins.GetPlugin(openTibiaId);
+        }
+
+        private PluginDictionaryCached<ushort, AmmunitionPlugin> ammunitionPlugins = new PluginDictionaryCached<ushort, AmmunitionPlugin>();
+
+        public AmmunitionPlugin GetAmmunitionPlugin(ushort openTibiaId)
+        {
+            return ammunitionPlugins.GetPlugin(openTibiaId);
+        }
+
         public void Stop()
         {
             var pluginLists = new IEnumerable<Plugin>[]
@@ -368,7 +392,11 @@ namespace OpenTibia.Game
 
                 dialoguePlugins.GetPlugins(),
 
-                spellPlugins.GetPlugins()
+                spellPlugins.GetPlugins(),
+
+                weaponPlugins.GetPlugins(),
+
+                ammunitionPlugins.GetPlugins()
             };
 
             foreach (var pluginList in pluginLists)

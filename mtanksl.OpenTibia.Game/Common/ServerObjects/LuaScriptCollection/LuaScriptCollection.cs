@@ -23,6 +23,8 @@ namespace OpenTibia.Game
 
             lua.RegisterFunction("typeof", this, GetType().GetMethod(nameof(TypeOf) ) );
 
+            lua.RegisterFunction("cast", this, GetType().GetMethod(nameof(Cast) ) );
+
             lua.RegisterCoFunction("delay", parameters =>
             {                   
                 string key = Guid.NewGuid().ToString();
@@ -485,9 +487,14 @@ namespace OpenTibia.Game
             server.Logger.WriteLine(string.Join("\t", parameters), LogLevel.Debug);
         }
 
-        public string TypeOf(object parameter)
+        public string TypeOf(object obj)
         {
-            return parameter.GetType().Name;
+            return obj.GetType().FullName;
+        }
+
+        public object Cast(object obj, string typeName)
+        {
+            return Convert.ChangeType(obj, Type.GetType(typeName) );
         }
 
         private Light ToLight(object parameter)

@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Objects;
+﻿using mtanksl.OpenTibia.Game.Plugins;
+using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using System;
@@ -9,26 +10,6 @@ namespace OpenTibia.Game.Components
 {
     public class InventoryWeaponAttackStrategy : IAttackStrategy
     {
-        private class Weapon
-        {
-            public int Level { get; set; }
-
-            public int Mana { get; set; }
-
-            public int AttackStrength { get; set; }
-
-            public int AttackVariation { get; set; }
-
-            public Vocation[] Vocations { get; set; }
-
-            public Func<Player, Creature, Item, Promise> Callback { get; set; }
-        }
-
-        private class Ammunition
-        {
-            public Func<Player, Creature, Item, Item, Promise> Callback { get; set; }
-        }
-
         private static Dictionary<ushort, Weapon> weapons = new Dictionary<ushort, Weapon>()
         {
             [2187 /* Wand of inferno */] = new Weapon()
@@ -39,9 +20,14 @@ namespace OpenTibia.Game.Components
 
                 Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
-                AttackStrength = 65,
+                Callback = (attacker, target, weapon) =>
+                {
+                    var formula = WandFormula(65, 9);
 
-                AttackVariation = 9
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
+
+                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max)));
+                }
             },
 
             [2188 /* Wand of plague */] = new Weapon()
@@ -52,9 +38,14 @@ namespace OpenTibia.Game.Components
 
                 Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
-                AttackStrength = 30,
+                Callback = (attacker, target, weapon) =>
+                {
+                    var formula = WandFormula(30, 7);
 
-                AttackVariation = 7
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
+
+                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max)));
+                }
             },
 
             [2189 /* Wand of cosmic energy */] = new Weapon()
@@ -65,9 +56,14 @@ namespace OpenTibia.Game.Components
 
                 Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
-                AttackStrength = 45,
+                Callback = (attacker, target, weapon) =>
+                {
+                    var formula = WandFormula(45, 8);
 
-                AttackVariation = 8
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
+
+                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max)));
+                }
             },
 
             [2190 /* Wand of vortex */] = new Weapon()
@@ -78,9 +74,14 @@ namespace OpenTibia.Game.Components
 
                 Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
-                AttackStrength = 13,
+                Callback = (attacker, target, weapon) =>
+                {
+                    var formula = WandFormula(13, 5);
 
-                AttackVariation = 5
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
+
+                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max)));
+                }
             },
 
             [2191 /* Wand of dragonbreath */] = new Weapon()
@@ -91,9 +92,14 @@ namespace OpenTibia.Game.Components
 
                 Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
 
-                AttackStrength = 19,
+                Callback = (attacker, target, weapon) =>
+                {
+                    var formula = WandFormula(19, 6);
 
-                AttackVariation = 6
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
+                            
+                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
+                }
             },
             
             [2181 /* Quagmire rod */] = new Weapon()
@@ -104,9 +110,14 @@ namespace OpenTibia.Game.Components
 
                 Vocations = new[] { Vocation.Druid, Vocation.ElderDruid },
 
-                AttackStrength = 45,
+                Callback = (attacker, target, weapon) =>
+                {
+                    var formula = WandFormula(45, 8);
 
-                AttackVariation = 8
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
+                            
+                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
+                }
             },
 
             [2182 /* Snakebite rod */] = new Weapon()
@@ -117,9 +128,14 @@ namespace OpenTibia.Game.Components
 
                 Vocations = new[] { Vocation.Druid, Vocation.ElderDruid },
 
-                AttackStrength = 13,
+                Callback = (attacker, target, weapon) =>
+                {
+                    var formula = WandFormula(13, 5);
 
-                AttackVariation = 5
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
+                            
+                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
+                }
             },
 
             [2183 /* Tempest rod */] = new Weapon()
@@ -130,9 +146,14 @@ namespace OpenTibia.Game.Components
 
                 Vocations = new[] { Vocation.Druid, Vocation.ElderDruid },
 
-                AttackStrength = 65,
+                Callback = (attacker, target, weapon) =>
+                {
+                    var formula = WandFormula(65, 9);
 
-                AttackVariation = 9
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
+                            
+                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
+                }
             },
 
             [2185 /* Volcanic rod */] = new Weapon()
@@ -143,9 +164,14 @@ namespace OpenTibia.Game.Components
 
                 Vocations = new[] { Vocation.Druid, Vocation.ElderDruid },
 
-                AttackStrength = 30,
+                Callback = (attacker, target, weapon) =>
+                {
+                    var formula = WandFormula(30, 7);
 
-                AttackVariation = 7
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
+
+                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
+                }
             },
 
             [2186 /* Moonlight rod */] = new Weapon()
@@ -156,9 +182,14 @@ namespace OpenTibia.Game.Components
 
                 Vocations = new[] { Vocation.Druid, Vocation.ElderDruid },
 
-                AttackStrength = 19,
+                Callback = (attacker, target, weapon) =>
+                {
+                    var formula = WandFormula(19, 6);
 
-                AttackVariation = 6
+                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
+                            
+                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
+                }
             },
 
             [7366 /* Viper star */] = new Weapon()
@@ -295,7 +326,17 @@ namespace OpenTibia.Game.Components
             {
                 Weapon weapon;
 
-                if (weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) )
+                if ( !weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) )
+                {
+                    WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
+
+                    if (plugin != null)
+                    {
+                        weapon = plugin.Weapon;
+                    }
+                }
+
+                if (weapon != null)
                 {
                     if (player.Level < weapon.Level || player.Mana < weapon.Mana || (weapon.Vocations != null && !weapon.Vocations.Contains(player.Vocation) ) )
                     {
@@ -369,7 +410,17 @@ namespace OpenTibia.Game.Components
                 {
                     Weapon weapon;
 
-                    if (weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) && weapon.Callback != null)
+                    if ( !weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) )
+                    {
+                        WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
+
+                        if (plugin != null)
+                        {
+                            weapon = plugin.Weapon;
+                        }
+                    }
+
+                    if (weapon != null && weapon.Callback != null)
                     {
                         return weapon.Callback(player, target, itemWeapon);
                     }
@@ -386,7 +437,17 @@ namespace OpenTibia.Game.Components
                 {
                     Weapon weapon;
 
-                    if (weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) && weapon.Callback != null)
+                    if ( !weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) )
+                    {
+                        WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
+
+                        if (plugin != null)
+                        {
+                            weapon = plugin.Weapon;
+                        }
+                    }
+
+                    if (weapon != null && weapon.Callback != null)
                     {
                         return weapon.Callback(player, target, itemWeapon);
                     }
@@ -403,7 +464,17 @@ namespace OpenTibia.Game.Components
                 {
                     Weapon weapon;
 
-                    if (weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) && weapon.Callback != null)
+                    if (!weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon))
+                    {
+                        WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
+
+                        if (plugin != null)
+                        {
+                            weapon = plugin.Weapon;
+                        }
+                    }
+
+                    if (weapon != null && weapon.Callback != null)
                     {
                         return weapon.Callback(player, target, itemWeapon);
                     }
@@ -422,7 +493,17 @@ namespace OpenTibia.Game.Components
                     {
                         Weapon weapon;
 
-                        if (weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) && weapon.Callback != null)
+                        if ( !weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) )
+                        {
+                            WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
+
+                            if (plugin != null)
+                            {
+                                weapon = plugin.Weapon;
+                            }
+                        }
+
+                        if (weapon != null && weapon.Callback != null)
                         {
                             return Context.Current.AddCommand(new ItemDecrementCommand(itemWeapon, 1) ).Then( () =>
                             {
@@ -447,7 +528,17 @@ namespace OpenTibia.Game.Components
 
                         Ammunition ammunition;
 
-                        if (ammunitions.TryGetValue(itemAmmunition.Metadata.OpenTibiaId, out ammunition) && ammunition.Callback != null)
+                        if ( !ammunitions.TryGetValue(itemAmmunition.Metadata.OpenTibiaId, out ammunition) )
+                        {
+                            AmmunitionPlugin plugin = Context.Current.Server.Plugins.GetAmmunitionPlugin(itemAmmunition.Metadata.OpenTibiaId);
+
+                            if (plugin != null)
+                            {
+                                ammunition = plugin.Ammunition;
+                            }
+                        }
+
+                        if (ammunition != null && ammunition.Callback != null)
                         {
                             return Context.Current.AddCommand(new ItemDecrementCommand(itemAmmunition, 1) ).Then( () =>
                             {
@@ -471,7 +562,17 @@ namespace OpenTibia.Game.Components
                 {
                     Weapon weapon;
 
-                    if (weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) && weapon.Callback != null)
+                    if ( !weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) )
+                    {
+                        WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
+
+                        if (plugin != null)
+                        {
+                            weapon = plugin.Weapon;
+                        }
+                    }
+
+                    if (weapon != null && weapon.Callback != null)
                     {
                         return Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - weapon.Mana) ).Then( () =>
                         {
@@ -482,7 +583,7 @@ namespace OpenTibia.Game.Components
                     {
                         return Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - weapon.Mana) ).Then( () =>
                         {
-                            var formula = WandFormula(weapon.AttackStrength, weapon.AttackVariation);
+                            var formula = WandFormula(itemWeapon.Metadata.AttackStrength.Value, itemWeapon.Metadata.AttackVariation.Value);
 
                             return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target,
                             

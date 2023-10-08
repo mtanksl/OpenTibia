@@ -26,9 +26,9 @@
 		--TODO
 	},
 	weapons = {
-		--TODO
+		-- { opentibiaid = 2187, level = 33, mana = 13, vocations = { vocation.sorcerer, vocation.mastersorcerer }, filename = "wand of inferno.lua" }
 	},
 	ammunitions = {
-		--TODO
+		-- { opentibiaid = 2546, filename = "burst arrow.lua" }
 	}
 }
