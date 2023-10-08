@@ -102,19 +102,33 @@ namespace OpenTibia.Game
 
                 ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
 
-                string filename = (string)plugin["filename"];
+                string fileName = (string)plugin["filename"];
 
                 switch (type)
                 {
                     case "PlayerRotateItem":
 
-                        playerRotateItemPlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerRotateItemPlugin("data/plugins/actions/" + filename) );
+                        if (fileName.EndsWith(".lua") )
+                        {
+                            playerRotateItemPlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerRotateItemPlugin("data/plugins/actions/" + fileName) );
+                        }
+                        else
+                        {
+                            playerRotateItemPlugins.AddPlugin(openTibiaId, () => (PlayerRotateItemPlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+                        }
                     
                         break;
 
                     case "PlayerUseItem":
 
-                        playerUseItemPlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemPlugin("data/plugins/actions/" + filename) );
+                        if (fileName.EndsWith(".lua") )
+                        {
+                            playerUseItemPlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemPlugin("data/plugins/actions/" + fileName) );
+                        }
+                        else
+                        {
+                            playerUseItemPlugins.AddPlugin(openTibiaId, () => (PlayerUseItemPlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+                        }
                   
                         break;
 
@@ -122,13 +136,27 @@ namespace OpenTibia.Game
                         { 
                             bool allowFarUse = (bool)plugin["allowfaruse"];
 
-                            if (allowFarUse)
+                            if (fileName.EndsWith(".lua") )
                             {
-                                playerUseItemWithItemPluginsAllowFarUse.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemWithtemPlugin("data/plugins/actions/" + filename) );
+                                if (allowFarUse)
+                                {
+                                    playerUseItemWithItemPluginsAllowFarUse.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemWithItemPlugin("data/plugins/actions/" + fileName) );
+                                }
+                                else
+                                {
+                                    playerUseItemWithItemPlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemWithItemPlugin("data/plugins/actions/" + fileName) );
+                                }
                             }
                             else
                             {
-                                playerUseItemWithItemPlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemWithtemPlugin("data/plugins/actions/" + filename) );
+                                if (allowFarUse)
+                                {
+                                    playerUseItemWithItemPluginsAllowFarUse.AddPlugin(openTibiaId, () => (PlayerUseItemWithItemPlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+                                }
+                                else
+                                {
+                                    playerUseItemWithItemPlugins.AddPlugin(openTibiaId, () => (PlayerUseItemWithItemPlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+                                }
                             }
                         }
                         break;
@@ -137,20 +165,41 @@ namespace OpenTibia.Game
                         { 
                             bool allowFarUse = (bool)plugin["allowfaruse"];
 
-                            if (allowFarUse)
+                            if (fileName.EndsWith(".lua"))
                             {
-                                playerUseItemWithCreaturePluginsAllowFarUse.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemWithCreaturePlugin("data/plugins/actions/" + filename) );
+                                if (allowFarUse)
+                                {
+                                    playerUseItemWithCreaturePluginsAllowFarUse.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemWithCreaturePlugin("data/plugins/actions/" + fileName) );
+                                }
+                                else
+                                {
+                                    playerUseItemWithCreaturePlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemWithCreaturePlugin("data/plugins/actions/" + fileName) );
+                                }
                             }
                             else
                             {
-                                playerUseItemWithCreaturePlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemWithCreaturePlugin("data/plugins/actions/" + filename) );
+                                if (allowFarUse)
+                                {
+                                    playerUseItemWithCreaturePluginsAllowFarUse.AddPlugin(openTibiaId, () => (PlayerUseItemWithCreaturePlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+                                }
+                                else
+                                {
+                                    playerUseItemWithCreaturePlugins.AddPlugin(openTibiaId, () => (PlayerUseItemWithCreaturePlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+                                }
                             }
                         }
                         break;
 
                     case "PlayerMoveItem":
                         
-                        playerMoveItemPlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerMoveItemPlugin("data/plugins/actions/" + filename) );
+                        if (fileName.EndsWith(".lua") )
+                        {
+                            playerMoveItemPlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerMoveItemPlugin("data/plugins/actions/" + fileName) );
+                        }
+                        else
+                        {
+                            playerMoveItemPlugins.AddPlugin(openTibiaId, () => (PlayerMoveItemPlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+                        }
 
                         break;
                 }
@@ -162,19 +211,33 @@ namespace OpenTibia.Game
 
                 ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
 
-                string filename = (string)plugin["filename"];
+                string fileName = (string)plugin["filename"];
 
                 switch (type)
                 {
                     case "CreatureStepIn":
 
-                        creatureStepInPlugins.AddPlugin(openTibiaId, () => new LuaScriptingCreatureStepInPlugin("data/plugins/movements/" + filename) );
+                        if (fileName.EndsWith(".lua") )
+                        {
+                            creatureStepInPlugins.AddPlugin(openTibiaId, () => new LuaScriptingCreatureStepInPlugin("data/plugins/movements/" + fileName) );
+                        }
+                        else
+                        {
+                            creatureStepInPlugins.AddPlugin(openTibiaId, () => (CreatureStepInPlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+                        }
 
                         break;
 
                     case "CreatureStepOut":
 
-                        creatureStepOutPlugins.AddPlugin(openTibiaId, () => new LuaScriptingCreatureStepOutPlugin("data/plugins/movements/" + filename) );
+                        if (fileName.EndsWith(".lua") )
+                        {
+                            creatureStepOutPlugins.AddPlugin(openTibiaId, () => new LuaScriptingCreatureStepOutPlugin("data/plugins/movements/" + fileName) );
+                        }
+                        else
+                        {
+                            creatureStepOutPlugins.AddPlugin(openTibiaId, () => (CreatureStepOutPlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+                        }
 
                         break;
                 }
@@ -186,13 +249,20 @@ namespace OpenTibia.Game
 
                 string message = (string)plugin["message"];
 
-                string filename = (string)plugin["filename"];
+                string fileName = (string)plugin["filename"];
 
                 switch (type)
                 {
                     case "PlayerSay":
 
-                        playerSayPlugins.AddPlugin(message, () => new LuaScriptingPlayerSayPlugin("data/plugins/talkactions/" + filename) );
+                        if (fileName.EndsWith(".lua") )
+                        {
+                            playerSayPlugins.AddPlugin(message, () => new LuaScriptingPlayerSayPlugin("data/plugins/talkactions/" + fileName) );
+                        }
+                        else
+                        {
+                            playerSayPlugins.AddPlugin(message, () => (PlayerSayPlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+                        }
                     
                         break;
                 }
@@ -204,13 +274,20 @@ namespace OpenTibia.Game
 
                 string name = (string)plugin["name"];
 
-                string filename = (string)plugin["filename"];
+                string fileName = (string)plugin["filename"];
 
                 switch (type)
                 {
                     case "Dialogue":
 
-                        dialoguePlugins.AddPlugin(name, () => new LuaScriptingDialoguePlugin("data/plugins/npcs/" + filename) );
+                        if (fileName.EndsWith(".lua") )
+                        {
+                            dialoguePlugins.AddPlugin(name, () => new LuaScriptingDialoguePlugin("data/plugins/npcs/" + fileName) );
+                        }
+                        else
+                        {
+                            dialoguePlugins.AddPlugin(name, () => (DialoguePlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+                        }
                                        
                         break;
                 }

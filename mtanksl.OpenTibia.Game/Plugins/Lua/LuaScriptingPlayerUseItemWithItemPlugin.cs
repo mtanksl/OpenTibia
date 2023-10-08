@@ -4,11 +4,11 @@ using OpenTibia.Game.Commands;
 
 namespace mtanksl.OpenTibia.Game.Plugins
 {
-    public class LuaScriptingPlayerUseItemWithtemPlugin : PlayerUseItemWithItemPlugin
+    public class LuaScriptingPlayerUseItemWithItemPlugin : PlayerUseItemWithItemPlugin
     {
         private string fileName;
 
-        public LuaScriptingPlayerUseItemWithtemPlugin(string fileName)
+        public LuaScriptingPlayerUseItemWithItemPlugin(string fileName)
         {
             this.fileName = fileName;
         }
