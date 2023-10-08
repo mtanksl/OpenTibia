@@ -3,6 +3,7 @@ using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Components;
+using System.Linq;
 
 namespace mtanksl.OpenTibia.GameData.Plugins.Runes
 {
@@ -20,6 +21,11 @@ namespace mtanksl.OpenTibia.GameData.Plugins.Runes
 
         public override PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile tile, Item item)
         {
+            if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding)) || tile.GetCreatures().Any(c => c.Block))
+            {
+                return Promise.FromResult(false);
+            }
+
             return Promise.FromResult(true);
         }
 

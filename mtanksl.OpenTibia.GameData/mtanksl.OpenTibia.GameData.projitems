@@ -389,6 +389,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\ammunitions\PoisonArrowAmmunitionPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\WildGrowthRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\MagicWallRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\EnergyWallRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\EnergyFieldRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\EnergyBombRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\ExplosionRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\FireballRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\FireWallRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\FireBombRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\FireFieldRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\PoisonWallRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\PoisonBombRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\PoisonFieldRunePlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\HeavyMagicMissileRunePlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\SuddenDeathRunePlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\LightMagicMissileRunePlugin.cs" />
