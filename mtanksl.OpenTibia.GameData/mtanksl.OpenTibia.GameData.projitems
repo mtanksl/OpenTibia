@@ -388,6 +388,7 @@
     <Content Include="$(MSBuildThisFileDirectory)data\world\map-spawn.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\ammunitions\PoisonArrowAmmunitionPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\FierceBerserkSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\BerserkSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\GroundshakerSpellPlugin.cs" />
@@ -418,5 +419,15 @@
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\LightSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\LevitateUpSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\MagicRopeSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\weapons\ViperStarWeaponPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\weapons\MoonlightRodWeaponPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\weapons\QuagmireRodWeaponPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\weapons\TempestRodWeaponPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\weapons\SnakebiteRodWeaponPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\weapons\VolcanicRodWeaponPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\weapons\WandOfDragonbreathWeaponPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\weapons\WandOfVortexWeaponPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\weapons\WandOfCosmicEnergyWeaponPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\weapons\WandOfPlagueWeaponPlugin.cs" />
   </ItemGroup>
 </Project>

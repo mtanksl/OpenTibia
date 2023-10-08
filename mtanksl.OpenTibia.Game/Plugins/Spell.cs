@@ -1,6 +1,4 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
-using OpenTibia.Game.Commands;
+﻿using OpenTibia.Common.Structures;
 using System;
 
 namespace mtanksl.OpenTibia.Game.Plugins

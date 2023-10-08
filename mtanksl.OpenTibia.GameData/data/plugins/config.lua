@@ -56,9 +56,20 @@
 		-- { opentibiaid = 2304, name = "Great Fireball Rune", group = "Attack", groupcooldown = 2, level = 30, magiclevel = 4, requirestarget = false, filename = "great fireball rune.lua" }
 	},
 	weapons = {
-		-- { opentibiaid = 2187, level = 33, mana = 13, vocations = { vocation.sorcerer, vocation.mastersorcerer }, filename = "wand of inferno.lua" }
+		{ opentibiaid = 2187, level = 33, mana = 13, vocations = { vocation.sorcerer, vocation.mastersorcerer }, filename = "wand of inferno.lua" },		
+		{ opentibiaid = 2188, level = 19, mana = 5, vocations = { vocation.sorcerer, vocation.mastersorcerer }, filename = "mtanksl.OpenTibia.GameData.Plugins.Weapons.WandOfPlagueWeaponPlugin" },
+		{ opentibiaid = 2189, level = 26, mana = 8, vocations = { vocation.sorcerer, vocation.mastersorcerer }, filename = "mtanksl.OpenTibia.GameData.Plugins.Weapons.WandOfCosmicEnergyWeaponPlugin" },
+		{ opentibiaid = 2190, level = 7, mana = 2, vocations = { vocation.sorcerer, vocation.mastersorcerer }, filename = "mtanksl.OpenTibia.GameData.Plugins.Weapons.WandOfVortexWeaponPlugin" },
+		{ opentibiaid = 2191, level = 13, mana = 3, vocations = { vocation.sorcerer, vocation.mastersorcerer }, filename = "mtanksl.OpenTibia.GameData.Plugins.Weapons.WandOfDragonbreathWeaponPlugin" },
+		{ opentibiaid = 2181, level = 26, mana = 8, vocations = { vocation.druid, vocation.elderdruid }, filename = "mtanksl.OpenTibia.GameData.Plugins.Weapons.QuagmireRodWeaponPlugin" },
+		{ opentibiaid = 2182, level = 6, mana = 2, vocations = { vocation.druid, vocation.elderdruid }, filename = "mtanksl.OpenTibia.GameData.Plugins.Weapons.SnakebiteRodWeaponPlugin" },
+		{ opentibiaid = 2183, level = 33, mana = 13, vocations = { vocation.druid, vocation.elderdruid }, filename = "mtanksl.OpenTibia.GameData.Plugins.Weapons.TempestRodWeaponPlugin" },
+		{ opentibiaid = 2185, level = 19, mana = 5, vocations = { vocation.druid, vocation.elderdruid }, filename = "mtanksl.OpenTibia.GameData.Plugins.Weapons.VolcanicRodWeaponPlugin" },
+		{ opentibiaid = 2186, level = 13, mana = 3, vocations = { vocation.druid, vocation.elderdruid }, filename = "mtanksl.OpenTibia.GameData.Plugins.Weapons.MoonlightRodWeaponPlugin" },
+		{ opentibiaid = 7366, level = 0, mana = 0, vocations = { vocation.knight, vocation.paladin, vocation.druid, vocation.sorcerer, vocation.eliteknight, vocation.royalpaladin, vocation.elderdruid, vocation.mastersorcerer }, filename = "mtanksl.OpenTibia.GameData.Plugins.Weapons.ViperStarWeaponPlugin" }		
 	},
 	ammunitions = {
-		-- { opentibiaid = 2546, filename = "burst arrow.lua" }
+		{ opentibiaid = 2545, filename = "mtanksl.OpenTibia.GameData.Plugins.Ammunitions.PoisonArrowAmmunitionPlugin" },
+		{ opentibiaid = 2546, filename = "burst arrow.lua" }
 	}
 }

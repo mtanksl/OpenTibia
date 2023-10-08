@@ -1,7 +1,4 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
-using OpenTibia.Game.Commands;
-using System;
+﻿using OpenTibia.Common.Structures;
 
 namespace mtanksl.OpenTibia.Game.Plugins
 {
@@ -12,7 +9,5 @@ namespace mtanksl.OpenTibia.Game.Plugins
         public int Mana { get; set; }
 
         public Vocation[] Vocations { get; set; }
-
-        public Func<Player, Creature, Item, Promise> Callback { get; set; }
     }
 }

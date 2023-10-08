@@ -1,4 +1,6 @@
 ﻿using mtanksl.OpenTibia.Game.Plugins;
+using OpenTibia.Common.Objects;
+using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Components
 {
@@ -16,16 +18,16 @@ namespace OpenTibia.Game.Components
         public override void Start()
         {
             script = Context.Server.LuaScripts.Create(Context.Server.PathResolver.GetFullPath("data/plugins/lib.lua"), Context.Server.PathResolver.GetFullPath("data/plugins/ammunitions/lib.lua"), Context.Server.PathResolver.GetFullPath(fileName) );
+        }
 
-            Ammunition.Callback = (player, target, weapon, ammunition) =>
-            {
-                return script.CallFunction("onuseammunition", player, target, weapon, ammunition);
-            };
+        public override Promise OnUseAmmunition(Player player, Creature target, Item weapon, Item ammunition)
+        {
+            return script.CallFunction("onuseammunition", player, target, weapon, ammunition);
         }
 
         public override void Stop()
         {
             script.Dispose();
-        }
+        }       
     }
 }

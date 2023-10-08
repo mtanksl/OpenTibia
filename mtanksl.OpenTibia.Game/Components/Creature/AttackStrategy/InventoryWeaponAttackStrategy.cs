@@ -1,248 +1,13 @@
-﻿using mtanksl.OpenTibia.Game.Plugins;
-using OpenTibia.Common.Objects;
+﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
     public class InventoryWeaponAttackStrategy : IAttackStrategy
     {
-        private static Dictionary<ushort, Weapon> weapons = new Dictionary<ushort, Weapon>()
-        {
-            [2187 /* Wand of inferno */] = new Weapon()
-            {
-                Level = 33,
-
-                Mana = 13,
-
-                Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
-
-                Callback = (attacker, target, weapon) =>
-                {
-                    var formula = WandFormula(65, 9);
-
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
-
-                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max)));
-                }
-            },
-
-            [2188 /* Wand of plague */] = new Weapon()
-            {
-                Level = 19,
-
-                Mana = 5,
-
-                Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
-
-                Callback = (attacker, target, weapon) =>
-                {
-                    var formula = WandFormula(30, 7);
-
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
-
-                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max)));
-                }
-            },
-
-            [2189 /* Wand of cosmic energy */] = new Weapon()
-            {
-                Level = 26,
-
-                Mana = 8,
-
-                Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
-
-                Callback = (attacker, target, weapon) =>
-                {
-                    var formula = WandFormula(45, 8);
-
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
-
-                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max)));
-                }
-            },
-
-            [2190 /* Wand of vortex */] = new Weapon()
-            {
-                Level = 7,
-
-                Mana = 2,
-
-                Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
-
-                Callback = (attacker, target, weapon) =>
-                {
-                    var formula = WandFormula(13, 5);
-
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
-
-                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max)));
-                }
-            },
-
-            [2191 /* Wand of dragonbreath */] = new Weapon()
-            {
-                Level = 13,
-
-                Mana = 3,
-
-                Vocations = new[] { Vocation.Sorcerer, Vocation.MasterSorcerer },
-
-                Callback = (attacker, target, weapon) =>
-                {
-                    var formula = WandFormula(19, 6);
-
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
-                            
-                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
-                }
-            },
-            
-            [2181 /* Quagmire rod */] = new Weapon()
-            {
-                Level = 26,
-
-                Mana = 8,
-
-                Vocations = new[] { Vocation.Druid, Vocation.ElderDruid },
-
-                Callback = (attacker, target, weapon) =>
-                {
-                    var formula = WandFormula(45, 8);
-
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
-                            
-                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
-                }
-            },
-
-            [2182 /* Snakebite rod */] = new Weapon()
-            {
-                Level = 6,
-
-                Mana = 2,
-
-                Vocations = new[] { Vocation.Druid, Vocation.ElderDruid },
-
-                Callback = (attacker, target, weapon) =>
-                {
-                    var formula = WandFormula(13, 5);
-
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
-                            
-                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
-                }
-            },
-
-            [2183 /* Tempest rod */] = new Weapon()
-            {
-                Level = 33,
-
-                Mana = 13,
-
-                Vocations = new[] { Vocation.Druid, Vocation.ElderDruid },
-
-                Callback = (attacker, target, weapon) =>
-                {
-                    var formula = WandFormula(65, 9);
-
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
-                            
-                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
-                }
-            },
-
-            [2185 /* Volcanic rod */] = new Weapon()
-            {
-                Level = 19,
-
-                Mana = 5,
-
-                Vocations = new[] { Vocation.Druid, Vocation.ElderDruid },
-
-                Callback = (attacker, target, weapon) =>
-                {
-                    var formula = WandFormula(30, 7);
-
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
-
-                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
-                }
-            },
-
-            [2186 /* Moonlight rod */] = new Weapon()
-            {
-                Level = 13,
-
-                Mana = 3,
-
-                Vocations = new[] { Vocation.Druid, Vocation.ElderDruid },
-
-                Callback = (attacker, target, weapon) =>
-                {
-                    var formula = WandFormula(19, 6);
-
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
-                            
-                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
-                }
-            },
-
-            [7366 /* Viper star */] = new Weapon()
-            {
-                Callback = (attacker, target, weapon) =>
-                {
-                    var formula = DistanceFormula(attacker.Level, attacker.Skills.Distance, weapon.Metadata.Attack.Value, attacker.Client.FightMode);
-
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
-
-                        new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max),
-
-                        new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, AnimatedTextColor.Green, new[] { 2, 2, 2, 2, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(4) ) ) );
-                }
-            }
-        };
-
-        private static Dictionary<ushort, Ammunition> ammunitions = new Dictionary<ushort, Ammunition>()
-        {
-            [2545 /* Poison arrow */] = new Ammunition()
-            {
-                Callback = (attacker, target, weapon, ammunition) =>
-                {
-                    var formula = DistanceFormula(attacker.Level, attacker.Skills.Distance, ammunition.Metadata.Attack.Value, attacker.Client.FightMode);
-
-                    return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, 
-
-                        new DistanceAttack(ammunition.Metadata.ProjectileType.Value, formula.Min, formula.Max),
-                                                                                                                                 
-                        new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, AnimatedTextColor.Green, new[] { 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(4) ) ) );
-                }
-            },
-
-            [2546 /* Burst arrow */] = new Ammunition()
-            {
-                Callback = (attacker, target, weapon, ammunition) =>
-                {
-                    Offset[] area = new Offset[]
-                    {
-                        new Offset(-1, -1), new Offset(0, -1), new Offset(1, -1),
-                        new Offset(-1, 0),  new Offset(0, 0),  new Offset(1, 0),
-                        new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1),
-                    };
-
-                    var formula = DistanceFormula(attacker.Level, attacker.Skills.Distance, ammunition.Metadata.Attack.Value, attacker.Client.FightMode);
-
-                    return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, target.Tile.Position, area, ammunition.Metadata.ProjectileType.Value, MagicEffectType.FireArea, 
-                        
-                        new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
-                }
-            }
-        };
-
         private static Item GetWeapon(Player player)
         {
             Item item = player.Inventory.GetContent( (byte)Slot.Left) as Item;
@@ -324,21 +89,11 @@ namespace OpenTibia.Game.Components
 
             if (itemWeapon != null)
             {
-                Weapon weapon;
+                WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
 
-                if ( !weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) )
+                if (plugin != null)
                 {
-                    WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
-
-                    if (plugin != null)
-                    {
-                        weapon = plugin.Weapon;
-                    }
-                }
-
-                if (weapon != null)
-                {
-                    if (player.Level < weapon.Level || player.Mana < weapon.Mana || (weapon.Vocations != null && !weapon.Vocations.Contains(player.Vocation) ) )
+                    if (player.Level < plugin.Weapon.Level || player.Mana < plugin.Weapon.Mana || (plugin.Weapon.Vocations != null && !plugin.Weapon.Vocations.Contains(player.Vocation) ) )
                     {
                         return false;
                     }
@@ -408,21 +163,11 @@ namespace OpenTibia.Game.Components
             {
                 if (itemWeapon.Metadata.WeaponType == WeaponType.Sword)
                 {
-                    Weapon weapon;
+                    WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
 
-                    if ( !weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) )
+                    if (plugin != null)
                     {
-                        WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
-
-                        if (plugin != null)
-                        {
-                            weapon = plugin.Weapon;
-                        }
-                    }
-
-                    if (weapon != null && weapon.Callback != null)
-                    {
-                        return weapon.Callback(player, target, itemWeapon);
+                        return plugin.OnUseWeapon(player, target, itemWeapon);
                     }
                     else
                     {
@@ -435,21 +180,11 @@ namespace OpenTibia.Game.Components
                 }
                 else if (itemWeapon.Metadata.WeaponType == WeaponType.Club)
                 {
-                    Weapon weapon;
+                    WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
 
-                    if ( !weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) )
+                    if (plugin != null)
                     {
-                        WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
-
-                        if (plugin != null)
-                        {
-                            weapon = plugin.Weapon;
-                        }
-                    }
-
-                    if (weapon != null && weapon.Callback != null)
-                    {
-                        return weapon.Callback(player, target, itemWeapon);
+                        return plugin.OnUseWeapon(player, target, itemWeapon);
                     }
                     else
                     {
@@ -462,21 +197,11 @@ namespace OpenTibia.Game.Components
                 }
                 else if (itemWeapon.Metadata.WeaponType == WeaponType.Axe)
                 {
-                    Weapon weapon;
+                    WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
 
-                    if (!weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon))
+                    if (plugin != null)
                     {
-                        WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
-
-                        if (plugin != null)
-                        {
-                            weapon = plugin.Weapon;
-                        }
-                    }
-
-                    if (weapon != null && weapon.Callback != null)
-                    {
-                        return weapon.Callback(player, target, itemWeapon);
+                        return plugin.OnUseWeapon(player, target, itemWeapon);
                     }
                     else
                     {
@@ -491,23 +216,13 @@ namespace OpenTibia.Game.Components
                 {
                     if (itemWeapon.Metadata.AmmoType == null)
                     {
-                        Weapon weapon;
+                        WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
 
-                        if ( !weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) )
-                        {
-                            WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
-
-                            if (plugin != null)
-                            {
-                                weapon = plugin.Weapon;
-                            }
-                        }
-
-                        if (weapon != null && weapon.Callback != null)
+                        if (plugin != null)
                         {
                             return Context.Current.AddCommand(new ItemDecrementCommand(itemWeapon, 1) ).Then( () =>
                             {
-                                return weapon.Callback(player, target, itemWeapon);
+                                return plugin.OnUseWeapon(player, target, itemWeapon);
                             } );
                         }
                         else
@@ -526,23 +241,13 @@ namespace OpenTibia.Game.Components
                     {
                         Item itemAmmunition = GetAmmunition(player);
 
-                        Ammunition ammunition;
+                        AmmunitionPlugin plugin = Context.Current.Server.Plugins.GetAmmunitionPlugin(itemAmmunition.Metadata.OpenTibiaId);
 
-                        if ( !ammunitions.TryGetValue(itemAmmunition.Metadata.OpenTibiaId, out ammunition) )
-                        {
-                            AmmunitionPlugin plugin = Context.Current.Server.Plugins.GetAmmunitionPlugin(itemAmmunition.Metadata.OpenTibiaId);
-
-                            if (plugin != null)
-                            {
-                                ammunition = plugin.Ammunition;
-                            }
-                        }
-
-                        if (ammunition != null && ammunition.Callback != null)
+                        if (plugin != null)
                         {
                             return Context.Current.AddCommand(new ItemDecrementCommand(itemAmmunition, 1) ).Then( () =>
                             {
-                                return ammunition.Callback(player, target, itemWeapon, itemAmmunition);
+                                return plugin.OnUseAmmunition(player, target, itemWeapon, itemAmmunition);
                             } );                        
                         }
                         else
@@ -560,28 +265,18 @@ namespace OpenTibia.Game.Components
                 }
                 else if (itemWeapon.Metadata.WeaponType == WeaponType.Wand)
                 {
-                    Weapon weapon;
+                    WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
 
-                    if ( !weapons.TryGetValue(itemWeapon.Metadata.OpenTibiaId, out weapon) )
+                    if (plugin != null)
                     {
-                        WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
-
-                        if (plugin != null)
+                        return Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - plugin.Weapon.Mana) ).Then( () =>
                         {
-                            weapon = plugin.Weapon;
-                        }
-                    }
-
-                    if (weapon != null && weapon.Callback != null)
-                    {
-                        return Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - weapon.Mana) ).Then( () =>
-                        {
-                            return weapon.Callback(player, target, itemWeapon);
+                            return plugin.OnUseWeapon(player, target, itemWeapon);
                         } );
                     }
                     else
                     {
-                        return Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - weapon.Mana) ).Then( () =>
+                        return Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - plugin.Weapon.Mana) ).Then( () =>
                         {
                             var formula = WandFormula(itemWeapon.Metadata.AttackStrength.Value, itemWeapon.Metadata.AttackVariation.Value);
 
@@ -604,6 +299,6 @@ namespace OpenTibia.Game.Components
                     
                     new MeleeAttack(formula.Min, formula.Max) ) );
             }
-        }        
+        }
     }
 }
