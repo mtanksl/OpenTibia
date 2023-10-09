@@ -250,6 +250,14 @@ namespace OpenTibia.Game
                     Scripts.Start();
                 }
 
+                using (Logger.Measure("Testing database") )
+                {
+                    if ( !Context.Current.Database.DatabaseContext.Database.CanConnect() )
+                    {
+                        Logger.WriteLine("Unable to connect to database.", LogLevel.Error);
+                    }
+                }
+
                 return Promise.Completed;
 
             } ).Wait();

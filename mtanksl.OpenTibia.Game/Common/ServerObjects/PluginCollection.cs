@@ -12,32 +12,22 @@ namespace OpenTibia.Game
     {
         private class PluginDictionaryCached<TKey, TValue> where TValue : Plugin
         {
-            private Dictionary<TKey, Func<TValue>> factories = new Dictionary<TKey, Func<TValue>>();
-
             private Dictionary<TKey, TValue> plugins = new Dictionary<TKey, TValue>();
 
             public void AddPlugin(TKey key, Func<TValue> factory)
             {
-                factories.Add(key, factory);
+                TValue plugin = factory();
+
+                plugin.Start();
+
+                plugins.Add(key, plugin);
             }
 
             public TValue GetPlugin(TKey key)
             {
                 TValue plugin;
 
-                if ( !plugins.TryGetValue(key, out plugin) )
-                {
-                    Func<TValue> factory;
-
-                    if (factories.TryGetValue(key, out factory) )
-                    {
-                        plugin = factory();
-
-                        plugin.Start();
-
-                        plugins.Add(key, plugin);
-                    }
-                }
+                plugins.TryGetValue(key, out plugin);
 
                 return plugin;
             }
@@ -61,20 +51,20 @@ namespace OpenTibia.Game
 
             public TValue GetPlugin(TKey key)
             {
-                TValue plugin = null;
-
                 Func<TValue> factory;
 
                 if (factories.TryGetValue(key, out factory) )
                 {
-                    plugin = factory();
+                    TValue plugin = factory();
 
                     plugin.Start();
 
                     plugins.Add(plugin);
+
+                    return plugin;
                 }
 
-                return plugin;
+                return null;
             }
 
             public IEnumerable<TValue> GetPlugins()

@@ -9,7 +9,7 @@ namespace mtanksl.OpenTibia.GameData.Plugins.Spells
 {
     public class MagicRopeSpellPlugin : SpellPlugin
     {
-        private HashSet<ushort> ropeSpots = new HashSet<ushort> { 384, 418 };
+        private static HashSet<ushort> ropeSpots = new HashSet<ushort> { 384, 418 };
 
         public MagicRopeSpellPlugin(Spell spell) : base(spell)
         {
