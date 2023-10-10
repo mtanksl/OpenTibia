@@ -34,7 +34,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (surpriseBags.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                int value = Context.Server.Randomization.Take(0, prizes.Count);
+                int value = Context.Server.Randomization.Take(0, prizes.Count - 1);
 
                 switch (command.Item.Root() )
                 {

@@ -26,7 +26,7 @@ namespace OpenTibia.Game
                 return min;
             }
 
-            return random.Next(min, max);
+            return random.Next(min, max + 1);
         }
 
         /// <exception cref="ArgumentNullException"></exception>

@@ -299,6 +299,12 @@ namespace OpenTibia.Game
 
                     Mana = (int)(long)plugin["mana"],
 
+                    Soul = (int)(long)plugin["soul"],
+
+                    ConjureOpenTibiaId = (ushort?)(long?)plugin["conjureopentibiaid"],
+
+                    ConjureCount = (int?)(long?)plugin["conjurecount"],
+
                     Premium = (bool)plugin["premium"],
 
                     Vocations = ( (LuaTable)plugin["vocations"]).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()

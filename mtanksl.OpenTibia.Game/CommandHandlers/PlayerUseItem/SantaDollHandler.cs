@@ -15,7 +15,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (stuffedDragons.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                int value = Context.Server.Randomization.Take(0, sounds.Count);
+                int value = Context.Server.Randomization.Take(0, sounds.Count - 1);
 
                 return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, sounds[value] ) );
             }

@@ -17,7 +17,13 @@ namespace mtanksl.OpenTibia.Game.Plugins
 
         public int Mana { get; set; }
 
+        public int Soul { get; set; }
+
         public bool Premium { get; set; }
+
+        public ushort? ConjureOpenTibiaId { get; set; }
+
+        public int? ConjureCount { get; set; }
 
         public Vocation[] Vocations { get; set; }
     }

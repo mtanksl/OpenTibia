@@ -421,7 +421,6 @@ namespace OpenTibia.Game
             } ).Wait();
 
             Logger.WriteLine("Kick all complete");
-
         }
 
         public void Save()

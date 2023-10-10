@@ -33,6 +33,15 @@ namespace OpenTibia.Game.CommandHandlers
                     await Promise.Break;
                 }
 
+                if (command.Player.Soul < plugin.Spell.Soul)
+                {
+                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughSoul) );
+
+                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+
+                    await Promise.Break;
+                }
+
                 if (plugin.Spell.Vocations != null && !plugin.Spell.Vocations.Contains(command.Player.Vocation) )
                 {
                     Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourVocationCannotUseThisSpell) );
@@ -75,7 +84,15 @@ namespace OpenTibia.Game.CommandHandlers
 
                 playerCooldownBehaviour.AddCooldown(plugin.Spell.Group, plugin.Spell.GroupCooldown);
 
-                await Context.AddCommand(new PlayerUpdateManaCommand(command.Player, command.Player.Mana - plugin.Spell.Mana) );
+                if (plugin.Spell.Mana > 0)
+                {
+                    await Context.AddCommand(new PlayerUpdateManaCommand(command.Player, command.Player.Mana - plugin.Spell.Mana) );
+                }
+
+                if (plugin.Spell.Soul > 0)
+                {
+                    await Context.AddCommand(new PlayerUpdateSoulCommand(command.Player, command.Player.Soul - plugin.Spell.Soul) );
+                }
 
                 await plugin.OnCast(command.Player, null, command.Message);
             }
