@@ -389,6 +389,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\ammunitions\PoisonArrowAmmunitionPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\StalagmiteRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\IcicleRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\StoneShowerRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\ThunderstormRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\AvalancheRunePlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\WildGrowthRunePlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\MagicWallRunePlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\EnergyWallRunePlugin.cs" />

@@ -6,9 +6,9 @@ using OpenTibia.Game.Components;
 
 namespace mtanksl.OpenTibia.GameData.Plugins.Runes
 {
-    public class LightMagicMissileRunePlugin : RunePlugin
+    public class IcicleRunePlugin : RunePlugin
     {
-        public LightMagicMissileRunePlugin(Rune rune) : base(rune)
+        public IcicleRunePlugin(Rune rune) : base(rune)
         {
 
         }
@@ -25,11 +25,11 @@ namespace mtanksl.OpenTibia.GameData.Plugins.Runes
 
         public override Promise OnUseRune(Player player, Creature target, Tile tile, Item item)
         {
-            var formula = GenericFormula(player.Level, player.Skills.MagicLevel, 0.4, 2, 0.81, 4);
+            var formula = GenericFormula(player.Level, player.Skills.MagicLevel, 1.81, 10, 3, 18);
 
             return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 
-                new SimpleAttack(ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, formula.Min, formula.Max) ) );
+                new SimpleAttack(ProjectileType.Ice, MagicEffectType.IceArea, AnimatedTextColor.Crystal, formula.Min, formula.Max) ) );
         }
 
         public override void Stop()

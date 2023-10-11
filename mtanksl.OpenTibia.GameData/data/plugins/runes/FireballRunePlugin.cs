@@ -40,7 +40,7 @@ namespace mtanksl.OpenTibia.GameData.Plugins.Runes
                                     new Offset(-1, 2),  new Offset(0, 2),  new Offset(1, 2)
             };
 
-            var formula = GenericFormula(player.Level, player.Skills.MagicLevel, 20, 5);
+            var formula = GenericFormula(player.Level, player.Skills.MagicLevel, 1.81, 10, 3, 18);
 
             return Context.AddCommand(new CreatureAttackAreaCommand(player, false, tile.Position, area, ProjectileType.Fire, MagicEffectType.FireArea,
 

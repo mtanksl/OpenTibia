@@ -6,9 +6,9 @@ using OpenTibia.Game.Components;
 
 namespace mtanksl.OpenTibia.GameData.Plugins.Runes
 {
-    public class LightMagicMissileRunePlugin : RunePlugin
+    public class StalagmiteRunePlugin : RunePlugin
     {
-        public LightMagicMissileRunePlugin(Rune rune) : base(rune)
+        public StalagmiteRunePlugin(Rune rune) : base(rune)
         {
 
         }
@@ -25,11 +25,11 @@ namespace mtanksl.OpenTibia.GameData.Plugins.Runes
 
         public override Promise OnUseRune(Player player, Creature target, Tile tile, Item item)
         {
-            var formula = GenericFormula(player.Level, player.Skills.MagicLevel, 0.4, 2, 0.81, 4);
+            var formula = GenericFormula(player.Level, player.Skills.MagicLevel, 0.81, 4, 1.59, 10);
 
             return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 
-                new SimpleAttack(ProjectileType.EnergySmall, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, formula.Min, formula.Max) ) );
+                new SimpleAttack(ProjectileType.Poison, MagicEffectType.GreenRings, AnimatedTextColor.Green, formula.Min, formula.Max) ) );
         }
 
         public override void Stop()
