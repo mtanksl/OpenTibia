@@ -30,15 +30,9 @@ namespace OpenTibia.Game.Components
 
             globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
             {
-                if (target == null || target.Tile == null || target.IsDestroyed || !monster.Tile.Position.CanHearSay(target.Tile.Position) )
+                if (target == null || target.Tile == null || target.IsDestroyed || target.Tile.ProtectionZone || !monster.Tile.Position.CanHearSay(target.Tile.Position) )
                 {
-                    Player[] players = Context.Server.Map.GetObserversOfTypePlayer(monster.Tile.Position)
-                    
-                        .Where(p => monster.Tile.Position.CanHearSay(p.Tile.Position) )
-
-                        .Where(p => p.Vocation != Vocation.Gamemaster)
-                    
-                        .ToArray();
+                    Player[] players = Context.Server.Map.GetObserversOfTypePlayer(monster.Tile.Position).Where(p => !p.Tile.ProtectionZone && monster.Tile.Position.CanHearSay(p.Tile.Position) && p.Vocation != Vocation.Gamemaster).ToArray();
 
                     if (players.Length > 0)
                     {
