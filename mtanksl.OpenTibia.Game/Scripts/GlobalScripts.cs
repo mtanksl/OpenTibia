@@ -13,6 +13,8 @@ namespace OpenTibia.Game.Scripts
 
             TibiaClockTick();
 
+            RealClockTick();
+
             Ping();
         }
 
@@ -37,6 +39,24 @@ namespace OpenTibia.Game.Scripts
                 Context.Server.Clock.Tick();
 
                 Context.AddEvent(new GlobalTibiaClockTickEventArgs(Context.Server.Clock.Hour, Context.Server.Clock.Minute) );
+
+                return Promise.Completed;
+            } );
+        }
+
+        private void RealClockTick()
+        {
+            DateTime now = DateTime.Now;
+
+            DateTime next = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0).AddMinutes(1);
+
+            TimeSpan diff = next - now;
+
+            Promise.Delay("RealClockTick", diff).Then( () =>
+            {
+                RealClockTick();
+
+                Context.AddEvent(new GlobalRealClockTickEventArgs(next.Hour, next.Minute) );
 
                 return Promise.Completed;
             } );
