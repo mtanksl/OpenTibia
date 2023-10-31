@@ -87,7 +87,7 @@ namespace mtanksl.OpenTibia.Tests
 
             uint tibiaPic = reader.ReadUInt(); //1146144984
 
-            var x = reader.ReadByte();
+            reader.ReadByte();
 
             uint[] keys = new uint[]
             {
@@ -100,9 +100,9 @@ namespace mtanksl.OpenTibia.Tests
                 reader.ReadUInt()
             };
 
-            uint account = reader.ReadUInt(); // 123456
+            uint account = reader.ReadUInt(); //123456
 
-            string password = reader.ReadString(); // world
+            string password = reader.ReadString(); //world
 
             Assert.AreEqual(123456u, account);
 
