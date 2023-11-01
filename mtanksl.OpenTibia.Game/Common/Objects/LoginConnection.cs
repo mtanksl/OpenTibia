@@ -13,7 +13,7 @@ namespace OpenTibia.Common.Objects
     {
         private Server server;
 
-        public LoginConnection(Server server, Socket socket) : base(socket)
+        public LoginConnection(Server server, Listener listener, Socket clientSocket) : base(listener, clientSocket)
         {
             this.server = server;
         }

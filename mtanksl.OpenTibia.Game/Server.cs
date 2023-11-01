@@ -27,9 +27,9 @@ namespace OpenTibia.Game
 
             scheduler = new Scheduler(dispatcher);
 
-            loginServer = new Listener(socket => new LoginConnection(this, socket) );
+            loginServer = new Listener( (listener, clientSocket) => new LoginConnection(this, listener, clientSocket) );
 
-            gameServer = new Listener(socket => new GameConnection(this, socket) );
+            gameServer = new Listener( (listener, clientSocket) => new GameConnection(this, listener, clientSocket) );
 
             DatabaseFactory = new DatabaseFactory(this, builder =>
             {

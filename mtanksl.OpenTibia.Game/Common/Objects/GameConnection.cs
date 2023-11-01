@@ -15,7 +15,7 @@ namespace OpenTibia.Common.Objects
     {
         private Server server;
 
-        public GameConnection(Server server, Socket socket) : base(socket)
+        public GameConnection(Server server, Listener listener, Socket clientSocket) : base(listener, clientSocket)
         {
             this.server = server;
         }

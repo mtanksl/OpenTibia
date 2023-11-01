@@ -14,9 +14,9 @@ namespace OpenTibia.Network.Sockets
         
             private AutoResetEvent syncStop = new AutoResetEvent(false);
 
-        private Func<Socket, Connection> factory;
+        private Func<Listener, Socket, Connection> factory;
 
-        public Listener(Func<Socket, Connection> factory)
+        public Listener(Func<Listener, Socket, Connection> factory)
         {
             this.factory = factory;
         }
@@ -26,20 +26,38 @@ namespace OpenTibia.Network.Sockets
             Dispose(false);
         }
 
-        private Socket socket;
+        private HashSet<string> bannedIpAddresses = new HashSet<string>();
+
+        public bool IsBanned(string ipAddress)
+        {
+            lock (sync)
+            {
+                return bannedIpAddresses.Contains(ipAddress);
+            }
+        }
+
+        public void AddBan(string ipAddress)
+        {
+            lock (sync)
+            {
+                bannedIpAddresses.Add(ipAddress);
+            }
+        }
+
+        private Socket serverSocket;
         
         public void Start(int port)
         {
             lock (sync)
             {
-                socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-                    socket.Bind(new IPEndPoint(IPAddress.Any, port) );
+                    serverSocket.Bind(new IPEndPoint(IPAddress.Any, port) );
 
-                    socket.Listen(0);
+                    serverSocket.Listen(0);
 
 
-                socket.BeginAccept(Accept, null);
+                serverSocket.BeginAccept(Accept, null);
             }
         }
 
@@ -57,7 +75,9 @@ namespace OpenTibia.Network.Sockets
                 {
                     try
                     {
-                        Connection connection = factory( socket.EndAccept(result) );
+                        Socket clientSocket = serverSocket.EndAccept(result);
+
+                        Connection connection = factory(this, clientSocket);
 
                         connection.Disconnected += (sender, e) =>
                         {
@@ -77,7 +97,7 @@ namespace OpenTibia.Network.Sockets
                         connection.Start();
                         
 
-                        socket.BeginAccept(Accept, null);
+                        serverSocket.BeginAccept(Accept, null);
                     }
                     catch (SocketException)
                     {
@@ -104,7 +124,7 @@ namespace OpenTibia.Network.Sockets
                         connection.Stop();
                     }
 
-                    socket.Close();
+                    serverSocket.Close();
                 }
             }
 
@@ -139,9 +159,9 @@ namespace OpenTibia.Network.Sockets
                         }
                     }
 
-                    if (socket != null)
+                    if (serverSocket != null)
                     {
-                        socket.Dispose();
+                        serverSocket.Dispose();
                     }
                 }
             }
