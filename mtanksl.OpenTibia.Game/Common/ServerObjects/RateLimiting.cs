@@ -34,12 +34,7 @@ namespace OpenTibia.Common.Objects
 
                 if ( !items.TryGetValue(ipAddress, out item) )
                 {
-                    item = new RateLimitItem()
-                    {
-                        LastPacket = DateTime.MinValue,
-
-                        Count = 0
-                    };
+                    item = new RateLimitItem();
 
                     items.Add(ipAddress, item);
                 }
