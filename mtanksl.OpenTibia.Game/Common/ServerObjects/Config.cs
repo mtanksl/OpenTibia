@@ -21,7 +21,7 @@
 
             GameMaxPlayers = (int)(long)script["server.game.maxplayers"];
 
-            RateLimitingMaxpackets = (int)(long)script["server.ratelimiting.maxpackets"];
+            RateLimitingMaxPackets = (int)(long)script["server.ratelimiting.maxpackets"];
 
             RateLimitingMilliseconds = (int)(long)script["server.ratelimiting.milliseconds"];
                         
@@ -48,9 +48,9 @@
 
         public int GameMaxPlayers { get; set; }
 
-        public int RateLimitingMilliseconds { get; set; }
+        public int RateLimitingMaxPackets { get; set; }
 
-        public int RateLimitingMaxpackets { get; set; }
+        public int RateLimitingMilliseconds { get; set; }
 
         public int RateLimitingBanMilliseconds { get; set; }
 

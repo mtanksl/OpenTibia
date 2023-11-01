@@ -74,13 +74,17 @@ namespace OpenTibia.Network.Sockets
                     {
                         OnConnected();
 
-                        byte[] header = new byte[2];
+                        headerLength = 2;
 
-                        socket.BeginReceive(header, 0, header.Length, SocketFlags.None, ReceiveHeader, header);
+                        socket.BeginReceive(header, 0, headerLength, SocketFlags.None, ReceiveHeader, null);
                     }
                 }
             }
         }
+
+        private byte[] header = new byte[2];
+
+        private int headerLength;
 
         private void ReceiveHeader(IAsyncResult result)
         {
@@ -96,13 +100,11 @@ namespace OpenTibia.Network.Sockets
                     {
                         try
                         {
-                            byte[] header = result.AsyncState as byte[];
-                
-                            if (header.Length == socket.EndReceive(result) )
+                            if (headerLength == socket.EndReceive(result) )
                             {
-                                byte[] body = new byte[ header[1] << 8 | header[0] ];
+                                bodyLength = header[1] << 8 | header[0];
 
-                                socket.BeginReceive(body, 0, body.Length, SocketFlags.None, ReceiveBody, body);
+                                socket.BeginReceive(body, 0, bodyLength, SocketFlags.None, ReceiveBody, null);
                             }
                             else
                             {
@@ -118,6 +120,10 @@ namespace OpenTibia.Network.Sockets
             }
         }
 
+        private byte[] body = new byte[65535];
+
+        private int bodyLength;
+
         private void ReceiveBody(IAsyncResult result)
         {
             lock (sync)
@@ -132,17 +138,15 @@ namespace OpenTibia.Network.Sockets
                     {
                         try
                         {
-                            byte[] body = result.AsyncState as byte[];
-                 
-                            if (body.Length == socket.EndReceive(result) )
+                            if (bodyLength == socket.EndReceive(result) )
                             {
-                                OnReceived(body);
+                                OnReceived(body, bodyLength);
 
                                 if ( !stopped )
                                 {
-                                    byte[] header = new byte[2];
+                                    headerLength = 2;
 
-                                    socket.BeginReceive(header, 0, header.Length, SocketFlags.None, ReceiveHeader, header);
+                                    socket.BeginReceive(header, 0, headerLength, SocketFlags.None, ReceiveHeader, null);
                                 }
                             }
                             else
@@ -216,7 +220,7 @@ namespace OpenTibia.Network.Sockets
 
         }
 
-        protected virtual void OnReceived(byte[] body)
+        protected virtual void OnReceived(byte[] body, int length)
         {
 
         }

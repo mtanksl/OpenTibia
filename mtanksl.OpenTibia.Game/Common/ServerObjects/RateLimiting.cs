@@ -54,7 +54,7 @@ namespace OpenTibia.Common.Objects
                 {
                     item.Count++;
 
-                    if (item.Count > server.Config.RateLimitingMaxpackets)
+                    if (item.Count > server.Config.RateLimitingMaxPackets)
                     {
                         item.BanTimeout = DateTime.UtcNow.AddMilliseconds(server.Config.RateLimitingBanMilliseconds);
 

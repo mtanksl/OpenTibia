@@ -26,24 +26,6 @@ namespace OpenTibia.Network.Sockets
             Dispose(false);
         }
 
-        private HashSet<string> bannedIpAddresses = new HashSet<string>();
-
-        public bool IsBanned(string ipAddress)
-        {
-            lock (sync)
-            {
-                return bannedIpAddresses.Contains(ipAddress);
-            }
-        }
-
-        public void AddBan(string ipAddress)
-        {
-            lock (sync)
-            {
-                bannedIpAddresses.Add(ipAddress);
-            }
-        }
-
         private Socket socket;
         
         public void Start(int port)

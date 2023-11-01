@@ -6,6 +6,8 @@ namespace OpenTibia.Security
 {
     public static class Rsa
     {
+        private static byte[] Zero = new byte[] { 0 };
+
         public static BigInteger D = BigInteger.Parse("46730330223584118622160180015036832148732986808519344675210555262940258739805766860224610646919605860206328024326703361630109888417839241959507572247284807035235569619173792292786907845791904955103601652822519121908367187885509270025388641700821735345222087940578381210879116823013776808975766851829020659073");
 
         //public static BigInteger DP = BigInteger.Parse("11141736698610418925078406669215087697114858422461871124661098818361832856659225315773346115219673296375487744032858798960485665997181641221483584094519937");
@@ -51,23 +53,9 @@ namespace OpenTibia.Security
             dataToEncrypt = dataToEncrypt.Skip(offset)
                                          .Take(count)
                                          .Reverse()
-                                         .Concat(new byte[] { 0 } )
+                                         .Concat(Zero)
                                          .ToArray();
-
-            /*
-            using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider() )
-            {
-                rsa.ImportParameters(new RSAParameters()
-                {
-                    Exponent = Exponent.ToByteArray(),
-
-                    Modulus = Modulus.ToByteArray()
-                } );
-
-                return rsa.Encrypt(dataToEncrypt, false);
-            }
-            */
-            
+                        
             byte[] encryptedData = BigInteger.ModPow(new BigInteger(dataToEncrypt), Exponent, Modulus).ToByteArray(); 
 
             return encryptedData.Reverse()                
@@ -103,40 +91,14 @@ namespace OpenTibia.Security
             dataToDecrypt = dataToDecrypt.Skip(offset)
                                          .Take(count)
                                          .Reverse()
-                                         .Concat(new byte[] { 0 } )
+                                         .Concat(Zero)
                                          .ToArray();
-
-            /*
-            using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider() )
-            {
-                rsa.ImportParameters(new RSAParameters()
-                {
-                    D = D.ToByteArray(),
-
-                    DP = DP.ToByteArray(),
-
-                    DQ = DQ.ToByteArray(),
-
-                    Exponent = Exponent.ToByteArray(),
-
-                    InverseQ = InverseQ.ToByteArray(),
-
-                    Modulus = Modulus.ToByteArray(),
-
-                    P = P.ToByteArray(),
-
-                    Q = Q.ToByteArray()
-                } );
-
-                return rsa.Decrypt(dataToDecrypt, false);
-            }
-            */
-            
+                        
             byte[] decryptedData = BigInteger.ModPow(new BigInteger(dataToDecrypt), D, Modulus).ToByteArray();
 
             if (decryptedData.Length == 127)
 	        {
-                return decryptedData.Concat(new byte[] { 0 } )
+                return decryptedData.Concat(Zero)
                                     .Reverse()
                                     .ToArray();
 	        }

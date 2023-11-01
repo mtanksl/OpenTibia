@@ -48,7 +48,7 @@ namespace OpenTibia.Common.Objects
 
         private bool first = true;
 
-        protected override void OnReceived(byte[] body)
+        protected override void OnReceived(byte[] body, int length)
         {
             ByteArrayArrayStream stream = new ByteArrayArrayStream(body);
 
@@ -56,15 +56,15 @@ namespace OpenTibia.Common.Objects
 
             try
             {
-                if (Adler32.Generate(body, 4) == reader.ReadUInt() )
+                if (Adler32.Generate(body, 4, length - 4) == reader.ReadUInt() )
                 {
                     if (Keys == null)
                     {
-                        Rsa.DecryptAndReplace(body, 9);
+                        Rsa.DecryptAndReplace(body, 9, length - 9);
                     }
                     else
                     {
-                        Xtea.DecryptAndReplace(body, 4, 32, Keys);
+                        Xtea.DecryptAndReplace(body, 4, length - 4, 32, Keys);
 
                         stream.Seek(Origin.Current, 2);
                     }
@@ -102,7 +102,7 @@ namespace OpenTibia.Common.Objects
                         {
                             server.Logger.WriteLine("Unknown packet received on game server: 0x" + identification.ToString("X2"), LogLevel.Warning);
 
-                            server.Logger.WriteLine(body.Print(), LogLevel.Warning);
+                            server.Logger.WriteLine(body.Print(0, length), LogLevel.Warning);
                         }
                     }
                     else
@@ -885,7 +885,7 @@ namespace OpenTibia.Common.Objects
                             {
                                 server.Logger.WriteLine("Unknown packet received on game server: 0x" + identification.ToString("X2"), LogLevel.Warning);
 
-                                server.Logger.WriteLine(body.Print(), LogLevel.Warning);
+                                server.Logger.WriteLine(body.Print(0, length), LogLevel.Warning);
                             }
                         }
                     }
@@ -894,7 +894,7 @@ namespace OpenTibia.Common.Objects
                 {
                     server.Logger.WriteLine("Invalid message received on game server.", LogLevel.Warning);
 
-                    server.Logger.WriteLine(body.Print(), LogLevel.Warning);
+                    server.Logger.WriteLine(body.Print(0, length), LogLevel.Warning);
                 }
             }
             catch (Exception ex)
@@ -902,7 +902,7 @@ namespace OpenTibia.Common.Objects
                 server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
             }
 
-            base.OnReceived(body);
+            base.OnReceived(body, length);
         }
 
         protected override void OnDisconnected(DisconnectedEventArgs e)

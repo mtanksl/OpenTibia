@@ -18,11 +18,21 @@ namespace OpenTibia.IO
 
         public static string Print(this byte[] bytes)
         {
+            return Print(bytes, 0, bytes.Length);
+        }
+
+        public static string Print(this byte[] bytes, int offset)
+        {
+            return Print(bytes, offset, bytes.Length - offset);
+        }
+
+        public static string Print(this byte[] bytes, int offset, int count)
+        {
             StringBuilder builder = new StringBuilder();
 
-            foreach (var b in bytes)
+            for (int i = 0; i < count; i++)
             {
-                builder.Append(b.ToString("X2") + " ");
+                builder.Append(bytes[i + offset].ToString("X2") + " ");
             }
 
             return builder.ToString();
