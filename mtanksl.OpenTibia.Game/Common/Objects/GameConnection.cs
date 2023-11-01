@@ -15,9 +15,21 @@ namespace OpenTibia.Common.Objects
     {
         private Server server;
 
-        public GameConnection(Server server, Listener listener, Socket clientSocket) : base(listener, clientSocket)
+        public GameConnection(Server server, Socket socket) : base(socket)
         {
             this.server = server;
+        }
+
+        protected override bool CanReceive()
+        {
+            if ( !server.RateLimiting.CanReceive(IpAddress) )
+            {
+                Disconnect();
+
+                return false;
+            }
+
+            return true;
         }
 
         protected override void OnConnected()

@@ -14,9 +14,9 @@ namespace OpenTibia.Network.Sockets
         
             private AutoResetEvent syncStop = new AutoResetEvent(false);
 
-        private Func<Listener, Socket, Connection> factory;
+        private Func<Socket, Connection> factory;
 
-        public Listener(Func<Listener, Socket, Connection> factory)
+        public Listener(Func<Socket, Connection> factory)
         {
             this.factory = factory;
         }
@@ -44,20 +44,20 @@ namespace OpenTibia.Network.Sockets
             }
         }
 
-        private Socket serverSocket;
+        private Socket socket;
         
         public void Start(int port)
         {
             lock (sync)
             {
-                serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-                    serverSocket.Bind(new IPEndPoint(IPAddress.Any, port) );
+                    socket.Bind(new IPEndPoint(IPAddress.Any, port) );
 
-                    serverSocket.Listen(0);
+                    socket.Listen(0);
 
 
-                serverSocket.BeginAccept(Accept, null);
+                socket.BeginAccept(Accept, null);
             }
         }
 
@@ -75,9 +75,7 @@ namespace OpenTibia.Network.Sockets
                 {
                     try
                     {
-                        Socket clientSocket = serverSocket.EndAccept(result);
-
-                        Connection connection = factory(this, clientSocket);
+                        Connection connection = factory(socket.EndAccept(result) );
 
                         connection.Disconnected += (sender, e) =>
                         {
@@ -97,7 +95,7 @@ namespace OpenTibia.Network.Sockets
                         connection.Start();
                         
 
-                        serverSocket.BeginAccept(Accept, null);
+                        socket.BeginAccept(Accept, null);
                     }
                     catch (SocketException)
                     {
@@ -124,7 +122,7 @@ namespace OpenTibia.Network.Sockets
                         connection.Stop();
                     }
 
-                    serverSocket.Close();
+                    socket.Close();
                 }
             }
 
@@ -159,9 +157,9 @@ namespace OpenTibia.Network.Sockets
                         }
                     }
 
-                    if (serverSocket != null)
+                    if (socket != null)
                     {
-                        serverSocket.Dispose();
+                        socket.Dispose();
                     }
                 }
             }

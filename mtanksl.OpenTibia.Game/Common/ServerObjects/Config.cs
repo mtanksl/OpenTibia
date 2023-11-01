@@ -21,6 +21,12 @@
 
             GameMaxPlayers = (int)(long)script["server.game.maxplayers"];
 
+            RateLimitingMaxpackets = (int)(long)script["server.ratelimiting.maxpackets"];
+
+            RateLimitingMilliseconds = (int)(long)script["server.ratelimiting.milliseconds"];
+                        
+            RateLimitingBanMilliseconds = (int)(long)script["server.ratelimiting.banmilliseconds"];
+
             DatabaseType = (string)script["server.database.type"];
 
             DatabaseSource = (string)script["server.database.source"];
@@ -41,6 +47,12 @@
         public int GamePort { get; set; }
 
         public int GameMaxPlayers { get; set; }
+
+        public int RateLimitingMilliseconds { get; set; }
+
+        public int RateLimitingMaxpackets { get; set; }
+
+        public int RateLimitingBanMilliseconds { get; set; }
 
         public string DatabaseType { get; set; }
 

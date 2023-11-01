@@ -27,9 +27,9 @@ namespace OpenTibia.Game
 
             scheduler = new Scheduler(dispatcher);
 
-            loginServer = new Listener( (listener, clientSocket) => new LoginConnection(this, listener, clientSocket) );
+            loginServer = new Listener(socket => new LoginConnection(this, socket) );
 
-            gameServer = new Listener( (listener, clientSocket) => new GameConnection(this, listener, clientSocket) );
+            gameServer = new Listener(socket => new GameConnection(this, socket) );
 
             DatabaseFactory = new DatabaseFactory(this, builder =>
             {
@@ -62,6 +62,8 @@ namespace OpenTibia.Game
             PacketsFactory = new PacketsFactory();
 
             Clock = new Clock(12, 00);
+
+            RateLimiting = new RateLimiting(this);
 
             WaitingList = new WaitingList(this);
 
@@ -132,6 +134,8 @@ namespace OpenTibia.Game
         public PacketsFactory PacketsFactory { get; set; }
 
         public Clock Clock { get; set; }
+
+        public RateLimiting RateLimiting { get; set; }
 
         public WaitingList WaitingList { get; set; }
 

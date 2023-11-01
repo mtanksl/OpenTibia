@@ -6,6 +6,11 @@ server = {
 		port = 7172,
 		maxplayers = 1000
 	},		
+	ratelimiting = {
+			maxpackets = 60,
+			milliseconds = 1000,
+			banmilliseconds = 15 * 60 * 1000
+	},
 	database = {
 		type = "sqlite",
 

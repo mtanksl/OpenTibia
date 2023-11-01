@@ -7,9 +7,9 @@ namespace OpenTibia.Common.Objects
 {
     public class WaitingList
     {
-        private class Item
+        private class WaitingItem
         {
-            public int PlayerId { get; set; }
+            public int DatabasePlayerId { get; set; }
 
             public DateTime Timeout { get; set; }
         }
@@ -21,9 +21,9 @@ namespace OpenTibia.Common.Objects
             this.server = server;
         }
 
-        private LinkedList<Item> queue = new LinkedList<Item>();
+        private LinkedList<WaitingItem> queue = new LinkedList<WaitingItem>();
 
-        public bool CanLogin(int playerId, out int position, out byte time)
+        public bool CanLogin(int databasePlayerId, out int position, out byte time)
         {
             int onlinePlayers = server.GameObjects.GetPlayers().Count();
 
@@ -47,7 +47,7 @@ namespace OpenTibia.Common.Objects
                 }
             }
 
-            Item item = GetItem(playerId);
+            WaitingItem item = GetItem(databasePlayerId);
 
             if (item == null)
             {
@@ -55,9 +55,9 @@ namespace OpenTibia.Common.Objects
 
                 time = GetTime(position);
 
-                queue.AddLast(new Item()
+                queue.AddLast(new WaitingItem()
                 {
-                    PlayerId = playerId,
+                    DatabasePlayerId = databasePlayerId,
 
                     Timeout = DateTime.UtcNow.AddSeconds(time + 1)
                 } );
@@ -66,7 +66,7 @@ namespace OpenTibia.Common.Objects
             }
             else
             {
-                position = GetIndex(playerId) + 1;
+                position = GetIndex(databasePlayerId) + 1;
 
                 time = GetTime(position);
 
@@ -83,11 +83,11 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        private Item GetItem(int playerId)
+        private WaitingItem GetItem(int databasePlayerId)
         {
             for (var node = queue.First; node != null; node = node.Next)
             {
-                if (node.Value.PlayerId == playerId)
+                if (node.Value.DatabasePlayerId == databasePlayerId)
                 {
                     return node.Value;
                 }
@@ -96,13 +96,13 @@ namespace OpenTibia.Common.Objects
             return null;
         }
 
-        private int GetIndex(int playerId)
+        private int GetIndex(int databasePlayerId)
         {
             int i = 0;
 
             for (var node = queue.First; node != null; node = node.Next, i++)
             {
-                if (node.Value.PlayerId == playerId)
+                if (node.Value.DatabasePlayerId == databasePlayerId)
                 {
                     return i;
                 }

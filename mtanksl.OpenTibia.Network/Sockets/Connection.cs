@@ -14,15 +14,11 @@ namespace OpenTibia.Network.Sockets
         
             private AutoResetEvent syncStop = new AutoResetEvent(false);
 
-        private Listener listener;
+        private Socket socket;
 
-        private Socket clientSocket;
-
-        public Connection(Listener listener, Socket clientSocket)
+        public Connection(Socket socket)
         {
-            this.listener = listener;
-
-            this.clientSocket = clientSocket;
+            this.socket = socket;
         }
 
         ~Connection()
@@ -34,7 +30,7 @@ namespace OpenTibia.Network.Sockets
         {
             get
             {
-                return ( (IPEndPoint)clientSocket.RemoteEndPoint ).Address.ToString();
+                return ( (IPEndPoint)socket.RemoteEndPoint ).Address.ToString();
             }
         }
 
@@ -74,17 +70,13 @@ namespace OpenTibia.Network.Sockets
             {
                 if ( !stopped )
                 {
-                    if (listener.IsBanned(IpAddress) )
-                    {
-                        Disconnect();
-                    }
-                    else
+                    if (CanReceive() )
                     {
                         OnConnected();
 
                         byte[] header = new byte[2];
 
-                        clientSocket.BeginReceive(header, 0, header.Length, SocketFlags.None, ReceiveHeader, header);
+                        socket.BeginReceive(header, 0, header.Length, SocketFlags.None, ReceiveHeader, header);
                     }
                 }
             }
@@ -100,21 +92,17 @@ namespace OpenTibia.Network.Sockets
                 }
                 else
                 {
-                    if (listener.IsBanned(IpAddress) )
-                    {
-                        Disconnect();
-                    }
-                    else
+                    if (CanReceive() )
                     {
                         try
                         {
                             byte[] header = result.AsyncState as byte[];
                 
-                            if (header.Length == clientSocket.EndReceive(result) )
+                            if (header.Length == socket.EndReceive(result) )
                             {
                                 byte[] body = new byte[ header[1] << 8 | header[0] ];
 
-                                clientSocket.BeginReceive(body, 0, body.Length, SocketFlags.None, ReceiveBody, body);
+                                socket.BeginReceive(body, 0, body.Length, SocketFlags.None, ReceiveBody, body);
                             }
                             else
                             {
@@ -130,31 +118,6 @@ namespace OpenTibia.Network.Sockets
             }
         }
 
-        private DateTime previous = DateTime.MinValue;
-
-        private int count = 0;
-
-        private bool IsRateLimited()
-        {
-            if ( (DateTime.UtcNow - previous).TotalSeconds > 1)
-            {
-                previous = DateTime.UtcNow;
-
-                count = 0;
-            }
-            else
-            {
-                count++;
-
-                if (count > 10)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         private void ReceiveBody(IAsyncResult result)
         {
             lock (sync)
@@ -165,44 +128,31 @@ namespace OpenTibia.Network.Sockets
                 }
                 else
                 {
-                    if (listener.IsBanned(IpAddress) )
+                    if (CanReceive() )
                     {
-                        Disconnect();
-                    }
-                    else
-                    {
-                        if (IsRateLimited() )
+                        try
                         {
-                            listener.AddBan(IpAddress);
-
-                            Disconnect();
-                        }
-                        else
-                        {
-                            try
-                            {
-                                byte[] body = result.AsyncState as byte[];
+                            byte[] body = result.AsyncState as byte[];
                  
-                                if (body.Length == clientSocket.EndReceive(result) )
-                                {
-                                    OnReceived(body);
-
-                                    if ( !stopped )
-                                    {
-                                        byte[] header = new byte[2];
-
-                                        clientSocket.BeginReceive(header, 0, header.Length, SocketFlags.None, ReceiveHeader, header);
-                                    }
-                                }
-                                else
-                                {
-                                    OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SocketClosed) );
-                                }
-                            }
-                            catch (SocketException)
+                            if (body.Length == socket.EndReceive(result) )
                             {
-                                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SocketException) );
+                                OnReceived(body);
+
+                                if ( !stopped )
+                                {
+                                    byte[] header = new byte[2];
+
+                                    socket.BeginReceive(header, 0, header.Length, SocketFlags.None, ReceiveHeader, header);
+                                }
                             }
+                            else
+                            {
+                                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SocketClosed) );
+                            }
+                        }
+                        catch (SocketException)
+                        {
+                            OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SocketException) );
                         }
                     }
                 }
@@ -215,7 +165,7 @@ namespace OpenTibia.Network.Sockets
             {
                 if ( !stopped )
                 {
-                    clientSocket.BeginSend(bytes, 0, bytes.Length, SocketFlags.None, Send, bytes);
+                    socket.BeginSend(bytes, 0, bytes.Length, SocketFlags.None, Send, bytes);
                 }
             }
         }
@@ -234,7 +184,7 @@ namespace OpenTibia.Network.Sockets
                     {
                         byte[] bytes = result.AsyncState as byte[];
 
-                        if (bytes.Length == clientSocket.EndSend(result) )
+                        if (bytes.Length == socket.EndSend(result) )
                         {
                             //
                         }
@@ -258,6 +208,8 @@ namespace OpenTibia.Network.Sockets
                 OnDisconnected(new DisconnectedEventArgs(DisconnectionType.Requested) );
             }
         }
+
+        protected abstract bool CanReceive();
 
         protected virtual void OnConnected()
         {
@@ -293,7 +245,7 @@ namespace OpenTibia.Network.Sockets
                 {
                     stopped = true;
 
-                    clientSocket.Shutdown(SocketShutdown.Both);
+                    socket.Shutdown(SocketShutdown.Both);
                 }
             }
 
@@ -320,9 +272,9 @@ namespace OpenTibia.Network.Sockets
 
                 if (disposing)
                 {
-                    if (clientSocket != null)
+                    if (socket != null)
                     {
-                        clientSocket.Dispose();
+                        socket.Dispose();
                     }
                 }
             }
