@@ -107,6 +107,8 @@ namespace OpenTibia.Data.Models
 
         public int Vocation { get; set; }
 
+        public int Rank { get; set; }
+
         public int SpawnX { get; set; }
 
         public int SpawnY { get; set; }

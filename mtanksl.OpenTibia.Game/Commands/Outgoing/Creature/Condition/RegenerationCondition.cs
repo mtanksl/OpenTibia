@@ -48,7 +48,6 @@ namespace OpenTibia.Game.Commands
             switch (player.Vocation)
             {
                 case Vocation.None:
-                case Vocation.Gamemaster:
 
                     health = 1;
                     healthDelayInSeconds = 12;

@@ -3,8 +3,12 @@
 - Player information
 	- Capacity
 	- Soul
+	- Item that modifies player light (ex. torch)
+	- Item that modifies player speed (ex. BOH)
+	- Item that modifies player skills
 - Fight
-	- Respawn
+	- Monster spawn/respawn
+	- Monster despawn
 	- vs Player
 	- PVP vs non-PVP configuration
 	- Logout block
@@ -13,17 +17,19 @@
 	- War
 	- Corpse and rewards
 	- Splash
+	- Persist loss
 	- ...
-- Mail
-- Guild
-- Party
 - NPC trade window
 - Rings and amulets charges
 - Hangable items
-- Sign items
+- Read sign items
+- Mail
+- Guild
+- Party
 - Addons
 - House
 - Bed
+- Bless/AOL
 - ...
 
 # Done (or good enough for now)
@@ -65,7 +71,7 @@
 	- Dialogue
 	- Buy and sell items
 - Interacting with monsters
-	- Fight system
+	- Fight
 	- Weapon attributes (range, atk, def, arm)
 	- Ammunition
 	- Bow and arrow
@@ -91,4 +97,8 @@
 	- Lua scripting
 	- Lua debugging with ZeroBrane
 	- Lua autocomplete intellisense
-- Ban system
+- Security
+	- Ban/unban by player name, account or ip address
+	- Rate limiting
+		- Login attempts
+		- Packets

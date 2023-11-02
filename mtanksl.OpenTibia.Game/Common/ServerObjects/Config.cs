@@ -23,9 +23,15 @@
 
             RateLimitingMaxPackets = (int)(long)script["server.ratelimiting.maxpackets"];
 
-            RateLimitingMilliseconds = (int)(long)script["server.ratelimiting.milliseconds"];
-                        
-            RateLimitingBanMilliseconds = (int)(long)script["server.ratelimiting.banmilliseconds"];
+            RateLimitingMaxPacketsPerMilliseconds = (int)(long)script["server.ratelimiting.maxpacketspermilliseconds"];
+                     
+            RateLimitingPacketsAbuseBanMilliseconds = (int)(long)script["server.ratelimiting.packetsabusebanmilliseconds"];
+
+            RateLimitingMaxLoginAttempts = (int)(long)script["server.ratelimiting.maxloginattempts"];
+
+            RateLimitingMaxLoginAttemptsPerMilliseconds = (int)(long)script["server.ratelimiting.maxloginattemptspermilliseconds"];
+
+            RateLimitingLoginAttemptsAbuseBanMilliseconds = (int)(long)script["server.ratelimiting.loginattemptsabusebanmilliseconds"];
 
             DatabaseType = (string)script["server.database.type"];
 
@@ -50,9 +56,15 @@
 
         public int RateLimitingMaxPackets { get; set; }
 
-        public int RateLimitingMilliseconds { get; set; }
+        public int RateLimitingMaxPacketsPerMilliseconds { get; set; }
 
-        public int RateLimitingBanMilliseconds { get; set; }
+        public int RateLimitingPacketsAbuseBanMilliseconds { get; set; }
+
+        public int RateLimitingMaxLoginAttempts { get; set; }
+
+        public int RateLimitingMaxLoginAttemptsPerMilliseconds { get; set; }
+
+        public int RateLimitingLoginAttemptsAbuseBanMilliseconds { get; set; }
 
         public string DatabaseType { get; set; }
 

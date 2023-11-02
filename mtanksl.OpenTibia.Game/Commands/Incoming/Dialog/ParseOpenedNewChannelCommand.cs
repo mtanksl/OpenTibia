@@ -68,7 +68,7 @@ namespace OpenTibia.Game.Commands
 
                 if (channel.Id == 3 || channel.Id == 4)
                 {
-                    if (Player.Vocation != Vocation.Gamemaster)
+                    if (Player.Rank != Rank.Gamemaster)
                     {
                         return Promise.Break;
                     }

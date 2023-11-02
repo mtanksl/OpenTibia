@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            if (Player.Vocation == Vocation.Gamemaster)
+            if (Player.Rank == Rank.Gamemaster)
             {
                 return Promise.Completed;
             }

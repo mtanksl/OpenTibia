@@ -101,6 +101,8 @@ namespace OpenTibia.Common.Objects
 
         public Vocation Vocation { get; set; }
 
+        public Rank Rank { get; set; }
+
         private void Calculate(ushort level)
         {
             Level = level;

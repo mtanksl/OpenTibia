@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            if (Player.Vocation == Vocation.Gamemaster)
+            if (Player.Rank == Rank.Gamemaster)
             {
                 Player reporter = Context.Server.GameObjects.GetPlayers()
                     .Where(p => p.Name == Name)

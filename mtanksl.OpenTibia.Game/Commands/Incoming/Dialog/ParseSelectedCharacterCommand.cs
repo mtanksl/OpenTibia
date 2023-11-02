@@ -33,6 +33,15 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
+            if ( !Context.Server.RateLimiting.CanLogin(Connection.IpAddress) )
+            {
+                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.TooManyLoginAttempts) );
+
+                Context.Disconnect(Connection);
+
+                return Promise.Break;
+            }
+
             DbPlayer dbPlayer = Context.Database.PlayerRepository.GetAccountPlayer(Packet.Account, Packet.Password, Packet.Character);
 
             if (dbPlayer == null)

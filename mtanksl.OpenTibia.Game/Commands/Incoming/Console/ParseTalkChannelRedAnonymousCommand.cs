@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
         {
             // #d <message>
 
-            if (Player.Vocation == Vocation.Gamemaster)
+            if (Player.Rank == Rank.Gamemaster)
             {
                 Channel channel = Context.Server.Channels.GetChannel(ChannelId);
 

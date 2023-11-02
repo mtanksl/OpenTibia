@@ -31,63 +31,75 @@ namespace OpenTibia.Game.Commands
                     {
                         builder.Append("You see yourself.");
 
-                        switch (player.Vocation)
+                        switch (player.Rank)
                         {
-                            case Vocation.None:
+                            case Rank.Player:
+                            case Rank.Tutor:
 
-                                builder.Append(" You have no vocation.");
+                                switch (player.Vocation)
+                                {
+                                    case Vocation.None:
+
+                                        builder.Append(" You have no vocation.");
+
+                                        break;
+
+                                    case Vocation.Knight:
+
+                                        builder.Append(" You are a knight.");
+
+                                        break;
+
+                                    case Vocation.Paladin:
+
+                                        builder.Append(" You are a paladin.");
+
+                                        break;
+
+                                    case Vocation.Druid:
+
+                                        builder.Append(" You are a druid.");
+
+                                        break;
+
+                                    case Vocation.Sorcerer:
+
+                                        builder.Append(" You are a sorcerer.");
+
+                                        break;
+
+                                    case Vocation.EliteKnight:
+
+                                        builder.Append(" You are an elite knight.");
+
+                                        break;
+
+                                    case Vocation.RoyalPaladin:
+
+                                        builder.Append(" You are a royal paladin.");
+
+                                        break;
+
+                                    case Vocation.ElderDruid:
+
+                                        builder.Append(" You are an elder druid.");
+
+                                        break;
+
+                                    case Vocation.MasterSorcerer:
+
+                                        builder.Append(" You are a master sorcerer.");
+
+                                        break;
+
+                                    default:
+
+                                        throw new NotImplementedException();
+                                }
 
                                 break;
 
-                            case Vocation.Knight:
-
-                                builder.Append(" You are a knight.");
-
-                                break;
-
-                            case Vocation.Paladin:
-
-                                builder.Append(" You are a paladin.");
-
-                                break;
-
-                            case Vocation.Druid:
-
-                                builder.Append(" You are a druid.");
-
-                                break;
-
-                            case Vocation.Sorcerer:
-
-                                builder.Append(" You are a sorcerer.");
-
-                                break;
-
-                            case Vocation.EliteKnight:
-
-                                builder.Append(" You are an elite knight.");
-
-                                break;
-
-                            case Vocation.RoyalPaladin:
-
-                                builder.Append(" You are a royal paladin.");
-
-                                break;
-
-                            case Vocation.ElderDruid:
-
-                                builder.Append(" You are an elder druid.");
-
-                                break;
-
-                            case Vocation.MasterSorcerer:
-
-                                builder.Append(" You are a master sorcerer.");
-
-                                break;
-
-                            case Vocation.Gamemaster:
+                            case Rank.Gamemaster:
 
                                 builder.Append(" You are a Gamemaster.");
 
@@ -96,7 +108,7 @@ namespace OpenTibia.Game.Commands
                             default:
 
                                 throw new NotImplementedException();
-                        }
+                        }                        
                     }
                     else
                     {
@@ -121,63 +133,75 @@ namespace OpenTibia.Game.Commands
                                 throw new NotImplementedException();
                         }
 
-                        switch (player.Vocation)
+                        switch (player.Rank)
                         {
-                            case Vocation.None:
+                            case Rank.Player:
+                            case Rank.Tutor:
 
-                                builder.Append(" has no vocation.");
+                                switch (player.Vocation)
+                                {
+                                    case Vocation.None:
+
+                                        builder.Append(" has no vocation.");
+
+                                        break;
+
+                                    case Vocation.Knight:
+
+                                        builder.Append(" is a knight.");
+
+                                        break;
+
+                                    case Vocation.Paladin:
+
+                                        builder.Append(" is a paladin.");
+
+                                        break;
+
+                                    case Vocation.Druid:
+
+                                        builder.Append(" is a druid.");
+
+                                        break;
+
+                                    case Vocation.Sorcerer:
+
+                                        builder.Append(" is a sorcerer.");
+
+                                        break;
+
+                                    case Vocation.EliteKnight:
+
+                                        builder.Append(" is an elite knight.");
+
+                                        break;
+
+                                    case Vocation.RoyalPaladin:
+
+                                        builder.Append(" is a royal paladin.");
+
+                                        break;
+
+                                    case Vocation.ElderDruid:
+
+                                        builder.Append(" is an elder druid.");
+
+                                        break;
+
+                                    case Vocation.MasterSorcerer:
+
+                                        builder.Append(" is a master sorcerer.");
+
+                                        break;
+
+                                    default:
+
+                                        throw new NotImplementedException();
+                                }
 
                                 break;
 
-                            case Vocation.Knight:
-
-                                builder.Append(" is a knight.");
-
-                                break;
-
-                            case Vocation.Paladin:
-
-                                builder.Append(" is a paladin.");
-
-                                break;
-
-                            case Vocation.Druid:
-
-                                builder.Append(" is a druid.");
-
-                                break;
-
-                            case Vocation.Sorcerer:
-
-                                builder.Append(" is a sorcerer.");
-
-                                break;
-
-                            case Vocation.EliteKnight:
-
-                                builder.Append(" is an elite knight.");
-
-                                break;
-
-                            case Vocation.RoyalPaladin:
-
-                                builder.Append(" is a royal paladin.");
-
-                                break;
-
-                            case Vocation.ElderDruid:
-
-                                builder.Append(" is an elder druid.");
-
-                                break;
-
-                            case Vocation.MasterSorcerer:
-
-                                builder.Append(" is a master sorcerer.");
-
-                                break;
-
-                            case Vocation.Gamemaster:
+                            case Rank.Gamemaster:
 
                                 builder.Append(" is a Gamemaster.");
 

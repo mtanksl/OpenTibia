@@ -51,13 +51,13 @@ namespace OpenTibia.Game.Commands
                     throw new NotImplementedException();
             }
 
-            if (Player.Vocation == Vocation.Gamemaster)
+            if (Player.Rank == Rank.Gamemaster)
             {
-                outfits.Add(new OutfitDto(Outfit.GamemasterRed.Id, "Red", Addon.None) );
+                outfits.Add(new OutfitDto(Outfit.GamemasterBlue.Id, "Gamemaster", Addon.None) );
 
-                outfits.Add(new OutfitDto(Outfit.GamemasterGreen.Id, "Green", Addon.None) );
+                outfits.Add(new OutfitDto(Outfit.GamemasterRed.Id, "Customer Support", Addon.None) );
 
-                outfits.Add(new OutfitDto(Outfit.GamemasterBlue.Id, "Blue", Addon.None) );
+                outfits.Add(new OutfitDto(Outfit.GamemasterGreen.Id, "Community Manager", Addon.None) );
             }
 
             Context.AddPacket(Player.Client.Connection, new OpenSelectOutfitDialogOutgoingPacket(Player.BaseOutfit, outfits) );

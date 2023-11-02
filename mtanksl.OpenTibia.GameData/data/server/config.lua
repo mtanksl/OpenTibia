@@ -7,9 +7,15 @@ server = {
 		maxplayers = 1000
 	},		
 	ratelimiting = {
-			maxpackets = 60,
-			milliseconds = 1000,
-			banmilliseconds = 15 * 60 * 1000
+		-- packets
+		maxpackets = 60,
+		maxpacketspermilliseconds = 1000,
+		packetsabusebanmilliseconds = 15 * 60 * 1000,
+		
+		-- login attempts
+		maxloginattempts = 10,
+		maxloginattemptspermilliseconds = 60 * 1000,
+		loginattemptsabusebanmilliseconds = 15 * 60 * 1000
 	},
 	database = {
 		type = "sqlite",

@@ -9,8 +9,12 @@ namespace OpenTibia.Common.Objects
         private class RateLimitItem
         {
             public DateTime LastPacket { get; set; }
+ 
+            public int PacketCount { get; set; }
 
-            public int Count { get; set; }
+            public DateTime LastLoginAttempts { get; set; }
+
+            public int LoginAttemptsCount { get; set; }
 
             public DateTime BanTimeout { get; set; }
         }
@@ -44,19 +48,19 @@ namespace OpenTibia.Common.Objects
                     return false;
                 }
 
-                if ( (DateTime.UtcNow - item.LastPacket).TotalMilliseconds > server.Config.RateLimitingMilliseconds)
+                if ( (DateTime.UtcNow - item.LastPacket).TotalMilliseconds > server.Config.RateLimitingMaxPacketsPerMilliseconds)
                 {
                     item.LastPacket = DateTime.UtcNow;
 
-                    item.Count = 0;
+                    item.PacketCount = 1;
                 }
                 else
                 {
-                    item.Count++;
+                    item.PacketCount++;
 
-                    if (item.Count > server.Config.RateLimitingMaxPackets)
+                    if (item.PacketCount > server.Config.RateLimitingMaxPackets)
                     {
-                        item.BanTimeout = DateTime.UtcNow.AddMilliseconds(server.Config.RateLimitingBanMilliseconds);
+                        item.BanTimeout = DateTime.UtcNow.AddMilliseconds(server.Config.RateLimitingPacketsAbuseBanMilliseconds);
 
                         return false;
                     }
@@ -64,6 +68,46 @@ namespace OpenTibia.Common.Objects
 
                 return true;
             }            
+        }
+                
+        public bool CanLogin(string ipAddress)
+        {
+            lock (sync)
+            {
+                RateLimitItem item;
+
+                if ( !items.TryGetValue(ipAddress, out item) )
+                {
+                    item = new RateLimitItem();
+
+                    items.Add(ipAddress, item);
+                }
+
+                if (DateTime.UtcNow < item.BanTimeout)
+                {
+                    return false;
+                }
+
+                if ( (DateTime.UtcNow - item.LastLoginAttempts).TotalMilliseconds > server.Config.RateLimitingMaxLoginAttemptsPerMilliseconds)
+                {
+                    item.LastLoginAttempts = DateTime.UtcNow;
+
+                    item.LoginAttemptsCount = 1;
+                }
+                else
+                {
+                    item.LoginAttemptsCount++;
+
+                    if (item.LoginAttemptsCount > server.Config.RateLimitingMaxLoginAttempts)
+                    {
+                        item.BanTimeout = DateTime.UtcNow.AddMilliseconds(server.Config.RateLimitingLoginAttemptsAbuseBanMilliseconds);
+
+                        return false;
+                    }
+                }
+
+                return true;              
+            }
         }
     }
 }

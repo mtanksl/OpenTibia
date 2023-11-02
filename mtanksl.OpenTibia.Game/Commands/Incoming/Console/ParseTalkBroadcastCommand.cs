@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Commands
         {
             // #b <message>
 
-            if (Player.Vocation == Vocation.Gamemaster)
+            if (Player.Rank == Rank.Gamemaster)
             {
                 foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                 {

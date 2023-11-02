@@ -11,7 +11,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             int id;
 
-            if (command.Message.StartsWith("/me ") && int.TryParse(command.Message.Substring(4), out id) && id >= 1 && id <= 70 && command.Player.Vocation == Vocation.Gamemaster)
+            if (command.Message.StartsWith("/me ") && int.TryParse(command.Message.Substring(4), out id) && id >= 1 && id <= 70 && command.Player.Rank == Rank.Gamemaster)
             {
                 Tile fromTile = command.Player.Tile;
                               

@@ -126,6 +126,8 @@ namespace OpenTibia.Game.Commands
             player.Gender = (Gender)dbPlayer.Gender;
 
             player.Vocation = (Vocation)dbPlayer.Vocation;
+
+            player.Rank = (Rank)dbPlayer.Rank;
         }
 
         private static void LoadLocker(Context context, DbPlayer dbPlayer, Player player)

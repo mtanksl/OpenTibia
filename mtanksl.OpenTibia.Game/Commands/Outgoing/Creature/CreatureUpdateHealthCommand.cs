@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            if (Creature is Npc || (Creature is Player player && player.Vocation == Vocation.Gamemaster) )
+            if (Creature is Npc || (Creature is Player player && player.Rank == Rank.Gamemaster) )
             {
                 return Promise.Completed;
             }

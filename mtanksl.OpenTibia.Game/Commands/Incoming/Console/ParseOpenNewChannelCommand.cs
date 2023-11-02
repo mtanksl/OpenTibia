@@ -23,9 +23,12 @@ namespace OpenTibia.Game.Commands
 
             channels.Add(new ChannelDto(1, "Party") );
 
-            channels.Add(new ChannelDto(2, "Tutor") );
+            if (Player.Rank == Rank.Tutor || Player.Rank == Rank.Gamemaster)
+            {
+                channels.Add(new ChannelDto(2, "Tutor") );
+            }
 
-            if (Player.Vocation == Vocation.Gamemaster)
+            if (Player.Rank == Rank.Gamemaster)
             {
                 channels.Add(new ChannelDto(3, "Rule Violations") );
 

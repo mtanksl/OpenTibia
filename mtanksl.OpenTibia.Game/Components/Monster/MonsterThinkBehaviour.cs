@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Components
             {
                 if (target == null || target.Tile == null || target.IsDestroyed || target.Tile.ProtectionZone || !monster.Tile.Position.CanHearSay(target.Tile.Position) )
                 {
-                    Player[] players = Context.Server.Map.GetObserversOfTypePlayer(monster.Tile.Position).Where(p => !p.Tile.ProtectionZone && monster.Tile.Position.CanHearSay(p.Tile.Position) && p.Vocation != Vocation.Gamemaster).ToArray();
+                    Player[] players = Context.Server.Map.GetObserversOfTypePlayer(monster.Tile.Position).Where(p => !p.Tile.ProtectionZone && monster.Tile.Position.CanHearSay(p.Tile.Position) && p.Rank != Rank.Gamemaster).ToArray();
 
                     if (players.Length > 0)
                     {

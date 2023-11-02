@@ -10,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
-            if (command.Message.StartsWith("/kick ") && command.Player.Vocation == Vocation.Gamemaster)
+            if (command.Message.StartsWith("/kick ") && command.Player.Rank == Rank.Gamemaster)
             {
                 string name = command.Message.Substring(6);
 

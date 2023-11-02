@@ -291,7 +291,7 @@ namespace OpenTibia.Game.Commands
                 attributes.Add("Def: " + Item.Metadata.Defense);
             }
 
-            if (Player.Vocation == Vocation.Gamemaster)
+            if (Player.Rank == Rank.Gamemaster)
             {
                 attributes.Add("Item Id: " + Item.Metadata.OpenTibiaId);
             }

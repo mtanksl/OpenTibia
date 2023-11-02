@@ -194,6 +194,8 @@ namespace OpenTibia.Game.Commands
 
             dbPlayer.Vocation = (int)player.Vocation;
 
+            dbPlayer.Rank = (int)player.Rank;
+
             dbPlayer.SpawnX = player.Tile.Position.X;
 
             dbPlayer.SpawnY = player.Tile.Position.Y;

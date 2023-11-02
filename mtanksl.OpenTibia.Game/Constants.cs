@@ -29,7 +29,9 @@
         public static readonly string ThisPlayerIsAlreadyTrading = "This player is already trading.";
         
         public static readonly string TradeCanceled = "Trade canceled.";
-        
+
+        public static readonly string TooManyLoginAttempts = "Too many login attempts, try again in a few minutes.";
+
         public static readonly string YouAreAlreadyTrading = "You are already trading.";
         
         public static readonly string YouAreExhausted = "You are exhausted.";

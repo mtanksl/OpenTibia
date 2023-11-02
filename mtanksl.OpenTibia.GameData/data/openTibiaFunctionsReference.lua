@@ -1,6 +1,6 @@
 return {
 	-- void print(params object[] parameters)
-	typeof = {
+	print = {
 		type = "function",
 		description = "",
 		args = "(params object[] parameters)",
@@ -14,7 +14,7 @@ return {
 		returns = "string",
 	},
 	-- object cast(object obj, string typeName)
-	typeof = {
+	cast = {
 		type = "function",
 		description = "",
 		args = "(object obj, string typeName)",
