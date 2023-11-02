@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Context.AddPacket(Player.Client.Connection, new SendInfoOutgoingPacket(Player.Id, Player.CanReportBugs) );
+            Context.AddPacket(Player.Client.Connection, new SendInfoOutgoingPacket(Player.Id, Player.Rank == Rank.Tutor || Player.Rank == Rank.Gamemaster) );
 
             Context.AddPacket(Player.Client.Connection, new SendTilesOutgoingPacket(Context.Server.Map, Player.Client, Player.Tile.Position) );
 

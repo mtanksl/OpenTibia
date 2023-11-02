@@ -66,6 +66,14 @@ namespace OpenTibia.Game.Commands
                     return Promise.Completed;
                 }
 
+                if (channel.Id == 2)
+                {
+                    if (Player.Rank != Rank.Tutor && Player.Rank != Rank.Gamemaster)
+                    {
+                        return Promise.Break;
+                    }
+                }
+
                 if (channel.Id == 3 || channel.Id == 4)
                 {
                     if (Player.Rank != Rank.Gamemaster)

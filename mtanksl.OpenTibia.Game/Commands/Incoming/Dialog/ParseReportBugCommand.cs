@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
         {
             // ctrl + z
 
-            if (Player.CanReportBugs)
+            if (Player.Rank == Rank.Tutor || Player.Rank == Rank.Gamemaster)
             {
                 Context.Database.BugReportRepository.AddBugReport(new DbBugReport()
                 {

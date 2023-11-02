@@ -41,8 +41,6 @@ namespace OpenTibia.Common.Objects
             Capacity = 400 * 100;
 
             Stamina = 42 * 60;
-
-            CanReportBugs = true;
         }
 
         private IClient client;
@@ -94,8 +92,6 @@ namespace OpenTibia.Common.Objects
         public uint Capacity { get; set; }
 
         public ushort Stamina { get; set; }
-
-        public bool CanReportBugs { get; set; }
 
         public Gender Gender { get; set; }
 

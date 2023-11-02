@@ -28,10 +28,20 @@ namespace OpenTibia.Game.Commands
             if (channel != null)
             {
                 if (channel.ContainsPlayer(Player) )
-                {                                                           
-                    foreach (var observer in channel.GetPlayers() )
+                {
+                    if (channel.Id == 9 && (Player.Rank == Rank.Tutor || Player.Rank == Rank.Gamemaster) )
                     {
-                        Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.ChannelYellow, channel.Id, Message) );
+                        foreach (var observer in channel.GetPlayers() )
+                        {
+                            Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.ChannelOrange, channel.Id, Message) );
+                        }
+                    }
+                    else
+                    {
+                        foreach (var observer in channel.GetPlayers() )
+                        {
+                            Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.ChannelYellow, channel.Id, Message) );
+                        }
                     }
 
                     return Promise.Completed;
