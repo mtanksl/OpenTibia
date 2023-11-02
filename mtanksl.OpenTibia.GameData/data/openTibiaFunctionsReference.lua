@@ -6,12 +6,19 @@ return {
 		args = "(params object[] parameters)",
 		returns = "void",
 	},
-	-- string typeof(object parameter)
+	-- string typeof(object obj)
 	typeof = {
 		type = "function",
 		description = "",
-		args = "(object parameter)",
+		args = "(object obj)",
 		returns = "string",
+	},
+	-- object cast(object obj, string typeName)
+	typeof = {
+		type = "function",
+		description = "",
+		args = "(object obj, string typeName)",
+		returns = "object",
 	},
 	debugger = {
 		type = "lib",

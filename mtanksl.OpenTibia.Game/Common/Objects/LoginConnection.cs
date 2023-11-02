@@ -117,7 +117,7 @@ namespace OpenTibia.Common.Objects
         protected override void OnDisconnected(DisconnectedEventArgs e)
         {
             server.Logger.WriteLine("Disconnected on login server", LogLevel.Debug);
-
+            
             base.OnDisconnected(e);
         }
     }

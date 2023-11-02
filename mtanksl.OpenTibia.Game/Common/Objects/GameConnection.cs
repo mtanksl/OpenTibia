@@ -909,19 +909,16 @@ namespace OpenTibia.Common.Objects
         {
             server.Logger.WriteLine("Disconnected on game server", LogLevel.Debug);
 
-            if (e.Type == DisconnectionType.SocketClosed || e.Type == DisconnectionType.SocketException)
+            if (Client == null || Client.Player == null || Client.Player.Tile == null || Client.Player.IsDestroyed)
             {
-                if (Client == null || Client.Player == null || Client.Player.Tile == null || Client.Player.IsDestroyed)
-                {
                     
-                }
-                else
+            }
+            else
+            {
+                server.QueueForExecution( () =>
                 {
-                    server.QueueForExecution( () =>
-                    {
-                        return Context.Current.AddCommand(new ParseLogOutCommand(Client.Player) );
-                    } );
-                }
+                    return Context.Current.AddCommand(new ParseLogOutCommand(Client.Player) );
+                } );
             }
             
             base.OnDisconnected(e);
