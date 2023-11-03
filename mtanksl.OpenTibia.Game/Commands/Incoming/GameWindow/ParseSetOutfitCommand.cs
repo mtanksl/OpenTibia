@@ -21,11 +21,15 @@ namespace OpenTibia.Game.Commands
 
             foreach (var pair in Player.Client.Outfits.GetIndexed() )
             {
-                OutfitConfig outfit = Context.Server.Outfits.GetOutfitById(pair.Key);
+                OutfitConfig outfitConfig = Context.Server.Outfits.GetOutfitById(pair.Key);
 
-                if (outfit != null)
+                if (outfitConfig == null)
                 {
-                    outfits.Add(new OutfitDto(pair.Key, outfit.Name, pair.Value) );
+                    outfits.Add(new OutfitDto(pair.Key, outfitConfig.Name, pair.Value) );
+                }
+                else
+                {
+                    outfits.Add(new OutfitDto(pair.Key, "Unknown", pair.Value) );
                 }
             }
 

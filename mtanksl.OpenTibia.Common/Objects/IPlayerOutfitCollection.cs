@@ -5,11 +5,11 @@ namespace OpenTibia.Common.Objects
 {
     public interface IPlayerOutfitCollection
     {
-        bool TryGetValue(ushort outfitId, out Addon _addon);
+        bool TryGetOutfit(ushort outfitId, out Addon _addon);
 
-        void SetValue(ushort outfitId, Addon addon);
+        void SetOutfit(ushort outfitId, Addon addon);
 
-        void RemoveValue(ushort outfitId);
+        void RemoveOutfit(ushort outfitId);
 
         IEnumerable< KeyValuePair<ushort, Addon> > GetIndexed();
     }

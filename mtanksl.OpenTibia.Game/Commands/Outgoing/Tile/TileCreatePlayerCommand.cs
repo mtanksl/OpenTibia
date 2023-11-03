@@ -214,25 +214,25 @@ namespace OpenTibia.Game.Commands
                 {
                     case Gender.Male:
 
-                        player.Client.Outfits.SetValue(Outfit.MaleCitizen.Id, Addon.None);
+                        player.Client.Outfits.SetOutfit(Outfit.MaleCitizen.Id, Addon.None);
 
-                        player.Client.Outfits.SetValue(Outfit.MaleHunter.Id, Addon.None);
+                        player.Client.Outfits.SetOutfit(Outfit.MaleHunter.Id, Addon.None);
 
-                        player.Client.Outfits.SetValue(Outfit.MaleMage.Id, Addon.None);
+                        player.Client.Outfits.SetOutfit(Outfit.MaleMage.Id, Addon.None);
 
-                        player.Client.Outfits.SetValue(Outfit.MaleKnight.Id, Addon.None);
+                        player.Client.Outfits.SetOutfit(Outfit.MaleKnight.Id, Addon.None);
 
                         break;
 
                     case Gender.Female:
 
-                        player.Client.Outfits.SetValue(Outfit.FemaleCitizen.Id, Addon.None);
+                        player.Client.Outfits.SetOutfit(Outfit.FemaleCitizen.Id, Addon.None);
 
-                        player.Client.Outfits.SetValue(Outfit.FemaleHunter.Id, Addon.None);
+                        player.Client.Outfits.SetOutfit(Outfit.FemaleHunter.Id, Addon.None);
 
-                        player.Client.Outfits.SetValue(Outfit.FemaleMage.Id, Addon.None);
+                        player.Client.Outfits.SetOutfit(Outfit.FemaleMage.Id, Addon.None);
 
-                        player.Client.Outfits.SetValue(Outfit.FemaleKnight.Id, Addon.None);
+                        player.Client.Outfits.SetOutfit(Outfit.FemaleKnight.Id, Addon.None);
 
                         break;
 
@@ -245,7 +245,7 @@ namespace OpenTibia.Game.Commands
             {
                 foreach (var dbPlayerOutfit in dbPlayer.PlayerOutfits)
                 {
-                    player.Client.Outfits.SetValue( (ushort)dbPlayerOutfit.OutfitId, (Addon)dbPlayerOutfit.OutfitAddon);
+                    player.Client.Outfits.SetOutfit( (ushort)dbPlayerOutfit.OutfitId, (Addon)dbPlayerOutfit.OutfitAddon);
                 }
             }          
         }
