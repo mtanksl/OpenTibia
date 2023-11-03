@@ -1,15 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using OpenTibia.Common.Structures;
+using System.Collections.Generic;
 
 namespace OpenTibia.Common.Objects
 {
     public interface IPlayerOutfitCollection
     {
-        bool TryGetValue(int key, out int _value);
+        bool TryGetValue(ushort outfitId, out Addon _addon);
 
-        void SetValue(int key, int value);
+        void SetValue(ushort outfitId, Addon addon);
 
-        void RemoveValue(int key);
+        void RemoveValue(ushort outfitId);
 
-        IEnumerable< KeyValuePair<int, int> > GetIndexed();
+        IEnumerable< KeyValuePair<ushort, Addon> > GetIndexed();
     }
 }

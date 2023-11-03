@@ -1,27 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using OpenTibia.Common.Structures;
+using System.Collections.Generic;
 
 namespace OpenTibia.Common.Objects
 {
     public class PlayerOutfitCollection : IPlayerOutfitCollection
     {
-        private Dictionary<int, int> outfits = new Dictionary<int, int>();
+        private Dictionary<ushort, Addon> outfits = new Dictionary<ushort, Addon>();
 
-        public bool TryGetValue(int key, out int value)
+        public bool TryGetValue(ushort outfitId, out Addon _addon)
         {
-            return outfits.TryGetValue(key, out value);
+            return outfits.TryGetValue(outfitId, out _addon);
         }
 
-        public void SetValue(int key, int value)
+        public void SetValue(ushort outfitId, Addon addon)
         {
-            outfits[key] = value;
+            outfits[outfitId] = addon;
         }
 
-        public void RemoveValue(int key)
+        public void RemoveValue(ushort outfitId)
         {
-            outfits.Remove(key);
+            outfits.Remove(outfitId);
         }
                 
-        public IEnumerable< KeyValuePair<int, int> > GetIndexed()
+        public IEnumerable< KeyValuePair<ushort, Addon> > GetIndexed()
         {
             foreach (var item in outfits)
             {

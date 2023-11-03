@@ -31,13 +31,15 @@ namespace OpenTibia.Game.Commands
 
                     SavePlayer(Context, dbPlayer, Player);
 
-                    SaveLocker(Context, dbPlayer, Player);
+                    SaveLockers(Context, dbPlayer, Player);
 
                     SaveInventory(Context, dbPlayer, Player);
 
-                    SaveStorage(Context, dbPlayer, Player);
+                    SaveStorages(Context, dbPlayer, Player);
 
-                    SaveVip(Context, dbPlayer, Player);
+                    SaveOutfits(Context, dbPlayer, Player);
+
+                    SaveVips(Context, dbPlayer, Player);
 
                 Context.Database.Commit();
 
@@ -203,7 +205,7 @@ namespace OpenTibia.Game.Commands
             dbPlayer.SpawnZ = player.Tile.Position.Z;
         }
 
-        private static void SaveLocker(Context context, DbPlayer dbPlayer, Player player)
+        private static void SaveLockers(Context context, DbPlayer dbPlayer, Player player)
         {
             int sequenceId = 101;
 
@@ -287,7 +289,7 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        private static void SaveStorage(Context context, DbPlayer dbPlayer, Player player)
+        private static void SaveStorages(Context context, DbPlayer dbPlayer, Player player)
         {
             dbPlayer.PlayerStorages.Clear();
 
@@ -304,7 +306,24 @@ namespace OpenTibia.Game.Commands
             }            
         }
 
-        private static void SaveVip(Context context, DbPlayer dbPlayer, Player player)
+        private static void SaveOutfits(Context context, DbPlayer dbPlayer, Player player)
+        {
+            dbPlayer.PlayerOutfits.Clear();
+
+            foreach (var pair in player.Client.Outfits.GetIndexed() )
+            {
+                dbPlayer.PlayerOutfits.Add(new DbPlayerOutfit()
+                {
+                    PlayerId = dbPlayer.Id,
+
+                    OutfitId = (int)pair.Key,
+
+                    OutfitAddon = (int)pair.Value
+                } );
+            }            
+        }
+
+        private static void SaveVips(Context context, DbPlayer dbPlayer, Player player)
         {
             dbPlayer.PlayerVips.Clear();
 

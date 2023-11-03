@@ -2,7 +2,6 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets;
 using OpenTibia.Network.Packets.Outgoing;
-using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
@@ -20,35 +19,14 @@ namespace OpenTibia.Game.Commands
         {
             List<OutfitDto> outfits = new List<OutfitDto>();
 
-            switch (Player.Gender)
+            foreach (var pair in Player.Client.Outfits.GetIndexed() )
             {
-                case Gender.Male:
+                OutfitConfig outfit = Context.Server.Outfits.GetOutfitById(pair.Key);
 
-                    outfits.Add(new OutfitDto(Outfit.MaleCitizen.Id, "Citizen", Addon.None) );
-
-                    outfits.Add(new OutfitDto(Outfit.MaleHunter.Id, "Hunter", Addon.None) );
-
-                    outfits.Add(new OutfitDto(Outfit.MaleMage.Id, "Mage", Addon.None) );
-
-                    outfits.Add(new OutfitDto(Outfit.MaleKnight.Id, "Knight", Addon.None) );
-
-                    break;
-
-                case Gender.Female:
-
-                    outfits.Add( new OutfitDto(Outfit.FemaleCitizen.Id, "Citizen", Addon.None) );
-
-                    outfits.Add( new OutfitDto(Outfit.FemaleHunter.Id, "Hunter", Addon.None) );
-
-                    outfits.Add( new OutfitDto(Outfit.FemaleMage.Id, "Mage", Addon.None) );
-
-                    outfits.Add( new OutfitDto(Outfit.FemaleKnight.Id, "Knight", Addon.None) );
-
-                    break;
-
-                default:
-
-                    throw new NotImplementedException();
+                if (outfit != null)
+                {
+                    outfits.Add(new OutfitDto(pair.Key, outfit.Name, pair.Value) );
+                }
             }
 
             if (Player.Rank == Rank.Gamemaster)

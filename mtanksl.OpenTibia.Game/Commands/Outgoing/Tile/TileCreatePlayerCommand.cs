@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Data.Models;
+using System;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
@@ -34,13 +35,15 @@ namespace OpenTibia.Game.Commands
 
                 LoadPlayer(Context, DbPlayer, player);
 
-                LoadLocker(Context, DbPlayer, player);
+                LoadLockers(Context, DbPlayer, player);
 
                 LoadInventory(Context, DbPlayer, player);
 
-                LoadStorage(Context, DbPlayer, player);
+                LoadStorages(Context, DbPlayer, player);
 
-                LoadVip(Context, DbPlayer, player);
+                LoadOutfits(Context, DbPlayer, player);
+
+                LoadVips(Context, DbPlayer, player);
 
                 return Context.AddCommand(new TileAddCreatureCommand(Tile, player) ).Then( () =>
                 {
@@ -130,7 +133,7 @@ namespace OpenTibia.Game.Commands
             player.Rank = (Rank)dbPlayer.Rank;
         }
 
-        private static void LoadLocker(Context context, DbPlayer dbPlayer, Player player)
+        private static void LoadLockers(Context context, DbPlayer dbPlayer, Player player)
         {
             void AddItems(Container parent, int sequenceId)
             {
@@ -195,7 +198,7 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        private static void LoadStorage(Context context, DbPlayer dbPlayer, Player player)
+        private static void LoadStorages(Context context, DbPlayer dbPlayer, Player player)
         {
             foreach (var dbPlayerStorage in dbPlayer.PlayerStorages)
             {
@@ -203,7 +206,51 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        private static void LoadVip(Context context, DbPlayer dbPlayer, Player player)
+        private static void LoadOutfits(Context context, DbPlayer dbPlayer, Player player)
+        {
+            if (dbPlayer.PlayerOutfits.Count == 0)
+            {
+                switch (player.Gender)
+                {
+                    case Gender.Male:
+
+                        player.Client.Outfits.SetValue(Outfit.MaleCitizen.Id, Addon.None);
+
+                        player.Client.Outfits.SetValue(Outfit.MaleHunter.Id, Addon.None);
+
+                        player.Client.Outfits.SetValue(Outfit.MaleMage.Id, Addon.None);
+
+                        player.Client.Outfits.SetValue(Outfit.MaleKnight.Id, Addon.None);
+
+                        break;
+
+                    case Gender.Female:
+
+                        player.Client.Outfits.SetValue(Outfit.FemaleCitizen.Id, Addon.None);
+
+                        player.Client.Outfits.SetValue(Outfit.FemaleHunter.Id, Addon.None);
+
+                        player.Client.Outfits.SetValue(Outfit.FemaleMage.Id, Addon.None);
+
+                        player.Client.Outfits.SetValue(Outfit.FemaleKnight.Id, Addon.None);
+
+                        break;
+
+                    default:
+
+                        throw new NotImplementedException();
+                }
+            }
+            else
+            {
+                foreach (var dbPlayerOutfit in dbPlayer.PlayerOutfits)
+                {
+                    player.Client.Outfits.SetValue( (ushort)dbPlayerOutfit.OutfitId, (Addon)dbPlayerOutfit.OutfitAddon);
+                }
+            }          
+        }
+
+        private static void LoadVips(Context context, DbPlayer dbPlayer, Player player)
         {
             foreach (var dbVip in dbPlayer.PlayerVips)
             {
