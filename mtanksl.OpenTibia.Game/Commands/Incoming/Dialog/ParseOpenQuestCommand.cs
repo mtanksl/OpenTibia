@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Quest quest = Context.Server.Quests.GetQuestById(QuestId);
+            QuestConfig quest = Context.Server.Quests.GetQuestById(QuestId);
 
             if (quest != null)
             {

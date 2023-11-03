@@ -21,7 +21,7 @@ namespace OpenTibia.Game
 
             foreach (LuaTable lQuest in ( (LuaTable)script["quests"] ).Values)
             {
-                Quest quest = new Quest()
+                QuestConfig quest = new QuestConfig()
                 {
                     Id = (ushort)(long)lQuest["id"],
 
@@ -30,7 +30,7 @@ namespace OpenTibia.Game
 
                 foreach (LuaTable lMission in ( (LuaTable)lQuest["missions"] ).Values)
                 {
-                    Mission mission = new Mission()
+                    MissionConfig mission = new MissionConfig()
                     {
                         Name = (string)lMission["name"],
 
@@ -48,11 +48,11 @@ namespace OpenTibia.Game
             }
         }
 
-        private Dictionary<ushort, Quest> quests = new Dictionary<ushort, Quest>();
+        private Dictionary<ushort, QuestConfig> quests = new Dictionary<ushort, QuestConfig>();
 
-        public Quest GetQuestById(ushort id)
+        public QuestConfig GetQuestById(ushort id)
         {
-            Quest quest;
+            QuestConfig quest;
 
             if (quests.TryGetValue(id, out quest) )
             {
@@ -62,7 +62,7 @@ namespace OpenTibia.Game
             return null;
         }
 
-        public IEnumerable<Quest> GetQuests()
+        public IEnumerable<QuestConfig> GetQuests()
         {
             return quests.Values;
         }

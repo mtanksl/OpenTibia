@@ -1,6 +1,6 @@
 ﻿namespace OpenTibia.Game
 {
-    public class Mission
+    public class MissionConfig
     {
         public string Name { get; set; }
 

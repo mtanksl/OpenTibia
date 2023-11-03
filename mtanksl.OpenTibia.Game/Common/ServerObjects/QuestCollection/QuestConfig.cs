@@ -2,15 +2,15 @@
 
 namespace OpenTibia.Game
 {
-    public class Quest
+    public class QuestConfig
     {
         public ushort Id { get; set; }
 
         public string Name { get; set; }
 
-        private List<Mission> missions = new List<Mission>();
+        private List<MissionConfig> missions = new List<MissionConfig>();
 
-        public List<Mission> Missions
+        public List<MissionConfig> Missions
         {
             get
             {

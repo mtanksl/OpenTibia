@@ -93,6 +93,8 @@ namespace OpenTibia.Game
 
             Quests = new QuestCollection(this);
 
+            Outfits = new OutfitCollection(this);
+
             Plugins = new PluginCollection(this);
 
             ItemFactory = new ItemFactory(this);
@@ -165,6 +167,8 @@ namespace OpenTibia.Game
 
         public QuestCollection Quests { get; set; }
 
+        public OutfitCollection Outfits { get; set; }
+
         public PluginCollection Plugins { get; set; }
 
         public ItemFactory ItemFactory { get; set; }
@@ -203,6 +207,11 @@ namespace OpenTibia.Game
                 using (Logger.Measure("Loading quests") )
                 {
                     Quests.Start();
+                }
+
+                using (Logger.Measure("Loading outfits") )
+                {
+                    Outfits.Start();
                 }
 
                 using (Logger.Measure("Loading plugins") )

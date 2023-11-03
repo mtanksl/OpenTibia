@@ -29,11 +29,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtanksl.OpenTibia.Host", "m
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtanksl.OpenTibia.Host.GUI", "mtanksl.OpenTibia.Host.GUI\mtanksl.OpenTibia.Host.GUI.csproj", "{49AB4E09-DC7D-4818-A36B-D7486AB35B71}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{98AE4E72-0A59-4D36-87FB-B6527CE5417D}"
-	ProjectSection(SolutionItems) = preProject
-		TODO.md = TODO.md
-	EndProjectSection
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "mtanksl.OpenTibia.GameData", "mtanksl.OpenTibia.GameData\mtanksl.OpenTibia.GameData.shproj", "{0269E0F5-D24C-4799-918F-C3819A5D43B7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtanksl.OpenTibia.Data.Sqlite", "mtanksl.OpenTibia.Data.Sqlite\mtanksl.OpenTibia.Data.Sqlite.csproj", "{1851FE24-0BF2-4BE8-BAB8-C66016BE41E6}"
@@ -42,7 +37,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtanksl.OpenTibia.Data.MySq
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtanksl.OpenTibia.Data.MsSql", "mtanksl.OpenTibia.Data.MsSql\mtanksl.OpenTibia.Data.MsSql.csproj", "{384D6440-1180-4222-8818-D4EA4F1A147B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Tests", "mtanksl.OpenTibia.Tests\mtanksl.OpenTibia.Tests.csproj", "{C7AC3266-F553-4D69-BA5C-7983DF5BD78A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtanksl.OpenTibia.Tests", "mtanksl.OpenTibia.Tests\mtanksl.OpenTibia.Tests.csproj", "{C7AC3266-F553-4D69-BA5C-7983DF5BD78A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

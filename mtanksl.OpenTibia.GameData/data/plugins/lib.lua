@@ -263,8 +263,13 @@ vocation = {
 	eliteknight = 5,
 	royalpaladin = 6,
 	elderdruid = 7,
-	mastersorcerer = 8,
-	gamemaster = 9
+	mastersorcerer = 8
+}
+
+rank = {
+	player = 0,
+	tutor = 1,
+	gamemaster = 2
 }
 
 attack = {
