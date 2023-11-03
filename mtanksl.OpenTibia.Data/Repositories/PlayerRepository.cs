@@ -58,6 +58,10 @@ namespace OpenTibia.Data.Repositories
                     .Include(v => v.Vip)
                     .Where(pi => pi.PlayerId == player.Id)
                     .Load();
+
+                context.PlayerOutfits
+                    .Where(pi => pi.PlayerId == player.Id)
+                    .Load();
             }
 
             return player;
@@ -85,6 +89,10 @@ namespace OpenTibia.Data.Repositories
 
                 context.PlayerVips
                     .Include(v => v.Vip)
+                    .Where(pi => pi.PlayerId == player.Id)
+                    .Load();
+
+                context.PlayerOutfits
                     .Where(pi => pi.PlayerId == player.Id)
                     .Load();
             }

@@ -39,6 +39,9 @@ namespace OpenTibia.Data.Contexts
                 .WithMany()
                 .HasForeignKey(v => v.VipId);
 
+            modelBuilder.Entity<DbPlayerOutfit>()
+                .HasKey(m => new { m.PlayerId, m.OutfitId } );
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -61,6 +64,8 @@ namespace OpenTibia.Data.Contexts
         public DbSet<DbPlayerStorage> PlayerStorages { get; set; }
 
         public DbSet<DbPlayerVip> PlayerVips { get; set; }
+
+        public DbSet<DbPlayerOutfit> PlayerOutfits { get; set; }
 
         public DbSet<DbRuleViolationReport> RuleViolationReports { get; set; }
 

@@ -147,6 +147,19 @@ CREATE TABLE `PlayerStorages` (
   CONSTRAINT `FK_PlayerStorages_PlayerId` FOREIGN KEY (`PlayerId`) REFERENCES `Players` (`Id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- PlayerOutfits
+
+DROP TABLE IF EXISTS `PlayerOutfits`;
+
+CREATE TABLE `PlayerOutfits` (
+  `PlayerId` int(11) NOT NULL,
+  OutfitId int(11) NOT NULL,
+  OutfitAddon int(11) NOT NULL,
+  PRIMARY KEY (`PlayerId`,OutfitId),
+  KEY `IX_PlayerOutfits_PlayerId` (`PlayerId`),
+  CONSTRAINT `FK_PlayerOutfits_PlayerId` FOREIGN KEY (`PlayerId`) REFERENCES `Players` (`Id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- PlayerVips
 
 DROP TABLE IF EXISTS `PlayerVips`;

@@ -224,6 +224,24 @@ CREATE TABLE [dbo].[PlayerStorages](
 ) ON [PRIMARY]
 GO
 
+-- PlayerOutfits
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[PlayerOutfits](
+	[PlayerId] [int] NOT NULL,
+	[OutfitId] [int] NOT NULL,
+	[OutfitAddon] [int] NOT NULL,
+ CONSTRAINT [PK_PlayerOutfits] PRIMARY KEY CLUSTERED 
+(
+	[PlayerId] ASC,
+	[OutfitAddon] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- PlayerVips
 
 SET ANSI_NULLS ON

@@ -176,6 +176,16 @@ CREATE TABLE PlayerStorages (
 );
 CREATE INDEX IX_PlayerStorages_PlayerId ON PlayerStorages (PlayerId);
 
+-- PlayerOutfits
+
+CREATE TABLE PlayerOutfits (
+    PlayerId INTEGER NOT NULL REFERENCES Players (Id) ON DELETE CASCADE,
+    OutfitId INTEGER NOT NULL,
+    OutfitAddon INTEGER NOT NULL,
+    PRIMARY KEY (PlayerId, OutfitId)
+);
+CREATE INDEX IX_PlayerOutfits_PlayerId ON PlayerOutfits (PlayerId);
+
 -- PlayerVips
 
 CREATE TABLE PlayerVips (
