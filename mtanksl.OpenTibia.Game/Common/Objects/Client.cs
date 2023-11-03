@@ -13,9 +13,11 @@ namespace OpenTibia.Common.Objects
 
             this.Windows = new WindowCollection(this);
 
-            this.Storages = new StorageCollection();
+            this.Storages = new PlayerStorageCollection();
 
-            this.Vips = new VipCollection();
+            this.Outfits = new PlayerOutfitCollection();
+
+            this.Vips = new PlayerVipCollection();
         }
 
         public IBattleCollection Battles { get; }
@@ -24,9 +26,11 @@ namespace OpenTibia.Common.Objects
 
         public IWindowCollection Windows { get; }
 
-        public IStorageCollection Storages { get; }
+        public IPlayerStorageCollection Storages { get; }
 
-        public IVipCollection Vips { get; }
+        public IPlayerOutfitCollection Outfits { get; }
+
+        public IPlayerVipCollection Vips { get; }
 
         private Player player;
 

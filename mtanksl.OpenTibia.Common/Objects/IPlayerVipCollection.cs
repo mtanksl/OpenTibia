@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Common.Objects
 {
-    public interface IVipCollection
+    public interface IPlayerVipCollection
     {
         bool TryGetVip(int databasePlayerId, out string name);
 

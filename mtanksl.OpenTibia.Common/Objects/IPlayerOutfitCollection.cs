@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Common.Objects
 {
-    public interface IStorageCollection
+    public interface IPlayerOutfitCollection
     {
         bool TryGetValue(int key, out int _value);
 

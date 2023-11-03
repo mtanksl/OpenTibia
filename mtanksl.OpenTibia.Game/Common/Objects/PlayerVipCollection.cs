@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Common.Objects
 {
-    public class VipCollection : IVipCollection
+    public class PlayerVipCollection : IPlayerVipCollection
     {
         private Dictionary<int, string> vips = new Dictionary<int, string>();
 
