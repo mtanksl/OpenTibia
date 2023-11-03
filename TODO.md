@@ -40,6 +40,7 @@
 - Task scheduler thread
 - Main game dispatcher thread
 - The base objects
+	- Vocation (knight, paladin, sorcerer, druid, etc) and rank (player, tutor, gamemaster) 
 - The base structures
 - Interacting with the client
 	- Message of the day
