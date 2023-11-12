@@ -21,17 +21,21 @@
 
             GameMaxPlayers = (int)(long)script["server.game.maxplayers"];
 
-            RateLimitingMaxPackets = (int)(long)script["server.ratelimiting.maxpackets"];
+            RateLimitingMaxPackets = (int)(long)script["server.security.maxpackets"];
 
-            RateLimitingMaxPacketsPerMilliseconds = (int)(long)script["server.ratelimiting.maxpacketspermilliseconds"];
+            RateLimitingMaxPacketsPerMilliseconds = (int)(long)script["server.security.maxpacketspermilliseconds"];
                      
-            RateLimitingPacketsAbuseBanMilliseconds = (int)(long)script["server.ratelimiting.packetsabusebanmilliseconds"];
+            RateLimitingPacketsAbuseBanMilliseconds = (int)(long)script["server.security.packetsabusebanmilliseconds"];
 
-            RateLimitingMaxLoginAttempts = (int)(long)script["server.ratelimiting.maxloginattempts"];
+            RateLimitingMaxLoginAttempts = (int)(long)script["server.security.maxloginattempts"];
 
-            RateLimitingMaxLoginAttemptsPerMilliseconds = (int)(long)script["server.ratelimiting.maxloginattemptspermilliseconds"];
+            RateLimitingMaxLoginAttemptsPerMilliseconds = (int)(long)script["server.security.maxloginattemptspermilliseconds"];
 
-            RateLimitingLoginAttemptsAbuseBanMilliseconds = (int)(long)script["server.ratelimiting.loginattemptsabusebanmilliseconds"];
+            RateLimitingLoginAttemptsAbuseBanMilliseconds = (int)(long)script["server.security.loginattemptsabusebanmilliseconds"];
+
+            SocketReceiveTimeoutMilliseconds = (int)(long)script["server.security.socketreceivetimeoutmilliseconds"];
+           
+            SocketSendTimeoutMilliseconds = (int)(long)script["server.security.socketsendtimeoutmilliseconds"];
 
             DatabaseType = (string)script["server.database.type"];
 
@@ -65,6 +69,10 @@
         public int RateLimitingMaxLoginAttemptsPerMilliseconds { get; set; }
 
         public int RateLimitingLoginAttemptsAbuseBanMilliseconds { get; set; }
+
+        public int SocketReceiveTimeoutMilliseconds { get; set; }
+
+        public int SocketSendTimeoutMilliseconds { get; set; }
 
         public string DatabaseType { get; set; }
 

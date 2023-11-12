@@ -102,5 +102,6 @@
 - Security
 	- Ban/unban by player name, account or ip address
 	- Rate limiting
-		- Login attempts
 		- Packets abuse
+		- Login attempts
+	- Socket timeout

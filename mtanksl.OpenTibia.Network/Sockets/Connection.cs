@@ -16,9 +16,19 @@ namespace OpenTibia.Network.Sockets
 
         private Socket socket;
 
-        public Connection(Socket socket)
+        private int receiveTimeout;
+
+        private int sendTimeout;
+
+        public Connection(Socket socket, int receiveTimeout, int sendTimeout)
         {
             this.socket = socket;
+
+            this.receiveTimeout = receiveTimeout;
+
+            this.sendTimeout = sendTimeout;
+
+            this.ipAddress = ( (IPEndPoint)socket.RemoteEndPoint).Address.ToString();
         }
 
         ~Connection()
@@ -26,11 +36,13 @@ namespace OpenTibia.Network.Sockets
             Dispose(false);
         }
 
+        private string ipAddress;
+
         public string IpAddress
         {
             get
             {
-                return ( (IPEndPoint)socket.RemoteEndPoint ).Address.ToString();
+                return ipAddress;
             }
         }
 
@@ -104,7 +116,22 @@ namespace OpenTibia.Network.Sockets
                             {
                                 bodyLength = header[1] << 8 | header[0];
 
-                                socket.BeginReceive(body, 0, bodyLength, SocketFlags.None, ReceiveBody, null);
+                                IAsyncResult slowSender = socket.BeginReceive(body, 0, bodyLength, SocketFlags.None, ReceiveBody, null);
+
+                                if ( !slowSender.IsCompleted)
+                                {
+                                    ThreadPool.RegisterWaitForSingleObject(slowSender.AsyncWaitHandle, (state, timeout) => 
+                                    {
+                                        lock (sync)
+                                        {
+                                            if (timeout)
+                                            {
+                                                Disconnect();
+                                            }
+                                        }
+
+                                    }, null, receiveTimeout, true);
+                                }
                             }
                             else
                             {
@@ -169,7 +196,22 @@ namespace OpenTibia.Network.Sockets
             {
                 if ( !stopped )
                 {
-                    socket.BeginSend(bytes, 0, bytes.Length, SocketFlags.None, Send, bytes);
+                    IAsyncResult slowReceiver = socket.BeginSend(bytes, 0, bytes.Length, SocketFlags.None, Send, bytes);
+
+                    if ( !slowReceiver.IsCompleted)
+                    {
+                        ThreadPool.RegisterWaitForSingleObject(slowReceiver.AsyncWaitHandle, (state, timeout) => 
+                        {
+                            lock (sync)
+                            {
+                                if (timeout)
+                                {
+                                    Disconnect();
+                                }
+                            }
+
+                        }, null, sendTimeout, true);
+                    }
                 }
             }
         }
@@ -207,9 +249,12 @@ namespace OpenTibia.Network.Sockets
 
         public void Disconnect()
         {
-            if ( !stopped )
+            lock (sync)
             {
-                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.Requested) );
+                if ( !stopped )
+                {
+                    OnDisconnected(new DisconnectedEventArgs(DisconnectionType.Requested) );
+                }
             }
         }
 
