@@ -389,6 +389,34 @@ return {
 				args = "(Player player, int key, int value)",
 				returns = "void",
 			},
+			-- void command.playerremovestorage(Player player, int key)
+			playersetstorage = {
+				type = "function",
+				description = "",
+				args = "(Player player, int key)",
+				returns = "void",
+			},
+			-- (bool, Addon) command.playergetoutfit(Player player, ushort outfitId)
+			playergetoutfit = {
+				type = "function",
+				description = "",
+				args = "(Player player, ushort outfitId)",
+				returns = "(bool, Addon)",
+			},
+			-- void command.playersetoutfit(Player player, ushort outfitId, Addon addon)
+			playersetoutfit = {
+				type = "function",
+				description = "",
+				args = "(Player player, ushort outfitId, Addon addon)",
+				returns = "void",
+			},
+			-- void command.playerremoveoutfit(Player player, ushort outfitId)
+			playersetoutfit = {
+				type = "function",
+				description = "",
+				args = "(Player player, ushort outfitId)",
+				returns = "void",
+			},
 			-- void command.splashitemupdatefluidtype(SplashItem splashItem, FluidType fluidType)
 			splashitemupdatefluidtype = {
 				type = "function",

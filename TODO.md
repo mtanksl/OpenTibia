@@ -26,7 +26,6 @@
 - Mail
 - Guild
 - Party
-- Addons
 - House
 - Bed
 - Bless/AOL
@@ -46,6 +45,7 @@
 	- Message of the day
 	- Waiting list
 	- Quests
+		- Database for storage
 	- Hotkeys
 	- Report bug
 	- Report rule violation
@@ -55,6 +55,7 @@
 	- Walking
 	- Turning
 	- Changing outfit
+		- Database fot outfits/addons
 	- Logout
 - Interacting with other players
 	- Say
@@ -102,4 +103,4 @@
 	- Ban/unban by player name, account or ip address
 	- Rate limiting
 		- Login attempts
-		- Packets
+		- Packets abuse
