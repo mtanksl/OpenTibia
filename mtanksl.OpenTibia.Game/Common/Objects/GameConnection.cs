@@ -38,7 +38,7 @@ namespace OpenTibia.Common.Objects
 
             server.QueueForExecution( () =>
             {
-                Context.Current.AddPacket(this, new SendConnectionInfoOutgoingPacket() );
+                Context.Current.AddPacket(this, new SendConnectionInfoOutgoingPacket(0) );
 
                 return Promise.Completed;
             } );

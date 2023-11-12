@@ -4,11 +4,18 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class SendConnectionInfoOutgoingPacket : IOutgoingPacket
     {
+        public SendConnectionInfoOutgoingPacket(uint nonce)
+        {
+            this.Nonce = nonce;
+        }
+
+        public uint Nonce { get; set; }
+
         public void Write(ByteArrayStreamWriter writer)
         {
             writer.Write( (byte)0x1F );
 
-            writer.Write( (uint)0x00 );
+            writer.Write(Nonce);
 
             writer.Write( (byte)0x00 );
         }
