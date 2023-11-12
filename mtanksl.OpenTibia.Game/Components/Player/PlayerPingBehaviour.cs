@@ -25,10 +25,12 @@ namespace OpenTibia.Game.Components
             {
                 if ( (DateTime.UtcNow - lastPingResponse).TotalMinutes >= 1)
                 {
-                    return Context.AddCommand(new ParseLogOutCommand(player) );
+                    Context.Disconnect(player.Client.Connection);
                 }
-
-                Context.AddPacket(player.Client.Connection, new PingOutgoingPacket() );
+                else
+                {
+                    Context.AddPacket(player.Client.Connection, new PingOutgoingPacket() );
+                }
 
                 return Promise.Completed;
             } );

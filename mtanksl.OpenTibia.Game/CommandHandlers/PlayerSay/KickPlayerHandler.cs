@@ -20,7 +20,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (observer != null && observer != command.Player)
                 {
-                    return Context.AddCommand(new ParseLogOutCommand(observer) );
+                    Context.Disconnect(observer.Client.Connection);
+
+                    return Promise.Completed;
                 }
 
                 return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );

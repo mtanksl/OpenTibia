@@ -126,7 +126,7 @@ namespace OpenTibia.Network.Sockets
                                         {
                                             if (timeout)
                                             {
-                                                Disconnect();
+                                                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SlowSocket) );
                                             }
                                         }
 
@@ -206,7 +206,7 @@ namespace OpenTibia.Network.Sockets
                             {
                                 if (timeout)
                                 {
-                                    Disconnect();
+                                    OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SlowSocket) );
                                 }
                             }
 
@@ -251,7 +251,7 @@ namespace OpenTibia.Network.Sockets
         {
             lock (sync)
             {
-                if ( !stopped )
+                if (!stopped)
                 {
                     OnDisconnected(new DisconnectedEventArgs(DisconnectionType.Requested) );
                 }

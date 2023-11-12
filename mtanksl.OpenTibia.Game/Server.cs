@@ -422,14 +422,12 @@ namespace OpenTibia.Game
         {
             QueueForExecution( () =>
             {
-                List<Promise> promises = new List<Promise>();
-
                 foreach (var observer in Context.Current.Server.GameObjects.GetPlayers() )
                 {
-                    promises.Add(Context.Current.AddCommand(new PlayerDestroyCommand(observer) ) );
+                    Context.Current.Disconnect(observer.Client.Connection);
                 }
 
-                return Promise.WhenAll(promises.ToArray() );
+                return Promise.Completed;
 
             } ).Wait();
 

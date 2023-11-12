@@ -24,7 +24,7 @@ namespace OpenTibia.Common.Objects
         {
             if ( !server.RateLimiting.CanReceive(IpAddress) )
             {
-                Disconnect();
+                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.RateLimiting) );
 
                 return false;
             }

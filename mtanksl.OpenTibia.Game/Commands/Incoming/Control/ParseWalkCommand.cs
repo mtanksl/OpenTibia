@@ -22,6 +22,13 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            PlayerIdleBehaviour playerIdleBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerIdleBehaviour>(Player);
+
+            if (playerIdleBehaviour != null)
+            {
+                playerIdleBehaviour.SetLastActionResponse();
+            }
+
             Tile fromTile = Player.Tile;
 
             Tile toTile = Context.Server.Map.GetTile(fromTile.Position.Offset(MoveDirection) );

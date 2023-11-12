@@ -104,4 +104,6 @@
 	- Rate limiting
 		- Packets abuse
 		- Login attempts
-	- Socket timeout
+	- Kick slow sockets
+	- Kick after 1 minute without network
+	- Kick after 15 minutes idle

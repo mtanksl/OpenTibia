@@ -26,6 +26,10 @@ namespace OpenTibia.Network.Sockets
 
         SocketClosed,
 
-        SocketException
+        SocketException,
+
+        RateLimiting,
+
+        SlowSocket
     }
 }

@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.Commands
 {
@@ -18,6 +19,13 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            PlayerIdleBehaviour playerIdleBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerIdleBehaviour>(Player);
+
+            if (playerIdleBehaviour != null)
+            {
+                playerIdleBehaviour.SetLastActionResponse();
+            }
+
             return Context.AddCommand(new CreatureUpdateDirectionCommand(Player, Direction) );
         }
     }

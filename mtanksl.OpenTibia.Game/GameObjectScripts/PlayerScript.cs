@@ -23,6 +23,8 @@ namespace OpenTibia.Game.GameObjectScripts
             Context.Server.GameObjectComponents.AddComponent(player, new PlayerEnvironmentLightBehaviour() );
 
             Context.Server.GameObjectComponents.AddComponent(player, new PlayerPingBehaviour() );
+
+            Context.Server.GameObjectComponents.AddComponent(player, new PlayerIdleBehaviour() );
         }
 
         public override void Stop(Player player)
