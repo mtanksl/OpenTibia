@@ -80,6 +80,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CancelQueueForExecution("TibiaClockTick");
 
+            Context.Server.CancelQueueForExecution("RealClockTick");
+
             Context.Server.CancelQueueForExecution("Ping");
         }
     }

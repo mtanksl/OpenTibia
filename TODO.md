@@ -22,7 +22,6 @@
 - NPC trade window
 - Rings and amulets charges
 - Hangable items
-- Read sign items
 - Mail
 - Guild
 - Party
@@ -82,6 +81,7 @@
 	- Protection zone
 - Interacting with the game world 
 	- Look item
+		- Sign items
 	- Move item
 	- Rotate item
 	- Use item

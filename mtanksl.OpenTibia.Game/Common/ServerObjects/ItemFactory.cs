@@ -42,6 +42,11 @@ namespace OpenTibia.Game
                         metadata.Flags |= ItemMetadataFlags.Readable;
                     }
 
+                    if (otbItem.Flags.Is(FileFormats.Otb.ItemFlags.AllowDistanceRead) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.AllowDistanceRead;
+                    }
+
                     metadatas.Add(otbItem.OpenTibiaId, metadata);
                 }
             }
@@ -282,6 +287,10 @@ namespace OpenTibia.Game
             else if (metadata.Flags.Is(ItemMetadataFlags.Readable) )
             {
                 item = new ReadableItem(metadata);
+            }
+            else if (metadata.Flags.Is(ItemMetadataFlags.AllowDistanceRead) )
+            {
+                item = new SignItem(metadata);
             }
             else
             {

@@ -31,7 +31,9 @@ namespace OpenTibia.Common.Structures
 
         HasHeight = 2048,
 
-        Readable = 4096
+        Readable = 4096,
+
+        AllowDistanceRead = 8192
     }
 
     public static class ItemMetadataFlagsExtensions

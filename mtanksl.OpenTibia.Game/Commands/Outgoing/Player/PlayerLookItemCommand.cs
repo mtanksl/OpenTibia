@@ -270,7 +270,25 @@ namespace OpenTibia.Game.Commands
                         break;
                 }
             }
-
+            else if (Item is SignItem signItem)
+            {                
+                if (Player.Tile.Position.IsInRange( ( (Tile)Item.Parent).Position, 4) )
+                {
+                    if (signItem.Text != null)
+                    {
+                        description = "You read: " + signItem.Text + ".";
+                    }
+                    else
+                    {
+                        description = "Nothing is written on it.";
+                    }
+                }
+                else
+                {
+                    description = "You are too far away to read it.";
+                }              
+            }
+                       
             if (Item.Metadata.Armor != null)
             {
                 attributes.Add("Arm: " + Item.Metadata.Armor);
