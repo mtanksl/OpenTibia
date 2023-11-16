@@ -47,6 +47,12 @@
            
             SocketSendTimeoutMilliseconds = (int)(long)script["server.security.socketsendtimeoutmilliseconds"];
 
+            RateLimitingMaxSlowSockets = (int)(long)script["server.security.maxslowsockets"];
+
+            RateLimitingMaxSlowSocketsPerMilliseconds = (int)(long)script["server.security.maxslowsocketspermilliseconds"];
+
+            RateLimitingSlowSocketsAbuseBanMilliseconds = (int)(long)script["server.security.slowsocketsabusbanmilliseconds"];
+
             DatabaseType = (string)script["server.database.type"];
 
             DatabaseSource = (string)script["server.database.source"];
@@ -93,6 +99,12 @@
         public int SocketReceiveTimeoutMilliseconds { get; set; }
 
         public int SocketSendTimeoutMilliseconds { get; set; }
+
+        public int RateLimitingMaxSlowSockets { get; set; }
+
+        public int RateLimitingMaxSlowSocketsPerMilliseconds { get; set; }
+
+        public int RateLimitingSlowSocketsAbuseBanMilliseconds { get; set; }
 
         public string DatabaseType { get; set; }
 

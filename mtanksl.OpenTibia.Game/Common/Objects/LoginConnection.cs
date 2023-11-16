@@ -42,6 +42,13 @@ namespace OpenTibia.Common.Objects
             return true;
         }
 
+        protected override void SlowSocket()
+        {
+            server.RateLimiting.SlowSocket(IpAddress);
+
+            OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SlowSocket) );
+        }
+
         protected override void OnConnected()
         {
             server.Logger.WriteLine("Connected on login server", LogLevel.Debug);

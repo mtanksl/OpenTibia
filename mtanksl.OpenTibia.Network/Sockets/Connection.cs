@@ -98,7 +98,7 @@ namespace OpenTibia.Network.Sockets
                                 {
                                     if (timeout)
                                     {
-                                        OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SlowSocket) );
+                                        SlowSocket();
                                     }
                                 }
 
@@ -141,7 +141,7 @@ namespace OpenTibia.Network.Sockets
                                         {
                                             if (timeout)
                                             {
-                                                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SlowSocket) );
+                                                SlowSocket();
                                             }
                                         }
 
@@ -221,7 +221,7 @@ namespace OpenTibia.Network.Sockets
                             {
                                 if (timeout)
                                 {
-                                    OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SlowSocket) );
+                                    SlowSocket();
                                 }
                             }
 
@@ -276,6 +276,8 @@ namespace OpenTibia.Network.Sockets
         protected abstract bool CanConnect();
 
         protected abstract bool CanReceive();
+
+        protected abstract void SlowSocket();
 
         protected virtual void OnConnected()
         {

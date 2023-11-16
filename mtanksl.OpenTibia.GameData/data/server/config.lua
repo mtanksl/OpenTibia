@@ -18,12 +18,15 @@ server = {
 		maxpacketspermilliseconds = 1 * 1000,
 		packetsabusebanmilliseconds = 15 * 60 * 1000,
 		-- login attempts
-		maxloginattempts = 10,
+		maxloginattempts = 12,
 		maxloginattemptspermilliseconds = 60 * 1000,
 		loginattemptsabusebanmilliseconds = 15 * 60 * 1000,
 		-- socket timeout
-		socketreceivetimeoutmilliseconds = 2 * 1000,
-		socketsendtimeoutmilliseconds = 4 * 1000
+		socketreceivetimeoutmilliseconds = 500,
+		socketsendtimeoutmilliseconds = 500,
+		maxslowsockets = 2,
+		maxslowsocketspermilliseconds = 60 * 1000,
+		slowsocketsabusbanmilliseconds = 5 * 60 * 1000
 	},
 	database = {
 		type = "sqlite",

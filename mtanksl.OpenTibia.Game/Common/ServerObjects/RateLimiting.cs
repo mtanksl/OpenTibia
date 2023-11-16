@@ -20,6 +20,10 @@ namespace OpenTibia.Common.Objects
 
             public int LoginAttemptsCount { get; set; }
 
+            public DateTime LastSlowSocket { get; set; }
+
+            public int SlowSocketCount { get; set; }
+
             public DateTime BanTimeout { get; set; }
         }
 
@@ -61,13 +65,13 @@ namespace OpenTibia.Common.Objects
                 else
                 {
                     item.ConnectionCount++;
+                }
 
-                    if (item.ConnectionCount > server.Config.RateLimitingMaxConnections)
-                    {
-                        item.BanTimeout = DateTime.UtcNow.AddMilliseconds(server.Config.RateLimitingConnectionsAbuseBanMilliseconds);
+                if (item.ConnectionCount > server.Config.RateLimitingMaxConnections)
+                {
+                    item.BanTimeout = DateTime.UtcNow.AddMilliseconds(server.Config.RateLimitingConnectionsAbuseBanMilliseconds);
 
-                        return false;
-                    }
+                    return false;
                 }
 
                 return true;
@@ -101,13 +105,13 @@ namespace OpenTibia.Common.Objects
                 else
                 {
                     item.PacketCount++;
+                }
 
-                    if (item.PacketCount > server.Config.RateLimitingMaxPackets)
-                    {
-                        item.BanTimeout = DateTime.UtcNow.AddMilliseconds(server.Config.RateLimitingPacketsAbuseBanMilliseconds);
+                if (item.PacketCount > server.Config.RateLimitingMaxPackets)
+                {
+                    item.BanTimeout = DateTime.UtcNow.AddMilliseconds(server.Config.RateLimitingPacketsAbuseBanMilliseconds);
 
-                        return false;
-                    }
+                    return false;
                 }
 
                 return true;
@@ -141,16 +145,56 @@ namespace OpenTibia.Common.Objects
                 else
                 {
                     item.LoginAttemptsCount++;
+                }
 
-                    if (item.LoginAttemptsCount > server.Config.RateLimitingMaxLoginAttempts)
-                    {
-                        item.BanTimeout = DateTime.UtcNow.AddMilliseconds(server.Config.RateLimitingLoginAttemptsAbuseBanMilliseconds);
+                if (item.LoginAttemptsCount > server.Config.RateLimitingMaxLoginAttempts)
+                {
+                    item.BanTimeout = DateTime.UtcNow.AddMilliseconds(server.Config.RateLimitingLoginAttemptsAbuseBanMilliseconds);
 
-                        return false;
-                    }
+                    return false;
                 }
 
                 return true;              
+            }
+        }
+
+        public void SlowSocket(string ipAddress)
+        {
+            lock (sync)
+            {
+                RateLimitItem item;
+
+                if ( !items.TryGetValue(ipAddress, out item) )
+                {
+                    item = new RateLimitItem();
+
+                    items.Add(ipAddress, item);
+                }
+
+                if (DateTime.UtcNow < item.BanTimeout)
+                {
+                    return;
+                }
+
+                if ( (DateTime.UtcNow - item.LastSlowSocket).TotalMilliseconds > server.Config.RateLimitingMaxSlowSocketsPerMilliseconds)
+                {
+                    item.LastSlowSocket = DateTime.UtcNow;
+
+                    item.SlowSocketCount = 1;
+                }
+                else
+                {
+                    item.SlowSocketCount++;
+                }
+
+                if (item.SlowSocketCount > server.Config.RateLimitingMaxSlowSockets)
+                {
+                    item.BanTimeout = DateTime.UtcNow.AddMilliseconds(server.Config.RateLimitingSlowSocketsAbuseBanMilliseconds);
+
+                    return;
+                }
+
+                return;              
             }
         }
     }

@@ -22,7 +22,7 @@ namespace OpenTibia.Common.Objects
 
         protected override bool CanConnect()
         {
-            if (!server.RateLimiting.CanConnect(IpAddress) )
+            if ( !server.RateLimiting.CanConnect(IpAddress) )
             {
                 OnDisconnected(new DisconnectedEventArgs(DisconnectionType.RateLimited) );
 
@@ -42,6 +42,13 @@ namespace OpenTibia.Common.Objects
             }
 
             return true;
+        }
+
+        protected override void SlowSocket()
+        {
+            server.RateLimiting.SlowSocket(IpAddress);
+
+            OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SlowSocket) );
         }
 
         protected override void OnConnected()
