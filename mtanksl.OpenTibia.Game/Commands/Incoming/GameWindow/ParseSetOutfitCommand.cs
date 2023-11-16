@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
             {
                 OutfitConfig outfitConfig = Context.Server.Outfits.GetOutfitById(pair.Key);
 
-                if (outfitConfig == null)
+                if (outfitConfig != null)
                 {
                     outfits.Add(new OutfitDto(pair.Key, outfitConfig.Name, pair.Value) );
                 }
