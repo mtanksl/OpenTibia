@@ -9,15 +9,15 @@ server = {
 	security = {
 		-- packets abuse
 		maxpackets = 60,
-		maxpacketspermilliseconds = 1000,
-		packetsabusebanmilliseconds = 15 * 60 * 1000,		
+		maxpacketspermilliseconds = 1 * 1000,
+		packetsabusebanmilliseconds = 15 * 60 * 1000,
 		-- login attempts
 		maxloginattempts = 10,
 		maxloginattemptspermilliseconds = 60 * 1000,
 		loginattemptsabusebanmilliseconds = 15 * 60 * 1000,
 		-- socket timeout
-		socketreceivetimeoutmilliseconds = 10 * 1000,
-		socketsendtimeoutmilliseconds = 10 * 1000
+		socketreceivetimeoutmilliseconds = 2 * 1000,
+		socketsendtimeoutmilliseconds = 4 * 1000
 	},
 	database = {
 		type = "sqlite",

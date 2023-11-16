@@ -88,7 +88,22 @@ namespace OpenTibia.Network.Sockets
 
                         headerLength = 2;
 
-                        socket.BeginReceive(header, 0, headerLength, SocketFlags.None, ReceiveHeader, null);
+                        IAsyncResult slowSender = socket.BeginReceive(header, 0, headerLength, SocketFlags.None, ReceiveHeader, null);
+
+                        if ( !slowSender.IsCompleted)
+                        {
+                            ThreadPool.RegisterWaitForSingleObject(slowSender.AsyncWaitHandle, (state, timeout) => 
+                            {
+                                lock (sync)
+                                {
+                                    if (timeout)
+                                    {
+                                        OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SlowSocket) );
+                                    }
+                                }
+
+                            }, null, receiveTimeout, true);
+                        }
                     }
                 }
             }
