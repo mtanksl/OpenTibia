@@ -8,11 +8,23 @@ namespace OpenTibia.Game.Components
 {
     public class PlayerPingBehaviour : Behaviour
     {
+        private DateTime lastPingRequest = DateTime.UtcNow;
+
         private DateTime lastPingResponse = DateTime.UtcNow;
 
         public void SetLastPingResponse()
         {
-            lastPingResponse = DateTime.UtcNow;
+            DateTime now = DateTime.UtcNow;
+
+            if (now > lastPingRequest)
+            {
+                lastPingResponse = now;
+            }
+        }
+
+        public int GetLatency()
+        {
+            return (int)(lastPingResponse - lastPingRequest).TotalMilliseconds;
         }
 
         private Guid globalPing;
@@ -29,6 +41,8 @@ namespace OpenTibia.Game.Components
                 }
                 else
                 {
+                    lastPingRequest = DateTime.UtcNow;
+
                     Context.AddPacket(player.Client.Connection, new PingOutgoingPacket() );
                 }
 

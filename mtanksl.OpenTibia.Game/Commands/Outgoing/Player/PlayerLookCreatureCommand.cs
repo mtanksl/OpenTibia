@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Text;
@@ -112,7 +113,23 @@ namespace OpenTibia.Game.Commands
                     }
                     else
                     {
-                        builder.Append("You see " + player.Name + " (Level: " + player.Level + ").");
+                        if (Player.Rank == Rank.Gamemaster)
+                        {
+                            PlayerPingBehaviour playerPingBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerPingBehaviour>(Creature);
+
+                            if (playerPingBehaviour != null)
+                            {
+                                builder.Append("You see " + player.Name + " (Level: " + player.Level + ", Latency: " + playerPingBehaviour.GetLatency() + "ms).");
+                            }
+                            else
+                            {
+                                builder.Append("You see " + player.Name + " (Level: " + player.Level + ").");
+                            }
+                        }
+                        else
+                        {
+                            builder.Append("You see " + player.Name + " (Level: " + player.Level + ").");
+                        }
 
                         switch (player.Gender)
                         {
