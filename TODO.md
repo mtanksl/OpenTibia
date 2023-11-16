@@ -102,8 +102,9 @@
 - Security
 	- Ban/unban by player name, account or ip address
 	- Rate limiting
+		- Connections abuse
 		- Packets abuse
 		- Login attempts
 	- Kick slow sockets
-	- Kick after 1 minute without network
+	- Kick after 1 minute without network ()
 	- Kick after 15 minutes idle

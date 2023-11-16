@@ -7,6 +7,10 @@ server = {
 		maxplayers = 1000
 	},		
 	security = {
+		-- connections abuse
+		maxconnections = 2,
+		maxconnectionspermilliseconds = 1 * 1000,
+		connectionsabusebanmilliseconds = 15 * 60 * 1000,
 		-- packets abuse
 		maxpackets = 60,
 		maxpacketspermilliseconds = 1 * 1000,

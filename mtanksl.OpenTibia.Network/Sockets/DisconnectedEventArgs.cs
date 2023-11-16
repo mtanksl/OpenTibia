@@ -28,8 +28,8 @@ namespace OpenTibia.Network.Sockets
 
         SocketException,
 
-        RateLimiting,
+        SlowSocket,
 
-        SlowSocket
+        RateLimited
     }
 }

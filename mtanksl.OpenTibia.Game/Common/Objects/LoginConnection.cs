@@ -18,11 +18,23 @@ namespace OpenTibia.Common.Objects
             this.server = server;
         }
 
+        protected override bool CanConnect()
+        {
+            if ( !server.RateLimiting.CanConnect(IpAddress) )
+            {
+                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.RateLimited) );
+
+                return false;
+            }
+
+            return true;
+        }
+
         protected override bool CanReceive()
         {
             if ( !server.RateLimiting.CanReceive(IpAddress) )
             {
-                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.RateLimiting) );
+                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.RateLimited) );
 
                 return false;
             }

@@ -82,7 +82,7 @@ namespace OpenTibia.Network.Sockets
             {
                 if ( !stopped )
                 {
-                    if (CanReceive() )
+                    if (CanConnect() && CanReceive() )
                     {
                         OnConnected();
 
@@ -272,6 +272,8 @@ namespace OpenTibia.Network.Sockets
                 }
             }
         }
+
+        protected abstract bool CanConnect();
 
         protected abstract bool CanReceive();
 

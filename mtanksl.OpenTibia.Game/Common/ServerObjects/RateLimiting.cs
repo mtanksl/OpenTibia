@@ -8,6 +8,10 @@ namespace OpenTibia.Common.Objects
     {
         private class RateLimitItem
         {
+            public DateTime LastConnection { get; set; }
+
+            public int ConnectionCount { get; set; }
+
             public DateTime LastPacket { get; set; }
  
             public int PacketCount { get; set; }
@@ -29,6 +33,46 @@ namespace OpenTibia.Common.Objects
         }
 
         private Dictionary<string, RateLimitItem> items = new Dictionary<string, RateLimitItem>();
+
+        public bool CanConnect(string ipAddress)
+        {
+            lock (sync)
+            {
+                RateLimitItem item;
+
+                if ( !items.TryGetValue(ipAddress, out item) )
+                {
+                    item = new RateLimitItem();
+
+                    items.Add(ipAddress, item);
+                }
+
+                if (DateTime.UtcNow < item.BanTimeout)
+                {
+                    return false;
+                }
+
+                if ( (DateTime.UtcNow - item.LastConnection).TotalMilliseconds > server.Config.RateLimitingMaxConnectionsPerMilliseconds)
+                {
+                    item.LastConnection = DateTime.UtcNow;
+
+                    item.ConnectionCount = 1;
+                }
+                else
+                {
+                    item.ConnectionCount++;
+
+                    if (item.ConnectionCount > server.Config.RateLimitingMaxConnections)
+                    {
+                        item.BanTimeout = DateTime.UtcNow.AddMilliseconds(server.Config.RateLimitingConnectionsAbuseBanMilliseconds);
+
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+        }
 
         public bool CanReceive(string ipAddress)
         {

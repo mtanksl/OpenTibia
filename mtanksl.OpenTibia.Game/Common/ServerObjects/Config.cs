@@ -21,6 +21,12 @@
 
             GameMaxPlayers = (int)(long)script["server.game.maxplayers"];
 
+            RateLimitingMaxConnections = (int)(long)script["server.security.maxconnections"];
+
+            RateLimitingMaxConnectionsPerMilliseconds = (int)(long)script["server.security.maxconnectionspermilliseconds"];
+
+            RateLimitingConnectionsAbuseBanMilliseconds = (int)(long)script["server.security.connectionsabusebanmilliseconds"];
+
             RateLimitingMaxPackets = (int)(long)script["server.security.maxpackets"];
 
             RateLimitingMaxPacketsPerMilliseconds = (int)(long)script["server.security.maxpacketspermilliseconds"];
@@ -57,6 +63,12 @@
         public int GamePort { get; set; }
 
         public int GameMaxPlayers { get; set; }
+
+        public int RateLimitingMaxConnections { get; set; }
+
+        public int RateLimitingMaxConnectionsPerMilliseconds { get; set; }
+
+        public int RateLimitingConnectionsAbuseBanMilliseconds { get; set; }
 
         public int RateLimitingMaxPackets { get; set; }
 
