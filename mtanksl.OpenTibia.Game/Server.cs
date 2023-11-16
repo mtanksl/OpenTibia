@@ -282,9 +282,9 @@ namespace OpenTibia.Game
                 GC.WaitForPendingFinalizers();
             }
 
-            loginServer.Start(Config.LoginMaxConnections, Config.LoginPort);
+            loginServer.Start(Config.LoginStopAcceptingConnections, Config.LoginPort);
 
-            gameServer.Start(Config.GameMaxConnections, Config.GamePort);
+            gameServer.Start(Config.GameStopAcceptingConnections, Config.GamePort);
 
             Logger.WriteLine("Server online");
         }

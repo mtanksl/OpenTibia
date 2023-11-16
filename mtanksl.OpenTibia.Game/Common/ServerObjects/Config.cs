@@ -15,11 +15,11 @@
         {
             script = server.LuaScripts.Create(server.PathResolver.GetFullPath("data/server/config.lua") );
 
-            LoginMaxConnections = (int)(long)script["server.login.maxconnections"];
+            LoginStopAcceptingConnections = (int)(long)script["server.login.stopacceptingconnections"];
 
             LoginPort = (int)(long)script["server.login.port"];
 
-            GameMaxConnections = (int)(long)script["server.game.maxconnections"];
+            GameStopAcceptingConnections = (int)(long)script["server.game.stopacceptingconnections"];
 
             GamePort = (int)(long)script["server.game.port"];
 
@@ -62,11 +62,11 @@
             DatabaseName = (string)script["server.database.name"];
         }
 
-        public int LoginMaxConnections { get; set; }
+        public int LoginStopAcceptingConnections { get; set; }
 
         public int LoginPort { get; set; }
 
-        public int GameMaxConnections { get; set; }
+        public int GameStopAcceptingConnections { get; set; }
 
         public int GamePort { get; set; }
 
