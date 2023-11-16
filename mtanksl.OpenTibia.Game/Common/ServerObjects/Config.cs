@@ -15,7 +15,11 @@
         {
             script = server.LuaScripts.Create(server.PathResolver.GetFullPath("data/server/config.lua") );
 
+            LoginMaxConnections = (int)(long)script["server.login.maxconnections"];
+
             LoginPort = (int)(long)script["server.login.port"];
+
+            GameMaxConnections = (int)(long)script["server.game.maxconnections"];
 
             GamePort = (int)(long)script["server.game.port"];
 
@@ -58,7 +62,11 @@
             DatabaseName = (string)script["server.database.name"];
         }
 
+        public int LoginMaxConnections { get; set; }
+
         public int LoginPort { get; set; }
+
+        public int GameMaxConnections { get; set; }
 
         public int GamePort { get; set; }
 

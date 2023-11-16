@@ -106,5 +106,5 @@
 		- Packets abuse
 		- Login attempts
 	- Kick slow sockets
-	- Kick after 1 minute without network ()
+	- Kick after 1 minute without network
 	- Kick after 15 minutes idle

@@ -26,20 +26,23 @@ namespace OpenTibia.Network.Sockets
             Dispose(false);
         }
 
+        private int maxConnections;
+
         private Socket socket;
         
-        public void Start(int port)
+        public void Start(int maxConnections, int port)
         {
             lock (sync)
             {
-                socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                this.maxConnections = maxConnections;
 
-                    socket.Bind(new IPEndPoint(IPAddress.Any, port) );
+                this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-                    socket.Listen(0);
+                    this.socket.Bind(new IPEndPoint(IPAddress.Any, port) );
 
+                    this.socket.Listen(0);
 
-                socket.BeginAccept(Accept, null);
+                this.socket.BeginAccept(Accept, null);
             }
         }
 
@@ -68,6 +71,11 @@ namespace OpenTibia.Network.Sockets
                                     connections.Remove(connection);
 
                                     connection.Dispose();
+
+                                    if (connections.Count == maxConnections - 1)
+                                    {
+                                        socket.BeginAccept(Accept, null);
+                                    }
                                 }
                             }
                         };
@@ -75,9 +83,11 @@ namespace OpenTibia.Network.Sockets
                         connections.Add(connection);
 
                         connection.Start();
-                        
 
-                        socket.BeginAccept(Accept, null);
+                        if (connections.Count < maxConnections)
+                        {
+                            socket.BeginAccept(Accept, null);
+                        }
                     }
                     catch (SocketException)
                     {

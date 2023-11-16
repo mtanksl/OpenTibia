@@ -1,8 +1,10 @@
 server = {
 	login = {
+		maxconnections = 100,
 		port = 7171
 	},
 	game = {
+		maxconnections = 1100,
 		port = 7172,
 		maxplayers = 1000
 	},		
