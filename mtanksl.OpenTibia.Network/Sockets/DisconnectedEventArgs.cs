@@ -30,8 +30,6 @@ namespace OpenTibia.Network.Sockets
 
         SlowSocket,
 
-        RateLimited,
-
-        MultiClient
+        RateLimited
     }
 }

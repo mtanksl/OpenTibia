@@ -17,7 +17,7 @@ namespace OpenTibia.Common.Objects
         {
             if ( !server.RateLimiting.IncreaseActiveConnection(IpAddress) )
             {
-                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.MultiClient) );
+                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.RateLimited) );
 
                 return false;
             }
