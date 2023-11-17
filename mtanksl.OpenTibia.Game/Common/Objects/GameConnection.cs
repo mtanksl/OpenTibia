@@ -11,44 +11,13 @@ using System.Net.Sockets;
 
 namespace OpenTibia.Common.Objects
 {
-    public class GameConnection : Connection
+    public class GameConnection : RateLimitingConnection
     {
         private Server server;
 
-        public GameConnection(Server server, Socket socket) : base(socket, server.Config.SocketReceiveTimeoutMilliseconds, server.Config.SocketSendTimeoutMilliseconds)
+        public GameConnection(Server server, Socket socket) : base(server, socket)
         {
             this.server = server;
-        }
-
-        protected override bool CanConnect()
-        {
-            if ( !server.RateLimiting.CanConnect(IpAddress) )
-            {
-                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.RateLimited) );
-
-                return false;
-            }
-
-            return true;
-        }
-
-        protected override bool CanReceive()
-        {
-            if ( !server.RateLimiting.CanReceive(IpAddress) )
-            {
-                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.RateLimited) );
-
-                return false;
-            }
-
-            return true;
-        }
-
-        protected override void SlowSocket()
-        {
-            server.RateLimiting.SlowSocket(IpAddress);
-
-            OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SlowSocket) );
         }
 
         protected override void OnConnected()

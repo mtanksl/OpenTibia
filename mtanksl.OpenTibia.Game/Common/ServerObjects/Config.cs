@@ -15,11 +15,11 @@
         {
             script = server.LuaScripts.Create(server.PathResolver.GetFullPath("data/server/config.lua") );
 
-            LoginStopAcceptingConnections = (int)(long)script["server.login.stopacceptingconnections"];
+            LoginMaxconnections = (int)(long)script["server.login.maxconnections"];
 
             LoginPort = (int)(long)script["server.login.port"];
 
-            GameStopAcceptingConnections = (int)(long)script["server.game.stopacceptingconnections"];
+            GameMaxConnections = (int)(long)script["server.game.maxconnections"];
 
             GamePort = (int)(long)script["server.game.port"];
 
@@ -53,6 +53,10 @@
 
             RateLimitingSlowSocketsAbuseBanMilliseconds = (int)(long)script["server.security.slowsocketsabusbanmilliseconds"];
 
+            RateLimitingMaxConnectionsWithSameIpAddress = (int)(long)script["server.security.maxconnectionswithsameipaddress"];
+
+            RateLimitingConnectionsWithSameIpAddressAbuseBanMilliseconds = (int)(long)script["server.security.connectionswithsameipaddressabusebanmilliseconds"];
+
             DatabaseType = (string)script["server.database.type"];
 
             DatabaseSource = (string)script["server.database.source"];
@@ -68,11 +72,15 @@
             DatabaseName = (string)script["server.database.name"];
         }
 
-        public int LoginStopAcceptingConnections { get; set; }
+        public int LoginMaxconnectionsWithSameIpAddress { get; set; }
+
+        public int LoginMaxconnections { get; set; }
 
         public int LoginPort { get; set; }
 
-        public int GameStopAcceptingConnections { get; set; }
+        public int GameMaxconnectionsWithSameIpAddress { get; set; }
+
+        public int GameMaxConnections { get; set; }
 
         public int GamePort { get; set; }
 
@@ -105,6 +113,10 @@
         public int RateLimitingMaxSlowSocketsPerMilliseconds { get; set; }
 
         public int RateLimitingSlowSocketsAbuseBanMilliseconds { get; set; }
+
+        public int RateLimitingMaxConnectionsWithSameIpAddress { get; set; }
+
+        public int RateLimitingConnectionsWithSameIpAddressAbuseBanMilliseconds { get; set; }
 
         public string DatabaseType { get; set; }
 

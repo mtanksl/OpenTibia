@@ -24,6 +24,8 @@ namespace OpenTibia.Common.Objects
 
             public int SlowSocketCount { get; set; }
 
+            public int ActiveConnections { get; set; }
+
             public DateTime BanTimeout { get; set; }
         }
 
@@ -38,7 +40,62 @@ namespace OpenTibia.Common.Objects
 
         private Dictionary<string, RateLimitItem> items = new Dictionary<string, RateLimitItem>();
 
-        public bool CanConnect(string ipAddress)
+        public bool IncreaseActiveConnection(string ipAddress)
+        {
+            lock (sync)
+            {
+                RateLimitItem item;
+
+                if ( !items.TryGetValue(ipAddress, out item) )
+                {
+                    item = new RateLimitItem();
+
+                    items.Add(ipAddress, item);
+                }
+
+                if (DateTime.UtcNow < item.BanTimeout)
+                {
+                    return false;
+                }
+
+                item.ActiveConnections++;
+
+                if (item.ActiveConnections > server.Config.RateLimitingMaxConnectionsWithSameIpAddress)
+                {
+                    item.BanTimeout = DateTime.UtcNow.AddMilliseconds(server.Config.RateLimitingConnectionsWithSameIpAddressAbuseBanMilliseconds);
+
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
+        public void DecreaseActiveConnection(string ipAddress)
+        {
+            lock (sync)
+            {
+                RateLimitItem item;
+
+                if ( !items.TryGetValue(ipAddress, out item) )
+                {
+                    item = new RateLimitItem();
+
+                    items.Add(ipAddress, item);
+                }
+
+                if (DateTime.UtcNow < item.BanTimeout)
+                {
+                    return;
+                }
+
+                item.ActiveConnections--;
+
+                return;
+            }
+        }
+
+        public bool IsConnectionCountOk(string ipAddress)
         {
             lock (sync)
             {
@@ -78,7 +135,7 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        public bool CanReceive(string ipAddress)
+        public bool IsPacketCountOk(string ipAddress)
         {
             lock (sync)
             {
@@ -118,7 +175,7 @@ namespace OpenTibia.Common.Objects
             }            
         }
                 
-        public bool CanLogin(string ipAddress)
+        public bool IsLoginAttempsOk(string ipAddress)
         {
             lock (sync)
             {
@@ -158,7 +215,7 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        public void SlowSocket(string ipAddress)
+        public void IncreaseSlowSocket(string ipAddress)
         {
             lock (sync)
             {

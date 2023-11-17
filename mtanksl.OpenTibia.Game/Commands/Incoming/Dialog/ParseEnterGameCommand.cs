@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            if ( !Context.Server.RateLimiting.CanLogin(Connection.IpAddress) )
+            if ( !Context.Server.RateLimiting.IsLoginAttempsOk(Connection.IpAddress) )
             {
                 Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.TooManyLoginAttempts) );
 

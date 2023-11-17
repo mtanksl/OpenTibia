@@ -1,10 +1,10 @@
 server = {
 	login = {
-		stopacceptingconnections = 100,
+		maxconnections = 100,
 		port = 7171
 	},
 	game = {
-		stopacceptingconnections = 1100,
+		maxconnections = 1100,
 		port = 7172,
 		maxplayers = 1000
 	},		
@@ -26,7 +26,10 @@ server = {
 		socketsendtimeoutmilliseconds = 500,
 		maxslowsockets = 2,
 		maxslowsocketspermilliseconds = 60 * 1000,
-		slowsocketsabusbanmilliseconds = 5 * 60 * 1000
+		slowsocketsabusbanmilliseconds = 5 * 60 * 1000,
+		-- multi-client
+		maxconnectionswithsameipaddress = 2,
+		connectionswithsameipaddressabusebanmilliseconds = 15 * 60 * 1000
 	},
 	database = {
 		type = "sqlite",

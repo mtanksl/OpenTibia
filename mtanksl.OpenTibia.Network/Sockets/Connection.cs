@@ -82,7 +82,7 @@ namespace OpenTibia.Network.Sockets
             {
                 if ( !stopped )
                 {
-                    if (CanConnect() && CanReceive() )
+                    if (IncreaseActiveConnection() && IsConnectionCountOk() && IsPacketCountOk() )
                     {
                         OnConnected();
 
@@ -98,7 +98,7 @@ namespace OpenTibia.Network.Sockets
                                 {
                                     if (timeout)
                                     {
-                                        SlowSocket();
+                                        IncreaseSlowSocket();
                                     }
                                 }
 
@@ -123,7 +123,7 @@ namespace OpenTibia.Network.Sockets
                 }
                 else
                 {
-                    if (CanReceive() )
+                    if (IsPacketCountOk() )
                     {
                         try
                         {
@@ -141,7 +141,7 @@ namespace OpenTibia.Network.Sockets
                                         {
                                             if (timeout)
                                             {
-                                                SlowSocket();
+                                                IncreaseSlowSocket();
                                             }
                                         }
 
@@ -176,7 +176,7 @@ namespace OpenTibia.Network.Sockets
                 }
                 else
                 {
-                    if (CanReceive() )
+                    if (IsPacketCountOk() )
                     {
                         try
                         {
@@ -221,7 +221,7 @@ namespace OpenTibia.Network.Sockets
                             {
                                 if (timeout)
                                 {
-                                    SlowSocket();
+                                    IncreaseSlowSocket();
                                 }
                             }
 
@@ -273,11 +273,30 @@ namespace OpenTibia.Network.Sockets
             }
         }
 
-        protected abstract bool CanConnect();
+        protected virtual bool IncreaseActiveConnection()
+        {
+            return true;
+        }
 
-        protected abstract bool CanReceive();
+        protected virtual void DecreaseActiveConnection()
+        {
 
-        protected abstract void SlowSocket();
+        }
+
+        protected virtual bool IsConnectionCountOk()
+        {
+            return true;
+        }
+
+        protected virtual bool IsPacketCountOk()
+        {
+            return true;
+        }
+
+        protected virtual void IncreaseSlowSocket()
+        {
+
+        }
 
         protected virtual void OnConnected()
         {
@@ -293,6 +312,8 @@ namespace OpenTibia.Network.Sockets
 
         protected virtual void OnDisconnected(DisconnectedEventArgs e)
         {
+            DecreaseActiveConnection();
+
             Stop(false);
 
             if (Disconnected != null)
