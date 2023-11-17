@@ -46,7 +46,7 @@ namespace OpenTibia.Network.Sockets
             }
         }
 
-        private List<Connection> connections = new List<Connection>();
+        private HashSet<Connection> connections = new HashSet<Connection>();
 
         private void Accept(IAsyncResult result)
         {
