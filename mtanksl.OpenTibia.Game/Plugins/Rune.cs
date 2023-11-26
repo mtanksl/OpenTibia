@@ -4,6 +4,8 @@ namespace mtanksl.OpenTibia.Game.Plugins
 {
     public class Rune
     {
+        public ushort OpenTibiaId { get; set; }
+
         public string Name { get; set; }
 
         public string Group { get; set; }

@@ -82,7 +82,7 @@ namespace OpenTibia.Network.Sockets
             {
                 if ( !stopped )
                 {
-                    if (IncreaseActiveConnection() && IsConnectionCountOk() && IsPacketCountOk() )
+                    if (IncreaseActiveConnection() && IsConnectionCountOk() )
                     {
                         OnConnected();
 

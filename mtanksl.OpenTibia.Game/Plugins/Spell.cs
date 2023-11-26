@@ -5,6 +5,8 @@ namespace mtanksl.OpenTibia.Game.Plugins
 {
     public class Spell
     {
+        public string Words { get; set; }
+
         public string Name { get; set; }
 
         public string Group { get; set; }

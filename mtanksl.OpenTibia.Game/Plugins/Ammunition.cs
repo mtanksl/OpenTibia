@@ -2,6 +2,6 @@
 {
     public class Ammunition
     {
-
+        public ushort OpenTibiaId { get; set; }
     }
 }

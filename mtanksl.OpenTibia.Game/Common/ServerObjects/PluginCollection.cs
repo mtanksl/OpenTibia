@@ -285,8 +285,16 @@ namespace OpenTibia.Game
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.spells"] ).Values)
             {
+                string words = (string)plugin["words"];
+
+                string fileName = (string)plugin["filename"];
+
+                bool requiresTarget = (bool)plugin["requirestarget"];
+
                 Spell spell = new Spell()
                 {
+                    Words = words,
+
                     Name = (string)plugin["name"],
 
                     Group = (string)plugin["group"],
@@ -310,11 +318,7 @@ namespace OpenTibia.Game
                     Vocations = ( (LuaTable)plugin["vocations"]).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
                 };
 
-                string words = (string)plugin["words"];
-
-                string fileName = (string)plugin["filename"];
-
-                bool requiresTarget = (bool)plugin["requirestarget"];
+                spells.Add(spell);
 
                 if (fileName.EndsWith(".lua") )
                 {
@@ -342,8 +346,16 @@ namespace OpenTibia.Game
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.runes"] ).Values)
             {
+                ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
+
+                string fileName = (string)plugin["filename"];
+
+                bool requiresTarget = (bool)plugin["requirestarget"];
+
                 Rune rune = new Rune()
                 {
+                    OpenTibiaId = openTibiaId,
+
                     Name = (string)plugin["name"],
 
                     Group = (string)plugin["group"],
@@ -355,11 +367,7 @@ namespace OpenTibia.Game
                     MagicLevel = (int)(long)plugin["magiclevel"]
                 };
 
-                ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
-
-                string fileName = (string)plugin["filename"];
-
-                bool requiresTarget = (bool)plugin["requirestarget"];
+                runes.Add(rune);
 
                 if (fileName.EndsWith(".lua") )
                 {
@@ -387,8 +395,14 @@ namespace OpenTibia.Game
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.weapons"] ).Values)
             {
+                ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
+
+                string fileName = (string)plugin["filename"];
+
                 Weapon weapon = new Weapon()
                 {
+                    OpenTibiaId = openTibiaId,
+
                     Level = (int)(long)plugin["level"],
 
                     Mana = (int)(long)plugin["mana"],
@@ -396,9 +410,7 @@ namespace OpenTibia.Game
                     Vocations = ( (LuaTable)plugin["vocations"]).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
                 };
 
-                ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
-
-                string fileName = (string)plugin["filename"];
+                weapons.Add(weapon);
 
                 if (fileName.EndsWith(".lua") )
                 {
@@ -412,14 +424,16 @@ namespace OpenTibia.Game
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.ammunitions"] ).Values)
             {
-                Ammunition ammunition = new Ammunition()
-                {
-
-                };
-
                 ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
 
                 string fileName = (string)plugin["filename"];
+
+                Ammunition ammunition = new Ammunition()
+                {
+                    OpenTibiaId = openTibiaId
+                };
+
+                ammunitions.Add(ammunition);
 
                 if (fileName.EndsWith(".lua") )
                 {
@@ -557,6 +571,46 @@ namespace OpenTibia.Game
         public AmmunitionPlugin GetAmmunitionPlugin(ushort openTibiaId)
         {
             return ammunitionPlugins.GetPlugin(openTibiaId);
+        }
+
+        private List<Spell> spells = new List<Spell>();
+
+        public List<Spell> Spells
+        {
+            get 
+            {
+                return spells; 
+            }
+        }
+
+        private List<Rune> runes = new List<Rune>();
+
+        public List<Rune> Runes
+        {
+            get
+            {
+                return runes;
+            }
+        }
+
+        private List<Weapon> weapons = new List<Weapon>();
+
+        public List<Weapon> Weapons
+        {
+            get
+            {
+                return weapons;
+            }
+        }
+
+        private List<Ammunition> ammunitions = new List<Ammunition>();
+
+        public List<Ammunition> Ammunitions
+        {
+            get
+            {
+                return ammunitions;
+            }
         }
 
         public void Stop()

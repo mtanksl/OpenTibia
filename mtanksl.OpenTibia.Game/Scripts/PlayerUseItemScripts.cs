@@ -54,6 +54,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new PlatinumCoinHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler(new SpellbookHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler(new SantaDollHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new GarlicBreadOrCookie() );
