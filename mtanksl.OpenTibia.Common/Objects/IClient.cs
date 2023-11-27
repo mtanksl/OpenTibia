@@ -10,9 +10,11 @@ namespace OpenTibia.Common.Objects
 
         IWindowCollection Windows { get; }
 
+        IPlayerOutfitCollection Outfits { get; }
+
         IPlayerStorageCollection Storages { get; }
 
-        IPlayerOutfitCollection Outfits { get; }
+        IPlayerSpellCollection Spells { get; }
 
         IPlayerVipCollection Vips { get; }
 

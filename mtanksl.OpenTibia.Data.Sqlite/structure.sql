@@ -186,6 +186,15 @@ CREATE TABLE PlayerOutfits (
 );
 CREATE INDEX IX_PlayerOutfits_PlayerId ON PlayerOutfits (PlayerId);
 
+-- PlayerSpells
+
+CREATE TABLE PlayerSpells (
+    PlayerId INTEGER NOT NULL REFERENCES Players (Id) ON DELETE CASCADE,
+    Name NVARCHAR (255) NOT NULL, 
+    PRIMARY KEY (PlayerId, Name)
+);
+CREATE INDEX IX_PlayerSpells_PlayerId ON PlayerSpells (PlayerId);
+
 -- PlayerVips
 
 CREATE TABLE PlayerVips (

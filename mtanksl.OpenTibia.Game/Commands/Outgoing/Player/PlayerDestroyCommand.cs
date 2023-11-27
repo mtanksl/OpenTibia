@@ -37,6 +37,8 @@ namespace OpenTibia.Game.Commands
 
                     SaveStorages(Context, dbPlayer, Player);
 
+                    SaveSpells(Context, dbPlayer, Player);
+
                     SaveOutfits(Context, dbPlayer, Player);
 
                     SaveVips(Context, dbPlayer, Player);
@@ -289,6 +291,23 @@ namespace OpenTibia.Game.Commands
             }
         }
 
+        private static void SaveOutfits(Context context, DbPlayer dbPlayer, Player player)
+        {
+            dbPlayer.PlayerOutfits.Clear();
+
+            foreach (var pair in player.Client.Outfits.GetIndexed() )
+            {
+                dbPlayer.PlayerOutfits.Add(new DbPlayerOutfit()
+                {
+                    PlayerId = dbPlayer.Id,
+
+                    OutfitId = (int)pair.Key,
+
+                    OutfitAddon = (int)pair.Value
+                } );
+            }            
+        }
+
         private static void SaveStorages(Context context, DbPlayer dbPlayer, Player player)
         {
             dbPlayer.PlayerStorages.Clear();
@@ -306,21 +325,19 @@ namespace OpenTibia.Game.Commands
             }            
         }
 
-        private static void SaveOutfits(Context context, DbPlayer dbPlayer, Player player)
+        private static void SaveSpells(Context context, DbPlayer dbPlayer, Player player)
         {
-            dbPlayer.PlayerOutfits.Clear();
+            dbPlayer.PlayerSpells.Clear();
 
-            foreach (var pair in player.Client.Outfits.GetIndexed() )
+            foreach (var name in player.Client.Spells.GetSpells() )
             {
-                dbPlayer.PlayerOutfits.Add(new DbPlayerOutfit()
+                dbPlayer.PlayerSpells.Add(new DbPlayerSpell()
                 {
                     PlayerId = dbPlayer.Id,
 
-                    OutfitId = (int)pair.Key,
-
-                    OutfitAddon = (int)pair.Value
+                    Name = name
                 } );
-            }            
+            }
         }
 
         private static void SaveVips(Context context, DbPlayer dbPlayer, Player player)

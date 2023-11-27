@@ -41,6 +41,8 @@ namespace OpenTibia.Game.Commands
 
                 LoadStorages(Context, DbPlayer, player);
 
+                LoadSpells(Context, DbPlayer, player);
+
                 LoadOutfits(Context, DbPlayer, player);
 
                 LoadVips(Context, DbPlayer, player);
@@ -203,6 +205,14 @@ namespace OpenTibia.Game.Commands
             foreach (var dbPlayerStorage in dbPlayer.PlayerStorages)
             {
                 player.Client.Storages.SetValue(dbPlayerStorage.Key, dbPlayerStorage.Value);
+            }
+        }
+
+        private static void LoadSpells(Context context, DbPlayer dbPlayer, Player player)
+        {
+            foreach (var dbPlayerStorage in dbPlayer.PlayerSpells)
+            {
+                player.Client.Spells.SetSpell(dbPlayerStorage.Name);
             }
         }
 

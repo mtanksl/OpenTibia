@@ -42,6 +42,9 @@ namespace OpenTibia.Data.Contexts
             modelBuilder.Entity<DbPlayerOutfit>()
                 .HasKey(m => new { m.PlayerId, m.OutfitId } );
 
+            modelBuilder.Entity<DbPlayerSpell>()
+                .HasKey(m => new { m.PlayerId, m.Name } );
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -66,6 +69,8 @@ namespace OpenTibia.Data.Contexts
         public DbSet<DbPlayerVip> PlayerVips { get; set; }
 
         public DbSet<DbPlayerOutfit> PlayerOutfits { get; set; }
+
+        public DbSet<DbPlayerSpell> PlayerSpells { get; set; }
 
         public DbSet<DbRuleViolationReport> RuleViolationReports { get; set; }
 

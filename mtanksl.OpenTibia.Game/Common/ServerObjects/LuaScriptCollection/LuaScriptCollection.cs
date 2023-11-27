@@ -433,6 +433,38 @@ namespace OpenTibia.Game
                 } );
             } );
 
+            lua.RegisterCoFunction("playergetoutfit", parameters =>
+            {
+                Player player = (Player)parameters[0];
+
+                Addon addon;
+
+                if (player.Client.Outfits.TryGetOutfit( (ushort)(long)parameters[1], out addon) )
+                {
+                    return Promise.FromResult(new object[] { true, addon } );
+                }
+
+                return Promise.FromResult(new object[] { false } );
+            } );
+
+            lua.RegisterCoFunction("playersetoutfit", parameters =>
+            {
+                Player player = (Player)parameters[0];
+
+                player.Client.Outfits.SetOutfit( (ushort)(long)parameters[1], (Addon)(long)parameters[2] );
+
+                return Promise.FromResult(Array.Empty<object>() );
+            } );
+
+            lua.RegisterCoFunction("playerremoveoutfit", parameters =>
+            {
+                Player player = (Player)parameters[0];
+
+                player.Client.Outfits.RemoveOutfit( (ushort)(long)parameters[1] );
+
+                return Promise.FromResult(Array.Empty<object>() );
+            } );
+
             lua.RegisterCoFunction("playergetstorage", parameters =>
             {
                 Player player = (Player)parameters[0];
@@ -464,37 +496,30 @@ namespace OpenTibia.Game
 
                 return Promise.FromResult(Array.Empty<object>() );
             } );
-
-            lua.RegisterCoFunction("playergetoutfit", parameters =>
+                      
+            lua.RegisterCoFunction("playersetspell", parameters =>
             {
                 Player player = (Player)parameters[0];
 
-                Addon addon;
-
-                if (player.Client.Outfits.TryGetOutfit( (ushort)(long)parameters[1], out addon) )
-                {
-                    return Promise.FromResult(new object[] { true, addon } );
-                }
-
-                return Promise.FromResult(new object[] { false } );
-            } );
-
-            lua.RegisterCoFunction("playersetoutfit", parameters =>
-            {
-                Player player = (Player)parameters[0];
-
-                player.Client.Outfits.SetOutfit( (ushort)(long)parameters[1], (Addon)(long)parameters[2] );
+                player.Client.Spells.SetSpell( (string)parameters[1] );
 
                 return Promise.FromResult(Array.Empty<object>() );
             } );
 
-            lua.RegisterCoFunction("playerremoveoutfit", parameters =>
+            lua.RegisterCoFunction("playerremovespell", parameters =>
             {
                 Player player = (Player)parameters[0];
 
-                player.Client.Outfits.RemoveOutfit( (ushort)(long)parameters[1] );
+                player.Client.Spells.RemoveSpell( (string)parameters[1] );
 
                 return Promise.FromResult(Array.Empty<object>() );
+            } );
+
+            lua.RegisterCoFunction("playergetspells", parameters =>
+            {
+                Player player = (Player)parameters[0];
+                
+                return Promise.FromResult<object[]>(player.Client.Spells.GetSpells().ToArray() );
             } );
 
             lua.RegisterCoFunction("splashitemupdatefluidtype", parameters =>

@@ -132,8 +132,10 @@ namespace OpenTibia.Data.Models
 
         public ICollection<DbPlayerStorage> PlayerStorages { get; set; } = new List<DbPlayerStorage>();
 
-        public ICollection<DbPlayerVip> PlayerVips { get; set; } = new List<DbPlayerVip>();
+        public ICollection<DbPlayerSpell> PlayerSpells { get; set; } = new List<DbPlayerSpell>();
 
         public ICollection<DbPlayerOutfit> PlayerOutfits { get; set; } = new List<DbPlayerOutfit>();
+
+        public ICollection<DbPlayerVip> PlayerVips { get; set; } = new List<DbPlayerVip>();
     }
 }

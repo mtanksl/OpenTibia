@@ -160,6 +160,18 @@ CREATE TABLE `PlayerOutfits` (
   CONSTRAINT `FK_PlayerOutfits_PlayerId` FOREIGN KEY (`PlayerId`) REFERENCES `Players` (`Id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- PlayerSpells
+
+DROP TABLE IF EXISTS `PlayerSpells`;
+
+CREATE TABLE `PlayerSpells` (
+  `PlayerId` int(11) NOT NULL,
+  `Name` varchar(255) NOT NULL,
+  PRIMARY KEY (`PlayerId`,`Name`),
+  KEY `IX_PlayerSpells_PlayerId` (`PlayerId`),
+  CONSTRAINT `FK_PlayerSpells_PlayerId` FOREIGN KEY (`PlayerId`) REFERENCES `Players` (`Id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- PlayerVips
 
 DROP TABLE IF EXISTS `PlayerVips`;

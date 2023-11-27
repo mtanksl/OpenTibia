@@ -54,12 +54,15 @@ namespace OpenTibia.Data.Repositories
                     .Where(pi => pi.PlayerId == player.Id)
                     .Load();
 
-                context.PlayerVips
-                    .Include(v => v.Vip)
+                context.PlayerSpells
+                    .Where(pi => pi.PlayerId == player.Id)
+                    .Load();
+                context.PlayerOutfits
                     .Where(pi => pi.PlayerId == player.Id)
                     .Load();
 
-                context.PlayerOutfits
+                context.PlayerVips
+                    .Include(v => v.Vip)
                     .Where(pi => pi.PlayerId == player.Id)
                     .Load();
             }
@@ -87,14 +90,18 @@ namespace OpenTibia.Data.Repositories
                     .Where(pi => pi.PlayerId == player.Id)
                     .Load();
 
-                context.PlayerVips
-                    .Include(v => v.Vip)
-                    .Where(pi => pi.PlayerId == player.Id)
-                    .Load();
+                context.PlayerSpells
+                  .Where(pi => pi.PlayerId == player.Id)
+                  .Load();
 
                 context.PlayerOutfits
                     .Where(pi => pi.PlayerId == player.Id)
                     .Load();
+
+                context.PlayerVips
+                    .Include(v => v.Vip)
+                    .Where(pi => pi.PlayerId == player.Id)
+                    .Load();              
             }
 
             return player;

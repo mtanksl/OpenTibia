@@ -390,7 +390,7 @@ return {
 				returns = "void",
 			},
 			-- void command.playerremovestorage(Player player, int key)
-			playersetstorage = {
+			playerremovestorage = {
 				type = "function",
 				description = "",
 				args = "(Player player, int key)",
@@ -411,11 +411,32 @@ return {
 				returns = "void",
 			},
 			-- void command.playerremoveoutfit(Player player, ushort outfitId)
-			playersetoutfit = {
+			playerremoveoutfit = {
 				type = "function",
 				description = "",
 				args = "(Player player, ushort outfitId)",
 				returns = "void",
+			},
+			-- void command.playersetspell(Player player, string name)
+			playersetspell = {
+				type = "function",
+				description = "",
+				args = "(Player player, string name)",
+				returns = "void",
+			},
+			-- void command.playerremovespell(Player player, string name)
+			playerremovespell = {
+				type = "function",
+				description = "",
+				args = "(Player player, string name)",
+				returns = "void",
+			},
+			-- string[] command.playergetspells(Player player)
+			playergetspells = {
+				type = "function",
+				description = "",
+				args = "(Player player)",
+				returns = "string[]",
 			},
 			-- void command.splashitemupdatefluidtype(SplashItem splashItem, FluidType fluidType)
 			splashitemupdatefluidtype = {
