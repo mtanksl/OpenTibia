@@ -9,6 +9,9 @@ server = {
 		maxplayers = 1000
 	},		
 	security = {
+		-- multi-client
+		maxconnectionswithsameipaddress = 2,
+		connectionswithsameipaddressabusebanmilliseconds = 15 * 60 * 1000
 		-- connections abuse
 		maxconnections = 2,
 		maxconnectionspermilliseconds = 1 * 1000,
@@ -17,7 +20,7 @@ server = {
 		maxpackets = 60,
 		maxpacketspermilliseconds = 1 * 1000,
 		packetsabusebanmilliseconds = 15 * 60 * 1000,
-		-- login attempts
+		-- login attempts abuse
 		maxloginattempts = 12,
 		maxloginattemptspermilliseconds = 60 * 1000,
 		loginattemptsabusebanmilliseconds = 15 * 60 * 1000,
@@ -27,9 +30,14 @@ server = {
 		maxslowsockets = 2,
 		maxslowsocketspermilliseconds = 60 * 1000,
 		slowsocketsabusbanmilliseconds = 5 * 60 * 1000,
-		-- multi-client
-		maxconnectionswithsameipaddress = 2,
-		connectionswithsameipaddressabusebanmilliseconds = 15 * 60 * 1000
+		-- invalid message abuse
+		maxinvalidmessages = 2,
+		maxinvalidmessagespermilliseconds = 60 * 1000,
+		invalidmessagesabusebanmilliseconds = 15 * 60 * 1000,
+		-- unknown packet abuse
+		maxunknownpackets = 2,
+		maxunknownpacketspermilliseconds = 60 * 1000,
+		unknownpacketsabusebanmilliseconds = 15 * 60 * 1000
 	},
 	database = {
 		type = "sqlite",

@@ -16,120 +16,92 @@
             script = server.LuaScripts.Create(server.PathResolver.GetFullPath("data/server/config.lua") );
 
             LoginMaxconnections = (int)(long)script["server.login.maxconnections"];
-
             LoginPort = (int)(long)script["server.login.port"];
 
             GameMaxConnections = (int)(long)script["server.game.maxconnections"];
-
             GamePort = (int)(long)script["server.game.port"];
-
             GameMaxPlayers = (int)(long)script["server.game.maxplayers"];
 
-            RateLimitingMaxConnections = (int)(long)script["server.security.maxconnections"];
+            SecurityMaxConnectionsWithSameIpAddress = (int)(long)script["server.security.maxconnectionswithsameipaddress"];
+            SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds = (int)(long)script["server.security.connectionswithsameipaddressabusebanmilliseconds"];
 
-            RateLimitingMaxConnectionsPerMilliseconds = (int)(long)script["server.security.maxconnectionspermilliseconds"];
+            SecurityMaxConnections = (int)(long)script["server.security.maxconnections"];
+            SecurityMaxConnectionsPerMilliseconds = (int)(long)script["server.security.maxconnectionspermilliseconds"];
+            SecurityConnectionsAbuseBanMilliseconds = (int)(long)script["server.security.connectionsabusebanmilliseconds"];
 
-            RateLimitingConnectionsAbuseBanMilliseconds = (int)(long)script["server.security.connectionsabusebanmilliseconds"];
+            SecurityMaxPackets = (int)(long)script["server.security.maxpackets"];
+            SecurityMaxPacketsPerMilliseconds = (int)(long)script["server.security.maxpacketspermilliseconds"];                     
+            SecurityPacketsAbuseBanMilliseconds = (int)(long)script["server.security.packetsabusebanmilliseconds"];
 
-            RateLimitingMaxPackets = (int)(long)script["server.security.maxpackets"];
+            SecurityMaxLoginAttempts = (int)(long)script["server.security.maxloginattempts"];
+            SecurityMaxLoginAttemptsPerMilliseconds = (int)(long)script["server.security.maxloginattemptspermilliseconds"];
+            SecurityLoginAttemptsAbuseBanMilliseconds = (int)(long)script["server.security.loginattemptsabusebanmilliseconds"];
 
-            RateLimitingMaxPacketsPerMilliseconds = (int)(long)script["server.security.maxpacketspermilliseconds"];
-                     
-            RateLimitingPacketsAbuseBanMilliseconds = (int)(long)script["server.security.packetsabusebanmilliseconds"];
-
-            RateLimitingMaxLoginAttempts = (int)(long)script["server.security.maxloginattempts"];
-
-            RateLimitingMaxLoginAttemptsPerMilliseconds = (int)(long)script["server.security.maxloginattemptspermilliseconds"];
-
-            RateLimitingLoginAttemptsAbuseBanMilliseconds = (int)(long)script["server.security.loginattemptsabusebanmilliseconds"];
-
-            SocketReceiveTimeoutMilliseconds = (int)(long)script["server.security.socketreceivetimeoutmilliseconds"];
-           
+            SocketReceiveTimeoutMilliseconds = (int)(long)script["server.security.socketreceivetimeoutmilliseconds"];           
             SocketSendTimeoutMilliseconds = (int)(long)script["server.security.socketsendtimeoutmilliseconds"];
+            SecurityMaxSlowSockets = (int)(long)script["server.security.maxslowsockets"];
+            SecurityMaxSlowSocketsPerMilliseconds = (int)(long)script["server.security.maxslowsocketspermilliseconds"];
+            SecuritySlowSocketsAbuseBanMilliseconds = (int)(long)script["server.security.slowsocketsabusbanmilliseconds"];
 
-            RateLimitingMaxSlowSockets = (int)(long)script["server.security.maxslowsockets"];
+            SecurityMaxInvalidMessages = (int)(long)script["server.security.maxinvalidmessages"];
+            SecurityMaxInvalidMessagesPerMilliseconds = (int)(long)script["server.security.maxinvalidmessagespermilliseconds"];
+            SecurityInvalidMessagesAbuseBanMilliseconds = (int)(long)script["server.security.invalidmessagesabusebanmilliseconds"];
 
-            RateLimitingMaxSlowSocketsPerMilliseconds = (int)(long)script["server.security.maxslowsocketspermilliseconds"];
-
-            RateLimitingSlowSocketsAbuseBanMilliseconds = (int)(long)script["server.security.slowsocketsabusbanmilliseconds"];
-
-            RateLimitingMaxConnectionsWithSameIpAddress = (int)(long)script["server.security.maxconnectionswithsameipaddress"];
-
-            RateLimitingConnectionsWithSameIpAddressAbuseBanMilliseconds = (int)(long)script["server.security.connectionswithsameipaddressabusebanmilliseconds"];
+            SecurityMaxUnknownPackets = (int)(long)script["server.security.maxunknownpackets"];
+            SecurityMaxUnknownPacketsPerMilliseconds = (int)(long)script["server.security.maxunknownpacketspermilliseconds"];
+            SecurityUnknownPacketsAbuseBanMilliseconds = (int)(long)script["server.security.unknownpacketsabusebanmilliseconds"];
 
             DatabaseType = (string)script["server.database.type"];
-
             DatabaseSource = (string)script["server.database.source"];
-
             DatabaseHost = (string)script["server.database.host"];
-
             DatabasePort = (int)(long)script["server.database.port"];
-
             DatabaseUser = (string)script["server.database.user"];
-
             DatabasePassword = (string)script["server.database.password"];
-
             DatabaseName = (string)script["server.database.name"];
         }
 
-        public int LoginMaxconnectionsWithSameIpAddress { get; set; }
-
         public int LoginMaxconnections { get; set; }
-
         public int LoginPort { get; set; }
 
-        public int GameMaxconnectionsWithSameIpAddress { get; set; }
-
         public int GameMaxConnections { get; set; }
-
         public int GamePort { get; set; }
-
         public int GameMaxPlayers { get; set; }
 
-        public int RateLimitingMaxConnections { get; set; }
+        public int SecurityMaxConnectionsWithSameIpAddress { get; set; }
+        public int SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds { get; set; }
 
-        public int RateLimitingMaxConnectionsPerMilliseconds { get; set; }
+        public int SecurityMaxConnections { get; set; }
+        public int SecurityMaxConnectionsPerMilliseconds { get; set; }
+        public int SecurityConnectionsAbuseBanMilliseconds { get; set; }
 
-        public int RateLimitingConnectionsAbuseBanMilliseconds { get; set; }
+        public int SecurityMaxPackets { get; set; }
+        public int SecurityMaxPacketsPerMilliseconds { get; set; }
+        public int SecurityPacketsAbuseBanMilliseconds { get; set; }
 
-        public int RateLimitingMaxPackets { get; set; }
-
-        public int RateLimitingMaxPacketsPerMilliseconds { get; set; }
-
-        public int RateLimitingPacketsAbuseBanMilliseconds { get; set; }
-
-        public int RateLimitingMaxLoginAttempts { get; set; }
-
-        public int RateLimitingMaxLoginAttemptsPerMilliseconds { get; set; }
-
-        public int RateLimitingLoginAttemptsAbuseBanMilliseconds { get; set; }
+        public int SecurityMaxLoginAttempts { get; set; }
+        public int SecurityMaxLoginAttemptsPerMilliseconds { get; set; }
+        public int SecurityLoginAttemptsAbuseBanMilliseconds { get; set; }
 
         public int SocketReceiveTimeoutMilliseconds { get; set; }
-
         public int SocketSendTimeoutMilliseconds { get; set; }
+        public int SecurityMaxSlowSockets { get; set; }
+        public int SecurityMaxSlowSocketsPerMilliseconds { get; set; }
+        public int SecuritySlowSocketsAbuseBanMilliseconds { get; set; }
 
-        public int RateLimitingMaxSlowSockets { get; set; }
+        public int SecurityMaxInvalidMessages { get; set; }
+        public int SecurityMaxInvalidMessagesPerMilliseconds { get; set; }
+        public int SecurityInvalidMessagesAbuseBanMilliseconds { get; set; }
 
-        public int RateLimitingMaxSlowSocketsPerMilliseconds { get; set; }
-
-        public int RateLimitingSlowSocketsAbuseBanMilliseconds { get; set; }
-
-        public int RateLimitingMaxConnectionsWithSameIpAddress { get; set; }
-
-        public int RateLimitingConnectionsWithSameIpAddressAbuseBanMilliseconds { get; set; }
+        public int SecurityMaxUnknownPackets { get; set; }
+        public int SecurityMaxUnknownPacketsPerMilliseconds { get; set; }
+        public int SecurityUnknownPacketsAbuseBanMilliseconds { get; set; }
 
         public string DatabaseType { get; set; }
-
         public string DatabaseSource { get; set; }
-
-        public string DatabaseHost { get; set; }
-    
-        public int DatabasePort { get; set; }
-    
-        public string DatabaseUser { get; set; }
-    
-        public string DatabasePassword { get; set; }
-    
+        public string DatabaseHost { get; set; }    
+        public int DatabasePort { get; set; }    
+        public string DatabaseUser { get; set; }    
+        public string DatabasePassword { get; set; }    
         public string DatabaseName { get; set; }        
 
         public void Dispose()

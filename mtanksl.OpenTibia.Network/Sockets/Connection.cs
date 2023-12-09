@@ -298,6 +298,16 @@ namespace OpenTibia.Network.Sockets
 
         }
 
+        protected virtual void IncreaseInvalidMessage()
+        {
+            
+        }
+
+        protected virtual void IncreaseUnknownPacket()
+        {
+            
+        }
+
         protected virtual void OnConnected()
         {
 

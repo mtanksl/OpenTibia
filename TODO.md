@@ -54,12 +54,13 @@
 	- Walking
 	- Turning
 	- Changing outfit
-		- Database fot outfits/addons
+		- Database for storing outfits/addons
 	- Logout
 - Interacting with other players
 	- Say
 		- Gamemaster in-game commands
 		- Spells
+			- Database for storing spells
 	- Whisper
 	- Yell
 	- Direct chat
@@ -102,11 +103,13 @@
 - Security
 	- Ban/unban by player name, account or ip address
 	- Rate limiting
+		- Kick multi-client
 		- Connections abuse
 		- Packets abuse
-		- Login attempts
+		- Login attempts abuse
 		- Kick slow sockets
-		- Kick multi-client
+		- Invalid message abuse
+		- Unknown packet abuse
 	- Stop accepting new connections once limit is reached
 	- Kick after 1 minute without pong response
 	- Kick after 15 minutes idle

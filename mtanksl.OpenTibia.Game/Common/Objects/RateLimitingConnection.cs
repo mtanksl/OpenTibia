@@ -60,5 +60,21 @@ namespace OpenTibia.Common.Objects
 
             OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SlowSocket) );
         }
+
+        protected override void IncreaseInvalidMessage()
+        {
+            if ( !server.RateLimiting.IncreaseInvalidMessage(IpAddress) )
+            {
+                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.RateLimited) );
+            }
+        }
+
+        protected override void IncreaseUnknownPacket()
+        {
+            if ( !server.RateLimiting.IncreaseUnknownPacket(IpAddress) )
+            {
+                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.RateLimited) );
+            }
+        }
     }
 }
