@@ -87,7 +87,9 @@ namespace OpenTibia.Common.Objects
                             } );
                         }
                         else
-                        {
+                        {                               
+                            IncreaseUnknownPacket();
+
                             server.Logger.WriteLine("Unknown packet received on game server: 0x" + identification.ToString("X2"), LogLevel.Warning);
 
                             server.Logger.WriteLine(body.Print(0, length), LogLevel.Warning);
@@ -884,14 +886,18 @@ namespace OpenTibia.Common.Objects
                 {
                     IncreaseInvalidMessage();
 
-                    server.Logger.WriteLine("Invalid message received on game server.", LogLevel.Warning);
+                    server.Logger.WriteLine("Invalid message received on game server", LogLevel.Warning);
 
                     server.Logger.WriteLine(body.Print(0, length), LogLevel.Warning);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                IncreaseInvalidMessage();
+
+                server.Logger.WriteLine("Invalid message received on game server", LogLevel.Warning);
+
+                server.Logger.WriteLine(body.Print(0, length), LogLevel.Warning);
             }
 
             base.OnReceived(body, length);

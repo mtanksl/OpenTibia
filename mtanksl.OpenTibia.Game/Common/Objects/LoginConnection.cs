@@ -93,14 +93,18 @@ namespace OpenTibia.Common.Objects
                 {
                     IncreaseInvalidMessage();
 
-                    server.Logger.WriteLine("Invalid message received on login server.", LogLevel.Warning);
+                    server.Logger.WriteLine("Invalid message received on login server", LogLevel.Warning);
 
                     server.Logger.WriteLine(body.Print(0, length), LogLevel.Warning);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                IncreaseInvalidMessage();
+
+                server.Logger.WriteLine("Invalid message received on login server", LogLevel.Warning);
+
+                server.Logger.WriteLine(body.Print(0, length), LogLevel.Warning);
             }
 
             base.OnReceived(body, length);
