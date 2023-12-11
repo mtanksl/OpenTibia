@@ -16,11 +16,11 @@ namespace OpenTibia.Common.Objects
 
         public Command Convert(ByteArrayStreamReader reader)
         {
-            var packet = (IIncomingPacket)Activator.CreateInstance<T>();
+            var packet = Activator.CreateInstance<T>();
 
             packet.Read(reader);
 
-            return convert( (T)packet);
+            return convert(packet);
         }
     }
 }
