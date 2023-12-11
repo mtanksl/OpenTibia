@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Network.Packets.Incoming
 {
-    public class LogoutIncomingPacket : IIncomingPacket
+    public class LogOutIncomingPacket : IIncomingPacket
     {
         public void Read(ByteArrayStreamReader reader)
         {

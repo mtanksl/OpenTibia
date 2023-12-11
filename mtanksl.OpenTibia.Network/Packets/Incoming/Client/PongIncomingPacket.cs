@@ -2,11 +2,11 @@
 
 namespace OpenTibia.Network.Packets.Incoming
 {
-    public class CancelTradeIncomingPacket : IIncomingPacket
+    public class PongIncomingPacket : IIncomingPacket
     {
         public void Read(ByteArrayStreamReader reader)
         {
-
+            
         }
     }
 }

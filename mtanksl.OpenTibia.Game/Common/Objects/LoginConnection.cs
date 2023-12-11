@@ -4,7 +4,7 @@ using OpenTibia.IO;
 using OpenTibia.Network.Packets.Incoming;
 using OpenTibia.Network.Sockets;
 using OpenTibia.Security;
-using System;
+using System.Collections.Generic;
 using System.Net.Sockets;
 
 namespace OpenTibia.Common.Objects
@@ -16,6 +16,8 @@ namespace OpenTibia.Common.Objects
         public LoginConnection(Server server, Socket socket) : base(server, socket)
         {
             this.server = server;
+
+            firstCommands.Add(0x01, new PacketToCommand<EnterGameIncomingPacket>(packet => new ParseEnterGameCommand(this, packet) ) );
         }
 
         protected override void OnConnected()
@@ -26,6 +28,8 @@ namespace OpenTibia.Common.Objects
         }
 
         private bool first = true;
+
+        private Dictionary<byte, IPacketToCommand> firstCommands = new Dictionary<byte, IPacketToCommand>();
 
         protected override void OnReceived(byte[] body, int length)
         {
@@ -52,22 +56,10 @@ namespace OpenTibia.Common.Objects
                     {
                         first = false;
 
-
-                        Command command = null;
-
-                        switch (identification)
+                        if (firstCommands.TryGetValue(identification, out var packetToCommand) )
                         {
-                            case 0x01:
-                                {
-                                    var packet = server.PacketsFactory.Create<EnterGameIncomingPacket>(reader);
+                            Command command = packetToCommand.Convert(reader);
 
-                                    command = new ParseEnterGameCommand(this, packet);
-                                }
-                                break;
-                        }
-
-                        if (command != null)
-                        {
                             server.Logger.WriteLine("Received on login server: 0x" + identification.ToString("X2"), LogLevel.Debug);
 
                             server.QueueForExecution( () =>

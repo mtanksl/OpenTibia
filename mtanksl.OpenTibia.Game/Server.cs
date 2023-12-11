@@ -59,8 +59,6 @@ namespace OpenTibia.Game
 
             Randomization = new Randomization();
 
-            PacketsFactory = new PacketsFactory();
-
             Clock = new Clock(12, 00);
 
             RateLimiting = new RateLimiting(this);
@@ -132,8 +130,6 @@ namespace OpenTibia.Game
         public PathResolver PathResolver { get; set; }
 
         public Randomization Randomization { get; set; }
-
-        public PacketsFactory PacketsFactory { get; set; }
 
         public Clock Clock { get; set; }
 
