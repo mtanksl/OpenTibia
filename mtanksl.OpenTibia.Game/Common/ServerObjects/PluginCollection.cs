@@ -333,6 +333,16 @@ namespace OpenTibia.Game
                 }
                 else
                 {
+#if AOT
+                    if (requiresTarget)
+                    {
+                        spellPluginsRequiresTarget.AddPlugin(words, () => _AotCompilation.SpellPlugins[fileName](spell) );
+                    }
+                    else
+                    {
+                        spellPlugins.AddPlugin(words, () => _AotCompilation.SpellPlugins[fileName](spell) );
+                    }
+#else
                     if (requiresTarget)
                     {
                         spellPluginsRequiresTarget.AddPlugin(words, () => (SpellPlugin)Activator.CreateInstance(Type.GetType(fileName), spell) );
@@ -341,6 +351,7 @@ namespace OpenTibia.Game
                     {
                         spellPlugins.AddPlugin(words, () => (SpellPlugin)Activator.CreateInstance(Type.GetType(fileName), spell) );
                     }
+#endif
                 }
             }
 
@@ -382,6 +393,16 @@ namespace OpenTibia.Game
                 }
                 else
                 {
+#if AOT
+                    if (requiresTarget)
+                    {
+                        runePluginsRequiresTarget.AddPlugin(openTibiaId, () => _AotCompilation.RunePlugins[fileName](rune) );
+                    }
+                    else
+                    {
+                        runePlugins.AddPlugin(openTibiaId, () => _AotCompilation.RunePlugins[fileName](rune) );
+                    }
+#else
                     if (requiresTarget)
                     {
                         runePluginsRequiresTarget.AddPlugin(openTibiaId, () => (RunePlugin)Activator.CreateInstance(Type.GetType(fileName), rune) );
@@ -390,7 +411,8 @@ namespace OpenTibia.Game
                     {
                         runePlugins.AddPlugin(openTibiaId, () => (RunePlugin)Activator.CreateInstance(Type.GetType(fileName), rune) );
                     }
-                }                
+#endif
+                }
             }
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.weapons"] ).Values)
@@ -417,8 +439,12 @@ namespace OpenTibia.Game
                     weaponPlugins.AddPlugin(openTibiaId, () => new LuaScriptingWeaponPlugin("data/plugins/weapons/" + fileName, weapon) );
                 }
                 else
-                {                    
+                {
+#if AOT
+                    weaponPlugins.AddPlugin(openTibiaId, () => _AotCompilation.WeaponPlugins[fileName](weapon) );
+#else
                     weaponPlugins.AddPlugin(openTibiaId, () => (WeaponPlugin)Activator.CreateInstance(Type.GetType(fileName), weapon) );
+#endif                    
                 }
             }
 
@@ -441,7 +467,11 @@ namespace OpenTibia.Game
                 }
                 else
                 {
+#if AOT
+                    ammunitionPlugins.AddPlugin(openTibiaId, () => _AotCompilation.AmmunitionPlugins[fileName](ammunition) );
+#else
                     ammunitionPlugins.AddPlugin(openTibiaId, () => (AmmunitionPlugin)Activator.CreateInstance(Type.GetType(fileName), ammunition) );
+#endif
                 }
             }
         }
