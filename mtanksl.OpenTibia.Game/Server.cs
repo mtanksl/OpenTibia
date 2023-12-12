@@ -1,7 +1,7 @@
-﻿using mtanksl.OpenTibia.Data.MsSql;
-using mtanksl.OpenTibia.Data.MySql;
-using OpenTibia.Common.Objects;
+﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Data.MsSql.Contexts;
+using OpenTibia.Data.MySql.Contexts;
 using OpenTibia.Data.Sqlite.Contexts;
 using OpenTibia.FileFormats.Dat;
 using OpenTibia.FileFormats.Otb;

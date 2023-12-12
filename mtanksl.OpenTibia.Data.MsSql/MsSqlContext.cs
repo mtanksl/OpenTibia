@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OpenTibia.Data.Contexts;
 
-namespace mtanksl.OpenTibia.Data.MsSql
+namespace OpenTibia.Data.MsSql.Contexts
 {
     public class MsSqlContext : DatabaseContext
     {
