@@ -5,7 +5,7 @@ using System;
 
 namespace OpenTibia.Common.Objects
 {
-    public class PacketToCommand<T> : IPacketToCommand where T : IIncomingPacket
+    public class PacketToCommand<T> : IPacketToCommand where T : IIncomingPacket, new()
     {
         private Func<T, Command> convert;
 
@@ -16,7 +16,7 @@ namespace OpenTibia.Common.Objects
 
         public Command Convert(ByteArrayStreamReader reader)
         {
-            var packet = Activator.CreateInstance<T>();
+            var packet = new T();
 
             packet.Read(reader);
 

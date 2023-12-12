@@ -19,13 +19,19 @@ namespace OpenTibia.Game
         public void Start()
         {
             gameObjectScripts = new Dictionary<string, GameObjectScript<string, Player> >();
-
+#if AOT
+            foreach (var gameObjectScript in _AotCompilation.Players)
+            {
+                gameObjectScripts.Add(gameObjectScript.Key, gameObjectScript);
+            }
+#else
             foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(GameObjectScript<string, Player>).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract) )
             {
                 GameObjectScript<string, Player> gameObjectScript = (GameObjectScript<string, Player>)Activator.CreateInstance(type);
 
                 gameObjectScripts.Add(gameObjectScript.Key, gameObjectScript);
             }
+#endif
         }
 
         private Dictionary<string, GameObjectScript<string, Player> > gameObjectScripts;

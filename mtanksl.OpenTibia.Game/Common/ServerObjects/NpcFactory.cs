@@ -42,13 +42,19 @@ namespace OpenTibia.Game
             }
 
             gameObjectScripts = new Dictionary<string, GameObjectScript<string, Npc> >();
-
+#if AOT
+            foreach (var gameObjectScript in _AotCompilation.Npcs)
+            {
+                gameObjectScripts.Add(gameObjectScript.Key, gameObjectScript);
+            }
+#else
             foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(GameObjectScript<string, Npc>).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract) )
             {
                 GameObjectScript<string, Npc> gameObjectScript = (GameObjectScript<string, Npc>)Activator.CreateInstance(type);
 
                 gameObjectScripts.Add(gameObjectScript.Key, gameObjectScript);
             }
+#endif
         }
 
         private Dictionary<string, NpcMetadata> metadatas;

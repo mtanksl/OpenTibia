@@ -198,13 +198,19 @@ namespace OpenTibia.Game
             }
 
             gameObjectScripts = new Dictionary<ushort, GameObjectScript<ushort, Item> >();
-
+#if AOT
+            foreach (var gameObjectScript in _AotCompilation.Items)
+            {
+                gameObjectScripts.Add(gameObjectScript.Key, gameObjectScript);
+            }
+#else
             foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(GameObjectScript<ushort, Item>).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract) )
             {
                 GameObjectScript<ushort, Item> gameObjectScript = (GameObjectScript<ushort, Item>)Activator.CreateInstance(type);
 
                 gameObjectScripts.Add(gameObjectScript.Key, gameObjectScript);
             }
+#endif
         }
 
         private Dictionary<ushort, ItemMetadata> metadatas;
