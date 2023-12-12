@@ -24,7 +24,6 @@ namespace OpenTibia.Game.GameObjectScripts
         public static readonly GameObjectScript<string, Npc>[] Npcs = new GameObjectScript<string, Npc>[]
         {
             new NpcScript(),
-
         };
 
         public static readonly GameObjectScript<string, Player>[] Players = new GameObjectScript<string, Player>[]
