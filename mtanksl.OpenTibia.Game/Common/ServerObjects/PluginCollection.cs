@@ -1,4 +1,4 @@
-﻿using mtanksl.OpenTibia.Game.Plugins;
+﻿using OpenTibia.Game.Plugins;
 using NLua;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;

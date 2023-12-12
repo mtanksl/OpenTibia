@@ -1,5 +1,4 @@
 ﻿#if AOT
-using mtanksl.OpenTibia.Game.Plugins;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Plugins

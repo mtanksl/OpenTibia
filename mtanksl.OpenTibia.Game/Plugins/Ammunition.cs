@@ -1,4 +1,4 @@
-﻿namespace mtanksl.OpenTibia.Game.Plugins
+﻿namespace OpenTibia.Game.Plugins
 {
     public class Ammunition
     {

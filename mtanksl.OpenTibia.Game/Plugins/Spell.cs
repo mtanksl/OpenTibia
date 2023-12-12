@@ -1,7 +1,7 @@
 ﻿using OpenTibia.Common.Structures;
 using System;
 
-namespace mtanksl.OpenTibia.Game.Plugins
+namespace OpenTibia.Game.Plugins
 {
     public class Spell
     {

@@ -2,7 +2,7 @@
 using OpenTibia.Game;
 using OpenTibia.Game.Commands;
 
-namespace mtanksl.OpenTibia.Game.Plugins
+namespace OpenTibia.Game.Plugins
 {
     public class LuaScriptingPlayerMoveItemPlugin : PlayerMoveItemPlugin
     {

@@ -1,9 +1,9 @@
-﻿using mtanksl.OpenTibia.Game.Plugins;
+﻿using OpenTibia.Game.Plugins;
 using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Components;
 
-namespace mtanksl.OpenTibia.GameData.Plugins.Weapons
+namespace OpenTibia.GameData.Plugins.Weapons
 {
     public class WandOfCosmicEnergyWeaponPlugin : WeaponPlugin
     {

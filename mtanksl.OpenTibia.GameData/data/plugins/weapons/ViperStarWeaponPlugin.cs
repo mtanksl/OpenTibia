@@ -1,11 +1,11 @@
-﻿using mtanksl.OpenTibia.Game.Plugins;
+﻿using OpenTibia.Game.Plugins;
 using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Components;
 using System;
 
-namespace mtanksl.OpenTibia.GameData.Plugins.Weapons
+namespace OpenTibia.GameData.Plugins.Weapons
 {
     public class ViperStarWeaponPlugin : WeaponPlugin
     {

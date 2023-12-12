@@ -1,6 +1,4 @@
-﻿using OpenTibia.Game;
-
-namespace mtanksl.OpenTibia.Game.Plugins
+﻿namespace OpenTibia.Game.Plugins
 {
     public abstract class Plugin
     {

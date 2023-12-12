@@ -1,4 +1,4 @@
-﻿using mtanksl.OpenTibia.Game.Plugins;
+﻿using OpenTibia.Game.Plugins;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.EventHandlers;
 using OpenTibia.Game.Events;

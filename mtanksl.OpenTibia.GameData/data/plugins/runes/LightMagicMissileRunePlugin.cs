@@ -1,10 +1,10 @@
-﻿using mtanksl.OpenTibia.Game.Plugins;
+﻿using OpenTibia.Game.Plugins;
 using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Components;
 
-namespace mtanksl.OpenTibia.GameData.Plugins.Runes
+namespace OpenTibia.GameData.Plugins.Runes
 {
     public class LightMagicMissileRunePlugin : RunePlugin
     {
