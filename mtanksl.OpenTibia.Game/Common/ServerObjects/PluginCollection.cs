@@ -104,7 +104,11 @@ namespace OpenTibia.Game
                         }
                         else
                         {
+#if AOT
+                            playerRotateItemPlugins.AddPlugin(openTibiaId, () => (PlayerRotateItemPlugin)_AotCompilation.OtherPlugins[fileName]() );
+#else
                             playerRotateItemPlugins.AddPlugin(openTibiaId, () => (PlayerRotateItemPlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+#endif 
                         }
                     
                         break;
@@ -117,7 +121,11 @@ namespace OpenTibia.Game
                         }
                         else
                         {
+#if AOT
+                            playerUseItemPlugins.AddPlugin(openTibiaId, () => (PlayerUseItemPlugin)_AotCompilation.OtherPlugins[fileName]() );
+#else
                             playerUseItemPlugins.AddPlugin(openTibiaId, () => (PlayerUseItemPlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+#endif
                         }
                   
                         break;
@@ -139,6 +147,16 @@ namespace OpenTibia.Game
                             }
                             else
                             {
+#if AOT
+                                if (allowFarUse)
+                                {
+                                    playerUseItemWithItemPluginsAllowFarUse.AddPlugin(openTibiaId, () => (PlayerUseItemWithItemPlugin)_AotCompilation.OtherPlugins[fileName]() );
+                                }
+                                else
+                                {
+                                    playerUseItemWithItemPlugins.AddPlugin(openTibiaId, () => (PlayerUseItemWithItemPlugin)_AotCompilation.OtherPlugins[fileName]() );
+                                }
+#else
                                 if (allowFarUse)
                                 {
                                     playerUseItemWithItemPluginsAllowFarUse.AddPlugin(openTibiaId, () => (PlayerUseItemWithItemPlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
@@ -147,6 +165,7 @@ namespace OpenTibia.Game
                                 {
                                     playerUseItemWithItemPlugins.AddPlugin(openTibiaId, () => (PlayerUseItemWithItemPlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
                                 }
+#endif
                             }
                         }
                         break;
@@ -168,6 +187,16 @@ namespace OpenTibia.Game
                             }
                             else
                             {
+#if AOT
+                                if (allowFarUse)
+                                {
+                                    playerUseItemWithCreaturePluginsAllowFarUse.AddPlugin(openTibiaId, () => (PlayerUseItemWithCreaturePlugin)_AotCompilation.OtherPlugins[fileName]() );
+                                }
+                                else
+                                {
+                                    playerUseItemWithCreaturePlugins.AddPlugin(openTibiaId, () => (PlayerUseItemWithCreaturePlugin)_AotCompilation.OtherPlugins[fileName]() );
+                                }
+#else
                                 if (allowFarUse)
                                 {
                                     playerUseItemWithCreaturePluginsAllowFarUse.AddPlugin(openTibiaId, () => (PlayerUseItemWithCreaturePlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
@@ -176,6 +205,7 @@ namespace OpenTibia.Game
                                 {
                                     playerUseItemWithCreaturePlugins.AddPlugin(openTibiaId, () => (PlayerUseItemWithCreaturePlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
                                 }
+#endif
                             }
                         }
                         break;
@@ -188,7 +218,11 @@ namespace OpenTibia.Game
                         }
                         else
                         {
+#if AOT
+                            playerMoveItemPlugins.AddPlugin(openTibiaId, () => (PlayerMoveItemPlugin)_AotCompilation.OtherPlugins[fileName]() );
+#else
                             playerMoveItemPlugins.AddPlugin(openTibiaId, () => (PlayerMoveItemPlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+#endif  
                         }
 
                         break;
@@ -213,7 +247,11 @@ namespace OpenTibia.Game
                         }
                         else
                         {
+#if AOT
+                            creatureStepInPlugins.AddPlugin(openTibiaId, () => (CreatureStepInPlugin)_AotCompilation.OtherPlugins[fileName]() );
+#else
                             creatureStepInPlugins.AddPlugin(openTibiaId, () => (CreatureStepInPlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+#endif
                         }
 
                         break;
@@ -226,7 +264,11 @@ namespace OpenTibia.Game
                         }
                         else
                         {
+#if AOT
+                            creatureStepOutPlugins.AddPlugin(openTibiaId, () => (CreatureStepOutPlugin)_AotCompilation.OtherPlugins[fileName]() );
+#else
                             creatureStepOutPlugins.AddPlugin(openTibiaId, () => (CreatureStepOutPlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+#endif
                         }
 
                         break;
@@ -251,7 +293,11 @@ namespace OpenTibia.Game
                         }
                         else
                         {
+#if AOT
+                            playerSayPlugins.AddPlugin(message, () => (PlayerSayPlugin)_AotCompilation.OtherPlugins[fileName]() );
+#else
                             playerSayPlugins.AddPlugin(message, () => (PlayerSayPlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+#endif
                         }
                     
                         break;
@@ -276,7 +322,11 @@ namespace OpenTibia.Game
                         }
                         else
                         {
+#if AOT
+                            dialoguePlugins.AddPlugin(name, () => (DialoguePlugin)_AotCompilation.OtherPlugins[fileName]() );
+#else
                             dialoguePlugins.AddPlugin(name, () => (DialoguePlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+#endif
                         }
                                        
                         break;

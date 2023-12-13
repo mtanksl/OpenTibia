@@ -6,11 +6,15 @@ using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 
 namespace OpenTibia.Game
 {
+#if AOT
+    [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicMethods)]
+#endif
     public class LuaScriptCollection : IDisposable
     {
         private LuaScope lua;
@@ -548,16 +552,25 @@ namespace OpenTibia.Game
 
         private Server server;
 
+#if AOT
+        [RequiresUnreferencedCode("Used by lua.RegisterFunction.")]
+#endif
         public void Print(params object[] parameters)
         {
             server.Logger.WriteLine(string.Join("\t", parameters), LogLevel.Debug);
         }
 
+#if AOT
+        [RequiresUnreferencedCode("Used by lua.RegisterFunction.")]
+#endif
         public string TypeOf(object obj)
         {
             return obj.GetType().FullName;
         }
 
+#if AOT
+        [RequiresUnreferencedCode("Used by lua.RegisterFunction.")]
+#endif
         public object Cast(object obj, string typeName)
         {
             return Convert.ChangeType(obj, Type.GetType(typeName) );
