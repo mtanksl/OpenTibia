@@ -1,7 +1,7 @@
-﻿using OpenTibia.Game.Plugins;
-using OpenTibia.Game.Commands;
+﻿using OpenTibia.Game.Commands;
 using OpenTibia.Game.EventHandlers;
 using OpenTibia.Game.Events;
+using OpenTibia.Game.Plugins;
 
 namespace OpenTibia.Game.CommandHandlers
 {

@@ -1,6 +1,6 @@
-﻿using OpenTibia.Game.Plugins;
-using OpenTibia.Common.Objects;
+﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Plugins;
 
 namespace OpenTibia.Game.Components
 {

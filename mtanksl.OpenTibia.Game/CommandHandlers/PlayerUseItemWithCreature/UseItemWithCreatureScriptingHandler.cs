@@ -1,5 +1,5 @@
-﻿using OpenTibia.Game.Plugins;
-using OpenTibia.Game.Commands;
+﻿using OpenTibia.Game.Commands;
+using OpenTibia.Game.Plugins;
 using System;
 
 namespace OpenTibia.Game.CommandHandlers

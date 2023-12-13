@@ -1,7 +1,7 @@
-﻿using OpenTibia.Game.Plugins;
-using NLua;
+﻿using NLua;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
+using OpenTibia.Game.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Linq;

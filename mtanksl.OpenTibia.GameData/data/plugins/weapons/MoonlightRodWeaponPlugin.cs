@@ -1,7 +1,7 @@
-﻿using OpenTibia.Game.Plugins;
-using OpenTibia.Common.Objects;
+﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Components;
+using OpenTibia.Game.Plugins;
 
 namespace OpenTibia.GameData.Plugins.Weapons
 {
