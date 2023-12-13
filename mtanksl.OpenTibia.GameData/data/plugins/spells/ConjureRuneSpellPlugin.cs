@@ -24,7 +24,7 @@ namespace OpenTibia.GameData.Plugins.Spells
         {
             return Context.AddCommand(new PlayerCountItemCommand(player, blankRune, 1) ).Then( (count) =>
             {
-                return Promise.FromResult(count > 0);
+                return count > 0 ? Promise.FromResultAsBooleanTrue : Promise.FromResultAsBooleanFalse;
             } );
         }
 

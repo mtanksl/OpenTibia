@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Components
         {
             return script.CallFunction("onusingrune", player, target, tile, item).Then(result =>
             {
-                return Promise.FromResult( (bool)result[0]);
+                return (bool)result[0] ? Promise.FromResultAsBooleanTrue : Promise.FromResultAsBooleanFalse;
             } );
         }
 

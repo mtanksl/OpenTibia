@@ -20,7 +20,7 @@ namespace OpenTibia.GameData.Plugins.Runes
 
         public override PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile tile, Item item)
         {
-            return Promise.FromResult(true);
+            return Promise.FromResultAsBooleanTrue;
         }
 
         public override Promise OnUseRune(Player player, Creature target, Tile tile, Item item)

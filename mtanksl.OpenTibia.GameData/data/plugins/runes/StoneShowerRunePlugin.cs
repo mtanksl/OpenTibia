@@ -23,10 +23,10 @@ namespace OpenTibia.GameData.Plugins.Runes
         {
             if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
             {
-                return Promise.FromResult(false);
+                return Promise.FromResultAsBooleanFalse;
             }
 
-            return Promise.FromResult(true);
+            return Promise.FromResultAsBooleanTrue;
         }
 
         public override Promise OnUseRune(Player player, Creature target, Tile tile, Item item)

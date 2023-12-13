@@ -27,10 +27,10 @@ namespace OpenTibia.GameData.Plugins.Spells
 
             if (next != null || toTile == null || toTile.Ground == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) )
             {
-                return Promise.FromResult(false);
+                return Promise.FromResultAsBooleanFalse;
             }
 
-            return Promise.FromResult(true);
+            return Promise.FromResultAsBooleanTrue;
         }
 
         public override Promise OnCast(Player player, Creature target, string message)

@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Components
         {
             return script.CallFunction("shouldgreet", npc, player, message).Then(result =>
             {
-                return Promise.FromResult( (bool)result[0] );
+                return (bool)result[0] ? Promise.FromResultAsBooleanTrue : Promise.FromResultAsBooleanFalse;
             } );
         }
 
@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Components
         {
             return script.CallFunction("shouldfarewell", npc, player, message).Then(result =>
             {
-                return Promise.FromResult( (bool)result[0] );
+                return (bool)result[0] ? Promise.FromResultAsBooleanTrue : Promise.FromResultAsBooleanFalse;
             } );
         }
 

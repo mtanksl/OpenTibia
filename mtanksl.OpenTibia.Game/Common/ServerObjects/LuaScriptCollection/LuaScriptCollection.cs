@@ -47,7 +47,7 @@ namespace OpenTibia.Game
 
                 return promise.Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );                
             } );
 
@@ -67,7 +67,7 @@ namespace OpenTibia.Game
 
                 return delayBehaviour.Promise.Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -82,7 +82,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new CreatureAddConditionCommand( (Creature)parameters[0], ToCondition(parameters[1] ) ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -90,7 +90,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new CreatureAttackAreaCommand( (Creature)parameters[0], (bool)parameters[1], ToPosition(parameters[2] ), ToOffsetArray(parameters[3] ), (ProjectileType?)(long?)parameters[4], (MagicEffectType?)(long?)parameters[5], ToAttack(parameters[6] ), ToCondition(parameters[7] ) ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -98,7 +98,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new CreatureAttackCreatureCommand( (Creature)parameters[0], (Creature)parameters[1], ToAttack(parameters[2] ), ToCondition(parameters[3] ) ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -106,7 +106,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new CreatureRemoveConditionCommand( (Creature)parameters[0], (ConditionSpecialCondition)(long)parameters[1] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -114,7 +114,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new CreatureUpdateDirectionCommand( (Creature)parameters[0], (Direction)(long)parameters[1] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -122,7 +122,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new CreatureUpdateHealthCommand( (Creature)parameters[0], (int)(long)parameters[1] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -130,7 +130,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new CreatureUpdateInvisibleCommand( (Creature)parameters[0], (bool)parameters[1] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -138,7 +138,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new CreatureUpdateLightCommand( (Creature)parameters[0], ToLight(parameters[1] ) ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -146,7 +146,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new CreatureUpdateOutfitCommand( (Creature)parameters[0], ToOutfit(parameters[1] ), ToOutfit(parameters[2] ) ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -154,7 +154,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new CreatureUpdatePartyIconCommand( (Creature)parameters[0], (PartyIcon)(long)parameters[1] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -162,7 +162,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new CreatureUpdateSkullIconCommand( (Creature)parameters[0], (SkullIcon)(long)parameters[1] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -170,7 +170,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new CreatureUpdateSpeedCommand( (Creature)parameters[0], (ushort)(long)parameters[1], (ushort)(long)parameters[2] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -178,7 +178,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new CreatureWalkCommand( (Creature)parameters[0], ToTile(parameters[1] ) ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -186,7 +186,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new ShowAnimatedTextCommand( (Position)parameters[0], (AnimatedTextColor)(long)parameters[1], (string)parameters[2] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -194,7 +194,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new ShowMagicEffectCommand( (Position)parameters[0], (MagicEffectType)(long)parameters[1] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -202,7 +202,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new ShowProjectileCommand( (Position)parameters[0], (Position)parameters[1], (ProjectileType)(long)parameters[2] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -210,7 +210,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new ShowTextCommand( (Creature)parameters[0], (TalkType)(long)parameters[1], (string)parameters[2] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -218,14 +218,14 @@ namespace OpenTibia.Game
             {
                 Context.Current.AddPacket( ( (Player)parameters[0] ).Client.Connection, new ShowWindowTextOutgoingPacket( (TextColor)(long)parameters[1], (string)parameters[2] ) );
 
-                return Promise.FromResult(Array.Empty<object>() );
+                return Promise.FromResultAsEmptyObjectArray;
             } );
 
             lua.RegisterCoFunction("fluiditemupdatefluidtype", parameters =>
             {
                 return Context.Current.AddCommand(new FluidItemUpdateFluidTypeCommand( (FluidItem)parameters[0], (FluidType)(long)parameters[1] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -233,7 +233,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new ItemDestroyCommand( (Item)parameters[0] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -249,7 +249,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new MonsterDestroyCommand( (Monster)parameters[0] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
             
@@ -257,7 +257,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new MonsterSayCommand( (Monster)parameters[0], (string)parameters[1] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -265,7 +265,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new NpcDestroyCommand( (Npc)parameters[0] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -273,7 +273,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new NpcSayCommand( (Npc)parameters[0], (string)parameters[1] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -281,7 +281,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new PlayerAddMoneyCommand((Player)parameters[0], (int)(long)parameters[1] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -305,7 +305,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new PlayerAddItemCommand( (Player)parameters[0], (ushort)(long)parameters[1], (byte)(long)parameters[2], (int)(long)parameters[3] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -329,7 +329,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new PlayerUpdateAxeCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -337,7 +337,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new PlayerUpdateClubCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -345,7 +345,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new PlayerUpdateDistanceCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -353,7 +353,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new PlayerUpdateFishCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -361,7 +361,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new PlayerUpdateFistCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -369,7 +369,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new PlayerUpdateMagicLevelCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -377,7 +377,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new PlayerUpdateShieldCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -385,7 +385,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new PlayerUpdateSwordCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -393,7 +393,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new PlayerDestroyCommand( (Player)parameters[0] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -401,7 +401,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new PlayerUpdateCapacityCommand( (Player)parameters[0], (int)(long)parameters[1] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -409,7 +409,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new PlayerUpdateExperienceCommand( (Player)parameters[0], (uint)(long)parameters[1], (ushort)(long)parameters[2], (byte)(long)parameters[3] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -417,7 +417,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new PlayerUpdateManaCommand( (Player)parameters[0], (int)(long)parameters[1] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -425,7 +425,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new PlayerUpdateSoulCommand( (Player)parameters[0], (int)(long)parameters[1] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -433,7 +433,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new PlayerUpdateStaminaCommand( (Player)parameters[0], (int)(long)parameters[1] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 
@@ -457,7 +457,7 @@ namespace OpenTibia.Game
 
                 player.Client.Outfits.SetOutfit( (ushort)(long)parameters[1], (Addon)(long)parameters[2] );
 
-                return Promise.FromResult(Array.Empty<object>() );
+                return Promise.FromResultAsEmptyObjectArray;
             } );
 
             lua.RegisterCoFunction("playerremoveoutfit", parameters =>
@@ -466,7 +466,7 @@ namespace OpenTibia.Game
 
                 player.Client.Outfits.RemoveOutfit( (ushort)(long)parameters[1] );
 
-                return Promise.FromResult(Array.Empty<object>() );
+                return Promise.FromResultAsEmptyObjectArray;
             } );
 
             lua.RegisterCoFunction("playergetstorage", parameters =>
@@ -489,7 +489,7 @@ namespace OpenTibia.Game
 
                 player.Client.Storages.SetValue( (int)(long)parameters[1], (int)(long)parameters[2] );
 
-                return Promise.FromResult(Array.Empty<object>() );
+                return Promise.FromResultAsEmptyObjectArray;
             } );
 
             lua.RegisterCoFunction("playerremovestorage", parameters =>
@@ -498,7 +498,7 @@ namespace OpenTibia.Game
 
                 player.Client.Storages.RemoveValue( (int)(long)parameters[1] );
 
-                return Promise.FromResult(Array.Empty<object>() );
+                return Promise.FromResultAsEmptyObjectArray;
             } );
                       
             lua.RegisterCoFunction("playersetspell", parameters =>
@@ -507,7 +507,7 @@ namespace OpenTibia.Game
 
                 player.Client.Spells.SetSpell( (string)parameters[1] );
 
-                return Promise.FromResult(Array.Empty<object>() );
+                return Promise.FromResultAsEmptyObjectArray;
             } );
 
             lua.RegisterCoFunction("playerremovespell", parameters =>
@@ -516,7 +516,7 @@ namespace OpenTibia.Game
 
                 player.Client.Spells.RemoveSpell( (string)parameters[1] );
 
-                return Promise.FromResult(Array.Empty<object>() );
+                return Promise.FromResultAsEmptyObjectArray;
             } );
 
             lua.RegisterCoFunction("playergetspells", parameters =>
@@ -530,7 +530,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new SplashItemUpdateFluidTypeCommand( (SplashItem)parameters[0], (FluidType)(long)parameters[1] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
                                     
@@ -538,7 +538,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new StackableItemUpdateCountCommand( (StackableItem)parameters[0], (byte)parameters[1] ) ).Then( () =>
                 {
-                    return Promise.FromResult(Array.Empty<object>() );
+                    return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
 

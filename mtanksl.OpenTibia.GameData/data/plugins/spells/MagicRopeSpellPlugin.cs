@@ -25,10 +25,10 @@ namespace OpenTibia.GameData.Plugins.Spells
         {
             if (ropeSpots.Contains(player.Tile.Ground.Metadata.OpenTibiaId) )
             {
-                return Promise.FromResult(true);
+                return Promise.FromResultAsBooleanTrue;
             }
 
-            return Promise.FromResult(false);
+            return Promise.FromResultAsBooleanFalse;
         }
 
         public override Promise OnCast(Player player, Creature target, string message)

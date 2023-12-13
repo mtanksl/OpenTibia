@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Plugins
         {
             return script.CallFunction("onuseitemwithitem", player, item, toItem).Then(result =>
             {
-                return Promise.FromResult ( (bool)result[0] );
+                return (bool)result[0] ? Promise.FromResultAsBooleanTrue : Promise.FromResultAsBooleanFalse;
             } );
         }
 
