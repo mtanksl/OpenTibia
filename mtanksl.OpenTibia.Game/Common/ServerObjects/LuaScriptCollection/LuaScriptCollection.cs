@@ -74,7 +74,7 @@ namespace OpenTibia.Game
             {
                 bool canceled = Context.Current.Server.CancelQueueForExecution( (string)parameters[0] );
 
-                return Promise.FromResult(new object[] { canceled } );
+                return canceled ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
             } );
 
             lua.RegisterCoFunction("creatureaddcondition", parameters =>
@@ -288,7 +288,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new PlayerRemoveMoneyCommand((Player)parameters[0], (int)(long)parameters[1] ) ).Then( (success) =>
                 {
-                    return Promise.FromResult(new object[] { success } );
+                    return success ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
                 } );                
             } );
 
@@ -312,7 +312,7 @@ namespace OpenTibia.Game
             {
                 return Context.Current.AddCommand(new PlayerRemoveItemCommand( (Player)parameters[0], (ushort)(long)parameters[1], (byte)(long)parameters[2], (int)(long)parameters[3] ) ).Then( (success) =>
                 {
-                    return Promise.FromResult(new object[] { success } );
+                    return success ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
                 } );                
             } );
 
@@ -447,7 +447,7 @@ namespace OpenTibia.Game
                     return Promise.FromResult(new object[] { true, addon } );
                 }
 
-                return Promise.FromResult(new object[] { false } );
+                return Promise.FromResultAsBooleanFalseObjectArray;
             } );
 
             lua.RegisterCoFunction("playersetoutfit", parameters =>
@@ -479,7 +479,7 @@ namespace OpenTibia.Game
                     return Promise.FromResult(new object[] { true, value } );
                 }
 
-                return Promise.FromResult(new object[] { false } );
+                return Promise.FromResultAsBooleanFalseObjectArray;
             } );
 
             lua.RegisterCoFunction("playersetstorage", parameters =>

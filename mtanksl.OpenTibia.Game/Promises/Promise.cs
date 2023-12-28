@@ -59,6 +59,26 @@ namespace OpenTibia.Game.Commands
             }
         }
 
+        private static PromiseResult<object[]> fromResultAsBooleanTrueObjectArray = Promise.FromResult(new object[] { true } );
+
+        public static PromiseResult<object[]> FromResultAsBooleanTrueObjectArray
+        {
+            get
+            {
+                return fromResultAsBooleanTrueObjectArray;
+            }
+        }
+
+        private static PromiseResult<object[]> fromResultAsBooleanFalseObjectArray = Promise.FromResult(new object[] { false } );
+
+        public static PromiseResult<object[]> FromResultAsBooleanFalseObjectArray
+        {
+            get
+            {
+                return fromResultAsBooleanFalseObjectArray;
+            }
+        }
+
         private static PromiseResult<object[]> fromResultAsEmptyObjectArray = Promise.FromResult(new object[0] );
 
         public static PromiseResult<object[]> FromResultAsEmptyObjectArray
