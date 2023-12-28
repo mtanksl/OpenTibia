@@ -3,7 +3,7 @@ using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Components
 {
-    public class ItemStreetLampSwitchOffScheduledBehaviour : ScheduledBehaviour
+    public class ItemStreetLampSwitchOffScheduledBehaviour : TibiaClockScheduledBehaviour
     {
         public ItemStreetLampSwitchOffScheduledBehaviour() : base(06, 00)
         {

@@ -4,13 +4,13 @@ using System;
 
 namespace OpenTibia.Game.Components
 {
-    public abstract class ScheduledBehaviour : Behaviour
+    public abstract class TibiaClockScheduledBehaviour : Behaviour
     {
         private int hour;
 
         private int minute;
 
-        public ScheduledBehaviour(int hour, int minute)
+        public TibiaClockScheduledBehaviour(int hour, int minute)
         {
             this.hour = hour;
             
