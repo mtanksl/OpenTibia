@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop()
         {
-            Context.Server.EventHandlers.Unsubscribe<GlobalTibiaClockTickEventArgs>(globalRealClockTick);
+            Context.Server.EventHandlers.Unsubscribe<GlobalRealClockTickEventArgs>(globalRealClockTick);
         }
     }
 }
