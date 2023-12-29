@@ -55,7 +55,7 @@ namespace OpenTibia.Game
             return null;
         }
 
-        public Player Create(int databasePlayerId, string name, Tile spawn)
+        public Player Create(int databasePlayerId, string name, Tile town, Tile spawn)
         {
             Player player = new Player()
             {
@@ -63,7 +63,7 @@ namespace OpenTibia.Game
 
                 Name = name,
 
-                Town = spawn,
+                Town = town,
 
                 Spawn = spawn
             };

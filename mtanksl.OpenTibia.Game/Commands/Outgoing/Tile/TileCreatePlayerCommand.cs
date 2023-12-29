@@ -27,14 +27,16 @@ namespace OpenTibia.Game.Commands
 
             if (player == null)
             {
-                Tile spawn = Context.Server.Map.GetTile(new Position(DbPlayer.SpawnX, DbPlayer.SpawnY, DbPlayer.SpawnZ));
+                Tile town = Context.Server.Map.GetTile(new Position(DbPlayer.TownX, DbPlayer.TownY, DbPlayer.TownZ) );
+
+                Tile spawn = Context.Server.Map.GetTile(new Position(DbPlayer.SpawnX, DbPlayer.SpawnY, DbPlayer.SpawnZ) );
 
                 if (spawn == null)
                 {
-                    spawn = Context.Server.Map.GetTile(new Position(DbPlayer.TownX, DbPlayer.TownY, DbPlayer.TownZ));
+                    spawn = town;
                 }
 
-                player = Context.Server.PlayerFactory.Create(DbPlayer.Id, DbPlayer.Name, spawn);
+                player = Context.Server.PlayerFactory.Create(DbPlayer.Id, DbPlayer.Name, town, spawn);
 
                 player.Client = client;
 
