@@ -33,18 +33,18 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            if ( !Context.Server.RateLimiting.IsLoginAttempsOk(Connection.IpAddress) )
+            if (Context.Server.Status != ServerStatus.Running && Connection.IpAddress != "127.0.0.1")
             {
-                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.TooManyLoginAttempts) );
+                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.TibiaIsCurrentlyDownForMaintenance) );
 
                 Context.Disconnect(Connection);
 
                 return Promise.Break;
             }
 
-            if (Context.Server.Status != ServerStatus.Running)
+            if ( !Context.Server.RateLimiting.IsLoginAttempsOk(Connection.IpAddress) )
             {
-                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.TibiaIsCurrentlyDownForMaintenance) );
+                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.TooManyLoginAttempts) );
 
                 Context.Disconnect(Connection);
 
