@@ -1,14 +1,16 @@
-﻿topicondition = {}
+﻿topiccondition = {}
 
-topicondition.mt = {
-	__index = topicondition
+topiccondition.mt = {
+	__index = topiccondition
 }
 
-function topicondition:new(success, continue, captures)
+-- @args (bool success, bool continue, string[] captures)
+-- @returns TopicCondition
+function topiccondition:new(success, continue, captures)
 	local o = {
-		success = success,
-		continue = continue,
-		captures = captures
+		success = success,		-- bool
+		continue = continue,	-- bool
+		captures = captures		-- string[]
 	}
 	setmetatable(o, self.mt)
 	return o
@@ -20,10 +22,12 @@ topiccallback.mt = {
 	__index = topiccallback
 }
 
+-- @args (object[] parameters, string answer)
+-- @returns TopicCallback
 function topiccallback:new(parameters, answer)
 	local o = {
-		parameters = parameters,
-		answer = answer
+		parameters = parameters, -- object[]
+		answer = answer			 -- string
 	}
 	setmetatable(o, self.mt)
 	return o
@@ -35,10 +39,12 @@ topicmatch.mt = {
 	__index = topicmatch
 }
 
+-- @args (Func<Npc, Player, string, TopicCondition> condition, Func<Npc, Player, string, string[], object[], TopicCallback> callback)
+-- @returns TopicMatch
 function topicmatch:new(condition, callback)
 	local o = {
-		condition = condition,
-		callback = callback
+		condition = condition,	-- Func<Npc, Player, string, TopicCondition>
+		callback = callback		-- Func<Npc, Player, string, string[], object[], TopicCallback>
 	}
 	setmetatable(o, self.mt)
 	return o
@@ -50,11 +56,13 @@ topicmatchresult.mt = {
 	__index = topicmatchresult
 }
 
+-- @args (Topic topic, string[] captures, Func<Npc, Player, string, string[], object[], TopicCallback> callback)
+-- @returns TopicMatchResult
 function topicmatchresult:new(topic, captures, callback)
 	local o = {
-		topic = topic,
-		captures = captures,
-		callback = callback
+		topic = topic,			-- Topic
+		captures = captures,	-- string[]
+		callback = callback		-- Func<Npc, Player, string, string[], object[], TopicCallback>
 	}
 	setmetatable(o, self.mt)
 	return o
@@ -66,15 +74,21 @@ topic.mt = {
 	__index = topic
 }
 
+-- @args (Topic parent)
+-- @returns Topic
 function topic:new(parent)
 	local o = {
-		parent = parent,
-		matches = {}
+		parent = parent,		-- Topic
+		matches = {}			-- TopicMatch[]
 	}
 	setmetatable(o, self.mt)
 	return o
 end
 
+-- @args (string question, string answer)
+-- @args (TopicCondition question, TopicCallback answer)
+-- @args (Func<Npc, Player, string, TopicCondition> question, Func<Npc, Player, string, string[], object[], TopicCallback> answer)
+-- @returns void
 function topic:add(question, answer)
 	local condition = nil
 	if type(question) == "function" then
@@ -87,23 +101,23 @@ function topic:add(question, answer)
 		else 
 			if question == "" then
 				condition = function(npc, player, message)
-					return topicondition:new(true, true)
+					return topiccondition:new(true, true)
 				end
 			else
-				if string.find(question, "%(.+%)") then
+				if string.find(question, "%(.+%)") then -- if has open parenthesis and close parenthesis
 					condition = function(npc, player, message)
 						local captures = { string.match(message, question) }
 						if #captures > 0 then
-							return topicondition:new(true, false, captures)
+							return topiccondition:new(true, false, captures)
 						end
-						return topicondition:new(false)
+						return topiccondition:new(false)
 					end
 				else
 					condition = function(npc, player, message)
 						if message == question then
-							return topicondition:new(true, false, {} )
+							return topiccondition:new(true, false, {} )
 						end
-						return topicondition:new(false)
+						return topiccondition:new(false)
 					end
 				end
 			end
@@ -126,6 +140,8 @@ function topic:add(question, answer)
 	table.insert(self.matches, topicmatch:new(condition, callback) )
 end
 
+-- @args (object[] responses, object[] offers)
+-- @returns void
 function topic:addsell(responses, offers)
 	local confirm = topic:new(self)
 	for _, offer in ipairs(offers) do
@@ -148,6 +164,8 @@ function topic:addsell(responses, offers)
 	confirm:add("", topiccallback:new( { topic = self }, responses.no) )
 end
 
+-- @args (object[] responses, object[] offers)
+-- @returns void
 function topic:addbuy(responses, offers)
 	local confirm = topic:new(self)
 	for _, offer in ipairs(offers) do
@@ -172,6 +190,8 @@ function topic:addbuy(responses, offers)
 	confirm:add("", topiccallback:new( { topic = self }, responses.no) )
 end
 
+-- @args (object[] responses, object[] destinations)
+-- @returns void
 function topic:addtravel(responses, destinations)
 	local confirm = topic:new(self)
 	for _, destination in ipairs(destinations) do
@@ -187,6 +207,8 @@ function topic:addtravel(responses, destinations)
 	confirm:add("", topiccallback:new( { topic = self }, responses.no) )
 end
 
+-- @args (Npc npc, Player player, string message)
+-- @returns TopicMatchResult
 function topic:match(npc, player, message)
 	local result = nil
 	local current = self
@@ -215,23 +237,31 @@ npchandler.mt = {
 	__index = npchandler
 }
 
+-- @args (object[] responses)
+-- @returns NpcHandler
 function npchandler:new(responses)
 	local o = {
-		responses = responses,
-		players = {}
+		responses = responses,	-- object[]
+		players = {}			-- Dictionary<int, object[]>
 	}
 	setmetatable(o, self.mt)
 	return o
 end
 
+-- @args (Npc npc, Player player, string message)
+-- @returns bool
 function npchandler:shouldgreet(npc, player, message)
 	return message == "hi" or message == "hello"
 end
 
+-- @args (Npc npc, Player player, string message)
+-- @returns bool
 function npchandler:shouldfarewell(npc, player, message)
 	return message == "bye" or message == "farewell"
 end
 
+-- @args (Npc npc, Player player)
+-- @returns void
 function npchandler:ongreet(npc, player)
 	local greet = self.responses.greet
 	self.players[player.Id] = {
@@ -240,11 +270,15 @@ function npchandler:ongreet(npc, player)
 	command.npcsay(npc, self:replace(npc, player, greet) )
 end
 
+-- @args (Npc npc, Player player)
+-- @returns void
 function npchandler:onbusy(npc, player)
 	local busy = self.responses.busy
 	command.npcsay(npc, self:replace(npc, player, busy) )
 end
 
+-- @args (Npc npc, Player player, string message)
+-- @returns void
 function npchandler:onsay(npc, player, message)
 	local topic = self.players[player.Id].topic
 	local topicmatchresult = topic:match(npc, player, message)
@@ -258,16 +292,22 @@ function npchandler:onsay(npc, player, message)
 	end
 end
 
+-- @args (Npc npc, Player player)
+-- @returns void
 function npchandler:onfarewell(npc, player)
 	local farewell = self.responses.farewell
 	command.npcsay(npc, self:replace(npc, player, farewell) )
 end
 
+-- @args (Npc npc, Player player)
+-- @returns void
 function npchandler:ondismiss(npc, player)
 	local dismiss = self.responses.dismiss
 	command.npcsay(npc, self:replace(npc, player, dismiss) )
 end
 
+-- @args (Npc npc, Player player, string message)
+-- @returns string
 function npchandler:replace(npc, player, message)	
 	for key, value in pairs(self.players[player.Id] ) do
 		message = string.gsub(message, "%{" .. key .. "%}", tostring(value) )
