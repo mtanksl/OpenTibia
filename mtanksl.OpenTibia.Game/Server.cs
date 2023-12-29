@@ -18,10 +18,27 @@ using OpenTibia.Threading;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 
 namespace OpenTibia.Game
 {
+    public enum ServerStatus
+    {
+        /// <summary>
+        /// It is not running.
+        /// </summary>
+        Stopped,
+
+        /// <summary>
+        /// It is running.
+        /// </summary>
+        Running,
+
+        /// <summary>
+        /// It is running, but not accepting new players.
+        /// </summary>
+        Paused
+    }
+
     public class Server : IDisposable
     {
         public Server()
@@ -117,6 +134,8 @@ namespace OpenTibia.Game
         {
             Dispose(false);
         }
+
+        public ServerStatus Status { get; private set; }
 
         private Dispatcher dispatcher;
 
@@ -285,7 +304,9 @@ namespace OpenTibia.Game
 
             gameServer.Start(Config.GameMaxConnections, Config.GamePort);
 
-            Logger.WriteLine("Server online");
+            Status = ServerStatus.Running;
+
+            Logger.WriteLine("Server status: running.");
         }
 
         private Dictionary<string, SchedulerEvent> schedulerEvents = new Dictionary<string, SchedulerEvent>();
@@ -432,7 +453,7 @@ namespace OpenTibia.Game
 
             } ).Wait();
 
-            Logger.WriteLine("Kick all complete");
+            Logger.WriteLine("Kick all complete.");
         }
 
         public void Save()
@@ -441,20 +462,43 @@ namespace OpenTibia.Game
             {
                 Player[] players = GameObjectPool.GetPlayers().ToArray();
 
-                DbPlayer[] dbPlayers = Context.Current.Database.PlayerRepository.GetPlayerByIds(players.Select(p => p.DatabasePlayerId).ToArray() );
-
-                foreach (var item in players.GroupJoin(dbPlayers, p => p.DatabasePlayerId, p => p.Id, (player, dbPlayers) => new { Player = player, DbPlayer = dbPlayers.First() } ) )
+                if (players.Length > 0)
                 {
-                    PlayerFactory.Save(item.DbPlayer, item.Player);
-                }
+                    DbPlayer[] dbPlayers = Context.Current.Database.PlayerRepository.GetPlayerByIds(players.Select(p => p.DatabasePlayerId).ToArray() );
 
-                Context.Current.Database.Commit();
+                    foreach (var item in players.GroupJoin(dbPlayers, p => p.DatabasePlayerId, p => p.Id, (player, dbPlayers) => new { Player = player, DbPlayer = dbPlayers.First() } ) )
+                    {
+                        PlayerFactory.Save(item.DbPlayer, item.Player);
+                    }
+
+                    Context.Current.Database.Commit();
+                }
 
                 return Promise.Completed;
 
             } ).Wait();
 
-            Logger.WriteLine("Save complete");
+            Logger.WriteLine("Save complete.");
+        }
+
+        public void Pause()
+        {
+            if (Status == ServerStatus.Running)
+            {
+                Status = ServerStatus.Paused;
+
+                Logger.WriteLine("Server status: paused.");
+            }
+        }
+
+        public void Continue()
+        {
+            if (Status == ServerStatus.Paused)
+            {
+                Status = ServerStatus.Running;
+
+                Logger.WriteLine("Server status: running.");
+            }
         }
 
         public void Stop()
@@ -476,8 +520,10 @@ namespace OpenTibia.Game
             scheduler.Stop();
 
             dispatcher.Stop();
-            
-            Logger.WriteLine("Server offline");
+
+            Status = ServerStatus.Stopped;
+
+            Logger.WriteLine("Server status: stopped.");
         }
 
         private bool disposed = false;

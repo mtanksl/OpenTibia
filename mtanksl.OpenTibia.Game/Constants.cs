@@ -27,7 +27,9 @@
         public static readonly string ThisItemIsAlreadyBeingTraded = "This item is already being traded.";
         
         public static readonly string ThisPlayerIsAlreadyTrading = "This player is already trading.";
-        
+
+        public static readonly string TibiaIsCurrentlyDownForMaintenance = "Tibia is currently down for maintenance. Please try again later.";
+
         public static readonly string TradeCanceled = "Trade canceled.";
 
         public static readonly string TooManyLoginAttempts = "Too many login attempts, try again in a few minutes.";

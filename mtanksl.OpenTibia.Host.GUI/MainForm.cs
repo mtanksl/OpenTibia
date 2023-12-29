@@ -38,7 +38,7 @@ namespace mtanksl.OpenTibia.Host.GUI
             {
                 Enabled = false;
 
-                await Task.Run(() =>
+                await Task.Run( () =>
                 {
                     server = new Server();
 #if DEBUG
@@ -62,6 +62,10 @@ namespace mtanksl.OpenTibia.Host.GUI
                 kickAllToolStripMenuItem.Enabled = true;
 
                 saveToolStripMenuItem.Enabled = true;
+
+                maintenanceToolStripMenuItem.Enabled = true;
+
+                maintenanceToolStripMenuItem.Checked = false;
             }
         }
 
@@ -102,6 +106,8 @@ namespace mtanksl.OpenTibia.Host.GUI
             finally
             {
                 Enabled = true;
+
+                maintenanceToolStripMenuItem.Checked = false;
             }
         }
 
@@ -144,6 +150,10 @@ namespace mtanksl.OpenTibia.Host.GUI
                 kickAllToolStripMenuItem.Enabled = false;
 
                 saveToolStripMenuItem.Enabled = false;
+
+                maintenanceToolStripMenuItem.Enabled = false;
+
+                maintenanceToolStripMenuItem.Checked = false;
             }
         }
 
@@ -195,6 +205,22 @@ namespace mtanksl.OpenTibia.Host.GUI
             }
         }
 
+        private void maintenanceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (server.Status == ServerStatus.Running)
+            {
+                server.Pause();
+
+                maintenanceToolStripMenuItem.Checked = true;
+            }
+            else if (server.Status == ServerStatus.Paused)
+            {
+                server.Continue();
+
+                maintenanceToolStripMenuItem.Checked = false;
+            }
+        }
+
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
             richTextBox1.Clear();
@@ -236,6 +262,10 @@ namespace mtanksl.OpenTibia.Host.GUI
                         kickAllToolStripMenuItem.Enabled = false;
 
                         saveToolStripMenuItem.Enabled = false;
+
+                        maintenanceToolStripMenuItem.Enabled = false;
+
+                        maintenanceToolStripMenuItem.Checked = false;
                     }
                 }
                 else

@@ -42,6 +42,15 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
+            if (Context.Server.Status != ServerStatus.Running)
+            {
+                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.TibiaIsCurrentlyDownForMaintenance) );
+
+                Context.Disconnect(Connection);
+
+                return Promise.Break;
+            }
+
             DbAccount dbAccount = Context.Database.PlayerRepository.GetAccount(Packet.Account, Packet.Password);
 
             if (dbAccount == null)

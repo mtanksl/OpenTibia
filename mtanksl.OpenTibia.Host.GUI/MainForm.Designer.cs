@@ -37,11 +37,12 @@
             stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             commandToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             kickAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            maintenanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             statusStrip1 = new System.Windows.Forms.StatusStrip();
             richTextBox1 = new System.Windows.Forms.RichTextBox();
             contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(components);
             clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
@@ -90,7 +91,7 @@
             // 
             // commandToolStripMenuItem
             // 
-            commandToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { kickAllToolStripMenuItem, saveToolStripMenuItem });
+            commandToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { kickAllToolStripMenuItem, saveToolStripMenuItem, maintenanceToolStripMenuItem });
             commandToolStripMenuItem.Name = "commandToolStripMenuItem";
             commandToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
             commandToolStripMenuItem.Text = "Command";
@@ -102,6 +103,22 @@
             kickAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             kickAllToolStripMenuItem.Text = "Kick all";
             kickAllToolStripMenuItem.Click += kickAllToolStripMenuItem_Click;
+            // 
+            // saveToolStripMenuItem
+            // 
+            saveToolStripMenuItem.Enabled = false;
+            saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            saveToolStripMenuItem.Text = "Save";
+            saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
+            // 
+            // maintenanceToolStripMenuItem
+            // 
+            maintenanceToolStripMenuItem.Enabled = false;
+            maintenanceToolStripMenuItem.Name = "maintenanceToolStripMenuItem";
+            maintenanceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            maintenanceToolStripMenuItem.Text = "Maintenance";
+            maintenanceToolStripMenuItem.Click += maintenanceToolStripMenuItem_Click;
             // 
             // statusStrip1
             // 
@@ -135,14 +152,6 @@
             clearToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
             clearToolStripMenuItem.Text = "Clear";
             clearToolStripMenuItem.Click += clearToolStripMenuItem_Click;
-            // 
-            // saveToolStripMenuItem
-            // 
-            saveToolStripMenuItem.Enabled = false;
-            saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            saveToolStripMenuItem.Text = "Save";
-            saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
             // 
             // MainForm
             // 
@@ -180,5 +189,6 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem maintenanceToolStripMenuItem;
     }
 }
