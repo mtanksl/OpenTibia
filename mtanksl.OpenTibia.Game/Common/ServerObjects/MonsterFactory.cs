@@ -105,6 +105,8 @@ namespace OpenTibia.Game
 
             Monster monster = new Monster(metadata)
             {
+                Town = spawn,
+
                 Spawn = spawn
             };
 
@@ -142,7 +144,7 @@ namespace OpenTibia.Game
             return false;
         }
 
-        public void Destroy(Monster monster)
+        public void ClearComponentsAndEventHandlers(Monster monster)
         {
             server.GameObjectComponents.ClearComponents(monster);
 

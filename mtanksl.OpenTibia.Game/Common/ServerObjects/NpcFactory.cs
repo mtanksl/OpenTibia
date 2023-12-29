@@ -101,6 +101,8 @@ namespace OpenTibia.Game
 
             Npc npc = new Npc(metadata)
             {
+                Town = spawn,
+
                 Spawn = spawn
             };
 
@@ -138,7 +140,7 @@ namespace OpenTibia.Game
             return false;
         }
 
-        public void Destroy(Npc npc)
+        public void ClearComponentsAndEventHandlers(Npc npc)
         {
             server.GameObjectComponents.ClearComponents(npc);
 

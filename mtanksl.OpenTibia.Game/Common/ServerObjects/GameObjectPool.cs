@@ -20,5 +20,10 @@ namespace OpenTibia.Game
         {
             players.Add(player.Name, player);
         }
+
+        public IEnumerable<Player> GetPlayers() 
+        { 
+            return players.Values;
+        }
     }
 }

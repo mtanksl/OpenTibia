@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Commands
             {
                 Context.Server.QueueForExecution( () =>
                 {
-                    Context.Server.NpcFactory.Destroy(Npc);
+                    Context.Server.NpcFactory.ClearComponentsAndEventHandlers(Npc);
 
                     return Context.AddCommand(new TileRemoveCreatureCommand(Npc.Tile, Npc) );
                 } );

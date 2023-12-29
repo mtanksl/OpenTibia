@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Data.Models;
 using OpenTibia.Data.MsSql.Contexts;
 using OpenTibia.Data.MySql.Contexts;
 using OpenTibia.Data.Sqlite.Contexts;
@@ -16,6 +17,7 @@ using OpenTibia.Network.Sockets;
 using OpenTibia.Threading;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenTibia.Game
 {
@@ -434,7 +436,16 @@ namespace OpenTibia.Game
         {
             QueueForExecution( () =>
             {
-                //TODO
+                Player[] players = GameObjectPool.GetPlayers().ToArray();
+
+                DbPlayer[] dbPlayers = Context.Current.Database.PlayerRepository.GetPlayerByIds(players.Select(p => p.DatabasePlayerId).ToArray() );
+
+                foreach (var item in players.GroupJoin(dbPlayers, p => p.DatabasePlayerId, p => p.Id, (player, dbPlayers) => new { Player = player, DbPlayer = dbPlayers.First() } ) )
+                {
+                    PlayerFactory.Save(item.DbPlayer, item.Player);
+                }
+
+                Context.Current.Database.Commit();
 
                 return Promise.Completed;
 

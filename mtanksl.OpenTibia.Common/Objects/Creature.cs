@@ -82,6 +82,8 @@ namespace OpenTibia.Common.Objects
 
         public SpecialCondition SpecialConditions { get; set; }
 
+        public Tile Town { get; set; }
+
         public Tile Spawn { get; set; }
 
         public bool HasSpecialCondition(SpecialCondition specialCondition)

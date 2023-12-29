@@ -57,6 +57,7 @@ namespace OpenTibia.Data.Repositories
                 context.PlayerSpells
                     .Where(pi => pi.PlayerId == player.Id)
                     .Load();
+
                 context.PlayerOutfits
                     .Where(pi => pi.PlayerId == player.Id)
                     .Load();
@@ -70,41 +71,41 @@ namespace OpenTibia.Data.Repositories
             return player;
         }
 
-        public DbPlayer GetPlayerById(int id)
+        public DbPlayer[] GetPlayerByIds(int[] ids)
         {
-            DbPlayer player = context.Players
-                .Where(p => p.Id == id)
-                .FirstOrDefault();
+            DbPlayer[] players = context.Players
+                .Where(p => ids.Contains(p.Id) )
+                .ToArray();
 
-            if (player != null)
+            if (players.Length > 0)
             {
                 context.PlayerDepotItems
-                    .Where(pi => pi.PlayerId == player.Id)
+                    .Where(pi => ids.Contains(pi.PlayerId) )
                     .Load();
 
                 context.PlayerItems
-                    .Where(pi => pi.PlayerId == player.Id)
+                    .Where(pi => ids.Contains(pi.PlayerId) )
                     .Load();
 
                 context.PlayerStorages
-                    .Where(pi => pi.PlayerId == player.Id)
+                    .Where(pi => ids.Contains(pi.PlayerId) )
                     .Load();
 
                 context.PlayerSpells
-                  .Where(pi => pi.PlayerId == player.Id)
-                  .Load();
+                    .Where(pi => ids.Contains(pi.PlayerId) )
+                    .Load();
 
                 context.PlayerOutfits
-                    .Where(pi => pi.PlayerId == player.Id)
+                    .Where(pi => ids.Contains(pi.PlayerId) )
                     .Load();
 
                 context.PlayerVips
                     .Include(v => v.Vip)
-                    .Where(pi => pi.PlayerId == player.Id)
+                    .Where(pi => ids.Contains(pi.PlayerId) )
                     .Load();              
             }
 
-            return player;
+            return players;
         }
 
         public DbPlayer GetPlayerByName(string name)

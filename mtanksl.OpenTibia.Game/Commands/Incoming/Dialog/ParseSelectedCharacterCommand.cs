@@ -110,20 +110,9 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            Tile toTile = Context.Server.Map.GetTile(new Position(dbPlayer.SpawnX, dbPlayer.SpawnY, dbPlayer.SpawnZ) );
-
-            if (toTile == null)
+            return Context.AddCommand(new TileCreatePlayerCommand(Connection, dbPlayer) ).Then( (player) =>
             {
-                toTile = Context.Server.Map.GetTile(new Position(dbPlayer.TownX, dbPlayer.TownY, dbPlayer.TownZ) );
-            }
-
-            Client client = new Client(Context.Server);
-
-            client.Connection = Connection;
-
-            return Context.AddCommand(new TileCreatePlayerCommand(toTile, client, dbPlayer) ).Then( (player) =>
-            {
-                return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
+                return Context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.Teleport) );
             } );
         }
     }

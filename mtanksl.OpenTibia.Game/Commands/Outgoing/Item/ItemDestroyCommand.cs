@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Commands
             {
                 Context.Server.QueueForExecution( () =>
                 {
-                    Destroy(Context, Item);
+                    ClearComponentsAndEventHandlers(Context, Item);
 
                     switch (Item.Parent)
                     {
@@ -59,15 +59,15 @@ namespace OpenTibia.Game.Commands
             return false;
         }
 
-        private static void Destroy(Context context, Item item)
+        private static void ClearComponentsAndEventHandlers(Context context, Item item)
         {
-            context.Server.ItemFactory.Destroy(item);
+            context.Server.ItemFactory.ClearComponentsAndEventHandlers(item);
 
             if (item is Container container)
 	        {
 		        foreach (var child in container.GetItems() )
 		        {
-                    Destroy(context, child);
+                    ClearComponentsAndEventHandlers(context, child);
 		        }
 	        }
         }

@@ -35,18 +35,6 @@ namespace OpenTibia.Common.Objects
             }           
         }
 
-        public void ClearLocker(int databasePlayerId)
-        {
-            Dictionary<ushort, Container> towns;
-
-            if ( players.TryGetValue(databasePlayerId, out towns) )
-            {
-                towns.Clear();
-
-                players.Remove(databasePlayerId);
-            }           
-        }
-
         public Container GetLocker(int databasePlayerId, ushort townId)
         {
             Dictionary<ushort, Container> towns;

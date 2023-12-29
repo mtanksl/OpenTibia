@@ -38,7 +38,7 @@ namespace mtanksl.OpenTibia.Host.GUI
             {
                 Enabled = false;
 
-                await Task.Run( () =>
+                await Task.Run(() =>
                 {
                     server = new Server();
 #if DEBUG
@@ -60,6 +60,8 @@ namespace mtanksl.OpenTibia.Host.GUI
                 stopToolStripMenuItem.Enabled = true;
 
                 kickAllToolStripMenuItem.Enabled = true;
+
+                saveToolStripMenuItem.Enabled = true;
             }
         }
 
@@ -140,6 +142,8 @@ namespace mtanksl.OpenTibia.Host.GUI
                 stopToolStripMenuItem.Enabled = false;
 
                 kickAllToolStripMenuItem.Enabled = false;
+
+                saveToolStripMenuItem.Enabled = false;
             }
         }
 
@@ -167,7 +171,6 @@ namespace mtanksl.OpenTibia.Host.GUI
             }
         }
 
-        /*
         private async void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (server == null)
@@ -191,7 +194,6 @@ namespace mtanksl.OpenTibia.Host.GUI
                 Enabled = true;
             }
         }
-        */
 
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -232,6 +234,8 @@ namespace mtanksl.OpenTibia.Host.GUI
                         stopToolStripMenuItem.Enabled = false;
 
                         kickAllToolStripMenuItem.Enabled = false;
+
+                        saveToolStripMenuItem.Enabled = false;
                     }
                 }
                 else

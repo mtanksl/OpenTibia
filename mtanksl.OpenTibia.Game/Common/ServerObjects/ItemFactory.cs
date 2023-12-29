@@ -337,7 +337,7 @@ namespace OpenTibia.Game
             return false;
         }
 
-        public void Destroy(Item item)
+        public void ClearComponentsAndEventHandlers(Item item)
         {
             server.GameObjectComponents.ClearComponents(item);
 
