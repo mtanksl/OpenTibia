@@ -19,7 +19,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (plugin != null)
             {
-                return plugin.OnUseItemWithItem(command.Player, command.Item, command.ToItem).Then(result =>
+                return plugin.OnUseItemWithItem(command.Player, command.Item, command.ToItem).Then( (result) =>
                 {
                     if (result)
                     {

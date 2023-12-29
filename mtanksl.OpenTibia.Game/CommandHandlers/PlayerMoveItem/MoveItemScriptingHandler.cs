@@ -12,7 +12,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (plugin != null)
             {
-                return plugin.OnMoveItem(command.Player, command.Item, command.ToContainer, command.ToIndex, command.Count).Then(result =>
+                return plugin.OnMoveItem(command.Player, command.Item, command.ToContainer, command.ToIndex, command.Count).Then( (result) =>
                 {
                     if (result)
                     {

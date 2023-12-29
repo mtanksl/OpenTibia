@@ -12,7 +12,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (plugin != null)
             {
-                return plugin.OnSay(command.Player, command.Message).Then(result =>
+                return plugin.OnSay(command.Player, command.Message).Then( (result) =>
                 {
                     if (result)
                     {
