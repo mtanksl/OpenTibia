@@ -99,32 +99,31 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            return Promise.Run(async () =>
+            Player onlinePlayer = Context.Server.GameObjects.GetPlayers().Where(p => p.Name == dbPlayer.Name).FirstOrDefault();
+
+            if (onlinePlayer != null)
             {
-                Player onlinePlayer = Context.Server.GameObjects.GetPlayers().Where(p => p.Name == dbPlayer.Name).FirstOrDefault();
+                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.YouAreAlreadyLoggedIn) );
 
-                if (onlinePlayer != null)
-                {
-                    await Context.AddCommand(new PlayerDestroyCommand(onlinePlayer) );
-                }
+                Context.Disconnect(Connection);
 
-                Tile toTile = Context.Server.Map.GetTile(new Position(dbPlayer.SpawnX, dbPlayer.SpawnY, dbPlayer.SpawnZ) );
+                return Promise.Break;
+            }
 
-                if (toTile == null)
-                {
-                    toTile = Context.Server.Map.GetTile(new Position(dbPlayer.TownX, dbPlayer.TownY, dbPlayer.TownZ) );
-                }
+            Tile toTile = Context.Server.Map.GetTile(new Position(dbPlayer.SpawnX, dbPlayer.SpawnY, dbPlayer.SpawnZ) );
 
-                Client client = new Client(Context.Server);
+            if (toTile == null)
+            {
+                toTile = Context.Server.Map.GetTile(new Position(dbPlayer.TownX, dbPlayer.TownY, dbPlayer.TownZ) );
+            }
 
-                client.Connection = Connection;
+            Client client = new Client(Context.Server);
 
-                await Context.AddCommand(new TileCreatePlayerCommand(toTile, client, dbPlayer) );
+            client.Connection = Connection;
 
-                if (onlinePlayer == null)
-                {
-                    await Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
-                }
+            return Context.AddCommand(new TileCreatePlayerCommand(toTile, client, dbPlayer) ).Then( (player) =>
+            {
+                return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
             } );
         }
     }
