@@ -351,9 +351,9 @@ namespace OpenTibia.Game
 
         private static void SavePlayer(Context context, DbPlayer dbPlayer, Player player)
         {
-            // dbPlayer.Health = player.Health;
+            dbPlayer.Health = player.Health;
 
-            // dbPlayer.MaxHealth = player.MaxHealth;
+            dbPlayer.MaxHealth = player.MaxHealth;
 
             dbPlayer.Direction = (int)player.Direction;
 
@@ -385,9 +385,9 @@ namespace OpenTibia.Game
 
             dbPlayer.OutfitAddon = (int)player.Outfit.Addon;
 
-            // dbPlayer.BaseSpeed = player.BaseSpeed;
+            dbPlayer.BaseSpeed = player.BaseSpeed;
 
-            // dbPlayer.Speed = player.Speed;
+            dbPlayer.Speed = player.Speed;
 
             dbPlayer.Invisible = player.Invisible;
 
@@ -429,9 +429,9 @@ namespace OpenTibia.Game
 
             dbPlayer.LevelPercent = player.LevelPercent;
 
-            // dbPlayer.Mana = player.Mana;
+            dbPlayer.Mana = player.Mana;
 
-            // dbPlayer.MaxMana = player.MaxMana;
+            dbPlayer.MaxMana = player.MaxMana;
 
             dbPlayer.Soul = player.Soul;
 
