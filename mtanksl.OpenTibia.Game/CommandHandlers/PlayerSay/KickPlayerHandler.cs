@@ -20,9 +20,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (observer != null && observer != command.Player)
                 {
-                    Context.Disconnect(observer.Client.Connection);
-
-                    return Promise.Completed;
+                     return Context.AddCommand(new PlayerDestroyCommand(observer) );
                 }
 
                 return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );

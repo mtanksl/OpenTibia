@@ -48,9 +48,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (observer != null)
                     {
-                        Context.Disconnect(observer.Client.Connection);
-    
-                        return Promise.Completed;
+                        return Context.AddCommand(new PlayerDestroyCommand(observer) );
                     }
                 }
 

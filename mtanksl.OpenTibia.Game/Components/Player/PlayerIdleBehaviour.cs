@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Components
 
                 if (totalMinutes >= 16)
                 {
-                    Context.Disconnect(player.Client.Connection);
+                    return Context.AddCommand(new PlayerDestroyCommand(player) );
 
                 }
                 else if (totalMinutes >= 15)

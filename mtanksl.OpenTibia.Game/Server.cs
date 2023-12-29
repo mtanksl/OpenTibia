@@ -18,6 +18,7 @@ using OpenTibia.Threading;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 namespace OpenTibia.Game
 {
@@ -420,12 +421,14 @@ namespace OpenTibia.Game
         {
             QueueForExecution( () =>
             {
+                List<Promise> promises = new List<Promise>();
+
                 foreach (var observer in Context.Current.Server.GameObjects.GetPlayers() )
                 {
-                    Context.Current.Disconnect(observer.Client.Connection);
+                    promises.Add(Context.Current.AddCommand(new PlayerDestroyCommand(observer) ) );
                 }
 
-                return Promise.Completed;
+                return Promise.WhenAll(promises.ToArray() );
 
             } ).Wait();
 

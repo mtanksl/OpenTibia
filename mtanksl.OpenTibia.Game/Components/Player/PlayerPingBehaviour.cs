@@ -37,7 +37,7 @@ namespace OpenTibia.Game.Components
             {
                 if ( (DateTime.UtcNow - lastPingResponse).TotalMinutes >= 1)
                 {
-                    Context.Disconnect(player.Client.Connection);
+                    return Context.AddCommand(new PlayerDestroyCommand(player) );
                 }
                 else
                 {
