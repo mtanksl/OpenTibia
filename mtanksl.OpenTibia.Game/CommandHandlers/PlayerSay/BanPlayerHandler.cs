@@ -48,7 +48,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (observer != null)
                     {
-                        return Context.AddCommand(new PlayerDestroyCommand(observer) );
+                        return Context.AddCommand(new ParseLogOutCommand(observer) );
                     }
                 }
 

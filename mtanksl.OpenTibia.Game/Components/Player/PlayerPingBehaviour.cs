@@ -37,7 +37,7 @@ namespace OpenTibia.Game.Components
             {
                 if ( (DateTime.UtcNow - lastPingResponse).TotalMinutes >= 1)
                 {
-                    return Context.AddCommand(new PlayerDestroyCommand(player) );
+                    return Context.AddCommand(new ParseLogOutCommand(player) );
                 }
                 else
                 {
