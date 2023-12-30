@@ -20,13 +20,17 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, Message);
+
+            ShowTextOutgoingPacket showTextOutgoingPacket2 = new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, "pspsps");
+
             foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(Player.Tile.Position) )
             {
                 if (observer.Tile.Position.CanHearWhisper(Player.Tile.Position) )
                 {
                     if (observer is Player player)
                     {
-                        Context.AddPacket(player.Client.Connection, new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, Message) );
+                        Context.AddPacket(player.Client.Connection, showTextOutgoingPacket);
                     }
 
                     Context.AddEvent(observer, new PlayerWhisperEventArgs(Player, Message) );
@@ -35,7 +39,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if (observer is Player player)
                     {
-                        Context.AddPacket(player.Client.Connection, new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, "pspsps") );
+                        Context.AddPacket(player.Client.Connection, showTextOutgoingPacket2);
                     }
 
                     Context.AddEvent(observer, new PlayerWhisperEventArgs(Player, Message) );

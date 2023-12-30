@@ -113,3 +113,4 @@
 	- Stop accepting new connections once limit is reached
 	- Kick after 1 minute without pong response
 	- Kick after 15 minutes idle
+	- Maintenance info

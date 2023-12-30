@@ -23,11 +23,13 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(0, Creature.Name, 0, TalkType, Creature.Tile.Position, Message);
+
             foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Creature.Tile.Position) )
             {
                 if (observer.Tile.Position.CanHearSay(Creature.Tile.Position) )
                 {
-                    Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Creature.Name, 0, TalkType, Creature.Tile.Position, Message) );
+                    Context.AddPacket(observer.Client.Connection, showTextOutgoingPacket);
                 }
             }
 

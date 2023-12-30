@@ -20,11 +20,13 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(0, Npc.Name, 0, TalkType.Say, Npc.Tile.Position, Message);
+
             foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Npc.Tile.Position) )
             {
                 if (observer.Tile.Position.CanHearSay(Npc.Tile.Position) )
                 {                        
-                    Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(0, Npc.Name, 0, TalkType.Say, Npc.Tile.Position, Message) );
+                    Context.AddPacket(observer.Client.Connection, showTextOutgoingPacket);
                    
                     Context.AddEvent(observer, new NpcSayEventArgs(Npc, Message) );
                 }

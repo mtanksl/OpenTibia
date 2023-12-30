@@ -32,10 +32,12 @@ namespace OpenTibia.Game.Commands
                 if (channel != null)
                 {
                     if (channel.ContainsPlayer(Player) )
-                    {                                                           
+                    {
+                        ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.ChannelRedAnonymous, channel.Id, Message);
+
                         foreach (var observer in channel.GetPlayers() )
                         {
-                            Context.AddPacket(observer.Client.Connection, new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.ChannelRedAnonymous, channel.Id, Message) );
+                            Context.AddPacket(observer.Client.Connection, showTextOutgoingPacket);
                         }
 
                         return Promise.Completed;
