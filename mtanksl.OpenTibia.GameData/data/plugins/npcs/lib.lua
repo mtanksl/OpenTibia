@@ -147,9 +147,11 @@ function topic:addsell(responses, offers)
 	for _, offer in ipairs(offers) do
 		self:add("sell (%d+) " .. offer.name, function(npc, player, message, captures, parameters)
 			local count = math.max(1, math.min(100, tonumber(captures[1] ) ) ) 
-			return topiccallback:new( { plural = offer.plural, item = offer.item, type = offer.type, count = count, price = offer.price * count, topic = confirm }, responses.questionitems) 
+			return topiccallback:new(table.extend(offer, { count = count, price = offer.price * count, topic = confirm } ), responses.questionitems) 
 		end)
-		self:add("sell " .. offer.name, topiccallback:new( { article = offer.article, name = offer.name, item = offer.item, type = offer.type, count = 1, price = offer.price, topic = confirm }, responses.questionitem) )
+		self:add("sell " .. offer.name, function(npc, player, message, captures, parameters) 
+			return topiccallback:new(table.extend(offer, { count = 1, price = offer.price, topic = confirm } ), responses.questionitem)
+		end)
 	end
 	confirm:add("yes", function(npc, player, message, captures, parameters) 
 		if command.playerremoveitem(player, parameters.item, parameters.type, parameters.count) then
@@ -161,7 +163,9 @@ function topic:addsell(responses, offers)
 		end
 		return topiccallback:new( { topic = self }, responses.notenoughitem)		
 	end)
-	confirm:add("", topiccallback:new( { topic = self }, responses.no) )
+	confirm:add("", function(npc, player, message, captures, parameters) 
+		return topiccallback:new( { topic = self }, responses.no)
+	end)
 end
 
 -- @args (object[] responses, object[] offers)
@@ -171,14 +175,18 @@ function topic:addbuy(responses, offers)
 	for _, offer in ipairs(offers) do
 		self:add("buy (%d+) " .. offer.name, function(npc, player, message, captures, parameters) 
 			local count = math.max(1, math.min(100, tonumber(captures[1] ) ) )
-			return topiccallback:new( { plural = offer.plural,item = offer.item, type = offer.type, count = count, price = offer.price * count, topic = confirm }, responses.questionitems) 
+			return topiccallback:new(table.extend(offer, { count = count, price = offer.price * count, topic = confirm } ), responses.questionitems) 
 		end)
 		self:add("(%d+) " .. offer.name, function(npc, player, message, captures, parameters) 
 			local count = math.max(1, math.min(100, tonumber(captures[1] ) ) )
-			return topiccallback:new( { plural = offer.plural, item = offer.item, type = offer.type, count = count, price = offer.price * count, topic = confirm }, responses.questionitems) 
+			return topiccallback:new(table.extend(offer, { count = count, price = offer.price * count, topic = confirm } ), responses.questionitems) 
 		end)
-		self:add("buy " .. offer.name, topiccallback:new( { article = offer.article, name = offer.name, item = offer.item, type = offer.type, count = 1, price = offer.price, topic = confirm }, responses.questionitem) )
-		self:add("" .. offer.name, topiccallback:new( { article = offer.article, name = offer.name, item = offer.item, type = offer.type, count = 1, price = offer.price, topic = confirm }, responses.questionitem) )
+		self:add("buy " .. offer.name, function(npc, player, message, captures, parameters) 
+			return topiccallback:new(table.extend(offer, { count = 1, price = offer.price, topic = confirm } ), responses.questionitem)
+		end)
+		self:add("" .. offer.name, function(npc, player, message, captures, parameters) 
+			return topiccallback:new(table.extend(offer, { count = 1, price = offer.price, topic = confirm } ), responses.questionitem)
+		end)
 	end
 	confirm:add("yes", function(npc, player, message, captures, parameters) 
 		if command.playerremovemoney(player, parameters.price) then
@@ -187,7 +195,9 @@ function topic:addbuy(responses, offers)
 		end
 		return topiccallback:new( { topic = self }, responses.notenoughtgold)
 	end)
-	confirm:add("", topiccallback:new( { topic = self }, responses.no) )
+	confirm:add("", function(npc, player, message, captures, parameters) 
+		return topiccallback:new( { topic = self }, responses.no)
+	end)
 end
 
 -- @args (object[] responses, object[] destinations)
@@ -195,7 +205,9 @@ end
 function topic:addtravel(responses, destinations)
 	local confirm = topic:new(self)
 	for _, destination in ipairs(destinations) do
-		self:add("" .. destination.name, topiccallback:new( { town = destination.town, position = destination.position, price = destination.price, topic = confirm }, responses.question) )
+		self:add("" .. destination.name, function(npc, player, message, captures, parameters) 
+			return topiccallback:new(table.extend(destination, { topic = confirm } ), responses.question)
+		end)
 	end
 	confirm:add("yes", function(npc, player, message, captures, parameters) 
 		if command.playerremovemoney(player, parameters.price) then			
@@ -205,7 +217,9 @@ function topic:addtravel(responses, destinations)
 		end
 		return topiccallback:new( { topic = self }, responses.notenoughtgold)
 	end)
-	confirm:add("", topiccallback:new( { topic = self }, responses.no) )
+	confirm:add("", function(npc, player, message, captures, parameters) 
+		return topiccallback:new( { topic = self }, responses.no)
+	end)
 end
 
 -- @args (Npc npc, Player player, string message)

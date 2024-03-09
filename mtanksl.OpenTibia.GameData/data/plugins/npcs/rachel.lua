@@ -26,7 +26,9 @@ confirm:add("yes", function(npc, player, message, captures, parameters)
     end
     return topiccallback:new( { topic = say }, "You don't have any empty vials.")        
 end)
-confirm:add("", topiccallback:new( { topic = say }, "Hmm, but please keep Tibia litter free.") )
+confirm:add("", function(npc, player, message, captures, parameters) 
+    return topiccallback:new( { topic = say }, "Hmm, but please keep Tibia litter free.") 
+end)
 
 local handler = npchandler:new( {
     greet = "Welcome {playername}! Whats your need?",
