@@ -195,11 +195,12 @@ end
 function topic:addtravel(responses, destinations)
 	local confirm = topic:new(self)
 	for _, destination in ipairs(destinations) do
-		self:add("" .. destination.name, topiccallback:new( { city = destination.city, price = destination.price, position = destination.position, topic = confirm }, responses.question) )
+		self:add("" .. destination.name, topiccallback:new( { town = destination.town, position = destination.position, price = destination.price, topic = confirm }, responses.question) )
 	end
 	confirm:add("yes", function(npc, player, message, captures, parameters) 
 		if command.playerremovemoney(player, parameters.price) then			
-			--TODO
+			command.creaturewalk(player, parameters.position)
+			command.showmagiceffect(parameters.position, magiceffecttype.teleport)
 			return topiccallback:new( { topic = self }, responses.yes)
 		end
 		return topiccallback:new( { topic = self }, responses.notenoughtgold)
@@ -309,8 +310,10 @@ end
 -- @args (Npc npc, Player player, string message)
 -- @returns string
 function npchandler:replace(npc, player, message)	
-	for key, value in pairs(self.players[player.Id] ) do
-		message = string.gsub(message, "%{" .. key .. "%}", tostring(value) )
+	if self.players[player.Id] then
+		for key, value in pairs(self.players[player.Id] ) do
+			message = string.gsub(message, "%{" .. key .. "%}", tostring(value) )
+		end
 	end
 	message = string.gsub(message, "%{playername%}", player.Name)
 	message = string.gsub(message, "%{npcname%}", npc.Name)

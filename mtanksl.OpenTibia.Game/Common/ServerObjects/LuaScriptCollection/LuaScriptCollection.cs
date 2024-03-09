@@ -183,7 +183,7 @@ namespace OpenTibia.Game
 
             lua.RegisterCoFunction("showanimatedtext", parameters =>
             {
-                return Context.Current.AddCommand(new ShowAnimatedTextCommand( (Position)parameters[0], (AnimatedTextColor)(long)parameters[1], (string)parameters[2] ) ).Then( () =>
+                return Context.Current.AddCommand(new ShowAnimatedTextCommand(ToPosition(parameters[0] ), (AnimatedTextColor)(long)parameters[1], (string)parameters[2] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
@@ -191,7 +191,7 @@ namespace OpenTibia.Game
 
             lua.RegisterCoFunction("showmagiceffect", parameters =>
             {
-                return Context.Current.AddCommand(new ShowMagicEffectCommand( (Position)parameters[0], (MagicEffectType)(long)parameters[1] ) ).Then( () =>
+                return Context.Current.AddCommand(new ShowMagicEffectCommand(ToPosition(parameters[0] ), (MagicEffectType)(long)parameters[1] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
@@ -199,7 +199,7 @@ namespace OpenTibia.Game
 
             lua.RegisterCoFunction("showprojectile", parameters =>
             {
-                return Context.Current.AddCommand(new ShowProjectileCommand( (Position)parameters[0], (Position)parameters[1], (ProjectileType)(long)parameters[2] ) ).Then( () =>
+                return Context.Current.AddCommand(new ShowProjectileCommand(ToPosition(parameters[0] ), ToPosition(parameters[1] ), (ProjectileType)(long)parameters[2] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
@@ -274,6 +274,21 @@ namespace OpenTibia.Game
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
+            } );
+
+            lua.RegisterCoFunction("npcfarewell", parameters =>
+            {
+                NpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<NpcThinkBehaviour>( (Npc)parameters[0] );
+
+                if (npcThinkBehaviour != null)
+                {
+                    return npcThinkBehaviour.Farewell( (Player)parameters[1] ).Then( () =>
+                    {
+                        return Promise.FromResultAsEmptyObjectArray;
+                    } );
+                }
+
+                return Promise.FromResultAsEmptyObjectArray;
             } );
 
             lua.RegisterCoFunction("playeraddmoney", parameters =>
@@ -678,8 +693,8 @@ namespace OpenTibia.Game
             if (parameter is LuaTable)
             {
                 LuaTable table = (LuaTable)parameter;
-
-                return new Position( (int)table["x"], (int)table["y"], (int)table["z"] );
+                
+                return new Position( (int)(long)table["x"], (int)(long)table["y"], (int)(long)table["z"] );
             }
          
             throw new ArgumentException();

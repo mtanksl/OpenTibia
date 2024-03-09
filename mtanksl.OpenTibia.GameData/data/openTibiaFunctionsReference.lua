@@ -235,6 +235,13 @@ return {
 				args = "(Npc npc, string message)",
 				returns = "void",
 			},
+			-- void command.npcfarewell(Npc npc, Player player)
+			npcfarewell = {
+				type = "function",
+				description = "",
+				args = "(Npc npc, Player player)",
+				returns = "void",
+			},
 			-- void command.playeraddmoney(Player player, int price)
 			playeraddmoney = {
 				type = "function",

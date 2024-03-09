@@ -6,9 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="GameObjectScripts\Npc\**" />
+    <EmbeddedResource Remove="GameObjectScripts\Npc\**" />
+    <None Remove="GameObjectScripts\Npc\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="EventHandlers\PlayerLogout\" />
     <Folder Include="EventHandlers\PlayerLogin\" />
-    <Folder Include="GameObjectScripts\Npc\" />
   </ItemGroup>
 
   <ItemGroup>

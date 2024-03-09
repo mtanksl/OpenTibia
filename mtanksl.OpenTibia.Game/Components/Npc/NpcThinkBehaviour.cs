@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Commands;
 using OpenTibia.Game.Events;
 using System;
 
@@ -16,6 +17,42 @@ namespace OpenTibia.Game.Components
 
             this.walkStrategy = walkStrategy;
         }
+            
+        private QueueHashSet<Player> queue = new QueueHashSet<Player>();
+
+        public async Promise Farewell(Player player)
+        {
+            Npc npc = (Npc)GameObject;
+
+            if (queue.Count > 0)
+            {
+                if (player == queue.Peek() )
+                {
+                    queue.Remove(player);
+            
+                    while (queue.Count > 0)
+                    {
+                        Player next = queue.Peek();
+
+                        if (next.Tile == null || next.IsDestroyed || !npc.Tile.Position.IsInRange(next.Tile.Position, 3) )
+                        {
+                            queue.Remove(next);
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    if (queue.Count > 0)
+                    {
+                        Player next = queue.Peek();
+
+                        await dialoguePlugin.OnGreet(npc, next);
+                    }
+                }
+            }
+        }
 
         private Guid playerSay;
 
@@ -24,8 +61,6 @@ namespace OpenTibia.Game.Components
         public override void Start()
         {
             Npc npc = (Npc)GameObject;
-
-            QueueHashSet<Player> queue = new QueueHashSet<Player>();
 
             playerSay = Context.Server.EventHandlers.Subscribe<PlayerSayEventArgs>(async (context, e) =>
             {
@@ -132,7 +167,7 @@ namespace OpenTibia.Game.Components
 
                 if (queue.Count > 0)
                 {
-                    var player = queue.Peek();
+                    Player player = queue.Peek();
 
                     if (player.Tile == null || player.IsDestroyed || !npc.Tile.Position.IsInRange(player.Tile.Position, 3) )
 	                {
@@ -140,7 +175,7 @@ namespace OpenTibia.Game.Components
 
 		                while (queue.Count > 0)
 		                {
-			                var next = queue.Peek();
+                            Player next = queue.Peek();
 
 			                if (next.Tile == null || next.IsDestroyed || !npc.Tile.Position.IsInRange(next.Tile.Position, 3) )
 			                {
@@ -154,7 +189,7 @@ namespace OpenTibia.Game.Components
 
 		                if (queue.Count > 0)
 		                {
-			                var next = queue.Peek();
+                            Player next = queue.Peek();
 
 			                await dialoguePlugin.OnGreet(npc, next);
 		                }

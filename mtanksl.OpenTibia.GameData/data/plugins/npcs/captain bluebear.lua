@@ -8,11 +8,11 @@ say:addtravel( {
     notenoughtgold = "You don't have enough money.",
     no = "We would like to serve you some time."
 }, {
-    { name = "carlin", town = "Carlin", position = { x = 0, y = 0, z = 7 }, price = 110 },
-    { name = "ab'dendriel", town = "Ab'Dendriel", position = { x = 0, y = 0, z = 7 }, price = 130 },
-    { name = "edron", town = "Edron", position = { x = 0, y = 0, z = 7 }, price = 160 },
-    { name = "venore", town = "Venore", position = { x = 0, y = 0, z = 7 }, price = 170 },
-    { name = "port hope", town = "Port Hope", position = { x = 0, y = 0, z = 7 }, price = 160 }
+    { name = "carlin", town = "Carlin", position = { x = 925, y = 810, z = 7 }, price = 110 },
+    { name = "ab'dendriel", town = "Ab'Dendriel", position = { x = 925, y = 810, z = 7 }, price = 130 },
+    { name = "edron", town = "Edron", position = { x = 925, y = 810, z = 7 }, price = 160 },
+    { name = "venore", town = "Venore", position = { x = 925, y = 810, z = 7 }, price = 170 },
+    { name = "port hope", town = "Port Hope", position = {x = 925, y = 810, z = 7 }, price = 160 }
 } )
 
 local handler = npchandler:new( {
