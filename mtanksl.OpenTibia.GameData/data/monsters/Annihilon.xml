@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Annihilon" nameDescription="annihilon" speed="380">
   <health now="60000" max="60000" />
-  <look typeex="0" type="12" head="19" body="104" legs="96" feer="96" corpse="6068" />
+  <look typeex="0" type="12" head="19" body="104" legs="96" feet="96" corpse="6068" />
   <voices>
     <voice sentence="Annihilation!" />
   </voices>

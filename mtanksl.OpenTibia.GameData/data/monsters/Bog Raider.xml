@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Bog Raider" nameDescription="a bog raider" speed="300">
   <health now="800" max="800" />
-  <look typeex="0" type="299" head="0" body="0" legs="0" feer="0" corpse="8951" />
+  <look typeex="0" type="299" head="0" body="0" legs="0" feet="0" corpse="8951" />
   <voices>
     <voice sentence="Tchhh!" />
     <voice sentence="Slurp!" />

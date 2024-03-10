@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Barbarian Headsplitter" nameDescription="a barbarian headsplitter" speed="270">
   <health now="100" max="100" />
-  <look typeex="0" type="253" head="115" body="105" legs="119" feer="132" corpse="6080" />
+  <look typeex="0" type="253" head="115" body="105" legs="119" feet="132" corpse="6080" />
   <voices>
     <voice sentence="I will regain my honor with your blood!" />
     <voice sentence="Surrender is not option!" />

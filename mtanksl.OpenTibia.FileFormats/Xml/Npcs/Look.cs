@@ -4,6 +4,9 @@ namespace OpenTibia.FileFormats.Xml.Npcs
 {
     public class Look
     {
+        [XmlAttribute("typeex")]
+        public int TypeEx { get; set; }
+
         [XmlAttribute("type")]
         public int Type { get; set; }
 

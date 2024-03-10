@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Ghazbaran" nameDescription="Ghazbaran" speed="400">
   <health now="60000" max="60000" />
-  <look typeex="0" type="12" head="0" body="123" legs="97" feer="94" corpse="6068" />
+  <look typeex="0" type="12" head="0" body="123" legs="97" feet="94" corpse="6068" />
   <voices>
     <voice sentence="COME HERE AND DIE!" />
     <voice sentence="COME AND GIVE ME SOME AMUSEMENT!" />

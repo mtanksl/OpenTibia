@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Vampire Bride" nameDescription="a vampire bride" speed="220">
   <health now="1200" max="1200" />
-  <look typeex="0" type="312" head="0" body="0" legs="0" feer="0" corpse="9660" />
+  <look typeex="0" type="312" head="0" body="0" legs="0" feet="0" corpse="9660" />
   <voices>
     <voice sentence="Kneel before your Mistress!" />
     <voice sentence="Dead is the new alive." />

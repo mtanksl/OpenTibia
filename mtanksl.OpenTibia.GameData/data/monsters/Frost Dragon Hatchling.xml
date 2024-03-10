@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Frost Dragon Hatchling" nameDescription="a frost dragon hatchling" speed="170">
   <health now="800" max="800" />
-  <look typeex="0" type="283" head="0" body="0" legs="0" feer="0" corpse="7969" />
+  <look typeex="0" type="283" head="0" body="0" legs="0" feet="0" corpse="7969" />
   <voices>
     <voice sentence="Rooawwrr" />
     <voice sentence="Fchu?" />

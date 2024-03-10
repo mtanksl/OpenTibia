@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
 <monster name="Carniphila" nameDescription="a carniphila" speed="240">
   <health now="255" max="255" />
-  <look typeex="0" type="120" head="0" body="0" legs="0" feer="0" corpse="6047" />
+  <look typeex="0" type="120" head="0" body="0" legs="0" feet="0" corpse="6047" />
 </monster>

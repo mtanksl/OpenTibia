@@ -19,7 +19,7 @@ namespace OpenTibia.FileFormats.Xml.Monsters
         [XmlAttribute("legs")]
         public int Legs { get; set; }
 
-        [XmlAttribute("feer")]
+        [XmlAttribute("feet")]
         public int Feet { get; set; }
 
         [XmlAttribute("corpse")]

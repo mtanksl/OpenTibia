@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Warlock" nameDescription="a warlock" speed="220">
   <health now="3500" max="3500" />
-  <look typeex="0" type="130" head="19" body="71" legs="128" feer="128" corpse="6080" />
+  <look typeex="0" type="130" head="19" body="71" legs="128" feet="128" corpse="6080" />
   <voices>
     <voice sentence="Learn the secret of our magic! YOUR death!" />
     <voice sentence="Even a rat is a better mage than you." />

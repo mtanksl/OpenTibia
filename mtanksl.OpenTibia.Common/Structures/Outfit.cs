@@ -28,23 +28,23 @@
 
         public static readonly Outfit GamemasterBlue = new Outfit(75, 0, 0, 0, 0, Addon.None);
 
-        public Outfit(int itemId) : this( (ushort)itemId )
+        public Outfit(int tibiaId) : this( (ushort)tibiaId)
         {
 
         }
 
-        public Outfit(ushort itemId)
+        public Outfit(ushort tibiaId)
         {
-            this.itemId = itemId;
+            this.tibiaId = tibiaId;
         }
 
-        private ushort itemId;
+        private ushort tibiaId;
 
-        public ushort ItemId
+        public ushort TibiaId
         {
             get
             {
-                return itemId;
+                return tibiaId;
             }
         }
 
@@ -140,7 +140,7 @@
                 return false;
             }
 
-            return (a.itemId == b.itemId) && (a.id == b.id) && (a.head == b.head) && (a.body == b.body) && (a.legs == b.legs) && (a.feet == b.feet) && (a.addon == b.addon);
+            return (a.tibiaId == b.tibiaId) && (a.id == b.id) && (a.head == b.head) && (a.body == b.body) && (a.legs == b.legs) && (a.feet == b.feet) && (a.addon == b.addon);
         }
 
         public static bool operator !=(Outfit a, Outfit b)
@@ -160,14 +160,14 @@
                 return false;
             }
 
-            return (itemId == outfit.itemId) && (id == outfit.id) && (head == outfit.head) && (body == outfit.body) && (legs == outfit.legs) && (feet == outfit.feet) && (addon == outfit.addon);
+            return (tibiaId == outfit.tibiaId) && (id == outfit.id) && (head == outfit.head) && (body == outfit.body) && (legs == outfit.legs) && (feet == outfit.feet) && (addon == outfit.addon);
         }
 
         public override int GetHashCode()
         {
             int hashCode = 17;
 
-            hashCode = hashCode * 23 + itemId.GetHashCode();
+            hashCode = hashCode * 23 + tibiaId.GetHashCode();
 
             hashCode = hashCode * 23 + id.GetHashCode();
 
@@ -186,12 +186,12 @@
 
         public override string ToString()
         {
-            if (itemId == 0)
+            if (tibiaId == 0)
             {
                 return "Id: " + id + " Head: " + head + " Body: " + body + " Legs: " + legs + " Feet: " + feet + " Addons: " + addon;
             }
 
-            return "Item id: " + itemId;
+            return "Item id: " + tibiaId;
         }
     }
 }

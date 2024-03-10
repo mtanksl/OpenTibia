@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Island Troll" nameDescription="an island troll" speed="190">
   <health now="50" max="50" />
-  <look typeex="0" type="282" head="0" body="0" legs="0" feer="0" corpse="7930" />
+  <look typeex="0" type="282" head="0" body="0" legs="0" feet="0" corpse="7930" />
   <voices>
     <voice sentence="Hmmm, turtles" />
     <voice sentence="Hmmm, dogs" />

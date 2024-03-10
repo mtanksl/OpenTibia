@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Deadeye Devious" nameDescription="deadeye devious" speed="300">
   <health now="2000" max="2000" />
-  <look typeex="0" type="151" head="115" body="76" legs="35" feer="117" corpse="6080" />
+  <look typeex="0" type="151" head="115" body="76" legs="35" feet="117" corpse="6080" />
   <voices>
     <voice sentence="Let's kill 'em" />
     <voice sentence="Arrrgh!" />

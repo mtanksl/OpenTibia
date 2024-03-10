@@ -22,12 +22,12 @@ topiccallback.mt = {
 	__index = topiccallback
 }
 
--- @args (object[] parameters, string answer)
+-- @args (object[] newparameters, string answer)
 -- @returns TopicCallback
-function topiccallback:new(parameters, answer)
+function topiccallback:new(newparameters, answer)
 	local o = {
-		parameters = parameters, -- object[]
-		answer = answer			 -- string
+		newparameters = newparameters,	-- object[]
+		answer = answer					-- string
 	}
 	setmetatable(o, self.mt)
 	return o
@@ -85,11 +85,11 @@ function topic:new(parent)
 	return o
 end
 
--- @args (string question, string answer)
+-- @args (string question, string answer, object[] newparameters = null)
 -- @args (TopicCondition question, TopicCallback answer)
 -- @args (Func<Npc, Player, string, TopicCondition> question, Func<Npc, Player, string, string[], object[], TopicCallback> answer)
 -- @returns void
-function topic:add(question, answer)
+function topic:add(question, answer, newparameters)
 	local condition = nil
 	if type(question) == "function" then
 		condition = question
@@ -104,7 +104,7 @@ function topic:add(question, answer)
 					return topiccondition:new(true, true)
 				end
 			else
-				if string.find(question, "%(.+%)") then -- if has open parenthesis and close parenthesis
+				if string.find(question, "%(.+%)") then
 					condition = function(npc, player, message)
 						local captures = { string.match(message, question) }
 						if #captures > 0 then
@@ -133,7 +133,7 @@ function topic:add(question, answer)
 			end
 		else
 			callback = function(npc, player, message, captures, parameters)
-				return topiccallback:new( {}, answer)
+				return topiccallback:new(newparameters or {}, answer)
 			end
 		end
 	end
@@ -300,7 +300,7 @@ function npchandler:onsay(npc, player, message)
 	if topicmatchresult then
 		local topiccallback = topicmatchresult.callback(npc, player, message, topicmatchresult.captures, self.players[player.Id] )
 		self.players[player.Id].topic = topicmatchresult.topic
-		for key, value in pairs(topiccallback.parameters) do
+		for key, value in pairs(topiccallback.newparameters) do
 			self.players[player.Id][key] = value
 		end
 		command.npcsay(npc, self:replace(npc, player, topiccallback.answer) )
@@ -326,7 +326,12 @@ end
 function npchandler:replace(npc, player, message)	
 	if self.players[player.Id] then
 		for key, value in pairs(self.players[player.Id] ) do
-			message = string.gsub(message, "%{" .. key .. "%}", tostring(value) )
+			if type(value) == "function" then 
+				value = value(npc, player)
+			else 
+				value = tostring(value)
+			end
+			message = string.gsub(message, "%{" .. key .. "%}", value)
 		end
 	end
 	message = string.gsub(message, "%{playername%}", player.Name)

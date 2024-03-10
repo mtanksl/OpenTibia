@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Blightwalker" nameDescription="a blightwalker" speed="240">
   <health now="8900" max="8900" />
-  <look typeex="0" type="246" head="0" body="0" legs="0" feer="0" corpse="6354" />
+  <look typeex="0" type="246" head="0" body="0" legs="0" feet="0" corpse="6354" />
   <voices>
     <voice sentence="I can see you decaying!" />
     <voice sentence="Let me taste your mortality!" />

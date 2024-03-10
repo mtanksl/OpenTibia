@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="The Evil Eye" nameDescription="the Evil Eye" speed="240">
   <health now="1200" max="1200" />
-  <look typeex="0" type="210" head="0" body="0" legs="0" feer="0" corpse="6037" />
+  <look typeex="0" type="210" head="0" body="0" legs="0" feet="0" corpse="6037" />
   <voices>
     <voice sentence="Inferior creatures, bow before my power!" />
   </voices>

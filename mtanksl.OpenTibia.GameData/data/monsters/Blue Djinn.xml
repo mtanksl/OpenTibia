@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Blue Djinn" nameDescription="a blue djinn" speed="200">
   <health now="330" max="330" />
-  <look typeex="0" type="80" head="0" body="0" legs="0" feer="0" corpse="6020" />
+  <look typeex="0" type="80" head="0" body="0" legs="0" feet="0" corpse="6020" />
   <voices>
     <voice sentence="Simsalabim" />
     <voice sentence="Feel the power of my magic, tiny mortal!" />

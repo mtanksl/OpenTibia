@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Latrivan" nameDescription="a latrivan" speed="340">
   <health now="40000" max="40000" />
-  <look typeex="0" type="12" head="120" body="128" legs="121" feer="111" corpse="6068" />
+  <look typeex="0" type="12" head="120" body="128" legs="121" feet="111" corpse="6068" />
   <voices>
     <voice sentence="I might reward you for killing my brother ~ with a swift dead!" />
   </voices>

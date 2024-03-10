@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Squirrel" nameDescription="a squirrel" speed="490">
   <health now="20" max="20" />
-  <look typeex="0" type="274" head="0" body="0" legs="0" feer="0" corpse="7628" />
+  <look typeex="0" type="274" head="0" body="0" legs="0" feet="0" corpse="7628" />
   <voices>
     <voice sentence="Chchch" />
   </voices>

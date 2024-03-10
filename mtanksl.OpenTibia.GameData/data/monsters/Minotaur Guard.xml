@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Minotaur Guard" nameDescription="a minotaur guard" speed="190">
   <health now="185" max="185" />
-  <look typeex="0" type="29" head="0" body="0" legs="0" feer="0" corpse="5983" />
+  <look typeex="0" type="29" head="0" body="0" legs="0" feet="0" corpse="5983" />
   <voices>
     <voice sentence="Kirll Karrrl!" />
     <voice sentence="Kaplar!" />

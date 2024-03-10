@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Apprentice Sheng" nameDescription="apprentice sheng" speed="170">
   <health now="95" max="95" />
-  <look typeex="0" type="23" head="0" body="0" legs="0" feer="0" corpse="5981" />
+  <look typeex="0" type="23" head="0" body="0" legs="0" feet="0" corpse="5981" />
   <voices>
     <voice sentence="I will protect the secrets of my master!" />
     <voice sentence="This isle will become ours alone!" />

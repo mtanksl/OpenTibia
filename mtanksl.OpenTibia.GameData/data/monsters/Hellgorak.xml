@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Hellgorak" nameDescription="a hellgorak" speed="360">
   <health now="40000" max="40000" />
-  <look typeex="0" type="12" head="19" body="96" legs="21" feer="81" corpse="6068" />
+  <look typeex="0" type="12" head="19" body="96" legs="21" feet="81" corpse="6068" />
   <voices>
     <voice sentence="I'll sacrifice yours souls to seven!" />
     <voice sentence="I'm bad news for you mortals!" />

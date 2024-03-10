@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Nightstalker" nameDescription="a nightstalker" speed="260">
   <health now="700" max="700" />
-  <look typeex="0" type="320" head="0" body="0" legs="0" feer="0" corpse="9915" />
+  <look typeex="0" type="320" head="0" body="0" legs="0" feet="0" corpse="9915" />
   <voices>
     <voice sentence="The sunlight is so depressing." />
     <voice sentence="Come with me, my child." />

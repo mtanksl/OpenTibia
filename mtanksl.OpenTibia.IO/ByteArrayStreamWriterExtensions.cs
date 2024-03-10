@@ -12,7 +12,7 @@ namespace OpenTibia.IO
 
             if (outfit.Id == 0)
             {
-                writer.Write(outfit.ItemId);
+                writer.Write(outfit.TibiaId);
             }
             else
             {

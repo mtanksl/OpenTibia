@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Betrayed Wraith" nameDescription="a betrayed wraith" speed="310">
   <health now="4200" max="4200" />
-  <look typeex="0" type="233" head="0" body="0" legs="0" feer="0" corpse="6316" />
+  <look typeex="0" type="233" head="0" body="0" legs="0" feet="0" corpse="6316" />
   <voices>
     <voice sentence="Rrrah!" />
     <voice sentence="Gnarr!" />

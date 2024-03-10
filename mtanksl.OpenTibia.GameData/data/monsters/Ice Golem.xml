@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Ice Golem" nameDescription="an ice golem" speed="195">
   <health now="385" max="385" />
-  <look typeex="0" type="261" head="0" body="0" legs="0" feer="0" corpse="7282" />
+  <look typeex="0" type="261" head="0" body="0" legs="0" feet="0" corpse="7282" />
   <voices>
     <voice sentence="Chrr." />
   </voices>

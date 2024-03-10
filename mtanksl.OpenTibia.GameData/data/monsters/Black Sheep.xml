@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Black Sheep" speed="200">
   <health now="20" max="20" />
-  <look typeex="0" type="13" head="0" body="0" legs="0" feer="0" corpse="5994" />
+  <look typeex="0" type="13" head="0" body="0" legs="0" feet="0" corpse="5994" />
   <voices>
     <voice sentence="Maeh" />
   </voices>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Damaged Worker Golem" nameDescription="a damaged worker golem" speed="270">
   <health now="260" max="260" />
-  <look typeex="0" type="304" head="0" body="0" legs="0" feer="0" corpse="9801" />
+  <look typeex="0" type="304" head="0" body="0" legs="0" feet="0" corpse="9801" />
   <voices>
     <voice sentence="Klonk klonk klonk" />
     <voice sentence="Failure! Failire!" />

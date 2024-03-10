@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Swamp Troll" nameDescription="a swamp troll" speed="128">
   <health now="55" max="55" />
-  <look typeex="0" type="76" head="0" body="0" legs="0" feer="0" corpse="6018" />
+  <look typeex="0" type="76" head="0" body="0" legs="0" feet="0" corpse="6018" />
   <voices>
     <voice sentence="Grrrr" />
     <voice sentence="Groar!" />

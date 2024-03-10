@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Smuggler" nameDescription="a smuggler" speed="210">
   <health now="130" max="130" />
-  <look typeex="0" type="134" head="95" body="0" legs="113" feer="115" corpse="6080" />
+  <look typeex="0" type="134" head="95" body="0" legs="113" feet="115" corpse="6080" />
   <voices>
     <voice sentence="I will silence you forever!" />
     <voice sentence="You saw something you shouldn't!" />

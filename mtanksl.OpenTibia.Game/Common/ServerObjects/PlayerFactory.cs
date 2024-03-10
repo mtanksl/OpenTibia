@@ -357,7 +357,7 @@ namespace OpenTibia.Game
 
             dbPlayer.Direction = (int)player.Direction;
 
-            dbPlayer.BaseOutfitItemId = player.BaseOutfit.ItemId;
+            dbPlayer.BaseOutfitItemId = player.BaseOutfit.TibiaId;
 
             dbPlayer.BaseOutfitId = player.BaseOutfit.Id;
 
@@ -371,7 +371,7 @@ namespace OpenTibia.Game
 
             dbPlayer.BaseOutfitAddon = (int)player.BaseOutfit.Addon;
 
-            dbPlayer.OutfitItemId = player.Outfit.ItemId;
+            dbPlayer.OutfitItemId = player.Outfit.TibiaId;
 
             dbPlayer.OutfitId = player.Outfit.Id;
 

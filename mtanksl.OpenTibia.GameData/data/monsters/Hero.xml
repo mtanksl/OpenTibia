@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Hero" nameDescription="a hero" speed="268">
   <health now="1400" max="1400" />
-  <look typeex="0" type="73" head="0" body="0" legs="0" feer="0" corpse="6080" />
+  <look typeex="0" type="73" head="0" body="0" legs="0" feet="0" corpse="6080" />
   <voices>
     <voice sentence="Let's have a fight!" />
     <voice sentence="Welcome to my battleground." />

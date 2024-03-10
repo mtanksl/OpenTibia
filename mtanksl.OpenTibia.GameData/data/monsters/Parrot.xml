@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Parrot" nameDescription="a parrot" speed="240">
   <health now="25" max="25" />
-  <look typeex="0" type="217" head="0" body="0" legs="0" feer="0" corpse="6056" />
+  <look typeex="0" type="217" head="0" body="0" legs="0" feet="0" corpse="6056" />
   <voices>
     <voice sentence="BR? PL? SWE?" />
     <voice sentence="Screeech!" />

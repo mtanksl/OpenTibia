@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
 <monster name="Larva" nameDescription="a larva" speed="135">
   <health now="70" max="70" />
-  <look typeex="0" type="82" head="0" body="0" legs="0" feer="0" corpse="6023" />
+  <look typeex="0" type="82" head="0" body="0" legs="0" feet="0" corpse="6023" />
 </monster>

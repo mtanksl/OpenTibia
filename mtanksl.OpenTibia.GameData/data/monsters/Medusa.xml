@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Medusa" nameDescription="a medusa" speed="240">
   <health now="4500" max="4500" />
-  <look typeex="0" type="330" head="0" body="0" legs="0" feer="0" corpse="10524" />
+  <look typeex="0" type="330" head="0" body="0" legs="0" feet="0" corpse="10524" />
   <voices>
     <voice sentence="You will ssuch a fine ssstatue!" />
     <voice sentence="There isss no chhhanccce of esscape" />

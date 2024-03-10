@@ -28,15 +28,17 @@ namespace OpenTibia.FileFormats.Xml.Npcs
 
             npc.Look = new Look()
             {
-                Type = (int)outfitNode.Attribute("type"),
+                TypeEx = (int?)outfitNode.Attribute("typeex") ?? 0,
 
-                Head = (int)outfitNode.Attribute("head"),
+                Type = (int?)outfitNode.Attribute("type") ?? 0,
 
-                Body = (int)outfitNode.Attribute("body"),
+                Head = (int?)outfitNode.Attribute("head") ?? 0,
 
-                Legs = (int)outfitNode.Attribute("legs"),
+                Body = (int?)outfitNode.Attribute("body") ?? 0,
 
-                Feet = (int)outfitNode.Attribute("feet"),
+                Legs = (int?)outfitNode.Attribute("legs") ?? 0,
+
+                Feet = (int?)outfitNode.Attribute("feet") ?? 0
             };
 
             XElement voicesNode = npcNode.Element("voices");

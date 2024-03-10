@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Golgordan" nameDescription="golgordan" speed="350">
   <health now="40000" max="40000" />
-  <look typeex="0" type="12" head="108" body="100" legs="105" feer="114" corpse="6068" />
+  <look typeex="0" type="12" head="108" body="100" legs="105" feet="114" corpse="6068" />
   <voices>
     <voice sentence="Latrivan your fool" />
   </voices>

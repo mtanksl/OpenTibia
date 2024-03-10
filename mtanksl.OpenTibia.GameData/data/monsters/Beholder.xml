@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Beholder" nameDescription="a beholder" speed="150">
   <health now="260" max="260" />
-  <look typeex="0" type="17" head="0" body="0" legs="0" feer="0" corpse="5992" />
+  <look typeex="0" type="17" head="0" body="0" legs="0" feet="0" corpse="5992" />
   <voices>
     <voice sentence="Eye for eye!" />
     <voice sentence="Here's looking at you!" />

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Quara Predator" nameDescription="a quara predator" speed="520">
   <health now="2200" max="2200" />
-  <look typeex="0" type="20" head="0" body="0" legs="0" feer="0" corpse="6067" />
+  <look typeex="0" type="20" head="0" body="0" legs="0" feet="0" corpse="6067" />
   <voices>
     <voice sentence="Rrrah!" />
     <voice sentence="Rraaar!" />

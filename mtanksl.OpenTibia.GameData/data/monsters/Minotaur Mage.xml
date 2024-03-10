@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Minotaur Mage" nameDescription="a minotaur mage" speed="170">
   <health now="155" max="155" />
-  <look typeex="0" type="23" head="0" body="0" legs="0" feer="0" corpse="5981" />
+  <look typeex="0" type="23" head="0" body="0" legs="0" feet="0" corpse="5981" />
   <voices>
     <voice sentence="Learrn tha secrret uf deathhh!" />
     <voice sentence="Kaplar!" />

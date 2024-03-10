@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Cyclops Smith" nameDescription="a cyclops smith" speed="220">
   <health now="435" max="435" />
-  <look typeex="0" type="277" head="0" body="0" legs="0" feer="0" corpse="7740" />
+  <look typeex="0" type="277" head="0" body="0" legs="0" feet="0" corpse="7740" />
   <voices>
     <voice sentence="Outis emoi g' onoma." />
     <voice sentence="Whack da humy!" />

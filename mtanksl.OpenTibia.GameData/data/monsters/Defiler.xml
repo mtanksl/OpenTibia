@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Defiler" nameDescription="a defiler" speed="260">
   <health now="3650" max="3650" />
-  <look typeex="0" type="238" head="0" body="0" legs="0" feer="0" corpse="6532" />
+  <look typeex="0" type="238" head="0" body="0" legs="0" feet="0" corpse="6532" />
   <voices>
     <voice sentence="Blubb" />
   </voices>

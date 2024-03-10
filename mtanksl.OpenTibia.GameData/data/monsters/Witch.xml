@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Witch" nameDescription="a witch" speed="180">
   <health now="300" max="300" />
-  <look typeex="0" type="54" head="0" body="0" legs="0" feer="0" corpse="6081" />
+  <look typeex="0" type="54" head="0" body="0" legs="0" feet="0" corpse="6081" />
   <voices>
     <voice sentence="Horax pokti! Hihihihi!" />
     <voice sentence="Herba budinia ex!" />

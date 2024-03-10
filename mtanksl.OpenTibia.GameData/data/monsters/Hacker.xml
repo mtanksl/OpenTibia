@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Hacker" nameDescription="a Hacker" speed="250">
   <health now="430" max="430" />
-  <look typeex="0" type="8" head="0" body="0" legs="0" feer="0" corpse="5980" />
+  <look typeex="0" type="8" head="0" body="0" legs="0" feet="0" corpse="5980" />
   <voices>
     <voice sentence="Feel the wrath of me dos attack!" />
     <voice sentence="You're next!" />

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Man in the Cave" nameDescription="man in the cave" speed="210">
   <health now="485" max="485" />
-  <look typeex="0" type="128" head="95" body="116" legs="95" feer="114" corpse="6080" />
+  <look typeex="0" type="128" head="95" body="116" legs="95" feet="114" corpse="6080" />
   <voices>
     <voice sentence="THE MONKS ARE MINE" />
     <voice sentence="I will rope you up! All of you!" />

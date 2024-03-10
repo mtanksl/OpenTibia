@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Dwarf Guard" nameDescription="a dwarf guard" speed="200">
   <health now="245" max="245" />
-  <look typeex="0" type="70" head="0" body="0" legs="0" feer="0" corpse="6013" />
+  <look typeex="0" type="70" head="0" body="0" legs="0" feet="0" corpse="6013" />
   <voices>
     <voice sentence="Hail Durin!" />
   </voices>

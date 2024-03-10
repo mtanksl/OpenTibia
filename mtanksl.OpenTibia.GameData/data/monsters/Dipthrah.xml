@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Dipthrah" nameDescription="a dipthrah" speed="320">
   <health now="4200" max="4200" />
-  <look typeex="0" type="87" head="0" body="0" legs="0" feer="0" corpse="6031" />
+  <look typeex="0" type="87" head="0" body="0" legs="0" feet="0" corpse="6031" />
   <voices>
     <voice sentence="Come closer to learn the final lesson." />
     <voice sentence="You can't escape death forever." />

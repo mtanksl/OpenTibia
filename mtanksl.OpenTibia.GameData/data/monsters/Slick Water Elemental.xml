@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Slick Water Elemental" nameDescription="a slick water elemental" speed="280">
   <health now="550" max="550" />
-  <look typeex="0" type="286" head="0" body="0" legs="0" feer="0" corpse="8965" />
+  <look typeex="0" type="286" head="0" body="0" legs="0" feet="0" corpse="8965" />
   <voices>
     <voice sentence="Blubb" />
     <voice sentence="Splipsh Splash" />

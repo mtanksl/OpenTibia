@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Barbarian Bloodwalker" nameDescription="a barbarian bloodwalker" speed="205">
   <health now="305" max="305" />
-  <look typeex="0" type="255" head="114" body="132" legs="132" feer="132" corpse="6080" />
+  <look typeex="0" type="255" head="114" body="132" legs="132" feet="132" corpse="6080" />
   <voices>
     <voice sentence="YAAAHEEE!" />
     <voice sentence="SLAUGHTER!" />

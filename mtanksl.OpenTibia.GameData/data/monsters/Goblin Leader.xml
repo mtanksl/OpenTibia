@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Goblin Leader" nameDescription="a goblin leader" speed="200">
   <health now="75" max="75" />
-  <look typeex="0" type="61" head="0" body="0" legs="0" feer="0" corpse="6002" />
+  <look typeex="0" type="61" head="0" body="0" legs="0" feet="0" corpse="6002" />
   <voices>
     <voice sentence="Go go, Gobo attack !!" />
     <voice sentence="Me the greenest and the meanest!" />

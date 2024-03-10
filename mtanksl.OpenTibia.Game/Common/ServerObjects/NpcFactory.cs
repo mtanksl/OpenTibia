@@ -35,7 +35,7 @@ namespace OpenTibia.Game
 
                     MaxHealth = (ushort)xmlNpc.Health.Max,
 
-                    Outfit = new Outfit(xmlNpc.Look.Type, xmlNpc.Look.Head, xmlNpc.Look.Body, xmlNpc.Look.Legs, xmlNpc.Look.Feet, Addon.None),
+                    Outfit = xmlNpc.Look.TypeEx != 0 ? new Outfit(xmlNpc.Look.TypeEx) : new Outfit(xmlNpc.Look.Type, xmlNpc.Look.Head, xmlNpc.Look.Body, xmlNpc.Look.Legs, xmlNpc.Look.Feet, Addon.None),
 
                     Sentences = xmlNpc.Voices?.Select(v => v.Sentence).ToArray()
                 } ); 

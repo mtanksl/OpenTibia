@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Undead Dragon" nameDescription="a undead dragon" speed="300">
   <health now="8350" max="8350" />
-  <look typeex="0" type="231" head="0" body="0" legs="0" feer="0" corpse="6306" />
+  <look typeex="0" type="231" head="0" body="0" legs="0" feet="0" corpse="6306" />
   <voices>
     <voice sentence="FEEEED MY ETERNAL HUNGER!" />
     <voice sentence="I SENSE LIFE" />

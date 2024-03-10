@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Dark Torturer" nameDescription="a dark torturer" speed="250">
   <health now="7350" max="7350" />
-  <look typeex="0" type="234" head="0" body="0" legs="0" feer="0" corpse="6328" />
+  <look typeex="0" type="234" head="0" body="0" legs="0" feet="0" corpse="6328" />
   <voices>
     <voice sentence="You like it, don't you?" />
     <voice sentence="IahaEhheAie!" />

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Crystal Spider" nameDescription="a crystal spider" speed="340">
   <health now="1250" max="1250" />
-  <look typeex="0" type="263" head="0" body="0" legs="0" feer="0" corpse="7344" />
+  <look typeex="0" type="263" head="0" body="0" legs="0" feet="0" corpse="7344" />
   <voices>
     <voice sentence="Screeech!" />
   </voices>

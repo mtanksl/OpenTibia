@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Dworc Fleshhunter" nameDescription="a dworc fleshhunter" speed="240">
   <health now="85" max="85" />
-  <look typeex="0" type="215" head="0" body="0" legs="0" feer="0" corpse="6058" />
+  <look typeex="0" type="215" head="0" body="0" legs="0" feet="0" corpse="6058" />
   <voices>
     <voice sentence="Grak brrretz!" />
     <voice sentence="Grow truk grrrrr." />

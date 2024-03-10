@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Phantasm" nameDescription="a phantasm" speed="280">
   <health now="3950" max="3950" />
-  <look typeex="0" type="241" head="20" body="0" legs="0" feer="0" corpse="6344" />
+  <look typeex="0" type="241" head="20" body="0" legs="0" feet="0" corpse="6344" />
   <voices>
     <voice sentence="Oh my, you forgot to put your pants on!" />
     <voice sentence="Weeheeheeheehee!" />

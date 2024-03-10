@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Frost Giant" nameDescription="a frost giant" speed="195">
   <health now="270" max="270" />
-  <look typeex="0" type="257" head="0" body="0" legs="0" feer="0" corpse="7330" />
+  <look typeex="0" type="257" head="0" body="0" legs="0" feet="0" corpse="7330" />
   <voices>
     <voice sentence="Hmm Humansoup" />
     <voice sentence="Stand still ya tasy snack!" />

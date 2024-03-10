@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <monster name="Minishabaal" nameDescription="minishabaal" speed="700">
   <health now="3500" max="3500" />
-  <look typeex="0" type="237" head="0" body="0" legs="0" feer="0" corpse="6364" />
+  <look typeex="0" type="237" head="0" body="0" legs="0" feet="0" corpse="6364" />
   <voices>
     <voice sentence="I had Princess Lumelia as breakfast!" />
     <voice sentence="Naaa-Nana-Naaa-Naaa!" />
