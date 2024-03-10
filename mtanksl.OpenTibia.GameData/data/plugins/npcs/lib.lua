@@ -22,12 +22,12 @@ topiccallback.mt = {
 	__index = topiccallback
 }
 
--- @args (object[] newparameters, string answer)
+-- @args (string answer, object[] newparameters)
 -- @returns TopicCallback
-function topiccallback:new(newparameters, answer)
+function topiccallback:new(answer, newparameters)
 	local o = {
-		newparameters = newparameters,	-- object[]
-		answer = answer					-- string
+		answer = answer,				-- string
+		newparameters = newparameters	-- object[]
 	}
 	setmetatable(o, self.mt)
 	return o
@@ -133,7 +133,7 @@ function topic:add(question, answer, newparameters)
 			end
 		else
 			callback = function(npc, player, message, captures, parameters)
-				return topiccallback:new(newparameters or {}, answer)
+				return topiccallback:new(answer, newparameters or {} )
 			end
 		end
 	end
@@ -147,24 +147,24 @@ function topic:addsell(responses, offers)
 	for _, offer in ipairs(offers) do
 		self:add("sell (%d+) " .. offer.name, function(npc, player, message, captures, parameters)
 			local count = math.max(1, math.min(100, tonumber(captures[1] ) ) ) 
-			return topiccallback:new(table.extend(offer, { count = count, price = offer.price * count, topic = confirm } ), responses.questionitems) 
+			return topiccallback:new(responses.questionitems, table.extend(offer, { count = count, price = offer.price * count, topic = confirm } ) ) 
 		end)
 		self:add("sell " .. offer.name, function(npc, player, message, captures, parameters) 
-			return topiccallback:new(table.extend(offer, { count = 1, price = offer.price, topic = confirm } ), responses.questionitem)
+			return topiccallback:new(responses.questionitem, table.extend(offer, { count = 1, price = offer.price, topic = confirm } ) )
 		end)
 	end
 	confirm:add("yes", function(npc, player, message, captures, parameters) 
 		if command.playerremoveitem(player, parameters.item, parameters.type, parameters.count) then
 			command.playeraddmoney(player, parameters.price)
-			return topiccallback:new( { topic = self }, responses.yes)
+			return topiccallback:new(responses.yes, { topic = self } )
 		end
 		if parameters.count > 1 then
-			return topiccallback:new( { topic = self }, responses.notenoughitems)
+			return topiccallback:new(responses.notenoughitems, { topic = self } )
 		end
-		return topiccallback:new( { topic = self }, responses.notenoughitem)		
+		return topiccallback:new(responses.notenoughitem, { topic = self } )		
 	end)
 	confirm:add("", function(npc, player, message, captures, parameters) 
-		return topiccallback:new( { topic = self }, responses.no)
+		return topiccallback:new(responses.no, { topic = self } )
 	end)
 end
 
@@ -175,28 +175,28 @@ function topic:addbuy(responses, offers)
 	for _, offer in ipairs(offers) do
 		self:add("buy (%d+) " .. offer.name, function(npc, player, message, captures, parameters) 
 			local count = math.max(1, math.min(100, tonumber(captures[1] ) ) )
-			return topiccallback:new(table.extend(offer, { count = count, price = offer.price * count, topic = confirm } ), responses.questionitems) 
+			return topiccallback:new(responses.questionitems, table.extend(offer, { count = count, price = offer.price * count, topic = confirm } ) ) 
 		end)
 		self:add("(%d+) " .. offer.name, function(npc, player, message, captures, parameters) 
 			local count = math.max(1, math.min(100, tonumber(captures[1] ) ) )
-			return topiccallback:new(table.extend(offer, { count = count, price = offer.price * count, topic = confirm } ), responses.questionitems) 
+			return topiccallback:new(responses.questionitems, table.extend(offer, { count = count, price = offer.price * count, topic = confirm } ) ) 
 		end)
 		self:add("buy " .. offer.name, function(npc, player, message, captures, parameters) 
-			return topiccallback:new(table.extend(offer, { count = 1, price = offer.price, topic = confirm } ), responses.questionitem)
+			return topiccallback:new(responses.questionitem, table.extend(offer, { count = 1, price = offer.price, topic = confirm } ) )
 		end)
 		self:add("" .. offer.name, function(npc, player, message, captures, parameters) 
-			return topiccallback:new(table.extend(offer, { count = 1, price = offer.price, topic = confirm } ), responses.questionitem)
+			return topiccallback:new(responses.questionitem, table.extend(offer, { count = 1, price = offer.price, topic = confirm } ) )
 		end)
 	end
 	confirm:add("yes", function(npc, player, message, captures, parameters) 
 		if command.playerremovemoney(player, parameters.price) then
 			command.playeradditem(player, parameters.item, parameters.type, parameters.count)
-			return topiccallback:new( { topic = self }, responses.yes)
+			return topiccallback:new(responses.yes, { topic = self } )
 		end
-		return topiccallback:new( { topic = self }, responses.notenoughtgold)
+		return topiccallback:new(responses.notenoughtgold, { topic = self } )
 	end)
 	confirm:add("", function(npc, player, message, captures, parameters) 
-		return topiccallback:new( { topic = self }, responses.no)
+		return topiccallback:new(responses.no, { topic = self } )
 	end)
 end
 
@@ -206,19 +206,19 @@ function topic:addtravel(responses, destinations)
 	local confirm = topic:new(self)
 	for _, destination in ipairs(destinations) do
 		self:add("" .. destination.name, function(npc, player, message, captures, parameters) 
-			return topiccallback:new(table.extend(destination, { topic = confirm } ), responses.question)
+			return topiccallback:new(responses.question, table.extend(destination, { topic = confirm } ) )
 		end)
 	end
 	confirm:add("yes", function(npc, player, message, captures, parameters) 
 		if command.playerremovemoney(player, parameters.price) then			
 			command.creaturewalk(player, parameters.position)
 			command.showmagiceffect(parameters.position, magiceffecttype.teleport)
-			return topiccallback:new( { topic = self }, responses.yes)
+			return topiccallback:new(responses.yes, { topic = self } )
 		end
-		return topiccallback:new( { topic = self }, responses.notenoughtgold)
+		return topiccallback:new(responses.notenoughtgold, { topic = self } )
 	end)
 	confirm:add("", function(npc, player, message, captures, parameters) 
-		return topiccallback:new( { topic = self }, responses.no)
+		return topiccallback:new(responses.no, { topic = self } )
 	end)
 end
 
@@ -237,7 +237,7 @@ function topic:match(npc, player, message)
 					end
 				else
 					result = topicmatchresult:new(current, topiccondition.captures, topicmatch.callback)
-					break
+					return result
 				end
 			end
 		end
