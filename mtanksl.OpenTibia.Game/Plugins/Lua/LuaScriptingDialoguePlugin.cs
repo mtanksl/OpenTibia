@@ -55,9 +55,19 @@ namespace OpenTibia.Game.Components
             return script.CallFunction("onfarewell", npc, player);
         }
 
-        public override Promise OnDismiss(Npc npc, Player player)
+        public override Promise OnDisappear(Npc npc, Player player)
         {
-            return script.CallFunction("ondismiss", npc, player);
+            return script.CallFunction("ondisappear", npc, player);
+        }
+
+        public override Promise OnEnqueue(Npc npc, Player player)
+        {
+            return script.CallFunction("onenqueue", npc, player);
+        }
+
+        public override Promise OnDequeue(Npc npc, Player player)
+        {
+            return script.CallFunction("ondequeue", npc, player);
         }
 
         public override void Stop()

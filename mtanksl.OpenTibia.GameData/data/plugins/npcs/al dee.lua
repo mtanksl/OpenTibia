@@ -35,7 +35,7 @@ local handler = npchandler:new( {
     busy = "I'll be with you in a moment, {playername}.",
     say = say,
     farewell = "Bye, bye.",
-    dismiss = "Bye, bye."
+    disappear = "Bye, bye."
 } )
 
 function shouldgreet(npc, player, message) return handler:shouldgreet(npc, player, message) end
@@ -44,4 +44,6 @@ function ongreet(npc, player) handler:ongreet(npc, player) end
 function onbusy(npc, player) handler:onbusy(npc, player) end
 function onsay(npc, player, message) handler:onsay(npc, player, message) end
 function onfarewell(npc, player) handler:onfarewell(npc, player) end
-function ondismiss(npc, player) handler:ondismiss(npc, player) end
+function ondisappear(npc, player) handler:ondisappear(npc, player) end
+function onenqueue(npc, player) handler:onenqueue(npc, player) end
+function ondequeue(npc, player) handler:ondequeue(npc, player) end

@@ -313,14 +313,3 @@ condition = {
 		return { type = "regeneration", regenerationtick = regenerationtick }
 	end
 }
-
-table.extend = function(a, b) 
-	local t = {}
-	for k, v in pairs(a) do
-		t[k] = v
-	end
-	for k, v in pairs(b) do
-		t[k] = v
-	end
-	return t
-end

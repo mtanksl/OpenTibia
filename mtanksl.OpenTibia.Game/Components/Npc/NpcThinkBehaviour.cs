@@ -17,42 +17,95 @@ namespace OpenTibia.Game.Components
 
             this.walkStrategy = walkStrategy;
         }
-            
+
         private QueueHashSet<Player> queue = new QueueHashSet<Player>();
+
+        private async Promise Add(Player player)
+        {
+            Npc npc = (Npc)GameObject;
+
+            if (queue.Add(player) )
+            {
+                await dialoguePlugin.OnEnqueue(npc, player);
+            }
+        }
+
+        private async Promise Remove(Player player)
+        {
+            Npc npc = (Npc)GameObject;
+
+            if (queue.Remove(player) )
+            {
+                await dialoguePlugin.OnDequeue(npc, player);
+            }
+
+            while (queue.Count > 0)
+            {
+                Player next = queue.Peek();
+
+                if (next.Tile == null || next.IsDestroyed || !npc.Tile.Position.IsInRange(next.Tile.Position, 3) )
+                {
+                    if (queue.Remove(next) )
+                    {
+                        await dialoguePlugin.OnDequeue(npc, next);
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+        }
+
+        public async Promise Idle(Player player)
+        {
+            Npc npc = (Npc)GameObject;
+
+            await Remove(player);
+
+            if (queue.Count > 0)
+            {
+                Player next = queue.Peek();
+
+                await dialoguePlugin.OnGreet(npc, next);
+            }
+        }
 
         public async Promise Farewell(Player player)
         {
             Npc npc = (Npc)GameObject;
 
+            await Remove(player);
+
             if (queue.Count > 0)
             {
-                if (player == queue.Peek() )
-                {
-                    queue.Remove(player);
-            
-                    while (queue.Count > 0)
-                    {
-                        Player next = queue.Peek();
+                Player next = queue.Peek();
 
-                        if (next.Tile == null || next.IsDestroyed || !npc.Tile.Position.IsInRange(next.Tile.Position, 3) )
-                        {
-                            queue.Remove(next);
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-
-                    if (queue.Count > 0)
-                    {
-                        Player next = queue.Peek();
-
-                        await dialoguePlugin.OnGreet(npc, next);
-                    }
-                }
+                await dialoguePlugin.OnGreet(npc, next);
+            }
+            else
+            {
+                await dialoguePlugin.OnFarewell(npc, player);
             }
         }
+
+        public async Promise Disappear(Player player)
+        {
+            Npc npc = (Npc)GameObject;
+
+            await Remove(player);
+
+            if (queue.Count > 0)
+            {
+                Player next = queue.Peek();
+
+                await dialoguePlugin.OnGreet(npc, next);
+            }
+            else
+            {
+                await dialoguePlugin.OnDisappear(npc, player);
+            }
+        }       
 
         private Guid playerSay;
 
@@ -74,7 +127,7 @@ namespace OpenTibia.Game.Components
                     {
                         if (await dialoguePlugin.ShouldGreet(npc, player, message) )
                         {
-                            queue.Add(player);
+                            await Add(player);
 
                             await dialoguePlugin.OnGreet(npc, player);
                         }
@@ -85,7 +138,7 @@ namespace OpenTibia.Game.Components
                         {
                             if (await dialoguePlugin.ShouldGreet(npc, player, message) )
                             {
-                                queue.Add(player);
+                                await Add(player);
 
                                 await dialoguePlugin.OnBusy(npc, player);
                             }
@@ -94,32 +147,7 @@ namespace OpenTibia.Game.Components
                         {
                             if (await dialoguePlugin.ShouldFarewell(npc, player, message) )
                             {
-                                queue.Remove(player);
-
-                                while (queue.Count > 0)
-                                {
-                                    Player next = queue.Peek();
-
-                                    if (next.Tile == null || next.IsDestroyed || !npc.Tile.Position.IsInRange(next.Tile.Position, 3) )
-                                    {
-                                        queue.Remove(next);
-                                    }
-                                    else
-                                    {
-                                        break;
-                                    }
-                                }
-
-                                if (queue.Count > 0)
-                                {
-                                    Player next = queue.Peek();
-
-                                    await dialoguePlugin.OnGreet(npc, next);
-                                }
-                                else
-                                {
-                                    await dialoguePlugin.OnFarewell(npc, player);
-                                }
+                                await Farewell(player);
                             }
                             else
                             {
@@ -150,54 +178,28 @@ namespace OpenTibia.Game.Components
                 }
                 else
                 {
-                    CreatureWalkBehaviour creatureWalkBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureWalkBehaviour>(npc);
-
-                    if (creatureWalkBehaviour != null)
-                    {
-                        Context.Server.GameObjectComponents.RemoveComponent(npc, creatureWalkBehaviour);
-                    }
-
-                    CreatureFocusBehaviour creatureFocusBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureFocusBehaviour>(npc);
-
-                    if (creatureFocusBehaviour == null || creatureFocusBehaviour.Target != queue.Peek() )
-                    {
-                        Context.Server.GameObjectComponents.AddComponent(npc, new CreatureFocusBehaviour(queue.Peek() ) );
-                    }
-                }
-
-                if (queue.Count > 0)
-                {
                     Player player = queue.Peek();
 
                     if (player.Tile == null || player.IsDestroyed || !npc.Tile.Position.IsInRange(player.Tile.Position, 3) )
-	                {
-		                queue.Remove(player);
+                    {
+                        await Disappear(player);
+                    }
+                    else
+                    {
+                        CreatureWalkBehaviour creatureWalkBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureWalkBehaviour>(npc);
 
-		                while (queue.Count > 0)
-		                {
-                            Player next = queue.Peek();
-
-			                if (next.Tile == null || next.IsDestroyed || !npc.Tile.Position.IsInRange(next.Tile.Position, 3) )
-			                {
-				                queue.Remove(next);
-			                }
-			                else
-			                {
-				                break;
-			                }
-		                }
-
-		                if (queue.Count > 0)
-		                {
-                            Player next = queue.Peek();
-
-			                await dialoguePlugin.OnGreet(npc, next);
-		                }
-                        else
+                        if (creatureWalkBehaviour != null)
                         {
-                            await dialoguePlugin.OnDismiss(npc, player);
+                            Context.Server.GameObjectComponents.RemoveComponent(npc, creatureWalkBehaviour);
                         }
-	                }
+
+                        CreatureFocusBehaviour creatureFocusBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureFocusBehaviour>(npc);
+
+                        if (creatureFocusBehaviour == null || creatureFocusBehaviour.Target != player)
+                        {
+                            Context.Server.GameObjectComponents.AddComponent(npc, new CreatureFocusBehaviour(player) );
+                        }
+                    }
                 }
             } );
         }

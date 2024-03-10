@@ -235,8 +235,22 @@ return {
 				args = "(Npc npc, string message)",
 				returns = "void",
 			},
+			-- void command.npcidle(Npc npc, Player player)
+			npcidle = {
+				type = "function",
+				description = "",
+				args = "(Npc npc, Player player)",
+				returns = "void",
+			},
 			-- void command.npcfarewell(Npc npc, Player player)
 			npcfarewell = {
+				type = "function",
+				description = "",
+				args = "(Npc npc, Player player)",
+				returns = "void",
+			},
+			-- void command.npcdisappear(Npc npc, Player player)
+			npcdisappear = {
 				type = "function",
 				description = "",
 				args = "(Npc npc, Player player)",

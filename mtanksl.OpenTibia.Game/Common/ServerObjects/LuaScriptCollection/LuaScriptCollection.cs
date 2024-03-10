@@ -275,6 +275,21 @@ namespace OpenTibia.Game
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
+                        
+            lua.RegisterCoFunction("npcidle", parameters =>
+            {
+                NpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<NpcThinkBehaviour>( (Npc)parameters[0] );
+
+                if (npcThinkBehaviour != null)
+                {
+                    return npcThinkBehaviour.Idle( (Player)parameters[1] ).Then( () =>
+                    {
+                        return Promise.FromResultAsEmptyObjectArray;
+                    } );
+                }
+
+                return Promise.FromResultAsEmptyObjectArray;
+            } );
 
             lua.RegisterCoFunction("npcfarewell", parameters =>
             {
@@ -283,6 +298,21 @@ namespace OpenTibia.Game
                 if (npcThinkBehaviour != null)
                 {
                     return npcThinkBehaviour.Farewell( (Player)parameters[1] ).Then( () =>
+                    {
+                        return Promise.FromResultAsEmptyObjectArray;
+                    } );
+                }
+
+                return Promise.FromResultAsEmptyObjectArray;
+            } );
+
+            lua.RegisterCoFunction("npcdisappear", parameters =>
+            {
+                NpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<NpcThinkBehaviour>( (Npc)parameters[0] );
+
+                if (npcThinkBehaviour != null)
+                {
+                    return npcThinkBehaviour.Disappear( (Player)parameters[1] ).Then( () =>
                     {
                         return Promise.FromResultAsEmptyObjectArray;
                     } );

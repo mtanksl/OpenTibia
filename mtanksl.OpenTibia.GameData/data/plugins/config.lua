@@ -15,9 +15,10 @@
 	},
 	npcs = {
 		{ type = "Dialogue", name = "Al Dee", filename = "al dee.lua" },
-		{ type = "Dialogue", name = "Rachel", filename = "rachel.lua" },
+		{ type = "Dialogue", name = "Captain Bluebear", filename = "captain bluebear.lua" },
 		{ type = "Dialogue", name = "Cipfried", filename = "cipfried.lua" },
-		{ type = "Dialogue", name = "Captain Bluebear", filename = "captain bluebear.lua" }
+		{ type = "Dialogue", name = "Rachel", filename = "rachel.lua" },
+		{ type = "Dialogue", name = "The Oracle", filename = "the oracle.lua" }
 	},
 	spells = {
 		{ words = "exani tera", name = "Magic Rope", group = "Support", cooldown = 2, groupcooldown = 2, level = 9, mana = 20, soul = 0, premium = true, vocations = { vocation.knight, vocation.paladin, vocation.druid, vocation.sorcerer, vocation.eliteknight, vocation.royalpaladin, vocation.elderdruid, vocation.mastersorcerer }, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Spells.MagicRopeSpellPlugin" },

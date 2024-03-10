@@ -18,6 +18,10 @@ namespace OpenTibia.Game.Components
 
         public abstract Promise OnFarewell(Npc npc, Player player);
 
-        public abstract Promise OnDismiss(Npc npc, Player player);
+        public abstract Promise OnDisappear(Npc npc, Player player);
+
+        public abstract Promise OnEnqueue(Npc npc, Player player);
+
+        public abstract Promise OnDequeue(Npc npc, Player player);
     }
 }
