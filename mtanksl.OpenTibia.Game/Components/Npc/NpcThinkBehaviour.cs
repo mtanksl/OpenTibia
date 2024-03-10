@@ -67,6 +67,8 @@ namespace OpenTibia.Game.Components
             {
                 Player next = queue.Peek();
 
+                lastSay = DateTime.UtcNow;
+
                 await dialoguePlugin.OnGreet(npc, next);
             }
         }
@@ -80,6 +82,8 @@ namespace OpenTibia.Game.Components
             if (queue.Count > 0)
             {
                 Player next = queue.Peek();
+
+                lastSay = DateTime.UtcNow;
 
                 await dialoguePlugin.OnGreet(npc, next);
             }
@@ -99,13 +103,17 @@ namespace OpenTibia.Game.Components
             {
                 Player next = queue.Peek();
 
+                lastSay = DateTime.UtcNow;
+
                 await dialoguePlugin.OnGreet(npc, next);
             }
             else
             {
                 await dialoguePlugin.OnDisappear(npc, player);
             }
-        }       
+        }
+
+        private DateTime lastSay;
 
         private Guid playerSay;
 
@@ -129,6 +137,8 @@ namespace OpenTibia.Game.Components
                         {
                             await Add(player);
 
+                            lastSay = DateTime.UtcNow;
+
                             await dialoguePlugin.OnGreet(npc, player);
                         }
                     }
@@ -151,6 +161,8 @@ namespace OpenTibia.Game.Components
                             }
                             else
                             {
+                                lastSay = DateTime.UtcNow;
+
                                 await dialoguePlugin.OnSay(npc, player, message);
                             }
                         }
@@ -180,7 +192,7 @@ namespace OpenTibia.Game.Components
                 {
                     Player player = queue.Peek();
 
-                    if (player.Tile == null || player.IsDestroyed || !npc.Tile.Position.IsInRange(player.Tile.Position, 3) )
+                    if (player.Tile == null || player.IsDestroyed || !npc.Tile.Position.IsInRange(player.Tile.Position, 3) || (DateTime.UtcNow - lastSay).TotalMinutes >= 1)
                     {
                         await Disappear(player);
                     }
