@@ -32,7 +32,7 @@ namespace OpenTibia.GameData.Plugins.Spells
 
             int count = Context.Server.Randomization.Take(1, 2);
 
-            return Context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.GreenShimmer) ).Then(() =>
+            return Context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.GreenShimmer) ).Then( () =>
             {
                 return Context.AddCommand(new PlayerAddItemCommand(player, openTibiaId, 1, count) );
             } );

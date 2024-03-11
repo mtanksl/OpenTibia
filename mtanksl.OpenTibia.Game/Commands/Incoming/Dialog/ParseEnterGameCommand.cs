@@ -66,7 +66,7 @@ namespace OpenTibia.Game.Commands
 
             if (dbBan != null)
             {
-                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, dbBan.Message));
+                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, dbBan.Message) );
 
                 Context.Disconnect(Connection);
 

@@ -25,7 +25,7 @@ namespace OpenTibia.Game.GameObjectScripts
 
             if (dialoguePlugin != null)
             {
-                Context.Server.GameObjectComponents.AddComponent(npc, new NpcThinkBehaviour(dialoguePlugin, new RandomWalkStrategy(2) ) );
+                Context.Server.GameObjectComponents.AddComponent(npc, new ChannelNpcThinkBehaviour(dialoguePlugin, new RandomWalkStrategy(2) ) );
             }
         }
 

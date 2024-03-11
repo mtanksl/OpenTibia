@@ -207,19 +207,19 @@ namespace OpenTibia.Game.Commands
                 {
                     crystals.Add(content);
 
-                    sum += ((StackableItem)content).Count * 10000;
+                    sum += ( (StackableItem)content).Count * 10000;
                 }
                 else if (content.Metadata.OpenTibiaId == 2152) // Platinum coin
                 {
                     platinums.Add(content);
 
-                    sum += ((StackableItem)content).Count * 100;
+                    sum += ( (StackableItem)content).Count * 100;
                 }
                 else if (content.Metadata.OpenTibiaId == 2148) // Gold coin
                 {
                     golds.Add(content);
 
-                    sum += ((StackableItem)content).Count * 1;
+                    sum += ( (StackableItem)content).Count * 1;
                 }
             }
 

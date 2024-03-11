@@ -303,7 +303,7 @@ namespace OpenTibia.Common.Objects
             {
                 RateLimitItem item;
 
-                if (!items.TryGetValue(ipAddress, out item))
+                if ( !items.TryGetValue(ipAddress, out item) )
                 {
                     item = new RateLimitItem();
 
@@ -315,7 +315,7 @@ namespace OpenTibia.Common.Objects
                     return false;
                 }
 
-                if ((DateTime.UtcNow - item.LastUnknownPacket).TotalMilliseconds > server.Config.SecurityMaxUnknownPacketsPerMilliseconds)
+                if ( (DateTime.UtcNow - item.LastUnknownPacket).TotalMilliseconds > server.Config.SecurityMaxUnknownPacketsPerMilliseconds)
                 {
                     item.LastUnknownPacket = DateTime.UtcNow;
 

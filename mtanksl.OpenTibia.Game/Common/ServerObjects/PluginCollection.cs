@@ -174,7 +174,7 @@ namespace OpenTibia.Game
                         { 
                             bool allowFarUse = (bool)plugin["allowfaruse"];
 
-                            if (fileName.EndsWith(".lua"))
+                            if (fileName.EndsWith(".lua") )
                             {
                                 if (allowFarUse)
                                 {

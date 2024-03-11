@@ -20,9 +20,9 @@ topic2:add("druid", "A Druid! Are you sure? This decision is irreversible!", { p
 topic2:add("", "Knight, Paladin, Sorcerer ou Druid?")
 
 topic3:add("yes", function(module, npc, player, message, captures, parameters)
-                      --TODO
                       module.say("So be it!")
                       module.idle()
+                      --TODO
                   end)
 
 local handler = npchandler:new( {

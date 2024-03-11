@@ -23,7 +23,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Tile toTile = player.Tile;
 
-                return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then(() =>
+                return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                 {
                     return Context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(command.Player, emptyPotionFlask, 1) );
 

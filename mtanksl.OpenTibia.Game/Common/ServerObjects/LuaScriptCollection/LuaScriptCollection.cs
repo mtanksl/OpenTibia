@@ -270,7 +270,15 @@ namespace OpenTibia.Game
 
             lua.RegisterCoFunction("npcsay", parameters =>
             {
-                return Context.Current.AddCommand(new NpcSayCommand( (Npc)parameters[0], (string)parameters[1] ) ).Then( () =>
+                if (parameters.Length == 3)
+                {
+                    return Context.Current.AddCommand(new NpcSayCommand( (Npc)parameters[0], (string)parameters[1], (bool)parameters[2] ) ).Then( () =>
+                    {
+                        return Promise.FromResultAsEmptyObjectArray;
+                    } );
+                }
+
+                return Context.Current.AddCommand(new NpcSayCommand( (Npc)parameters[0], (string)parameters[1], false) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
@@ -323,7 +331,7 @@ namespace OpenTibia.Game
 
             lua.RegisterCoFunction("playeraddmoney", parameters =>
             {
-                return Context.Current.AddCommand(new PlayerAddMoneyCommand((Player)parameters[0], (int)(long)parameters[1] ) ).Then( () =>
+                return Context.Current.AddCommand(new PlayerAddMoneyCommand( (Player)parameters[0], (int)(long)parameters[1] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
@@ -331,7 +339,7 @@ namespace OpenTibia.Game
 
             lua.RegisterCoFunction("playerremovemoney", parameters =>
             {
-                return Context.Current.AddCommand(new PlayerRemoveMoneyCommand((Player)parameters[0], (int)(long)parameters[1] ) ).Then( (success) =>
+                return Context.Current.AddCommand(new PlayerRemoveMoneyCommand( (Player)parameters[0], (int)(long)parameters[1] ) ).Then( (success) =>
                 {
                     return success ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
                 } );                
@@ -339,7 +347,7 @@ namespace OpenTibia.Game
 
             lua.RegisterCoFunction("playercountmoney", parameters =>
             {
-                return Context.Current.AddCommand(new PlayerCountMoneyCommand((Player)parameters[0] ) ).Then( (price) =>
+                return Context.Current.AddCommand(new PlayerCountMoneyCommand( (Player)parameters[0] ) ).Then( (price) =>
                 {
                     return Promise.FromResult(new object[] { price } );
                 } );                  

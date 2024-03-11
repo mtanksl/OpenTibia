@@ -1,10 +1,21 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace OpenTibia.Common.Objects
 {
-    public class QueueHashSet<T>
+    public class QueueHashSet<T> : IEnumerable<T>
     {
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return queue.GetEnumerator();
+        }
+
         private LinkedList<T> queue = new LinkedList<T>();
 
         private HashSet<T> hashSet = new HashSet<T>();

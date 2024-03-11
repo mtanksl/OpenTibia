@@ -205,7 +205,7 @@ namespace OpenTibia.Game
             {
                 foreach (var playerDepotItem in dbPlayer.PlayerDepotItems.Where(i => i.ParentId == sequenceId) )
                 {
-                    var item = context.Server.ItemFactory.Create((ushort)playerDepotItem.OpenTibiaId, (byte)playerDepotItem.Count);
+                    var item = context.Server.ItemFactory.Create( (ushort)playerDepotItem.OpenTibiaId, (byte)playerDepotItem.Count);
 
                     context.Server.ItemFactory.Attach(item);
 
@@ -236,7 +236,7 @@ namespace OpenTibia.Game
             {
                 foreach (var dbPlayerItem in dbPlayer.PlayerItems.Where(i => i.ParentId == sequenceId) )
                 {
-                    var item = context.Server.ItemFactory.Create((ushort)dbPlayerItem.OpenTibiaId, (byte)dbPlayerItem.Count);
+                    var item = context.Server.ItemFactory.Create( (ushort)dbPlayerItem.OpenTibiaId, (byte)dbPlayerItem.Count);
 
                     context.Server.ItemFactory.Attach(item);
 
@@ -251,7 +251,7 @@ namespace OpenTibia.Game
 
             foreach (var dbPlayerItem in dbPlayer.PlayerItems.Where(i => i.ParentId >= 1 /* Slot.Head */ && i.ParentId <= 10 /* Slot.Extra */ ) )
             {
-                var item = context.Server.ItemFactory.Create((ushort)dbPlayerItem.OpenTibiaId, (byte)dbPlayerItem.Count);
+                var item = context.Server.ItemFactory.Create( (ushort)dbPlayerItem.OpenTibiaId, (byte)dbPlayerItem.Count);
 
                 context.Server.ItemFactory.Attach(item);
 
@@ -319,7 +319,7 @@ namespace OpenTibia.Game
             {
                 foreach (var dbPlayerOutfit in dbPlayer.PlayerOutfits)
                 {
-                    player.Client.Outfits.SetOutfit((ushort)dbPlayerOutfit.OutfitId, (Addon)dbPlayerOutfit.OutfitAddon);
+                    player.Client.Outfits.SetOutfit( (ushort)dbPlayerOutfit.OutfitId, (Addon)dbPlayerOutfit.OutfitAddon);
                 }
             }
         }

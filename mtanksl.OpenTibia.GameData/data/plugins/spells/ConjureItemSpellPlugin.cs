@@ -29,7 +29,7 @@ namespace OpenTibia.GameData.Plugins.Spells
 
             int count = Spell.ConjureCount.Value;
 
-            return Context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.RedShimmer) ).Then(() =>
+            return Context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.RedShimmer) ).Then( () =>
             {
                 return Context.AddCommand(new PlayerAddItemCommand(player, openTibiaId, 1, count) );
             } );

@@ -229,10 +229,11 @@ return {
 				returns = "void",
 			},
 			-- void command.npcsay(Npc npc, string message)
+			-- void command.npcsay(Npc npc, string message, bool npcChannel)
 			npcsay = {
 				type = "function",
 				description = "",
-				args = "(Npc npc, string message)",
+				args = "(Npc npc, string message [, bool npcChannel])",
 				returns = "void",
 			},
 			-- void command.npcidle(Npc npc, Player player)

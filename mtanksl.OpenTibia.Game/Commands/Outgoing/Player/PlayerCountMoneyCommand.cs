@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Commands
         {
             int sum = 0;
 
-            foreach (Item content in parent.GetContents())
+            foreach (Item content in parent.GetContents() )
             {
                 if (content is Container container)
                 {
@@ -31,15 +31,15 @@ namespace OpenTibia.Game.Commands
 
                 if (content.Metadata.OpenTibiaId == 2160) // Crystal coin
                 {
-                    sum += ((StackableItem)content).Count * 10000;
+                    sum += ( (StackableItem)content).Count * 10000;
                 }
                 else if (content.Metadata.OpenTibiaId == 2152) // Platinum coin
                 {
-                    sum += ((StackableItem)content).Count * 100;
+                    sum += ( (StackableItem)content).Count * 100;
                 }
                 else if (content.Metadata.OpenTibiaId == 2148) // Gold coin
                 {
-                    sum += ((StackableItem)content).Count * 1;
+                    sum += ( (StackableItem)content).Count * 1;
                 }
             }
 
