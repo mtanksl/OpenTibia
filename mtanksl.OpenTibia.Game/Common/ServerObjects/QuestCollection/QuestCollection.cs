@@ -48,6 +48,11 @@ namespace OpenTibia.Game
             }
         }
 
+        public object GetValue(string key)
+        {
+            return script[key];
+        }
+
         private Dictionary<ushort, QuestConfig> quests = new Dictionary<ushort, QuestConfig>();
 
         public QuestConfig GetQuestById(ushort id)

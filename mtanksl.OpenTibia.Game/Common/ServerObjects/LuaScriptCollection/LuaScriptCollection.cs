@@ -28,6 +28,8 @@ namespace OpenTibia.Game
 
             lua.RegisterFunction("cast", this, GetType().GetMethod(nameof(Cast) ) );
 
+            lua.RegisterFunction("getconfig", this, GetType().GetMethod(nameof(GetConfig) ) );
+
             lua.RegisterCoFunction("delay", parameters =>
             {                   
                 string key = Guid.NewGuid().ToString();
@@ -286,7 +288,7 @@ namespace OpenTibia.Game
                         
             lua.RegisterCoFunction("npcidle", parameters =>
             {
-                NpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<NpcThinkBehaviour>( (Npc)parameters[0] );
+                SingleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<SingleQueueNpcThinkBehaviour>( (Npc)parameters[0] );
 
                 if (npcThinkBehaviour != null)
                 {
@@ -301,7 +303,7 @@ namespace OpenTibia.Game
 
             lua.RegisterCoFunction("npcfarewell", parameters =>
             {
-                NpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<NpcThinkBehaviour>( (Npc)parameters[0] );
+                SingleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<SingleQueueNpcThinkBehaviour>( (Npc)parameters[0] );
 
                 if (npcThinkBehaviour != null)
                 {
@@ -316,7 +318,7 @@ namespace OpenTibia.Game
 
             lua.RegisterCoFunction("npcdisappear", parameters =>
             {
-                NpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<NpcThinkBehaviour>( (Npc)parameters[0] );
+                SingleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<SingleQueueNpcThinkBehaviour>( (Npc)parameters[0] );
 
                 if (npcThinkBehaviour != null)
                 {
@@ -626,6 +628,31 @@ namespace OpenTibia.Game
         public object Cast(object obj, string typeName)
         {
             return Convert.ChangeType(obj, Type.GetType(typeName) );
+        }
+
+#if AOT
+        [RequiresUnreferencedCode("Used by lua.RegisterFunction.")]
+#endif
+        public object GetConfig(string file, string key)
+        {
+            if (file == "server")
+            {
+                return server.Config.GetValue(key);
+            }
+            else if (file == "quests")
+            {
+                return server.Quests.GetValue(key);
+            }
+            else if (file == "outfits")
+            {
+                return server.Outfits.GetValue(key);
+            }
+            else if (file == "plugins")
+            {
+                return server.Plugins.GetValue(key);
+            }
+
+            return null;
         }
 
         private Light ToLight(object parameter)

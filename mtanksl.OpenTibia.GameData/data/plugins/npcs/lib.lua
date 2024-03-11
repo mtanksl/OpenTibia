@@ -1,4 +1,6 @@
-﻿topiccondition = {}
+﻿PRIVATE_NPC_SYSTEM = getconfig("server", "server.game.privatenpcsystem")
+
+topiccondition = {}
 
 topiccondition.mt = {
 	__index = topiccondition
@@ -94,72 +96,80 @@ function topic:add(question, answer, newparameters)
 end
 
 function topic:addsell(responses, offers)
-	local confirm = topic:new(self)
-	for _, offer in ipairs(offers) do
-		self:add("sell (%d+) " .. offer.name, function(module, npc, player, message, captures, parameters)
-			local count = math.max(1, math.min(100, tonumber(captures[1] ) ) ) 
-			module.setparameters(offer, { count = count, price = offer.price * count, topic = confirm } )
-			module.say(responses.questionitems)
+	if PRIVATE_NPC_SYSTEM then
+
+	else 
+		local confirm = topic:new(self)
+		for _, offer in ipairs(offers) do
+			self:add("sell (%d+) " .. offer.name, function(module, npc, player, message, captures, parameters)
+				local count = math.max(1, math.min(100, tonumber(captures[1] ) ) ) 
+				module.setparameters(offer, { count = count, price = offer.price * count, topic = confirm } )
+				module.say(responses.questionitems)
+			end)
+			self:add("sell " .. offer.name, function(module, npc, player, message, captures, parameters) 
+				module.setparameters(offer, { count = 1, price = offer.price, topic = confirm } )
+				module.say(responses.questionitem)
+			end)
+		end
+		confirm:add("yes", function(module, npc, player, message, captures, parameters) 
+			module.setparameters( { topic = self } )
+			if command.playerremoveitem(player, parameters.item, parameters.type, parameters.count) then
+				command.playeraddmoney(player, parameters.price)
+				module.say(responses.yes)
+			else
+				if parameters.count > 1 then
+					module.say(responses.notenoughitems)
+				else
+					module.say(responses.notenoughitem)
+				end
+			end
 		end)
-		self:add("sell " .. offer.name, function(module, npc, player, message, captures, parameters) 
-			module.setparameters(offer, { count = 1, price = offer.price, topic = confirm } )
-			module.say(responses.questionitem)
+		confirm:add("", function(module, npc, player, message, captures, parameters) 
+			module.setparameters( { topic = self } )
+			module.say(responses.no)
 		end)
 	end
-	confirm:add("yes", function(module, npc, player, message, captures, parameters) 
-		module.setparameters( { topic = self } )
-		if command.playerremoveitem(player, parameters.item, parameters.type, parameters.count) then
-			command.playeraddmoney(player, parameters.price)
-			module.say(responses.yes)
-		else
-			if parameters.count > 1 then
-				module.say(responses.notenoughitems)
-			else
-				module.say(responses.notenoughitem)
-			end
-		end
-	end)
-	confirm:add("", function(module, npc, player, message, captures, parameters) 
-		module.setparameters( { topic = self } )
-		module.say(responses.no)
-	end)
 end
 
 function topic:addbuy(responses, offers)
-	local confirm = topic:new(self)
-	for _, offer in ipairs(offers) do
-		self:add("buy (%d+) " .. offer.name, function(module, npc, player, message, captures, parameters) 
-			local count = math.max(1, math.min(100, tonumber(captures[1] ) ) )
-			module.setparameters(offer, { count = count, price = offer.price * count, topic = confirm } )
-			module.say(responses.questionitems)
+	if PRIVATE_NPC_SYSTEM then
+
+	else
+		local confirm = topic:new(self)
+		for _, offer in ipairs(offers) do
+			self:add("buy (%d+) " .. offer.name, function(module, npc, player, message, captures, parameters) 
+				local count = math.max(1, math.min(100, tonumber(captures[1] ) ) )
+				module.setparameters(offer, { count = count, price = offer.price * count, topic = confirm } )
+				module.say(responses.questionitems)
+			end)
+			self:add("(%d+) " .. offer.name, function(module, npc, player, message, captures, parameters) 
+				local count = math.max(1, math.min(100, tonumber(captures[1] ) ) )
+				module.setparameters(offer, { count = count, price = offer.price * count, topic = confirm } )
+				module.say(responses.questionitems)
+			end)
+			self:add("buy " .. offer.name, function(module, npc, player, message, captures, parameters) 
+				module.setparameters(offer, { count = 1, price = offer.price, topic = confirm } )
+				module.say(responses.questionitem)
+			end)
+			self:add("" .. offer.name, function(module, npc, player, message, captures, parameters) 
+				module.setparameters(offer, { count = 1, price = offer.price, topic = confirm } )
+				module.say(responses.questionitem)
+			end)
+		end
+		confirm:add("yes", function(module, npc, player, message, captures, parameters) 
+			module.setparameters( { topic = self } )
+			if command.playerremovemoney(player, parameters.price) then
+				command.playeradditem(player, parameters.item, parameters.type, parameters.count)
+				module.say(responses.yes)
+			else
+				module.say(responses.notenoughtgold)
+			end
 		end)
-		self:add("(%d+) " .. offer.name, function(module, npc, player, message, captures, parameters) 
-			local count = math.max(1, math.min(100, tonumber(captures[1] ) ) )
-			module.setparameters(offer, { count = count, price = offer.price * count, topic = confirm } )
-			module.say(responses.questionitems)
-		end)
-		self:add("buy " .. offer.name, function(module, npc, player, message, captures, parameters) 
-			module.setparameters(offer, { count = 1, price = offer.price, topic = confirm } )
-			module.say(responses.questionitem)
-		end)
-		self:add("" .. offer.name, function(module, npc, player, message, captures, parameters) 
-			module.setparameters(offer, { count = 1, price = offer.price, topic = confirm } )
-			module.say(responses.questionitem)
+		confirm:add("", function(module, npc, player, message, captures, parameters) 
+			module.setparameters( { topic = self } )
+			module.say(responses.no)
 		end)
 	end
-	confirm:add("yes", function(module, npc, player, message, captures, parameters) 
-		module.setparameters( { topic = self } )
-		if command.playerremovemoney(player, parameters.price) then
-			command.playeradditem(player, parameters.item, parameters.type, parameters.count)
-			module.say(responses.yes)
-		else
-			module.say(responses.notenoughtgold)
-		end
-	end)
-	confirm:add("", function(module, npc, player, message, captures, parameters) 
-		module.setparameters( { topic = self } )
-		module.say(responses.no)
-	end)
 end
 
 function topic:addtravel(responses, destinations)
@@ -232,7 +242,7 @@ function npchandler:say(npc, player, answer)
 	end
 	answer = string.gsub(answer, "%{playername%}", player.Name)
 	answer = string.gsub(answer, "%{npcname%}", npc.Name)
-	command.npcsay(npc, answer)
+	command.npcsay(npc, answer, PRIVATE_NPC_SYSTEM)
 end
 
 function npchandler:shouldgreet(npc, player, message)

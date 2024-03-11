@@ -526,6 +526,11 @@ namespace OpenTibia.Game
             }
         }
 
+        public object GetValue(string key)
+        {
+            return script[key];
+        }
+
         private PluginDictionaryCached<ushort, PlayerRotateItemPlugin> playerRotateItemPlugins = new PluginDictionaryCached<ushort, PlayerRotateItemPlugin>();
 
         public PlayerRotateItemPlugin GetPlayerRotateItemPlugin(ushort openTibiaId)

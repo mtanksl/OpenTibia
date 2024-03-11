@@ -35,6 +35,11 @@ namespace OpenTibia.Game
             }
         }
 
+        public object GetValue(string key)
+        {
+            return script[key];
+        }
+
         private Dictionary<ushort, OutfitConfig> outfits = new Dictionary<ushort, OutfitConfig>();
 
         public OutfitConfig GetOutfitById(ushort id)

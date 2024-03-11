@@ -9,6 +9,51 @@
             this.server = server;
         }
 
+        public int LoginMaxconnections { get; set; }
+        public int LoginPort { get; set; }
+
+        public int GameMaxConnections { get; set; }
+        public int GamePort { get; set; }
+        public int GameMaxPlayers { get; set; }
+        public bool GamePrivateNpcSystem { get; set; }
+
+        public int SecurityMaxConnectionsWithSameIpAddress { get; set; }
+        public int SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds { get; set; }
+
+        public int SecurityMaxConnections { get; set; }
+        public int SecurityMaxConnectionsPerMilliseconds { get; set; }
+        public int SecurityConnectionsAbuseBanMilliseconds { get; set; }
+
+        public int SecurityMaxPackets { get; set; }
+        public int SecurityMaxPacketsPerMilliseconds { get; set; }
+        public int SecurityPacketsAbuseBanMilliseconds { get; set; }
+
+        public int SecurityMaxLoginAttempts { get; set; }
+        public int SecurityMaxLoginAttemptsPerMilliseconds { get; set; }
+        public int SecurityLoginAttemptsAbuseBanMilliseconds { get; set; }
+
+        public int SocketReceiveTimeoutMilliseconds { get; set; }
+        public int SocketSendTimeoutMilliseconds { get; set; }
+        public int SecurityMaxSlowSockets { get; set; }
+        public int SecurityMaxSlowSocketsPerMilliseconds { get; set; }
+        public int SecuritySlowSocketsAbuseBanMilliseconds { get; set; }
+
+        public int SecurityMaxInvalidMessages { get; set; }
+        public int SecurityMaxInvalidMessagesPerMilliseconds { get; set; }
+        public int SecurityInvalidMessagesAbuseBanMilliseconds { get; set; }
+
+        public int SecurityMaxUnknownPackets { get; set; }
+        public int SecurityMaxUnknownPacketsPerMilliseconds { get; set; }
+        public int SecurityUnknownPacketsAbuseBanMilliseconds { get; set; }
+
+        public string DatabaseType { get; set; }
+        public string DatabaseSource { get; set; }
+        public string DatabaseHost { get; set; }
+        public int DatabasePort { get; set; }
+        public string DatabaseUser { get; set; }
+        public string DatabasePassword { get; set; }
+        public string DatabaseName { get; set; }
+
         private LuaScope script;
 
         public void Start()
@@ -21,6 +66,7 @@
             GameMaxConnections = (int)(long)script["server.game.maxconnections"];
             GamePort = (int)(long)script["server.game.port"];
             GameMaxPlayers = (int)(long)script["server.game.maxplayers"];
+            GamePrivateNpcSystem = (bool)script["server.game.privatenpcsystem"];
 
             SecurityMaxConnectionsWithSameIpAddress = (int)(long)script["server.security.maxconnectionswithsameipaddress"];
             SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds = (int)(long)script["server.security.connectionswithsameipaddressabusebanmilliseconds"];
@@ -60,49 +106,10 @@
             DatabaseName = (string)script["server.database.name"];
         }
 
-        public int LoginMaxconnections { get; set; }
-        public int LoginPort { get; set; }
-
-        public int GameMaxConnections { get; set; }
-        public int GamePort { get; set; }
-        public int GameMaxPlayers { get; set; }
-
-        public int SecurityMaxConnectionsWithSameIpAddress { get; set; }
-        public int SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds { get; set; }
-
-        public int SecurityMaxConnections { get; set; }
-        public int SecurityMaxConnectionsPerMilliseconds { get; set; }
-        public int SecurityConnectionsAbuseBanMilliseconds { get; set; }
-
-        public int SecurityMaxPackets { get; set; }
-        public int SecurityMaxPacketsPerMilliseconds { get; set; }
-        public int SecurityPacketsAbuseBanMilliseconds { get; set; }
-
-        public int SecurityMaxLoginAttempts { get; set; }
-        public int SecurityMaxLoginAttemptsPerMilliseconds { get; set; }
-        public int SecurityLoginAttemptsAbuseBanMilliseconds { get; set; }
-
-        public int SocketReceiveTimeoutMilliseconds { get; set; }
-        public int SocketSendTimeoutMilliseconds { get; set; }
-        public int SecurityMaxSlowSockets { get; set; }
-        public int SecurityMaxSlowSocketsPerMilliseconds { get; set; }
-        public int SecuritySlowSocketsAbuseBanMilliseconds { get; set; }
-
-        public int SecurityMaxInvalidMessages { get; set; }
-        public int SecurityMaxInvalidMessagesPerMilliseconds { get; set; }
-        public int SecurityInvalidMessagesAbuseBanMilliseconds { get; set; }
-
-        public int SecurityMaxUnknownPackets { get; set; }
-        public int SecurityMaxUnknownPacketsPerMilliseconds { get; set; }
-        public int SecurityUnknownPacketsAbuseBanMilliseconds { get; set; }
-
-        public string DatabaseType { get; set; }
-        public string DatabaseSource { get; set; }
-        public string DatabaseHost { get; set; }    
-        public int DatabasePort { get; set; }    
-        public string DatabaseUser { get; set; }    
-        public string DatabasePassword { get; set; }    
-        public string DatabaseName { get; set; }        
+        public object GetValue(string key)
+        {
+            return script[key];
+        }
 
         public void Dispose()
         {

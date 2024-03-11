@@ -217,22 +217,22 @@ namespace OpenTibia.Game
 
                 Logger.WriteLine();
                                
-                using (Logger.Measure("Loading config") )
+                using (Logger.Measure("Loading server config") )
                 {
                     Config.Start();
                 }
 
-                using (Logger.Measure("Loading quests") )
+                using (Logger.Measure("Loading quests config") )
                 {
                     Quests.Start();
                 }
 
-                using (Logger.Measure("Loading outfits") )
+                using (Logger.Measure("Loading outfits config") )
                 {
                     Outfits.Start();
                 }
 
-                using (Logger.Measure("Loading plugins") )
+                using (Logger.Measure("Loading plugins config") )
                 {
                     Plugins.Start();
                 }

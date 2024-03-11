@@ -5,13 +5,13 @@ using System;
 
 namespace OpenTibia.Game.Components
 {
-    public class NpcThinkBehaviour : Behaviour
+    public class SingleQueueNpcThinkBehaviour : Behaviour
     {
         private DialoguePlugin dialoguePlugin;
 
         private IWalkStrategy walkStrategy;
 
-        public NpcThinkBehaviour(DialoguePlugin dialoguePlugin, IWalkStrategy walkStrategy)
+        public SingleQueueNpcThinkBehaviour(DialoguePlugin dialoguePlugin, IWalkStrategy walkStrategy)
         {
             this.dialoguePlugin = dialoguePlugin;
 
@@ -117,58 +117,17 @@ namespace OpenTibia.Game.Components
 
         private Guid playerSay;
 
+        private Guid playerSayToNpc;
+
         private Guid globalTick;
 
         public override void Start()
         {
             Npc npc = (Npc)GameObject;
 
-            playerSay = Context.Server.EventHandlers.Subscribe<PlayerSayEventArgs>(async (context, e) =>
-            {
-                Player player = e.Player;
-
-                if (npc.Tile.Position.IsInRange(player.Tile.Position, 3) )
-                {               
-                    string message = e.Message;
-
-                    if (queue.Count == 0)
-                    {
-                        if (await dialoguePlugin.ShouldGreet(npc, player, message) )
-                        {
-                            await Add(player);
-
-                            lastSay = DateTime.UtcNow;
-
-                            await dialoguePlugin.OnGreet(npc, player);
-                        }
-                    }
-                    else
-                    {
-                        if (player != queue.Peek() )
-                        {
-                            if (await dialoguePlugin.ShouldGreet(npc, player, message) )
-                            {
-                                await Add(player);
-
-                                await dialoguePlugin.OnBusy(npc, player);
-                            }
-                        }
-                        else
-                        {
-                            if (await dialoguePlugin.ShouldFarewell(npc, player, message) )
-                            {
-                                await Farewell(player);
-                            }
-                            else
-                            {
-                                lastSay = DateTime.UtcNow;
-
-                                await dialoguePlugin.OnSay(npc, player, message);
-                            }
-                        }
-                    }
-                }
-            } );
+            playerSay = Context.Server.EventHandlers.Subscribe<PlayerSayEventArgs>( (context, e) => Say(e.Player, e.Message) );
+            
+            playerSayToNpc = Context.Server.EventHandlers.Subscribe<PlayerSayToNpcEventArgs>( (context, e) => Say(e.Player, e.Message) );
 
             globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>(async (context, e) =>
             {
@@ -214,12 +173,57 @@ namespace OpenTibia.Game.Components
                     }
                 }
             } );
+
+            async Promise Say(Player player, string message)
+            {
+                if (npc.Tile.Position.IsInRange(player.Tile.Position, 3) )
+                {               
+                    if (queue.Count == 0)
+                    {
+                        if (await dialoguePlugin.ShouldGreet(npc, player, message) )
+                        {
+                            await Add(player);
+
+                            lastSay = DateTime.UtcNow;
+
+                            await dialoguePlugin.OnGreet(npc, player);
+                        }
+                    }
+                    else
+                    {
+                        if (player != queue.Peek() )
+                        {
+                            if (await dialoguePlugin.ShouldGreet(npc, player, message) )
+                            {
+                                await Add(player);
+
+                                await dialoguePlugin.OnBusy(npc, player);
+                            }
+                        }
+                        else
+                        {
+                            if (await dialoguePlugin.ShouldFarewell(npc, player, message) )
+                            {
+                                await Farewell(player);
+                            }
+                            else
+                            {
+                                lastSay = DateTime.UtcNow;
+
+                                await dialoguePlugin.OnSay(npc, player, message);
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         public override void Stop()
         {
             Context.Server.EventHandlers.Unsubscribe<PlayerSayEventArgs>(playerSay);
 
+            Context.Server.EventHandlers.Unsubscribe<PlayerSayToNpcEventArgs>(playerSayToNpc);
+            
             Context.Server.EventHandlers.Unsubscribe<GlobalTickEventArgs>(globalTick);
         }
     }
