@@ -1,23 +1,21 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
     public class NpcTradeCommand : Command
     {
-        public NpcTradeCommand(Npc npc, Player player, List<OfferDto> offers, List<CounterOfferDto> counterOffers, int money)
+        public NpcTradeCommand(Npc npc, Player player, List<OfferDto> offers)
         {
             Npc = npc;
 
             Player = player;
 
             Offers = offers;
-
-            CounterOffers = counterOffers;
-
-            Money = money;
         }
 
         public Npc Npc { get; set; }
@@ -25,10 +23,6 @@ namespace OpenTibia.Game.Commands
         public Player Player { get; set; }
 
         public List<OfferDto> Offers { get; set; }
-
-        public List<CounterOfferDto> CounterOffers { get; set; }
-
-        public int Money { get; set; }
 
         public override Promise Execute()
         {
@@ -50,13 +44,93 @@ namespace OpenTibia.Game.Commands
 
             Context.Server.NpcTradings.AddTrading(trading);
 
+
+            int money = SumMoney(Player.Inventory);
+
+            List<CounterOfferDto> counterOffers = new List<CounterOfferDto>();
+
+            foreach (var offer in Offers)
+            {
+                if (offer.SellPrice > 0)
+                {
+                    int count = CountItems(Player.Inventory, offer.TibiaId, offer.Count);
+
+                    if (count > 0)
+                    {
+                        counterOffers.Add(new CounterOfferDto(offer.TibiaId, (byte)Math.Max(count, 100) ) );
+                    }
+                }
+            }
+
             Context.Current.AddPacket(Player.Client.Connection, new InviteNpcTradeOutgoingPacket(Offers), 
 
-                                                                new JoinNpcTradeOutgoingPacket( (uint)Money, CounterOffers) );
+                                                                new JoinNpcTradeOutgoingPacket( (uint)money, counterOffers) );
 
             //TODO: Check if money and items where added, refreshed, removed
 
             return Promise.Completed;
+        }
+
+        private int SumMoney(IContainer parent)
+        {
+            int sum = 0;
+
+            foreach (Item content in parent.GetContents())
+            {
+                if (content is Container container)
+                {
+                    sum += SumMoney(container);
+                }
+
+                if (content.Metadata.OpenTibiaId == 2160) // Crystal coin
+                {
+                    sum += ( (StackableItem)content).Count * 10000;
+                }
+                else if (content.Metadata.OpenTibiaId == 2152) // Platinum coin
+                {
+                    sum += ( (StackableItem)content).Count * 100;
+                }
+                else if (content.Metadata.OpenTibiaId == 2148) // Gold coin
+                {
+                    sum += ( (StackableItem)content).Count * 1;
+                }
+            }
+
+            return sum;
+        }
+
+        private int CountItems(IContainer parent, ushort tibiaId, byte type)
+        {
+            int sum = 0;
+
+            foreach (Item content in parent.GetContents() )
+            {
+                if (content is Container container)
+                {
+                    sum += CountItems(container, tibiaId, type);
+                }
+
+                if (content.Metadata.TibiaId == tibiaId)
+                {
+                    if (content is StackableItem stackableItem)
+                    {
+                        sum += stackableItem.Count;
+                    }
+                    else if (content is FluidItem fluidItem)
+                    {
+                        if (fluidItem.FluidType == (FluidType)type)
+                        {
+                            sum += 1;
+                        }
+                    }
+                    else
+                    {
+                        sum += 1;
+                    }
+                }
+            }
+
+            return sum;
         }
     }
 }

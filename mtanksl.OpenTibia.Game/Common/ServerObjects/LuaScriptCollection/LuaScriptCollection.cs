@@ -281,75 +281,7 @@ namespace OpenTibia.Game
                         
             lua.RegisterCoFunction("npctrade", parameters =>
             {
-                int SumMoney(IContainer parent)
-                {
-                    int sum = 0;
-
-                    foreach (Item content in parent.GetContents() )
-                    {
-                        if (content is Container container)
-                        {
-                            sum += SumMoney(container);
-                        }
-
-                        if (content.Metadata.OpenTibiaId == 2160) // Crystal coin
-                        {
-                            sum += ( (StackableItem)content).Count * 10000;
-                        }
-                        else if (content.Metadata.OpenTibiaId == 2152) // Platinum coin
-                        {
-                            sum += ( (StackableItem)content).Count * 100;
-                        }
-                        else if (content.Metadata.OpenTibiaId == 2148) // Gold coin
-                        {
-                            sum += ( (StackableItem)content).Count * 1;
-                        }
-                    }
-
-                    return sum;
-                }
-
-                int CountItems(IContainer parent, ushort openTibiaId, byte type)
-                {
-                    int sum = 0;
-
-                    foreach (Item content in parent.GetContents() )
-                    {
-                        if (content is Container container)
-                        {
-                            sum += CountItems(container, openTibiaId, type);
-                        }
-
-                        if (content.Metadata.OpenTibiaId == openTibiaId)
-                        {
-                            if (content is StackableItem stackableItem)
-                            {
-                                sum += stackableItem.Count;
-                            }
-                            else if (content is FluidItem fluidItem)
-                            {
-                                if (fluidItem.FluidType == (FluidType)type)
-                                {
-                                    sum += 1;
-                                }
-                            }
-                            else
-                            {
-                                sum += 1;
-                            }
-                        }
-                    }
-
-                    return sum;
-                }
-
-                Npc npc = (Npc)parameters[0];
-
-                Player player = (Player)parameters[1];
-
                 List<OfferDto> offers = new List<OfferDto>();
-
-                List<CounterOfferDto> counterOffers = new List<CounterOfferDto>();
 
                 foreach (LuaTable item in ( (LuaTable)parameters[2] ).Values)
                 {
@@ -363,22 +295,10 @@ namespace OpenTibia.Game
 
                     ItemMetadata itemMetadata = server.ItemFactory.GetItemMetadataByOpenTibiaId(openTibiaId);
 
-                    offers.Add(new OfferDto(itemMetadata.TibiaId, type, itemMetadata.Name, itemMetadata.Weight.Value, buyPrice, sellprice) );
-
-                    if (sellprice > 0)
-                    {
-                        int count = CountItems(player.Inventory, openTibiaId, type);
-
-                        if (count > 0)
-                        {
-                            counterOffers.Add(new CounterOfferDto(itemMetadata.TibiaId, (byte)count) );
-                        }
-                    }
+                    offers.Add(new OfferDto(itemMetadata.TibiaId, type, itemMetadata.Name, itemMetadata.Weight.Value, buyPrice, sellprice) );                   
                 }
 
-                int money = SumMoney(player.Inventory);
-
-                return Context.Current.AddCommand(new NpcTradeCommand(npc, player, offers, counterOffers, money) ).Then( () =>
+                return Context.Current.AddCommand(new NpcTradeCommand( (Npc)parameters[0], (Player)parameters[1], offers) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );                
