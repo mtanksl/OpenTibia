@@ -57,7 +57,7 @@ namespace OpenTibia.Game.Commands
 
                     if (count > 0)
                     {
-                        counterOffers.Add(new CounterOfferDto(offer.TibiaId, (byte)Math.Max(count, 100) ) );
+                        counterOffers.Add(new CounterOfferDto(offer.TibiaId, (byte)Math.Min(count, 100) ) );
                     }
                 }
             }
