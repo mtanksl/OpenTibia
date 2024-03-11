@@ -4,20 +4,20 @@ namespace OpenTibia.Game.Commands
 {
     public class ParseRotateItemFromContainerCommand : ParseRotateItemCommand
     {
-        public ParseRotateItemFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort itemId) : base(player)
+        public ParseRotateItemFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort tibiaId) : base(player)
         {
             FromContainerId = fromContainerId;
 
             FromContainerIndex = fromContainerIndex;
 
-            ItemId = itemId;
+            TibiaId = tibiaId;
         }
 
         public byte FromContainerId { get; set; }
 
         public byte FromContainerIndex { get; set; }
 
-        public ushort ItemId { get; set; }
+        public ushort TibiaId { get; set; }
 
         public override Promise Execute()
         {
@@ -27,7 +27,7 @@ namespace OpenTibia.Game.Commands
             {
                 Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
 
-                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                if (fromItem != null && fromItem.Metadata.TibiaId == TibiaId)
                 {
                     if ( IsRotatable(fromItem) )
                     {

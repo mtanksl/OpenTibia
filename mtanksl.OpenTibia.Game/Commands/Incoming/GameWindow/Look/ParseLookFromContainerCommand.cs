@@ -4,20 +4,20 @@ namespace OpenTibia.Game.Commands
 {
     public class ParseLookFromContainerCommand : ParseLookCommand
     {
-        public ParseLookFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort itemId) : base(player)
+        public ParseLookFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort tibiaId) : base(player)
         {
             FromContainerId = fromContainerId;
 
             FromContainerIndex = fromContainerIndex;
 
-            ItemId = itemId;
+            TibiaId = tibiaId;
         }
 
         public byte FromContainerId { get; set; }
 
         public byte FromContainerIndex { get; set; }
 
-        public ushort ItemId { get; set; }
+        public ushort TibiaId { get; set; }
 
         public override Promise Execute()
         {
@@ -27,7 +27,7 @@ namespace OpenTibia.Game.Commands
             {
                 Item item = fromContainer.GetContent(FromContainerIndex) as Item;
 
-                if (item != null && item.Metadata.TibiaId == ItemId)
+                if (item != null && item.Metadata.TibiaId == TibiaId)
                 {
                     return Context.AddCommand(new PlayerLookItemCommand(Player, item) );
                 }

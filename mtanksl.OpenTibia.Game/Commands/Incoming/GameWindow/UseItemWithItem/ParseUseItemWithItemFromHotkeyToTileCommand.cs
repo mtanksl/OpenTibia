@@ -6,32 +6,32 @@ namespace OpenTibia.Game.Commands
 {
     public class ParseUseItemWithItemFromHotkeyToTileCommand : ParseUseItemWithItemCommand
     {
-        public ParseUseItemWithItemFromHotkeyToTileCommand(Player player, ushort fromItemId, Position toPosition, byte toIndex, ushort toItemId) : base(player)
+        public ParseUseItemWithItemFromHotkeyToTileCommand(Player player, ushort fromTibiaId, Position toPosition, byte toIndex, ushort toTibiaId) : base(player)
         {
-            FromItemId = fromItemId;
+            FromTibiaId = fromTibiaId;
 
             ToPosition = toPosition;
 
             ToIndex = toIndex;
 
-            ToItemId = toItemId;
+            ToTibiaId = toTibiaId;
         }
 
-        public ushort FromItemId { get; set; }
+        public ushort FromTibiaId { get; set; }
 
         public Position ToPosition { get; set; }
 
         public byte ToIndex { get; set; }
 
-        public ushort ToItemId { get; set; }
+        public ushort ToTibiaId { get; set; }
 
         public override Promise Execute()
         {
-            int sum = Sum(Player.Inventory, FromItemId);
+            int sum = Sum(Player.Inventory, FromTibiaId);
 
             if (sum > 0)
             {
-                Item fromItem = Search(Player.Inventory, FromItemId);
+                Item fromItem = Search(Player.Inventory, FromTibiaId);
 
                 string message;
 
@@ -52,7 +52,7 @@ namespace OpenTibia.Game.Commands
                     {
                         case Item toItem:
 
-                            if (toItem.Metadata.TibiaId == ToItemId)
+                            if (toItem.Metadata.TibiaId == ToTibiaId)
                             {
                                 if ( IsUseable(fromItem) )
                                 {
@@ -66,7 +66,7 @@ namespace OpenTibia.Game.Commands
 
                         case Creature toCreature:
 
-                            if (ToItemId == 99)
+                            if (ToTibiaId == 99)
                             {
                                 if ( IsUseable(fromItem) )
                                 {
@@ -84,7 +84,7 @@ namespace OpenTibia.Game.Commands
             return Promise.Break;
         }
 
-        private static int Sum(IContainer parent, ushort itemId)
+        private static int Sum(IContainer parent, ushort tibiaId)
         {
             int sum = 0;
 
@@ -92,10 +92,10 @@ namespace OpenTibia.Game.Commands
             {
                 if (content is Container container)
                 {
-                    sum += Sum(container, itemId);
+                    sum += Sum(container, tibiaId);
                 }
 
-                if (content.Metadata.TibiaId == itemId)
+                if (content.Metadata.TibiaId == tibiaId)
                 {
                     if (content is StackableItem stackableItem)
                     {
@@ -111,13 +111,13 @@ namespace OpenTibia.Game.Commands
             return sum;
         }
 
-        private static Item Search(IContainer parent, ushort itemId)
+        private static Item Search(IContainer parent, ushort tibiaId)
         {
             foreach (Item content in parent.GetContents() )
             {
                 if (content is Container container)
                 {
-                    Item item = Search(container, itemId);
+                    Item item = Search(container, tibiaId);
 
                     if (item != null)
                     {
@@ -125,7 +125,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                if (content.Metadata.TibiaId == itemId)
+                if (content.Metadata.TibiaId == tibiaId)
                 {
                     return content;
                 }

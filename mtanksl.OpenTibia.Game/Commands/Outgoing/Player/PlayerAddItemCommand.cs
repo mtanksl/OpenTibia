@@ -27,7 +27,7 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Execute()
         {
-            ItemMetadata itemMetadata = Context.Current.Server.ItemFactory.GetItemMetadata(OpenTibiaId);
+            ItemMetadata itemMetadata = Context.Current.Server.ItemFactory.GetItemMetadataByOpenTibiaId(OpenTibiaId);
 
             if (itemMetadata.Flags.Is(ItemMetadataFlags.Stackable) )
             {

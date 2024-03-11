@@ -96,9 +96,7 @@ function topic:add(question, answer, newparameters)
 end
 
 function topic:addsell(responses, offers)
-	if PRIVATE_NPC_SYSTEM then
-
-	else 
+	if not PRIVATE_NPC_SYSTEM then
 		local confirm = topic:new(self)
 		for _, offer in ipairs(offers) do
 			self:add("sell (%d+) " .. offer.name, function(module, npc, player, message, captures, parameters)
@@ -132,9 +130,7 @@ function topic:addsell(responses, offers)
 end
 
 function topic:addbuy(responses, offers)
-	if PRIVATE_NPC_SYSTEM then
-
-	else
+	if not PRIVATE_NPC_SYSTEM then
 		local confirm = topic:new(self)
 		for _, offer in ipairs(offers) do
 			self:add("buy (%d+) " .. offer.name, function(module, npc, player, message, captures, parameters) 
@@ -168,6 +164,14 @@ function topic:addbuy(responses, offers)
 		confirm:add("", function(module, npc, player, message, captures, parameters) 
 			module.setparameters( { topic = self } )
 			module.say(responses.no)
+		end)
+	end
+end
+
+function topic:addtrade(question, offers)
+	if PRIVATE_NPC_SYSTEM then
+		self:add(question, function(module, npc, player, message, captures, parameters) 
+			module.trade(offers)
 		end)
 	end
 end
@@ -277,6 +281,9 @@ function npchandler:onsay(npc, player, message)
 			end,
 			say = function(answer)
 				self:say(npc, player, answer)
+			end,
+			trade = function(offers)
+				command.npctrade(npc, player, offers)
 			end,
 			idle = function()
 				command.npcidle(npc, player)

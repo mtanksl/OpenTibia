@@ -24,7 +24,9 @@ namespace OpenTibia.Game
 
         public void Start(OtbFile otbFile, DatFile datFile, ItemsFile itemsFile)
         {
-            metadatas = new Dictionary<ushort, ItemMetadata>(datFile.Items.Count);
+            openTibiaMetadatas = new Dictionary<ushort, ItemMetadata>(datFile.Items.Count);
+
+            tibiaMetadatas = new Dictionary<ushort, List<ItemMetadata> >(datFile.Items.Count);
 
             foreach (var otbItem in otbFile.Items)
             {
@@ -47,18 +49,25 @@ namespace OpenTibia.Game
                         metadata.Flags |= ItemMetadataFlags.AllowDistanceRead;
                     }
 
-                    metadatas.Add(otbItem.OpenTibiaId, metadata);
+                    openTibiaMetadatas.Add(otbItem.OpenTibiaId, metadata);
+
+                    List<ItemMetadata> metadatas;
+
+                    if ( !tibiaMetadatas.TryGetValue(otbItem.TibiaId, out metadatas) )
+                    {
+                        metadatas = new List<ItemMetadata>();
+
+                        tibiaMetadatas.Add(otbItem.TibiaId, metadatas);                        
+                    }
+
+                    metadatas.Add(metadata);
                 }
             }
 
-            var lookup = otbFile.Items.ToLookup(otbItem => otbItem.TibiaId, otbItem => otbItem.OpenTibiaId);
-
             foreach (var datItem in datFile.Items)
             {
-                foreach (var openTibiaId in lookup[datItem.TibiaId] )
+                foreach (var metadata in tibiaMetadatas[datItem.TibiaId] )
                 {
-                    ItemMetadata metadata = metadatas[openTibiaId];
-
                     if (datItem.Flags.Is(ItemFlags.IsGround) )
                     {
                         metadata.TopOrder = TopOrder.Ground;
@@ -153,7 +162,7 @@ namespace OpenTibia.Game
             {
                 if (xmlItem.OpenTibiaId < 20000)
                 {
-                    ItemMetadata metadata = metadatas[xmlItem.OpenTibiaId];
+                    ItemMetadata metadata = openTibiaMetadatas[xmlItem.OpenTibiaId];
 
                     metadata.Article = xmlItem.Article;
 
@@ -213,15 +222,29 @@ namespace OpenTibia.Game
 #endif
         }
 
-        private Dictionary<ushort, ItemMetadata> metadatas;
+        private Dictionary<ushort, ItemMetadata> openTibiaMetadatas;
 
-        public ItemMetadata GetItemMetadata(ushort openTibiaId)
+        public ItemMetadata GetItemMetadataByOpenTibiaId(ushort openTibiaId)
         {
             ItemMetadata metadata;
 
-            if (metadatas.TryGetValue(openTibiaId, out metadata) )
+            if (openTibiaMetadatas.TryGetValue(openTibiaId, out metadata) )
             {
                 return metadata;
+            }
+
+            return null;
+        }
+
+        private Dictionary<ushort, List<ItemMetadata> > tibiaMetadatas;
+
+        public ItemMetadata GetItemMetadataByTibiaId(ushort tibiaId)
+        {
+            List<ItemMetadata> metadatas;
+
+            if (tibiaMetadatas.TryGetValue(tibiaId, out metadatas) )
+            {
+                return metadatas.FirstOrDefault();
             }
 
             return null;
@@ -248,7 +271,7 @@ namespace OpenTibia.Game
 
         public Item Create(ushort openTibiaId, byte count)
         {
-            ItemMetadata metadata = GetItemMetadata(openTibiaId);
+            ItemMetadata metadata = GetItemMetadataByOpenTibiaId(openTibiaId);
 
             if (metadata == null)
             {

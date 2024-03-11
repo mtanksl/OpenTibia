@@ -4,7 +4,7 @@ namespace OpenTibia.Network.Packets.Incoming
 {
     public class CloseNpcTradeIncomingPacket : IIncomingPacket
     {
-        public ushort ItemId { get; set; }
+        public ushort TibiaId { get; set; }
 
         public byte Type { get; set; }
 
@@ -16,7 +16,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public void Read(ByteArrayStreamReader reader)
         {
-            ItemId = reader.ReadUShort();
+            TibiaId = reader.ReadUShort();
 
             Type = reader.ReadByte();
 

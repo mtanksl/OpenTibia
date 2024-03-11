@@ -5,13 +5,13 @@ namespace OpenTibia.Game.Commands
 {
     public class ParseMoveItemFromTileToTileCommand : ParseMoveItemCommand
     {
-        public ParseMoveItemFromTileToTileCommand(Player player, Position fromPosition, byte fromIndex, ushort itemId, Position toPosition, byte count) : base(player)
+        public ParseMoveItemFromTileToTileCommand(Player player, Position fromPosition, byte fromIndex, ushort tibiaId, Position toPosition, byte count) : base(player)
         {
             FromPosition = fromPosition;
 
             FromIndex = fromIndex;
 
-            ItemId = itemId;
+            TibiaId = tibiaId;
 
             ToPosition = toPosition;
 
@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Commands
 
         public byte FromIndex { get; set; }
 
-        public ushort ItemId { get; set; }
+        public ushort TibiaId { get; set; }
 
         public Position ToPosition { get; set; }
 
@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Commands
                     {
                         case Item fromItem:
 
-                            if (fromItem.Metadata.TibiaId == ItemId)
+                            if (fromItem.Metadata.TibiaId == TibiaId)
                             {
                                 Tile toTile = Context.Server.Map.GetTile(ToPosition);
 
@@ -57,7 +57,7 @@ namespace OpenTibia.Game.Commands
 
                         case Creature fromCreature:
 
-                            if (ItemId == 99)
+                            if (TibiaId == 99)
                             {
                                 Tile toTile = Context.Server.Map.GetTile(ToPosition);
 

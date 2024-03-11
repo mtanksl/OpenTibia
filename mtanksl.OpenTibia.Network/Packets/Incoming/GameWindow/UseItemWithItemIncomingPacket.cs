@@ -10,7 +10,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public byte FromZ { get; set; }
 
-        public ushort FromItemId { get; set; }
+        public ushort FromTibiaId { get; set; }
 
         public byte FromIndex { get; set; }
 
@@ -20,7 +20,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public byte ToZ { get; set; }
 
-        public ushort ToItemId { get; set; }
+        public ushort ToTibiaId { get; set; }
 
         public byte ToIndex { get; set; }
         
@@ -32,7 +32,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
             FromZ = reader.ReadByte();
 
-            FromItemId = reader.ReadUShort();
+            FromTibiaId = reader.ReadUShort();
 
             FromIndex = reader.ReadByte();
 
@@ -42,7 +42,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
             ToZ = reader.ReadByte();
 
-            ToItemId = reader.ReadUShort();
+            ToTibiaId = reader.ReadUShort();
 
             ToIndex = reader.ReadByte();
         }

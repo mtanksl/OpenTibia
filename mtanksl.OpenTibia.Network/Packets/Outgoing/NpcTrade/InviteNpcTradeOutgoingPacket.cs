@@ -32,9 +32,9 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             foreach (var offer in Offers)
             {
-                writer.Write(offer.ItemId);
+                writer.Write(offer.TibiaId);
 
-                writer.Write(offer.Type);
+                writer.Write(offer.Count);
 
                 writer.Write(offer.Name);
 

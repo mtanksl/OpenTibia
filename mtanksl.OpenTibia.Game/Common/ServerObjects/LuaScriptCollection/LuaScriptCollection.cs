@@ -3,6 +3,7 @@ using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Components;
+using OpenTibia.Network.Packets;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
@@ -286,6 +287,110 @@ namespace OpenTibia.Game
                 } );
             } );
                         
+            lua.RegisterCoFunction("npctrade", parameters =>
+            {
+                Player player = (Player)parameters[1];
+
+                int money = SumMoney(player.Inventory);
+
+                List<OfferDto> offers = new List<OfferDto>();
+
+                List<CounterOfferDto> counterOffers = new List<CounterOfferDto>();
+
+                foreach (LuaTable item in ( (LuaTable)parameters[2] ).Values)
+                {
+                    ushort openTibiaId = (ushort)(long)item["item"];
+
+                    byte type = (byte)(long)item["type"];
+
+                    uint buyPrice = (uint)(long)item["buyprice"];
+
+                    uint sellprice = (uint)(long)item["sellprice"];
+
+                    ItemMetadata itemMetadata = server.ItemFactory.GetItemMetadataByOpenTibiaId(openTibiaId);
+
+                    offers.Add(new OfferDto(itemMetadata.TibiaId, type, itemMetadata.Name, itemMetadata.Weight.Value, buyPrice, sellprice) );
+
+                    if (sellprice > 0)
+                    {
+                        int count = CountItems(player.Inventory, openTibiaId, type);
+
+                        if (count > 0)
+                        {
+                            counterOffers.Add(new CounterOfferDto(itemMetadata.TibiaId, (byte)count) );
+                        }
+                    }
+                }
+
+                Context.Current.AddPacket(player.Client.Connection, new InviteNpcTradeOutgoingPacket(offers), 
+
+                                                                    new JoinNpcTradeOutgoingPacket( (uint)money, counterOffers) );
+
+                return Promise.FromResultAsEmptyObjectArray;
+
+                int SumMoney(IContainer parent)
+                {
+                    int sum = 0;
+
+                    foreach (Item content in parent.GetContents() )
+                    {
+                        if (content is Container container)
+                        {
+                            sum += SumMoney(container);
+                        }
+
+                        if (content.Metadata.OpenTibiaId == 2160) // Crystal coin
+                        {
+                            sum += ( (StackableItem)content).Count * 10000;
+                        }
+                        else if (content.Metadata.OpenTibiaId == 2152) // Platinum coin
+                        {
+                            sum += ( (StackableItem)content).Count * 100;
+                        }
+                        else if (content.Metadata.OpenTibiaId == 2148) // Gold coin
+                        {
+                            sum += ( (StackableItem)content).Count * 1;
+                        }
+                    }
+
+                    return sum;
+                }
+
+                int CountItems(IContainer parent, ushort openTibiaId, byte type)
+                {
+                    int sum = 0;
+
+                    foreach (Item content in parent.GetContents() )
+                    {
+                        if (content is Container container)
+                        {
+                            sum += CountItems(container, openTibiaId, type);
+                        }
+
+                        if (content.Metadata.OpenTibiaId == openTibiaId)
+                        {
+                            if (content is StackableItem stackableItem)
+                            {
+                                sum += stackableItem.Count;
+                            }
+                            else if (content is FluidItem fluidItem)
+                            {
+                                if (fluidItem.FluidType == (FluidType)type)
+                                {
+                                    sum += 1;
+                                }
+                            }
+                            else
+                            {
+                                sum += 1;
+                            }
+                        }
+                    }
+
+                    return sum;
+                }
+            } );
+
             lua.RegisterCoFunction("npcidle", parameters =>
             {
                 SingleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<SingleQueueNpcThinkBehaviour>( (Npc)parameters[0] );

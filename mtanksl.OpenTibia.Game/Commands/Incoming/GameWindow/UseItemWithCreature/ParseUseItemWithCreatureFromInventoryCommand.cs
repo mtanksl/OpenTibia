@@ -4,18 +4,18 @@ namespace OpenTibia.Game.Commands
 {
     public class ParseUseItemWithCreatureFromInventoryCommand : ParseUseItemWithCreatureCommand
     {
-        public ParseUseItemWithCreatureFromInventoryCommand(Player player, byte fromSlot, ushort itemId, uint toCreatureId) : base(player)
+        public ParseUseItemWithCreatureFromInventoryCommand(Player player, byte fromSlot, ushort tibiaId, uint toCreatureId) : base(player)
         {
             FromSlot = fromSlot;
 
-            ItemId = itemId;
+            TibiaId = tibiaId;
 
             ToCreatureId = toCreatureId;
         }
 
         public byte FromSlot { get; set; }
 
-        public ushort ItemId { get; set; }
+        public ushort TibiaId { get; set; }
 
         public uint ToCreatureId { get; set; }
 
@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
 
             Item fromItem = fromInventory.GetContent(FromSlot) as Item;
 
-            if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+            if (fromItem != null && fromItem.Metadata.TibiaId == TibiaId)
             {
                 Creature toCreature = Context.Server.GameObjects.GetCreature(ToCreatureId);
 

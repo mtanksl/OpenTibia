@@ -5,7 +5,7 @@ namespace OpenTibia.Game.Commands
 {
     public class ParseUseItemWithCreatureFromTileCommand : ParseUseItemWithCreatureCommand
     {
-        public ParseUseItemWithCreatureFromTileCommand(Player player, Position fromPosition, byte fromIndex, ushort itemId, uint toCreatureId) : base(player)
+        public ParseUseItemWithCreatureFromTileCommand(Player player, Position fromPosition, byte fromIndex, ushort tibiaId, uint toCreatureId) : base(player)
         {
             Player = player;
 
@@ -13,7 +13,7 @@ namespace OpenTibia.Game.Commands
 
             FromIndex = fromIndex;
 
-            ItemId = itemId;
+            TibiaId = tibiaId;
 
             ToCreatureId = toCreatureId;
         }
@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Commands
 
         public byte FromIndex { get; set; }
 
-        public ushort ItemId { get; set; }
+        public ushort TibiaId { get; set; }
 
         public uint ToCreatureId { get; set; }
 
@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
                 {
                     Item fromItem = Player.Client.GetContent(fromTile, FromIndex) as Item;
 
-                    if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                    if (fromItem != null && fromItem.Metadata.TibiaId == TibiaId)
                     {
                         Creature toCreature = Context.Server.GameObjects.GetCreature(ToCreatureId);
 

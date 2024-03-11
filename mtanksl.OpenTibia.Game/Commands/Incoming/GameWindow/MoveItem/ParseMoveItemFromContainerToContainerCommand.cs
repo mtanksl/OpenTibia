@@ -4,13 +4,13 @@ namespace OpenTibia.Game.Commands
 {
     public class ParseMoveItemFromContainerToContainerCommand : ParseMoveItemCommand
     {
-        public ParseMoveItemFromContainerToContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort itemId, byte toContainerId, byte toContainerIndex, byte count) : base(player)
+        public ParseMoveItemFromContainerToContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort tibiaId, byte toContainerId, byte toContainerIndex, byte count) : base(player)
         {
             FromContainerId = fromContainerId;
 
             FromContainerIndex = fromContainerIndex;
 
-            ItemId = itemId;
+            TibiaId = tibiaId;
 
             ToContainerId = toContainerId;
 
@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
 
         public byte FromContainerIndex { get; set; }
 
-        public ushort ItemId { get; set; }
+        public ushort TibiaId { get; set; }
 
         public byte ToContainerId { get; set; }
 
@@ -39,7 +39,7 @@ namespace OpenTibia.Game.Commands
             {
                 Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
 
-                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                if (fromItem != null && fromItem.Metadata.TibiaId == TibiaId)
                 {
                     Container toContainer = Player.Client.Containers.GetContainer(ToContainerId);
 

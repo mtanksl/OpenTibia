@@ -4,16 +4,16 @@ namespace OpenTibia.Game.Commands
 {
     public class ParseLookFromInventoryCommand : ParseLookCommand
     {
-        public ParseLookFromInventoryCommand(Player player, byte fromSlot, ushort itemId) : base(player)
+        public ParseLookFromInventoryCommand(Player player, byte fromSlot, ushort tibiaId) : base(player)
         {
             FromSlot = fromSlot;
 
-            ItemId = itemId;
+            TibiaId = tibiaId;
         }
 
         public byte FromSlot { get; set; }
 
-        public ushort ItemId { get; set; }
+        public ushort TibiaId { get; set; }
 
         public override Promise Execute()
         {
@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Commands
 
             Item item = fromInventory.GetContent(FromSlot) as Item;
 
-            if (item != null && item.Metadata.TibiaId == ItemId)
+            if (item != null && item.Metadata.TibiaId == TibiaId)
             {
                 return Context.AddCommand(new PlayerLookItemCommand(Player, item) );
             }

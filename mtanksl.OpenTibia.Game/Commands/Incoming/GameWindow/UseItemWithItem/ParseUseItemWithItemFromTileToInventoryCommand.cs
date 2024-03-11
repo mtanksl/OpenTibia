@@ -5,28 +5,28 @@ namespace OpenTibia.Game.Commands
 {
     public class ParseUseItemWithItemFromTileToInventoryCommand : ParseUseItemWithItemCommand
     {
-        public ParseUseItemWithItemFromTileToInventoryCommand(Player player, Position fromPosition, byte fromIndex, ushort fromItemId, byte toSlot, ushort toItemId) :base(player)
+        public ParseUseItemWithItemFromTileToInventoryCommand(Player player, Position fromPosition, byte fromIndex, ushort fromTibiaId, byte toSlot, ushort toTibiaId) :base(player)
         {
             FromPosition = fromPosition;
 
             FromIndex = fromIndex;
 
-            FromItemId = fromItemId;
+            FromTibiaId = fromTibiaId;
 
             ToSlot = toSlot;
 
-            ToItemId = toItemId;
+            ToTibiaId = toTibiaId;
         }
 
         public Position FromPosition { get; set; }
 
         public byte FromIndex { get; set; }
 
-        public ushort FromItemId { get; set; }
+        public ushort FromTibiaId { get; set; }
 
         public byte ToSlot { get; set; }
 
-        public ushort ToItemId { get; set; }
+        public ushort ToTibiaId { get; set; }
 
         public override Promise Execute()
         {
@@ -38,13 +38,13 @@ namespace OpenTibia.Game.Commands
                 {
                     Item fromItem = Player.Client.GetContent(fromTile, FromIndex) as Item;
 
-                    if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
+                    if (fromItem != null && fromItem.Metadata.TibiaId == FromTibiaId)
                     {
                         Inventory toInventory = Player.Inventory;
 
                         Item toItem = toInventory.GetContent(ToSlot) as Item;
 
-                        if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
+                        if (toItem != null && toItem.Metadata.TibiaId == ToTibiaId)
                         {
                             if ( IsUseable(fromItem) )
                             {

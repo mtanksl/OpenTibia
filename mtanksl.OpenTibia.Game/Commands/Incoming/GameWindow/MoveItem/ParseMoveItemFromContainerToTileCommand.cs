@@ -5,13 +5,13 @@ namespace OpenTibia.Game.Commands
 {
     public class ParseMoveItemFromContainerToTileCommand : ParseMoveItemCommand
     {
-        public ParseMoveItemFromContainerToTileCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort itemId, Position toPosition, byte count) :base(player)
+        public ParseMoveItemFromContainerToTileCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort tibiaId, Position toPosition, byte count) :base(player)
         {
             FromContainerId = fromContainerId;
 
             FromContainerIndex = fromContainerIndex;
 
-            ItemId = itemId;
+            TibiaId = tibiaId;
 
             ToPosition = toPosition;
 
@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Commands
 
         public byte FromContainerIndex { get; set; }
 
-        public ushort ItemId { get; set; }
+        public ushort TibiaId { get; set; }
 
         public Position ToPosition { get; set; }
 
@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
             {
                 Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
 
-                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                if (fromItem != null && fromItem.Metadata.TibiaId == TibiaId)
                 {
                     Tile toTile = Context.Server.Map.GetTile(ToPosition);
 

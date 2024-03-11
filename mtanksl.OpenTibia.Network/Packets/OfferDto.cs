@@ -2,11 +2,11 @@
 {
     public class OfferDto
     {
-        public OfferDto(ushort itemId, byte type, string name, uint weight, uint buyPrice, uint sellPrice)
+        public OfferDto(ushort tibiaId, byte count, string name, uint weight, uint buyPrice, uint sellPrice)
         {
-            ItemId = itemId;
+            TibiaId = tibiaId;
 
-            Type = type;
+            Count = count;
 
             Name = name;
 
@@ -17,9 +17,9 @@
             SellPrice = sellPrice;
         }
 
-        public ushort ItemId { get; set; }
+        public ushort TibiaId { get; set; }
 
-        public byte Type { get; set; }
+        public byte Count { get; set; }
 
         public string Name { get; set; }
 

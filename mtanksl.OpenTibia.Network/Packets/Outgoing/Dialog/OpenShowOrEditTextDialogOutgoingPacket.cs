@@ -4,11 +4,11 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class OpenShowOrEditTextDialogOutgoingPacket : IOutgoingPacket
     {
-        public OpenShowOrEditTextDialogOutgoingPacket(uint windowId, ushort itemId, ushort maxLength, string text, string author, string date)
+        public OpenShowOrEditTextDialogOutgoingPacket(uint windowId, ushort tibiaId, ushort maxLength, string text, string author, string date)
         {
             this.WindowId = windowId;
 
-            this.ItemId = itemId;
+            this.TibiaId = tibiaId;
 
             this.MaxLength = maxLength;
 
@@ -21,7 +21,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public uint WindowId { get; set; }
 
-        public ushort ItemId { get; set; }
+        public ushort TibiaId { get; set; }
 
         public ushort MaxLength { get; set; }
 
@@ -37,7 +37,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             writer.Write(WindowId);
 
-            writer.Write(ItemId);
+            writer.Write(TibiaId);
 
             writer.Write(MaxLength);
 

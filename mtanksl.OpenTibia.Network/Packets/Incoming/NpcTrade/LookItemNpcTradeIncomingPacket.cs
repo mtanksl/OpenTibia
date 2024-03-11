@@ -4,13 +4,13 @@ namespace OpenTibia.Network.Packets.Incoming
 {
     public class LookItemNpcTradeIncomingPacket : IIncomingPacket
     {
-        public ushort ItemId { get; set; }
+        public ushort TibiaId { get; set; }
 
         public byte Type { get; set; }
         
         public void Read(ByteArrayStreamReader reader)
         {
-            ItemId = reader.ReadUShort();
+            TibiaId = reader.ReadUShort();
 
             Type = reader.ReadByte();
         }

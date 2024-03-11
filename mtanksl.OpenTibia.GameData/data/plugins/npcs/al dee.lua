@@ -29,6 +29,10 @@ say:addbuy( {
     { article = "a", name = "spear", plural = "spears", item = 2389, type = 1, price = 10 },
     { article = "an", name = "axe", plural = "axes", item = 2386, type = 1, price = 20 }
 } )
+say:addtrade("trade", {
+    { item = 2389, type = 1, buyprice = 10, sellprice = 2 },
+    { item = 2386, type = 1, buyprice = 20, sellprice = 10 }
+} )
 
 local handler = npchandler:new( {
     greet = "Hello, hello, {playername}! Please come in, look, and buy!",

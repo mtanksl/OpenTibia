@@ -4,13 +4,13 @@ namespace OpenTibia.Game.Commands
 {
     public class ParseTradeWithFromContainerCommand : ParseTradeWithCommand
     {
-        public ParseTradeWithFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort itemId, uint creatureId) : base(player)
+        public ParseTradeWithFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort tibiaId, uint creatureId) : base(player)
         {
             FromContainerId = fromContainerId;
 
             FromContainerIndex = fromContainerIndex;
 
-            ItemId = itemId;
+            TibiaId = tibiaId;
 
             ToCreatureId = creatureId;
         }
@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Commands
 
         public byte FromContainerIndex { get; set; }
 
-        public ushort ItemId { get; set; }
+        public ushort TibiaId { get; set; }
 
         public uint ToCreatureId { get; set; }
 
@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Commands
             {
                 Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
 
-                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                if (fromItem != null && fromItem.Metadata.TibiaId == TibiaId)
                 {
                     Player toPlayer = Context.Server.GameObjects.GetPlayer(ToCreatureId);
 

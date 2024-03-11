@@ -64,50 +64,50 @@ namespace OpenTibia.Common.Objects
 				{
 					if (toPosition.IsContainer)
 					{
-						return new ParseMoveItemFromContainerToContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.Count);
+						return new ParseMoveItemFromContainerToContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromTibiaId, toPosition.ContainerId, toPosition.ContainerIndex, packet.Count);
 					}
 					else if (toPosition.IsInventory)
 					{
-						return new ParseMoveItemFromContainerToInventoryCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromItemId, toPosition.InventoryIndex, packet.Count);
+						return new ParseMoveItemFromContainerToInventoryCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromTibiaId, toPosition.InventoryIndex, packet.Count);
 					}
 					else
 					{
-						return new ParseMoveItemFromContainerToTileCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromItemId, toPosition, packet.Count);
+						return new ParseMoveItemFromContainerToTileCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromTibiaId, toPosition, packet.Count);
 					}
 				}
 				else if (fromPosition.IsInventory)
 				{
 					if (toPosition.IsContainer)
 					{
-						return new ParseMoveItemFromInventoryToContainerCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.Count);
+						return new ParseMoveItemFromInventoryToContainerCommand(Client.Player, fromPosition.InventoryIndex, packet.FromTibiaId, toPosition.ContainerId, toPosition.ContainerIndex, packet.Count);
 					}
 					else if (toPosition.IsInventory)
 					{
-						return new ParseMoveItemFromInventoryToInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition.InventoryIndex, packet.Count);
+						return new ParseMoveItemFromInventoryToInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.FromTibiaId, toPosition.InventoryIndex, packet.Count);
 					}
 					else
 					{
-						return new ParseMoveItemFromInventoryToTileCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition, packet.Count);
+						return new ParseMoveItemFromInventoryToTileCommand(Client.Player, fromPosition.InventoryIndex, packet.FromTibiaId, toPosition, packet.Count);
 					}
 				}
 				else
 				{
 					if (toPosition.IsContainer)
 					{
-						return new ParseMoveItemFromTileToContainerCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.Count);
+						return new ParseMoveItemFromTileToContainerCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromTibiaId, toPosition.ContainerId, toPosition.ContainerIndex, packet.Count);
 					}
 					else if (toPosition.IsInventory)
 					{
-						return new ParseMoveItemFromTileToInventoryCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromItemId, toPosition.InventoryIndex, packet.Count);
+						return new ParseMoveItemFromTileToInventoryCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromTibiaId, toPosition.InventoryIndex, packet.Count);
 					}
 					else
 					{
-						return new ParseMoveItemFromTileToTileCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromItemId, toPosition, packet.Count);
+						return new ParseMoveItemFromTileToTileCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromTibiaId, toPosition, packet.Count);
 					}
 				}
 			} ) );
 
-			commands.Add(0x79, new PacketToCommand<LookItemNpcTradeIncomingPacket>(packet => new ParseLookItemNpcTradeCommand(Client.Player, packet.ItemId, packet.Type) ) );
+			commands.Add(0x79, new PacketToCommand<LookItemNpcTradeIncomingPacket>(packet => new ParseLookItemNpcTradeCommand(Client.Player, server.ItemFactory.GetItemMetadataByTibiaId(packet.TibiaId), packet.Type) ) );
 
 			commands.Add(0x7A, new PacketToCommand<BuyNpcTradeIncomingPacket>(packet => new ParseBuyNpcTradeCommand(Client.Player, packet) ) );
 
@@ -121,15 +121,15 @@ namespace OpenTibia.Common.Objects
 
 				if (fromPosition.IsContainer)
 				{
-					return new ParseTradeWithFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.ItemId, packet.CreatureId);
+					return new ParseTradeWithFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.TibiaId, packet.CreatureId);
 				}
 				else if (fromPosition.IsInventory)
 				{
-					return new ParseTradeWithFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId, packet.CreatureId);
+					return new ParseTradeWithFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.TibiaId, packet.CreatureId);
 				}
 				else
 				{
-					return new ParseTradeWithFromTileCommand(Client.Player, fromPosition, packet.Index, packet.ItemId, packet.CreatureId);
+					return new ParseTradeWithFromTileCommand(Client.Player, fromPosition, packet.Index, packet.TibiaId, packet.CreatureId);
 				}
 			} ) );
 
@@ -145,22 +145,22 @@ namespace OpenTibia.Common.Objects
 
 				if (fromPosition.IsContainer)
 				{
-					return new ParseUseItemFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.ItemId, packet.ContainerId);
+					return new ParseUseItemFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.TibiaId, packet.ContainerId);
 				}
 				else if (fromPosition.IsInventory)
 				{
 					if (fromPosition.IsHotkey)
 					{
-						return new ParseUseItemFromHotkeyCommand(Client.Player, packet.ItemId);
+						return new ParseUseItemFromHotkeyCommand(Client.Player, packet.TibiaId);
 					}
 					else
 					{
-						return new ParseUseItemFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId);
+						return new ParseUseItemFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.TibiaId);
 					}
 				}
 				else
 				{
-					return new ParseUseItemFromTileCommand(Client.Player, fromPosition, packet.Index, packet.ItemId);
+					return new ParseUseItemFromTileCommand(Client.Player, fromPosition, packet.Index, packet.TibiaId);
 				}
 			} ) );
 
@@ -174,15 +174,15 @@ namespace OpenTibia.Common.Objects
 				{
 					if (toPosition.IsContainer)
 					{
-						return new ParseUseItemWithItemFromContainerToContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.ToItemId);
+						return new ParseUseItemWithItemFromContainerToContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromTibiaId, toPosition.ContainerId, toPosition.ContainerIndex, packet.ToTibiaId);
 					}
 					else if (toPosition.IsInventory)
 					{
-						return new ParseUseItemWithItemFromContainerToInventoryCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromItemId, toPosition.InventoryIndex, packet.ToItemId);
+						return new ParseUseItemWithItemFromContainerToInventoryCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromTibiaId, toPosition.InventoryIndex, packet.ToTibiaId);
 					}
 					else
 					{
-						return new ParseUseItemWithItemFromContainerToTileCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromItemId, toPosition, packet.ToIndex, packet.ToItemId);
+						return new ParseUseItemWithItemFromContainerToTileCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.FromTibiaId, toPosition, packet.ToIndex, packet.ToTibiaId);
 					}
 				}
 				else if (fromPosition.IsInventory)
@@ -191,30 +191,30 @@ namespace OpenTibia.Common.Objects
 					{
 						if (toPosition.IsContainer)
 						{
-							return new ParseUseItemWithItemFromHotkeyToContainerCommand(Client.Player, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.ToItemId);
+							return new ParseUseItemWithItemFromHotkeyToContainerCommand(Client.Player, packet.FromTibiaId, toPosition.ContainerId, toPosition.ContainerIndex, packet.ToTibiaId);
 						}
 						else if (toPosition.IsInventory)
 						{
-							return new ParseUseItemWithItemFromHotkeyToInventoryCommand(Client.Player, packet.FromItemId, toPosition.InventoryIndex, packet.ToItemId);
+							return new ParseUseItemWithItemFromHotkeyToInventoryCommand(Client.Player, packet.FromTibiaId, toPosition.InventoryIndex, packet.ToTibiaId);
 						}
 						else
 						{
-							return new ParseUseItemWithItemFromHotkeyToTileCommand(Client.Player, packet.FromItemId, toPosition, packet.ToIndex, packet.ToItemId);
+							return new ParseUseItemWithItemFromHotkeyToTileCommand(Client.Player, packet.FromTibiaId, toPosition, packet.ToIndex, packet.ToTibiaId);
 						}
 					}
 					else
 					{
 						if (toPosition.IsContainer)
 						{
-							return new ParseUseItemWithItemFromInventoryToContainerCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.ToItemId);
+							return new ParseUseItemWithItemFromInventoryToContainerCommand(Client.Player, fromPosition.InventoryIndex, packet.FromTibiaId, toPosition.ContainerId, toPosition.ContainerIndex, packet.ToTibiaId);
 						}
 						else if (toPosition.IsInventory)
 						{
-							return new ParseUseItemWithItemFromInventoryToInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition.InventoryIndex, packet.ToItemId);
+							return new ParseUseItemWithItemFromInventoryToInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.FromTibiaId, toPosition.InventoryIndex, packet.ToTibiaId);
 						}
 						else
 						{
-							return new ParseUseItemWithItemFromInventoryToTileCommand(Client.Player, fromPosition.InventoryIndex, packet.FromItemId, toPosition, packet.ToIndex, packet.ToItemId);
+							return new ParseUseItemWithItemFromInventoryToTileCommand(Client.Player, fromPosition.InventoryIndex, packet.FromTibiaId, toPosition, packet.ToIndex, packet.ToTibiaId);
 						}
 					}
 				}
@@ -222,15 +222,15 @@ namespace OpenTibia.Common.Objects
 				{
 					if (toPosition.IsContainer)
 					{
-						return new ParseUseItemWithItemFromTileToContainerCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromItemId, toPosition.ContainerId, toPosition.ContainerIndex, packet.ToItemId);
+						return new ParseUseItemWithItemFromTileToContainerCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromTibiaId, toPosition.ContainerId, toPosition.ContainerIndex, packet.ToTibiaId);
 					}
 					else if (toPosition.IsInventory)
 					{
-						return new ParseUseItemWithItemFromTileToInventoryCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromItemId, toPosition.InventoryIndex, packet.ToItemId);
+						return new ParseUseItemWithItemFromTileToInventoryCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromTibiaId, toPosition.InventoryIndex, packet.ToTibiaId);
 					}
 					else
 					{
-						return new ParseUseItemWithItemFromTileToTileCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromItemId, toPosition, packet.ToIndex, packet.ToItemId);
+						return new ParseUseItemWithItemFromTileToTileCommand(Client.Player, fromPosition, packet.FromIndex, packet.FromTibiaId, toPosition, packet.ToIndex, packet.ToTibiaId);
 					}
 				}
 			} ) );
@@ -241,22 +241,22 @@ namespace OpenTibia.Common.Objects
 
 				if (fromPosition.IsContainer)
 				{
-					return new ParseUseItemWithCreatureFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.ItemId, packet.CreatureId);
+					return new ParseUseItemWithCreatureFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.TibiaId, packet.CreatureId);
 				}
 				else if (fromPosition.IsInventory)
 				{
 					if (fromPosition.IsHotkey)
 					{
-						return new ParseUseItemWithCreatureFromHotkeyCommand(Client.Player, packet.ItemId, packet.CreatureId);
+						return new ParseUseItemWithCreatureFromHotkeyCommand(Client.Player, packet.TibiaId, packet.CreatureId);
 					}
 					else
 					{
-						return new ParseUseItemWithCreatureFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId, packet.CreatureId);
+						return new ParseUseItemWithCreatureFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.TibiaId, packet.CreatureId);
 					}
 				}
 				else
 				{
-					return new ParseUseItemWithCreatureFromTileCommand(Client.Player, fromPosition, packet.Index, packet.ItemId, packet.CreatureId);
+					return new ParseUseItemWithCreatureFromTileCommand(Client.Player, fromPosition, packet.Index, packet.TibiaId, packet.CreatureId);
 				}
 			} ) );
 
@@ -266,15 +266,15 @@ namespace OpenTibia.Common.Objects
 
 				if (fromPosition.IsContainer)
 				{
-					return new ParseRotateItemFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.ItemId);
+					return new ParseRotateItemFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.TibiaId);
 				}
 				else if (fromPosition.IsInventory)
 				{
-					return new ParseRotateItemFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId);
+					return new ParseRotateItemFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.TibiaId);
 				}
 				else
 				{
-					return new ParseRotateItemFromTileCommand(Client.Player, fromPosition, packet.Index, packet.ItemId);
+					return new ParseRotateItemFromTileCommand(Client.Player, fromPosition, packet.Index, packet.TibiaId);
 				}
 			} ) );
 
@@ -292,15 +292,15 @@ namespace OpenTibia.Common.Objects
 
 				if (fromPosition.IsContainer)
 				{
-					return new ParseLookFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.ItemId);
+					return new ParseLookFromContainerCommand(Client.Player, fromPosition.ContainerId, fromPosition.ContainerIndex, packet.TibiaId);
 				}
 				else if (fromPosition.IsInventory)
 				{
-					return new ParseLookFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.ItemId);
+					return new ParseLookFromInventoryCommand(Client.Player, fromPosition.InventoryIndex, packet.TibiaId);
 				}
 				else
 				{
-					return new ParseLookFromTileCommand(Client.Player, fromPosition, packet.Index, packet.ItemId);
+					return new ParseLookFromTileCommand(Client.Player, fromPosition, packet.Index, packet.TibiaId);
 				}
 			} ) );
 

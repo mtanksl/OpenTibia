@@ -5,13 +5,13 @@ namespace OpenTibia.Game.Commands
 {
     public class ParseTradeWithFromTileCommand : ParseTradeWithCommand
     {
-        public ParseTradeWithFromTileCommand(Player player, Position fromPosition, byte fromIndex, ushort itemId, uint creatureId) : base(player)
+        public ParseTradeWithFromTileCommand(Player player, Position fromPosition, byte fromIndex, ushort tibiaId, uint creatureId) : base(player)
         {
             FromPosition = fromPosition;
 
             FromIndex = fromIndex;
 
-            ItemId = itemId;
+            TibiaId = tibiaId;
 
             ToCreatureId = creatureId;
         }
@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
 
         public byte FromIndex { get; set; }
 
-        public ushort ItemId { get; set; }
+        public ushort TibiaId { get; set; }
 
         public uint ToCreatureId { get; set; }
 
@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
                 {
                     Item fromItem = Player.Client.GetContent(fromTile, FromIndex) as Item;
 
-                    if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                    if (fromItem != null && fromItem.Metadata.TibiaId == TibiaId)
                     {
                         Player toPlayer = Context.Server.GameObjects.GetPlayer(ToCreatureId);
 

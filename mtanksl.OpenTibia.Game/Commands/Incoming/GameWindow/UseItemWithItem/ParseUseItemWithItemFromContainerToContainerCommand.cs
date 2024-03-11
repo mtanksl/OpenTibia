@@ -4,32 +4,32 @@ namespace OpenTibia.Game.Commands
 {
     public class ParseUseItemWithItemFromContainerToContainerCommand : ParseUseItemWithItemCommand
     {
-        public ParseUseItemWithItemFromContainerToContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort fromItemId, byte toContainerId, byte toContainerIndex, ushort toItemId) : base(player)
+        public ParseUseItemWithItemFromContainerToContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort fromTibiaId, byte toContainerId, byte toContainerIndex, ushort toTibiaId) : base(player)
         {
             FromContainerId = fromContainerId;
 
             FromContainerIndex = fromContainerIndex;
 
-            FromItemId = fromItemId;
+            FromTibiaId = fromTibiaId;
 
             ToContainerId = toContainerId;
 
             ToContainerIndex = toContainerIndex;
 
-            ToItemId = toItemId;
+            ToTibiaId = toTibiaId;
         }
 
         public byte FromContainerId { get; set; }
 
         public byte FromContainerIndex { get; set; }
 
-        public ushort FromItemId { get; set; }
+        public ushort FromTibiaId { get; set; }
         
         public byte ToContainerId { get; set; }
 
         public byte ToContainerIndex { get; set; }
 
-        public ushort ToItemId { get; set; }
+        public ushort ToTibiaId { get; set; }
 
         public override Promise Execute()
         {
@@ -39,7 +39,7 @@ namespace OpenTibia.Game.Commands
             {
                 Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
 
-                if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
+                if (fromItem != null && fromItem.Metadata.TibiaId == FromTibiaId)
                 {
                     Container toContainer = Player.Client.Containers.GetContainer(ToContainerId);
 
@@ -47,7 +47,7 @@ namespace OpenTibia.Game.Commands
                     {
                         Item toItem = toContainer.GetContent(ToContainerIndex) as Item;
 
-                        if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
+                        if (toItem != null && toItem.Metadata.TibiaId == ToTibiaId)
                         {
                             if ( IsUseable(fromItem) )
                             {

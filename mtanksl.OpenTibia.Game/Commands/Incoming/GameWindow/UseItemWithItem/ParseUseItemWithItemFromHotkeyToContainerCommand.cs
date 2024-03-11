@@ -6,32 +6,32 @@ namespace OpenTibia.Game.Commands
 {
     public class ParseUseItemWithItemFromHotkeyToContainerCommand : ParseUseItemWithItemCommand
     {
-        public ParseUseItemWithItemFromHotkeyToContainerCommand(Player player, ushort fromItemId, byte toContainerId, byte toContainerIndex, ushort toItemId) :base(player)
+        public ParseUseItemWithItemFromHotkeyToContainerCommand(Player player, ushort fromTibiaId, byte toContainerId, byte toContainerIndex, ushort toTibiaId) :base(player)
         {
-            FromItemId = fromItemId;
+            FromTibiaId = fromTibiaId;
 
             ToContainerId = toContainerId;
 
             ToContainerIndex = toContainerIndex;
 
-            ToItemId = toItemId;
+            ToTibiaId = toTibiaId;
         }
 
-        public ushort FromItemId { get; set; }
+        public ushort FromTibiaId { get; set; }
 
         public byte ToContainerId { get; set; }
 
         public byte ToContainerIndex { get; set; }
 
-        public ushort ToItemId { get; set; }
+        public ushort ToTibiaId { get; set; }
 
         public override Promise Execute()
         {
-            int sum = Sum(Player.Inventory, FromItemId);
+            int sum = Sum(Player.Inventory, FromTibiaId);
 
             if (sum > 0)
             {
-                Item fromItem = Search(Player.Inventory, FromItemId);
+                Item fromItem = Search(Player.Inventory, FromTibiaId);
 
                 string message;
 
@@ -50,7 +50,7 @@ namespace OpenTibia.Game.Commands
                 {
                     Item toItem = toContainer.GetContent(ToContainerIndex) as Item;
 
-                    if (toItem != null && toItem.Metadata.TibiaId == ToItemId)
+                    if (toItem != null && toItem.Metadata.TibiaId == ToTibiaId)
                     {
                         if ( IsUseable(fromItem) )
                         {
@@ -65,7 +65,7 @@ namespace OpenTibia.Game.Commands
             return Promise.Break;
         }
 
-        private static int Sum(IContainer parent, ushort itemId)
+        private static int Sum(IContainer parent, ushort tibiaId)
         {
             int sum = 0;
 
@@ -73,10 +73,10 @@ namespace OpenTibia.Game.Commands
             {
                 if (content is Container container)
                 {
-                    sum += Sum(container, itemId);
+                    sum += Sum(container, tibiaId);
                 }
 
-                if (content.Metadata.TibiaId == itemId)
+                if (content.Metadata.TibiaId == tibiaId)
                 {
                     if (content is StackableItem stackableItem)
                     {
@@ -92,13 +92,13 @@ namespace OpenTibia.Game.Commands
             return sum;
         }
 
-        private static Item Search(IContainer parent, ushort itemId)
+        private static Item Search(IContainer parent, ushort tibiaId)
         {
             foreach (Item content in parent.GetContents() )
             {
                 if (content is Container container)
                 {
-                    Item item = Search(container, itemId);
+                    Item item = Search(container, tibiaId);
 
                     if (item != null)
                     {
@@ -106,7 +106,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                if (content.Metadata.TibiaId == itemId)
+                if (content.Metadata.TibiaId == tibiaId)
                 {
                     return content;
                 }

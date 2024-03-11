@@ -5,32 +5,32 @@ namespace OpenTibia.Game.Commands
 {
     public class ParseUseItemWithItemFromContainerToTileCommand : ParseUseItemWithItemCommand
     {
-        public ParseUseItemWithItemFromContainerToTileCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort fromItemId, Position toPosition, byte toIndex, ushort toItemId) :base(player)
+        public ParseUseItemWithItemFromContainerToTileCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort fromTibiaId, Position toPosition, byte toIndex, ushort toTibiaId) :base(player)
         {
             FromContainerId = fromContainerId;
 
             FromContainerIndex = fromContainerIndex;
 
-            FromItemId = fromItemId;
+            FromTibiaId = fromTibiaId;
 
             ToPosition = toPosition;
 
             ToIndex = toIndex;
 
-            ToItemId = toItemId;
+            ToTibiaId = toTibiaId;
         }
 
         public byte FromContainerId { get; set; }
 
         public byte FromContainerIndex { get; set; }
 
-        public ushort FromItemId { get; set; }
+        public ushort FromTibiaId { get; set; }
 
         public Position ToPosition { get; set; }
 
         public byte ToIndex { get; set; }
 
-        public ushort ToItemId { get; set; }
+        public ushort ToTibiaId { get; set; }
 
         public override Promise Execute()
         {
@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Commands
             {
                 Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
 
-                if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
+                if (fromItem != null && fromItem.Metadata.TibiaId == FromTibiaId)
                 {
                     Tile toTile = Context.Server.Map.GetTile(ToPosition);
 
@@ -50,7 +50,7 @@ namespace OpenTibia.Game.Commands
                         {
                             case Item toItem:
 
-                                if (toItem.Metadata.TibiaId == ToItemId)
+                                if (toItem.Metadata.TibiaId == ToTibiaId)
                                 {
                                     if ( IsUseable(fromItem) )
                                     {
@@ -62,7 +62,7 @@ namespace OpenTibia.Game.Commands
 
                             case Creature toCreature:
 
-                                if (ToItemId == 99)
+                                if (ToTibiaId == 99)
                                 {
                                     if ( IsUseable(fromItem) )
                                     {

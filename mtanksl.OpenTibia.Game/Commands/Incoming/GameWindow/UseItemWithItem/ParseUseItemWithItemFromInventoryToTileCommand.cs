@@ -5,28 +5,28 @@ namespace OpenTibia.Game.Commands
 {
     public class ParseUseItemWithItemFromInventoryToTileCommand : ParseUseItemWithItemCommand
     {
-        public ParseUseItemWithItemFromInventoryToTileCommand(Player player, byte fromSlot, ushort fromItemId, Position toPosition, byte toIndex, ushort toItemId) : base(player)
+        public ParseUseItemWithItemFromInventoryToTileCommand(Player player, byte fromSlot, ushort fromTibiaId, Position toPosition, byte toIndex, ushort toTibiaId) : base(player)
         {
             FromSlot = fromSlot;
 
-            FromItemId = fromItemId;
+            FromTibiaId = fromTibiaId;
 
             ToPosition = toPosition;
 
             ToIndex = toIndex;
 
-            ToItemId = toItemId;
+            ToTibiaId = toTibiaId;
         }
 
         public byte FromSlot { get; set; }
 
-        public ushort FromItemId { get; set; }
+        public ushort FromTibiaId { get; set; }
 
         public Position ToPosition { get; set; }
 
         public byte ToIndex { get; set; }
 
-        public ushort ToItemId { get; set; }
+        public ushort ToTibiaId { get; set; }
 
         public override Promise Execute()
         {
@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
 
             Item fromItem = fromInventory.GetContent(FromSlot) as Item;
 
-            if (fromItem != null && fromItem.Metadata.TibiaId == FromItemId)
+            if (fromItem != null && fromItem.Metadata.TibiaId == FromTibiaId)
             {
                 Tile toTile = Context.Server.Map.GetTile(ToPosition);
 
@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Commands
                     {
                         case Item toItem:
 
-                            if (toItem.Metadata.TibiaId == ToItemId)
+                            if (toItem.Metadata.TibiaId == ToTibiaId)
                             {
                                 if ( IsUseable(fromItem) )
                                 {
@@ -56,7 +56,7 @@ namespace OpenTibia.Game.Commands
 
                         case Creature toCreature:
 
-                            if (ToItemId == 99)
+                            if (ToTibiaId == 99)
                             {
                                 if ( IsUseable(fromItem) )
                                 {

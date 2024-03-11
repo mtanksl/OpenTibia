@@ -236,6 +236,13 @@ return {
 				args = "(Npc npc, string message [, bool npcChannel])",
 				returns = "void",
 			},
+			-- void command.npctrade(Npc npc, Player player, object[] offers)
+			npctrade = {
+				type = "function",
+				description = "",
+				args = "(Npc npc, Player player, object[] offers)",
+				returns = "void",
+			},
 			-- void command.npcidle(Npc npc, Player player)
 			npcidle = {
 				type = "function",

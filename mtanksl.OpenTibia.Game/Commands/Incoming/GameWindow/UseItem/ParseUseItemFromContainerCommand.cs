@@ -4,13 +4,13 @@ namespace OpenTibia.Game.Commands
 {
     public class ParseUseItemFromContainerCommand : ParseUseItemCommand
     {
-        public ParseUseItemFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort itemId, byte containerId) : base(player)
+        public ParseUseItemFromContainerCommand(Player player, byte fromContainerId, byte fromContainerIndex, ushort tibiaId, byte containerId) : base(player)
         {
             FromContainerId = fromContainerId;
 
             FromContainerIndex = fromContainerIndex;
 
-            ItemId = itemId;
+            TibiaId = tibiaId;
 
             ContainerId = containerId;
         }
@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Commands
 
         public byte FromContainerIndex { get; set; }
 
-        public ushort ItemId { get; set; }
+        public ushort TibiaId { get; set; }
 
         public byte ContainerId { get; set; }
 
@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Commands
             {
                 Item fromItem = fromContainer.GetContent(FromContainerIndex) as Item;
 
-                if (fromItem != null && fromItem.Metadata.TibiaId == ItemId)
+                if (fromItem != null && fromItem.Metadata.TibiaId == TibiaId)
                 {
                     return Context.AddCommand(new PlayerUseItemCommand(Player, fromItem, FromContainerId == ContainerId ? ContainerId : (byte?)null) );
                 }
