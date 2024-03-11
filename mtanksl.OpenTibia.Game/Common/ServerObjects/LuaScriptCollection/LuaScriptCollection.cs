@@ -273,15 +273,7 @@ namespace OpenTibia.Game
 
             lua.RegisterCoFunction("npcsay", parameters =>
             {
-                if (parameters.Length == 3)
-                {
-                    return Context.Current.AddCommand(new NpcSayCommand( (Npc)parameters[0], (string)parameters[1], (bool)parameters[2] ) ).Then( () =>
-                    {
-                        return Promise.FromResultAsEmptyObjectArray;
-                    } );
-                }
-
-                return Context.Current.AddCommand(new NpcSayCommand( (Npc)parameters[0], (string)parameters[1], false) ).Then( () =>
+                return Context.Current.AddCommand(new NpcSayCommand( (Npc)parameters[0], (string)parameters[1], server.Config.GamePrivateNpcSystem) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
@@ -289,45 +281,6 @@ namespace OpenTibia.Game
                         
             lua.RegisterCoFunction("npctrade", parameters =>
             {
-                Player player = (Player)parameters[1];
-
-                int money = SumMoney(player.Inventory);
-
-                List<OfferDto> offers = new List<OfferDto>();
-
-                List<CounterOfferDto> counterOffers = new List<CounterOfferDto>();
-
-                foreach (LuaTable item in ( (LuaTable)parameters[2] ).Values)
-                {
-                    ushort openTibiaId = (ushort)(long)item["item"];
-
-                    byte type = (byte)(long)item["type"];
-
-                    uint buyPrice = (uint)(long)item["buyprice"];
-
-                    uint sellprice = (uint)(long)item["sellprice"];
-
-                    ItemMetadata itemMetadata = server.ItemFactory.GetItemMetadataByOpenTibiaId(openTibiaId);
-
-                    offers.Add(new OfferDto(itemMetadata.TibiaId, type, itemMetadata.Name, itemMetadata.Weight.Value, buyPrice, sellprice) );
-
-                    if (sellprice > 0)
-                    {
-                        int count = CountItems(player.Inventory, openTibiaId, type);
-
-                        if (count > 0)
-                        {
-                            counterOffers.Add(new CounterOfferDto(itemMetadata.TibiaId, (byte)count) );
-                        }
-                    }
-                }
-
-                Context.Current.AddPacket(player.Client.Connection, new InviteNpcTradeOutgoingPacket(offers), 
-
-                                                                    new JoinNpcTradeOutgoingPacket( (uint)money, counterOffers) );
-
-                return Promise.FromResultAsEmptyObjectArray;
-
                 int SumMoney(IContainer parent)
                 {
                     int sum = 0;
@@ -389,33 +342,103 @@ namespace OpenTibia.Game
 
                     return sum;
                 }
+
+                Npc npc = (Npc)parameters[0];
+
+                Player player = (Player)parameters[1];
+
+                List<OfferDto> offers = new List<OfferDto>();
+
+                List<CounterOfferDto> counterOffers = new List<CounterOfferDto>();
+
+                foreach (LuaTable item in ( (LuaTable)parameters[2] ).Values)
+                {
+                    ushort openTibiaId = (ushort)(long)item["item"];
+
+                    byte type = (byte)(long)item["type"];
+
+                    uint buyPrice = (uint)(long)item["buyprice"];
+
+                    uint sellprice = (uint)(long)item["sellprice"];
+
+                    ItemMetadata itemMetadata = server.ItemFactory.GetItemMetadataByOpenTibiaId(openTibiaId);
+
+                    offers.Add(new OfferDto(itemMetadata.TibiaId, type, itemMetadata.Name, itemMetadata.Weight.Value, buyPrice, sellprice) );
+
+                    if (sellprice > 0)
+                    {
+                        int count = CountItems(player.Inventory, openTibiaId, type);
+
+                        if (count > 0)
+                        {
+                            counterOffers.Add(new CounterOfferDto(itemMetadata.TibiaId, (byte)count) );
+                        }
+                    }
+                }
+
+                int money = SumMoney(player.Inventory);
+
+                return Context.Current.AddCommand(new NpcTradeCommand(npc, player, offers, counterOffers, money) ).Then( () =>
+                {
+                    return Promise.FromResultAsEmptyObjectArray;
+                } );                
             } );
 
             lua.RegisterCoFunction("npcidle", parameters =>
             {
-                SingleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<SingleQueueNpcThinkBehaviour>( (Npc)parameters[0] );
-
-                if (npcThinkBehaviour != null)
+                if (server.Config.GamePrivateNpcSystem)
                 {
-                    return npcThinkBehaviour.Idle( (Player)parameters[1] ).Then( () =>
-                    {
-                        return Promise.FromResultAsEmptyObjectArray;
-                    } );
-                }
+                    MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>( (Npc)parameters[0]);
 
+                    if (npcThinkBehaviour != null)
+                    {
+                        return npcThinkBehaviour.Idle( (Player)parameters[1] ).Then( () =>
+                        {
+                            return Promise.FromResultAsEmptyObjectArray;
+                        } );
+                    }
+                }
+                else
+                {
+                    SingleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<SingleQueueNpcThinkBehaviour>( (Npc)parameters[0] );
+
+                    if (npcThinkBehaviour != null)
+                    {
+                        return npcThinkBehaviour.Idle( (Player)parameters[1] ).Then( () =>
+                        {
+                            return Promise.FromResultAsEmptyObjectArray;
+                        } );
+                    }
+                }
+                
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
             lua.RegisterCoFunction("npcfarewell", parameters =>
             {
-                SingleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<SingleQueueNpcThinkBehaviour>( (Npc)parameters[0] );
-
-                if (npcThinkBehaviour != null)
+                if (server.Config.GamePrivateNpcSystem)
                 {
-                    return npcThinkBehaviour.Farewell( (Player)parameters[1] ).Then( () =>
+                    MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>( (Npc)parameters[0]);
+
+                    if (npcThinkBehaviour != null)
                     {
-                        return Promise.FromResultAsEmptyObjectArray;
-                    } );
+                        return npcThinkBehaviour.Farewell( (Player)parameters[1] ).Then( () =>
+                        {
+                            return Promise.FromResultAsEmptyObjectArray;
+                        } );
+                    }
+                }
+                else
+                {
+                    SingleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<SingleQueueNpcThinkBehaviour>( (Npc)parameters[0] );
+
+                    if (npcThinkBehaviour != null)
+                    {
+                        return npcThinkBehaviour.Farewell( (Player)parameters[1] ).Then( () =>
+                        {
+                            return Promise.FromResultAsEmptyObjectArray;
+                        } );
+                    }
                 }
 
                 return Promise.FromResultAsEmptyObjectArray;
@@ -423,14 +446,29 @@ namespace OpenTibia.Game
 
             lua.RegisterCoFunction("npcdisappear", parameters =>
             {
-                SingleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<SingleQueueNpcThinkBehaviour>( (Npc)parameters[0] );
-
-                if (npcThinkBehaviour != null)
+                if (server.Config.GamePrivateNpcSystem)
                 {
-                    return npcThinkBehaviour.Disappear( (Player)parameters[1] ).Then( () =>
+                    MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>( (Npc)parameters[0]);
+
+                    if (npcThinkBehaviour != null)
                     {
-                        return Promise.FromResultAsEmptyObjectArray;
-                    } );
+                        return npcThinkBehaviour.Disappear( (Player)parameters[1] ).Then( () =>
+                        {
+                            return Promise.FromResultAsEmptyObjectArray;
+                        } );
+                    }
+                }
+                else
+                {
+                    SingleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<SingleQueueNpcThinkBehaviour>( (Npc)parameters[0] );
+
+                    if (npcThinkBehaviour != null)
+                    {
+                        return npcThinkBehaviour.Disappear( (Player)parameters[1] ).Then( () =>
+                        {
+                            return Promise.FromResultAsEmptyObjectArray;
+                        } );
+                    }
                 }
 
                 return Promise.FromResultAsEmptyObjectArray;

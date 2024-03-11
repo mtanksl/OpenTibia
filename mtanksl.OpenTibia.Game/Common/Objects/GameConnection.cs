@@ -107,7 +107,7 @@ namespace OpenTibia.Common.Objects
 				}
 			} ) );
 
-			commands.Add(0x79, new PacketToCommand<LookItemNpcTradeIncomingPacket>(packet => new ParseLookItemNpcTradeCommand(Client.Player, server.ItemFactory.GetItemMetadataByTibiaId(packet.TibiaId), packet.Type) ) );
+			commands.Add(0x79, new PacketToCommand<LookItemNpcTradeIncomingPacket>(packet => new ParseLookItemNpcTradeCommand(Client.Player, packet.TibiaId, packet.Type) ) );
 
 			commands.Add(0x7A, new PacketToCommand<BuyNpcTradeIncomingPacket>(packet => new ParseBuyNpcTradeCommand(Client.Player, packet) ) );
 

@@ -168,10 +168,11 @@ function topic:addbuy(responses, offers)
 	end
 end
 
-function topic:addtrade(question, offers)
+function topic:addtrade(question, answer, offers)
 	if PRIVATE_NPC_SYSTEM then
 		self:add(question, function(module, npc, player, message, captures, parameters) 
 			module.trade(offers)
+			module.say(answer)
 		end)
 	end
 end
@@ -246,7 +247,7 @@ function npchandler:say(npc, player, answer)
 	end
 	answer = string.gsub(answer, "%{playername%}", player.Name)
 	answer = string.gsub(answer, "%{npcname%}", npc.Name)
-	command.npcsay(npc, answer, PRIVATE_NPC_SYSTEM)
+	command.npcsay(npc, answer)
 end
 
 function npchandler:shouldgreet(npc, player, message)
@@ -299,7 +300,19 @@ function npchandler:onsay(npc, player, message)
 	end
 end
 
-function npchandler:onfarewell(npc, player)
+function npchandler:onbuy(npc, player, item, type, count, price, ignoreCapacity, buyWithBackpacks) 
+	if command.playerremovemoney(player, price) then
+		command.playeradditem(player, item, type, count)
+	end
+end
+
+function npchandler:onsell(npc, player, item, type, count, price, keepEquipped) 
+	if command.playerremoveitem(player, item, type, count) then
+		command.playeraddmoney(player, price)
+	end
+end
+
+function  onfarewell(npc, player)
 	self:say(npc, player, self.responses.farewell)
 end
 

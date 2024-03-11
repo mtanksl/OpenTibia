@@ -13,6 +13,11 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            if (Context.Server.Config.GamePrivateNpcSystem)
+            {
+                //TODO: onclosenpcchannel
+            }
+             
             return Promise.Completed;
         }
     }

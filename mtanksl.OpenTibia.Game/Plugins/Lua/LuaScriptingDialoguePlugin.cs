@@ -50,6 +50,16 @@ namespace OpenTibia.Game.Components
             return script.CallFunction("onsay", npc, player, message);
         }
 
+        public override Promise OnBuy(Npc npc, Player player, ushort openTibiaId, byte type, byte count, int price, bool ignoreCapacity, bool buyWithBackpacks)
+        {
+            return script.CallFunction("onbuy", npc, player, openTibiaId, type, count, price, ignoreCapacity, buyWithBackpacks);
+        }
+
+        public override Promise OnSell(Npc npc, Player player, ushort openTibiaId, byte type, byte count, int price, bool keepEquipped)
+        {
+            return script.CallFunction("onsell", npc, player, openTibiaId, type, count, price, keepEquipped);
+        }
+
         public override Promise OnFarewell(Npc npc, Player player)
         {
             return script.CallFunction("onfarewell", npc, player);

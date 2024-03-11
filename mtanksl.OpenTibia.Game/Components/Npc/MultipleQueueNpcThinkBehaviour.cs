@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Events;
+using OpenTibia.Network.Packets.Incoming;
 using System;
 using System.Linq;
 
@@ -39,6 +40,20 @@ namespace OpenTibia.Game.Components
             {
                 await dialoguePlugin.OnDequeue(npc, player);
             }
+        }
+
+        public async Promise Buy(Player player, ushort openTibiaId, byte type, byte count, int price, bool ignoreCapacity, bool buyWithBackpacks)
+        {
+            Npc npc = (Npc)GameObject;
+
+            await dialoguePlugin.OnBuy(npc, player, openTibiaId, type, count, price, ignoreCapacity, buyWithBackpacks);
+        }
+
+        public async Promise Sell(Player player, ushort openTibiaId, byte type, byte count, int price, bool keepEquipped)
+        { 
+            Npc npc = (Npc)GameObject;
+
+            await dialoguePlugin.OnSell(npc, player, openTibiaId, type, count, price, keepEquipped);
         }
 
         public async Promise Idle(Player player)

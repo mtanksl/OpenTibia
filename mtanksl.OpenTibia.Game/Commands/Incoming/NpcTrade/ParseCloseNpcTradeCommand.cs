@@ -13,6 +13,18 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            if (Context.Server.Config.GamePrivateNpcSystem)
+            {
+                NpcTrading trading = Context.Server.NpcTradings.GetTradingByCounterOfferPlayer(Player);
+
+                if (trading != null)
+                {
+                    Context.Server.NpcTradings.RemoveTrading(trading);
+
+                    //TODO: onclosenpctrade
+                }
+            }
+
             return Promise.Completed;
         }
     }

@@ -8,315 +8,320 @@ namespace OpenTibia.Game.Commands
 {
     public class ParseLookItemNpcTradeCommand : Command
     {
-        public ParseLookItemNpcTradeCommand(Player player, ItemMetadata itemMetadata, byte count)
+        public ParseLookItemNpcTradeCommand(Player player, ushort tibiaId, byte count)
         {
             Player = player;
 
-            ItemMetadata = itemMetadata;
+            TibiaId = tibiaId;
 
             Count = count;
         }
 
         public Player Player { get; set; }
 
-        public ItemMetadata ItemMetadata { get; set; }
+        public ushort TibiaId { get; set; }
 
         public byte Count { get; set; }
 
         public override Promise Execute()
         {
-            string name;
-
-            if (ItemMetadata.Article != null)
+            if (Context.Server.Config.GamePrivateNpcSystem)
             {
-                name = ItemMetadata.Article + " " + ItemMetadata.Name;
-            }
-            else
-            {
-                name = ItemMetadata.Name;
-            }
+                ItemMetadata itemMetadata = Context.Server.ItemFactory.GetItemMetadataByTibiaId(TibiaId);
 
-            string description = ItemMetadata.Description;
+                string name;
 
-            List<string> attributes = new List<string>();
-
-            if (ItemMetadata.Flags.Is(ItemMetadataFlags.IsContainer) )
-            {
-                attributes.Add("Vol: " + ItemMetadata.Capacity);
-            }
-            else if (ItemMetadata.Flags.Is(ItemMetadataFlags.Stackable) )
-            {
-                if (ItemMetadata.RuneSpellName != null)
+                if (itemMetadata.Article != null)
                 {
-                    attributes.Add("\"" + ItemMetadata.RuneSpellName + "\"");
-
-                    attributes.Add("Charges: " + Count);
+                    name = itemMetadata.Article + " " + itemMetadata.Name;
                 }
                 else
                 {
-                    if (Count > 1)
+                    name = itemMetadata.Name;
+                }
+
+                string description = itemMetadata.Description;
+
+                List<string> attributes = new List<string>();
+
+                if (itemMetadata.Flags.Is(ItemMetadataFlags.IsContainer) )
+                {
+                    attributes.Add("Vol: " + itemMetadata.Capacity);
+                }
+                else if (itemMetadata.Flags.Is(ItemMetadataFlags.Stackable) )
+                {
+                    if (itemMetadata.RuneSpellName != null)
                     {
-                        name = Count + " " + (ItemMetadata.Plural ?? ItemMetadata.Name);
+                        attributes.Add("\"" + itemMetadata.RuneSpellName + "\"");
+
+                        attributes.Add("Charges: " + Count);
+                    }
+                    else
+                    {
+                        if (Count > 1)
+                        {
+                            name = Count + " " + (itemMetadata.Plural ?? itemMetadata.Name);
+                        }
                     }
                 }
-            }
-            else if (ItemMetadata.Flags.Is(ItemMetadataFlags.IsFluid) )
-            {
-                switch ( (FluidType)Count)
+                else if (itemMetadata.Flags.Is(ItemMetadataFlags.IsFluid) )
                 {
-                    case FluidType.Empty:
+                    switch ( (FluidType)Count)
+                    {
+                        case FluidType.Empty:
 
-                        description = "It is empty.";
+                            description = "It is empty.";
 
-                        break;
+                            break;
 
-                    case FluidType.Water:
+                        case FluidType.Water:
 
-                        name += " of water";
+                            name += " of water";
 
-                        break;
+                            break;
 
-                    case FluidType.Blood:
+                        case FluidType.Blood:
 
-                        name += " of blood";
+                            name += " of blood";
 
-                        break;
+                            break;
 
-                    case FluidType.Beer:
+                        case FluidType.Beer:
 
-                        name += " of beer";
+                            name += " of beer";
 
-                        break;
+                            break;
 
-                    case FluidType.Slime:
+                        case FluidType.Slime:
 
-                        name += " of slime";
+                            name += " of slime";
 
-                        break;
+                            break;
 
-                    case FluidType.Lemonade:
+                        case FluidType.Lemonade:
 
-                        name += " of lemonade";
+                            name += " of lemonade";
 
-                        break;
+                            break;
 
-                    case FluidType.Milk:
+                        case FluidType.Milk:
 
-                        name += " of milk";
+                            name += " of milk";
 
-                        break;
+                            break;
 
-                    case FluidType.Manafluid:
+                        case FluidType.Manafluid:
 
-                        name += " of manafluid";
+                            name += " of manafluid";
 
-                        break;
+                            break;
 
-                    case FluidType.Lifefluid:
+                        case FluidType.Lifefluid:
 
-                        name += " of lifefluid";
+                            name += " of lifefluid";
 
-                        break;
+                            break;
 
-                    case FluidType.Oil:
+                        case FluidType.Oil:
 
-                        name += " of oil";
+                            name += " of oil";
 
-                        break;
+                            break;
 
-                    case FluidType.Urine:
+                        case FluidType.Urine:
 
-                        name += " of urine";
+                            name += " of urine";
 
-                        break;
+                            break;
 
-                    case FluidType.CoconutMilk:
+                        case FluidType.CoconutMilk:
 
-                        name += " of coconut milk";
+                            name += " of coconut milk";
 
-                        break;
+                            break;
 
-                    case FluidType.Wine:
+                        case FluidType.Wine:
 
-                        name += " of wine";
+                            name += " of wine";
 
-                        break;
+                            break;
 
-                    case FluidType.Mud:
+                        case FluidType.Mud:
 
-                        name += " of mud";
+                            name += " of mud";
 
-                        break;
+                            break;
 
-                    case FluidType.FruitJuice:
+                        case FluidType.FruitJuice:
 
-                        name += " of fruit juice";
+                            name += " of fruit juice";
 
-                        break;
+                            break;
 
-                    case FluidType.Lava:
+                        case FluidType.Lava:
 
-                        name += " of lava";
+                            name += " of lava";
 
-                        break;
+                            break;
 
-                    case FluidType.Rum:
+                        case FluidType.Rum:
 
-                        name += " of rum";
+                            name += " of rum";
 
-                        break;
+                            break;
+                    }
                 }
-            }
-            else if (ItemMetadata.Flags.Is(ItemMetadataFlags.IsSplash) )
-            {
-                switch ( (FluidType)Count)
+                else if (itemMetadata.Flags.Is(ItemMetadataFlags.IsSplash) )
                 {
-                    case FluidType.Empty:
+                    switch ( (FluidType)Count)
+                    {
+                        case FluidType.Empty:
 
-                        description = "It is empty.";
+                            description = "It is empty.";
 
-                        break;
+                            break;
 
-                    case FluidType.Water:
+                        case FluidType.Water:
 
-                        name += " of water";
+                            name += " of water";
 
-                        break;
+                            break;
 
-                    case FluidType.Blood:
+                        case FluidType.Blood:
 
-                        name += " of blood";
+                            name += " of blood";
 
-                        break;
+                            break;
 
-                    case FluidType.Beer:
+                        case FluidType.Beer:
 
-                        name += " of beer";
+                            name += " of beer";
 
-                        break;
+                            break;
 
-                    case FluidType.Slime:
+                        case FluidType.Slime:
 
-                        name += " of slime";
+                            name += " of slime";
 
-                        break;
+                            break;
 
-                    case FluidType.Lemonade:
+                        case FluidType.Lemonade:
 
-                        name += " of lemonade";
+                            name += " of lemonade";
 
-                        break;
+                            break;
 
-                    case FluidType.Milk:
+                        case FluidType.Milk:
 
-                        name += " of milk";
+                            name += " of milk";
 
-                        break;
+                            break;
 
-                    case FluidType.Manafluid:
+                        case FluidType.Manafluid:
 
-                        name += " of manafluid";
+                            name += " of manafluid";
 
-                        break;
+                            break;
 
-                    case FluidType.Lifefluid:
+                        case FluidType.Lifefluid:
 
-                        name += " of lifefluid";
+                            name += " of lifefluid";
 
-                        break;
+                            break;
 
-                    case FluidType.Oil:
+                        case FluidType.Oil:
 
-                        name += " of oil";
+                            name += " of oil";
 
-                        break;
+                            break;
 
-                    case FluidType.Urine:
+                        case FluidType.Urine:
 
-                        name += " of urine";
+                            name += " of urine";
 
-                        break;
+                            break;
 
-                    case FluidType.CoconutMilk:
+                        case FluidType.CoconutMilk:
 
-                        name += " of coconut milk";
+                            name += " of coconut milk";
 
-                        break;
+                            break;
 
-                    case FluidType.Wine:
+                        case FluidType.Wine:
 
-                        name += " of wine";
+                            name += " of wine";
 
-                        break;
+                            break;
 
-                    case FluidType.Mud:
+                        case FluidType.Mud:
 
-                        name += " of mud";
+                            name += " of mud";
 
-                        break;
+                            break;
 
-                    case FluidType.FruitJuice:
+                        case FluidType.FruitJuice:
 
-                        name += " of fruit juice";
+                            name += " of fruit juice";
 
-                        break;
+                            break;
 
-                    case FluidType.Lava:
+                        case FluidType.Lava:
 
-                        name += " of lava";
+                            name += " of lava";
 
-                        break;
+                            break;
 
-                    case FluidType.Rum:
+                        case FluidType.Rum:
 
-                        name += " of rum";
+                            name += " of rum";
 
-                        break;
+                            break;
+                    }
                 }
-            }
                        
-            if (ItemMetadata.Armor != null)
-            {
-                attributes.Add("Arm: " + ItemMetadata.Armor);
+                if (itemMetadata.Armor != null)
+                {
+                    attributes.Add("Arm: " + itemMetadata.Armor);
+                }
+
+                if (itemMetadata.Range != null)
+                {
+                    attributes.Add("Range: " + itemMetadata.Range);
+                }
+
+                if (itemMetadata.Attack != null)
+                {
+                    attributes.Add("Atk: " + itemMetadata.Attack);
+                }
+
+                if (itemMetadata.Defense != null)
+                {
+                    attributes.Add("Def: " + itemMetadata.Defense);
+                }
+
+                if (Player.Rank == Rank.Gamemaster)
+                {
+                    attributes.Add("Item Id: " + itemMetadata.OpenTibiaId);
+                }
+
+                StringBuilder builder = new StringBuilder();
+
+                builder.Append("You see " + name);
+
+                if (attributes.Count > 0)
+                {
+                    builder.Append(" (" + string.Join(", ", attributes) + ")");
+                }
+
+                builder.Append(".");
+
+                if (description != null)
+                {
+                    builder.Append(" " + description);
+                }
+
+                Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, builder.ToString() ) );
             }
-
-            if (ItemMetadata.Range != null)
-            {
-                attributes.Add("Range: " + ItemMetadata.Range);
-            }
-
-            if (ItemMetadata.Attack != null)
-            {
-                attributes.Add("Atk: " + ItemMetadata.Attack);
-            }
-
-            if (ItemMetadata.Defense != null)
-            {
-                attributes.Add("Def: " + ItemMetadata.Defense);
-            }
-
-            if (Player.Rank == Rank.Gamemaster)
-            {
-                attributes.Add("Item Id: " + ItemMetadata.OpenTibiaId);
-            }
-
-            StringBuilder builder = new StringBuilder();
-
-            builder.Append("You see " + name);
-
-            if (attributes.Count > 0)
-            {
-                builder.Append(" (" + string.Join(", ", attributes) + ")");
-            }
-
-            builder.Append(".");
-
-            if (description != null)
-            {
-                builder.Append(" " + description);
-            }
-
-            Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, builder.ToString() ) );
 
             return Promise.Completed;
         }

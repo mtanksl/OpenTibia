@@ -29,7 +29,7 @@ say:addbuy( {
     { article = "a", name = "spear", plural = "spears", item = 2389, type = 1, price = 10 },
     { article = "an", name = "axe", plural = "axes", item = 2386, type = 1, price = 20 }
 } )
-say:addtrade("trade", {
+say:addtrade("trade", "Take a look in the trade window to your right.", {
     { item = 2389, type = 1, buyprice = 10, sellprice = 2 },
     { item = 2386, type = 1, buyprice = 20, sellprice = 10 }
 } )
@@ -47,6 +47,8 @@ function shouldfarewell(npc, player, message) return handler:shouldfarewell(npc,
 function ongreet(npc, player) handler:ongreet(npc, player) end
 function onbusy(npc, player) handler:onbusy(npc, player) end
 function onsay(npc, player, message) handler:onsay(npc, player, message) end
+function onbuy(npc, player, item, type, count, price, ignoreCapacity, buyWithBackpacks) handler:onbuy(npc, player, item, type, count, price, ignoreCapacity, buyWithBackpacks) end
+function onsell(npc, player, item, type, count, price, keepEquipped) handler:onsell(npc, player, item, type, count, price, keepEquipped) end
 function onfarewell(npc, player) handler:onfarewell(npc, player) end
 function ondisappear(npc, player) handler:ondisappear(npc, player) end
 function onenqueue(npc, player) handler:onenqueue(npc, player) end

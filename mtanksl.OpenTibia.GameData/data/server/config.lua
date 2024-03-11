@@ -7,7 +7,7 @@ server = {
 		maxconnections = 1100,
 		port = 7172,
 		maxplayers = 1000,
-		privatenpcsystem = false
+		privatenpcsystem = true
 	},		
 	security = {
 		-- multi-client

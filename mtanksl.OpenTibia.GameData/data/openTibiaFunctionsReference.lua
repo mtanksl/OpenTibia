@@ -20,6 +20,13 @@ return {
 		args = "(object obj, string typeName)",
 		returns = "object",
 	},
+	-- object getconfig(string file, string key)
+	getconfig = {
+		type = "function",
+		description = "",
+		args = "(string file, string key)",
+		returns = "object",
+	},
 	debugger = {
 		type = "lib",
 		description = "",
@@ -229,11 +236,10 @@ return {
 				returns = "void",
 			},
 			-- void command.npcsay(Npc npc, string message)
-			-- void command.npcsay(Npc npc, string message, bool npcChannel)
 			npcsay = {
 				type = "function",
 				description = "",
-				args = "(Npc npc, string message [, bool npcChannel])",
+				args = "(Npc npc, string message)",
 				returns = "void",
 			},
 			-- void command.npctrade(Npc npc, Player player, object[] offers)
