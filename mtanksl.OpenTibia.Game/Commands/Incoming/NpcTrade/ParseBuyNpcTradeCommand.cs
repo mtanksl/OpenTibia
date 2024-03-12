@@ -2,6 +2,7 @@
 using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets;
 using OpenTibia.Network.Packets.Incoming;
+using System;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
@@ -30,7 +31,8 @@ namespace OpenTibia.Game.Commands
                     ItemMetadata itemMetadata = Context.Server.ItemFactory.GetItemMetadataByTibiaId(Packet.TibiaId);
                     
                     OfferDto offer = trading.Offers
-                        .Where(o => o.TibiaId == Packet.TibiaId)
+                        .Where(o => o.TibiaId == Packet.TibiaId &&
+                                    o.Type == Packet.Type)
                         .FirstOrDefault();
 
                     if (offer != null && offer.BuyPrice > 0)
@@ -39,10 +41,9 @@ namespace OpenTibia.Game.Commands
 
                         if (npcThinkBehaviour != null)
                         {
-                            return npcThinkBehaviour.Buy(Player, itemMetadata.OpenTibiaId, Packet.Type, Packet.Count, (int)offer.BuyPrice * Packet.Count, Packet.IgnoreCapacity, Packet.BuyWithBackpacks).Then( () =>
-                            {
-                                return Promise.FromResultAsEmptyObjectArray;
-                            } );
+                            int count = Math.Max(1, Math.Min(100, (int)Packet.Count) );
+
+                            return npcThinkBehaviour.Buy(Player, itemMetadata.OpenTibiaId, Packet.Type, (byte)count, (int)offer.BuyPrice * count, Packet.IgnoreCapacity, Packet.BuyWithBackpacks);
                         }
                     }
                 }

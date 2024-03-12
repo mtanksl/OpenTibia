@@ -34,7 +34,7 @@ namespace OpenTibia.Network.Packets.Outgoing
             {
                 writer.Write(offer.TibiaId);
 
-                writer.Write(offer.Count);
+                writer.Write(offer.Type);
 
                 writer.Write(offer.Name);
 

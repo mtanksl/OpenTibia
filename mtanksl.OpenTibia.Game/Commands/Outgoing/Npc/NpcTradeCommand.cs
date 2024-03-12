@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
 
             if (trading != null)
             {
-                Context.Server.NpcTradings.RemoveTrading(trading); //TODO: Destroy
+                Context.Server.NpcTradings.RemoveTrading(trading);
             }
 
             trading = new NpcTrading()
@@ -53,7 +53,7 @@ namespace OpenTibia.Game.Commands
             {
                 if (offer.SellPrice > 0)
                 {
-                    int count = CountItems(Player.Inventory, offer.TibiaId, offer.Count);
+                    int count = CountItems(Player.Inventory, offer.TibiaId, offer.Type);
 
                     if (count > 0)
                     {
@@ -66,7 +66,7 @@ namespace OpenTibia.Game.Commands
 
                                                                 new JoinNpcTradeOutgoingPacket( (uint)money, counterOffers) );
 
-            //TODO: Check if money and items where added, refreshed, removed
+            //TODO: Check if money or items where added, refreshed, removed
 
             return Promise.Completed;
         }
