@@ -27,7 +27,7 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Execute()
         {
-            ItemMetadata itemMetadata = Context.Current.Server.ItemFactory.GetItemMetadataByOpenTibiaId(OpenTibiaId);
+            ItemMetadata itemMetadata = Context.Server.ItemFactory.GetItemMetadataByOpenTibiaId(OpenTibiaId);
 
             if (itemMetadata.Flags.Is(ItemMetadataFlags.Stackable) )
             {
@@ -35,7 +35,7 @@ namespace OpenTibia.Game.Commands
                 {
                     byte stack = (byte)Math.Min(100, Count);
 
-                    await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(Player, OpenTibiaId, stack) );
+                    await Context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(Player, OpenTibiaId, stack) );
 
                     Count -= stack;
                 }
@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Commands
             {
                 for (int i = 0; i < Count; i++)
                 {
-                    await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(Player, OpenTibiaId, Type) );
+                    await Context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(Player, OpenTibiaId, Type) );
                 }
             }            
         }

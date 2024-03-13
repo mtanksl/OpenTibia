@@ -48,13 +48,13 @@ namespace OpenTibia.Game.Commands
                 {
                     byte stack = (byte)Math.Min(stackableItem.Count, Count);
 
-                    await Context.Current.AddCommand(new ItemDecrementCommand(item, stack) );
+                    await Context.AddCommand(new ItemDecrementCommand(item, stack) );
 
                     Count -= stack;
                 }
                 else
                 {
-                    await Context.Current.AddCommand(new ItemDecrementCommand(item, 1) );
+                    await Context.AddCommand(new ItemDecrementCommand(item, 1) );
 
                     Count -= 1;
                 }

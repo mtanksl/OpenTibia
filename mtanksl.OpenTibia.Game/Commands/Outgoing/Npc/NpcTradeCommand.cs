@@ -62,9 +62,9 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            Context.Current.AddPacket(Player.Client.Connection, new InviteNpcTradeOutgoingPacket(Offers), 
+            Context.AddPacket(Player.Client.Connection, new InviteNpcTradeOutgoingPacket(Offers), 
 
-                                                                new JoinNpcTradeOutgoingPacket( (uint)money, counterOffers) );
+                                                        new JoinNpcTradeOutgoingPacket( (uint)money, counterOffers) );
 
             //TODO: Check if money or items where added, refreshed, removed
 

@@ -111,7 +111,7 @@ namespace OpenTibia.Game.Commands
                 {
                     byte stack = (byte)Math.Min(100, crystal);
 
-                    await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(Player, 2160, stack) );
+                    await Context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(Player, 2160, stack) );
 
                     crystal -= stack;
                 }
@@ -127,7 +127,7 @@ namespace OpenTibia.Game.Commands
 
                     byte stack = (byte)Math.Min( ( (StackableItem)item).Count, -crystal);
 
-                    await Context.Current.AddCommand(new ItemDecrementCommand(item, stack) );
+                    await Context.AddCommand(new ItemDecrementCommand(item, stack) );
 
                     crystal += stack;
                 }
@@ -139,7 +139,7 @@ namespace OpenTibia.Game.Commands
                 {
                     byte stack = (byte)Math.Min(100, platinum);
 
-                    await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(Player, 2152, stack) );
+                    await Context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(Player, 2152, stack) );
 
                     platinum -= stack;
                 }
@@ -155,7 +155,7 @@ namespace OpenTibia.Game.Commands
 
                     byte stack = (byte)Math.Min( ( (StackableItem)item).Count, -platinum);
 
-                    await Context.Current.AddCommand(new ItemDecrementCommand(item, stack) );
+                    await Context.AddCommand(new ItemDecrementCommand(item, stack) );
 
                     platinum += stack;
                 }
@@ -167,7 +167,7 @@ namespace OpenTibia.Game.Commands
                 {
                     byte stack = (byte)Math.Min(100, gold);
 
-                    await Context.Current.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(Player, 2148, stack) );
+                    await Context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(Player, 2148, stack) );
 
                     gold -= stack;
                 }
@@ -183,7 +183,7 @@ namespace OpenTibia.Game.Commands
 
                     byte stack = (byte)Math.Min( ( (StackableItem)item).Count, -gold);
 
-                    await Context.Current.AddCommand(new ItemDecrementCommand(item, stack) );
+                    await Context.AddCommand(new ItemDecrementCommand(item, stack) );
 
                     gold += stack;
                 }

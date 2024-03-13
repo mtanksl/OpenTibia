@@ -37,7 +37,7 @@ namespace OpenTibia.Game.Commands
 
                     if (offer != null && offer.SellPrice > 0)
                     {
-                        MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>(trading.OfferNpc);
+                        MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>(trading.OfferNpc);
 
                         if (npcThinkBehaviour != null)
                         {
