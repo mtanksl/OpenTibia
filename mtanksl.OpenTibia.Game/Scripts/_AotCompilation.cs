@@ -8,6 +8,7 @@ namespace OpenTibia.Game.Scripts
             new CreatureWalkScripts(),
             new GlobalScripts(),
             new ItemDestroyScript(),
+            new NpcDestroyScript(),
             new PlayerDestroyScripts(),
             new PlayerLoginScripts(),
             new PlayerLogoutScripts(),

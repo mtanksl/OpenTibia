@@ -31,6 +31,16 @@ namespace OpenTibia.Game
 
         private List<Script> scripts = new List<Script>();
 
+        public T GetScript<T>() where T : Script
+        {
+            return scripts.OfType<T>().FirstOrDefault();
+        }
+
+        public IEnumerable<Script> GetScripts()
+        {
+            return scripts;
+        }
+        
         public void Stop()
         {
             foreach (var script in scripts)
