@@ -218,16 +218,27 @@ namespace OpenTibia.Game.Components
                     {
                         WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
 
+                        Promise promise;
+
+                        if (Context.Current.Server.Config.GamePlayInfiniteArrows)
+                        {
+                            promise = Promise.Completed;
+                        }
+                        else
+                        {
+                            promise = Context.Current.AddCommand(new ItemDecrementCommand(itemWeapon, 1) );
+                        }
+
                         if (plugin != null)
                         {
-                            return Context.Current.AddCommand(new ItemDecrementCommand(itemWeapon, 1) ).Then( () =>
+                            return promise.Then( () =>
                             {
                                 return plugin.OnUseWeapon(player, target, itemWeapon);
                             } );
                         }
                         else
                         {
-                            return Context.Current.AddCommand(new ItemDecrementCommand(itemWeapon, 1) ).Then( () =>
+                            return promise.Then( () =>
                             {
                                 var formula = DistanceFormula(player.Level, player.Skills.Distance, itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
 
@@ -243,16 +254,27 @@ namespace OpenTibia.Game.Components
 
                         AmmunitionPlugin plugin = Context.Current.Server.Plugins.GetAmmunitionPlugin(itemAmmunition.Metadata.OpenTibiaId);
 
+                        Promise promise;
+
+                        if (Context.Current.Server.Config.GamePlayInfiniteArrows)
+                        {
+                            promise = Promise.Completed;
+                        }
+                        else
+                        {
+                            promise = Context.Current.AddCommand(new ItemDecrementCommand(itemWeapon, 1) );
+                        }
+
                         if (plugin != null)
                         {
-                            return Context.Current.AddCommand(new ItemDecrementCommand(itemAmmunition, 1) ).Then( () =>
+                            return promise.Then( () =>
                             {
                                 return plugin.OnUseAmmunition(player, target, itemWeapon, itemAmmunition);
                             } );                        
                         }
                         else
                         {
-                            return Context.Current.AddCommand(new ItemDecrementCommand(itemAmmunition, 1) ).Then( () =>
+                            return promise.Then( () =>
                             {
                                 var formula = DistanceFormula(player.Level, player.Skills.Distance, itemAmmunition.Metadata.Attack.Value, player.Client.FightMode);
 

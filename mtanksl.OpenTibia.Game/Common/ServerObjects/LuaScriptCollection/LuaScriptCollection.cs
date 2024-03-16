@@ -273,7 +273,7 @@ namespace OpenTibia.Game
 
             lua.RegisterCoFunction("npcsay", parameters =>
             {
-                return Context.Current.AddCommand(new NpcSayCommand( (Npc)parameters[0], (string)parameters[1], server.Config.GamePrivateNpcSystem) ).Then( () =>
+                return Context.Current.AddCommand(new NpcSayCommand( (Npc)parameters[0], (string)parameters[1], server.Config.GamePlayPrivateNpcSystem) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
@@ -306,7 +306,7 @@ namespace OpenTibia.Game
 
             lua.RegisterCoFunction("npcidle", parameters =>
             {
-                if (server.Config.GamePrivateNpcSystem)
+                if (server.Config.GamePlayPrivateNpcSystem)
                 {
                     MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>( (Npc)parameters[0]);
 
@@ -336,7 +336,7 @@ namespace OpenTibia.Game
 
             lua.RegisterCoFunction("npcfarewell", parameters =>
             {
-                if (server.Config.GamePrivateNpcSystem)
+                if (server.Config.GamePlayPrivateNpcSystem)
                 {
                     MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>( (Npc)parameters[0]);
 
@@ -366,7 +366,7 @@ namespace OpenTibia.Game
 
             lua.RegisterCoFunction("npcdisappear", parameters =>
             {
-                if (server.Config.GamePrivateNpcSystem)
+                if (server.Config.GamePlayPrivateNpcSystem)
                 {
                     MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>( (Npc)parameters[0]);
 

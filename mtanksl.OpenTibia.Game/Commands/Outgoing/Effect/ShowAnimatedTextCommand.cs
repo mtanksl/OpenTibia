@@ -22,11 +22,13 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            ShowAnimatedTextOutgoingPacket showAnimatedTextOutgoingPacket = new ShowAnimatedTextOutgoingPacket(Position, AnimatedTextColor, Message);
+
             foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Position) )
             {
                 if (observer.Tile.Position.CanHearSay(Position) )
                 {
-                    Context.AddPacket(observer.Client.Connection, new ShowAnimatedTextOutgoingPacket(Position, AnimatedTextColor, Message) );
+                    Context.AddPacket(observer.Client.Connection, showAnimatedTextOutgoingPacket);
                 }
             }
 

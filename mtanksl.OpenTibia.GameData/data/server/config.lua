@@ -7,8 +7,13 @@ server = {
 		maxconnections = 1100,
 		port = 7172,
 		maxplayers = 1000,
-		privatenpcsystem = true
 	},		
+	gameplay = {
+		privatenpcsystem = true,
+		infinitepotions = false,
+		infinitearrows = false,
+		infiniterunes = false
+	},
 	security = {
 		-- multi-client
 		maxconnectionswithsameipaddress = 2,

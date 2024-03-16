@@ -18,11 +18,13 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            ShowMagicEffectOutgoingPacket showMagicEffectOutgoingPacket = new ShowMagicEffectOutgoingPacket(Position, MagicEffectType);
+
             foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Position) )
             {
                 if (observer.Tile.Position.CanSee(Position) )
                 {
-                    Context.AddPacket(observer.Client.Connection, new ShowMagicEffectOutgoingPacket(Position, MagicEffectType) );
+                    Context.AddPacket(observer.Client.Connection, showMagicEffectOutgoingPacket);
                 }
             }
 

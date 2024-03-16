@@ -15,8 +15,12 @@
         public int GameMaxConnections { get; set; }
         public int GamePort { get; set; }
         public int GameMaxPlayers { get; set; }
-        public bool GamePrivateNpcSystem { get; set; }
 
+        public bool GamePlayPrivateNpcSystem { get; set; }
+        public bool GamePlayInfinitePotions { get; set; }
+        public bool GamePlayInfiniteArrows { get; set; }
+        public bool GamePlayInfiniteRunes { get; set; }
+        
         public int SecurityMaxConnectionsWithSameIpAddress { get; set; }
         public int SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds { get; set; }
 
@@ -66,7 +70,11 @@
             GameMaxConnections = (int)(long)script["server.game.maxconnections"];
             GamePort = (int)(long)script["server.game.port"];
             GameMaxPlayers = (int)(long)script["server.game.maxplayers"];
-            GamePrivateNpcSystem = (bool)script["server.game.privatenpcsystem"];
+
+            GamePlayPrivateNpcSystem = (bool)script["server.gameplay.privatenpcsystem"];
+            GamePlayInfinitePotions = (bool)script["server.gameplay.infinitepotions"];
+            GamePlayInfiniteArrows = (bool)script["server.gameplay.infinitearrows"];
+            GamePlayInfiniteRunes = (bool)script["server.gameplay.infiniterunes"];
 
             SecurityMaxConnectionsWithSameIpAddress = (int)(long)script["server.security.maxconnectionswithsameipaddress"];
             SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds = (int)(long)script["server.security.connectionswithsameipaddressabusebanmilliseconds"];

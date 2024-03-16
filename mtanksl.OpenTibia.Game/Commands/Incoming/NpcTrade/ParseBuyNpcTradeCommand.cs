@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            if (Context.Server.Config.GamePrivateNpcSystem)
+            if (Context.Server.Config.GamePlayPrivateNpcSystem)
             {
                 NpcTrading trading = Context.Server.NpcTradings.GetTradingByCounterOfferPlayer(Player);
 

@@ -22,11 +22,13 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            ShowProjectileOutgoingPacket showProjectileOutgoingPacket = new ShowProjectileOutgoingPacket(FromPosition, ToPosition, ProjectileType);
+
             foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(ToPosition) )
             {
                 if (observer.Tile.Position.CanSee(ToPosition) )
                 {
-                    Context.AddPacket(observer.Client.Connection, new ShowProjectileOutgoingPacket(FromPosition, ToPosition, ProjectileType) );
+                    Context.AddPacket(observer.Client.Connection, showProjectileOutgoingPacket);
                 }
             }
 

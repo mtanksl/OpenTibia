@@ -18,11 +18,21 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 Tile toTile = player.Tile;
 
-                return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
-                {
-                    return Context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(command.Player, emptyPotionFlask, 1) );
+                Promise promise;
 
-                } ).Then( () =>
+                if (Context.Current.Server.Config.GamePlayInfinitePotions)
+                {
+                    promise = Promise.Completed;
+                }
+                else
+                {
+                    promise = Context.Current.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
+                    {
+                        return Context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(command.Player, emptyPotionFlask, 1) );
+                    } );
+                }
+
+                return promise.Then( () =>
                 {
                     return Context.AddCommand(new PlayerUpdateManaCommand(player, (ushort)(player.Mana + Context.Server.Randomization.Take(70, 130) ) ) );  
                     

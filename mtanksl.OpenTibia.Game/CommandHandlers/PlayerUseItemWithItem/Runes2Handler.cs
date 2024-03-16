@@ -81,7 +81,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                     playerCooldownBehaviour.AddCooldown(plugin.Rune.Group, plugin.Rune.GroupCooldown);
 
-                    await Context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
+                    if ( !Context.Current.Server.Config.GamePlayInfiniteRunes)
+                    {
+                        await Context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
+                    }
                 
                     await plugin.OnUseRune(command.Player, null, toTile, command.Item);
 
