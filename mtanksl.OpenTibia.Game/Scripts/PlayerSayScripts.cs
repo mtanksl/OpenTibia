@@ -10,39 +10,39 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new SpellsHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new DisplayMagicEffectHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new TeleportHandler() ); //a
 
-            Context.Server.CommandHandlers.AddCommandHandler(new DisplayProjectileTypeHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new BanPlayerHandler() ); //ban
 
-            Context.Server.CommandHandlers.AddCommandHandler(new KickPlayerHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new TeleportPlayerHandler() ); //c
 
-            Context.Server.CommandHandlers.AddCommandHandler(new TeleportDownHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new TeleportDownHandler() ); //down
 
-            Context.Server.CommandHandlers.AddCommandHandler(new TeleportToPlayerHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new InvisibleHandler() ); //ghost
 
-            Context.Server.CommandHandlers.AddCommandHandler(new TeleportUpHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new TeleportToPlayerHandler() ); //goto
 
-            Context.Server.CommandHandlers.AddCommandHandler(new CreateItemHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new CreateItemHandler() ); //i
 
-            Context.Server.CommandHandlers.AddCommandHandler(new CreateMonsterHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new KickPlayerHandler() ); //kick
 
-            Context.Server.CommandHandlers.AddCommandHandler(new CreateNpcHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new DisplayMagicEffectHandler() ); //me
 
-            Context.Server.CommandHandlers.AddCommandHandler(new DestroyMonsterNpcItemHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new CreateMonsterHandler() ); //m
 
-            Context.Server.CommandHandlers.AddCommandHandler(new InvisibleHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new CreateNpcHandler() ); //n
 
-            Context.Server.CommandHandlers.AddCommandHandler(new TeleportHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new DisplayProjectileTypeHandler() ); //pe
 
-            Context.Server.CommandHandlers.AddCommandHandler(new TeleportPlayerHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new DestroyMonsterNpcItemHandler() ); //r
 
-            Context.Server.CommandHandlers.AddCommandHandler(new TeleportToTownHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new TeleportToTownHandler() ); //t
 
-            Context.Server.CommandHandlers.AddCommandHandler(new TeleportToWaypointHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new UnBanPlayerHandler() ); //unban
 
-            Context.Server.CommandHandlers.AddCommandHandler(new BanPlayerHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new TeleportUpHandler() ); //up
 
-            Context.Server.CommandHandlers.AddCommandHandler(new UnBanPlayerHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new TeleportToWaypointHandler() ); //w
         }
 
         public override void Stop()
