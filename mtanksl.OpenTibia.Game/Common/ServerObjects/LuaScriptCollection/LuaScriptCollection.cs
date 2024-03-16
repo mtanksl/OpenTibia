@@ -516,7 +516,7 @@ namespace OpenTibia.Game
 
             lua.RegisterCoFunction("playerupdatecapacity", parameters =>
             {
-                return Context.Current.AddCommand(new PlayerUpdateCapacityCommand( (Player)parameters[0], (int)(long)parameters[1] ) ).Then( () =>
+                return Context.Current.AddCommand(new PlayerUpdateCapacityCommand( (Player)parameters[0], (uint)(long)parameters[1] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );

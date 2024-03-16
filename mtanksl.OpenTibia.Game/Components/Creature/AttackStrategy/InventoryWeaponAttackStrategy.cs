@@ -262,7 +262,7 @@ namespace OpenTibia.Game.Components
                         }
                         else
                         {
-                            promise = Context.Current.AddCommand(new ItemDecrementCommand(itemWeapon, 1) );
+                            promise = Context.Current.AddCommand(new ItemDecrementCommand(itemAmmunition, 1) );
                         }
 
                         if (plugin != null)
