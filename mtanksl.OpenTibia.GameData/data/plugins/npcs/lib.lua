@@ -312,7 +312,7 @@ function npchandler:onsell(npc, player, item, type, count, price, keepEquipped)
 	end
 end
 
-function  onfarewell(npc, player)
+function npchandler:onfarewell(npc, player)
 	self:say(npc, player, self.responses.farewell)
 end
 
