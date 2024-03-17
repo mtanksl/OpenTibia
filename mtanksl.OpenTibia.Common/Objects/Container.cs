@@ -26,6 +26,26 @@ namespace OpenTibia.Common.Objects
             }
         }
 
+        public int Total
+        {
+            get
+            {
+                int count = 0;
+
+                foreach (var item in GetItems() )
+                {                     
+                    count += 1;
+
+                    if (item is Container container)
+                    {
+                        count += container.Total;
+                    }
+                }
+
+                return count;
+            }
+        }
+
         public int Count
         {
             get

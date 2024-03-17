@@ -49,6 +49,38 @@ namespace OpenTibia.Game.Scripts
 
                         return Promise.Break;
                     }
+
+                    if ( !(command.Item.Root() is Safe) && toContainer.Root() is Safe safe)
+                    {
+                        foreach (var pair in safe.GetIndexedContents() )
+                        {
+                            Locker locker = (Locker)pair.Value;
+
+                            if (locker.IsContainerOf(toContainer) )
+                            {
+                                if (command.Item is Container container)
+                                {
+                                    if (locker.Total + container.Total >= 2000)
+                                    {
+                                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourDepotIsFull) );
+
+                                        return Promise.Break;
+                                    }
+                                }
+                                else
+                                {
+                                    if (locker.Total >= 2000)
+                                    {
+                                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourDepotIsFull) );
+
+                                        return Promise.Break;
+                                    }
+                                }
+                          
+                                break;
+                            }
+                        }
+                    }
                 }
 
                 return next();
