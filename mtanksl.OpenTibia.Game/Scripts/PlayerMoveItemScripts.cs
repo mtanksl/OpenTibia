@@ -33,6 +33,8 @@ namespace OpenTibia.Game.Scripts
 
                         return Promise.Break;
                     }
+
+                    //TODO: Capacity
                 }
                 else if (command.ToContainer is Container toContainer)
                 {
@@ -56,11 +58,11 @@ namespace OpenTibia.Game.Scripts
                         {
                             Locker locker = (Locker)pair.Value;
 
-                            if (locker.IsContainerOf(toContainer) )
+                            if (toContainer.IsContentOf(locker) )
                             {
                                 if (command.Item is Container container)
                                 {
-                                    if (locker.Total + container.Total >= Constants.MaxDepotItems)
+                                    if (Sum(locker) + Sum(container) >= Constants.MaxDepotItems)
                                     {
                                         Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourDepotIsFull) );
 
@@ -69,7 +71,7 @@ namespace OpenTibia.Game.Scripts
                                 }
                                 else
                                 {
-                                    if (locker.Total >= Constants.MaxDepotItems)
+                                    if (Sum(locker) >= Constants.MaxDepotItems)
                                     {
                                         Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourDepotIsFull) );
 
@@ -81,9 +83,28 @@ namespace OpenTibia.Game.Scripts
                             }
                         }
                     }
+
+                    //TODO: Capacity
                 }
 
                 return next();
+
+                static int Sum(IContainer parent)
+                {
+                    int sum = 0;
+
+                    foreach (Item content in parent.GetContents() )
+                    {                          
+                        sum += 1;
+
+                        if (content is Container container)
+                        {
+                            sum += Sum(container);
+                        }
+                    }
+
+                    return sum;
+                }
             } );
 
             Context.Server.CommandHandlers.AddCommandHandler(new MoveItemScriptingHandler() );

@@ -192,7 +192,7 @@ namespace OpenTibia.Game.Commands
             return true;
         }
 
-        private int Sum(IContainer parent, List<Item> crystals, List<Item> platinums, List<Item> golds)
+        private static int Sum(IContainer parent, List<Item> crystals, List<Item> platinums, List<Item> golds)
         {
             int sum = 0;
 

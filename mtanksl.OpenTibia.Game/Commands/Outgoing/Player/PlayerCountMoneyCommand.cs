@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Commands
             return Promise.FromResult(sum);            
         }
 
-        private int Sum(IContainer parent)
+        private static int Sum(IContainer parent)
         {
             int sum = 0;
 

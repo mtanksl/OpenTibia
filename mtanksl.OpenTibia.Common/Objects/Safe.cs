@@ -44,18 +44,31 @@ namespace OpenTibia.Common.Objects
             content.Parent = this;
         }
 
-        /// <exception cref="NotSupportedException"></exception>
+        /// <exception cref="ArgumentException"></exception>
 
         public void ReplaceContent(int index, IContent content)
         {
-            throw new NotSupportedException();
-        }
+            if ( !(content is Locker) )
+            {
+                throw new ArgumentException("Content must be an item.");
+            }
 
-        /// <exception cref="NotSupportedException"></exception>
+            IContent oldContent = GetContent(index);
+
+            contents[index] = content;
+
+            oldContent.Parent = null;
+
+            content.Parent = this;
+        }
 
         public void RemoveContent(int index)
         {
-            throw new NotSupportedException();
+            IContent content = GetContent(index);
+
+            contents.Remove(index);
+
+            content.Parent = null;
         }
 
         /// <exception cref="InvalidOperationException"></exception>
@@ -90,8 +103,6 @@ namespace OpenTibia.Common.Objects
             return false;
         }
 
-        /// <exception cref="NotSupportedException"></exception>
-
         public IContent GetContent(int index)
         {
             IContent content;
@@ -101,14 +112,10 @@ namespace OpenTibia.Common.Objects
             return content;
         }
 
-        /// <exception cref="NotSupportedException"></exception>
-
         public IEnumerable<IContent> GetContents()
         {
             return contents.Values;
         }
-
-        /// <exception cref="NotSupportedException"></exception>
 
         public IEnumerable< KeyValuePair<int, IContent> > GetIndexedContents()
         {
