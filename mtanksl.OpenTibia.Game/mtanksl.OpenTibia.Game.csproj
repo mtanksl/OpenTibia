@@ -14,6 +14,8 @@
   <ItemGroup>
     <Folder Include="EventHandlers\PlayerLogout\" />
     <Folder Include="EventHandlers\PlayerLogin\" />
+    <Folder Include="EventHandlers\PlayerLogout\" />
+    <Folder Include="EventHandlers\PlayerLogin\" />
   </ItemGroup>
 
   <ItemGroup>

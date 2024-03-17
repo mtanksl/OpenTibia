@@ -40,7 +40,12 @@ namespace OpenTibia.Game.Commands
                     name = itemMetadata.Name;
                 }
 
-                string description = itemMetadata.Description;
+                List<string> descriptions = new List<string>();
+
+                if (itemMetadata.Description != null)
+                {
+                    descriptions.Add(itemMetadata.Description);
+                }
 
                 List<string> attributes = new List<string>();
 
@@ -70,7 +75,7 @@ namespace OpenTibia.Game.Commands
                     {
                         case FluidType.Empty:
 
-                            description = "It is empty.";
+                            descriptions.Add("It is empty.");
 
                             break;
 
@@ -177,7 +182,7 @@ namespace OpenTibia.Game.Commands
                     {
                         case FluidType.Empty:
 
-                            description = "It is empty.";
+                            descriptions.Add("It is empty.");
 
                             break;
 
@@ -315,9 +320,9 @@ namespace OpenTibia.Game.Commands
 
                 builder.Append(".");
 
-                if (description != null)
+                if (descriptions.Count > 0)
                 {
-                    builder.Append(" " + description);
+                    builder.Append(" " + string.Join(" ", descriptions) );
                 }
 
                 Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, builder.ToString() ) );

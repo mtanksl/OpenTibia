@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace OpenTibia.Game.Commands
@@ -32,7 +33,24 @@ namespace OpenTibia.Game.Commands
                 name = Item.Metadata.Name;
             }
 
-            string description = Item.Metadata.Description;
+            List<string> descriptions = new List<string>();
+
+            uint weight = Item.Weight;
+
+            if (weight > 0)
+            {
+                IContainer root = Item.Root();
+
+                if (root == null || root is Inventory || (root is Tile tile && Player.Tile.Position.IsInRange(tile.Position, 1) ) )
+                {
+                    descriptions.Add("It weights " + (weight / 100.0).ToString("0.00", CultureInfo.InvariantCulture) + " oz.");
+                }
+            }
+
+            if (Item.Metadata.Description != null)
+            {
+                descriptions.Add(Item.Metadata.Description);
+            }
 
             List<string> attributes = new List<string>();
 
@@ -62,7 +80,7 @@ namespace OpenTibia.Game.Commands
                 {
                     case FluidType.Empty:
 
-                        description = "It is empty.";
+                        descriptions.Add("It is empty.");
 
                         break;
 
@@ -169,7 +187,7 @@ namespace OpenTibia.Game.Commands
                 {
                     case FluidType.Empty:
 
-                        description = "It is empty.";
+                        descriptions.Add("It is empty.");
 
                         break;
 
@@ -276,16 +294,16 @@ namespace OpenTibia.Game.Commands
                 {
                     if (signItem.Text != null)
                     {
-                        description = "You read: " + signItem.Text + ".";
+                        descriptions.Add("You read: " + signItem.Text + ".");
                     }
                     else
                     {
-                        description = "Nothing is written on it.";
+                        descriptions.Add("Nothing is written on it.");
                     }
                 }
                 else
                 {
-                    description = "You are too far away to read it.";
+                    descriptions.Add("You are too far away to read it.");
                 }              
             }
                        
@@ -325,9 +343,9 @@ namespace OpenTibia.Game.Commands
 
             builder.Append(".");
 
-            if (description != null)
+            if (descriptions.Count > 0)
             {
-                builder.Append(" " + description);
+                builder.Append(" " + string.Join(" ", descriptions) );
             }
 
             Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, builder.ToString() ) );

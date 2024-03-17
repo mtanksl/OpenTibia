@@ -28,25 +28,28 @@ namespace OpenTibia.Game.Commands
             {
                 if (Player.Tile.Position.CanSee(fromTile.Position) )
                 {
-                    switch (Player.Client.GetContent(fromTile, FromIndex) )
+                    if (TibiaId == 99)
                     {
-                        case Item item:
+                        Creature creature = fromTile.TopCreature;
 
-                            if (item.Metadata.TibiaId == TibiaId)
-                            {
-                                return Context.AddCommand(new PlayerLookItemCommand(Player, item) );
-                            }
+                        if (creature != null)
+                        {
+                            return Context.AddCommand(new PlayerLookCreatureCommand(Player, creature) );
+                        }
+                    }
+                    else
+                    {
+                        switch (Player.Client.GetContent(fromTile, FromIndex) )
+                        {
+                            case Item item:
 
-                            break;
+                                if (item.Metadata.TibiaId == TibiaId)
+                                {
+                                    return Context.AddCommand(new PlayerLookItemCommand(Player, item) );
+                                }
 
-                        case Creature creature:
-
-                            if (TibiaId == 99)
-                            {
-                                return Context.AddCommand(new PlayerLookCreatureCommand(Player, creature) );
-                            }
-
-                            break;
+                                break;
+                        }
                     }
                 }
             }

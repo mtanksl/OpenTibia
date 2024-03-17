@@ -2,7 +2,7 @@
 
 - Player information
 	- Capacity
-	- Soul
+	- Soul regeneration
 	- Item that modifies player light (ex. torch)
 	- Item that modifies player speed (ex. BOH)
 	- Item that modifies player skills
@@ -19,7 +19,6 @@
 	- Splash
 	- Persist loss
 	- ...
-- NPC trade window
 - Rings and amulets charges
 - Hangable items
 - Mail
@@ -28,6 +27,7 @@
 - House
 - Bed
 - Bless/AOL
+- Map cleanup
 - ...
 
 # Done (or good enough for now)
@@ -72,6 +72,8 @@
 - Interacting with npc
 	- Dialogue
 	- Buy and sell items
+	- Trade window
+	- Travel
 - Interacting with monsters
 	- Fight
 	- Weapon attributes (range, atk, def, arm)

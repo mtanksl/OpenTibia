@@ -31,6 +31,14 @@ namespace OpenTibia.Common.Objects
             }
         }
 
+        public virtual uint Weight
+        {
+            get
+            {
+                return metadata.Weight ?? 0;
+            }
+        }
+
         public IContainer Parent { get; set; }
 
         /*

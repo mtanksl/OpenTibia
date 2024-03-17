@@ -11,6 +11,21 @@ namespace OpenTibia.Common.Objects
 
         }
 
+        public override uint Weight
+        {
+            get
+            {
+                uint weight = base.Weight;
+
+                foreach (var item in GetItems() )
+                {
+                    weight += item.Weight;
+                }
+
+                return weight;
+            }
+        }
+
         public int Count
         {
             get
