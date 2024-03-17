@@ -32,8 +32,9 @@ namespace OpenTibia.Game.CommandHandlers
                         } );
 
                     case Inventory inventory:
+                    case Safe safe:
 
-                        return Context.AddCommand(new ShowMagicEffectCommand(inventory.Player.Tile.Position, MagicEffectType.Dice) ).Then( () =>
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Dice) ).Then( () =>
                         {
                             return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, command.Player.Name + " rolled a " + (value + 1) + ".") );
 

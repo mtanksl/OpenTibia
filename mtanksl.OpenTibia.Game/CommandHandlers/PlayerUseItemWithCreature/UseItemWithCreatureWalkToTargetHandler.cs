@@ -12,7 +12,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if ( !command.Player.Tile.Position.IsNextTo(command.ToCreature.Tile.Position) )
             {
-                if (command.Item.Parent is Tile || command.Item.Parent is Container container && container.Root() is Tile)
+                if (command.Item.Parent is Tile || command.Item.Parent is Container container && !(container.Root() is Inventory) )
                 {
                     return Context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, command.Player.Inventory, (byte)Slot.Extra, 1, false) ).Then( () =>
                     {

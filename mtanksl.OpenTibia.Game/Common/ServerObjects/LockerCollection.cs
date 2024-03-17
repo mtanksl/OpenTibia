@@ -4,63 +4,43 @@ namespace OpenTibia.Common.Objects
 {
     public class LockerCollection
     {
-        private Dictionary<int, Dictionary<ushort, Container>> players = new Dictionary<int, Dictionary<ushort, Container>>();
+        private Dictionary<int, Safe> safes = new Dictionary<int, Safe>();
 
-        public void AddLocker(int databasePlayerId, ushort townId, Container container)
+        public void AddLocker(int databasePlayerId, Locker locker)
         {
-            Dictionary<ushort, Container> towns;
+            Safe safe;
 
-            if ( !players.TryGetValue(databasePlayerId, out towns) )
+            if ( !safes.TryGetValue(databasePlayerId, out safe) )
             {
-                towns = new Dictionary<ushort, Container>();
+                safe = new Safe(databasePlayerId);
 
-                players.Add(databasePlayerId, towns);
+                safes.Add(databasePlayerId, safe);
             }
 
-            towns.Add(townId, container);
+            safe.AddContent(locker, locker.TownId);
         }
 
-        public void RemoveLocker(int databasePlayerId, ushort townId)
+        public Locker GetLocker(int databasePlayerId, ushort townId)
         {
-            Dictionary<ushort, Container> towns;
+            Safe safe;
 
-            if ( players.TryGetValue(databasePlayerId, out towns) )
+            if ( safes.TryGetValue(databasePlayerId, out safe) )
             {
-                towns.Remove(townId);
-
-                if (towns.Count == 0)
-                {
-                    players.Remove(databasePlayerId);
-                }
-            }           
-        }
-
-        public Container GetLocker(int databasePlayerId, ushort townId)
-        {
-            Dictionary<ushort, Container> towns;
-
-            if ( players.TryGetValue(databasePlayerId, out towns) )
-            {
-                Container locker;
-
-                if ( towns.TryGetValue(townId, out locker) )
-                {
-                    return locker;
-                }
+                return (Locker)safe.GetContent(townId);
             }
 
             return null;
         }
 
-        public IEnumerable<KeyValuePair<ushort, Container>> GetIndexedLockers(int databasePlayerId)
+        public IEnumerable<KeyValuePair<ushort, Locker>> GetIndexedLockers(int databasePlayerId)
         {
-            Dictionary<ushort, Container> towns;
+            Safe safe;
 
-            if ( players.TryGetValue(databasePlayerId, out towns) )
+            if ( safes.TryGetValue(databasePlayerId, out safe) )
             {
-                foreach (var pair in towns)
+                foreach (var pair in safe.GetIndexedContents() )
                 {
-                    yield return new KeyValuePair<ushort, Container>(pair.Key, pair.Value);
+                    yield return new KeyValuePair<ushort, Locker>( (ushort)pair.Key, (Locker)pair.Value);
                 }
             }
         }

@@ -205,7 +205,7 @@ namespace OpenTibia.Game
             {
                 foreach (var playerDepotItem in dbPlayer.PlayerDepotItems.Where(i => i.ParentId == sequenceId) )
                 {
-                    var item = context.Server.ItemFactory.Create( (ushort)playerDepotItem.OpenTibiaId, (byte)playerDepotItem.Count);
+                    Item item = context.Server.ItemFactory.Create( (ushort)playerDepotItem.OpenTibiaId, (byte)playerDepotItem.Count);
 
                     context.Server.ItemFactory.Attach(item);
 
@@ -220,13 +220,15 @@ namespace OpenTibia.Game
 
             foreach (var playerDepotItem in dbPlayer.PlayerDepotItems.Where(i => i.ParentId >= 0 /* Town Id */ && i.ParentId <= 100 /* Town Id */ ) )
             {
-                var container = (Container)context.Server.ItemFactory.Create(2591, 1);
+                Locker locker = (Locker)context.Server.ItemFactory.Create(2591, 1);
 
-                context.Server.ItemFactory.Attach(container);
+                locker.TownId = (ushort)playerDepotItem.ParentId;
 
-                AddItems(container, playerDepotItem.SequenceId);
+                context.Server.ItemFactory.Attach(locker);
 
-                context.Server.Lockers.AddLocker(dbPlayer.Id, (ushort)playerDepotItem.ParentId, container);
+                AddItems(locker, playerDepotItem.SequenceId);
+
+                context.Server.Lockers.AddLocker(dbPlayer.Id, locker);
             }
         }
 
@@ -236,7 +238,7 @@ namespace OpenTibia.Game
             {
                 foreach (var dbPlayerItem in dbPlayer.PlayerItems.Where(i => i.ParentId == sequenceId) )
                 {
-                    var item = context.Server.ItemFactory.Create( (ushort)dbPlayerItem.OpenTibiaId, (byte)dbPlayerItem.Count);
+                    Item item = context.Server.ItemFactory.Create( (ushort)dbPlayerItem.OpenTibiaId, (byte)dbPlayerItem.Count);
 
                     context.Server.ItemFactory.Attach(item);
 
@@ -251,7 +253,7 @@ namespace OpenTibia.Game
 
             foreach (var dbPlayerItem in dbPlayer.PlayerItems.Where(i => i.ParentId >= 1 /* Slot.Head */ && i.ParentId <= 10 /* Slot.Extra */ ) )
             {
-                var item = context.Server.ItemFactory.Create( (ushort)dbPlayerItem.OpenTibiaId, (byte)dbPlayerItem.Count);
+                Item item = context.Server.ItemFactory.Create( (ushort)dbPlayerItem.OpenTibiaId, (byte)dbPlayerItem.Count);
 
                 context.Server.ItemFactory.Attach(item);
 

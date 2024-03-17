@@ -39,12 +39,6 @@ namespace OpenTibia.Game.CommandHandlers
 
                         switch (fromContainer.Root() )
                         {
-                            case null:
-
-                                isNextFrom.Add(command.Player);
-
-                                break;
-
                             case Tile fromTile:
 
                                 foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(fromTile.Position) )
@@ -60,6 +54,12 @@ namespace OpenTibia.Game.CommandHandlers
                             case Inventory fromInventory:
 
                                 isNextFrom.Add(fromInventory.Player);
+
+                                break;
+
+                            case Safe fromSafe:
+
+                                isNextFrom.Add(command.Player);
 
                                 break;
                         }
@@ -99,12 +99,6 @@ namespace OpenTibia.Game.CommandHandlers
 
                             switch (toContainer.Root() )
                             {
-                                case null:
-
-                                    isNextTo.Add(command.Player);
-
-                                    break;
-
                                 case Tile toTile:
 
                                     foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(toTile.Position) )
@@ -120,6 +114,12 @@ namespace OpenTibia.Game.CommandHandlers
                                 case Inventory toInventory:
 
                                     isNextTo.Add(toInventory.Player);
+
+                                    break;
+
+                                case Safe toSafe:
+
+                                    isNextTo.Add(command.Player);
 
                                     break;
                             }

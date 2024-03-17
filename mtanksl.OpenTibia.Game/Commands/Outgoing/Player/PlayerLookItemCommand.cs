@@ -41,7 +41,7 @@ namespace OpenTibia.Game.Commands
             {
                 IContainer root = Item.Root();
 
-                if (root == null || root is Inventory || (root is Tile tile && Player.Tile.Position.IsInRange(tile.Position, 1) ) )
+                if ( (root is Tile tile && Player.Tile.Position.IsInRange(tile.Position, 1) ) || root is Inventory || root is Safe)
                 {
                     descriptions.Add("It weights " + (weight / 100.0).ToString("0.00", CultureInfo.InvariantCulture) + " oz.");
                 }

@@ -17,14 +17,6 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         switch (pair.Value.Root() )
                         {
-                            case null:
-
-                                player.Client.Containers.CloseContainer(pair.Key);
-
-                                Context.AddPacket(player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
-
-                                break;
-
                             case Tile tile:
 
                                 if ( !command.ToTile.Position.IsNextTo(tile.Position) )
@@ -33,6 +25,14 @@ namespace OpenTibia.Game.CommandHandlers
 
                                     Context.AddPacket(player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
                                 }
+
+                                break;
+
+                            case Safe safe:
+
+                                player.Client.Containers.CloseContainer(pair.Key);
+
+                                Context.AddPacket(player.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
 
                                 break;
                         }

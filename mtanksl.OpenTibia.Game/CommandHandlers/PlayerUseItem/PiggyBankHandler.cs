@@ -29,8 +29,9 @@ namespace OpenTibia.Game.CommandHandlers
                         } );
 
                     case Inventory inventory:
+                    case Safe safe:
 
-                        return Context.AddCommand(new ShowMagicEffectCommand(inventory.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
                         {
                             return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
                         } );

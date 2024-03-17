@@ -30,18 +30,18 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 switch (trading.Offer.Root() )
                                 {
-                                    case null:
-
-                                        reject = trading;
-
-                                        break;
-
                                     case Tile tile:
 
                                         if ( !trading.OfferPlayer.Tile.Position.IsNextTo(tile.Position) )
                                         {
                                             reject = trading;
                                         }
+
+                                        break;
+
+                                    case Safe safe:
+
+                                        reject = trading;
 
                                         break;
                                 }
@@ -63,18 +63,18 @@ namespace OpenTibia.Game.CommandHandlers
                                     {
                                         switch (trading.CounterOffer.Root() )
                                         {
-                                            case null:
-
-                                                reject = trading;
-
-                                                break;
-
                                             case Tile tile:
 
                                                 if ( !trading.CounterOfferPlayer.Tile.Position.IsNextTo(tile.Position) )
                                                 {
                                                     reject = trading;
                                                 }
+
+                                                break;
+
+                                            case Safe safe:
+
+                                                reject = trading;
 
                                                 break;
                                         }

@@ -23,8 +23,9 @@ namespace OpenTibia.Game.CommandHandlers
                         return Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.GreenNotes) );
 
                     case Inventory inventory:
+                    case Safe safe:
 
-                        return Context.AddCommand(new ShowMagicEffectCommand(inventory.Player.Tile.Position, MagicEffectType.GreenNotes) );
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.GreenNotes) );
                 }
             }
             else if (purple.Contains(command.Item.Metadata.OpenTibiaId) )
@@ -36,8 +37,9 @@ namespace OpenTibia.Game.CommandHandlers
                         return Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.PurpleNotes) );
 
                     case Inventory inventory:
+                    case Safe safe:
 
-                        return Context.AddCommand(new ShowMagicEffectCommand(inventory.Player.Tile.Position, MagicEffectType.PurpleNotes) );
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.PurpleNotes) );
                 }
             }
 
