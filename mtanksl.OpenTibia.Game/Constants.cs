@@ -77,5 +77,7 @@
         public static readonly string YourVocationCannotUseThisSpell = "Your vocation cannot use this spell.";
 
         public static readonly int ObjectsPerPoint = 10;
+
+        public static readonly int MaxDepotItems = 2000;
     }
 }

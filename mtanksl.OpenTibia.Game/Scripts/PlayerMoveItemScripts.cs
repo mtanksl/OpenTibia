@@ -60,7 +60,7 @@ namespace OpenTibia.Game.Scripts
                             {
                                 if (command.Item is Container container)
                                 {
-                                    if (locker.Total + container.Total >= 2000)
+                                    if (locker.Total + container.Total >= Constants.MaxDepotItems)
                                     {
                                         Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourDepotIsFull) );
 
@@ -69,7 +69,7 @@ namespace OpenTibia.Game.Scripts
                                 }
                                 else
                                 {
-                                    if (locker.Total >= 2000)
+                                    if (locker.Total >= Constants.MaxDepotItems)
                                     {
                                         Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourDepotIsFull) );
 
