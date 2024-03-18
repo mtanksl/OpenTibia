@@ -21,7 +21,6 @@
 	- ...
 - Rings and amulets charges
 - Hangable items
-- Mail
 - Guild
 - Party
 - House
@@ -98,6 +97,7 @@
 	- Use item with item
 		- Tools
 		- etc
+	- Mail
 - Plugins
 	- Lua scripting
 	- Lua debugging with ZeroBrane

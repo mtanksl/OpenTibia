@@ -190,6 +190,11 @@ namespace OpenTibia.Game
 
                     metadata.Capacity = xmlItem.ContainerSize;
 
+                    if (metadata.Capacity != null && !metadata.Flags.Is(ItemMetadataFlags.IsContainer) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.IsContainer;
+                    }
+
                     metadata.WeaponType = xmlItem.WeaponType;
 
                     metadata.AmmoType = xmlItem.AmmoType;
