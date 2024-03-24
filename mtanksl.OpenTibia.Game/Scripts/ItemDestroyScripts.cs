@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Scripts
 {
-    public class ItemDestroyScript : Script
+    public class ItemDestroyScripts : Script
     {
         public override void Start()
         {

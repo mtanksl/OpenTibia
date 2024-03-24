@@ -9,6 +9,9 @@ namespace OpenTibia.Game.Scripts
             new CreatureMoveScripts(),
             new GlobalScripts(),
             new ItemDestroyScript(),
+            new ItemMoveScript(),
+            new ItemSwapScript(),
+            new ItemTransformScripts(),
             new PlayerLoginScripts(),
             new PlayerLogoutScripts(),
             new PlayerMoveCreatureScripts(),
@@ -19,6 +22,7 @@ namespace OpenTibia.Game.Scripts
             new PlayerUseItemScripts(),
             new PlayerUseItemWithCreatureScripts(),
             new PlayerUseItemWithItemScripts(),
+            new StackableItemUpdateCountScripts(),
             new TileAddCreatureScripts(),
             new TileRemoveCreatureScripts(),
         };
