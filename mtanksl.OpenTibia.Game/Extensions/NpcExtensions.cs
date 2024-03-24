@@ -1,6 +1,8 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
+using OpenTibia.Network.Packets;
 using System;
+using System.Collections.Generic;
 
 namespace OpenTibia.Game.Extensions
 {
@@ -8,7 +10,7 @@ namespace OpenTibia.Game.Extensions
     {
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise Destroy(this Npc npc)
+        public static Promise Say(this Npc npc, string message, bool npcChannel)
         {
             Context context = Context.Current;
 
@@ -17,12 +19,12 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new NpcDestroyCommand(npc) );
+            return context.AddCommand(new NpcSayCommand(npc, message, npcChannel) );
         }
 
-        /// <exception cref="InvalidOperationException"></exception>
+         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise Say(this Npc player, string message, bool npcChannel)
+        public static Promise Trade(this Npc npc, Player player, List<OfferDto> offers)
         {
             Context context = Context.Current;
 
@@ -31,7 +33,7 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new NpcSayCommand(player, message, npcChannel) );
+            return context.AddCommand(new NpcTradeCommand(npc, player, offers) );
         }
     }
 }

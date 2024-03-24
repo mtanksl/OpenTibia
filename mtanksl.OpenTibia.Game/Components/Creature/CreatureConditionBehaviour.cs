@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Components
 
                 if (creature is Player player)
                 {
-                    Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(creature.SpecialConditions) );
+                    Context.AddPacket(player, new SetSpecialConditionOutgoingPacket(creature.SpecialConditions) );
                 }
             }
 
@@ -45,7 +45,7 @@ namespace OpenTibia.Game.Components
 
                 if (creature is Player player)
                 {
-                    Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(creature.SpecialConditions) );
+                    Context.AddPacket(player, new SetSpecialConditionOutgoingPacket(creature.SpecialConditions) );
                 }
             }
 

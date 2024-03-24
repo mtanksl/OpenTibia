@@ -92,7 +92,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     foreach (var creature in door.GetCreatures().ToList() )
                     {
-                        promises.Add(Context.AddCommand(new CreatureWalkCommand(creature, south) ) );
+                        promises.Add(Context.AddCommand(new CreatureMoveCommand(creature, south) ) );
                     }
 
                     return Promise.WhenAll(promises.ToArray() );
@@ -110,7 +110,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     foreach (var creature in door.GetCreatures().ToList() )
                     {
-                        promises.Add(Context.AddCommand(new CreatureWalkCommand(creature, east) ) );
+                        promises.Add(Context.AddCommand(new CreatureMoveCommand(creature, east) ) );
                     }
 
                     return Promise.WhenAll(promises.ToArray() );

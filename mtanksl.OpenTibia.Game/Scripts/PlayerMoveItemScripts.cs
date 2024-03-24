@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Scripts
                 {
                     if (command.Pathfinding && !Context.Server.Pathfinding.CanThrow(command.Player.Tile.Position, toTile.Position) )
                     {
-                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotThrowThere) );
 
                         return Promise.Break;
                     }
@@ -29,7 +29,7 @@ namespace OpenTibia.Game.Scripts
                 {
                     if ( !command.Item.Metadata.Flags.Is(ItemMetadataFlags.Pickupable) )
                     {
-                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTakeThisObject) );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTakeThisObject) );
 
                         return Promise.Break;
                     }
@@ -40,23 +40,23 @@ namespace OpenTibia.Game.Scripts
                 {
                     if ( !command.Item.Metadata.Flags.Is(ItemMetadataFlags.Pickupable) )
                     {
-                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTakeThisObject) );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTakeThisObject) );
 
                         return Promise.Break;
                     }
 
                     if ( toContainer.IsContentOf(command.Item) )
                     {
-                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
 
                         return Promise.Break;
                     }
 
-                    if ( !(command.Item.Root() is Safe) && toContainer.Root() is Safe safe)
+                    if (command.Item.Root() != null && toContainer.Root() == null)
                     {
-                        foreach (var pair in safe.GetIndexedContents() )
+                        foreach (var pair in Context.Server.Lockers.GetIndexedLockers(command.Player.DatabasePlayerId) )
                         {
-                            Locker locker = (Locker)pair.Value;
+                            Locker locker = pair.Value;
 
                             if (toContainer.IsContentOf(locker) )
                             {
@@ -64,7 +64,7 @@ namespace OpenTibia.Game.Scripts
                                 {
                                     if (Sum(locker) + Sum(container) >= Constants.MaxDepotItems)
                                     {
-                                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourDepotIsFull) );
+                                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourDepotIsFull) );
 
                                         return Promise.Break;
                                     }
@@ -73,7 +73,7 @@ namespace OpenTibia.Game.Scripts
                                 {
                                     if (Sum(locker) >= Constants.MaxDepotItems)
                                     {
-                                        Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourDepotIsFull) );
+                                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourDepotIsFull) );
 
                                         return Promise.Break;
                                     }

@@ -33,7 +33,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     promise = Context.Current.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                     {
-                        return Context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(command.Player, emptyPotionFlask, 1) );
+                        return Context.AddCommand(new PlayerCreateItemCommand(command.Player, emptyPotionFlask, 1) );
                     } );
                 }
 

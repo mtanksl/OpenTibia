@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Commands
             {
                 if (observer.Tile.Position.CanHearSay(Position) )
                 {
-                    Context.AddPacket(observer.Client.Connection, showAnimatedTextOutgoingPacket);
+                    Context.AddPacket(observer, showAnimatedTextOutgoingPacket);
                 }
             }
 

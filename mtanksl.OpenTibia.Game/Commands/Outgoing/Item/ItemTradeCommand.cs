@@ -67,9 +67,9 @@ namespace OpenTibia.Game.Commands
                     throw new NotImplementedException();
             }
 
-            promises.Add(Context.AddCommand(new PlayerInventoryContainerTileAddItemCommand(trading.OfferPlayer, trading.CounterOffer) ) );
+            promises.Add(Context.AddCommand(new PlayerAddItemCommand(trading.OfferPlayer, trading.CounterOffer) ) );
 
-            promises.Add(Context.AddCommand(new PlayerInventoryContainerTileAddItemCommand(trading.CounterOfferPlayer, trading.Offer) ) );
+            promises.Add(Context.AddCommand(new PlayerAddItemCommand(trading.CounterOfferPlayer, trading.Offer) ) );
 
             return Promise.WhenAll(promises.ToArray() );
         }

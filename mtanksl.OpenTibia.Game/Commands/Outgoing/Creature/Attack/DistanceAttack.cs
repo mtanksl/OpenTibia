@@ -38,7 +38,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if (attacker != null)
                     {
-                        Context.Current.AddPacket(player.Client.Connection, new SetFrameColorOutgoingPacket(attacker.Id, FrameColor.Black) );
+                        Context.Current.AddPacket(player, new SetFrameColorOutgoingPacket(attacker.Id, FrameColor.Black) );
                     }
                 }
             }
@@ -58,13 +58,13 @@ namespace OpenTibia.Game.Commands
                 {
                     if (attacker == null)
                     {
-                        Context.Current.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + -damage + " hitpoints.") );
+                        Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + -damage + " hitpoints.") );
                     }
                     else
                     {
-                        Context.Current.AddPacket(player.Client.Connection, new SetFrameColorOutgoingPacket(attacker.Id, FrameColor.Black) );
+                        Context.Current.AddPacket(player, new SetFrameColorOutgoingPacket(attacker.Id, FrameColor.Black) );
 
-                        Context.Current.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + -damage + " hitpoints due to an attack by " + attacker.Name + ".") );
+                        Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + -damage + " hitpoints due to an attack by " + attacker.Name + ".") );
                     }
                 }
 

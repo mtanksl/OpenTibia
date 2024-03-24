@@ -37,7 +37,7 @@ namespace OpenTibia.GameData.Plugins.Spells
 
             return Context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.Teleport) ).Then( () =>
             {
-                return Context.AddCommand(new CreatureWalkCommand(player, toTile, Direction.South) );
+                return Context.AddCommand(new CreatureMoveCommand(player, toTile, Direction.South) );
 
             } ).Then( () =>
             {

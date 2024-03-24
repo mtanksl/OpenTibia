@@ -51,6 +51,20 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
+        public static Promise AttackArea(this Creature creature, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new CreatureAttackAreaCommand(creature, beam, center, area, projectileType, magicEffectType, openTibiaId, count) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
         public static Promise AttackArea(this Creature creature, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, Attack attack)
         {
             Context context = Context.Current;
@@ -93,6 +107,20 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
+        public static Promise AttackCreature(this Creature creature, Creature target, Attack attack, Condition condition)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new CreatureAttackCreatureCommand(creature, target, attack, condition) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
         public static Promise RemoveCondition(this Creature creature, ConditionSpecialCondition conditionSpecialCondition)
         {
             Context context = Context.Current;
@@ -103,6 +131,20 @@ namespace OpenTibia.Game.Extensions
             }
 
             return context.AddCommand(new CreatureRemoveConditionCommand(creature, conditionSpecialCondition) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public static Promise Destroy(this Creature creature)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new CreatureDestroyCommand(creature) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
@@ -205,7 +247,7 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise Walk(this Creature creature, Tile toTile)
+        public static Promise Move(this Creature creature, Tile toTile)
         {
             Context context = Context.Current;
 
@@ -214,7 +256,7 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new CreatureWalkCommand(creature, toTile) );
+            return context.AddCommand(new CreatureMoveCommand(creature, toTile) );
         }
     }
 }

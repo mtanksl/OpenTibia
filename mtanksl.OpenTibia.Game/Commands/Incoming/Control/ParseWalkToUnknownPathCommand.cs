@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Commands
                 return Context.AddCommand(new ParseWalkToKnownPathCommand(Player, moveDirections) );
             }
 
-            Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNoWay) );
+            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNoWay) );
 
             return Promise.Break;
         }

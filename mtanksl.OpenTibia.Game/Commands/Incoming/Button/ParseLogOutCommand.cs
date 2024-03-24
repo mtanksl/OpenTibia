@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Commands
         {
             return Context.AddCommand(new ShowMagicEffectCommand(Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
             {
-                return Context.AddCommand(new PlayerDestroyCommand(Player) );
+                return Context.AddCommand(new CreatureDestroyCommand(Player) );
             } );
         }
     }

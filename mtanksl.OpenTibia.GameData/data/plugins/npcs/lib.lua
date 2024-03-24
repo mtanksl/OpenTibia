@@ -111,8 +111,8 @@ function topic:addsell(responses, offers)
 		end
 		confirm:add("yes", function(module, npc, player, message, captures, parameters) 
 			module.setparameters( { topic = self } )
-			if command.playerremoveitem(player, parameters.item, parameters.type, parameters.count) then
-				command.playeraddmoney(player, parameters.price)
+			if command.playerdestroyitems(player, parameters.item, parameters.type, parameters.count) then
+				command.playercreatemoney(player, parameters.price)
 				module.say(responses.yes)
 			else
 				if parameters.count > 1 then
@@ -154,8 +154,8 @@ function topic:addbuy(responses, offers)
 		end
 		confirm:add("yes", function(module, npc, player, message, captures, parameters) 
 			module.setparameters( { topic = self } )
-			if command.playerremovemoney(player, parameters.price) then
-				command.playeradditem(player, parameters.item, parameters.type, parameters.count)
+			if command.playerdestroymoney(player, parameters.price) then
+				command.playercreateitems(player, parameters.item, parameters.type, parameters.count)
 				module.say(responses.yes)
 			else
 				module.say(responses.notenoughtgold)
@@ -187,10 +187,10 @@ function topic:addtravel(responses, destinations)
 	end
 	confirm:add("yes", function(module, npc, player, message, captures, parameters) 
 		module.setparameters( { topic = self } )
-		if command.playerremovemoney(player, parameters.price) then
+		if command.playerdestroymoney(player, parameters.price) then
 			module.say(responses.yes)
 			module.idle()
-			command.creaturewalk(player, parameters.position)
+			command.creaturemove(player, parameters.position)
 			command.showmagiceffect(parameters.position, magiceffecttype.teleport)
 		else
 			module.say(responses.notenoughtgold)
@@ -301,14 +301,14 @@ function npchandler:onsay(npc, player, message)
 end
 
 function npchandler:onbuy(npc, player, item, type, count, price, ignoreCapacity, buyWithBackpacks) 
-	if command.playerremovemoney(player, price) then
-		command.playeradditem(player, item, type, count)
+	if command.playerdestroymoney(player, price) then
+		command.playercreateitems(player, item, type, count)
 	end
 end
 
 function npchandler:onsell(npc, player, item, type, count, price, keepEquipped) 
-	if command.playerremoveitem(player, item, type, count) then
-		command.playeraddmoney(player, price)
+	if command.playerdestroyitems(player, item, type, count) then
+		command.playercreatemoney(player, price)
 	end
 end
 

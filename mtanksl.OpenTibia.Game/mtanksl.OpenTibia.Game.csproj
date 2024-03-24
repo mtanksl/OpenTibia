@@ -6,19 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="GameObjectScripts\Npc\**" />
-    <EmbeddedResource Remove="GameObjectScripts\Npc\**" />
-    <None Remove="GameObjectScripts\Npc\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="EventHandlers\PlayerLogout\" />
-    <Folder Include="EventHandlers\PlayerLogin\" />
-    <Folder Include="EventHandlers\PlayerLogout\" />
-    <Folder Include="EventHandlers\PlayerLogin\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="NLua" Version="1.6.3" />
   </ItemGroup>
 

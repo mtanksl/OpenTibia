@@ -71,14 +71,14 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (command.Item.ActionId < 1000 || command.Player.Level < command.Item.ActionId - 1000)
                 {
-                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "Only the worthy may pass.") );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "Only the worthy may pass.") );
 
                     return Promise.Completed;
                 }
 
                 return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) ).Then( (item) =>
                 {
-                    return Context.AddCommand(new CreatureWalkCommand(command.Player, (Tile)item.Parent) );
+                    return Context.AddCommand(new CreatureMoveCommand(command.Player, (Tile)item.Parent) );
                 } );
             }
 

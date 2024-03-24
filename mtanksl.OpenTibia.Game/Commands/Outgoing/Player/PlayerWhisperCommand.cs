@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if (observer is Player player)
                     {
-                        Context.AddPacket(player.Client.Connection, showTextOutgoingPacket);
+                        Context.AddPacket(player, showTextOutgoingPacket);
                     }
 
                     Context.AddEvent(observer, new PlayerWhisperEventArgs(Player, Message) );
@@ -39,7 +39,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if (observer is Player player)
                     {
-                        Context.AddPacket(player.Client.Connection, showTextOutgoingPacket2);
+                        Context.AddPacket(player, showTextOutgoingPacket2);
                     }
 
                     Context.AddEvent(observer, new PlayerWhisperEventArgs(Player, Message) );

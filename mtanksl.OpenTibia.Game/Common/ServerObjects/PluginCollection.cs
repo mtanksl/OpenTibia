@@ -84,7 +84,7 @@ namespace OpenTibia.Game
 
         public void Start()
         {
-            script = server.LuaScripts.Create(server.PathResolver.GetFullPath("data/plugins/lib.lua"), server.PathResolver.GetFullPath("data/plugins/config.lua") );
+            script = server.LuaScripts.Create(server.PathResolver.GetFullPath("data/lib.lua"), server.PathResolver.GetFullPath("data/plugins/lib.lua"), server.PathResolver.GetFullPath("data/plugins/config.lua") );
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.actions"] ).Values)
             {

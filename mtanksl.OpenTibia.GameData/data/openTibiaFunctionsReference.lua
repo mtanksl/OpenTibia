@@ -67,6 +67,34 @@ return {
 				args = "(string key)",
 				returns = "bool",
 			},
+			-- void command.containeradditem(Container container, Item item)
+			containeradditem = {
+				type = "function",
+				description = "",
+				args = "(Container container, Item item)",
+				returns = "void",
+			},	
+			-- Item command.containercreateitem(Container container, ushort openTibiaId, byte count)
+			containercreateitem = {
+				type = "function",
+				description = "",
+				args = "(Container container, ushort openTibiaId, byte count)",
+				returns = "Item",
+			},	
+			-- void command.containerremoveitem(Container container, Item item)
+			containerremoveitem = {
+				type = "function",
+				description = "",
+				args = "(Container container, Item item)",
+				returns = "void",
+			},
+			-- void command.containerreplaceitem(Container container, Item fromItem, Item toItem)
+			containerreplaceitem = {
+				type = "function",
+				description = "",
+				args = "(Container container, Item fromItem, Item toItem)",
+				returns = "void",
+			},
 			-- void command.creatureaddcondition(Creature target, Condition condition)
 			creatureaddcondition = {
 				type = "function",
@@ -87,14 +115,21 @@ return {
 				description = "",
 				args = "(Creature attacker, Creature target, Attack attack, Condition condition)",
 				returns = "void",
-			},	
+			},
 			-- void command.creatureremovecondition(Creature creature, ConditionSpecialCondition conditionSpecialCondition)
 			creatureremovecondition = {
 				type = "function",
 				description = "",
 				args = "(Creature creature, ConditionSpecialCondition conditionSpecialCondition)",
 				returns = "void",
-			},			
+			},	
+			-- void command.creaturedestroy(Creature creature)
+			creaturedestroy = {
+				type = "function",
+				description = "",
+				args = "(Creature creature)",
+				returns = "void",
+			},					
 			-- void command.creatureupdatedirection(Creature creature, Direction direction)
 			creatureupdatedirection = {
 				type = "function",
@@ -151,46 +186,11 @@ return {
 				args = "(Creature creature, ushort baseSpeed, ushort speed)",
 				returns = "void",
 			},
-			-- void command.creaturewalk(Creature creature, Tile tile)
-			creaturewalk = {
+			-- void command.creaturemove(Creature creature, Tile toTile)
+			creaturemove = {
 				type = "function",
 				description = "",
-				args = "(Creature creature, Tile tile)",
-				returns = "void",
-			},
-			-- void command.showanimatedtext(Position position, AnimatedTextColor animatedTextColor, string message)
-			showanimatedtext = {
-				type = "function",
-				description = "",
-				args = "(Position position, AnimatedTextColor animatedTextColor, string message)",
-				returns = "void",
-			},
-			-- void command.showmagiceffect(Position position, MagicEffectType magicEffectType)
-			showmagiceffect = {
-				type = "function",
-				description = "",
-				args = "(Position position, MagicEffectType magicEffectType)",
-				returns = "void",
-			},
-			-- void command.showprojectile(Position fromPosition, Position toPosition, ProjectileType projectileType)
-			showprojectile = {
-				type = "function",
-				description = "",
-				args = "(Position fromPosition, Position toPosition, ProjectileType projectileType)",
-				returns = "void",
-			},
-			-- void command.showtext(Creature creature, TalkType talkType, string message)
-			showtext = {
-				type = "function",
-				description = "",
-				args = "(Creature creature, TalkType talkType, string message)",
-				returns = "void",
-			},
-			-- void command.showwindowtext(Player player, TextColor textColor, string message)
-			showwindowtext = {
-				type = "function",
-				description = "",
-				args = "(Player player, TextColor textColor, string message)",
+				args = "(Creature creature, Tile toTile)",
 				returns = "void",
 			},
 			-- void command.fluiditemupdatefluidtype(FluidItem fluidItem, FluidType fluidType)
@@ -200,11 +200,60 @@ return {
 				args = "(FluidItem fluidItem, FluidType fluidType)",
 				returns = "void",
 			},
+			-- void command.inventoryadditem(Inventory inventory, byte slot, Item item)
+			inventoryadditem = {
+				type = "function",
+				description = "",
+				args = "(Inventory inventory, byte slot, Item item)",
+				returns = "void",
+			},
+			-- Item command.inventorycreateitem(Inventory inventory, byte slot, ushort openTibiaId, byte count)
+			inventorycreateitem = {
+				type = "function",
+				description = "",
+				args = "(Inventory inventory, byte slot, ushort openTibiaId, byte count)",
+				returns = "Item",
+			},
+			-- void command.inventoryremoveitem(Inventory inventory, Item item)
+			inventoryremoveitem = {
+				type = "function",
+				description = "",
+				args = "(Inventory inventory, Item item)",
+				returns = "void",
+			},
+			-- void command.inventoryreplaceitem(Inventory inventory, Item fromItem, Item toItem)
+			inventoryreplaceitem = {
+				type = "function",
+				description = "",
+				args = "(Inventory inventory, Item fromItem, Item toItem)",
+				returns = "void",
+			},
+			-- void command.itemdecrement(Item item, byte count)
+			itemdecrement = {
+				type = "function",
+				description = "",
+				args = "(Item item, byte count)",
+				returns = "void",
+			},
 			-- void command.itemdestroy(Item item)
 			itemdestroy = {
 				type = "function",
 				description = "",
 				args = "(Item item)",
+				returns = "void",
+			},
+			-- void command.itemmove(Item item, IContainer toContainer, byte toIndex)
+			itemmove = {
+				type = "function",
+				description = "",
+				args = "(Item item, IContainer toContainer, byte toIndex)",
+				returns = "void",
+			},
+			-- void command.itemswap(Item fromItem, Item toItem)
+			itemswap = {
+				type = "function",
+				description = "",
+				args = "(Item fromItem, Item toItem)",
 				returns = "void",
 			},
 			-- Item command.itemtransform(Item item, ushort openTibiaId, byte count)
@@ -214,25 +263,11 @@ return {
 				args = "(Item item, ushort openTibiaId, byte count)",
 				returns = "Item",
 			},
-			-- void command.monsterdestroy(Monster monster)
-			monsterdestroy = {
-				type = "function",
-				description = "",
-				args = "(Monster monster)",
-				returns = "void",
-			},
 			-- void command.monstersay(Monster monster, string message)
 			monstersay = {
 				type = "function",
 				description = "",
 				args = "(Monster monster, string message)",
-				returns = "void",
-			},
-			-- void command.npcdestroy(Npc npc)
-			npcdestroy = {
-				type = "function",
-				description = "",
-				args = "(Npc npc)",
 				returns = "void",
 			},
 			-- void command.npcsay(Npc npc, string message)
@@ -270,15 +305,15 @@ return {
 				args = "(Npc npc, Player player)",
 				returns = "void",
 			},
-			-- void command.playeraddmoney(Player player, int price)
-			playeraddmoney = {
+			-- void command.playercreatemoney(Player player, int price)
+			playercreatemoney = {
 				type = "function",
 				description = "",
 				args = "(Player player, int price)",
 				returns = "void",
 			},
-			-- bool command.playerremovemoney(Player player, int price)
-			playerremovemoney = {
+			-- bool command.playerdestroymoney(Player player, int price)
+			playerdestroymoney = {
 				type = "function",
 				description = "",
 				args = "(Player player, int price)",
@@ -291,22 +326,22 @@ return {
 				args = "(Player player)",
 				returns = "int",
 			},
-			-- void command.playeradditem(Player player, ushort openTibiaId, byte type, int count)
-			playeradditem = {
+			-- void command.playercreateitems(Player player, ushort openTibiaId, byte type, int count)
+			playercreateitems = {
 				type = "function",
 				description = "",
 				args = "(Player player, ushort openTibiaId, byte type, int count)",
 				returns = "void",
 			},
-			-- bool command.playerremoveitem(Player player, ushort openTibiaId, byte type, int count)
-			playerremoveitem = {
+			-- bool command.playerdestroyitems(Player player, ushort openTibiaId, byte type, int count)
+			playerdestroyitems = {
 				type = "function",
 				description = "",
 				args = "(Player player, ushort openTibiaId, byte type, int count)",
 				returns = "bool",
 			},
-			-- int command.playercountitem(Player player, ushort openTibiaId, byte type)
-			playercountitem = {
+			-- int command.playercountitems(Player player, ushort openTibiaId, byte type)
+			playercountitems = {
 				type = "function",
 				description = "",
 				args = "(Player player, ushort openTibiaId, byte type)",
@@ -368,11 +403,11 @@ return {
 				args = "(Player player, byte skill, byte skillPercent)",
 				returns = "void",
 			},
-			-- void command.playerdestroy(Player player)
-			playerdestroy = {
+			-- void command.playersay(Player player, string message)
+			playersay = {
 				type = "function",
 				description = "",
-				args = "(Player player)",
+				args = "(Player player, string message)",
 				returns = "void",
 			},
 			-- void command.playerupdatecapacity(Player player, int capacity)
@@ -410,25 +445,18 @@ return {
 				args = "(Player player, int stamina)",
 				returns = "void",
 			},
-			-- (bool, int) command.playergetstorage(Player player, int key)
-			playergetstorage = {
+			-- void command.playerwhisper(Player player, string message)
+			playerwhisper = {
 				type = "function",
 				description = "",
-				args = "(Player player, int key)",
-				returns = "(bool, int)",
-			},
-			-- void command.playersetstorage(Player player, int key, int value)
-			playersetstorage = {
-				type = "function",
-				description = "",
-				args = "(Player player, int key, int value)",
+				args = "(Player player, string message)",
 				returns = "void",
 			},
-			-- void command.playerremovestorage(Player player, int key)
-			playerremovestorage = {
+			-- void command.playeryell(Player player, string message)
+			playeryell = {
 				type = "function",
 				description = "",
-				args = "(Player player, int key)",
+				args = "(Player player, string message)",
 				returns = "void",
 			},
 			-- (bool, Addon) command.playergetoutfit(Player player, ushort outfitId)
@@ -452,6 +480,34 @@ return {
 				args = "(Player player, ushort outfitId)",
 				returns = "void",
 			},
+			-- (bool, int) command.playergetstorage(Player player, int key)
+			playergetstorage = {
+				type = "function",
+				description = "",
+				args = "(Player player, int key)",
+				returns = "(bool, int)",
+			},
+			-- void command.playersetstorage(Player player, int key, int value)
+			playersetstorage = {
+				type = "function",
+				description = "",
+				args = "(Player player, int key, int value)",
+				returns = "void",
+			},
+			-- void command.playerremovestorage(Player player, int key)
+			playerremovestorage = {
+				type = "function",
+				description = "",
+				args = "(Player player, int key)",
+				returns = "void",
+			},
+			-- string[] command.playergetspells(Player player)
+			playergetspells = {
+				type = "function",
+				description = "",
+				args = "(Player player)",
+				returns = "string[]",
+			},
 			-- void command.playersetspell(Player player, string name)
 			playersetspell = {
 				type = "function",
@@ -465,13 +521,41 @@ return {
 				description = "",
 				args = "(Player player, string name)",
 				returns = "void",
-			},
-			-- string[] command.playergetspells(Player player)
-			playergetspells = {
+			},			
+			-- void command.showanimatedtext(Position position, AnimatedTextColor animatedTextColor, string message)
+			showanimatedtext = {
 				type = "function",
 				description = "",
-				args = "(Player player)",
-				returns = "string[]",
+				args = "(Position position, AnimatedTextColor animatedTextColor, string message)",
+				returns = "void",
+			},
+			-- void command.showmagiceffect(Position position, MagicEffectType magicEffectType)
+			showmagiceffect = {
+				type = "function",
+				description = "",
+				args = "(Position position, MagicEffectType magicEffectType)",
+				returns = "void",
+			},
+			-- void command.showprojectile(Position fromPosition, Position toPosition, ProjectileType projectileType)
+			showprojectile = {
+				type = "function",
+				description = "",
+				args = "(Position fromPosition, Position toPosition, ProjectileType projectileType)",
+				returns = "void",
+			},
+			-- void command.showtext(Creature creature, TalkType talkType, string message)
+			showtext = {
+				type = "function",
+				description = "",
+				args = "(Creature creature, TalkType talkType, string message)",
+				returns = "void",
+			},
+			-- void command.showwindowtext(Player player, TextColor textColor, string message)
+			showwindowtext = {
+				type = "function",
+				description = "",
+				args = "(Player player, TextColor textColor, string message)",
+				returns = "void",
 			},
 			-- void command.splashitemupdatefluidtype(SplashItem splashItem, FluidType fluidType)
 			splashitemupdatefluidtype = {
@@ -485,6 +569,69 @@ return {
 				type = "function",
 				description = "",
 				args = "(StackableItem stackableItem, byte count)",
+				returns = "void",
+			},
+			-- void command.tileaddcreature(Tile tile, Creature creature)
+			tileaddcreature = {
+				type = "function",
+				description = "",
+				args = "(Tile tile, Creature creature)",
+				returns = "void",
+			},
+			-- void command.tileadditem(Tile tile, Item item)
+			tileadditem = {
+				type = "function",
+				description = "",
+				args = "(Tile tile, Item item)",
+				returns = "void",
+			},
+			-- Item command.tilecreateitem(Tile tile, ushort openTibiaId, byte count)
+			tilecreateitem = {
+				type = "function",
+				description = "",
+				args = "(Tile tile, ushort openTibiaId, byte count)",
+				returns = "Item",
+			},
+			-- void command.tilecreateitemorincrement(Tile tile, ushort openTibiaId, byte count)
+			tilecreateitemorincrement = {
+				type = "function",
+				description = "",
+				args = "(Tile tile, ushort openTibiaId, byte count)",
+				returns = "void",
+			},
+			-- Monster command.tilecreatemonster(Tile tile, string name)
+			tilecreatemonster = {
+				type = "function",
+				description = "",
+				args = "(Tile tile, string name)",
+				returns = "Monster",
+			},
+			-- Npc command.tilecreatenpc(Tile tile, string name)
+			tilecreatenpc = {
+				type = "function",
+				description = "",
+				args = "(Tile tile, string name)",
+				returns = "Npc",
+			},
+			-- void command.tileremovecreature(Tile tile, Creature creature)
+			tileremovecreature = {
+				type = "function",
+				description = "",
+				args = "(Tile tile, Creature creature)",
+				returns = "void",
+			},
+			-- void command.tileremoveitem(Tile tile, Item item)
+			tileremoveitem = {
+				type = "function",
+				description = "",
+				args = "(Tile tile, Item item)",
+				returns = "void",
+			},
+			-- void command.tilereplaceitem(Tile tile, Item fromItem, Item toItem)
+			tilereplaceitem = {
+				type = "function",
+				description = "",
+				args = "(Tile tile, Item fromItem, Item toItem)",
 				returns = "void",
 			}
 		}

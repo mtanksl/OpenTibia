@@ -1,6 +1,8 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
+using System.Linq;
 
 namespace OpenTibia.Game.CommandHandlers
 {
@@ -10,14 +12,35 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (command.Item is Container container)
             {
-                if (command.ContainerId != null)
+                bool open = true;
+
+                foreach (var pair in command.Player.Client.Containers.GetIndexedContainers() )
                 {
-                    return Context.AddCommand(new ContainerReplaceOrCloseCommand(command.Player, container, command.ContainerId.Value) );
+                    if (pair.Value == container)
+                    {
+                        command.Player.Client.Containers.CloseContainer(pair.Key);
+
+                        Context.AddPacket(command.Player, new CloseContainerOutgoingPacket(pair.Key) );
+
+                        open = false;
+                    }
                 }
-                else
+
+                if (open)
                 {
-                    return Context.AddCommand(new ContainerOpenOrCloseCommand(command.Player, container) );
-                }
+                    if (command.ContainerId == null)
+                    {
+                        command.ContainerId = command.Player.Client.Containers.OpenContainer(container);
+                    }
+                    else
+                    {
+                        command.Player.Client.Containers.ReplaceContainer(container, command.ContainerId.Value);
+                    }
+
+                    Context.AddPacket(command.Player, new OpenContainerOutgoingPacket(command.ContainerId.Value, container.Metadata.TibiaId, container.Metadata.Name, container.Metadata.Capacity.Value, container.Parent is Container, container.GetItems().ToList() ) );
+
+                    return Promise.Completed;
+                }               
             }
 
             return next();

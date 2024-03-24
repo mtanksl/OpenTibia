@@ -22,7 +22,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 } ).Then( () =>
                 {
-                    return Context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(command.Player, lumpOfGarlicDough, 1) );
+                    return Context.AddCommand(new PlayerCreateItemCommand(command.Player, lumpOfGarlicDough, 1) );
                 } );
             }
 

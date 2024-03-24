@@ -454,7 +454,7 @@ namespace OpenTibia.Game
 
                 foreach (var observer in Context.Current.Server.GameObjects.GetPlayers() )
                 {
-                    promises.Add(Context.Current.AddCommand(new PlayerDestroyCommand(observer) ) );
+                    promises.Add(Context.Current.AddCommand(new CreatureDestroyCommand(observer) ) );
                 }
 
                 return Promise.WhenAll(promises.ToArray() );

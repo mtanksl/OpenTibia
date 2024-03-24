@@ -54,7 +54,7 @@ namespace OpenTibia.Game.Commands
                     {
                         if ( IsUseable(fromItem) )
                         {
-                            Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
+                            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
 
                             return Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) );
                         }

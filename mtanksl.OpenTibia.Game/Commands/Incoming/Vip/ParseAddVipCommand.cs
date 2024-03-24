@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
             {
                 if (Player.Client.Vips.AddVip(dbPlayer.Id, dbPlayer.Name) )
                 {
-                    Context.AddPacket(Player.Client.Connection, new VipOutgoingPacket( (uint)dbPlayer.Id, dbPlayer.Name, false) );
+                    Context.AddPacket(Player, new VipOutgoingPacket( (uint)dbPlayer.Id, dbPlayer.Name, false) );
 
                     return Promise.Completed;
                 }

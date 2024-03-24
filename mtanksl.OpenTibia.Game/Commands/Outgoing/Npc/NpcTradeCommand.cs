@@ -44,7 +44,6 @@ namespace OpenTibia.Game.Commands
 
             Context.Server.NpcTradings.AddTrading(trading);
 
-
             int money = SumMoney(Player.Inventory);
 
             List<CounterOfferDto> counterOffers = new List<CounterOfferDto>();
@@ -62,20 +61,20 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            Context.AddPacket(Player.Client.Connection, new InviteNpcTradeOutgoingPacket(Offers), 
+            Context.AddPacket(Player, new InviteNpcTradeOutgoingPacket(Offers) );
 
-                                                        new JoinNpcTradeOutgoingPacket( (uint)money, counterOffers) );
+            Context.AddPacket(Player, new JoinNpcTradeOutgoingPacket( (uint)money, counterOffers) );
 
             //TODO: Check if money or items where added, refreshed, removed
 
             return Promise.Completed;
         }
 
-        private int SumMoney(IContainer parent)
+        private static int SumMoney(IContainer parent)
         {
             int sum = 0;
 
-            foreach (Item content in parent.GetContents())
+            foreach (Item content in parent.GetContents() )
             {
                 if (content is Container container)
                 {
@@ -99,7 +98,7 @@ namespace OpenTibia.Game.Commands
             return sum;
         }
 
-        private int CountItems(IContainer parent, ushort tibiaId, byte type)
+        private static int CountItems(IContainer parent, ushort tibiaId, byte type)
         {
             int sum = 0;
 

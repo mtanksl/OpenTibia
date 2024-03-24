@@ -264,5 +264,35 @@ namespace OpenTibia.Game
                 }
             }
         }
+
+        public static bool GetBoolean(object value, bool defaultValue = default(bool) )
+        {
+            if (value != null)
+            {
+                return (bool)value;
+            }
+
+            return defaultValue;
+        }
+
+        public static int GetInt32(object value, int defaultValue = default(int) )
+        {
+            if (value != null)
+            {
+                return (int)(long)value;
+            }
+
+            return defaultValue;
+        }
+
+        public static string GetString(object value, string defaultValue = default(string) )
+        {
+            if (value != null)
+            {
+                return (string)value;
+            }
+
+            return defaultValue;
+        }
     }
 }

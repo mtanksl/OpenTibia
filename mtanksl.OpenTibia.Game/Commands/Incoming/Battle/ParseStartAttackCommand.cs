@@ -37,8 +37,9 @@ namespace OpenTibia.Game.Commands
                         playerThinkBehaviour.StopAttackAndFollow();
                     }
 
-                    Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature),
-                                                                new StopAttackAndFollowOutgoingPacket(0) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature) );
+
+                    Context.AddPacket(Player, new StopAttackAndFollowOutgoingPacket(0) );
                 }
                 else
                 {

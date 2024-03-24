@@ -25,7 +25,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (blueberryBushs.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                return Context.AddCommand(new TileIncrementOrCreateItemCommand( (Tile)command.Item.Parent, blueberry, 3) ).Then( () =>
+                return Context.AddCommand(new TileCreateItemOrIncrementCommand( (Tile)command.Item.Parent, blueberry, 3) ).Then( () =>
                 {
                     return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
             

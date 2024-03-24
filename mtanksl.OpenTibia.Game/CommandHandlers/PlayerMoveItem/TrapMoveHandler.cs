@@ -20,7 +20,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (traps.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
                 {
-                    return Context.AddCommand(new TileIncrementOrCreateItemCommand(tile, toOpenTibiaId, 1) ).Then( () =>
+                    return Context.AddCommand(new TileCreateItemOrIncrementCommand(tile, toOpenTibiaId, 1) ).Then( () =>
                     {
                         return Context.AddCommand(new ItemDestroyCommand(command.Item) );            
                     } );

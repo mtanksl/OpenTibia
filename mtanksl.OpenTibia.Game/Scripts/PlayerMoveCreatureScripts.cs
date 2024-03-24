@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Scripts
             {
                 if ( !command.Creature.Tile.Position.IsNextTo(command.ToTile.Position) )
                 {
-                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.DestinationIsOutOfReach) );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.DestinationIsOutOfReach) );
 
                     return Promise.Break;
                 }
@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Scripts
             {
                 if (command.ToTile.Ground == null || command.ToTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || command.ToTile.GetCreatures().Any(c => c.Block) )
                 {
-                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtRoom) );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtRoom) );
 
                     return Promise.Break;
                 }

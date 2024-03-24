@@ -22,9 +22,9 @@ namespace OpenTibia.Game.Commands
 
                 if (trading.OfferPlayerAccepted && trading.CounterOfferPlayerAccepted)
                 {
-                    Context.AddPacket(trading.OfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
+                    Context.AddPacket(trading.OfferPlayer, new CloseTradeOutgoingPacket() );
 
-                    Context.AddPacket(trading.CounterOfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
+                    Context.AddPacket(trading.CounterOfferPlayer, new CloseTradeOutgoingPacket() );
 
                     Context.Server.Tradings.RemoveTrading(trading);
 
@@ -41,9 +41,9 @@ namespace OpenTibia.Game.Commands
 
                     if (trading.OfferPlayerAccepted && trading.CounterOfferPlayerAccepted)
                     {
-                        Context.AddPacket(trading.OfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
+                        Context.AddPacket(trading.OfferPlayer, new CloseTradeOutgoingPacket() );
 
-                        Context.AddPacket(trading.CounterOfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
+                        Context.AddPacket(trading.CounterOfferPlayer, new CloseTradeOutgoingPacket() );
 
                         Context.Server.Tradings.RemoveTrading(trading);
 

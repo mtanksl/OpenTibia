@@ -1,9 +1,4 @@
-﻿gender = {
-	male = 0,
-	female = 1
-}
-
-outfits = {
+﻿outfits = {
 	{ id = 136, name = "Citizen", gender = gender.male },
 	{ id = 128, name = "Citizen", gender = gender.female },
 

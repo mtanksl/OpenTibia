@@ -12,8 +12,10 @@
     <None Include="$(MSBuildThisFileDirectory)data\database.db" />
     <None Include="$(MSBuildThisFileDirectory)data\items\items.otb" />
     <None Include="$(MSBuildThisFileDirectory)data\items\tibia.dat" />
+    <None Include="$(MSBuildThisFileDirectory)data\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\openTibiaFunctionsReference.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\outfits\config.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\outfits\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\actions\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\actions\move item.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\actions\rotate item.lua" />
@@ -43,7 +45,9 @@
     <None Include="$(MSBuildThisFileDirectory)data\plugins\weapons\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\weapons\wand of inferno.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\quests\config.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\quests\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\server\config.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\server\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\world\map.otbm" />
   </ItemGroup>
   <ItemGroup>

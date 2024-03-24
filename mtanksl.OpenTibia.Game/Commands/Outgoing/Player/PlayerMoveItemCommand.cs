@@ -1,6 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using System;
-using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
@@ -35,59 +33,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            List<Promise> promises = new List<Promise>();
-
-            switch (Item.Parent)
-            {
-                case Tile fromTile:
-
-                    promises.Add(Context.AddCommand(new TileRemoveItemCommand(fromTile, Item) ) );
-
-                    break;
-
-                case Inventory fromInventory:
-
-                    promises.Add(Context.AddCommand(new InventoryRemoveItemCommand(fromInventory, Item) ) );
-
-                    break;
-
-                case Container fromContainer:
-
-                    promises.Add(Context.AddCommand(new ContainerRemoveItemCommand(fromContainer, Item) ) );
-
-                    break;
-
-                default:
-
-                    throw new NotImplementedException();
-            }
-
-            switch (ToContainer)
-            {
-                case Tile toTile:
-
-                    promises.Add(Context.AddCommand(new TileAddItemCommand(toTile, Item) ) );
-
-                    break;
-
-                case Inventory toInventory:
-
-                    promises.Add(Context.AddCommand(new InventoryAddItemCommand(toInventory, ToIndex, Item) ) );
-
-                    break;
-
-                case Container toContainer:
-
-                    promises.Add(Context.AddCommand(new ContainerAddItemCommand(toContainer, Item) ) );
-                        
-                    break;
-
-                default:
-
-                    throw new NotImplementedException();
-            }
-
-            return Promise.WhenAll(promises.ToArray() );
+            return Context.AddCommand(new ItemMoveCommand(Item, ToContainer, ToIndex) );
         }
     }
 }

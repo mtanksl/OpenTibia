@@ -47,36 +47,33 @@ namespace OpenTibia.GameData.Plugins.Spells
                         
                     new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
             }
+            else if (itemWeapon.Metadata.WeaponType == WeaponType.Sword)
+            {
+                var formula = GroundshakerFormula(player.Level, player.Skills.Sword, itemWeapon.Metadata.Attack.Value);
+
+                return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.GroundShaker,
+                        
+                    new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+            }
+            else if (itemWeapon.Metadata.WeaponType == WeaponType.Axe)
+            {
+                var formula = GroundshakerFormula(player.Level, player.Skills.Axe, itemWeapon.Metadata.Attack.Value);
+
+                return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.GroundShaker,
+                        
+                    new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+            }
+            else if (itemWeapon.Metadata.WeaponType == WeaponType.Club)
+            {
+                var formula = GroundshakerFormula(player.Level, player.Skills.Club, itemWeapon.Metadata.Attack.Value);
+
+                return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.GroundShaker,
+                        
+                    new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+            }
             else
             {
-                if (itemWeapon.Metadata.WeaponType == WeaponType.Sword)
-                {
-                    var formula = GroundshakerFormula(player.Level, player.Skills.Sword, itemWeapon.Metadata.Attack.Value);
-
-                    return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.GroundShaker,
-                        
-                        new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
-                }
-                else if (itemWeapon.Metadata.WeaponType == WeaponType.Axe)
-                {
-                    var formula = GroundshakerFormula(player.Level, player.Skills.Axe, itemWeapon.Metadata.Attack.Value);
-
-                    return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.GroundShaker,
-                        
-                        new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
-                }
-                else if (itemWeapon.Metadata.WeaponType == WeaponType.Club)
-                {
-                    var formula = GroundshakerFormula(player.Level, player.Skills.Club, itemWeapon.Metadata.Attack.Value);
-
-                    return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.GroundShaker,
-                        
-                        new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
-                }
-                else
-                {
-                    throw new NotImplementedException();
-                }
+                throw new NotImplementedException();
             }
         }
              

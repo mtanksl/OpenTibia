@@ -42,7 +42,7 @@ namespace OpenTibia.Game.Commands
                 outfits.Add(new OutfitDto(Outfit.GamemasterGreen.Id, "Community Manager", Addon.None) );
             }
 
-            Context.AddPacket(Player.Client.Connection, new OpenSelectOutfitDialogOutgoingPacket(Player.BaseOutfit, outfits) );
+            Context.AddPacket(Player, new OpenSelectOutfitDialogOutgoingPacket(Player.BaseOutfit, outfits) );
 
             return Promise.Completed;
         }

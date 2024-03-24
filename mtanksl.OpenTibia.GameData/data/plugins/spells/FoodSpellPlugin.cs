@@ -34,7 +34,7 @@ namespace OpenTibia.GameData.Plugins.Spells
 
             return Context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.GreenShimmer) ).Then( () =>
             {
-                return Context.AddCommand(new PlayerAddItemCommand(player, openTibiaId, 1, count) );
+                return Context.AddCommand(new PlayerCreateItemsCommand(player, openTibiaId, 1, count) );
             } );
         }
              

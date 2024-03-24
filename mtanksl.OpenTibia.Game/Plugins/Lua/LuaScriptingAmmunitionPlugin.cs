@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Components
 
         public override void Start()
         {
-            script = Context.Server.LuaScripts.Create(Context.Server.PathResolver.GetFullPath("data/plugins/lib.lua"), Context.Server.PathResolver.GetFullPath("data/plugins/ammunitions/lib.lua"), Context.Server.PathResolver.GetFullPath(fileName) );
+            script = Context.Server.LuaScripts.Create(Context.Server.PathResolver.GetFullPath("data/lib.lua"), Context.Server.PathResolver.GetFullPath("data/plugins/lib.lua"), Context.Server.PathResolver.GetFullPath("data/plugins/ammunitions/lib.lua"), Context.Server.PathResolver.GetFullPath(fileName) );
         }
 
         public override Promise OnUseAmmunition(Player player, Creature target, Item weapon, Item ammunition)

@@ -45,7 +45,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            Context.AddPacket(Player.Client.Connection, new OpenQuestLogDialogOutgoingPacket(quests) );
+            Context.AddPacket(Player, new OpenQuestLogDialogOutgoingPacket(quests) );
 
             return Promise.Completed;
         }

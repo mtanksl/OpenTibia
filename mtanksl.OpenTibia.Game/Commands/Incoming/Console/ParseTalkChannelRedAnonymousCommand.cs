@@ -37,7 +37,7 @@ namespace OpenTibia.Game.Commands
 
                         foreach (var observer in channel.GetPlayers() )
                         {
-                            Context.AddPacket(observer.Client.Connection, showTextOutgoingPacket);
+                            Context.AddPacket(observer, showTextOutgoingPacket);
                         }
 
                         return Promise.Completed;

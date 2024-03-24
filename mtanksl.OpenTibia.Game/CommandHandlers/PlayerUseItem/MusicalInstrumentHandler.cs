@@ -23,7 +23,7 @@ namespace OpenTibia.Game.CommandHandlers
                         return Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.GreenNotes) );
 
                     case Inventory inventory:
-                    case Safe safe:
+                    case null:
 
                         return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.GreenNotes) );
                 }
@@ -37,7 +37,7 @@ namespace OpenTibia.Game.CommandHandlers
                         return Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.PurpleNotes) );
 
                     case Inventory inventory:
-                    case Safe safe:
+                    case null:
 
                         return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.PurpleNotes) );
                 }

@@ -152,7 +152,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (!proceed)
                 {
-                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotDressThisObjectThere) );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotDressThisObjectThere) );
 
                     return Promise.Break;
                 }

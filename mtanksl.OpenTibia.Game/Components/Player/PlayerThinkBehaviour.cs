@@ -97,8 +97,8 @@ namespace OpenTibia.Game.Components
                     if (target.Tile == null || target.IsDestroyed || target.Tile.ProtectionZone || player.Tile.ProtectionZone)
                     {
                         StopAttackAndFollow();
-                           
-                        Context.AddPacket(player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
+
+                        Context.AddPacket(player, new StopAttackAndFollowOutgoingPacket(0) );
                     }
                     else
                     {
@@ -106,8 +106,9 @@ namespace OpenTibia.Game.Components
                         {
                             StopAttackAndFollow();
 
-                            Context.AddPacket(player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost),
-                                                                        new StopAttackAndFollowOutgoingPacket(0) );
+                            Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost) );
+
+                            Context.AddPacket(player, new StopAttackAndFollowOutgoingPacket(0) );
                         }
                         else
                         {
@@ -123,7 +124,7 @@ namespace OpenTibia.Game.Components
                                     {
                                         lastWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / player.Speed);
 
-                                        promises.Add(Context.AddCommand(new CreatureWalkCommand(player, toTile) ) );
+                                        promises.Add(Context.AddCommand(new CreatureMoveCommand(player, toTile) ) );
                                     }
                                 }
                             }

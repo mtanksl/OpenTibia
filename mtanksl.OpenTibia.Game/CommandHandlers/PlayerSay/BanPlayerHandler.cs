@@ -40,7 +40,7 @@ namespace OpenTibia.Game.CommandHandlers
                         Context.Database.Commit();
                     }
 
-                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, dbPlayer.Name + " has been banned.") );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, dbPlayer.Name + " has been banned.") );
 
                     Player observer = Context.Server.GameObjects.GetPlayers()
                         .Where(p => p.Name == name)

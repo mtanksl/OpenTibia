@@ -1,6 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -36,10 +35,6 @@ namespace OpenTibia.Game.Commands
                     case Container container:
 
                         return Context.AddCommand(new ContainerRefreshItemCommand(container, SplashItem) );
-
-                    default:
-
-                        throw new NotImplementedException();
                 }
             }
 

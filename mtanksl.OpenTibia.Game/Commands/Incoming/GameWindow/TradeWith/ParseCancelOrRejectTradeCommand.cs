@@ -19,13 +19,13 @@ namespace OpenTibia.Game.Commands
 
             if (trading != null)
             {
-                Context.AddPacket(trading.OfferPlayer.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TradeCanceled) );
+                Context.AddPacket(trading.OfferPlayer, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TradeCanceled) );
 
-                Context.AddPacket(trading.OfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
+                Context.AddPacket(trading.OfferPlayer, new CloseTradeOutgoingPacket() );
 
-                Context.AddPacket(trading.CounterOfferPlayer.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TradeCanceled) );
+                Context.AddPacket(trading.CounterOfferPlayer, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TradeCanceled) );
 
-                Context.AddPacket(trading.CounterOfferPlayer.Client.Connection, new CloseTradeOutgoingPacket() );
+                Context.AddPacket(trading.CounterOfferPlayer, new CloseTradeOutgoingPacket() );
 
                 Context.Server.Tradings.RemoveTrading(trading);
                                   

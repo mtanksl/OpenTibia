@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
 
                     if (observer.Client.TryGetIndex(Creature, out clientIndex) )
                     {
-                        Context.AddPacket(observer.Client.Connection, new SetOutfitOutgoingPacket(Creature.Id, Creature.Outfit) );
+                        Context.AddPacket(observer, new SetOutfitOutgoingPacket(Creature.Id, Creature.Outfit) );
                     }
                 }
 

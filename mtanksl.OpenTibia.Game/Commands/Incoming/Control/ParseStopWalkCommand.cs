@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Commands
             {
                 if (Context.Server.GameObjectComponents.RemoveComponent(Player, playerWalkDelayBehaviour) )
                 {
-                    Context.AddPacket(Player.Client.Connection, new StopWalkOutgoingPacket(Player.Direction) );
+                    Context.AddPacket(Player, new StopWalkOutgoingPacket(Player.Direction) );
                 }
             }
 

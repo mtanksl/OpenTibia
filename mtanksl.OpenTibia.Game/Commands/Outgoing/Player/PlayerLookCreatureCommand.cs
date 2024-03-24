@@ -245,7 +245,7 @@ namespace OpenTibia.Game.Commands
                     break;
             }
 
-            Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, builder.ToString() ) );
+            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, builder.ToString() ) );
 
             return Promise.Completed;
         }

@@ -22,7 +22,7 @@ namespace OpenTibia.GameData.Plugins.Spells
 
         public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
         {
-            return Context.AddCommand(new PlayerCountItemCommand(player, blankRune, 1) ).Then( (count) =>
+            return Context.AddCommand(new PlayerCountItemsCommand(player, blankRune, 1) ).Then( (count) =>
             {
                 return count > 0 ? Promise.FromResultAsBooleanTrue : Promise.FromResultAsBooleanFalse;
             } );
@@ -36,11 +36,11 @@ namespace OpenTibia.GameData.Plugins.Spells
 
             return Context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
             {
-                return Context.AddCommand(new PlayerRemoveItemCommand(player, blankRune, 1, 1) );
+                return Context.AddCommand(new PlayerDestroyItemsCommand(player, blankRune, 1, 1) );
 
             } ).Then( (result) =>
             {
-                return Context.AddCommand(new PlayerAddItemCommand(player, openTibiaId, 1, count) );
+                return Context.AddCommand(new PlayerCreateItemsCommand(player, openTibiaId, 1, count) );
             } );
         }
              

@@ -14,7 +14,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (fromItem.FluidType == FluidType.Empty)
                 {
-                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ItIsEmpty) );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ItIsEmpty) );
 
                     return Promise.Break;
                 }

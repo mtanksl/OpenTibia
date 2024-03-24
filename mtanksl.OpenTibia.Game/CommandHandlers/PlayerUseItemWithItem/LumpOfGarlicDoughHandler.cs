@@ -25,7 +25,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                     {
-                        return Context.AddCommand(new TileIncrementOrCreateItemCommand( (Tile)command.ToItem.Parent, garlicBread, 1) );
+                        return Context.AddCommand(new TileCreateItemOrIncrementCommand( (Tile)command.ToItem.Parent, garlicBread, 1) );
                     } );
                 }
                 else if (bakingTrays.Contains(command.ToItem.Metadata.OpenTibiaId) )

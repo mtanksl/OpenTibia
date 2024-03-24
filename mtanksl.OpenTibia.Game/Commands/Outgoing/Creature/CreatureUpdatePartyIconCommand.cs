@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
 
                     if (observer.Client.TryGetIndex(Creature, out clientIndex) )
                     {
-                        Context.AddPacket(observer.Client.Connection, new SetPartyIconOutgoingPacket(Creature.Id, Creature.PartyIcon) );
+                        Context.AddPacket(observer, new SetPartyIconOutgoingPacket(Creature.Id, Creature.PartyIcon) );
                     }
                 }
 

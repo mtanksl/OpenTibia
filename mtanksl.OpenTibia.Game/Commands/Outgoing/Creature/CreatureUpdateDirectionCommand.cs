@@ -42,7 +42,7 @@ namespace OpenTibia.Game.Commands
                         {
                             if (Context.Server.GameObjectComponents.RemoveComponent(observer, playerWalkDelayBehaviour) )
                             {
-                                Context.AddPacket(observer.Client.Connection, new StopWalkOutgoingPacket(observer.Direction) );
+                                Context.AddPacket(observer, new StopWalkOutgoingPacket(observer.Direction) );
                             }
                         }
                     }
@@ -51,7 +51,7 @@ namespace OpenTibia.Game.Commands
 
                     if (observer.Client.TryGetIndex(Creature, out clientIndex) )
                     {
-                        Context.AddPacket(observer.Client.Connection, new ThingUpdateOutgoingPacket(Creature.Tile.Position, clientIndex, Creature.Id, Creature.Direction) );
+                        Context.AddPacket(observer, new ThingUpdateOutgoingPacket(Creature.Tile.Position, clientIndex, Creature.Id, Creature.Direction) );
                     }
                 }
 

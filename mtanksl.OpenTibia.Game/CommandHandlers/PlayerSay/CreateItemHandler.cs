@@ -23,7 +23,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                         if (toTile != null)
                         {
-                            return Context.AddCommand(new TileIncrementOrCreateItemCommand(toTile, toOpenTibiaId, 1) ).Then( () =>
+                            return Context.AddCommand(new TileCreateItemOrIncrementCommand(toTile, toOpenTibiaId, 1) ).Then( () =>
                             {
                                 return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) );
                             } );
@@ -44,7 +44,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                         if (toTile != null)
                         {
-                            return Context.AddCommand(new TileIncrementOrCreateItemCommand(toTile, toOpenTibiaId, count) ).Then( () =>
+                            return Context.AddCommand(new TileCreateItemOrIncrementCommand(toTile, toOpenTibiaId, count) ).Then( () =>
                             {
                                 return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) );
                             } );

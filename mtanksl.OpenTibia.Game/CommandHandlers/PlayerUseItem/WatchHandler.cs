@@ -14,7 +14,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (watches.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "The time is " + Context.Server.Clock.Hour.ToString("00") + ":" + Context.Server.Clock.Minute.ToString("00") + ".") );
+                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "The time is " + Context.Server.Clock.Hour.ToString("00") + ":" + Context.Server.Clock.Minute.ToString("00") + ".") );
 
                 return Promise.Completed;
             }

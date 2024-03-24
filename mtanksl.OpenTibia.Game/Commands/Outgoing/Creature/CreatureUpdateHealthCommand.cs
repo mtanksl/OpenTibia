@@ -45,14 +45,14 @@ namespace OpenTibia.Game.Commands
                 {
                     if (observer == Creature)
                     {
-                        Context.AddPacket(observer.Client.Connection, new SendStatusOutgoingPacket(observer.Health, observer.MaxHealth, observer.Capacity, observer.Experience, observer.Level, observer.LevelPercent, observer.Mana, observer.MaxMana, observer.Skills.MagicLevel, observer.Skills.MagicLevelPercent, observer.Soul, observer.Stamina) );
+                        Context.AddPacket(observer, new SendStatusOutgoingPacket(observer.Health, observer.MaxHealth, observer.Capacity, observer.Experience, observer.Level, observer.LevelPercent, observer.Mana, observer.MaxMana, observer.Skills.MagicLevel, observer.Skills.MagicLevelPercent, observer.Soul, observer.Stamina) );
                     }
 
                     byte clientIndex;
 
                     if (observer.Client.TryGetIndex(Creature, out clientIndex) )
                     {
-                        Context.AddPacket(observer.Client.Connection, new SetHealthOutgoingPacket(Creature.Id, Creature.HealthPercentage) );
+                        Context.AddPacket(observer, new SetHealthOutgoingPacket(Creature.Id, Creature.HealthPercentage) );
                     }
                 }
 
@@ -60,24 +60,7 @@ namespace OpenTibia.Game.Commands
 
                 if (Creature.Health == 0)
                 {
-                    switch (Creature) 
-                    {
-                        case Monster monster:
-
-                            return Context.AddCommand(new MonsterDestroyCommand(monster) );
-
-                        case Npc npc:
-
-                            return Context.AddCommand(new NpcDestroyCommand(npc) );
-
-                        case Player _player:
-
-                            return Context.AddCommand(new PlayerDestroyCommand(_player) );
-
-                        default:
-
-                            throw new NotImplementedException();
-                    }
+                    return Context.AddCommand(new CreatureDestroyCommand(Creature) );
                 }
             }
 

@@ -55,7 +55,7 @@ namespace OpenTibia.Game.Commands
 
             if ( !Player.Tile.Position.IsInRange(ToPlayer.Tile.Position, 2) )
             {
-                Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, ToPlayer.Name + " tells you to move closer.") );
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, ToPlayer.Name + " tells you to move closer.") );
 
                 return Promise.Break;
             }
@@ -64,11 +64,29 @@ namespace OpenTibia.Game.Commands
 
             if (trading != null)
             {
-                Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreAlreadyTrading) );
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreAlreadyTrading) );
 
                 return Promise.Break;
             }
            
+            trading = Context.Server.Tradings.GetTradingByCounterOfferPlayer(Player);
+
+            if (trading != null && trading.OfferPlayer != ToPlayer)
+            {
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreAlreadyTrading) );
+
+                return Promise.Break;
+            }
+           
+            trading = Context.Server.Tradings.GetTradingByCounterOfferPlayer(ToPlayer);
+
+            if (trading != null)
+            {
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisPlayerIsAlreadyTrading) );
+
+                return Promise.Break;
+            }
+
             trading = Context.Server.Tradings.GetTradingByOfferPlayer(ToPlayer);
 
             if (trading == null)
@@ -77,14 +95,14 @@ namespace OpenTibia.Game.Commands
 
                 if ( !CanTrade(Item, items) )
                 {
-                    Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisItemIsAlreadyBeingTraded) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisItemIsAlreadyBeingTraded) );
 
                     return Promise.Break;                    
                 }
 
                 if (items.Count > 100)
                 {
-                    Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTradeMoreThan100Items) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTradeMoreThan100Items) );
 
                     return Promise.Break;
                 }
@@ -102,9 +120,9 @@ namespace OpenTibia.Game.Commands
 
                 Context.Server.Tradings.AddTrading(trading);
 
-                Context.AddPacket(Player.Client.Connection, new InviteTradeOutgoingPacket(trading.OfferPlayer.Name, trading.OfferIncludes) );
+                Context.AddPacket(Player, new InviteTradeOutgoingPacket(trading.OfferPlayer.Name, trading.OfferIncludes) );
 
-                Context.AddPacket(ToPlayer.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " wants to trade with you.") );
+                Context.AddPacket(ToPlayer, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " wants to trade with you.") );
 
                 return Promise.Completed;
             }
@@ -112,23 +130,23 @@ namespace OpenTibia.Game.Commands
             {
                 if (trading.CounterOfferPlayer != Player)
                 {
-                    Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisPlayerIsAlreadyTrading) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisPlayerIsAlreadyTrading) );
 
                     return Promise.Break;
                 }
-                
+
                 List<Item> items = new List<Item>();
 
                 if ( !CanTrade(Item, items) )
                 {
-                    Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisItemIsAlreadyBeingTraded) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisItemIsAlreadyBeingTraded) );
 
                     return Promise.Break;                    
                 }
 
                 if (items.Count > 100)
                 {
-                    Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTradeMoreThan100Items) );
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTradeMoreThan100Items) );
 
                     return Promise.Break;
                 }
@@ -137,11 +155,11 @@ namespace OpenTibia.Game.Commands
 
                 trading.CounterOfferIncludes = items;
 
-                Context.AddPacket(ToPlayer.Client.Connection, new JoinTradeOutgoingPacket(trading.CounterOfferPlayer.Name, trading.CounterOfferIncludes) );
+                Context.AddPacket(ToPlayer, new JoinTradeOutgoingPacket(trading.CounterOfferPlayer.Name, trading.CounterOfferIncludes) );
 
-                Context.AddPacket(Player.Client.Connection, new InviteTradeOutgoingPacket(trading.CounterOfferPlayer.Name, trading.CounterOfferIncludes) );
+                Context.AddPacket(Player, new InviteTradeOutgoingPacket(trading.CounterOfferPlayer.Name, trading.CounterOfferIncludes) );
 
-                Context.AddPacket(Player.Client.Connection, new JoinTradeOutgoingPacket(trading.OfferPlayer.Name, trading.OfferIncludes) );
+                Context.AddPacket(Player, new JoinTradeOutgoingPacket(trading.OfferPlayer.Name, trading.OfferIncludes) );
                         
                 return Promise.Completed;                
             }

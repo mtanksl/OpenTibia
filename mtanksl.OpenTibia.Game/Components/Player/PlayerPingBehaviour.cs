@@ -43,7 +43,7 @@ namespace OpenTibia.Game.Components
                 {
                     lastPingRequest = DateTime.UtcNow;
 
-                    Context.AddPacket(player.Client.Connection, new PingOutgoingPacket() );
+                    Context.AddPacket(player, new PingOutgoingPacket() );
                 }
 
                 return Promise.Completed;

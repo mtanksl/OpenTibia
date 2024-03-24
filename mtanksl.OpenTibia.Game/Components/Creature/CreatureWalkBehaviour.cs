@@ -43,14 +43,14 @@ namespace OpenTibia.Game.Components
                         Context.Server.GameObjectComponents.RemoveComponent(creature, this);
                     }
                     else
-                    {                    
+                    {
                         Tile toTile;
 
                         if (walkStrategy.CanWalk(creature, target, out toTile) )
                         {
                             lastWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / creature.Speed);
 
-                            return Context.AddCommand(new CreatureWalkCommand(creature, toTile) );
+                            return Context.AddCommand(new CreatureMoveCommand(creature, toTile) );
                         }
                     }
                 }

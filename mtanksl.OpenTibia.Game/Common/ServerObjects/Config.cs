@@ -62,56 +62,83 @@
 
         public void Start()
         {
-            script = server.LuaScripts.Create(server.PathResolver.GetFullPath("data/server/config.lua") );
+            script = server.LuaScripts.Create(server.PathResolver.GetFullPath("data/lib.lua"), server.PathResolver.GetFullPath("data/server/lib.lua"), server.PathResolver.GetFullPath("data/server/config.lua") );
 
-            LoginMaxconnections = (int)(long)script["server.login.maxconnections"];
-            LoginPort = (int)(long)script["server.login.port"];
+            LoginMaxconnections = LuaScope.GetInt32(script["server.login.maxconnections"], 1000);
+            
+            LoginPort = LuaScope.GetInt32(script["server.login.port"], 7171);
+                        
+            GameMaxConnections = LuaScope.GetInt32(script["server.game.maxconnections"], 1100);
+            
+            GamePort = LuaScope.GetInt32(script["server.game.port"], 7172);
+            
+            GameMaxPlayers = LuaScope.GetInt32(script["server.game.maxplayers"], 1000);
+                        
+            GamePlayPrivateNpcSystem = LuaScope.GetBoolean(script["server.gameplay.privatenpcsystem"], true);
+            
+            GamePlayInfinitePotions = LuaScope.GetBoolean(script["server.gameplay.infinitepotions"], false);
+            
+            GamePlayInfiniteArrows = LuaScope.GetBoolean(script["server.gameplay.infinitearrows"], false);
+            
+            GamePlayInfiniteRunes = LuaScope.GetBoolean(script["server.gameplay.infiniterunes"], false);
 
-            GameMaxConnections = (int)(long)script["server.game.maxconnections"];
-            GamePort = (int)(long)script["server.game.port"];
-            GameMaxPlayers = (int)(long)script["server.game.maxplayers"];
+            SecurityMaxConnectionsWithSameIpAddress = LuaScope.GetInt32(script["server.security.maxconnectionswithsameipaddress"], 2);
+            
+            SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds = LuaScope.GetInt32(script["server.security.connectionswithsameipaddressabusebanmilliseconds"], 15 * 60 * 1000);
 
-            GamePlayPrivateNpcSystem = (bool)script["server.gameplay.privatenpcsystem"];
-            GamePlayInfinitePotions = (bool)script["server.gameplay.infinitepotions"];
-            GamePlayInfiniteArrows = (bool)script["server.gameplay.infinitearrows"];
-            GamePlayInfiniteRunes = (bool)script["server.gameplay.infiniterunes"];
+            SecurityMaxConnections = LuaScope.GetInt32(script["server.security.maxconnections"], 2);
+            
+            SecurityMaxConnectionsPerMilliseconds = LuaScope.GetInt32(script["server.security.maxconnectionspermilliseconds"], 1 * 1000);
+            
+            SecurityConnectionsAbuseBanMilliseconds = LuaScope.GetInt32(script["server.security.connectionsabusebanmilliseconds"], 15 * 60 * 1000);
 
-            SecurityMaxConnectionsWithSameIpAddress = (int)(long)script["server.security.maxconnectionswithsameipaddress"];
-            SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds = (int)(long)script["server.security.connectionswithsameipaddressabusebanmilliseconds"];
+            SecurityMaxPackets = LuaScope.GetInt32(script["server.security.maxpackets"], 60);
+            
+            SecurityMaxPacketsPerMilliseconds = LuaScope.GetInt32(script["server.security.maxpacketspermilliseconds"], 1 * 1000);
+            
+            SecurityPacketsAbuseBanMilliseconds = LuaScope.GetInt32(script["server.security.packetsabusebanmilliseconds"], 15 * 60 * 1000);
 
-            SecurityMaxConnections = (int)(long)script["server.security.maxconnections"];
-            SecurityMaxConnectionsPerMilliseconds = (int)(long)script["server.security.maxconnectionspermilliseconds"];
-            SecurityConnectionsAbuseBanMilliseconds = (int)(long)script["server.security.connectionsabusebanmilliseconds"];
+            SecurityMaxLoginAttempts = LuaScope.GetInt32(script["server.security.maxloginattempts"], 12);            
+            
+            SecurityMaxLoginAttemptsPerMilliseconds = LuaScope.GetInt32(script["server.security.maxloginattemptspermilliseconds"], 60 * 1000);
+            
+            SecurityLoginAttemptsAbuseBanMilliseconds = LuaScope.GetInt32(script["server.security.loginattemptsabusebanmilliseconds"], 15 * 60 * 1000);
 
-            SecurityMaxPackets = (int)(long)script["server.security.maxpackets"];
-            SecurityMaxPacketsPerMilliseconds = (int)(long)script["server.security.maxpacketspermilliseconds"];                     
-            SecurityPacketsAbuseBanMilliseconds = (int)(long)script["server.security.packetsabusebanmilliseconds"];
+            SocketReceiveTimeoutMilliseconds = LuaScope.GetInt32(script["server.security.socketreceivetimeoutmilliseconds"], 500);
+            
+            SocketSendTimeoutMilliseconds = LuaScope.GetInt32(script["server.security.socketsendtimeoutmilliseconds"], 500);
+            
+            SecurityMaxSlowSockets = LuaScope.GetInt32(script["server.security.maxslowsockets"], 2);
+            
+            SecurityMaxSlowSocketsPerMilliseconds = LuaScope.GetInt32(script["server.security.maxslowsocketspermilliseconds"], 60 * 1000);
+            
+            SecuritySlowSocketsAbuseBanMilliseconds = LuaScope.GetInt32(script["server.security.slowsocketsabusbanmilliseconds"], 15 * 60 * 1000);
+                        
+            SecurityMaxInvalidMessages = LuaScope.GetInt32(script["server.security.maxinvalidmessages"], 2);
+            
+            SecurityMaxInvalidMessagesPerMilliseconds = LuaScope.GetInt32(script["server.security.maxinvalidmessagespermilliseconds"], 60 * 1000);
+            
+            SecurityInvalidMessagesAbuseBanMilliseconds = LuaScope.GetInt32(script["server.security.invalidmessagesabusebanmilliseconds"], 15 * 60 * 1000);
 
-            SecurityMaxLoginAttempts = (int)(long)script["server.security.maxloginattempts"];
-            SecurityMaxLoginAttemptsPerMilliseconds = (int)(long)script["server.security.maxloginattemptspermilliseconds"];
-            SecurityLoginAttemptsAbuseBanMilliseconds = (int)(long)script["server.security.loginattemptsabusebanmilliseconds"];
+            SecurityMaxUnknownPackets = LuaScope.GetInt32(script["server.security.maxunknownpackets"], 2);
+            
+            SecurityMaxUnknownPacketsPerMilliseconds = LuaScope.GetInt32(script["server.security.maxunknownpacketspermilliseconds"], 60 * 1000);
+            
+            SecurityUnknownPacketsAbuseBanMilliseconds = LuaScope.GetInt32(script["server.security.unknownpacketsabusebanmilliseconds"], 15 * 60 * 1000);
 
-            SocketReceiveTimeoutMilliseconds = (int)(long)script["server.security.socketreceivetimeoutmilliseconds"];           
-            SocketSendTimeoutMilliseconds = (int)(long)script["server.security.socketsendtimeoutmilliseconds"];
-            SecurityMaxSlowSockets = (int)(long)script["server.security.maxslowsockets"];
-            SecurityMaxSlowSocketsPerMilliseconds = (int)(long)script["server.security.maxslowsocketspermilliseconds"];
-            SecuritySlowSocketsAbuseBanMilliseconds = (int)(long)script["server.security.slowsocketsabusbanmilliseconds"];
+            DatabaseType = LuaScope.GetString(script["server.database.type"], "sqlite");
 
-            SecurityMaxInvalidMessages = (int)(long)script["server.security.maxinvalidmessages"];
-            SecurityMaxInvalidMessagesPerMilliseconds = (int)(long)script["server.security.maxinvalidmessagespermilliseconds"];
-            SecurityInvalidMessagesAbuseBanMilliseconds = (int)(long)script["server.security.invalidmessagesabusebanmilliseconds"];
+            DatabaseSource = LuaScope.GetString(script["server.database.source"], "data/database.db");
 
-            SecurityMaxUnknownPackets = (int)(long)script["server.security.maxunknownpackets"];
-            SecurityMaxUnknownPacketsPerMilliseconds = (int)(long)script["server.security.maxunknownpacketspermilliseconds"];
-            SecurityUnknownPacketsAbuseBanMilliseconds = (int)(long)script["server.security.unknownpacketsabusebanmilliseconds"];
+            DatabaseHost = LuaScope.GetString(script["server.database.host"], "localhost");
 
-            DatabaseType = (string)script["server.database.type"];
-            DatabaseSource = (string)script["server.database.source"];
-            DatabaseHost = (string)script["server.database.host"];
-            DatabasePort = (int)(long)script["server.database.port"];
-            DatabaseUser = (string)script["server.database.user"];
-            DatabasePassword = (string)script["server.database.password"];
-            DatabaseName = (string)script["server.database.name"];
+            DatabasePort = LuaScope.GetInt32(script["server.database.port"], 3306);
+
+            DatabaseUser = LuaScope.GetString(script["server.database.user"], "root");
+
+            DatabasePassword = LuaScope.GetString(script["server.database.password"], "");
+
+            DatabaseName = LuaScope.GetString(script["server.database.name"], "mtots");
         }
 
         public object GetValue(string key)

@@ -55,7 +55,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            Context.AddPacket(Player.Client.Connection, new OpenChannelDialogOutgoingPacket(channels) );
+            Context.AddPacket(Player, new OpenChannelDialogOutgoingPacket(channels) );
 
             return Promise.Completed;
         }

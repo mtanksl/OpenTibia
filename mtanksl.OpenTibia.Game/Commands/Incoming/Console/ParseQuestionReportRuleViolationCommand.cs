@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
 
             if (ruleViolation != null && ruleViolation.Assignee != null)
             {
-                Context.AddPacket(ruleViolation.Assignee.Client.Connection, new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationQuestion, Message) );
+                Context.AddPacket(ruleViolation.Assignee, new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), ruleViolation.Reporter.Name, ruleViolation.Reporter.Level, TalkType.ReportRuleViolationQuestion, Message) );
 
                 return Promise.Completed;
             }

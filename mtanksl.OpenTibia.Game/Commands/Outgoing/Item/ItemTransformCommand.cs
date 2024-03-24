@@ -36,12 +36,24 @@ namespace OpenTibia.Game.Commands
                 {
                     while (fromContainer.Count > 0)
                     {
-                        IContent content = fromContainer.GetContent( (byte)(fromContainer.Count - 1) );
+                        IContent content = fromContainer.GetContent(fromContainer.Count - 1);
 
-                        fromContainer.RemoveContent( (byte)(fromContainer.Count - 1) );
+                        fromContainer.RemoveContent(fromContainer.Count - 1);
 
                         toContainer.AddContent(content);
                     }
+                }
+                else if (FromItem is ReadableItem fromReadableItem && FromItem is ReadableItem toReadableItem)
+                {
+                    toReadableItem.Text = fromReadableItem.Text;
+
+                    toReadableItem.Author = fromReadableItem.Author;
+
+                    toReadableItem.Date = fromReadableItem.Date;
+                }
+                else if (FromItem is SignItem fromSignItem && FromItem is SignItem toSignItem)
+                {
+                    toSignItem.Text = fromSignItem.Text;
                 }
 
                 switch (FromItem.Parent)
@@ -85,7 +97,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            return Promise.FromResult(toItem);           
+            return Promise.FromResult(toItem);
         }
     }
 }

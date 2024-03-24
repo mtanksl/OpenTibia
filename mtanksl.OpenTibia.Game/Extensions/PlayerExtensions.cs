@@ -8,7 +8,7 @@ namespace OpenTibia.Game.Extensions
     {
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise AddMoney(this Player player, int price)
+        public static Promise CreateMoney(this Player player, int price)
         {
             Context context = Context.Current;
 
@@ -17,12 +17,12 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new PlayerAddMoneyCommand(player, price) );
+            return context.AddCommand(new PlayerCreateMoneyCommand(player, price) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
     
-        public static PromiseResult<bool> RemoveMoney(this Player player, int price)
+        public static PromiseResult<bool> DestroyMoney(this Player player, int price)
         {
             Context context = Context.Current;
 
@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new PlayerRemoveMoneyCommand(player, price) );
+            return context.AddCommand(new PlayerDestroyMoneyCommand(player, price) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
@@ -50,7 +50,7 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise AddItem(this Player player, ushort openTibiaId, byte type, int count)
+        public static Promise CreateItems(this Player player, ushort openTibiaId, byte type, int count)
         {
             Context context = Context.Current;
 
@@ -59,12 +59,12 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new PlayerAddItemCommand(player, openTibiaId, type, count) );
+            return context.AddCommand(new PlayerCreateItemsCommand(player, openTibiaId, type, count) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
         
-        public static PromiseResult<bool> RemoveItem(this Player player, ushort openTibiaId, byte type, int count)
+        public static PromiseResult<bool> DestroyItems(this Player player, ushort openTibiaId, byte type, int count)
         {
             Context context = Context.Current;
 
@@ -73,12 +73,12 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new PlayerRemoveItemCommand(player, openTibiaId, type, count) );
+            return context.AddCommand(new PlayerDestroyItemsCommand(player, openTibiaId, type, count) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
        
-        public static PromiseResult<int> CountItem(this Player player, ushort openTibiaId, byte type)
+        public static PromiseResult<int> CountItems(this Player player, ushort openTibiaId, byte type)
         {
             Context context = Context.Current;
 
@@ -87,7 +87,7 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new PlayerCountItemCommand(player, openTibiaId, type) );
+            return context.AddCommand(new PlayerCountItemsCommand(player, openTibiaId, type) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
@@ -204,20 +204,6 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise Destroy(this Player player)
-        {
-            Context context = Context.Current;
-
-            if (context == null)
-            {
-                throw new InvalidOperationException("Context not found.");
-            }
-
-            return context.AddCommand(new PlayerDestroyCommand(player) );
-        }
-
-        /// <exception cref="InvalidOperationException"></exception>
-
         public static Promise Say(this Player player, string message)
         {
             Context context = Context.Current;
@@ -246,7 +232,7 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdateExperiente(this Player player, uint experience, ushort level, byte levelPercent)
+        public static Promise UpdateExperience(this Player player, uint experience, ushort level, byte levelPercent)
         {
             Context context = Context.Current;
 

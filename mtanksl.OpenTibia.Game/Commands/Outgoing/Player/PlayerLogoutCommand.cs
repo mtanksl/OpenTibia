@@ -26,13 +26,13 @@ namespace OpenTibia.Game.Commands
 
                 Player.Spawn = Player.Town;
 
-                Context.AddPacket(Player.Client.Connection, new OpenYouAreDeathDialogOutgoingPacket() );
+                Context.AddPacket(Player, new OpenYouAreDeathDialogOutgoingPacket() );
             }
             else
             {
                 Player.Spawn = Player.Tile;
 
-                Context.Disconnect(Player.Client.Connection);
+                Context.Disconnect(Player);
             }
 
             Context.AddEvent(new PlayerLogoutEventArgs(Player) );

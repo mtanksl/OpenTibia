@@ -29,7 +29,7 @@ namespace OpenTibia.Game.Commands
             {
                 if (observer.Tile.Position.CanHearSay(Creature.Tile.Position) )
                 {
-                    Context.AddPacket(observer.Client.Connection, showTextOutgoingPacket);
+                    Context.AddPacket(observer, showTextOutgoingPacket);
                 }
             }
 

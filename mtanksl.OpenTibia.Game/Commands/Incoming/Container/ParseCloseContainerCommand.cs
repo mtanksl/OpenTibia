@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
             {
                 Player.Client.Containers.CloseContainer(ContainerId);
 
-                Context.AddPacket(Player.Client.Connection, new CloseContainerOutgoingPacket(ContainerId) );
+                Context.AddPacket(Player, new CloseContainerOutgoingPacket(ContainerId) );
 
                 return Promise.Completed;
             }

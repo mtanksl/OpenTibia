@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -35,10 +34,6 @@ namespace OpenTibia.Game.Commands
                     case Container container:
 
                         return Context.AddCommand(new ContainerRefreshItemCommand(container, StackableItem) );
-
-                    default:
-
-                        throw new NotImplementedException();
                 }
             }
 

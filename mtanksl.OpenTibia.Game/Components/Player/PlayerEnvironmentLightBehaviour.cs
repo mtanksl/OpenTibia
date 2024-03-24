@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Components
 
             globalTibiaClockTick = Context.Server.EventHandlers.Subscribe<GlobalTibiaClockTickEventArgs>( (context, e) =>
             {
-                Context.AddPacket(player.Client.Connection, new SetEnvironmentLightOutgoingPacket(Context.Server.Clock.Light) );
+                Context.AddPacket(player, new SetEnvironmentLightOutgoingPacket(Context.Server.Clock.Light) );
 
                 return Promise.Completed;
             } );

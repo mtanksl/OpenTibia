@@ -57,7 +57,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 break;
 
-                            case Safe fromSafe:
+                            case null:
 
                                 isNextFrom.Add(command.Player);
 
@@ -117,7 +117,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                                     break;
 
-                                case Safe toSafe:
+                                case null:
 
                                     isNextTo.Add(command.Player);
 
@@ -139,7 +139,7 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 observer.Client.Containers.CloseContainer(pair.Key);
 
-                                Context.AddPacket(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                                Context.AddPacket(observer, new CloseContainerOutgoingPacket(pair.Key) );
                             }
                         }
                     }
@@ -157,7 +157,7 @@ namespace OpenTibia.Game.CommandHandlers
                                     items.Add(item);
                                 }
 
-                                Context.AddPacket(observer.Client.Connection, new OpenContainerOutgoingPacket(pair.Key, container.Metadata.TibiaId, container.Metadata.Name, container.Metadata.Capacity.Value, container.Parent is Container, items) );
+                                Context.AddPacket(observer, new OpenContainerOutgoingPacket(pair.Key, container.Metadata.TibiaId, container.Metadata.Name, container.Metadata.Capacity.Value, container.Parent is Container, items) );
                             }                           
                         }
                     }

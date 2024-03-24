@@ -8,7 +8,7 @@ namespace OpenTibia.Game.Extensions
     {
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise Destroy(this Monster monster)
+        public static Promise Say(this Monster monster, string message)
         {
             Context context = Context.Current;
 
@@ -17,21 +17,7 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new MonsterDestroyCommand(monster) );
-        }
-
-        /// <exception cref="InvalidOperationException"></exception>
-
-        public static Promise Say(this Monster player, string message)
-        {
-            Context context = Context.Current;
-
-            if (context == null)
-            {
-                throw new InvalidOperationException("Context not found.");
-            }
-
-            return context.AddCommand(new MonsterSayCommand(player, message) );
+            return context.AddCommand(new MonsterSayCommand(monster, message) );
         }
     }
 }

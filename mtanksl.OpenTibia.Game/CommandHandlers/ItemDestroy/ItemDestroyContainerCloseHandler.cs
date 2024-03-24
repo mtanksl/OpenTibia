@@ -29,7 +29,7 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             observer.Client.Containers.CloseContainer(pair.Key);
 
-                            Context.AddPacket(observer.Client.Connection, new CloseContainerOutgoingPacket(pair.Key) );
+                            Context.AddPacket(observer, new CloseContainerOutgoingPacket(pair.Key) );
                         }
                     }
                 }

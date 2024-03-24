@@ -27,11 +27,9 @@ namespace OpenTibia.Game.Commands
                 {
                     if (pair.Value == Container)
                     {
-                        Context.AddPacket(observer.Client.Connection, new ContainerUpdateOutgoingPacket(pair.Key, index, Item) );
+                        Context.AddPacket(observer, new ContainerUpdateOutgoingPacket(pair.Key, index, Item) );
                     }
                 }
-
-                Context.AddEvent(observer, new ContainerRefreshItemEventArgs(Container, Item, index) );
             }
 
             Context.AddEvent(new ContainerRefreshItemEventArgs(Container, Item, index) );

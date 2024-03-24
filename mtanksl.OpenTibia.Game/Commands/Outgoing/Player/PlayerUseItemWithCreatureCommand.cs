@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
 
             return Promise.Break;
         }

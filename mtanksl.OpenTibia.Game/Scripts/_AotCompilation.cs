@@ -5,11 +5,10 @@ namespace OpenTibia.Game.Scripts
     {
         public static readonly Script[] Scripts = new Script[]
         {
-            new CreatureWalkScripts(),
+            new CreatureDestroyScript(),
+            new CreatureMoveScripts(),
             new GlobalScripts(),
             new ItemDestroyScript(),
-            new NpcDestroyScript(),
-            new PlayerDestroyScripts(),
             new PlayerLoginScripts(),
             new PlayerLogoutScripts(),
             new PlayerMoveCreatureScripts(),

@@ -18,17 +18,11 @@ namespace OpenTibia.Game.CommandHandlers
                     switch (toTile.TopCreature)
                     {
                         case Monster monster:
-
-                            return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.RedShimmer) ).Then( () =>
-                            {
-                                return Context.AddCommand(new MonsterDestroyCommand(monster) );
-                            } );
-
                         case Npc npc:
 
                             return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.RedShimmer) ).Then( () =>
                             {
-                                return Context.AddCommand(new NpcDestroyCommand(npc) );
+                                return Context.AddCommand(new CreatureDestroyCommand(toTile.TopCreature) );
                             } );
 
                         default:

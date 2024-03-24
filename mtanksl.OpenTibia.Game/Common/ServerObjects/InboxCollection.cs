@@ -6,21 +6,6 @@ namespace OpenTibia.Common.Objects
     {
         private class Inbox
         {
-            public Inbox(int databasePlayerId)
-            {
-                this.databasePlayerId = databasePlayerId;   
-            }
-
-            private int databasePlayerId;
-
-            public int DatabasePlayerId
-            {
-                get
-                {
-                    return databasePlayerId;
-                }
-            }
-
             private Dictionary<ushort, Queue<Item> > queues = new Dictionary<ushort, Queue<Item> >();
 
             public void AddItem(ushort townId, Item item)
@@ -55,7 +40,7 @@ namespace OpenTibia.Common.Objects
 
             if ( !inboxes.TryGetValue(databasePlayerId, out inbox) )
             {
-                inbox = new Inbox(databasePlayerId);
+                inbox = new Inbox();
 
                 inboxes.Add(databasePlayerId, inbox);
             }

@@ -21,9 +21,7 @@ namespace OpenTibia.Game.Commands
         {
             byte slot = (byte)Inventory.GetIndex(Item);
 
-            Context.AddPacket(Inventory.Player.Client.Connection, new SlotAddOutgoingPacket(slot, Item) );
-
-            Context.AddEvent(Inventory.Player, new InventoryRefreshItemEventArgs(Inventory, Item, slot) );
+            Context.AddPacket(Inventory.Player, new SlotAddOutgoingPacket(slot, Item) );
 
             Context.AddEvent(new InventoryRefreshItemEventArgs(Inventory, Item, slot) );
 

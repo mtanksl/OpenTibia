@@ -156,7 +156,17 @@ namespace OpenTibia.Game
         private Dictionary<IConnection, Message> messages;
 
         /// <exception cref="ObjectDisposedException"></exception>
-        
+
+        public void AddPacket(Player player, IOutgoingPacket packet)
+        {
+            if (player.Client != null && player.Client.Connection != null)
+            {
+                AddPacket(player.Client.Connection, packet);
+            }
+        }
+
+        /// <exception cref="ObjectDisposedException"></exception>
+
         public void AddPacket(IConnection connection, IOutgoingPacket packet)
         {
             if (disposed)
@@ -181,33 +191,17 @@ namespace OpenTibia.Game
             message.Add(packet);
         }
 
+        private HashSet<IConnection> connections;
+
         /// <exception cref="ObjectDisposedException"></exception>
 
-        public void AddPacket(IConnection connection, params IOutgoingPacket[] packets)
+        public void Disconnect(Player player)
         {
-            if (disposed)
+            if (player.Client != null && player.Client.Connection != null)
             {
-                throw new ObjectDisposedException(nameof(Context) );
+                Disconnect(player.Client.Connection);
             }
-
-            if (messages == null)
-            {
-                messages = new Dictionary<IConnection, Message>();
-            }
-
-            Message message;
-
-            if ( !messages.TryGetValue(connection, out message) )
-            {
-                message = new Message();
-
-                messages.Add(connection, message);
-            }
-
-            message.Add(packets);
         }
-
-        private HashSet<IConnection> connections;
 
         /// <exception cref="ObjectDisposedException"></exception>
 

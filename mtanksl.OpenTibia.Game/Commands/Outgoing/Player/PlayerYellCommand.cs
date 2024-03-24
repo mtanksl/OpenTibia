@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if (observer is Player player)
                     {
-                        Context.AddPacket(player.Client.Connection, showTextOutgoingPacket);
+                        Context.AddPacket(player, showTextOutgoingPacket);
                     }
                                      
                     Context.AddEvent(observer, new PlayerYellEventArgs(Player, Message) );

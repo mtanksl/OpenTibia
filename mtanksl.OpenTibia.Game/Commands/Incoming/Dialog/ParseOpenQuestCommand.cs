@@ -39,7 +39,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                Context.AddPacket(Player.Client.Connection, new OpenQuestLineDialogOutgoingPacket(QuestId, missions) );
+                Context.AddPacket(Player, new OpenQuestLineDialogOutgoingPacket(QuestId, missions) );
 
                 return Promise.Completed;
             }

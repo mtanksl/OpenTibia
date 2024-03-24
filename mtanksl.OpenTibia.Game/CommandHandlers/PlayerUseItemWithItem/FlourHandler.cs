@@ -38,7 +38,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                         } ).Then( () =>
                         {
-                            return Context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(command.Player, lumpOfDough, 1) );
+                            return Context.AddCommand(new PlayerCreateItemCommand(command.Player, lumpOfDough, 1) );
                         } );
                     }
                     else if (toFluidItem.FluidType == FluidType.Milk)
@@ -49,7 +49,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                         } ).Then( () =>
                         {
-                            return Context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(command.Player, lumpOfCakeDough, 1) );
+                            return Context.AddCommand(new PlayerCreateItemCommand(command.Player, lumpOfCakeDough, 1) );
                         } );
                     }
                 }
@@ -61,7 +61,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     } ).Then( (item) =>
                     {
-                        return Context.AddCommand(new PlayerInventoryContainerTileCreateItemCommand(command.Player, lumpOfHolyWaterDough, 1) );
+                        return Context.AddCommand(new PlayerCreateItemCommand(command.Player, lumpOfHolyWaterDough, 1) );
                     } );
                 }
             }

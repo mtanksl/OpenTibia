@@ -41,7 +41,7 @@ namespace OpenTibia.Game.Commands
             {
                 IContainer root = Item.Root();
 
-                if ( (root is Tile tile && Player.Tile.Position.IsInRange(tile.Position, 1) ) || root is Inventory || root is Safe)
+                if ( (root is Tile tile && Player.Tile.Position.IsInRange(tile.Position, 1) ) || root is Inventory || root == null)
                 {
                     descriptions.Add("It weights " + (weight / 100.0).ToString("0.00", CultureInfo.InvariantCulture) + " oz.");
                 }
@@ -348,7 +348,7 @@ namespace OpenTibia.Game.Commands
                 builder.Append(" " + string.Join(" ", descriptions) );
             }
 
-            Context.AddPacket(Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, builder.ToString() ) );
+            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, builder.ToString() ) );
 
             return Promise.Completed;
         }

@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Commands
                 playerThinkBehaviour.StopAttackAndFollow();
             }
 
-            Context.AddPacket(Player.Client.Connection, new StopAttackAndFollowOutgoingPacket(0) );
+            Context.AddPacket(Player, new StopAttackAndFollowOutgoingPacket(0) );
 
             return Promise.Completed;
         }

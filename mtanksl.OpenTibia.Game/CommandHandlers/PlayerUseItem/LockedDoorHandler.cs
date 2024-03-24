@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (lockedDoors.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "It is locked.") );
+                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "It is locked.") );
 
                 return Promise.Completed;
             }

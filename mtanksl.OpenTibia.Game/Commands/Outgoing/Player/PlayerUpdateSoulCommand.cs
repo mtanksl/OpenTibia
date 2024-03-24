@@ -21,20 +21,16 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            if (Player.Rank == Rank.Gamemaster)
+            if (Player.Rank != Rank.Gamemaster)
             {
-                return Promise.Completed;
-            }
+                if (Player.Soul != Soul)
+                {
+                    Player.Soul = Soul;
 
-            if (Player.Soul != Soul)
-            {
-                Player.Soul = Soul;
-
-                Context.AddPacket(Player.Client.Connection, new SendStatusOutgoingPacket(Player.Health, Player.MaxHealth, Player.Capacity, Player.Experience, Player.Level, Player.LevelPercent, Player.Mana, Player.MaxMana, Player.Skills.MagicLevel, Player.Skills.MagicLevelPercent, Player.Soul, Player.Stamina) );
+                    Context.AddPacket(Player, new SendStatusOutgoingPacket(Player.Health, Player.MaxHealth, Player.Capacity, Player.Experience, Player.Level, Player.LevelPercent, Player.Mana, Player.MaxMana, Player.Skills.MagicLevel, Player.Skills.MagicLevelPercent, Player.Soul, Player.Stamina) );
               
-                Context.AddEvent(Player, new PlayerUpdateSoulEventArgs(Player, Soul) );
-
-                Context.AddEvent(new PlayerUpdateSoulEventArgs(Player, Soul) );
+                    Context.AddEvent(new PlayerUpdateSoulEventArgs(Player, Soul) );
+                }
             }
 
             return Promise.Completed;

@@ -29,7 +29,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                     {
-                        return Context.AddCommand(new TileIncrementOrCreateItemCommand( (Tile)command.ToItem.Parent, cake, 1) );
+                        return Context.AddCommand(new TileCreateItemOrIncrementCommand( (Tile)command.ToItem.Parent, cake, 1) );
                     } );                
                 }
                 else if (barOfChocolate.Contains(command.ToItem.Metadata.OpenTibiaId) )

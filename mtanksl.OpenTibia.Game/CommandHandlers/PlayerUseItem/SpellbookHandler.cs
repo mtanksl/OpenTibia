@@ -41,7 +41,7 @@ namespace OpenTibia.Game.CommandHandlers
                     builder.Remove(builder.Length - 2, 2);
                 }
 
-                Context.AddPacket(command.Player.Client.Connection, new OpenShowOrEditTextDialogOutgoingPacket(windowId, command.Item.Metadata.TibiaId, (ushort)builder.Length, builder.ToString(), null, null) );
+                Context.AddPacket(command.Player, new OpenShowOrEditTextDialogOutgoingPacket(windowId, command.Item.Metadata.TibiaId, (ushort)builder.Length, builder.ToString(), null, null) );
 
                 return Promise.Completed;
             }

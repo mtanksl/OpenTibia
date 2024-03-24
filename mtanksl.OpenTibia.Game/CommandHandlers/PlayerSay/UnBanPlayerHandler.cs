@@ -27,7 +27,7 @@ namespace OpenTibia.Game.CommandHandlers
                         Context.Database.Commit();
                     }
 
-                    Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, dbPlayer.Name + " has been unbanned.") );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, dbPlayer.Name + " has been unbanned.") );
 
                     return Promise.Completed;
                 }

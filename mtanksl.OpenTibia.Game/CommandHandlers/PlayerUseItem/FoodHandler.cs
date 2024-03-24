@@ -258,7 +258,7 @@ namespace OpenTibia.Game.CommandHandlers
                     } );
                 }
 
-                Context.AddPacket(command.Player.Client.Connection, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreFull) );
+                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreFull) );
 
                 return Promise.Break;
             }

@@ -19,7 +19,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         player.AddSpecialCondition(SpecialCondition.ProtectionZone);
 
-                        Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(player.SpecialConditions) );
+                        Context.AddPacket(player, new SetSpecialConditionOutgoingPacket(player.SpecialConditions) );
                     }
                 }
                 else
@@ -28,7 +28,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         player.RemoveSpecialCondition(SpecialCondition.ProtectionZone);
 
-                        Context.AddPacket(player.Client.Connection, new SetSpecialConditionOutgoingPacket(player.SpecialConditions) );
+                        Context.AddPacket(player, new SetSpecialConditionOutgoingPacket(player.SpecialConditions) );
                     }
                 }
             }

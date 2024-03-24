@@ -45,11 +45,11 @@ namespace OpenTibia.Game.Commands
             {
                 if (Tile.Count >= Constants.ObjectsPerPoint)
                 {
-                    Context.AddPacket(pair.Key.Client.Connection, new SendTileOutgoingPacket(Context.Server.Map, pair.Key.Client, Tile.Position) );
+                    Context.AddPacket(pair.Key, new SendTileOutgoingPacket(Context.Server.Map, pair.Key.Client, Tile.Position) );
                 }
                 else
                 {
-                    Context.AddPacket(pair.Key.Client.Connection, new ThingRemoveOutgoingPacket(Tile.Position, pair.Value) );
+                    Context.AddPacket(pair.Key, new ThingRemoveOutgoingPacket(Tile.Position, pair.Value) );
                 }
             }
 

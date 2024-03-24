@@ -64,6 +64,34 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
+        public static Promise Move(this Item item, IContainer toContainer, byte toIndex)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new ItemMoveCommand(item, toContainer, toIndex) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public static Promise Swap(this Item fromItem, Item toItem)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new ItemSwapCommand(fromItem, toItem) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
         public static PromiseResult<Item> Transform(this Item item, ushort openTibiaId, byte count)
         {
             Context context = Context.Current;

@@ -33,11 +33,11 @@ namespace OpenTibia.Game.Commands
                             {
                                 if (Creature.Tile.Count - 1 >= Constants.ObjectsPerPoint)
                                 {
-                                    Context.AddPacket(observer.Client.Connection, new SendTileOutgoingPacket(Context.Server.Map, observer.Client, Creature.Tile.Position) );
+                                    Context.AddPacket(observer, new SendTileOutgoingPacket(Context.Server.Map, observer.Client, Creature.Tile.Position) );
                                 }
                                 else
                                 {
-                                    Context.AddPacket(observer.Client.Connection, new ThingRemoveOutgoingPacket(Creature.Tile.Position, clientIndex) );
+                                    Context.AddPacket(observer, new ThingRemoveOutgoingPacket(Creature.Tile.Position, clientIndex) );
                                 }
                             }
                         }
@@ -61,11 +61,11 @@ namespace OpenTibia.Game.Commands
 
                                 if (observer.Client.Battles.IsKnownCreature(Creature.Id, out removeId) )
                                 {
-                                    Context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Creature.Tile.Position, clientIndex, Creature) );
+                                    Context.AddPacket(observer, new ThingAddOutgoingPacket(Creature.Tile.Position, clientIndex, Creature) );
                                 }
                                 else
                                 {
-                                    Context.AddPacket(observer.Client.Connection, new ThingAddOutgoingPacket(Creature.Tile.Position, clientIndex, removeId, Creature) );
+                                    Context.AddPacket(observer, new ThingAddOutgoingPacket(Creature.Tile.Position, clientIndex, removeId, Creature) );
                                 }
                             }
                         }
