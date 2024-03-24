@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
-            if (command.Message.StartsWith("/w ") && command.Player.Rank == Rank.Gamemaster)
+            if (command.Message.StartsWith("/w ") )
             {
                 string name = command.Message.Substring(3);
 

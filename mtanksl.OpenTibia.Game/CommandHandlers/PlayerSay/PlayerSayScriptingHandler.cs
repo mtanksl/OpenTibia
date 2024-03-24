@@ -8,19 +8,35 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
-            PlayerSayPlugin plugin = Context.Server.Plugins.GetPlayerSayPlugin(command.Message);
-
-            if (plugin != null)
+            if (command.Message.StartsWith("/") )
             {
-                return plugin.OnSay(command.Player, command.Message).Then( (result) =>
-                {
-                    if (result)
-                    {
-                        return Promise.Completed;
-                    }
+                int index = command.Message.IndexOf(" ");
 
-                    return next();
-                } );
+                string message;
+
+                if (index == -1)
+                {
+                    message = command.Message;
+                }
+                else
+                {
+                    message = command.Message.Substring(0, index);
+                }
+
+                PlayerSayPlugin plugin = Context.Server.Plugins.GetPlayerSayPlugin(message);
+
+                if (plugin != null)
+                {
+                    return plugin.OnSay(command.Player, command.Message).Then( (result) =>
+                    {
+                        if (result)
+                        {
+                            return Promise.Completed;
+                        }
+
+                        return next();
+                    } );
+                }
             }
 
             return next();

@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
-            if (command.Message.StartsWith("/down") && command.Player.Rank == Rank.Gamemaster)
+            if (command.Message.StartsWith("/down") )
             {
                 Tile toTile = Context.Server.Map.GetTile(command.Player.Tile.Position.Offset(0, 0, 1) );
 

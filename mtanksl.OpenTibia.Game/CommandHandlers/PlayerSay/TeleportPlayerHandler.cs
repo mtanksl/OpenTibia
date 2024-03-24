@@ -10,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
-            if (command.Message.StartsWith("/c ") && command.Player.Rank == Rank.Gamemaster)
+            if (command.Message.StartsWith("/c ") )
             {
                 string name = command.Message.Substring(3);
 
