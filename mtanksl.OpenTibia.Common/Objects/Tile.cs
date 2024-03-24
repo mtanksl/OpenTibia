@@ -24,11 +24,13 @@ namespace OpenTibia.Common.Objects
 
         public bool ProtectionZone { get; set; }
 
+        public bool NoLogoutZone { get; set; }
+
         public Item Ground
         {
             get
             {
-                return GetItems().Where(i => i.TopOrder == TopOrder.Ground).FirstOrDefault();
+                return GetItems().Where(i => i.TopOrder == TopOrder.Ground).LastOrDefault();
             }
         }
 

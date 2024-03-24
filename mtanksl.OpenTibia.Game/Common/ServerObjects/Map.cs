@@ -146,6 +146,8 @@ namespace OpenTibia.Common.Objects
 
                     tile.ProtectionZone = (otbmTile.Flags & TileFlags.ProtectionZone) == TileFlags.ProtectionZone;
 
+                    tile.NoLogoutZone = (otbmTile.Flags & TileFlags.NoLogoutZone) == TileFlags.NoLogoutZone;
+
                     tiles.Add(tile.Position, tile);
 
                     if (otbmTile.OpenTibiaItemId > 0)

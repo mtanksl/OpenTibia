@@ -21,11 +21,9 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     if ( !player.HasSpecialCondition(SpecialCondition.Drowning) )
                     {
-                        Item item = player.Inventory.GetContent( (int)Slot.Head) as Item;
-
-                        if (item == null || !helmetOfTheDeeps.Contains(item.Metadata.OpenTibiaId) )
+                        if ( !(player.Inventory.GetContent( (int)Slot.Head) is Item item) || !helmetOfTheDeeps.Contains(item.Metadata.OpenTibiaId) )
                         {
-                            return Context.AddCommand(new CreatureAttackCreatureCommand(null, e.Creature, 
+                            return Context.AddCommand(new CreatureAttackCreatureCommand(null, e.Creature,
 
                                 new SimpleAttack(null, MagicEffectType.BlueRings, AnimatedTextColor.Crystal, 20, 20),
 
