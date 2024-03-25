@@ -226,10 +226,19 @@ namespace mtanksl.OpenTibia.Host.GUI
             richTextBox1.Clear();
         }
 
+        private bool ignoreCloseEvent = false;
+
         private async void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (ignoreCloseEvent)
+            {
+                return;
+            }
+
             if (server != null)
             {
+                e.Cancel = true;
+
                 if (MessageBox.Show("Server is running, do you really want to shutdown?", "Warning", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     try
@@ -248,6 +257,10 @@ namespace mtanksl.OpenTibia.Host.GUI
 
                             server = null;
                         } );
+
+                        ignoreCloseEvent = true;
+
+                        Close();
                     }
                     finally
                     {
@@ -267,10 +280,6 @@ namespace mtanksl.OpenTibia.Host.GUI
 
                         maintenanceToolStripMenuItem.Checked = false;
                     }
-                }
-                else
-                {
-                    e.Cancel = true;
                 }
             }
         }
