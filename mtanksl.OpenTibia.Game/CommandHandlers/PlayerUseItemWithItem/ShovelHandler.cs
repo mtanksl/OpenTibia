@@ -1,4 +1,6 @@
-﻿using OpenTibia.Game.Commands;
+﻿using OpenTibia.Common.Structures;
+using OpenTibia.Game.Commands;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
 
@@ -28,6 +30,22 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (shovels.Contains(command.Item.Metadata.OpenTibiaId) && stonePiles.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
+                int count;
+
+                command.Player.Client.Storages.TryGetValue(AchievementConstants.TheUndertaker, out count);
+
+                command.Player.Client.Storages.SetValue(AchievementConstants.TheUndertaker, ++count);
+
+                if (count >= 500)
+                {
+                    if ( !command.Player.Client.Achievements.HasAchievement("The Undertaker") )
+                    {
+                        command.Player.Client.Achievements.SetAchievement("The Undertaker");
+
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "Congratulations! You earned the achievement \"The Undertaker\".") );
+                    }
+                }
+
                 return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) ).Then( (item) =>
                 {
                     _ = Context.AddCommand(new ItemDecayTransformCommand(item, TimeSpan.FromSeconds(10), decay[item.Metadata.OpenTibiaId], 1) );

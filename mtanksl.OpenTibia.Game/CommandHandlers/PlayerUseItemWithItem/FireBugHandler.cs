@@ -8,8 +8,8 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class FireBugHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private HashSet<ushort> scythes = new HashSet<ushort>() { 5468 };
-
+        private HashSet<ushort> fireBugs = new HashSet<ushort>() { 5468 };
+               
         private Dictionary<ushort, ushort> sugarCanes = new Dictionary<ushort, ushort>()
         {
             { 5466, 5465 }
@@ -21,13 +21,18 @@ namespace OpenTibia.Game.CommandHandlers
             { 5471, 5466 }
         };
 
+        private Dictionary<ushort, ushort> emptyCoalBasins = new Dictionary<ushort, ushort>()
+        {
+            { 1485, 1483 }
+        };
+
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
             ushort toOpenTibiaId;
 
-            if (scythes.Contains(command.Item.Metadata.OpenTibiaId) && sugarCanes.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+            if (fireBugs.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                if (Context.Server.Randomization.Take(1, 5) == 1)
+                if (Context.Server.Randomization.Take(1, 10) == 1)
                 {
                     return Context.AddCommand(new ItemDestroyCommand(command.Item) ).Then( () =>
                     {
@@ -41,25 +46,31 @@ namespace OpenTibia.Game.CommandHandlers
                     } );
                 }
 
-                return Context.AddCommand(new ItemDestroyCommand(command.Item) ).Then( () =>
+                if (sugarCanes.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.FirePlume) );
-
-                } ).Then( () =>
-                {
-                    return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
-
-                } ).Then( (item) =>
-                {
-                    _ = Context.AddCommand(new ItemDecayTransformCommand(item, TimeSpan.FromSeconds(10), decay[item.Metadata.OpenTibiaId], 1) ).Then( (item2) =>
+                    return Context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.FirePlume) ).Then( () =>
                     {
-                        _ = Context.AddCommand(new ItemDecayTransformCommand(item2, TimeSpan.FromSeconds(10), decay[item2.Metadata.OpenTibiaId], 1) );
+                        return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+
+                    } ).Then( (item) =>
+                    {
+                        _ = Context.AddCommand(new ItemDecayTransformCommand(item, TimeSpan.FromSeconds(10), decay[item.Metadata.OpenTibiaId], 1) ).Then( (item2) =>
+                        {
+                            _ = Context.AddCommand(new ItemDecayTransformCommand(item2, TimeSpan.FromSeconds(10), decay[item2.Metadata.OpenTibiaId], 1) );
+
+                            return Promise.Completed;
+                        } );
 
                         return Promise.Completed;
                     } );
-
-                    return Promise.Completed;
-                } );
+                }
+                else if (emptyCoalBasins.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+                { 
+                    return Context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.FirePlume) ).Then( () =>
+                    {
+                        return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+                    } );
+                }
             }
 
             return next();

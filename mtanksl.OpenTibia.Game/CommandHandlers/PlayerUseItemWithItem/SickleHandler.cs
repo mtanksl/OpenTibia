@@ -1,5 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
 
@@ -28,6 +30,22 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (sickles.Contains(command.Item.Metadata.OpenTibiaId) && wheats.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
+                int count;
+
+                command.Player.Client.Storages.TryGetValue(AchievementConstants.NaturalSweetener, out count);
+
+                command.Player.Client.Storages.SetValue(AchievementConstants.NaturalSweetener, ++count);
+
+                if (count >= 50)
+                {
+                    if ( !command.Player.Client.Achievements.HasAchievement("Natural Sweetener") )
+                    {
+                        command.Player.Client.Achievements.SetAchievement("Natural Sweetener");
+
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "Congratulations! You earned the achievement \"Natural Sweetener\".") );
+                    }
+                }
+
                 return Context.AddCommand(new TileCreateItemOrIncrementCommand( (Tile)command.ToItem.Parent, bunchOfSugarCane, 1) ).Then( () =>
                 {
                     return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
