@@ -475,6 +475,14 @@ namespace OpenTibia.Game
                 } );                
             } );
 
+            lua.RegisterCoFunction("playerachievement", parameters =>
+            {
+                return Context.Current.AddCommand(new PlayerAchievementCommand( (Player)parameters[0], (int)(long)parameters[1], (int)(long)parameters[2], (string)parameters[3] ) ).Then( () =>
+                {
+                    return Promise.FromResultAsEmptyObjectArray;
+                } );
+            } );
+
             lua.RegisterCoFunction("playerupdateaxe", parameters =>
             {
                 return Context.Current.AddCommand(new PlayerUpdateAxeCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>

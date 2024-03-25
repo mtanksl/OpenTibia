@@ -39,6 +39,8 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CommandHandlers.AddCommandHandler(new GreatSpiritPotionHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new FluidItemHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new VoodooDollHandler() );
         }
 
         public override void Stop()

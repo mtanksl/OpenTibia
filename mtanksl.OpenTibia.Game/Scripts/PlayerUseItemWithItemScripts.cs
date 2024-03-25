@@ -54,6 +54,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new MacheteHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler(new ObsidianKnifeHandler());
+
             Context.Server.CommandHandlers.AddCommandHandler(new PickHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new RopeHandler() );

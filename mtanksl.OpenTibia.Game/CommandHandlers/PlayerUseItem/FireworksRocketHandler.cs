@@ -16,13 +16,21 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (command.Item.Parent is Tile tile)
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.FireworkBlue) ).Then( () =>
+                    return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.FireworksInTheSky, 250, "Fireworks in the Sky") ).Then( () =>
+                    {
+                        return Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.FireworkBlue) );
+
+                    } ).Then( () =>
                     {
                         return Context.AddCommand(new ItemDestroyCommand(command.Item) );
                     } );
                 }
 
-                return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "Ouch! Rather place it on the ground next time.") ).Then( () =>
+                return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.RocketInPocket, 3, "Rocket in Pocket") ).Then( () =>
+                {
+                    return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "Ouch! Rather place it on the ground next time.") );
+
+                } ).Then( () =>
                 {
                     return Context.AddCommand(new CreatureAttackCreatureCommand(null, command.Player, 
                         

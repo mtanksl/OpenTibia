@@ -347,6 +347,13 @@ return {
 				args = "(Player player, ushort openTibiaId, byte type)",
 				returns = "int",
 			},
+			-- void command.playerachievement(Player player, int incrementStorageKey, int requiredStorageValue, string achievementName)
+			playerachievement = {
+				type = "function",
+				description = "",
+				args = "(Player player, int incrementStorageKey, int requiredStorageValue, string achievementName)",
+				returns = "void",
+			},
 			-- void command.playerupdateaxe(Player player, byte skill, byte skillPercent)
 			playerupdateaxe = {
 				type = "function",

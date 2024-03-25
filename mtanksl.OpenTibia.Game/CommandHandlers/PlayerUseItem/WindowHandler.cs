@@ -112,7 +112,10 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (transformations.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
+                return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.DoNotDisturb, 100, "Do Not Disturb") ).Then( () =>
+                {
+                    return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
+                } );
             }
 
             return next();

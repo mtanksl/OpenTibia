@@ -26,6 +26,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new ConstructionKitHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler(new ClayLumpHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler(new CloseDoorHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new CrystalCoinHandler() );
@@ -35,6 +37,8 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CommandHandlers.AddCommandHandler(new ExplosivePresentHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new FireworksRocketHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new FlaskOfDemonicBloodHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new FoodHandler() );
 

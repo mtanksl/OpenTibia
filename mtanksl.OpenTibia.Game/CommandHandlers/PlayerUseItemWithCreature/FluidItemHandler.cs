@@ -18,13 +18,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Promise.Break;
                 }
-                else
+
+                return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Empty) ).Then( () =>
                 {
-                    return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Empty) ).Then( () =>
-                    {
-                        return Context.AddCommand(new ShowTextCommand(command.ToCreature, TalkType.MonsterSay, "Gulp.") );
-                    } );
-                }
+                    return Context.AddCommand(new ShowTextCommand(command.ToCreature, TalkType.MonsterSay, "Gulp.") );
+                } );                
             }
 
             return next();
