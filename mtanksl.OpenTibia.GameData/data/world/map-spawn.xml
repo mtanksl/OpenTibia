@@ -1,13 +1,7 @@
 <?xml version="1.0"?>
 <spawns>
-	<spawn centerx="862" centery="774" centerz="7" radius="1">
+	<spawn centerx="868" centery="777" centerz="7" radius="1">
 		<npc name="Al Dee" x="0" y="0" z="7" spawntime="60" />
-	</spawn>
-	<spawn centerx="876" centery="774" centerz="7" radius="1">
-		<npc name="Rachel" x="0" y="0" z="7" spawntime="60" />
-	</spawn>
-	<spawn centerx="857" centery="780" centerz="7" radius="1">
-		<npc name="Cipfried" x="0" y="0" z="7" spawntime="60" />
 	</spawn>
 	<spawn centerx="930" centery="781" centerz="7" radius="5">
 		<monster name="Amazon" x="-4" y="-4" z="7" spawntime="60" />
@@ -17,5 +11,11 @@
 		<monster name="Dog" x="1" y="-1" z="7" spawntime="60" />
 		<monster name="Deer" x="0" y="3" z="7" spawntime="60" />
 		<monster name="Deer" x="2" y="3" z="7" spawntime="60" />
+	</spawn>
+	<spawn centerx="883" centery="783" centerz="7" radius="1">
+		<npc name="Rachel" x="0" y="0" z="7" spawntime="60" />
+	</spawn>
+	<spawn centerx="869" centery="784" centerz="7" radius="1">
+		<npc name="Cipfried" x="0" y="0" z="7" spawntime="60" />
 	</spawn>
 </spawns>
