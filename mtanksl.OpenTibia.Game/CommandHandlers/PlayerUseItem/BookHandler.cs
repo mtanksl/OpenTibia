@@ -2,19 +2,19 @@
 using OpenTibia.Game.Commands;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
-using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
     public class BookHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private HashSet<ushort> books = new HashSet<ushort>() { 2599, 1955, 2597 };
-
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
-            if (books.Contains(command.Item.Metadata.OpenTibiaId) )
+            if (command.Item is ReadableItem readableItem)
             {
-                ReadableItem readableItem = (ReadableItem)command.Item;
+                foreach (var pair in command.Player.Client.Windows.GetIndexedWindows() )
+                {
+                    command.Player.Client.Windows.CloseWindow(pair.Key);
+                }
 
                 Window window = new Window();
 

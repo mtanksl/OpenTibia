@@ -17,6 +17,8 @@ namespace OpenTibia.Common.Objects
 
             this.Storages = new PlayerStorageCollection();
 
+            this.Achievements = new PlayerAchievementsCollection();
+
             this.Spells = new PlayerSpellCollection();
 
             this.Vips = new PlayerVipCollection();
@@ -31,6 +33,8 @@ namespace OpenTibia.Common.Objects
         public IPlayerOutfitCollection Outfits { get; }
 
         public IPlayerStorageCollection Storages { get; }
+
+        public IPlayerAchievementsCollection Achievements { get; }
 
         public IPlayerSpellCollection Spells { get; }
 

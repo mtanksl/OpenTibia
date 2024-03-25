@@ -14,6 +14,8 @@ namespace OpenTibia.Common.Objects
 
         IPlayerStorageCollection Storages { get; }
 
+        IPlayerAchievementsCollection Achievements { get; }
+
         IPlayerSpellCollection Spells { get; }
 
         IPlayerVipCollection Vips { get; }

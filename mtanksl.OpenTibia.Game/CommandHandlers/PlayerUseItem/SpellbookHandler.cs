@@ -16,6 +16,11 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (books.Contains(command.Item.Metadata.OpenTibiaId) )
             {
+                foreach (var pair in command.Player.Client.Windows.GetIndexedWindows() )
+                {
+                    command.Player.Client.Windows.CloseWindow(pair.Key);
+                }
+
                 Window window = new Window();
 
                 window.AddContent(command.Item);

@@ -88,6 +88,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                     Tile south = Context.Server.Map.GetTile(door.Position.Offset(0, 1, 0) );
 
+                    //TODO: If blocking, do not move
+
                     List<Promise> promises = new List<Promise>();
 
                     foreach (var creature in door.GetCreatures().ToList() )
@@ -105,6 +107,8 @@ namespace OpenTibia.Game.CommandHandlers
                     Tile door = (Tile)item.Parent;
 
                     Tile east = Context.Server.Map.GetTile(door.Position.Offset(1, 0, 0) );
+
+                    //TODO: If blocking, do not move
 
                     List<Promise> promises = new List<Promise>();
 

@@ -12,7 +12,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
-            if (partyHats.Contains(command.Item.Metadata.OpenTibiaId) && command.Item.Parent is Inventory)
+            if (partyHats.Contains(command.Item.Metadata.OpenTibiaId) && command.Item.Parent is Inventory inventory && (Slot)inventory.GetIndex(command.Item) == Slot.Head)
             {
                 return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.GiftWraps) );
             }

@@ -6,22 +6,30 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class StuffedDragonHandler : CommandHandler<PlayerUseItemCommand>
+    public class BabySealDollHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private HashSet<ushort> stuffedDragons = new HashSet<ushort>() { 5791 };
+        private Dictionary<ushort, ushort> partyTrumpets = new Dictionary<ushort, ushort>() 
+        {
+            { 7183, 7184 }
+        };
 
-        private List<string> sounds = new List<string>() { "Fchhhhhh!", "Zchhhhhh!", "Grooaaaaar*cough*", "Aaa... CHOO!", "You... will.... burn!!" };
+        private Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>() 
+        {
+            { 7184, 7183 }
+        };
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
-            if (stuffedDragons.Contains(command.Item.Metadata.OpenTibiaId) )
+            ushort toOpenTibiaId;
+
+            if (partyTrumpets.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                command.Player.Client.Storages.SetValue(AchievementConstants.INeedAHugStuffedDragon, 1);
+                command.Player.Client.Storages.SetValue(AchievementConstants.INeedAHugBabySealDoll, 1);
 
                 if (command.Player.Client.Storages.TryGetValue(AchievementConstants.INeedAHugPandaTeddy, out _) &&
                     command.Player.Client.Storages.TryGetValue(AchievementConstants.INeedAHugStuffedDragon, out _) &&
                     command.Player.Client.Storages.TryGetValue(AchievementConstants.INeedAHugBabySealDoll, out _) &&
-                    command.Player.Client.Storages.TryGetValue(AchievementConstants.INeedAHugSantaDoll, out _) )
+                    command.Player.Client.Storages.TryGetValue(AchievementConstants.INeedAHugSantaDoll, out _))
                 {
                     if ( !command.Player.Client.Achievements.HasAchievement("I Need a Hug") )
                     {
@@ -31,16 +39,9 @@ namespace OpenTibia.Game.CommandHandlers
                     }
                 }
 
-                int value = Context.Server.Randomization.Take(0, sounds.Count - 1);
-
-                return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, sounds[value] ) ).Then( () =>
+                return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) ).Then( (item) =>
                 {
-                    if (value == sounds.Count - 1)
-                    {
-                        return Context.AddCommand(new CreatureAttackCreatureCommand(null, command.Player, 
-                            
-                            new SimpleAttack(null, MagicEffectType.ExplosionDamage, AnimatedTextColor.Orange, 1, 1) ) );
-                    }
+                    _ = Context.AddCommand(new ItemDecayTransformCommand(item, TimeSpan.FromSeconds(3), decay[item.Metadata.OpenTibiaId], 1));
 
                     return Promise.Completed;
                 } );

@@ -16,9 +16,13 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new ContainerOpenHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new BlueberryBushHandler() );
-
             Context.Server.CommandHandlers.AddCommandHandler(new BookHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new SpellbookHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new BabySealDollHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new BlueberryBushHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new ConstructionKitHandler() );
 
@@ -53,8 +57,6 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CommandHandlers.AddCommandHandler(new PiggyBankHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new PlatinumCoinHandler() );
-
-            Context.Server.CommandHandlers.AddCommandHandler(new SpellbookHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new SantaDollHandler() );
 
