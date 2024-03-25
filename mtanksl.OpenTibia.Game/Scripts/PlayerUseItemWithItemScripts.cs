@@ -18,6 +18,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new FishingRodHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler(new DestroyFieldHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithItemWalkToTargetHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithItemScriptingHandler(false) );
@@ -27,8 +29,6 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CommandHandlers.AddCommandHandler(new BakingTrayWithGarlicDoughHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new BunchOfSugarCaneHandler() );
-
-            Context.Server.CommandHandlers.AddCommandHandler(new DestroyFieldHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new FireBugHandler() );
 

@@ -1,5 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,43 +84,97 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (horizontalDoors.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) ).Then( (item) =>
-                {
-                    Tile door = (Tile)item.Parent;
+                Tile door = (Tile)command.Item.Parent;
 
+                if (door.TopCreature == null)
+                {
+                    return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
+                }
+                else
+                {
                     Tile south = Context.Server.Map.GetTile(door.Position.Offset(0, 1, 0) );
 
-                    //TODO: If blocking, do not move
-
-                    List<Promise> promises = new List<Promise>();
-
-                    foreach (var creature in door.GetCreatures().ToList() )
+                    if (south != null && south.TopCreature == null)
                     {
-                        promises.Add(Context.AddCommand(new CreatureMoveCommand(creature, south) ) );
-                    }
+                        return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) ).Then( (item) =>
+                        {
+                            List<Promise> promises = new List<Promise>();
 
-                    return Promise.WhenAll(promises.ToArray() );
-                } );
+                            foreach (var creature in ( (Tile)item.Parent).GetCreatures().ToList() )
+                            {
+                                promises.Add(Context.AddCommand(new CreatureMoveCommand(creature, south) ) );
+                            }
+
+                            return Promise.WhenAll(promises.ToArray() );                                   
+                        } );
+                    }
+                    else
+                    {
+                        Tile north = Context.Server.Map.GetTile(door.Position.Offset(0, -1, 0) );
+
+                        if (north != null && north.TopCreature == null)
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) ).Then( (item) =>
+                            {
+                                List<Promise> promises = new List<Promise>();
+
+                                foreach (var creature in ( (Tile)item.Parent).GetCreatures().ToList() )
+                                {
+                                    promises.Add(Context.AddCommand(new CreatureMoveCommand(creature, north) ) );
+                                }
+
+                                return Promise.WhenAll(promises.ToArray() );                                   
+                            } );
+                        }
+                    }
+                }
             }
             else if (verticalDoors.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) ).Then( (item) =>
-                {
-                    Tile door = (Tile)item.Parent;
+                Tile door = (Tile)command.Item.Parent;
 
+                if (door.TopCreature == null)
+                {
+                    return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
+                }
+                else
+                {
                     Tile east = Context.Server.Map.GetTile(door.Position.Offset(1, 0, 0) );
 
-                    //TODO: If blocking, do not move
-
-                    List<Promise> promises = new List<Promise>();
-
-                    foreach (var creature in door.GetCreatures().ToList() )
+                    if (east != null && east.TopCreature == null)
                     {
-                        promises.Add(Context.AddCommand(new CreatureMoveCommand(creature, east) ) );
-                    }
+                        return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) ).Then( (item) =>
+                        {
+                            List<Promise> promises = new List<Promise>();
 
-                    return Promise.WhenAll(promises.ToArray() );
-                } );
+                            foreach (var creature in ( (Tile)item.Parent).GetCreatures().ToList() )
+                            {
+                                promises.Add(Context.AddCommand(new CreatureMoveCommand(creature, east) ) );
+                            }
+
+                            return Promise.WhenAll(promises.ToArray() );
+                        } );
+                    }
+                    else
+                    {
+                        Tile west = Context.Server.Map.GetTile(door.Position.Offset(-1, 0, 0) );
+
+                        if (west != null && west.TopCreature == null)
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) ).Then( (item) =>
+                            {
+                                List<Promise> promises = new List<Promise>();
+
+                                foreach (var creature in ( (Tile)item.Parent).GetCreatures().ToList() )
+                                {
+                                    promises.Add(Context.AddCommand(new CreatureMoveCommand(creature, west) ) );
+                                }
+
+                                return Promise.WhenAll(promises.ToArray() );
+                            } );
+                        }
+                    }
+                }
             }
 
             return next();
