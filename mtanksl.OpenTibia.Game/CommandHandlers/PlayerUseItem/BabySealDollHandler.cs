@@ -6,7 +6,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class BabySealDollHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private Dictionary<ushort, ushort> partyTrumpets = new Dictionary<ushort, ushort>() 
+        private Dictionary<ushort, ushort> babySealDolls = new Dictionary<ushort, ushort>() 
         {
             { 7183, 7184 }
         };
@@ -20,7 +20,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             ushort toOpenTibiaId;
 
-            if (partyTrumpets.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
+            if (babySealDolls.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
                 return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.INeedAHugBabySealDoll, new[] { AchievementConstants.INeedAHugPandaTeddy, AchievementConstants.INeedAHugStuffedDragon, AchievementConstants.INeedAHugBabySealDoll, AchievementConstants.INeedAHugSantaDoll }, "I Need a Hug") ).Then( () =>
                 {

@@ -27,25 +27,25 @@ namespace OpenTibia.Game.CommandHandlers
                 return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.PartyAnimal, 200, "Party Animal") ).Then( () =>
                 {
                     Position position = null;
+                                        
+                    switch (command.Item.Root() )
+                    {
+                        case Tile tile:
+
+                            position = tile.Position;
+
+                            break;
+
+                        case Inventory inventory:
+                        case null:
+
+                            position = command.Player.Tile.Position;
+
+                            break;
+                    }
 
                     if (position != null)
                     {
-                        switch (command.Item.Root() )
-                        {
-                            case Tile tile:
-
-                                position = tile.Position;
-
-                                break;
-
-                            case Inventory inventory:
-                            case null:
-
-                                position = command.Player.Tile.Position;
-
-                                break;
-                        }
-
                         return Context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.GreenNotes) );
                     }
 

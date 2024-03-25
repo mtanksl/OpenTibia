@@ -16,31 +16,63 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (green.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                switch (command.Item.Root() )
+                return Promise.Completed.Then( () =>
                 {
-                    case Tile tile:
+                    Position position = null;
 
-                        return Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.GreenNotes) );
+                    switch (command.Item.Root() )
+                    {
+                        case Tile tile:
 
-                    case Inventory inventory:
-                    case null:
+                            position = tile.Position;
 
-                        return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.GreenNotes) );
-                }
+                            break;
+
+                        case Inventory inventory:
+                        case null:
+
+                            position = command.Player.Tile.Position;
+
+                            break;
+                    }
+
+                    if (position != null)
+                    {
+                        return Context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.GreenNotes) );
+                    }
+
+                    return Promise.Completed;
+                } );
             }
             else if (purple.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                switch (command.Item.Root() )
+                return Promise.Completed.Then( () =>
                 {
-                    case Tile tile:
+                    Position position = null;
 
-                        return Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.PurpleNotes) );
+                    switch (command.Item.Root() )
+                    {
+                        case Tile tile:
 
-                    case Inventory inventory:
-                    case null:
+                            position = tile.Position;
 
-                        return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.PurpleNotes) );
-                }
+                            break;
+
+                        case Inventory inventory:
+                        case null:
+
+                            position = command.Player.Tile.Position;
+
+                            break;
+                    }
+
+                    if (position != null)
+                    {
+                        return Context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.PurpleNotes) );
+                    }
+
+                    return Promise.Completed;
+                } );
             }
 
             return next();

@@ -36,23 +36,37 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 int value = Context.Server.Randomization.Take(0, prizes.Count - 1);
 
-                switch (command.Item.Root() )
+                return Promise.Completed.Then( () =>
                 {
-                    case Tile tile:
+                    Position position = null;
 
-                        return Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.GiftWraps) ).Then( () =>
-                        {
-                            return Context.AddCommand(new ItemTransformCommand(command.Item, prizes[value].OpenTibiaId, prizes[value].Count) );
-                        } );
+                    switch (command.Item.Root() )
+                    {
+                        case Tile tile:
 
-                    case Inventory inventory:
-                    case null:
+                            position = tile.Position;
 
-                        return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.GiftWraps) ).Then( () =>
-                        {
-                            return Context.AddCommand(new ItemTransformCommand(command.Item, prizes[value].OpenTibiaId, prizes[value].Count) );
-                        } );
-                }
+                            break;
+
+                        case Inventory inventory:
+                        case null:
+
+                            position = command.Player.Tile.Position;
+
+                            break;
+                    }
+
+                    if (position != null)
+                    {
+                        return Context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.GiftWraps) );
+                    }
+
+                    return Promise.Completed;
+
+                } ).Then( () =>
+                {
+                    return Context.AddCommand(new ItemTransformCommand(command.Item, prizes[value].OpenTibiaId, prizes[value].Count) );
+                } );
             }
 
             return next();

@@ -27,53 +27,75 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (value == 1)
                 {
-                    switch (command.Item.Root() )
+                    return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.AllowanceCollector, 50, "Allowance Collector") ).Then( () =>
                     {
-                        case Tile tile:
+                        Position position = null;
 
-                            return Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.YellowSpark) ).Then( () =>
-                            {
-                                return Context.AddCommand(new PlayerCreateItemCommand(command.Player, goldCoin, 1) );
+                        switch (command.Item.Root() )
+                        {
+                            case Tile tile:
 
-                            } ).Then( () =>
-                            {
-                                return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
-                            } );
+                                position = tile.Position;
 
-                        case Inventory inventory:
-                        case null:
+                                break;
 
-                            return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.YellowSpark) ).Then( () =>
-                            {
-                                return Context.AddCommand(new PlayerCreateItemCommand(command.Player, goldCoin, 1) );
+                            case Inventory inventory:
+                            case null:
 
-                            } ).Then( () =>
-                            {
-                                return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
-                            } );
-                    }
+                                position = command.Player.Tile.Position;
+
+                                break;
+                        }
+
+                        if (position != null)
+                        {
+                            return Context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.YellowSpark) );
+                        }
+
+                        return Promise.Completed;
+
+                    } ).Then( () =>
+                    {
+                        return Context.AddCommand(new PlayerCreateItemCommand(command.Player, goldCoin, 1) );
+
+                    } ).Then( () =>
+                    {
+                        return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
+                    } );
                 }
                 else
                 {
-                    switch (command.Item.Root() )
+                    return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.AllowanceCollector, 50, "Allowance Collector") ).Then( () =>
                     {
-                        case Tile tile:
+                        Position position = null;
 
-                            return Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.YellowNotes) ).Then( () =>
-                            {
-                                return Context.AddCommand(new PlayerCreateItemCommand(command.Player, platinumCoin, 1) );
+                        switch (command.Item.Root() )
+                        {
+                            case Tile tile:
 
-                            } );
+                                position = tile.Position;
 
-                        case Inventory inventory:
-                        case null:
+                                break;
 
-                            return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.YellowNotes) ).Then( () =>
-                            {
-                                return Context.AddCommand(new PlayerCreateItemCommand(command.Player, goldCoin, 1) );
+                            case Inventory inventory:
+                            case null:
 
-                            } );
-                    }
+                                position = command.Player.Tile.Position;
+
+                                break;
+                        }
+
+                        if (position != null)
+                        {
+                            return Context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.YellowNotes) );
+                        }
+
+                        return Promise.Completed;
+
+                    } ).Then( () =>
+                    {
+                        return Context.AddCommand(new PlayerCreateItemCommand(command.Player, platinumCoin, 1) );
+                    } );
                 }
             }
 
