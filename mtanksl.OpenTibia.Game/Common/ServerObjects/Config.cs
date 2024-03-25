@@ -16,10 +16,10 @@
         public int GamePort { get; set; }
         public int GameMaxPlayers { get; set; }
 
-        public bool GamePlayPrivateNpcSystem { get; set; }
-        public bool GamePlayInfinitePotions { get; set; }
-        public bool GamePlayInfiniteArrows { get; set; }
-        public bool GamePlayInfiniteRunes { get; set; }
+        public bool GameplayPrivateNpcSystem { get; set; }
+        public bool GameplayInfinitePotions { get; set; }
+        public bool GameplayInfiniteArrows { get; set; }
+        public bool GameplayInfiniteRunes { get; set; }
         
         public int SecurityMaxConnectionsWithSameIpAddress { get; set; }
         public int SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds { get; set; }
@@ -74,13 +74,13 @@
             
             GameMaxPlayers = LuaScope.GetInt32(script["server.game.maxplayers"], 1000);
                         
-            GamePlayPrivateNpcSystem = LuaScope.GetBoolean(script["server.gameplay.privatenpcsystem"], true);
+            GameplayPrivateNpcSystem = LuaScope.GetBoolean(script["server.gameplay.privatenpcsystem"], true);
             
-            GamePlayInfinitePotions = LuaScope.GetBoolean(script["server.gameplay.infinitepotions"], false);
+            GameplayInfinitePotions = LuaScope.GetBoolean(script["server.gameplay.infinitepotions"], false);
             
-            GamePlayInfiniteArrows = LuaScope.GetBoolean(script["server.gameplay.infinitearrows"], false);
+            GameplayInfiniteArrows = LuaScope.GetBoolean(script["server.gameplay.infinitearrows"], false);
             
-            GamePlayInfiniteRunes = LuaScope.GetBoolean(script["server.gameplay.infiniterunes"], false);
+            GameplayInfiniteRunes = LuaScope.GetBoolean(script["server.gameplay.infiniterunes"], false);
 
             SecurityMaxConnectionsWithSameIpAddress = LuaScope.GetInt32(script["server.security.maxconnectionswithsameipaddress"], 2);
             

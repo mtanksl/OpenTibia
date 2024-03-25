@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            if (Context.Server.Config.GamePlayPrivateNpcSystem)
+            if (Context.Server.Config.GameplayPrivateNpcSystem)
             {
                 ItemMetadata itemMetadata = Context.Server.ItemFactory.GetItemMetadataByTibiaId(TibiaId);
 

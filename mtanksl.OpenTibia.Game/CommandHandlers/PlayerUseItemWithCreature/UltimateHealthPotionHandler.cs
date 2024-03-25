@@ -25,7 +25,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Promise promise;
 
-                if (Context.Current.Server.Config.GamePlayInfinitePotions)
+                if (Context.Current.Server.Config.GameplayInfinitePotions)
                 {
                     promise = Promise.Completed;
                 }

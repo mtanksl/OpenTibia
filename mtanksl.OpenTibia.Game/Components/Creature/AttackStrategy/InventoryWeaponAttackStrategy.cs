@@ -220,7 +220,7 @@ namespace OpenTibia.Game.Components
 
                         Promise promise;
 
-                        if (Context.Current.Server.Config.GamePlayInfiniteArrows)
+                        if (Context.Current.Server.Config.GameplayInfiniteArrows)
                         {
                             promise = Promise.Completed;
                         }
@@ -256,7 +256,7 @@ namespace OpenTibia.Game.Components
 
                         Promise promise;
 
-                        if (Context.Current.Server.Config.GamePlayInfiniteArrows)
+                        if (Context.Current.Server.Config.GameplayInfiniteArrows)
                         {
                             promise = Promise.Completed;
                         }

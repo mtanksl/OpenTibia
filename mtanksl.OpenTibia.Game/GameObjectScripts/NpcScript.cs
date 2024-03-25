@@ -25,7 +25,7 @@ namespace OpenTibia.Game.GameObjectScripts
 
             if (dialoguePlugin != null)
             {
-                if (Context.Server.Config.GamePlayPrivateNpcSystem)
+                if (Context.Server.Config.GameplayPrivateNpcSystem)
                 {
                     Context.Server.GameObjectComponents.AddComponent(npc, new MultipleQueueNpcThinkBehaviour(dialoguePlugin, new RandomWalkStrategy(2) ) );
                 }
