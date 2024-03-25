@@ -43,7 +43,7 @@ namespace OpenTibia.Game.Commands
                         toContainer.AddContent(content);
                     }
                 }
-                else if (FromItem is ReadableItem fromReadableItem && FromItem is ReadableItem toReadableItem)
+                else if (FromItem is ReadableItem fromReadableItem && toItem is ReadableItem toReadableItem)
                 {
                     toReadableItem.Text = fromReadableItem.Text;
 
@@ -51,7 +51,7 @@ namespace OpenTibia.Game.Commands
 
                     toReadableItem.Date = fromReadableItem.Date;
                 }
-                else if (FromItem is SignItem fromSignItem && FromItem is SignItem toSignItem)
+                else if (FromItem is SignItem fromSignItem && toItem is SignItem toSignItem)
                 {
                     toSignItem.Text = fromSignItem.Text;
                 }

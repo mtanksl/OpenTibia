@@ -85,7 +85,7 @@ namespace OpenTibia.Game.CommandHandlers
                     }
                     else if (down.TopItem != null && !down.TopItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
                     {
-                        return Context.AddCommand(new ItemMoveCommand(down.TopItem, south, 1) );
+                        return Context.AddCommand(new ItemMoveCommand(down.TopItem, south, 0) );
                     }
                 }
             }

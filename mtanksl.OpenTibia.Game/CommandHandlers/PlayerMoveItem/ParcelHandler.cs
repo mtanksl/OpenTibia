@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Data.Models;
 using OpenTibia.Game.Commands;
 using System;
 using System.Collections.Generic;
@@ -14,6 +13,8 @@ namespace OpenTibia.Game.CommandHandlers
         private ushort label = 2599;
 
         private HashSet<ushort> mailbox = new HashSet<ushort>() { 2593, 3981 };
+
+        private ushort stampedParcel = 2596;
 
         public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {
@@ -37,10 +38,6 @@ namespace OpenTibia.Game.CommandHandlers
 
                             if (town != null)
                             {
-                                //TODO: Close parcel and subcontainers
-
-                                //TODO: Transform into stamped parcel
-
                                 string playerName = text[0];
 
                                 Player player = Context.Server.GameObjectPool.GetPlayer(playerName);
@@ -49,93 +46,36 @@ namespace OpenTibia.Game.CommandHandlers
                                 {
                                     Locker locker = Context.Server.Lockers.GetLocker(player.DatabasePlayerId, (ushort)town.Id);
 
+                                    if (locker == null)
+                                    {
+                                        locker = (Locker)Context.Server.ItemFactory.Create(2591, 1);
+
+                                        locker.TownId = (ushort)town.Id;
+
+                                        Context.Server.ItemFactory.Attach(locker);
+
+                                        Item depot = Context.Server.ItemFactory.Create(2594, 1);
+
+                                        Context.Server.ItemFactory.Attach(depot);
+
+                                        locker.AddContent(depot);
+
+                                        Context.Server.Lockers.AddLocker(command.Player.DatabasePlayerId, locker);
+                                    }
+
                                     if (locker.Count < locker.Metadata.Capacity)
                                     {
-                                        switch (parcelItem.Parent)
+                                        //TODO: Close containers
+
+                                        return Context.AddCommand(new ItemTransformCommand(parcelItem, stampedParcel, 1) ).Then( (item) =>
                                         {
-                                            case Tile tile:
-
-                                                return Context.AddCommand(new TileRemoveItemCommand(tile, parcelItem) ).Then( () =>
-                                                {
-                                                    return Context.AddCommand(new ContainerAddItemCommand(locker, parcelItem) );
-                                                } );
-
-                                            case Inventory inventory:
-
-                                                return Context.AddCommand(new InventoryRemoveItemCommand(inventory, parcelItem) ).Then( () =>
-                                                {
-                                                    return Context.AddCommand(new ContainerAddItemCommand(locker, parcelItem) );
-                                                } );
-
-                                            case Container container:
-
-                                                return Context.AddCommand(new ContainerRemoveItemCommand(container, parcelItem) ).Then( () =>
-                                                {
-                                                    return Context.AddCommand(new ContainerAddItemCommand(locker, parcelItem) );
-                                                } );
-                                        }
-                                    }
-                                    else
-                                    {
-                                        //TODO: When target opens locker, show queue
-
-                                        switch (parcelItem.Parent)
-                                        {
-                                            case Tile tile:
-
-                                                return Context.AddCommand(new TileRemoveItemCommand(tile, parcelItem) ).Then( () =>
-                                                {
-                                                    Context.Server.Inboxes.AddItem(player.DatabasePlayerId, (ushort)town.Id, parcelItem);
-                                                } );
-
-                                            case Inventory inventory:
-
-                                                return Context.AddCommand(new InventoryRemoveItemCommand(inventory, parcelItem) ).Then( () =>
-                                                {
-                                                    Context.Server.Inboxes.AddItem(player.DatabasePlayerId, (ushort)town.Id, parcelItem);
-                                                } );
-
-                                            case Container container:
-
-                                                return Context.AddCommand(new ContainerRemoveItemCommand(container, parcelItem) ).Then( () =>
-                                                {
-                                                    Context.Server.Inboxes.AddItem(player.DatabasePlayerId, (ushort)town.Id, parcelItem);
-                                                } );
-                                        }
+                                            return Context.AddCommand(new ItemMoveCommand(item, locker, 0) );
+                                        } );
                                     }
                                 }
                                 else
                                 {
-                                    DbPlayer dbPlayer = Context.Database.PlayerRepository.GetPlayerByName(playerName);
-
-                                    if (dbPlayer != null)
-                                    {
-                                        //TODO: When target opens locker, show queue
-
-                                        switch (parcelItem.Parent)
-                                        {
-                                            case Tile tile:
-
-                                                return Context.AddCommand(new TileRemoveItemCommand(tile, parcelItem) ).Then( () =>
-                                                {
-                                                    Context.Server.Inboxes.AddItem(dbPlayer.Id, (ushort)town.Id, parcelItem);
-                                                } );
-
-                                            case Inventory inventory:
-
-                                                return Context.AddCommand(new InventoryRemoveItemCommand(inventory, parcelItem) ).Then( () =>
-                                                {
-                                                    Context.Server.Inboxes.AddItem(dbPlayer.Id, (ushort)town.Id, parcelItem);
-                                                } );
-
-                                            case Container container:
-
-                                                return Context.AddCommand(new ContainerRemoveItemCommand(container, parcelItem) ).Then( () =>
-                                                {
-                                                    Context.Server.Inboxes.AddItem(dbPlayer.Id, (ushort)town.Id, parcelItem);
-                                                } );
-                                        }
-                                    }
+                                    //TODO: Load player from database, add parcel to locker
                                 }
                             }
                         }

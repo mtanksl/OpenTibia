@@ -1032,6 +1032,18 @@ namespace OpenTibia.FileFormats.Xml.Items
                         }
 
                         break;
+
+                    case "readable":
+
+                        item.Readable = true;
+
+                        break;
+
+                    case "writeable":
+
+                        item.Writeable = true;
+
+                        break;
                 }
             }
 
@@ -1079,5 +1091,9 @@ namespace OpenTibia.FileFormats.Xml.Items
         public byte? Charges { get; set; }
 
         public SlotType? SlotType { get; set; }
+
+        public bool? Readable { get; set; }
+
+        public bool? Writeable { get; set; }
     }
 }

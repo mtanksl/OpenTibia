@@ -208,6 +208,11 @@ namespace OpenTibia.Game
                     metadata.Charges = xmlItem.Charges;
 
                     metadata.SlotType = xmlItem.SlotType;
+
+                    if ( (xmlItem.Readable == true || xmlItem.Writeable == true) && !metadata.Flags.Is(ItemMetadataFlags.Readable) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.Readable;
+                    }
                 }
             }
 
