@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
-using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
 
@@ -11,53 +10,45 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private HashSet<ushort> explosivePresent = new HashSet<ushort>() { 8110 };
 
-        private string sound = "KABOOOOOOOOOOM!";
-
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
             if (explosivePresent.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                int count;
-
-                command.Player.Client.Storages.TryGetValue(AchievementConstants.JokesOnYou, out count);
-
-                command.Player.Client.Storages.SetValue(AchievementConstants.JokesOnYou, ++count);
-
-                if (count >= 1)
+                return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.JokesOnYou, 1, "Jokes On You") ).Then( () =>
                 {
-                    if ( !command.Player.Client.Achievements.HasAchievement("Jokes On You") )
+                    Position position = null;
+
+                    switch (command.Item.Root() )
                     {
-                        command.Player.Client.Achievements.SetAchievement("Jokes On You");
+                        case Tile tile:
 
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "Congratulations! You earned the achievement \"Jokes On You\".") );
+                            position = tile.Position;
+
+                            break;
+
+                        case Inventory inventory:
+                        case null:
+
+                            position = command.Player.Tile.Position;
+
+                            break;
                     }
-                }
 
-                switch (command.Item.Root() )
+                    if (position != null)
+                    {
+                        return Context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.ExplosionDamage) );
+                    }
+
+                    return Promise.Completed;
+
+                } ).Then( () =>
                 {
-                    case Tile tile:
+                    return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "KABOOOOOOOOOOM!") );
 
-                        return Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.ExplosionDamage) ).Then( () =>
-                        {
-                            return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, sound) );
-
-                        } ).Then( () =>
-                        {
-                            return Context.AddCommand(new ItemDestroyCommand(command.Item));
-                        } );
-
-                    case Inventory inventory:
-                    case null:
-
-                        return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.ExplosionDamage) ).Then( () =>
-                        {
-                            return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, sound) );
-
-                        } ).Then( () =>
-                        {
-                            return Context.AddCommand(new ItemDestroyCommand(command.Item));
-                        } );
-                }
+                } ).Then( () =>
+                {
+                    return Context.AddCommand(new ItemDestroyCommand(command.Item) );
+                } );
             }
 
             return next();

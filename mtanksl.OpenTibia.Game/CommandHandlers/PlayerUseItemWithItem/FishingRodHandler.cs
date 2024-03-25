@@ -31,7 +31,9 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             await Context.AddCommand(new PlayerDestroyItemsCommand(command.Player, worm, 1, 1) );
 
-                            await Context.AddCommand(new PlayerCreateItemsCommand(command.Player, fish, 1, 1) );
+                            await Context.AddCommand(new PlayerCreateItemCommand(command.Player, fish, 1) );
+
+                            await Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.HereFishyFishy, 1000, "Here, Fishy Fishy!") );
                         }
                     }
 

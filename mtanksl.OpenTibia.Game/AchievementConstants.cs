@@ -42,6 +42,10 @@
 
         public static readonly int WithACherryOnTop = 100012;
 
+        // https://tibia.fandom.com/wiki/Here,_Fishy_Fishy!
+
+        public static readonly int HereFishyFishy = 100013;
+
         //TODO: More achievements
     }
 }

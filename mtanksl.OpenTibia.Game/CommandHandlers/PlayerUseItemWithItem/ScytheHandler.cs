@@ -1,7 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
-using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
 
@@ -30,23 +28,11 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (scythes.Contains(command.Item.Metadata.OpenTibiaId) && wheats.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                int count;
-
-                command.Player.Client.Storages.TryGetValue(AchievementConstants.HappyFarmer, out count);
-
-                command.Player.Client.Storages.SetValue(AchievementConstants.HappyFarmer, ++count);
-
-                if (count >= 200)
+                return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.HappyFarmer, 200, "Happy Farmer") ).Then( () =>
                 {
-                    if ( !command.Player.Client.Achievements.HasAchievement("Happy Farmer") )
-                    {
-                        command.Player.Client.Achievements.SetAchievement("Happy Farmer");
-
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "Congratulations! You earned the achievement \"Happy Farmer\".") );
-                    }
-                }
-
-                return Context.AddCommand(new TileCreateItemOrIncrementCommand( (Tile)command.ToItem.Parent, wheat, 1) ).Then( () =>
+                    return Context.AddCommand(new TileCreateItemOrIncrementCommand( (Tile)command.ToItem.Parent, wheat, 1) );
+                
+                } ).Then( () =>
                 {
                     return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
 
@@ -62,7 +48,7 @@ namespace OpenTibia.Game.CommandHandlers
                     return Promise.Completed;
                 } );
             }
-
+                
             return next();
         }
     }

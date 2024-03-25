@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
-using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
 
@@ -25,59 +24,47 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (partyTrumpets.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                int count;
-
-                command.Player.Client.Storages.TryGetValue(AchievementConstants.PartyAnimal, out count);
-
-                command.Player.Client.Storages.SetValue(AchievementConstants.PartyAnimal, ++count);
-
-                if (count >= 200)
+                return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.PartyAnimal, 200, "Party Animal") ).Then( () =>
                 {
-                    if ( !command.Player.Client.Achievements.HasAchievement("Party Animal") )
+                    Position position = null;
+
+                    if (position != null)
                     {
-                        command.Player.Client.Achievements.SetAchievement("Party Animal");
+                        switch (command.Item.Root() )
+                        {
+                            case Tile tile:
 
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "Congratulations! You earned the achievement \"Party Animal\".") );
+                                position = tile.Position;
+
+                                break;
+
+                            case Inventory inventory:
+                            case null:
+
+                                position = command.Player.Tile.Position;
+
+                                break;
+                        }
+
+                        return Context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.GreenNotes) );
                     }
-                }
 
-                switch (command.Item.Root() )
+                    return Promise.Completed;
+
+                } ).Then( () =>
                 {
-                    case Tile tile:
+                    return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "TOOOOOOT!") );
 
-                        return Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.GreenNotes) ).Then( () =>
-                        {
-                            return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "TOOOOOOT!") );
+                } ).Then( () =>
+                {
+                    return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
 
-                        } ).Then( () =>
-                        {
-                            return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
+                } ).Then( (item) =>
+                {
+                    _ = Context.AddCommand(new ItemDecayTransformCommand(item, TimeSpan.FromSeconds(2), decay[item.Metadata.OpenTibiaId], 1) );
 
-                        } ).Then( (item) =>
-                        {
-                            _ = Context.AddCommand(new ItemDecayTransformCommand(item, TimeSpan.FromSeconds(2), decay[item.Metadata.OpenTibiaId], 1) );
-
-                            return Promise.Completed;
-                        } );
-
-                    case Inventory inventory:
-                    case null:
-
-                        return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.GreenNotes) ).Then( () =>
-                        {
-                            return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "TOOOOOOT!") );
-
-                        } ).Then( () =>
-                        {
-                            return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
-
-                        } ).Then( (item) =>
-                        {
-                            _ = Context.AddCommand(new ItemDecayTransformCommand(item, TimeSpan.FromSeconds(2), decay[item.Metadata.OpenTibiaId], 1) );
-
-                            return Promise.Completed;
-                        } );
-                }
+                    return Promise.Completed;
+                } );
             }
 
             return next();

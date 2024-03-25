@@ -1,6 +1,4 @@
-﻿using OpenTibia.Common.Structures;
-using OpenTibia.Game.Commands;
-using OpenTibia.Network.Packets.Outgoing;
+﻿using OpenTibia.Game.Commands;
 using System;
 using System.Collections.Generic;
 
@@ -24,28 +22,13 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (partyTrumpets.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                int count;
-
-                command.Player.Client.Storages.TryGetValue(AchievementConstants.INeedAHugBabySealDoll, out count);
-
-                command.Player.Client.Storages.SetValue(AchievementConstants.INeedAHugBabySealDoll, ++count);
-
-                if (command.Player.Client.Storages.TryGetValue(AchievementConstants.INeedAHugPandaTeddy, out _) &&
-                    command.Player.Client.Storages.TryGetValue(AchievementConstants.INeedAHugStuffedDragon, out _) &&
-                    command.Player.Client.Storages.TryGetValue(AchievementConstants.INeedAHugBabySealDoll, out _) &&
-                    command.Player.Client.Storages.TryGetValue(AchievementConstants.INeedAHugSantaDoll, out _) )
+                return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.INeedAHugBabySealDoll, new[] { AchievementConstants.INeedAHugPandaTeddy, AchievementConstants.INeedAHugStuffedDragon, AchievementConstants.INeedAHugBabySealDoll, AchievementConstants.INeedAHugSantaDoll }, "I Need a Hug") ).Then( () =>
                 {
-                    if ( !command.Player.Client.Achievements.HasAchievement("I Need a Hug") )
-                    {
-                        command.Player.Client.Achievements.SetAchievement("I Need a Hug");
+                    return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
 
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "Congratulations! You earned the achievement \"I Need a Hug\".") );
-                    }
-                }
-
-                return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) ).Then( (item) =>
+                } ).Then( (item) =>
                 {
-                    _ = Context.AddCommand(new ItemDecayTransformCommand(item, TimeSpan.FromSeconds(3), decay[item.Metadata.OpenTibiaId], 1));
+                    _ = Context.AddCommand(new ItemDecayTransformCommand(item, TimeSpan.FromSeconds(3), decay[item.Metadata.OpenTibiaId], 1) );
 
                     return Promise.Completed;
                 } );

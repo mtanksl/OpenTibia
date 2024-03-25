@@ -92,6 +92,34 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
+        public static Promise Achievement(this Player player, int incrementStorageKey, int requiredStorageValue, string achievementName)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new PlayerAchievementCommand(player, incrementStorageKey, requiredStorageValue, achievementName) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public static Promise Achievement(this Player player, int incrementStorageKey, int[] requiredStorageKeys, string achievementName)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new PlayerAchievementCommand(player, incrementStorageKey, requiredStorageKeys, achievementName) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
         public static Promise UpdateAxe(this Player player, byte axe, byte axePercent)
         {
             Context context = Context.Current;
