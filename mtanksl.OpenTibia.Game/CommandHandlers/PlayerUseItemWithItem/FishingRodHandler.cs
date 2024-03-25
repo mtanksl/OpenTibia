@@ -13,21 +13,41 @@ namespace OpenTibia.Game.CommandHandlers
 
         private HashSet<ushort> shallowWaters = new HashSet<ushort>() { 4608, 4609, 4610, 4611, 4612, 4613, 4614, 4615, 4616, 4617, 4618, 4619, 4620, 4621, 4622, 4623, 4624, 4625, 4820, 4821, 4822, 4823, 4824, 4825 };
 
-        public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
+        private ushort worm = 3976;
+
+        private ushort fish = 2667;
+
+        public override async Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
             if (fishingRods.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 if (shallowWaters.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.BlueRings) );
+                    if ( !command.Player.Tile.ProtectionZone)
+                    {
+                        int count = await Context.AddCommand(new PlayerCountItemsCommand(command.Player, worm, 1) );
+
+                        if (count > 0 && Context.Server.Randomization.Take(1, 10) == 1)
+                        {
+                            await Context.AddCommand(new PlayerDestroyItemsCommand(command.Player, worm, 1, 1) );
+
+                            await Context.AddCommand(new PlayerCreateItemsCommand(command.Player, fish, 1, 1) );
+                        }
+                    }
+
+                    await Context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.BlueRings) );
                 }
-
-                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
-
-                return Promise.Break;
+                else
+                {
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+             
+                    await Promise.Break;
+                }
             }
-
-            return next();
+            else
+            {
+                await next();
+            }
         }
     }
 }
