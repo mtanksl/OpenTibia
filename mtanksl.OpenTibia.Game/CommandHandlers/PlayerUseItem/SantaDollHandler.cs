@@ -16,7 +16,11 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (stuffedDragons.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                command.Player.Client.Storages.SetValue(AchievementConstants.INeedAHugSantaDoll, 1);
+                int count;
+
+                command.Player.Client.Storages.TryGetValue(AchievementConstants.INeedAHugSantaDoll, out count);
+
+                command.Player.Client.Storages.SetValue(AchievementConstants.INeedAHugSantaDoll, ++count);
 
                 if (command.Player.Client.Storages.TryGetValue(AchievementConstants.INeedAHugPandaTeddy, out _) &&
                     command.Player.Client.Storages.TryGetValue(AchievementConstants.INeedAHugStuffedDragon, out _) &&

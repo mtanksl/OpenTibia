@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
 
@@ -24,6 +25,22 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (partyTrumpets.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
+                int count;
+
+                command.Player.Client.Storages.TryGetValue(AchievementConstants.PartyAnimal, out count);
+
+                command.Player.Client.Storages.SetValue(AchievementConstants.PartyAnimal, ++count);
+
+                if (count >= 200)
+                {
+                    if ( !command.Player.Client.Achievements.HasAchievement("Party Animal") )
+                    {
+                        command.Player.Client.Achievements.SetAchievement("Party Animal");
+
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "Congratulations! You earned the achievement \"Party Animal\".") );
+                    }
+                }
+
                 switch (command.Item.Root() )
                 {
                     case Tile tile:

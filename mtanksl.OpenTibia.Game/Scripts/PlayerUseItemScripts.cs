@@ -32,6 +32,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new DiceHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler(new ExplosivePresentHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler(new FireworksRocketHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new FoodHandler() );
@@ -73,6 +75,8 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CommandHandlers.AddCommandHandler(new SurpriseBagBlueHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new SurpriseBagRedHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new SurpriseBagSuspiciousHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemTransformHandler() );
 

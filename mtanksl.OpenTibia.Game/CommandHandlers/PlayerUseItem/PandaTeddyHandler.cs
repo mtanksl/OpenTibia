@@ -14,12 +14,16 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (pandaTeddies.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                command.Player.Client.Storages.SetValue(AchievementConstants.INeedAHugPandaTeddy, 1);
+                int count;
+
+                command.Player.Client.Storages.TryGetValue(AchievementConstants.INeedAHugPandaTeddy, out count);
+
+                command.Player.Client.Storages.SetValue(AchievementConstants.INeedAHugPandaTeddy, ++count);
 
                 if (command.Player.Client.Storages.TryGetValue(AchievementConstants.INeedAHugPandaTeddy, out _) &&
                     command.Player.Client.Storages.TryGetValue(AchievementConstants.INeedAHugStuffedDragon, out _) &&
                     command.Player.Client.Storages.TryGetValue(AchievementConstants.INeedAHugBabySealDoll, out _) &&
-                    command.Player.Client.Storages.TryGetValue(AchievementConstants.INeedAHugSantaDoll, out _))
+                    command.Player.Client.Storages.TryGetValue(AchievementConstants.INeedAHugSantaDoll, out _) )
                 {
                     if ( !command.Player.Client.Achievements.HasAchievement("I Need a Hug") )
                     {
