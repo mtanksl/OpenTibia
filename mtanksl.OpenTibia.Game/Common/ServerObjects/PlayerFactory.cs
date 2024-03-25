@@ -121,6 +121,8 @@ namespace OpenTibia.Game
 
             LoadSpells(Context.Current, dbPlayer, player);
 
+            LoadAchievements(Context.Current, dbPlayer, player);
+
             LoadOutfits(Context.Current, dbPlayer, player);
 
             LoadVips(Context.Current, dbPlayer, player);
@@ -282,6 +284,14 @@ namespace OpenTibia.Game
             }
         }
 
+        private static void LoadAchievements(Context context, DbPlayer dbPlayer, Player player)
+        {
+            foreach (var dbPlayerStorage in dbPlayer.PlayerAchievements)
+            {
+                player.Client.Achievements.SetAchievement(dbPlayerStorage.Name);
+            }
+        }
+
         private static void LoadOutfits(Context context, DbPlayer dbPlayer, Player player)
         {
             if (dbPlayer.PlayerOutfits.Count == 0)
@@ -345,6 +355,8 @@ namespace OpenTibia.Game
             SaveStorages(Context.Current, dbPlayer, player);
 
             SaveSpells(Context.Current, dbPlayer, player);
+
+            SaveAchievements(Context.Current, dbPlayer, player);
 
             SaveOutfits(Context.Current, dbPlayer, player);
 
@@ -579,6 +591,21 @@ namespace OpenTibia.Game
             foreach (var name in player.Client.Spells.GetSpells() )
             {
                 dbPlayer.PlayerSpells.Add(new DbPlayerSpell()
+                {
+                    PlayerId = dbPlayer.Id,
+
+                    Name = name
+                } );
+            }
+        }
+
+        private static void SaveAchievements(Context context, DbPlayer dbPlayer, Player player)
+        {
+            dbPlayer.PlayerAchievements.Clear();
+
+            foreach (var name in player.Client.Achievements.GetAchievements() )
+            {
+                dbPlayer.PlayerAchievements.Add(new DbPlayerAchievement()
                 {
                     PlayerId = dbPlayer.Id,
 

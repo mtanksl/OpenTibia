@@ -58,6 +58,10 @@ namespace OpenTibia.Data.Repositories
                     .Where(pi => pi.PlayerId == player.Id)
                     .Load();
 
+                context.PlayerAchievements
+                   .Where(pi => pi.PlayerId == player.Id)
+                   .Load();
+
                 context.PlayerOutfits
                     .Where(pi => pi.PlayerId == player.Id)
                     .Load();
@@ -94,6 +98,10 @@ namespace OpenTibia.Data.Repositories
                 context.PlayerSpells
                     .Where(pi => ids.Contains(pi.PlayerId) )
                     .Load();
+
+                context.PlayerAchievements
+                   .Where(pi => ids.Contains(pi.PlayerId) )
+                   .Load();
 
                 context.PlayerOutfits
                     .Where(pi => ids.Contains(pi.PlayerId) )

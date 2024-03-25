@@ -195,6 +195,15 @@ CREATE TABLE PlayerSpells (
 );
 CREATE INDEX IX_PlayerSpells_PlayerId ON PlayerSpells (PlayerId);
 
+-- PlayerAchievements
+
+CREATE TABLE PlayerAchievements (
+    PlayerId INTEGER NOT NULL REFERENCES Players (Id) ON DELETE CASCADE,
+    Name NVARCHAR (255) NOT NULL, 
+    PRIMARY KEY (PlayerId, Name)
+);
+CREATE INDEX IX_PlayerAchievements_PlayerId ON PlayerAchievements (PlayerId);
+
 -- PlayerVips
 
 CREATE TABLE PlayerVips (
