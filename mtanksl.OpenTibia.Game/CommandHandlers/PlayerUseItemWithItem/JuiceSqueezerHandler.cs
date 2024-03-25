@@ -1,5 +1,4 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using System;
 using System.Collections.Generic;
@@ -14,43 +13,55 @@ namespace OpenTibia.Game.CommandHandlers
 
         private HashSet<ushort> coconuts = new HashSet<ushort>() { 2678 };
 
-        public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
+        private ushort emptyVial = 11396;
+
+        public override async Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
             if (juiceSqueezers.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 if (fruits.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
-                    FluidItem item = command.Player.Inventory.GetContent( (byte)Slot.Extra) as FluidItem;
+                    int count = await Context.AddCommand(new PlayerCountItemsCommand(command.Player, emptyVial, (byte)FluidType.Empty) );
 
-                    if (item != null)
+                    if (count > 0)
                     {
-                        if (item.FluidType == FluidType.Empty)
-                        {
-                            return Context.AddCommand(new ItemDecrementCommand(command.ToItem, 1) ).Then( () =>
-                            {
-                                return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(item, FluidType.FruitJuice) );
-                            } );
-                        }
+                        await Context.AddCommand(new ItemDecrementCommand(command.ToItem, 1) );
+
+                        await Context.AddCommand(new PlayerDestroyItemsCommand(command.Player, emptyVial, (byte)FluidType.Empty, 1) );
+
+                        await Context.AddCommand(new PlayerCreateItemCommand(command.Player, emptyVial, (byte)FluidType.FruitJuice) );
+                    }
+                    else
+                    {
+                        await next();
                     }
                 }
                 else if (coconuts.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
-                    FluidItem item = command.Player.Inventory.GetContent( (byte)Slot.Extra) as FluidItem;
+                    int count = await Context.AddCommand(new PlayerCountItemsCommand(command.Player, emptyVial, (byte)FluidType.Empty) );
 
-                    if (item != null)
+                    if (count > 0)
                     {
-                        if (item.FluidType == FluidType.Empty)
-                        {
-                            return Context.AddCommand(new ItemDecrementCommand(command.ToItem, 1) ).Then( () =>
-                            {
-                                return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(item, FluidType.CoconutMilk) );
-                            } );
-                        }
+                        await Context.AddCommand(new ItemDecrementCommand(command.ToItem, 1) );
+
+                        await Context.AddCommand(new PlayerDestroyItemsCommand(command.Player, emptyVial, (byte)FluidType.Empty, 1) );
+
+                        await Context.AddCommand(new PlayerCreateItemCommand(command.Player, emptyVial, (byte)FluidType.CoconutMilk) );
+                    }
+                    else
+                    {
+                        await next();
                     }
                 }
+                else
+                {
+                    await next();
+                }
             }
-
-            return next();
+            else
+            {
+                await next();
+            }
         }
     }
 }

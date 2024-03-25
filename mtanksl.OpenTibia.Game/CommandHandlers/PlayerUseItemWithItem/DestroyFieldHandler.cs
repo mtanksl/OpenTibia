@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
 
@@ -14,16 +15,23 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
-            if (destroyFields.Contains(command.Item.Metadata.OpenTibiaId) && fields.Contains(command.ToItem.Metadata.OpenTibiaId) )
+            if (destroyFields.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
+                if (fields.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.Puff) );
+                    return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
+                    {
+                        return Context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.Puff) );
 
-                } ).Then( () =>
-                {
-                    return Context.AddCommand(new ItemDestroyCommand(command.ToItem) );
-                } );
+                    } ).Then( () =>
+                    {
+                        return Context.AddCommand(new ItemDestroyCommand(command.ToItem) );
+                    } );
+                }
+
+                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+
+                return Promise.Break;
             }
 
             return next();

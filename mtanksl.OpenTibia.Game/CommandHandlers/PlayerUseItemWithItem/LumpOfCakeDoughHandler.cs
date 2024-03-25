@@ -27,10 +27,14 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (ovens.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
-                    return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
+                    return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.PieceOfCakeDecoratedCake, new[] { AchievementConstants.PieceOfCakeChocolateCake, AchievementConstants.PieceOfCakeDecoratedCake }, "Piece of Cake") ).Then( () =>
+                    {
+                        return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
+
+                    } ).Then( () =>
                     {
                         return Context.AddCommand(new TileCreateItemOrIncrementCommand( (Tile)command.ToItem.Parent, cake, 1) );
-                    } );                
+                    } );
                 }
                 else if (barOfChocolate.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {

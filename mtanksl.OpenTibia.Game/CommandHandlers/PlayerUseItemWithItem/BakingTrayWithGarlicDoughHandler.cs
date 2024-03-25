@@ -11,6 +11,8 @@ namespace OpenTibia.Game.CommandHandlers
 
         private HashSet<ushort> ovens = new HashSet<ushort>() { 1786, 1788, 1790, 1792, 6356, 6358, 6360, 6362 };
 
+        private ushort bakingTray = 2561;
+
         private ushort garlicCookie = 9116;
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
@@ -18,6 +20,10 @@ namespace OpenTibia.Game.CommandHandlers
             if (bakingTrayWithGarlicDough.Contains(command.Item.Metadata.OpenTibiaId) && ovens.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
                 return Context.AddCommand(new ItemDestroyCommand(command.Item) ).Then( () =>
+                {
+                    return Context.AddCommand(new TileCreateItemOrIncrementCommand( (Tile)command.ToItem.Parent, bakingTray, 1) );
+
+                } ).Then( () =>
                 {
                     return Context.AddCommand(new TileCreateItemOrIncrementCommand( (Tile)command.ToItem.Parent, garlicCookie, 12) );
                 } );

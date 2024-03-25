@@ -1,6 +1,4 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
-using OpenTibia.Game.Commands;
+﻿using OpenTibia.Game.Commands;
 using System;
 using System.Collections.Generic;
 
@@ -20,32 +18,42 @@ namespace OpenTibia.Game.CommandHandlers
 
         private ushort decoratedCake = 6279;
 
-        public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
+        public override async Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
             if (knifes.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 if (pumpkins.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
-                    return Context.AddCommand(new ItemTransformCommand(command.ToItem, pumpkinhead, 1) );
+                    await Context.AddCommand(new ItemTransformCommand(command.ToItem, pumpkinhead, 1) );
                 }
                 else if (fruits.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
-                    Item item = command.Player.Inventory.GetContent( (byte)Slot.Extra) as Item;
+                    int count = await Context.AddCommand(new PlayerCountItemsCommand(command.Player, cake, 1) );
 
-                    if (item != null)
+                    if (count > 0)
                     {
-                        if (item.Metadata.OpenTibiaId == cake)
-                        {
-                            return Context.AddCommand(new ItemDecrementCommand(command.ToItem, 1) ).Then( () =>
-                            {
-                                return Context.AddCommand(new ItemTransformCommand(item, decoratedCake, 1) );
-                            } );
-                        }
+                        await Context.AddCommand(new ItemDecrementCommand(command.ToItem, 1) );
+
+                        await Context.AddCommand(new PlayerDestroyItemsCommand(command.Player, cake, 1, 1) );
+
+                        await Context.AddCommand(new PlayerCreateItemCommand(command.Player, decoratedCake, 1) );
+
+                        await Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.WithACherryOnTop, 20, "With a Cherry on Top") );
+                    }
+                    else
+                    {
+                        await next();
                     }
                 }
+                else
+                {
+                    await next();
+                }
             }
-
-            return next();
+            else
+            {
+                await next();
+            }
         }
     }
 }

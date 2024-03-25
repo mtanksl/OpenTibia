@@ -52,6 +52,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new PandaTeddyHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler(new PartyCakeHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler(new PartyHatHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new PartyTrumpetHandler() );

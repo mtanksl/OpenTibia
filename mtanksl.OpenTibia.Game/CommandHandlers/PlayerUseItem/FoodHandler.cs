@@ -156,9 +156,6 @@ namespace OpenTibia.Game.CommandHandlers
             // Orange Mushroom
             { 2790, ("Munch.", 360) },
 
-            // Party Cake
-            { 6280, ("Mmmm.", 180) },
-
             // Peanut
             { 7910, ("Crunch.", 48) },
 

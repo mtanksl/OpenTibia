@@ -81,18 +81,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (down.TopCreature != null)
                     {
-                        Creature creature = down.TopCreature;
-
-                        return Context.AddCommand(new CreatureMoveCommand(creature, south, Direction.South) );
+                        return Context.AddCommand(new CreatureMoveCommand(down.TopCreature, south, Direction.South) );
                     }
                     else if (down.TopItem != null && !down.TopItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
                     {
-                        Item item = down.TopItem;
-
-                        return Context.AddCommand(new TileRemoveItemCommand(down, item) ).Then( () =>
-                        {
-                            return Context.AddCommand(new TileAddItemCommand(south, item) );
-                        } );
+                        return Context.AddCommand(new ItemMoveCommand(down.TopItem, south, 1) );
                     }
                 }
             }
