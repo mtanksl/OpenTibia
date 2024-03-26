@@ -255,8 +255,6 @@ namespace OpenTibia.Game.Commands
 
             Context.AddEvent(new TileAddCreatureEventArgs(ToTile, Creature, toIndex) );
 
-            Context.AddEvent(new CreatureMoveEventArgs(Creature, fromTile, fromIndex, ToTile, toIndex) );
-
             return Promise.Completed;
         }
     }
