@@ -6,7 +6,7 @@ using System;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class MoveAwayTradingRejectHandler : CommandHandler<CreatureMoveCommand>
+    public class CreatureMoveTradingRejectHandler : CommandHandler<CreatureMoveCommand>
     {
         public override Promise Handle(Func<Promise> next, CreatureMoveCommand command)
         {
@@ -39,7 +39,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                                         break;
 
-                                    case null:
+                                    case Safe safe:
 
                                         reject = trading;
 
@@ -72,7 +72,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                                                 break;
 
-                                            case null:
+                                            case Safe safe:
 
                                                 reject = trading;
 

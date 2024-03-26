@@ -6,7 +6,7 @@ using System;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class PlayerDestroyTradingRejectHandler : CommandHandler<CreatureDestroyCommand>
+    public class CreatureDestroyTradingRejectHandler : CommandHandler<CreatureDestroyCommand>
     {
         public override Promise Handle(Func<Promise> next, CreatureDestroyCommand command)
         {

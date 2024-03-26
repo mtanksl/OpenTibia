@@ -6,19 +6,7 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new NpcDestroyTradingRejectHandler() );
-
-            Context.Server.CommandHandlers.AddCommandHandler(new PlayerDestroyContainerCloseHandler() );
-
-            Context.Server.CommandHandlers.AddCommandHandler(new PlayerDestroyTradingRejectHandler() );
-
-            Context.Server.CommandHandlers.AddCommandHandler(new PlayerDestroyNpcTradingRejectHandler() );
-
-            Context.Server.CommandHandlers.AddCommandHandler(new PlayerDestroyWindowCloseHandler() );
-
-            Context.Server.CommandHandlers.AddCommandHandler(new PlayerDestroyChannelCloseHandler() );
-
-            Context.Server.CommandHandlers.AddCommandHandler(new PlayerDestroyRuleViolationCloseHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new CreatureDestroyTradingRejectHandler() );
         }
 
         public override void Stop()

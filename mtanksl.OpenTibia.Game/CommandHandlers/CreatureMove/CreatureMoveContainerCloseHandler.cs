@@ -5,7 +5,7 @@ using System;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class MoveAwayContainerCloseHandler : CommandHandler<CreatureMoveCommand>
+    public class CreatureMoveContainerCloseHandler : CommandHandler<CreatureMoveCommand>
     {
         public override Promise Handle(Func<Promise> next, CreatureMoveCommand command)
         {
@@ -28,7 +28,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 break;
 
-                            case null:
+                            case Safe safe:
 
                                 player.Client.Containers.CloseContainer(pair.Key);
 

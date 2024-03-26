@@ -6,11 +6,9 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new MoveAwayContainerCloseHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new CreatureMoveContainerCloseHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new MoveAwayTradingRejectHandler() );
-
-            Context.Server.CommandHandlers.AddCommandHandler(new MoveAwayNpcTradingRejectHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new CreatureMoveTradingRejectHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new MagicForcefieldHandler() );
 
