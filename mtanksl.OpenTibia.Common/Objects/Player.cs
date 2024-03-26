@@ -9,7 +9,7 @@ namespace OpenTibia.Common.Objects
         {
             Inventory = new Inventory(this);
 
-            Safe = new Safe(this);
+            Lockers = new LockerCollection(this);
 
             Skills = new Skills(this)
             {
@@ -77,7 +77,7 @@ namespace OpenTibia.Common.Objects
 
         public Inventory Inventory { get; }
 
-        public Safe Safe { get; }
+        public LockerCollection Lockers { get; }
 
         public Skills Skills { get; set; }
 

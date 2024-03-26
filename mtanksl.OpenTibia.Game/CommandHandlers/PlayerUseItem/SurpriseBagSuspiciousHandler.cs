@@ -35,7 +35,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     value = Context.Server.Randomization.Take(0, prizes.Count - 1);
 
-                    return Promise.Completed.Then( () =>
+                    return Promise.Completed.Then( (Func<Promise>)(() =>
                     {
                         Position position = null;
 
@@ -53,7 +53,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 break;
 
-                            case Safe safe:
+                            case LockerCollection safe:
 
                                 position = safe.Player.Tile.Position;
 
@@ -67,14 +67,14 @@ namespace OpenTibia.Game.CommandHandlers
 
                         return Promise.Completed;
 
-                    } ).Then( () =>
+                    }) ).Then( () =>
                     {
                         return Context.AddCommand(new ItemTransformCommand(command.Item, prizes[value].OpenTibiaId, prizes[value].Count) );
                     } );
                 }
                 else
                 {
-                    return Promise.Completed.Then( () =>
+                    return Promise.Completed.Then( (Func<Promise>)(() =>
                     {
                         Position position = null;
 
@@ -92,7 +92,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 break;
 
-                            case Safe safe:
+                            case LockerCollection safe:
 
                                 position = safe.Player.Tile.Position;
 
@@ -106,7 +106,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                         return Promise.Completed;
 
-                    } ).Then( () =>
+                    }) ).Then( () =>
                     {
                         return Context.AddCommand(new ItemDestroyCommand(command.Item) );
                     } );

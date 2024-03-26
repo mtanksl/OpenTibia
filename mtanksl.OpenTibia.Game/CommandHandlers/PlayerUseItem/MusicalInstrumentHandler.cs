@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (green.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                return Promise.Completed.Then( () =>
+                return Promise.Completed.Then( (Func<Promise>)(() =>
                 {
                     Position position = null;
 
@@ -34,7 +34,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                             break;
 
-                        case Safe safe:
+                        case LockerCollection safe:
 
                             position = safe.Player.Tile.Position;
 
@@ -47,11 +47,11 @@ namespace OpenTibia.Game.CommandHandlers
                     }
 
                     return Promise.Completed;
-                } );
+                }) );
             }
             else if (purple.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                return Promise.Completed.Then( () =>
+                return Promise.Completed.Then( (Func<Promise>)(() =>
                 {
                     Position position = null;
 
@@ -69,7 +69,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                             break;
 
-                        case Safe safe:
+                        case LockerCollection safe:
 
                             position = safe.Player.Tile.Position;
 
@@ -82,7 +82,7 @@ namespace OpenTibia.Game.CommandHandlers
                     }
 
                     return Promise.Completed;
-                } );
+                }) );
             }
 
             return next();

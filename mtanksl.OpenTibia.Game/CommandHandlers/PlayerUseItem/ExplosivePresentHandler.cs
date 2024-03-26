@@ -14,7 +14,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (explosivePresent.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.JokesOnYou, 1, "Jokes On You") ).Then( () =>
+                return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.JokesOnYou, 1, "Jokes On You") ).Then( (Func<Promise>)(() =>
                 {
                     Position position = null;
 
@@ -32,7 +32,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                             break;
 
-                        case Safe safe:
+                        case LockerCollection safe:
 
                             position = safe.Player.Tile.Position;
 
@@ -46,7 +46,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Promise.Completed;
 
-                } ).Then( () =>
+                }) ).Then( () =>
                 {
                     return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "KABOOOOOOOOOOM!") );
 

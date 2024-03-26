@@ -52,11 +52,11 @@ namespace OpenTibia.Game.Scripts
                         return Promise.Break;
                     }
 
-                    if ( !(command.Item.Root() is Safe) && toContainer.Root() is Safe)
+                    if ( !(command.Item.Root() is LockerCollection) && toContainer.Root() is LockerCollection)
                     {
-                        foreach (var pair in Context.Server.Lockers.GetIndexedLockers(command.Player.DatabasePlayerId) )
+                        foreach (var pair in command.Player.Lockers.GetIndexedContents() )
                         {
-                            Locker locker = pair.Value;
+                            Locker locker = (Locker)pair.Value;
 
                             if (toContainer.IsContentOf(locker) )
                             {

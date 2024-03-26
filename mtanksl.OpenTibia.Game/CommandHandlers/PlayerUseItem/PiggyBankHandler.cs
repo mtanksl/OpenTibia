@@ -27,7 +27,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (value == 1)
                 {
-                    return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.AllowanceCollector, 50, "Allowance Collector") ).Then( () =>
+                    return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.AllowanceCollector, 50, "Allowance Collector") ).Then( (Func<Promise>)(() =>
                     {
                         Position position = null;
 
@@ -45,7 +45,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 break;
 
-                            case Safe safe:
+                            case LockerCollection safe:
 
                                 position = safe.Player.Tile.Position;
 
@@ -59,7 +59,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                         return Promise.Completed;
 
-                    } ).Then( () =>
+                    }) ).Then( () =>
                     {
                         return Context.AddCommand(new PlayerCreateItemCommand(command.Player, goldCoin, 1) );
 
@@ -70,7 +70,7 @@ namespace OpenTibia.Game.CommandHandlers
                 }
                 else
                 {
-                    return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.AllowanceCollector, 50, "Allowance Collector") ).Then( () =>
+                    return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.AllowanceCollector, 50, "Allowance Collector") ).Then( (Func<Promise>)(() =>
                     {
                         Position position = null;
 
@@ -88,7 +88,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 break;
 
-                            case Safe safe:
+                            case LockerCollection safe:
 
                                 position = safe.Player.Tile.Position;
 
@@ -102,7 +102,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                         return Promise.Completed;
 
-                    } ).Then( () =>
+                    }) ).Then( () =>
                     {
                         return Context.AddCommand(new PlayerCreateItemCommand(command.Player, platinumCoin, 1) );
                     } );

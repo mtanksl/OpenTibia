@@ -230,9 +230,7 @@ namespace OpenTibia.Game
 
                 AddItems(locker, playerDepotItem.SequenceId);
 
-                context.Server.Lockers.AddLocker(dbPlayer.Id, locker);
-
-                player.Safe.AddContent(locker);
+                player.Lockers.AddContent(locker, locker.TownId);
             }
         }
 
@@ -504,9 +502,9 @@ namespace OpenTibia.Game
 
             dbPlayer.PlayerDepotItems.Clear();
 
-            foreach (var pair in context.Server.Lockers.GetIndexedLockers(dbPlayer.Id) )
+            foreach (var pair in player.Lockers.GetIndexedContents() )
             {
-                AddItems(pair.Key, pair.Value);
+                AddItems(pair.Key, (Item)pair.Value);
             }
         }
 

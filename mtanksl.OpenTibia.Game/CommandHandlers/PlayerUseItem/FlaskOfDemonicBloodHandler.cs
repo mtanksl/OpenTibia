@@ -18,7 +18,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (flaskOfDemonicBloods.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.DemonicBarkeeper, 250, "Demonic Barkeeper") ).Then( () =>
+                return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.DemonicBarkeeper, 250, "Demonic Barkeeper") ).Then( (Func<Promise>)(() =>
                 {
                     Position position = null;
 
@@ -36,7 +36,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                             break;
 
-                        case Safe safe:
+                        case LockerCollection safe:
 
                             position = safe.Player.Tile.Position;
 
@@ -50,7 +50,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Promise.Completed;
 
-                } ).Then( () =>
+                }) ).Then( () =>
                 {
                     if (Context.Server.Randomization.Take(1, 2) == 1)
                     {

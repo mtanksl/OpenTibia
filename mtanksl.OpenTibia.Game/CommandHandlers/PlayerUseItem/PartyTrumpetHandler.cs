@@ -24,7 +24,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (partyTrumpets.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.PartyAnimal, 200, "Party Animal") ).Then( () =>
+                return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.PartyAnimal, 200, "Party Animal") ).Then( (Func<Promise>)(() =>
                 {
                     Position position = null;
                                         
@@ -42,7 +42,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                             break;
 
-                        case Safe safe:
+                        case LockerCollection safe:
 
                             position = safe.Player.Tile.Position;
 
@@ -56,7 +56,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Promise.Completed;
 
-                } ).Then( () =>
+                }) ).Then( () =>
                 {
                     return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "TOOOOOOT!") );
 

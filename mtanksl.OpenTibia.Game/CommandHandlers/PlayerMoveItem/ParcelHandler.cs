@@ -44,13 +44,13 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 if (player != null)
                                 {
-                                    Locker locker = Context.Server.Lockers.GetLocker(player.DatabasePlayerId, (ushort)town.Id);
+                                    Locker locker = (Locker)player.Lockers.GetContent(town.Id);
 
                                     if (locker == null)
                                     {
                                         locker = (Locker)Context.Server.ItemFactory.Create(2591, 1);
 
-                                        locker.TownId = (ushort)town.Id;
+                                        locker.TownId = town.Id;
 
                                         Context.Server.ItemFactory.Attach(locker);
 
@@ -59,10 +59,8 @@ namespace OpenTibia.Game.CommandHandlers
                                         Context.Server.ItemFactory.Attach(depot);
 
                                         locker.AddContent(depot);
-
-                                        Context.Server.Lockers.AddLocker(command.Player.DatabasePlayerId, locker);
                                                        
-                                        player.Safe.AddContent(locker);
+                                        player.Lockers.AddContent(locker, locker.TownId);
                                     }
 
                                     if (locker.Count < locker.Metadata.Capacity)

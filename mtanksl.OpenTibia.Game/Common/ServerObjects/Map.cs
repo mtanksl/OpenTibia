@@ -74,7 +74,7 @@ namespace OpenTibia.Common.Objects
                 {
                     towns.Add(town.Name, new Town() 
                     { 
-                        Id = town.Id,
+                        Id = (ushort)town.Id,
 
                         Name = town.Name,
 

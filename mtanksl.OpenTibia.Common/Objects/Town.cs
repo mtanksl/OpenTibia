@@ -4,7 +4,7 @@ namespace OpenTibia.Common.Objects
 {
     public class Town
     {
-        public uint Id { get; set; }
+        public ushort Id { get; set; }
 
         public string Name { get; set; }
 

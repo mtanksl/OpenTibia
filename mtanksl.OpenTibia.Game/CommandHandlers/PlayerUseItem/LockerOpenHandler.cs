@@ -10,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (command.Item is Locker mapLocker)
             {
-                Locker locker = Context.Server.Lockers.GetLocker(command.Player.DatabasePlayerId, mapLocker.TownId);
+                Locker locker = (Locker)command.Player.Lockers.GetContent(mapLocker.TownId);
 
                 if (locker == null)
                 {
@@ -26,7 +26,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     locker.AddContent(depot);
 
-                    Context.Server.Lockers.AddLocker(command.Player.DatabasePlayerId, locker);
+                    command.Player.Lockers.AddContent(locker, locker.TownId);
                 }
 
                 command.Item = locker;

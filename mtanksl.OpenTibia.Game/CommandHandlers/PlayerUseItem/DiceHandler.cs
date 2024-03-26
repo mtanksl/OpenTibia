@@ -18,7 +18,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 int value = Context.Server.Randomization.Take(0, dices.Count - 1);
 
-                return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, command.Player.Name + " rolled a " + (value + 1) + ".") ).Then( () =>
+                return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, command.Player.Name + " rolled a " + (value + 1) + ".") ).Then( (Func<Promise>)(() =>
                 {
                     Position position = null;
 
@@ -36,7 +36,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                             break;
 
-                        case Safe safe:
+                        case LockerCollection safe:
 
                             position = safe.Player.Tile.Position;
 
@@ -50,7 +50,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     return Promise.Completed;
 
-                } ).Then( () =>
+                }) ).Then( () =>
                 {
                     return Context.AddCommand(new ItemTransformCommand(command.Item, (ushort)(dice + value), 1) );
                 } );
