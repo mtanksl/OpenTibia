@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.PartyAnimal, 200, "Party Animal") ).Then( () =>
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.GiftWraps) );
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.GiftWraps) );
                 } );
             }
 

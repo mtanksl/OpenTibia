@@ -14,11 +14,11 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (fireworksRockets.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                if (command.Item.Parent is Tile tile)
+                if (command.Item.Parent is Tile)
                 {
                     return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.FireworksInTheSky, 250, "Fireworks in the Sky") ).Then( () =>
                     {
-                        return Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.FireworkBlue) );
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.FireworkBlue) );
 
                     } ).Then( () =>
                     {

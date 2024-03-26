@@ -20,7 +20,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (traps.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                if (command.Item.Parent is Tile fromTile && fromTile.ProtectionZone)
+                if (command.Item.Parent is Tile tile && tile.ProtectionZone)
                 {
                     Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisActionIsNotPermittedInAProtectionZone) );
 

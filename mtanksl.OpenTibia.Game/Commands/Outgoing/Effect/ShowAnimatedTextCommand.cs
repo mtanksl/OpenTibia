@@ -1,10 +1,56 @@
-﻿using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
     public class ShowAnimatedTextCommand : Command
     {
+        public ShowAnimatedTextCommand(IContent content, AnimatedTextColor animatedTextColor, string message)
+        {
+            Position position = null;
+
+            switch (content)
+            {
+                case Item item:
+
+                    switch (item.Root() )
+                    {
+                        case Tile tile:
+
+                            position = tile.Position;
+
+                            break;
+
+                        case Inventory inventory:
+
+                            position = inventory.Player.Tile.Position;
+
+                            break;
+
+                        case LockerCollection safe:
+
+                            position = safe.Player.Tile.Position;
+
+                            break;
+                    }
+
+                    break;
+
+                case Creature creature:
+
+                    position = creature.Tile.Position;
+
+                    break;
+            }
+
+            Position = position;
+
+            AnimatedTextColor = animatedTextColor;
+
+            Message = message;
+        }
+
         public ShowAnimatedTextCommand(Position position, AnimatedTextColor animatedTextColor, string message)
         {
             Position = position;
@@ -22,13 +68,16 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            ShowAnimatedTextOutgoingPacket showAnimatedTextOutgoingPacket = new ShowAnimatedTextOutgoingPacket(Position, AnimatedTextColor, Message);
-
-            foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Position) )
+            if (Position != null)
             {
-                if (observer.Tile.Position.CanHearSay(Position) )
+                ShowAnimatedTextOutgoingPacket showAnimatedTextOutgoingPacket = new ShowAnimatedTextOutgoingPacket(Position, AnimatedTextColor, Message);
+
+                foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Position) )
                 {
-                    Context.AddPacket(observer, showAnimatedTextOutgoingPacket);
+                    if (observer.Tile.Position.CanHearSay(Position) )
+                    {
+                        Context.AddPacket(observer, showAnimatedTextOutgoingPacket);
+                    }
                 }
             }
 

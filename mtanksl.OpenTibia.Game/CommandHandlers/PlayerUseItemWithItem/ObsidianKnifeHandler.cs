@@ -29,7 +29,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (value == 1)
                     {
-                        return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "The attempt at sculpting failed miserably.") ).Then( () =>
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.Puff) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "The attempt at sculpting failed miserably.") );
+
+                        } ).Then( () =>
                         {
                             return Context.AddCommand(new ItemDestroyCommand(command.ToItem) );
                         } );
@@ -44,6 +48,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                             } ).Then( () =>
                             {
+                                return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.Puff) );
+
+                            } ).Then( () =>
+                            {
                                 return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "You shaped a perfect little mammoth from the ice cube.") );
 
                             } ).Then( () =>
@@ -53,7 +61,10 @@ namespace OpenTibia.Game.CommandHandlers
                         }
                         else
                         {
-                            return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+                            return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.Puff) ).Then(() =>
+                            {
+                                return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+                            } );
                         }
                     }
                 }

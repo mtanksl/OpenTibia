@@ -216,13 +216,13 @@ namespace OpenTibia.Game
                 } );
             } );
 
-            lua.RegisterCoFunction("creaturemove", (Func<object[], PromiseResult<object[]>>)(parameters =>
+            lua.RegisterCoFunction("creaturemove", parameters =>
             {
                 return Context.Current.AddCommand(new CreatureMoveCommand( (Creature)parameters[0], ToTile(parameters[1] ) ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
-            }) );
+            } );
 
             lua.RegisterCoFunction("fluiditemupdatefluidtype", parameters =>
             {

@@ -98,7 +98,7 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             List<Promise> promises = new List<Promise>();
 
-                            foreach (var creature in ( (Tile)item.Parent).GetCreatures().ToList() )
+                            foreach (var creature in door.GetCreatures().ToList() )
                             {
                                 promises.Add(Context.AddCommand(new CreatureMoveCommand(creature, south) ) );
                             }
@@ -116,7 +116,7 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 List<Promise> promises = new List<Promise>();
 
-                                foreach (var creature in ( (Tile)item.Parent).GetCreatures().ToList() )
+                                foreach (var creature in door.GetCreatures().ToList() )
                                 {
                                     promises.Add(Context.AddCommand(new CreatureMoveCommand(creature, north) ) );
                                 }
@@ -145,7 +145,7 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             List<Promise> promises = new List<Promise>();
 
-                            foreach (var creature in ( (Tile)item.Parent).GetCreatures().ToList() )
+                            foreach (var creature in door.GetCreatures().ToList() )
                             {
                                 promises.Add(Context.AddCommand(new CreatureMoveCommand(creature, east) ) );
                             }
@@ -163,7 +163,7 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 List<Promise> promises = new List<Promise>();
 
-                                foreach (var creature in ( (Tile)item.Parent).GetCreatures().ToList() )
+                                foreach (var creature in door.GetCreatures().ToList() )
                                 {
                                     promises.Add(Context.AddCommand(new CreatureMoveCommand(creature, west) ) );
                                 }

@@ -65,9 +65,9 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (constructionKits.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                if (command.Item.Parent is Tile tile)
+                if (command.Item.Parent is Tile)
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.Puff) ).Then( () =>
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.Puff) ).Then( () =>
                     {
                         return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
                     } );

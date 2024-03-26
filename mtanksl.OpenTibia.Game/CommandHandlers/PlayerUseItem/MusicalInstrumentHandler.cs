@@ -1,5 +1,4 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using System;
 using System.Collections.Generic;
@@ -16,73 +15,11 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (green.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                return Promise.Completed.Then( (Func<Promise>)(() =>
-                {
-                    Position position = null;
-
-                    switch (command.Item.Root() )
-                    {
-                        case Tile tile:
-
-                            position = tile.Position;
-
-                            break;
-
-                        case Inventory inventory:
-
-                            position = inventory.Player.Tile.Position;
-
-                            break;
-
-                        case LockerCollection safe:
-
-                            position = safe.Player.Tile.Position;
-
-                            break;
-                    }
-
-                    if (position != null)
-                    {
-                        return Context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.GreenNotes) );
-                    }
-
-                    return Promise.Completed;
-                }) );
+                return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.GreenNotes) );
             }
             else if (purple.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                return Promise.Completed.Then( (Func<Promise>)(() =>
-                {
-                    Position position = null;
-
-                    switch (command.Item.Root() )
-                    {
-                        case Tile tile:
-
-                            position = tile.Position;
-
-                            break;
-
-                        case Inventory inventory:
-
-                            position = inventory.Player.Tile.Position;
-
-                            break;
-
-                        case LockerCollection safe:
-
-                            position = safe.Player.Tile.Position;
-
-                            break;
-                    }
-
-                    if (position != null)
-                    {
-                        return Context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.PurpleNotes) );
-                    }
-
-                    return Promise.Completed;
-                }) );
+                return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.PurpleNotes) );
             }
 
             return next();

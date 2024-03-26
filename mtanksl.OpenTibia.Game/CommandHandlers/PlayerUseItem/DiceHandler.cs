@@ -1,5 +1,4 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using System;
 using System.Collections.Generic;
@@ -18,39 +17,11 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 int value = Context.Server.Randomization.Take(0, dices.Count - 1);
 
-                return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, command.Player.Name + " rolled a " + (value + 1) + ".") ).Then( (Func<Promise>)(() =>
+                return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.Dice) ).Then( () =>
                 {
-                    Position position = null;
+                    return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, command.Player.Name + " rolled a " + (value + 1) + ".") );
 
-                    switch (command.Item.Root() )
-                    {
-                        case Tile tile:
-
-                            position = tile.Position;
-
-                            break;
-
-                        case Inventory inventory:
-
-                            position = inventory.Player.Tile.Position;
-
-                            break;
-
-                        case LockerCollection safe:
-
-                            position = safe.Player.Tile.Position;
-
-                            break;
-                    }
-
-                    if (position != null)
-                    {
-                        return Context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.Dice) );
-                    }
-
-                    return Promise.Completed;
-
-                }) ).Then( () =>
+                } ).Then( () =>
                 {
                     return Context.AddCommand(new ItemTransformCommand(command.Item, (ushort)(dice + value), 1) );
                 } );

@@ -23,24 +23,38 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (value == 1)
                 {
-                    return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "Aw man. That did not work out too well.") ).Then( () =>
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.Puff) ).Then( () =>
+                    {
+                        return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "Aw man. That did not work out too well.") );
+
+                    } ).Then( () =>
                     {
                         return Context.AddCommand(new ItemDestroyCommand(command.Item) );
                     } );
                 }
                 else if (value == 2)
                 {
-                    return Context.AddCommand(new ItemTransformCommand(command.Item, roughClayStatue, 1) );
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.Puff) ).Then(() =>
+                    {
+                        return Context.AddCommand(new ItemTransformCommand(command.Item, roughClayStatue, 1) );
+                    } );
                 }
                 else if (value == 3)
                 {
-                    return Context.AddCommand(new ItemTransformCommand(command.Item, clayStatue, 1) );
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.Puff) ).Then(() =>
+                    {
+                        return Context.AddCommand(new ItemTransformCommand(command.Item, clayStatue, 1) );
+                    } );
                 }
                 else
                 {
                     return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.ClayFighter, 1, "Clay Fighter") ).Then( () =>
                     {
                         return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.ClayToFame, 5, "Clay to Fame") );
+
+                    } ).Then( () =>
+                    {
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.Puff) );
 
                     } ).Then( () =>
                     {

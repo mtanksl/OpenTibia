@@ -1,10 +1,54 @@
-﻿using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
     public class ShowMagicEffectCommand : Command
     {
+        public ShowMagicEffectCommand(IContent content, MagicEffectType magicEffectType)
+        {
+            Position position = null;
+
+            switch (content)
+            {
+                case Item item:
+
+                    switch (item.Root() )
+                    {
+                        case Tile tile:
+
+                            position = tile.Position;
+
+                            break;
+
+                        case Inventory inventory:
+
+                            position = inventory.Player.Tile.Position;
+
+                            break;
+
+                        case LockerCollection safe:
+
+                            position = safe.Player.Tile.Position;
+
+                            break;
+                    }
+
+                    break;
+
+                case Creature creature:
+
+                    position = creature.Tile.Position;
+
+                    break;
+            }
+
+            Position = position;
+
+            MagicEffectType = magicEffectType;
+        }
+
         public ShowMagicEffectCommand(Position position, MagicEffectType magicEffectType)
         {
             Position = position;
@@ -18,13 +62,16 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            ShowMagicEffectOutgoingPacket showMagicEffectOutgoingPacket = new ShowMagicEffectOutgoingPacket(Position, MagicEffectType);
-
-            foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Position) )
+            if (Position != null)
             {
-                if (observer.Tile.Position.CanSee(Position) )
+                ShowMagicEffectOutgoingPacket showMagicEffectOutgoingPacket = new ShowMagicEffectOutgoingPacket(Position, MagicEffectType);
+
+                foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Position) )
                 {
-                    Context.AddPacket(observer, showMagicEffectOutgoingPacket);
+                    if (observer.Tile.Position.CanSee(Position) )
+                    {
+                        Context.AddPacket(observer, showMagicEffectOutgoingPacket);
+                    }
                 }
             }
 

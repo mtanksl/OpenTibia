@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using System;
 using System.Collections.Generic;
@@ -23,11 +24,17 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (platinumCoinsToCrystalCoin.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) && ( (StackableItem)command.Item).Count == 100)
             {
-                return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
+                return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.BlueShimmer) ).Then( () =>
+                {
+                    return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
+                } );                
             }
             else if (platinumCoinToGoldCoins.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) && ( (StackableItem)command.Item).Count == 1)
             {
-                return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 100) );
+                return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.BlueShimmer) ).Then( () =>
+                {
+                    return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 100) );
+                } );
             }
 
             return next();

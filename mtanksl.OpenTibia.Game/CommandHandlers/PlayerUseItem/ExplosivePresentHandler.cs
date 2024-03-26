@@ -1,5 +1,4 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using System;
 using System.Collections.Generic;
@@ -14,39 +13,11 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (explosivePresent.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.JokesOnYou, 1, "Jokes On You") ).Then( (Func<Promise>)(() =>
+                return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.JokesOnYou, 1, "Jokes On You") ).Then( () =>
                 {
-                    Position position = null;
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.ExplosionDamage) );
 
-                    switch (command.Item.Root() )
-                    {
-                        case Tile tile:
-
-                            position = tile.Position;
-
-                            break;
-
-                        case Inventory inventory:
-
-                            position = inventory.Player.Tile.Position;
-
-                            break;
-
-                        case LockerCollection safe:
-
-                            position = safe.Player.Tile.Position;
-
-                            break;
-                    }
-
-                    if (position != null)
-                    {
-                        return Context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.ExplosionDamage) );
-                    }
-
-                    return Promise.Completed;
-
-                }) ).Then( () =>
+                } ).Then( () =>
                 {
                     return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "KABOOOOOOOOOOM!") );
 

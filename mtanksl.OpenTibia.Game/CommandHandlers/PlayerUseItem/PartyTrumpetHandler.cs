@@ -1,5 +1,4 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using System;
 using System.Collections.Generic;
@@ -24,39 +23,11 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (partyTrumpets.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.PartyAnimal, 200, "Party Animal") ).Then( (Func<Promise>)(() =>
+                return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.PartyAnimal, 200, "Party Animal") ).Then( () =>
                 {
-                    Position position = null;
-                                        
-                    switch (command.Item.Root() )
-                    {
-                        case Tile tile:
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.GreenNotes) );
 
-                            position = tile.Position;
-
-                            break;
-
-                        case Inventory inventory:
-
-                            position = inventory.Player.Tile.Position;
-
-                            break;
-
-                        case LockerCollection safe:
-
-                            position = safe.Player.Tile.Position;
-
-                            break;
-                    }
-
-                    if (position != null)
-                    {
-                        return Context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.GreenNotes) );
-                    }
-
-                    return Promise.Completed;
-
-                }) ).Then( () =>
+                } ).Then( () =>
                 {
                     return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "TOOOOOOT!") );
 

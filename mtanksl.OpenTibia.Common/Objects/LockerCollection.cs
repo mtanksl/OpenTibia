@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace OpenTibia.Common.Objects
 {
@@ -22,7 +21,7 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        private Dictionary<ushort, IContent> contents = new Dictionary<ushort, IContent>();
+        private Dictionary<int, IContent> contents = new Dictionary<int, IContent>();
 
         /// <exception cref="NotSupportedException"></exception>
 
@@ -40,7 +39,7 @@ namespace OpenTibia.Common.Objects
                 throw new ArgumentException("Content must be an a locker.");
             }
 
-            contents[ (ushort)index ] = content;
+            contents[index] = content;
 
             content.Parent = this;
         }
@@ -56,7 +55,7 @@ namespace OpenTibia.Common.Objects
 
             IContent oldContent = GetContent(index);
 
-            contents[ (ushort)index ] = content;
+            contents[index] = content;
 
             oldContent.Parent = null;
 
@@ -67,7 +66,7 @@ namespace OpenTibia.Common.Objects
         {
             IContent content = GetContent(index);
 
-            contents.Remove( (ushort)index );
+            contents.Remove(index);
 
             content.Parent = null;
         }
@@ -112,7 +111,7 @@ namespace OpenTibia.Common.Objects
         {
             IContent content;
 
-            contents.TryGetValue( (ushort)index, out content); 
+            contents.TryGetValue(index, out content); 
 
             return content;
         }
