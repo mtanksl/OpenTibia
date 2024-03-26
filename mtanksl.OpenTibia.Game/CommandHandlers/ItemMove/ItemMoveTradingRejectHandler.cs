@@ -6,9 +6,9 @@ using System;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class ItemDestroyTradingRejectHandler : CommandHandler<ItemDestroyCommand>
+    public class ItemMoveTradingRejectHandler : CommandHandler<ItemMoveCommand>
     {
-        public override Promise Handle(Func<Promise> next, ItemDestroyCommand command)
+        public override Promise Handle(Func<Promise> next, ItemMoveCommand command)
         {
             return next().Then( () =>
             {

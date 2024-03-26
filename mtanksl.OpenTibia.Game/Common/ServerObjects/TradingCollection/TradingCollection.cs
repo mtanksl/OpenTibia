@@ -43,15 +43,15 @@ namespace OpenTibia.Game
         public Trading GetTradingByOffer(Item offer)
         {
             return GetTradings()
-                .Where(t => t.OfferIncludes.Contains(offer) )
+                .Where(t => t.OfferIncludesLookup.Contains(offer) )
                 .FirstOrDefault();
         }
 
         public Trading GetTradingByCounterOffer(Item counterOffer)
         {
             return GetTradings()
-                .Where(t => t.CounterOfferIncludes != null && 
-                            t.CounterOfferIncludes.Contains(counterOffer) )
+                .Where(t => t.CounterOfferIncludesLookup != null && 
+                            t.CounterOfferIncludesLookup.Contains(counterOffer) )
                 .FirstOrDefault();
         }
 

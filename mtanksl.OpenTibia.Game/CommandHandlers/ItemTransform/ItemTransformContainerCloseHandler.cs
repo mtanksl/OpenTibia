@@ -17,6 +17,8 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         CloseContainer(container);
                     }
+
+                    return Promise.FromResult(item);
                 } );
             }
 

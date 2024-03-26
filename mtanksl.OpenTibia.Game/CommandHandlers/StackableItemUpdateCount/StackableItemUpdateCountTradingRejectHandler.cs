@@ -6,15 +6,15 @@ using System;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class ItemDestroyTradingRejectHandler : CommandHandler<ItemDestroyCommand>
+    public class StackableItemUpdateCountTradingRejectHandler : CommandHandler<StackableItemUpdateCountCommand>
     {
-        public override Promise Handle(Func<Promise> next, ItemDestroyCommand command)
+        public override Promise Handle(Func<Promise> next, StackableItemUpdateCountCommand command)
         {
             return next().Then( () =>
             {
                 if (Context.Server.Tradings.Count > 0)
                 {
-                    RejectTrade(command.Item);
+                    RejectTrade(command.StackableItem);
                 }
 
                 return Promise.Completed;
@@ -36,14 +36,6 @@ namespace OpenTibia.Game.CommandHandlers
                 Context.AddPacket(trading.CounterOfferPlayer, new CloseTradeOutgoingPacket() );
 
                 Context.Server.Tradings.RemoveTrading(trading);
-            }
-
-            if (item is Container container)
-            {
-                foreach (var child in container.GetItems() )
-                {
-                    RejectTrade(child);
-                }
             }
         }
     }

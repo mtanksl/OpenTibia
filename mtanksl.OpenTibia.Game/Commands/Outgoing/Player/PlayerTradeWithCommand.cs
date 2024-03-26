@@ -49,10 +49,6 @@ namespace OpenTibia.Game.Commands
                 return true;
             }
 
-            //TODO: If trading a container, check if items were added
-
-            //TODO: Check if items where refreshed
-
             if ( !Player.Tile.Position.IsInRange(ToPlayer.Tile.Position, 2) )
             {
                 Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, ToPlayer.Name + " tells you to move closer.") );
@@ -115,6 +111,8 @@ namespace OpenTibia.Game.Commands
 
                     OfferIncludes = items,
 
+                    OfferIncludesLookup = new HashSet<Item>(items),
+
                     CounterOfferPlayer = ToPlayer
                 };
 
@@ -154,6 +152,8 @@ namespace OpenTibia.Game.Commands
                 trading.CounterOffer = Item;
 
                 trading.CounterOfferIncludes = items;
+
+                trading.CounterOfferIncludesLookup = new HashSet<Item>(items);
 
                 Context.AddPacket(ToPlayer, new JoinTradeOutgoingPacket(trading.CounterOfferPlayer.Name, trading.CounterOfferIncludes) );
 

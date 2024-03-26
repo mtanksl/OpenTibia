@@ -249,13 +249,6 @@ return {
 				args = "(Item item, IContainer toContainer, byte toIndex)",
 				returns = "void",
 			},
-			-- void command.itemswap(Item fromItem, Item toItem)
-			itemswap = {
-				type = "function",
-				description = "",
-				args = "(Item fromItem, Item toItem)",
-				returns = "void",
-			},
 			-- Item command.itemtransform(Item item, ushort openTibiaId, byte count)
 			itemtransform = {
 				type = "function",

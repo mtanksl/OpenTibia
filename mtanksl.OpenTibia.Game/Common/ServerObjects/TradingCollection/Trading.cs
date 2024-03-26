@@ -11,6 +11,8 @@ namespace OpenTibia.Game
 
         public List<Item> OfferIncludes { get; set; }
 
+        public HashSet<Item> OfferIncludesLookup { get; set; }
+
         public bool OfferPlayerAccepted { get; set; }
 
 
@@ -19,6 +21,8 @@ namespace OpenTibia.Game
         public Item CounterOffer { get; set; }
 
         public List<Item> CounterOfferIncludes { get; set; }
+
+        public HashSet<Item> CounterOfferIncludesLookup { get; set; }
 
         public bool CounterOfferPlayerAccepted { get; set; }
     }

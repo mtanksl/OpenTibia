@@ -7,9 +7,9 @@ using System.Linq;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class ThrowAwayContainerCloseHandler : CommandHandler<PlayerMoveItemCommand>
+    public class ItemMoveContainerCloseHandler : CommandHandler<ItemMoveCommand>
     {
-        public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
+        public override Promise Handle(Func<Promise> next, ItemMoveCommand command)
         {
             if (command.Item is Container container)
             {
@@ -56,19 +56,9 @@ namespace OpenTibia.Game.CommandHandlers
                                 isNextFrom.Add(fromInventory.Player);
 
                                 break;
-
-                            case null:
-
-                                isNextFrom.Add(command.Player);
-
-                                break;
                         }
 
                         break;
-
-                    default:
-
-                        throw new NotImplementedException();
                 }
 
                 return next().Then( () =>
@@ -116,57 +106,48 @@ namespace OpenTibia.Game.CommandHandlers
                                     isNextTo.Add(toInventory.Player);
 
                                     break;
-
-                                case null:
-
-                                    isNextTo.Add(command.Player);
-
-                                    break;
                             }
 
                             break;
-
-                        default:
-
-                            throw new NotImplementedException();
                     }
 
-                    foreach (var observer in isNextFrom.Except(isNextTo) )
-                    {
-                        foreach (var pair in observer.Client.Containers.GetIndexedContainers() )
-                        {
-                            if (pair.Value.IsContentOf(container) )
-                            {
-                                observer.Client.Containers.CloseContainer(pair.Key);
+                    CloseContainer(container, isNextFrom, isNextTo);
 
-                                Context.AddPacket(observer, new CloseContainerOutgoingPacket(pair.Key) );
-                            }
-                        }
-                    }
-
-                    foreach (var observer in isNextFrom.Intersect(isNextTo) )
-                    {
-                        foreach (var pair in observer.Client.Containers.GetIndexedContainers() )
-                        {
-                            if (pair.Value == container)
-                            {
-                                List<Item> items = new List<Item>();
-
-                                foreach (var item in container.GetItems() )
-                                {
-                                    items.Add(item);
-                                }
-
-                                Context.AddPacket(observer, new OpenContainerOutgoingPacket(pair.Key, container.Metadata.TibiaId, container.Metadata.Name, container.Metadata.Capacity.Value, container.Parent is Container, items) );
-                            }                           
-                        }
-                    }
-
-                    return Promise.Completed;
+                    UpdateContainer(container, isNextFrom, isNextTo);
                 } );
             }
 
             return next();
+        }
+
+        private void CloseContainer(Container container, HashSet<Player> isNextFrom, HashSet<Player> isNextTo)
+        {
+            foreach (var observer in isNextFrom.Except(isNextTo) )
+            {
+                foreach (var pair in observer.Client.Containers.GetIndexedContainers() )
+                {
+                    if (pair.Value.IsContentOf(container) )
+                    {
+                        observer.Client.Containers.CloseContainer(pair.Key);
+
+                        Context.AddPacket(observer, new CloseContainerOutgoingPacket(pair.Key) );
+                    }
+                }
+            }
+        }
+
+        private void UpdateContainer(Container container, HashSet<Player> isNextFrom, HashSet<Player> isNextTo)
+        {
+            foreach (var observer in isNextFrom.Intersect(isNextTo) )
+            {
+                foreach (var pair in observer.Client.Containers.GetIndexedContainers() )
+                {
+                    if (pair.Value == container)
+                    {
+                        Context.AddPacket(observer, new OpenContainerOutgoingPacket(pair.Key, container.Metadata.TibiaId, container.Metadata.Name, container.Metadata.Capacity.Value, container.Parent is Container, container.GetItems().ToList() ) );
+                    }
+                }
+            }
         }
     }
 }

@@ -6,19 +6,22 @@ using System;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class ThrowAwayTradingRejectHandler : CommandHandler<PlayerMoveItemCommand>
+    public class SplashItemUpdateFluidTypeTradingRejectHandler : CommandHandler<SplashItemUpdateFluidTypeCommand>
     {
-        public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
+        public override Promise Handle(Func<Promise> next, SplashItemUpdateFluidTypeCommand command)
         {
-            if (Context.Server.Tradings.Count > 0)
+            return next().Then( () =>
             {
-                Reject(command.Item);
-            }
+                if (Context.Server.Tradings.Count > 0)
+                {
+                    RejectTrade(command.SplashItem);
+                }
 
-            return next();
+                return Promise.Completed;
+            } );
         }
 
-        private void Reject(Item item)
+        private void RejectTrade(Item item)
         {
             Trading trading = Context.Server.Tradings.GetTradingByOffer(item) ?? Context.Server.Tradings.GetTradingByCounterOffer(item);
 
@@ -33,14 +36,6 @@ namespace OpenTibia.Game.CommandHandlers
                 Context.AddPacket(trading.CounterOfferPlayer, new CloseTradeOutgoingPacket() );
 
                 Context.Server.Tradings.RemoveTrading(trading);
-            }
-
-            if (item is Container container)
-            {
-                foreach (var child in container.GetItems() )
-                {
-                    Reject(child);
-                }
             }
         }
     }

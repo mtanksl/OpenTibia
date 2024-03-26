@@ -2,11 +2,11 @@
 
 namespace OpenTibia.Game.Scripts
 {
-    public class ItemSwapScripts : Script
+    public class SplashItemUpdateFluidTypeScripts : Script
     {
         public override void Start()
         {
-            
+            Context.Server.CommandHandlers.AddCommandHandler(new SplashItemUpdateFluidTypeTradingRejectHandler() );            
         }
 
         public override void Stop()

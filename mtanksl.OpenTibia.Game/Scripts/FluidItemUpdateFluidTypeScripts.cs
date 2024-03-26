@@ -2,11 +2,11 @@
 
 namespace OpenTibia.Game.Scripts
 {
-    public class StackableItemUpdateCountScripts : Script
+    public class FluidItemUpdateFluidTypeScripts : Script
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new StackableItemUpdateCountTradingRejectHandler() );            
+            Context.Server.CommandHandlers.AddCommandHandler(new FluidItemUpdateFluidTypeTradingRejectHandler() );            
         }
 
         public override void Stop()

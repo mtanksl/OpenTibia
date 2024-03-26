@@ -10,7 +10,6 @@ namespace OpenTibia.Game.Scripts
             new GlobalScripts(),
             new ItemDestroyScript(),
             new ItemMoveScript(),
-            new ItemSwapScript(),
             new ItemTransformScripts(),
             new PlayerLoginScripts(),
             new PlayerLogoutScripts(),

@@ -1,6 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Network.Packets.Outgoing;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -27,14 +27,7 @@ namespace OpenTibia.Game.Commands
                 {
                     Player.Client.Containers.ReplaceContainer(parentContainer, ContainerId);
 
-                    List<Item> items = new List<Item>();
-
-                    foreach (var item in parentContainer.GetItems() )
-                    {
-                        items.Add(item);
-                    }
-
-                    Context.AddPacket(Player, new OpenContainerOutgoingPacket(ContainerId, parentContainer.Metadata.TibiaId, parentContainer.Metadata.Name, parentContainer.Metadata.Capacity.Value, parentContainer.Parent is Container, items) );
+                    Context.AddPacket(Player, new OpenContainerOutgoingPacket(ContainerId, parentContainer.Metadata.TibiaId, parentContainer.Metadata.Name, parentContainer.Metadata.Capacity.Value, parentContainer.Parent is Container, parentContainer.GetItems().ToList() ) );
 
                     return Promise.Completed;
                 }
