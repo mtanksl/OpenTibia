@@ -523,6 +523,7 @@ return {
 				returns = "void",
 			},			
 			-- void command.showanimatedtext(Position position, AnimatedTextColor animatedTextColor, string message)
+			-- void command.showanimatedtext(IContent content, AnimatedTextColor animatedTextColor, string message)
 			showanimatedtext = {
 				type = "function",
 				description = "",
@@ -530,12 +531,16 @@ return {
 				returns = "void",
 			},
 			-- void command.showmagiceffect(Position position, MagicEffectType magicEffectType)
+			-- void command.showmagiceffect(IContent content, MagicEffectType magicEffectType)
 			showmagiceffect = {
 				type = "function",
 				description = "",
 				args = "(Position position, MagicEffectType magicEffectType)",
 				returns = "void",
 			},
+			-- void command.showprojectile(IContent fromContent, IContent toContent, ProjectileType projectileType)
+			-- void command.showprojectile(IContent fromContent, Position toPosition, ProjectileType projectileType)
+			-- void command.showprojectile(Position fromPosition, IContent toContent, ProjectileType projectileType)
 			-- void command.showprojectile(Position fromPosition, Position toPosition, ProjectileType projectileType)
 			showprojectile = {
 				type = "function",

@@ -7,6 +7,9 @@ using OpenTibia.Network.Packets;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
+#if AOT
+using System.Diagnostics.CodeAnalysis;
+#endif
 using System.IO;
 using System.Linq;
 
