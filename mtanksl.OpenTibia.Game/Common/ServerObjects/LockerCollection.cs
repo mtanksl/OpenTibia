@@ -4,53 +4,33 @@ namespace OpenTibia.Common.Objects
 {
     public class LockerCollection
     {
-        private class Safe
-        {
-            private Dictionary<ushort, Locker> lockers = new Dictionary<ushort, Locker>();
-
-            public void AddLocker(ushort townId, Locker locker)
-            {
-                lockers[townId] = locker;
-            }
-
-            public Locker GetLocker(ushort townId)
-            {
-                Locker locker;
-
-                lockers.TryGetValue(townId, out locker);
-
-                return locker;
-            }
-
-            public IEnumerable< KeyValuePair<ushort, Locker> > GetIndexedLockers()
-            {
-                return lockers;
-            }
-        }
-
-        private Dictionary<int, Safe> safes = new Dictionary<int, Safe>();
+        private Dictionary<int, Dictionary<ushort, Locker>> items = new Dictionary<int, Dictionary<ushort, Locker>>();
 
         public void AddLocker(int databasePlayerId, Locker locker)
         {
-            Safe safe;
+            Dictionary<ushort, Locker> item;
 
-            if ( !safes.TryGetValue(databasePlayerId, out safe) )
+            if ( !items.TryGetValue(databasePlayerId, out item) )
             {
-                safe = new Safe();
+                item = new Dictionary<ushort, Locker>();
 
-                safes.Add(databasePlayerId, safe);
+                items.Add(databasePlayerId, item);
             }
 
-            safe.AddLocker(locker.TownId, locker);
+            item[locker.TownId] = locker;
         }
 
         public Locker GetLocker(int databasePlayerId, ushort townId)
         {
-            Safe safe;
+            Dictionary<ushort, Locker> item;
 
-            if ( safes.TryGetValue(databasePlayerId, out safe) )
+            if ( items.TryGetValue(databasePlayerId, out item) )
             {
-                return safe.GetLocker(townId);
+                Locker locker;
+
+                item.TryGetValue(townId, out locker);
+
+                return locker;
             }
 
             return null;
@@ -58,11 +38,11 @@ namespace OpenTibia.Common.Objects
 
         public IEnumerable< KeyValuePair<ushort, Locker> > GetIndexedLockers(int databasePlayerId)
         {
-            Safe safe;
+            Dictionary<ushort, Locker> item;
 
-            if ( safes.TryGetValue(databasePlayerId, out safe) )
+            if ( items.TryGetValue(databasePlayerId, out item) )
             {
-                foreach (var pair in safe.GetIndexedLockers() )
+                foreach (var pair in item)
                 {
                     yield return new KeyValuePair<ushort, Locker>(pair.Key, pair.Value);
                 }

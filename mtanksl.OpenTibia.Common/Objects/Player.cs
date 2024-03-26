@@ -9,6 +9,8 @@ namespace OpenTibia.Common.Objects
         {
             Inventory = new Inventory(this);
 
+            Safe = new Safe(this);
+
             Skills = new Skills(this)
             {
                 MagicLevel = 0,
@@ -74,6 +76,8 @@ namespace OpenTibia.Common.Objects
         public int DatabasePlayerId { get; set; }
 
         public Inventory Inventory { get; }
+
+        public Safe Safe { get; }
 
         public Skills Skills { get; set; }
 

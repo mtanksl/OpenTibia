@@ -61,6 +61,8 @@ namespace OpenTibia.Game.CommandHandlers
                                         locker.AddContent(depot);
 
                                         Context.Server.Lockers.AddLocker(command.Player.DatabasePlayerId, locker);
+                                                       
+                                        player.Safe.AddContent(locker);
                                     }
 
                                     if (locker.Count < locker.Metadata.Capacity)

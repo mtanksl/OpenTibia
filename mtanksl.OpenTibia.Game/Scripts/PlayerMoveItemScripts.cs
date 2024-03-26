@@ -52,7 +52,7 @@ namespace OpenTibia.Game.Scripts
                         return Promise.Break;
                     }
 
-                    if (command.Item.Root() != null && toContainer.Root() == null)
+                    if ( !(command.Item.Root() is Safe) && toContainer.Root() is Safe)
                     {
                         foreach (var pair in Context.Server.Lockers.GetIndexedLockers(command.Player.DatabasePlayerId) )
                         {

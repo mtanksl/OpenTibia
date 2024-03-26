@@ -231,6 +231,8 @@ namespace OpenTibia.Game
                 AddItems(locker, playerDepotItem.SequenceId);
 
                 context.Server.Lockers.AddLocker(dbPlayer.Id, locker);
+
+                player.Safe.AddContent(locker);
             }
         }
 

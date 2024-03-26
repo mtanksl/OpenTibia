@@ -48,9 +48,14 @@ namespace OpenTibia.Game.CommandHandlers
                                 break;
 
                             case Inventory inventory:
-                            case null:
 
-                                position = command.Player.Tile.Position;
+                                position = inventory.Player.Tile.Position;
+
+                                break;
+
+                            case Safe safe:
+
+                                position = safe.Player.Tile.Position;
 
                                 break;
                         }
@@ -82,9 +87,14 @@ namespace OpenTibia.Game.CommandHandlers
                                 break;
 
                             case Inventory inventory:
-                            case null:
 
-                                position = command.Player.Tile.Position;
+                                position = inventory.Player.Tile.Position;
+
+                                break;
+
+                            case Safe safe:
+
+                                position = safe.Player.Tile.Position;
 
                                 break;
                         }

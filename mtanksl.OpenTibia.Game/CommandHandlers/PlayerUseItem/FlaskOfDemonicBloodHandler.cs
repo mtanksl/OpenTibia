@@ -22,7 +22,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     Position position = null;
 
-                    switch (command.Item.Root())
+                    switch (command.Item.Root() )
                     {
                         case Tile tile:
 
@@ -31,9 +31,14 @@ namespace OpenTibia.Game.CommandHandlers
                             break;
 
                         case Inventory inventory:
-                        case null:
 
-                            position = command.Player.Tile.Position;
+                            position = inventory.Player.Tile.Position;
+
+                            break;
+
+                        case Safe safe:
+
+                            position = safe.Player.Tile.Position;
 
                             break;
                     }

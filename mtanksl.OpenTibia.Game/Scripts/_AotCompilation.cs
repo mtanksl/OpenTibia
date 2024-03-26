@@ -5,8 +5,11 @@ namespace OpenTibia.Game.Scripts
     {
         public static readonly Script[] Scripts = new Script[]
         {
+            new ContainerAddItemScripts(),
+            new ContainerRemoveItemScripts(),
             new CreatureDestroyScript(),
             new CreatureMoveScripts(),
+            new FluidItemUpdateFluidTypeScripts(),
             new GlobalScripts(),
             new ItemDestroyScript(),
             new ItemMoveScript(),
@@ -21,6 +24,7 @@ namespace OpenTibia.Game.Scripts
             new PlayerUseItemScripts(),
             new PlayerUseItemWithCreatureScripts(),
             new PlayerUseItemWithItemScripts(),
+            new SplashItemUpdateFluidTypeScripts(),
             new StackableItemUpdateCountScripts(),
             new TileAddCreatureScripts(),
             new TileRemoveCreatureScripts(),

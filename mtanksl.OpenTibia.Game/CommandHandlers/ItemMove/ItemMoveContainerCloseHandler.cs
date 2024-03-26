@@ -15,50 +15,9 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 HashSet<Player> isNextFrom = new HashSet<Player>();
 
-                switch (container.Parent)
+                foreach (var player in container.GetPlayers() )
                 {
-                    case Tile fromTile:
-
-                        foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(fromTile.Position) )
-                        {
-                            if (observer.Tile.Position.IsNextTo(fromTile.Position) )
-                            {
-                                isNextFrom.Add(observer);
-                            }                            
-                        }
-
-                        break;
-
-                    case Inventory fromInventory:
-
-                        isNextFrom.Add(fromInventory.Player);
-
-                        break;
-
-                    case Container fromContainer:
-
-                        switch (fromContainer.Root() )
-                        {
-                            case Tile fromTile:
-
-                                foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(fromTile.Position) )
-                                {
-                                    if (observer.Tile.Position.IsNextTo(fromTile.Position) )
-                                    {
-                                        isNextFrom.Add(observer);
-                                    }
-                                }
-
-                                break;
-
-                            case Inventory fromInventory:
-
-                                isNextFrom.Add(fromInventory.Player);
-
-                                break;
-                        }
-
-                        break;
+                    isNextFrom.Add(player);
                 }
 
                 return next().Then( () =>
@@ -104,6 +63,12 @@ namespace OpenTibia.Game.CommandHandlers
                                 case Inventory toInventory:
 
                                     isNextTo.Add(toInventory.Player);
+
+                                    break;
+
+                                case Safe toSafe:
+
+                                    isNextTo.Add(toSafe.Player);
 
                                     break;
                             }
