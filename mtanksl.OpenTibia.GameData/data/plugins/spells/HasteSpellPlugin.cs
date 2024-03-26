@@ -28,7 +28,7 @@ namespace OpenTibia.GameData.Plugins.Spells
         {
             var speed = HasteFormula(player.BaseSpeed);
 
-            return Context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.GreenShimmer) ).Then( () =>
+            return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.GreenShimmer) ).Then( () =>
             {
                 return Context.AddCommand(new CreatureAddConditionCommand(player, 
                             

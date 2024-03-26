@@ -40,21 +40,21 @@ namespace OpenTibia.Game.CommandHandlers
                     }
                     else if (shallowWaters.Contains(command.ToItem.Metadata.OpenTibiaId) )
                     {
-                        return Context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.BlueRings) ).Then( () =>
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.BlueRings) ).Then( () =>
                         {
                             return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Water) );
                         } );
                     }
                     else if (swamps.Contains(command.ToItem.Metadata.OpenTibiaId) )
                     {
-                        return Context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.GreenRings) ).Then( () =>
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.GreenRings) ).Then( () =>
                         {
                             return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Slime) );
                         } );
                     }
                     else if (lavas.Contains(command.ToItem.Metadata.OpenTibiaId) )
                     {
-                        return Context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.FirePlume) ).Then( () =>
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.FirePlume) ).Then( () =>
                         {
                             return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Lava) );
                         } );

@@ -43,19 +43,19 @@ namespace OpenTibia.Game.Commands
         {
             if (ProjectileType != null)
             {
-                await Context.Current.AddCommand(new ShowProjectileCommand(attacker.Tile.Position, target.Tile.Position, ProjectileType.Value) );
+                await Context.Current.AddCommand(new ShowProjectileCommand(attacker, target, ProjectileType.Value) );
             }
 
             if (MagicEffectType != null)
             {
-                await Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.Value) );
+                await Context.Current.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.Value) );
             }
 
             if ( !(attacker is Player && (target is Player || target is Npc) ) )
             {
                 if (AnimatedTextColor != null)
                 {
-                    await Context.Current.AddCommand(new ShowAnimatedTextCommand(target.Tile.Position, AnimatedTextColor.Value, (-damage).ToString() ) );
+                    await Context.Current.AddCommand(new ShowAnimatedTextCommand(target, AnimatedTextColor.Value, (-damage).ToString() ) );
                 }
 
                 if (target is Player player)

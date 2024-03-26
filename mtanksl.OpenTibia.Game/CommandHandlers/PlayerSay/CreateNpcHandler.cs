@@ -13,9 +13,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 string name = command.Message.Substring(3);
 
-                Tile fromTile = command.Player.Tile;
-
-                Tile toTile = Context.Server.Map.GetTile(fromTile.Position.Offset(command.Player.Direction) );
+                Tile toTile = Context.Server.Map.GetTile(command.Player.Tile.Position.Offset(command.Player.Direction) );
 
                 if (toTile != null)
                 {
@@ -26,11 +24,11 @@ namespace OpenTibia.Game.CommandHandlers
                             return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) );
                         }
 
-                        return Context.AddCommand(new ShowMagicEffectCommand(fromTile.Position, MagicEffectType.Puff) );
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
                     } );
                 }
 
-                return Context.AddCommand(new ShowMagicEffectCommand(fromTile.Position, MagicEffectType.Puff) );
+                return Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
             }
 
             return next();

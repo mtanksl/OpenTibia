@@ -1,5 +1,4 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
@@ -37,7 +36,7 @@ namespace OpenTibia.Game.CommandHandlers
                         }
                     }
 
-                    await Context.AddCommand(new ShowMagicEffectCommand( ( (Tile)command.ToItem.Parent).Position, MagicEffectType.BlueRings) );
+                    await Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.BlueRings) );
                 }
                 else
                 {

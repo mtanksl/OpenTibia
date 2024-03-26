@@ -34,7 +34,7 @@ namespace OpenTibia.GameData.Plugins.Spells
 
             int count = Spell.ConjureCount.Value;
 
-            return Context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
+            return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.BlueShimmer) ).Then( () =>
             {
                 return Context.AddCommand(new PlayerDestroyItemsCommand(player, blankRune, 1, 1) );
 

@@ -26,7 +26,7 @@ namespace OpenTibia.GameData.Plugins.Spells
 
         public override Promise OnCast(Player player, Creature target, string message)
         {
-            return Context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
+            return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.BlueShimmer) ).Then( () =>
             {
                 return Context.AddCommand(new CreatureAddConditionCommand(player, 
                             

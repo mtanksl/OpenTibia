@@ -25,7 +25,7 @@ namespace OpenTibia.GameData.Plugins.Runes
 
         public override Promise OnUseRune(Player player, Creature target, Tile tile, Item item)
         {
-            return Context.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.BlueShimmer) ).Then( () =>
+            return Context.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.BlueShimmer) ).Then( () =>
             {
                 return Context.AddCommand(new CreatureRemoveConditionCommand(target, ConditionSpecialCondition.Poisoned) );
             } );

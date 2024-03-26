@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (Context.Server.Randomization.Take(1, 5) == 1)
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.ToCreature.Tile.Position, MagicEffectType.RedSpark) ).Then( () =>
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.ToCreature, MagicEffectType.RedSpark) ).Then( () =>
                     {
                         return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, "You concentrate on your victim and hit the needle in the doll.") );
                     } );

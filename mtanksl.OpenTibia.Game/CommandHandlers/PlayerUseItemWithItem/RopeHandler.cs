@@ -69,15 +69,19 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (ropeSpots.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
-                    Tile up = Context.Server.Map.GetTile( ( (Tile)command.ToItem.Parent ).Position.Offset(0, 1, -1) );
+                    Tile ropeSpot = (Tile)command.ToItem.Parent;
+
+                    Tile up = Context.Server.Map.GetTile(ropeSpot.Position.Offset(0, 1, -1) );
 
                     return Context.AddCommand(new CreatureMoveCommand(command.Player, up, Direction.South) );
                 }
                 else if (holes.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
-                    Tile down = Context.Server.Map.GetTile( ( (Tile)command.ToItem.Parent).Position.Offset(0, 0, 1) );
+                    Tile hole = (Tile)command.ToItem.Parent;
 
-                    Tile south = Context.Server.Map.GetTile( ( (Tile)command.ToItem.Parent ).Position.Offset(0, 1, 0) );
+                    Tile down = Context.Server.Map.GetTile(hole.Position.Offset(0, 0, 1) );
+
+                    Tile south = Context.Server.Map.GetTile(hole.Position.Offset(0, 1, 0) );
 
                     if (down.TopCreature != null)
                     {

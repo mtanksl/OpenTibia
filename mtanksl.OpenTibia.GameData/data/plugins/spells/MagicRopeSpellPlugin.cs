@@ -35,7 +35,7 @@ namespace OpenTibia.GameData.Plugins.Spells
         {
             Tile toTile = Context.Server.Map.GetTile(player.Tile.Position.Offset(0, 1, -1) );
 
-            return Context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.Teleport) ).Then( () =>
+            return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.Teleport) ).Then( () =>
             {
                 return Context.AddCommand(new CreatureMoveCommand(player, toTile, Direction.South) );
 

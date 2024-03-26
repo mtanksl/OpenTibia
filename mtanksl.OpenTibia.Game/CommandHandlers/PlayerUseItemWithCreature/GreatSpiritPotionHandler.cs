@@ -21,8 +21,6 @@ namespace OpenTibia.Game.CommandHandlers
                     return Context.AddCommand(new ShowTextCommand(player, TalkType.MonsterSay, "Only paladins of level 80 or above may drink this fluid.") );
                 }
 
-                Tile toTile = player.Tile;
-
                 Promise promise;
 
                 if (Context.Current.Server.Config.GameplayInfinitePotions)
@@ -47,7 +45,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 } ).Then( () =>
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) );
+                    return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.BlueShimmer) );
 
                 } ).Then( () =>
                 {

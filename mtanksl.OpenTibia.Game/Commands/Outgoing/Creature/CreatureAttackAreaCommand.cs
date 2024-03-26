@@ -94,7 +94,7 @@ namespace OpenTibia.Game.Commands
         {
             if (ProjectileType != null)
             {
-                await Context.AddCommand(new ShowProjectileCommand(Attacker.Tile.Position, Center, ProjectileType.Value) );
+                await Context.AddCommand(new ShowProjectileCommand(Attacker, Center, ProjectileType.Value) );
             }
 
             foreach (var area in Area)

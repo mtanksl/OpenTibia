@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Missed(Creature attacker, Creature target)
         {
-            await Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.Puff) );
+            await Context.Current.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.Puff) );
 
             if ( !(attacker is Player && (target is Player || target is Npc) ) )
             {
@@ -40,11 +40,11 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Hit(Creature attacker, Creature target, int damage)
         {
-            await Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.RedSpark) );
+            await Context.Current.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.RedSpark) );
 
             if ( !(attacker is Player && (target is Player || target is Npc) ) )
             {
-                await Context.Current.AddCommand(new ShowAnimatedTextCommand(target.Tile.Position, AnimatedTextColor.DarkRed, (-damage).ToString() ) );
+                await Context.Current.AddCommand(new ShowAnimatedTextCommand(target, AnimatedTextColor.DarkRed, (-damage).ToString() ) );
 
                 if (target is Player player)
                 {

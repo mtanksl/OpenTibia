@@ -12,7 +12,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if ( !command.Player.Invisible)
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) ).Then( () =>
                     {
                         return Context.AddCommand(new CreatureUpdateInvisibleCommand(command.Player, true) );
 
@@ -23,7 +23,7 @@ namespace OpenTibia.Game.CommandHandlers
                 }
                 else
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Teleport) ).Then( () =>
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Teleport) ).Then( () =>
                     {
                         return Context.AddCommand(new CreatureUpdateInvisibleCommand(command.Player, false) );
 

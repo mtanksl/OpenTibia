@@ -995,7 +995,48 @@ namespace OpenTibia.Game
             {
                 return (Position)parameter;
             }
-            
+
+            if (parameter is IContent content)
+            {
+                Position position = null;
+
+                switch (content)
+                {
+                    case Item item:
+
+                        switch (item.Root() )
+                        {
+                            case Tile tile:
+
+                                position = tile.Position;
+
+                                break;
+
+                            case Inventory inventory:
+
+                                position = inventory.Player.Tile.Position;
+
+                                break;
+
+                            case LockerCollection safe:
+
+                                position = safe.Player.Tile.Position;
+
+                                break;
+                        }
+
+                        break;
+
+                    case Creature creature:
+
+                        position = creature.Tile.Position;
+
+                        break;
+                }
+
+                return position;
+            }
+
             if (parameter is LuaTable)
             {
                 LuaTable table = (LuaTable)parameter;

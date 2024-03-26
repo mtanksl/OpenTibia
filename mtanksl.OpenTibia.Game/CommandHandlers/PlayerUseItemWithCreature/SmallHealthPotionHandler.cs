@@ -16,8 +16,6 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (healthPotions.Contains(command.Item.Metadata.OpenTibiaId) && command.ToCreature is Player player)
             {
-                Tile toTile = player.Tile;
-
                 Promise promise;
 
                 if (Context.Current.Server.Config.GameplayInfinitePotions)
@@ -38,7 +36,7 @@ namespace OpenTibia.Game.CommandHandlers
                     
                 } ).Then( () =>
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.RedShimmer) );
+                    return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.RedShimmer) );
 
                 } ).Then( () =>
                 {

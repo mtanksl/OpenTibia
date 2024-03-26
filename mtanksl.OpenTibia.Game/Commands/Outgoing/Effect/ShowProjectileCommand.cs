@@ -87,6 +87,96 @@ namespace OpenTibia.Game.Commands
             ProjectileType = projectileType;
         }
 
+        public ShowProjectileCommand(Position fromPosition, IContent toContent, ProjectileType projectileType)
+        {
+            Position toPosition = null;
+
+            switch (toContent)
+            {
+                case Item item:
+
+                    switch (item.Root() )
+                    {
+                        case Tile tile:
+
+                            toPosition = tile.Position;
+
+                            break;
+
+                        case Inventory inventory:
+
+                            toPosition = inventory.Player.Tile.Position;
+
+                            break;
+
+                        case LockerCollection safe:
+
+                            toPosition = safe.Player.Tile.Position;
+
+                            break;
+                    }
+
+                    break;
+
+                case Creature creature:
+
+                    toPosition = creature.Tile.Position;
+
+                    break;
+            }
+
+            FromPosition = fromPosition;
+
+            ToPosition = toPosition;
+
+            ProjectileType = projectileType;
+        }
+
+        public ShowProjectileCommand(IContent fromContent, Position toPosition, ProjectileType projectileType)
+        {
+            Position fromPosition = null;
+
+            switch (fromContent)
+            {
+                case Item item:
+
+                    switch (item.Root() )
+                    {
+                        case Tile tile:
+
+                            fromPosition = tile.Position;
+
+                            break;
+
+                        case Inventory inventory:
+
+                            fromPosition = inventory.Player.Tile.Position;
+
+                            break;
+
+                        case LockerCollection safe:
+
+                            fromPosition = safe.Player.Tile.Position;
+
+                            break;
+                    }
+
+                    break;
+
+                case Creature creature:
+
+                    fromPosition = creature.Tile.Position;
+
+                    break;
+            }
+
+            FromPosition = fromPosition;
+
+            ToPosition = toPosition;
+
+            ProjectileType = projectileType;
+        }
+
         public ShowProjectileCommand(Position fromPosition, Position toPosition, ProjectileType projectileType)
         {
             FromPosition = fromPosition;

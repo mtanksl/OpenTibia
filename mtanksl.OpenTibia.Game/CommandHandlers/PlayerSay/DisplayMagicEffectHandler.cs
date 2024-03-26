@@ -1,5 +1,4 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using System;
 
@@ -13,9 +12,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (command.Message.StartsWith("/me ") && int.TryParse(command.Message.Substring(4), out id) && id >= 1 && id <= 70)
             {
-                Tile fromTile = command.Player.Tile;
-                              
-                return Context.AddCommand(new ShowMagicEffectCommand(fromTile.Position, (MagicEffectType)id) );
+                return Context.AddCommand(new ShowMagicEffectCommand(command.Player, (MagicEffectType)id) );
             }
 
             return next();

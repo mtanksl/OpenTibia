@@ -15,9 +15,7 @@ namespace OpenTibia.Game.CommandHandlers
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithCreatureCommand command)
         {
             if (manaPotions.Contains(command.Item.Metadata.OpenTibiaId) && command.ToCreature is Player player)
-            {
-                Tile toTile = player.Tile;
-
+            {   
                 Promise promise;
 
                 if (Context.Current.Server.Config.GameplayInfinitePotions)
@@ -38,7 +36,7 @@ namespace OpenTibia.Game.CommandHandlers
                     
                 } ).Then( () =>
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.BlueShimmer) );
+                    return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.BlueShimmer) );
 
                 } ).Then( () =>
                 {

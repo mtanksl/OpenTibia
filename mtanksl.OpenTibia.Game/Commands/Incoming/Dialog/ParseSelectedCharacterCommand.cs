@@ -121,7 +121,7 @@ namespace OpenTibia.Game.Commands
 
             return Context.AddCommand(new TileCreatePlayerCommand(Connection, dbPlayer) ).Then( (player) =>
             {
-                return Context.AddCommand(new ShowMagicEffectCommand(player.Tile.Position, MagicEffectType.Teleport) );
+                return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.Teleport) );
             } );
         }
     }

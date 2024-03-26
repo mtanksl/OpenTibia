@@ -14,7 +14,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            return Context.AddCommand(new ShowMagicEffectCommand(Player.Tile.Position, MagicEffectType.Puff) ).Then( () =>
+            return Context.AddCommand(new ShowMagicEffectCommand(Player, MagicEffectType.Puff) ).Then( () =>
             {
                 return Context.AddCommand(new CreatureDestroyCommand(Player) );
             } );

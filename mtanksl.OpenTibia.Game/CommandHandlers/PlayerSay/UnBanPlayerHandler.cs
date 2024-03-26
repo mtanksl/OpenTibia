@@ -32,7 +32,7 @@ namespace OpenTibia.Game.CommandHandlers
                     return Promise.Completed;
                 }
 
-                return Context.AddCommand(new ShowMagicEffectCommand(command.Player.Tile.Position, MagicEffectType.Puff) );
+                return Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
             }
 
             return next();

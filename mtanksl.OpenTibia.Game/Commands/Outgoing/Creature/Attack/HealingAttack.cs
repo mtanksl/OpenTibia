@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
         {
             if (MagicEffectType != null)
             {
-                await Context.Current.AddCommand(new ShowMagicEffectCommand(target.Tile.Position, MagicEffectType.Value) );
+                await Context.Current.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.Value) );
             }
 
             await Context.Current.AddCommand(new CreatureUpdateHealthCommand(target, target.Health + damage) );
