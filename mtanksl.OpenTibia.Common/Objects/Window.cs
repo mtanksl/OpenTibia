@@ -15,7 +15,9 @@ namespace OpenTibia.Common.Objects
         }
 
         private List<IContent> contents = new List<IContent>();
-        
+
+        /// <exception cref="ArgumentException"></exception>
+
         public byte AddContent(IContent content)
         {
             if ( !(content is Item) )

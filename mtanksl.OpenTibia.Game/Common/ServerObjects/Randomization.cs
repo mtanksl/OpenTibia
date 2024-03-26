@@ -9,24 +9,24 @@ namespace OpenTibia.Game
 
         /// <exception cref="ArgumentException"></exception>
 
-        public int Take(int min, int max)
+        public int Take(int minInclusive, int maxInclusive)
         {
-            if (min < 0)
+            if (minInclusive < 0)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("MinInclusive must be greater then or equals to 0.");
             }
 
-            if (max < min)
+            if (maxInclusive < minInclusive)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("MinInclusive must be greater then or equals to MaxInclusive.");
             }
 
-            if (min == max)
+            if (minInclusive == maxInclusive)
             {
-                return min;
+                return minInclusive;
             }
 
-            return random.Next(min, max + 1);
+            return random.Next(minInclusive, maxInclusive + 1);
         }
 
         /// <exception cref="ArgumentNullException"></exception>
@@ -41,7 +41,7 @@ namespace OpenTibia.Game
 
             if (array.Length == 0)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Array must have at least one item.");
             }
 
             return array[ random.Next(0, array.Length) ];
@@ -64,12 +64,12 @@ namespace OpenTibia.Game
 
             if (array.Length == 0)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Array must have at least one item.");
             }
 
             if (array.Length != weights.Length)
             {
-                throw new ArgumentException();
+                throw new ArgumentException("Array must have the same length of Weights.");
             }
 
             int value = random.Next(0, weights.Sum() );

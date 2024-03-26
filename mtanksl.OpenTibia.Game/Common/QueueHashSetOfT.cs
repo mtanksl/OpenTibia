@@ -38,6 +38,8 @@ namespace OpenTibia.Common.Objects
             return default(T);
         }
 
+        /// <exception cref="InvalidOperationException"></exception>
+
         public T Dequeue()
         {
             if (Count == 0)

@@ -885,7 +885,9 @@ namespace OpenTibia.Game
 
             return null;
         }
-
+              
+        /// <exception cref="ArgumentException"></exception>
+       
         private Light ToLight(object parameter)
         {
             if (parameter == null)
@@ -905,8 +907,10 @@ namespace OpenTibia.Game
                 return new Light( (byte)(long)table["level"], (byte)(long)table["color"] );
             }
          
-            throw new ArgumentException();
+            throw new ArgumentException("Parameter must be Light or LuaTable with level and color.");
         }
+
+        /// <exception cref="ArgumentException"></exception>
 
         private Outfit ToOutfit(object parameter)
         {
@@ -915,7 +919,7 @@ namespace OpenTibia.Game
                 return null;
             }
 
-            if (parameter is Light)
+            if (parameter is Outfit)
             {
                 return (Outfit)parameter;
             }
@@ -932,8 +936,10 @@ namespace OpenTibia.Game
                 return new Outfit( (ushort)(long)table["id"], (byte)(long)table["head"], (byte)(long)table["body"], (byte)(long)table["legs"], (byte)(long)table["feet"], (Addon)(long)table["addon"] );
             }
          
-            throw new ArgumentException();
+            throw new ArgumentException("Parameter must be Outfit or LuaTable with itemid or with id, head, body, legs, feet and addon.");
         }
+
+        /// <exception cref="ArgumentException"></exception>
 
         private Offset ToOffset(object parameter)
         {
@@ -949,8 +955,10 @@ namespace OpenTibia.Game
                 return new Offset( (int)(long)table[1], (int)(long)table[2] );
             }
             
-            throw new ArgumentException();
+            throw new ArgumentException("Parameter must be Offset or LuaTable with two values, one for x and other for y.");
         }
+
+        /// <exception cref="ArgumentException"></exception>
 
         private Offset[] ToOffsetArray(object parameter)
         {
@@ -971,8 +979,10 @@ namespace OpenTibia.Game
                 return table.Values.Cast<LuaTable>().Select(v => ToOffset(v) ).ToArray();
             }
 
-            throw new ArgumentException();
+            throw new ArgumentException("Parameter must be array of Offset or array of LuaTable with two items, one for x and other for y.");
         }
+
+        /// <exception cref="ArgumentException"></exception>
 
         private Position ToPosition(object parameter)
         {
@@ -993,8 +1003,10 @@ namespace OpenTibia.Game
                 return new Position( (int)(long)table["x"], (int)(long)table["y"], (int)(long)table["z"] );
             }
          
-            throw new ArgumentException();
+            throw new ArgumentException("Parameter must by Position or LuaTable with x, y and z.");
         }
+
+        /// <exception cref="ArgumentException"></exception>
 
         private Tile ToTile(object parameter)
         {
@@ -1013,8 +1025,10 @@ namespace OpenTibia.Game
                 return Context.Current.Server.Map.GetTile(ToPosition(parameter) );
             }
          
-            throw new ArgumentException();
+            throw new ArgumentException("Parameter must by Tile or LuaTable with x, y and z.");
         }
+
+        /// <exception cref="ArgumentException"></exception>
 
         private Attack ToAttack(object parameter)
         {
@@ -1052,8 +1066,10 @@ namespace OpenTibia.Game
                 }
             }
 
-            throw new ArgumentException();
+            throw new ArgumentException("Parameter must by Attack or LuaTable with type, projectiletype, magiceffecttype, animatedtextcolor, min and max.");
         }
+
+        /// <exception cref="ArgumentException"></exception>
 
         private Condition ToCondition(object parameter)
         {
@@ -1108,7 +1124,7 @@ namespace OpenTibia.Game
                 }
             }
          
-            throw new ArgumentException();
+            throw new ArgumentException("Parameter must by Condition or LuaTable with type, specialcondition, magiceffecttype, animatedtextcolor, damages, interval, damage, speed, duration, light, outfit and/or regenerationtick.");
         }
 
         private Dictionary<string, string> chunks = new Dictionary<string, string>();

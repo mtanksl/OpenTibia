@@ -142,6 +142,8 @@ namespace OpenTibia.Game
             return callbacks.TryGetValue(name, out callback);
         }
 
+        /// <exception cref="LuaException"></exception>
+        
         public LuaScope LoadNewChunk(string chunk, string chunkName)
         {
             var loadResult = ( (LuaFunction)env["bridge.load"] ).Call(chunk, chunkName, env);

@@ -15,13 +15,15 @@ namespace OpenTibia.Threading
             }
         }
 
-        private Scope<T> _parent;       
+        private Scope<T> _parent;
+
+        /// <exception cref="ArgumentNullException"></exception>
 
         public Scope(T value)
         {
             if (value == null)
             {
-                throw new ArgumentNullException( nameof(value) );
+                throw new ArgumentNullException(nameof(value) );
             }
 
             _value = value;

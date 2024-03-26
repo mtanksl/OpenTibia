@@ -32,6 +32,8 @@ namespace OpenTibia.Game
             return false;
         }
 
+        /// <exception cref="FileNotFoundException"></exception>
+        
         public string GetFullPath(string relativePath)
         {
             var directory = new DirectoryInfo(Directory.GetCurrentDirectory() );

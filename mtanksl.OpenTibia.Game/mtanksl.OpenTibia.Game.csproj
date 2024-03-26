@@ -25,7 +25,6 @@
   <ItemGroup>
     <Folder Include="CommandHandlers\ItemMove\" />
     <Folder Include="CommandHandlers\ItemSwap\" />
-    <Folder Include="CommandHandlers\ItemTransform\" />
     <Folder Include="CommandHandlers\StackableItemUpdateCount\" />
     <Folder Include="EventHandlers\PlayerLogin\" />
     <Folder Include="EventHandlers\PlayerLogout\" />

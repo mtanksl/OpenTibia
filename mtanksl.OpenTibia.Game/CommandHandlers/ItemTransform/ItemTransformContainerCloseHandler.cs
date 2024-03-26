@@ -5,15 +5,18 @@ using System;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class ItemDestroyContainerCloseHandler : CommandHandler<ItemDestroyCommand>
-    {
-        public override Promise Handle(Func<Promise> next, ItemDestroyCommand command)
+    public class ItemTransformContainerCloseHandler : CommandResultHandler<Item, ItemTransformCommand>
+    {  
+        public override PromiseResult<Item> Handle(Func<PromiseResult<Item>> next, ItemTransformCommand command)
         {
-            if (command.Item is Container container)
+            if (command.FromItem is Container)
             {
-                return next().Then( () =>
+                return next().Then( (item) =>
                 {
-                    CloseContainer(container);
+                    if (item is Container container)
+                    {
+                        CloseContainer(container);
+                    }
                 } );
             }
 

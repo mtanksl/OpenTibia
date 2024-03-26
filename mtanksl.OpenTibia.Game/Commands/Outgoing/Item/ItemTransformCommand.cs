@@ -32,28 +32,49 @@ namespace OpenTibia.Game.Commands
 
                 toItem.UniqueId = FromItem.UniqueId;
 
-                if (FromItem is Container fromContainer && toItem is Container toContainer)
+                if (FromItem is Container fromContainer)
                 {
-                    while (fromContainer.Count > 0)
+                    if (toItem is Container toContainer)
                     {
-                        IContent content = fromContainer.GetContent(fromContainer.Count - 1);
+                        while (fromContainer.Count > 0)
+                        {
+                            IContent content = fromContainer.GetContent(fromContainer.Count - 1);
 
-                        fromContainer.RemoveContent(fromContainer.Count - 1);
+                            fromContainer.RemoveContent(fromContainer.Count - 1);
 
-                        toContainer.AddContent(content);
+                            toContainer.AddContent(content);
+                        }
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("ToItem must be Container.");
                     }
                 }
-                else if (FromItem is ReadableItem fromReadableItem && toItem is ReadableItem toReadableItem)
+                else if (FromItem is ReadableItem fromReadableItem)
                 {
-                    toReadableItem.Text = fromReadableItem.Text;
+                    if (toItem is ReadableItem toReadableItem)
+                    {
+                        toReadableItem.Text = fromReadableItem.Text;
 
-                    toReadableItem.Author = fromReadableItem.Author;
+                        toReadableItem.Author = fromReadableItem.Author;
 
-                    toReadableItem.Date = fromReadableItem.Date;
+                        toReadableItem.Date = fromReadableItem.Date;
+                    }
+                    else 
+                    {
+                        throw new InvalidOperationException("ToItem must be ReadableItem."); 
+                    }                    
                 }
-                else if (FromItem is SignItem fromSignItem && toItem is SignItem toSignItem)
+                else if (FromItem is SignItem fromSignItem)
                 {
-                    toSignItem.Text = fromSignItem.Text;
+                    if (toItem is SignItem toSignItem)
+                    {
+                        toSignItem.Text = fromSignItem.Text;
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("ToItem must be SignItem.");
+                    }
                 }
 
                 switch (FromItem.Parent)

@@ -69,10 +69,14 @@ namespace OpenTibia.IO
             }
         }
 
+        /// <exception cref="NotSupportedException"></exception>
+
         public override void WriteByte(byte value)
         {
             throw new NotSupportedException();
         }
+
+        /// <exception cref="NotSupportedException"></exception>
 
         public override void Write(byte[] buffer, int offset, int count)
         {
