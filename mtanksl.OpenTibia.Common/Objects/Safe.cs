@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace OpenTibia.Common.Objects
 {
-    public class LockerCollection : IContainer
+    public class Safe : IContainer
     {
-        public LockerCollection(Player player)
+        public Safe(Player player)
         {
             this.player = player;
         }
@@ -36,7 +36,7 @@ namespace OpenTibia.Common.Objects
         {
             if ( !(content is Locker) )
             {
-                throw new ArgumentException("Content must be an a locker.");
+                throw new ArgumentException("Content must be a locker.");
             }
 
             contents[index] = content;
@@ -50,7 +50,7 @@ namespace OpenTibia.Common.Objects
         {
             if ( !(content is Locker) )
             {
-                throw new ArgumentException("Content must be an a locker.");
+                throw new ArgumentException("Content must be a locker.");
             }
 
             IContent oldContent = GetContent(index);

@@ -340,8 +340,6 @@ namespace OpenTibia.Common.Objects
             return tiles.Values;
         }
 
-        //TODO: Implement Quadtree
-
         private HashSet<Creature>[][] observers;
 
         public void AddObserver(Position position, Creature creature)

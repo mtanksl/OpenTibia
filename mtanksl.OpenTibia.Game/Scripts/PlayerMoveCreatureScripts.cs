@@ -10,12 +10,17 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new MoveCreatureWalkToSourceHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new MoveCreatureWalkToSourceHandler() ); //TODO: Re-validate rules for incoming packet
 
-            //TODO: Re-validate rules for incoming packet
-
-            Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveCreatureCommand>( (context, next, command) => 
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveCreatureCommand>( (context, next, command) =>
             {
+                if (command.ToTile.Ground == null || command.ToTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || command.ToTile.GetCreatures().Any(c => c.Block) )
+                {
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtRoom) );
+
+                    return Promise.Break;
+                }
+
                 if ( !command.Creature.Tile.Position.IsNextTo(command.ToTile.Position) )
                 {
                     Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.DestinationIsOutOfReach) );
@@ -26,17 +31,7 @@ namespace OpenTibia.Game.Scripts
                 return next();
             } );
 
-            Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveCreatureCommand>( (context, next, command) => 
-            {
-                if (command.ToTile.Ground == null || command.ToTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || command.ToTile.GetCreatures().Any(c => c.Block) )
-                {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtRoom) );
-
-                    return Promise.Break;
-                }
-
-                return next();
-            } );
+            Context.Server.CommandHandlers.AddCommandHandler(new MoveCreatureScriptingHandler() );
         }
 
         public override void Stop()

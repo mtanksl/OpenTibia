@@ -12,7 +12,8 @@ server = {
 		privatenpcsystem = true,
 		infinitepotions = false,
 		infinitearrows = false,
-		infiniterunes = false
+		infiniterunes = false,
+		maxdepotitems = 2000
 	},
 	security = {
 		-- multi-client

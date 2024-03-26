@@ -13,6 +13,30 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
+        protected bool IsPossible(Item fromItem, Container toContainer)
+        {
+            if ( toContainer.IsContentOf(fromItem) )
+            {
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
+
+                return false;
+            }
+
+            return true;
+        }
+
+        protected bool IsPickupable(Item fromItem)
+        {
+            if ( !fromItem.Metadata.Flags.Is(ItemMetadataFlags.Pickupable) )
+            {
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotTakeThisObject) );
+
+                return false;
+            }
+
+            return true;
+        }
+
         protected bool IsMoveable(Item fromItem, byte count)
         {
             if ( fromItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
@@ -42,7 +66,14 @@ namespace OpenTibia.Game.Commands
 
         protected bool IsMoveable(Creature fromCreature)
         {
+            if (fromCreature is Npc || fromCreature is Monster)
+            {
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
+
+                return false;
+            }
+
             return true;
-        }
+        }        
     }
 }

@@ -20,7 +20,7 @@ namespace OpenTibia.Game.CommandHandlers
                     isNextFrom.Add(player);
                 }
 
-                return next().Then( (Action)(() =>
+                return next().Then( () =>
                 {
                     HashSet<Player> isNextTo = new HashSet<Player>();
 
@@ -66,7 +66,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                                     break;
 
-                                case LockerCollection toSafe:
+                                case Safe toSafe:
 
                                     isNextTo.Add((Player)toSafe.Player);
 
@@ -79,7 +79,7 @@ namespace OpenTibia.Game.CommandHandlers
                     CloseContainer(container, isNextFrom, isNextTo);
 
                     UpdateContainer(container, isNextFrom, isNextTo);
-                }) );
+                } );
             }
 
             return next();

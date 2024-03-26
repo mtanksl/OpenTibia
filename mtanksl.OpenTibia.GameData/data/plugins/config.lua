@@ -4,7 +4,8 @@
 		-- { type = "PlayerUseItem", opentibiaid = 1740, filename = "use item.lua" },
 		-- { type = "PlayerUseItemWithItem", opentibiaid = 2580, allowfaruse = true, filename = "use item with item.lua" },
 		-- { type = "PlayerUseItemWithCreature", opentibiaid = 2580, allowfaruse = true, filename = "use item with creature.lua" },
-		-- { type = "PlayerMoveItem", opentibiaid = 1740, filename = "move item.lua" }
+		-- { type = "PlayerMoveItem", opentibiaid = 1740, filename = "move item.lua" },
+		-- { type = "PlayerMoveCreature", name = "Amazon", filename = "move creature.lua" }
 	},
 	movements = {
 		-- { type = "CreatureStepIn", opentibiaid = 446, filename = "step in.lua" },

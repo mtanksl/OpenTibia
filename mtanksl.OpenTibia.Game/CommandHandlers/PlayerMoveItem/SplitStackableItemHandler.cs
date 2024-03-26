@@ -15,7 +15,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 // Move an item to tile
 
-                if (toTile.Ground == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || (toTile.GetCreatures().Any(c => c.Block) && command.Item.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) )
+                if (toTile.Ground == null || command.Item.Metadata.Flags.Is(ItemMetadataFlags.Pickupable) ? toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) && !i.Metadata.Flags.Is(ItemMetadataFlags.HasHeight) ) : toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || (toTile.GetCreatures().Any(c => c.Block) && command.Item.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) )
                 {
                     Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtRoom) );
                 

@@ -17,6 +17,7 @@
     <None Include="$(MSBuildThisFileDirectory)data\outfits\config.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\outfits\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\actions\lib.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\actions\move creature.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\actions\move item.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\actions\rotate item.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\actions\use item with creature.lua" />

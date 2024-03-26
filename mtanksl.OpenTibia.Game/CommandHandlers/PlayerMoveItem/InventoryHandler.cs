@@ -14,147 +14,150 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 Slot toSlot = (Slot)command.ToIndex;
 
-                SlotType slotType;
-
-                if (command.Item.Metadata.SlotType == null)
+                if (toInventory.GetContent( (int)toSlot) == null)
                 {
-                    slotType = SlotType.Left | SlotType.Right | SlotType.Extra;
-                }
-                else
-                {
-                    slotType = command.Item.Metadata.SlotType.Value | SlotType.Left | SlotType.Right | SlotType.Extra;
-                }
+                    SlotType slotType;
 
-                bool proceed = false;
+                    if (command.Item.Metadata.SlotType == null)
+                    {
+                        slotType = SlotType.Left | SlotType.Right | SlotType.Extra;
+                    }
+                    else
+                    {
+                        slotType = command.Item.Metadata.SlotType.Value | SlotType.Left | SlotType.Right | SlotType.Extra;
+                    }
 
-                switch (toSlot)
-                {
-                    case Slot.Head:
+                    bool proceed = false;
 
-                        if (slotType.Is(SlotType.Head) )
-                        {
-                            proceed = true;
-                        }
+                    switch (toSlot)
+                    {
+                        case Slot.Head:
 
-                        break;
-
-                    case Slot.Amulet:
-
-                        if (slotType.Is(SlotType.Amulet) )
-                        {
-                            proceed = true;
-                        }
-
-                        break;
-
-                    case Slot.Container:
-
-                        if (slotType.Is(SlotType.Container) )
-                        {
-                            proceed = true;
-                        }
-
-                        break;
-
-                    case Slot.Armor:
-
-                        if (slotType.Is(SlotType.Armor) )
-                        {
-                            proceed = true;
-                        }
-
-                        break;
-
-                    case Slot.Right:
-
-                        if (slotType.Is(SlotType.Right) )
-                        {
-                            Item left = toInventory.GetContent( (byte)Slot.Left) as Item;
-
-                            if (slotType.Is(SlotType.TwoHand) )
+                            if (slotType.Is(SlotType.Head) )
                             {
-                                if (left == null || left == command.Item)
+                                proceed = true;
+                            }
+
+                            break;
+
+                        case Slot.Amulet:
+
+                            if (slotType.Is(SlotType.Amulet) )
+                            {
+                                proceed = true;
+                            }
+
+                            break;
+
+                        case Slot.Container:
+
+                            if (slotType.Is(SlotType.Container) )
+                            {
+                                proceed = true;
+                            }
+
+                            break;
+
+                        case Slot.Armor:
+
+                            if (slotType.Is(SlotType.Armor) )
+                            {
+                                proceed = true;
+                            }
+
+                            break;
+
+                        case Slot.Right:
+
+                            if (slotType.Is(SlotType.Right) )
+                            {
+                                Item left = toInventory.GetContent( (byte)Slot.Left) as Item;
+
+                                if (slotType.Is(SlotType.TwoHand) )
                                 {
-                                    proceed = true;
+                                    if (left == null || left == command.Item)
+                                    {
+                                        proceed = true;
+                                    }
+                                }
+                                else
+                                {
+                                    if (left == null || left.Metadata.SlotType != SlotType.TwoHand )
+                                    {
+                                        proceed = true;
+                                    }
                                 }
                             }
-                            else
-                            {
-                                if (left == null || left.Metadata.SlotType != SlotType.TwoHand )
-                                {
-                                    proceed = true;
-                                }
-                            }
-                        }
                         
-                        break;
+                            break;
 
-                    case Slot.Left:
+                        case Slot.Left:
 
-                        if (slotType.Is(SlotType.Left) )
-                        {
-                            Item right = toInventory.GetContent( (byte)Slot.Right) as Item;
-
-                            if (slotType.Is(SlotType.TwoHand) )
+                            if (slotType.Is(SlotType.Left) )
                             {
-                                if (right == null || right == command.Item)
+                                Item right = toInventory.GetContent( (byte)Slot.Right) as Item;
+
+                                if (slotType.Is(SlotType.TwoHand) )
                                 {
-                                    proceed = true;
+                                    if (right == null || right == command.Item)
+                                    {
+                                        proceed = true;
+                                    }
+                                }
+                                else
+                                {
+                                    if (right == null || right.Metadata.SlotType != SlotType.TwoHand )
+                                    {
+                                        proceed = true;
+                                    }
                                 }
                             }
-                            else
+
+                            break;
+
+                        case Slot.Legs:
+
+                            if (slotType.Is(SlotType.Legs) )
                             {
-                                if (right == null || right.Metadata.SlotType != SlotType.TwoHand )
-                                {
-                                    proceed = true;
-                                }
+                                proceed = true;
                             }
-                        }
 
-                        break;
+                            break;
 
-                    case Slot.Legs:
+                        case Slot.Feet:
 
-                        if (slotType.Is(SlotType.Legs) )
-                        {
-                            proceed = true;
-                        }
+                            if (slotType.Is(SlotType.Feet) )
+                            {
+                                proceed = true;
+                            }
 
-                        break;
+                            break;
 
-                    case Slot.Feet:
+                        case Slot.Ring:
 
-                        if (slotType.Is(SlotType.Feet) )
-                        {
-                            proceed = true;
-                        }
+                            if (slotType.Is(SlotType.Ring) )
+                            {
+                                proceed = true;
+                            }
 
-                        break;
+                            break;
 
-                    case Slot.Ring:
+                        case Slot.Extra:
 
-                        if (slotType.Is(SlotType.Ring) )
-                        {
-                            proceed = true;
-                        }
+                            if (slotType.Is(SlotType.Extra) )
+                            {
+                                proceed = true;
+                            }
 
-                        break;
+                            break;
+                    }
 
-                    case Slot.Extra:
+                    if (!proceed)
+                    {
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotDressThisObjectThere) );
 
-                        if (slotType.Is(SlotType.Extra) )
-                        {
-                            proceed = true;
-                        }
-
-                        break;
-                }
-
-                if (!proceed)
-                {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotDressThisObjectThere) );
-
-                    return Promise.Break;
+                        return Promise.Break;
+                    }
                 }
             }
 

@@ -6,21 +6,17 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithItemWalkToSourceHandler() );
-
-            //TODO: Re-validate rules for incoming packet
-
-            //TODO: "You cannot use there."
+            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithItemWalkToSourceHandler() ); //TODO: Re-validate rules for incoming packet
 
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithItemScriptingHandler(true) );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new Runes2Handler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new Runes2Handler() ); //TODO: "You cannot use there."
 
             Context.Server.CommandHandlers.AddCommandHandler(new FishingRodHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new DestroyFieldHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithItemWalkToTargetHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithItemWalkToTargetHandler() ); //TODO: Re-validate rules for incoming packet
 
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithItemScriptingHandler(false) );
 

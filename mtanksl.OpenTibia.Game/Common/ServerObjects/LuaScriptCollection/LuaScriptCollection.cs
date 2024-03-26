@@ -1021,7 +1021,7 @@ namespace OpenTibia.Game
 
                                 break;
 
-                            case LockerCollection safe:
+                            case Safe safe:
 
                                 position = safe.Player.Tile.Position;
 

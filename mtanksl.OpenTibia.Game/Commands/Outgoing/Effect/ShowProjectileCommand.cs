@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Commands
 
                             break;
 
-                        case LockerCollection safe:
+                        case Safe safe:
 
                             fromPosition = safe.Player.Tile.Position;
 
@@ -64,7 +64,7 @@ namespace OpenTibia.Game.Commands
 
                             break;
 
-                        case LockerCollection safe:
+                        case Safe safe:
 
                             toPosition = safe.Player.Tile.Position;
 
@@ -109,7 +109,7 @@ namespace OpenTibia.Game.Commands
 
                             break;
 
-                        case LockerCollection safe:
+                        case Safe safe:
 
                             toPosition = safe.Player.Tile.Position;
 
@@ -154,7 +154,7 @@ namespace OpenTibia.Game.Commands
 
                             break;
 
-                        case LockerCollection safe:
+                        case Safe safe:
 
                             fromPosition = safe.Player.Tile.Position;
 

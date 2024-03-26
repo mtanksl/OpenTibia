@@ -44,6 +44,8 @@
 	- Waiting list
 	- Quests
 		- Database for storage
+	- Achievements
+		- Database for storing achievements
 	- Hotkeys
 	- Report bug
 	- Report rule violation
@@ -81,6 +83,7 @@
 	- Wand and rod
 	- Two-handed items
 	- Protection zone
+	- No-logout zone
 - Interacting with the game world 
 	- Look item
 		- Sign items
@@ -88,7 +91,7 @@
 	- Rotate item
 	- Use item
 		- Containers
-		- Depot and towns
+		- Lockers and towns
 		- Read and write items
 		- etc
 	- Use item with creature

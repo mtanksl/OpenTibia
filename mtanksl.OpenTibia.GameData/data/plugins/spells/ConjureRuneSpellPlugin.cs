@@ -36,11 +36,11 @@ namespace OpenTibia.GameData.Plugins.Spells
 
             return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.BlueShimmer) ).Then( () =>
             {
-                return Context.AddCommand(new PlayerDestroyItemsCommand(player, blankRune, 1, 1) );
-
-            } ).Then( (result) =>
-            {
                 return Context.AddCommand(new PlayerCreateItemsCommand(player, openTibiaId, 1, count) );
+
+            } ).Then( () =>
+            {
+                return Context.AddCommand(new PlayerDestroyItemsCommand(player, blankRune, 1, 1) );
             } );
         }
              

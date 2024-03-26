@@ -34,22 +34,22 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                         {
-                            return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(toFluidItem, FluidType.Empty) );
+                            return Context.AddCommand(new PlayerCreateItemCommand(command.Player, lumpOfDough, 1) );
 
                         } ).Then( () =>
                         {
-                            return Context.AddCommand(new PlayerCreateItemCommand(command.Player, lumpOfDough, 1) );
+                            return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(toFluidItem, FluidType.Empty) );
                         } );
                     }
                     else if (toFluidItem.FluidType == FluidType.Milk)
                     {
                         return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                         {
-                            return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(toFluidItem, FluidType.Empty) );
+                            return Context.AddCommand(new PlayerCreateItemCommand(command.Player, lumpOfCakeDough, 1) );
 
                         } ).Then( () =>
                         {
-                            return Context.AddCommand(new PlayerCreateItemCommand(command.Player, lumpOfCakeDough, 1) );
+                            return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(toFluidItem, FluidType.Empty) );
                         } );
                     }
                 }
@@ -57,11 +57,11 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                     {
-                        return Context.AddCommand(new ItemTransformCommand(command.ToItem, emptyVial, 0) );
-
-                    } ).Then( (item) =>
-                    {
                         return Context.AddCommand(new PlayerCreateItemCommand(command.Player, lumpOfHolyWaterDough, 1) );
+
+                    } ).Then( () =>
+                    {
+                        return Context.AddCommand(new ItemTransformCommand(command.ToItem, emptyVial, 0) );
                     } );
                 }
             }

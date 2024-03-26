@@ -39,7 +39,7 @@ namespace OpenTibia.Game.Commands
                 {
                     Inventory toInventory = Player.Inventory;
 
-                    if (IsMoveable(fromItem, Count) )
+                    if (IsPickupable(fromItem) && IsMoveable(fromItem, Count) )
                     {
                         return Context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toInventory, ToSlot, Count, true) );
                     }

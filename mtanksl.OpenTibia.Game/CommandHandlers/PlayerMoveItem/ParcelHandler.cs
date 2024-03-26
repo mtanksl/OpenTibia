@@ -65,11 +65,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                                     if (locker.Count < locker.Metadata.Capacity)
                                     {
-                                        //TODO: Close containers
-
-                                        return Context.AddCommand(new ItemTransformCommand(parcelItem, stampedParcel, 1) ).Then( (item) =>
+                                        return Context.AddCommand(new ItemMoveCommand(parcelItem, locker, 0) ).Then( () =>
                                         {
-                                            return Context.AddCommand(new ItemMoveCommand(item, locker, 0) );
+                                            return Context.AddCommand(new ItemTransformCommand(parcelItem, stampedParcel, 1) );
                                         } );
                                     }
                                 }

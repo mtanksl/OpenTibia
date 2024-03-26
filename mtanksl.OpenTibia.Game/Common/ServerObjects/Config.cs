@@ -20,7 +20,8 @@
         public bool GameplayInfinitePotions { get; set; }
         public bool GameplayInfiniteArrows { get; set; }
         public bool GameplayInfiniteRunes { get; set; }
-        
+        public int GameplayMaxDepotItems { get; set; }
+
         public int SecurityMaxConnectionsWithSameIpAddress { get; set; }
         public int SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds { get; set; }
 
@@ -81,6 +82,8 @@
             GameplayInfiniteArrows = LuaScope.GetBoolean(script["server.gameplay.infinitearrows"], false);
             
             GameplayInfiniteRunes = LuaScope.GetBoolean(script["server.gameplay.infiniterunes"], false);
+
+            GameplayMaxDepotItems = LuaScope.GetInt32(script["server.gameplay.maxdepotitems"], 2000);
 
             SecurityMaxConnectionsWithSameIpAddress = LuaScope.GetInt32(script["server.security.maxconnectionswithsameipaddress"], 2);
             

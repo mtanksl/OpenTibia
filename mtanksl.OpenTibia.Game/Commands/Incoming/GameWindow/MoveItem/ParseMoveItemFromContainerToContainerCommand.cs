@@ -50,7 +50,7 @@ namespace OpenTibia.Game.Commands
                         
                     if (toContainer != null)
                     {
-                        if (IsMoveable(fromItem, Count) )
+                        if (IsPossible(fromItem, toContainer) && IsPickupable(fromItem) && IsMoveable(fromItem, Count) )
                         {
                             return Context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toContainer, ToContainerIndex, Count, true) );
                         }
