@@ -121,13 +121,16 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(TileRemoveCreatureEventArgs e)
         {
-            foreach (var topItem in e.Tile.GetItems() )
+            if (e.Tile.TopCreature == null)
             {
-                ushort toOpenTibiaId;
-
-                if (doors.TryGetValue(topItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+                foreach (var topItem in e.Tile.GetItems() )
                 {
-                    return Context.AddCommand(new ItemTransformCommand(topItem, toOpenTibiaId, 1) );
+                    ushort toOpenTibiaId;
+
+                    if (doors.TryGetValue(topItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+                    {
+                        return Context.AddCommand(new ItemTransformCommand(topItem, toOpenTibiaId, 1) );
+                    }
                 }
             }
 
