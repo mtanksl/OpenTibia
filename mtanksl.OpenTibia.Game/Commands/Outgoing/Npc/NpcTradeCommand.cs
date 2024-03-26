@@ -1,8 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets;
 using OpenTibia.Network.Packets.Outgoing;
-using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
@@ -44,92 +42,9 @@ namespace OpenTibia.Game.Commands
 
             Context.Server.NpcTradings.AddTrading(trading);
 
-            int money = SumMoney(Player.Inventory);
-
-            List<CounterOfferDto> counterOffers = new List<CounterOfferDto>();
-
-            foreach (var offer in Offers)
-            {
-                if (offer.SellPrice > 0)
-                {
-                    int count = CountItems(Player.Inventory, offer.TibiaId, offer.Type);
-
-                    if (count > 0)
-                    {
-                        counterOffers.Add(new CounterOfferDto(offer.TibiaId, (byte)Math.Min(count, 100) ) );
-                    }
-                }
-            }
-
             Context.AddPacket(Player, new InviteNpcTradeOutgoingPacket(Offers) );
 
-            Context.AddPacket(Player, new JoinNpcTradeOutgoingPacket( (uint)money, counterOffers) );
-
-            //TODO: Check if money or items where added, refreshed, removed
-
-            return Promise.Completed;
-        }
-
-        private static int SumMoney(IContainer parent)
-        {
-            int sum = 0;
-
-            foreach (Item content in parent.GetContents() )
-            {
-                if (content is Container container)
-                {
-                    sum += SumMoney(container);
-                }
-
-                if (content.Metadata.OpenTibiaId == 2160) // Crystal coin
-                {
-                    sum += ( (StackableItem)content).Count * 10000;
-                }
-                else if (content.Metadata.OpenTibiaId == 2152) // Platinum coin
-                {
-                    sum += ( (StackableItem)content).Count * 100;
-                }
-                else if (content.Metadata.OpenTibiaId == 2148) // Gold coin
-                {
-                    sum += ( (StackableItem)content).Count * 1;
-                }
-            }
-
-            return sum;
-        }
-
-        private static int CountItems(IContainer parent, ushort tibiaId, byte type)
-        {
-            int sum = 0;
-
-            foreach (Item content in parent.GetContents() )
-            {
-                if (content is Container container)
-                {
-                    sum += CountItems(container, tibiaId, type);
-                }
-
-                if (content.Metadata.TibiaId == tibiaId)
-                {
-                    if (content is StackableItem stackableItem)
-                    {
-                        sum += stackableItem.Count;
-                    }
-                    else if (content is FluidItem fluidItem)
-                    {
-                        if (fluidItem.FluidType == (FluidType)type)
-                        {
-                            sum += 1;
-                        }
-                    }
-                    else
-                    {
-                        sum += 1;
-                    }
-                }
-            }
-
-            return sum;
+            return Context.AddCommand(new NpcTradeUpdateStatsCommand(trading) );
         }
     }
 }

@@ -6,7 +6,9 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new SplashItemUpdateFluidTypeTradingRejectHandler() );            
+            Context.Server.CommandHandlers.AddCommandHandler(new SplashItemUpdateFluidTypeTradingRejectHandler() );    
+            
+            Context.Server.CommandHandlers.AddCommandHandler(new SplashItemUpdateFluidTypeNpcTradingUpdateStatsHandler() );            
         }
 
         public override void Stop()
