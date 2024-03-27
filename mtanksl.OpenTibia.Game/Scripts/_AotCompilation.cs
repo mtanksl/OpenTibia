@@ -11,6 +11,8 @@ namespace OpenTibia.Game.Scripts
             new CreatureMoveScripts(),
             new FluidItemUpdateFluidTypeScripts(),
             new GlobalScripts(),
+            new InventoryAddItemScripts(),
+            new InventoryRemoveItemScripts(),
             new ItemDestroyScripts(),
             new ItemMoveScripts(),
             new ItemTransformScripts(),
