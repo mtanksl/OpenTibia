@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Commands
 
                 if (observer != null && observer != Player)
                 {
-                    if ( !privateChannel.ContainsPlayer(observer) && !privateChannel.ContainsInvitation(observer) )
+                    if ( !privateChannel.ContainerMember(observer) && !privateChannel.ContainsInvitation(observer) )
                     {
                         privateChannel.AddInvitation(observer);
 

@@ -23,9 +23,55 @@ namespace OpenTibia.Game.Commands
             
             if (channel != null)
             {
-                if (channel is PrivateChannel privateChannel)
+                if (channel.Id == 0)
                 {
-                    if ( !privateChannel.ContainsPlayer(Player) )
+                    Guild guild = Context.Server.Guilds.GetGuildThatContainsMember(Player);
+
+                    if (guild == null)
+                    {
+                        return Promise.Break;
+                    }
+                }
+                else if (channel.Id == 1)
+                {
+                    Party party = Context.Server.Parties.GetPartyThatContainsMember(Player);
+
+                    if (party == null)
+                    {
+                        return Promise.Break;
+                    }
+                }               
+                else if (channel.Id == 2)
+                {
+                    if (Player.Rank != Rank.Gamemaster && Player.Rank != Rank.Tutor)
+                    {
+                        return Promise.Break;
+                    }
+                }
+                else if (channel.Id == 3 || channel.Id == 4)
+                {
+                    if (Player.Rank != Rank.Gamemaster)
+                    {
+                        return Promise.Break;
+                    }
+                }
+                else if (channel.Id == 6)
+                {
+                    if (Player.Rank != Rank.Gamemaster && Player.Vocation == Vocation.None)
+                    {
+                        return Promise.Break;
+                    }
+                }
+                else if (channel.Id == 7)
+                {
+                    if (Player.Rank != Rank.Gamemaster && Player.Vocation != Vocation.None)
+                    {
+                        return Promise.Break;
+                    }
+                }
+                else if (channel is PrivateChannel privateChannel)
+                {
+                    if ( !privateChannel.ContainerMember(Player) )
                     {
                         if ( !privateChannel.ContainsInvitation(Player) )
                         {
@@ -33,58 +79,12 @@ namespace OpenTibia.Game.Commands
                         }
 
                         privateChannel.RemoveInvitation(Player);
-
-                        privateChannel.AddPlayer(Player);
-                    }
-
-                    Context.AddPacket(Player, new OpenChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
-
-                    return Promise.Completed;
-                }
-
-                if (channel is GuildChannel guildChannel)
-                {
-                    if ( !guildChannel.ContainsPlayer(Player) )
-                    {
-                        guildChannel.AddPlayer(Player);
-                    }
-
-                    Context.AddPacket(Player, new OpenChannelOutgoingPacket(guildChannel.Id, guildChannel.Name) );
-
-                    return Promise.Completed;
-                }
-
-                if (channel is PartyChannel partyChannel)
-                {
-                    if ( !partyChannel.ContainsPlayer(Player) )
-                    {
-                        partyChannel.AddPlayer(Player);
-                    }
-
-                    Context.AddPacket(Player, new OpenChannelOutgoingPacket(partyChannel.Id, partyChannel.Name) );
-
-                    return Promise.Completed;
-                }
-
-                if (channel.Id == 2)
-                {
-                    if (Player.Rank != Rank.Tutor && Player.Rank != Rank.Gamemaster)
-                    {
-                        return Promise.Break;
                     }
                 }
 
-                if (channel.Id == 3 || channel.Id == 4)
+                if ( !channel.ContainerMember(Player) )
                 {
-                    if (Player.Rank != Rank.Gamemaster)
-                    {
-                        return Promise.Break;
-                    }
-                }
-
-                if ( !channel.ContainsPlayer(Player) )
-                {
-                    channel.AddPlayer(Player);
+                    channel.AddMember(Player);
                 }
 
                 if (channel.Id == 3)
@@ -104,7 +104,7 @@ namespace OpenTibia.Game.Commands
                     Context.AddPacket(Player, new OpenChannelOutgoingPacket(channel.Id, channel.Name) );
                 }
 
-                return Promise.Completed;                
+                return Promise.Completed;
             }
 
             return Promise.Break;

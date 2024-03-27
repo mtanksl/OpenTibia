@@ -38,6 +38,10 @@ namespace OpenTibia.Game
 
         private List<Channel> channels = new List<Channel>
         {
+            new Channel() { Id = 0, Name = "Guild" },
+
+            new Channel() { Id = 1, Name = "Party" },
+
             new Channel() { Id = 2, Name = "Tutor" },
 
             new Channel() { Id = 3, Name = "Rule Violations" },
@@ -107,16 +111,6 @@ namespace OpenTibia.Game
         public IEnumerable<PrivateChannel> GetPrivateChannels()
         {
             return GetChannels().OfType<PrivateChannel>();
-        }
-
-        public IEnumerable<GuildChannel> GetGuildChannels()
-        {
-            return GetChannels().OfType<GuildChannel>();
-        }
-
-        public IEnumerable<PartyChannel> GetPartyChannels()
-        {
-            return GetChannels().OfType<PartyChannel>();
         }
     }
 }

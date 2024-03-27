@@ -9,27 +9,34 @@ namespace OpenTibia.Game
 
         public string Name { get; set; }
 
+        private HashSet<Player> members = new HashSet<Player>();
 
-        private HashSet<Player> players = new HashSet<Player>();
-
-        public void AddPlayer(Player player)
+        public int CountMembers
         {
-            players.Add(player);
+            get
+            {
+                return members.Count;
+            }
         }
 
-        public void RemovePlayer(Player player)
+        public void AddMember(Player member)
         {
-            players.Remove(player);
+            members.Add(member);
         }
 
-        public bool ContainsPlayer(Player player)
+        public void RemoveMember(Player member)
         {
-            return players.Contains(player);
+            members.Remove(member);
         }
 
-        public IEnumerable<Player> GetPlayers()
+        public bool ContainerMember(Player member)
         {
-            return players;
+            return members.Contains(member);
+        }
+
+        public IEnumerable<Player> GetMembers()
+        {
+            return members;
         }
 
         public override string ToString()
@@ -38,22 +45,19 @@ namespace OpenTibia.Game
         }
     }
 
-    public class GuildChannel : Channel
-    {
-       
-    }
-
-    public class PartyChannel : Channel
-    {
-        
-    }
-
     public class PrivateChannel : Channel
     {
         public Player Owner { get; set; }
 
-
         private HashSet<Player> invitations = new HashSet<Player>();
+
+        public int CountInvitations
+        {
+            get
+            {
+                return invitations.Count;
+            }
+        }
 
         public void AddInvitation(Player player)
         {

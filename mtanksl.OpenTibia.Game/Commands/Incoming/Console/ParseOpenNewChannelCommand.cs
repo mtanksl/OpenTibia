@@ -19,11 +19,21 @@ namespace OpenTibia.Game.Commands
         {
             List<ChannelDto> channels = new List<ChannelDto>();
 
-            channels.Add(new ChannelDto(0, "Guild") );
+            Guild guild = Context.Server.Guilds.GetGuildThatContainsMember(Player);
 
-            channels.Add(new ChannelDto(1, "Party") );
+            if (guild != null)
+            {
+                channels.Add(new ChannelDto(0, "Guild") );
+            }
 
-            if (Player.Rank == Rank.Tutor || Player.Rank == Rank.Gamemaster)
+            Party party = Context.Server.Parties.GetPartyThatContainsMember(Player);
+
+            if (party != null)
+            {
+                channels.Add(new ChannelDto(1, "Party") );
+            }
+
+            if (Player.Rank == Rank.Gamemaster || Player.Rank == Rank.Tutor)
             {
                 channels.Add(new ChannelDto(2, "Tutor") );
             }
@@ -37,9 +47,15 @@ namespace OpenTibia.Game.Commands
             
             channels.Add(new ChannelDto(5, "Game Chat") );
 
-            channels.Add(new ChannelDto(6, "Trade") );
-
-            channels.Add(new ChannelDto(7, "Trade-Rookgaard") );
+            if (Player.Rank == Rank.Gamemaster || Player.Vocation != Vocation.None)
+            {
+                channels.Add(new ChannelDto(6, "Trade") );
+            }
+            
+            if (Player.Rank == Rank.Gamemaster || Player.Vocation == Vocation.None)
+            {
+                channels.Add(new ChannelDto(7, "Trade-Rookgaard") );
+            }
 
             channels.Add(new ChannelDto(8, "Real Life Chat") );
 
@@ -49,7 +65,7 @@ namespace OpenTibia.Game.Commands
 
             foreach (var privateChannel in Context.Server.Channels.GetPrivateChannels() )
             {
-                if ( privateChannel.ContainsPlayer(Player) || privateChannel.ContainsInvitation(Player) )
+                if ( privateChannel.ContainerMember(Player) || privateChannel.ContainsInvitation(Player) )
                 {
                     channels.Add(new ChannelDto(privateChannel.Id, privateChannel.Name) );
                 }

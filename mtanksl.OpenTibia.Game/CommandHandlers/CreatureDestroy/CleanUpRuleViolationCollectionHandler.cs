@@ -22,7 +22,7 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 Context.Server.RuleViolations.RemoveRuleViolation(ruleViolation);
 
-                                foreach (var observer in Context.Server.Channels.GetChannel(3).GetPlayers() )
+                                foreach (var observer in Context.Server.Channels.GetChannel(3).GetMembers() )
                                 {
                                     Context.AddPacket(observer, new RemoveRuleViolationOutgoingPacket(ruleViolation.Reporter.Name) );
                                 }

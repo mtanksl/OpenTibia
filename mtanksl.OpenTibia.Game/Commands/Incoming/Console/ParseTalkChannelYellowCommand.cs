@@ -27,24 +27,55 @@ namespace OpenTibia.Game.Commands
 
             if (channel != null)
             {
-                if (channel.ContainsPlayer(Player) )
+                if (channel.ContainerMember(Player) )
                 {
-                    if (channel.Id == 9 && (Player.Rank == Rank.Tutor || Player.Rank == Rank.Gamemaster) )
+                    if (channel.Id == 0)
                     {
-                        ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.ChannelOrange, channel.Id, Message);
+                        Guild guild = Context.Server.Guilds.GetGuildThatContainsMember(Player);
 
-                        foreach (var observer in channel.GetPlayers() )
+                        if (guild != null)
                         {
-                            Context.AddPacket(observer, showTextOutgoingPacket);
+                            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.ChannelYellow, channel.Id, Message);
+
+                            foreach (var observer in guild.GetMembers() )
+                            {
+                                Context.AddPacket(observer, showTextOutgoingPacket);
+                            }
+                        }
+                    }
+                    else if (channel.Id == 1)
+                    {
+                        Party party = Context.Server.Parties.GetPartyThatContainsMember(Player);
+
+                        if (party != null)
+                        {
+                            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.ChannelYellow, channel.Id, Message);
+
+                            foreach (var observer in party.GetMembers() )
+                            {
+                                Context.AddPacket(observer, showTextOutgoingPacket);
+                            }
                         }
                     }
                     else
                     {
-                        ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.ChannelYellow, channel.Id, Message);
-
-                        foreach (var observer in channel.GetPlayers() )
+                        if (channel.Id == 9 && (Player.Rank == Rank.Tutor || Player.Rank == Rank.Gamemaster) )
                         {
-                            Context.AddPacket(observer, showTextOutgoingPacket);
+                            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.ChannelOrange, channel.Id, Message);
+
+                            foreach (var observer in channel.GetMembers() )
+                            {
+                                Context.AddPacket(observer, showTextOutgoingPacket);
+                            }
+                        }
+                        else
+                        {
+                            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.ChannelYellow, channel.Id, Message);
+
+                            foreach (var observer in channel.GetMembers() )
+                            {
+                                Context.AddPacket(observer, showTextOutgoingPacket);
+                            }
                         }
                     }
 

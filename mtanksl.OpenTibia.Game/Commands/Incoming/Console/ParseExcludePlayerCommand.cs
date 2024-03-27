@@ -40,9 +40,9 @@ namespace OpenTibia.Game.Commands
 
                         return Promise.Completed;
                     }
-                    else if (privateChannel.ContainsPlayer(observer) )
+                    else if (privateChannel.ContainerMember(observer) )
                     {
-                        privateChannel.RemovePlayer(observer);
+                        privateChannel.RemoveMember(observer);
 
                         Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been excluded.") );
 

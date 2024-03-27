@@ -16,35 +16,35 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     foreach (var channel in Context.Server.Channels.GetChannels().ToList() )
                     {
-                        if (channel.ContainsPlayer(player) )
+                        if (channel.ContainerMember(player) )
                         {
-                            channel.RemovePlayer(player);
+                            channel.RemoveMember(player);
 
                             Context.AddPacket(player, new CloseChannelOutgoingPacket(channel.Id) );
-                        }
 
-                        if (channel is PrivateChannel privateChannel)
-                        {
-                            if (privateChannel.ContainsInvitation(player) )
+                            if (channel is PrivateChannel privateChannel)
                             {
-                                privateChannel.RemoveInvitation(player);
-                            }
-
-                            if (privateChannel.Owner == player)
-                            {
-                                foreach (var observer in privateChannel.GetPlayers().ToList() )
+                                if (privateChannel.ContainsInvitation(player) )
                                 {
-                                    Context.AddPacket(observer, new CloseChannelOutgoingPacket(channel.Id) );
-
-                                    privateChannel.RemovePlayer(observer);
+                                    privateChannel.RemoveInvitation(player);
                                 }
 
-                                foreach (var observer in privateChannel.GetInvitations().ToList() )
+                                if (privateChannel.Owner == player)
                                 {
-                                    privateChannel.RemoveInvitation(observer);
-                                }
+                                    foreach (var observer in privateChannel.GetMembers().ToList() )
+                                    {
+                                        privateChannel.RemoveMember(observer);
 
-                                Context.Server.Channels.RemoveChannel(privateChannel);
+                                        Context.AddPacket(observer, new CloseChannelOutgoingPacket(channel.Id) );
+                                    }
+
+                                    foreach (var observer in privateChannel.GetInvitations().ToList() )
+                                    {
+                                        privateChannel.RemoveInvitation(observer);
+                                    }
+
+                                    Context.Server.Channels.RemoveChannel(privateChannel);
+                                }
                             }
                         }
                     }

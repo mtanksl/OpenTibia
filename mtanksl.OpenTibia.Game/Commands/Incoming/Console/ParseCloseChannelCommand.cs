@@ -23,32 +23,32 @@ namespace OpenTibia.Game.Commands
 
             if (channel != null)
             {
-                if (channel.ContainsPlayer(Player) )
+                if (channel.ContainerMember(Player) )
                 {
-                    channel.RemovePlayer(Player);
-                }
+                    channel.RemoveMember(Player);
+                                  
+                    Context.AddPacket(Player, new CloseChannelOutgoingPacket(channel.Id) );
 
-                if (channel is PrivateChannel privateChannel)
-                {
-                    if (privateChannel.Owner == Player)
+                    if (channel is PrivateChannel privateChannel)
                     {
-                        foreach (var observer in privateChannel.GetPlayers().ToList() )
+                        if (privateChannel.Owner == Player)
                         {
-                            Context.AddPacket(observer, new CloseChannelOutgoingPacket(channel.Id) );
+                            foreach (var observer in privateChannel.GetMembers().ToList() )
+                            {
+                                privateChannel.RemoveMember(observer);
 
-                            privateChannel.RemovePlayer(observer);
+                                Context.AddPacket(observer, new CloseChannelOutgoingPacket(channel.Id) );
+                            }
+
+                            foreach (var observer in privateChannel.GetInvitations().ToList() )
+                            {
+                                privateChannel.RemoveInvitation(observer);
+                            }
+
+                            Context.Server.Channels.RemoveChannel(privateChannel);
                         }
-
-                        foreach (var observer in privateChannel.GetInvitations().ToList() )
-                        {
-                            privateChannel.RemoveInvitation(observer);
-                        }
-
-                        Context.Server.Channels.RemoveChannel(privateChannel);
                     }
                 }
-
-                Context.AddPacket(Player, new CloseChannelOutgoingPacket(channel.Id) );
 
                 return Promise.Completed;
             }

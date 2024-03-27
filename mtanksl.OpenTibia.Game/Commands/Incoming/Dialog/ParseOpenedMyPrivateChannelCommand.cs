@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
                     Name = Player.Name + "'s channel"
                 };
 
-                privateChannel.AddPlayer(Player);
+                privateChannel.AddMember(Player);
 
                 Context.Server.Channels.AddChannel(privateChannel);
             }
