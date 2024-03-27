@@ -1,4 +1,8 @@
-﻿using OpenTibia.Game.CommandHandlers;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
+using OpenTibia.Game.CommandHandlers;
+using OpenTibia.Game.Commands;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Scripts
 {
@@ -8,6 +12,64 @@ namespace OpenTibia.Game.Scripts
         {
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemWalkToSourceHandler() ); //TODO: Re-validate rules for incoming packet
             
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>( (context, next, command) => 
+            {
+                if (command.Item.Parent is Tile tile)
+                {
+                    bool hangable = false;
+
+                    bool? vertical = null;
+
+                    foreach (var item in tile.GetItems() )
+                    {
+                        if (item.Metadata.Flags.Is(ItemMetadataFlags.Hangable) )
+                        {
+                            hangable = true;
+                        } 
+
+                        if (item.Metadata.Flags.Is(ItemMetadataFlags.Vertical) )
+                        {
+                            if (vertical == null)
+                            {
+                                vertical = true;
+                            }
+                        }
+
+                        if (item.Metadata.Flags.Is(ItemMetadataFlags.Horizontal) )
+                        {
+                            if (vertical == null)
+                            {
+                                vertical = false;
+                            }
+                        }
+                    }
+
+                    if (hangable)
+                    {
+                        if (vertical == true)
+                        {
+                            if (command.Player.Tile.Position.X + 1 == tile.Position.X)
+                            {
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+
+                                return Promise.Break;
+                            }
+                        }
+                        else if (vertical == false)
+                        {
+                            if (command.Player.Tile.Position.Y + 1 == tile.Position.Y)
+                            {
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+
+                                return Promise.Break;
+                            }
+                        }
+                    }
+                }
+
+                return next();
+            } );
+
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemScriptingHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new LockerOpenHandler() );

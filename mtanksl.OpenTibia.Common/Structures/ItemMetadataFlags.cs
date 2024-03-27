@@ -27,13 +27,19 @@ namespace OpenTibia.Common.Structures
 
         Pickupable = 512,
 
-        Rotatable = 1024,
+        Hangable = 1024,
 
-        HasHeight = 2048,
+        Horizontal = 2048,
 
-        Readable = 4096,
+        Vertical = 4096,
 
-        AllowDistanceRead = 8192
+        Rotatable = 8192,
+
+        HasHeight = 16384,
+
+        Readable = 32768,
+
+        AllowDistanceRead = 65536
     }
 
     public static class ItemMetadataFlagsExtensions

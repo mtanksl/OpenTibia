@@ -139,6 +139,21 @@ namespace OpenTibia.Game
                         metadata.Flags |= ItemMetadataFlags.Pickupable;
                     }
 
+                    if (datItem.Flags.Is(ItemFlags.Hangable) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.Hangable;
+                    }
+
+                    if (datItem.Flags.Is(ItemFlags.Horizontal) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.Horizontal;
+                    }
+
+                    if (datItem.Flags.Is(ItemFlags.Vertical) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.Vertical;
+                    }
+
                     if (datItem.Flags.Is(ItemFlags.Rotatable) )
                     {
                         metadata.Flags |= ItemMetadataFlags.Rotatable;

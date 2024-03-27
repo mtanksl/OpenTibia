@@ -25,7 +25,7 @@
 - House
 - Bed
 - Bless/AOL
-- Map cleanup
+- Map clean up
 - ...
 
 # Done (or good enough for now)
