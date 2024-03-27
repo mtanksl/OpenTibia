@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Commands
                 {
                     Owner = Player,
 
-                    Name = Player.Name + "'s channel"
+                    Name = Player.Name + "'s Channel"
                 };
 
                 privateChannel.AddMember(Player);

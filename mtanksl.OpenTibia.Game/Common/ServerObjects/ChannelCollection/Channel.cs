@@ -41,7 +41,7 @@ namespace OpenTibia.Game
 
         public override string ToString()
         {
-            return "Id: " + Id + " Name: " + Name;
+            return "Name: " + Name;
         }
     }
 

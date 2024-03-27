@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
 
             if (guild != null)
             {
-                channels.Add(new ChannelDto(0, "Guild") );
+                channels.Add(new ChannelDto(0, guild.Name) );
             }
 
             Party party = Context.Server.Parties.GetPartyThatContainsMember(Player);

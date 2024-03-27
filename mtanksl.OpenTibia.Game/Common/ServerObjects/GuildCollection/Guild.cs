@@ -5,6 +5,8 @@ namespace OpenTibia.Game
 {
     public class Guild
     {
+        public string Name { get; set; }
+
         private HashSet<Player> members = new HashSet<Player>();
 
         public int CountMembers
@@ -33,6 +35,11 @@ namespace OpenTibia.Game
         public IEnumerable<Player> GetMembers()
         {
             return members;
+        }
+
+        public override string ToString()
+        {
+            return "Name: " + Name;
         }
     }
 }
