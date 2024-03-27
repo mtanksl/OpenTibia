@@ -149,11 +149,11 @@ namespace OpenTibia.Game.Components
                 }
                 else
                 {
-                    Player player = queue.Peek();
+                    Player target = queue.Peek();
 
-                    if (player.Tile == null || player.IsDestroyed || !npc.Tile.Position.IsInRange(player.Tile.Position, 3) || (DateTime.UtcNow - lastSay).TotalMinutes >= 1)
+                    if (target.Tile == null || target.IsDestroyed || !npc.Tile.Position.IsInRange(target.Tile.Position, 3) || (DateTime.UtcNow - lastSay).TotalMinutes >= 1)
                     {
-                        await Disappear(player);
+                        await Disappear(target);
                     }
                     else
                     {
@@ -166,9 +166,9 @@ namespace OpenTibia.Game.Components
 
                         CreatureFocusBehaviour creatureFocusBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureFocusBehaviour>(npc);
 
-                        if (creatureFocusBehaviour == null || creatureFocusBehaviour.Target != player)
+                        if (creatureFocusBehaviour == null || creatureFocusBehaviour.Target != target)
                         {
-                            Context.Server.GameObjectComponents.AddComponent(npc, new CreatureFocusBehaviour(player) );
+                            Context.Server.GameObjectComponents.AddComponent(npc, new CreatureFocusBehaviour(target) );
                         }
                     }
                 }

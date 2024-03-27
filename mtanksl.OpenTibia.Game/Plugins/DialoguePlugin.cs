@@ -20,6 +20,8 @@ namespace OpenTibia.Game.Components
 
         public abstract Promise OnSell(Npc npc, Player player, ushort openTibiaId, byte type, byte count, int price, bool keepEquipped);
 
+        public abstract Promise OnCloseNpcTrade(Npc npc, Player player);
+
         public abstract Promise OnFarewell(Npc npc, Player player);
 
         public abstract Promise OnDisappear(Npc npc, Player player);

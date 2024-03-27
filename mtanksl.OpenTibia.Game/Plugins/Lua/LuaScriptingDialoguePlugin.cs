@@ -60,6 +60,11 @@ namespace OpenTibia.Game.Components
             return script.CallFunction("onsell", npc, player, openTibiaId, type, count, price, keepEquipped);
         }
 
+        public override Promise OnCloseNpcTrade(Npc npc, Player player)
+        {
+            return script.CallFunction("onclosenpctrade", npc, player);
+        }
+
         public override Promise OnFarewell(Npc npc, Player player)
         {
             return script.CallFunction("onfarewell", npc, player);

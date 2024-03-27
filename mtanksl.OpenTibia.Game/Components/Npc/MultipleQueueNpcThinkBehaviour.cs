@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Events;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Linq;
 
@@ -37,6 +38,15 @@ namespace OpenTibia.Game.Components
 
             if (queue.Remove(player) )
             {
+                NpcTrading trading = Context.Server.NpcTradings.GetTradingByCounterOfferPlayer(player);
+
+                if (trading != null)
+                {
+                    Context.Server.NpcTradings.RemoveTrading(trading);
+
+                    Context.AddPacket(trading.CounterOfferPlayer, new CloseNpcTradeOutgoingPacket() );
+                }
+
                 await dialoguePlugin.OnDequeue(npc, player);
             }
         }
@@ -53,6 +63,20 @@ namespace OpenTibia.Game.Components
             Npc npc = (Npc)GameObject;
 
             await dialoguePlugin.OnSell(npc, player, openTibiaId, type, count, price, keepEquipped);
+        }
+
+        public async Promise CloseNpcTrade(Player player)
+        {
+            Npc npc = (Npc)GameObject;
+
+            await dialoguePlugin.OnCloseNpcTrade(npc, player);
+        }
+
+        public async Promise CloseNpcsChannel(Player player)
+        {
+            Npc npc = (Npc)GameObject;
+
+            await Remove(player);
         }
 
         public async Promise Idle(Player player)

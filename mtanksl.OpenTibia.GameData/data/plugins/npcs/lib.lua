@@ -259,11 +259,15 @@ function npchandler:shouldfarewell(npc, player, message)
 end
 
 function npchandler:ongreet(npc, player)
-	self:say(npc, player, self.responses.greet)
+	if self.responses.greet then
+		self:say(npc, player, self.responses.greet)
+	end
 end
 
 function npchandler:onbusy(npc, player)
-	self:say(npc, player, self.responses.busy)
+	if self.responses.busy then
+		self:say(npc, player, self.responses.busy)
+	end
 end
 
 function npchandler:onsay(npc, player, message)
@@ -303,21 +307,37 @@ end
 function npchandler:onbuy(npc, player, item, type, count, price, ignoreCapacity, buyWithBackpacks) 
 	if command.playerdestroymoney(player, price) then
 		command.playercreateitems(player, item, type, count)
+		if self.responses.buy then
+			self:say(npc, player, self.responses.buy)
+		end
 	end
 end
 
 function npchandler:onsell(npc, player, item, type, count, price, keepEquipped) 
 	if command.playerdestroyitems(player, item, type, count) then
 		command.playercreatemoney(player, price)
+		if self.responses.sell then
+			self:say(npc, player, self.responses.sell)
+		end
+	end
+end
+
+function npchandler:onclosenpctrade(npc, player) 
+	if self.responses.closenpctrade then
+		self:say(npc, player, self.responses.closenpctrade)
 	end
 end
 
 function npchandler:onfarewell(npc, player)
-	self:say(npc, player, self.responses.farewell)
+	if self.responses.farewell then
+		self:say(npc, player, self.responses.farewell)
+	end
 end
 
 function npchandler:ondisappear(npc, player)
-	self:say(npc, player, self.responses.disappear)
+	if self.responses.disappear then
+		self:say(npc, player, self.responses.disappear)
+	end
 end
 
 function npchandler:onenqueue(npc, player) 
