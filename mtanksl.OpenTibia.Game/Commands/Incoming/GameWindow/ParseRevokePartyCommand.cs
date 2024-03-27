@@ -1,4 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -17,6 +19,22 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            Party party = Context.Server.Parties.GetPartyByLeader(Player);
+
+            if (party != null)
+            {
+                Player observer = Context.Server.GameObjects.GetPlayer(CreatureId);
+
+                if (observer != null && observer != Player && party.ContainsInvitation(observer) )
+                {
+                    party.RemoveInvitation(observer);
+
+                    Context.AddPacket(Player, new SetPartyIconOutgoingPacket(observer.Id, PartyIcon.None) );
+
+                    Context.AddPacket(observer, new SetPartyIconOutgoingPacket(Player.Id, PartyIcon.None) );
+                }
+            }
+
             return Promise.Completed;
         }
     }

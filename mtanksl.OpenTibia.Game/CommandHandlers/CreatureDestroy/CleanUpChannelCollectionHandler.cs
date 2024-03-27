@@ -27,7 +27,7 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             if (privateChannel.ContainsInvitation(player) )
                             {
-                                privateChannel.RemovePlayer(player);
+                                privateChannel.RemoveInvitation(player);
                             }
 
                             if (privateChannel.Owner == player)

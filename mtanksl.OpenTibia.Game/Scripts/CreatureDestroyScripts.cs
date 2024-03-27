@@ -12,6 +12,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new CleanUpChannelCollectionHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler(new CleanUpPartyCollectionHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler(new CleanUpRuleViolationCollectionHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new CleanUpContainerCollectionHandler() );

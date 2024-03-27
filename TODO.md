@@ -22,7 +22,6 @@
 - Rings and amulets charges
 - Hangable items
 - Guild
-- Party
 - House
 - Bed
 - Bless/AOL
@@ -69,7 +68,8 @@
 	- Private channel
 	- Rule violation channel
 	- VIP
-	- Trade
+	- Safe Trade
+	- Party
 - Interacting with npc
 	- Dialogue
 	- Buy and sell items

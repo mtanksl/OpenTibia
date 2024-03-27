@@ -89,6 +89,8 @@ namespace OpenTibia.Game
 
             RuleViolations = new RuleViolationCollection();
 
+            Parties = new PartyCollection();
+
             Tradings = new TradingCollection();
 
             NpcTradings = new NpcTradingCollection();
@@ -162,6 +164,8 @@ namespace OpenTibia.Game
         public ChannelCollection Channels { get; set; }
 
         public RuleViolationCollection RuleViolations { get; set; }
+
+        public PartyCollection Parties { get; set; }
 
         public TradingCollection Tradings { get; set; }
 

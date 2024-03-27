@@ -17,7 +17,7 @@ server = {
 	},
 	security = {
 		-- multi-client
-		maxconnectionswithsameipaddress = 2,
+		maxconnectionswithsameipaddress = 3,
 		connectionswithsameipaddressabusebanmilliseconds = 15 * 60 * 1000,
 		-- connections abuse
 		maxconnections = 2,

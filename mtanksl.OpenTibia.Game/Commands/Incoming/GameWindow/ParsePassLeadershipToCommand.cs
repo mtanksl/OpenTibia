@@ -1,4 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -17,6 +19,36 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            Party party = Context.Server.Parties.GetPartyByLeader(Player);
+
+            if (party != null)
+            {
+                Player observer = Context.Server.GameObjects.GetPlayer(CreatureId);
+
+                if (observer != null && observer != Player && party.ContainsMember(observer) )
+                {
+                    party.Leader = observer;
+
+                    foreach (var member in party.GetMembers() )
+                    {
+                        Context.AddPacket(member, new SetPartyIconOutgoingPacket(party.Leader.Id, party.SharedExperienceEnabled ? PartyIcon.YellowSharedExperience : PartyIcon.Yellow) ); // Leader
+
+                        Context.AddPacket(member, new SetPartyIconOutgoingPacket(Player.Id, party.SharedExperienceEnabled ? PartyIcon.BlueSharedExperience : PartyIcon.Blue) ); // Member
+                    }
+
+                    foreach (var invitation in party.GetInvitations() )
+                    {
+                        Context.AddPacket(Player, new SetPartyIconOutgoingPacket(invitation.Id, PartyIcon.None) ); // Member can't see invitee
+
+                        Context.AddPacket(invitation, new SetPartyIconOutgoingPacket(Player.Id, PartyIcon.None) ); // The old inviter
+
+                        Context.AddPacket(party.Leader, new SetPartyIconOutgoingPacket(invitation.Id, PartyIcon.WhiteBlue) ); // Leader can see invitee
+
+                        Context.AddPacket(invitation, new SetPartyIconOutgoingPacket(party.Leader.Id, PartyIcon.WhiteYellow) ); // The new inviter
+                    }
+                }
+            }
+
             return Promise.Completed;
         }
     }
