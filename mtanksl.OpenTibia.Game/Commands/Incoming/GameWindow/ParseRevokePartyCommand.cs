@@ -29,7 +29,11 @@ namespace OpenTibia.Game.Commands
                 {
                     party.RemoveInvitation(observer);
 
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "Invitation for " + observer.Name + " has been revoked.") );
+
                     Context.AddPacket(Player, new SetPartyIconOutgoingPacket(observer.Id, PartyIcon.None) );
+
+                    Context.AddPacket(observer, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " has revoked " + (Player.Gender == Gender.Male ? "his" : "her") + " invitation.") );
 
                     Context.AddPacket(observer, new SetPartyIconOutgoingPacket(Player.Id, PartyIcon.None) );
                 }

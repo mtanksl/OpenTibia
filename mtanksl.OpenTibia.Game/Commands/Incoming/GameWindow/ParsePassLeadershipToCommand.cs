@@ -31,20 +31,31 @@ namespace OpenTibia.Game.Commands
 
                     foreach (var member in party.GetMembers() )
                     {
-                        Context.AddPacket(member, new SetPartyIconOutgoingPacket(party.Leader.Id, party.SharedExperienceEnabled ? PartyIcon.YellowSharedExperience : PartyIcon.Yellow) ); // Leader
+                        if (member == party.Leader)
+                        {
+                            Context.AddPacket(member, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You are now the leader of the party.") );
+                        }
+                        else
+                        {
+                            Context.AddPacket(member, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, party.Leader.Name + " is now the leader of the party.") );
+                        }
 
-                        Context.AddPacket(member, new SetPartyIconOutgoingPacket(Player.Id, party.SharedExperienceEnabled ? PartyIcon.BlueSharedExperience : PartyIcon.Blue) ); // Member
+                        Context.AddPacket(member, new SetPartyIconOutgoingPacket(party.Leader.Id, party.SharedExperienceEnabled ? PartyIcon.YellowSharedExperience : PartyIcon.Yellow) );
+
+                        Context.AddPacket(member, new SetPartyIconOutgoingPacket(Player.Id, party.SharedExperienceEnabled ? PartyIcon.BlueSharedExperience : PartyIcon.Blue) );
                     }
 
                     foreach (var invitation in party.GetInvitations() )
                     {
-                        Context.AddPacket(Player, new SetPartyIconOutgoingPacket(invitation.Id, PartyIcon.None) ); // Member can't see invitee
+                        Context.AddPacket(invitation, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, party.Leader.Name + " is now the leader of the party.") );
 
-                        Context.AddPacket(invitation, new SetPartyIconOutgoingPacket(Player.Id, PartyIcon.None) ); // The old inviter
+                        Context.AddPacket(Player, new SetPartyIconOutgoingPacket(invitation.Id, PartyIcon.None) );
 
-                        Context.AddPacket(party.Leader, new SetPartyIconOutgoingPacket(invitation.Id, PartyIcon.WhiteBlue) ); // Leader can see invitee
+                        Context.AddPacket(invitation, new SetPartyIconOutgoingPacket(Player.Id, PartyIcon.None) );
 
-                        Context.AddPacket(invitation, new SetPartyIconOutgoingPacket(party.Leader.Id, PartyIcon.WhiteYellow) ); // The new inviter
+                        Context.AddPacket(party.Leader, new SetPartyIconOutgoingPacket(invitation.Id, PartyIcon.WhiteBlue) );
+
+                        Context.AddPacket(invitation, new SetPartyIconOutgoingPacket(party.Leader.Id, PartyIcon.WhiteYellow) );
                     }
                 }
             }

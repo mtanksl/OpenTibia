@@ -36,7 +36,9 @@ namespace OpenTibia.Game.Commands
                         return Promise.Break;
                     }
 
-                    if (party == null)
+                    bool createParty = party == null;
+
+                    if (createParty)
                     {
                         party = new Party()
                         {
@@ -45,31 +47,42 @@ namespace OpenTibia.Game.Commands
                             SharedExperienceEnabled = false
                         };
 
-                        party.AddMember(Player);
+                        Context.Server.Parties.AddParty(party);
 
                         foreach (var party2 in Context.Server.Parties.GetPartyThatContainsInvitation(Player) )
                         {
                             party2.RemoveInvitation(Player);
 
-                            Context.AddPacket(party2.Leader, new SetPartyIconOutgoingPacket(Player.Id, PartyIcon.None) );
+                            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You have revoked " + party2.Leader.Name + "'s invitation.") );
 
                             Context.AddPacket(Player, new SetPartyIconOutgoingPacket(party2.Leader.Id, PartyIcon.None) );
+
+                            Context.AddPacket(party2.Leader, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " has revoked your invitation.") );
+
+                            Context.AddPacket(party2.Leader, new SetPartyIconOutgoingPacket(Player.Id, PartyIcon.None) );                              
                         }
 
-                        Context.Server.Parties.AddParty(party);
+                        party.AddMember(Player);
 
-                        Context.AddPacket(Player, new SetPartyIconOutgoingPacket(Player.Id, party.SharedExperienceEnabled ? PartyIcon.YellowSharedExperience : PartyIcon.Yellow) ); // Leader
+                        Context.AddPacket(Player, new SetPartyIconOutgoingPacket(Player.Id, party.SharedExperienceEnabled ? PartyIcon.YellowSharedExperience : PartyIcon.Yellow) );
                     }
 
                     party.AddInvitation(observer);
 
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been invited.") );
-                                   
-                    Context.AddPacket(Player, new SetPartyIconOutgoingPacket(observer.Id, PartyIcon.WhiteBlue) ); // Invitee
+                    if (createParty)
+                    {
+                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been invited. Open the party channel to communicate with your members.") );
+                    }
+                    else
+                    {
+                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, observer.Name + " has been invited.") );
+                    }
 
-                    Context.AddPacket(observer, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " invites you to " + (Player.Gender == Gender.Male ? "his" : "her") + " party." ) );
+                    Context.AddPacket(Player, new SetPartyIconOutgoingPacket(observer.Id, PartyIcon.WhiteBlue) );
 
-                    Context.AddPacket(observer, new SetPartyIconOutgoingPacket(Player.Id, PartyIcon.WhiteYellow) ); // Inviter
+                    Context.AddPacket(observer, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " has invited you to " + (Player.Gender == Gender.Male ? "his" : "her") + " party." ) );
+
+                    Context.AddPacket(observer, new SetPartyIconOutgoingPacket(Player.Id, PartyIcon.WhiteYellow) );
                 }
             }
 

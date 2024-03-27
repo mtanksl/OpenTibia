@@ -38,13 +38,17 @@ namespace OpenTibia.Game.Commands
                         foreach (var party2 in Context.Server.Parties.GetPartyThatContainsInvitation(Player) )
                         {
                             party2.RemoveInvitation(Player);
-
-                            Context.AddPacket(party2.Leader, new SetPartyIconOutgoingPacket(Player.Id, PartyIcon.None) );
+                          
+                            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You have revoked " + party2.Leader.Name + "'s invitation.") );
 
                             Context.AddPacket(Player, new SetPartyIconOutgoingPacket(party2.Leader.Id, PartyIcon.None) );
+
+                            Context.AddPacket(party2.Leader, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " has revoked your invitation.") );
+
+                            Context.AddPacket(party2.Leader, new SetPartyIconOutgoingPacket(Player.Id, PartyIcon.None) );    
                         }
 
-                        Context.AddPacket(observer, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " has joined the party.") );
+                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You have joined " + observerParty.Leader.Name + "'s party. Open the party channel to communicate with your companions.") );
 
                         foreach (var member in observerParty.GetMembers() )
                         {
@@ -59,6 +63,8 @@ namespace OpenTibia.Game.Commands
 
                             if (member != Player)
                             {
+                                Context.AddPacket(member, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, Player.Name + " has joined the party.") );
+
                                 Context.AddPacket(member, new SetPartyIconOutgoingPacket(Player.Id, observerParty.SharedExperienceEnabled ? PartyIcon.BlueSharedExperience : PartyIcon.Blue) );
                             }
                         }

@@ -18,12 +18,16 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (party != null)
                     {
+                        Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You have left the party.") );
+
                         foreach (var member in party.GetMembers() )
                         {
                             Context.AddPacket(player, new SetPartyIconOutgoingPacket(member.Id, PartyIcon.None) );
 
                             if (member != player)
                             {
+                                Context.AddPacket(member, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, player.Name + " has left the party.") );
+
                                 Context.AddPacket(member, new SetPartyIconOutgoingPacket(player.Id, PartyIcon.None) );
                             }
                         }
@@ -36,6 +40,8 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 foreach (var invitation in party.GetInvitations() )
                                 {
+                                    Context.AddPacket(invitation, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, player.Name + " has revoked " + (player.Gender == Gender.Male ? "his" : "her") + " invitation.") );
+                                  
                                     Context.AddPacket(player, new SetPartyIconOutgoingPacket(invitation.Id, PartyIcon.None) );
 
                                     Context.AddPacket(invitation, new SetPartyIconOutgoingPacket(player.Id, PartyIcon.None) );
@@ -49,11 +55,22 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 foreach (var member in party.GetMembers() )
                                 {
+                                    if (member == party.Leader)
+                                    {
+                                        Context.AddPacket(member, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You are now the leader of the party.") );
+                                    }
+                                    else
+                                    {
+                                        Context.AddPacket(member, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, party.Leader.Name + " is now the leader of the party.") );
+                                    }
+
                                     Context.AddPacket(member, new SetPartyIconOutgoingPacket(party.Leader.Id, party.SharedExperienceEnabled ? PartyIcon.YellowSharedExperience : PartyIcon.Yellow) );
                                 }
 
                                 foreach (var invitation in party.GetInvitations() )
-                                {
+                                {                        
+                                    Context.AddPacket(invitation, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, party.Leader.Name + " is now the leader of the party.") );
+                                    
                                     Context.AddPacket(player, new SetPartyIconOutgoingPacket(invitation.Id, PartyIcon.None) );
 
                                     Context.AddPacket(invitation, new SetPartyIconOutgoingPacket(player.Id, PartyIcon.None) );
@@ -70,9 +87,13 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         party2.RemoveInvitation(player);
 
-                        Context.AddPacket(party2.Leader, new SetPartyIconOutgoingPacket(player.Id, PartyIcon.None) );
+                        Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You have revoked " + party2.Leader.Name + "'s invitation.") );
 
                         Context.AddPacket(player, new SetPartyIconOutgoingPacket(party2.Leader.Id, PartyIcon.None) );
+
+                        Context.AddPacket(party2.Leader, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, player.Name + " has revoked your invitation.") );
+
+                        Context.AddPacket(party2.Leader, new SetPartyIconOutgoingPacket(player.Id, PartyIcon.None) ); 
                     }
 
                     return Promise.Completed;
