@@ -66,15 +66,10 @@ namespace OpenTibia.Game
                     catch (Exception ex)
                     {
                         server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                                
+                        reject(ex);
                     }
                 } );
-
-                dispatcherEvent.Canceled += (sender, e) =>
-                {
-                    Exception ex = new PromiseCanceledException();
-
-                    reject(ex);
-                };
 
                 dispatcher.QueueForExecution(dispatcherEvent);
             } );
@@ -126,6 +121,8 @@ namespace OpenTibia.Game
                     catch (Exception ex)
                     {
                         server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                    
+                        reject(ex);
                     }
                 } );
 
