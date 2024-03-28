@@ -75,13 +75,13 @@ namespace OpenTibia.Network.Packets.Incoming
 
             LocaleId = reader.ReadByte();
 
-            Locate = Encoding.Default.GetString( reader.ReadBytes(3) );
+            Locate = reader.Encoding.GetString( reader.ReadBytes(3) );
 
             TotalRam = reader.ReadUShort();
 
             reader.ReadBytes(6);
 
-            Cpu = Encoding.Default.GetString( reader.ReadBytes(9) );
+            Cpu = reader.Encoding.GetString( reader.ReadBytes(9) );
 
             reader.ReadBytes(2);
 
@@ -91,7 +91,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
             reader.ReadBytes(4);
 
-            Cpu = Encoding.Default.GetString( reader.ReadBytes(9) );
+            Cpu = reader.Encoding.GetString( reader.ReadBytes(9) );
 
             VideoRam = reader.ReadUShort();
 

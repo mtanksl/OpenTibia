@@ -75,7 +75,7 @@ namespace OpenTibia.Game
 
                     default:
 
-                        throw new NotImplementedException("File config.lua parameter server.database.type must be sqlite, mysql or mssql.");
+                        throw new NotImplementedException("File config.lua parameter server.database.type must be sqlite, mysql, mssql or memory.");
                 }
             } );
 

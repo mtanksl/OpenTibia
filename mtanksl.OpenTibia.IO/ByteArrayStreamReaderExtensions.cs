@@ -31,10 +31,10 @@ namespace OpenTibia.IO
 
             if (index == -1)
 	        {
-                 return Encoding.Default.GetString(bytes);
+                 return reader.Encoding.GetString(bytes);
 	        }
 
-            return Encoding.Default.GetString(bytes, index, bytes.Length - index);
+            return reader.Encoding.GetString(bytes, index, bytes.Length - index);
         }
     }
 }

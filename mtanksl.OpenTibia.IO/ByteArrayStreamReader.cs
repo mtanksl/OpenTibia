@@ -5,9 +5,16 @@ namespace OpenTibia.IO
 {
     public class ByteArrayStreamReader
     {
-        public ByteArrayStreamReader(ByteArrayStream stream)
+        public ByteArrayStreamReader(ByteArrayStream stream) : this(stream, Encoding.GetEncoding("ISO-8859-1") )
+        {
+            
+        }
+
+        public ByteArrayStreamReader(ByteArrayStream stream, Encoding encoding)
         {
             this.stream = stream;
+
+            this.encoding = encoding;
         }
 
         private ByteArrayStream stream;
@@ -17,6 +24,16 @@ namespace OpenTibia.IO
             get
             {
                 return stream;
+            }
+        }
+
+        private Encoding encoding;
+
+        public Encoding Encoding
+        {
+            get
+            {
+                return encoding;
             }
         }
 
@@ -62,9 +79,9 @@ namespace OpenTibia.IO
 
         public string ReadString()
         {
-            return Encoding.Default.GetString( ReadBytes( ReadUShort() ) );
+            return encoding.GetString( ReadBytes( ReadUShort() ) );
         }
-        
+
         public byte[] ReadBytes(int length)
         {
             byte[] buffer = new byte[length]; 

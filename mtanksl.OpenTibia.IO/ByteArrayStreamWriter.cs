@@ -5,9 +5,16 @@ namespace OpenTibia.IO
 {
     public class ByteArrayStreamWriter
     {
-        public ByteArrayStreamWriter(ByteArrayStream stream)
+        public ByteArrayStreamWriter(ByteArrayStream stream) : this(stream, Encoding.GetEncoding("ISO-8859-1") )
+        {
+
+        }
+
+        public ByteArrayStreamWriter(ByteArrayStream stream, Encoding encoding)
         {
             this.stream = stream;
+
+            this.encoding = encoding;
         }
 
         private ByteArrayStream stream;
@@ -17,6 +24,16 @@ namespace OpenTibia.IO
             get
             {
                 return stream;
+            }
+        }
+
+        private Encoding encoding;
+
+        public Encoding Encoding
+        {
+            get
+            {
+                return encoding;
             }
         }
 
@@ -70,7 +87,7 @@ namespace OpenTibia.IO
             {
                 Write( (ushort)value.Length );
 
-                Write( Encoding.Default.GetBytes(value) );
+                Write( encoding.GetBytes(value) );
             }
         }
 
