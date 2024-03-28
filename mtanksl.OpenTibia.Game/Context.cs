@@ -71,6 +71,11 @@ namespace OpenTibia.Game
             }
         }
 
+        public void Post(Action run)
+        {
+            server.Post(this, run);
+        }
+
         /// <exception cref="ObjectDisposedException"></exception>
 
         public Promise AddCommand(Command command)

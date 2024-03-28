@@ -9,8 +9,6 @@ namespace OpenTibia.Game
     {
         ServerStatus Status { get; }
 
-        DispatcherContext DispatcherContext { get; set; }
-
         DatabaseFactory DatabaseFactory { get; set; }
 
         Logger Logger { get; set; }
@@ -74,6 +72,8 @@ namespace OpenTibia.Game
         ScriptCollection Scripts { get; set; }
 
         void Start();
+
+        void Post(Context previousContext, Action run);
 
         Promise QueueForExecution(Func<Promise> run);
 

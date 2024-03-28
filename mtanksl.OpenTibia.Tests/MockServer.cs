@@ -12,12 +12,6 @@ namespace mtanksl.OpenTibia.Tests
     {
         public MockServer()
         {
-            var dispatcher = new Dispatcher();
-
-            var scheduler = new Scheduler(dispatcher);
-
-            DispatcherContext = new DispatcherContext(this, dispatcher, scheduler);
-
             DatabaseFactory = new DatabaseFactory(this, builder =>
             {
                 return new InMemoryContext(builder.Options);
@@ -86,8 +80,6 @@ namespace mtanksl.OpenTibia.Tests
 
         public ServerStatus Status { get; private set; }
 
-        public DispatcherContext DispatcherContext { get; set; }
-
         public DatabaseFactory DatabaseFactory { get; set; }
 
         public Logger Logger { get; set; }
@@ -152,34 +144,37 @@ namespace mtanksl.OpenTibia.Tests
 
         public void Start()
         {
-            DispatcherContext.Start();
-
             Status = ServerStatus.Running;
+        }
+
+        public void Post(Context previousContext, Action run)
+        {
+            throw new NotImplementedException();
         }
 
         public Promise QueueForExecution(Func<Promise> run)
         {
-            return DispatcherContext.QueueForExecution(run);
+            throw new NotImplementedException();
         }
 
         public Promise QueueForExecution(string key, TimeSpan executeIn, Func<Promise> run)
         {
-            return DispatcherContext.QueueForExecution(key, executeIn, run);
+            throw new NotImplementedException();
         }
 
         public bool CancelQueueForExecution(string key)
         {
-            return DispatcherContext.CancelQueueForExecution(key);
+            throw new NotImplementedException();
         }
 
         public void Save()
         {
-            
+            throw new NotImplementedException();
         }
 
         public void KickAll()
         {
-            
+            throw new NotImplementedException();
         }
 
         public void Pause()
@@ -193,8 +188,6 @@ namespace mtanksl.OpenTibia.Tests
         }
         public void Stop()
         {
-            DispatcherContext.Stop();
-
             Status = ServerStatus.Stopped;
         }
 

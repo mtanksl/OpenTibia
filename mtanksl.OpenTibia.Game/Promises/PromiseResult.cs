@@ -396,13 +396,41 @@ namespace OpenTibia.Game.Commands
         public void AwaitOnCompleted<TAwaiter, TStateMachine>(ref TAwaiter awaiter, ref TStateMachine stateMachine) where TAwaiter : INotifyCompletion
                                                                                                                     where TStateMachine : IAsyncStateMachine
         {
-            awaiter.OnCompleted(stateMachine.MoveNext);
+            Action moveNext = stateMachine.MoveNext;
+
+            Context context = Context.Current;
+
+            awaiter.OnCompleted( () =>
+            {
+                if (Context.Current == null)
+                {
+                    context.Post(moveNext);
+                }
+                else 
+                { 
+                    moveNext();
+                }
+            } );
         }
 
         public void AwaitUnsafeOnCompleted<TAwaiter, TStateMachine>(ref TAwaiter awaiter, ref TStateMachine stateMachine) where TAwaiter : ICriticalNotifyCompletion
                                                                                                                           where TStateMachine : IAsyncStateMachine
         {
-            awaiter.UnsafeOnCompleted(stateMachine.MoveNext);
+            Action moveNext = stateMachine.MoveNext;
+
+            Context context = Context.Current;
+
+            awaiter.UnsafeOnCompleted( () =>
+            {
+                if (Context.Current == null)
+                {
+                    context.Post(moveNext);
+                }
+                else 
+                { 
+                    moveNext();
+                }
+            } );
         }
 
         private PromiseResult<TResult> promise;

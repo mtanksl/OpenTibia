@@ -43,11 +43,9 @@ namespace OpenTibia.Game
     {
         public Server()
         {
-            var dispatcher = new Dispatcher();
+            dispatcher = new Dispatcher();
 
-            var scheduler = new Scheduler(dispatcher);
-
-            DispatcherContext = new DispatcherContext(this, dispatcher, scheduler);
+            scheduler = new Scheduler(dispatcher);
 
             loginServer = new Listener(socket => new LoginConnection(this, socket) );
 
@@ -147,7 +145,9 @@ namespace OpenTibia.Game
 
         public ServerStatus Status { get; private set; }
 
-        public DispatcherContext DispatcherContext { get; set; }
+        private Dispatcher dispatcher;
+
+        private Scheduler scheduler;
 
         private Listener loginServer;
 
@@ -217,7 +217,9 @@ namespace OpenTibia.Game
 
         public void Start()
         {
-            DispatcherContext.Start();
+            dispatcher.Start();
+
+            scheduler.Start();
 
             QueueForExecution( () =>
             {
@@ -344,19 +346,155 @@ namespace OpenTibia.Game
             Logger.WriteLine("Server status: running.");
         }
 
+        private Dictionary<string, SchedulerEvent> schedulerEvents = new Dictionary<string, SchedulerEvent>();
+
+        public void Post(Context previousContext, Action run)
+        {
+            DispatcherEvent dispatcherEvent = new DispatcherEvent( () =>
+            {
+                try
+                {
+                    using (var context = new Context(this, previousContext) )
+                    {
+                        using (var scope = new Scope<Context>(context) )
+                        {
+                            run();
+
+                            context.Flush();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                }
+            } );
+
+            dispatcher.QueueForExecution(dispatcherEvent);
+        }
+
         public Promise QueueForExecution(Func<Promise> run)
         {
-            return DispatcherContext.QueueForExecution(run);
+            return Promise.Run( (resolve, reject) =>
+            {
+                Context previousContext = Context.Current;
+
+                DispatcherEvent dispatcherEvent = new DispatcherEvent( () =>
+                {
+                    try
+                    {
+                        using (var context = new Context(this, previousContext) )
+                        {
+                            using (var scope = new Scope<Context>(context) )
+                            {
+                                run().Then(resolve).Catch( (ex) =>
+                                {
+                                    if (ex is PromiseCanceledException)
+                                    {
+                                        //
+                                    }
+                                    else
+                                    {
+                                        Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                                    }
+
+                                    reject(ex);
+                                } );
+
+                                context.Flush();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                                
+                        reject(ex);
+                    }
+                } );
+
+                dispatcher.QueueForExecution(dispatcherEvent);
+            } );
         }
 
         public Promise QueueForExecution(string key, TimeSpan executeIn, Func<Promise> run)
         {
-            return DispatcherContext.QueueForExecution(key, executeIn, run);
+            return Promise.Run( (resolve, reject) =>
+            {
+                SchedulerEvent schedulerEvent;
+
+                if ( schedulerEvents.TryGetValue(key, out schedulerEvent) )
+                {
+                    schedulerEvents.Remove(key);
+
+                    schedulerEvent.Cancel();
+                }
+
+                Context previousContext = Context.Current;
+
+                schedulerEvent = new SchedulerEvent(executeIn, () =>
+                {
+                    schedulerEvents.Remove(key);
+
+                    try
+                    {
+                        using (var context = new Context(this, previousContext) )
+                        {
+                            using (var scope = new Scope<Context>(context) )
+                            {
+                                run().Then(resolve).Catch( (ex) =>
+                                {
+                                    if (ex is PromiseCanceledException)
+                                    {
+                                        //
+                                    }
+                                    else
+                                    {
+                                        Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                                    }
+
+                                    reject(ex);
+                                } );
+
+                                context.Flush();
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                    
+                        reject(ex);
+                    }
+                } );
+
+                schedulerEvent.Canceled += (sender, e) =>
+                {
+                    Exception ex = new PromiseCanceledException();
+
+                    reject(ex);
+                };
+
+                schedulerEvents.Add(key, schedulerEvent);
+
+                scheduler.QueueForExecution(schedulerEvent);
+            } );
         }
 
         public bool CancelQueueForExecution(string key)
         {
-            return DispatcherContext.CancelQueueForExecution(key);
+            SchedulerEvent schedulerEvent;
+
+            if ( schedulerEvents.TryGetValue(key, out schedulerEvent) )
+            {
+                schedulerEvents.Remove(key);
+
+                schedulerEvent.Cancel();
+
+                return true;
+            }
+
+            return false;
         }
 
         public void KickAll()
@@ -438,8 +576,10 @@ namespace OpenTibia.Game
 
             gameServer.Stop();
 
-            DispatcherContext.Stop();
-            
+            scheduler.Stop();
+
+            dispatcher.Stop();
+
             Status = ServerStatus.Stopped;
 
             Logger.WriteLine("Server status: stopped.");
