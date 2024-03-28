@@ -391,9 +391,16 @@ namespace OpenTibia.Game.Commands
 
                         AddContinueWithRejected( (ex) =>
                         {
-                            onRejected(ex);
+                            try
+                            {
+                                onRejected(ex);
 
-                            reject(ex);
+                                reject(ex);
+                            }
+                            catch (Exception ex2)
+                            {
+                                reject(ex2);
+                            }
                         } );
                     }
                     else if (status == PromiseStatus.Fulfilled)
@@ -420,9 +427,16 @@ namespace OpenTibia.Game.Commands
                     {
                         AddContinueWithFulfilled( () =>
                         {
-                            onFullfilled();
+                            try
+                            {
+                                onFullfilled();
 
-                            resolve();
+                                resolve();
+                            }
+                            catch (Exception ex)
+                            {
+                                reject(ex);
+                            }
                         } );
 
                         AddContinueWithRejected( (ex) =>
@@ -454,7 +468,14 @@ namespace OpenTibia.Game.Commands
                     {
                         AddContinueWithFulfilled( () =>
                         {
-                            onFullfilled().Then(resolve).Catch(reject);
+                            try
+                            {
+                                onFullfilled().Then(resolve).Catch(reject);
+                            }
+                            catch (Exception ex)
+                            {
+                                reject(ex);
+                            }                            
                         } );
 
                         AddContinueWithRejected( (ex) =>
@@ -484,7 +505,14 @@ namespace OpenTibia.Game.Commands
                     {
                         AddContinueWithFulfilled( () =>
                         {
-                            resolve(onFullfilled() );
+                            try
+                            {
+                                resolve(onFullfilled() );
+                            }
+                            catch (Exception ex)
+                            {
+                                reject(ex);
+                            }
                         } );
 
                         AddContinueWithRejected( (ex) =>
@@ -514,7 +542,14 @@ namespace OpenTibia.Game.Commands
                     {
                         AddContinueWithFulfilled( () =>
                         {
-                            onFullfilled().Then(resolve).Catch(reject);
+                            try
+                            {
+                                onFullfilled().Then(resolve).Catch(reject);
+                            }
+                            catch (Exception ex)
+                            {
+                                reject(ex);
+                            }
                         } );
 
                         AddContinueWithRejected( (ex) =>
@@ -610,7 +645,7 @@ namespace OpenTibia.Game.Commands
 
             awaiter.OnCompleted( () =>
             {
-                if (Context.Current == null)
+                if (context != null && Context.Current == null)
                 {
                     context.Post(moveNext);
                 }
@@ -630,7 +665,7 @@ namespace OpenTibia.Game.Commands
 
             awaiter.UnsafeOnCompleted( () =>
             {
-                if (Context.Current == null)
+                if (context != null && Context.Current == null)
                 {
                     context.Post(moveNext);
                 }
