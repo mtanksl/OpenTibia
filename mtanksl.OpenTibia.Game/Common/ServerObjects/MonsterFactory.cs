@@ -12,9 +12,9 @@ namespace OpenTibia.Game
 {
     public class MonsterFactory
     {
-        private Server server;
+        private IServer server;
 
-        public MonsterFactory(Server server)
+        public MonsterFactory(IServer server)
         {
             this.server = server;
         }

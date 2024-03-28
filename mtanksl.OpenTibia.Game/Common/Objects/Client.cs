@@ -5,7 +5,7 @@ namespace OpenTibia.Common.Objects
 {
     public class Client : IClient
     {
-        public Client(Server server)
+        public Client(IServer server)
         {
             this.Battles = new BattleCollection(server, this);
 

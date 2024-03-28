@@ -6,9 +6,9 @@ namespace OpenTibia.Game
 {
     public class QuestCollection : IDisposable
     {
-        private Server server;
+        private IServer server;
 
-        public QuestCollection(Server server)
+        public QuestCollection(IServer server)
         {
             this.server = server;
         }

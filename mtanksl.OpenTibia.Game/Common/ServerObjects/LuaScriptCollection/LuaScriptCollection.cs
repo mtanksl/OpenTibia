@@ -22,7 +22,7 @@ namespace OpenTibia.Game
     {
         private LuaScope lua;
 
-        public LuaScriptCollection(Server server)
+        public LuaScriptCollection(IServer server)
         {
             lua = new LuaScope(server);
 
@@ -838,7 +838,7 @@ namespace OpenTibia.Game
             Dispose(false);
         }
 
-        private Server server;
+        private IServer server;
 
 #if AOT
         [RequiresUnreferencedCode("Used by lua.RegisterFunction.")]

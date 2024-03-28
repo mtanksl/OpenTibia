@@ -12,7 +12,7 @@ namespace OpenTibia.Game
     {
         private Lua lua;
 
-        public LuaScope(Server server)
+        public LuaScope(IServer server)
         {
             lua = new Lua();
 

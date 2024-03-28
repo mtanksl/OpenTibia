@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\mtanksl.OpenTibia.Common\mtanksl.OpenTibia.Common.csproj" />
+    <ProjectReference Include="..\mtanksl.OpenTibia.Data.InMemory\mtanksl.OpenTibia.Data.InMemory.csproj" />
     <ProjectReference Include="..\mtanksl.OpenTibia.Data.MsSql\mtanksl.OpenTibia.Data.MsSql.csproj" />
     <ProjectReference Include="..\mtanksl.OpenTibia.Data.MySql\mtanksl.OpenTibia.Data.MySql.csproj" />
     <ProjectReference Include="..\mtanksl.OpenTibia.Data.Sqlite\mtanksl.OpenTibia.Data.Sqlite.csproj" />

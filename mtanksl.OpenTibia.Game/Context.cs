@@ -26,7 +26,7 @@ namespace OpenTibia.Game
             }
         }
 
-        public Context(Server server, Context previousContext)
+        public Context(IServer server, Context previousContext)
         {
             this.server = server;
 
@@ -41,9 +41,9 @@ namespace OpenTibia.Game
             Dispose(false);
         }
 
-        private Server server;
+        private IServer server;
 
-        public Server Server
+        public IServer Server
         {
             get
             {

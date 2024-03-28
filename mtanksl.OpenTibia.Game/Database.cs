@@ -6,7 +6,7 @@ namespace OpenTibia.Game
 {
     public class Database : IDisposable
     {
-        public Database(Server server)
+        public Database(IServer server)
         {
             this.server = server;
         }
@@ -16,9 +16,9 @@ namespace OpenTibia.Game
             Dispose(false);
         }
 
-        private Server server;
+        private IServer server;
 
-        public Server Server
+        public IServer Server
         {
             get
             {

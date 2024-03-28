@@ -49,7 +49,7 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        private Server server;
+        private IServer server;
 
         private int minX = int.MaxValue;
 
@@ -59,7 +59,7 @@ namespace OpenTibia.Common.Objects
 
         private int maxY = 0;
 
-        public Map(Server server)
+        public Map(IServer server)
         {
             this.server = server;
         }

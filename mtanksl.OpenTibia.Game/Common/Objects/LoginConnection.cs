@@ -11,9 +11,9 @@ namespace OpenTibia.Common.Objects
 {
     public class LoginConnection : RateLimitingConnection
     {
-        private Server server;
+        private IServer server;
 
-        public LoginConnection(Server server, Socket socket) : base(server, socket)
+        public LoginConnection(IServer server, Socket socket) : base(server, socket)
         {
             this.server = server;
 

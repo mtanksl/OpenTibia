@@ -15,9 +15,9 @@ namespace OpenTibia.Game
 {
     public class ItemFactory
     {
-        private Server server;
+        private IServer server;
 
-        public ItemFactory(Server server)
+        public ItemFactory(IServer server)
         {
             this.server = server;
         }

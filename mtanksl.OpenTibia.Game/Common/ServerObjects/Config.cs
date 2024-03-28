@@ -2,9 +2,9 @@
 {
     public class Config
     {
-        private Server server;
+        private IServer server;
 
-        public Config(Server server)
+        public Config(IServer server)
         {
             this.server = server;
         }

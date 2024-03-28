@@ -6,11 +6,11 @@ namespace OpenTibia.Common.Objects
 {
     public class BattleCollection : IBattleCollection
     {
-        private Server server;
+        private IServer server;
 
         private IClient client;
 
-        public BattleCollection(Server server, IClient client)
+        public BattleCollection(IServer server, IClient client)
         {
             this.server = server;
 

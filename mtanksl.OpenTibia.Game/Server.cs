@@ -39,13 +39,15 @@ namespace OpenTibia.Game
         Paused
     }
 
-    public class Server : IDisposable
+    public class Server : IServer
     {
         public Server()
         {
-            dispatcher = new Dispatcher();
+            var dispatcher = new Dispatcher();
 
-            scheduler = new Scheduler(dispatcher);
+            var scheduler = new Scheduler(dispatcher);
+
+            DispatcherContext = new DispatcherContext(this, dispatcher, scheduler);
 
             loginServer = new Listener(socket => new LoginConnection(this, socket) );
 
@@ -66,6 +68,10 @@ namespace OpenTibia.Game
                     case "mssql":
 
                         return new MsSqlContext("Server=" + Config.DatabaseHost + ";Database=" + Config.DatabaseName + ";User Id=" + Config.DatabaseUser + ";Password=" + Config.DatabasePassword + ";TrustServerCertificate=True;", builder.Options);
+
+                    case "memory":
+
+                        return new InMemoryContext(builder.Options);
 
                     default:
 
@@ -141,9 +147,7 @@ namespace OpenTibia.Game
 
         public ServerStatus Status { get; private set; }
 
-        private Dispatcher dispatcher;
-
-        private Scheduler scheduler;
+        public DispatcherContext DispatcherContext { get; set; }
 
         private Listener loginServer;
 
@@ -213,9 +217,7 @@ namespace OpenTibia.Game
 
         public void Start()
         {
-            dispatcher.Start();
-
-            scheduler.Start();
+            DispatcherContext.Start();
 
             QueueForExecution( () =>
             {
@@ -295,6 +297,29 @@ namespace OpenTibia.Game
                     {
                         Logger.WriteLine("Unable to connect to database.", LogLevel.Error);
                     }
+                    else
+                    {
+                        if (Config.DatabaseType == "memory")
+                        {
+                            Context.Current.Database.DatabaseContext.Motd.Add(new DbMotd() { Id = 0, Message = "An open Tibia server developed by mtanksl" } );
+
+                            Context.Current.Database.DatabaseContext.Accounts.Add(new DbAccount() { Id = 1, Name = "1", Password = "1", PremiumDays = 0 } );
+
+                            Context.Current.Database.DatabaseContext.Worlds.Add(new DbWorld() { Id = 1, Name = "Cormaya", Ip = "127.0.0.1", Port = Config.GamePort } );
+
+                            Context.Current.Database.DatabaseContext.Players.Add(new DbPlayer() { Id = 1, AccountId = 1, WorldId = 1, Name = "Gamemaster", Health = 645, MaxHealth = 645, Direction = 2, BaseOutfitId = 266, OutfitId = 266, BaseSpeed = 2218, Speed = 2218, Experience = 15694800, Level = 100, Mana = 550, MaxMana = 550, Soul = 100, Capacity = 139000, Stamina = 2520, Rank = 2, SpawnX = 921, SpawnY = 771, SpawnZ = 6, TownX = 921, TownY = 771, TownZ = 6 } );
+
+                            Context.Current.Database.DatabaseContext.Players.Add(new DbPlayer() { Id = 2, AccountId = 1, WorldId = 1, Name = "Knight", Health = 1565, MaxHealth = 1565, Direction = 2, BaseOutfitId = 131, OutfitId = 131, BaseSpeed = 418, Speed = 418, Experience = 15694800, Level = 100, Mana = 550, MaxMana = 550, Soul = 100, Capacity = 139000, Stamina = 2520, Vocation = 1, SpawnX = 921, SpawnY = 771, SpawnZ = 6, TownX = 921, TownY = 771, TownZ = 6 } );
+
+                            Context.Current.Database.DatabaseContext.Players.Add(new DbPlayer() { Id = 3, AccountId = 1, WorldId = 1, Name = "Paladin", Health = 1105, MaxHealth = 1105, Direction = 2, BaseOutfitId = 129, OutfitId = 129, BaseSpeed = 418, Speed = 418, Experience = 15694800, Level = 100, Mana = 1470, MaxMana = 1470, Soul = 100, Capacity = 139000, Stamina = 2520, Vocation = 2, SpawnX = 921, SpawnY = 771, SpawnZ = 6, TownX = 921, TownY = 771, TownZ = 6 } );
+
+                            Context.Current.Database.DatabaseContext.Players.Add(new DbPlayer() { Id = 4, AccountId = 1, WorldId = 1, Name = "Sorcerer", Health = 645, MaxHealth = 645, Direction = 2, BaseOutfitId = 130, OutfitId = 130, BaseSpeed = 418, Speed = 418, Experience = 15694800, Level = 100, Mana = 2850, MaxMana = 2850, Soul = 100, Capacity = 139000, Stamina = 2520, Vocation = 4, SpawnX = 921, SpawnY = 771, SpawnZ = 6, TownX = 921, TownY = 771, TownZ = 6 });
+
+                            Context.Current.Database.DatabaseContext.Players.Add(new DbPlayer() { Id = 5, AccountId = 1, WorldId = 1, Name = "Druid", Health = 645, MaxHealth = 645, Direction = 2, BaseOutfitId = 130, OutfitId = 130, BaseSpeed = 418, Speed = 418, Experience = 15694800, Level = 100, Mana = 2850, MaxMana = 2850, Soul = 100, Capacity = 139000, Stamina = 2520, Vocation = 3, SpawnX = 921, SpawnY = 771, SpawnZ = 6, TownX = 921, TownY = 771, TownZ = 6 } );
+
+                            Context.Current.Database.Commit();
+                        }
+                    }
                 }
 
                 return Promise.Completed;
@@ -317,133 +342,19 @@ namespace OpenTibia.Game
             Logger.WriteLine("Server status: running.");
         }
 
-        private Dictionary<string, SchedulerEvent> schedulerEvents = new Dictionary<string, SchedulerEvent>();
-
         public Promise QueueForExecution(Func<Promise> run)
         {
-            return Promise.Run( (resolve, reject) =>
-            {
-                Context previousContext = Context.Current;
-
-                DispatcherEvent dispatcherEvent = new DispatcherEvent( () =>
-                {
-                    try
-                    {
-                        using (var context = new Context(this, previousContext) )
-                        {
-                            using (var scope = new Scope<Context>(context) )
-                            {
-                                run().Then(resolve).Catch( (ex) =>
-                                {
-                                    if (ex is PromiseCanceledException)
-                                    {
-                                        //
-                                    }
-                                    else
-                                    {
-                                        Logger.WriteLine(ex.ToString(), LogLevel.Error);
-                                    }
-
-                                    reject(ex);
-                                } );
-
-                                context.Flush();
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.WriteLine(ex.ToString(), LogLevel.Error);
-                    }
-                } );
-
-                dispatcherEvent.Canceled += (sender, e) =>
-                {
-                    Exception ex = new PromiseCanceledException();
-
-                    reject(ex);
-                };
-
-                dispatcher.QueueForExecution(dispatcherEvent);
-            } );
+            return DispatcherContext.QueueForExecution(run);
         }
 
         public Promise QueueForExecution(string key, TimeSpan executeIn, Func<Promise> run)
         {
-            return Promise.Run( (resolve, reject) =>
-            {
-                SchedulerEvent schedulerEvent;
-
-                if ( schedulerEvents.TryGetValue(key, out schedulerEvent) )
-                {
-                    schedulerEvents.Remove(key);
-
-                    schedulerEvent.Cancel();
-                }
-
-                Context previousContext = Context.Current;
-
-                schedulerEvent = new SchedulerEvent(executeIn, () =>
-                {
-                    schedulerEvents.Remove(key);
-
-                    try
-                    {
-                        using (var context = new Context(this, previousContext) )
-                        {
-                            using (var scope = new Scope<Context>(context) )
-                            {
-                                run().Then(resolve).Catch( (ex) =>
-                                {
-                                    if (ex is PromiseCanceledException)
-                                    {
-                                        //
-                                    }
-                                    else
-                                    {
-                                        Logger.WriteLine(ex.ToString(), LogLevel.Error);
-                                    }
-
-                                    reject(ex);
-                                } );
-
-                                context.Flush();
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.WriteLine(ex.ToString(), LogLevel.Error);
-                    }
-                } );
-
-                schedulerEvent.Canceled += (sender, e) =>
-                {
-                    Exception ex = new PromiseCanceledException();
-
-                    reject(ex);
-                };
-
-                schedulerEvents.Add(key, schedulerEvent);
-
-                scheduler.QueueForExecution(schedulerEvent);
-            } );
+            return DispatcherContext.QueueForExecution(key, executeIn, run);
         }
 
         public bool CancelQueueForExecution(string key)
         {
-            SchedulerEvent schedulerEvent;
-
-            if ( schedulerEvents.TryGetValue(key, out schedulerEvent) )
-            {
-                schedulerEvents.Remove(key);
-
-                schedulerEvent.Cancel();
-
-                return true;
-            }
-
-            return false;
+            return DispatcherContext.CancelQueueForExecution(key);
         }
 
         public void KickAll()
@@ -525,10 +436,8 @@ namespace OpenTibia.Game
 
             gameServer.Stop();
 
-            scheduler.Stop();
-
-            dispatcher.Stop();
-
+            DispatcherContext.Stop();
+            
             Status = ServerStatus.Stopped;
 
             Logger.WriteLine("Server status: stopped.");

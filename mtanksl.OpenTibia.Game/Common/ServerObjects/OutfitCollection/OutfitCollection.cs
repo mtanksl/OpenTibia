@@ -7,9 +7,9 @@ namespace OpenTibia.Game
 {
     public class OutfitCollection : IDisposable
     {
-        private Server server;
+        private IServer server;
 
-        public OutfitCollection(Server server)
+        public OutfitCollection(IServer server)
         {
             this.server = server;
         }

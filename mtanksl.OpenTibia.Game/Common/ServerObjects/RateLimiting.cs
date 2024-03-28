@@ -33,9 +33,9 @@ namespace OpenTibia.Common.Objects
 
         private readonly object sync = new object();
 
-        private Server server;
+        private IServer server;
 
-        public RateLimiting(Server server)
+        public RateLimiting(IServer server)
         {
             this.server = server;
         }

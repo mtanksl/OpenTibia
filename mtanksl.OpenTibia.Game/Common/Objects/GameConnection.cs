@@ -14,9 +14,9 @@ namespace OpenTibia.Common.Objects
 {
     public class GameConnection : RateLimitingConnection
     {
-        private Server server;
+        private IServer server;
 
-        public GameConnection(Server server, Socket socket) : base(server, socket)
+        public GameConnection(IServer server, Socket socket) : base(server, socket)
         {
             this.server = server;
 

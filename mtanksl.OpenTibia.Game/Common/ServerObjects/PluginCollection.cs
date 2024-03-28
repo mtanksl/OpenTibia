@@ -73,9 +73,9 @@ namespace OpenTibia.Game
             }
         }
 
-        private Server server;
+        private IServer server;
 
-        public PluginCollection(Server server)
+        public PluginCollection(IServer server)
         {
             this.server = server;
         }

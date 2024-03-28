@@ -14,9 +14,9 @@ namespace OpenTibia.Common.Objects
             public DateTime Timeout { get; set; }
         }
 
-        private Server server;
+        private IServer server;
 
-        public WaitingList(Server server)
+        public WaitingList(IServer server)
         {
             this.server = server;
         }

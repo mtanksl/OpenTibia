@@ -7,11 +7,11 @@ namespace OpenTibia.Game
 {
     public class DatabaseFactory
     {
-        private Server server;
+        private IServer server;
 
         private Func<DbContextOptionsBuilder, DatabaseContext> factory;
 
-        public DatabaseFactory(Server server, Func<DbContextOptionsBuilder, DatabaseContext> factory)
+        public DatabaseFactory(IServer server, Func<DbContextOptionsBuilder, DatabaseContext> factory)
         {
             this.server = server;
 

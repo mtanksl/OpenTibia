@@ -12,9 +12,9 @@ namespace OpenTibia.Game
 {
     public class NpcFactory
     {
-        private Server server;
+        private IServer server;
 
-        public NpcFactory(Server server)
+        public NpcFactory(IServer server)
         {
             this.server = server;            
         }
