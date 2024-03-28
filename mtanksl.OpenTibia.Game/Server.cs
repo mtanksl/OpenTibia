@@ -301,6 +301,8 @@ namespace OpenTibia.Game
                     {
                         if (Config.DatabaseType == "memory")
                         {
+                            Context.Current.Database.DatabaseContext.Database.EnsureDeleted();
+
                             Context.Current.Database.DatabaseContext.Motd.Add(new DbMotd() { Id = 0, Message = "An open Tibia server developed by mtanksl" } );
 
                             Context.Current.Database.DatabaseContext.Accounts.Add(new DbAccount() { Id = 1, Name = "1", Password = "1", PremiumDays = 0 } );
