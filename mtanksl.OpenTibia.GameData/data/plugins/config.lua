@@ -5,7 +5,7 @@
 		-- { type = "PlayerUseItemWithItem", opentibiaid = 2580, allowfaruse = true, filename = "use item with item.lua" },
 		-- { type = "PlayerUseItemWithCreature", opentibiaid = 2580, allowfaruse = true, filename = "use item with creature.lua" },
 		-- { type = "PlayerMoveItem", opentibiaid = 1740, filename = "move item.lua" },
-		-- { type = "PlayerMoveCreature", name = "Amazon", filename = "move creature.lua" }
+		-- { type = "PlayerMoveCreature", name = "Monster Name", filename = "move creature.lua" }
 	},
 	movements = {
 		-- { type = "CreatureStepIn", opentibiaid = 446, filename = "step in.lua" },
@@ -15,11 +15,7 @@
 		-- { type = "PlayerSay", message = "/hello", filename = "say.lua" }
 	},
 	npcs = {
-		{ type = "Dialogue", name = "Al Dee", filename = "al dee.lua" },
-		{ type = "Dialogue", name = "Captain Bluebear", filename = "captain bluebear.lua" },
-		{ type = "Dialogue", name = "Cipfried", filename = "cipfried.lua" },
-		{ type = "Dialogue", name = "Rachel", filename = "rachel.lua" },
-		{ type = "Dialogue", name = "The Oracle", filename = "the oracle.lua" }
+		-- { type = "Dialogue", name = "Npc Name", filename = "default.lua" }
 	},
 	spells = {
 		{ words = "exani tera", name = "Magic Rope", group = "Support", cooldown = 2, groupcooldown = 2, level = 9, mana = 20, soul = 0, premium = true, vocations = { vocation.knight, vocation.paladin, vocation.druid, vocation.sorcerer, vocation.eliteknight, vocation.royalpaladin, vocation.elderdruid, vocation.mastersorcerer }, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Spells.MagicRopeSpellPlugin" },

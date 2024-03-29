@@ -43,12 +43,11 @@ namespace OpenTibia.Game
                 end
                 function bridge.load(chunk, chunkName, parent)
                 	local env = {}
-                	env.mt = {
+                	setmetatable(env, {
                 		__index = function(table, key)
                 			return parent[key]
                 		end
-                	}
-                	setmetatable(env, env.mt)
+                	} )
                 	local func, errorMessage = load(chunk, chunkName, "t", env)
                 	if func then
                 		local success, errorMessage = pcall(func)
@@ -61,14 +60,13 @@ namespace OpenTibia.Game
                 end
 
                 command = {}
-                command.mt = {
+                setmetatable(command, {
                 	__index = function(table, key)
                 		return function(...)
                 			return bridge.call(key, ...)
                 		end
                 	end
-                }
-                setmetatable(command, command.mt)
+                } )
 
                 debugger = require("mobdebug")
                 debugger.coro()
@@ -168,9 +166,14 @@ namespace OpenTibia.Game
 
         public PromiseResult<object[]> CallFunction(string name, params object[] args)
         {
+            return CallFunction( (LuaFunction)env[name], args);
+        }
+
+        public PromiseResult<object[]> CallFunction(LuaFunction luaFunction, params object[] args)
+        {
             return Promise.Run<object[]>( (resolve, reject) =>
             {
-                var wrapResult = (LuaFunction)( (LuaFunction)env["bridge.wrap"] ).Call( (LuaFunction)env[name] )[0];
+                var wrapResult = (LuaFunction)( (LuaFunction)env["bridge.wrap"] ).Call(luaFunction)[0];
 
                 void Next(object[] args)
                 {

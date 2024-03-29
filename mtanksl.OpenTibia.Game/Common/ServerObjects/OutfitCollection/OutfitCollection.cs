@@ -18,7 +18,10 @@ namespace OpenTibia.Game
 
         public void Start()
         {
-            script = server.LuaScripts.Create(server.PathResolver.GetFullPath("data/lib.lua"), server.PathResolver.GetFullPath("data/outfits/lib.lua"), server.PathResolver.GetFullPath("data/outfits/config.lua") );
+            script = server.LuaScripts.LoadScript(
+                server.PathResolver.GetFullPath("data/outfits/config.lua") ,
+                server.PathResolver.GetFullPath("data/outfits/lib.lua"),
+                server.PathResolver.GetFullPath("data/lib.lua") );
 
             foreach (LuaTable lOutfit in ( (LuaTable)script["outfits"] ).Values)
             {

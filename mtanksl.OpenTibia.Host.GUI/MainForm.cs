@@ -48,10 +48,6 @@ namespace mtanksl.OpenTibia.Host.GUI
 #endif
                     server.Start();
                 } );
-            }
-            finally
-            {
-                Enabled = true;
 
                 startToolStripMenuItem.Enabled = false;
 
@@ -66,6 +62,14 @@ namespace mtanksl.OpenTibia.Host.GUI
                 maintenanceToolStripMenuItem.Enabled = true;
 
                 maintenanceToolStripMenuItem.Checked = false;
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                Enabled = true;               
             }
         }
 
@@ -102,12 +106,16 @@ namespace mtanksl.OpenTibia.Host.GUI
 #endif
                     server.Start();
                 } );
+
+                maintenanceToolStripMenuItem.Checked = false;
+            }
+            catch
+            {
+
             }
             finally
             {
                 Enabled = true;
-
-                maintenanceToolStripMenuItem.Checked = false;
             }
         }
 
@@ -136,10 +144,6 @@ namespace mtanksl.OpenTibia.Host.GUI
 
                     server = null;
                 } );
-            }
-            finally
-            {
-                Enabled = true;
 
                 startToolStripMenuItem.Enabled = true;
 
@@ -154,6 +158,14 @@ namespace mtanksl.OpenTibia.Host.GUI
                 maintenanceToolStripMenuItem.Enabled = false;
 
                 maintenanceToolStripMenuItem.Checked = false;
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                Enabled = true;                
             }
         }
 
@@ -174,6 +186,10 @@ namespace mtanksl.OpenTibia.Host.GUI
                 {
                     server.KickAll();
                 } );
+            }
+            catch
+            {
+
             }
             finally
             {
@@ -198,6 +214,10 @@ namespace mtanksl.OpenTibia.Host.GUI
                 {
                     server.Save();
                 } );
+            }
+            catch
+            {
+
             }
             finally
             {
@@ -258,14 +278,6 @@ namespace mtanksl.OpenTibia.Host.GUI
                             server = null;
                         } );
 
-                        ignoreCloseEvent = true;
-
-                        Close();
-                    }
-                    finally
-                    {
-                        Enabled = true;
-
                         startToolStripMenuItem.Enabled = true;
 
                         restartToolStripMenuItem.Enabled = false;
@@ -279,6 +291,18 @@ namespace mtanksl.OpenTibia.Host.GUI
                         maintenanceToolStripMenuItem.Enabled = false;
 
                         maintenanceToolStripMenuItem.Checked = false;
+
+                        ignoreCloseEvent = true;
+
+                        Close();
+                    }
+                    catch
+                    {
+
+                    }
+                    finally
+                    {
+                        Enabled = true;                        
                     }
                 }
             }

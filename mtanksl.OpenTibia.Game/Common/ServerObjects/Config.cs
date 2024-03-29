@@ -63,7 +63,10 @@
 
         public void Start()
         {
-            script = server.LuaScripts.Create(server.PathResolver.GetFullPath("data/lib.lua"), server.PathResolver.GetFullPath("data/server/lib.lua"), server.PathResolver.GetFullPath("data/server/config.lua") );
+            script = server.LuaScripts.LoadScript(
+                server.PathResolver.GetFullPath("data/server/config.lua"),
+                server.PathResolver.GetFullPath("data/server/lib.lua"),
+                server.PathResolver.GetFullPath("data/lib.lua") );
 
             LoginMaxconnections = LuaScope.GetInt32(script["server.login.maxconnections"], 1000);
             

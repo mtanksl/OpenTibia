@@ -27,6 +27,20 @@ return {
 		args = "(string file, string key)",
 		returns = "object",
 	},
+	-- string getfullpath(string relativePath)
+	getfullpath = {
+		type = "function",
+		description = "",
+		args = "(string relativePath)",
+		returns = "string",
+	},
+	-- void registerplugin(string type, LuaTable parameters)
+	registerplugin = {
+		type = "function",
+		description = "",
+		args = "(string type, LuaTable parameters)",
+		returns = "void",
+	},
 	debugger = {
 		type = "lib",
 		description = "",

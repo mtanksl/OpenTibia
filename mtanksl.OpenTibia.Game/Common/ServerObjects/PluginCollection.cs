@@ -4,6 +4,7 @@ using OpenTibia.Game.Components;
 using OpenTibia.Game.Plugins;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace OpenTibia.Game
@@ -73,6 +74,180 @@ namespace OpenTibia.Game
             }
         }
 
+        public class AutoLoadPlugin : IDisposable
+        {
+            private LuaScope script;
+
+            public AutoLoadPlugin(PluginCollection pluginCollection, string filePath)
+            {
+                LuaScope scripts = pluginCollection.server.LuaScripts.LoadLib(
+                    pluginCollection.server.PathResolver.GetFullPath("data/plugins/scripts/lib.lua"), 
+                    pluginCollection.server.PathResolver.GetFullPath("data/plugins/lib.lua"),
+                    pluginCollection.server.PathResolver.GetFullPath("data/lib.lua") );
+
+                var initialization = new List<(string Type, LuaTable Parameters)>();
+
+                scripts["registerplugin"] = (string type, LuaTable parameters) => 
+                {
+                    initialization.Add( (type, parameters) );
+                };
+
+                script = pluginCollection.server.LuaScripts.LoadScript(pluginCollection.server.PathResolver.GetFullPath(filePath), scripts);
+
+                foreach (var item in initialization)
+                {
+                    if (item.Type == "actions")
+                    {
+                        string type = (string)item.Parameters["type"];
+
+                        switch (type)
+                        {
+                            case "PlayerRotateItem":
+                            {
+                                ushort openTibiaId = (ushort)(long)item.Parameters["opentibiaid"];
+
+                                pluginCollection.playerRotateItemPlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerRotateItemPlugin(script, item.Parameters) );
+                            }
+                            break;
+
+                            case "PlayerUseItem":
+                            {
+                                ushort openTibiaId = (ushort)(long)item.Parameters["opentibiaid"];
+
+                                pluginCollection.playerUseItemPlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemPlugin(script, item.Parameters) );
+                            }
+                            break;
+
+                            case "PlayerUseItemWithItem":
+                            {
+                                ushort openTibiaId = (ushort)(long)item.Parameters["opentibiaid"];
+
+                                bool allowFarUse = (bool)item.Parameters["allowfaruse"];
+
+                                if (allowFarUse)
+                                {
+                                    pluginCollection.playerUseItemWithItemPluginsAllowFarUse.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemWithItemPlugin(script, item.Parameters) );
+                                }
+                                else
+                                {
+                                    pluginCollection.playerUseItemWithItemPlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemWithItemPlugin(script, item.Parameters) );
+                                }                       
+                            }
+                            break;
+
+                            case "PlayerUseItemWithCreature":
+                            {
+                                ushort openTibiaId = (ushort)(long)item.Parameters["opentibiaid"];
+
+                                bool allowFarUse = (bool)item.Parameters["allowfaruse"];
+
+                                if (allowFarUse)
+                                {
+                                    pluginCollection.playerUseItemWithCreaturePluginsAllowFarUse.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemWithCreaturePlugin(script, item.Parameters) );
+                                }
+                                else
+                                {
+                                    pluginCollection.playerUseItemWithCreaturePlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemWithCreaturePlugin(script, item.Parameters) );
+                                }
+                            }
+                            break;
+
+                            case "PlayerMoveItem":
+                            {
+                                ushort openTibiaId = (ushort)(long)item.Parameters["opentibiaid"];
+
+                                pluginCollection.playerMoveItemPlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerMoveItemPlugin(script, item.Parameters) );
+
+                            }
+                            break;
+
+                            case "PlayerMoveCreature":
+                            {
+                                string name = (string)item.Parameters["name"];
+
+                                pluginCollection.playerMoveCreaturePlugins.AddPlugin(name, () => new LuaScriptingPlayerMoveCreaturePlugin(script, item.Parameters) );
+                            }
+                            break;
+                        }
+                    }
+                    else if (item.Type == "movements")
+                    {
+                        string type = (string)item.Parameters["type"];
+
+                        switch (type)
+                        {
+                            case "CreatureStepIn":
+                            {
+                                ushort openTibiaId = (ushort)(long)item.Parameters["opentibiaid"];
+
+                                pluginCollection.creatureStepInPlugins.AddPlugin(openTibiaId, () => new LuaScriptingCreatureStepInPlugin(script, item.Parameters) );
+                            }
+                            break;
+
+                            case "CreatureStepOut":
+                            {
+                                ushort openTibiaId = (ushort)(long)item.Parameters["opentibiaid"];
+
+                                pluginCollection.creatureStepOutPlugins.AddPlugin(openTibiaId, () => new LuaScriptingCreatureStepOutPlugin(script, item.Parameters) );
+                            }
+                            break;
+                        }
+                    }
+                    else if (item.Type == "talkactions")
+                    {
+                        string type = (string)item.Parameters["type"];
+
+                        switch (type)
+                        {
+                            case "PlayerSay":
+                            {
+                                string message = (string)item.Parameters["message"];
+
+                                pluginCollection.playerSayPlugins.AddPlugin(message, () => new LuaScriptingPlayerSayPlugin(script, item.Parameters) );
+                            }
+                            break;
+                        }
+                    }
+                    else if (item.Type == "npcs")
+                    {
+                        string type = (string)item.Parameters["type"];
+
+                        switch (type)
+                        {
+                            case "Dialogue":
+                            {
+                                string name = (string)item.Parameters["name"];
+
+                                pluginCollection.dialoguePlugins.AddPlugin(name, () => new LuaScriptingDialoguePlugin(script, item.Parameters) );
+                            }
+                            break;
+                        }
+                    }
+                    else if (item.Type == "spells")
+                    {
+                        //TODO
+                    }
+                    else if (item.Type == "runes")
+                    {
+                        //TODO
+                    }
+                    else if (item.Type == "weapons")
+                    {
+                        //TODO
+                    }
+                    else if (item.Type == "ammunitions")
+                    {
+                        //TODO
+                    }
+                }
+            }
+
+            public void Dispose()
+            {
+                script.Dispose();
+            }
+        }
+
         private IServer server;
 
         public PluginCollection(IServer server)
@@ -82,9 +257,14 @@ namespace OpenTibia.Game
 
         private LuaScope script;
 
+        private List<AutoLoadPlugin> autoLoadPlugins = new List<AutoLoadPlugin>();
+
         public void Start()
         {
-            script = server.LuaScripts.Create(server.PathResolver.GetFullPath("data/lib.lua"), server.PathResolver.GetFullPath("data/plugins/lib.lua"), server.PathResolver.GetFullPath("data/plugins/config.lua") );
+            script = server.LuaScripts.LoadScript(
+                server.PathResolver.GetFullPath("data/plugins/config.lua"), 
+                server.PathResolver.GetFullPath("data/plugins/lib.lua"), 
+                server.PathResolver.GetFullPath("data/lib.lua") );
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.actions"] ).Values)
             {
@@ -553,6 +733,23 @@ namespace OpenTibia.Game
 #endif
                 }
             }
+
+            foreach (var filePath in Directory.GetFiles(server.PathResolver.GetFullPath("data/plugins/scripts"), "*.lua", SearchOption.AllDirectories) )
+            {
+                string fileName = Path.GetFileName(filePath);
+
+                if (fileName != "lib.lua")
+                {
+                    autoLoadPlugins.Add(new AutoLoadPlugin(this, filePath) );
+                }
+            }
+
+            LuaScope scripts;
+
+            if (server.LuaScripts.TryGetLib(server.PathResolver.GetFullPath("data/plugins/scripts/lib.lua"), out scripts) )
+            {
+                scripts["registerplugin"] = null;
+            }
         }
 
         public object GetValue(string key)
@@ -786,6 +983,11 @@ namespace OpenTibia.Game
 
         public void Dispose()
         {
+            foreach (var autoLoadPlugin in autoLoadPlugins)
+            {
+                autoLoadPlugin.Dispose();
+            }
+
             script.Dispose();
         }
     }

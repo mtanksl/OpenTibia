@@ -17,7 +17,11 @@ namespace OpenTibia.Game.Components
 
         public override void Start()
         {
-            script = Context.Server.LuaScripts.Create(Context.Server.PathResolver.GetFullPath("data/lib.lua"), Context.Server.PathResolver.GetFullPath("data/plugins/lib.lua"), Context.Server.PathResolver.GetFullPath("data/plugins/runes/lib.lua"), Context.Server.PathResolver.GetFullPath(fileName) );
+            script = Context.Server.LuaScripts.LoadScript(
+                Context.Server.PathResolver.GetFullPath(fileName),
+                Context.Server.PathResolver.GetFullPath("data/plugins/runes/lib.lua"), 
+                Context.Server.PathResolver.GetFullPath("data/plugins/lib.lua"),
+                Context.Server.PathResolver.GetFullPath("data/lib.lua") );
         }
 
         public override PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile tile, Item item)

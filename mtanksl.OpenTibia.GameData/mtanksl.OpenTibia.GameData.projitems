@@ -30,15 +30,16 @@
     <None Include="$(MSBuildThisFileDirectory)data\plugins\movements\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\movements\step in.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\movements\step out.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\plugins\npcs\al dee.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\plugins\npcs\captain bluebear.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\plugins\npcs\cipfried.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\plugins\npcs\the oracle.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\scripts\npcs\al dee.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\scripts\npcs\captain bluebear.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\scripts\npcs\cipfried.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\scripts\npcs\the oracle.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\npcs\default.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\npcs\lib.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\plugins\npcs\rachel.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\scripts\npcs\rachel.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\runes\great fireball rune.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\runes\lib.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\scripts\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\spells\fire wave.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\spells\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\talkactions\lib.lua" />
@@ -464,5 +465,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\weapons\WandOfVortexWeaponPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\weapons\WandOfCosmicEnergyWeaponPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\weapons\WandOfPlagueWeaponPlugin.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)data\plugins\scripts\npcs\" />
   </ItemGroup>
 </Project>

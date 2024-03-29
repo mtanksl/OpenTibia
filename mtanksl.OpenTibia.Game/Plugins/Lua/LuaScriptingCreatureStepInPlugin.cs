@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Objects;
+﻿using NLua;
+using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Plugins
@@ -7,26 +8,52 @@ namespace OpenTibia.Game.Plugins
     {
         private string fileName;
 
+        private LuaScope script;
+
+        private LuaTable parameters;
+
         public LuaScriptingCreatureStepInPlugin(string fileName)
         {
             this.fileName = fileName;
         }
 
-        private LuaScope script;
+        public LuaScriptingCreatureStepInPlugin(LuaScope script, LuaTable parameters)
+        {
+            this.script = script;
+
+            this.parameters = parameters;
+        }
 
         public override void Start()
         {
-            script = Context.Server.LuaScripts.Create(Context.Server.PathResolver.GetFullPath("data/lib.lua"), Context.Server.PathResolver.GetFullPath("data/plugins/lib.lua"), Context.Server.PathResolver.GetFullPath("data/plugins/movements/lib.lua"), Context.Server.PathResolver.GetFullPath(fileName) );
+            if (fileName != null)
+            {
+                script = Context.Server.LuaScripts.LoadScript(
+                    Context.Server.PathResolver.GetFullPath(fileName),
+                    Context.Server.PathResolver.GetFullPath("data/plugins/movements/lib.lua"),
+                    Context.Server.PathResolver.GetFullPath("data/plugins/lib.lua"),
+                    Context.Server.PathResolver.GetFullPath("data/lib.lua"));
+            }
         }
 
         public override Promise OnStepIn(Creature creature, Tile toTile)
         {
-            return script.CallFunction("onstepin", creature, toTile);
+            if (fileName != null)
+            {
+                return script.CallFunction("onstepin", creature, toTile);
+            }
+            else
+            {
+                return script.CallFunction( (LuaFunction)parameters["onstepin"], creature, toTile);
+            }           
         }
 
         public override void Stop()
         {
-            script.Dispose();
+            if (fileName != null)
+            {
+                script.Dispose();
+            }
         }       
     }
 }

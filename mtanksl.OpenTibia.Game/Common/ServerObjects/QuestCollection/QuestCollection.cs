@@ -17,7 +17,10 @@ namespace OpenTibia.Game
 
         public void Start()
         {
-            script = server.LuaScripts.Create(server.PathResolver.GetFullPath("data/lib.lua"), server.PathResolver.GetFullPath("data/quests/lib.lua"), server.PathResolver.GetFullPath("data/quests/config.lua") );
+            script = server.LuaScripts.LoadScript(
+                server.PathResolver.GetFullPath("data/quests/config.lua"),
+                server.PathResolver.GetFullPath("data/quests/lib.lua"),
+                server.PathResolver.GetFullPath("data/lib.lua") );
 
             foreach (LuaTable lQuest in ( (LuaTable)script["quests"] ).Values)
             {

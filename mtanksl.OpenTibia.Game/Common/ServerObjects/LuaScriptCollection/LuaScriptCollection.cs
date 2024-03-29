@@ -34,6 +34,8 @@ namespace OpenTibia.Game
 
             lua.RegisterFunction("getconfig", this, GetType().GetMethod(nameof(GetConfig) ) );
 
+            lua.RegisterFunction("getfullpath", this, GetType().GetMethod(nameof(GetFullPath) ) );
+
             lua.RegisterCoFunction("delay", parameters =>
             {                   
                 string key = Guid.NewGuid().ToString();
@@ -888,7 +890,15 @@ namespace OpenTibia.Game
 
             return null;
         }
-              
+
+#if AOT
+        [RequiresUnreferencedCode("Used by lua.RegisterFunction.")]
+#endif
+        public string GetFullPath(string relativePath)
+        {
+            return server.PathResolver.GetFullPath(relativePath);
+        }
+        
         /// <exception cref="ArgumentException"></exception>
        
         private Light ToLight(object parameter)
@@ -1189,54 +1199,60 @@ namespace OpenTibia.Game
 
         private Dictionary<string, LuaScope> libs = new Dictionary<string, LuaScope>();
 
-        public LuaScope Create(string[] paths)
+        public bool TryGetLib(string libPath, out LuaScope lib)
+        {
+            return libs.TryGetValue(libPath, out lib);
+        }
+
+        public LuaScope LoadLib(string libPath, Func<LuaScope> loadParent)
+        {
+            LuaScope lib;
+
+            if ( !TryGetLib(libPath, out lib) )
+            {
+                LuaScope parent = loadParent();
+
+                if (parent == null)
+                {
+                    parent = lua;
+                }
+
+                lib = parent.LoadNewChunk(GetChunk(libPath), libPath);
+
+                libs.Add(libPath, lib);
+            }
+
+            return lib;
+        }
+
+        public LuaScope LoadLib(params string[] libPaths)
         {
             LuaScope Load(int i)
             {
-                if (paths.Length - 1 - i < 0)
+                if (i > libPaths.Length - 1)
                 {
-                    return lua;
+                    return null;
                 }
 
-                string libPath = paths[paths.Length - 1 - i];
-
-                LuaScope lib;
-
-                if ( !libs.TryGetValue(libPath, out lib) )
-                {
-                    lib = Load(i + 1).LoadNewChunk(GetChunk(libPath), libPath);
-
-                    libs.Add(libPath, lib);
-                }
-
-                return lib;
+                return LoadLib(libPaths[i], () => Load(i + 1) );
             }
 
-            string scriptPath = paths[paths.Length - 1];
-
-            LuaScope script = Load(1).LoadNewChunk(GetChunk(scriptPath), scriptPath);
-
-            return script;
+            return Load(0);
         }
 
-        public LuaScope Create(string libPath1, string libPath2, string libPath3, string scriptPath)
+        public LuaScope LoadScript(string scriptPath, LuaScope parent)
         {
-            return Create(new string[] { libPath1, libPath2, libPath3, scriptPath } );
+            if (parent == null)
+            {
+                parent = lua;
+            }
+                
+            return parent.LoadNewChunk(GetChunk(scriptPath), scriptPath);
         }
 
-        public LuaScope Create(string libPath1, string libPath2, string scriptPath)
+        public LuaScope LoadScript(params string[] scriptPathAndLibPaths)
         {
-            return Create(new string[] { libPath1, libPath2, scriptPath } );
-        }
-
-        public LuaScope Create(string libPath1, string scriptPath)
-        {
-            return Create(new string[] { libPath1, scriptPath } );
-        }
-
-        public LuaScope Create(string scriptPath)
-        {
-            return Create(new string[] { scriptPath } );
+            return LoadScript(scriptPathAndLibPaths[0], LoadLib(scriptPathAndLibPaths[1..] ) );
         }
 
         private bool disposed = false;
