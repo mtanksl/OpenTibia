@@ -29,7 +29,7 @@ namespace OpenTibia.Game.Plugins
             if (fileName != null)
             {
                 script = Context.Server.LuaScripts.LoadScript(
-                    Context.Server.PathResolver.GetFullPath(fileName),
+                    Context.Server.PathResolver.GetFullPath("data/plugins/talkactions/" + fileName),
                     Context.Server.PathResolver.GetFullPath("data/plugins/talkactions/lib.lua"), 
                     Context.Server.PathResolver.GetFullPath("data/plugins/lib.lua"), 
                     Context.Server.PathResolver.GetFullPath("data/lib.lua") );

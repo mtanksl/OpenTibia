@@ -280,7 +280,7 @@ namespace OpenTibia.Game
 
                         if (fileName.EndsWith(".lua") )
                         {
-                            playerRotateItemPlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerRotateItemPlugin("data/plugins/actions/" + fileName) );
+                            playerRotateItemPlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerRotateItemPlugin(fileName) );
                         }
                         else
                         {
@@ -299,7 +299,7 @@ namespace OpenTibia.Game
 
                         if (fileName.EndsWith(".lua") )
                         {
-                            playerUseItemPlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemPlugin("data/plugins/actions/" + fileName) );
+                            playerUseItemPlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemPlugin(fileName) );
                         }
                         else
                         {
@@ -322,11 +322,11 @@ namespace OpenTibia.Game
                         {
                             if (allowFarUse)
                             {
-                                playerUseItemWithItemPluginsAllowFarUse.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemWithItemPlugin("data/plugins/actions/" + fileName) );
+                                playerUseItemWithItemPluginsAllowFarUse.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemWithItemPlugin(fileName) );
                             }
                             else
                             {
-                                playerUseItemWithItemPlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemWithItemPlugin("data/plugins/actions/" + fileName) );
+                                playerUseItemWithItemPlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemWithItemPlugin(fileName) );
                             }
                         }
                         else
@@ -364,11 +364,11 @@ namespace OpenTibia.Game
                         {
                             if (allowFarUse)
                             {
-                                playerUseItemWithCreaturePluginsAllowFarUse.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemWithCreaturePlugin("data/plugins/actions/" + fileName) );
+                                playerUseItemWithCreaturePluginsAllowFarUse.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemWithCreaturePlugin(fileName) );
                             }
                             else
                             {
-                                playerUseItemWithCreaturePlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemWithCreaturePlugin("data/plugins/actions/" + fileName) );
+                                playerUseItemWithCreaturePlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerUseItemWithCreaturePlugin(fileName) );
                             }
                         }
                         else
@@ -402,7 +402,7 @@ namespace OpenTibia.Game
 
                         if (fileName.EndsWith(".lua") )
                         {
-                            playerMoveItemPlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerMoveItemPlugin("data/plugins/actions/" + fileName) );
+                            playerMoveItemPlugins.AddPlugin(openTibiaId, () => new LuaScriptingPlayerMoveItemPlugin(fileName) );
                         }
                         else
                         {
@@ -421,7 +421,7 @@ namespace OpenTibia.Game
 
                         if (fileName.EndsWith(".lua") )
                         {
-                            playerMoveCreaturePlugins.AddPlugin(name, () => new LuaScriptingPlayerMoveCreaturePlugin("data/plugins/actions/" + fileName) );
+                            playerMoveCreaturePlugins.AddPlugin(name, () => new LuaScriptingPlayerMoveCreaturePlugin(fileName) );
                         }
                         else
                         {
@@ -450,7 +450,7 @@ namespace OpenTibia.Game
 
                         if (fileName.EndsWith(".lua") )
                         {
-                            creatureStepInPlugins.AddPlugin(openTibiaId, () => new LuaScriptingCreatureStepInPlugin("data/plugins/movements/" + fileName) );
+                            creatureStepInPlugins.AddPlugin(openTibiaId, () => new LuaScriptingCreatureStepInPlugin(fileName) );
                         }
                         else
                         {
@@ -469,7 +469,7 @@ namespace OpenTibia.Game
 
                         if (fileName.EndsWith(".lua") )
                         {
-                            creatureStepOutPlugins.AddPlugin(openTibiaId, () => new LuaScriptingCreatureStepOutPlugin("data/plugins/movements/" + fileName) );
+                            creatureStepOutPlugins.AddPlugin(openTibiaId, () => new LuaScriptingCreatureStepOutPlugin(fileName) );
                         }
                         else
                         {
@@ -498,7 +498,7 @@ namespace OpenTibia.Game
 
                         if (fileName.EndsWith(".lua") )
                         {
-                            playerSayPlugins.AddPlugin(message, () => new LuaScriptingPlayerSayPlugin("data/plugins/talkactions/" + fileName) );
+                            playerSayPlugins.AddPlugin(message, () => new LuaScriptingPlayerSayPlugin(fileName) );
                         }
                         else
                         {
@@ -527,7 +527,7 @@ namespace OpenTibia.Game
 
                         if (fileName.EndsWith(".lua") )
                         {
-                            dialoguePlugins.AddPlugin(name, () => new LuaScriptingDialoguePlugin("data/plugins/npcs/" + fileName) );
+                            dialoguePlugins.AddPlugin(name, () => new LuaScriptingDialoguePlugin(fileName) );
                         }
                         else
                         {
@@ -583,11 +583,11 @@ namespace OpenTibia.Game
                 {
                     if (requiresTarget)
                     {
-                        spellPluginsRequiresTarget.AddPlugin(words, () => new LuaScriptingSpellPlugin("data/plugins/spells/" + fileName, spell) );
+                        spellPluginsRequiresTarget.AddPlugin(words, () => new LuaScriptingSpellPlugin(fileName, spell) );
                     }
                     else
                     {
-                        spellPlugins.AddPlugin(words, () => new LuaScriptingSpellPlugin("data/plugins/spells/" + fileName, spell) );
+                        spellPlugins.AddPlugin(words, () => new LuaScriptingSpellPlugin(fileName, spell) );
                     }
                 }
                 else
@@ -643,11 +643,11 @@ namespace OpenTibia.Game
                 {
                     if (requiresTarget)
                     {
-                        runePluginsRequiresTarget.AddPlugin(openTibiaId, () => new LuaScriptingRunePlugin("data/plugins/runes/" + fileName, rune) );
+                        runePluginsRequiresTarget.AddPlugin(openTibiaId, () => new LuaScriptingRunePlugin(fileName, rune) );
                     }
                     else
                     {
-                        runePlugins.AddPlugin(openTibiaId, () => new LuaScriptingRunePlugin("data/plugins/runes/" + fileName, rune) );
+                        runePlugins.AddPlugin(openTibiaId, () => new LuaScriptingRunePlugin(fileName, rune) );
                     }
                 }
                 else
@@ -695,7 +695,7 @@ namespace OpenTibia.Game
 
                 if (fileName.EndsWith(".lua") )
                 {
-                    weaponPlugins.AddPlugin(openTibiaId, () => new LuaScriptingWeaponPlugin("data/plugins/weapons/" + fileName, weapon) );
+                    weaponPlugins.AddPlugin(openTibiaId, () => new LuaScriptingWeaponPlugin(fileName, weapon) );
                 }
                 else
                 {
@@ -722,7 +722,7 @@ namespace OpenTibia.Game
 
                 if (fileName.EndsWith(".lua") )
                 {
-                    ammunitionPlugins.AddPlugin(openTibiaId, () => new LuaScriptingAmmunitionPlugin("data/plugins/ammunitions/" + fileName, ammunition) );
+                    ammunitionPlugins.AddPlugin(openTibiaId, () => new LuaScriptingAmmunitionPlugin(fileName, ammunition) );
                 }
                 else
                 {

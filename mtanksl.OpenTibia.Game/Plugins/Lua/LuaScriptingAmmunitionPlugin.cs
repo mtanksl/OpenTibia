@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Components
         public override void Start()
         {
             script = Context.Server.LuaScripts.LoadScript(
-                Context.Server.PathResolver.GetFullPath(fileName),
+                Context.Server.PathResolver.GetFullPath("data/plugins/ammunitions/" + fileName),
                 Context.Server.PathResolver.GetFullPath("data/plugins/ammunitions/lib.lua"), 
                 Context.Server.PathResolver.GetFullPath("data/plugins/lib.lua"), 
                 Context.Server.PathResolver.GetFullPath("data/lib.lua") );
