@@ -38,7 +38,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if (IsMoveable(fromItem, Count) )
                     {
-                        return Context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toTile, 0, Count, true) );
+                        return Context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toTile, 255, Count, true) );
                     }
                 }
             }
