@@ -10,7 +10,7 @@ namespace OpenTibia.Game.Extensions
     {
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise Say(this Npc npc, string message, bool npcChannel)
+        public static Promise Say(this Npc npc, string message)
         {
             Context context = Context.Current;
 
@@ -19,10 +19,24 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new NpcSayCommand(npc, message, npcChannel) );
+            return context.AddCommand(new NpcSayCommand(npc, message) );
         }
 
-         /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public static Promise SayToPlayer(this Npc npc, Player player, string message)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new NpcSayToPlayerCommand(npc, player, message) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
 
         public static Promise Trade(this Npc npc, Player player, List<OfferDto> offers)
         {

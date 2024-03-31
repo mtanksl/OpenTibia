@@ -316,11 +316,13 @@ function npchandler:say(npc, player, answer)
 	end
 	answer = string.gsub(answer, "%[playername%]", player.Name)
 	answer = string.gsub(answer, "%[npcname%]", npc.Name)	
-	if not PRIVATE_NPC_SYSTEM then
+	if PRIVATE_NPC_SYSTEM then
+		command.npcsaytoplayer(npc, player, answer)
+	else
 		answer = string.gsub(answer, "%{", "")
 		answer = string.gsub(answer, "%}", "")
+		command.npcsay(npc, answer)
 	end
-	command.npcsay(npc, answer)
 end
 
 function npchandler:shouldgreet(npc, player, message)

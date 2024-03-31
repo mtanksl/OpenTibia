@@ -311,29 +311,42 @@ namespace OpenTibia.Game
 
             lua.RegisterCoFunction("npcsay", parameters =>
             {
-                return Context.Current.AddCommand(new NpcSayCommand( (Npc)parameters[0], (string)parameters[1], server.Config.GameplayPrivateNpcSystem) ).Then( () =>
+                return Context.Current.AddCommand(new NpcSayCommand( (Npc)parameters[0], (string)parameters[1] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
                         
+            lua.RegisterCoFunction("npcsaytoplayer", parameters =>
+            {
+                return Context.Current.AddCommand(new NpcSayToPlayerCommand( (Npc)parameters[0], (Player)parameters[1], (string)parameters[2] ) ).Then( () =>
+                {
+                    return Promise.FromResultAsEmptyObjectArray;
+                } );
+            } );
+
             lua.RegisterCoFunction("npctrade", parameters =>
             {
                 List<OfferDto> offers = new List<OfferDto>();
 
                 foreach (LuaTable item in ( (LuaTable)parameters[2] ).Values)
                 {
+                    string name = (string)item["name"];
+
                     ushort openTibiaId = (ushort)(long)item["item"];
 
                     byte type = (byte)(long)item["type"];
 
-                    uint buyPrice = (uint)(long)item["buyprice"];
+                    uint buyPrice = item["buyprice"] != null ? (uint)(long)item["buyprice"] : 0;
 
-                    uint sellprice = (uint)(long)item["sellprice"];
+                    uint sellprice = item["sellprice"] != null ? (uint)(long)item["sellprice"] : 0;
 
                     ItemMetadata itemMetadata = server.ItemFactory.GetItemMetadataByOpenTibiaId(openTibiaId);
 
-                    offers.Add(new OfferDto(itemMetadata.TibiaId, type, itemMetadata.Name, itemMetadata.Weight.Value, buyPrice, sellprice) );                   
+                    if (itemMetadata != null)
+                    {
+                        offers.Add(new OfferDto(itemMetadata.TibiaId, type, name ?? itemMetadata.Name, itemMetadata.Weight != null ? itemMetadata.Weight.Value : 0, buyPrice, sellprice) );                   
+                    }
                 }
 
                 return Context.Current.AddCommand(new NpcTradeCommand( (Npc)parameters[0], (Player)parameters[1], offers) ).Then( () =>

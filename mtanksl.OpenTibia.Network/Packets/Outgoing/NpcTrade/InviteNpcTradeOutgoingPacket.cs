@@ -1,4 +1,5 @@
-﻿using OpenTibia.IO;
+﻿using OpenTibia.Common.Structures;
+using OpenTibia.IO;
 using System.Collections.Generic;
 
 namespace OpenTibia.Network.Packets.Outgoing
@@ -34,7 +35,7 @@ namespace OpenTibia.Network.Packets.Outgoing
             {
                 writer.Write(offer.TibiaId);
 
-                writer.Write(offer.Type);
+                writer.Write(offer.Type); //TODO: NPC Trade Window % FluidColors.Length
 
                 writer.Write(offer.Name);
 

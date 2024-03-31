@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Objects;
+﻿using NLua;
+using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Plugins;
 
@@ -8,30 +9,52 @@ namespace OpenTibia.Game.Components
     {
         private string fileName;
 
-        public LuaScriptingWeaponPlugin(string fileName, Weapon weapon) : base(weapon) 
+        private LuaScope script;
+
+        private LuaTable parameters;
+
+        public LuaScriptingWeaponPlugin(string fileName, Weapon weapon) : base(weapon)
         {
             this.fileName = fileName;
         }
 
-        private LuaScope script;
+        public LuaScriptingWeaponPlugin(LuaScope script, LuaTable parameters, Weapon weapon) : base(weapon)
+        {
+            this.script = script;
+
+            this.parameters = parameters;
+        }
 
         public override void Start()
         {
-            script = Context.Server.LuaScripts.LoadScript(
-                Context.Server.PathResolver.GetFullPath("data/plugins/weapons/" + fileName),
-                Context.Server.PathResolver.GetFullPath("data/plugins/weapons/lib.lua"),
-                Context.Server.PathResolver.GetFullPath("data/plugins/lib.lua"),
-                Context.Server.PathResolver.GetFullPath("data/lib.lua") );
+            if (fileName != null)
+            {
+                script = Context.Server.LuaScripts.LoadScript(
+                    Context.Server.PathResolver.GetFullPath("data/plugins/weapons/" + fileName),
+                    Context.Server.PathResolver.GetFullPath("data/plugins/weapons/lib.lua"),
+                    Context.Server.PathResolver.GetFullPath("data/plugins/lib.lua"),
+                    Context.Server.PathResolver.GetFullPath("data/lib.lua") );
+            }
         }
 
         public override Promise OnUseWeapon(Player player, Creature target, Item weapon)
         {
-            return script.CallFunction("onuseweapon", player, target, weapon);
+            if (fileName != null)
+            {
+                return script.CallFunction("onuseweapon", player, target, weapon);
+            }
+            else
+            {
+                return script.CallFunction( (LuaFunction)parameters["onuseweapon"], player, target, weapon);
+            }
         }
 
         public override void Stop()
         {
-            script.Dispose();
+            if (fileName != null)
+            {
+                script.Dispose();
+            }
         }
     }
 }

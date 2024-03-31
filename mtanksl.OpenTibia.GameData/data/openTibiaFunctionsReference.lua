@@ -284,6 +284,13 @@ return {
 				args = "(Npc npc, string message)",
 				returns = "void",
 			},
+			-- void command.npcsaytoplayer(Npc npc, Player player, string message)
+			npcsaytoplayer = {
+				type = "function",
+				description = "",
+				args = "(Npc npc, Player player, string message)",
+				returns = "void",
+			},
 			-- void command.npctrade(Npc npc, Player player, object[] offers)
 			npctrade = {
 				type = "function",

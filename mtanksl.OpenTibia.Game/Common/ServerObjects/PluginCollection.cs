@@ -225,19 +225,111 @@ namespace OpenTibia.Game
                     }
                     else if (item.Type == "spells")
                     {
-                        //TODO
+                        string words = (string)item.Parameters["words"];
+
+                        bool requiresTarget = (bool)item.Parameters["requirestarget"];
+
+                        Spell spell = new Spell()
+                        {
+                            Words = words,
+
+                            Name = (string)item.Parameters["name"],
+
+                            Group = (string)item.Parameters["group"],
+
+                            Cooldown = TimeSpan.FromSeconds( (int)(long)item.Parameters["cooldown"] ),
+
+                            GroupCooldown = TimeSpan.FromSeconds( (int)(long)item.Parameters["groupcooldown"] ),
+
+                            Level = (int)(long)item.Parameters["level"],
+
+                            Mana = (int)(long)item.Parameters["mana"],
+
+                            Soul = (int)(long)item.Parameters["soul"],
+
+                            ConjureOpenTibiaId = (ushort?)(long?)item.Parameters["conjureopentibiaid"],
+
+                            ConjureCount = (int?)(long?)item.Parameters["conjurecount"],
+
+                            Premium = (bool)item.Parameters["premium"],
+
+                            Vocations = ( (LuaTable)item.Parameters["vocations"]).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
+                        };
+
+                        pluginCollection.spells.Add(spell);
+
+                        if (requiresTarget)
+                        {
+                            pluginCollection.spellPluginsRequiresTarget.AddPlugin(words, () => new LuaScriptingSpellPlugin(script, item.Parameters, spell) );
+                        }
+                        else
+                        {
+                            pluginCollection.spellPlugins.AddPlugin(words, () => new LuaScriptingSpellPlugin(script, item.Parameters, spell) );
+                        }                        
                     }
                     else if (item.Type == "runes")
                     {
-                        //TODO
+                        ushort openTibiaId = (ushort)(long)item.Parameters["opentibiaid"];
+
+                        bool requiresTarget = (bool)item.Parameters["requirestarget"];
+
+                        Rune rune = new Rune()
+                        {
+                            OpenTibiaId = openTibiaId,
+
+                            Name = (string)item.Parameters["name"],
+
+                            Group = (string)item.Parameters["group"],
+
+                            GroupCooldown = TimeSpan.FromSeconds( (int)(long)item.Parameters["groupcooldown"]),
+
+                            Level = (int)(long)item.Parameters["level"],
+
+                            MagicLevel = (int)(long)item.Parameters["magiclevel"]
+                        };
+
+                        pluginCollection.runes.Add(rune);
+                                              
+                        if (requiresTarget)
+                        {
+                            pluginCollection.runePluginsRequiresTarget.AddPlugin(openTibiaId, () => new LuaScriptingRunePlugin(script, item.Parameters, rune) );
+                        }
+                        else
+                        {
+                            pluginCollection.runePlugins.AddPlugin(openTibiaId, () => new LuaScriptingRunePlugin(script, item.Parameters, rune) );
+                        }                        
                     }
                     else if (item.Type == "weapons")
                     {
-                        //TODO
+                        ushort openTibiaId = (ushort)(long)item.Parameters["opentibiaid"];
+
+                        Weapon weapon = new Weapon()
+                        {
+                            OpenTibiaId = openTibiaId,
+
+                            Level = (int)(long)item.Parameters["level"],
+
+                            Mana = (int)(long)item.Parameters["mana"],
+
+                            Vocations = ( (LuaTable)item.Parameters["vocations"]).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
+                        };
+
+                        pluginCollection.weapons.Add(weapon);
+
+                        pluginCollection.weaponPlugins.AddPlugin(openTibiaId, () => new LuaScriptingWeaponPlugin(script, item.Parameters, weapon) );
                     }
                     else if (item.Type == "ammunitions")
                     {
-                        //TODO
+                        ushort openTibiaId = (ushort)(long)item.Parameters["opentibiaid"];
+
+                        Ammunition ammunition = new Ammunition()
+                        {
+                            OpenTibiaId = openTibiaId
+                        };
+
+                        pluginCollection.ammunitions.Add(ammunition);
+
+                        pluginCollection.ammunitionPlugins.AddPlugin(openTibiaId, () => new LuaScriptingAmmunitionPlugin(script, item.Parameters, ammunition) );
                     }
                 }
             }

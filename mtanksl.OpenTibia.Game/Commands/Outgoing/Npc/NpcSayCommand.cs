@@ -7,24 +7,20 @@ namespace OpenTibia.Game.Commands
 {
     public class NpcSayCommand : Command
     {
-        public NpcSayCommand(Npc npc, string message, bool npcChannel)
+        public NpcSayCommand(Npc npc, string message)
         {
             Npc = npc;
 
             Message = message;
-
-            NpcChannel = npcChannel;
         }
 
         public Npc Npc { get; set; }
 
         public string Message { get; set; }
 
-        public bool NpcChannel { get; set; }
-
         public override Promise Execute()
         {
-            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(0, Npc.Name, 0, NpcChannel ? TalkType.PrivateNpcToPlayer : TalkType.Say, Npc.Tile.Position, Message);
+            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(0, Npc.Name, 0, TalkType.Say, Npc.Tile.Position, Message);
 
             foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Npc.Tile.Position) )
             {
