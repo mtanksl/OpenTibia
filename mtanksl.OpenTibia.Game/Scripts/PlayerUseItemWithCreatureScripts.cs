@@ -10,7 +10,7 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithCreatureScriptingHandler(true) );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new RunesHandler() ); //TODO: "You cannot use there."
+            Context.Server.CommandHandlers.AddCommandHandler(new RunesHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithCreatureWalkToTargetHandler() ); //TODO: Re-validate rules for incoming packet
 

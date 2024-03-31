@@ -398,6 +398,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\ammunitions\PoisonArrowAmmunitionPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\DestroyFieldRunePlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\StalagmiteRunePlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\IcicleRunePlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\StoneShowerRunePlugin.cs" />

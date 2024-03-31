@@ -1,5 +1,7 @@
-﻿using OpenTibia.Game.Commands;
+﻿using OpenTibia.Common.Structures;
+using OpenTibia.Game.Commands;
 using OpenTibia.Game.Plugins;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
 
 namespace OpenTibia.Game.CommandHandlers
@@ -19,6 +21,13 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (plugin != null)
             {
+                if ( !Context.Server.Pathfinding.CanThrow(command.Player.Tile.Position, command.ToCreature.Tile.Position) )
+                {
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
+
+                    return Promise.Break;
+                }
+
                 return plugin.OnUseItemWithCreature(command.Player, command.Item, command.ToCreature).Then( (result) =>
                 {
                     if (result)

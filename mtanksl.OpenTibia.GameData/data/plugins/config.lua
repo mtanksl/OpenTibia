@@ -121,6 +121,7 @@
 		{ opentibiaid = 2315, name = "Thunderstorm Rune", group = "Attack", groupcooldown = 2, level = 28, magiclevel = 4, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Runes.ThunderstormRunePlugin" },
 		{ opentibiaid = 2288, name = "Stone Shower Rune", group = "Attack", groupcooldown = 2, level = 28, magiclevel = 4, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Runes.StoneShowerRunePlugin" },
 		{ opentibiaid = 2313, name = "Explosion Rune", group = "Attack", groupcooldown = 2, level = 31, magiclevel = 6, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Runes.ExplosionRunePlugin" },
+		{ opentibiaid = 2261, name = "Destroy Field Rune", group = "Support", groupcooldown = 2, level = 17, magiclevel = 3, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Runes.DestroyFieldRunePlugin" },
 		{ opentibiaid = 2293, name = "Magic Wall Rune", group = "Support", groupcooldown = 2, level = 27, magiclevel = 9, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Runes.MagicWallRunePlugin" },
 		{ opentibiaid = 2269, name = "Wild Growth Rune", group = "Support", groupcooldown = 2, level = 27, magiclevel = 8, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Runes.WildGrowthRunePlugin" }
 	},

@@ -70,6 +70,15 @@ namespace OpenTibia.Game.CommandHandlers
                         await Promise.Break;
                     }
 
+                    if ( !Context.Server.Pathfinding.CanThrow(command.Player.Tile.Position, toTile.Position) )
+                    {
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
+
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+
+                        await Promise.Break;
+                    }
+
                     if ( !await plugin.OnUsingRune(command.Player, null, toTile, command.Item) )
                     {
                         Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );

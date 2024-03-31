@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
@@ -20,29 +21,38 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (fishingRods.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                if (shallowWaters.Contains(command.ToItem.Metadata.OpenTibiaId) )
+                if (command.ToItem.Parent is Tile toTile && !Context.Server.Pathfinding.CanThrow(command.Player.Tile.Position, toTile.Position) )
                 {
-                    if ( !command.Player.Tile.ProtectionZone)
-                    {
-                        int count = await Context.AddCommand(new PlayerCountItemsCommand(command.Player, worm, 1) );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThere) );
 
-                        if (count > 0 && Context.Server.Randomization.Take(1, 10) == 1)
-                        {
-                            await Context.AddCommand(new PlayerDestroyItemsCommand(command.Player, worm, 1, 1) );
-
-                            await Context.AddCommand(new PlayerCreateItemCommand(command.Player, fish, 1) );
-
-                            await Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.HereFishyFishy, 1000, "Here, Fishy Fishy!") );
-                        }
-                    }
-
-                    await Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.BlueRings) );
+                    await Promise.Break;
                 }
                 else
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+                    if (shallowWaters.Contains(command.ToItem.Metadata.OpenTibiaId) )
+                    {
+                        if ( !command.Player.Tile.ProtectionZone)
+                        {
+                            int count = await Context.AddCommand(new PlayerCountItemsCommand(command.Player, worm, 1) );
+
+                            if (count > 0 && Context.Server.Randomization.Take(1, 10) == 1)
+                            {
+                                await Context.AddCommand(new PlayerDestroyItemsCommand(command.Player, worm, 1, 1) );
+
+                                await Context.AddCommand(new PlayerCreateItemCommand(command.Player, fish, 1) );
+
+                                await Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.HereFishyFishy, 1000, "Here, Fishy Fishy!") );
+                            }
+                        }
+
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.BlueRings) );
+                    }
+                    else
+                    {
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
              
-                    await Promise.Break;
+                        await Promise.Break;
+                    }
                 }
             }
             else
