@@ -26,7 +26,7 @@ topic3:add("yes", function(module, npc, player, message, captures, parameters)
                   end)
 
 local handler = npchandler:new( {
-    greet = "{playername}, are you prepared to face your destiny?",
+    greet = "[playername], are you prepared to face your destiny?",
     busy = "Wait until it is your turn!",
     say = say,
     farewell = "Come back when you are prepared to face your destiny!",

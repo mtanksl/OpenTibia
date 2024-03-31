@@ -1,11 +1,11 @@
 ﻿local say = topic:new()
-say:add("name", "My name is {npcname}.")
+say:add("name", "My name is [npcname].")
 
 local handler = npchandler:new( {
-    greet = "Hello {playername}.",
-    busy = "I'll talk to you soon {playername}.",
+    greet = "Hello [playername].",
+    busy = "I'll talk to you soon [playername].",
     say = say,
-    farewell = "Bye {playername}.",
+    farewell = "Bye [playername].",
     disappear = "Bye."
 } )
 

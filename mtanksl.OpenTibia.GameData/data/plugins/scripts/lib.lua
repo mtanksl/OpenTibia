@@ -27,7 +27,7 @@ end
 
 function registeractionsplayeruseitemwithcreature(opentibiaid, allowfaruse, handler)
     registerplugin("actions", {
-	    type = "PlayerUseItemWithItem",
+	    type = "PlayerUseItemWithCreature",
 	    opentibiaid = opentibiaid,
         allowfaruse = allowfaruse,
 	    onuseitemwithcreature = handler

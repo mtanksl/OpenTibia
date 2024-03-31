@@ -2,24 +2,18 @@
 say:add("name", "I am the illusterous Rachel, of course.")
 say:add("job", "I am the head alchemist of Carlin. I keep the secret recipies of our ancestors. Besides, I am selling mana and life fluids, spellbooks, wands, rods and runes.")
 say:add("rune", "I sell blank runes and spell runes.")
-say:addbuy( {
-    questionitems = "Do you want to buy {count} {plural} for {price} gold?",
-    questionitem = "Do you want to buy {article} {name} for {price} gold?",
-    yes = "Here you are.",
-    notenoughtgold = "Come back when you have enough money.",
-    no = "Hmm, maybe next time."
-}, {
-    { article = "a", name = "mana fluid", plural = "mana fluids", item = 11396, type = 7, price = 55 },
-    { article = "a", name = "life fluid", plural = "life fluids", item = 11396, type = 10, price = 60 },
-    { article = "a", name = "spellbook", plural = "spellbooks", item = 2175, type = 1, price = 150 },
-    { article = "a", name = "blank rune", plural = "blank runes", item = 2260, type = 1, price = 10 }
+say:addtrade( {
+    { article = "a", name = "mana fluid", plural = "mana fluids", item = 11396, type = 7, buyprice = 55 },
+    { article = "a", name = "life fluid", plural = "life fluids", item = 11396, type = 10, buyprice = 60 },
+    { article = "a", name = "spellbook", plural = "spellbooks", item = 2175, type = 1, buyprice = 150 },
+    { article = "a", name = "blank rune", plural = "blank runes", item = 2260, type = 1, buyprice = 10 }
 } )
 
 local handler = npchandler:new( {
-    greet = "Welcome {playername}! Whats your need?",
-    busy = "Wait, {playername}! One after the other.",
+    greet = "Welcome [playername]! Whats your need?",
+    busy = "Wait, [playername]! One after the other.",
     say = say,
-    farewell = "Good bye, {playername}.",
+    farewell = "Good bye, [playername].",
     disappear = "These impatient young brats!"
 } )
 
