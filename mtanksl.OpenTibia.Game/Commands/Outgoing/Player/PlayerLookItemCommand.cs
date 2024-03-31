@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace OpenTibia.Game.Commands
@@ -11,6 +12,8 @@ namespace OpenTibia.Game.Commands
         public PlayerLookItemCommand(Player player, Item item)
         {
             Player = player;
+
+            Item = item;
 
             ItemMetadata = item.Metadata;
 
@@ -43,16 +46,14 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
+        public Item Item { get; set; }
+
         public ItemMetadata ItemMetadata { get; set; }
 
         public byte Type { get; set; }
 
         public override Promise Execute()
         {
-            //TODO: Weight
-
-            //TODO: SignItem
-
             string name;
 
             if (ItemMetadata.Flags.Is(ItemMetadataFlags.Stackable) && Type > 1)
@@ -132,7 +133,7 @@ namespace OpenTibia.Game.Commands
             }
 
             List<string> descriptions = new List<string>();
-
+            
             if (ItemMetadata.Flags.Is(ItemMetadataFlags.IsFluid) || ItemMetadata.Flags.Is(ItemMetadataFlags.IsSplash) )
             {
                 switch ( (FluidType)Type)
@@ -238,6 +239,41 @@ namespace OpenTibia.Game.Commands
                         name += " of rum";
 
                         break;
+                }
+            }
+
+            if (Item != null)
+            {
+                if (ItemMetadata.Flags.Is(ItemMetadataFlags.Pickupable) )
+                {
+                    uint weight = Item.Weight;
+
+                    if (weight > 0)
+                    {
+                        if ( (Item.Parent is Tile tile && Player.Tile.Position.IsInRange(tile.Position, 1) ) || Item.Parent is Inventory || Item.Parent is Container)
+                        {
+                            descriptions.Add("It weights " + (weight / 100.0).ToString("0.00", CultureInfo.InvariantCulture) + " oz.");
+                        }
+                    }
+                }
+
+                if (Item is SignItem signItem)
+                {
+                    if (Player.Tile.Position.IsInRange( ( (Tile)Item.Parent).Position, 4) )
+                    {
+                        if (signItem.Text != null)
+                        {
+                            descriptions.Add("You read: " + signItem.Text + ".");
+                        }
+                        else
+                        {
+                            descriptions.Add("Nothing is written on it.");
+                        }
+                    }
+                    else
+                    {
+                        descriptions.Add("You are too far away to read it.");
+                    } 
                 }
             }
 
