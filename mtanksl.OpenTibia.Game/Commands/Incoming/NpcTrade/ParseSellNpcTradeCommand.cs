@@ -41,7 +41,7 @@ namespace OpenTibia.Game.Commands
 
                         if (npcThinkBehaviour != null)
                         {
-                            int count = Math.Max(1, Math.Min(100, (int)Packet.Count) );
+                            int count = Math.Max(1, Math.Min(10000, (int)Packet.Count) );
 
                             return npcThinkBehaviour.Sell(Player, itemMetadata.OpenTibiaId, Packet.Type, (byte)count, (int)offer.SellPrice * count, Packet.KeepEquipped);
                         }

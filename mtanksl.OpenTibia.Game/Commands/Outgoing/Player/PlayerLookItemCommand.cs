@@ -55,7 +55,7 @@ namespace OpenTibia.Game.Commands
 
             string name;
 
-            if (ItemMetadata.Flags.Is(ItemMetadataFlags.Stackable) )
+            if (ItemMetadata.Flags.Is(ItemMetadataFlags.Stackable) && Type > 1)
             {
                 if (ItemMetadata.Plural != null)
                 {
@@ -63,7 +63,14 @@ namespace OpenTibia.Game.Commands
                 }
                 else
                 {
-                    name = Type + " " + ItemMetadata.Name;
+                    if (ItemMetadata.Name != null)
+                    {
+                        name = Type + " " + ItemMetadata.Name;
+                    }
+                    else
+                    {
+                        name = "nothing special";
+                    }
                 }
             }
             else

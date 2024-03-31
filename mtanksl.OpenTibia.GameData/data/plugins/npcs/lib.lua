@@ -171,7 +171,7 @@ function topic:addtrade(offers, responses)
 			for _, offer in ipairs(offers) do
 				if offer.sellprice and offer.sellprice > 0 then
 					self:add("sell (%d+) " .. offer.name, function(module, npc, player, message, captures, parameters)
-						local count = math.max(1, math.min(100, tonumber(captures[1] ) ) ) 
+						local count = math.max(1, math.min(10000, tonumber(captures[1] ) ) ) 
 						module.setparameters(offer, { count = count, sellprice = offer.sellprice * count, topic = confirm } )
 						module.say(responses.sell.items)
 					end)
