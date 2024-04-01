@@ -13,11 +13,6 @@ namespace OpenTibia.GameData.Plugins.Runes
 
         }
 
-        public override void Start()
-        {
-            
-        }
-
         public override PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile tile, Item item)
         {
             return Promise.FromResultAsBooleanTrue;
@@ -30,11 +25,6 @@ namespace OpenTibia.GameData.Plugins.Runes
             return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 
                 new SimpleAttack(ProjectileType.SuddenDeath, MagicEffectType.MortArea, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
-        }
-
-        public override void Stop()
-        {
-            
         }
     }
 }

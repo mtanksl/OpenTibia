@@ -14,11 +14,6 @@ namespace OpenTibia.GameData.Plugins.Spells
 
         }
 
-        public override void Start()
-        {
-
-        }
-
         public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
         {
             Tile up = Context.Server.Map.GetTile(player.Tile.Position.Offset(0, 0, -1) );
@@ -45,11 +40,6 @@ namespace OpenTibia.GameData.Plugins.Spells
             {
                 return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
             } );
-        }
-             
-        public override void Stop()
-        {
-            
         }
     }
 }

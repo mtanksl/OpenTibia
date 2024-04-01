@@ -14,11 +14,6 @@ namespace OpenTibia.GameData.Plugins.Runes
 
         }
 
-        public override void Start()
-        {
-            
-        }
-
         public override PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile tile, Item item)
         {
             if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || tile.GetCreatures().Any(c => c.Block) )
@@ -37,11 +32,6 @@ namespace OpenTibia.GameData.Plugins.Runes
             };
 
             return Context.AddCommand(new CreatureAttackAreaCommand(player, false, tile.Position, area, ProjectileType.Energy, null, 1497, 1) );
-        }
-
-        public override void Stop()
-        {
-            
         }
     }
 }

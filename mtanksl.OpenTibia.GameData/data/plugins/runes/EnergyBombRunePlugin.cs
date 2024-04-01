@@ -15,11 +15,6 @@ namespace OpenTibia.GameData.Plugins.Runes
 
         }
 
-        public override void Start()
-        {
-            
-        }
-
         public override PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile tile, Item item)
         {
             if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
@@ -44,11 +39,6 @@ namespace OpenTibia.GameData.Plugins.Runes
                 new SimpleAttack(null, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, 30, 30),
 
                 new DamageCondition(SpecialCondition.Electrified, MagicEffectType.EnergyDamage, AnimatedTextColor.LightBlue, new[] { 25, 25 }, TimeSpan.FromSeconds(4) ) ) );
-        }
-
-        public override void Stop()
-        {
-            
         }
     }
 }

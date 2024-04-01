@@ -18,6 +18,7 @@ namespace OpenTibia.Game.Components
 
         public abstract Promise OnCast(Player player, Creature target, string message);
 
+
         public static ushort HasteFormula(ushort baseSpeed)
         {
             return (ushort)(baseSpeed * 1.3 - 24);

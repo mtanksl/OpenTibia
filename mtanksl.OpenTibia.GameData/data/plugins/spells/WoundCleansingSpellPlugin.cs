@@ -13,11 +13,6 @@ namespace OpenTibia.GameData.Plugins.Spells
 
         }
 
-        public override void Start()
-        {
-
-        }
-
         public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
         {
             return Promise.FromResultAsBooleanTrue;
@@ -30,11 +25,6 @@ namespace OpenTibia.GameData.Plugins.Spells
             return Context.AddCommand(new CreatureAttackCreatureCommand(player, player,
 
                 new HealingAttack(MagicEffectType.BlueShimmer, formula.Min, formula.Max) ) );
-        }
-             
-        public override void Stop()
-        {
-            
         }
     }
 }

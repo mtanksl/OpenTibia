@@ -10,8 +10,14 @@
             }
         }
 
-        public abstract void Start();
+        public virtual void Start()
+        {
 
-        public abstract void Stop();
-    }
+        }
+
+        public virtual void Stop()
+        {
+            
+        }
+    }  
 }

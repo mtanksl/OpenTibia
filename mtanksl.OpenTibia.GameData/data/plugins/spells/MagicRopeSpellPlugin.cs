@@ -16,11 +16,6 @@ namespace OpenTibia.GameData.Plugins.Spells
 
         }
 
-        public override void Start()
-        {
-
-        }
-
         public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
         {
             if (ropeSpots.Contains(player.Tile.Ground.Metadata.OpenTibiaId) )
@@ -43,11 +38,6 @@ namespace OpenTibia.GameData.Plugins.Spells
             {
                 return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Teleport) );
             } );
-        }
-             
-        public override void Stop()
-        {
-            
         }
     }
 }

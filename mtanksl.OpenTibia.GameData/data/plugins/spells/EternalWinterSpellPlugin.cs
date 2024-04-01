@@ -13,11 +13,6 @@ namespace OpenTibia.GameData.Plugins.Spells
 
         }
 
-        public override void Start()
-        {
-
-        }
-
         public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
         {
             return Promise.FromResultAsBooleanTrue;
@@ -46,11 +41,6 @@ namespace OpenTibia.GameData.Plugins.Spells
             return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.IceTornado, 
                         
                 new SimpleAttack(null, null, AnimatedTextColor.Crystal, formula.Min, formula.Max) ) );
-        }
-             
-        public override void Stop()
-        {
-            
         }
     }
 }

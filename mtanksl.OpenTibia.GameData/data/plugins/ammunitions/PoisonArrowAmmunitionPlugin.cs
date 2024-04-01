@@ -14,11 +14,6 @@ namespace OpenTibia.GameData.Plugins.Ammunitions
 
         }
 
-        public override void Start()
-        {
-            
-        }
-
         public override Promise OnUseAmmunition(Player player, Creature target, Item weapon, Item ammunition)
         {
            var formula = DistanceFormula(player.Level, player.Skills.Distance, ammunition.Metadata.Attack.Value, player.Client.FightMode);
@@ -28,11 +23,6 @@ namespace OpenTibia.GameData.Plugins.Ammunitions
                 new DistanceAttack(ammunition.Metadata.ProjectileType.Value, formula.Min, formula.Max),
                                                                                                                                  
                 new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, AnimatedTextColor.Green, new[] { 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(4) ) ) );
-        }
-
-        public override void Stop()
-        {
-           
-        }        
+        }     
     }
 }

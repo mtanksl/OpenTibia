@@ -14,11 +14,6 @@ namespace OpenTibia.GameData.Plugins.Spells
 
         }
 
-        public override void Start()
-        {
-
-        }
-
         public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
         {
             return Promise.FromResultAsBooleanTrue;
@@ -71,11 +66,6 @@ namespace OpenTibia.GameData.Plugins.Spells
             {
                 throw new NotImplementedException();
             }
-        }
-             
-        public override void Stop()
-        {
-            
         }
     }
 }

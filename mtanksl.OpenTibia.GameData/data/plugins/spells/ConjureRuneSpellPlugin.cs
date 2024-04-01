@@ -15,11 +15,6 @@ namespace OpenTibia.GameData.Plugins.Spells
 
         }
 
-        public override void Start()
-        {
-
-        }
-
         public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
         {
             return Context.AddCommand(new PlayerCountItemsCommand(player, blankRune, 1) ).Then( (count) =>
@@ -42,11 +37,6 @@ namespace OpenTibia.GameData.Plugins.Spells
             {
                 return Context.AddCommand(new PlayerDestroyItemsCommand(player, blankRune, 1, 1) );
             } );
-        }
-             
-        public override void Stop()
-        {
-            
         }
      }
 }

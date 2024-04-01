@@ -17,6 +17,7 @@ namespace OpenTibia.Game.Components
 
         public abstract Promise OnUseAmmunition(Player player, Creature target, Item weapon, Item ammunition);
 
+
         public static (int Min, int Max) MeleeFormula(int level, int skill, int attack, FightMode fightMode)
         {
             int min = 0;

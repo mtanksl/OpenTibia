@@ -11,12 +11,7 @@ namespace OpenTibia.GameData.Plugins.Weapons
         {
 
         }
-
-        public override void Start()
-        {
-            
-        }
-
+        
         public override Promise OnUseWeapon(Player player, Creature target, Item weapon)
         {
            var formula = WandFormula(19, 6);
@@ -24,11 +19,6 @@ namespace OpenTibia.GameData.Plugins.Weapons
             return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 
                 new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
-        }
-
-        public override void Stop()
-        {
-           
         }
     }
 }
