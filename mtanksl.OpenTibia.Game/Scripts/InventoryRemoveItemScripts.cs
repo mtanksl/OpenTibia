@@ -8,6 +8,10 @@ namespace OpenTibia.Game.Scripts
         {
             Context.Server.EventHandlers.Subscribe(new InventoryRemoveItemScriptingHandler() );
 
+            Context.Server.EventHandlers.Subscribe(new RingDeEquipHandler() );
+
+            Context.Server.EventHandlers.Subscribe(new HelmetOfTheDeepDeEquipHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler(new InventoryRemoveItemNpcTradingUpdateStatsHandler() );
         }
 

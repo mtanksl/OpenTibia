@@ -57,10 +57,6 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CommandHandlers.AddCommandHandler(new InventoryHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new SplitStackableItemHandler() );
-
-            Context.Server.CommandHandlers.AddCommandHandler(new RingHandler() );
-
-            Context.Server.CommandHandlers.AddCommandHandler(new HelmetOfTheDeepHandler() );
         }
 
         public override void Stop()
