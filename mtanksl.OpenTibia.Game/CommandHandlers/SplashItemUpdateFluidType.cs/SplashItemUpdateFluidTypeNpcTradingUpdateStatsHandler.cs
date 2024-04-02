@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using System;
+using System.Linq;
 
 namespace OpenTibia.Game.CommandHandlers
 {
@@ -16,7 +17,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         NpcTrading trading = Context.Server.NpcTradings.GetTradingByCounterOfferPlayer(inventory.Player);
 
-                        if (trading != null)
+                        if (trading != null && trading.Offers.Any(o => o.TibiaId == command.SplashItem.Metadata.TibiaId) )
                         {
                             return Context.AddCommand(new NpcTradeUpdateStatsCommand(trading) );
                         }
