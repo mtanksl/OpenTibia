@@ -9,13 +9,13 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(TileAddCreatureEventArgs e)
         {
-            if (e.Tile.Ground != null)
+            if (e.ToTile.Ground != null)
             {
-                CreatureStepInPlugin plugin = Context.Server.Plugins.GetCreatureStepInPlugin(e.Tile.Ground.Metadata.OpenTibiaId);
+                CreatureStepInPlugin plugin = Context.Server.Plugins.GetCreatureStepInPlugin(e.ToTile.Ground.Metadata.OpenTibiaId);
 
                 if (plugin != null)
                 {
-                    return plugin.OnStepIn(e.Creature, e.Tile);
+                    return plugin.OnStepIn(e.Creature, e.ToTile);
                 }
             }
 

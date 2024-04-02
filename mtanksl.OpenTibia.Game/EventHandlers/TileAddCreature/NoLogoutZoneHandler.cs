@@ -15,7 +15,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (e.Creature is Player player)
             {
-                if (e.Tile.NoLogoutZone)
+                if (e.ToTile.NoLogoutZone)
                 {
                     if ( !player.HasSpecialCondition(SpecialCondition.ProtectionZoneBlock) )
                     {

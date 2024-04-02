@@ -9,13 +9,13 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(TileRemoveCreatureEventArgs e)
         {
-            if (e.Tile.Ground != null)
+            if (e.FromTile.Ground != null)
             {
-                CreatureStepOutPlugin plugin = Context.Server.Plugins.GetCreatureStepOutPlugin(e.Tile.Ground.Metadata.OpenTibiaId);
+                CreatureStepOutPlugin plugin = Context.Server.Plugins.GetCreatureStepOutPlugin(e.FromTile.Ground.Metadata.OpenTibiaId);
 
                 if (plugin != null)
                 {
-                    return plugin.OnStepOut(e.Creature, e.Tile);
+                    return plugin.OnStepOut(e.Creature, e.FromTile);
                 }
             }
 

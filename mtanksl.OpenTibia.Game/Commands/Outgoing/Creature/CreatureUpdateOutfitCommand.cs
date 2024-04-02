@@ -30,13 +30,16 @@ namespace OpenTibia.Game.Commands
 
                 Creature.Outfit = Outfit;
 
-                foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Creature.Tile.Position) )
+                if (Creature.Tile != null)
                 {
-                    byte clientIndex;
-
-                    if (observer.Client.TryGetIndex(Creature, out clientIndex) )
+                    foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Creature.Tile.Position) )
                     {
-                        Context.AddPacket(observer, new SetOutfitOutgoingPacket(Creature.Id, Creature.Outfit) );
+                        byte clientIndex;
+
+                        if (observer.Client.TryGetIndex(Creature, out clientIndex) )
+                        {
+                            Context.AddPacket(observer, new SetOutfitOutgoingPacket(Creature.Id, Creature.Outfit) );
+                        }
                     }
                 }
 

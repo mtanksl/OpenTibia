@@ -12,7 +12,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(TileAddCreatureEventArgs e)
         {
-            foreach (var topItem in e.Tile.GetItems() )
+            foreach (var topItem in e.ToTile.GetItems() )
             {
                 if (poisonFields.Contains(topItem.Metadata.OpenTibiaId) )
                 {

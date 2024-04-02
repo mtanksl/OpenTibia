@@ -13,7 +13,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (e.Creature is Player player)
             {
-                if (e.Tile.ProtectionZone)
+                if (e.ToTile.ProtectionZone)
                 {
                     if ( !player.HasSpecialCondition(SpecialCondition.ProtectionZone) )
                     {

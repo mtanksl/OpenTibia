@@ -19,9 +19,9 @@ namespace OpenTibia.Game.CommandHandlers
         {
             ushort toOpenTibiaId;
 
-            if (e.Tile.Ground != null && tiles.TryGetValue(e.Tile.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) )
+            if (e.ToTile.Ground != null && tiles.TryGetValue(e.ToTile.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                return Context.AddCommand(new ItemTransformCommand(e.Tile.Ground, toOpenTibiaId, 1) );
+                return Context.AddCommand(new ItemTransformCommand(e.ToTile.Ground, toOpenTibiaId, 1) );
             }
 
             return Promise.Completed;

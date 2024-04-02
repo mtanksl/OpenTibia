@@ -11,6 +11,8 @@ namespace OpenTibia.Game.Scripts
             Context.Server.EventHandlers.Subscribe(new TileDepressHandler() );
 
             Context.Server.EventHandlers.Subscribe(new CloseDoorAutomaticallyHandler() );
+
+            Context.Server.EventHandlers.Subscribe(new SwimLeaveHandler() );
         }
 
         public override void Stop()

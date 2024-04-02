@@ -15,9 +15,9 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(TileAddCreatureEventArgs e)
         {
-            if (e.Creature is Player player && e.Tile.Ground != null)
+            if (e.Creature is Player player && e.ToTile.Ground != null)
             {
-                if (oceanFloors.Contains(e.Tile.Ground.Metadata.OpenTibiaId) )
+                if (oceanFloors.Contains(e.ToTile.Ground.Metadata.OpenTibiaId) )
                 {
                     if ( !player.HasSpecialCondition(SpecialCondition.Drowning) )
                     {

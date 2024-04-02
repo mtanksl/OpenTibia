@@ -35,6 +35,8 @@ namespace OpenTibia.Game.Scripts
             Context.Server.EventHandlers.Subscribe(new BladesHandler() );
 
             Context.Server.EventHandlers.Subscribe(new SpikesHandler() );
+
+            Context.Server.EventHandlers.Subscribe(new SwimEnterHandler() );
         }
 
         public override void Stop()

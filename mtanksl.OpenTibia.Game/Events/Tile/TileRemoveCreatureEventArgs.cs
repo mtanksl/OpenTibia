@@ -4,19 +4,27 @@ namespace OpenTibia.Game.Events
 {
     public class TileRemoveCreatureEventArgs : GameEventArgs
     {
-        public TileRemoveCreatureEventArgs(Tile tile, Creature creature, int index)
+        public TileRemoveCreatureEventArgs(Creature creature, Tile fromTile, int? fromIndex, Tile toTile, int? toIndex)
         {
-            Tile = tile;
-
             Creature = creature;
 
-            Index = index;
-        }
+            FromTile = fromTile;
 
-        public Tile Tile { get; set; }
+            FromIndex = fromIndex;
+
+            ToTile = toTile;
+
+            ToIndex = toIndex;
+        }
 
         public Creature Creature { get; set; }
 
-        public int Index { get; set; }
+        public Tile FromTile { get; set; }
+
+        public int? FromIndex { get; set; }
+
+        public Tile ToTile { get; set; }
+
+        public int? ToIndex { get; set; }
     }
 }

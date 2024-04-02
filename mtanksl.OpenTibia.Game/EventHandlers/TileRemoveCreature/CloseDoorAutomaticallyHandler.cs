@@ -121,9 +121,9 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(TileRemoveCreatureEventArgs e)
         {
-            if (e.Tile.TopCreature == null)
+            if (e.FromTile.TopCreature == null)
             {
-                foreach (var topItem in e.Tile.GetItems() )
+                foreach (var topItem in e.FromTile.GetItems() )
                 {
                     ushort toOpenTibiaId;
 

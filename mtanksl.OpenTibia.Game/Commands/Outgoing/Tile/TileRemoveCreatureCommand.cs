@@ -53,7 +53,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            Context.AddEvent(new TileRemoveCreatureEventArgs(Tile, Creature, index) );
+            Context.AddEvent(new TileRemoveCreatureEventArgs(Creature, Tile, index, null, null) );
 
             return Promise.Completed;
         }
