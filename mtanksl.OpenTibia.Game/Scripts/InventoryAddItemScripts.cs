@@ -6,6 +6,8 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
+            Context.Server.EventHandlers.Subscribe(new InventoryAddItemScriptingHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler(new InventoryAddItemNpcTradingUpdateStatsHandler() );
         }
 

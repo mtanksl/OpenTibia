@@ -27,7 +27,9 @@
     <None Include="$(MSBuildThisFileDirectory)data\plugins\ammunitions\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\config.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\lib.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\movements\deequip.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\movements\lib.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\movements\equip.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\movements\step in.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\movements\step out.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\scripts\npcs\al dee.lua" />

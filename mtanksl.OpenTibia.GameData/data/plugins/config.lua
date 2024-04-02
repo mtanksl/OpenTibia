@@ -9,7 +9,9 @@
 	},
 	movements = {
 		-- { type = "CreatureStepIn", opentibiaid = 446, filename = "step in.lua" },
-		-- { type = "CreatureStepOut", opentibiaid = 446, filename = "step out.lua" }
+		-- { type = "CreatureStepOut", opentibiaid = 446, filename = "step out.lua" },
+		-- { type = "InventoryEquip", opentibiaid = 2125, filename = "equip.lua" },
+		-- { type = "InventoryDeEquip", opentibiaid = 2125, filename = "deequip.lua" }
 	},
 	talkactions = {
 		-- { type = "PlayerSay", message = "/hello", filename = "say.lua" }

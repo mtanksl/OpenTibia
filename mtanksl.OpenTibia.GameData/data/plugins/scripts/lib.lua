@@ -66,6 +66,22 @@ function registermovementscreaturestepout(opentibiaid, handler)
     } )
 end
 
+function registermovementsinventoryequip(opentibiaid, handler)
+    registerplugin("movements", {
+	    type = "InventoryEquip",
+	    opentibiaid = opentibiaid,
+	    onequip = handler
+    } )
+end
+
+function registermovementsinventorydeequip(opentibiaid, handler)
+    registerplugin("movements", {
+	    type = "InventoryDeEquip",
+	    opentibiaid = opentibiaid,
+	    ondeequip = handler
+    } )
+end
+
 function registertalkactionsplayersay(message, handler)
     registerplugin("talkactions", {
 	    type = "PlayerSay",

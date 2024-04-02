@@ -174,6 +174,22 @@ namespace OpenTibia.Game
                                 pluginCollection.AddCreatureStepOutPlugin(openTibiaId, script, initialization.Parameters);
                             }
                             break;
+
+                            case "InventoryEquip":
+                            {
+                                ushort openTibiaId = (ushort)(long)initialization.Parameters["opentibiaid"];
+
+                                pluginCollection.AddInventoryEquipPlugin(openTibiaId, script, initialization.Parameters);
+                            }
+                            break;
+
+                            case "InventoryDeEquip":
+                            {
+                                ushort openTibiaId = (ushort)(long)initialization.Parameters["opentibiaid"];
+
+                                pluginCollection.AddInventoryDeEquipPlugin(openTibiaId, script, initialization.Parameters);
+                            }
+                            break;
                         }
                     }
                     else if (initialization.Type == "talkactions")
@@ -396,6 +412,22 @@ namespace OpenTibia.Game
                         AddCreatureStepOutPlugin(openTibiaId, fileName);
                     }
                     break;
+
+                    case "InventoryEquip":
+                    {
+                        ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
+
+                        AddInventoryEquipPlugin(openTibiaId, fileName);
+                    }
+                    break;
+
+                    case "InventoryDeEquip":
+                    {
+                        ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
+
+                        AddInventoryDeEquipPlugin(openTibiaId, fileName);
+                    }
+                    break;
                 }
             }
 
@@ -546,6 +578,22 @@ namespace OpenTibia.Game
         public object GetValue(string key)
         {
             return script[key];
+        }
+
+        private Dictionary<string, Plugin> plugins = new Dictionary<string, Plugin>();
+
+        private T GetPlugin<T>(string fileName, Func<T> factory) where T: Plugin
+        {
+            Plugin plugin;
+
+            if ( !plugins.TryGetValue(fileName, out plugin) )
+            {
+                plugin = factory();
+
+                plugins.Add(fileName, plugin);
+            }
+
+            return (T)plugin;
         }
 
         private PluginDictionaryCached<ushort, PlayerRotateItemPlugin> playerRotateItemPlugins = new PluginDictionaryCached<ushort, PlayerRotateItemPlugin>();
@@ -830,6 +878,72 @@ namespace OpenTibia.Game
                 AddCreatureStepOutPlugin(openTibiaId, (CreatureStepOutPlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
 #endif
             }
+        }
+
+        private PluginDictionaryCached<ushort, InventoryEquipPlugin> inventoryEquipPlugins = new PluginDictionaryCached<ushort, InventoryEquipPlugin>();
+
+        public void AddInventoryEquipPlugin(ushort openTibiaId, InventoryEquipPlugin inventoryEquipPlugin)
+        {
+            inventoryEquipPlugins.AddPlugin(openTibiaId, inventoryEquipPlugin);
+        }
+
+        public void AddInventoryEquipPlugin(ushort openTibiaId, string fileName)
+        {
+            if (fileName.EndsWith(".lua") )
+            {
+                AddInventoryEquipPlugin(openTibiaId, new LuaScriptingInventoryEquipPlugin(fileName) );
+            }
+            else
+            {
+#if AOT
+                AddInventoryEquipPlugin(openTibiaId, (InventoryEquipPlugin)_AotCompilation.OtherPlugins[fileName]() );
+#else
+                AddInventoryEquipPlugin(openTibiaId, (InventoryEquipPlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+#endif
+            }
+        }
+
+        public void AddInventoryEquipPlugin(ushort openTibiaId, LuaScope script, LuaTable parameters)
+        {
+            AddInventoryEquipPlugin(openTibiaId, new LuaScriptingInventoryEquipPlugin(script, parameters) );
+        }
+
+        public InventoryEquipPlugin GetInventoryEquipPlugin(ushort openTibiaId)
+        {
+            return inventoryEquipPlugins.GetPlugin(openTibiaId);
+        }
+
+        private PluginDictionaryCached<ushort, InventoryDeEquipPlugin> inventoryDeEquipPlugins = new PluginDictionaryCached<ushort, InventoryDeEquipPlugin>();
+
+        public void AddInventoryDeEquipPlugin(ushort openTibiaId, InventoryDeEquipPlugin inventoryDeEquipPlugin)
+        {
+            inventoryDeEquipPlugins.AddPlugin(openTibiaId, inventoryDeEquipPlugin);
+        }
+
+        public void AddInventoryDeEquipPlugin(ushort openTibiaId, string fileName)
+        {
+            if (fileName.EndsWith(".lua") )
+            {
+                AddInventoryDeEquipPlugin(openTibiaId, new LuaScriptingInventoryDeEquipPlugin(fileName) );
+            }
+            else
+            {
+#if AOT
+                AddInventoryDeEquipPlugin(openTibiaId, (InventoryDeEquipPlugin)_AotCompilation.OtherPlugins[fileName]() );
+#else
+                AddInventoryDeEquipPlugin(openTibiaId, (InventoryDeEquipPlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+#endif
+            }
+        }
+
+        public void AddInventoryDeEquipPlugin(ushort openTibiaId, LuaScope script, LuaTable parameters)
+        {
+            AddInventoryDeEquipPlugin(openTibiaId, new LuaScriptingInventoryDeEquipPlugin(script, parameters) );
+        }
+
+        public InventoryDeEquipPlugin GetInventoryDeEquipPlugin(ushort openTibiaId)
+        {
+            return inventoryDeEquipPlugins.GetPlugin(openTibiaId);
         }
 
         public void AddCreatureStepOutPlugin(ushort openTibiaId, LuaScope script, LuaTable parameters)
@@ -1141,6 +1255,10 @@ namespace OpenTibia.Game
                 creatureStepInPlugins.GetPlugins(),
 
                 creatureStepOutPlugins.GetPlugins(),
+
+                inventoryEquipPlugins.GetPlugins(),
+
+                inventoryDeEquipPlugins.GetPlugins(),
 
                 playerSayPlugins.GetPlugins(),
 

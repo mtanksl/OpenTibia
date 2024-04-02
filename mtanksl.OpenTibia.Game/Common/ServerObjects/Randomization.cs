@@ -18,7 +18,7 @@ namespace OpenTibia.Game
 
             if (maxInclusive < minInclusive)
             {
-                throw new ArgumentException("MinInclusive must be greater then or equals to MaxInclusive.");
+                throw new ArgumentException("MaxInclusive must be greater then or equals to MinInclusive.");
             }
 
             if (minInclusive == maxInclusive)
