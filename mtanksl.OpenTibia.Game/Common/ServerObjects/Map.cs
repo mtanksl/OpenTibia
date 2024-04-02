@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using OtbmItem = OpenTibia.FileFormats.Otbm.Item;
+using OtbmHouseTile = OpenTibia.FileFormats.Otbm.HouseTile;
 
 namespace OpenTibia.Common.Objects
 {
@@ -68,43 +69,95 @@ namespace OpenTibia.Common.Objects
         {
             if (otbmFile.Towns != null)
             {
-                this.towns = new Dictionary<string, Town>(otbmFile.Towns.Count);
+                this.townsByName = new Dictionary<string, Town>(otbmFile.Towns.Count);
 
-                foreach (var town in otbmFile.Towns)
+                this.townsById = new Dictionary<ushort, Town>(otbmFile.Towns.Count);
+
+                foreach (var otbmTown in otbmFile.Towns)
                 {
-                    towns.Add(town.Name, new Town() 
-                    { 
-                        Id = (ushort)town.Id,
+                    Town town = new Town()
+                    {
+                        Id = (ushort)otbmTown.Id,
 
-                        Name = town.Name,
+                        Name = otbmTown.Name,
 
-                        Position = town.Position
-                    } );
+                        Position = otbmTown.Position
+                    };
+
+                    townsByName.Add(town.Name, town);
+
+                    townsById.Add(town.Id, town);
                 }
             }
             else
             {
-                this.towns = new Dictionary<string, Town>();
+                this.townsByName = new Dictionary<string, Town>();
+
+                this.townsById = new Dictionary<ushort, Town>();
             }
 
             if (otbmFile.Waypoints != null)
             {
-                this.waypoints = new Dictionary<string, Waypoint>(otbmFile.Waypoints.Count);
+                this.waypointsByName = new Dictionary<string, Waypoint>(otbmFile.Waypoints.Count);
 
-                foreach (var waypoint in otbmFile.Waypoints)
+                foreach (var otbmWaypoint in otbmFile.Waypoints)
                 {
-                    waypoints.Add(waypoint.Name, new Waypoint()
+                    Waypoint waypoint = new Waypoint()
                     {
-                        Name = waypoint.Name,
+                        Name = otbmWaypoint.Name,
 
-                        Position = waypoint.Position
-                    } );
+                        Position = otbmWaypoint.Position
+                    };
+
+                    waypointsByName.Add(waypoint.Name, waypoint);
                 }
             }
             else
             {
-                this.waypoints = new Dictionary<string, Waypoint>();
+                this.waypointsByName = new Dictionary<string, Waypoint>();
             }
+
+            if (houseFile.Houses != null)
+            {
+                this.housesByName = new Dictionary<string, House>(houseFile.Houses.Count);
+
+                this.housesById = new Dictionary<ushort, House>(houseFile.Houses.Count);
+
+                foreach (var xmlHouse in houseFile.Houses)
+                {
+                    Town town = GetTown( (ushort)xmlHouse.TownId);
+
+                    if (town != null)
+                    {
+                        House house = new House()
+                        {
+                            Id = (ushort)xmlHouse.Id,
+
+                            Name = xmlHouse.Name,
+
+                            Entry = xmlHouse.Entry,
+
+                            Town = town,
+
+                            Rent = xmlHouse.Rent,
+
+                            Size = (ushort)xmlHouse.Size,
+
+                            Guildhall = xmlHouse.Guildhall
+                        };
+
+                        housesByName.Add(house.Name, house);
+
+                        housesById.Add(house.Id, house);
+                    }
+                }
+            }
+            else
+            {
+                this.housesByName = new Dictionary<string, House>();
+
+                this.housesById = new Dictionary<ushort, House>();
+            }          
 
             int count = 0;
 
@@ -142,13 +195,36 @@ namespace OpenTibia.Common.Objects
             {
                 foreach (var otbmTile in otbmArea.Tiles)
                 {
-                    Tile tile = new Tile(otbmArea.Position.Offset(otbmTile.OffsetX, otbmTile.OffsetY, 0) );
+                    Position position = otbmArea.Position.Offset(otbmTile.OffsetX, otbmTile.OffsetY, 0);
+
+                    Tile tile;
+
+                    if (otbmTile is OtbmHouseTile otbmHouseTile)
+                    {
+                        House house = GetHouse( (ushort)otbmHouseTile.HouseId);
+
+                        if (house != null)
+                        {
+                            tile = new HouseTile(position)
+                            {
+                                House = house
+                            };
+                        }
+                        else
+                        {
+                            tile = new Tile(position);
+                        }
+                    }
+                    else
+                    {
+                        tile = new Tile(position);
+                    }
 
                     tile.ProtectionZone = (otbmTile.Flags & TileFlags.ProtectionZone) == TileFlags.ProtectionZone;
 
                     tile.NoLogoutZone = (otbmTile.Flags & TileFlags.NoLogoutZone) == TileFlags.NoLogoutZone;
 
-                    tiles.Add(tile.Position, tile);
+                    tiles.Add(position, tile);
 
                     if (otbmTile.OpenTibiaItemId > 0)
                     {
@@ -220,9 +296,9 @@ namespace OpenTibia.Common.Objects
                 }
             }
 
-            foreach (var spawn in spawnFile.Spawns)
+            foreach (var xmlSpawn in spawnFile.Spawns)
             {
-                foreach (var xmlMonster in spawn.Monsters)
+                foreach (var xmlMonster in xmlSpawn.Monsters)
                 {
                     Tile tile = GetTile(xmlMonster.Position);
 
@@ -240,7 +316,7 @@ namespace OpenTibia.Common.Objects
                     }
                 }
 
-                foreach (var xmlNpc in spawn.Npcs)
+                foreach (var xmlNpc in xmlSpawn.Npcs)
                 {
                     Tile tile = GetTile(xmlNpc.Position);
 
@@ -292,36 +368,74 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        private Dictionary<string, Town> towns;
+        private Dictionary<string, Town> townsByName;
+
+        private Dictionary<ushort, Town> townsById;
 
         public Town GetTown(string name)
         {
             Town town;
 
-            towns.TryGetValue(name, out town);
+            townsByName.TryGetValue(name, out town);
+
+            return town;
+        }
+
+        public Town GetTown(ushort townId)
+        {
+            Town town;
+
+            townsById.TryGetValue(townId, out town);
 
             return town;
         }
 
         public IEnumerable<Town> GetTowns()
         {
-            return towns.Values;
+            return townsByName.Values;
         }
 
-        private Dictionary<string, Waypoint> waypoints;
+        private Dictionary<string, Waypoint> waypointsByName;
 
         public Waypoint GetWaypoint(string name)
         {
             Waypoint waypoint;
 
-            waypoints.TryGetValue(name, out waypoint);
+            waypointsByName.TryGetValue(name, out waypoint);
 
             return waypoint;
         }
 
         public IEnumerable<Waypoint> GetWaypoints()
         {
-            return waypoints.Values;
+            return waypointsByName.Values;
+        }
+
+        private Dictionary<string, House> housesByName;
+
+        private Dictionary<ushort, House> housesById;
+
+        public House GetHouse(string name)
+        {
+            House house;
+
+            housesByName.TryGetValue(name, out house);
+
+            return house;
+        }
+
+        public House GetHouse(ushort houseId)
+        {
+            House house;
+
+            housesById.TryGetValue(houseId, out house);
+
+            return house;
+        }
+
+        public IEnumerable<House> GetHouses()
+        {
+            return housesByName.Values;
         }
 
         private Dictionary<Position, Tile> tiles;

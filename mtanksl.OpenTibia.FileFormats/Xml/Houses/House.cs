@@ -21,6 +21,8 @@ namespace OpenTibia.FileFormats.Xml.Houses
             
             house.Size = (uint)houseNode.Attribute("size");
 
+            house.Guildhall = (string)houseNode.Attribute("guildhall") == "true";
+
             return house;
         }
 
@@ -35,5 +37,7 @@ namespace OpenTibia.FileFormats.Xml.Houses
         public uint Rent { get; set; }
 
         public uint Size { get; set; }
+
+        public bool Guildhall { get; set; }
     }
 }

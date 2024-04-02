@@ -7,11 +7,19 @@ namespace OpenTibia.Common.Objects
     {
         Town GetTown(string name);
 
+        Town GetTown(ushort townId);
+
         IEnumerable<Town> GetTowns();
 
         Waypoint GetWaypoint(string name);
 
         IEnumerable<Waypoint> GetWaypoints();
+
+        House GetHouse(string name);
+
+        House GetHouse(ushort houseId);
+
+        IEnumerable<House> GetHouses();
 
         Tile GetTile(Position position);
 
