@@ -208,13 +208,11 @@ namespace OpenTibia.Game
                     }
                     else if (initialization.Type == "spells")
                     {
-                        string words = (string)initialization.Parameters["words"];
-
                         bool requiresTarget = (bool)initialization.Parameters["requirestarget"];
 
                         Spell spell = new Spell()
                         {
-                            Words = words,
+                            Words = (string)initialization.Parameters["words"],
 
                             Name = (string)initialization.Parameters["name"],
 
@@ -239,17 +237,15 @@ namespace OpenTibia.Game
                             Vocations = ( (LuaTable)initialization.Parameters["vocations"]).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
                         };
 
-                        pluginCollection.AddSpellPlugin(requiresTarget, words, script, initialization.Parameters, spell);
+                        pluginCollection.AddSpellPlugin(requiresTarget, script, initialization.Parameters, spell);
                     }
                     else if (initialization.Type == "runes")
                     {
-                        ushort openTibiaId = (ushort)(long)initialization.Parameters["opentibiaid"];
-
                         bool requiresTarget = (bool)initialization.Parameters["requirestarget"];
 
                         Rune rune = new Rune()
                         {
-                            OpenTibiaId = openTibiaId,
+                            OpenTibiaId = (ushort)(long)initialization.Parameters["opentibiaid"],
 
                             Name = (string)initialization.Parameters["name"],
 
@@ -262,15 +258,13 @@ namespace OpenTibia.Game
                             MagicLevel = (int)(long)initialization.Parameters["magiclevel"]
                         };
 
-                        pluginCollection.AddRunePlugin(requiresTarget, openTibiaId, script, initialization.Parameters, rune);
+                        pluginCollection.AddRunePlugin(requiresTarget, script, initialization.Parameters, rune);
                     }
                     else if (initialization.Type == "weapons")
                     {
-                        ushort openTibiaId = (ushort)(long)initialization.Parameters["opentibiaid"];
-
                         Weapon weapon = new Weapon()
                         {
-                            OpenTibiaId = openTibiaId,
+                            OpenTibiaId = (ushort)(long)initialization.Parameters["opentibiaid"],
 
                             Level = (int)(long)initialization.Parameters["level"],
 
@@ -279,18 +273,16 @@ namespace OpenTibia.Game
                             Vocations = ( (LuaTable)initialization.Parameters["vocations"]).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
                         };
 
-                        pluginCollection.AddWeaponPlugin(openTibiaId, script, initialization.Parameters, weapon);
+                        pluginCollection.AddWeaponPlugin( script, initialization.Parameters, weapon);
                     }
                     else if (initialization.Type == "ammunitions")
                     {
-                        ushort openTibiaId = (ushort)(long)initialization.Parameters["opentibiaid"];
-
                         Ammunition ammunition = new Ammunition()
                         {
-                            OpenTibiaId = openTibiaId
+                            OpenTibiaId = (ushort)(long)initialization.Parameters["opentibiaid"]
                         };
 
-                        pluginCollection.AddAmmunitionPlugin(openTibiaId, script, initialization.Parameters, ammunition);
+                        pluginCollection.AddAmmunitionPlugin(script, initialization.Parameters, ammunition);
                     }
                 }
             }
@@ -445,15 +437,13 @@ namespace OpenTibia.Game
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.spells"] ).Values)
             {
-                string words = (string)plugin["words"];
-
                 string fileName = (string)plugin["filename"];
 
                 bool requiresTarget = (bool)plugin["requirestarget"];
 
                 Spell spell = new Spell()
                 {
-                    Words = words,
+                    Words = (string)plugin["words"],
 
                     Name = (string)plugin["name"],
 
@@ -478,20 +468,18 @@ namespace OpenTibia.Game
                     Vocations = ( (LuaTable)plugin["vocations"]).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
                 };
 
-                AddSpellPlugin(requiresTarget, words, fileName, spell);
+                AddSpellPlugin(requiresTarget, fileName, spell);
             }
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.runes"] ).Values)
             {
-                ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
-
                 string fileName = (string)plugin["filename"];
 
                 bool requiresTarget = (bool)plugin["requirestarget"];
 
                 Rune rune = new Rune()
                 {
-                    OpenTibiaId = openTibiaId,
+                    OpenTibiaId = (ushort)(long)plugin["opentibiaid"],
 
                     Name = (string)plugin["name"],
 
@@ -504,18 +492,16 @@ namespace OpenTibia.Game
                     MagicLevel = (int)(long)plugin["magiclevel"]
                 };
 
-                AddRunePlugin(requiresTarget, openTibiaId, fileName, rune);
+                AddRunePlugin(requiresTarget, fileName, rune);
             }
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.weapons"] ).Values)
             {
-                ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
-
                 string fileName = (string)plugin["filename"];
 
                 Weapon weapon = new Weapon()
                 {
-                    OpenTibiaId = openTibiaId,
+                    OpenTibiaId = (ushort)(long)plugin["opentibiaid"],
 
                     Level = (int)(long)plugin["level"],
 
@@ -524,21 +510,19 @@ namespace OpenTibia.Game
                     Vocations = ( (LuaTable)plugin["vocations"]).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
                 };
 
-                AddWeaponPlugin(openTibiaId, fileName, weapon);
+                AddWeaponPlugin(fileName, weapon);
             }
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.ammunitions"] ).Values)
             {
-                ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
-
                 string fileName = (string)plugin["filename"];
 
                 Ammunition ammunition = new Ammunition()
                 {
-                    OpenTibiaId = openTibiaId
+                    OpenTibiaId = (ushort)(long)plugin["opentibiaid"]
                 };
 
-                AddAmmunitionPlugin(openTibiaId, fileName, ammunition);
+                AddAmmunitionPlugin(fileName, ammunition);
             }
 
             foreach (var filePath in Directory.GetFiles(server.PathResolver.GetFullPath("data/plugins/scripts"), "*.lua", SearchOption.AllDirectories) )
@@ -927,39 +911,39 @@ namespace OpenTibia.Game
         private PluginDictionaryCached<string, SpellPlugin> spellPluginsRequiresTarget = new PluginDictionaryCached<string, SpellPlugin>();
         private PluginDictionaryCached<string, SpellPlugin> spellPlugins = new PluginDictionaryCached<string, SpellPlugin>();
 
-        public void AddSpellPlugin(bool requiresTarget, string words, SpellPlugin spellPlugin)
+        public void AddSpellPlugin(bool requiresTarget, SpellPlugin spellPlugin)
         {
             spells.Add(spellPlugin.Spell);
 
             if (requiresTarget)
             {
-                spellPluginsRequiresTarget.AddPlugin(words, spellPlugin);
+                spellPluginsRequiresTarget.AddPlugin(spellPlugin.Spell.Words, spellPlugin);
             }
             else
             {
-                spellPlugins.AddPlugin(words, spellPlugin);
+                spellPlugins.AddPlugin(spellPlugin.Spell.Words, spellPlugin);
             }
         }
 
-        public void AddSpellPlugin(bool requiresTarget, string words, string fileName, Spell spell)
+        public void AddSpellPlugin(bool requiresTarget, string fileName, Spell spell)
         {
             if (fileName.EndsWith(".lua") )
             {
-                AddSpellPlugin(requiresTarget, words, new LuaScriptingSpellPlugin(fileName, spell) );
+                AddSpellPlugin(requiresTarget, new LuaScriptingSpellPlugin(fileName, spell) );
             }
             else
             {
 #if AOT
-                AddSpellPlugin(requiresTarget, words, _AotCompilation.SpellPlugins[fileName](spell) );
+                AddSpellPlugin(requiresTarget, _AotCompilation.SpellPlugins[fileName](spell) );
 #else
-                AddSpellPlugin(requiresTarget, words, (SpellPlugin)Activator.CreateInstance(Type.GetType(fileName), spell) );
+                AddSpellPlugin(requiresTarget, (SpellPlugin)Activator.CreateInstance(Type.GetType(fileName), spell) );
 #endif
             }
         }
 
-        public void AddSpellPlugin(bool requiresTarget, string words, LuaScope script, LuaTable parameters, Spell spell)
+        public void AddSpellPlugin(bool requiresTarget, LuaScope script, LuaTable parameters, Spell spell)
         {
-            AddSpellPlugin(requiresTarget, words, new LuaScriptingSpellPlugin(script, parameters, spell) );
+            AddSpellPlugin(requiresTarget, new LuaScriptingSpellPlugin(script, parameters, spell) );
         }
 
         public SpellPlugin GetSpellPlugin(bool requiresTarget, string words)
@@ -977,39 +961,39 @@ namespace OpenTibia.Game
         private PluginDictionaryCached<ushort, RunePlugin> runePluginsRequiresTarget = new PluginDictionaryCached<ushort, RunePlugin>();
         private PluginDictionaryCached<ushort, RunePlugin> runePlugins = new PluginDictionaryCached<ushort, RunePlugin>();
 
-        public void AddRunePlugin(bool requiresTarget, ushort openTibiaId, RunePlugin runePlugin)
+        public void AddRunePlugin(bool requiresTarget, RunePlugin runePlugin)
         {
             runes.Add(runePlugin.Rune);
 
             if (requiresTarget)
             {
-                runePluginsRequiresTarget.AddPlugin(openTibiaId, runePlugin);
+                runePluginsRequiresTarget.AddPlugin(runePlugin.Rune.OpenTibiaId, runePlugin);
             }
             else
             {
-                runePlugins.AddPlugin(openTibiaId, runePlugin);
+                runePlugins.AddPlugin(runePlugin.Rune.OpenTibiaId, runePlugin);
             }
         }
 
-        public void AddRunePlugin(bool requiresTarget, ushort openTibiaId, string fileName, Rune rune)
+        public void AddRunePlugin(bool requiresTarget, string fileName, Rune rune)
         {
             if (fileName.EndsWith(".lua") )
             {
-                AddRunePlugin(requiresTarget, openTibiaId, new LuaScriptingRunePlugin(fileName, rune) );
+                AddRunePlugin(requiresTarget, new LuaScriptingRunePlugin(fileName, rune) );
             }
             else
             {
 #if AOT
-                AddRunePlugin(requiresTarget, openTibiaId, _AotCompilation.RunePlugins[fileName](rune) );
+                AddRunePlugin(requiresTarget, _AotCompilation.RunePlugins[fileName](rune) );
 #else
-                AddRunePlugin(requiresTarget, openTibiaId, (RunePlugin)Activator.CreateInstance(Type.GetType(fileName), rune) );
+                AddRunePlugin(requiresTarget, (RunePlugin)Activator.CreateInstance(Type.GetType(fileName), rune) );
 #endif
             }
         }
 
-        public void AddRunePlugin(bool requiresTarget, ushort openTibiaId, LuaScope script, LuaTable parameters, Rune rune)
+        public void AddRunePlugin(bool requiresTarget, LuaScope script, LuaTable parameters, Rune rune)
         {
-            AddRunePlugin(requiresTarget, openTibiaId, new LuaScriptingRunePlugin(script, parameters, rune) );
+            AddRunePlugin(requiresTarget, new LuaScriptingRunePlugin(script, parameters, rune) );
         }
 
         public RunePlugin GetRunePlugin(bool requiresTarget, ushort openTibiaId)
@@ -1026,32 +1010,32 @@ namespace OpenTibia.Game
 
         private PluginDictionaryCached<ushort, WeaponPlugin> weaponPlugins = new PluginDictionaryCached<ushort, WeaponPlugin>();
 
-        public void AddWeaponPlugin(ushort openTibiaId, WeaponPlugin weaponPlugin)
+        public void AddWeaponPlugin(WeaponPlugin weaponPlugin)
         {
             weapons.Add(weaponPlugin.Weapon);
 
-            weaponPlugins.AddPlugin(openTibiaId, weaponPlugin);
+            weaponPlugins.AddPlugin(weaponPlugin.Weapon.OpenTibiaId, weaponPlugin);
         }
 
-        public void AddWeaponPlugin(ushort openTibiaId, string fileName, Weapon weapon)
+        public void AddWeaponPlugin(string fileName, Weapon weapon)
         {
             if (fileName.EndsWith(".lua") )
             {
-                AddWeaponPlugin(openTibiaId, new LuaScriptingWeaponPlugin(fileName, weapon) );
+                AddWeaponPlugin(new LuaScriptingWeaponPlugin(fileName, weapon) );
             }
             else
             {
 #if AOT
-                AddWeaponPlugin(openTibiaId, _AotCompilation.WeaponPlugins[fileName](weapon) );
+                AddWeaponPlugin(_AotCompilation.WeaponPlugins[fileName](weapon) );
 #else
-                AddWeaponPlugin(openTibiaId, (WeaponPlugin)Activator.CreateInstance(Type.GetType(fileName), weapon) );
+                AddWeaponPlugin( (WeaponPlugin)Activator.CreateInstance(Type.GetType(fileName), weapon) );
 #endif
             }
         }
 
-        public void AddWeaponPlugin(ushort openTibiaId, LuaScope script, LuaTable parameters, Weapon weapon)
+        public void AddWeaponPlugin(LuaScope script, LuaTable parameters, Weapon weapon)
         {
-            AddWeaponPlugin(openTibiaId, new LuaScriptingWeaponPlugin(script, parameters, weapon) );
+            AddWeaponPlugin(new LuaScriptingWeaponPlugin(script, parameters, weapon) );
         }
 
         public WeaponPlugin GetWeaponPlugin(ushort openTibiaId)
@@ -1061,32 +1045,32 @@ namespace OpenTibia.Game
 
         private PluginDictionaryCached<ushort, AmmunitionPlugin> ammunitionPlugins = new PluginDictionaryCached<ushort, AmmunitionPlugin>();
 
-        public void AddAmmunitionPlugin(ushort openTibiaId, AmmunitionPlugin ammunitionPlugin)
+        public void AddAmmunitionPlugin(AmmunitionPlugin ammunitionPlugin)
         {
             ammunitions.Add(ammunitionPlugin.Ammunition);
 
-            ammunitionPlugins.AddPlugin(openTibiaId, ammunitionPlugin);
+            ammunitionPlugins.AddPlugin(ammunitionPlugin.Ammunition.OpenTibiaId, ammunitionPlugin);
         }
 
-        public void AddAmmunitionPlugin(ushort openTibiaId, string fileName, Ammunition ammunition)
+        public void AddAmmunitionPlugin(string fileName, Ammunition ammunition)
         {
             if (fileName.EndsWith(".lua") )
             {
-                AddAmmunitionPlugin(openTibiaId, new LuaScriptingAmmunitionPlugin(fileName, ammunition) );
+                AddAmmunitionPlugin(new LuaScriptingAmmunitionPlugin(fileName, ammunition) );
             }
             else
             {
 #if AOT
-                AddAmmunitionPlugin(openTibiaId, _AotCompilation.AmmunitionPlugins[fileName](ammunition) );
+                AddAmmunitionPlugin(_AotCompilation.AmmunitionPlugins[fileName](ammunition) );
 #else
-                AddAmmunitionPlugin(openTibiaId, (AmmunitionPlugin)Activator.CreateInstance(Type.GetType(fileName), ammunition) );
+                AddAmmunitionPlugin( (AmmunitionPlugin)Activator.CreateInstance(Type.GetType(fileName), ammunition) );
 #endif
             }
         }
 
-        public void AddAmmunitionPlugin(ushort openTibiaId, LuaScope script, LuaTable parameters, Ammunition ammunition)
+        public void AddAmmunitionPlugin(LuaScope script, LuaTable parameters, Ammunition ammunition)
         {
-            AddAmmunitionPlugin(openTibiaId, new LuaScriptingAmmunitionPlugin(script, parameters, ammunition) );
+            AddAmmunitionPlugin(new LuaScriptingAmmunitionPlugin(script, parameters, ammunition) );
         }
 
         public AmmunitionPlugin GetAmmunitionPlugin(ushort openTibiaId)
