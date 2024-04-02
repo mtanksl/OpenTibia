@@ -5,6 +5,6 @@ namespace OpenTibia.Common.Objects
 {
     public interface IPacketToCommand
     {
-        Command Convert(ByteArrayStreamReader reader);
+        Command Convert(IConnection connection, ByteArrayStreamReader reader);
     }
 }

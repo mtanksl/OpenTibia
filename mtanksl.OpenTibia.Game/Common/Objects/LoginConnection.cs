@@ -11,13 +11,18 @@ namespace OpenTibia.Common.Objects
 {
     public class LoginConnection : RateLimitingConnection
     {
+        private static Dictionary<byte, IPacketToCommand> firstCommands = new Dictionary<byte, IPacketToCommand>();
+
+        static LoginConnection()
+        {
+            firstCommands.Add(0x01, new PacketToCommand<EnterGameIncomingPacket>( (connection, packet) => new ParseEnterGameCommand(connection, packet) ) );
+        }
+
         private IServer server;
 
         public LoginConnection(IServer server, Socket socket) : base(server, socket)
         {
             this.server = server;
-
-            firstCommands.Add(0x01, new PacketToCommand<EnterGameIncomingPacket>(packet => new ParseEnterGameCommand(this, packet) ) );
         }
 
         protected override void OnConnected()
@@ -28,8 +33,6 @@ namespace OpenTibia.Common.Objects
         }
 
         private bool first = true;
-
-        private Dictionary<byte, IPacketToCommand> firstCommands = new Dictionary<byte, IPacketToCommand>();
 
         protected override void OnReceived(byte[] body, int length)
         {
@@ -58,7 +61,7 @@ namespace OpenTibia.Common.Objects
 
                         if (firstCommands.TryGetValue(identification, out var packetToCommand) )
                         {
-                            Command command = packetToCommand.Convert(reader);
+                            Command command = packetToCommand.Convert(this, reader);
 
                             server.Logger.WriteLine("Received on login server: 0x" + identification.ToString("X2"), LogLevel.Debug);
 

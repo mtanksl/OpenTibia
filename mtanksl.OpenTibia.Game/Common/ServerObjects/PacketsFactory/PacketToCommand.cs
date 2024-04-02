@@ -7,20 +7,20 @@ namespace OpenTibia.Common.Objects
 {
     public class PacketToCommand<T> : IPacketToCommand where T : IIncomingPacket, new()
     {
-        private Func<T, Command> convert;
+        private Func<IConnection, T, Command> convert;
 
-        public PacketToCommand(Func<T, Command> convert)
+        public PacketToCommand(Func<IConnection, T, Command> convert)
         {
             this.convert = convert;
         }
 
-        public Command Convert(ByteArrayStreamReader reader)
+        public Command Convert(IConnection connection, ByteArrayStreamReader reader)
         {
             var packet = new T();
 
             packet.Read(reader);
 
-            return convert(packet);
+            return convert(connection, packet);
         }
     }
 }
