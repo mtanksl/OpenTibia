@@ -259,7 +259,7 @@ namespace OpenTibia.Common.Objects
 
                                     case Locker locker:
 
-                                        locker.TownId = otbmItem.DepotId;
+                                        locker.Town = GetTown(otbmItem.DepotId);
 
                                         break;
 

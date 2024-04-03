@@ -224,13 +224,13 @@ namespace OpenTibia.Game
             {
                 Locker locker = (Locker)context.Server.ItemFactory.Create(2591, 1);
 
-                locker.TownId = (ushort)playerDepotItem.ParentId;
+                locker.Town = context.Server.Map.GetTown( (ushort)playerDepotItem.ParentId);
 
                 context.Server.ItemFactory.Attach(locker);
 
                 AddItems(locker, playerDepotItem.SequenceId);
 
-                player.Lockers.AddContent(locker, locker.TownId);
+                player.Lockers.AddContent(locker, locker.Town.Id);
             }
         }
 

@@ -7,6 +7,6 @@
 
         }
 
-        public ushort TownId { get; set; }
+        public Town Town { get; set; }
     }
 }
