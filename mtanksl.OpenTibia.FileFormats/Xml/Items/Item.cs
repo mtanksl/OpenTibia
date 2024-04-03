@@ -73,6 +73,18 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                         break;
 
+                    case "extradef":
+
+                        item.ExtraDefense = (byte)(int)value;
+
+                        break;
+
+                    case "blockprojectile":
+
+                        item.BlockProjectile = true;
+
+                        break;
+
                     case "attack":
 
                         item.Attack = (byte)(uint)value;
@@ -1067,6 +1079,10 @@ namespace OpenTibia.FileFormats.Xml.Items
         public byte? Armor { get; set; }
 
         public byte? Defense { get; set; }
+
+        public byte? ExtraDefense { get; set; }
+
+        public bool? BlockProjectile { get; set; }
 
         public byte? Attack { get; set; }
 

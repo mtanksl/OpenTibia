@@ -32,6 +32,8 @@ namespace OpenTibia.Common.Objects
 
         public byte? Defense { get; set; }
 
+        public byte? ExtraDefense { get; set; }
+
         public byte? Attack { get; set; }
 
         public byte? AttackStrength { get; set; }

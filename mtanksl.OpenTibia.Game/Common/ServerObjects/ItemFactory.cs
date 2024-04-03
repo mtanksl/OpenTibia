@@ -195,6 +195,13 @@ namespace OpenTibia.Game
 
                     metadata.Defense = xmlItem.Defense;
 
+                    metadata.ExtraDefense = xmlItem.ExtraDefense;
+
+                    if (xmlItem.BlockProjectile == true)
+                    {
+                        metadata.Flags |= ItemMetadataFlags.BlockProjectile;
+                    }
+
                     metadata.Attack = xmlItem.Attack;
 
                     metadata.AttackStrength = xmlItem.AttackStrength;
