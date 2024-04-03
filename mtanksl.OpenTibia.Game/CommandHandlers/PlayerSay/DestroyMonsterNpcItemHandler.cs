@@ -20,9 +20,9 @@ namespace OpenTibia.Game.CommandHandlers
                         case Monster monster:
                         case Npc npc:
 
-                            return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.RedShimmer) ).Then( () =>
+                            return Context.AddCommand(new CreatureDestroyCommand(toTile.TopCreature) ).Then( () =>
                             {
-                                return Context.AddCommand(new CreatureDestroyCommand(toTile.TopCreature) );
+                                return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.RedShimmer) );
                             } );
 
                         default:
@@ -31,9 +31,9 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 case Item item:
 
-                                    return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.RedShimmer) ).Then( () =>
+                                    return Context.AddCommand(new ItemDestroyCommand(item) ).Then( () =>
                                     {
-                                        return Context.AddCommand(new ItemDestroyCommand(item) );
+                                        return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.RedShimmer) );
                                     } );
                             }
 

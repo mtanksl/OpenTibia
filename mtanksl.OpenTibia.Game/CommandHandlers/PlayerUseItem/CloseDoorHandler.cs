@@ -1,5 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,6 +84,13 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (horizontalDoors.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
+                if (command.Item.Parent is HouseTile houseTile) //TODO: Is invited to house?
+                {
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreNotInvited) );
+
+                    return Promise.Break;
+                }
+
                 Tile door = (Tile)command.Item.Parent;
 
                 if (door.TopCreature == null)
@@ -129,6 +138,13 @@ namespace OpenTibia.Game.CommandHandlers
             }
             else if (verticalDoors.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
+                if (command.Item.Parent is HouseTile houseTile) //TODO: Is invited to house?
+                {
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreNotInvited) );
+
+                    return Promise.Break;
+                }
+
                 Tile door = (Tile)command.Item.Parent;
 
                 if (door.TopCreature == null)

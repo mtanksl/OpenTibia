@@ -40,6 +40,8 @@
         
         public static readonly string YouAreExhausted = "You are exhausted.";
         
+        public static readonly string YouAreNotInvited = "You are not invited.";
+
         public static readonly string YouAreFull = "You are full.";
         
         public static readonly string YouCanNotDressThisObjectThere = "You cannot dress this object there.";
