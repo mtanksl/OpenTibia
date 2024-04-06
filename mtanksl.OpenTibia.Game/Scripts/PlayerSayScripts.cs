@@ -47,6 +47,14 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CommandHandlers.AddCommandHandler(gamemasterCommandHandler);
 
             Context.Server.CommandHandlers.AddCommandHandler(new SpellsHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new EditHouseSubOwnerHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new EditHouseGuestHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new EditHouseDoorHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new HouseKickHandler() );
         }
 
         public override void Stop()

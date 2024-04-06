@@ -28,9 +28,7 @@ namespace OpenTibia.Game.Commands
             {
                 Player.Client.Windows.CloseWindow(WindowId);
 
-                ReadableItem readableItem = (ReadableItem)window.GetContent(0);
-
-                if (Text != readableItem.Text)
+                if (window.Item is ReadableItem readableItem && Text != readableItem.Text)
                 {
                     readableItem.Text = Text;
 

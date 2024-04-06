@@ -18,7 +18,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 Window window = new Window();
 
-                window.AddContent(readableItem);
+                window.Item = readableItem;
 
                 uint windowId = command.Player.Client.Windows.OpenWindow(window);
 

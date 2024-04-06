@@ -146,6 +146,8 @@ namespace OpenTibia.Common.Objects
                             Guildhall = xmlHouse.Guildhall
                         };
 
+
+
                         housesByName.Add(house.Name, house);
 
                         housesById.Add(house.Id, house);
@@ -205,10 +207,14 @@ namespace OpenTibia.Common.Objects
 
                         if (house != null)
                         {
-                            tile = new HouseTile(position)
+                            HouseTile houseTile = new HouseTile(position)
                             {
                                 House = house
                             };
+
+                            house.AddTile(position, houseTile);
+
+                            tile = houseTile;
                         }
                         else
                         {

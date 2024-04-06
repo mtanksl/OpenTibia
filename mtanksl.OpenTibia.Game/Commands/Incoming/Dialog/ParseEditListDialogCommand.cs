@@ -31,7 +31,27 @@ namespace OpenTibia.Game.Commands
             {
                 Player.Client.Windows.CloseWindow(WindowId);
 
-                
+                if (window.House != null && window.DoorId == DoorId)
+                {
+                    if (DoorId == 0x01)
+                    {
+                        HouseAccessList houseAccessList = window.House.GetSubOwnersList();
+
+                        houseAccessList.SetText(Text);
+                    }
+                    else if (DoorId == 0x02)
+                    {
+                        HouseAccessList houseAccessList = window.House.GetGuestsList();
+
+                        houseAccessList.SetText(Text);
+                    }
+                    else if (DoorId == 0x03)
+                    {
+                        HouseAccessList houseAccessList = window.House.GetDoorList(window.DoorPosition);
+
+                        houseAccessList.SetText(Text);
+                    }
+                }
 
                 return Promise.Completed;
             }

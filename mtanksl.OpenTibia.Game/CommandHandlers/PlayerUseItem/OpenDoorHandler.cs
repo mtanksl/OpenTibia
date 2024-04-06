@@ -64,9 +64,9 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (doors.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                if (command.Item.Parent is HouseTile houseTile) //TODO: Is invited to house?
+                if (command.Item.Parent is HouseTile houseTile && !houseTile.House.CanOpenDoor(command.Player.Name, command.Item) )
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreNotInvited) );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
 
                     return Promise.Break;
                 }

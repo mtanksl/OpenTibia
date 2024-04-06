@@ -10,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, CreatureMoveCommand command)
         {
-            if (command.Creature is Player player && command.ToTile is HouseTile houseTile) //TODO: Is invited to house?
+            if (command.Creature is Player player && command.ToTile is HouseTile houseTile && !houseTile.House.CanWalk(player.Name) )
             {
                 Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreNotInvited) );
 

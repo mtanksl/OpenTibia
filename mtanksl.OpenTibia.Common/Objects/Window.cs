@@ -1,124 +1,17 @@
-﻿using System;
+﻿using OpenTibia.Common.Structures;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace OpenTibia.Common.Objects
 {
     public class Window
     {
-        public byte Count
-        {
-            get
-            {
-                return (byte)contents.Count;
-            }
-        }
+        public Item Item { get; set; }
 
-        private List<IContent> contents = new List<IContent>();
+        public House House { get; set; }
 
-        /// <exception cref="ArgumentException"></exception>
+        public byte DoorId { get; set; }
 
-        public byte AddContent(IContent content)
-        {
-            if ( !(content is Item) )
-            {
-                throw new ArgumentException("Content must be an item.");
-            }
-
-            byte index = 0;
-
-            contents.Insert(index, content);
-
-            return index;
-        }
-
-        /// <exception cref="NotSupportedException"></exception>
-
-        public void AddContent(byte index, IContent content)
-        {
-            throw new NotSupportedException();
-        }
-
-        /// <exception cref="ArgumentException"></exception>
-
-        public void ReplaceContent(byte index, IContent content)
-        {
-            if ( !(content is Item) )
-            {
-                throw new ArgumentException("Content must be an item.");
-            }
-
-            IContent oldContent = GetContent(index);
-
-            contents[index] = content;
-        }
-
-        public void RemoveContent(byte index)
-        {
-            IContent content = GetContent(index);
-
-            contents.RemoveAt(index);
-        }
-
-        /// <exception cref="InvalidOperationException"></exception>
-
-        public byte GetIndex(IContent content)
-        {
-            for (byte index = 0; index < contents.Count; index++)
-            {
-                if (contents[index] == content)
-                {
-                    return index;
-                }
-            }
-
-            throw new InvalidOperationException("Content not found.");
-        }
-
-        public bool TryGetIndex(IContent content, out byte _index)
-        {
-            for (byte index = 0; index < contents.Count; index++)
-            {
-                if (contents[index] == content)
-                {
-                    _index = index;
-
-                    return true;
-                }
-            }
-
-            _index = 0;
-
-            return false;
-        }
-
-        public IContent GetContent(byte index)
-        {
-            if (index < 0 || index > contents.Count - 1)
-            {
-                return null;
-            }
-
-            return contents[index];
-        }
-
-        public IEnumerable<IContent> GetContents()
-        {
-            return contents;
-        }
-
-        public IEnumerable< KeyValuePair<byte, IContent> > GetIndexedContents()
-        {
-            for (byte index = 0; index < contents.Count; index++)
-            {
-                yield return new KeyValuePair<byte, IContent>( index, contents[index] );
-            }
-        }
-
-        public IEnumerable<Item> GetItems()
-        {
-            return GetContents().OfType<Item>();
-        }
+        public Position DoorPosition { get; set; }
 
         private Dictionary<Player, int> players = new Dictionary<Player, int>();
 

@@ -22,7 +22,7 @@
 - Rings and amulets charges
 - Hangable items
 - Guild
-- House
+- Save and load house data
 - Bed
 - Bless/AOL
 - Map clean up
@@ -101,6 +101,10 @@
 		- Tools
 		- etc
 	- Mail
+		- Send parcel
+		- Send letter
+	- House
+		- Access list
 - Plugins
 	- Lua scripting
 	- Lua debugging with ZeroBrane

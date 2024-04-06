@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Structures;
+using System.Collections.Generic;
 
 namespace OpenTibia.Common.Objects
 {
@@ -17,5 +18,91 @@ namespace OpenTibia.Common.Objects
         public uint Size { get; set; }
 
         public bool Guildhall { get; set; }
+
+        private Dictionary<Position, HouseTile> tiles = new Dictionary<Position, HouseTile>();
+
+        public void AddTile(Position position, HouseTile houseTile)
+        {
+            tiles.Add(position, houseTile);
+        }
+
+        public IEnumerable<HouseTile> GetTiles()
+        {
+            return tiles.Values;
+        }
+
+        public bool CanWalk(string playerName)
+        {
+            return IsOwner(playerName) || IsSubOwner(playerName) || IsGuest(playerName);
+        }
+
+        public bool CanOpenWindow(string playerName)
+        {
+            return IsOwner(playerName) || IsSubOwner(playerName);
+        }
+
+        public bool CanOpenDoor(string playerName, Item door)
+        {
+            return IsOwner(playerName) || IsSubOwner(playerName) || CanOpenDoor( ( (Tile)door.Parent).Position, playerName);
+        }
+
+        private string owner;
+
+        public bool IsOwner(string playerName)
+        {
+            return owner == playerName;
+        }
+
+        private HouseAccessList subOwners = new HouseAccessList();
+
+        public bool IsSubOwner(string playerName)
+        {
+            return subOwners.Contains(playerName);
+        }
+
+        public HouseAccessList GetSubOwnersList()
+        {
+            return subOwners;
+        }
+
+        private HouseAccessList guests = new HouseAccessList();
+
+        public bool IsGuest(string playerName)
+        {
+            return guests.Contains(playerName);
+        }
+
+        public HouseAccessList GetGuestsList()
+        {
+            return guests;
+        }
+
+        private Dictionary<Position, HouseAccessList> doors = new Dictionary<Position, HouseAccessList>();
+
+        public bool CanOpenDoor(Position position, string playerName)
+        {
+            HouseAccessList houseAccessList;
+
+            if (doors.TryGetValue(position, out houseAccessList) )
+            {
+                return houseAccessList.Contains(playerName);
+            }
+
+            return false;
+        }
+
+        public HouseAccessList GetDoorList(Position position)
+        {
+            HouseAccessList houseAccessList;
+
+            if ( !doors.TryGetValue(position, out houseAccessList) )
+            {
+                houseAccessList = new HouseAccessList();
+
+                doors.Add(position, houseAccessList);
+            }
+
+            return houseAccessList;
+        }
     }
 }
