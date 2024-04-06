@@ -6,8 +6,8 @@ using OpenTibia.Game;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using OtbmItem = OpenTibia.FileFormats.Otbm.Item;
 using OtbmHouseTile = OpenTibia.FileFormats.Otbm.HouseTile;
+using OtbmItem = OpenTibia.FileFormats.Otbm.Item;
 
 namespace OpenTibia.Common.Objects
 {
@@ -15,25 +15,6 @@ namespace OpenTibia.Common.Objects
     {
         private class PositionEqualityComparer : IEqualityComparer<Position>
         {
-            private int x;
-
-            private int y;
-
-            private int width;
-
-            private int height;
-
-            public PositionEqualityComparer(int minX, int minY, int maxX, int maxY)
-            {
-                this.x = minX;
-
-                this.y = minY;
-
-                this.width = maxX - minX + 1;
-
-                this.height = maxY - minY + 1;
-            }
-
             public bool Equals(Position objA, Position objB)
             {
                 return objA.Equals(objB);
@@ -41,12 +22,47 @@ namespace OpenTibia.Common.Objects
 
             public int GetHashCode(Position obj)
             {
-                if (width < 16384 && height < 16384)
-                {
-                    return (obj.X - x) << 18 | (obj.Y - y) << 4 | obj.Z;
-                }
+                return obj.X << 16 | obj.Y;
+            }
+        }
 
-                return obj.GetHashCode();
+        private class TileCollection
+        {
+            public Dictionary<Position, Tile>[] floors;
+
+            public TileCollection()
+            {
+                floors = new Dictionary<Position, Tile>[16];
+
+                for (int i = 0; i < floors.Length; i++)
+                {
+                    floors[i] = new Dictionary<Position, Tile>(new PositionEqualityComparer() );
+                }
+            }
+
+            public void AddTile(Position position, Tile tile)
+            {
+                floors[position.Z].Add(position, tile);
+            }
+
+            public Tile GetTile(Position position)
+            {
+                Tile tile;
+
+                floors[position.Z].TryGetValue(position, out tile);
+
+                return tile;
+            }
+
+            public IEnumerable<Tile> GetTiles()
+            {
+                foreach (var floor in floors)
+                {
+                    foreach (var tile in floor.Values)
+                    {
+                        yield return tile;
+                    }
+                }
             }
         }
 
@@ -161,14 +177,10 @@ namespace OpenTibia.Common.Objects
                 this.housesById = new Dictionary<ushort, House>();
             }          
 
-            int count = 0;
-
             foreach (var otbmArea in otbmFile.Areas)
             {
                 foreach (var otbmTile in otbmArea.Tiles)
                 {
-                    count++;
-
                     if (otbmArea.Position.X + otbmTile.OffsetX < minX)
                     {
                         minX = otbmArea.Position.X + otbmTile.OffsetX;
@@ -191,7 +203,7 @@ namespace OpenTibia.Common.Objects
                 }
             }
 
-            this.tiles = new Dictionary<Position, Tile>(count, new PositionEqualityComparer(minX, minY, maxX, maxY) );
+            this.tiles = new TileCollection();
 
             foreach (var otbmArea in otbmFile.Areas)
             {
@@ -230,7 +242,7 @@ namespace OpenTibia.Common.Objects
 
                     tile.NoLogoutZone = (otbmTile.Flags & TileFlags.NoLogoutZone) == TileFlags.NoLogoutZone;
 
-                    tiles.Add(position, tile);
+                    tiles.AddTile(position, tile);
 
                     if (otbmTile.OpenTibiaItemId > 0)
                     {
@@ -444,20 +456,16 @@ namespace OpenTibia.Common.Objects
             return housesByName.Values;
         }
 
-        private Dictionary<Position, Tile> tiles;
+        private TileCollection tiles;
 
         public Tile GetTile(Position position)
         {
-            Tile tile;
-
-            tiles.TryGetValue(position, out tile);
-
-            return tile;
+            return tiles.GetTile(position);
         }
 
         public IEnumerable<Tile> GetTiles()
         {
-            return tiles.Values;
+            return tiles.GetTiles();
         }
 
         private HashSet<Creature>[][] observers;
