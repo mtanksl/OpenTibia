@@ -9,80 +9,9 @@ namespace OpenTibia.Common.Objects
     {
         private RecomputableSource recomputableSource = new RecomputableSource();
 
-        private Recomputable<Item> ground;
-
-        private Recomputable<Item> topItem;
-
-        private Recomputable<Creature> topCreature;
-
-        private Recomputable<FloorChange> floorChange;
-
-        private Recomputable<int> height;
-
-        private Recomputable<bool> canUseWith;
-
-        private Recomputable<bool> canWalk;
-
         public Tile(Position position)
         {
             this.position = position;
-
-            ground = new Recomputable<Item>(recomputableSource, () =>
-            {
-                return GetItems().Where(i => i.TopOrder == TopOrder.Ground).LastOrDefault();
-            } );
-
-            topItem = new Recomputable<Item>(recomputableSource, () =>
-            {
-                return GetItems().Where(i => i.TopOrder == TopOrder.Other).FirstOrDefault() ??
-
-                       GetItems().Where(i => i.TopOrder == TopOrder.HighPriority || i.TopOrder == TopOrder.MediumPriority || i.TopOrder == TopOrder.LowPriority).LastOrDefault();
-            } );
-
-            topCreature = new Recomputable<Creature>(recomputableSource, () =>
-            {
-                return GetCreatures().LastOrDefault();
-            } );
-
-            floorChange = new Recomputable<FloorChange>(recomputableSource, () =>
-            {
-                FloorChange floorChange = FloorChange.None;
-
-                foreach (var item in GetItems() )
-                {
-                    if (item.Metadata.FloorChange != null)
-                    {
-                        floorChange |= item.Metadata.FloorChange.Value;
-                    }
-                }
-
-                return floorChange;
-            } );
-
-            height = new Recomputable<int>(recomputableSource, () =>
-            {
-                int height = 0;
-
-                foreach (var item in GetItems() )
-                {
-                    if (item.Metadata.Flags.Is(ItemMetadataFlags.HasHeight) )
-                    {
-                        height++;
-                    }
-                }
-
-                return height;
-            } );
-
-            canUseWith = new Recomputable<bool>(recomputableSource, () =>
-            {
-                return !GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) );
-            } );
-
-            canWalk = new Recomputable<bool>(recomputableSource, () =>
-            {
-                return !GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) && !GetCreatures().Any(c => c.Block);
-            } );           
         }
 
         private Position position;
@@ -99,58 +28,222 @@ namespace OpenTibia.Common.Objects
 
         public bool NoLogoutZone { get; set; }
 
+        private Recomputable<Item> ground;
+
         public Item Ground
         {
             get
             {
+                if (ground == null)
+                {
+                    ground = new Recomputable<Item>(recomputableSource, () =>
+                    {
+                        return GetItems().Where(i => i.TopOrder == TopOrder.Ground).LastOrDefault();
+                    } );
+                }
+
                 return ground.Value;
             }
         }
+
+        private Recomputable<Item> topItem;
 
         public Item TopItem
         {
             get
             {
+                if (topItem == null)
+                {
+                    topItem = new Recomputable<Item>(recomputableSource, () =>
+                    {
+                        return GetItems().Where(i => i.TopOrder == TopOrder.Other).FirstOrDefault() ??
+
+                               GetItems().Where(i => i.TopOrder == TopOrder.HighPriority || i.TopOrder == TopOrder.MediumPriority || i.TopOrder == TopOrder.LowPriority).LastOrDefault();
+                    } );
+                }
+
                 return topItem.Value;
             }
         }
+
+        private Recomputable<Creature> topCreature;
 
         public Creature TopCreature
         {
             get
             {
+                if (topCreature == null)
+                {
+                    topCreature = new Recomputable<Creature>(recomputableSource, () =>
+                    {
+                        return GetCreatures().LastOrDefault();
+                    } );
+                }
+
                 return topCreature.Value;
             }
         }
+
+        private Recomputable<FloorChange> floorChange;
 
         public FloorChange FloorChange
         {
             get
             {
+                if (floorChange == null)
+                {
+                    floorChange = new Recomputable<FloorChange>(recomputableSource, () =>
+                    {
+                        FloorChange floorChange = FloorChange.None;
+
+                        foreach (var item in GetItems() )
+                        {
+                            if (item.Metadata.FloorChange != null)
+                            {
+                                floorChange |= item.Metadata.FloorChange.Value;
+                            }
+                        }
+
+                        return floorChange;
+                    } );
+                }
+
                 return floorChange.Value;
             }
         }
+
+        private Recomputable<int> height;
 
         public int Height
         {
             get
             {
+                if (height == null)
+                {
+                    height = new Recomputable<int>(recomputableSource, () =>
+                    {
+                        int height = 0;
+
+                        foreach (var item in GetItems() )
+                        {
+                            if (item.Metadata.Flags.Is(ItemMetadataFlags.HasHeight) )
+                            {
+                                height++;
+                            }
+                        }
+
+                        return height;
+                    } );
+                }
+
                 return height.Value;
             }
         }
+
+        private Recomputable<bool> blockProjectile;
+
+        public bool BlockProjectile
+        {
+            get
+            {
+                if (blockProjectile == null)
+                {
+                    blockProjectile = new Recomputable<bool>(recomputableSource, () =>
+                    {
+                        return GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.BlockProjectile) );
+                    } );
+                }
+
+                return blockProjectile.Value;
+            }
+        }
+
+        private Recomputable<bool> notWalkable;
+
+        public bool NotWalkable
+        {
+            get
+            {
+                if (notWalkable == null)
+                {
+                    notWalkable = new Recomputable<bool>(recomputableSource, () =>
+                    {
+                        return GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) );
+                    } );
+                }
+
+                return notWalkable.Value;
+            }
+        }
+
+        private Recomputable<bool> blockPathFinding;
+
+        public bool BlockPathFinding
+        {
+            get
+            {
+                if (blockPathFinding == null)
+                {
+                    blockPathFinding = new Recomputable<bool>(recomputableSource, () =>
+                    {
+                        return GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) );
+                    } );
+                }
+
+                return blockPathFinding.Value;
+            }
+        }
+
+        private Recomputable<bool> block;
+
+        public bool Block
+        {
+            get
+            {
+                if (block == null)
+                {
+                    block = new Recomputable<bool>(recomputableSource, () =>
+                    {
+                        return GetCreatures().Any(c => c.Block);
+                    } );
+                }
+
+                return block.Value;
+            }
+        }
+
+        private Recomputable<bool> canUseWith;
 
         public bool CanUseWith
         {
             get
             {
+                if (canUseWith == null)
+                {
+                    canUseWith = new Recomputable<bool>(recomputableSource, () =>
+                    {
+                        return !NotWalkable && !BlockPathFinding;
+                    } );
+                }
+
                 return canUseWith.Value;
             }
         }
+
+        private Recomputable<bool> canWalk;
 
         public bool CanWalk
         {
             get
             {
+                if (canWalk == null)
+                {
+                    canWalk = new Recomputable<bool>(recomputableSource, () =>
+                    {
+                        return !NotWalkable && !BlockPathFinding && !Block;
+                    } );
+                }
+
                 return canWalk.Value;
             }
         }

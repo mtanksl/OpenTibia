@@ -82,7 +82,7 @@ namespace OpenTibia.Game
             {
                 Tile tile = map.GetTile(position);
 
-                if ( tile == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.BlockProjectile) ) )
+                if (tile == null || tile.BlockProjectile)
                 {
                     return false;
                 }

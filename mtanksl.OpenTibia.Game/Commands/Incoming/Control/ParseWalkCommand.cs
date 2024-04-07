@@ -63,7 +63,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            if (toTile == null || toTile.Ground == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) ) || toTile.GetCreatures().Any(c => c.Block) )
+            if (toTile == null || toTile.Ground == null || toTile.NotWalkable || toTile.Block)
             {
                 Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
 
@@ -74,7 +74,7 @@ namespace OpenTibia.Game.Commands
 
             return Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkDelayBehaviour(TimeSpan.FromMilliseconds(1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise.Then( () =>
             {
-                if (toTile.GetCreatures().Any(c => c.Block) )
+                if (toTile.Block)
                 {
                     Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
 
