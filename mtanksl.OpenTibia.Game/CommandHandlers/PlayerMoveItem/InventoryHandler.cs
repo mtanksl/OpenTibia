@@ -73,22 +73,26 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 Item left = toInventory.GetContent( (byte)Slot.Left) as Item;
 
-                                if (slotType.Is(SlotType.TwoHand) )
+                                if (left == null)
                                 {
-                                    if (left == null || left == command.Item)
-                                    {
-                                        proceed = true;
-                                    }
+                                    proceed = true;
+                                }
+                                else if (left == command.Item)
+                                {
+                                    proceed = true;
                                 }
                                 else
                                 {
-                                    if (left == null || left.Metadata.SlotType != SlotType.TwoHand )
+                                    if ( !slotType.Is(SlotType.TwoHand) && 
+                                         left.Metadata.SlotType != SlotType.TwoHand && 
+                                         !(command.Item.Metadata.WeaponType == WeaponType.Shield && left.Metadata.WeaponType == WeaponType.Shield) &&
+                                         !( (command.Item.Metadata.WeaponType == WeaponType.Sword || command.Item.Metadata.WeaponType == WeaponType.Club || command.Item.Metadata.WeaponType == WeaponType.Axe || command.Item.Metadata.WeaponType == WeaponType.Distance || command.Item.Metadata.WeaponType == WeaponType.Wand) && (left.Metadata.WeaponType == WeaponType.Sword || left.Metadata.WeaponType == WeaponType.Club || left.Metadata.WeaponType == WeaponType.Axe || left.Metadata.WeaponType == WeaponType.Distance || left.Metadata.WeaponType == WeaponType.Wand) ) )
                                     {
                                         proceed = true;
                                     }
                                 }
                             }
-                        
+
                             break;
 
                         case Slot.Left:
@@ -97,19 +101,20 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 Item right = toInventory.GetContent( (byte)Slot.Right) as Item;
 
-                                if (slotType.Is(SlotType.TwoHand) )
+                                if (right == null)
                                 {
-                                    if (right == null || right == command.Item)
-                                    {
-                                        proceed = true;
-                                    }
+                                    proceed = true;
                                 }
-                                else
+                                else if (right == command.Item)
                                 {
-                                    if (right == null || right.Metadata.SlotType != SlotType.TwoHand )
-                                    {
-                                        proceed = true;
-                                    }
+                                    proceed = true;
+                                }
+                                else if ( !slotType.Is(SlotType.TwoHand) &&
+                                         right.Metadata.SlotType != SlotType.TwoHand && 
+                                         !(command.Item.Metadata.WeaponType == WeaponType.Shield && right.Metadata.WeaponType == WeaponType.Shield) &&
+                                         !( (command.Item.Metadata.WeaponType == WeaponType.Sword || command.Item.Metadata.WeaponType == WeaponType.Club || command.Item.Metadata.WeaponType == WeaponType.Axe || command.Item.Metadata.WeaponType == WeaponType.Distance || command.Item.Metadata.WeaponType == WeaponType.Wand) && (right.Metadata.WeaponType == WeaponType.Sword || right.Metadata.WeaponType == WeaponType.Club || right.Metadata.WeaponType == WeaponType.Axe || right.Metadata.WeaponType == WeaponType.Distance || right.Metadata.WeaponType == WeaponType.Wand) ) )
+                                {
+                                    proceed = true;
                                 }
                             }
 
