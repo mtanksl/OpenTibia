@@ -308,6 +308,32 @@ CREATE TABLE `Worlds` (
 insert  into `Worlds`(`Id`,`Name`,`Ip`,`Port`) values 
 (1,'Cormaya','127.0.0.1',7172);
 
+-- Houses
+
+DROP TABLE IF EXISTS `Houses`;
+
+CREATE TABLE `Houses` (
+  `Id` int(11) NOT NULL,
+  `OwnerId` int(11),
+  PRIMARY KEY (`Id`),
+  KEY `IX_Houses_OwnerId` (`OwnerId`),
+  CONSTRAINT `FK_Houses_OwnerId` FOREIGN KEY (`OwnerId`) REFERENCES `Players` (`Id`) ON DELETE SET NULL
+);
+
+-- HouseAccessLists
+
+DROP TABLE IF EXISTS `HouseAccessLists`;
+
+CREATE TABLE `HouseAccessLists`(  
+  `HouseId` INT(11) NOT NULL,
+  `ListId` INT(11) NOT NULL,
+  `Text` TEXT NOT NULL,
+  PRIMARY KEY (`HouseId`, `ListId`),
+  INDEX `IX_HouseAccessLists_HouseId` (`HouseId`),
+  INDEX `IX_HouseAccessLists_ListId` (`ListId`),
+  CONSTRAINT `FK_HouseAccessLists_HouseId` FOREIGN KEY (`HouseId`) REFERENCES `mtots`.`Houses`(`Id`) ON DELETE CASCADE
+);
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

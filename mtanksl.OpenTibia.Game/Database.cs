@@ -66,6 +66,16 @@ namespace OpenTibia.Game
             }
         }
 
+        private HouseRepository houseRepository;
+
+        public HouseRepository HouseRepository
+        {
+            get
+            {
+                return houseRepository ?? (houseRepository = new HouseRepository(DatabaseContext) );
+            }
+        }
+
         private RuleViolationReportRepository ruleViolationReportRepository;
 
         public RuleViolationReportRepository RuleViolationReportRepository

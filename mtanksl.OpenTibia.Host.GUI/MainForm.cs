@@ -65,7 +65,7 @@ namespace mtanksl.OpenTibia.Host.GUI
             }
             catch
             {
-
+                server = null;
             }
             finally
             {
@@ -111,7 +111,7 @@ namespace mtanksl.OpenTibia.Host.GUI
             }
             catch
             {
-
+                server = null;
             }
             finally
             {

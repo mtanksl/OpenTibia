@@ -240,5 +240,23 @@ CREATE TABLE Worlds (
 
 INSERT INTO Worlds (Id, NAME, Ip, Port) VALUES (1, 'Cormaya', '127.0.0.1', 7172);
 
+-- Houses
+
+CREATE TABLE Houses (
+    Id INTEGER PRIMARY KEY NOT NULL,
+    OwnerId INTEGER REFERENCES Players (Id) ON DELETE SET NULL
+);
+CREATE INDEX IX_Houses_OwnerId ON Houses (OwnerId);
+
+-- HouseAccessLists
+
+CREATE TABLE HouseAccessLists (
+    HouseId INTEGER REFERENCES Houses (Id) ON DELETE CASCADE NOT NULL,
+    ListId  INTEGER NOT NULL,
+    Text TEXT NOT NULL,
+    PRIMARY KEY ( HouseId, ListId)
+);
+CREATE INDEX IX_HouseAccessLists_HouseId ON HouseAccessLists (HouseId);
+
 COMMIT TRANSACTION;
 PRAGMA foreign_keys = ON;

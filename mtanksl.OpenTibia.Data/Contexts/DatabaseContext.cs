@@ -17,6 +17,9 @@ namespace OpenTibia.Data.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<DbHouseAccessList>()
+                .HasKey(m => new { m.HouseId, m.ListId } );
+
             modelBuilder.Entity<DbPlayerDepotItem>()
                 .HasKey(m => new { m.PlayerId, m.SequenceId } );
 
@@ -58,6 +61,10 @@ namespace OpenTibia.Data.Contexts
         public DbSet<DbBugReport> BugReports { get; set; }
 
         public DbSet<DbDebugAssert> DebugAsserts { get; set; }
+
+        public DbSet<DbHouse> Houses { get; set; }
+
+        public DbSet<DbHouseAccessList> HouseAccessLists { get; set; }
 
         public DbSet<DbMotd> Motd { get; set; }
 

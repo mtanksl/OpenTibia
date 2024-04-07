@@ -334,6 +334,14 @@ CREATE TABLE [dbo].[Worlds](
 ) ON [PRIMARY]
 GO
 
+-- Houses
+
+
+
+-- HouseAccessLists
+
+
+
 SET IDENTITY_INSERT [dbo].[Accounts] ON 
 GO
 INSERT [dbo].[Accounts] ([Id], [Name], [Password], [PremiumDays]) VALUES (1, N'1', N'1', 0)

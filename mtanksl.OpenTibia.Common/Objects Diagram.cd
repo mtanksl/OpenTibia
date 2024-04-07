@@ -122,12 +122,36 @@
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
       <FileName>Objects\HouseTile.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="House" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="OpenTibia.Common.Objects.DoorItem" Collapsed="true">
     <Position X="11.75" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
       <FileName>Objects\DoorItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenTibia.Common.Objects.House" Collapsed="true">
+    <Position X="8.25" Y="5.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>CAAagIAAAgABgACAAAQAAARAAiAAACFIAAAQCAAAAAQ=</HashCode>
+      <FileName>Objects\House.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Town" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="OpenTibia.Common.Objects.Town" Collapsed="true">
+    <Position X="8.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAgAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Objects\Town.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

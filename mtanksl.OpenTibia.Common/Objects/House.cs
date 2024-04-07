@@ -46,44 +46,44 @@ namespace OpenTibia.Common.Objects
             return IsOwner(playerName) || IsSubOwner(playerName) || CanOpenDoor(doorItem.DoorId, playerName);
         }
 
-        private string owner;
+        public string Owner { get; set; }
 
         public bool IsOwner(string playerName)
         {
-            return owner == playerName;
+            return Owner == playerName;
         }
 
-        private HouseAccessList subOwners = new HouseAccessList();
+        private HouseAccessList subOwnersList = new HouseAccessList();
 
         public bool IsSubOwner(string playerName)
         {
-            return subOwners.Contains(playerName);
+            return subOwnersList.Contains(playerName);
         }
 
         public HouseAccessList GetSubOwnersList()
         {
-            return subOwners;
+            return subOwnersList;
         }
 
-        private HouseAccessList guests = new HouseAccessList();
+        private HouseAccessList guestsList = new HouseAccessList();
 
         public bool IsGuest(string playerName)
         {
-            return guests.Contains(playerName);
+            return guestsList.Contains(playerName);
         }
 
         public HouseAccessList GetGuestsList()
         {
-            return guests;
+            return guestsList;
         }
 
-        private Dictionary<byte, HouseAccessList> doors = new Dictionary<byte, HouseAccessList>();
+        private Dictionary<byte, HouseAccessList> doorsList = new Dictionary<byte, HouseAccessList>();
 
         public bool CanOpenDoor(byte doorId, string playerName)
         {
             HouseAccessList houseAccessList;
 
-            if (doors.TryGetValue(doorId, out houseAccessList) )
+            if (doorsList.TryGetValue(doorId, out houseAccessList) )
             {
                 return houseAccessList.Contains(playerName);
             }
@@ -95,14 +95,19 @@ namespace OpenTibia.Common.Objects
         {
             HouseAccessList houseAccessList;
 
-            if ( !doors.TryGetValue(doorId, out houseAccessList) )
+            if ( !doorsList.TryGetValue(doorId, out houseAccessList) )
             {
                 houseAccessList = new HouseAccessList();
 
-                doors.Add(doorId, houseAccessList);
+                doorsList.Add(doorId, houseAccessList);
             }
 
             return houseAccessList;
+        }
+
+        public IEnumerable< KeyValuePair<byte, HouseAccessList> > GetDoorsList()
+        {
+            return doorsList;
         }
     }
 }

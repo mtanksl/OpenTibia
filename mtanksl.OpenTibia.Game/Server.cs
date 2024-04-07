@@ -18,6 +18,7 @@ using OpenTibia.Threading;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using House = OpenTibia.Common.Objects.House;
 
 namespace OpenTibia.Game
 {
@@ -244,11 +245,6 @@ namespace OpenTibia.Game
                     Outfits.Start();
                 }
 
-                using (Logger.Measure("Loading plugins config") )
-                {
-                    Plugins.Start();
-                }
-
                 using (Logger.Measure("Loading items") )
                 {
                     ItemFactory.Start(OtbFile.Load(PathResolver.GetFullPath("data/items/items.otb") ), 
@@ -288,11 +284,6 @@ namespace OpenTibia.Game
                     Logger.WriteLine("Unable to load npcs: " + string.Join(", ", Map.UnknownNpcs), LogLevel.Warning);
                 }
 
-                using (Logger.Measure("Loading scripts") )
-                {
-                    Scripts.Start();
-                }
-
                 using (Logger.Measure("Testing database") )
                 {
                     if ( !Context.Current.Database.DatabaseContext.Database.CanConnect() )
@@ -324,6 +315,48 @@ namespace OpenTibia.Game
                             Context.Current.Database.Commit();
                         }
                     }
+                }
+
+                using (Logger.Measure("Loading houses") )
+                {
+                    foreach (var dbHouse in Context.Current.Database.HouseRepository.GetHouses() )
+                    {
+                        House house = Map.GetHouse( (ushort)dbHouse.Id);
+
+                        if (house != null)
+                        {
+                            if (dbHouse.Owner != null)
+                            {
+                                house.Owner = dbHouse.Owner.Name;
+                            }
+
+                            foreach (var dbHouseAccessList in dbHouse.HouseAccessLists)
+                            {
+                                if (dbHouseAccessList.ListId == 0xFE)
+                                {
+                                    house.GetSubOwnersList().SetText(dbHouseAccessList.Text);
+                                }
+                                else if (dbHouseAccessList.ListId == 0xFF)
+                                {
+                                    house.GetGuestsList().SetText(dbHouseAccessList.Text);
+                                }
+                                else
+                                {
+                                    house.GetDoorList( (byte)dbHouseAccessList.ListId).SetText(dbHouseAccessList.Text);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                using (Logger.Measure("Loading plugins") )
+                {
+                    Plugins.Start();
+                }
+
+                using (Logger.Measure("Loading scripts") )
+                {
+                    Scripts.Start();
                 }
 
                 return Promise.Completed;
@@ -519,19 +552,96 @@ namespace OpenTibia.Game
         {
             QueueForExecution( () =>
             {
-                Player[] players = GameObjectPool.GetPlayers().ToArray();
-
-                if (players.Length > 0)
+                using (Logger.Measure("Saving players") )
                 {
-                    DbPlayer[] dbPlayers = Context.Current.Database.PlayerRepository.GetPlayerByIds(players.Select(p => p.DatabasePlayerId).ToArray() );
+                    Player[] players = GameObjectPool.GetPlayers().ToArray();
 
-                    foreach (var item in players.GroupJoin(dbPlayers, p => p.DatabasePlayerId, p => p.Id, (player, dbPlayers) => new { Player = player, DbPlayer = dbPlayers.First() } ) )
+                    if (players.Length > 0)
                     {
-                        PlayerFactory.Save(item.DbPlayer, item.Player);
-                    }
+                        DbPlayer[] dbPlayers = Context.Current.Database.PlayerRepository.GetPlayerByIds(players.Select(p => p.DatabasePlayerId).ToArray() );
 
-                    Context.Current.Database.Commit();
+                        foreach (var item in players.GroupJoin(dbPlayers, p => p.DatabasePlayerId, p => p.Id, (player, dbPlayers) => new { Player = player, DbPlayer = dbPlayers.FirstOrDefault() } ) )
+                        {
+                            if (item.DbPlayer != null)
+                            {
+                                PlayerFactory.Save(item.DbPlayer, item.Player);
+                            }
+                        }                   
+                    }
                 }
+
+                using (Logger.Measure("Saving houses") )
+                {
+                    House[] houses = Map.GetHouses().ToArray();
+
+                    if (houses.Length > 0)
+                    {
+                        DbHouse[] dbHouses = Context.Current.Database.HouseRepository.GetHouses();
+
+                        foreach (var item in houses.GroupJoin(dbHouses, h => h.Id, h => h.Id, (house, dbHouses) => new { House = house, DbHouse = dbHouses.FirstOrDefault() } ) )
+                        {
+                            if (item.DbHouse != null)
+                            {
+                                item.DbHouse.HouseAccessLists.Clear();
+
+                                if (item.House.Owner != null)
+                                {
+                                    DbPlayer dbPlayer = Context.Current.Database.PlayerRepository.GetPlayerByName(item.House.Owner);
+
+                                    if (dbPlayer != null)
+                                    {
+                                        item.DbHouse.OwnerId = dbPlayer.Id;
+                                    }
+                                }
+
+                                HouseAccessList subOwnersList = item.House.GetSubOwnersList();
+
+                                if (subOwnersList.Text != null)
+                                {
+                                    item.DbHouse.HouseAccessLists.Add(new DbHouseAccessList()
+                                    {
+                                        HouseId = item.House.Id,
+
+                                        ListId = 0xFE,
+
+                                        Text = subOwnersList.Text
+                                    } );
+                                }
+
+                                HouseAccessList guestsList = item.House.GetGuestsList();
+
+                                if (guestsList.Text != null)
+                                {
+                                    item.DbHouse.HouseAccessLists.Add(new DbHouseAccessList()
+                                    {
+                                        HouseId = item.House.Id,
+
+                                        ListId = 0xFF,
+
+                                        Text = guestsList.Text
+                                    } );
+                                }
+
+                                foreach (var doorList in item.House.GetDoorsList() )
+                                {
+                                    if (doorList.Value.Text != null)
+                                    {
+                                        item.DbHouse.HouseAccessLists.Add(new DbHouseAccessList()
+                                        {
+                                            HouseId = item.House.Id,
+
+                                            ListId = doorList.Key,
+
+                                            Text = doorList.Value.Text
+                                        } );
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                Context.Current.Database.Commit();
 
                 return Promise.Completed;
 
