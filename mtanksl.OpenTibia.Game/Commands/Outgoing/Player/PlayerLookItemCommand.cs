@@ -257,13 +257,13 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                if (Item is SignItem signItem)
+                if (Item is ReadableItem readableItem && readableItem.Metadata.Flags.Is(ItemMetadataFlags.AllowDistanceRead) )
                 {
                     if (Player.Tile.Position.IsInRange( ( (Tile)Item.Parent).Position, 4) )
                     {
-                        if (signItem.Text != null)
+                        if (readableItem.Text != null)
                         {
-                            descriptions.Add("You read: " + signItem.Text + ".");
+                            descriptions.Add("You read: " + readableItem.Text + ".");
                         }
                         else
                         {

@@ -63,11 +63,15 @@ namespace OpenTibia.FileFormats.Dat
 
                     case DatAttribute.Writeable:
 
-                        item.MaxReadWriteChars = reader.ReadUShort();
+                        item.Flags |= ItemFlags.Writeable;
+
+                        item.MaxWriteChars = reader.ReadUShort();
 
                         break;
 
                     case DatAttribute.Readable:
+
+                        item.Flags |= ItemFlags.Readable;
 
                         item.MaxReadChars = reader.ReadUShort();
 
@@ -232,7 +236,7 @@ namespace OpenTibia.FileFormats.Dat
 
         public ushort Speed { get; set; }
 
-        public ushort MaxReadWriteChars { get; set; }
+        public ushort MaxWriteChars { get; set; }
 
         public ushort MaxReadChars { get; set; }
 

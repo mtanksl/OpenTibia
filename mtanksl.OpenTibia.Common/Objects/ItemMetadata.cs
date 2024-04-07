@@ -14,6 +14,10 @@ namespace OpenTibia.Common.Objects
 
         public ushort Speed { get; set; }
 
+        public ushort MaxWriteChars { get; set; }
+
+        public ushort MaxReadChars { get; set; }
+
         public Light Light { get; set; }
         
         public string Article { get; set; }

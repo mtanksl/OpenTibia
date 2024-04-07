@@ -19,33 +19,37 @@ namespace OpenTibia.FileFormats.Dat
 
         Useable = 64,
 
-        IsFluid = 128,
+        Writeable = 128,
 
-        IsSplash = 256,
+        Readable = 256,
 
-        NotWalkable = 512,
+        IsFluid = 512,
 
-        NotMoveable = 1024,
+        IsSplash = 1024,
 
-        BlockProjectile = 2048, 
+        NotWalkable = 2048,
 
-        BlockPathFinding = 4096,
+        NotMoveable = 4096,
 
-        Pickupable = 8192,
+        BlockProjectile = 8192, 
 
-        Hangable = 16384,
+        BlockPathFinding = 16384,
 
-        Horizontal = 32768,
+        Pickupable = 32768,
 
-        Vertical = 65536,
+        Hangable = 65536,
 
-        Rotatable = 131072,
+        Horizontal = 131072,
 
-        IdleAnimation  = 262144,
+        Vertical = 262144,
 
-        SolidGround = 524288,
+        Rotatable = 524288,
 
-        LookThrough = 1048576
+        IdleAnimation  = 1048576,
+
+        SolidGround = 2097152,
+
+        LookThrough = 4194304
     }
 
     public static class ItemFlagsExtensions

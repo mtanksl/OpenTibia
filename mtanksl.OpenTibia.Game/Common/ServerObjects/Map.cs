@@ -297,12 +297,6 @@ namespace OpenTibia.Common.Objects
                                         readableItem.Author = otbmItem.WrittenBy;
 
                                         break;
-
-                                    case SignItem signItem:
-
-                                        signItem.Text = otbmItem.Text;
-
-                                        break;
                                 }
 
                                 parent.AddContent(item);

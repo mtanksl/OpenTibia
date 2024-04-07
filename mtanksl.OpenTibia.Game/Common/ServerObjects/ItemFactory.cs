@@ -39,11 +39,6 @@ namespace OpenTibia.Game
                         OpenTibiaId = otbItem.OpenTibiaId,
                     };
 
-                    if (otbItem.Flags.Is(FileFormats.Otb.ItemFlags.Readable) )
-                    {
-                        metadata.Flags |= ItemMetadataFlags.Readable;
-                    }
-
                     if (otbItem.Flags.Is(FileFormats.Otb.ItemFlags.AllowDistanceRead) )
                     {
                         metadata.Flags |= ItemMetadataFlags.AllowDistanceRead;
@@ -102,6 +97,16 @@ namespace OpenTibia.Game
                     if (datItem.Flags.Is(ItemFlags.Useable) )
                     {
                         metadata.Flags |= ItemMetadataFlags.Useable;
+                    }
+
+                    if (datItem.Flags.Is(ItemFlags.Writeable) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.Writeable;
+                    }
+                      
+                    if (datItem.Flags.Is(ItemFlags.Readable) )
+                    {
+                        metadata.Flags |= ItemMetadataFlags.Readable;
                     }
 
                     if (datItem.Flags.Is(ItemFlags.IsFluid) )
@@ -165,6 +170,10 @@ namespace OpenTibia.Game
                     }
 
                     metadata.Speed = datItem.Speed;
+
+                    metadata.MaxWriteChars = datItem.MaxWriteChars;
+
+                    metadata.MaxReadChars = datItem.MaxReadChars;
 
                     if (datItem.LightLevel > 0 || datItem.LightColor > 0)
                     {
@@ -231,9 +240,14 @@ namespace OpenTibia.Game
 
                     metadata.SlotType = xmlItem.SlotType;
 
-                    if ( (xmlItem.Readable == true || xmlItem.Writeable == true) && !metadata.Flags.Is(ItemMetadataFlags.Readable) )
+                    if (xmlItem.Readable == true)
                     {
                         metadata.Flags |= ItemMetadataFlags.Readable;
+                    }
+
+                    if (xmlItem.Writeable == true)
+                    {
+                        metadata.Flags |= ItemMetadataFlags.Writeable;
                     }
                 }
             }
@@ -345,13 +359,9 @@ namespace OpenTibia.Game
                     FluidType = (FluidType)count 
                 };
             }
-            else if (metadata.Flags.Is(ItemMetadataFlags.Readable) )
+            else if (metadata.Flags.Is(ItemMetadataFlags.Writeable) || metadata.Flags.Is(ItemMetadataFlags.Readable) || metadata.Flags.Is(ItemMetadataFlags.AllowDistanceRead) )
             {
                 item = new ReadableItem(metadata);
-            }
-            else if (metadata.Flags.Is(ItemMetadataFlags.AllowDistanceRead) )
-            {
-                item = new SignItem(metadata);
             }
             else
             {

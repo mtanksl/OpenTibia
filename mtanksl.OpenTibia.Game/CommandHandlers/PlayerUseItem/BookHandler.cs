@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
@@ -9,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
-            if (command.Item is ReadableItem readableItem)
+            if (command.Item is ReadableItem readableItem && (command.Item.Metadata.Flags.Is(ItemMetadataFlags.Writeable) || command.Item.Metadata.Flags.Is(ItemMetadataFlags.Readable) ) )
             {
                 foreach (var pair in command.Player.Client.Windows.GetIndexedWindows() )
                 {

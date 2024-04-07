@@ -65,17 +65,6 @@ namespace OpenTibia.Game.Commands
                         throw new InvalidOperationException("ToItem must be ReadableItem."); 
                     }                    
                 }
-                else if (FromItem is SignItem fromSignItem)
-                {
-                    if (toItem is SignItem toSignItem)
-                    {
-                        toSignItem.Text = fromSignItem.Text;
-                    }
-                    else
-                    {
-                        throw new InvalidOperationException("ToItem must be SignItem.");
-                    }
-                }
 
                 switch (FromItem.Parent)
                 {
