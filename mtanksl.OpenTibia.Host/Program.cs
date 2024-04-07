@@ -10,83 +10,87 @@ namespace OpenTibia.Host
             Console.WriteLine("Available commands: help, clear, kick, save, maintenance, stop.");
             Console.WriteLine();
 
-            using (var server = new Server() )
+            try
             {
-#if DEBUG
-                server.Logger = new Logger(new ConsoleLoggerProvider(), LogLevel.Debug);
-#else
-                server.Logger = new Logger(new ConsoleLoggerProvider(), LogLevel.Information);
-#endif
-                server.Start();
-
-                bool exit = false;
-
-                while ( !exit )
+                using (var server = new Server() )
                 {
-                    string option = Console.ReadLine();
+#if DEBUG
+                    server.Logger = new Logger(new ConsoleLoggerProvider(), LogLevel.Debug);
+#else
+                    server.Logger = new Logger(new ConsoleLoggerProvider(), LogLevel.Information);
+#endif
+                    server.Start();
 
-                    switch (option)
+                    bool exit = false;
+
+                    while ( !exit )
                     {
-                        case "help":
+                        string option = Console.ReadLine();
 
-                            Console.WriteLine("clear \t\t Clears the console screen. Alternative commands: cls.");
-                            Console.WriteLine("kick \t\t Kicks all the players.");
-                            Console.WriteLine("save \t\t Saves the server.");
-                            Console.WriteLine("maintenance \t Starts or stops the server maintenance.");
-                            Console.WriteLine("stop \t\t Stops the server. Alternative commands: exit, quit.");
-                            Console.WriteLine();
+                        switch (option)
+                        {
+                            case "help":
 
-                            break;
+                                Console.WriteLine("clear \t\t Clears the console screen. Alternative commands: cls.");
+                                Console.WriteLine("kick \t\t Kicks all the players.");
+                                Console.WriteLine("save \t\t Saves the server.");
+                                Console.WriteLine("maintenance \t Starts or stops the server maintenance.");
+                                Console.WriteLine("stop \t\t Stops the server. Alternative commands: exit, quit.");
+                                Console.WriteLine();
 
-                        case "cls":
-                        case "clear":
+                                break;
 
-                            Console.Clear();
+                            case "cls":
+                            case "clear":
 
-                            break;
+                                Console.Clear();
 
-                        case "kick":
+                                break;
 
-                            server.KickAll();
+                            case "kick":
 
-                            break;
+                                server.KickAll();
 
-                        case "save":
+                                break;
 
-                            server.Save();
+                            case "save":
 
-                            break;
+                                server.Save();
 
-                        case "maintenance":
+                                break;
 
-                            if (server.Status == ServerStatus.Running)
-                            {
-                                server.Pause();
-                            }
-                            else if (server.Status == ServerStatus.Paused)
-                            {
-                                server.Continue();
-                            }
+                            case "maintenance":
 
-                            break;
+                                if (server.Status == ServerStatus.Running)
+                                {
+                                    server.Pause();
+                                }
+                                else if (server.Status == ServerStatus.Paused)
+                                {
+                                    server.Continue();
+                                }
 
-                        case "":
-                        case "exit":
-                        case "quit":
-                        case "stop":
+                                break;
 
-                            exit = true;
+                            case "":
+                            case "exit":
+                            case "quit":
+                            case "stop":
 
-                            break;
+                                exit = true;
+
+                                break;
+                        }
                     }
+
+                    server.KickAll();
+
+                    server.Save();
+
+                    server.Stop();
                 }
-
-                server.KickAll();
-
-                server.Save();
-
-                server.Stop();
             }
+            catch { }
 
             Console.ReadKey();
         }

@@ -7,9 +7,82 @@ namespace OpenTibia.Common.Objects
 {
     public class Tile : IContainer
     {
+        private RecomputableSource recomputableSource = new RecomputableSource();
+
+        private Recomputable<Item> ground;
+
+        private Recomputable<Item> topItem;
+
+        private Recomputable<Creature> topCreature;
+
+        private Recomputable<FloorChange> floorChange;
+
+        private Recomputable<int> height;
+
+        private Recomputable<bool> canUseWith;
+
+        private Recomputable<bool> canWalk;
+
         public Tile(Position position)
         {
             this.position = position;
+
+            ground = new Recomputable<Item>(recomputableSource, () =>
+            {
+                return GetItems().Where(i => i.TopOrder == TopOrder.Ground).LastOrDefault();
+            } );
+
+            topItem = new Recomputable<Item>(recomputableSource, () =>
+            {
+                return GetItems().Where(i => i.TopOrder == TopOrder.Other).FirstOrDefault() ??
+
+                       GetItems().Where(i => i.TopOrder == TopOrder.HighPriority || i.TopOrder == TopOrder.MediumPriority || i.TopOrder == TopOrder.LowPriority).LastOrDefault();
+            } );
+
+            topCreature = new Recomputable<Creature>(recomputableSource, () =>
+            {
+                return GetCreatures().LastOrDefault();
+            } );
+
+            floorChange = new Recomputable<FloorChange>(recomputableSource, () =>
+            {
+                FloorChange floorChange = FloorChange.None;
+
+                foreach (var item in GetItems() )
+                {
+                    if (item.Metadata.FloorChange != null)
+                    {
+                        floorChange |= item.Metadata.FloorChange.Value;
+                    }
+                }
+
+                return floorChange;
+            } );
+
+            height = new Recomputable<int>(recomputableSource, () =>
+            {
+                int height = 0;
+
+                foreach (var item in GetItems() )
+                {
+                    if (item.Metadata.Flags.Is(ItemMetadataFlags.HasHeight) )
+                    {
+                        height++;
+                    }
+                }
+
+                return height;
+            } );
+
+            canUseWith = new Recomputable<bool>(recomputableSource, () =>
+            {
+                return !GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) );
+            } );
+
+            canWalk = new Recomputable<bool>(recomputableSource, () =>
+            {
+                return !GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) && !GetCreatures().Any(c => c.Block);
+            } );           
         }
 
         private Position position;
@@ -30,7 +103,7 @@ namespace OpenTibia.Common.Objects
         {
             get
             {
-                return GetItems().Where(i => i.TopOrder == TopOrder.Ground).LastOrDefault();
+                return ground.Value;
             }
         }
 
@@ -38,9 +111,7 @@ namespace OpenTibia.Common.Objects
         {
             get
             {
-                return GetItems().Where(i => i.TopOrder == TopOrder.Other).FirstOrDefault() ??
-
-                       GetItems().Where(i => i.TopOrder == TopOrder.HighPriority || i.TopOrder == TopOrder.MediumPriority || i.TopOrder == TopOrder.LowPriority).LastOrDefault();
+                return topItem.Value;
             }
         }
 
@@ -48,7 +119,7 @@ namespace OpenTibia.Common.Objects
         {
             get
             {
-                return GetCreatures().LastOrDefault();
+                return topCreature.Value;
             }
         }
 
@@ -56,17 +127,7 @@ namespace OpenTibia.Common.Objects
         {
             get
             {
-                FloorChange floorChange = FloorChange.None;
-
-                foreach (var item in GetItems() )
-                {
-                    if (item.Metadata.FloorChange != null)
-                    {
-                        floorChange |= item.Metadata.FloorChange.Value;
-                    }
-                }
-
-                return floorChange;
+                return floorChange.Value;
             }
         }
 
@@ -74,19 +135,27 @@ namespace OpenTibia.Common.Objects
         {
             get
             {
-                int height = 0;
-
-                foreach (var item in GetItems() )
-                {
-                    if (item.Metadata.Flags.Is(ItemMetadataFlags.HasHeight) )
-                    {
-                        height++;
-                    }
-                }
-
-                return height;
+                return height.Value;
             }
         }
+
+        public bool CanUseWith
+        {
+            get
+            {
+                return canUseWith.Value;
+            }
+        }
+
+        public bool CanWalk
+        {
+            get
+            {
+                return canWalk.Value;
+            }
+        }
+
+        private List<IContent> contents = new List<IContent>(1);
 
         public int Count
         {
@@ -96,10 +165,10 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        private List<IContent> contents = new List<IContent>(1);
-
         public int AddContent(IContent content)
         {
+            recomputableSource.Change();
+
             //13 Other 1
             //12 Other 2 
             //11 Other 3
@@ -158,6 +227,8 @@ namespace OpenTibia.Common.Objects
 
         public void ReplaceContent(int index, IContent content)
         {
+            recomputableSource.Change();
+
             IContent oldContent = GetContent(index);
 
             contents[index] = content;
@@ -169,6 +240,8 @@ namespace OpenTibia.Common.Objects
 
         public void RemoveContent(int index)
         {
+            recomputableSource.Change();
+
             IContent content = GetContent(index);
 
             contents.RemoveAt(index);

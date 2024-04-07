@@ -41,32 +41,6 @@ namespace OpenTibia.Common.Objects
 
         public IContainer Parent { get; set; }
 
-        /*
-        public Container Container
-        {
-            get
-            {
-                return Parent as Container;
-            }
-        }
-
-        public Inventory Inventory
-        {
-            get
-            {
-                return Parent as Inventory;
-            }
-        }
-
-        public Tile Tile
-        {
-            get
-            {
-                return Parent as Tile;
-            }
-        }
-        */
-
         public IContainer Root()
         {
             IContainer container = Parent;
