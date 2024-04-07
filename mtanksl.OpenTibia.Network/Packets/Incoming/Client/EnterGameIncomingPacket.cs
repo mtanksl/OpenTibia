@@ -1,6 +1,5 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.IO;
-using System.Text;
 
 namespace OpenTibia.Network.Packets.Incoming
 {

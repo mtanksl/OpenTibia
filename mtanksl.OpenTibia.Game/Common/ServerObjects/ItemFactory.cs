@@ -221,7 +221,7 @@ namespace OpenTibia.Game
 
                     metadata.Capacity = xmlItem.ContainerSize;
 
-                    if (metadata.Capacity != null && !metadata.Flags.Is(ItemMetadataFlags.IsContainer) )
+                    if (metadata.Capacity != null)
                     {
                         metadata.Flags |= ItemMetadataFlags.IsContainer;
                     }

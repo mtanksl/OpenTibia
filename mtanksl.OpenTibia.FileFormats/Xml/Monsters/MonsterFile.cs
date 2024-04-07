@@ -14,15 +14,7 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
             if (Directory.Exists(path) )
             {
-                foreach (var directoryName in Directory.GetDirectories(path) )
-                {
-                    foreach (var fileName in Directory.GetFiles(directoryName) )
-                    {
-                        file.monsters.Add( Monster.Load( XElement.Load(fileName) ) );
-                    }
-                }
-
-                foreach (var fileName in Directory.GetFiles(path) )
+                foreach (var fileName in Directory.GetFiles(path, "*.xml", SearchOption.AllDirectories) )
                 {
                     file.monsters.Add( Monster.Load( XElement.Load(fileName) ) );
                 }

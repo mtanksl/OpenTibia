@@ -248,9 +248,16 @@ namespace OpenTibia.Common.Objects
                     {
                         Item ground = server.ItemFactory.Create(otbmTile.OpenTibiaItemId, 1);
 
-                        server.ItemFactory.Attach(ground);
+                        if (ground != null)
+                        {
+                            server.ItemFactory.Attach(ground);
 
-                        tile.AddContent(ground);
+                            tile.AddContent(ground);
+                        }
+                        else
+                        {
+                            //TODO: Report invalid open tibia id
+                        }
                     }
 
                     if (otbmTile.Items != null)
@@ -261,51 +268,58 @@ namespace OpenTibia.Common.Objects
                             {
                                 Item item = server.ItemFactory.Create(otbmItem.OpenTibiaId, otbmItem.Count);
 
-                                server.ItemFactory.Attach(item);
-
-                                item.ActionId = otbmItem.ActionId;
-
-                                item.UniqueId = otbmItem.UniqueId;
-
-                                switch (item)
+                                if (item != null)
                                 {
-                                    case TeleportItem teleport:
+                                    server.ItemFactory.Attach(item);
 
-                                        teleport.Position = otbmItem.TeleportPosition;
+                                    item.ActionId = otbmItem.ActionId;
 
-                                        break;
+                                    item.UniqueId = otbmItem.UniqueId;
 
-                                    case Locker locker:
+                                    switch (item)
+                                    {
+                                        case TeleportItem teleport:
 
-                                        locker.TownId = otbmItem.TownId;
+                                            teleport.Position = otbmItem.TeleportPosition;
 
-                                        break;
+                                            break;
 
-                                    case Container container:
+                                        case Locker locker:
 
-                                        if (otbmItem.Items != null)
-                                        {
-                                            AddItems(container, otbmItem.Items);
-                                        }
+                                            locker.TownId = otbmItem.TownId;
 
-                                        break;
+                                            break;
 
-                                    case ReadableItem readableItem:
+                                        case Container container:
 
-                                        readableItem.Text = otbmItem.Text;
+                                            if (otbmItem.Items != null)
+                                            {
+                                                AddItems(container, otbmItem.Items);
+                                            }
 
-                                        readableItem.Author = otbmItem.WrittenBy;
+                                            break;
 
-                                        break;
+                                        case DoorItem doorItem:
 
-                                    case DoorItem doorItem:
+                                            doorItem.DoorId = otbmItem.DoorId;
 
-                                        doorItem.DoorId = otbmItem.DoorId;
+                                            break;
 
-                                        break;
+                                        case ReadableItem readableItem:
+
+                                            readableItem.Text = otbmItem.Text;
+
+                                            readableItem.Author = otbmItem.WrittenBy;
+
+                                            break;                                  
+                                    }
+
+                                    parent.AddContent(item);
                                 }
-
-                                parent.AddContent(item);
+                                else
+                                {
+                                    //TODO: Report invalid open tibia id
+                                }                                
                             }
                         }
 
@@ -320,17 +334,24 @@ namespace OpenTibia.Common.Objects
                 {
                     Tile tile = GetTile(xmlMonster.Position);
 
-                    Monster monster = server.MonsterFactory.Create(xmlMonster.Name, tile);
-
-                    if (monster != null)
+                    if (tile != null)
                     {
-                        server.MonsterFactory.Attach(monster);
+                        Monster monster = server.MonsterFactory.Create(xmlMonster.Name, tile);
 
-                        tile.AddContent(monster);
+                        if (monster != null)
+                        {
+                            server.MonsterFactory.Attach(monster);
+
+                            tile.AddContent(monster);
+                        }
+                        else
+                        {
+                            unknownMonsters.Add(xmlMonster.Name);
+                        }
                     }
                     else
                     {
-                        unknownMonsters.Add(xmlMonster.Name);
+                        //TODO: Report invalid position
                     }
                 }
 
@@ -338,20 +359,29 @@ namespace OpenTibia.Common.Objects
                 {
                     Tile tile = GetTile(xmlNpc.Position);
 
-                    Npc npc = server.NpcFactory.Create(xmlNpc.Name, tile);
-
-                    if (npc != null)
+                    if (tile != null)
                     {
-                        server.NpcFactory.Attach(npc);
+                        Npc npc = server.NpcFactory.Create(xmlNpc.Name, tile);
 
-                        tile.AddContent(npc);
+                        if (npc != null)
+                        {
+                            server.NpcFactory.Attach(npc);
+
+                            tile.AddContent(npc);
+                        }
+                        else
+                        {
+                            unknownNpcs.Add(xmlNpc.Name);
+                        }
                     }
                     else
                     {
-                        unknownNpcs.Add(xmlNpc.Name);
+                        //TODO: Report invalid position
                     }
                 }
             }
+
+            //TODO: Use quadtree
 
             observers = new HashSet<Creature>[ (int)Math.Ceiling( (maxY - minY + 1) / 14.0) ][];
 

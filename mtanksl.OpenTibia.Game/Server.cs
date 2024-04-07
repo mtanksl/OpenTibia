@@ -562,9 +562,13 @@ namespace OpenTibia.Game
 
                         foreach (var item in players.GroupJoin(dbPlayers, p => p.DatabasePlayerId, p => p.Id, (player, dbPlayers) => new { Player = player, DbPlayer = dbPlayers.FirstOrDefault() } ) )
                         {
-                            if (item.DbPlayer != null)
+                            Player player = item.Player;
+
+                            DbPlayer dbPlayer = item.DbPlayer;
+
+                            if (dbPlayer != null)
                             {
-                                PlayerFactory.Save(item.DbPlayer, item.Player);
+                                PlayerFactory.Save(dbPlayer, player);
                             }
                         }                   
                     }
@@ -602,7 +606,7 @@ namespace OpenTibia.Game
                             }
                             else
                             {
-                                DbPlayer dbPlayer = Context.Current.Database.PlayerRepository.GetPlayerByName(house.Owner);
+                                DbPlayer dbPlayer = Context.Current.Database.PlayerRepository.GetPlayerByName(house.Owner); //TODO: Performance
 
                                 if (dbPlayer != null)
                                 {

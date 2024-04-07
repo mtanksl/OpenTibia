@@ -1,6 +1,5 @@
 ﻿using OpenTibia.Common.Structures;
 using System;
-using System.Text;
 
 namespace OpenTibia.IO
 {

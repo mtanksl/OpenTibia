@@ -14,7 +14,7 @@ namespace OpenTibia.FileFormats.Xml.Npcs
 
             if (Directory.Exists(path) )
             {
-                foreach (var fileName in Directory.GetFiles(path) )
+                foreach (var fileName in Directory.GetFiles(path, "*.xml", SearchOption.AllDirectories) )
                 {
                     file.npcs.Add( Npc.Load( XElement.Load(fileName) ) );
                 }

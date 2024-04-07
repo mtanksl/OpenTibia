@@ -3,7 +3,6 @@ using OpenTibia.Common.Structures;
 using OpenTibia.Data.MySql.Contexts;
 using OpenTibia.Game;
 using OpenTibia.Game.Commands;
-using OpenTibia.Threading;
 using System;
 
 namespace mtanksl.OpenTibia.Tests

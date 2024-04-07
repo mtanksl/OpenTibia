@@ -1,6 +1,5 @@
 ﻿using NLua;
 using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Plugins
