@@ -10,6 +10,7 @@ server = {
 	},		
 	gameplay = {
 		privatenpcsystem = true,
+		learnspellfirst = false,
 		infinitepotions = false,
 		infinitearrows = false,
 		infiniterunes = false,

@@ -15,6 +15,18 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (plugin != null)
             {
+                if (Context.Server.Config.LearnSpellFirst)
+                {
+                    if ( !command.Player.Client.Spells.HasSpell(plugin.Spell.Name) )
+                    {
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouNeedToLearnThisSpellFirst) );
+
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+
+                        await Promise.Break;
+                    }
+                }
+
                 if (command.Player.Level < plugin.Spell.Level)
                 {
                     Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughLevel) );

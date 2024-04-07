@@ -73,7 +73,9 @@
         public static readonly string YouMayNotAttackAPersonWhileYouAreInAProtectionZone = "You may not attack a person while you are in a protection zone.";
         
         public static readonly string YouMayNotAttackThisCreature = "You may not attack this creature.";
-        
+
+        public static readonly string YouNeedToLearnThisSpellFirst = "You need to learn this spell first";
+
         public static readonly string YourDepotIsFull = "Your depot is full. Remove surplus items before storing new ones.";
 
         public static readonly string YourVocationCannotUseThisSpell = "Your vocation cannot use this spell.";

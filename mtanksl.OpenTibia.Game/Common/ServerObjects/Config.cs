@@ -17,6 +17,7 @@
         public int GameMaxPlayers { get; set; }
 
         public bool GameplayPrivateNpcSystem { get; set; }
+        public bool LearnSpellFirst { get; set; }
         public bool GameplayInfinitePotions { get; set; }
         public bool GameplayInfiniteArrows { get; set; }
         public bool GameplayInfiniteRunes { get; set; }
@@ -79,7 +80,9 @@
             GameMaxPlayers = LuaScope.GetInt32(script["server.game.maxplayers"], 1000);
                         
             GameplayPrivateNpcSystem = LuaScope.GetBoolean(script["server.gameplay.privatenpcsystem"], true);
-            
+
+            LearnSpellFirst = LuaScope.GetBoolean(script["server.gameplay.learnspellfirst"], false);
+
             GameplayInfinitePotions = LuaScope.GetBoolean(script["server.gameplay.infinitepotions"], false);
             
             GameplayInfiniteArrows = LuaScope.GetBoolean(script["server.gameplay.infinitearrows"], false);
