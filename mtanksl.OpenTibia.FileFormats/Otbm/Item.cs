@@ -86,13 +86,13 @@ namespace OpenTibia.FileFormats.Otbm
 
                     case OtbmAttribute.DepotId:
 
-                        item.DepotId = reader.ReadUShort();
+                        item.TownId = reader.ReadUShort();
 
                         break;
 
                     case OtbmAttribute.HouseDoorId:
 
-                        item.HouseDoorId = reader.ReadByte();
+                        item.DoorId = reader.ReadByte();
 
                         break;
 
@@ -167,9 +167,9 @@ namespace OpenTibia.FileFormats.Otbm
 
         public byte Decaying { get; set; }
 
-        public ushort DepotId { get; set; }
+        public ushort TownId { get; set; }
 
-        public byte HouseDoorId { get; set; }
+        public byte DoorId { get; set; }
 
         public uint SleeperId { get; set; }
 

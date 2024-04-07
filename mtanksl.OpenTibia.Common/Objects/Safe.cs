@@ -80,9 +80,9 @@ namespace OpenTibia.Common.Objects
                 throw new ArgumentException("Content must be a locker.");
             }
 
-            if (contents.ContainsKey( ( (Locker)content ).Town.Id) )
+            if (contents.ContainsKey( ( (Locker)content ).TownId) )
             {
-                return ( (Locker)content ).Town.Id;
+                return ( (Locker)content ).TownId;
             }
 
             throw new InvalidOperationException("Content not found.");
@@ -95,9 +95,9 @@ namespace OpenTibia.Common.Objects
                 throw new ArgumentException("Content must be a locker.");
             }
 
-            if (contents.ContainsKey( ( (Locker)content ).Town.Id) )
+            if (contents.ContainsKey( ( (Locker)content ).TownId) )
             {
-                _index = ( (Locker)content ).Town.Id;
+                _index = ( (Locker)content ).TownId;
 
                 return true;
             }

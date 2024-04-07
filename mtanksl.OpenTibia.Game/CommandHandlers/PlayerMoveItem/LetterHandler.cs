@@ -43,7 +43,7 @@ namespace OpenTibia.Game.CommandHandlers
                                 {
                                     locker = (Locker)Context.Server.ItemFactory.Create(2591, 1);
 
-                                    locker.Town = town;
+                                    locker.TownId = town.Id;
 
                                     Context.Server.ItemFactory.Attach(locker);
 
@@ -53,7 +53,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                                     locker.AddContent(depot);
               
-                                    player.Lockers.AddContent(locker, locker.Town.Id);
+                                    player.Lockers.AddContent(locker, locker.TownId);
                                 }
 
                                 if (locker.Count < locker.Metadata.Capacity)

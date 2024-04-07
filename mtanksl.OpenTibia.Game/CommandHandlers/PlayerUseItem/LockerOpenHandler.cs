@@ -8,15 +8,15 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
-            if (command.Item is Locker mapLocker && mapLocker.Town != null)
+            if (command.Item is Locker mapLocker)
             {
-                Locker locker = (Locker)command.Player.Lockers.GetContent(mapLocker.Town.Id);
+                Locker locker = (Locker)command.Player.Lockers.GetContent(mapLocker.TownId);
 
                 if (locker == null)
                 {
                     locker = (Locker)Context.Server.ItemFactory.Create(2591, 1);
 
-                    locker.Town = mapLocker.Town;
+                    locker.TownId = mapLocker.TownId;
 
                     Context.Server.ItemFactory.Attach(locker);
 
@@ -26,7 +26,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     locker.AddContent(depot);
 
-                    command.Player.Lockers.AddContent(locker, locker.Town.Id);
+                    command.Player.Lockers.AddContent(locker, locker.TownId);
                 }
 
                 command.Item = locker;

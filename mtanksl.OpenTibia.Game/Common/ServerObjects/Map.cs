@@ -277,7 +277,7 @@ namespace OpenTibia.Common.Objects
 
                                     case Locker locker:
 
-                                        locker.Town = GetTown(otbmItem.DepotId);
+                                        locker.TownId = otbmItem.TownId;
 
                                         break;
 
@@ -295,6 +295,12 @@ namespace OpenTibia.Common.Objects
                                         readableItem.Text = otbmItem.Text;
 
                                         readableItem.Author = otbmItem.WrittenBy;
+
+                                        break;
+
+                                    case DoorItem doorItem:
+
+                                        doorItem.DoorId = otbmItem.DoorId;
 
                                         break;
                                 }

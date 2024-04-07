@@ -26,15 +26,8 @@
   <Class Name="OpenTibia.Common.Objects.ReadableItem" Collapsed="true">
     <Position X="17" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAABAAAACAAAAAA=</HashCode>
+      <HashCode>AAABAAAAAAAAAAAAgAAAAAAAAAAAAAABAAAACAAAAAA=</HashCode>
       <FileName>Objects\ReadableItem.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="OpenTibia.Common.Objects.SignItem" Collapsed="true">
-    <Position X="18.75" Y="3.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
-      <FileName>Objects\SignItem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OpenTibia.Common.Objects.SplashItem" Collapsed="true">
@@ -44,17 +37,18 @@
       <FileName>Objects\SplashItem.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="OpenTibia.Common.Objects.TeleportItem" Collapsed="true">
-    <Position X="20.5" Y="3.25" Width="1.5" />
+  <Class Name="OpenTibia.Common.Objects.HouseDoorItem" Collapsed="true">
+    <Position X="18.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Objects\TeleportItem.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAQAAAA=</HashCode>
+      <FileName>Objects\HouseDoorItem.cs</FileName>
+      <NewMemberFileName>Objects\TeleportItem.cs</NewMemberFileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OpenTibia.Common.Objects.Locker" Collapsed="true">
     <Position X="10" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Objects\Locker.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -93,7 +87,7 @@
   <Class Name="OpenTibia.Common.Objects.Inventory" Collapsed="true">
     <Position X="6.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BEEAAAAAAAIAAAAQBEAAAAAAAAAAAgABACAAAAAgAAA=</HashCode>
+      <HashCode>BEEAAAAAAAIAAAAQBEAAAAAAAAAAAgABACAAAQAgAAA=</HashCode>
       <FileName>Objects\Inventory.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -101,7 +95,7 @@
   <Class Name="OpenTibia.Common.Objects.Tile" Collapsed="true">
     <Position X="8.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BMMgACAABAIAAAAwBEQAIAQAAIAAAgAAACAAAAAgFAA=</HashCode>
+      <HashCode>BMMiACAABAIAAAAwBEQAIAQAAIAAAgAAACAAAAAgFAA=</HashCode>
       <FileName>Objects\Tile.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -109,7 +103,7 @@
   <Class Name="OpenTibia.Common.Objects.Player" Collapsed="true">
     <Position X="4" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAABAABCAAAAAAyIAAAAAAASACAAAAAhAAAAJgAAQgw=</HashCode>
+      <HashCode>EAABAABCAAAAAAyIAAAAAAASADAAAAAhAAAAJgAAQgw=</HashCode>
       <FileName>Objects\Player.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -128,6 +122,13 @@
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>Objects\Monster.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenTibia.Common.Objects.HouseTile" Collapsed="true">
+    <Position X="8.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
+      <FileName>Objects\HouseTile.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
