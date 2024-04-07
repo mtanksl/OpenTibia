@@ -580,61 +580,76 @@ namespace OpenTibia.Game
 
                         foreach (var item in houses.GroupJoin(dbHouses, h => h.Id, h => h.Id, (house, dbHouses) => new { House = house, DbHouse = dbHouses.FirstOrDefault() } ) )
                         {
-                            if (item.DbHouse != null)
+                            House house = item.House;
+
+                            DbHouse dbHouse = item.DbHouse;
+
+                            if (dbHouse == null)
                             {
-                                item.DbHouse.HouseAccessLists.Clear();
-
-                                if (item.House.Owner != null)
+                                dbHouse = new DbHouse()
                                 {
-                                    DbPlayer dbPlayer = Context.Current.Database.PlayerRepository.GetPlayerByName(item.House.Owner);
+                                    Id = house.Id
+                                };
 
-                                    if (dbPlayer != null)
-                                    {
-                                        item.DbHouse.OwnerId = dbPlayer.Id;
-                                    }
+                                Context.Current.Database.HouseRepository.AddHouse(dbHouse);
+                            }
+                                                          
+                            dbHouse.HouseAccessLists.Clear();
+                            
+                            if (house.Owner == null)
+                            {
+                                dbHouse.OwnerId = null;
+                            }
+                            else
+                            {
+                                DbPlayer dbPlayer = Context.Current.Database.PlayerRepository.GetPlayerByName(house.Owner);
+
+                                if (dbPlayer != null)
+                                {
+                                    dbHouse.OwnerId = dbPlayer.Id;
                                 }
+                            }
 
-                                HouseAccessList subOwnersList = item.House.GetSubOwnersList();
+                            HouseAccessList subOwnersList = house.GetSubOwnersList();
 
-                                if (subOwnersList.Text != null)
+                            if (subOwnersList.Text != null)
+                            {
+                                dbHouse.HouseAccessLists.Add(new DbHouseAccessList()
                                 {
-                                    item.DbHouse.HouseAccessLists.Add(new DbHouseAccessList()
+                                    HouseId = house.Id,
+
+                                    ListId = 0xFE,
+
+                                    Text = subOwnersList.Text
+                                } );
+                            }
+
+                            HouseAccessList guestsList = house.GetGuestsList();
+
+                            if (guestsList.Text != null)
+                            {
+                                dbHouse.HouseAccessLists.Add(new DbHouseAccessList()
+                                {
+                                    HouseId = house.Id,
+
+                                    ListId = 0xFF,
+
+                                    Text = guestsList.Text
+                                } );
+                            }
+
+                            foreach (var doorList in house.GetDoorsList() )
+                            {
+                                if (doorList.Value.Text != null)
+                                {
+                                    dbHouse.HouseAccessLists.Add(new DbHouseAccessList()
                                     {
-                                        HouseId = item.House.Id,
+                                        HouseId = house.Id,
 
-                                        ListId = 0xFE,
+                                        ListId = doorList.Key,
 
-                                        Text = subOwnersList.Text
+                                        Text = doorList.Value.Text
                                     } );
-                                }
-
-                                HouseAccessList guestsList = item.House.GetGuestsList();
-
-                                if (guestsList.Text != null)
-                                {
-                                    item.DbHouse.HouseAccessLists.Add(new DbHouseAccessList()
-                                    {
-                                        HouseId = item.House.Id,
-
-                                        ListId = 0xFF,
-
-                                        Text = guestsList.Text
-                                    } );
-                                }
-
-                                foreach (var doorList in item.House.GetDoorsList() )
-                                {
-                                    if (doorList.Value.Text != null)
-                                    {
-                                        item.DbHouse.HouseAccessLists.Add(new DbHouseAccessList()
-                                        {
-                                            HouseId = item.House.Id,
-
-                                            ListId = doorList.Key,
-
-                                            Text = doorList.Value.Text
-                                        } );
-                                    }
                                 }
                             }
                         }

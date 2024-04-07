@@ -28,5 +28,10 @@ namespace OpenTibia.Data.Repositories
 
             return houses;
         }
+
+        public void AddHouse(DbHouse house)
+        {
+            context.Houses.Add(house);
+        }
     }
 }
