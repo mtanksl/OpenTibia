@@ -7,7 +7,7 @@ namespace OpenTibia.Host
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Available commands: help, cls, kick, save, maintenance, exit");
+            Console.WriteLine("Available commands: help, clear, kick, save, maintenance, stop.");
             Console.WriteLine();
 
             using (var server = new Server() )
@@ -29,11 +29,11 @@ namespace OpenTibia.Host
                     {
                         case "help":
 
-                            Console.WriteLine("cls \t\t Clears the console screen.");
+                            Console.WriteLine("clear \t\t Clears the console screen. Alternative commands: cls.");
                             Console.WriteLine("kick \t\t Kicks all the players.");
                             Console.WriteLine("save \t\t Saves the server.");
                             Console.WriteLine("maintenance \t Starts or stops the server maintenance.");
-                            Console.WriteLine("exit \t\t Stops the server.");
+                            Console.WriteLine("stop \t\t Stops the server. Alternative commands: exit, quit.");
                             Console.WriteLine();
 
                             break;
@@ -72,6 +72,8 @@ namespace OpenTibia.Host
 
                         case "":
                         case "exit":
+                        case "quit":
+                        case "stop":
 
                             exit = true;
 
