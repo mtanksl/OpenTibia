@@ -23,11 +23,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                     window.House = houseTile.House;
 
-                    window.DoorId = 0x01;
+                    window.DoorId = 0xFE;
 
                     uint windowId = command.Player.Client.Windows.OpenWindow(window);
 
-                    Context.AddPacket(command.Player, new OpenEditListDialogOutgoingPacket(window.DoorId, windowId, houseTile.House.GetSubOwnersList().Text) );
+                    Context.AddPacket(command.Player, new OpenEditListDialogOutgoingPacket(0x00, windowId, houseTile.House.GetSubOwnersList().Text) );
 
                     return Promise.Completed;
                 }

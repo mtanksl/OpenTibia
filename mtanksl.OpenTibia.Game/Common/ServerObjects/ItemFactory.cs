@@ -315,6 +315,104 @@ namespace OpenTibia.Game
             return null;
         }
 
+        private HashSet<ushort> lockers = new HashSet<ushort>()
+        {
+            2589, 2590, 2591, 2592
+        };
+
+        private HashSet<ushort> doors = new HashSet<ushort>()
+        {
+            // Brick
+            5099,
+            5101,
+            5108,
+            5110,
+
+            5100,
+            5102,
+
+            5109,
+            5111, 
+            
+            // Framework
+            1210,
+            1213,
+            1219,
+            1221,
+            5138,
+            5141,
+
+            1214,
+            1222,
+            5139,
+                      
+            1211,
+            1220,
+            5142,
+                  
+            // Pyramid
+            1232,
+            1235,
+            1237,
+            1239,
+
+            1236,
+            1240,
+
+            1233,
+            1238,
+                  
+            // White stone
+            1250,
+            1253,
+            5515,
+            5517,
+
+            1254,
+            5518,
+                               
+            1251,
+            5516,
+
+            // Stone
+            5117,
+            5119,
+            5126,
+            5128,
+            5135,
+            5144,
+
+            5118,
+            5120,
+            5136,
+
+            5127,
+            5129,
+            5145,
+
+            // Stone
+            6250,
+            6253,
+            6255,
+            6257,
+
+            6254,
+            6258,
+                           
+            6251,
+            6256,
+
+            // Fence
+            1539,
+            1541,
+
+            1542,
+
+            1540
+
+            //TODO: More items
+        };
+
         public Item Create(ushort openTibiaId, byte count)
         {
             ItemMetadata metadata = GetItemMetadataByOpenTibiaId(openTibiaId);
@@ -330,9 +428,13 @@ namespace OpenTibia.Game
             {
                 item = new TeleportItem(metadata);
             }
-            else if (openTibiaId == 2589 || openTibiaId == 2590 || openTibiaId == 2591 || openTibiaId == 2592)
+            else if (lockers.Contains(openTibiaId) )
             {
                 item = new Locker(metadata);
+            }
+            else if (doors.Contains(openTibiaId) )
+            {
+                item = new DoorItem(metadata);
             }
             else if (metadata.Flags.Is(ItemMetadataFlags.IsContainer) )
             {

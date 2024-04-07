@@ -64,7 +64,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (doors.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                if (command.Item.Parent is HouseTile houseTile && !houseTile.House.CanOpenDoor(command.Player.Name, command.Item) )
+                if (command.Item.Parent is HouseTile houseTile && command.Item is DoorItem doorItem && !houseTile.House.CanOpenDoor(command.Player.Name, doorItem) )
                 {
                     Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
 

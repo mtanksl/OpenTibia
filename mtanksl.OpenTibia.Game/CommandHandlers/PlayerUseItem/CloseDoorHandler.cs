@@ -84,7 +84,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (horizontalDoors.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                if (command.Item.Parent is HouseTile houseTile && !houseTile.House.CanOpenDoor(command.Player.Name, command.Item) )
+                if (command.Item.Parent is HouseTile houseTile && command.Item is DoorItem doorItem && !houseTile.House.CanOpenDoor(command.Player.Name, doorItem) )
                 {
                     Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
 
@@ -138,9 +138,9 @@ namespace OpenTibia.Game.CommandHandlers
             }
             else if (verticalDoors.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                if (command.Item.Parent is HouseTile houseTile && !houseTile.House.CanOpenDoor(command.Player.Name, command.Item) )
+                if (command.Item.Parent is HouseTile houseTile && command.Item is DoorItem doorItem && !houseTile.House.CanOpenDoor(command.Player.Name, doorItem) )
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreNotInvited) );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
 
                     return Promise.Break;
                 }

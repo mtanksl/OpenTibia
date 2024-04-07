@@ -1,5 +1,4 @@
-﻿using OpenTibia.Common.Structures;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace OpenTibia.Common.Objects
 {
@@ -10,8 +9,6 @@ namespace OpenTibia.Common.Objects
         public House House { get; set; }
 
         public byte DoorId { get; set; }
-
-        public Position DoorPosition { get; set; }
 
         private Dictionary<Player, int> players = new Dictionary<Player, int>();
 

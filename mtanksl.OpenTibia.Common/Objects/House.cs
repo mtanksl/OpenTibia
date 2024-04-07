@@ -41,9 +41,9 @@ namespace OpenTibia.Common.Objects
             return IsOwner(playerName) || IsSubOwner(playerName);
         }
 
-        public bool CanOpenDoor(string playerName, Item door)
+        public bool CanOpenDoor(string playerName, DoorItem doorItem)
         {
-            return IsOwner(playerName) || IsSubOwner(playerName) || CanOpenDoor( ( (Tile)door.Parent).Position, playerName);
+            return IsOwner(playerName) || IsSubOwner(playerName) || CanOpenDoor(doorItem.DoorId, playerName);
         }
 
         private string owner;
@@ -77,13 +77,13 @@ namespace OpenTibia.Common.Objects
             return guests;
         }
 
-        private Dictionary<Position, HouseAccessList> doors = new Dictionary<Position, HouseAccessList>();
+        private Dictionary<byte, HouseAccessList> doors = new Dictionary<byte, HouseAccessList>();
 
-        public bool CanOpenDoor(Position position, string playerName)
+        public bool CanOpenDoor(byte doorId, string playerName)
         {
             HouseAccessList houseAccessList;
 
-            if (doors.TryGetValue(position, out houseAccessList) )
+            if (doors.TryGetValue(doorId, out houseAccessList) )
             {
                 return houseAccessList.Contains(playerName);
             }
@@ -91,15 +91,15 @@ namespace OpenTibia.Common.Objects
             return false;
         }
 
-        public HouseAccessList GetDoorList(Position position)
+        public HouseAccessList GetDoorList(byte doorId)
         {
             HouseAccessList houseAccessList;
 
-            if ( !doors.TryGetValue(position, out houseAccessList) )
+            if ( !doors.TryGetValue(doorId, out houseAccessList) )
             {
                 houseAccessList = new HouseAccessList();
 
-                doors.Add(position, houseAccessList);
+                doors.Add(doorId, houseAccessList);
             }
 
             return houseAccessList;

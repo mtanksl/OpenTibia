@@ -50,6 +50,18 @@ namespace OpenTibia.Game.Commands
                         throw new InvalidOperationException("ToItem must be Container.");
                     }
                 }
+                else if (FromItem is DoorItem fromDoorItem)
+                {
+                    if (toItem is DoorItem toDoorItem)
+                    {
+                        toDoorItem.DoorId = fromDoorItem.DoorId;
+                    }
+                    else 
+                    {
+                        throw new InvalidOperationException("ToItem must be DoorItem."); 
+                    }                    
+                }
+
                 else if (FromItem is ReadableItem fromReadableItem)
                 {
                     if (toItem is ReadableItem toReadableItem)

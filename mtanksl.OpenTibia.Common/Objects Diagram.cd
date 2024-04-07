@@ -17,43 +17,35 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="OpenTibia.Common.Objects.FluidItem" Collapsed="true">
-    <Position X="13.5" Y="3.25" Width="1.5" />
+    <Position X="17" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Objects\FluidItem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OpenTibia.Common.Objects.ReadableItem" Collapsed="true">
-    <Position X="17" Y="3.25" Width="1.5" />
+    <Position X="13.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAABAAAAAAAAAAAAgAAAAAAAAAAAAAABAAAACAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAABAAAACAAAAAA=</HashCode>
       <FileName>Objects\ReadableItem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OpenTibia.Common.Objects.SplashItem" Collapsed="true">
-    <Position X="15.25" Y="3.25" Width="1.5" />
+    <Position X="18.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Objects\SplashItem.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="OpenTibia.Common.Objects.HouseDoorItem" Collapsed="true">
-    <Position X="18.75" Y="3.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAQAAAA=</HashCode>
-      <FileName>Objects\HouseDoorItem.cs</FileName>
-      <NewMemberFileName>Objects\TeleportItem.cs</NewMemberFileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="OpenTibia.Common.Objects.Locker" Collapsed="true">
     <Position X="10" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
       <FileName>Objects\Locker.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OpenTibia.Common.Objects.StackableItem" Collapsed="true">
-    <Position X="11.75" Y="3.25" Width="1.5" />
+    <Position X="15.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAACAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Objects\StackableItem.cs</FileName>
@@ -129,6 +121,13 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
       <FileName>Objects\HouseTile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenTibia.Common.Objects.DoorItem" Collapsed="true">
+    <Position X="11.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <FileName>Objects\DoorItem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
