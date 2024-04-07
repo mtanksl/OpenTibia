@@ -106,7 +106,7 @@ namespace OpenTibia.Game
 
                     Tile tile = map.GetTile(position);
 
-                    if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || tile.GetCreatures().Any(c => c.Block) )
+                    if (tile == null || tile.Ground == null || !tile.CanWalk)
                     {
                         return false;
                     }

@@ -4,7 +4,6 @@ using OpenTibia.Game.Commands;
 using OpenTibia.Game.Components;
 using OpenTibia.Game.Plugins;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace OpenTibia.GameData.Plugins.Runes
 {
@@ -19,7 +18,7 @@ namespace OpenTibia.GameData.Plugins.Runes
 
         public override PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile tile, Item item)
         {
-            if (tile == null || tile.Ground == null || tile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || tile.GetCreatures().Any(c => c.Block) || tile.TopItem == null || !fields.Contains(tile.TopItem.Metadata.OpenTibiaId) )
+            if (tile == null || tile.Ground == null || !tile.CanWalk || tile.TopItem == null || !fields.Contains(tile.TopItem.Metadata.OpenTibiaId) )
             {
                 return Promise.FromResultAsBooleanFalse;
             }

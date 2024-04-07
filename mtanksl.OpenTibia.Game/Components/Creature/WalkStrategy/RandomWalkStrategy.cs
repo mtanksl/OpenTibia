@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using System;
-using System.Linq;
 
 namespace OpenTibia.Game.Components
 {
@@ -20,7 +19,7 @@ namespace OpenTibia.Game.Components
             {
                 Tile toTile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(direction) );
 
-                if (toTile == null || toTile.Ground == null || toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || toTile.GetCreatures().Any(c => c.Block) || Math.Abs(toTile.Position.X - attacker.Spawn.Position.X) > radius || Math.Abs(toTile.Position.Y - attacker.Spawn.Position.Y) > radius)
+                if (toTile == null || toTile.Ground == null || !toTile.CanWalk || Math.Abs(toTile.Position.X - attacker.Spawn.Position.X) > radius || Math.Abs(toTile.Position.Y - attacker.Spawn.Position.Y) > radius)
                 {
 
                 }

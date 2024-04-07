@@ -138,7 +138,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if (OpenTibiaId != null)
                     {
-                        if ( !toTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) )
+                        if (toTile.CanUseWith)
                         {
                             await Context.AddCommand(new TileCreateItemCommand(toTile, OpenTibiaId.Value, Count.Value) ).Then( (item) =>
                             {

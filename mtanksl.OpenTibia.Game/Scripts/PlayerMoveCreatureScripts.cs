@@ -2,7 +2,6 @@
 using OpenTibia.Game.CommandHandlers;
 using OpenTibia.Game.Commands;
 using OpenTibia.Network.Packets.Outgoing;
-using System.Linq;
 
 namespace OpenTibia.Game.Scripts
 {
@@ -14,7 +13,7 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveCreatureCommand>( (context, next, command) =>
             {
-                if (command.ToTile.Ground == null || command.ToTile.GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) || i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) ) || command.ToTile.GetCreatures().Any(c => c.Block) )
+                if (command.ToTile.Ground == null || !command.ToTile.CanWalk)
                 {
                     Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtRoom) );
 
