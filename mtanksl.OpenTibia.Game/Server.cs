@@ -267,6 +267,16 @@ namespace OpenTibia.Game
                     NpcFactory.Start(NpcFile.Load(PathResolver.GetFullPath("data/npcs") ) );
                 }
 
+                using (Logger.Measure("Loading plugins config") )
+                {
+                    Plugins.Start();
+                }
+
+                using (Logger.Measure("Loading scripts") )
+                {
+                    Scripts.Start();
+                }
+
                 using (Logger.Measure("Loading map") )
                 {
                     Map.Start(OtbmFile.Load(PathResolver.GetFullPath("data/world/map.otbm") ), 
@@ -347,16 +357,6 @@ namespace OpenTibia.Game
                             }
                         }
                     }
-                }
-
-                using (Logger.Measure("Loading plugins") )
-                {
-                    Plugins.Start();
-                }
-
-                using (Logger.Measure("Loading scripts") )
-                {
-                    Scripts.Start();
                 }
 
                 return Promise.Completed;

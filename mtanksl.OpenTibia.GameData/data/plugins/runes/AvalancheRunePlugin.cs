@@ -28,14 +28,14 @@ namespace OpenTibia.GameData.Plugins.Runes
         {
             Offset[] area = new Offset[]
             {
-                                                         new Offset(-1, -3), new Offset(0, -3), new Offset(1, -3),
-				                     new Offset(-2, -2), new Offset(-1, -2), new Offset(0, -2), new Offset(1, -2), new Offset(2, -2),
-		         new Offset(-3, -1), new Offset(-2, -1), new Offset(-1, -1), new Offset(0, -1), new Offset(1, -1), new Offset(2, -1), new Offset(3, -1),
-		         new Offset(-3, 0),  new Offset(-2, 0),  new Offset(-1, 0),  new Offset(0, 0),  new Offset(1, 0),  new Offset(2, 0),  new Offset(3, 0),
-		         new Offset(-3, 1),  new Offset(-2, 1),  new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1),  new Offset(2, 1),  new Offset(3, 1),
-				                     new Offset(-2, 2),  new Offset(-1, 2),  new Offset(0, 2),  new Offset(1, 2),  new Offset(2, 2),
-							                             new Offset(-1, 3),  new Offset(0, 3),  new Offset(1, 3)
-             };
+                                                        new Offset(-1, -3), new Offset(0, -3), new Offset(1, -3),
+			                        new Offset(-2, -2), new Offset(-1, -2), new Offset(0, -2), new Offset(1, -2), new Offset(2, -2),
+		        new Offset(-3, -1), new Offset(-2, -1), new Offset(-1, -1), new Offset(0, -1), new Offset(1, -1), new Offset(2, -1), new Offset(3, -1),
+		        new Offset(-3, 0),  new Offset(-2, 0),  new Offset(-1, 0),  new Offset(0, 0),  new Offset(1, 0),  new Offset(2, 0),  new Offset(3, 0),
+		        new Offset(-3, 1),  new Offset(-2, 1),  new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1),  new Offset(2, 1),  new Offset(3, 1),
+			                        new Offset(-2, 2),  new Offset(-1, 2),  new Offset(0, 2),  new Offset(1, 2),  new Offset(2, 2),
+			                                            new Offset(-1, 3),  new Offset(0, 3),  new Offset(1, 3)
+            };
 
             var formula = GenericFormula(player.Level, player.Skills.MagicLevel, 1.2, 7, 2.8, 17);
 

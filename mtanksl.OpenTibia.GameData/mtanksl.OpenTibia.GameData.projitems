@@ -23,7 +23,7 @@
     <None Include="$(MSBuildThisFileDirectory)data\plugins\actions\use item with creature.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\actions\use item with item.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\actions\use item.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\plugins\ammunitions\burst arrow.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\ammunitions\burst arrow example.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\ammunitions\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\config.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\lib.lua" />
@@ -39,15 +39,15 @@
     <None Include="$(MSBuildThisFileDirectory)data\plugins\npcs\default.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\npcs\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\scripts\npcs\rachel.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\plugins\runes\great fireball rune.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\runes\great fireball rune example.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\runes\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\scripts\lib.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\plugins\spells\fire wave.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\spells\fire wave example.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\spells\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\talkactions\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\talkactions\say.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\weapons\lib.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\plugins\weapons\wand of inferno.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\weapons\wand of inferno example.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\quests\config.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\quests\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\server\config.lua" />
@@ -399,8 +399,10 @@
     <Content Include="$(MSBuildThisFileDirectory)data\world\map-spawn.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\ammunitions\BurstArrowAmmunitionPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\ammunitions\PoisonArrowAmmunitionPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\DestroyFieldRunePlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\GreatFireballRunePlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\StalagmiteRunePlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\IcicleRunePlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\StoneShowerRunePlugin.cs" />
@@ -427,6 +429,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\runes\CurePoisonRunePlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\ConjureRuneSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\ConjureItemSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\FireWaveSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\FoodSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\FierceBerserkSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\BerserkSpellPlugin.cs" />
@@ -464,6 +467,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\weapons\TempestRodWeaponPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\weapons\SnakebiteRodWeaponPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\weapons\VolcanicRodWeaponPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\weapons\WandOfInfernoWeaponPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\weapons\WandOfDragonbreathWeaponPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\weapons\WandOfVortexWeaponPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\weapons\WandOfCosmicEnergyWeaponPlugin.cs" />

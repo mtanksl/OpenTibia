@@ -42,7 +42,7 @@
 		{ words = "exori mort", name = "Death Strike", group = "Attack", cooldown = 2, groupcooldown = 2, level = 16, mana = 20, soul = 0, premium = true, vocations = { vocation.sorcerer, vocation.mastersorcerer }, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Spells.DeathStrikeSpellPlugin" },
 		{ words = "exori flam", name = "Flame Strike", group = "Attack", cooldown = 2, groupcooldown = 2, level = 14, mana = 20, soul = 0, premium = true, vocations = { vocation.druid, vocation.sorcerer, vocation.elderdruid, vocation.mastersorcerer }, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Spells.FlameStrikeSpellPlugin" },
 		{ words = "exori vis", name = "Energy Strike", group = "Attack", cooldown = 2, groupcooldown = 2, level = 12, mana = 20, soul = 0, premium = true, vocations = { vocation.druid, vocation.sorcerer, vocation.elderdruid, vocation.mastersorcerer }, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Spells.EnergyStrikeSpellPlugin" },
-		{ words = "exevo flam hur", name = "Fire Wave", group = "Attack", cooldown = 4, groupcooldown = 2, level = 18, mana = 25, soul = 0, premium = false, vocations = { vocation.sorcerer, vocation.mastersorcerer }, requirestarget = false, filename = "fire wave.lua" },
+		{ words = "exevo flam hur", name = "Fire Wave", group = "Attack", cooldown = 4, groupcooldown = 2, level = 18, mana = 25, soul = 0, premium = false, vocations = { vocation.sorcerer, vocation.mastersorcerer }, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Spells.FireWaveSpellPlugin" },
 		{ words = "exevo vis lux", name = "Energy Beam", group = "Attack", cooldown = 4, groupcooldown = 2, level = 23, mana = 40, soul = 0, premium = false, vocations = { vocation.sorcerer, vocation.mastersorcerer }, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Spells.EnergyBeamSpellPlugin" },
 		{ words = "exevo gran vis lux", name = "Great Energy Beam", group = "Attack", cooldown = 6, groupcooldown = 2, level = 29, mana = 110, soul = 0, premium = false, vocations = { vocation.sorcerer, vocation.mastersorcerer }, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Spells.GreatEnergyBeamSpellPlugin" },
 		{ words = "exevo vis hur", name = "Energy Wave", group = "Attack", cooldown = 8, groupcooldown = 2, level = 38, mana = 170, soul = 0, premium = false, vocations = { vocation.sorcerer, vocation.mastersorcerer }, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Spells.EnergyWaveSpellPlugin" },
@@ -118,7 +118,7 @@
 		{ opentibiaid = 2262, name = "Energy Bomb Rune", group = "Attack", groupcooldown = 2, level = 37, magiclevel = 10, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Runes.EnergyBombRunePlugin" },
 		{ opentibiaid = 2279, name = "Energy Wall Rune", group = "Attack", groupcooldown = 2, level = 41, magiclevel = 9, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Runes.EnergyWallRunePlugin" },
 		{ opentibiaid = 2302, name = "Fireball Rune", group = "Attack", groupcooldown = 2, level = 27, magiclevel = 4, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Runes.FireballRunePlugin" },
-		{ opentibiaid = 2304, name = "Great Fireball Rune", group = "Attack", groupcooldown = 2, level = 30, magiclevel = 4, requirestarget = false, filename = "great fireball rune.lua" },
+		{ opentibiaid = 2304, name = "Great Fireball Rune", group = "Attack", groupcooldown = 2, level = 30, magiclevel = 4, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Runes.GreatFireballRunePlugin" },
 		{ opentibiaid = 2274, name = "Avalanche Rune", group = "Attack", groupcooldown = 2, level = 30, magiclevel = 4, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Runes.AvalancheRunePlugin" },
 		{ opentibiaid = 2315, name = "Thunderstorm Rune", group = "Attack", groupcooldown = 2, level = 28, magiclevel = 4, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Runes.ThunderstormRunePlugin" },
 		{ opentibiaid = 2288, name = "Stone Shower Rune", group = "Attack", groupcooldown = 2, level = 28, magiclevel = 4, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Runes.StoneShowerRunePlugin" },
@@ -128,7 +128,7 @@
 		{ opentibiaid = 2269, name = "Wild Growth Rune", group = "Support", groupcooldown = 2, level = 27, magiclevel = 8, requirestarget = false, filename = "OpenTibia.GameData.Plugins.Runes.WildGrowthRunePlugin" }
 	},
 	weapons = {
-		{ opentibiaid = 2187, level = 33, mana = 13, vocations = { vocation.sorcerer, vocation.mastersorcerer }, filename = "wand of inferno.lua" },		
+		{ opentibiaid = 2187, level = 33, mana = 13, vocations = { vocation.sorcerer, vocation.mastersorcerer }, filename = "OpenTibia.GameData.Plugins.Weapons.WandOfInfernoWeaponPlugin" },		
 		{ opentibiaid = 2188, level = 19, mana = 5, vocations = { vocation.sorcerer, vocation.mastersorcerer }, filename = "OpenTibia.GameData.Plugins.Weapons.WandOfPlagueWeaponPlugin" },
 		{ opentibiaid = 2189, level = 26, mana = 8, vocations = { vocation.sorcerer, vocation.mastersorcerer }, filename = "OpenTibia.GameData.Plugins.Weapons.WandOfCosmicEnergyWeaponPlugin" },
 		{ opentibiaid = 2190, level = 7, mana = 2, vocations = { vocation.sorcerer, vocation.mastersorcerer }, filename = "OpenTibia.GameData.Plugins.Weapons.WandOfVortexWeaponPlugin" },
@@ -142,6 +142,6 @@
 	},
 	ammunitions = {
 		{ opentibiaid = 2545, filename = "OpenTibia.GameData.Plugins.Ammunitions.PoisonArrowAmmunitionPlugin" },
-		{ opentibiaid = 2546, filename = "burst arrow.lua" }
+		{ opentibiaid = 2546, filename = "OpenTibia.GameData.Plugins.Ammunitions.BurstArrowAmmunitionPlugin" }
 	}
 }
