@@ -9,10 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="tibia772.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\mtanksl.OpenTibia.Game\mtanksl.OpenTibia.Game.csproj" />
   </ItemGroup>
 

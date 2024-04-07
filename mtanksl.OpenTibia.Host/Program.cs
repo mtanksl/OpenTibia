@@ -87,6 +87,8 @@ namespace OpenTibia.Host
 
                 server.Stop();
             }
+
+            Console.ReadKey();
         }
     }
 }

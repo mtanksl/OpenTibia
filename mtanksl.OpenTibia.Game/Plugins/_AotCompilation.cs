@@ -24,6 +24,7 @@ namespace OpenTibia.Game.Plugins
             { "OpenTibia.GameData.Plugins.Spells.EnergyWaveSpellPlugin", spell => new EnergyWaveSpellPlugin(spell) },
             { "OpenTibia.GameData.Plugins.Spells.EternalWinterSpellPlugin", spell => new EternalWinterSpellPlugin(spell) },
             { "OpenTibia.GameData.Plugins.Spells.FierceBerserkSpellPlugin", spell => new FierceBerserkSpellPlugin(spell) },
+            { "OpenTibia.GameData.Plugins.Spells.FireWaveSpellPlugin", spell => new FireWaveSpellPlugin(spell) },
             { "OpenTibia.GameData.Plugins.Spells.FlameStrikeSpellPlugin", spell => new FlameStrikeSpellPlugin(spell) },
             { "OpenTibia.GameData.Plugins.Spells.FoodSpellPlugin", spell => new FoodSpellPlugin(spell) },
             { "OpenTibia.GameData.Plugins.Spells.GreatEnergyBeamSpellPlugin", spell => new GreatEnergyBeamSpellPlugin(spell) },
@@ -52,6 +53,7 @@ namespace OpenTibia.Game.Plugins
         {
             { "OpenTibia.GameData.Plugins.Runes.AvalancheRunePlugin", rune => new AvalancheRunePlugin(rune) },
             { "OpenTibia.GameData.Plugins.Runes.CurePoisonRunePlugin", rune => new CurePoisonRunePlugin(rune) },
+            { "OpenTibia.GameData.Plugins.Runes.DestroyFieldRunePlugin", rune => new DestroyFieldRunePlugin(rune) },
             { "OpenTibia.GameData.Plugins.Runes.EnergyBombRunePlugin", rune => new EnergyBombRunePlugin(rune) },
             { "OpenTibia.GameData.Plugins.Runes.EnergyFieldRunePlugin", rune => new EnergyFieldRunePlugin(rune) },
             { "OpenTibia.GameData.Plugins.Runes.EnergyWallRunePlugin", rune => new EnergyWallRunePlugin(rune) },
@@ -60,6 +62,7 @@ namespace OpenTibia.Game.Plugins
             { "OpenTibia.GameData.Plugins.Runes.FireBombRunePlugin", rune => new FireBombRunePlugin(rune) },
             { "OpenTibia.GameData.Plugins.Runes.FireFieldRunePlugin", rune => new FireFieldRunePlugin(rune) },
             { "OpenTibia.GameData.Plugins.Runes.FireWallRunePlugin", rune => new FireWallRunePlugin(rune) },
+            { "OpenTibia.GameData.Plugins.Runes.GreatFireballRunePlugin", rune => new GreatFireballRunePlugin(rune) },
             { "OpenTibia.GameData.Plugins.Runes.HeavyMagicMissileRunePlugin", rune => new HeavyMagicMissileRunePlugin(rune) },
             { "OpenTibia.GameData.Plugins.Runes.IcicleRunePlugin", rune => new IcicleRunePlugin(rune) },
             { "OpenTibia.GameData.Plugins.Runes.IntenseHealingRunePlugin", rune => new IntenseHealingRunePlugin(rune) },
@@ -86,12 +89,14 @@ namespace OpenTibia.Game.Plugins
             { "OpenTibia.GameData.Plugins.Weapons.VolcanicRodWeaponPlugin", weapon => new VolcanicRodWeaponPlugin(weapon) },
             { "OpenTibia.GameData.Plugins.Weapons.WandOfCosmicEnergyWeaponPlugin", weapon => new WandOfCosmicEnergyWeaponPlugin(weapon) },
             { "OpenTibia.GameData.Plugins.Weapons.WandOfDragonbreathWeaponPlugin", weapon => new WandOfDragonbreathWeaponPlugin(weapon) },
+            { "OpenTibia.GameData.Plugins.Weapons.WandOfInfernoWeaponPlugin", weapon => new WandOfInfernoWeaponPlugin(weapon) },
             { "OpenTibia.GameData.Plugins.Weapons.WandOfPlagueWeaponPlugin", weapon => new WandOfPlagueWeaponPlugin(weapon) },
             { "OpenTibia.GameData.Plugins.Weapons.WandOfVortexWeaponPlugin", weapon => new WandOfVortexWeaponPlugin(weapon) },
         };
 
         public static readonly Dictionary<string, Func<Ammunition, AmmunitionPlugin> > AmmunitionPlugins = new Dictionary<string, Func<Ammunition, AmmunitionPlugin> >()
         {
+            { "OpenTibia.GameData.Plugins.Ammunitions.BurstArrowAmmunitionPlugin", ammunition => new BurstArrowAmmunitionPlugin(ammunition) },
             { "OpenTibia.GameData.Plugins.Ammunitions.PoisonArrowAmmunitionPlugin", ammunition => new PoisonArrowAmmunitionPlugin(ammunition) },
         };
 
