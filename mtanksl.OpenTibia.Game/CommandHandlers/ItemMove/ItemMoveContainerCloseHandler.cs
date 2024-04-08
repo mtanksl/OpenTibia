@@ -15,9 +15,56 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 HashSet<Player> isNextFrom = new HashSet<Player>();
 
-                foreach (var player in container.GetPlayers() )
+                switch (container.Parent)
                 {
-                    isNextFrom.Add(player);
+                    case Tile fromTile:
+
+                        foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(fromTile.Position) )
+                        {
+                            if (observer.Tile.Position.IsNextTo(fromTile.Position) )
+                            {
+                                isNextFrom.Add(observer);
+                            }                            
+                        }
+
+                        break;
+
+                    case Inventory fromInventory:
+
+                        isNextFrom.Add(fromInventory.Player);
+
+                        break;
+
+                    case Container fromContainer:
+
+                        switch (fromContainer.Root() )
+                        {
+                            case Tile fromTile:
+
+                                foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(fromTile.Position) )
+                                {
+                                    if (observer.Tile.Position.IsNextTo(fromTile.Position) )
+                                    {
+                                        isNextFrom.Add(observer);
+                                    }
+                                }
+
+                                break;
+
+                            case Inventory fromInventory:
+
+                                isNextFrom.Add(fromInventory.Player);
+
+                                break;
+
+                            case Safe fromSafe:
+
+                                isNextFrom.Add(fromSafe.Player);
+
+                                break;
+                        }
+
+                        break;
                 }
 
                 return next().Then( () =>
@@ -68,7 +115,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 case Safe toSafe:
 
-                                    isNextTo.Add((Player)toSafe.Player);
+                                    isNextTo.Add(toSafe.Player);
 
                                     break;
                             }

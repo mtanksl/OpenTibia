@@ -28,6 +28,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 break;
 
+                            case Inventory inventory:
+
+                                break;
+
                             case Safe safe:
 
                                 player.Client.Containers.CloseContainer(pair.Key);
