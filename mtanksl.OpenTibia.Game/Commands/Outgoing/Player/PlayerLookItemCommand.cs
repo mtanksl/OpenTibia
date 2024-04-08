@@ -130,6 +130,16 @@ namespace OpenTibia.Game.Commands
             if (Player.Rank == Rank.Gamemaster)
             {
                 attributes.Add("Item Id: " + ItemMetadata.OpenTibiaId);
+
+                if (Item.ActionId > 0)
+                {
+                    attributes.Add("Action Id: " + Item.ActionId);
+                }
+
+                if (Item.UniqueId > 0)
+                {
+                    attributes.Add("Unique Id: " + Item.UniqueId);
+                }
             }
 
             List<string> descriptions = new List<string>();
