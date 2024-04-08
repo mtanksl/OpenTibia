@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Player.Client.Vips.RemoveVip( (int)DatabasePlayerId);
+            Player.Vips.RemoveVip( (int)DatabasePlayerId);
 
             return Promise.Completed;
         }

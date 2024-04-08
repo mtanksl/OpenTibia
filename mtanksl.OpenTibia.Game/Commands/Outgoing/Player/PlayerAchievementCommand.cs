@@ -43,29 +43,29 @@ namespace OpenTibia.Game.Commands
         {
             int value;
 
-            if ( !Player.Client.Storages.TryGetValue(IncrementStorageKey, out value) )
+            if ( !Player.Storages.TryGetValue(IncrementStorageKey, out value) )
             {
                 value = 0;
             }
 
-            Player.Client.Storages.SetValue(IncrementStorageKey, ++value);
+            Player.Storages.SetValue(IncrementStorageKey, ++value);
 
-            if ( !Player.Client.Achievements.HasAchievement(AchievementName) )
+            if ( !Player.Achievements.HasAchievement(AchievementName) )
             {
                 if (RequiredStorageKeys == null)
                 {
                     if (value >= RequiredStorageValue)
                     {                    
-                        Player.Client.Achievements.SetAchievement(AchievementName);
+                        Player.Achievements.SetAchievement(AchievementName);
 
                         Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "Congratulations! You earned the achievement \"" + AchievementName + "\".") );
                     }
                 }
                 else
                 {
-                    if (RequiredStorageKeys.All(key => Player.Client.Storages.TryGetValue(key, out _) ) )
+                    if (RequiredStorageKeys.All(key => Player.Storages.TryGetValue(key, out _) ) )
                     {
-                        Player.Client.Achievements.SetAchievement(AchievementName);
+                        Player.Achievements.SetAchievement(AchievementName);
 
                         Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "Congratulations! You earned the achievement \"" + AchievementName + "\".") );
                     }

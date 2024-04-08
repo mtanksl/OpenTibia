@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Commands
         {
             List<OutfitDto> outfits = new List<OutfitDto>();
 
-            foreach (var pair in Player.Client.Outfits.GetIndexed() )
+            foreach (var pair in Player.Outfits.GetIndexed() )
             {
                 OutfitConfig outfitConfig = Context.Server.Outfits.GetOutfitById(pair.Key);
 

@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Common.Objects
 {
-    public class PlayerStorageCollection : IPlayerStorageCollection
+    public class PlayerStorageCollection
     {
         private Dictionary<int, int> storages = new Dictionary<int, int>();
 

@@ -17,7 +17,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (Context.Server.Config.LearnSpellFirst)
                 {
-                    if ( !command.Player.Client.Spells.HasSpell(plugin.Spell.Name) )
+                    if ( !command.Player.Spells.HasSpell(plugin.Spell.Name) )
                     {
                         Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouNeedToLearnThisSpellFirst) );
 

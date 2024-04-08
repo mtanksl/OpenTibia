@@ -643,7 +643,7 @@ namespace OpenTibia.Game
 
                 Addon addon;
 
-                if (player.Client.Outfits.TryGetOutfit( (ushort)(long)parameters[1], out addon) )
+                if (player.Outfits.TryGetOutfit( (ushort)(long)parameters[1], out addon) )
                 {
                     return Promise.FromResult(new object[] { true, addon } );
                 }
@@ -655,7 +655,7 @@ namespace OpenTibia.Game
             {
                 Player player = (Player)parameters[0];
 
-                player.Client.Outfits.SetOutfit( (ushort)(long)parameters[1], (Addon)(long)parameters[2] );
+                player.Outfits.SetOutfit( (ushort)(long)parameters[1], (Addon)(long)parameters[2] );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );
@@ -664,7 +664,7 @@ namespace OpenTibia.Game
             {
                 Player player = (Player)parameters[0];
 
-                player.Client.Outfits.RemoveOutfit( (ushort)(long)parameters[1] );
+                player.Outfits.RemoveOutfit( (ushort)(long)parameters[1] );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );
@@ -675,7 +675,7 @@ namespace OpenTibia.Game
 
                 int value;
 
-                if (player.Client.Storages.TryGetValue( (int)(long)parameters[1], out value) )
+                if (player.Storages.TryGetValue( (int)(long)parameters[1], out value) )
                 {
                     return Promise.FromResult(new object[] { true, value } );
                 }
@@ -687,7 +687,7 @@ namespace OpenTibia.Game
             {
                 Player player = (Player)parameters[0];
 
-                player.Client.Storages.SetValue( (int)(long)parameters[1], (int)(long)parameters[2] );
+                player.Storages.SetValue( (int)(long)parameters[1], (int)(long)parameters[2] );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );
@@ -696,7 +696,7 @@ namespace OpenTibia.Game
             {
                 Player player = (Player)parameters[0];
 
-                player.Client.Storages.RemoveValue( (int)(long)parameters[1] );
+                player.Storages.RemoveValue( (int)(long)parameters[1] );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );
@@ -705,14 +705,14 @@ namespace OpenTibia.Game
             {
                 Player player = (Player)parameters[0];
                 
-                return Promise.FromResult<object[]>(player.Client.Spells.GetSpells().ToArray() );
+                return Promise.FromResult<object[]>(player.Spells.GetSpells().ToArray() );
             } );
 
             lua.RegisterCoFunction("playersetspell", parameters =>
             {
                 Player player = (Player)parameters[0];
 
-                player.Client.Spells.SetSpell( (string)parameters[1] );
+                player.Spells.SetSpell( (string)parameters[1] );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );
@@ -721,7 +721,7 @@ namespace OpenTibia.Game
             {
                 Player player = (Player)parameters[0];
 
-                player.Client.Spells.RemoveSpell( (string)parameters[1] );
+                player.Spells.RemoveSpell( (string)parameters[1] );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );

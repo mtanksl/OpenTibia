@@ -72,7 +72,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (doors.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                if (command.Item.ActionId < 1000 || !command.Player.Client.Storages.TryGetValue(command.Item.ActionId - 1000, out _) )
+                if (command.Item.ActionId < 1000 || !command.Player.Storages.TryGetValue(command.Item.ActionId - 1000, out _) )
                 {
                     Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "The door seems to be sealed against unwanted intruders.") );
 

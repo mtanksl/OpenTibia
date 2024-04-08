@@ -12,16 +12,6 @@ namespace OpenTibia.Common.Objects
             this.Containers = new ContainerCollection(this);
 
             this.Windows = new WindowCollection(this);
-
-            this.Outfits = new PlayerOutfitCollection();
-
-            this.Storages = new PlayerStorageCollection();
-
-            this.Achievements = new PlayerAchievementsCollection();
-
-            this.Spells = new PlayerSpellCollection();
-
-            this.Vips = new PlayerVipCollection();
         }
 
         public IBattleCollection Battles { get; }
@@ -29,16 +19,6 @@ namespace OpenTibia.Common.Objects
         public IContainerCollection Containers { get; }
 
         public IWindowCollection Windows { get; }
-
-        public IPlayerOutfitCollection Outfits { get; }
-
-        public IPlayerStorageCollection Storages { get; }
-
-        public IPlayerAchievementsCollection Achievements { get; }
-
-        public IPlayerSpellCollection Spells { get; }
-
-        public IPlayerVipCollection Vips { get; }
 
         private Player player;
 

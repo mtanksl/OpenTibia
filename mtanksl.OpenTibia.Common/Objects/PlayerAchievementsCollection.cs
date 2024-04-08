@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Common.Objects
 {
-    public class PlayerAchievementsCollection : IPlayerAchievementsCollection
+    public class PlayerAchievementsCollection
     {
         private HashSet<string> achievements = new HashSet<string>();
 

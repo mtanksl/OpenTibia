@@ -11,6 +11,16 @@ namespace OpenTibia.Common.Objects
 
             Lockers = new Safe(this);
 
+            Outfits = new PlayerOutfitCollection();
+
+            Storages = new PlayerStorageCollection();
+
+            Achievements = new PlayerAchievementsCollection();
+
+            Spells = new PlayerSpellCollection();
+
+            Vips = new PlayerVipCollection();
+
             Skills = new Skills(this)
             {
                 MagicLevel = 0,
@@ -79,6 +89,16 @@ namespace OpenTibia.Common.Objects
 
         public Safe Lockers { get; }
 
+        public PlayerOutfitCollection Outfits { get; }
+
+        public PlayerStorageCollection Storages { get; }
+
+        public PlayerAchievementsCollection Achievements { get; }
+
+        public PlayerSpellCollection Spells { get; }
+
+        public PlayerVipCollection Vips { get; }
+        
         public Skills Skills { get; set; }
 
         public uint Experience { get; set; }

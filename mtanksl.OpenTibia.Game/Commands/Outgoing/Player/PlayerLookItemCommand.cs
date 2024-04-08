@@ -260,7 +260,7 @@ namespace OpenTibia.Game.Commands
 
             if (Item != null)
             {
-                if (ItemMetadata.Flags.Is(ItemMetadataFlags.Pickupable) )
+                if (ItemMetadata.Flags.Is(ItemMetadataFlags.Pickupable) && Item.UniqueId == 0)
                 {
                     uint weight = Item.Weight;
 
@@ -273,7 +273,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                if (Item is ReadableItem readableItem && readableItem.Metadata.Flags.Is(ItemMetadataFlags.AllowDistanceRead) )
+                if (ItemMetadata.Flags.Is(ItemMetadataFlags.AllowDistanceRead) && Item is ReadableItem readableItem)
                 {
                     if (Player.Tile.Position.IsInRange( ( (Tile)Item.Parent).Position, 4) )
                     {

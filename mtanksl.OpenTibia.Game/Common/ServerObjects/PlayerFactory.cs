@@ -272,7 +272,7 @@ namespace OpenTibia.Game
         {
             foreach (var dbPlayerStorage in dbPlayer.PlayerStorages)
             {
-                player.Client.Storages.SetValue(dbPlayerStorage.Key, dbPlayerStorage.Value);
+                player.Storages.SetValue(dbPlayerStorage.Key, dbPlayerStorage.Value);
             }
         }
 
@@ -280,7 +280,7 @@ namespace OpenTibia.Game
         {
             foreach (var dbPlayerStorage in dbPlayer.PlayerSpells)
             {
-                player.Client.Spells.SetSpell(dbPlayerStorage.Name);
+                player.Spells.SetSpell(dbPlayerStorage.Name);
             }
         }
 
@@ -288,7 +288,7 @@ namespace OpenTibia.Game
         {
             foreach (var dbPlayerStorage in dbPlayer.PlayerAchievements)
             {
-                player.Client.Achievements.SetAchievement(dbPlayerStorage.Name);
+                player.Achievements.SetAchievement(dbPlayerStorage.Name);
             }
         }
 
@@ -300,25 +300,25 @@ namespace OpenTibia.Game
                 {
                     case Gender.Male:
 
-                        player.Client.Outfits.SetOutfit(Outfit.MaleCitizen.Id, Addon.None);
+                        player.Outfits.SetOutfit(Outfit.MaleCitizen.Id, Addon.None);
 
-                        player.Client.Outfits.SetOutfit(Outfit.MaleHunter.Id, Addon.None);
+                        player.Outfits.SetOutfit(Outfit.MaleHunter.Id, Addon.None);
 
-                        player.Client.Outfits.SetOutfit(Outfit.MaleMage.Id, Addon.None);
+                        player.Outfits.SetOutfit(Outfit.MaleMage.Id, Addon.None);
 
-                        player.Client.Outfits.SetOutfit(Outfit.MaleKnight.Id, Addon.None);
+                        player.Outfits.SetOutfit(Outfit.MaleKnight.Id, Addon.None);
 
                         break;
 
                     case Gender.Female:
 
-                        player.Client.Outfits.SetOutfit(Outfit.FemaleCitizen.Id, Addon.None);
+                        player.Outfits.SetOutfit(Outfit.FemaleCitizen.Id, Addon.None);
 
-                        player.Client.Outfits.SetOutfit(Outfit.FemaleHunter.Id, Addon.None);
+                        player.Outfits.SetOutfit(Outfit.FemaleHunter.Id, Addon.None);
 
-                        player.Client.Outfits.SetOutfit(Outfit.FemaleMage.Id, Addon.None);
+                        player.Outfits.SetOutfit(Outfit.FemaleMage.Id, Addon.None);
 
-                        player.Client.Outfits.SetOutfit(Outfit.FemaleKnight.Id, Addon.None);
+                        player.Outfits.SetOutfit(Outfit.FemaleKnight.Id, Addon.None);
 
                         break;
 
@@ -331,7 +331,7 @@ namespace OpenTibia.Game
             {
                 foreach (var dbPlayerOutfit in dbPlayer.PlayerOutfits)
                 {
-                    player.Client.Outfits.SetOutfit( (ushort)dbPlayerOutfit.OutfitId, (Addon)dbPlayerOutfit.OutfitAddon);
+                    player.Outfits.SetOutfit( (ushort)dbPlayerOutfit.OutfitId, (Addon)dbPlayerOutfit.OutfitAddon);
                 }
             }
         }
@@ -340,7 +340,7 @@ namespace OpenTibia.Game
         {
             foreach (var dbVip in dbPlayer.PlayerVips)
             {
-                player.Client.Vips.AddVip(dbVip.Vip.Id, dbVip.Vip.Name);
+                player.Vips.AddVip(dbVip.Vip.Id, dbVip.Vip.Name);
             }
         }
 
@@ -554,7 +554,7 @@ namespace OpenTibia.Game
         {
             dbPlayer.PlayerOutfits.Clear();
 
-            foreach (var pair in player.Client.Outfits.GetIndexed() )
+            foreach (var pair in player.Outfits.GetIndexed() )
             {
                 dbPlayer.PlayerOutfits.Add(new DbPlayerOutfit()
                 {
@@ -571,7 +571,7 @@ namespace OpenTibia.Game
         {
             dbPlayer.PlayerStorages.Clear();
 
-            foreach (var pair in player.Client.Storages.GetIndexed() )
+            foreach (var pair in player.Storages.GetIndexed() )
             {
                 dbPlayer.PlayerStorages.Add(new DbPlayerStorage()
                 {
@@ -588,7 +588,7 @@ namespace OpenTibia.Game
         {
             dbPlayer.PlayerSpells.Clear();
 
-            foreach (var name in player.Client.Spells.GetSpells() )
+            foreach (var name in player.Spells.GetSpells() )
             {
                 dbPlayer.PlayerSpells.Add(new DbPlayerSpell()
                 {
@@ -603,7 +603,7 @@ namespace OpenTibia.Game
         {
             dbPlayer.PlayerAchievements.Clear();
 
-            foreach (var name in player.Client.Achievements.GetAchievements() )
+            foreach (var name in player.Achievements.GetAchievements() )
             {
                 dbPlayer.PlayerAchievements.Add(new DbPlayerAchievement()
                 {
@@ -618,7 +618,7 @@ namespace OpenTibia.Game
         {
             dbPlayer.PlayerVips.Clear();
 
-            foreach (var pair in player.Client.Vips.GetIndexed() )
+            foreach (var pair in player.Vips.GetIndexed() )
             {
                 dbPlayer.PlayerVips.Add(new DbPlayerVip()
                 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Common.Objects
 {
-    public class PlayerOutfitCollection : IPlayerOutfitCollection
+    public class PlayerOutfitCollection
     {
         private Dictionary<ushort, Addon> outfits = new Dictionary<ushort, Addon>();
 

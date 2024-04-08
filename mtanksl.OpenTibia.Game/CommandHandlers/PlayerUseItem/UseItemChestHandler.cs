@@ -18,14 +18,14 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 int value;
 
-                if (command.Player.Client.Storages.TryGetValue(command.Item.UniqueId, out value) && value > 0)
+                if (command.Player.Storages.TryGetValue(command.Item.UniqueId, out value) && value > 0)
                 {
                     Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "It is empty.") );
 
                     return Promise.Completed;
                 }
 
-                command.Player.Client.Storages.SetValue(command.Item.UniqueId, 1);
+                command.Player.Storages.SetValue(command.Item.UniqueId, 1);
 
                 List<Promise> promises = new List<Promise>();
 

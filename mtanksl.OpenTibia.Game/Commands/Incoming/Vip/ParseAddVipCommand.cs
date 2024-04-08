@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
 
             if (dbPlayer != null && dbPlayer.Id != Player.DatabasePlayerId)
             {
-                if (Player.Client.Vips.AddVip(dbPlayer.Id, dbPlayer.Name) )
+                if (Player.Vips.AddVip(dbPlayer.Id, dbPlayer.Name) )
                 {
                     Context.AddPacket(Player, new VipOutgoingPacket( (uint)dbPlayer.Id, dbPlayer.Name, false) );
 

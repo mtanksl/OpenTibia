@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Commands
                 {
                     int value;
 
-                    if (Player.Client.Storages.TryGetValue(mission.StorageKey, out value) )
+                    if (Player.Storages.TryGetValue(mission.StorageKey, out value) )
                     {
                         missions++;
 

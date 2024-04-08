@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
                 Context.AddPacket(Player, new SlotAddOutgoingPacket( (byte)pair.Key, (Item)pair.Value) );
             }
 
-            foreach (var pair in Player.Client.Vips.GetIndexed() )
+            foreach (var pair in Player.Vips.GetIndexed() )
             {
                 Context.AddPacket(Player, new VipOutgoingPacket( (uint)pair.Key, pair.Value, false) );
             }

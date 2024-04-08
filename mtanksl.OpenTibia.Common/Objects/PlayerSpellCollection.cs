@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Common.Objects
 {
-    public class PlayerSpellCollection : IPlayerSpellCollection
+    public class PlayerSpellCollection
     {
         private HashSet<string> spells = new HashSet<string>();
 
