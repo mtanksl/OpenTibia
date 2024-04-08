@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class RingEquipHandler : EventHandlers.EventHandler<InventoryAddItemEventArgs>
     {
-        private Dictionary<ushort, ushort> equip = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> equip = new Dictionary<ushort, ushort>()
         {
             { 2165, 2202 }, // Stealth ring
             { 2166, 2203 }, // Power ring

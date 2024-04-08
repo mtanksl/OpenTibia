@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class GateOfExpertiseHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private Dictionary<ushort, ushort> doors = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> doors = new Dictionary<ushort, ushort>()
         {
             { 1227, 1228 },
             { 1229, 1230 },

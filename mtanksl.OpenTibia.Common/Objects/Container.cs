@@ -108,12 +108,12 @@ namespace OpenTibia.Common.Objects
 
         public void RemoveContent(int index)
         {
+            IContent content = GetContent(index);
+
             if (recomputableSource != null)
             {
                 recomputableSource.Change();
             }
-
-            IContent content = GetContent(index);
 
             contents.RemoveAt(index);
 

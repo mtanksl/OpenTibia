@@ -7,17 +7,17 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class BlueberryBushHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private Dictionary<ushort, ushort> blueberryBushs = new Dictionary<ushort, ushort>() 
+        private static Dictionary<ushort, ushort> blueberryBushs = new Dictionary<ushort, ushort>() 
         {
             { 2785, 2786 }
         };
 
-        private Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>() 
+        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>() 
         {
             { 2786, 2785 }
         };
 
-        private ushort blueberry = 2677;
+        private static ushort blueberry = 2677;
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

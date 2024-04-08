@@ -8,7 +8,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class PartyHatHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private HashSet<ushort> partyHats = new HashSet<ushort>() { 6578 };
+        private static HashSet<ushort> partyHats = new HashSet<ushort>() { 6578 };
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

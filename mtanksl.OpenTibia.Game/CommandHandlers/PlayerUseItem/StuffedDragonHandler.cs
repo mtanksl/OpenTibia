@@ -7,9 +7,9 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class StuffedDragonHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private HashSet<ushort> stuffedDragons = new HashSet<ushort>() { 5791 };
+        private static HashSet<ushort> stuffedDragons = new HashSet<ushort>() { 5791 };
 
-        private List<string> sounds = new List<string>() { "Fchhhhhh!", "Zchhhhhh!", "Grooaaaaar*cough*", "Aaa... CHOO!", "You... will.... burn!!" };
+        private static List<string> sounds = new List<string>() { "Fchhhhhh!", "Zchhhhhh!", "Grooaaaaar*cough*", "Aaa... CHOO!", "You... will.... burn!!" };
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

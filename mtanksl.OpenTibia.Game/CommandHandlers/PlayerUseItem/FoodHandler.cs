@@ -10,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class FoodHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private Dictionary<ushort, (string Sound, int Regeneration) > foods = new Dictionary<ushort, (string Sound, int Regeneration) >()
+        private static Dictionary<ushort, (string Sound, int Regeneration) > foods = new Dictionary<ushort, (string Sound, int Regeneration) >()
         {
             // Banana
             { 2676, ("Yum.", 96) },

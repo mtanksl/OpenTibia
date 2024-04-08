@@ -7,15 +7,15 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class LumpOfGarlicDoughHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private HashSet<ushort> lumpOfGarlicDough = new HashSet<ushort>() { 9113 };
+        private static HashSet<ushort> lumpOfGarlicDough = new HashSet<ushort>() { 9113 };
 
-        private HashSet<ushort> ovens = new HashSet<ushort>() { 1786, 1788, 1790, 1792, 6356, 6358, 6360, 6362 };
+        private static HashSet<ushort> ovens = new HashSet<ushort>() { 1786, 1788, 1790, 1792, 6356, 6358, 6360, 6362 };
 
-        private ushort garlicBread = 9111;
+        private static ushort garlicBread = 9111;
 
-        private HashSet<ushort> bakingTrays = new HashSet<ushort>() { 2561 };
+        private static HashSet<ushort> bakingTrays = new HashSet<ushort>() { 2561 };
 
-        private ushort bakingTrayWithGarlicDough = 9115;
+        private static ushort bakingTrayWithGarlicDough = 9115;
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {

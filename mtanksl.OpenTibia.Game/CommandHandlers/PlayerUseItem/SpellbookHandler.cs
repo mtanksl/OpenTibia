@@ -10,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class SpellbookHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private HashSet<ushort> books = new HashSet<ushort>() { 2175 };
+        private static HashSet<ushort> books = new HashSet<ushort>() { 2175 };
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

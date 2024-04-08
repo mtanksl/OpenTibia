@@ -4,10 +4,19 @@
     {
         Ground = 0,
 
+        /// <summary>
+        /// Carpet.
+        /// </summary>
         HighPriority = 1,
 
+        /// <summary>
+        /// Decoration, not moveable.
+        /// </summary>
         MediumPriority = 2,
 
+        /// <summary>
+        /// Arch.
+        /// </summary>
         LowPriority = 3,
 
         Creature = 4,

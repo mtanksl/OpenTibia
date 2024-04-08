@@ -6,7 +6,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class RotateItemTransformHandler : CommandHandler<PlayerRotateItemCommand>
     {
-        private Dictionary<ushort, ushort> transformations = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> transformations = new Dictionary<ushort, ushort>()
         {
              // Throne
             { 1647, 1648 },

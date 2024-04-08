@@ -8,11 +8,11 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class RopeHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private HashSet<ushort> ropes = new HashSet<ushort>() { 2120, 10513, 10515, 10511 };
+        private static HashSet<ushort> ropes = new HashSet<ushort>() { 2120, 10513, 10515, 10511 };
 
-        private HashSet<ushort> ropeSpots = new HashSet<ushort> { 384, 418, 8278 };
+        private static HashSet<ushort> ropeSpots = new HashSet<ushort> { 384, 418, 8278 };
 
-        private HashSet<ushort> holes = new HashSet<ushort>()
+        private static HashSet<ushort> holes = new HashSet<ushort>()
         { 
             // Pitfall
             294,

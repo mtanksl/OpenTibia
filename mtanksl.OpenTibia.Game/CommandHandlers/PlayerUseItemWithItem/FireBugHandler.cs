@@ -7,20 +7,20 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class FireBugHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private HashSet<ushort> fireBugs = new HashSet<ushort>() { 5468 };
-               
-        private Dictionary<ushort, ushort> sugarCanes = new Dictionary<ushort, ushort>()
+        private static HashSet<ushort> fireBugs = new HashSet<ushort>() { 5468 };
+
+        private static Dictionary<ushort, ushort> sugarCanes = new Dictionary<ushort, ushort>()
         {
             { 5466, 5465 }
         };
 
-        private Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
         {
             { 5465, 5471 },
             { 5471, 5466 }
         };
 
-        private Dictionary<ushort, ushort> emptyCoalBasins = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> emptyCoalBasins = new Dictionary<ushort, ushort>()
         {
             { 1485, 1483 }
         };

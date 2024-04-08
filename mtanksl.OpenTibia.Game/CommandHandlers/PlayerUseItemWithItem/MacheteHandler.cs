@@ -6,15 +6,15 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class MacheteHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private HashSet<ushort> machetes = new HashSet<ushort>() { 2420, 10513, 10515, 10511 };
+        private static HashSet<ushort> machetes = new HashSet<ushort>() { 2420, 10513, 10515, 10511 };
 
-        private Dictionary<ushort, ushort> jungleGrass = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> jungleGrass = new Dictionary<ushort, ushort>()
         {
             { 2782, 2781 },
             { 3985, 3984 }
         };
 
-        private Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
         {
             { 2781, 2782 },
             { 3984, 3985 }

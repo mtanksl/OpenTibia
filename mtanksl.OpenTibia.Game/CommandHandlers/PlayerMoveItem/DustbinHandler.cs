@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class DustbinHandler : CommandHandler<PlayerMoveItemCommand>
     {
-        private HashSet<ushort> dustbins = new HashSet<ushort>() { 1777 };
+        private static HashSet<ushort> dustbins = new HashSet<ushort>() { 1777 };
 
         public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {

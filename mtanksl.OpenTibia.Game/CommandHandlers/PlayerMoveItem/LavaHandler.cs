@@ -8,7 +8,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class LavaHandler : CommandHandler<PlayerMoveItemCommand>
     {
-        private HashSet<ushort> lavas = new HashSet<ushort>() { 598, 599, 600, 601 };
+        private static HashSet<ushort> lavas = new HashSet<ushort>() { 598, 599, 600, 601 };
 
         public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {

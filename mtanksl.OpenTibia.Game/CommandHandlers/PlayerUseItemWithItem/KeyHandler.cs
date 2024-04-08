@@ -6,9 +6,9 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class KeyHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private HashSet<ushort> keys = new HashSet<ushort>() { 2086, 2087, 2088, 2089, 2090, 2091, 2092 };
+        private static HashSet<ushort> keys = new HashSet<ushort>() { 2086, 2087, 2088, 2089, 2090, 2091, 2092 };
 
-        private Dictionary<ushort, ushort> unlockDoors = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> unlockDoors = new Dictionary<ushort, ushort>()
         {
             { 1209, 1211 },
             { 1212, 1214 },
@@ -22,7 +22,7 @@ namespace OpenTibia.Game.CommandHandlers
             //TODO: More items
         };
 
-        private Dictionary<ushort, ushort> lockDoors = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> lockDoors = new Dictionary<ushort, ushort>()
         {
             { 1211, 1209 },
             { 1214, 1212 },

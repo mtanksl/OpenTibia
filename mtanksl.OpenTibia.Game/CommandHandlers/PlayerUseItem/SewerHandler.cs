@@ -8,7 +8,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class SewerHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private HashSet<ushort> sewers = new HashSet<ushort>() { 430 };
+        private static HashSet<ushort> sewers = new HashSet<ushort>() { 430 };
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

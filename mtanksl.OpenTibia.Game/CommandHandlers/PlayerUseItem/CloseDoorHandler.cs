@@ -10,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class CloseDoorHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private Dictionary<ushort, ushort> horizontalDoors = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> horizontalDoors = new Dictionary<ushort, ushort>()
         {
             // Brick
             { 5100, 5099 },
@@ -48,7 +48,7 @@ namespace OpenTibia.Game.CommandHandlers
             //TODO: More items
         };
 
-        private Dictionary<ushort, ushort> verticalDoors = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> verticalDoors = new Dictionary<ushort, ushort>()
         {
             // Brick
             { 5109, 5108 },

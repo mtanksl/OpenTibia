@@ -6,7 +6,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class UseItemTransformHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private Dictionary<ushort, ushort> transformations = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> transformations = new Dictionary<ushort, ushort>()
         {
             // Street lamp
             { 1479, 1480 },

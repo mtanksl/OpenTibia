@@ -7,9 +7,9 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class PartyCakeHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private HashSet<ushort> partyCakes = new HashSet<ushort>() { 6280 };
+        private static HashSet<ushort> partyCakes = new HashSet<ushort>() { 6280 };
 
-        private ushort decoratedCake = 6279;
+        private static ushort decoratedCake = 6279;
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

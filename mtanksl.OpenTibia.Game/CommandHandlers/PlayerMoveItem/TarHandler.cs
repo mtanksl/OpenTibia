@@ -8,7 +8,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class TarHandler : CommandHandler<PlayerMoveItemCommand>
     {
-        private HashSet<ushort> tars = new HashSet<ushort>() { 708, 709, 710, 711 };
+        private static HashSet<ushort> tars = new HashSet<ushort>() { 708, 709, 710, 711 };
 
         public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {

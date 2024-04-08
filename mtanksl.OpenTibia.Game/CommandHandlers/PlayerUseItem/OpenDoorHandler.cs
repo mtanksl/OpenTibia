@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class OpenDoorHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private Dictionary<ushort, ushort> doors = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> doors = new Dictionary<ushort, ushort>()
         {
             // Brick
             { 5099, 5100 },

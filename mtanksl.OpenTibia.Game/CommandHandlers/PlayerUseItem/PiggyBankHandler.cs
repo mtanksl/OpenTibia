@@ -7,14 +7,14 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class PiggyBankHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private Dictionary<ushort, ushort> piggyBanks = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> piggyBanks = new Dictionary<ushort, ushort>()
         {
             { 2114, 2115 }
         };
 
-        private ushort platinumCoin = 2152;
+        private static ushort platinumCoin = 2152;
 
-        private ushort goldCoin = 2148;
+        private static ushort goldCoin = 2148;
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

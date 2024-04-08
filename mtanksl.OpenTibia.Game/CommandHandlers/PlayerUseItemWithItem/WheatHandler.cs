@@ -6,11 +6,11 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class WheatHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private HashSet<ushort> wheats = new HashSet<ushort>() { 2694 };
+        private static HashSet<ushort> wheats = new HashSet<ushort>() { 2694 };
 
-        private HashSet<ushort> millstones = new HashSet<ushort>() { 1381, 1382, 1383, 1384 };
+        private static HashSet<ushort> millstones = new HashSet<ushort>() { 1381, 1382, 1383, 1384 };
 
-        private ushort flour = 2692;
+        private static ushort flour = 2692;
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {

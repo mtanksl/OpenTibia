@@ -7,7 +7,9 @@ namespace OpenTibia.Common.Objects
 {
     public class Tile : IContainer
     {
-        private RecomputableSource recomputableSource;
+        private RecomputableSource recomputableSourceForItems;
+
+        private RecomputableSource recomputableSourceForCreatures;
 
         public Tile(Position position)
         {
@@ -36,12 +38,12 @@ namespace OpenTibia.Common.Objects
             {
                 if (ground == null)
                 {
-                    if (recomputableSource == null)
+                    if (recomputableSourceForItems == null)
                     {
-                        recomputableSource = new RecomputableSource();
+                        recomputableSourceForItems = new RecomputableSource();
                     }
 
-                    ground = new Recomputable<Item>(recomputableSource, () =>
+                    ground = new Recomputable<Item>(recomputableSourceForItems, () =>
                     {
                         return GetItems().Where(i => i.TopOrder == TopOrder.Ground).LastOrDefault();
                     } );
@@ -59,12 +61,12 @@ namespace OpenTibia.Common.Objects
             {
                 if (topItem == null)
                 {
-                    if (recomputableSource == null)
+                    if (recomputableSourceForItems == null)
                     {
-                        recomputableSource = new RecomputableSource();
+                        recomputableSourceForItems = new RecomputableSource();
                     }
 
-                    topItem = new Recomputable<Item>(recomputableSource, () =>
+                    topItem = new Recomputable<Item>(recomputableSourceForItems, () =>
                     {
                         return GetItems().Where(i => i.TopOrder == TopOrder.Other).FirstOrDefault() ??
 
@@ -84,12 +86,12 @@ namespace OpenTibia.Common.Objects
             {
                 if (topCreature == null)
                 {
-                    if (recomputableSource == null)
+                    if (recomputableSourceForCreatures == null)
                     {
-                        recomputableSource = new RecomputableSource();
+                        recomputableSourceForCreatures = new RecomputableSource();
                     }
 
-                    topCreature = new Recomputable<Creature>(recomputableSource, () =>
+                    topCreature = new Recomputable<Creature>(recomputableSourceForCreatures, () =>
                     {
                         return GetCreatures().LastOrDefault();
                     } );
@@ -107,12 +109,12 @@ namespace OpenTibia.Common.Objects
             {
                 if (floorChange == null)
                 {
-                    if (recomputableSource == null)
+                    if (recomputableSourceForItems == null)
                     {
-                        recomputableSource = new RecomputableSource();
+                        recomputableSourceForItems = new RecomputableSource();
                     }
 
-                    floorChange = new Recomputable<FloorChange>(recomputableSource, () =>
+                    floorChange = new Recomputable<FloorChange>(recomputableSourceForItems, () =>
                     {
                         FloorChange floorChange = FloorChange.None;
 
@@ -140,12 +142,12 @@ namespace OpenTibia.Common.Objects
             {
                 if (height == null)
                 {
-                    if (recomputableSource == null)
+                    if (recomputableSourceForItems == null)
                     {
-                        recomputableSource = new RecomputableSource();
+                        recomputableSourceForItems = new RecomputableSource();
                     }
 
-                    height = new Recomputable<int>(recomputableSource, () =>
+                    height = new Recomputable<int>(recomputableSourceForItems, () =>
                     {
                         int height = 0;
 
@@ -173,12 +175,12 @@ namespace OpenTibia.Common.Objects
             {
                 if (blockProjectile == null)
                 {
-                    if (recomputableSource == null)
+                    if (recomputableSourceForItems == null)
                     {
-                        recomputableSource = new RecomputableSource();
+                        recomputableSourceForItems = new RecomputableSource();
                     }
 
-                    blockProjectile = new Recomputable<bool>(recomputableSource, () =>
+                    blockProjectile = new Recomputable<bool>(recomputableSourceForItems, () =>
                     {
                         return GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.BlockProjectile) );
                     } );
@@ -196,12 +198,12 @@ namespace OpenTibia.Common.Objects
             {
                 if (notWalkable == null)
                 {
-                    if (recomputableSource == null)
+                    if (recomputableSourceForItems == null)
                     {
-                        recomputableSource = new RecomputableSource();
+                        recomputableSourceForItems = new RecomputableSource();
                     }
 
-                    notWalkable = new Recomputable<bool>(recomputableSource, () =>
+                    notWalkable = new Recomputable<bool>(recomputableSourceForItems, () =>
                     {
                         return GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.NotWalkable) );
                     } );
@@ -219,12 +221,12 @@ namespace OpenTibia.Common.Objects
             {
                 if (blockPathFinding == null)
                 {
-                    if (recomputableSource == null)
+                    if (recomputableSourceForItems == null)
                     {
-                        recomputableSource = new RecomputableSource();
+                        recomputableSourceForItems = new RecomputableSource();
                     }
 
-                    blockPathFinding = new Recomputable<bool>(recomputableSource, () =>
+                    blockPathFinding = new Recomputable<bool>(recomputableSourceForItems, () =>
                     {
                         return GetItems().Any(i => i.Metadata.Flags.Is(ItemMetadataFlags.BlockPathFinding) );
                     } );
@@ -242,12 +244,12 @@ namespace OpenTibia.Common.Objects
             {
                 if (block == null)
                 {
-                    if (recomputableSource == null)
+                    if (recomputableSourceForCreatures == null)
                     {
-                        recomputableSource = new RecomputableSource();
+                        recomputableSourceForCreatures = new RecomputableSource();
                     }
 
-                    block = new Recomputable<bool>(recomputableSource, () =>
+                    block = new Recomputable<bool>(recomputableSourceForCreatures, () =>
                     {
                         return GetCreatures().Any(c => c.Block);
                     } );
@@ -273,6 +275,65 @@ namespace OpenTibia.Common.Objects
             }
         }
 
+        private static HashSet<ushort> fields = new HashSet<ushort>() 
+        {             
+            // Blades
+            1510, 1511,             
+
+            //Campfire
+            1423, 1424, 1425,
+
+            // Gate of expertise
+            1228, 1230, 1246, 1248, 1260, 1262, 3541, 3550, 5104, 5113, 5122, 5131, 5293, 5295, 6207, 6209, 6264, 6266, 6897, 6906, 7039, 7048, 8556, 8558, 9180, 9182, 9282, 9284, 10283, 10285, 10474, 10483, 10781, 10790,
+        
+            // Sealed door
+            1224, 1226, 1242, 1244, 1256, 1258, 3543, 3552, 5106, 5115, 5124, 5133, 5289, 5291, 5746, 5749, 6203, 6205, 6260, 6262, 6899, 6908, 7041, 7050, 8552, 8554, 9176, 9178, 9278, 9280, 10279, 10281, 10476, 10485, 10783, 10792,
+            
+            // Energy field
+            1491, 1495,
+
+            // Fire field
+            1487, 1488, 1492, 1493,
+
+            // Jungle maw
+            4208, 4209,
+
+            // Open trap
+            2579,
+
+            // Poison field
+            1490, 1496, 8062,
+
+            // Searing fire
+            1506, 1507,
+
+            // Spikes
+            1512, 1513
+        };
+
+        private Recomputable<bool> field;
+
+        public bool Field
+        {
+            get
+            {
+                if (field == null)
+                {
+                    if (recomputableSourceForItems == null)
+                    {
+                        recomputableSourceForItems = new RecomputableSource();
+                    }
+
+                    field = new Recomputable<bool>(recomputableSourceForItems, () =>
+                    {
+                        return GetItems().Any(i => fields.Contains(i.Metadata.OpenTibiaId) );
+                    } );
+                }
+
+                return field.Value;
+            }
+        }
+
         private List<IContent> contents = new List<IContent>(1);
 
         public int Count
@@ -285,9 +346,19 @@ namespace OpenTibia.Common.Objects
 
         public int AddContent(IContent content)
         {
-            if (recomputableSource != null)
+            if (content is Item)
             {
-                recomputableSource.Change();
+                if (recomputableSourceForItems != null)
+                {
+                    recomputableSourceForItems.Change();
+                }
+            }
+            else if (content is Creature)
+            {
+                if (recomputableSourceForCreatures != null)
+                {
+                    recomputableSourceForCreatures.Change();
+                }
             }
 
             //13 Other 1
@@ -348,9 +419,19 @@ namespace OpenTibia.Common.Objects
 
         public void ReplaceContent(int index, IContent content)
         {
-            if (recomputableSource != null)
+            if (content is Item)
             {
-                recomputableSource.Change();
+                if (recomputableSourceForItems != null)
+                {
+                    recomputableSourceForItems.Change();
+                }
+            }
+            else if (content is Creature)
+            {
+                if (recomputableSourceForCreatures != null)
+                {
+                    recomputableSourceForCreatures.Change();
+                }
             }
 
             IContent oldContent = GetContent(index);
@@ -364,12 +445,22 @@ namespace OpenTibia.Common.Objects
 
         public void RemoveContent(int index)
         {
-            if (recomputableSource != null)
-            {
-                recomputableSource.Change();
-            }
-
             IContent content = GetContent(index);
+
+            if (content is Item)
+            {
+                if (recomputableSourceForItems != null)
+                {
+                    recomputableSourceForItems.Change();
+                }
+            }
+            else if (content is Creature)
+            {
+                if (recomputableSourceForCreatures != null)
+                {
+                    recomputableSourceForCreatures.Change();
+                }
+            }
 
             contents.RemoveAt(index);
 

@@ -7,9 +7,9 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class CandlestickMoveHandler : CommandHandler<PlayerMoveItemCommand>
     {
-        private HashSet<ushort> candlestick = new HashSet<ushort>() { 2048 };
+        private static HashSet<ushort> candlestick = new HashSet<ushort>() { 2048 };
 
-        private Dictionary<ushort, ushort> transformations = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> transformations = new Dictionary<ushort, ushort>()
         {
             // Pumkinhead
             { 2096, 2097 },

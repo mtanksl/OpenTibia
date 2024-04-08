@@ -8,7 +8,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class Stairs2Handler : CommandHandler<PlayerMoveItemCommand>
     {
-        private HashSet<ushort> stairs = new HashSet<ushort>()
+        private static HashSet<ushort> stairs = new HashSet<ushort>()
         { 
             // Stairs
             1385, 5258, 1396, 8709, 3687, 3688, 5259, 5260, 

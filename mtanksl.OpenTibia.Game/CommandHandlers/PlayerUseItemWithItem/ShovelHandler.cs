@@ -6,16 +6,16 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class ShovelHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private HashSet<ushort> shovels = new HashSet<ushort>() { 2554, 5710, 10513, 10515, 10511 };
+        private static HashSet<ushort> shovels = new HashSet<ushort>() { 2554, 5710, 10513, 10515, 10511 };
 
-        private Dictionary<ushort, ushort> stonePiles = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> stonePiles = new Dictionary<ushort, ushort>()
         {
             { 468, 469 },
             { 481, 482 },
             { 483, 484 }
         };
 
-        private Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
         {
             { 469, 468 },
             { 482, 481 },

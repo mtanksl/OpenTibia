@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class TrapMoveHandler : CommandHandler<PlayerMoveItemCommand>
     {
-        private Dictionary<ushort, ushort> traps = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> traps = new Dictionary<ushort, ushort>()
         {
             { 2579, 2578 }
         };

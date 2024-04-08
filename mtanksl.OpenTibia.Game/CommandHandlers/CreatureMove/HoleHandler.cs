@@ -8,7 +8,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class HoleHandler : CommandHandler<CreatureMoveCommand>
     {
-        private HashSet<ushort> holes = new HashSet<ushort>() 
+        private static HashSet<ushort> holes = new HashSet<ushort>() 
         { 
             // Pitfall
             294,

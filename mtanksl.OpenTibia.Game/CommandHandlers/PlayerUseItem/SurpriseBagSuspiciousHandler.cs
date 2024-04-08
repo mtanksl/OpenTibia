@@ -7,9 +7,9 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class SurpriseBagSuspiciousHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private HashSet<ushort> surpriseBags = new HashSet<ushort>() { 9108 };
+        private static HashSet<ushort> surpriseBags = new HashSet<ushort>() { 9108 };
 
-        private List< (ushort OpenTibiaId, byte Count) > prizes = new List< (ushort OpenTibiaId, byte Count) >()
+        private static List< (ushort OpenTibiaId, byte Count) > prizes = new List< (ushort OpenTibiaId, byte Count) >()
         {
             (2148, 50),
             (2667, 1),

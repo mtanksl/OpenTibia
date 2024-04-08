@@ -6,12 +6,12 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class BabySealDollHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private Dictionary<ushort, ushort> babySealDolls = new Dictionary<ushort, ushort>() 
+        private static Dictionary<ushort, ushort> babySealDolls = new Dictionary<ushort, ushort>() 
         {
             { 7183, 7184 }
         };
 
-        private Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>() 
+        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>() 
         {
             { 7184, 7183 }
         };

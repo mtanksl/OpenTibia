@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class WindowHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private Dictionary<ushort, ushort> transformations = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> transformations = new Dictionary<ushort, ushort>()
         {
             // Framework
             { 6438, 6436 },

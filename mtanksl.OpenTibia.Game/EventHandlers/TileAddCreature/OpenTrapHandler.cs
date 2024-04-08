@@ -8,23 +8,26 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class OpenTrapHandler : EventHandler<TileAddCreatureEventArgs>
     {
-        private Dictionary<ushort, ushort> traps = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> traps = new Dictionary<ushort, ushort>()
         {
             { 2579, 2578 }
         };
 
         public override Promise Handle(TileAddCreatureEventArgs e)
         {
-            foreach (var topItem in e.ToTile.GetItems() )
+            if (e.ToTile.Field)
             {
-                ushort toOpenTibiaId;
-
-                if (traps.TryGetValue(topItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+                foreach (var topItem in e.ToTile.GetItems() )
                 {
-                    return Context.AddCommand(new CreatureAttackCreatureCommand(null, e.Creature, new SimpleAttack(null, MagicEffectType.BlackSpark, AnimatedTextColor.DarkRed, 30, 30) ) ).Then( () =>
+                    ushort toOpenTibiaId;
+
+                    if (traps.TryGetValue(topItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
                     {
-                        return Context.AddCommand(new ItemTransformCommand(topItem, toOpenTibiaId, 1) );
-                    } );
+                        return Context.AddCommand(new CreatureAttackCreatureCommand(null, e.Creature, new SimpleAttack(null, MagicEffectType.BlackSpark, AnimatedTextColor.DarkRed, 30, 30) ) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(topItem, toOpenTibiaId, 1) );
+                        } );
+                    }
                 }
             }
 

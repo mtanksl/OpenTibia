@@ -7,20 +7,20 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class SickleHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private HashSet<ushort> sickles = new HashSet<ushort>() { 2405, 2418, 10513 };
+        private static HashSet<ushort> sickles = new HashSet<ushort>() { 2405, 2418, 10513 };
 
-        private Dictionary<ushort, ushort> wheats = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> wheats = new Dictionary<ushort, ushort>()
         {
             { 5471, 5463 }
         };
 
-        private Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
         {
             { 5463, 5464 },
             { 5464, 5466 }
         };
 
-        private ushort bunchOfSugarCane = 5467;
+        private static ushort bunchOfSugarCane = 5467;
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {

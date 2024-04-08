@@ -6,9 +6,9 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class SnowHeapHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private HashSet<ushort> snowHeaps = new HashSet<ushort>() { 486 };
+        private static HashSet<ushort> snowHeaps = new HashSet<ushort>() { 486 };
 
-        private ushort snowBall = 2111;
+        private static ushort snowBall = 2111;
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class SealedDoorHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private Dictionary<ushort, ushort> doors = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> doors = new Dictionary<ushort, ushort>()
         {
             { 1223, 1224 },
             { 1225, 1226 },

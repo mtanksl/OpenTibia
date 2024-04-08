@@ -7,9 +7,9 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class SantaDollHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private HashSet<ushort> santaDolls = new HashSet<ushort>() { 6567 };
+        private static HashSet<ushort> santaDolls = new HashSet<ushort>() { 6567 };
 
-        private List<string> sounds = new List<string>() { "Ho ho ho!", "Jingle bells, jingle bells...", "Have you been naughty?", "Have you been nice?", "Merry Christmas!", "Can you stop squeezing me now... I'm starting to feel a little sick." };
+        private static List<string> sounds = new List<string>() { "Ho ho ho!", "Jingle bells, jingle bells...", "Have you been naughty?", "Have you been nice?", "Merry Christmas!", "Can you stop squeezing me now... I'm starting to feel a little sick." };
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

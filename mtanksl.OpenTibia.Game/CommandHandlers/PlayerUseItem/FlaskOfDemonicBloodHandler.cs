@@ -7,11 +7,11 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class FlaskOfDemonicBloodHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private HashSet<ushort> flaskOfDemonicBloods = new HashSet<ushort>() { 6558 };
+        private static HashSet<ushort> flaskOfDemonicBloods = new HashSet<ushort>() { 6558 };
 
-        private ushort strongHealthPotion = 7588;
+        private static ushort strongHealthPotion = 7588;
 
-        private ushort strongManaPotion = 7589;
+        private static ushort strongManaPotion = 7589;
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

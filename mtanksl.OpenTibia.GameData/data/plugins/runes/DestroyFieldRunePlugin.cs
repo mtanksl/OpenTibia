@@ -9,16 +9,16 @@ namespace OpenTibia.GameData.Plugins.Runes
 {
     public class DestroyFieldRunePlugin : RunePlugin
     {
+        private static HashSet<ushort> fields = new HashSet<ushort>() { 1492, 1493, 1494, 1495, 1496 };
+
         public DestroyFieldRunePlugin(Rune rune) : base(rune)
         {
 
         }
 
-        private HashSet<ushort> fields = new HashSet<ushort>() { 1492, 1493, 1494, 1495, 1496 };
-
         public override PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile tile, Item item)
         {
-            if (tile == null || tile.Ground == null || !tile.CanWalk || tile.TopItem == null || !fields.Contains(tile.TopItem.Metadata.OpenTibiaId) )
+            if (tile == null || tile.Ground == null || tile.TopItem == null || !fields.Contains(tile.TopItem.Metadata.OpenTibiaId) )
             {
                 return Promise.FromResultAsBooleanFalse;
             }

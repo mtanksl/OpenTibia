@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class TilePressHandler : EventHandler<TileAddCreatureEventArgs>
     {
-        private Dictionary<ushort, ushort> tiles = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> tiles = new Dictionary<ushort, ushort>()
         {
             { 416, 417 },
             { 426, 425 },

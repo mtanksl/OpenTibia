@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class TileDepressHandler : EventHandler<TileRemoveCreatureEventArgs>
     {
-        private Dictionary<ushort, ushort> tiles = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> tiles = new Dictionary<ushort, ushort>()
         {
             { 417, 416 },
             { 425, 426 },

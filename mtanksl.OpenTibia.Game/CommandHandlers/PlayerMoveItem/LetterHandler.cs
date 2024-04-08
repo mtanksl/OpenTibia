@@ -7,11 +7,11 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class LetterHandler : CommandHandler<PlayerMoveItemCommand>
     {
-        private ushort letter = 2597;
+        private static ushort letter = 2597;
 
-        private HashSet<ushort> mailbox = new HashSet<ushort>() { 2593, 3981 };
+        private static HashSet<ushort> mailbox = new HashSet<ushort>() { 2593, 3981 };
 
-        private ushort stampedLetter = 2598;
+        private static ushort stampedLetter = 2598;
 
         public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {

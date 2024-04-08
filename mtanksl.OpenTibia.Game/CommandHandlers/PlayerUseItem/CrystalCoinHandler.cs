@@ -8,7 +8,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class CrystalCoinHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private Dictionary<ushort, ushort> crystalCoinToPlatinumCoins = new Dictionary<ushort, ushort>() 
+        private static Dictionary<ushort, ushort> crystalCoinToPlatinumCoins = new Dictionary<ushort, ushort>() 
         {
             { 2160, 2152 }
         };

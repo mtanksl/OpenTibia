@@ -7,12 +7,12 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class PartyTrumpetHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private Dictionary<ushort, ushort> partyTrumpets = new Dictionary<ushort, ushort>() 
+        private static Dictionary<ushort, ushort> partyTrumpets = new Dictionary<ushort, ushort>() 
         {
             { 6572, 6573 }
         };
 
-        private Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>() 
+        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>() 
         {
             { 6573, 6572 }
         };

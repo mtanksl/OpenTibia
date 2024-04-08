@@ -8,12 +8,12 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class Pitfall2Handler : CommandHandler<PlayerMoveItemCommand>
     {
-        private Dictionary<ushort, ushort> pitfalls = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> pitfalls = new Dictionary<ushort, ushort>()
         {
             {  293, 294 }
         };
 
-        private Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
         {
             {  294, 293 }
         };

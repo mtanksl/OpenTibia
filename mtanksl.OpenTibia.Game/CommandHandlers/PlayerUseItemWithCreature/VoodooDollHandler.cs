@@ -8,7 +8,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class VoodooDollHandler : CommandHandler<PlayerUseItemWithCreatureCommand>
     {
-        private HashSet<ushort> voodooDolls = new HashSet<ushort>() { 10018 };
+        private static HashSet<ushort> voodooDolls = new HashSet<ushort>() { 10018 };
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithCreatureCommand command)
         {

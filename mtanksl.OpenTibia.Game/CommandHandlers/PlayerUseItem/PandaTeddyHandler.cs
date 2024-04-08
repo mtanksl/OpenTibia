@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class PandaTeddyHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private HashSet<ushort> pandaTeddies = new HashSet<ushort>() { 5080 };
+        private static HashSet<ushort> pandaTeddies = new HashSet<ushort>() { 5080 };
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

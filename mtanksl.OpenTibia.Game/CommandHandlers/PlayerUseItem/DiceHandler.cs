@@ -7,9 +7,9 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class DiceHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private HashSet<ushort> dices = new HashSet<ushort>() { 5792, 5793, 5794, 5795, 5796, 5797 };
+        private static HashSet<ushort> dices = new HashSet<ushort>() { 5792, 5793, 5794, 5795, 5796, 5797 };
 
-        private ushort dice = 5792;
+        private static ushort dice = 5792;
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

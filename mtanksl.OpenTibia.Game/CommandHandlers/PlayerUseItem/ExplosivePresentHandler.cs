@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class ExplosivePresentHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private HashSet<ushort> explosivePresent = new HashSet<ushort>() { 8110 };
+        private static HashSet<ushort> explosivePresent = new HashSet<ushort>() { 8110 };
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

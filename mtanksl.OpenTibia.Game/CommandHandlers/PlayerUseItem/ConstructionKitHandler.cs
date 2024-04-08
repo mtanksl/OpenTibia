@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class ConstructionKitHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private Dictionary<ushort, ushort> constructionKits = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> constructionKits = new Dictionary<ushort, ushort>()
         {
             { 3901, 1652 }, // Wooden chair
             { 3902, 1658 }, // Sofa chair

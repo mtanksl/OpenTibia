@@ -7,20 +7,20 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class ScytheHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private HashSet<ushort> scythes = new HashSet<ushort>() { 2550, 10513 };
+        private static HashSet<ushort> scythes = new HashSet<ushort>() { 2550, 10513 };
 
-        private Dictionary<ushort, ushort> wheats = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> wheats = new Dictionary<ushort, ushort>()
         {
             { 2739, 2737 }
         };
 
-        private Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
         {
             { 2737, 2738 },
             { 2738, 2739 }
         };
 
-        private ushort wheat = 2694;
+        private static ushort wheat = 2694;
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {

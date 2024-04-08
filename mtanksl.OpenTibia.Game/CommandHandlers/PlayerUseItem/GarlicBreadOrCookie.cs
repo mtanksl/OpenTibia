@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class GarlicBreadOrCookie : CommandHandler<PlayerUseItemCommand>
     {
-        private HashSet<ushort> garlicBreadOrCookie = new HashSet<ushort>() { 9111, 9116 };
+        private static HashSet<ushort> garlicBreadOrCookie = new HashSet<ushort>() { 9111, 9116 };
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

@@ -7,9 +7,9 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class MusicalInstrumentHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private HashSet<ushort> green = new HashSet<ushort>() { 2070, 2071, 2073, 2075, 2076, 2078, 2367, 2374 };
+        private static HashSet<ushort> green = new HashSet<ushort>() { 2070, 2071, 2073, 2075, 2076, 2078, 2367, 2374 };
 
-        private HashSet<ushort> purple = new HashSet<ushort>() { 2079 };
+        private static HashSet<ushort> purple = new HashSet<ushort>() { 2079 };
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

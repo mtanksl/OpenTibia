@@ -7,13 +7,13 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class ClayLumpHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private HashSet<ushort> clayLumpHandler = new HashSet<ushort>() { 11339 };
+        private static HashSet<ushort> clayLumpHandler = new HashSet<ushort>() { 11339 };
 
-        private ushort roughClayStatue = 11340;
+        private static ushort roughClayStatue = 11340;
 
-        private ushort clayStatue = 11341;
+        private static ushort clayStatue = 11341;
 
-        private ushort prettyClayStatue = 11342;
+        private static ushort prettyClayStatue = 11342;
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

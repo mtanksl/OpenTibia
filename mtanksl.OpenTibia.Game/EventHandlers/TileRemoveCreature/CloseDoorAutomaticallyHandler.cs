@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class CloseDoorAutomaticallyHandler : EventHandler<TileRemoveCreatureEventArgs>
     {
-        private Dictionary<ushort, ushort> doors = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> doors = new Dictionary<ushort, ushort>()
         {
             // Gate of expertise
 
@@ -123,13 +123,16 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (e.FromTile.TopCreature == null)
             {
-                foreach (var topItem in e.FromTile.GetItems() )
+                if (e.FromTile.Field)
                 {
-                    ushort toOpenTibiaId;
-
-                    if (doors.TryGetValue(topItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+                    foreach (var topItem in e.FromTile.GetItems() )
                     {
-                        return Context.AddCommand(new ItemTransformCommand(topItem, toOpenTibiaId, 1) );
+                        ushort toOpenTibiaId;
+
+                        if (doors.TryGetValue(topItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(topItem, toOpenTibiaId, 1) );
+                        }
                     }
                 }
             }

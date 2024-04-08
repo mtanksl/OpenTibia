@@ -8,7 +8,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class FireworksRocketHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private HashSet<ushort> fireworksRockets = new HashSet<ushort>() { 6576 };
+        private static HashSet<ushort> fireworksRockets = new HashSet<ushort>() { 6576 };
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

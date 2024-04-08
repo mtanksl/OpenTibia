@@ -8,19 +8,22 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class FireFieldHandler : EventHandlers.EventHandler<TileAddCreatureEventArgs>
     {
-        private HashSet<ushort> fireFields = new HashSet<ushort>() { 1487, 1488, 1492, 1493 };
+        private static HashSet<ushort> fireFields = new HashSet<ushort>() { 1487, 1488, 1492, 1493 };
 
         public override Promise Handle(TileAddCreatureEventArgs e)
         {
-            foreach (var topItem in e.ToTile.GetItems() )
+            if (e.ToTile.Field)
             {
-                if (fireFields.Contains(topItem.Metadata.OpenTibiaId) )
+                foreach (var topItem in e.ToTile.GetItems() )
                 {
-                    return Context.AddCommand(new CreatureAttackCreatureCommand(null, e.Creature, 
+                    if (fireFields.Contains(topItem.Metadata.OpenTibiaId) )
+                    {
+                        return Context.AddCommand(new CreatureAttackCreatureCommand(null, e.Creature, 
 
-                        new SimpleAttack(null, MagicEffectType.FirePlume, AnimatedTextColor.Orange, 20, 20),
+                            new SimpleAttack(null, MagicEffectType.FirePlume, AnimatedTextColor.Orange, 20, 20),
                                                                                                                          
-                        new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(4) ) ) );
+                            new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(4) ) ) );
+                    }
                 }
             }
 

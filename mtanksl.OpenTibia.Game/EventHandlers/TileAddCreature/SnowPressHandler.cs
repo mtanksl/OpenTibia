@@ -7,7 +7,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class SnowPressHandler : EventHandlers.EventHandler<TileAddCreatureEventArgs>
     {
-        private Dictionary<ushort, ushort> tiles = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> tiles = new Dictionary<ushort, ushort>()
         {
             { 670, 6594 },
             { 6580, 6595 },
@@ -26,7 +26,7 @@ namespace OpenTibia.Game.CommandHandlers
             { 6593, 6608 }
         };
 
-        private Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>() 
+        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>() 
         {
             { 6594, 670 },
             { 6595, 6580 },

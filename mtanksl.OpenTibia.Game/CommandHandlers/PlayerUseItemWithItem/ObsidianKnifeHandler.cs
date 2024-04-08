@@ -7,9 +7,9 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class ObsidianKnifeHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private HashSet<ushort> obsidianKnifes = new HashSet<ushort>() { 5908 };
+        private static HashSet<ushort> obsidianKnifes = new HashSet<ushort>() { 5908 };
 
-        private Dictionary<ushort, ushort> iceCubes = new Dictionary<ushort, ushort>()
+        private static Dictionary<ushort, ushort> iceCubes = new Dictionary<ushort, ushort>()
         {
             { 7441, 7442 },
             { 7442, 7444 },

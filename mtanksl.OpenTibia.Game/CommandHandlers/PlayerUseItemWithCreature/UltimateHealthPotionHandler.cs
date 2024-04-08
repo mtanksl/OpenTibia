@@ -8,9 +8,9 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class UltimateHealthPotionHandler : CommandHandler<PlayerUseItemWithCreatureCommand>
     {
-        private HashSet<ushort> healthPotions = new HashSet<ushort>() { 8473 };
+        private static HashSet<ushort> healthPotions = new HashSet<ushort>() { 8473 };
 
-        private ushort emptyPotionFlask = 7635;
+        private static ushort emptyPotionFlask = 7635;
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithCreatureCommand command)
         {
