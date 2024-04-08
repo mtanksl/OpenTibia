@@ -435,6 +435,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\BerserkSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\GroundshakerSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\EternalWinterSpellPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\HealFriendSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\WrathOfNatureSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\HellsCoreSpellPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)data\plugins\spells\RageOfTheSkiesSpellPlugin.cs" />

@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Commands
 
             if (fromTile != null)
             {
-                if (Player.Tile.Position.CanSee(fromTile.Position) )
+                if (Player.Tile.Position.CanHearSay(fromTile.Position) )
                 {
                     Item fromItem = Player.Client.GetContent(fromTile, FromIndex) as Item;
 

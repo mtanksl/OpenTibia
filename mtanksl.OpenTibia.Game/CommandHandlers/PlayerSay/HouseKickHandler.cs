@@ -10,9 +10,9 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
-            if (command.Message.StartsWith("alana sio ") )
+            if (command.Message.StartsWith("alana sio \"") )
             {
-                string name = command.Message.Substring(10);
+                string name = command.Message.Substring(11).TrimEnd('\"');
 
                 Player observer = Context.Server.GameObjects.GetPlayers()
                     .Where(p => p.Name == name)

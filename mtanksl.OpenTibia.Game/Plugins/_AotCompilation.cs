@@ -31,6 +31,7 @@ namespace OpenTibia.Game.Plugins
             { "OpenTibia.GameData.Plugins.Spells.GreatLightSpellPlugin", spell => new GreatLightSpellPlugin(spell) },
             { "OpenTibia.GameData.Plugins.Spells.GroundshakerSpellPlugin", spell => new GroundshakerSpellPlugin(spell) },
             { "OpenTibia.GameData.Plugins.Spells.HasteSpellPlugin", spell => new HasteSpellPlugin(spell) },
+            { "OpenTibia.GameData.Plugins.Spells.HealFriendSpellPlugin", spell => new HealFriendSpellPlugin(spell) },
             { "OpenTibia.GameData.Plugins.Spells.HellsCoreSpellPlugin", spell => new HellsCoreSpellPlugin(spell) },
             { "OpenTibia.GameData.Plugins.Spells.IntenseHealingSpellPlugin", spell => new IntenseHealingSpellPlugin(spell) },
             { "OpenTibia.GameData.Plugins.Spells.InvisibleSpellPlugin", spell => new InvisibleSpellPlugin(spell) },

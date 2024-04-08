@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
@@ -11,7 +12,31 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override async Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
-            SpellPlugin plugin = Context.Server.Plugins.GetSpellPlugin(false, command.Message);
+            Creature target = null;
+
+            SpellPlugin plugin = null;
+
+            int index = command.Message.IndexOf(" \"");
+
+            if (index == -1)
+            {
+                plugin = Context.Server.Plugins.GetSpellPlugin(false, command.Message);
+            }
+            else
+            {
+                string name = command.Message.Substring(index + 2).TrimEnd('\"');
+
+                Creature observer = Context.Server.GameObjects.GetPlayers()
+                    .Where(p => p.Name == name)
+                    .FirstOrDefault();
+
+                if (observer != null)
+                {
+                    target = observer;
+
+                    plugin = Context.Server.Plugins.GetSpellPlugin(true, command.Message.Substring(0, index) );
+                }
+            }
 
             if (plugin != null)
             {
@@ -83,7 +108,7 @@ namespace OpenTibia.Game.CommandHandlers
                     await Promise.Break;
                 }
 
-                if ( !await plugin.OnCasting(command.Player, null, command.Message) )
+                if ( !await plugin.OnCasting(command.Player, target, command.Message) )
                 {
                     Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
 
@@ -106,7 +131,7 @@ namespace OpenTibia.Game.CommandHandlers
                     await Context.AddCommand(new PlayerUpdateSoulCommand(command.Player, command.Player.Soul - plugin.Spell.Soul) );
                 }
 
-                await plugin.OnCast(command.Player, null, command.Message);
+                await plugin.OnCast(command.Player, target, command.Message);
             }
 
             await next();

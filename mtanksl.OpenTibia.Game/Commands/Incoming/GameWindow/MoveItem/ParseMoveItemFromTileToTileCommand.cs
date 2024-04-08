@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
 
             if (fromTile != null)
             {
-                if (Player.Tile.Position.CanSee(fromTile.Position) )
+                if (Player.Tile.Position.CanHearSay(fromTile.Position) )
                 {
                     switch (Player.Client.GetContent(fromTile, FromIndex) )
                     {
