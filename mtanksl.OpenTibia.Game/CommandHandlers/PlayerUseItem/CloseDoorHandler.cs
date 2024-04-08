@@ -41,6 +41,10 @@ namespace OpenTibia.Game.CommandHandlers
             // Fence
             { 1542, 1541 },
 
+            //Table
+            { 1637, 1636 },
+            { 1641, 1640 },
+
             //TODO: More items
         };
 
@@ -74,6 +78,10 @@ namespace OpenTibia.Game.CommandHandlers
 
             // Fence
             { 1540, 1539 },
+
+             //Table
+            { 1635, 1634 },
+            { 1639, 1638 },
 
             //TODO: More items
         };

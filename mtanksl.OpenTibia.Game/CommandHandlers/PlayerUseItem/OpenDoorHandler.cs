@@ -55,6 +55,12 @@ namespace OpenTibia.Game.CommandHandlers
             { 1539, 1540 },
             { 1541, 1542 },
 
+            //Table
+            { 1634, 1635 },
+            { 1636, 1637 },
+            { 1638, 1639 },
+            { 1640, 1641 },
+
             //TODO: More items
         };
 

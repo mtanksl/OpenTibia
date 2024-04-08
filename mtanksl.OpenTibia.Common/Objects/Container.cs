@@ -6,7 +6,7 @@ namespace OpenTibia.Common.Objects
 {
     public class Container : Item, IContainer
     {
-        private RecomputableSource recomputableSource = new RecomputableSource();
+        private RecomputableSource recomputableSource;
                 
         public Container(ItemMetadata metadata) : base(metadata)
         {
@@ -21,6 +21,11 @@ namespace OpenTibia.Common.Objects
             {
                 if (weight == null)
                 {
+                    if (recomputableSource == null)
+                    {
+                        recomputableSource = new RecomputableSource();
+                    }
+
                     weight = new Recomputable<uint>(recomputableSource, () =>
                     {
                         uint weight = base.Weight;
@@ -57,7 +62,10 @@ namespace OpenTibia.Common.Objects
                 throw new ArgumentException("Content must be an item.");
             }
 
-            recomputableSource.Change();
+            if (recomputableSource != null)
+            {
+                recomputableSource.Change();
+            }
 
             int index = 0;
 
@@ -84,7 +92,10 @@ namespace OpenTibia.Common.Objects
                 throw new ArgumentException("Content must be an item.");
             }
 
-            recomputableSource.Change();
+            if (recomputableSource != null)
+            {
+                recomputableSource.Change();
+            }
 
             IContent oldContent = GetContent(index);
 
@@ -97,7 +108,10 @@ namespace OpenTibia.Common.Objects
 
         public void RemoveContent(int index)
         {
-            recomputableSource.Change();
+            if (recomputableSource != null)
+            {
+                recomputableSource.Change();
+            }
 
             IContent content = GetContent(index);
 
