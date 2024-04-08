@@ -254,10 +254,6 @@ namespace OpenTibia.Common.Objects
 
                             tile.AddContent(ground);
                         }
-                        else
-                        {
-                            //TODO: Report invalid open tibia id
-                        }
                     }
 
                     if (otbmTile.Items != null)
@@ -315,11 +311,7 @@ namespace OpenTibia.Common.Objects
                                     }
 
                                     parent.AddContent(item);
-                                }
-                                else
-                                {
-                                    //TODO: Report invalid open tibia id
-                                }                                
+                                }                              
                             }
                         }
 
@@ -349,10 +341,6 @@ namespace OpenTibia.Common.Objects
                             unknownMonsters.Add(xmlMonster.Name);
                         }
                     }
-                    else
-                    {
-                        //TODO: Report invalid position
-                    }
                 }
 
                 foreach (var xmlNpc in xmlSpawn.Npcs)
@@ -373,10 +361,6 @@ namespace OpenTibia.Common.Objects
                         {
                             unknownNpcs.Add(xmlNpc.Name);
                         }
-                    }
-                    else
-                    {
-                        //TODO: Report invalid position
                     }
                 }
             }
