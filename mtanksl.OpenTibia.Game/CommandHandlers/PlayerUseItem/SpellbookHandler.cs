@@ -31,7 +31,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 foreach (var group in Context.Server.Plugins.Spells.Where(s => s.Vocations.Contains(command.Player.Vocation) ).OrderBy(s => s.Level).ThenBy(s => s.Mana).GroupBy(s => s.Level) )
                 {
-                    builder.Append("Spells for level " + group.Key + "\n");
+                    builder.Append(group.Key + ". Level Spells\n");
 
                     foreach (var spell in group)
                     {
