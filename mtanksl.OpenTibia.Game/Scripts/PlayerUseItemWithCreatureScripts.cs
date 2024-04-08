@@ -6,13 +6,13 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithCreatureWalkToSourceHandler() ); //TODO: Re-validate rules for incoming packet
+            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithCreatureWalkToSourceHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithCreatureScriptingHandler(true) );
 
             Context.Server.CommandHandlers.AddCommandHandler(new RunesHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithCreatureWalkToTargetHandler() ); //TODO: Re-validate rules for incoming packet
+            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithCreatureWalkToTargetHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithCreatureScriptingHandler(false) );
 

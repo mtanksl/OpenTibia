@@ -6,7 +6,7 @@ using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseReportRuleViolationCommand : Command
+    public class ParseReportRuleViolationCommand : IncomingCommand
     {
         public ParseReportRuleViolationCommand(Player player, byte type, byte ruleViolation, string name, string comment, string translation, uint statmentId)
         {

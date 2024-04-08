@@ -4,7 +4,7 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseOpenReportRuleViolationCommand : Command
+    public class ParseOpenReportRuleViolationCommand : IncomingCommand
     {
         public ParseOpenReportRuleViolationCommand(Player player, string message)
         {

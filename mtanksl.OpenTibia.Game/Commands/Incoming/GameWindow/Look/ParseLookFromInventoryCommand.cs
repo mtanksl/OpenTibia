@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
 
             if (item != null && item.Metadata.TibiaId == TibiaId)
             {
-                return Context.AddCommand(new PlayerLookItemCommand(Player, item) );
+                return Context.AddCommand(new PlayerLookItemCommand(this, Player, item) );
             }
 
             return Promise.Break;

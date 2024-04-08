@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseSellNpcTradeCommand : Command
+    public class ParseSellNpcTradeCommand : IncomingCommand
     {
         public ParseSellNpcTradeCommand(Player player, SellNpcTradeIncomingPacket packet)
         {

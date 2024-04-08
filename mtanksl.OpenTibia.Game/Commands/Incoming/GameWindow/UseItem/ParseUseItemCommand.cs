@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public abstract class ParseUseItemCommand : Command
+    public abstract class ParseUseItemCommand : IncomingCommand
     {
         public ParseUseItemCommand(Player player)
         {

@@ -3,7 +3,7 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseSelectedOutfitCommand : Command
+    public class ParseSelectedOutfitCommand : IncomingCommand
     {
         public ParseSelectedOutfitCommand(Player player, Outfit outfit)
         {

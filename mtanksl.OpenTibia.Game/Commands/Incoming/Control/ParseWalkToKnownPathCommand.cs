@@ -3,7 +3,7 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseWalkToKnownPathCommand : Command
+    public class ParseWalkToKnownPathCommand : IncomingCommand
     {
         public ParseWalkToKnownPathCommand(Player player, MoveDirection[] moveDirections)
         {

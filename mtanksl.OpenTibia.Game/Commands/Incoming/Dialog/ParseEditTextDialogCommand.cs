@@ -3,7 +3,7 @@ using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseEditTextDialogCommand : Command
+    public class ParseEditTextDialogCommand : IncomingCommand
     {
         public ParseEditTextDialogCommand(Player player, uint windowId, string text)
         {

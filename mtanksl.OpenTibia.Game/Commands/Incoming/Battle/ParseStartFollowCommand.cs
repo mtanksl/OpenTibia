@@ -3,7 +3,7 @@ using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseStartFollowCommand : Command
+    public class ParseStartFollowCommand : IncomingCommand
     {
         public ParseStartFollowCommand(Player player, uint creatureId, uint nonce)
         {

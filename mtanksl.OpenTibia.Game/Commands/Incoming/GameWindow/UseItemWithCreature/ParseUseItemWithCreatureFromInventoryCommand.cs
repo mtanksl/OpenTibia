@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if ( IsUseable(fromItem) )
                     {
-                        return Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) );
+                        return Context.AddCommand(new PlayerUseItemWithCreatureCommand(this, Player, fromItem, toCreature) );
                     }
                 }
             }

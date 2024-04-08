@@ -4,7 +4,7 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public abstract class ParseMoveItemCommand : Command
+    public abstract class ParseMoveItemCommand : IncomingCommand
     {
         public ParseMoveItemCommand(Player player)
         {

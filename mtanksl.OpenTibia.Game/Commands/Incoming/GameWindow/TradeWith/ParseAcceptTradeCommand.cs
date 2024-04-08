@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseAcceptTradeCommand : Command
+    public class ParseAcceptTradeCommand : IncomingCommand
     {
         public ParseAcceptTradeCommand(Player player)
         {

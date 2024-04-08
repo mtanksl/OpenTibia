@@ -14,7 +14,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (command.Item.Parent is Tile || command.Item.Parent is Container container && !(container.Root() is Inventory) )
                 {
-                    return Context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, command.Player.Inventory, (byte)Slot.Extra, 1, false) ).Then( () =>
+                    return Context.AddCommand(new PlayerMoveItemCommand(command.Source, command.Player, command.Item, command.Player.Inventory, (byte)Slot.Extra, 1, false) ).Then( () =>
                     {
                         return Context.Server.GameObjectComponents.AddComponent(command.Player, new PlayerActionDelayBehaviour() ).Promise;
 
@@ -40,7 +40,7 @@ namespace OpenTibia.Game.CommandHandlers
                             return Promise.Break;
                         }
 
-                        return Context.AddCommand(new PlayerUseItemWithCreatureCommand(command.Player, item, command.ToCreature) );
+                        return Context.AddCommand(new PlayerUseItemWithCreatureCommand(command.Source, command.Player, item, command.ToCreature) );
                     } );
                 }
                 else
@@ -69,7 +69,12 @@ namespace OpenTibia.Game.CommandHandlers
                             return Promise.Break;
                         }
 
-                        return next();
+                        if (command.Source == null)
+                        {
+                            return Promise.Break;
+                        }
+
+                        return Context.AddCommand(command.Source);
                     } );
                 }
             }

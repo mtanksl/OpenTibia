@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseTalkPrivatePlayerToNpcCommand : Command
+    public class ParseTalkPrivatePlayerToNpcCommand : IncomingCommand
     {
         public ParseTalkPrivatePlayerToNpcCommand(Player player, string message)
         {

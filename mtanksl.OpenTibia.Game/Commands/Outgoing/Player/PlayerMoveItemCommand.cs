@@ -4,8 +4,10 @@ namespace OpenTibia.Game.Commands
 {
     public class PlayerMoveItemCommand : Command
     {
-        public PlayerMoveItemCommand(Player player, Item item, IContainer toContainer, byte toIndex, byte count, bool pathfinding)
+        public PlayerMoveItemCommand(IncomingCommand source, Player player, Item item, IContainer toContainer, byte toIndex, byte count, bool pathfinding)
         {
+            Source = source;
+
             Player = player;
 
             Item = item;
@@ -18,6 +20,8 @@ namespace OpenTibia.Game.Commands
 
             Pathfinding = pathfinding;
         }
+
+        public IncomingCommand Source { get; set; }
 
         public Player Player { get; set; }
 

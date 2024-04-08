@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseOpenedPrivateChannelCommand : Command
+    public class ParseOpenedPrivateChannelCommand : IncomingCommand
     {
         public ParseOpenedPrivateChannelCommand(Player player, string name)
         {

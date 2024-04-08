@@ -6,7 +6,7 @@ using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseReportBugCommand : Command
+    public class ParseReportBugCommand : IncomingCommand
     {
         public ParseReportBugCommand(Player player, string message)
         {

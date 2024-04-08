@@ -4,7 +4,7 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseInviteToPartyCommand : Command
+    public class ParseInviteToPartyCommand : IncomingCommand
     {
         public ParseInviteToPartyCommand(Player player, uint creatureId)
         {

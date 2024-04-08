@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseQuestsCommand : Command
+    public class ParseQuestsCommand : IncomingCommand
     {
         public ParseQuestsCommand(Player player)
         {

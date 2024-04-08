@@ -4,7 +4,7 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseCancelOrRejectTradeCommand : Command
+    public class ParseCancelOrRejectTradeCommand : IncomingCommand
     {
         public ParseCancelOrRejectTradeCommand(Player player)
         {

@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
 
                         if (creature != null)
                         {
-                            return Context.AddCommand(new PlayerLookCreatureCommand(Player, creature) );
+                            return Context.AddCommand(new PlayerLookCreatureCommand(this, Player, creature) );
                         }
                     }
                     else
@@ -45,7 +45,7 @@ namespace OpenTibia.Game.Commands
 
                                 if (item.Metadata.TibiaId == TibiaId)
                                 {
-                                    return Context.AddCommand(new PlayerLookItemCommand(Player, item) );
+                                    return Context.AddCommand(new PlayerLookItemCommand(this, Player, item) );
                                 }
 
                                 break;

@@ -4,7 +4,7 @@ using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseCombatControlsCommand : Command
+    public class ParseCombatControlsCommand : IncomingCommand
     {
         public ParseCombatControlsCommand(Player player, FightMode fightMode, ChaseMode chaseMode, SafeMode safeMode)
         {

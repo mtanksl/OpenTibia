@@ -3,7 +3,7 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseCloseReportRuleViolationChannelQuestionCommand : Command
+    public class ParseCloseReportRuleViolationChannelQuestionCommand : IncomingCommand
     {
         public ParseCloseReportRuleViolationChannelQuestionCommand(Player player)
         {

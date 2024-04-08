@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseEditListDialogCommand : Command
+    public class ParseEditListDialogCommand : IncomingCommand
     {
         public ParseEditListDialogCommand(Player player, byte doorId, uint windowId, string text)
         {

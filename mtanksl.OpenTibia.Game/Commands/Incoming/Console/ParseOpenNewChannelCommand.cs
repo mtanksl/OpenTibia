@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseOpenNewChannelCommand : Command
+    public class ParseOpenNewChannelCommand : IncomingCommand
     {
         public ParseOpenNewChannelCommand(Player player)
         {

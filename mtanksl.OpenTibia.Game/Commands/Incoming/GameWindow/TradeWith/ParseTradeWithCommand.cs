@@ -3,7 +3,7 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public abstract class ParseTradeWithCommand : Command
+    public abstract class ParseTradeWithCommand : IncomingCommand
     {
         public ParseTradeWithCommand(Player player)
         {

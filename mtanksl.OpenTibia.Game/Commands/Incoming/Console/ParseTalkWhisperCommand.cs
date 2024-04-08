@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseTalkWhisperCommand : Command
+    public class ParseTalkWhisperCommand : IncomingCommand
     {
         public ParseTalkWhisperCommand(Player player, string message)
         {

@@ -2,7 +2,7 @@
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseRemoveVipCommand : Command
+    public class ParseRemoveVipCommand : IncomingCommand
     {
         public ParseRemoveVipCommand(Player player, uint databasePlayerId)
         {

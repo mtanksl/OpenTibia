@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
 
             if (fromItem != null && fromItem.Metadata.TibiaId == TibiaId)
             {
-                return Context.AddCommand(new PlayerUseItemCommand(Player, fromItem, null) );
+                return Context.AddCommand(new PlayerUseItemCommand(this, Player, fromItem, null) );
             }
 
             return Promise.Break;

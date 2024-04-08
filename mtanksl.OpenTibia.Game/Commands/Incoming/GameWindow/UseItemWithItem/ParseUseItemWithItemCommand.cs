@@ -3,7 +3,7 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public abstract class ParseUseItemWithItemCommand : Command
+    public abstract class ParseUseItemWithItemCommand : IncomingCommand
     {
         public ParseUseItemWithItemCommand(Player player)
         {

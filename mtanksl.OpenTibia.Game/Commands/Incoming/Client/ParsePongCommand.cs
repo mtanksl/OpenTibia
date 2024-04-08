@@ -3,7 +3,7 @@ using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParsePongCommand : Command
+    public class ParsePongCommand : IncomingCommand
     {
         public ParsePongCommand(Player player)
         {

@@ -6,14 +6,18 @@ namespace OpenTibia.Game.Commands
 {
     public class PlayerUseItemWithCreatureCommand : Command
     {
-        public PlayerUseItemWithCreatureCommand(Player player, Item item, Creature toCreature)
+        public PlayerUseItemWithCreatureCommand(IncomingCommand source, Player player, Item item, Creature toCreature)
         {
+            Source = source;
+
             Player = player;
 
             Item = item;
 
             ToCreature = toCreature;
         }
+
+        public IncomingCommand Source { get; set; }
 
         public Player Player { get; set; }
 

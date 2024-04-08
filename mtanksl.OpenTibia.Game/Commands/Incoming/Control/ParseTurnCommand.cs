@@ -4,7 +4,7 @@ using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseTurnCommand : Command
+    public class ParseTurnCommand : IncomingCommand
     {
         public ParseTurnCommand(Player player, Direction direction)
         {

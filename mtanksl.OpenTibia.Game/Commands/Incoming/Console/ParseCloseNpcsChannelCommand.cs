@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseCloseNpcsChannelCommand : Command
+    public class ParseCloseNpcsChannelCommand : IncomingCommand
     {
         public ParseCloseNpcsChannelCommand(Player player)
         {

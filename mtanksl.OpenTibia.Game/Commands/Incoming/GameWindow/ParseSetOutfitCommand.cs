@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseSetOutfitCommand : Command
+    public class ParseSetOutfitCommand : IncomingCommand
     {
         public ParseSetOutfitCommand(Player player)
         {

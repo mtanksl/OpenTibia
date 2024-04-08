@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseInvitePlayerChannelCommand : Command
+    public class ParseInvitePlayerChannelCommand : IncomingCommand
     {
         public ParseInvitePlayerChannelCommand(Player player, string name)
         {

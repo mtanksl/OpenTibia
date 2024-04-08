@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseProcessReportRuleViolationCommand : Command
+    public class ParseProcessReportRuleViolationCommand : IncomingCommand
     {
         public ParseProcessReportRuleViolationCommand(Player player, string name)
         {

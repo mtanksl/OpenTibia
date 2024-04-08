@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseCloseChannelCommand : Command
+    public class ParseCloseChannelCommand : IncomingCommand
     {
         public ParseCloseChannelCommand(Player player, ushort channelId)
         {

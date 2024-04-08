@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseTalkPrivateCommand : Command
+    public class ParseTalkPrivateCommand : IncomingCommand
     {
         public ParseTalkPrivateCommand(Player player, string name, string message)
         {

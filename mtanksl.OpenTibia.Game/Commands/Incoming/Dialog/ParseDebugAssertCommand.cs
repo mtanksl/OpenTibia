@@ -4,7 +4,7 @@ using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseDebugAssertCommand : Command
+    public class ParseDebugAssertCommand : IncomingCommand
     {
         public ParseDebugAssertCommand(Player player, string assertLine, string reportDate, string description, string comment)
         {

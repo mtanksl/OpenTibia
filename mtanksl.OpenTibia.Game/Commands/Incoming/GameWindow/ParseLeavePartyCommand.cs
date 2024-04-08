@@ -4,7 +4,7 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseLeavePartyCommand : Command
+    public class ParseLeavePartyCommand : IncomingCommand
     {
         public ParseLeavePartyCommand(Player player)
         {

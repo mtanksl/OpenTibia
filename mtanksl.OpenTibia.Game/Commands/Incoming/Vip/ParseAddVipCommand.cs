@@ -4,7 +4,7 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseAddVipCommand : Command
+    public class ParseAddVipCommand : IncomingCommand
     {
         public ParseAddVipCommand(Player player, string name)
         {

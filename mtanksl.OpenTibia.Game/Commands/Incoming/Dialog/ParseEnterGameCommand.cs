@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseEnterGameCommand : Command
+    public class ParseEnterGameCommand : IncomingCommand
     {
         public ParseEnterGameCommand(IConnection connection, EnterGameIncomingPacket packet)
         {

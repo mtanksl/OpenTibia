@@ -39,7 +39,12 @@ namespace OpenTibia.Game.CommandHandlers
                         return Promise.Break;
                     }
 
-                    return next();
+                    if (command.Source == null)
+                    {
+                        return Promise.Break;
+                    }
+
+                    return Context.AddCommand(command.Source);
                 } );
             }
 

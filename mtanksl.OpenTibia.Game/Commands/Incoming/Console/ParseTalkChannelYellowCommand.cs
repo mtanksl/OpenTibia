@@ -4,7 +4,7 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseTalkChannelYellowCommand : Command
+    public class ParseTalkChannelYellowCommand : IncomingCommand
     {
         public ParseTalkChannelYellowCommand(Player player, ushort channelId, string message)
         {

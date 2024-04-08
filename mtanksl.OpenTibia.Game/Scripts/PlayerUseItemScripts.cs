@@ -10,7 +10,7 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWalkToSourceHandler() ); //TODO: Re-validate rules for incoming packet
+            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWalkToSourceHandler() );
             
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>( (context, next, command) => 
             {

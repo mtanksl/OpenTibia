@@ -6,7 +6,7 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new RotateItemWalkToSourceHandler() ); //TODO: Re-validate rules for incoming packet
+            Context.Server.CommandHandlers.AddCommandHandler(new RotateItemWalkToSourceHandler() );
                         
             Context.Server.CommandHandlers.AddCommandHandler(new RotateItemScriptingHandler() );
 

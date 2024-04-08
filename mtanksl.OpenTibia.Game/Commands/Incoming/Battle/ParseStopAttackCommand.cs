@@ -4,7 +4,7 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseStopAttackCommand : Command
+    public class ParseStopAttackCommand : IncomingCommand
     {
         public ParseStopAttackCommand(Player player)
         {

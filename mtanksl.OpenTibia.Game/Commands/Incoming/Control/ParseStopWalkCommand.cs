@@ -4,7 +4,7 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseStopWalkCommand : Command
+    public class ParseStopWalkCommand : IncomingCommand
     {
         public ParseStopWalkCommand(Player player)
         {

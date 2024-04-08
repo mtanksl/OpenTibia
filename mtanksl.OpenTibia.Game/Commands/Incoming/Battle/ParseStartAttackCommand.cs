@@ -5,7 +5,7 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseStartAttackCommand : Command
+    public class ParseStartAttackCommand : IncomingCommand
     {
         public ParseStartAttackCommand(Player player, uint creatureId, uint nonce)
         {

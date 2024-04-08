@@ -3,7 +3,7 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseOpenedMyPrivateChannelCommand : Command
+    public class ParseOpenedMyPrivateChannelCommand : IncomingCommand
     {
         public ParseOpenedMyPrivateChannelCommand(Player player)
         {

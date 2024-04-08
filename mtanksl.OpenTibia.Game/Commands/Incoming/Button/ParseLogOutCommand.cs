@@ -3,7 +3,7 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseLogOutCommand : Command
+    public class ParseLogOutCommand : IncomingCommand
     {
         public ParseLogOutCommand(Player player)
         {

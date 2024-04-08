@@ -4,7 +4,7 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseWalkToUnknownPathCommand : Command
+    public class ParseWalkToUnknownPathCommand : IncomingCommand
     {
         public ParseWalkToUnknownPathCommand(Player player, Tile tile)
         {

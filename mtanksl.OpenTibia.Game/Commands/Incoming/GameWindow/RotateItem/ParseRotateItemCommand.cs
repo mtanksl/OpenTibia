@@ -3,7 +3,7 @@ using OpenTibia.Common.Structures;
 
 namespace OpenTibia.Game.Commands
 {
-    public abstract class ParseRotateItemCommand : Command
+    public abstract class ParseRotateItemCommand : IncomingCommand
     {
         public ParseRotateItemCommand(Player player)
         {

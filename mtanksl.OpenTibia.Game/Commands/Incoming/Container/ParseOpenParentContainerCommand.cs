@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseOpenParentContainerCommand : Command
+    public class ParseOpenParentContainerCommand : IncomingCommand
     {
         public ParseOpenParentContainerCommand(Player player, byte containerId)
         {

@@ -4,7 +4,7 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseSharedExperienceCommand : Command
+    public class ParseSharedExperienceCommand : IncomingCommand
     {
         public ParseSharedExperienceCommand(Player player, bool enabled)
         {

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseExcludePlayerCommand : Command
+    public class ParseExcludePlayerCommand : IncomingCommand
     {
         public ParseExcludePlayerCommand(Player player, string name)
         {

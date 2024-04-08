@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseSelectedCharacterCommand : Command
+    public class ParseSelectedCharacterCommand : IncomingCommand
     {
         public ParseSelectedCharacterCommand(IConnection connection, SelectedCharacterIncomingPacket packet)
         {

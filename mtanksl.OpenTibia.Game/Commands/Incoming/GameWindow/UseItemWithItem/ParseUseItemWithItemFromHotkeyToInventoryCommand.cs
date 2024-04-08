@@ -50,7 +50,7 @@ namespace OpenTibia.Game.Commands
                     {
                         Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
 
-                        return Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) );
+                        return Context.AddCommand(new PlayerUseItemWithItemCommand(this, Player, fromItem, toItem) );
                     }
                 }
             }

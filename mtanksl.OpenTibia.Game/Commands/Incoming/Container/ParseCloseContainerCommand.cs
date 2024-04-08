@@ -3,7 +3,7 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseCloseContainerCommand : Command
+    public class ParseCloseContainerCommand : IncomingCommand
     {
         public ParseCloseContainerCommand(Player player, byte containerId)
         {

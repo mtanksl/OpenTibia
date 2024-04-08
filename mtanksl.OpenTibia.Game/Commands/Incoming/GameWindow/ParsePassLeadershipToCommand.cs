@@ -4,7 +4,7 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParsePassLeadershipToCommand : Command
+    public class ParsePassLeadershipToCommand : IncomingCommand
     {
         public ParsePassLeadershipToCommand(Player player, uint creatureId)
         {

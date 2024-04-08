@@ -4,7 +4,7 @@ using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseRevokePartyCommand : Command
+    public class ParseRevokePartyCommand : IncomingCommand
     {
         public ParseRevokePartyCommand(Player player, uint creatureId)
         {
