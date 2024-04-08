@@ -269,6 +269,14 @@ namespace OpenTibia.Game
                 } );
             } );
 
+            lua.RegisterCoFunction("itemclone", parameters =>
+            {
+                return Context.Current.AddCommand(new ItemCloneCommand( (Item)parameters[0], (bool)parameters[1] ) ).Then( (item) =>
+                {
+                    return Promise.FromResult(new object[] { item } );
+                } );
+            } );
+
             lua.RegisterCoFunction("itemdecrement", parameters =>
             {
                 return Context.Current.AddCommand(new ItemDecrementCommand( (Item)parameters[0], (byte)(long)parameters[1] ) ).Then( () =>

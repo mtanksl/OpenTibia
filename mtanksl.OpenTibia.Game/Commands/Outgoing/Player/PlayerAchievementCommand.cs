@@ -41,20 +41,20 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            int count;
+            int value;
 
-            if ( !Player.Client.Storages.TryGetValue(IncrementStorageKey, out count) )
+            if ( !Player.Client.Storages.TryGetValue(IncrementStorageKey, out value) )
             {
-                count = 0;
+                value = 0;
             }
 
-            Player.Client.Storages.SetValue(IncrementStorageKey, ++count);
+            Player.Client.Storages.SetValue(IncrementStorageKey, ++value);
 
             if ( !Player.Client.Achievements.HasAchievement(AchievementName) )
             {
                 if (RequiredStorageKeys == null)
                 {
-                    if (count >= RequiredStorageValue)
+                    if (value >= RequiredStorageValue)
                     {                    
                         Player.Client.Achievements.SetAchievement(AchievementName);
 

@@ -72,6 +72,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemScriptingHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler(new UseItemChestHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler(new LockerOpenHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new ContainerOpenHandler() );

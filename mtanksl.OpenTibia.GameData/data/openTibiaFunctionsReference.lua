@@ -242,6 +242,13 @@ return {
 				args = "(Inventory inventory, Item fromItem, Item toItem)",
 				returns = "void",
 			},
+			-- Item command.itemclone(Item item, bool deepClone)
+			itemclone = {
+				type = "function",
+				description = "",
+				args = "(Item item, bool deepClone)",
+				returns = "Item",
+			},
 			-- void command.itemdecrement(Item item, byte count)
 			itemdecrement = {
 				type = "function",

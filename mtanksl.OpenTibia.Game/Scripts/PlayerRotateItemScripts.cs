@@ -10,7 +10,7 @@ namespace OpenTibia.Game.Scripts
                         
             Context.Server.CommandHandlers.AddCommandHandler(new RotateItemScriptingHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new RotateChestHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new RotateItemChestHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new RotateItemTransformHandler() );
         }

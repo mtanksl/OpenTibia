@@ -8,6 +8,20 @@ namespace OpenTibia.Game.Extensions
     {
         /// <exception cref="InvalidOperationException"></exception>
 
+        public static PromiseResult<Item> Clone(this Item item, bool deepClone)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new ItemCloneCommand(item, deepClone) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
         public static Promise DecayDestroy(this Item item, TimeSpan executeIn)
         {
             Context context = Context.Current;

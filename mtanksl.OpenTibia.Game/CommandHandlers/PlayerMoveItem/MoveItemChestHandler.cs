@@ -6,15 +6,15 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class RotateChestHandler : CommandHandler<PlayerRotateItemCommand>
+    public class MoveItemChestHandler : CommandHandler<PlayerMoveItemCommand>
     {
         private static HashSet<ushort> chests = new HashSet<ushort>() { 1740, 1747, 1748, 1749 };
 
-        public override Promise Handle(Func<Promise> next, PlayerRotateItemCommand command)
+        public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {
-            if (command.Item.UniqueId > 0 && chests.Contains(command.Item.Metadata.OpenTibiaId))
+            if (chests.Contains(command.Item.Metadata.OpenTibiaId) && command.Item.UniqueId > 0)
             {
-                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
 
                 return Promise.Break;
             }

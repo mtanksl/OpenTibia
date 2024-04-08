@@ -56,12 +56,11 @@ namespace OpenTibia.Game.Commands
                     {
                         toDoorItem.DoorId = fromDoorItem.DoorId;
                     }
-                    else 
+                    else
                     {
-                        throw new InvalidOperationException("ToItem must be DoorItem."); 
-                    }                    
+                        throw new InvalidOperationException("ToItem must be DoorItem.");
+                    }
                 }
-
                 else if (FromItem is ReadableItem fromReadableItem)
                 {
                     if (toItem is ReadableItem toReadableItem)
@@ -72,9 +71,20 @@ namespace OpenTibia.Game.Commands
 
                         toReadableItem.Date = fromReadableItem.Date;
                     }
+                    else
+                    {
+                        throw new InvalidOperationException("ToItem must be ReadableItem.");
+                    }
+                }
+                else if (FromItem is TeleportItem fromTeleportItem)
+                {
+                    if (toItem is TeleportItem toTeleportItem)
+                    {
+                        toTeleportItem.Position = fromTeleportItem.Position;
+                    }
                     else 
                     {
-                        throw new InvalidOperationException("ToItem must be ReadableItem."); 
+                        throw new InvalidOperationException("ToItem must be TeleportItem."); 
                     }                    
                 }
 
