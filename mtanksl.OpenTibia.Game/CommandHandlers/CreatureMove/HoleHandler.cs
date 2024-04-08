@@ -20,7 +20,7 @@ namespace OpenTibia.Game.CommandHandlers
             459, 
 
             // Wooden
-            369, 370, 408, 409, 410, 411, 8276, 8277, 8278, 7279, 8280, 8271, 8282, 
+            369, 370, 408, 409, 410, 411, 8276, 8277, 8279, 8280, 8281, 8282, 
             
             // Wooden
             423, 427, 428, 429, 8283, 8284, 8285, 8286, 
@@ -56,7 +56,7 @@ namespace OpenTibia.Game.CommandHandlers
             8559, 8560, 8561, 8562, 8563, 8564, 8565, 8566,
 
             // Corkscrew
-            9874, 984
+            9574, 9846
         };
 
         public override Promise Handle(Func<Promise> next, CreatureMoveCommand command)

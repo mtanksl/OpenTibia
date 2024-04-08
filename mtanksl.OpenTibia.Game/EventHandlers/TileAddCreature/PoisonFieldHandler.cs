@@ -8,7 +8,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class PoisonFieldHandler : EventHandlers.EventHandler<TileAddCreatureEventArgs>
     {
-        private HashSet<ushort> poisonFields = new HashSet<ushort>() { 1490, 1496 };
+        private HashSet<ushort> poisonFields = new HashSet<ushort>() { 1490, 1496, 8062 };
 
         public override Promise Handle(TileAddCreatureEventArgs e)
         {
