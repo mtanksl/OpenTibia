@@ -257,49 +257,19 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        private Recomputable<bool> canUseWith;
-
         public bool CanUseWith
         {
             get
             {
-                if (canUseWith == null)
-                {
-                    if (recomputableSource == null)
-                    {
-                        recomputableSource = new RecomputableSource();
-                    }
-
-                    canUseWith = new Recomputable<bool>(recomputableSource, () =>
-                    {
-                        return !NotWalkable && !BlockPathFinding;
-                    } );
-                }
-
-                return canUseWith.Value;
+                return !NotWalkable && !BlockPathFinding;
             }
         }
-
-        private Recomputable<bool> canWalk;
 
         public bool CanWalk
         {
             get
             {
-                if (canWalk == null)
-                {
-                    if (recomputableSource == null)
-                    {
-                        recomputableSource = new RecomputableSource();
-                    }
-
-                    canWalk = new Recomputable<bool>(recomputableSource, () =>
-                    {
-                        return !NotWalkable && !BlockPathFinding && !Block;
-                    } );
-                }
-
-                return canWalk.Value;
+                return !NotWalkable && !BlockPathFinding && !Block;
             }
         }
 
