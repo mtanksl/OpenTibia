@@ -33,7 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EventHandlers\PlayerLogin\" />
     <Folder Include="EventHandlers\PlayerLogout\" />
   </ItemGroup>
 
