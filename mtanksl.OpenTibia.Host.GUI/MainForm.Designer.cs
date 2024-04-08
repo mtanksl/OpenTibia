@@ -165,7 +165,7 @@
             MainMenuStrip = menuStrip1;
             MinimumSize = new System.Drawing.Size(300, 300);
             Name = "MainForm";
-            Text = "mtanksl's Open Tibia Server";
+            Text = "MTOTS - mtanksl's Open Tibia Server";
             FormClosing += MainForm_FormClosing;
             Load += MainForm_Load;
             menuStrip1.ResumeLayout(false);

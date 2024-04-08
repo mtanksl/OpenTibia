@@ -224,7 +224,7 @@ namespace OpenTibia.Game
 
             QueueForExecution( () =>
             {
-                Logger.WriteLine("An open Tibia server developed by mtanksl");
+                Logger.WriteLine("MTOTS - An open Tibia server developed by mtanksl");
 
                 Logger.WriteLine("Source code: https://github.com/mtanksl/OpenTibia");
 
@@ -306,7 +306,7 @@ namespace OpenTibia.Game
                         {
                             Context.Current.Database.DatabaseContext.Database.EnsureDeleted();
 
-                            Context.Current.Database.DatabaseContext.Motd.Add(new DbMotd() { Id = 0, Message = "An open Tibia server developed by mtanksl" } );
+                            Context.Current.Database.DatabaseContext.Motd.Add(new DbMotd() { Id = 0, Message = "MTOTS - An open Tibia server developed by mtanksl" } );
 
                             Context.Current.Database.DatabaseContext.Accounts.Add(new DbAccount() { Id = 1, Name = "1", Password = "1", PremiumDays = 0 } );
 

@@ -22,7 +22,6 @@
 - Rings and amulets charges
 - Hangable items
 - Guild
-- Save and load house data
 - Bed
 - Bless/AOL
 - Map clean up
@@ -93,6 +92,7 @@
 		- Containers
 		- Lockers and towns
 		- Read and write items
+		- Quest chest item
 		- etc
 	- Use item with creature
 		- Runes

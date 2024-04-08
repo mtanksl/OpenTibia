@@ -391,7 +391,7 @@ GO
 
 SET IDENTITY_INSERT [dbo].[Motd] ON 
 GO
-INSERT [dbo].[Motd] ([Id], [Message]) VALUES (0, N'An open Tibia server developed by mtanksl')
+INSERT [dbo].[Motd] ([Id], [Message]) VALUES (0, N'MTOTS - An open Tibia server developed by mtanksl')
 GO
 SET IDENTITY_INSERT [dbo].[Motd] OFF
 GO
