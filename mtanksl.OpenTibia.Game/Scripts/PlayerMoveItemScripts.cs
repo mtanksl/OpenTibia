@@ -26,6 +26,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new MoveItemScriptingHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler(new MoveChestHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler(new DustbinHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new ShallowWaterHandler() );
