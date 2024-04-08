@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            var canSeeFrom = new Dictionary<Player, byte>();
+            Dictionary<Player, byte> canSeeFrom = new Dictionary<Player, byte>();
 
             foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Creature.Tile.Position) )
             {
@@ -56,7 +56,7 @@ namespace OpenTibia.Game.Commands
 
             Context.Server.Map.AddObserver(ToTile.Position, Creature);
 
-            var canSeeTo = new Dictionary<Player, byte>();
+            Dictionary<Player, byte> canSeeTo = new Dictionary<Player, byte>();
 
             foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Creature.Tile.Position) )
             {
