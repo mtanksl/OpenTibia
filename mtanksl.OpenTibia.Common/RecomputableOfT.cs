@@ -2,11 +2,11 @@
 
 namespace OpenTibia.Common.Objects
 {
-    public class Recomputable
+    public class Recomputable<T>
     {
-        private Action callback;
+        private Func<T> callback;
 
-        public Recomputable(IRecomputableSource source, Action callback)
+        public Recomputable(IRecomputableSource source, Func<T> callback)
         {
             source.Changed += (sender, e) =>
             {
@@ -30,9 +30,21 @@ namespace OpenTibia.Common.Objects
         {
             if (recompute)
             {
-                callback();
+                value = callback();
 
                 recompute = false;
+            }
+        }
+
+        private T value;
+
+        public T Value
+        {
+            get
+            {
+                EnsureUpdated();
+
+                return value;
             }
         }
     }

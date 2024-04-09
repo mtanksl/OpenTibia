@@ -7,39 +7,49 @@ namespace OpenTibia.Common.Objects
     public class Container : Item, IContainer
     {
         private RecomputableSource recomputableSource;
-                
+
+        private Recomputable recomputable;
+
+        private void EnsureUpdated()
+        {
+            if (recomputableSource == null)
+            {
+                recomputableSource = new RecomputableSource();
+            }
+
+            if (recomputable == null)
+            {
+                recomputable = new Recomputable(recomputableSource, () =>
+                {
+                    weight = base.Weight;
+
+                    foreach (var content in GetContents() )
+                    {
+                        if (content is Item item)
+                        {
+                            weight += item.Weight;
+                        }
+                    }
+                } );
+            }
+
+            recomputable.EnsureUpdated();
+        }
+
         public Container(ItemMetadata metadata) : base(metadata)
         {
             
         }
 
-        private Recomputable<uint> weight;
+        private uint weight;
 
         public override uint Weight
         {
             get
             {
-                if (weight == null)
-                {
-                    if (recomputableSource == null)
-                    {
-                        recomputableSource = new RecomputableSource();
-                    }
+                EnsureUpdated();
 
-                    weight = new Recomputable<uint>(recomputableSource, () =>
-                    {
-                        uint weight = base.Weight;
-
-                        foreach (var item in GetItems() )
-                        {
-                            weight += item.Weight;
-                        }
-
-                        return weight;
-                    } );
-                }
-
-                return weight.Value;
+                return weight;
             }
         }
 
