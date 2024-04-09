@@ -868,7 +868,7 @@ namespace OpenTibia.Game
 #endif
         public void Print(params object[] parameters)
         {
-            server.Logger.WriteLine(string.Join("\t", parameters), LogLevel.Debug);
+            server.Logger.WriteLine(string.Join("\t", parameters), LogLevel.Information);
         }
 
 #if AOT

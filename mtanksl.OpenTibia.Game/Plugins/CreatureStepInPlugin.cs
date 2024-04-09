@@ -5,6 +5,6 @@ namespace OpenTibia.Game.Plugins
 {
     public abstract class CreatureStepInPlugin : Plugin
     {
-        public abstract Promise OnStepIn(Creature creature, Tile toTile);
+        public abstract Promise OnStepIn(Creature creature, Tile fromTile, Tile toTile);
     }
 }

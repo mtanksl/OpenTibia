@@ -26,6 +26,9 @@
     <None Include="$(MSBuildThisFileDirectory)data\plugins\ammunitions\burst arrow example.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\ammunitions\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\config.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\creaturescripts\logout.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\creaturescripts\login.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\creaturescripts\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\movements\deequip.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\movements\lib.lua" />

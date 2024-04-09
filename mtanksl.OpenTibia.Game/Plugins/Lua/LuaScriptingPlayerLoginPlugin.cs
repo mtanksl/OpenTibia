@@ -4,7 +4,7 @@ using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Plugins
 {
-    public class LuaScriptingCreatureStepInPlugin : CreatureStepInPlugin
+    public class LuaScriptingPlayerLoginPlugin : PlayerLoginPlugin
     {
         private string fileName;
 
@@ -12,12 +12,12 @@ namespace OpenTibia.Game.Plugins
 
         private LuaTable parameters;
 
-        public LuaScriptingCreatureStepInPlugin(string fileName)
+        public LuaScriptingPlayerLoginPlugin(string fileName)
         {
             this.fileName = fileName;
         }
 
-        public LuaScriptingCreatureStepInPlugin(LuaScope script, LuaTable parameters)
+        public LuaScriptingPlayerLoginPlugin(LuaScope script, LuaTable parameters)
         {
             this.script = script;
 
@@ -29,22 +29,22 @@ namespace OpenTibia.Game.Plugins
             if (fileName != null)
             {
                 script = Context.Server.LuaScripts.LoadScript(
-                    Context.Server.PathResolver.GetFullPath("data/plugins/movements/" + fileName),
-                    Context.Server.PathResolver.GetFullPath("data/plugins/movements/lib.lua"),
+                    Context.Server.PathResolver.GetFullPath("data/plugins/creaturescripts/" + fileName),
+                    Context.Server.PathResolver.GetFullPath("data/plugins/creaturescripts/lib.lua"),
                     Context.Server.PathResolver.GetFullPath("data/plugins/lib.lua"),
                     Context.Server.PathResolver.GetFullPath("data/lib.lua") );
             }
         }
 
-        public override Promise OnStepIn(Creature creature, Tile fromTile, Tile toTile)
+        public override Promise OnLogin(Player player, Tile toTile)
         {
             if (fileName != null)
             {
-                return script.CallFunction("onstepin", creature, fromTile, toTile);
+                return script.CallFunction("onlogin", player, toTile);
             }
             else
             {
-                return script.CallFunction( (LuaFunction)parameters["onstepin"], creature, fromTile, toTile);
+                return script.CallFunction( (LuaFunction)parameters["onlogin"], player, toTile);
             }           
         }
 

@@ -15,7 +15,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (plugin != null)
                 {
-                    return plugin.OnStepIn(e.Creature, e.ToTile);
+                    return plugin.OnStepIn(e.Creature, e.FromTile, e.ToTile);
                 }
             }
 

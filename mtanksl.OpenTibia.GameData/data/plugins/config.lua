@@ -16,6 +16,10 @@
 	talkactions = {
 		-- { type = "PlayerSay", message = "/hello", filename = "say.lua" }
 	},
+	creaturescripts = {
+		{ type = "PlayerLogin", filename = "login.lua" },
+		{ type = "PlayerLogout", filename = "logout.lua" }
+	},
 	npcs = {
 		-- { type = "Dialogue", name = "Npc Name", filename = "default.lua" }
 	},

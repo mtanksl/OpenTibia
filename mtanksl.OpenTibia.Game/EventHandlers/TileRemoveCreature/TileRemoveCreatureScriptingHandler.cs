@@ -15,7 +15,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (plugin != null)
                 {
-                    return plugin.OnStepOut(e.Creature, e.FromTile);
+                    return plugin.OnStepOut(e.Creature, e.FromTile, e.ToTile);
                 }
             }
 

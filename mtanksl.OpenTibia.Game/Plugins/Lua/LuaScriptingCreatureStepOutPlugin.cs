@@ -36,15 +36,15 @@ namespace OpenTibia.Game.Plugins
             }
         }
 
-        public override Promise OnStepOut(Creature creature, Tile fromTile)
+        public override Promise OnStepOut(Creature creature, Tile fromTile, Tile toTile)
         {
             if (fileName != null)
             {
-                return script.CallFunction("onstepout", creature, fromTile);
+                return script.CallFunction("onstepout", creature, fromTile, toTile);
             }
             else
             {
-                return script.CallFunction( (LuaFunction)parameters["onstepout"], creature, fromTile);
+                return script.CallFunction( (LuaFunction)parameters["onstepout"], creature, fromTile, toTile);
             }
         }
 

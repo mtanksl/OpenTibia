@@ -11,6 +11,23 @@ namespace OpenTibia.Game
 {
     public class PluginCollection : IDisposable
     {
+        private class PluginListCached<TValue> where TValue : Plugin
+        {
+            private List<TValue> plugins = new List<TValue>();
+
+            public void AddPlugin(TValue plugin)
+            {
+                plugin.Start();
+
+                plugins.Add(plugin);
+            }
+
+            public IEnumerable<TValue> GetPlugins()
+            {
+                return plugins;
+            }
+        }
+
         private class PluginDictionaryCached<TKey, TValue> where TValue : Plugin
         {
             private Dictionary<TKey, TValue> plugins = new Dictionary<TKey, TValue>();
@@ -203,6 +220,25 @@ namespace OpenTibia.Game
                                 string message = (string)initialization.Parameters["message"];
 
                                 pluginCollection.AddPlayerSayPlugin(message, script, initialization.Parameters);
+                            }
+                            break;
+                        }
+                    }
+                    else if (initialization.Type == "creaturescripts")
+                    {
+                        string type = (string)initialization.Parameters["type"];
+
+                        switch (type)
+                        {
+                            case "PlayerLogin":
+                            {
+                                pluginCollection.AddPlayerLoginPlugin(script, initialization.Parameters);
+                            }
+                            break;
+
+                            case "PlayerLogout":
+                            {
+                                pluginCollection.AddPlayerLogoutPlugin(script, initialization.Parameters);
                             }
                             break;
                         }
@@ -444,6 +480,28 @@ namespace OpenTibia.Game
                         string message = (string)plugin["message"];
 
                         AddPlayerSayPlugin(message, fileName);
+                    }
+                    break;
+                }
+            }
+
+            foreach (LuaTable plugin in ( (LuaTable)script["plugins.creaturescripts"] ).Values)
+            {
+                string type = (string)plugin["type"];
+
+                string fileName = (string)plugin["filename"];
+
+                switch (type)
+                {
+                    case "PlayerLogin":
+                    {
+                        AddPlayerLoginPlugin(fileName);
+                    }
+                    break;
+
+                    case "PlayerLogout":
+                    {
+                        AddPlayerLogoutPlugin(fileName);
                     }
                     break;
                 }
@@ -989,6 +1047,72 @@ namespace OpenTibia.Game
             return playerSayPlugins.GetPlugin(message);
         }
 
+        private PluginListCached<PlayerLoginPlugin> playerLoginPlugins = new PluginListCached<PlayerLoginPlugin>();
+
+        public void AddPlayerLoginPlugin(PlayerLoginPlugin playerLoginPlugin)
+        {
+            playerLoginPlugins.AddPlugin(playerLoginPlugin);
+        }
+
+        public void AddPlayerLoginPlugin(string fileName)
+        {
+            if (fileName.EndsWith(".lua") )
+            {
+                AddPlayerLoginPlugin(new LuaScriptingPlayerLoginPlugin(fileName) );
+            }
+            else
+            {
+#if AOT
+                AddPlayerLoginPlugin( (PlayerLoginPlugin)_AotCompilation.OtherPlugins[fileName]() );
+#else
+                AddPlayerLoginPlugin( (PlayerLoginPlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+#endif
+            }
+        }
+
+        public void AddPlayerLoginPlugin(LuaScope script, LuaTable parameters)
+        {
+            AddPlayerLoginPlugin(new LuaScriptingPlayerLoginPlugin(script, parameters) );
+        }
+
+        public IEnumerable<PlayerLoginPlugin> GetPlayerLoginPlugins()
+        {
+            return playerLoginPlugins.GetPlugins();
+        }
+
+        private PluginListCached<PlayerLogoutPlugin> playerLogoutPlugins = new PluginListCached<PlayerLogoutPlugin>();
+
+        public void AddPlayerLogoutPlugin(PlayerLogoutPlugin playerLogoutPlugin)
+        {
+            playerLogoutPlugins.AddPlugin(playerLogoutPlugin);
+        }
+
+        public void AddPlayerLogoutPlugin(string fileName)
+        {
+            if (fileName.EndsWith(".lua"))
+            {
+                AddPlayerLogoutPlugin(new LuaScriptingPlayerLogoutPlugin(fileName) );
+            }
+            else
+            {
+#if AOT
+                AddPlayerLogoutPlugin( (PlayerLogoutPlugin)_AotCompilation.OtherPlugins[fileName]() );
+#else
+                AddPlayerLogoutPlugin( (PlayerLogoutPlugin)Activator.CreateInstance(Type.GetType(fileName) ) );
+#endif
+            }
+        }
+
+        public void AddPlayerLogoutPlugin(LuaScope script, LuaTable parameters)
+        {
+            AddPlayerLogoutPlugin(new LuaScriptingPlayerLogoutPlugin(script, parameters) );
+        }
+
+        public IEnumerable<PlayerLogoutPlugin> GetPlayerLogoutPlugins()
+        {
+            return playerLogoutPlugins.GetPlugins();
+        }
+
         private PluginDictionary<string, DialoguePlugin> dialoguePlugins = new PluginDictionary<string, DialoguePlugin>();
 
         public void AddDialoguePlugin(string name, Func<DialoguePlugin> dialoguePlugin)
@@ -1261,6 +1385,10 @@ namespace OpenTibia.Game
                 inventoryDeEquipPlugins.GetPlugins(),
 
                 playerSayPlugins.GetPlugins(),
+
+                playerLoginPlugins.GetPlugins(),
+
+                playerLogoutPlugins.GetPlugins(),
 
                 dialoguePlugins.GetPlugins(),
 

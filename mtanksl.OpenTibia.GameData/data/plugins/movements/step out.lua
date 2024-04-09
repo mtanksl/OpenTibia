@@ -1,4 +1,3 @@
-function onstepout(creature, fromtile)
+function onstepout(creature, fromtile, totile)
 	print("Creature " .. creature.Name .. " steped out ground " .. fromtile.Ground.Metadata.OpenTibiaId)  
-	return true
 end

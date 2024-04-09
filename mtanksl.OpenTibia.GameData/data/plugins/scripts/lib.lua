@@ -90,6 +90,20 @@ function registertalkactionsplayersay(message, handler)
     } )
 end
 
+function registercreaturescriptsplayerlogin(handler)
+    registerplugin("creaturescripts", {
+	    type = "PlayerLogin",
+	    onlogin = handler
+    } )
+end
+
+function registercreaturescriptsplayerlogout(handler)
+    registerplugin("creaturescripts", {
+	    type = "PlayerLogout",
+	    onlogout = handler
+    } )
+end
+
 function registernpcsdialogue(name, handler)
     registerplugin("npcs", { 
         type = "Dialogue", 
