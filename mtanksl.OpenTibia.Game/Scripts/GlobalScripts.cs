@@ -9,39 +9,15 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Tick();
+            RealClockTick();
 
             TibiaClockTick();
 
-            RealClockTick();
+            Light();
 
             Ping();
-        }
 
-        private void Tick()
-        {
-            Promise.Delay("Tick", TimeSpan.FromMilliseconds(200) ).Then( () =>
-            {
-                Tick();
-
-                Context.AddEvent(new GlobalTickEventArgs() );
-
-                return Promise.Completed;
-            } );
-        }
-
-        private void TibiaClockTick()
-        {
-            Promise.Delay("TibiaClockTick", TimeSpan.FromMilliseconds(Clock.Interval) ).Then( () =>
-            {
-                TibiaClockTick();
-
-                Context.Server.Clock.Tick();
-
-                Context.AddEvent(new GlobalTibiaClockTickEventArgs(Context.Server.Clock.Hour, Context.Server.Clock.Minute) );
-
-                return Promise.Completed;
-            } );
+            Tick();
         }
 
         private void RealClockTick()
@@ -62,13 +38,57 @@ namespace OpenTibia.Game.Scripts
             } );
         }
 
+        private void TibiaClockTick()
+        {
+            Promise.Delay("TibiaClockTick", TimeSpan.FromMilliseconds(Clock.Interval) ).Then( () =>
+            {
+                TibiaClockTick();
+
+                Context.Server.Clock.Tick();
+
+                Context.AddEvent(new GlobalTibiaClockTickEventArgs(Context.Server.Clock.Hour, Context.Server.Clock.Minute) );
+
+                return Promise.Completed;
+            } );
+        }
+
+        private static GlobalLightEventArgs globalLightEventArgs = new GlobalLightEventArgs();
+
+        private void Light()
+        {
+            Promise.Delay("Light", TimeSpan.FromSeconds(10) ).Then( () =>
+            {
+                Light();
+
+                Context.AddEvent(globalLightEventArgs);
+
+                return Promise.Completed;
+            } );
+        }
+
+        private static GlobalPingEventArgs globalPingEventArgs = new GlobalPingEventArgs();
+
         private void Ping()
         {
             Promise.Delay("Ping", TimeSpan.FromSeconds(10) ).Then( () =>
             {
                 Ping();
 
-                Context.AddEvent(new GlobalPingEventArgs() );
+                Context.AddEvent(globalPingEventArgs);
+
+                return Promise.Completed;
+            } );
+        }
+
+        private static GlobalTickEventArgs globalTickEventArgs = new GlobalTickEventArgs();
+
+        private void Tick()
+        {
+            Promise.Delay("Tick", TimeSpan.FromSeconds(1) ).Then( () =>
+            {
+                Tick();
+
+                Context.AddEvent(globalTickEventArgs);
 
                 return Promise.Completed;
             } );
@@ -76,13 +96,15 @@ namespace OpenTibia.Game.Scripts
 
         public override void Stop()
         {
-            Context.Server.CancelQueueForExecution("Tick");
+            Context.Server.CancelQueueForExecution("RealClockTick");
 
             Context.Server.CancelQueueForExecution("TibiaClockTick");
 
-            Context.Server.CancelQueueForExecution("RealClockTick");
+            Context.Server.CancelQueueForExecution("Light");
 
             Context.Server.CancelQueueForExecution("Ping");
+
+            Context.Server.CancelQueueForExecution("Tick");
         }
     }
 }

@@ -29,7 +29,6 @@ namespace OpenTibia.Game.Components
                 if (totalMinutes >= 16)
                 {
                     return Context.AddCommand(new ParseLogOutCommand(player) );
-
                 }
                 else if (totalMinutes >= 15)
                 {
