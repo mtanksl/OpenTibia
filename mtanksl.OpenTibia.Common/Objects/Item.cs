@@ -19,10 +19,6 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        public ushort ActionId { get; set; }
-
-        public ushort UniqueId { get; set; }
-
         public TopOrder TopOrder
         {
             get
@@ -31,6 +27,12 @@ namespace OpenTibia.Common.Objects
             }
         }
 
+        public IContainer Parent { get; set; }
+
+        public ushort ActionId { get; set; }
+
+        public ushort UniqueId { get; set; }
+
         public virtual uint Weight
         {
             get
@@ -38,8 +40,6 @@ namespace OpenTibia.Common.Objects
                 return metadata.Weight ?? 0;
             }
         }
-
-        public IContainer Parent { get; set; }
 
         public IContainer Root()
         {
@@ -53,23 +53,18 @@ namespace OpenTibia.Common.Objects
             return container;
         }
 
-        public bool IsContainerOf(Item child)
+        public bool IsContentOf(Container parent)
         {
-            return child.IsContentOf(this);
-        }
+            IContent child = this;
 
-        public bool IsContentOf(Item parent)
-        {
-            IContent item = this;
-
-            while (item != null)
+            while (child != null)
             {
-                if (item == parent)
+                if (child == parent)
                 {
                     return true;
                 }
 
-                item = item.Parent as IContent;
+                child = child.Parent as IContent;
             }
 
             return false;

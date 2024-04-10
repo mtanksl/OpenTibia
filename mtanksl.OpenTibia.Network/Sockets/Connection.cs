@@ -243,7 +243,7 @@ namespace OpenTibia.Network.Sockets
                 {
                     try
                     {
-                        byte[] bytes = result.AsyncState as byte[];
+                        byte[] bytes = ( byte[] )result.AsyncState;
 
                         if (bytes.Length == socket.EndSend(result) )
                         {

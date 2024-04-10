@@ -33,7 +33,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     } ).Then( () =>
                     {
-                        Item item = command.Player.Inventory.GetContent( (byte)Slot.Extra) as Item;
+                        Item item = (Item)command.Player.Inventory.GetContent( (byte)Slot.Extra);
 
                         if (item == null || item.Metadata.OpenTibiaId != command.Item.Metadata.OpenTibiaId)
                         {

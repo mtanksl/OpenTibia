@@ -65,7 +65,7 @@ namespace OpenTibia.Proxy
                 {
                     try
                     {
-                        byte[] header = result.AsyncState as byte[];
+                        byte[] header = ( byte[] )result.AsyncState;
                 
                         if (header.Length == client.EndReceive(result) )
                         {
@@ -96,7 +96,7 @@ namespace OpenTibia.Proxy
                 {
                     try
                     {
-                        byte[] body = result.AsyncState as byte[];
+                        byte[] body = ( byte[] )result.AsyncState;
                  
                         if (body.Length == client.EndReceive(result) )
                         {
@@ -131,7 +131,7 @@ namespace OpenTibia.Proxy
                 { 
                     try
                     {
-                        byte[] header = result.AsyncState as byte[];
+                        byte[] header = ( byte[] )result.AsyncState;
 
                         if (header.Length == server.EndReceive(result) )
                         {
@@ -166,7 +166,7 @@ namespace OpenTibia.Proxy
                 {
                     try
                     {
-                        byte[] body = result.AsyncState as byte[];
+                        byte[] body = ( byte[] )result.AsyncState;
                  
                         if (body.Length == server.EndReceive(result) )
                         {

@@ -10,14 +10,14 @@ namespace OpenTibia.Game.Components
     {
         private static Item GetWeapon(Player player)
         {
-            Item item = player.Inventory.GetContent( (byte)Slot.Left) as Item;
+            Item item = (Item)player.Inventory.GetContent( (byte)Slot.Left);
 
             if (item != null && (item.Metadata.WeaponType == WeaponType.Sword || item.Metadata.WeaponType == WeaponType.Club || item.Metadata.WeaponType == WeaponType.Axe || item.Metadata.WeaponType == WeaponType.Distance || item.Metadata.WeaponType == WeaponType.Wand) )
             {
                 return item;
             }
 
-            item = player.Inventory.GetContent( (byte)Slot.Right) as Item;
+            item = (Item)player.Inventory.GetContent( (byte)Slot.Right);
 
             if (item != null && (item.Metadata.WeaponType == WeaponType.Sword || item.Metadata.WeaponType == WeaponType.Club || item.Metadata.WeaponType == WeaponType.Axe || item.Metadata.WeaponType == WeaponType.Distance || item.Metadata.WeaponType == WeaponType.Wand) )
             {
@@ -29,7 +29,7 @@ namespace OpenTibia.Game.Components
 
         private static Item GetAmmunition(Player player)
         {
-            Item item = player.Inventory.GetContent( (byte)Slot.Extra) as Item;
+            Item item = (Item)player.Inventory.GetContent( (byte)Slot.Extra);
 
             if (item != null && item.Metadata.WeaponType == WeaponType.Ammo)
             {

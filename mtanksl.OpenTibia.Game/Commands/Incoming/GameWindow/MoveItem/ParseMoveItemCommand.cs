@@ -15,11 +15,14 @@ namespace OpenTibia.Game.Commands
 
         protected bool IsPossible(Item fromItem, Container toContainer)
         {
-            if ( toContainer.IsContentOf(fromItem) )
+            if (fromItem is Container fromContainer)
             {
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
+                if (toContainer.IsContentOf(fromContainer) )
+                {
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
 
-                return false;
+                    return false;
+                }
             }
 
             return true;

@@ -71,7 +71,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                             if (slotType.Is(SlotType.Right) )
                             {
-                                Item left = toInventory.GetContent( (byte)Slot.Left) as Item;
+                                Item left = (Item)toInventory.GetContent( (byte)Slot.Left);
 
                                 if (left == null)
                                 {
@@ -96,7 +96,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                             if (slotType.Is(SlotType.Left) )
                             {
-                                Item right = toInventory.GetContent( (byte)Slot.Right) as Item;
+                                Item right = (Item)toInventory.GetContent( (byte)Slot.Right);
 
                                 if (right == null)
                                 {

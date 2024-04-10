@@ -40,7 +40,7 @@ namespace OpenTibia.Common.Objects
         {
             get
             {
-                return Parent as Tile;
+                return (Tile)Parent;
             }
         }
         

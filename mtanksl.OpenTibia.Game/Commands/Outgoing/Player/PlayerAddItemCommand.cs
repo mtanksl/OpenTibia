@@ -38,7 +38,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            Item toItem = Player.Inventory.GetContent( (byte)Slot.Extra) as Item;
+            Item toItem = (Item)Player.Inventory.GetContent( (byte)Slot.Extra);
 
             if (toItem == null)
             {

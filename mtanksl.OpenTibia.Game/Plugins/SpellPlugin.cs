@@ -58,14 +58,14 @@ namespace OpenTibia.Game.Components
 
         public static Item GetWeapon(Player player)
         {
-            Item item = player.Inventory.GetContent( (byte)Slot.Left) as Item;
+            Item item = (Item)player.Inventory.GetContent( (byte)Slot.Left);
 
             if (item != null && (item.Metadata.WeaponType == WeaponType.Sword || item.Metadata.WeaponType == WeaponType.Club || item.Metadata.WeaponType == WeaponType.Axe) )
             {
                 return item;
             }
 
-            item = player.Inventory.GetContent( (byte)Slot.Right) as Item;
+            item = (Item)player.Inventory.GetContent( (byte)Slot.Right);
 
             if (item != null && (item.Metadata.WeaponType == WeaponType.Sword || item.Metadata.WeaponType == WeaponType.Club || item.Metadata.WeaponType == WeaponType.Axe) )
             {

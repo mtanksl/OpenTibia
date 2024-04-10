@@ -53,6 +53,11 @@ namespace OpenTibia.Common.Objects
             }
         }
 
+        public bool IsContainerOf(Item child)
+        {
+            return child.IsContentOf(this);
+        }
+
         private List<IContent> contents = new List<IContent>();
 
         public int Count
