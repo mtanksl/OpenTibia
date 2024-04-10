@@ -6,6 +6,13 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>disable</ImplicitUsings>
     <ApplicationIcon>tibia772.ico</ApplicationIcon>
+    <Title>MTOTS GUI</Title>
+    <Version>1.1</Version>
+    <Authors>mtank</Authors>
+    <Company>mtanksl</Company>
+    <Product>MTOTS GUI</Product>
+    <Description>A simple implementation in C# of open tibia server.</Description>
+    <RepositoryUrl>https://github.com/mtanksl/OpenTibia</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
