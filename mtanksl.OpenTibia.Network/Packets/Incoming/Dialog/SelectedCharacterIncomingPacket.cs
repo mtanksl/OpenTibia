@@ -27,7 +27,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
             Version = reader.ReadUShort();
 
-            reader.ReadByte();
+            reader.BaseStream.Seek(Origin.Current, 1);
 
             Keys = new uint[]
             {

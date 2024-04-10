@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 namespace OpenTibia.IO
 {
@@ -37,6 +36,30 @@ namespace OpenTibia.IO
             }
         }
 
+        private int InternalReadInt32(int count)
+        {
+            int value = 0;
+
+            for (int i = 0; i < count; i++)
+            {
+                value |= ( (int)stream.ReadByte() << (i * 8) );
+            }
+
+            return value;
+        }
+
+        private long InternalReadInt64(int count)
+        {
+            long value = 0;
+
+            for (int i = 0; i < count; i++)
+            {
+                value |= ( (long)stream.ReadByte() << (i * 8) );
+            }
+
+            return value;
+        }
+
         public byte ReadByte()
         {
             return stream.ReadByte();
@@ -44,42 +67,65 @@ namespace OpenTibia.IO
         
         public bool ReadBool()
         {
-            return BitConverter.ToBoolean(ReadBytes(1), 0);
+            return ReadByte() != 0x00;
         }
         
         public short ReadShort()
         {
-            return BitConverter.ToInt16(ReadBytes(2), 0);
+            return (short)InternalReadInt32(2);
         }
         
         public ushort ReadUShort()
         {
-            return BitConverter.ToUInt16(ReadBytes(2), 0);
+            return (ushort)InternalReadInt32(2);
         }
 
         public int ReadInt()
         {
-            return BitConverter.ToInt32(ReadBytes(4), 0);
+            return (int)InternalReadInt32(4);
         }
 
         public uint ReadUInt()
         {
-            return BitConverter.ToUInt32(ReadBytes(4), 0);          
+            return (uint)InternalReadInt32(4);
         }
 
         public long ReadLong()
         {
-            return BitConverter.ToInt64(ReadBytes(8), 0);
+            return (long)InternalReadInt64(8);
         }
 
         public ulong ReadULong()
         {
-            return BitConverter.ToUInt64(ReadBytes(8), 0);
+            return (ulong)InternalReadInt64(8);
         }
+
+        private static object locker = new object();
+
+        private static byte[] buffer = new byte[65535];
 
         public string ReadString()
         {
-            return encoding.GetString( ReadBytes( ReadUShort() ) );
+            int length = ReadUShort();
+
+            if (length == 0)
+            {
+                return "";
+            }
+            else
+            {
+                return ReadString(length);
+            }
+        }
+
+        public string ReadString(int length)
+        {
+            lock (locker)
+            {
+                stream.Read(buffer, 0, length);
+
+                return encoding.GetString(buffer, 0, length);
+            }
         }
 
         public byte[] ReadBytes(int length)

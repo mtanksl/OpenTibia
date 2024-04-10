@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 
 namespace OpenTibia.IO
 {
@@ -37,6 +36,22 @@ namespace OpenTibia.IO
             }
         }
 
+        private void InternalWriteInt32(int count, int value)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                stream.WriteByte( (byte)( (value & (0xFF << (i * 8) ) ) >> (i * 8) ) );
+            }
+        }
+
+        private void InternalWriteInt64(int count, long value)
+        {
+            for (int i = 0; i < count; i++)
+            {
+                stream.WriteByte( (byte)( (value & (0xFF << (i * 8) ) ) >> (i * 8) ) );
+            }
+        }
+
         public void Write(byte value)
         {
             stream.WriteByte(value);
@@ -44,50 +59,72 @@ namespace OpenTibia.IO
         
         public void Write(bool value)
         {
-            Write( BitConverter.GetBytes(value) );
+            if (value)
+            {
+                Write( (byte)0x01 );
+            }
+            else
+            {
+                Write( (byte)0x00 );
+            }
         }
 
         public void Write(short value)
         {
-            Write( BitConverter.GetBytes(value) );
+            InternalWriteInt32(2, (int)value);
         }
 
         public void Write(ushort value)
         {
-            Write( BitConverter.GetBytes(value) );
+            InternalWriteInt32(2, (int)value);
         }
 
         public void Write(int value)
         {
-            Write( BitConverter.GetBytes(value) );
+            InternalWriteInt32(4, (int)value);
         }
 
         public void Write(uint value)
         {
-            Write( BitConverter.GetBytes(value) );
+            InternalWriteInt32(4, (int)value);
         }
 
         public void Write(long value)
         {
-            Write( BitConverter.GetBytes(value) );
+            InternalWriteInt64(8, (long)value);
         }
 
         public void Write(ulong value)
         {
-            Write( BitConverter.GetBytes(value) );
+            InternalWriteInt64(8, (long)value);
         }
+
+        private static object locker = new object();
+
+        private static byte[] buffer = new byte[65535];
 
         public void Write(string value)
         {
-            if (value == null)
+            int length;
+
+            if (value == null || value == "")
             {
-                Write( (ushort)0 );
+                length = 0;
+
+                Write( (ushort)length );
             }
             else
             {
-                Write( (ushort)value.Length );
+                length = value.Length;
 
-                Write( encoding.GetBytes(value) );
+                Write( (ushort)length );
+
+                lock (locker)
+                {
+                    encoding.GetBytes(value, 0, length, buffer, 0);
+
+                    stream.Write(buffer, 0, length);
+                }
             }
         }
 

@@ -34,6 +34,8 @@ namespace OpenTibia.Network.Packets.Outgoing
             return this;
         }
 
+        //TODO: Reduce allocation
+
         private byte[] Length(byte[] bytes)
         {
             byte[] length = BitConverter.GetBytes( (ushort)bytes.Length );

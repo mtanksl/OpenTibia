@@ -38,7 +38,7 @@ namespace mtanksl.OpenTibia.Tests
 
             uint tibiaPic = reader.ReadUInt(); //1256571859
 
-            reader.ReadByte();
+            reader.BaseStream.Seek(Origin.Current, 1);
 
             uint[] keys = new uint[]
             {
@@ -87,7 +87,7 @@ namespace mtanksl.OpenTibia.Tests
 
             uint tibiaPic = reader.ReadUInt(); //1146144984
 
-            reader.ReadByte();
+            reader.BaseStream.Seek(Origin.Current, 1);
 
             uint[] keys = new uint[]
             {

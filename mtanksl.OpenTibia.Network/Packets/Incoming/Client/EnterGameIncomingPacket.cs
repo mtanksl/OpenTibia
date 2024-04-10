@@ -55,7 +55,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
             TibiaPic = reader.ReadUInt();
 
-            reader.ReadByte();
+            reader.BaseStream.Seek(Origin.Current, 1);
 
             Keys = new uint[]
             {
@@ -74,23 +74,23 @@ namespace OpenTibia.Network.Packets.Incoming
 
             LocaleId = reader.ReadByte();
 
-            Locate = reader.Encoding.GetString( reader.ReadBytes(3) );
+            Locate = reader.ReadString(3);
 
             TotalRam = reader.ReadUShort();
 
-            reader.ReadBytes(6);
+            reader.BaseStream.Seek(Origin.Current, 6);
 
-            Cpu = reader.Encoding.GetString( reader.ReadBytes(9) );
+            Cpu = reader.ReadString(9);
 
-            reader.ReadBytes(2);
+            reader.BaseStream.Seek(Origin.Current, 2);
 
             CpuClock = reader.ReadUShort();
 
             CpuClock2 = reader.ReadUShort();
 
-            reader.ReadBytes(4);
+            reader.BaseStream.Seek(Origin.Current, 4);
 
-            Cpu = reader.Encoding.GetString( reader.ReadBytes(9) );
+            Cpu = reader.ReadString(9);
 
             VideoRam = reader.ReadUShort();
 
