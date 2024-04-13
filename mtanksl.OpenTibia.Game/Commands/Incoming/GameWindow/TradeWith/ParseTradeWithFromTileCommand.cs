@@ -42,7 +42,15 @@ namespace OpenTibia.Game.Commands
                         {
                             if ( IsPickupable(fromItem) )
                             {
-                                return Context.AddCommand(new PlayerTradeWithCommand(this, Player, fromItem, toPlayer) );
+                                if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
+                                {
+                                    return Context.AddCommand(new CreatureWalkToCommand(Player, fromTile) ).Then( () =>
+                                    {
+                                        return Execute();
+                                    } );
+                                }
+
+                                return Context.AddCommand(new PlayerTradeWithCommand(Player, fromItem, toPlayer) );
                             }
                         }
                     }

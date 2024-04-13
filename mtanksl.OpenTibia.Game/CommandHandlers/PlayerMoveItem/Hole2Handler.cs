@@ -112,7 +112,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                         if (toTile != null)
                         {
-                            return Context.AddCommand(new PlayerMoveItemCommand(command.Source, command.Player, command.Item, toTile, 255, command.Count, false) );
+                            return Context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toTile, 255, command.Count, false) );
                         }
                     }
                 }

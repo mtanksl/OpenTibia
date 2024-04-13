@@ -48,7 +48,15 @@ namespace OpenTibia.Game.Commands
                                 {
                                     if (IsMoveable(fromItem, Count) )
                                     {
-                                        return Context.AddCommand(new PlayerMoveItemCommand(this, Player, fromItem, toTile, 255, Count, true) );
+                                        if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
+                                        {
+                                            return Context.AddCommand(new CreatureWalkToCommand(Player, fromTile) ).Then( () =>
+                                            {
+                                                return Execute();
+                                            } );
+                                        }
+
+                                        return Context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toTile, 255, Count, true) );
                                     }
                                 }
                             }
@@ -65,7 +73,15 @@ namespace OpenTibia.Game.Commands
                                 {
                                     if (IsMoveable(fromCreature) )
                                     {
-                                        return Context.AddCommand(new PlayerMoveCreatureCommand(this, Player, fromCreature, toTile) );
+                                        if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
+                                        {
+                                            return Context.AddCommand(new CreatureWalkToCommand(Player, fromTile) ).Then( () =>
+                                            {
+                                                return Execute();
+                                            } );
+                                        }
+
+                                        return Context.AddCommand(new PlayerMoveCreatureCommand(Player, fromCreature, toTile) );
                                     }
                                 }
                             }

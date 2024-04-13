@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
 
                 Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
 
-                return Context.AddCommand(new PlayerUseItemCommand(this, Player, fromItem, null) );
+                return Context.AddCommand(new PlayerUseItemCommand(Player, fromItem, null) );
             }
 
             return Promise.Break;

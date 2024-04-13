@@ -9,8 +9,6 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new MoveCreatureWalkToSourceHandler() );
-
             Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveCreatureCommand>( (context, next, command) =>
             {
                 if (command.ToTile.Ground == null || !command.ToTile.CanWalk)

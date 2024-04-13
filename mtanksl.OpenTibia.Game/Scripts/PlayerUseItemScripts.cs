@@ -10,8 +10,6 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWalkToSourceHandler() );
-            
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>( (context, next, command) => 
             {
                 if (command.Item.Parent is Tile tile)

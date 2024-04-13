@@ -6,16 +6,12 @@ namespace OpenTibia.Game.Commands
 {
     public class PlayerRotateItemCommand : Command
     {
-        public PlayerRotateItemCommand(IncomingCommand source, Player player, Item item)
+        public PlayerRotateItemCommand(Player player, Item item)
         {
-            Source = source;
-
             Player = player;
 
             Item = item;
         }
-
-        public IncomingCommand Source { get; set; }
 
         public Player Player { get; set; }
 

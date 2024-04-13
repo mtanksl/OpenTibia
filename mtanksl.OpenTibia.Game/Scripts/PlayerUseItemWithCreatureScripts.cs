@@ -1,4 +1,7 @@
-﻿using OpenTibia.Game.CommandHandlers;
+﻿using OpenTibia.Common.Structures;
+using OpenTibia.Game.CommandHandlers;
+using OpenTibia.Game.Commands;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Scripts
 {
@@ -6,13 +9,21 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithCreatureWalkToSourceHandler() );
-
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithCreatureScriptingHandler(true) );
 
             Context.Server.CommandHandlers.AddCommandHandler(new RunesHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithCreatureWalkToTargetHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithCreatureCommand>( (context, next, command) =>
+            {
+                if ( !command.Player.Tile.Position.IsNextTo(command.ToCreature.Tile.Position) )
+                {
+                     Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+
+                    return Promise.Break;
+                }
+
+                return next();
+            } );
 
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithCreatureScriptingHandler(false) );
 

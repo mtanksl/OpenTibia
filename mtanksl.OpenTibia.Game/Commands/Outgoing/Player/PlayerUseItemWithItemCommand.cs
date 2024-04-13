@@ -6,18 +6,14 @@ namespace OpenTibia.Game.Commands
 {
     public class PlayerUseItemWithItemCommand : Command
     {
-        public PlayerUseItemWithItemCommand(IncomingCommand source, Player player, Item item, Item toItem)
+        public PlayerUseItemWithItemCommand(Player player, Item item, Item toItem)
         {
-            Source = source;
-
             Player = player;
 
             Item = item;
 
             ToItem = toItem;
         }
-
-        public IncomingCommand Source { get; set; }
 
         public Player Player { get; set; }
 

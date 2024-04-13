@@ -44,7 +44,15 @@ namespace OpenTibia.Game.Commands
                         {
                             if ( IsUseable(fromItem) )
                             {
-                                return Context.AddCommand(new PlayerUseItemWithCreatureCommand(this, Player, fromItem, toCreature) );
+                                if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
+                                {
+                                    return Context.AddCommand(new CreatureWalkToCommand(Player, fromTile) ).Then( () =>
+                                    {
+                                        return Execute();
+                                    } );
+                                }
+
+                                return Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) );
                             }
                         }
                     }

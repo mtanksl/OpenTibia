@@ -6,8 +6,6 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new TradeWithCreatureWalkToSourceHandler() );
-            
             Context.Server.CommandHandlers.AddCommandHandler(new TradeWithChestHandler() );
         }
 

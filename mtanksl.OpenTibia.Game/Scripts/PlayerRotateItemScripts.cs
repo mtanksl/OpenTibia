@@ -6,8 +6,6 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new RotateItemWalkToSourceHandler() );
-                        
             Context.Server.CommandHandlers.AddCommandHandler(new RotateItemScriptingHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new RotateItemChestHandler() );

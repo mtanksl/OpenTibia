@@ -50,7 +50,15 @@ namespace OpenTibia.Game.Commands
                         {
                             if (IsPossible(fromItem, toContainer) && IsPickupable(fromItem) && IsMoveable(fromItem, Count) )
                             {
-                                return Context.AddCommand(new PlayerMoveItemCommand(this, Player, fromItem, toContainer, ToContainerIndex, Count, true) );
+                                if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
+                                {
+                                    return Context.AddCommand(new CreatureWalkToCommand(Player, fromTile) ).Then( () =>
+                                    {
+                                        return Execute();
+                                    } );
+                                }
+
+                                return Context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toContainer, ToContainerIndex, Count, true) );
                             }
                         }
                     }

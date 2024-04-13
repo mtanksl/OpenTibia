@@ -9,10 +9,8 @@ namespace OpenTibia.Game.Commands
 {
     public class PlayerLookItemCommand : Command
     {
-        public PlayerLookItemCommand(IncomingCommand source, Player player, Item item)
+        public PlayerLookItemCommand(Player player, Item item)
         {
-            Source = source;
-
             Player = player;
 
             Item = item;
@@ -37,18 +35,14 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        public PlayerLookItemCommand(IncomingCommand source, Player player, ItemMetadata itemMetadata, byte type)
+        public PlayerLookItemCommand(Player player, ItemMetadata itemMetadata, byte type)
         {
-            Source = source;
-
             Player = player;
 
             ItemMetadata = itemMetadata;
 
             Type = type;
         }
-
-        public IncomingCommand Source { get; set; }
 
         public Player Player { get; set; }
 

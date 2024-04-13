@@ -52,7 +52,7 @@ namespace OpenTibia.Game.Commands
                     {
                         if (IsPossible(fromItem, toContainer) && IsPickupable(fromItem) && IsMoveable(fromItem, Count) )
                         {
-                            return Context.AddCommand(new PlayerMoveItemCommand(this, Player, fromItem, toContainer, ToContainerIndex, Count, true) );
+                            return Context.AddCommand(new PlayerMoveItemCommand(Player, fromItem, toContainer, ToContainerIndex, Count, true) );
                         }
                     }
                 }

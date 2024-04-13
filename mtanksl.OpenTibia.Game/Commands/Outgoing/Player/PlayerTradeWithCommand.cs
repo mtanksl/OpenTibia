@@ -7,18 +7,14 @@ namespace OpenTibia.Game.Commands
 {
     public class PlayerTradeWithCommand : Command
     {
-        public PlayerTradeWithCommand(IncomingCommand source, Player player, Item item, Player toPlayer)
+        public PlayerTradeWithCommand(Player player, Item item, Player toPlayer)
         {
-            Source = source;
-
             Player = player;
 
             Item = item;
 
             ToPlayer = toPlayer;
         }
-
-        public IncomingCommand Source { get; set; }
 
         public Player Player { get; }
 

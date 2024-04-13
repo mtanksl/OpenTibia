@@ -34,7 +34,15 @@ namespace OpenTibia.Game.Commands
                     {
                         if ( IsRotatable(fromItem) )
                         {
-                            return Context.AddCommand(new PlayerRotateItemCommand(this, Player, fromItem) );
+                            if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
+                            {
+                                return Context.AddCommand(new CreatureWalkToCommand(Player, fromTile) ).Then( () =>
+                                {
+                                    return Execute();
+                                } );
+                            }
+
+                            return Context.AddCommand(new PlayerRotateItemCommand(Player, fromItem) );
                         }
                     }
                 }

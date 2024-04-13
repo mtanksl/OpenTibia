@@ -1,4 +1,8 @@
-﻿using OpenTibia.Game.CommandHandlers;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
+using OpenTibia.Game.CommandHandlers;
+using OpenTibia.Game.Commands;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Scripts
 {
@@ -6,15 +10,23 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithItemWalkToSourceHandler() );
-
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithItemScriptingHandler(true) );
 
             Context.Server.CommandHandlers.AddCommandHandler(new Runes2Handler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new FishingRodHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithItemWalkToTargetHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>( (context, next, command) =>
+            {
+                if (command.ToItem.Parent is Tile toTile && !command.Player.Tile.Position.IsNextTo(toTile.Position) )
+                {
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+
+                    return Promise.Break;
+                }
+
+                return next();
+            } );
 
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithItemScriptingHandler(false) );
 

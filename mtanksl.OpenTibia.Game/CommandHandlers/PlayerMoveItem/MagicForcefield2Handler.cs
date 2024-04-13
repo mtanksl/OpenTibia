@@ -22,7 +22,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (toTile != null)
                     {
-                        return Context.AddCommand(new PlayerMoveItemCommand(command.Source, command.Player, command.Item, toTile, 255, command.Count, false) ).Then( () =>
+                        return Context.AddCommand(new PlayerMoveItemCommand(command.Player, command.Item, toTile, 255, command.Count, false) ).Then( () =>
                         {
                             return Context.AddCommand(new ShowMagicEffectCommand(magicForcefield.Position, MagicEffectType.Teleport) );
 

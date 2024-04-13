@@ -9,16 +9,12 @@ namespace OpenTibia.Game.Commands
 {
     public class PlayerLookCreatureCommand : Command
     {
-        public PlayerLookCreatureCommand(IncomingCommand source, Player player, Creature creature)
+        public PlayerLookCreatureCommand(Player player, Creature creature)
         {
-            Source = source;
-
             Player = player;
 
             Creature = creature;
         }
-
-        public IncomingCommand Source { get; set; }
 
         public Player Player { get; set; }
 

@@ -58,7 +58,7 @@ namespace OpenTibia.Game.Commands
                                 {
                                     Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
 
-                                    return Context.AddCommand(new PlayerUseItemWithItemCommand(this, Player, fromItem, toItem) );
+                                    return Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) );
                                 }
                             }
 
@@ -72,7 +72,7 @@ namespace OpenTibia.Game.Commands
                                 {
                                     Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
 
-                                    return Context.AddCommand(new PlayerUseItemWithCreatureCommand(this, Player, fromItem, toCreature) );
+                                    return Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) );
                                 }
                             }
 

@@ -38,7 +38,7 @@ namespace OpenTibia.Game.Commands
 
                     if (offer != null && (offer.BuyPrice > 0 || offer.SellPrice > 0) )
                     {
-                        return Context.AddCommand(new PlayerLookItemCommand(this, Player, itemMetadata, Type) );                        
+                        return Context.AddCommand(new PlayerLookItemCommand(Player, itemMetadata, Type) );                        
                     }
                 }
             }

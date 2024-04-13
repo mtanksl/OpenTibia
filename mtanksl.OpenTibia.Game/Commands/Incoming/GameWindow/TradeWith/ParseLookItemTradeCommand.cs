@@ -27,11 +27,11 @@ namespace OpenTibia.Game.Commands
             {
                 if (WindowId == 0)
                 {
-                    return Context.AddCommand(new PlayerLookItemCommand(this, Player, trading.OfferIncludes[Index] ) );
+                    return Context.AddCommand(new PlayerLookItemCommand(Player, trading.OfferIncludes[Index] ) );
                 }
                 else
                 {
-                    return Context.AddCommand(new PlayerLookItemCommand(this, Player, trading.CounterOfferIncludes[Index] ) );
+                    return Context.AddCommand(new PlayerLookItemCommand(Player, trading.CounterOfferIncludes[Index] ) );
                 }
             }
             else
@@ -42,11 +42,11 @@ namespace OpenTibia.Game.Commands
                 {
                     if (WindowId == 0)
                     {
-                        return Context.AddCommand(new PlayerLookItemCommand(this, Player, trading.CounterOfferIncludes[Index] ) );
+                        return Context.AddCommand(new PlayerLookItemCommand(Player, trading.CounterOfferIncludes[Index] ) );
                     }
                     else
                     {
-                        return Context.AddCommand(new PlayerLookItemCommand(this, Player, trading.OfferIncludes[Index] ) );
+                        return Context.AddCommand(new PlayerLookItemCommand(Player, trading.OfferIncludes[Index] ) );
                     }
                 }
             }

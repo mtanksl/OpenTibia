@@ -96,7 +96,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (plugin != null)
                 {
-                    await Context.AddCommand(new PlayerUseItemWithItemCommand(command.Source, command.Player, command.Item, command.ToCreature.Tile.Ground) );
+                    await Context.AddCommand(new PlayerUseItemWithItemCommand(command.Player, command.Item, command.ToCreature.Tile.Ground) );
 
                     return;
                 }

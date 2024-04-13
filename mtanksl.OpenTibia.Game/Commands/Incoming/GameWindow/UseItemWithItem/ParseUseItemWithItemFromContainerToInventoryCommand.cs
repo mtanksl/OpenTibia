@@ -45,7 +45,7 @@ namespace OpenTibia.Game.Commands
                     {
                         if ( IsUseable(fromItem) )
                         {
-                            return Context.AddCommand(new PlayerUseItemWithItemCommand(this, Player, fromItem, toItem) );
+                            return Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) );
                         }
                     }
                 }

@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Commands
                 {
                     if ( IsRotatable(fromItem) )
                     {
-                        return Context.AddCommand(new PlayerRotateItemCommand(this, Player, fromItem) );
+                        return Context.AddCommand(new PlayerRotateItemCommand(Player, fromItem) );
                     }
                 }
             }
