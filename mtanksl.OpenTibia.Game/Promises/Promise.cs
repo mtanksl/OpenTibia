@@ -349,29 +349,18 @@ namespace OpenTibia.Game.Commands
                     {
                         Monitor.Pulse(sync);
                     } );
-
-                    Exception exception = null;
-
+                                  
                     AddContinueWithRejected( (ex) =>
                     {
-                        exception = ex;
-
                         Monitor.Pulse(sync);
                     } );
 
                     Monitor.Wait(sync);
-
-                    if (exception != null)
-                    {
-                        throw exception;
-                    }
                 }
-                else
+
+                if (exception != null)
                 {
-                    if (exception != null)
-                    {
-                        throw exception;
-                    }
+                    throw exception;
                 }
             }
         }

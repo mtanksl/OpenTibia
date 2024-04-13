@@ -2,7 +2,6 @@
 using OpenTibia.Common.Structures;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace OpenTibia.Game
 {
@@ -97,22 +96,7 @@ namespace OpenTibia.Game
 
             if ( fromPosition.CanHearSay(toPosition) )
             {
-                Position[] positions = AStar(fromPosition, toPosition, position =>
-                {
-                    if ( !fromPosition.CanHearSay(position) )
-                    {
-                        return false;
-                    }
-
-                    Tile tile = map.GetTile(position);
-
-                    if (tile == null || tile.Ground == null || !tile.CanWalk)
-                    {
-                        return false;
-                    }
-
-                    return true;
-                } );
+                Position[] positions = AStar(fromPosition, toPosition);
 
                 for (int i = 0; i < positions.Length - 1 && !positions[i].IsNextTo(toPosition); i++)
                 {
@@ -170,8 +154,25 @@ namespace OpenTibia.Game
             }                
         }
         
-        private Position[] AStar(Position fromPosition, Position toPosition, Func<Position, bool> callback)
+        private Position[] AStar(Position fromPosition, Position toPosition)
         {
+            bool CanWalk(Position position)
+            {
+                if ( !fromPosition.CanHearSay(position) )
+                {
+                    return false;
+                }
+
+                Tile tile = map.GetTile(position);
+
+                if (tile == null || tile.Ground == null || !tile.CanWalk)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+
             Stack<Position> positions = new Stack<Position>();
 
             HashSet<Position> closed = new HashSet<Position>();
@@ -223,7 +224,7 @@ namespace OpenTibia.Game
 
                         if ( !open.TryGetValue(nextPosition, out nextNode) )
                         {
-                            if ( nextPosition == toPosition || callback(nextPosition) )
+                            if (nextPosition == toPosition || CanWalk(nextPosition) )
                             {
                                 int moves = currentNode.Moves + Node.CalculateCost(moveDirection);
 

@@ -13,58 +13,55 @@ namespace OpenTibia.Game.Components
 
             int deltaX = attacker.Tile.Position.X - target.Tile.Position.X;
 
+            HashSet<Direction> randomDirections = new HashSet<Direction>() { Direction.North, Direction.East, Direction.South, Direction.West };
+
             HashSet<Direction> directions = new HashSet<Direction>();
 
             if (deltaY < 0)
             {
                 directions.Add(Direction.North);
+
+                randomDirections.Remove(Direction.North);
             }
             else if (deltaY > 0)
             {
                 directions.Add(Direction.South);
+
+                randomDirections.Remove(Direction.South);
             }
 
             if (deltaX < 0)
             {
                 directions.Add(Direction.West);
+
+                randomDirections.Remove(Direction.West);
             }
             else if (deltaX > 0)
             {
                 directions.Add(Direction.East);
+
+                randomDirections.Remove(Direction.East);
             }
 
-            if (directions.Count > 0)
+            foreach (var collection in new[] { directions, randomDirections } )
             {
-                foreach (var direction in Context.Current.Server.Randomization.Shuffle(directions.ToArray() ) )
+                if (collection.Count > 0)
                 {
-                    Tile toTile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(direction) );
-
-                    if (toTile == null || toTile.Ground == null || !toTile.CanWalk)
+                    foreach (var direction in Context.Current.Server.Randomization.Shuffle(collection.ToArray() ) )
                     {
+                        Tile toTile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(direction) );
 
+                        if (toTile == null || toTile.Ground == null || !toTile.CanWalk)
+                        {
+
+                        }
+                        else
+                        {
+                            tile = toTile;
+
+                            return true;
+                        }
                     }
-                    else
-                    {
-                        tile = toTile;
-
-                        return true;
-                    }
-                }
-            }
-
-            foreach (var direction in Context.Current.Server.Randomization.Shuffle(new[] { Direction.North, Direction.East, Direction.South, Direction.West } ) )
-            {
-                Tile toTile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(direction) );
-
-                if (toTile == null || toTile.Ground == null || !toTile.CanWalk)
-                {
-
-                }
-                else
-                {
-                    tile = toTile;
-                                                   
-                    return true;
                 }
             }
 

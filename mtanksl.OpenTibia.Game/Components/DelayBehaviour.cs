@@ -3,23 +3,13 @@ using System;
 
 namespace OpenTibia.Game.Components
 {
-    public class DelayBehaviour : StateBehaviour
+    public abstract class DelayBehaviour : StateBehaviour
     {
         private TimeSpan executeIn;
 
         public DelayBehaviour(TimeSpan executeIn)
         {
             this.executeIn = executeIn;
-        }
-
-        private Promise promise;
-
-        public Promise Promise
-        {
-            get
-            {
-                return promise;
-            }
         }
 
         private string key = Guid.NewGuid().ToString();
@@ -34,9 +24,7 @@ namespace OpenTibia.Game.Components
 
         protected override Promise OnStart()
         {
-            promise = Promise.Delay(key, executeIn);
-
-            return promise;
+            return Promise.Delay(key, executeIn);
         }
 
         protected override Promise OnStop(State state)
@@ -44,13 +32,8 @@ namespace OpenTibia.Game.Components
             switch (state)
             {
                 case State.Success:
-                               
-                    Context.Current.Server.GameObjectComponents.RemoveComponent(GameObject, this);
-
-                    break;
-
                 case State.Canceled:
-                             
+
                     Context.Current.Server.GameObjectComponents.RemoveComponent(GameObject, this);
 
                     break;

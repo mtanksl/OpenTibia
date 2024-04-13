@@ -60,19 +60,19 @@ namespace OpenTibia.Game
 
             lua.RegisterCoFunction("delaygameobject", parameters =>
             {
-                DelayBehaviour delayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)parameters[0], new DelayBehaviour(TimeSpan.FromSeconds( (long)parameters[1] ) ), false);
+                MultipleDelayBehaviour multipleDelayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)parameters[0], new MultipleDelayBehaviour(TimeSpan.FromSeconds( (long)parameters[1] ) ), false);
 
                 if (parameters.Length == 3)
                 {
-                    _ = delayBehaviour.Promise.Then( () =>
+                    _ = multipleDelayBehaviour.Promise.Then( () =>
                     {
                         ( (LuaFunction)parameters[2] ).Call();
                     } );
 
-                    return Promise.FromResult(new object[] { delayBehaviour.Key } );
+                    return Promise.FromResult(new object[] { multipleDelayBehaviour.Key } );
                 }
 
-                return delayBehaviour.Promise.Then( () =>
+                return multipleDelayBehaviour.Promise.Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );

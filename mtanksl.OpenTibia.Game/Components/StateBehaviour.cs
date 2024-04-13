@@ -8,30 +8,28 @@ namespace OpenTibia.Game.Components
         {
             None,
 
-            /// <summary>
-            /// It is running.
-            /// </summary>
             Running,
 
-            /// <summary>
-            /// Finished with success.
-            /// </summary>
             Success,
 
-            /// <summary>
-            /// Finished because the scheduled event was canceled.
-            /// </summary>
             Canceled,
 
-            /// <summary>
-            /// Finished because the component was removed.
-            /// </summary>
             Stopped
+        }
+
+        private Promise promise;
+
+        public Promise Promise
+        {
+            get
+            {
+                return promise;
+            }
         }
 
         public override void Start()
         {
-            ChangeState(State.Running).Then( () =>
+            promise = ChangeState(State.Running).Then( () =>
             {
                 ChangeState(State.Success).Catch( (ex) =>
                 {

@@ -13,9 +13,11 @@ namespace OpenTibia.Game.Components
             this.radius = radius;
         }
 
+        private Direction[] randomDirections = new Direction[] { Direction.North, Direction.East, Direction.South, Direction.West };
+
         public bool CanWalk(Creature attacker, Creature target, out Tile tile)
         {
-            foreach (var direction in Context.Current.Server.Randomization.Shuffle(new[] { Direction.North, Direction.East, Direction.South, Direction.West } ) )
+            foreach (var direction in Context.Current.Server.Randomization.Shuffle(randomDirections) )
             {
                 Tile toTile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(direction) );
 

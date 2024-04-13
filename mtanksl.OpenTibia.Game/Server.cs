@@ -606,7 +606,7 @@ namespace OpenTibia.Game
                             }
                             else
                             {
-                                DbPlayer dbPlayer = Context.Current.Database.PlayerRepository.GetPlayerByName(house.Owner); //TODO: Performance
+                                DbPlayer dbPlayer = Context.Current.Database.PlayerRepository.GetPlayerByName(house.Owner); //TODO: Improve performance
 
                                 if (dbPlayer != null)
                                 {

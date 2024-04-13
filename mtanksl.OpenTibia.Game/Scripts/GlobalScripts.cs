@@ -13,11 +13,11 @@ namespace OpenTibia.Game.Scripts
 
             TibiaClockTick();
 
+            Tick(0);
+
             Light();
 
             Ping();
-
-            Tick();
         }
 
         private void RealClockTick()
@@ -52,7 +52,35 @@ namespace OpenTibia.Game.Scripts
             } );
         }
 
-        private static GlobalLightEventArgs globalLightEventArgs = new GlobalLightEventArgs();
+        //TODO: Improve performance
+
+        private static GlobalTickEventArgs[] globalTickEventArgs = new GlobalTickEventArgs[10]
+        {
+            new GlobalTickEventArgs() { Index = 0 },
+            new GlobalTickEventArgs() { Index = 1 },
+            new GlobalTickEventArgs() { Index = 2 },
+            new GlobalTickEventArgs() { Index = 3 },
+            new GlobalTickEventArgs() { Index = 4 },
+            new GlobalTickEventArgs() { Index = 5 },
+            new GlobalTickEventArgs() { Index = 6 },
+            new GlobalTickEventArgs() { Index = 7 },
+            new GlobalTickEventArgs() { Index = 8 },
+            new GlobalTickEventArgs() { Index = 9 }
+        };
+
+        private void Tick(int index)
+        {
+            Promise.Delay("Tick", TimeSpan.FromMilliseconds(100) ).Then( () =>
+            {
+                Tick( (index + 1) % 10 );
+
+                Context.AddEvent(globalTickEventArgs[index] );
+
+                return Promise.Completed;
+            } );
+        }
+
+        private static GlobalEnvironmentLightEventArgs globalLightEventArgs = new GlobalEnvironmentLightEventArgs();
 
         private void Light()
         {
@@ -80,31 +108,17 @@ namespace OpenTibia.Game.Scripts
             } );
         }
 
-        private static GlobalTickEventArgs globalTickEventArgs = new GlobalTickEventArgs();
-
-        private void Tick()
-        {
-            Promise.Delay("Tick", TimeSpan.FromSeconds(1) ).Then( () =>
-            {
-                Tick();
-
-                Context.AddEvent(globalTickEventArgs);
-
-                return Promise.Completed;
-            } );
-        }
-
         public override void Stop()
         {
             Context.Server.CancelQueueForExecution("RealClockTick");
 
             Context.Server.CancelQueueForExecution("TibiaClockTick");
 
+            Context.Server.CancelQueueForExecution("Tick");
+
             Context.Server.CancelQueueForExecution("Light");
 
             Context.Server.CancelQueueForExecution("Ping");
-
-            Context.Server.CancelQueueForExecution("Tick");
         }
     }
 }
