@@ -4,9 +4,9 @@ namespace OpenTibia.Game.Components
 {
     public class PlayerActionDelayBehaviour : DelayBehaviour
     {
-        public PlayerActionDelayBehaviour() : base(TimeSpan.FromMilliseconds(200) )
+        public PlayerActionDelayBehaviour(TimeSpan executeIn) : base(executeIn)
         {
-
+            
         }
     }
 }

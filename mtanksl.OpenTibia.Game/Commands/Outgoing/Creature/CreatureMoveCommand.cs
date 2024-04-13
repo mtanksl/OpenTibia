@@ -75,6 +75,27 @@ namespace OpenTibia.Game.Commands
                 Creature.Direction = direction.Value;
             }
 
+            if (fromTile.Position.IsNextTo(ToTile.Position) )
+            {
+                MoveDirection? moveDirection = fromTile.Position.ToMoveDirection(ToTile.Position);
+
+                if (moveDirection != null)
+                {
+                    if (moveDirection == MoveDirection.NorthWest || moveDirection == MoveDirection.NorthEast || moveDirection == MoveDirection.SouthWest || moveDirection == MoveDirection.SouthEast)
+                    {
+                        Creature.LastMoveDiagonalCost = 2;
+                    }
+                    else
+                    {
+                        Creature.LastMoveDiagonalCost = 1;
+                    }
+                }
+            }
+            else
+            {
+                Creature.LastMoveDiagonalCost = 1;
+            }
+
             if (Creature is Player player)
             {
                 int deltaZ = ToTile.Position.Z - fromTile.Position.Z;

@@ -17,10 +17,6 @@ namespace OpenTibia.Game.CommandHandlers
 
                 return Context.AddCommand(new ParseWalkToUnknownPathCommand(command.Player, command.Creature.Tile) ).Then( () =>
                 {
-                    return Context.Server.GameObjectComponents.AddComponent(command.Player, new PlayerActionDelayBehaviour() ).Promise;
-
-                } ).Then( () =>
-                {
                     IContainer afterContainer = command.Creature.Parent;
 
                     if (beforeContainer != afterContainer)

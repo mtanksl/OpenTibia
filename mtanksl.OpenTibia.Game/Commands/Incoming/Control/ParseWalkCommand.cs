@@ -3,7 +3,6 @@ using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
-using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -20,7 +19,7 @@ namespace OpenTibia.Game.Commands
 
         public MoveDirection MoveDirection { get; set; }
 
-        public override Promise Execute()
+        public override async Promise Execute()
         {
             PlayerIdleBehaviour playerIdleBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerIdleBehaviour>(Player);
 
@@ -29,13 +28,11 @@ namespace OpenTibia.Game.Commands
                 playerIdleBehaviour.SetLastActionResponse();
             }
 
-            Tile fromTile = Player.Tile;
-
-            Tile toTile = Context.Server.Map.GetTile(fromTile.Position.Offset(MoveDirection) );
+            Tile toTile = Context.Server.Map.GetTile(Player.Tile.Position.Offset(MoveDirection) );
 
             if (toTile == null)
             {
-                Tile toTileDown = Context.Server.Map.GetTile(fromTile.Position.Offset(MoveDirection).Offset(0, 0, 1) );
+                Tile toTileDown = Context.Server.Map.GetTile(Player.Tile.Position.Offset(MoveDirection).Offset(0, 0, 1) );
 
                 if (toTileDown != null)
                 {
@@ -47,15 +44,15 @@ namespace OpenTibia.Game.Commands
             }
             else
             {
-                if (fromTile.Height >= 3)
+                Tile fromTileUp = Context.Server.Map.GetTile(Player.Tile.Position.Offset(0, 0, -1) );
+
+                if (fromTileUp == null)
                 {
-                    Tile fromTileUp = Context.Server.Map.GetTile(fromTile.Position.Offset(0, 0, -1) );
+                    Tile toTileUp = Context.Server.Map.GetTile(toTile.Position.Offset(0, 0, -1) );
 
-                    if (fromTileUp == null)
+                    if (toTileUp != null)
                     {
-                        Tile toTileUp = Context.Server.Map.GetTile(toTile.Position.Offset(0, 0, -1) );
-
-                        if (toTileUp != null)
+                        if (Player.Tile.Height >= 3)
                         {
                             toTile = toTileUp;
                         }
@@ -69,22 +66,26 @@ namespace OpenTibia.Game.Commands
 
                 Context.AddPacket(Player, new StopWalkOutgoingPacket(Player.Direction) );
 
-                return Promise.Break;
+                await Promise.Break;
             }
 
-            return Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkDelayBehaviour(TimeSpan.FromMilliseconds(1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise.Then( () =>
+            await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkDelayBehaviour(TimeSpan.FromMilliseconds(1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise;
+            
+            if (toTile.NotWalkable || toTile.Block)
             {
-                if (toTile.Block)
-                {
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
 
-                    Context.AddPacket(Player, new StopWalkOutgoingPacket(Player.Direction) );
+                Context.AddPacket(Player, new StopWalkOutgoingPacket(Player.Direction) );
 
-                    return Promise.Break;
-                }
+                await Promise.Break;
+            }
 
-                return Context.AddCommand(new CreatureMoveCommand(Player, toTile) );
-            } );
+            await Context.AddCommand(new CreatureMoveCommand(Player, toTile) );
+
+            if (Player.LastMoveDiagonalCost > 1)
+            {
+                await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerActionDelayBehaviour(TimeSpan.FromMilliseconds(1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise;
+            }
         }
     }
 }
