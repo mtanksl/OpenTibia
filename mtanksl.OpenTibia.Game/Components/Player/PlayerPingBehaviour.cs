@@ -35,7 +35,9 @@ namespace OpenTibia.Game.Components
 
             globalPing = Context.Server.EventHandlers.Subscribe<GlobalPingEventArgs>( (context, e) =>
             {
-                if ( (DateTime.UtcNow - lastPingResponse).TotalMinutes >= 1)
+                var totalMinutes = (DateTime.UtcNow - lastPingResponse).TotalMinutes;
+
+                if (totalMinutes >= 1)
                 {
                     return Context.AddCommand(new ParseLogOutCommand(player) );
                 }

@@ -1,9 +1,10 @@
-﻿using System;
+﻿using OpenTibia.Common.Objects;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Components
 {
-    public class PlayerCooldownBehaviour : Behaviour
+    public class PlayerCooldownBehaviour : Component
     {
         private Dictionary<string, DateTime> cooldowns = new Dictionary<string, DateTime>();
 
@@ -22,16 +23,6 @@ namespace OpenTibia.Game.Components
         public void AddCooldown(string name, TimeSpan cooldown)
         {
             cooldowns[name] = DateTime.UtcNow.Add(cooldown);
-        }
-
-        public override void Start()
-        {
-
-        }
-
-        public override void Stop()
-        {
-            
         }
     }
 }
