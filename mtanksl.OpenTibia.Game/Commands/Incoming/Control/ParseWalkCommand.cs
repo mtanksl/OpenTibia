@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Commands
 
         public MoveDirection MoveDirection { get; set; }
 
-        public override async Promise Execute()
+        public override Promise Execute()
         {
             PlayerActionDelayBehaviour playerActionDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerActionDelayBehaviour>(Player);
 
@@ -45,11 +45,13 @@ namespace OpenTibia.Game.Commands
                 playerIdleBehaviour.SetLastActionResponse();
             }
 
-            Tile toTile = Context.Server.Map.GetTile(Player.Tile.Position.Offset(MoveDirection) );
+            Tile fromTile = Player.Tile;
+
+            Tile toTile = Context.Server.Map.GetTile(fromTile.Position.Offset(MoveDirection) );
 
             if (toTile == null)
             {
-                Tile toTileDown = Context.Server.Map.GetTile(Player.Tile.Position.Offset(MoveDirection).Offset(0, 0, 1) );
+                Tile toTileDown = Context.Server.Map.GetTile(fromTile.Position.Offset(MoveDirection).Offset(0, 0, 1) );
 
                 if (toTileDown != null)
                 {
@@ -61,7 +63,7 @@ namespace OpenTibia.Game.Commands
             }
             else
             {
-                Tile fromTileUp = Context.Server.Map.GetTile(Player.Tile.Position.Offset(0, 0, -1) );
+                Tile fromTileUp = Context.Server.Map.GetTile(fromTile.Position.Offset(0, 0, -1) );
 
                 if (fromTileUp == null)
                 {
@@ -69,7 +71,7 @@ namespace OpenTibia.Game.Commands
 
                     if (toTileUp != null)
                     {
-                        if (Player.Tile.Height >= 3)
+                        if (fromTile.Height >= 3)
                         {
                             toTile = toTileUp;
                         }
@@ -83,26 +85,22 @@ namespace OpenTibia.Game.Commands
 
                 Context.AddPacket(Player, new StopWalkOutgoingPacket(Player.Direction) );
 
-                await Promise.Break;
+                return Promise.Break;
             }
 
-            await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkDelayBehaviour(TimeSpan.FromMilliseconds(1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise;
-            
-            if (toTile.NotWalkable || toTile.Block)
-            {
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+            return Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkDelayBehaviour(TimeSpan.FromMilliseconds(fromTile.Position.ToDiagonalCost(toTile.Position) * 1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise.Then( () =>
+            {            
+                if (toTile.NotWalkable || toTile.Block)
+                {
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
 
-                Context.AddPacket(Player, new StopWalkOutgoingPacket(Player.Direction) );
+                    Context.AddPacket(Player, new StopWalkOutgoingPacket(Player.Direction) );
 
-                await Promise.Break;
-            }
+                    return Promise.Break;
+                }
 
-            await Context.AddCommand(new CreatureMoveCommand(Player, toTile) );
-
-            if (Player.LastMoveDiagonalCost > 1)
-            {
-                await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerActionDelayBehaviour(TimeSpan.FromMilliseconds(1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise;
-            }
+                return Context.AddCommand(new CreatureMoveCommand(Player, toTile) );
+            } );
         }
     }
 }

@@ -24,8 +24,6 @@ namespace OpenTibia.Common.Objects
             WarIcon = WarIcon.None;
 
             Block = true;
-
-            LastMoveDiagonalCost = 1;
         }
 
         public TopOrder TopOrder
@@ -87,8 +85,6 @@ namespace OpenTibia.Common.Objects
         public Tile Town { get; set; }
 
         public Tile Spawn { get; set; }
-
-        public byte LastMoveDiagonalCost { get; set; }
 
         public bool HasSpecialCondition(SpecialCondition specialCondition)
         {

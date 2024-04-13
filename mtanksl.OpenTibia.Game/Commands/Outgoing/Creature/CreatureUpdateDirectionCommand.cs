@@ -27,26 +27,6 @@ namespace OpenTibia.Game.Commands
 
                 foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Creature.Tile.Position) )
                 {
-                    if (observer == Creature)
-                    {
-                        PlayerActionDelayBehaviour playerActionDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerActionDelayBehaviour>(observer);
-
-                        if (playerActionDelayBehaviour != null)
-                        {
-                            Context.Server.GameObjectComponents.RemoveComponent(observer, playerActionDelayBehaviour);
-                        }
-
-                        PlayerWalkDelayBehaviour playerWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkDelayBehaviour>(observer);
-
-                        if (playerWalkDelayBehaviour != null)
-                        {
-                            if (Context.Server.GameObjectComponents.RemoveComponent(observer, playerWalkDelayBehaviour) )
-                            {
-                                Context.AddPacket(observer, new StopWalkOutgoingPacket(observer.Direction) );
-                            }
-                        }
-                    }
-
                     byte clientIndex;
 
                     if (observer.Client.TryGetIndex(Creature, out clientIndex) )

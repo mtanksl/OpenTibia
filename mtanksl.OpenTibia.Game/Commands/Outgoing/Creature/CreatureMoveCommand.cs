@@ -75,27 +75,6 @@ namespace OpenTibia.Game.Commands
                 Creature.Direction = direction.Value;
             }
 
-            if (fromTile.Position.IsNextTo(ToTile.Position) )
-            {
-                MoveDirection? moveDirection = fromTile.Position.ToMoveDirection(ToTile.Position);
-
-                if (moveDirection != null)
-                {
-                    if (moveDirection == MoveDirection.NorthWest || moveDirection == MoveDirection.NorthEast || moveDirection == MoveDirection.SouthWest || moveDirection == MoveDirection.SouthEast)
-                    {
-                        Creature.LastMoveDiagonalCost = 2;
-                    }
-                    else
-                    {
-                        Creature.LastMoveDiagonalCost = 1;
-                    }
-                }
-            }
-            else
-            {
-                Creature.LastMoveDiagonalCost = 1;
-            }
-
             if (Creature is Player player)
             {
                 int deltaZ = ToTile.Position.Z - fromTile.Position.Z;
@@ -206,23 +185,6 @@ namespace OpenTibia.Game.Commands
                         position = position.Offset(1, 0, 0);
 
                         deltaX--;
-                    }
-                }     
-                
-                PlayerActionDelayBehaviour playerActionDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerActionDelayBehaviour>(player);
-
-                if (playerActionDelayBehaviour != null)
-                {
-                    Context.Server.GameObjectComponents.RemoveComponent(player, playerActionDelayBehaviour);
-                }
-
-                PlayerWalkDelayBehaviour playerWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkDelayBehaviour>(player);
-
-                if (playerWalkDelayBehaviour != null)
-                {
-                    if (Context.Server.GameObjectComponents.RemoveComponent(player, playerWalkDelayBehaviour) )
-                    {
-                        Context.AddPacket(player, new StopWalkOutgoingPacket(player.Direction) );
                     }
                 }
             }

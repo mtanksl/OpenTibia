@@ -56,7 +56,9 @@ namespace OpenTibia.Game.Commands
 
             foreach (var moveDirection in moveDirections)
             {
-                Tile toTile = Context.Server.Map.GetTile(Player.Tile.Position.Offset(moveDirection) );
+                Tile fromTile = Player.Tile;
+
+                Tile toTile = Context.Server.Map.GetTile(fromTile.Position.Offset(moveDirection) );
 
                 if (toTile == null || toTile.Ground == null || toTile.NotWalkable || toTile.Block)
                 {
@@ -69,7 +71,7 @@ namespace OpenTibia.Game.Commands
 
                 await Context.AddCommand(new CreatureMoveCommand(Player, toTile) );
 
-                await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerActionDelayBehaviour(TimeSpan.FromMilliseconds(Player.LastMoveDiagonalCost * 1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise;
+                await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerActionDelayBehaviour(TimeSpan.FromMilliseconds(fromTile.Position.ToDiagonalCost(toTile.Position) * 1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise;
             }
         }
     }

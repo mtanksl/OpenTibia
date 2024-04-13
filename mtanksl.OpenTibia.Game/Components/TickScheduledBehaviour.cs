@@ -4,7 +4,7 @@ using System;
 
 namespace OpenTibia.Game.Components
 {
-    public abstract class TickBehaviour : Behaviour
+    public abstract class TickScheduledBehaviour : Behaviour
     {
         private Guid globalTickEventArgs;
 
