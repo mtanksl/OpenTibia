@@ -80,6 +80,11 @@ namespace OpenTibia.Game.Components
 
         private DateTime lastAction = DateTime.UtcNow;
 
+        public void SetLastAction()
+        {
+            lastAction = DateTime.UtcNow;
+        }
+
         private Guid globalRealClockTick;
 
         public override void Start()

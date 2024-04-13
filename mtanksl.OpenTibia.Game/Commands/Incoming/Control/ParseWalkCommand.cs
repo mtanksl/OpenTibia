@@ -21,13 +21,6 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            PlayerActionDelayBehaviour playerActionDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerActionDelayBehaviour>(Player);
-
-            if (playerActionDelayBehaviour != null)
-            {
-                Context.Server.GameObjectComponents.RemoveComponent(Player, playerActionDelayBehaviour);
-            }
-
             PlayerWalkDelayBehaviour playerWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkDelayBehaviour>(Player);
 
             if (playerWalkDelayBehaviour != null)
@@ -38,11 +31,18 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
+            PlayerActionDelayBehaviour playerActionDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerActionDelayBehaviour>(Player);
+
+            if (playerActionDelayBehaviour != null)
+            {
+                Context.Server.GameObjectComponents.RemoveComponent(Player, playerActionDelayBehaviour);
+            }
+
             PlayerIdleBehaviour playerIdleBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerIdleBehaviour>(Player);
 
             if (playerIdleBehaviour != null)
             {
-                playerIdleBehaviour.SetLastActionResponse();
+                playerIdleBehaviour.SetLastAction();
             }
 
             Tile fromTile = Player.Tile;

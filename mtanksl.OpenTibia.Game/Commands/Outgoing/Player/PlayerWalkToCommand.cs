@@ -6,9 +6,9 @@ using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseWalkToUnknownPathCommand : IncomingCommand
+    public class PlayerWalkToCommand : IncomingCommand
     {
-        public ParseWalkToUnknownPathCommand(Player player, Tile tile)
+        public PlayerWalkToCommand(Player player, Tile tile)
         {
             Player = player;
 
@@ -21,30 +21,6 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Execute()
         {
-            PlayerActionDelayBehaviour playerActionDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerActionDelayBehaviour>(Player);
-
-            if (playerActionDelayBehaviour != null)
-            {
-                Context.Server.GameObjectComponents.RemoveComponent(Player, playerActionDelayBehaviour);
-            }
-
-            PlayerWalkDelayBehaviour playerWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkDelayBehaviour>(Player);
-
-            if (playerWalkDelayBehaviour != null)
-            {
-                if (Context.Server.GameObjectComponents.RemoveComponent(Player, playerWalkDelayBehaviour) )
-                {
-                    Context.AddPacket(Player, new StopWalkOutgoingPacket(Player.Direction) );
-                }
-            }
-
-            PlayerIdleBehaviour playerIdleBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerIdleBehaviour>(Player);
-
-            if (playerIdleBehaviour != null)
-            {
-                playerIdleBehaviour.SetLastActionResponse();
-            }
-
             MoveDirection[] moveDirections = Context.Server.Pathfinding.GetMoveDirections(Player.Tile.Position, Tile.Position);
 
             if (moveDirections.Length == 0)
