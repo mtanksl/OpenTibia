@@ -45,9 +45,16 @@ namespace OpenTibia.Game.Commands
                     await Promise.Break;
                 }
 
+                PlayerIdleBehaviour playerIdleBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerIdleBehaviour>(Player);
+
+                if (playerIdleBehaviour != null)
+                {
+                    playerIdleBehaviour.SetNextWalk(TimeSpan.FromMilliseconds(fromTile.Position.ToDiagonalCost(toTile.Position) * 1000 * toTile.Ground.Metadata.Speed / Player.Speed) );
+                }
+
                 await Context.AddCommand(new CreatureMoveCommand(Player, toTile) );
 
-                await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerActionDelayBehaviour(TimeSpan.FromMilliseconds(fromTile.Position.ToDiagonalCost(toTile.Position) * 1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise;
+                await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkedDelayBehaviour(TimeSpan.FromMilliseconds(fromTile.Position.ToDiagonalCost(toTile.Position) * 1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise;
             }
         }
     }

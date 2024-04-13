@@ -15,7 +15,7 @@ namespace OpenTibia.Game.Commands
                 
         public override Promise Execute()
         {
-            PlayerWalkDelayBehaviour playerWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkDelayBehaviour>(Player);
+            PlayerWalkingDelayBehaviour playerWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkingDelayBehaviour>(Player);
 
             if (playerWalkDelayBehaviour != null)
             {
@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            PlayerActionDelayBehaviour playerActionDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerActionDelayBehaviour>(Player);
+            PlayerWalkedDelayBehaviour playerActionDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkedDelayBehaviour>(Player);
 
             if (playerActionDelayBehaviour != null)
             {

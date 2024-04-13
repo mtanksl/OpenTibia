@@ -19,9 +19,25 @@ namespace OpenTibia.Game.Commands
 
         public MoveDirection MoveDirection { get; set; }
 
-        public override Promise Execute()
+        public override async Promise Execute()
         {
-            PlayerWalkDelayBehaviour playerWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkDelayBehaviour>(Player);
+            PlayerIdleBehaviour playerIdleBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerIdleBehaviour>(Player);
+
+            if (playerIdleBehaviour != null)
+            {
+                TimeSpan executeIn;
+
+                if ( !playerIdleBehaviour.CanWalk(out executeIn) )
+                {
+                    Context.AddPacket(Player, new StopWalkOutgoingPacket(Player.Direction) );
+
+                    await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkedDelayBehaviour(executeIn) ).Promise;
+                }
+
+                playerIdleBehaviour.SetLastAction();
+            }
+
+            PlayerWalkingDelayBehaviour playerWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkingDelayBehaviour>(Player);
 
             if (playerWalkDelayBehaviour != null)
             {
@@ -31,18 +47,11 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            PlayerActionDelayBehaviour playerActionDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerActionDelayBehaviour>(Player);
+            PlayerWalkedDelayBehaviour playerActionDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkedDelayBehaviour>(Player);
 
             if (playerActionDelayBehaviour != null)
             {
                 Context.Server.GameObjectComponents.RemoveComponent(Player, playerActionDelayBehaviour);
-            }
-
-            PlayerIdleBehaviour playerIdleBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerIdleBehaviour>(Player);
-
-            if (playerIdleBehaviour != null)
-            {
-                playerIdleBehaviour.SetLastAction();
             }
 
             Tile fromTile = Player.Tile;
@@ -85,22 +94,21 @@ namespace OpenTibia.Game.Commands
 
                 Context.AddPacket(Player, new StopWalkOutgoingPacket(Player.Direction) );
 
-                return Promise.Break;
+                await Promise.Break;
             }
 
-            return Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkDelayBehaviour(TimeSpan.FromMilliseconds(fromTile.Position.ToDiagonalCost(toTile.Position) * 1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise.Then( () =>
-            {            
-                if (toTile.NotWalkable || toTile.Block)
-                {
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+            await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkingDelayBehaviour(TimeSpan.FromMilliseconds(fromTile.Position.ToDiagonalCost(toTile.Position) * 1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise;
+                       
+            if (toTile.NotWalkable || toTile.Block)
+            {
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
 
-                    Context.AddPacket(Player, new StopWalkOutgoingPacket(Player.Direction) );
+                Context.AddPacket(Player, new StopWalkOutgoingPacket(Player.Direction) );
 
-                    return Promise.Break;
-                }
+                await Promise.Break;
+            }
 
-                return Context.AddCommand(new CreatureMoveCommand(Player, toTile) );
-            } );
+            await Context.AddCommand(new CreatureMoveCommand(Player, toTile) );       
         }
     }
 }

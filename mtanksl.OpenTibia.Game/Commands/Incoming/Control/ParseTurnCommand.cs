@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
-using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -20,23 +19,6 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            PlayerWalkDelayBehaviour playerWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkDelayBehaviour>(Player);
-
-            if (playerWalkDelayBehaviour != null)
-            {
-                if (Context.Server.GameObjectComponents.RemoveComponent(Player, playerWalkDelayBehaviour) )
-                {
-                    Context.AddPacket(Player, new StopWalkOutgoingPacket(Player.Direction) );
-                }
-            }
-
-            PlayerActionDelayBehaviour playerActionDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerActionDelayBehaviour>(Player);
-
-            if (playerActionDelayBehaviour != null)
-            {
-                Context.Server.GameObjectComponents.RemoveComponent(Player, playerActionDelayBehaviour);
-            }
-
             PlayerIdleBehaviour playerIdleBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerIdleBehaviour>(Player);
 
             if (playerIdleBehaviour != null)

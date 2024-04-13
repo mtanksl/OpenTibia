@@ -21,7 +21,23 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Execute()
         {
-            PlayerWalkDelayBehaviour playerWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkDelayBehaviour>(Player);
+            PlayerIdleBehaviour playerIdleBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerIdleBehaviour>(Player);
+
+            if (playerIdleBehaviour != null)
+            {
+                TimeSpan executeIn;
+
+                if ( !playerIdleBehaviour.CanWalk(out executeIn) )
+                {
+                    Context.AddPacket(Player, new StopWalkOutgoingPacket(Player.Direction) );
+
+                    await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkedDelayBehaviour(executeIn) ).Promise;
+                }
+
+                playerIdleBehaviour.SetLastAction();
+            }
+
+            PlayerWalkingDelayBehaviour playerWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkingDelayBehaviour>(Player);
 
             if (playerWalkDelayBehaviour != null)
             {
@@ -31,18 +47,11 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            PlayerActionDelayBehaviour playerActionDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerActionDelayBehaviour>(Player);
+            PlayerWalkedDelayBehaviour playerActionDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkedDelayBehaviour>(Player);
 
             if (playerActionDelayBehaviour != null)
             {
                 Context.Server.GameObjectComponents.RemoveComponent(Player, playerActionDelayBehaviour);
-            }
-
-            PlayerIdleBehaviour playerIdleBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerIdleBehaviour>(Player);
-
-            if (playerIdleBehaviour != null)
-            {
-                playerIdleBehaviour.SetLastAction();
             }
 
             foreach (var moveDirection in MoveDirections)
@@ -60,7 +69,7 @@ namespace OpenTibia.Game.Commands
                     await Promise.Break;
                 }
 
-                await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkDelayBehaviour(TimeSpan.FromMilliseconds(fromTile.Position.ToDiagonalCost(toTile.Position) * 1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise;
+                await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkingDelayBehaviour(TimeSpan.FromMilliseconds(fromTile.Position.ToDiagonalCost(toTile.Position) * 1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise;
                 
                 if (toTile.NotWalkable || toTile.Block)
                 {

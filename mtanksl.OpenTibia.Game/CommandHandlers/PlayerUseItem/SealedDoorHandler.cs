@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
@@ -81,6 +82,13 @@ namespace OpenTibia.Game.CommandHandlers
 
                 return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) ).Then( (item) =>
                 {
+                    PlayerIdleBehaviour playerIdleBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerIdleBehaviour>(command.Player);
+
+                    if (playerIdleBehaviour != null)
+                    {
+                        playerIdleBehaviour.SetNextWalk(TimeSpan.FromMilliseconds(command.Player.Tile.Position.ToDiagonalCost( ( (Tile)item.Parent ).Position) * 1000 * ( (Tile)item.Parent ).Ground.Metadata.Speed / command.Player.Speed) );
+                    }
+
                     return Context.AddCommand(new CreatureMoveCommand(command.Player, (Tile)item.Parent) );
                 } );
             }
