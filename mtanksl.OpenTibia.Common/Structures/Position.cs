@@ -275,26 +275,6 @@
             return null;
         }
 
-        public int ToDiagonalCost(Position that)
-        {
-            int diagonalCost = 1;
-
-            if (this.IsNextTo(that) )
-            {
-                MoveDirection? moveDirection = this.ToMoveDirection(that);
-
-                if (moveDirection != null)
-                {
-                    if (moveDirection == MoveDirection.NorthWest || moveDirection == MoveDirection.NorthEast || moveDirection == MoveDirection.SouthWest || moveDirection == MoveDirection.SouthEast)
-                    {
-                        diagonalCost = 2;
-                    }
-                }
-            }
-
-            return diagonalCost;
-        }
-
         private bool IsInClient(Position that)
         {
             int deltaZ = that.z - this.z;

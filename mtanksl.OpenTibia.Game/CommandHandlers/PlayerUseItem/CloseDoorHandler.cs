@@ -118,16 +118,6 @@ namespace OpenTibia.Game.CommandHandlers
 
                             foreach (var creature in door.GetCreatures().ToList() )
                             {
-                                if (creature is Player player)
-                                {
-                                    PlayerIdleBehaviour playerIdleBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerIdleBehaviour>(command.Player);
-
-                                    if (playerIdleBehaviour != null)
-                                    {
-                                        playerIdleBehaviour.SetNextWalk(TimeSpan.FromMilliseconds(command.Player.Tile.Position.ToDiagonalCost( ( (Tile)item.Parent ).Position) * 1000 * ( (Tile)item.Parent ).Ground.Metadata.Speed / command.Player.Speed) );
-                                    }
-                                }
-
                                 promises.Add(Context.AddCommand(new CreatureMoveCommand(creature, south) ) );
                             }
 
@@ -146,16 +136,6 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 foreach (var creature in door.GetCreatures().ToList() )
                                 {
-                                    if (creature is Player player)
-                                    {
-                                        PlayerIdleBehaviour playerIdleBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerIdleBehaviour>(command.Player);
-
-                                        if (playerIdleBehaviour != null)
-                                        {
-                                            playerIdleBehaviour.SetNextWalk(TimeSpan.FromMilliseconds(command.Player.Tile.Position.ToDiagonalCost( ( (Tile)item.Parent ).Position) * 1000 * ( (Tile)item.Parent ).Ground.Metadata.Speed / command.Player.Speed) );
-                                        }
-                                    }
-
                                     promises.Add(Context.AddCommand(new CreatureMoveCommand(creature, north) ) );
                                 }
 
@@ -192,16 +172,6 @@ namespace OpenTibia.Game.CommandHandlers
 
                             foreach (var creature in door.GetCreatures().ToList() )
                             {
-                                if (creature is Player player)
-                                {
-                                    PlayerIdleBehaviour playerIdleBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerIdleBehaviour>(command.Player);
-
-                                    if (playerIdleBehaviour != null)
-                                    {
-                                        playerIdleBehaviour.SetNextWalk(TimeSpan.FromMilliseconds(command.Player.Tile.Position.ToDiagonalCost( ( (Tile)item.Parent ).Position) * 1000 * ( (Tile)item.Parent ).Ground.Metadata.Speed / command.Player.Speed) );
-                                    }
-                                }
-
                                 promises.Add(Context.AddCommand(new CreatureMoveCommand(creature, east) ) );
                             }
 
@@ -220,16 +190,6 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 foreach (var creature in door.GetCreatures().ToList() )
                                 {
-                                    if (creature is Player player)
-                                    {
-                                        PlayerIdleBehaviour playerIdleBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerIdleBehaviour>(command.Player);
-
-                                        if (playerIdleBehaviour != null)
-                                        {
-                                            playerIdleBehaviour.SetNextWalk(TimeSpan.FromMilliseconds(command.Player.Tile.Position.ToDiagonalCost( ( (Tile)item.Parent ).Position) * 1000 * ( (Tile)item.Parent ).Ground.Metadata.Speed / command.Player.Speed) );
-                                        }
-                                    }
-
                                     promises.Add(Context.AddCommand(new CreatureMoveCommand(creature, west) ) );
                                 }
 

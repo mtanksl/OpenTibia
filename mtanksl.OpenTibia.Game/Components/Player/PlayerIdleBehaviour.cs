@@ -9,27 +9,6 @@ namespace OpenTibia.Game.Components
 {
     public class PlayerIdleBehaviour : Behaviour
     {
-        private DateTime nextWalk = DateTime.UtcNow;
-
-        public void SetNextWalk(TimeSpan executeIn)
-        {
-            nextWalk = DateTime.UtcNow.Add(executeIn);
-        }
-
-        public bool CanWalk(out TimeSpan executeIn)
-        {
-            if (DateTime.UtcNow > nextWalk)
-            {
-                executeIn = TimeSpan.Zero;
-
-                return true;
-            }
-
-            executeIn = nextWalk - DateTime.UtcNow;
-
-            return false;
-        }
-
         private DateTime lastAction = DateTime.UtcNow;
 
         public void SetLastAction()

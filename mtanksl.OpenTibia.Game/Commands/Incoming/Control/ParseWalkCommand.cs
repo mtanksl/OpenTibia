@@ -25,19 +25,10 @@ namespace OpenTibia.Game.Commands
 
             if (playerIdleBehaviour != null)
             {
-                TimeSpan executeIn;
-
-                if ( !playerIdleBehaviour.CanWalk(out executeIn) )
-                {
-                    Context.AddPacket(Player, new StopWalkOutgoingPacket(Player.Direction) );
-
-                    await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkedDelayBehaviour(executeIn) ).Promise;
-                }
-
                 playerIdleBehaviour.SetLastAction();
             }
 
-            PlayerWalkingDelayBehaviour playerWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkingDelayBehaviour>(Player);
+            PlayerWalkDelayBehaviour playerWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkDelayBehaviour>(Player);
 
             if (playerWalkDelayBehaviour != null)
             {
@@ -45,13 +36,6 @@ namespace OpenTibia.Game.Commands
                 {
                     Context.AddPacket(Player, new StopWalkOutgoingPacket(Player.Direction) );
                 }
-            }
-
-            PlayerWalkedDelayBehaviour playerActionDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkedDelayBehaviour>(Player);
-
-            if (playerActionDelayBehaviour != null)
-            {
-                Context.Server.GameObjectComponents.RemoveComponent(Player, playerActionDelayBehaviour);
             }
 
             Tile fromTile = Player.Tile;
@@ -97,7 +81,9 @@ namespace OpenTibia.Game.Commands
                 await Promise.Break;
             }
 
-            await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkingDelayBehaviour(TimeSpan.FromMilliseconds(fromTile.Position.ToDiagonalCost(toTile.Position) * 1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise;
+            int diagonalCost = (MoveDirection == MoveDirection.NorthWest || MoveDirection == MoveDirection.NorthEast || MoveDirection == MoveDirection.SouthWest || MoveDirection == MoveDirection.SouthEast) ? 2 : 1;
+
+            await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkDelayBehaviour(TimeSpan.FromMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise;
                        
             if (toTile.NotWalkable || toTile.Block)
             {
