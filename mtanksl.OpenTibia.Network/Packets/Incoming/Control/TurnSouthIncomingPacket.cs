@@ -3,7 +3,7 @@ using OpenTibia.IO;
 
 namespace OpenTibia.Network.Packets.Incoming
 {
-    public class TurnSoutIncomingPacketh : IIncomingPacket
+    public class TurnSouthIncomingPacketh : IIncomingPacket
     {
         public Direction Direction
         {

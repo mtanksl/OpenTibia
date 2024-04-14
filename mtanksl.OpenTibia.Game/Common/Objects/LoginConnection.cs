@@ -15,7 +15,7 @@ namespace OpenTibia.Common.Objects
 
         static LoginConnection()
         {
-            firstCommands.Add(0x01, new PacketToCommand<EnterGameIncomingPacket>( (connection, packet) => new ParseEnterGameCommand(connection, packet) ) );
+            firstCommands.Add(0x01, new PacketToCommand<EnterGameIncomingPacket>("Enter Game",(connection, packet) => new ParseEnterGameCommand(connection, packet) ) );
         }
 
         private IServer server;
@@ -59,11 +59,11 @@ namespace OpenTibia.Common.Objects
                     {
                         first = false;
 
-                        if (firstCommands.TryGetValue(identification, out var packetToCommand) )
+                        if (firstCommands.TryGetValue(identification, out IPacketToCommand packetToCommand) )
                         {
                             Command command = packetToCommand.Convert(this, reader);
 
-                            server.Logger.WriteLine("Received on login server: 0x" + identification.ToString("X2"), LogLevel.Debug);
+                            server.Logger.WriteLine("Received on login server: 0x" + identification.ToString("X2") + " (" + packetToCommand.Name + ")", LogLevel.Debug);
 
                             server.QueueForExecution( () =>
                             {

@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Components;
 using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 using System.Collections.Generic;
@@ -22,6 +23,13 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            CreatureWalkDelayBehaviour creatureWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureWalkDelayBehaviour>(Creature);
+
+            if (creatureWalkDelayBehaviour != null)
+            {
+                Context.Server.GameObjectComponents.RemoveComponent(Creature, creatureWalkDelayBehaviour);
+            }
+
             Dictionary<Player, byte> canSeeFrom = new Dictionary<Player, byte>();
 
             foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Creature.Tile.Position) )

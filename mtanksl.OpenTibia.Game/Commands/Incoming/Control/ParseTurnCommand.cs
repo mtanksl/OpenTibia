@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -24,6 +25,16 @@ namespace OpenTibia.Game.Commands
             if (playerIdleBehaviour != null)
             {
                 playerIdleBehaviour.SetLastAction();
+            }
+
+            CreatureWalkDelayBehaviour creatureWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureWalkDelayBehaviour>(Player);
+
+            if (creatureWalkDelayBehaviour != null)
+            {
+                if (Context.Server.GameObjectComponents.RemoveComponent(Player, creatureWalkDelayBehaviour) )
+                {
+                    Context.AddPacket(Player, new StopWalkOutgoingPacket(Player.Direction) );
+                }
             }
 
             return Context.AddCommand(new CreatureUpdateDirectionCommand(Player, Direction) );

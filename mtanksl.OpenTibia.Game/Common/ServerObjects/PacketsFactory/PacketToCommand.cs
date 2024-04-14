@@ -9,9 +9,21 @@ namespace OpenTibia.Common.Objects
     {
         private Func<IConnection, T, IncomingCommand> convert;
 
-        public PacketToCommand(Func<IConnection, T, IncomingCommand> convert)
+        public PacketToCommand(string name, Func<IConnection, T, IncomingCommand> convert)
         {
+            this.name = name;
+
             this.convert = convert;
+        }
+
+        private string name;
+
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
         }
 
         public IncomingCommand Convert(IConnection connection, ByteArrayStreamReader reader)

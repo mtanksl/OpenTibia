@@ -28,11 +28,11 @@ namespace OpenTibia.Game.Commands
                 playerIdleBehaviour.SetLastAction();
             }
 
-            PlayerWalkDelayBehaviour playerWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkDelayBehaviour>(Player);
+            CreatureWalkDelayBehaviour creatureWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureWalkDelayBehaviour>(Player);
 
-            if (playerWalkDelayBehaviour != null)
+            if (creatureWalkDelayBehaviour != null)
             {
-                if (Context.Server.GameObjectComponents.RemoveComponent(Player, playerWalkDelayBehaviour) )
+                if (Context.Server.GameObjectComponents.RemoveComponent(Player, creatureWalkDelayBehaviour) )
                 {
                     Context.AddPacket(Player, new StopWalkOutgoingPacket(Player.Direction) );
                 }
@@ -57,7 +57,7 @@ namespace OpenTibia.Game.Commands
 
                 int diagonalCost = (moveDirection == MoveDirection.NorthWest || moveDirection == MoveDirection.NorthEast || moveDirection == MoveDirection.SouthWest || moveDirection == MoveDirection.SouthEast) ? 2 : 1;
 
-                await Context.Server.GameObjectComponents.AddComponent(Player, new PlayerWalkDelayBehaviour(TimeSpan.FromMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise;
+                await Context.Server.GameObjectComponents.AddComponent(Player, new CreatureWalkDelayBehaviour(TimeSpan.FromMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.Speed / Player.Speed) ) ).Promise;
                 
                 if (toTile.NotWalkable || toTile.Block)
                 {

@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Commands
 
             if (fromTile != null)
             {
-                if (Player.Tile.Position.CanHearSay(fromTile.Position) )
+                if (Player.Tile.Position.CanSee(fromTile.Position) )
                 {
                     if (TibiaId == 99)
                     {
