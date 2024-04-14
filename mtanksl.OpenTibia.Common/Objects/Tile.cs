@@ -305,7 +305,7 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        private List<IContent> contents = new List<IContent>(1);
+        private List<IContent> contents = new List<IContent>();
 
         public int Count
         {

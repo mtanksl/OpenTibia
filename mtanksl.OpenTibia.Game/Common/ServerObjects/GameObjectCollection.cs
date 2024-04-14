@@ -17,7 +17,7 @@ namespace OpenTibia.Game
 
             { typeof(Player), new Dictionary<uint, GameObject>() },
 
-            { typeof(Item), new Dictionary<uint, GameObject>() }
+            // { typeof(Item), new Dictionary<uint, GameObject>() }
         };
 
         private uint uniqueId = 0;
@@ -60,10 +60,10 @@ namespace OpenTibia.Game
                     buckets[ typeof(Player) ].Add(gameObject.Id, gameObject);
                 }
             }
-            else if (gameObject is Item)
-            {
-                buckets[ typeof(Item) ].Add(gameObject.Id, gameObject);
-            }
+            // else if (gameObject is Item)
+            // {
+            //     buckets[ typeof(Item) ].Add(gameObject.Id, gameObject);
+            // }
         }
 
         public bool RemoveGameObject(GameObject gameObject)
@@ -89,10 +89,10 @@ namespace OpenTibia.Game
                         buckets[ typeof(Player) ].Remove(gameObject.Id);
                     }
                 }
-                else if (gameObject is Item)
-                {
-                    buckets[ typeof(Item) ].Remove(gameObject.Id);
-                }
+                // else if (gameObject is Item)
+                // {
+                //     buckets[ typeof(Item) ].Remove(gameObject.Id);
+                // }
 
                 return true;
             }
@@ -145,10 +145,10 @@ namespace OpenTibia.Game
             return GetGameObject<Player>(id);
         }
 
-        public Item GetItem(uint id)
-        {
-            return GetGameObject<Item>(id);
-        }
+        // public Item GetItem(uint id)
+        // {
+        //     return GetGameObject<Item>(id);
+        // }
 
         private IEnumerable<GameObject> GetGameObjects(Type type)
         {
@@ -191,9 +191,9 @@ namespace OpenTibia.Game
             return GetGameObjects<Player>();
         }
 
-        public IEnumerable<Item> GetItems()
-        {
-            return GetGameObjects<Item>();
-        }
+        // public IEnumerable<Item> GetItems()
+        // {
+        //     return GetGameObjects<Item>();
+        // }
     }
 }
