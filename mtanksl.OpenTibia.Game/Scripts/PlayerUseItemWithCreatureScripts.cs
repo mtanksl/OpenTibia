@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Scripts
             {
                 if ( !command.Player.Tile.Position.IsNextTo(command.ToCreature.Tile.Position) )
                 {
-                     Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+                     Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TooFarAway) );
 
                     return Promise.Break;
                 }

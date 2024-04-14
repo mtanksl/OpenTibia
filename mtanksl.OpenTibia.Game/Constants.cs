@@ -32,6 +32,8 @@
 
         public static readonly string TradeCanceled = "Trade canceled.";
 
+        public static readonly string TooFarAway = "Too far away.";
+
         public static readonly string TooManyLoginAttempts = "Too many login attempts, try again in a few minutes.";
 
         public static readonly string YouAreAlreadyLoggedIn = "You are already logged in.";
