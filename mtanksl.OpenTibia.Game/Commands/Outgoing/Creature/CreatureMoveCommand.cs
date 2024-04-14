@@ -9,25 +9,16 @@ namespace OpenTibia.Game.Commands
 {
     public class CreatureMoveCommand : Command
     {
-        public CreatureMoveCommand(Creature creature, Tile toTile) : this(creature, toTile, null)
-        {
-
-        }
-
-        public CreatureMoveCommand(Creature creature, Tile toTile, Direction? changeDirectionOnMove)
+        public CreatureMoveCommand(Creature creature, Tile toTile)
         {
             Creature = creature;
 
             ToTile = toTile;
-
-            ChangeDirectionOnMove = changeDirectionOnMove;
         }
 
         public Creature Creature { get; set; }
 
         public Tile ToTile { get; set; }
-
-        public Direction? ChangeDirectionOnMove { get; set; }
 
         public override Promise Execute()
         {

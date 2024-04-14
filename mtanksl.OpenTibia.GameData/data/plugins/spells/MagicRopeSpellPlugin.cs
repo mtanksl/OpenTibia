@@ -32,7 +32,11 @@ namespace OpenTibia.GameData.Plugins.Spells
 
             return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.Teleport) ).Then( () =>
             {
-                return Context.AddCommand(new CreatureMoveCommand(player, toTile, Direction.South) );
+                return Context.AddCommand(new CreatureMoveCommand(player, toTile) );
+
+            } ).Then( () =>
+            {
+                return Context.AddCommand(new CreatureUpdateDirectionCommand(player, Direction.South) );
 
             } ).Then( () =>
             {

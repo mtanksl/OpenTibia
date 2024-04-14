@@ -91,7 +91,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (toTile != null)
                     {
-                        return Context.AddCommand(new CreatureMoveCommand(command.Creature, toTile, direction) ).Then( () =>
+                        return Context.AddCommand(new CreatureMoveCommand(command.Creature, toTile) ).Then( () =>
+                        {
+                            return Context.AddCommand(new CreatureUpdateDirectionCommand(command.Creature, direction) );
+
+                        } ).Then( () =>
                         {
                             return Context.AddCommand(new ItemTransformCommand(hole.Ground, toOpenTibiaId, 1) );
 

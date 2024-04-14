@@ -73,7 +73,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                     Tile up = Context.Server.Map.GetTile(ropeSpot.Position.Offset(0, 1, -1) );
 
-                    return Context.AddCommand(new CreatureMoveCommand(command.Player, up, Direction.South) );
+                    return Context.AddCommand(new CreatureMoveCommand(command.Player, up) ).Then( () =>
+                    {
+                        return Context.AddCommand(new CreatureUpdateDirectionCommand(command.Player, Direction.South) );
+                    } );
                 }
                 else if (holes.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
@@ -85,7 +88,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (down.TopCreature != null)
                     {
-                        return Context.AddCommand(new CreatureMoveCommand(down.TopCreature, south, Direction.South) );
+                        return Context.AddCommand(new CreatureMoveCommand(down.TopCreature, south) ).Then( () =>
+                        {
+                            return Context.AddCommand(new CreatureUpdateDirectionCommand(down.TopCreature, Direction.South) );
+                        } );
                     }
                     else if (down.TopItem != null && !down.TopItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
                     {

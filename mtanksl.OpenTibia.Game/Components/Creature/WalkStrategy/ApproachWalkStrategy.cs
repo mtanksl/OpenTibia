@@ -27,20 +27,20 @@ namespace OpenTibia.Game.Components
             {
                 directions.Add(Direction.North);
 
-                randomDirections.Add(Direction.North);
+                randomDirections.Remove(Direction.North);
             }
 
             if (deltaX < 0)
             {
                 directions.Add(Direction.East);
 
-                randomDirections.Add(Direction.East);
+                randomDirections.Remove(Direction.East);
             }
             else if (deltaX > 0)
             {
                 directions.Add(Direction.West);
 
-                randomDirections.Add(Direction.West);
+                randomDirections.Remove(Direction.West);
             }
 
             foreach (var collection in new[] { directions, randomDirections } )
