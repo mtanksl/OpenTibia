@@ -15,7 +15,7 @@ namespace OpenTibia.GameData.Plugins.Runes
 
         public override PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile tile, Item item)
         {
-            if (tile == null || tile.Ground == null || tile.NotWalkable || tile.Block)
+            if (tile == null || tile.Ground == null || tile.NotWalkable || tile.BlockPathFinding || tile.Block)
             {
                 return Promise.FromResultAsBooleanFalse;
             }

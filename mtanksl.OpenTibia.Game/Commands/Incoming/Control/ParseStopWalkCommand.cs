@@ -15,7 +15,7 @@ namespace OpenTibia.Game.Commands
                 
         public override Promise Execute()
         {
-            CreatureWalkDelayBehaviour creatureWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureWalkDelayBehaviour>(Player);
+            PlayerWalkDelayBehaviour creatureWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkDelayBehaviour>(Player);
 
             if (creatureWalkDelayBehaviour != null)
             {

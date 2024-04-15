@@ -29,11 +29,14 @@ namespace OpenTibia.Game.Components
 
             globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
             {
-                if (DateTime.UtcNow >= nextTalk)
+                if (e.Index == creature.Id % 10)
                 {
-                    nextTalk = DateTime.UtcNow.Add(TimeSpan.FromSeconds(30) );
+                    if (DateTime.UtcNow >= nextTalk)
+                    {
+                        nextTalk = DateTime.UtcNow.Add(TimeSpan.FromSeconds(30) );
 
-                    return Context.AddCommand(new ShowTextCommand(creature, talkType, Context.Server.Randomization.Take(sentences) ) );
+                        return Context.AddCommand(new ShowTextCommand(creature, talkType, Context.Server.Randomization.Take(sentences) ) );
+                    }
                 }
 
                 return Promise.Completed;

@@ -27,7 +27,7 @@ namespace OpenTibia.Game.Commands
                 playerIdleBehaviour.SetLastAction();
             }
 
-            CreatureWalkDelayBehaviour creatureWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureWalkDelayBehaviour>(Player);
+            PlayerWalkDelayBehaviour creatureWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkDelayBehaviour>(Player);
 
             if (creatureWalkDelayBehaviour != null)
             {

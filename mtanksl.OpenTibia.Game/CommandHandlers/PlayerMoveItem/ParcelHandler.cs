@@ -22,7 +22,9 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 Container parcelItem = (Container)command.Item;
 
-                ReadableItem labelItem = (ReadableItem)parcelItem.GetItems().Where(i => i.Metadata.OpenTibiaId == label).FirstOrDefault();
+                ReadableItem labelItem = (ReadableItem)parcelItem.GetItems()
+                    .Where(i => i.Metadata.OpenTibiaId == label)
+                    .FirstOrDefault();
 
                 if (labelItem != null)
                 {

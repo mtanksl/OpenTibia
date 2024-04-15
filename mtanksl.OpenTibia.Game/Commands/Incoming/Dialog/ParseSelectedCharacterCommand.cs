@@ -108,7 +108,9 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            Player onlinePlayer = Context.Server.GameObjects.GetPlayers().Where(p => p.Name == dbPlayer.Name).FirstOrDefault();
+            Player onlinePlayer = Context.Server.GameObjects.GetPlayers()
+                .Where(p => p.Name == dbPlayer.Name)
+                .FirstOrDefault();
 
             if (onlinePlayer != null)
             {

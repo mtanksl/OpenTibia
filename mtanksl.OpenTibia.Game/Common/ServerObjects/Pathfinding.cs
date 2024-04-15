@@ -96,7 +96,22 @@ namespace OpenTibia.Game
 
             if ( fromPosition.CanHearSay(toPosition) )
             {
-                Position[] positions = AStar(fromPosition, toPosition, allowProtectionZone);
+                Position[] positions = AStar(fromPosition, toPosition, position =>
+                {
+                    if ( !fromPosition.CanHearSay(position) )
+                    {
+                        return false;
+                    }
+
+                    Tile tile = map.GetTile(position);
+
+                    if (tile == null || tile.Ground == null || tile.NotWalkable || tile.BlockPathFinding || tile.Block || ( !allowProtectionZone && tile.ProtectionZone) )
+                    {
+                        return false;
+                    }
+
+                    return true;
+                } );
 
                 for (int i = 0; i < positions.Length - 1 && !positions[i].IsNextTo(toPosition); i++)
                 {
@@ -153,26 +168,9 @@ namespace OpenTibia.Game
                 }
             }                
         }
-        
-        private Position[] AStar(Position fromPosition, Position toPosition, bool allowProtectionZone)
+
+        private Position[] AStar(Position fromPosition, Position toPosition, Func<Position, bool> callback)
         {
-            bool CanWalk(Position position)
-            {
-                if ( !fromPosition.CanHearSay(position) )
-                {
-                    return false;
-                }
-
-                Tile tile = map.GetTile(position);
-
-                if (tile == null || tile.Ground == null || tile.NotWalkable || tile.BlockPathFinding || tile.Block || ( !allowProtectionZone && tile.ProtectionZone) )
-                {
-                    return false;
-                }
-
-                return true;
-            }
-
             Stack<Position> positions = new Stack<Position>();
 
             HashSet<Position> closed = new HashSet<Position>();
@@ -224,7 +222,7 @@ namespace OpenTibia.Game
 
                         if ( !open.TryGetValue(nextPosition, out nextNode) )
                         {
-                            if (nextPosition == toPosition || CanWalk(nextPosition) )
+                            if (nextPosition == toPosition || callback(nextPosition) )
                             {
                                 int moves = currentNode.Moves + Node.CalculateCost(moveDirection);
 
