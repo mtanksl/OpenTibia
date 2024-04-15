@@ -78,6 +78,8 @@
 
         public static readonly string YouMayNotLogOutHere = "You may not log out here!";
 
+        public static readonly string YouMayNotLogoutDuringOrImmediatelyAfterAFight = "You may not logout during or immediately after a fight!";
+
         public static readonly string YouNeedToLearnThisSpellFirst = "You need to learn this spell first";
 
         public static readonly string YourDepotIsFull = "Your depot is full. Remove surplus items before storing new ones.";

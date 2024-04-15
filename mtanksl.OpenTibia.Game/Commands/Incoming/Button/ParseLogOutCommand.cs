@@ -22,6 +22,13 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
+            if (Player.HasSpecialCondition(SpecialCondition.LogoutBlock) )
+            {
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotLogoutDuringOrImmediatelyAfterAFight) );
+
+                return Promise.Break;
+            }
+
             return Context.AddCommand(new ShowMagicEffectCommand(Player, MagicEffectType.Puff) ).Then( () =>
             {
                 return Context.AddCommand(new CreatureDestroyCommand(Player) );
