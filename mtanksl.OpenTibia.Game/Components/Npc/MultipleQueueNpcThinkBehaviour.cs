@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
@@ -110,6 +111,10 @@ namespace OpenTibia.Game.Components
 
         private Guid globalTick;
 
+        private DateTime nextAttack = DateTime.MinValue;
+
+        private DateTime nextWalk = DateTime.MinValue;
+
         public override void Start()
         {
             Npc npc = (Npc)GameObject;
@@ -120,46 +125,43 @@ namespace OpenTibia.Game.Components
 
             globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>(async (context, e) =>
             {
-                foreach (var player in queue.ToList() )
+                if (e.Index == npc.Id % 10)
                 {
-                    if (player.Tile == null || player.IsDestroyed || !npc.Tile.Position.IsInRange(player.Tile.Position, 3) )
+                    foreach (var player in queue.ToList() )
                     {
-                        await Disappear(player);
-                    }
-                }
-
-                if (queue.Count == 0)
-                {
-                    CreatureWalkBehaviour creatureWalkBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureWalkBehaviour>(npc);
-
-                    if (creatureWalkBehaviour == null)
-                    {
-                        Context.Server.GameObjectComponents.AddComponent(npc, new CreatureWalkBehaviour(walkStrategy, null) );
+                        if (player.Tile == null || player.IsDestroyed || !npc.Tile.Position.IsInRange(player.Tile.Position, 3) )
+                        {
+                            await Disappear(player);
+                        }
                     }
 
-                    CreatureFocusBehaviour creatureFocusBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureFocusBehaviour>(npc);
-
-                    if (creatureFocusBehaviour != null)
+                    if (queue.Count == 0)
                     {
-                        Context.Server.GameObjectComponents.RemoveComponent(npc, creatureFocusBehaviour);
+                        if (DateTime.UtcNow >= nextWalk)
+                        {
+                            if (walkStrategy != null)
+                            {
+                                Tile toTile;
+
+                                if (RandomWalkStrategy.Instance.CanWalk(npc, null, out toTile) )
+                                {
+                                    nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / npc.Speed);
+
+                                    await Context.Current.AddCommand(new CreatureMoveCommand(npc, toTile) );
+                                }
+                            }
+                        }
                     }
-                }
-                else
-                {
-                    Player target = queue.Peek();
-
-                    CreatureWalkBehaviour creatureWalkBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureWalkBehaviour>(npc);
-
-                    if (creatureWalkBehaviour != null)
+                    else
                     {
-                        Context.Server.GameObjectComponents.RemoveComponent(npc, creatureWalkBehaviour);
-                    }
+                        Player target = queue.Peek();
 
-                    CreatureFocusBehaviour creatureFocusBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureFocusBehaviour>(npc);
+                        Direction? direction = npc.Tile.Position.ToDirection(target.Tile.Position);
 
-                    if (creatureFocusBehaviour == null || creatureFocusBehaviour.Target != target)
-                    {
-                        Context.Server.GameObjectComponents.AddComponent(npc, new CreatureFocusBehaviour(target) );
+                        if (direction != null)
+                        {
+                            await Context.AddCommand(new CreatureUpdateDirectionCommand(npc, direction.Value) );
+                        }
                     }
                 }
             } );

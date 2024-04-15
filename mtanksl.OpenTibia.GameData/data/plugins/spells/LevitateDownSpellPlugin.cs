@@ -19,7 +19,7 @@ namespace OpenTibia.GameData.Plugins.Spells
 
             Tile toTile = Context.Server.Map.GetTile(player.Tile.Position.Offset(0, 0, 1).Offset(player.Direction) );
 
-            if (next != null || toTile == null || toTile.Ground == null || !toTile.CanWalk)
+            if (next != null || toTile == null || toTile.Ground == null || toTile.NotWalkable || toTile.BlockPathFinding || toTile.Block)
             {
                 return Promise.FromResultAsBooleanFalse;
             }

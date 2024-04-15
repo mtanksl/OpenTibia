@@ -3,6 +3,7 @@ using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Events;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace OpenTibia.Game.Components
@@ -22,74 +23,103 @@ namespace OpenTibia.Game.Components
 
         private Guid globalTick;
 
+        private Player target = null;
+
+        private bool hasVisiblePlayers = false;
+
+        private DateTime nextAttack = DateTime.MinValue;
+
+        private DateTime nextWalk = DateTime.MinValue;
+
         public override void Start()
         {
             Monster monster = (Monster)GameObject;
 
-            Player target = null;
-
-            globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
+            globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>(async (context, e) =>
             {
-                if (target == null || target.Tile == null || target.IsDestroyed || target.Tile.ProtectionZone || !monster.Tile.Position.CanHearSay(target.Tile.Position) )
+                if (e.Index == monster.Id % 10)
                 {
-                    Player[] players = Context.Server.Map.GetObserversOfTypePlayer(monster.Tile.Position).Where(p => !p.Tile.ProtectionZone && monster.Tile.Position.CanHearSay(p.Tile.Position) && p.Rank != Rank.Gamemaster).ToArray();
-
-                    if (players.Length > 0)
+                    if (target == null || target.Tile == null || target.IsDestroyed || target.Tile.ProtectionZone || !monster.Tile.Position.CanHearSay(target.Tile.Position) )
                     {
-                        target = Context.Server.Randomization.Take(players);
+                        Player[] visiblePlayers = Context.Server.Map.GetObserversOfTypePlayer(monster.Tile.Position)
+                            .Where(p => p.Rank != Rank.Gamemaster && 
+                                        monster.Tile.Position.CanSee(p.Tile.Position) )
+                            .ToArray();
+
+                        if (visiblePlayers.Length > 0)
+                        {
+                            Player[] targets = visiblePlayers
+                                .Where(p => !p.Tile.ProtectionZone &&
+                                            monster.Tile.Position.CanHearSay(p.Tile.Position) )
+                                .ToArray();
+
+                            if (targets.Length > 0)
+                            {
+                                target = Context.Server.Randomization.Take(targets);
+                            }
+                            else
+                            {
+                                target = null;
+                            }
+                            
+                            hasVisiblePlayers = true;
+                        }
+                        else
+                        {
+                            target = null;
+
+                            hasVisiblePlayers = false;
+                        }
+                    }
+
+                    if (target == null)
+                    {
+                        if (hasVisiblePlayers)
+                        {
+                            if (DateTime.UtcNow >= nextWalk)
+                            {                            
+                                Tile toTile;
+
+                                if (RandomWalkStrategy.Instance.CanWalk(monster, null, out toTile) )
+                                {
+                                    nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / monster.Speed);
+
+                                    await Context.Current.AddCommand(new CreatureMoveCommand(monster, toTile));
+                                }
+                            }
+                        }
                     }
                     else
                     {
-                        target = null;
-                    }
-                }
-
-                if (target == null)
-                {
-                    if (attackStrategy != null)
-                    {
-                        CreatureAttackBehaviour creatureAttackBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureAttackBehaviour>(monster);
-
-                        if (creatureAttackBehaviour != null)
+                        if (DateTime.UtcNow >= nextAttack)
                         {
-                            Context.Server.GameObjectComponents.RemoveComponent(monster, creatureAttackBehaviour);
+                            if (attackStrategy != null)
+                            {
+                                if (attackStrategy.CanAttack(monster, target) )
+                                {
+                                    nextAttack = DateTime.UtcNow.Add(attackStrategy.Cooldown);
+
+                                    await attackStrategy.Attack(monster, target);
+                                }
+                            }
                         }
-                    }
 
-                    if (walkStrategy != null)
-                    {
-                        CreatureWalkBehaviour creatureWalkBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureWalkBehaviour>(monster);
-
-                        if (creatureWalkBehaviour != null)
+                        if (DateTime.UtcNow >= nextWalk)
                         {
-                            Context.Server.GameObjectComponents.RemoveComponent(monster, creatureWalkBehaviour);
-                        }
-                    }
-                }
-                else
-                {
-                    if (attackStrategy != null)
-                    {
-                        CreatureAttackBehaviour creatureAttackBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureAttackBehaviour>(monster);
+                            if (walkStrategy != null)
+                            {
+                                Tile toTile;
 
-                        if (creatureAttackBehaviour == null || creatureAttackBehaviour.Target != target)
-                        {
-                            Context.Server.GameObjectComponents.AddComponent(monster, new CreatureAttackBehaviour(attackStrategy, target) );
-                        }
-                    }
+                                if (walkStrategy.CanWalk(monster, target, out toTile) )
+                                {
+                                    nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / monster.Speed);
 
-                    if (walkStrategy != null)
-                    {
-                        CreatureWalkBehaviour creatureWalkBehaviour = Context.Server.GameObjectComponents.GetComponent<CreatureWalkBehaviour>(monster);
-
-                        if (creatureWalkBehaviour == null || creatureWalkBehaviour.Target != target)
-                        {
-                            Context.Server.GameObjectComponents.AddComponent(monster, new CreatureWalkBehaviour(walkStrategy, target) );
+                                    await Context.Current.AddCommand(new CreatureMoveCommand(monster, toTile) );
+                                }
+                            }
                         }
                     }
                 }
-
-                return Promise.Completed;
             } );
         }
 

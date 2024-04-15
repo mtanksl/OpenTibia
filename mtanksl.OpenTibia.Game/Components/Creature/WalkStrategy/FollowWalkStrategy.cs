@@ -5,9 +5,11 @@ namespace OpenTibia.Game.Components
 {
     public class FollowWalkStrategy : IWalkStrategy
     {
+        public static readonly FollowWalkStrategy Instance = new FollowWalkStrategy();
+
         public bool CanWalk(Creature attacker, Creature target, out Tile tile)
         {
-            MoveDirection[] moveDirections = Context.Current.Server.Pathfinding.GetMoveDirections(attacker.Tile.Position, target.Tile.Position);
+            MoveDirection[] moveDirections = Context.Current.Server.Pathfinding.GetMoveDirections(attacker.Tile.Position, target.Tile.Position, false);
 
             if (moveDirections.Length != 0)
             {

@@ -277,22 +277,6 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        public bool CanUseWith
-        {
-            get
-            {
-                return !NotWalkable && !BlockPathFinding;
-            }
-        }
-
-        public bool CanWalk
-        {
-            get
-            {
-                return !NotWalkable && !BlockPathFinding && !Block;
-            }
-        }
-
         private bool field;
 
         public bool Field

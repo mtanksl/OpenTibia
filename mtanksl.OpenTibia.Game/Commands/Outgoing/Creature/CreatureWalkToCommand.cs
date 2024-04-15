@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Execute()
         {
-            MoveDirection[] moveDirections = Context.Server.Pathfinding.GetMoveDirections(Creature.Tile.Position, Tile.Position);
+            MoveDirection[] moveDirections = Context.Server.Pathfinding.GetMoveDirections(Creature.Tile.Position, Tile.Position, true);
 
             if (moveDirections.Length == 0)
             {

@@ -6,6 +6,8 @@ namespace OpenTibia.Game.Components
 {
     public class RandomWalkStrategy : IWalkStrategy
     {
+        public static readonly RandomWalkStrategy Instance = new RandomWalkStrategy(3);
+        
         private int radius;
 
         public RandomWalkStrategy(int radius)
@@ -13,15 +15,15 @@ namespace OpenTibia.Game.Components
             this.radius = radius;
         }
 
-        private Direction[] randomDirections = new Direction[] { Direction.North, Direction.East, Direction.South, Direction.West };
-
         public bool CanWalk(Creature attacker, Creature target, out Tile tile)
         {
+            Direction[] randomDirections = new Direction[] { Direction.North, Direction.East, Direction.South, Direction.West };
+
             foreach (var direction in Context.Current.Server.Randomization.Shuffle(randomDirections) )
             {
                 Tile toTile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(direction) );
 
-                if (toTile == null || toTile.Ground == null || !toTile.CanWalk || Math.Abs(toTile.Position.X - attacker.Spawn.Position.X) > radius || Math.Abs(toTile.Position.Y - attacker.Spawn.Position.Y) > radius)
+                if (toTile == null || toTile.Ground == null || toTile.NotWalkable || toTile.BlockPathFinding || toTile.Block || (attacker is Monster && toTile.ProtectionZone) || Math.Abs(toTile.Position.X - attacker.Spawn.Position.X) > radius || Math.Abs(toTile.Position.Y - attacker.Spawn.Position.Y) > radius)
                 {
 
                 }

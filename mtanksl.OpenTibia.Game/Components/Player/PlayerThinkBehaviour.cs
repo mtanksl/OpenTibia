@@ -82,15 +82,15 @@ namespace OpenTibia.Game.Components
 
         private Guid globalTick;
 
+        private DateTime nextAttack = DateTime.MinValue;
+
+        private DateTime nextWalk = DateTime.MinValue;
+
         public override void Start()
         {
             Player player = (Player)GameObject;
 
-            DateTime lastAttack = DateTime.MinValue;
-
-            DateTime lastWalk = DateTime.MinValue;
-
-            globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
+            globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>(async (context, e) =>
             {
                 if (target != null)
                 {
@@ -112,42 +112,42 @@ namespace OpenTibia.Game.Components
                         }
                         else
                         {
-                            List<Promise> promises = new List<Promise>();
-
                             if (state == State.Follow || state == State.AttackAndFollow)
                             {
-                                if (DateTime.UtcNow >= lastWalk)
+                                if (DateTime.UtcNow >= nextWalk)
                                 {
-                                    Tile toTile;
-
-                                    if (walkStrategy.CanWalk(player, target, out toTile) )
+                                    if (walkStrategy != null)
                                     {
-                                        lastWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / player.Speed);
+                                        Tile toTile;
 
-                                        promises.Add(Context.AddCommand(new CreatureMoveCommand(player, toTile) ) );
+                                        if (walkStrategy.CanWalk(player, target, out toTile) )
+                                        {
+                                            nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / player.Speed);
+
+                                            await Context.AddCommand(new CreatureMoveCommand(player, toTile) );
+                                        }
                                     }
                                 }
                             }
 
                             if (state == State.Attack || state == State.AttackAndFollow)
                             {
-                                if (DateTime.UtcNow >= lastAttack)
+                                if (DateTime.UtcNow >= nextAttack)
                                 {
-                                    if (attackStrategy.CanAttack(player, target) )
+                                    if (attackStrategy != null)
                                     {
-                                        lastAttack = DateTime.UtcNow.Add(attackStrategy.Cooldown);
+                                        if (attackStrategy.CanAttack(player, target) )
+                                        {
+                                            nextAttack = DateTime.UtcNow.Add(attackStrategy.Cooldown);
 
-                                        promises.Add(attackStrategy.Attack(player, target) );
+                                            await attackStrategy.Attack(player, target);
+                                        }
                                     }
                                 }
                             }
-
-                            return Promise.WhenAll(promises.ToArray() );
                         }
                     }
                 }
-
-                return Promise.Completed;
             } );
         }
 

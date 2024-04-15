@@ -11,7 +11,7 @@ namespace OpenTibia.Game.Scripts
         {
             Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveCreatureCommand>( (context, next, command) =>
             {
-                if (command.ToTile.Ground == null || !command.ToTile.CanWalk)
+                if (command.ToTile.Ground == null || command.ToTile.NotWalkable || command.ToTile.BlockPathFinding || command.ToTile.Block)
                 {
                     Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThereIsNotEnoughtRoom) );
 

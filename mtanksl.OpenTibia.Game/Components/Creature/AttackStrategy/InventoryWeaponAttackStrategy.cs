@@ -8,64 +8,6 @@ namespace OpenTibia.Game.Components
 {
     public class InventoryWeaponAttackStrategy : IAttackStrategy
     {
-        private static Item GetWeapon(Player player)
-        {
-            Item item = (Item)player.Inventory.GetContent( (byte)Slot.Left);
-
-            if (item != null && (item.Metadata.WeaponType == WeaponType.Sword || item.Metadata.WeaponType == WeaponType.Club || item.Metadata.WeaponType == WeaponType.Axe || item.Metadata.WeaponType == WeaponType.Distance || item.Metadata.WeaponType == WeaponType.Wand) )
-            {
-                return item;
-            }
-
-            item = (Item)player.Inventory.GetContent( (byte)Slot.Right);
-
-            if (item != null && (item.Metadata.WeaponType == WeaponType.Sword || item.Metadata.WeaponType == WeaponType.Club || item.Metadata.WeaponType == WeaponType.Axe || item.Metadata.WeaponType == WeaponType.Distance || item.Metadata.WeaponType == WeaponType.Wand) )
-            {
-                return item;
-            }
-
-            return null;
-        }
-
-        private static Item GetAmmunition(Player player)
-        {
-            Item item = (Item)player.Inventory.GetContent( (byte)Slot.Extra);
-
-            if (item != null && item.Metadata.WeaponType == WeaponType.Ammo)
-            {
-                return item;
-            }
-
-            return null;
-        }
-
-        private static (int Min, int Max) MeleeFormula(int level, int skill, int attack, FightMode fightMode)
-        {
-            int min = 0;
-
-            int max = (int)Math.Floor(0.085 * (fightMode == FightMode.Offensive ? 1 : fightMode == FightMode.Balanced ? 0.75 : 0.5) * skill * attack) + (int)Math.Floor(level / 5.0);
-
-            return (min, max);
-        }
-
-        private static (int Min, int Max) DistanceFormula(int level, int skill, int attack, FightMode fightMode)
-        {
-            int min = (int)Math.Floor(level / 5.0);
-
-            int max = (int)Math.Floor(0.09 * (fightMode == FightMode.Offensive ? 1 : fightMode == FightMode.Balanced ? 0.75 : 0.5) * skill * attack) + min;
-
-            return (min, max);
-        }
-
-        private static (int Min, int Max) WandFormula(int attackStrength, int attackVariation)
-        {
-            int min = attackStrength - attackVariation;
-
-            int max = attackStrength + attackVariation;
-
-            return (min, max);
-        }
-
         private TimeSpan cooldown;
 
         public InventoryWeaponAttackStrategy(TimeSpan cooldown)
@@ -111,6 +53,13 @@ namespace OpenTibia.Game.Components
                         return false;
                     }
                 }
+                else if (itemWeapon.Metadata.WeaponType == WeaponType.Wand)
+                {
+                    if ( !Context.Current.Server.Pathfinding.CanThrow(player.Tile.Position, target.Tile.Position) )
+                    {
+                        return false;
+                    }
+                }
                 else if (itemWeapon.Metadata.WeaponType == WeaponType.Distance)
                 {
                     if (itemWeapon.Metadata.AmmoType == null)
@@ -129,14 +78,7 @@ namespace OpenTibia.Game.Components
                             return false;
                         }
                     }                  
-                }
-                else if (itemWeapon.Metadata.WeaponType == WeaponType.Wand)
-                {
-                    if ( !Context.Current.Server.Pathfinding.CanThrow(player.Tile.Position, target.Tile.Position) )
-                    {
-                        return false;
-                    }
-                }
+                }                
                 else
                 {
                     throw new NotImplementedException();
@@ -212,6 +154,29 @@ namespace OpenTibia.Game.Components
                             new MeleeAttack(formula.Min, formula.Max) ) );
                     }
                 }
+                else if (itemWeapon.Metadata.WeaponType == WeaponType.Wand)
+                {
+                    WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
+
+                    if (plugin != null)
+                    {
+                        return Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - plugin.Weapon.Mana) ).Then( () =>
+                        {
+                            return plugin.OnUseWeapon(player, target, itemWeapon);
+                        } );
+                    }
+                    else
+                    {
+                        return Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - plugin.Weapon.Mana) ).Then( () =>
+                        {
+                            var formula = WandFormula(itemWeapon.Metadata.AttackStrength.Value, itemWeapon.Metadata.AttackVariation.Value);
+
+                            return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target,
+                            
+                                new DistanceAttack(itemWeapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
+                        } );
+                    }
+                }
                 else if (itemWeapon.Metadata.WeaponType == WeaponType.Distance)
                 {
                     if (itemWeapon.Metadata.AmmoType == null)
@@ -285,29 +250,6 @@ namespace OpenTibia.Game.Components
                         }                        
                     }
                 }
-                else if (itemWeapon.Metadata.WeaponType == WeaponType.Wand)
-                {
-                    WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
-
-                    if (plugin != null)
-                    {
-                        return Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - plugin.Weapon.Mana) ).Then( () =>
-                        {
-                            return plugin.OnUseWeapon(player, target, itemWeapon);
-                        } );
-                    }
-                    else
-                    {
-                        return Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - plugin.Weapon.Mana) ).Then( () =>
-                        {
-                            var formula = WandFormula(itemWeapon.Metadata.AttackStrength.Value, itemWeapon.Metadata.AttackVariation.Value);
-
-                            return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target,
-                            
-                                new DistanceAttack(itemWeapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
-                        } );
-                    }
-                }
                 else
                 {
                     throw new NotImplementedException();
@@ -321,6 +263,64 @@ namespace OpenTibia.Game.Components
                     
                     new MeleeAttack(formula.Min, formula.Max) ) );
             }
+        }
+
+        private static Item GetWeapon(Player player)
+        {
+            Item item = (Item)player.Inventory.GetContent( (byte)Slot.Left);
+
+            if (item != null && (item.Metadata.WeaponType == WeaponType.Sword || item.Metadata.WeaponType == WeaponType.Club || item.Metadata.WeaponType == WeaponType.Axe || item.Metadata.WeaponType == WeaponType.Distance || item.Metadata.WeaponType == WeaponType.Wand) )
+            {
+                return item;
+            }
+
+            item = (Item)player.Inventory.GetContent( (byte)Slot.Right);
+
+            if (item != null && (item.Metadata.WeaponType == WeaponType.Sword || item.Metadata.WeaponType == WeaponType.Club || item.Metadata.WeaponType == WeaponType.Axe || item.Metadata.WeaponType == WeaponType.Distance || item.Metadata.WeaponType == WeaponType.Wand) )
+            {
+                return item;
+            }
+
+            return null;
+        }
+
+        private static Item GetAmmunition(Player player)
+        {
+            Item item = (Item)player.Inventory.GetContent( (byte)Slot.Extra);
+
+            if (item != null && item.Metadata.WeaponType == WeaponType.Ammo)
+            {
+                return item;
+            }
+
+            return null;
+        }
+
+        private static (int Min, int Max) MeleeFormula(int level, int skill, int attack, FightMode fightMode)
+        {
+            int min = 0;
+
+            int max = (int)Math.Floor(0.085 * (fightMode == FightMode.Offensive ? 1 : fightMode == FightMode.Balanced ? 0.75 : 0.5) * skill * attack) + (int)Math.Floor(level / 5.0);
+
+            return (min, max);
+        }
+
+        private static (int Min, int Max) DistanceFormula(int level, int skill, int attack, FightMode fightMode)
+        {
+            int min = (int)Math.Floor(level / 5.0);
+
+            int max = (int)Math.Floor(0.09 * (fightMode == FightMode.Offensive ? 1 : fightMode == FightMode.Balanced ? 0.75 : 0.5) * skill * attack) + min;
+
+            return (min, max);
+        }
+
+        private static (int Min, int Max) WandFormula(int attackStrength, int attackVariation)
+        {
+            int min = attackStrength - attackVariation;
+
+            int max = attackStrength + attackVariation;
+
+            return (min, max);
         }
     }
 }

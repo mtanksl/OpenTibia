@@ -90,13 +90,13 @@ namespace OpenTibia.Game
             return true;
         }
 
-        public MoveDirection[] GetMoveDirections(Position fromPosition, Position toPosition)
+        public MoveDirection[] GetMoveDirections(Position fromPosition, Position toPosition, bool allowProtectionZone)
         {
             List<MoveDirection> moveDirections = new List<MoveDirection>();
 
             if ( fromPosition.CanHearSay(toPosition) )
             {
-                Position[] positions = AStar(fromPosition, toPosition);
+                Position[] positions = AStar(fromPosition, toPosition, allowProtectionZone);
 
                 for (int i = 0; i < positions.Length - 1 && !positions[i].IsNextTo(toPosition); i++)
                 {
@@ -154,7 +154,7 @@ namespace OpenTibia.Game
             }                
         }
         
-        private Position[] AStar(Position fromPosition, Position toPosition)
+        private Position[] AStar(Position fromPosition, Position toPosition, bool allowProtectionZone)
         {
             bool CanWalk(Position position)
             {
@@ -165,7 +165,7 @@ namespace OpenTibia.Game
 
                 Tile tile = map.GetTile(position);
 
-                if (tile == null || tile.Ground == null || !tile.CanWalk)
+                if (tile == null || tile.Ground == null || tile.NotWalkable || tile.BlockPathFinding || tile.Block || ( !allowProtectionZone && tile.ProtectionZone) )
                 {
                     return false;
                 }

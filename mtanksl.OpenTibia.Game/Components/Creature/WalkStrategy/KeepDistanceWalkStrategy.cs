@@ -7,6 +7,8 @@ namespace OpenTibia.Game.Components
 {
     public class KeepDistanceWalkStrategy : IWalkStrategy
     {
+        public static readonly KeepDistanceWalkStrategy Instance = new KeepDistanceWalkStrategy(3);
+
         private int radius;
 
         public KeepDistanceWalkStrategy(int radius)
@@ -94,8 +96,8 @@ namespace OpenTibia.Game.Components
                     {
                         Tile toTile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(direction) );
 
-                        if (toTile == null || toTile.Ground == null || !toTile.CanWalk)
-                        {
+                        if (toTile == null || toTile.Ground == null || toTile.NotWalkable || toTile.BlockPathFinding || toTile.Block || (attacker is Monster && toTile.ProtectionZone) )
+                        { 
 
                         }
                         else

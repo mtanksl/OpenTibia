@@ -4,13 +4,13 @@ using System;
 
 namespace OpenTibia.Game.Components
 {
-    public abstract class TickScheduledBehaviour : Behaviour
+    public abstract class TickBehaviour : Behaviour
     {
-        private Guid globalTickEventArgs;
+        private Guid globalTick;
 
         public override void Start()
         {
-            globalTickEventArgs = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
+            globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
             {
                 if (e.Index == GameObject.Id % 10)
                 {
@@ -25,7 +25,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop()
         {
-            Context.Server.EventHandlers.Unsubscribe<GlobalTickEventArgs>(globalTickEventArgs);
+            Context.Server.EventHandlers.Unsubscribe<GlobalTickEventArgs>(globalTick);
         }
     }
 }
