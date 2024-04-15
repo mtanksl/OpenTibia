@@ -285,6 +285,18 @@ namespace OpenTibia.Game.Commands
                         descriptions.Add("You are too far away to read it.");
                     } 
                 }
+
+                if (Item.Parent is HouseTile houseTile && Item is DoorItem doorItem)
+                {
+                    if (houseTile.House.Owner != null)
+                    {
+                        descriptions.Add("It belongs to house '" + houseTile.House.Name + "'. " + houseTile.House.Owner + " owns this house.");
+                    }
+                    else
+                    {
+                        descriptions.Add("It belongs to house '" + houseTile.House.Name + "'. Nobody owns this house. It costs " + (houseTile.House.Rent * 5) + " gold coins.");
+                    }
+                }
             }
 
             if (ItemMetadata.Description != null)

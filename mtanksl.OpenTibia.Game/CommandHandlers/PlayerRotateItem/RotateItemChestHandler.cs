@@ -12,7 +12,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(Func<Promise> next, PlayerRotateItemCommand command)
         {
-            if (chests.Contains(command.Item.Metadata.OpenTibiaId) && command.Item.UniqueId > 0)
+            if (command.Item.UniqueId > 0 && chests.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
 

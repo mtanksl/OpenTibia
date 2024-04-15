@@ -13,6 +13,8 @@ namespace OpenTibia.FileFormats.Xml.Npcs
 
             npc.Name = (string)npcNode.Attribute("name");
 
+            npc.NameDescription = (string)npcNode.Attribute("nameDescription");
+
             npc.Speed = (int)npcNode.Attribute("speed");
 
             XElement healthNode = npcNode.Element("health");
@@ -61,6 +63,9 @@ namespace OpenTibia.FileFormats.Xml.Npcs
 
         [XmlAttribute("name")]
         public string Name { get; set; }
+
+        [XmlAttribute("nameDescription")]
+        public string NameDescription { get; set; }
 
         [XmlAttribute("speed")]
         public int Speed { get; set; }

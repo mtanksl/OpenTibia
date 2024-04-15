@@ -14,7 +14,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
-            if (chests.Contains(command.Item.Metadata.OpenTibiaId) && command.Item.UniqueId > 0)
+            if (command.Item.UniqueId > 0 && chests.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 int value;
 

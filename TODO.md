@@ -22,6 +22,7 @@
 - Rings and amulets charges
 - Hangable items
 - Guild
+- Save house items
 - Bed
 - Bless/AOL
 - Map clean up
@@ -67,6 +68,7 @@
 	- Private channel
 	- Rule violation channel
 	- VIP
+		- Database for storing VIPs
 	- Safe Trade
 	- Party
 - Interacting with npc
@@ -86,6 +88,7 @@
 - Interacting with the game world 
 	- Look item
 		- Sign items
+		- House doors
 	- Move item
 	- Rotate item
 	- Use item

@@ -29,9 +29,9 @@ namespace OpenTibia.Game
                 {
                     Name = xmlMonster.Name,
 
-                    Speed = (ushort)xmlMonster.Speed,
-
                     Description = xmlMonster.NameDescription,
+
+                    Speed = (ushort)xmlMonster.Speed,
 
                     Health = (ushort)xmlMonster.Health.Now,
 

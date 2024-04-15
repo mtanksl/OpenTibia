@@ -29,6 +29,8 @@ namespace OpenTibia.Game
                 {
                     Name = xmlNpc.Name,
 
+                    Description = xmlNpc.NameDescription,
+
                     Speed = (ushort)xmlNpc.Speed,
 
                     Health = (ushort)xmlNpc.Health.Now,

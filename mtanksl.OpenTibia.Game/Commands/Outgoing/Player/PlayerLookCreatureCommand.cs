@@ -234,13 +234,13 @@ namespace OpenTibia.Game.Commands
 
                 case Monster monster:
 
-                    builder.Append("You see " + monster.Name + ".");
+                    builder.Append("You see " + monster.Metadata.Description + ".");
 
                     break;
 
                 case Npc npc:
 
-                    builder.Append("You see " + npc.Name + ".");
+                    builder.Append("You see " + npc.Metadata.Description + ".");
 
                     break;
             }
