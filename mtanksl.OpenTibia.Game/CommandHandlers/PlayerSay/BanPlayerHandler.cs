@@ -48,7 +48,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (observer != null)
                     {
-                        return Context.AddCommand(new ParseLogOutCommand(observer) );
+                        return Context.AddCommand(new ShowMagicEffectCommand(observer, MagicEffectType.Puff) ).Then( () =>
+                        {
+                            return Context.AddCommand(new CreatureDestroyCommand(observer) );
+                        } );
                     }
                 }
 

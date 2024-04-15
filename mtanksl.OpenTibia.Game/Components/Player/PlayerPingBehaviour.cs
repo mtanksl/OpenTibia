@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
@@ -39,7 +40,10 @@ namespace OpenTibia.Game.Components
 
                 if (totalMinutes >= 1)
                 {
-                    return Context.AddCommand(new ParseLogOutCommand(player) );
+                    return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.Puff) ).Then( () =>
+                    {
+                        return Context.AddCommand(new CreatureDestroyCommand(player) );
+                    } );
                 }
                 else
                 {

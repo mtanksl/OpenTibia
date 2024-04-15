@@ -9,8 +9,6 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class NoLogoutZoneHandler : EventHandler<TileAddCreatureEventArgs>
     {
-        //TODO: "You may not log out here!"
-
         public override Promise Handle(TileAddCreatureEventArgs e)
         {
             if (e.Creature is Player player)

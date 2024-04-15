@@ -28,7 +28,10 @@ namespace OpenTibia.Game.Components
 
                 if (totalMinutes >= 16)
                 {
-                    return Context.AddCommand(new ParseLogOutCommand(player) );
+                    return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.Puff) ).Then( () =>
+                    {
+                        return Context.AddCommand(new CreatureDestroyCommand(player) );
+                    } );
                 }
                 else if (totalMinutes >= 15)
                 {

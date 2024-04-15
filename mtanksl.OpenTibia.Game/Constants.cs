@@ -76,6 +76,8 @@
         
         public static readonly string YouMayNotAttackThisCreature = "You may not attack this creature.";
 
+        public static readonly string YouMayNotLogOutHere = "You may not log out here!";
+
         public static readonly string YouNeedToLearnThisSpellFirst = "You need to learn this spell first";
 
         public static readonly string YourDepotIsFull = "Your depot is full. Remove surplus items before storing new ones.";

@@ -574,7 +574,10 @@ namespace OpenTibia.Common.Objects
             {
                 server.QueueForExecution( () =>
                 {
-                    return Context.Current.AddCommand(new ParseLogOutCommand(Client.Player) );
+					return Context.Current.AddCommand(new ShowMagicEffectCommand(Client.Player, MagicEffectType.Puff) ).Then( () =>
+					{
+						return Context.Current.AddCommand(new CreatureDestroyCommand(Client.Player) );
+					} );
                 } );
             }
             
