@@ -9,10 +9,18 @@ namespace OpenTibia.Game.Components
     {
         public CreatureConditionBehaviour(Condition condition)
         {
-            Condition = condition;
+            this.condition = condition;
         }
 
-        public Condition Condition { get; set; }
+        private Condition condition;
+
+        public Condition Condition
+        {
+            get
+            {
+                return condition;
+            }
+        }
 
         protected override Promise OnStart()
         {
@@ -52,13 +60,8 @@ namespace OpenTibia.Game.Components
             switch (state)
             {
                 case State.Success:
-                               
-                    Context.Current.Server.GameObjectComponents.RemoveComponent(GameObject, this);
-
-                    break;
-
                 case State.Canceled:
-                             
+
                     Context.Current.Server.GameObjectComponents.RemoveComponent(GameObject, this);
 
                     break;

@@ -3,7 +3,6 @@ using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Events;
 using System;
-using System.Collections.Generic;
 
 namespace OpenTibia.Game.Components
 {
@@ -21,6 +20,8 @@ namespace OpenTibia.Game.Components
         }
 
         private QueueHashSet<Player> queue = new QueueHashSet<Player>();
+
+        private DateTime lastSay;
 
         private async Promise Add(Player player)
         {
@@ -120,10 +121,6 @@ namespace OpenTibia.Game.Components
         private Guid playerSayToNpc;
 
         private Guid globalTick;
-
-        private DateTime lastSay;
-
-        private DateTime nextAttack = DateTime.MinValue;
 
         private DateTime nextWalk = DateTime.MinValue;
 

@@ -125,24 +125,22 @@ namespace OpenTibia.Game.Commands
                     offset = area;
                 }
 
-                Position position = Center.Offset(offset);
-
-                if (MagicEffectType != null)
-                {
-                    await Context.AddCommand(new ShowMagicEffectCommand(position, MagicEffectType.Value) );
-                }
-
-                Tile toTile = Context.Current.Server.Map.GetTile(position);
+                Tile toTile = Context.Current.Server.Map.GetTile(Center.Offset(offset) );
 
                 if (toTile != null)
                 {
-                    if (OpenTibiaId != null)
+                    if (toTile.NotWalkable || toTile.ProtectionZone || !Context.Server.Pathfinding.CanThrow(Center, toTile.Position) )
                     {
-                        if (toTile.NotWalkable || toTile.BlockPathFinding || toTile.ProtectionZone)
-                        {
 
+                    }
+                    else
+                    {
+                        if (MagicEffectType != null)
+                        {
+                            await Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Value) );
                         }
-                        else
+                        
+                        if (OpenTibiaId != null)
                         {
                             await Context.AddCommand(new TileCreateItemCommand(toTile, OpenTibiaId.Value, Count.Value) ).Then( (item) =>
                             {
@@ -151,18 +149,18 @@ namespace OpenTibia.Game.Commands
                                 return Promise.Completed;
                             } );
                         }
-                    }
 
-                    foreach (var monster in toTile.GetMonsters().ToList() )
-                    {
-                        if (Attack != null)
+                        foreach (var monster in toTile.GetMonsters().ToList() )
                         {
-                            await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, monster, Attack) );
-                        }
+                            if (Attack != null)
+                            {
+                                await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, monster, Attack) );
+                            }
 
-                        if (Condition != null)
-                        {
-                            await Context.AddCommand(new CreatureAddConditionCommand(monster, Condition) );
+                            if (Condition != null)
+                            {
+                                await Context.AddCommand(new CreatureAddConditionCommand(monster, Condition) );
+                            }
                         }
                     }
                 }

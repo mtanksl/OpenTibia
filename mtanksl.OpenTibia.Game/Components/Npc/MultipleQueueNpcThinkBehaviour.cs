@@ -111,8 +111,6 @@ namespace OpenTibia.Game.Components
 
         private Guid globalTick;
 
-        private DateTime nextAttack = DateTime.MinValue;
-
         private DateTime nextWalk = DateTime.MinValue;
 
         public override void Start()
