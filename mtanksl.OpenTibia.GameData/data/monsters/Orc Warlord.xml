@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Orc Warlord" nameDescription="a orc warlord" speed="290">
+<monster name="Orc Warlord" nameDescription="an orc warlord" speed="290">
   <health now="950" max="950" />
   <look typeex="0" type="2" head="0" body="0" legs="0" feet="0" corpse="6008" />
   <voices>
