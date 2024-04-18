@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Commands
 
             client.Connection = Connection;
 
-            Player player = Context.Server.GameObjectPool.GetPlayer(DbPlayer.Name);
+            Player player = Context.Server.GameObjectPool.GetPlayerByName(DbPlayer.Name);
 
             if (player == null)
             {

@@ -7,7 +7,7 @@ namespace OpenTibia.Game.Common.ServerObjects
     {
         private Dictionary<string, Player> players = new Dictionary<string, Player>();
 
-        public Player GetPlayer(string name)
+        public Player GetPlayerByName(string name)
         {
             Player player;
 

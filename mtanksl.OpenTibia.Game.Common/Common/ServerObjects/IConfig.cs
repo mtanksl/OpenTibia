@@ -16,8 +16,9 @@ namespace OpenTibia.Game.Common.ServerObjects
         bool GameplayInfinitePotions { get; set; }
         bool GameplayInfiniteArrows { get; set; }
         bool GameplayInfiniteRunes { get; set; }
+        int GameplayMaxVips { get; set; }
         int GameplayMaxDepotItems { get; set; }
-
+        
         int SecurityMaxConnectionsWithSameIpAddress { get; set; }
         int SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds { get; set; }
 

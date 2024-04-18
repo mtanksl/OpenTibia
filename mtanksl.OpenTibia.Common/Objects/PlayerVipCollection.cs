@@ -6,6 +6,14 @@ namespace OpenTibia.Common.Objects
     {
         private Dictionary<int, string> vips = new Dictionary<int, string>();
 
+        public int Count
+        {
+            get
+            {
+                return vips.Count;
+            }
+        }
+
         public bool TryGetVip(int databasePlayerId, out string name)
         {
             return vips.TryGetValue(databasePlayerId, out name);

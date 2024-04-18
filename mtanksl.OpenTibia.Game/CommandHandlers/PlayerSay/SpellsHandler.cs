@@ -28,9 +28,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 string name = command.Message.Substring(index + 2).TrimEnd('\"');
 
-                Creature observer = Context.Server.GameObjects.GetPlayers()
-                    .Where(p => p.Name == name)
-                    .FirstOrDefault();
+                Creature observer = Context.Server.GameObjects.GetPlayerByName(name);
 
                 if (observer != null)
                 {

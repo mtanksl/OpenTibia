@@ -9,6 +9,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         bool RemoveGameObject(GameObject gameObject);
 
+        Player GetPlayerByName(string name);
+
         Creature GetCreature(uint id);
 
         Monster GetMonster(uint id);
@@ -17,6 +19,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         Player GetPlayer(uint id);
 
+        public Item GetItem(uint id);
+
         IEnumerable<Creature> GetCreatures();
 
         IEnumerable<Monster> GetMonsters();
@@ -24,5 +28,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         IEnumerable<Npc> GetNpcs();
 
         IEnumerable<Player> GetPlayers();
+
+        IEnumerable<Item> GetItems();
     }
 }

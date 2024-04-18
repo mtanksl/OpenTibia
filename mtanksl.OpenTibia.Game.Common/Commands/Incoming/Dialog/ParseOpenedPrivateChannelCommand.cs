@@ -20,10 +20,8 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Player observer = Context.Server.GameObjects.GetPlayers()
-                .Where(p => p.Name == Name)
-                .FirstOrDefault();
-            
+            Player observer = Context.Server.GameObjects.GetPlayerByName(Name);
+
             if (observer != null && observer != Player)
             {
                 Context.AddPacket(Player, new OpenPrivateChannelOutgoingPacket(Name) );

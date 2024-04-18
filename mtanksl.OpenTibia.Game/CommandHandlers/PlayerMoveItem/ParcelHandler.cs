@@ -43,7 +43,7 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 string playerName = text[0];
 
-                                Player player = Context.Server.GameObjectPool.GetPlayer(playerName);
+                                Player player = Context.Server.GameObjectPool.GetPlayerByName(playerName);
 
                                 if (player != null)
                                 {

@@ -14,7 +14,8 @@ server = {
 		infinitepotions = false,
 		infinitearrows = false,
 		infiniterunes = false,
-		maxdepotitems = 2000
+		maxvips = 100,
+		maxdepotitems = 2000,
 	},
 	security = {
 		-- multi-client

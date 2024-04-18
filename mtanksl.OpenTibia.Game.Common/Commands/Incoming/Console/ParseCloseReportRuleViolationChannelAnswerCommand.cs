@@ -3,7 +3,6 @@ using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Network.Packets.Outgoing;
-using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -24,9 +23,7 @@ namespace OpenTibia.Game.Commands
         {
             if (Player.Rank == Rank.Gamemaster)
             {
-                Player reporter = Context.Server.GameObjects.GetPlayers()
-                    .Where(p => p.Name == Name)
-                    .FirstOrDefault();
+                Player reporter = Context.Server.GameObjects.GetPlayerByName(Name);
 
                 if (reporter != null)
                 {

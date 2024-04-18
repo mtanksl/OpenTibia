@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
 
             foreach (var pair in Player.Vips.GetIndexed() )
             {
-                Context.AddPacket(Player, new VipOutgoingPacket( (uint)pair.Key, pair.Value, false) );
+                Context.AddPacket(Player, new VipOutgoingPacket( (uint)pair.Key, pair.Value, Context.Server.GameObjects.GetPlayerByName(pair.Value) != null) );
             }
 
             Context.AddEvent(new PlayerLoginEventArgs(Player.Tile, Player) );

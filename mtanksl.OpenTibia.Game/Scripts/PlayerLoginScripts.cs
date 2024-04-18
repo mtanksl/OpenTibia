@@ -8,6 +8,8 @@ namespace OpenTibia.Game.Scripts
         {
             Context.Server.EventHandlers.Subscribe(new PlayerLoginScriptingHandler() );
 
+            Context.Server.EventHandlers.Subscribe(new PlayerLoginVipHandler() );
+
             Context.Server.EventHandlers.Subscribe(new WelcomeHandler() );
         }
 

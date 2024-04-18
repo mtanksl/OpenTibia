@@ -27,9 +27,7 @@ namespace OpenTibia.Game.Commands
         {
             // *<player>* <message>
 
-            Player observer = Context.Server.GameObjects.GetPlayers()
-                .Where(p => p.Name == Name)
-                .FirstOrDefault();
+            Player observer = Context.Server.GameObjects.GetPlayerByName(Name);
 
             if (observer != null && observer != Player)
             {

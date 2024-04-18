@@ -5,7 +5,6 @@ using OpenTibia.Game.GameObjectScripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using Monster = OpenTibia.Common.Objects.Monster;
 
 namespace OpenTibia.Game.Common.ServerObjects

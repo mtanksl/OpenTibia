@@ -20,6 +20,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             // { typeof(Item), new Dictionary<uint, GameObject>() }
         };
 
+        private Dictionary<string, Player> players = new Dictionary<string, Player>();
+
         private uint uniqueId = 0;
 
         private uint GenerateId()
@@ -55,8 +57,10 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     buckets[ typeof(Npc) ].Add(gameObject.Id, gameObject);
                 }
-                else if (gameObject is Player)
+                else if (gameObject is Player player)
                 {
+                    players.Add(player.Name, player);
+
                     buckets[ typeof(Player) ].Add(gameObject.Id, gameObject);
                 }
             }
@@ -84,8 +88,10 @@ namespace OpenTibia.Game.Common.ServerObjects
                     {
                         buckets[ typeof(Npc) ].Remove(gameObject.Id);
                     }
-                    else if (gameObject is Player)
+                    else if (gameObject is Player player)
                     {
+                        players.Remove(player.Name);
+
                         buckets[ typeof(Player) ].Remove(gameObject.Id);
                     }
                 }
@@ -98,6 +104,15 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
 
             return false;
+        }
+
+        public Player GetPlayerByName(string name)
+        {
+            Player player;
+
+            players.TryGetValue(name, out player);
+
+            return player;
         }
 
         private GameObject GetGameObject(uint id, Type type)
@@ -145,10 +160,10 @@ namespace OpenTibia.Game.Common.ServerObjects
             return GetGameObject<Player>(id);
         }
 
-        // public Item GetItem(uint id)
-        // {
-        //     return GetGameObject<Item>(id);
-        // }
+        public Item GetItem(uint id)
+        {
+            return GetGameObject<Item>(id);
+        }
 
         private IEnumerable<GameObject> GetGameObjects(Type type)
         {
@@ -191,9 +206,9 @@ namespace OpenTibia.Game.Common.ServerObjects
             return GetGameObjects<Player>();
         }
 
-        // public IEnumerable<Item> GetItems()
-        // {
-        //     return GetGameObjects<Item>();
-        // }
+        public IEnumerable<Item> GetItems()
+        {
+            return GetGameObjects<Item>();
+        }
     }
 }

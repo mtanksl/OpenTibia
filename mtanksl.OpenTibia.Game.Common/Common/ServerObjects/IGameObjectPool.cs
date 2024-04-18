@@ -5,7 +5,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 {
     public interface IGameObjectPool
     {
-        Player GetPlayer(string name);
+        Player GetPlayerByName(string name);
 
         void AddPlayer(Player player);
 
