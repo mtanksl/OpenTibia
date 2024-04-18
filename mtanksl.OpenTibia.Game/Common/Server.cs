@@ -36,6 +36,8 @@ namespace OpenTibia.Game.Common
 
             gameServer = new Listener(socket => new GameConnection(this, socket) );
 
+            ClientFactory = new ClientFactory(this);
+
             DatabaseFactory = new DatabaseFactory(this, builder =>
             {
                 switch (Config.DatabaseType)
@@ -100,6 +102,8 @@ namespace OpenTibia.Game.Common
 
             LuaScripts = new LuaScriptCollection(this);
 
+            PluginLoader = new PluginLoader(this);
+
             Config = new Config(this);
 
             Quests = new QuestCollection(this);
@@ -120,7 +124,7 @@ namespace OpenTibia.Game.Common
 
             Pathfinding = new Pathfinding(Map);
 
-            Scripts = new ScriptCollection();
+            Scripts = new ScriptCollection(this);
         }
 
         ~Server()
@@ -137,6 +141,8 @@ namespace OpenTibia.Game.Common
         private Listener loginServer;
 
         private Listener gameServer;
+
+        public IClientFactory ClientFactory { get; set; }
 
         public IDatabaseFactory DatabaseFactory { get; set; }
 
@@ -178,6 +184,8 @@ namespace OpenTibia.Game.Common
 
         public ILuaScriptCollection LuaScripts { get; set; }
 
+        public IPluginLoader PluginLoader { get; set; }
+
         public IConfig Config { get; set; }
 
         public IQuestCollection Quests { get; set; }
@@ -213,7 +221,12 @@ namespace OpenTibia.Game.Common
                 Logger.WriteLine("Source code: https://github.com/mtanksl/OpenTibia");
 
                 Logger.WriteLine();
-                               
+                            
+                using (Logger.Measure("Loading dlls") )
+                {
+                    PluginLoader.Start();
+                }
+
                 using (Logger.Measure("Loading server config") )
                 {
                     Config.Start();
@@ -261,23 +274,21 @@ namespace OpenTibia.Game.Common
                     Scripts.Start();
                 }
 
-                Map map = (Map)Map;
-
                 using (Logger.Measure("Loading map") )
                 {
-                    map.Start(OtbmFile.Load(PathResolver.GetFullPath("data/world/map.otbm") ), 
+                    Map.Start(OtbmFile.Load(PathResolver.GetFullPath("data/world/map.otbm") ), 
                               SpawnFile.Load(PathResolver.GetFullPath("data/world/map-spawn.xml") ), 
                               HouseFile.Load(PathResolver.GetFullPath("data/world/map-house.xml") ) );
                 }
 
-                if (map.UnknownMonsters.Count > 0)
+                if (Map.UnknownMonsters.Count > 0)
                 {
-                    Logger.WriteLine("Unable to load monsters: " + string.Join(", ", map.UnknownMonsters), LogLevel.Warning);
+                    Logger.WriteLine("Unable to load monsters: " + string.Join(", ", Map.UnknownMonsters), LogLevel.Warning);
                 }
 
-                if (map.UnknownNpcs.Count > 0)
+                if (Map.UnknownNpcs.Count > 0)
                 {
-                    Logger.WriteLine("Unable to load npcs: " + string.Join(", ", map.UnknownNpcs), LogLevel.Warning);
+                    Logger.WriteLine("Unable to load npcs: " + string.Join(", ", Map.UnknownNpcs), LogLevel.Warning);
                 }
 
                 using (Logger.Measure("Testing database") )
@@ -727,6 +738,11 @@ namespace OpenTibia.Game.Common
                     if (gameServer != null)
                     {
                         gameServer.Dispose();
+                    }
+
+                    if (PluginLoader != null)
+                    {
+                        PluginLoader.Dispose();
                     }
                 }
             }

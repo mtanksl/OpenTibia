@@ -50,7 +50,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 gameObjectScripts.Add(gameObjectScript.Key, gameObjectScript);
             }
 #else
-            foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(GameObjectScript<string, Npc>).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract) )
+            foreach (var type in server.PluginLoader.GetTypes(typeof(GameObjectScript<string, Npc>) ) )
             {
                 GameObjectScript<string, Npc> gameObjectScript = (GameObjectScript<string, Npc>)Activator.CreateInstance(type);
 

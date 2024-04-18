@@ -6,16 +6,8 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class SendMapUpOutgoingPacket : SendMapOutgoingPacket
     {
-        private IMap map;
-
-        private IClient client;
-
-        public SendMapUpOutgoingPacket(IMap map, IClient client, Position position) : base(map, client)
+        public SendMapUpOutgoingPacket(IMapGetTile map, IClient client, Position position) : base(map, client)
         {
-            this.map = map;
-
-            this.client = client;
-
             this.Position = position;
         }
 

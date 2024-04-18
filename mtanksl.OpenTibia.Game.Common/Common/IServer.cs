@@ -1,5 +1,4 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common.ServerObjects;
 using System;
 
@@ -8,6 +7,8 @@ namespace OpenTibia.Game.Common
     public interface IServer : IDisposable
     {
         ServerStatus Status { get; }
+
+        IClientFactory ClientFactory { get; set; }
 
         IDatabaseFactory DatabaseFactory { get; set; }
 
@@ -48,6 +49,8 @@ namespace OpenTibia.Game.Common
         IEventHandlerCollection EventHandlers { get; set; }
 
         ILuaScriptCollection LuaScripts { get; set; }
+
+        IPluginLoader PluginLoader { get; set; }
 
         IConfig Config { get; set; }
 

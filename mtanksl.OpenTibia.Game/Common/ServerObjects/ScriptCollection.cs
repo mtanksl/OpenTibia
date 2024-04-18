@@ -8,6 +8,13 @@ namespace OpenTibia.Game.Common.ServerObjects
 {
     public class ScriptCollection : IScriptCollection
     {
+        private IServer server;
+
+        public ScriptCollection(IServer server)
+        {
+            this.server = server;
+        }
+
         public void Start()
         {
 #if AOT
@@ -16,7 +23,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 scripts.Add(script);
             }
 #else
-            foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => typeof(Script).IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract) )
+            foreach (var type in server.PluginLoader.GetTypes(typeof(Script) ) )
             {
                 Script script = (Script)Activator.CreateInstance(type);
 

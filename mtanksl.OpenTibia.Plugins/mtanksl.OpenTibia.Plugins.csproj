@@ -2,11 +2,18 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-  </PropertyGroup>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\mtanksl.OpenTibia.Common\mtanksl.OpenTibia.Common.csproj" />
-    <ProjectReference Include="..\mtanksl.OpenTibia.Game.Common\mtanksl.OpenTibia.Game.Common.csproj" />
+    <ProjectReference Include="..\mtanksl.OpenTibia.Common\mtanksl.OpenTibia.Common.csproj">
+        <Private>false</Private>
+        <ExcludeAssets>runtime</ExcludeAssets>
+    </ProjectReference>
+    <ProjectReference Include="..\mtanksl.OpenTibia.Game.Common\mtanksl.OpenTibia.Game.Common.csproj">
+      <Private>false</Private>
+      <ExcludeAssets>runtime</ExcludeAssets>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>

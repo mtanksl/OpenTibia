@@ -8,11 +8,11 @@ namespace OpenTibia.Network.Packets.Outgoing
     {
         private const byte Separator = 0xFF;
 
-        private IMap map;
+        private IMapGetTile map;
 
         private IClient client;
 
-        public SendMapOutgoingPacket(IMap map, IClient client)
+        public SendMapOutgoingPacket(IMapGetTile map, IClient client)
         {
             this.map = map;
 

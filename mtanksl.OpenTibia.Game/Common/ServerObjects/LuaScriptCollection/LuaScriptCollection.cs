@@ -884,7 +884,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 #endif
         public object Cast(object obj, string typeName)
         {
-            return Convert.ChangeType(obj, Type.GetType(typeName) );
+            return Convert.ChangeType(obj, server.PluginLoader.GetType(typeName) );
         }
 
 #if AOT
