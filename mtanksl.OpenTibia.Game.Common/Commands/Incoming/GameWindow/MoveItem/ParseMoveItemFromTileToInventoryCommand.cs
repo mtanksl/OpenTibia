@@ -47,7 +47,7 @@ namespace OpenTibia.Game.Commands
                         {
                             if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
                             {
-                                return Context.AddCommand(new CreatureWalkToCommand(Player, fromTile) ).Then( () =>
+                                return Context.AddCommand(new PlayerWalkToCommand(Player, fromTile) ).Then( () =>
                                 {
                                     return Execute();
                                 } );

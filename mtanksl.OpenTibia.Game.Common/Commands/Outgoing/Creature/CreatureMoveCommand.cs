@@ -24,11 +24,11 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            PlayerWalkDelayBehaviour creatureWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkDelayBehaviour>(Creature);
+            PlayerWalkDelayBehaviour playerWalkDelayBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerWalkDelayBehaviour>(Creature);
 
-            if (creatureWalkDelayBehaviour != null)
+            if (playerWalkDelayBehaviour != null)
             {
-                Context.Server.GameObjectComponents.RemoveComponent(Creature, creatureWalkDelayBehaviour);
+                Context.Server.GameObjectComponents.RemoveComponent(Creature, playerWalkDelayBehaviour);
             }
 
             Dictionary<Player, byte> canSeeFrom = new Dictionary<Player, byte>();
