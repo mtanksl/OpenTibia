@@ -132,14 +132,17 @@ namespace OpenTibia.Game.Commands
             {
                 attributes.Add("Item Id: " + ItemMetadata.OpenTibiaId);
 
-                if (Item.ActionId > 0)
+                if (Item != null)
                 {
-                    attributes.Add("Action Id: " + Item.ActionId);
-                }
+                    if (Item.ActionId > 0)
+                    {
+                        attributes.Add("Action Id: " + Item.ActionId);
+                    }
 
-                if (Item.UniqueId > 0)
-                {
-                    attributes.Add("Unique Id: " + Item.UniqueId);
+                    if (Item.UniqueId > 0)
+                    {
+                        attributes.Add("Unique Id: " + Item.UniqueId);
+                    }
                 }
             }
 
