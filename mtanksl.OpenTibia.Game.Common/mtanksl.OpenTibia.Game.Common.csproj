@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>11</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NLua" Version="1.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\mtanksl.OpenTibia.Common\mtanksl.OpenTibia.Common.csproj" />
+    <ProjectReference Include="..\mtanksl.OpenTibia.Data.Common\mtanksl.OpenTibia.Data.Common.csproj" />
+    <ProjectReference Include="..\mtanksl.OpenTibia.FileFormats\mtanksl.OpenTibia.FileFormats.csproj" />
+    <ProjectReference Include="..\mtanksl.OpenTibia.Network\mtanksl.OpenTibia.Network.csproj" />
+    <ProjectReference Include="..\mtanksl.OpenTibia.Threading\mtanksl.OpenTibia.Threading.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,4 +1,6 @@
 ﻿using OpenTibia.Game.Commands;
+using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Linq;
 

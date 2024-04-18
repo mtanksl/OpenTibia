@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace OpenTibia.Data.Repositories
 {
-    public class HouseRepository
+    public class HouseRepository : IHouseRepository
     {
         private DatabaseContext context;
 

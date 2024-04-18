@@ -1,10 +1,9 @@
 ﻿using NLua;
-using System;
 using System.Collections.Generic;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class QuestCollection : IDisposable
+    public class QuestCollection : IQuestCollection
     {
         private IServer server;
 

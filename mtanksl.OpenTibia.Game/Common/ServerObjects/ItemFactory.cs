@@ -11,9 +11,9 @@ using System.Reflection;
 using Item = OpenTibia.Common.Objects.Item;
 using ItemFlags = OpenTibia.FileFormats.Dat.ItemFlags;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class ItemFactory
+    public class ItemFactory : IItemFactory
     {
         private IServer server;
 

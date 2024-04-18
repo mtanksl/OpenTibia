@@ -1,7 +1,8 @@
-﻿using System;
+﻿using OpenTibia.Common.Objects;
+using System;
 using System.Collections.Generic;
 
-namespace OpenTibia.Common.Objects
+namespace OpenTibia.Common
 {
     public class ContainerCollection : IContainerCollection
     {

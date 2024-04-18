@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Structures;
-using OpenTibia.Game;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.IO;
 using OpenTibia.Network.Packets.Incoming;
 using OpenTibia.Network.Packets.Outgoing;
@@ -10,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 
-namespace OpenTibia.Common.Objects
+namespace OpenTibia.Common
 {
     public class GameConnection : RateLimitingConnection
     {

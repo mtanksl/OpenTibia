@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Common;
 using OpenTibia.Game.Events;
 using System.Collections.Generic;
 
@@ -23,7 +24,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         if (shallowWaters.Contains(fromTile.Ground.Metadata.OpenTibiaId) )
                         {
-                            return Context.AddCommand(new CreatureUpdateOutfitCommand(e.Creature, e.Creature.BaseOutfit, e.Creature.BaseOutfit));
+                            return Context.AddCommand(new CreatureUpdateOutfitCommand(e.Creature, e.Creature.BaseOutfit, e.Creature.BaseOutfit) );
                         }
                     }
                 }

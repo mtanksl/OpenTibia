@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace OpenTibia.Data.Repositories
 {
-    public class PlayerRepository
+    public class PlayerRepository : IPlayerRepository
     {
         private DatabaseContext context;
 

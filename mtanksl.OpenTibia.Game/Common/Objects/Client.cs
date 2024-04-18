@@ -1,7 +1,8 @@
-﻿using OpenTibia.Common.Structures;
-using OpenTibia.Game;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
+using OpenTibia.Game.Common;
 
-namespace OpenTibia.Common.Objects
+namespace OpenTibia.Common
 {
     public class Client : IClient
     {

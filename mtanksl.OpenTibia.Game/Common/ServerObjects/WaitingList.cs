@@ -1,11 +1,10 @@
-﻿using OpenTibia.Game;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OpenTibia.Common.Objects
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class WaitingList
+    public class WaitingList : IWaitingList
     {
         private class WaitingItem
         {

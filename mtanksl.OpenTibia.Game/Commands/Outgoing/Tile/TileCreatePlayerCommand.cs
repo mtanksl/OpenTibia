@@ -1,6 +1,8 @@
-﻿using OpenTibia.Common.Objects;
+﻿using OpenTibia.Common;
+using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Data.Models;
+using OpenTibia.Game.Common;
 
 namespace OpenTibia.Game.Commands
 {

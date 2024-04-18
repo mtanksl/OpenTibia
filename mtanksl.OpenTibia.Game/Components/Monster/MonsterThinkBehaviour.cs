@@ -1,9 +1,9 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Common;
 using OpenTibia.Game.Events;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace OpenTibia.Game.Components
@@ -84,7 +84,7 @@ namespace OpenTibia.Game.Components
                                 {
                                     nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / monster.Speed);
 
-                                    await Context.Current.AddCommand(new CreatureMoveCommand(monster, toTile));
+                                    await Context.Current.AddCommand(new CreatureMoveCommand(monster, toTile) );
                                 }
                             }
                         }

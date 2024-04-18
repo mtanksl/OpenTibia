@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
     public class ConsoleLoggerProvider : ILoggerProvider
     {

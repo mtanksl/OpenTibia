@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Common;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(Func<Promise> next, PlayerTradeWithCommand command)
         {
-            if (command.Item.UniqueId > 0 && chests.Contains(command.Item.Metadata.OpenTibiaId))
+            if (command.Item.UniqueId > 0 && chests.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
 

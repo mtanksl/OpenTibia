@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class TradingCollection
+    public class TradingCollection : ITradingCollection
     {
         private List<Trading> tradings = new List<Trading>();
 

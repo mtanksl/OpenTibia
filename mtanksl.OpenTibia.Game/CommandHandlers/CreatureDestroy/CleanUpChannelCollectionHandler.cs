@@ -1,5 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Linq;

@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Data.Models;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Common;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 

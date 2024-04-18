@@ -1,13 +1,12 @@
-﻿using OpenTibia.Game.Commands;
-using OpenTibia.Game.EventHandlers;
+﻿using OpenTibia.Game.EventHandlers;
 using OpenTibia.Game.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class EventHandlerCollection
+    public class EventHandlerCollection : IEventHandlerCollection
     {
         private Dictionary<Type, Dictionary<Guid, IEventHandler> > types = new Dictionary<Type, Dictionary<Guid, IEventHandler> >();
 

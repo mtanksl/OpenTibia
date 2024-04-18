@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class CommandHandlerCollection
+    public class CommandHandlerCollection : ICommandHandlerCollection
     {
         private Dictionary<Type, Dictionary<Guid, object> > types = new Dictionary<Type, Dictionary<Guid, object> >();
 

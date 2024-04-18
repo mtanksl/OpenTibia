@@ -1,9 +1,10 @@
-﻿using OpenTibia.Game.Commands;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Commands;
 using OpenTibia.IO;
 using OpenTibia.Network.Packets.Incoming;
 using System;
 
-namespace OpenTibia.Common.Objects
+namespace OpenTibia.Game.Common.ServerObjects
 {
     public class PacketToCommand<T> : IPacketToCommand where T : IIncomingPacket, new()
     {

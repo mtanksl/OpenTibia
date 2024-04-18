@@ -1,4 +1,5 @@
-﻿using OpenTibia.Game;
+﻿using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -8,7 +9,7 @@ namespace mtanksl.OpenTibia.Host.GUI
 {
     public partial class MainForm : Form
     {
-        private Server server;
+        private IServer server;
 
         public MainForm()
         {

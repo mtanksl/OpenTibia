@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Game.Common;
 using System;
 
 namespace OpenTibia.Game.Components

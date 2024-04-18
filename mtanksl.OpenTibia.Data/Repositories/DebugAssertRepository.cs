@@ -3,7 +3,7 @@ using OpenTibia.Data.Models;
 
 namespace OpenTibia.Data.Repositories
 {
-    public class DebugAssertRepository
+    public class DebugAssertRepository : IDebugAssertRepository
     {
         private DatabaseContext context;
 

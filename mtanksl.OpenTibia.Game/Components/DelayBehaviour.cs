@@ -1,4 +1,4 @@
-﻿using OpenTibia.Game.Commands;
+﻿using OpenTibia.Game.Common;
 using System;
 
 namespace OpenTibia.Game.Components

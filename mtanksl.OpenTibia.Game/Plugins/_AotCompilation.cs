@@ -1,5 +1,4 @@
 ﻿#if AOT
-using OpenTibia.Game.Components;
 using OpenTibia.GameData.Plugins.Ammunitions;
 using OpenTibia.GameData.Plugins.Runes;
 using OpenTibia.GameData.Plugins.Spells;

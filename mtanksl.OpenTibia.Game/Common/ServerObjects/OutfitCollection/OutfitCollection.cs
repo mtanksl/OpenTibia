@@ -1,11 +1,10 @@
 ﻿using NLua;
 using OpenTibia.Common.Structures;
-using System;
 using System.Collections.Generic;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class OutfitCollection : IDisposable
+    public class OutfitCollection : IOutfitCollection
     {
         private IServer server;
 

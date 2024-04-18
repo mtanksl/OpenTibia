@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace OpenTibia.Data.Repositories
 {
-    public class MotdRepository
+    public class MotdRepository : IMotdRepository
     {
         private DatabaseContext context;
 

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class RuleViolationCollection
+    public class RuleViolationCollection : IRuleViolationCollection
     {
         private List<RuleViolation> ruleViolations = new List<RuleViolation>();
 

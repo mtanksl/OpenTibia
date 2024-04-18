@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class GuildCollection
+    public class GuildCollection : IGuildCollection
     {
         private List<Guild> guilds = new List<Guild>();
 

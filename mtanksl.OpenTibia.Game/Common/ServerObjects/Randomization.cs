@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class Randomization
+    public class Randomization : IRandomization
     {
         private Random random = new Random();
 

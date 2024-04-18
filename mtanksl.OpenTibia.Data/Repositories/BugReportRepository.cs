@@ -3,7 +3,7 @@ using OpenTibia.Data.Models;
 
 namespace OpenTibia.Data.Repositories
 {
-    public class BugReportRepository
+    public class BugReportRepository : IBugReportRepository
     {
         private DatabaseContext context;
 

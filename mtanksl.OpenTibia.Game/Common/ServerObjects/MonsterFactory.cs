@@ -8,9 +8,9 @@ using System.Linq;
 using System.Reflection;
 using Monster = OpenTibia.Common.Objects.Monster;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class MonsterFactory
+    public class MonsterFactory : IMonsterFactory
     {
         private IServer server;
 

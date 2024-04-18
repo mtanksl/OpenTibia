@@ -1,9 +1,9 @@
 ﻿using OpenTibia.Common.Objects;
 using System.Collections.Generic;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class GameObjectPool
+    public class GameObjectPool : IGameObjectPool
     {
         private Dictionary<string, Player> players = new Dictionary<string, Player>();
 

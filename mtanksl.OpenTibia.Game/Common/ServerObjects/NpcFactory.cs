@@ -8,9 +8,9 @@ using System.Linq;
 using System.Reflection;
 using Npc = OpenTibia.Common.Objects.Npc;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class NpcFactory
+    public class NpcFactory : INpcFactory
     {
         private IServer server;
 

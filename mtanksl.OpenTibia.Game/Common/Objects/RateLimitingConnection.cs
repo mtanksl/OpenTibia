@@ -1,8 +1,8 @@
-﻿using OpenTibia.Game;
+﻿using OpenTibia.Game.Common;
 using OpenTibia.Network.Sockets;
 using System.Net.Sockets;
 
-namespace OpenTibia.Common.Objects
+namespace OpenTibia.Common
 {
     public abstract class RateLimitingConnection : Connection
     {

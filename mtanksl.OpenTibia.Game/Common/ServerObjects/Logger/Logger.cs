@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class Logger
+    public class Logger : ILogger
     {
         private readonly object sync = new object();
 

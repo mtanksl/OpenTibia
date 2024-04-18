@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class ScriptCollection
+    public class ScriptCollection : IScriptCollection
     {
         public void Start()
         {

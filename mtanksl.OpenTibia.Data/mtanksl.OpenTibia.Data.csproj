@@ -8,4 +8,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\mtanksl.OpenTibia.Data.Common\mtanksl.OpenTibia.Data.Common.csproj" />
+  </ItemGroup>
+
 </Project>

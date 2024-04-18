@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using OpenTibia.Data.Contexts;
 using System;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class DatabaseFactory
+    public class DatabaseFactory : IDatabaseFactory
     {
         private IServer server;
 
@@ -18,7 +18,7 @@ namespace OpenTibia.Game
             this.factory = factory;
         }
 
-        public DatabaseContext Create()
+        public IDatabase Create()
         {
             var builder = new DbContextOptionsBuilder();
 
@@ -34,7 +34,9 @@ namespace OpenTibia.Game
                     DbContextLoggerOptions.SingleLine
             );
 
-            return factory(builder);
+            DatabaseContext databaseContext = factory(builder);
+
+            return new Database(databaseContext);
         }
     }
 }

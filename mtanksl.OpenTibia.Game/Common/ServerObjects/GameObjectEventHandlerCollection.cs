@@ -1,14 +1,13 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Game.Commands;
 using OpenTibia.Game.EventHandlers;
 using OpenTibia.Game.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class GameObjectEventHandlerCollection
+    public class GameObjectEventHandlerCollection : IGameObjectEventHandlerCollection
     {
         private Dictionary<uint, EventHandlerCollection> buckets = new Dictionary<uint, EventHandlerCollection>();
 

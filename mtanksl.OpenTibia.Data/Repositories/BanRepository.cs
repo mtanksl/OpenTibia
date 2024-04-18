@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace OpenTibia.Data.Repositories
 {
-    public class BanRepository
+    public class BanRepository : IBanRepository
     {
         private DatabaseContext context;
 

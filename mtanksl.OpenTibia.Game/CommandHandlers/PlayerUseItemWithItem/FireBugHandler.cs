@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Common;
 using System;
 using System.Collections.Generic;
 

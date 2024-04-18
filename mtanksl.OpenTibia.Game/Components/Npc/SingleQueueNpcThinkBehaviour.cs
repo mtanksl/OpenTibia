@@ -1,7 +1,9 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Common;
 using OpenTibia.Game.Events;
+using OpenTibia.Game.Plugins;
 using System;
 
 namespace OpenTibia.Game.Components

@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Common;
 using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 using System.Collections.Generic;
@@ -29,7 +30,7 @@ namespace OpenTibia.Game.Commands
                 {
                     byte clientIndex;
 
-                    if (observer.Client.TryGetIndex(Creature, out clientIndex))
+                    if (observer.Client.TryGetIndex(Creature, out clientIndex) )
                     {
                         canSeeFrom.Add(observer, clientIndex);
                     }
@@ -43,7 +44,7 @@ namespace OpenTibia.Game.Commands
                 {
                     byte clientIndex;
 
-                    if (observer.Client.TryGetIndex(Creature, out clientIndex))
+                    if (observer.Client.TryGetIndex(Creature, out clientIndex) )
                     {
                         canSeeTo.Add(observer, clientIndex);
                     }

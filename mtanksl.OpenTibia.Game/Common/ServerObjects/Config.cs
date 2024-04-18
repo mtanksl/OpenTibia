@@ -1,6 +1,6 @@
-﻿namespace OpenTibia.Game
+﻿namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class Config
+    public class Config : IConfig
     {
         private IServer server;
 

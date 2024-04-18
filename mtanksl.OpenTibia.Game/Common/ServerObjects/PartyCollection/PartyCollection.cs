@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class PartyCollection
+    public class PartyCollection : IPartyCollection
     {
         private List<Party> parties = new List<Party>();
 

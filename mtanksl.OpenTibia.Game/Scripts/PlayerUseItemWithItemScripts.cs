@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.CommandHandlers;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Common;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Scripts
@@ -60,7 +61,7 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new MacheteHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new ObsidianKnifeHandler());
+            Context.Server.CommandHandlers.AddCommandHandler(new ObsidianKnifeHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new PickHandler() );
 

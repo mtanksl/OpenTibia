@@ -1,8 +1,8 @@
 ﻿using System.IO;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class PathResolver
+    public class PathResolver : IPathResolver
     {
         public bool Exists(string relativePath)
         {

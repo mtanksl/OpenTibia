@@ -1,5 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OpenTibia.Game.Commands;
+using OpenTibia.Game.Common;
 using System;
 
 namespace mtanksl.OpenTibia.Tests

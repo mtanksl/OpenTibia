@@ -3,9 +3,9 @@ using OpenTibia.Common.Structures;
 using System;
 using System.Collections.Generic;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class Pathfinding
+    public class Pathfinding : IPathfinding
     {
         private class Node : IComparable<Node>
         {

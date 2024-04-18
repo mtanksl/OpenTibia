@@ -1,8 +1,9 @@
-﻿using OpenTibia.Game;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Common;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OpenTibia.Common.Objects
+namespace OpenTibia.Common
 {
     public class BattleCollection : IBattleCollection
     {

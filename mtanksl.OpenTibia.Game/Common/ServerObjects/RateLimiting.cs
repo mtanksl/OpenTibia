@@ -1,10 +1,9 @@
-﻿using OpenTibia.Game;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
-namespace OpenTibia.Common.Objects
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class RateLimiting
+    public class RateLimiting : IRateLimiting
     {
         private class RateLimitItem
         {

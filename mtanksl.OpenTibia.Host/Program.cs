@@ -1,4 +1,5 @@
-﻿using OpenTibia.Game;
+﻿using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 
 namespace OpenTibia.Host

@@ -1,15 +1,14 @@
 ﻿using NLua;
 using OpenTibia.Common.Structures;
-using OpenTibia.Game.Components;
 using OpenTibia.Game.Plugins;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class PluginCollection : IDisposable
+    public class PluginCollection : IPluginCollection
     {
         private class PluginListCached<TValue> where TValue : Plugin
         {
@@ -938,6 +937,16 @@ namespace OpenTibia.Game
             }
         }
 
+        public void AddCreatureStepOutPlugin(ushort openTibiaId, LuaScope script, LuaTable parameters)
+        {
+            AddCreatureStepOutPlugin(openTibiaId, new LuaScriptingCreatureStepOutPlugin(script, parameters));
+        }
+
+        public CreatureStepOutPlugin GetCreatureStepOutPlugin(ushort openTibiaId)
+        {
+            return creatureStepOutPlugins.GetPlugin(openTibiaId);
+        }
+
         private PluginDictionaryCached<ushort, InventoryEquipPlugin> inventoryEquipPlugins = new PluginDictionaryCached<ushort, InventoryEquipPlugin>();
 
         public void AddInventoryEquipPlugin(ushort openTibiaId, InventoryEquipPlugin inventoryEquipPlugin)
@@ -1002,16 +1011,6 @@ namespace OpenTibia.Game
         public InventoryDeEquipPlugin GetInventoryDeEquipPlugin(ushort openTibiaId)
         {
             return inventoryDeEquipPlugins.GetPlugin(openTibiaId);
-        }
-
-        public void AddCreatureStepOutPlugin(ushort openTibiaId, LuaScope script, LuaTable parameters)
-        {
-            AddCreatureStepOutPlugin(openTibiaId, new LuaScriptingCreatureStepOutPlugin(script, parameters) );
-        }
-
-        public CreatureStepOutPlugin GetCreatureStepOutPlugin(ushort openTibiaId)
-        {
-            return creatureStepOutPlugins.GetPlugin(openTibiaId);
         }
 
         private PluginDictionaryCached<string, PlayerSayPlugin> playerSayPlugins = new PluginDictionaryCached<string, PlayerSayPlugin>();
@@ -1089,7 +1088,7 @@ namespace OpenTibia.Game
 
         public void AddPlayerLogoutPlugin(string fileName)
         {
-            if (fileName.EndsWith(".lua"))
+            if (fileName.EndsWith(".lua") )
             {
                 AddPlayerLogoutPlugin(new LuaScriptingPlayerLogoutPlugin(fileName) );
             }

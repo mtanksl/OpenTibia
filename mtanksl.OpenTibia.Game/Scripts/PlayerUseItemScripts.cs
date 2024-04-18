@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.CommandHandlers;
 using OpenTibia.Game.Commands;
+using OpenTibia.Game.Common;
 using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Scripts

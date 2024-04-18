@@ -13,12 +13,12 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
 #if AOT
     [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicMethods)]
 #endif
-    public class LuaScriptCollection : IDisposable
+    public class LuaScriptCollection : ILuaScriptCollection
     {
         private LuaScope lua;
 

@@ -3,9 +3,9 @@ using OpenTibia.Game.Components;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OpenTibia.Game
+namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class GameObjectComponentCollection
+    public class GameObjectComponentCollection : IGameObjectComponentCollection
     {
         private Dictionary<uint, List<Component> > buckets = new Dictionary<uint, List<Component> >();
 
