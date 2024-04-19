@@ -6,8 +6,7 @@
 	- Item that modifies player light (ex. torch)
 	- Item that modifies player speed (ex. BOH)
 	- Item that modifies player skills
-- Fight
-	- Monster spawn/respawn	
+- Fight	
 	- vs Player
 	- PVP vs non-PVP configuration
 	- Logout block
@@ -77,6 +76,7 @@
 	- Travel
 - Interacting with monsters
 	- Fight
+		- Monster spawn/respawn	
 		- Monster despawn
 	- Weapon attributes (range, atk, def, arm)
 	- Ammunition
