@@ -151,16 +151,11 @@ namespace OpenTibia.Game.Commands
                             } );
                         }
 
-                        foreach (var monster in toTile.GetMonsters().ToList() )
+                        if (Attack != null)
                         {
-                            if (Attack != null)
+                            foreach (var monster in toTile.GetMonsters().ToList() )
                             {
-                                await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, monster, Attack) );
-                            }
-
-                            if (Condition != null)
-                            {
-                                await Context.AddCommand(new CreatureAddConditionCommand(monster, Condition) );
+                                await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, monster, Attack, Condition) );
                             }
                         }
                     }

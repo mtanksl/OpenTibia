@@ -8,14 +8,14 @@ namespace OpenTibia.Game.Commands
     {
         public HealingAttack(MagicEffectType? magicEffectType, int min, int max)
         {
-            MagicEffectType = magicEffectType;
+            ShowMagicEffectType = magicEffectType;
 
             Min = min;
 
             Max = max;
         }
 
-        public MagicEffectType? MagicEffectType { get; set; }
+        public MagicEffectType? ShowMagicEffectType { get; set; }
 
         public int Min { get; set; }
 
@@ -33,9 +33,9 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Hit(Creature attacker, Creature target, int damage)
         {
-            if (MagicEffectType != null)
+            if (ShowMagicEffectType != null)
             {
-                await Context.Current.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.Value) );
+                await Context.Current.AddCommand(new ShowMagicEffectCommand(target, ShowMagicEffectType.Value) );
             }
 
             await Context.Current.AddCommand(new CreatureUpdateHealthCommand(target, target.Health + damage) );
