@@ -7,8 +7,7 @@
 	- Item that modifies player speed (ex. BOH)
 	- Item that modifies player skills
 - Fight
-	- Monster spawn/respawn
-	- Monster despawn
+	- Monster spawn/respawn	
 	- vs Player
 	- PVP vs non-PVP configuration
 	- Logout block
@@ -78,6 +77,7 @@
 	- Travel
 - Interacting with monsters
 	- Fight
+		- Monster despawn
 	- Weapon attributes (range, atk, def, arm)
 	- Ammunition
 	- Bow and arrow

@@ -216,7 +216,7 @@ namespace OpenTibia.Game.Common
 
             QueueForExecution( () =>
             {
-                Logger.WriteLine("MTOTS v1.1 - An open Tibia server developed by mtanksl");
+                Logger.WriteLine("MTOTS v1.2 - An open Tibia server developed by mtanksl");
 
                 Logger.WriteLine("Source code: https://github.com/mtanksl/OpenTibia");
 
