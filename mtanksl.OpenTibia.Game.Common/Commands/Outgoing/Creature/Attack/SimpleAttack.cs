@@ -74,7 +74,14 @@ namespace OpenTibia.Game.Commands
                     {                   
                         Context.Current.AddPacket(player, new SetFrameColorOutgoingPacket(attacker.Id, FrameColor.Black) );
 
-                        Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + mana + " mana due to an attack by " + attacker.Name + ".") );
+                        if (target == attacker)
+                        {
+                            Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + mana + " mana due to own attack.") );
+                        }
+                        else
+                        {
+                            Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + mana + " mana due to an attack by " + attacker.Name + ".") );
+                        }
                     }
                     else
                     {
@@ -103,9 +110,16 @@ namespace OpenTibia.Game.Commands
 
                 if (attacker != null)
                 {
-                    Context.Current.AddPacket(player, new SetFrameColorOutgoingPacket(attacker.Id, FrameColor.Black) );     
-                    
-                    Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + damage + " hitpoints due to an attack by " + attacker.Name + ".") );
+                    Context.Current.AddPacket(player, new SetFrameColorOutgoingPacket(attacker.Id, FrameColor.Black) );
+
+                    if (target == attacker)
+                    {
+                        Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + damage + " hitpoints due own attack.") );
+                    }
+                    else
+                    {
+                        Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + damage + " hitpoints due to an attack by " + attacker.Name + ".") );
+                    }
                 }
                 else
                 {
