@@ -2,15 +2,12 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Otbm;
 using OpenTibia.FileFormats.Xml.Houses;
-using OpenTibia.FileFormats.Xml.Spawns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using House = OpenTibia.Common.Objects.House;
 using HouseTile = OpenTibia.Common.Objects.HouseTile;
 using Item = OpenTibia.Common.Objects.Item;
-using Monster = OpenTibia.Common.Objects.Monster;
-using Npc = OpenTibia.Common.Objects.Npc;
 using OtbmHouseTile = OpenTibia.FileFormats.Otbm.HouseTile;
 using OtbmItem = OpenTibia.FileFormats.Otbm.Item;
 using Tile = OpenTibia.Common.Objects.Tile;
@@ -89,7 +86,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             this.server = server;
         }
 
-        public void Start(OtbmFile otbmFile, SpawnFile spawnFile, HouseFile houseFile)
+        public void Start(OtbmFile otbmFile, HouseFile houseFile)
         {
             if (otbmFile.Towns != null)
             {
@@ -169,8 +166,6 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                             Guildhall = xmlHouse.Guildhall
                         };
-
-
 
                         housesByName.Add(house.Name, house);
 
@@ -328,51 +323,6 @@ namespace OpenTibia.Game.Common.ServerObjects
                 }
             }
 
-            foreach (var xmlSpawn in spawnFile.Spawns)
-            {
-                foreach (var xmlMonster in xmlSpawn.Monsters)
-                {
-                    Tile tile = GetTile(xmlMonster.Position);
-
-                    if (tile != null)
-                    {
-                        Monster monster = server.MonsterFactory.Create(xmlMonster.Name, tile);
-
-                        if (monster != null)
-                        {
-                            server.MonsterFactory.Attach(monster);
-
-                            tile.AddContent(monster);
-                        }
-                        else
-                        {
-                            unknownMonsters.Add(xmlMonster.Name);
-                        }
-                    }
-                }
-
-                foreach (var xmlNpc in xmlSpawn.Npcs)
-                {
-                    Tile tile = GetTile(xmlNpc.Position);
-
-                    if (tile != null)
-                    {
-                        Npc npc = server.NpcFactory.Create(xmlNpc.Name, tile);
-
-                        if (npc != null)
-                        {
-                            server.NpcFactory.Attach(npc);
-
-                            tile.AddContent(npc);
-                        }
-                        else
-                        {
-                            unknownNpcs.Add(xmlNpc.Name);
-                        }
-                    }
-                }
-            }
-
             //TODO: Use quadtree
 
             observers = new HashSet<Creature>[ (int)Math.Ceiling( (maxY - minY + 1) / 14.0) ][];
@@ -385,26 +335,6 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     observers[j][i] = null;
                 }
-            }
-        }
-
-        private HashSet<string> unknownMonsters = new HashSet<string>();
-
-        public HashSet<string> UnknownMonsters
-        {
-            get
-            {
-                return unknownMonsters;
-            }
-        }
-
-        private HashSet<string> unknownNpcs = new HashSet<string>();
-
-        public HashSet<string> UnknownNpcs
-        {
-            get
-            {
-                return unknownNpcs;
             }
         }
 

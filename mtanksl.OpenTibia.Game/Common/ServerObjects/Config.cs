@@ -1,4 +1,6 @@
-﻿namespace OpenTibia.Game.Common.ServerObjects
+﻿using System;
+
+namespace OpenTibia.Game.Common.ServerObjects
 {
     public class Config : IConfig
     {
@@ -7,6 +9,11 @@
         public Config(IServer server)
         {
             this.server = server;
+        }
+
+        ~Config()
+        {
+            Dispose(false);
         }
 
         public int LoginMaxconnections { get; set; }
@@ -158,9 +165,29 @@
             return script[key];
         }
 
+        private bool disposed = false;
+
         public void Dispose()
         {
-            script.Dispose();
+            Dispose(true);
+
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                disposed = true;
+
+                if (disposing)
+                {
+                    if (script != null)
+                    {
+                        script.Dispose();
+                    }
+                }
+            }
         }
     }
 }

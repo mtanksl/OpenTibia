@@ -1,5 +1,6 @@
 ﻿using NLua;
 using OpenTibia.Common.Structures;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Common.ServerObjects
@@ -11,6 +12,11 @@ namespace OpenTibia.Game.Common.ServerObjects
         public OutfitCollection(IServer server)
         {
             this.server = server;
+        }
+
+        ~OutfitCollection()
+        {
+            Dispose(false);
         }
 
         private LuaScope script;
@@ -61,9 +67,29 @@ namespace OpenTibia.Game.Common.ServerObjects
             return outfits.Values;
         }
 
+        private bool disposed = false;
+
         public void Dispose()
         {
-            script.Dispose();
+            Dispose(true);
+
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                disposed = true;
+
+                if (disposing)
+                {
+                    if (script != null)
+                    {
+                        script.Dispose();
+                    }
+                }
+            }
         }
     }
 }

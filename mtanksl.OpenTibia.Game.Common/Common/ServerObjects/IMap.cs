@@ -2,7 +2,6 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Otbm;
 using OpenTibia.FileFormats.Xml.Houses;
-using OpenTibia.FileFormats.Xml.Spawns;
 using System.Collections.Generic;
 using House = OpenTibia.Common.Objects.House;
 using Monster = OpenTibia.Common.Objects.Monster;
@@ -15,11 +14,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 {
     public interface IMap : IMapGetTile
     {
-        void Start(OtbmFile otbmFile, SpawnFile spawnFile, HouseFile houseFile);
-
-        HashSet<string> UnknownMonsters { get; }
-
-        HashSet<string> UnknownNpcs { get; }
+        void Start(OtbmFile otbmFile, HouseFile houseFile);
 
         Town GetTown(string name);
 
@@ -37,7 +32,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         IEnumerable<House> GetHouses();
 
-        Tile GetTile(Position position);
+        // Tile GetTile(Position position);
 
         IEnumerable<Tile> GetTiles();
 

@@ -50,6 +50,13 @@ namespace OpenTibia.Game.Common.ServerObjects
             this.server = server;
         }
 
+        ~PluginLoader()
+        {
+            Dispose(false);
+        }
+
+        private Dictionary<string, (PluginLoadContext AssemblyLoadContext, Assembly Assembly)> contexts = new();
+
         public void Start()
         {
             foreach (var path in Directory.GetDirectories(server.PathResolver.GetFullPath("data/dlls") ) )
@@ -124,13 +131,31 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        private Dictionary<string, (PluginLoadContext AssemblyLoadContext, Assembly Assembly) > contexts = new();
+        private bool disposed = false;
 
         public void Dispose()
         {
-            foreach (var context in contexts)
+            Dispose(true);
+
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
             {
-                context.Value.AssemblyLoadContext.Unload();
+                disposed = true;
+
+                if (disposing)
+                {
+                    if (contexts != null)
+                    {
+                        foreach (var context in contexts)
+                        {
+                            context.Value.AssemblyLoadContext.Unload();
+                        }
+                    }
+                }
             }
         }
     }

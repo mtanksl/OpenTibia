@@ -92,6 +92,11 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             private LuaScope script;
 
+            ~AutoLoadPlugin()
+            {
+                Dispose(false);
+            }
+
             public AutoLoadPlugin(PluginCollection pluginCollection, string filePath)
             {
                 LuaScope scripts = pluginCollection.server.LuaScripts.LoadLib(
@@ -338,9 +343,29 @@ namespace OpenTibia.Game.Common.ServerObjects
                 }
             }
 
+            private bool disposed = false;
+
             public void Dispose()
             {
-                script.Dispose();
+                Dispose(true);
+
+                GC.SuppressFinalize(this);
+            }
+
+            protected virtual void Dispose(bool disposing)
+            {
+                if (!disposed)
+                {
+                    disposed = true;
+
+                    if (disposing)
+                    {
+                        if (script != null)
+                        {
+                            script.Dispose();
+                        }
+                    }
+                }
             }
         }
 
@@ -349,6 +374,11 @@ namespace OpenTibia.Game.Common.ServerObjects
         public PluginCollection(IServer server)
         {
             this.server = server;
+        }
+
+        ~PluginCollection()
+        {
+            Dispose(false);
         }
 
         private LuaScope script;
@@ -1341,14 +1371,37 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
+        private bool disposed = false;
+
         public void Dispose()
         {
-            foreach (var autoLoadPlugin in autoLoadPlugins)
-            {
-                autoLoadPlugin.Dispose();
-            }
+            Dispose(true);
 
-            script.Dispose();
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                disposed = true;
+
+                if (disposing)
+                {
+                    if (autoLoadPlugins != null)
+                    {
+                        foreach (var autoLoadPlugin in autoLoadPlugins)
+                        {
+                            autoLoadPlugin.Dispose();
+                        }
+                    }
+
+                    if (script != null)
+                    {
+                        script.Dispose();
+                    }
+                }
+            }
         }
     }
 }

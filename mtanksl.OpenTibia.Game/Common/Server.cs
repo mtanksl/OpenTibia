@@ -122,6 +122,8 @@ namespace OpenTibia.Game.Common
 
             Map = new Map(this);
 
+            Spawns = new SpawnCollection(this);
+
             Pathfinding = new Pathfinding(Map);
 
             Scripts = new ScriptCollection(this);
@@ -206,6 +208,8 @@ namespace OpenTibia.Game.Common
 
         public IMap Map { get; set; }
 
+        public ISpawnCollection Spawns { get; set; }
+
         public IPathfinding Pathfinding { get; set; }
 
         public void Start()
@@ -277,18 +281,22 @@ namespace OpenTibia.Game.Common
                 using (Logger.Measure("Loading map") )
                 {
                     Map.Start(OtbmFile.Load(PathResolver.GetFullPath("data/world/map.otbm") ), 
-                              SpawnFile.Load(PathResolver.GetFullPath("data/world/map-spawn.xml") ), 
                               HouseFile.Load(PathResolver.GetFullPath("data/world/map-house.xml") ) );
                 }
 
-                if (Map.UnknownMonsters.Count > 0)
+                using (Logger.Measure("Loading spawns") )
                 {
-                    Logger.WriteLine("Unable to load monsters: " + string.Join(", ", Map.UnknownMonsters), LogLevel.Warning);
+                    Spawns.Start(SpawnFile.Load(PathResolver.GetFullPath("data/world/map-spawn.xml") ) );
                 }
 
-                if (Map.UnknownNpcs.Count > 0)
+                if (Spawns.UnknownMonsters.Count > 0)
                 {
-                    Logger.WriteLine("Unable to load npcs: " + string.Join(", ", Map.UnknownNpcs), LogLevel.Warning);
+                    Logger.WriteLine("Unable to load monsters: " + string.Join(", ", Spawns.UnknownMonsters), LogLevel.Warning);
+                }
+
+                if (Spawns.UnknownNpcs.Count > 0)
+                {
+                    Logger.WriteLine("Unable to load npcs: " + string.Join(", ", Spawns.UnknownNpcs), LogLevel.Warning);
                 }
 
                 using (Logger.Measure("Testing database") )
@@ -675,7 +683,9 @@ namespace OpenTibia.Game.Common
                 Plugins.Stop();
 
                 Scripts.Stop();
-                           
+
+                Spawns.Stop();
+
                 return Promise.Completed;
 
             } ).Wait();

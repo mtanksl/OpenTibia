@@ -15,6 +15,8 @@ namespace OpenTibia.Game.Scripts
 
             Tick(0);
 
+            Spawn();
+
             Light();
 
             Ping();
@@ -80,6 +82,20 @@ namespace OpenTibia.Game.Scripts
             } );
         }
 
+        private static GlobalSpawnEventArgs globalSpawnEventArgs = new GlobalSpawnEventArgs();
+
+        private void Spawn()
+        {
+            Promise.Delay("Spawn", TimeSpan.FromSeconds(10) ).Then(() =>
+            {
+                Spawn();
+
+                Context.AddEvent(globalSpawnEventArgs);
+
+                return Promise.Completed;
+            } );
+        }
+
         private static GlobalEnvironmentLightEventArgs globalLightEventArgs = new GlobalEnvironmentLightEventArgs();
 
         private void Light()
@@ -115,6 +131,8 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CancelQueueForExecution("TibiaClockTick");
 
             Context.Server.CancelQueueForExecution("Tick");
+
+            Context.Server.CancelQueueForExecution("Spawn");
 
             Context.Server.CancelQueueForExecution("Light");
 

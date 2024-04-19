@@ -72,6 +72,8 @@ namespace OpenTibia.Game.Common
 
         IMap Map { get; set; }
 
+        ISpawnCollection Spawns { get; set; }
+
         IPathfinding Pathfinding { get; set; }
 
         void Start();

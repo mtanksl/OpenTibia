@@ -1,4 +1,5 @@
 ﻿using NLua;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Common.ServerObjects
@@ -10,6 +11,11 @@ namespace OpenTibia.Game.Common.ServerObjects
         public QuestCollection(IServer server)
         {
             this.server = server;
+        }
+
+        ~QuestCollection()
+        {
+            Dispose(false);
         }
 
         private LuaScope script;
@@ -74,9 +80,29 @@ namespace OpenTibia.Game.Common.ServerObjects
             return quests.Values;
         }
 
+        private bool disposed = false;
+
         public void Dispose()
         {
-            script.Dispose();
+            Dispose(true);
+
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                disposed = true;
+
+                if (disposing)
+                {
+                    if (script != null)
+                    {
+                        script.Dispose();
+                    }
+                }
+            }
         }
     }
 }
