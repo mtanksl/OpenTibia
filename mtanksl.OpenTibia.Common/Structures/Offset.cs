@@ -112,6 +112,17 @@
             new Offset(-1, 5), new Offset(0, 5), new Offset(1, 5),
         };
                 
+        public static readonly Offset[] Wave1133355 = new Offset[]
+        {
+                                                  new Offset(0, 1),
+                                                  new Offset(0, 2),
+                               new Offset(-1, 3), new Offset(0, 3), new Offset(1, 3),
+                               new Offset(-1, 4), new Offset(0, 4), new Offset(1, 4),
+                               new Offset(-1, 5), new Offset(0, 5), new Offset(1, 5),
+            new Offset(-2, 6), new Offset(-1, 6), new Offset(0, 6), new Offset(1, 6), new Offset(2, 6),
+            new Offset(-2, 7), new Offset(-1, 7), new Offset(0, 7), new Offset(1, 7), new Offset(2, 7)
+        };
+
         public Offset(int x, int y) : this(x, y, 0) 
         {
         

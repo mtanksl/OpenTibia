@@ -19,5 +19,7 @@ namespace OpenTibia.Common.Objects
         public ushort Corpse { get; set; }
         
         public string[] Sentences { get; set; }
+
+        public LootItem[] LootItems { get; set; }
     }
 }

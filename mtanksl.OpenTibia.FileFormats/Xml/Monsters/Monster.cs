@@ -60,6 +60,27 @@ namespace OpenTibia.FileFormats.Xml.Monsters
                 }
             }
 
+            XElement lootNode = monsterNode.Element("loot");
+
+            if (lootNode != null)
+            {
+                monster.LootItems = new List<LootItem>();
+
+                foreach (var itemNode in lootNode.Elements() )
+                {
+                    monster.LootItems.Add(new LootItem() 
+                    { 
+                        Id = (ushort)(int)itemNode.Attribute("id"),
+
+                        KillsToGetOne = (int)itemNode.Attribute("killsToGetOne"),
+
+                        CountMin = (int?)itemNode.Attribute("countmin"),
+
+                        CountMax = (int?)itemNode.Attribute("countmax")
+                    } );
+                }
+            }
+
             return monster;
         }
 
@@ -81,5 +102,9 @@ namespace OpenTibia.FileFormats.Xml.Monsters
         [XmlArray("voices")]
         [XmlArrayItem("voice")]
         public List<Voice> Voices { get; set; }
+
+        [XmlArray("loot")]
+        [XmlArrayItem("item")]
+        public List<LootItem> LootItems { get; set; }
     }
 }

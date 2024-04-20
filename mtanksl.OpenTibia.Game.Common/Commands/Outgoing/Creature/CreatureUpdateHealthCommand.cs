@@ -31,37 +31,57 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            if (Creature is Npc || (Creature is Player player && player.Rank == Rank.Gamemaster) )
+            if ( !(Creature is Npc || (Creature is Player player && player.Rank == Rank.Gamemaster) ) )
             {
-                return Promise.Completed;
-            }
-
-            if (Creature.Health != Health || Creature.MaxHealth != MaxHealth)
-            {
-                Creature.Health = Health;
-
-                Creature.MaxHealth = MaxHealth;
-
-                foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Creature.Tile.Position) )
+                if (Creature.Health != Health || Creature.MaxHealth != MaxHealth)
                 {
-                    if (observer == Creature)
+                    Creature.Health = Health;
+
+                    Creature.MaxHealth = MaxHealth;
+
+                    foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Creature.Tile.Position) )
                     {
-                        Context.AddPacket(observer, new SendStatusOutgoingPacket(observer.Health, observer.MaxHealth, observer.Capacity, observer.Experience, observer.Level, observer.LevelPercent, observer.Mana, observer.MaxMana, observer.Skills.MagicLevel, observer.Skills.MagicLevelPercent, observer.Soul, observer.Stamina) );
+                        if (observer == Creature)
+                        {
+                            Context.AddPacket(observer, new SendStatusOutgoingPacket(observer.Health, observer.MaxHealth, observer.Capacity, observer.Experience, observer.Level, observer.LevelPercent, observer.Mana, observer.MaxMana, observer.Skills.MagicLevel, observer.Skills.MagicLevelPercent, observer.Soul, observer.Stamina) );
+                        }
+
+                        byte clientIndex;
+
+                        if (observer.Client.TryGetIndex(Creature, out clientIndex) )
+                        {
+                            Context.AddPacket(observer, new SetHealthOutgoingPacket(Creature.Id, Creature.HealthPercentage) );
+                        }
                     }
 
-                    byte clientIndex;
+                    Context.AddEvent(new CreatureUpdateHealthEventArgs(Creature, Health) );
 
-                    if (observer.Client.TryGetIndex(Creature, out clientIndex) )
+                    if (Creature.Health == 0)
                     {
-                        Context.AddPacket(observer, new SetHealthOutgoingPacket(Creature.Id, Creature.HealthPercentage) );
+                        return Context.AddCommand(new CreatureDestroyCommand(Creature) ).Then( () =>
+                        {
+                            if (Creature is Monster monster)
+                            {
+                                return Context.AddCommand(new TileCreateMonsterCorpseCommand(Creature.Tile, monster.Metadata) ).Then( (item) =>
+                                {                                    
+                                    _ = Context.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(10) ) );
+
+                                    return Promise.Completed;
+                                } );
+                            }
+                            else if (Creature is Player player)
+                            {
+                                return Context.AddCommand(new TileCreateItemCommand(Creature.Tile, 2317, 1) ).Then( (item) =>
+                                {
+                                    _ = Context.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(10) ) );
+
+                                    return Promise.Completed;
+                                } );
+                            }
+
+                            return Promise.Completed;
+                        } );
                     }
-                }
-
-                Context.AddEvent(new CreatureUpdateHealthEventArgs(Creature, Health) );
-
-                if (Creature.Health == 0)
-                {
-                    return Context.AddCommand(new CreatureDestroyCommand(Creature) );
                 }
             }
 

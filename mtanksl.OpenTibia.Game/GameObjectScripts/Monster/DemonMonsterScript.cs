@@ -20,10 +20,10 @@ namespace OpenTibia.Game.GameObjectScripts
 
             Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
                 new CombineRandomAttackStrategy(
-                    new MeleeAttackStrategy(0, 450),
-                    new AreaAttackStrategy(Offset.Circle7, ProjectileType.Fire, MagicEffectType.FireArea, AnimatedTextColor.Orange, 150, 300),
-                    new BeamAttackStrategy(Offset.Beam7, MagicEffectType.EnergyArea, AnimatedTextColor.LightBlue, 300, 500),
-                    new HealingAttackStrategy(220, 300) ),
+                    new MeleeAttackStrategy(0, 500),
+                    new AreaAttackStrategy(Offset.Circle7, ProjectileType.Fire, MagicEffectType.FireArea, AnimatedTextColor.Orange, 150, 250),
+                    new BeamAttackStrategy(Offset.Beam7, MagicEffectType.EnergyArea, AnimatedTextColor.LightBlue, 300, 480),
+                    new HealingAttackStrategy(80, 250) ),
                 ApproachWalkStrategy.Instance) );
         }
 

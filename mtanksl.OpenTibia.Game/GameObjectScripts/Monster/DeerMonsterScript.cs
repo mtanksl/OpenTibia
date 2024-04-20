@@ -18,7 +18,7 @@ namespace OpenTibia.Game.GameObjectScripts
             base.Start(monster);
 
             Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
-                null, 
+                new MeleeAttackStrategy(0, 1), 
                 RunAwayWalkStrategy.Instance) );
         }
 

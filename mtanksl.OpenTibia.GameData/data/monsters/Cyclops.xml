@@ -9,4 +9,16 @@
     <voice sentence="Youh ah trak!" />
     <voice sentence="Let da mashing begin!" />
   </voices>
+	<loot>
+		<item id="2148" countmax="47" killsToGetOne="2" /> <!-- gold coin -->
+		<item id="2666" countmax="3" killsToGetOne="4" />	 <!-- meat -->
+		<item id="2406" killsToGetOne="13" />							 <!-- short sword -->
+		<item id="2511" killsToGetOne="40" />							 <!-- brass shield -->
+		<item id="2513" killsToGetOne="67" />							 <!-- battle shield -->
+		<item id="2381" killsToGetOne="102" />						 <!-- halberd -->
+		<item id="2129" killsToGetOne="357" />						 <!-- wolf tooth chain -->
+		<item id="2490" killsToGetOne="428" />						 <!-- dark helmet -->
+		<item id="7618" killsToGetOne="713" />						 <!-- health potion -->
+		<item id="2209" killsToGetOne="2038" />						 <!-- club ring -->
+	</loot>
 </monster>

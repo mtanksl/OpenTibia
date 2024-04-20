@@ -4,7 +4,6 @@ using OpenTibia.Game.Common;
 using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
-using System.IO;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
@@ -111,33 +110,27 @@ namespace OpenTibia.Game.Commands
 
             if (target != attacker)
             {
-                if (target is Player player)
+                if (target is Player || target is Monster)
                 {
                     if (animatedTextColor != null)
                     {
                         await Context.Current.AddCommand(new ShowAnimatedTextCommand(target, animatedTextColor.Value, damage.ToString() ) );
                     }
-                
-                    if (attacker != null)
-                    {
-                        Context.Current.AddPacket(player, new SetFrameColorOutgoingPacket(attacker.Id, FrameColor.Black) );
 
-                        Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + damage + " hitpoints due to an attack by " + attacker.Name + ".") );
-                    }
-                    else
+                    if (target is Player player)
                     {
-                        Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + damage + " hitpoints.") );
+                        if (attacker != null)
+                        {
+                            Context.Current.AddPacket(player, new SetFrameColorOutgoingPacket(attacker.Id, FrameColor.Black) );
+
+                            Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + damage + " hitpoints due to an attack by " + attacker.Name + ".") );
+                        }
+                        else
+                        {
+                            Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + damage + " hitpoints.") );
+                        }
                     }
 
-                    await Context.Current.AddCommand(new CreatureUpdateHealthCommand(target, target.Health - damage) );
-                }
-                else if (target is Monster monster)
-                {
-                    if (animatedTextColor != null)
-                    {
-                        await Context.Current.AddCommand(new ShowAnimatedTextCommand(target, animatedTextColor.Value, damage.ToString() ) );
-                    }
-                
                     await Context.Current.AddCommand(new CreatureUpdateHealthCommand(target, target.Health - damage) );
                 }
             }

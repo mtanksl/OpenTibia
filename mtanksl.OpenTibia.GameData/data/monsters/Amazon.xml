@@ -6,4 +6,14 @@
     <voice sentence="Yeeee ha!" />
     <voice sentence="Your head shall be mine!" />
   </voices>
+	<loot>
+		<item id="2229" countmax="2" killsToGetOne="2" />   <!-- skull -->
+		<item id="2379" killsToGetOne="2" />				        <!-- dagger -->
+		<item id="2148" countmax="20" killsToGetOne="3" />  <!-- gold coin -->
+	  <item id="2691" countmax="1" killsToGetOne="4" />   <!-- brown bread -->
+		<item id="2385" killsToGetOne="5" />					      <!-- sabre -->
+	  <item id="2050" killsToGetOne="100" />				      <!-- torch -->
+		<item id="2125" killsToGetOne="421" />			        <!-- crystal necklace -->
+		<item id="2147" countmax="1" killsToGetOne="793" /> <!-- small ruby -->
+	</loot>
 </monster>

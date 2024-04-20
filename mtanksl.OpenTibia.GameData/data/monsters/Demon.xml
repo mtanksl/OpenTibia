@@ -9,4 +9,33 @@
     <voice sentence="Your resistance is futile!" />
     <voice sentence="Your soul will be mine!" />
   </voices>
+	<loot>
+		<item id="2148" countmax="200" killsToGetOne="2" /> <!-- gold coin -->
+		<item id="2152" countmax="8" killsToGetOne="2" /> <!-- platinum coin -->
+    <item id="7590" killsToGetOne="4" /> <!-- great mana potion -->
+    <item id="8472" killsToGetOne="5" /> <!-- great spirit potion -->
+		<item id="5954" countmax="1" killsToGetOne="5" /> <!-- demon horn -->
+    <item id="8473" killsToGetOne="5" /> <!-- ultimate health potion -->
+	  <item id="2795" countmax="6" killsToGetOne="6" /> <!-- fire mushroom -->
+		<item id="7368" countmax="10" killsToGetOne="7" /> <!-- assassin star -->
+		<item id="2149" countmax="5" killsToGetOne="11" /> <!-- small emerald -->
+		<item id="2432" killsToGetOne="25" /> <!-- fire axe -->
+    <item id="2151" countmax="4" killsToGetOne="30" /> <!-- talon -->
+		<item id="2176" killsToGetOne="35" /> <!-- orb -->
+    <item id="2214" killsToGetOne="39" /> <!-- ring of healing -->
+		<item id="2164" killsToGetOne="41" /> <!-- might ring -->
+		<item id="2165" killsToGetOne="43" /> <!-- stealth ring -->
+		<item id="2393" killsToGetOne="52" /> <!-- giant sword -->
+    <item id="2396" killsToGetOne="53" /> <!-- ice rapier -->
+    <item id="2418" killsToGetOne="74" /> <!-- golden sickle -->
+		<item id="1982" killsToGetOne="80" /> <!-- purple tome -->
+    <item id="2462" killsToGetOne="81" /> <!-- devil helmet -->
+    <item id="2179" killsToGetOne="96" /> <!-- gold ring -->
+    <item id="2520" killsToGetOne="137" /> <!-- demon shield -->
+    <item id="2171" killsToGetOne="142" /> <!-- platinum amulet -->
+		<item id="2514" killsToGetOne="200" /> <!-- mastermind shield -->
+    <item id="2470" killsToGetOne="261" /> <!-- golden legs -->
+		<item id="2472" killsToGetOne="1251" /> <!-- magic plate armor -->
+    <item id="7382" killsToGetOne="1752" /> <!-- demonrage sword -->
+	</loot>
 </monster>

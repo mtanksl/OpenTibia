@@ -5,6 +5,7 @@ using OpenTibia.Game.GameObjectScripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using LootItem = OpenTibia.Common.Objects.LootItem;
 using Monster = OpenTibia.Common.Objects.Monster;
 
 namespace OpenTibia.Game.Common.ServerObjects
@@ -40,7 +41,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Corpse = (ushort)xmlMonster.Look.Corpse,
 
-                    Sentences = xmlMonster.Voices?.Select(v => v.Sentence).ToArray()
+                    Sentences = xmlMonster.Voices?.Select(v => v.Sentence).ToArray(),
+
+                    LootItems = xmlMonster.LootItems?.Select(l => new LootItem() { OpenTibiaId = l.Id, KillsToGetOne = l.KillsToGetOne, CountMin = l.CountMin ?? 1, CountMax = l.CountMax ?? 1 } ).ToArray()
                 } );
             }
 

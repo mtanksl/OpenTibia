@@ -144,7 +144,7 @@ namespace OpenTibia.Game.Components
                             {
                                 Tile toTile;
 
-                                if (RandomWalkStrategy.Instance.CanWalk(npc, null, out toTile) )
+                                if (walkStrategy.CanWalk(npc, null, out toTile) )
                                 {
                                     nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / npc.Speed).Add(TimeSpan.FromSeconds(1) );
 

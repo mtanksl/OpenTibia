@@ -7,4 +7,27 @@
     <voice sentence="Human flesh - delicious!" />
     <voice sentence="Crush the intruders!" />
   </voices>
+	<loot>
+		<item id="2148" countmax="200" killsToGetOne="1" />  <!-- gold coin -->
+		<item id="2152" countmax="5" killsToGetOne="2" />    <!-- platinum coin -->
+	  <item id="2666" countmax="6" killsToGetOne="4" />    <!-- meat -->
+		<item id="2387" killsToGetOne="10" />								<!-- double axe -->
+		<item id="7368" countmax="5" killsToGetOne="11" />	<!-- assassin star -->
+		<item id="2377" killsToGetOne="17" />								<!-- two handed sword -->
+		<item id="2150" countmax="5" killsToGetOne="17" />	<!-- small amethyst -->
+		<item id="7591" killsToGetOne="20" />								<!-- great health potion -->
+		<item id="2489" killsToGetOne="25" />								<!-- dark armor -->
+		<item id="2463" killsToGetOne="25" />								<!-- plate armor -->
+		<item id="2125" killsToGetOne="40" />								<!-- crystal necklace -->
+		<item id="5893" countmax="1" killsToGetOne="100" />	<!-- perfect behemoth fang -->
+		<item id="2393" killsToGetOne="104" />							<!-- giant sword -->
+		<item id="2174" killsToGetOne="122" />							<!-- strange symbol -->
+		<item id="2231" killsToGetOne="147" />							<!-- big bone -->
+		<item id="2553" killsToGetOne="163" />							<!-- pick -->
+		<item id="5930" countmax="1" killsToGetOne="215" />	<!-- behemoth claw -->
+		<item id="2645" killsToGetOne="231" />							<!-- steel boots -->
+		<item id="2416" killsToGetOne="774" />							<!-- crowbar -->
+		<item id="2023" killsToGetOne="1004" />							<!-- amphora -->
+		<item id="2454" killsToGetOne="1475" />							<!-- war axe -->
+	</loot>
 </monster>

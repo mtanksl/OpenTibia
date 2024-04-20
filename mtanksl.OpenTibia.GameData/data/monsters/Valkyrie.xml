@@ -9,4 +9,18 @@
     <voice sentence="Stand still!" />
     <voice sentence="One more head for me!" />
   </voices>
+	<loot>
+		<item id="2389" countmax="3" killsToGetOne="2" />	  <!-- spear -->
+		<item id="2148" countmax="12" killsToGetOne="4" />  <!-- gold coin -->
+		<item id="2666" countmax="4" killsToGetOne="4" />	  <!-- meat -->
+		<item id="2464" killsToGetOne="10" />               <!-- chain armor -->
+	  <item id="2674" countmax="2" killsToGetOne="14" />  <!-- red apple -->
+		<item id="3965" killsToGetOne="20" />							  <!-- hunting spear -->			
+		<item id="2200" killsToGetOne="93" />							  <!-- protection amulet -->
+	  <item id="2463" killsToGetOne="123" />							<!-- plate armor -->
+		<item id="2229" countmax="1" killsToGetOne="135" />	<!-- skull -->
+		<item id="7618" killsToGetOne="220" />							<!-- health potion -->
+		<item id="2387" killsToGetOne="252" />              <!-- double axe -->
+    <item id="2145" countmax="1" killsToGetOne="926" /> <!-- small diamond -->
+	</loot>
 </monster>

@@ -13,7 +13,7 @@
 	- Experience, level, magic level and skills
 	- Skull
 	- War
-	- Corpse and rewards
+	- Drop bag
 	- Splash
 	- Persist loss
 	- ...
@@ -78,6 +78,7 @@
 	- Fight
 		- Monster spawn/respawn	
 		- Monster despawn
+		- Loot
 	- Weapon attributes (range, atk, def, arm)
 	- Ammunition
 	- Bow and arrow
