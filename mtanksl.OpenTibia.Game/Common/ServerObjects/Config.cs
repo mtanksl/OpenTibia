@@ -30,6 +30,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         public bool GameplayInfiniteRunes { get; set; }
         public int GameplayMaxVips { get; set; }
         public int GameplayMaxDepotItems { get; set; }
+        public int GameplayLootRate { get; set; }
 
         public int SecurityMaxConnectionsWithSameIpAddress { get; set; }
         public int SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds { get; set; }
@@ -100,6 +101,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             GameplayMaxVips = LuaScope.GetInt32(script["server.gameplay.maxvips"], 100);
 
             GameplayMaxDepotItems = LuaScope.GetInt32(script["server.gameplay.maxdepotitems"], 2000);
+
+            GameplayLootRate = LuaScope.GetInt32(script["server.gameplay.lootrate"], 1);
 
             SecurityMaxConnectionsWithSameIpAddress = LuaScope.GetInt32(script["server.security.maxconnectionswithsameipaddress"], 2);
             

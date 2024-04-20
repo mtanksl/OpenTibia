@@ -24,7 +24,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 } ).Then( () =>
                 {
-                    if (Context.Server.Randomization.Take(1, 2) == 1)
+                    if (Context.Server.Randomization.HasProbability(1.0 / 2) )
                     {
                         return Context.AddCommand(new ItemTransformCommand(command.Item, strongHealthPotion, 1) );
                     }

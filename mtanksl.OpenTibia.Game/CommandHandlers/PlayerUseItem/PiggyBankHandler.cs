@@ -23,9 +23,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (piggyBanks.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                int value = Context.Server.Randomization.Take(1, 5);
-
-                if (value == 1)
+                if (Context.Server.Randomization.HasProbability(1.0 / 5) )
                 {
                     return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.AllowanceCollector, 50, "Allowance Collector") ).Then( () =>
                     {

@@ -9,6 +9,23 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         /// <exception cref="ArgumentException"></exception>
 
+        public bool HasProbability(double probability)
+        {
+            if (probability < 0)
+            {
+                throw new ArgumentException("Chance must be greater then or equals to 0.");
+            }
+
+            if (probability >= 1)
+            {
+                probability = 0.9;
+            }
+
+            return random.NextDouble() < probability;
+        }
+
+        /// <exception cref="ArgumentException"></exception>
+
         public int Take(int minInclusive, int maxInclusive)
         {
             if (minInclusive < 0)

@@ -15,7 +15,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (voodooDolls.Contains(command.Item.Metadata.OpenTibiaId) && (command.ToCreature is Player || command.ToCreature is Npc) )
             {
-                if (Context.Server.Randomization.Take(1, 5) == 1)
+                if (Context.Server.Randomization.HasProbability(1.0 / 5) )
                 {
                     return Context.AddCommand(new ShowMagicEffectCommand(command.ToCreature, MagicEffectType.RedSpark) ).Then( () =>
                     {

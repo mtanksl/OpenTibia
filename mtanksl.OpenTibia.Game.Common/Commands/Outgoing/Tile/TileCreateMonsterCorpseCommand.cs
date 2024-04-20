@@ -27,7 +27,7 @@ namespace OpenTibia.Game.Commands
                     {
                         foreach (var lootItem in Metadata.LootItems)
                         {
-                            if (Context.Server.Randomization.Take(1, lootItem.KillsToGetOne) == 1)
+                            if (Context.Server.Randomization.HasProbability( (double)Context.Server.Config.GameplayLootRate / lootItem.KillsToGetOne) )
                             {
                                 //TODO: CountMax for unstackable items
 

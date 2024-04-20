@@ -29,13 +29,11 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (surpriseBags.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                int value = Context.Server.Randomization.Take(1, 5);
-
-                if (value == 1)
+                if (Context.Server.Randomization.HasProbability(1.0 / 5)  )
                 {
                     return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.GiftWraps) ).Then( () =>
                     {
-                        value = Context.Server.Randomization.Take(0, prizes.Count - 1);
+                        int value = Context.Server.Randomization.Take(0, prizes.Count - 1);
 
                         return Context.AddCommand(new ItemTransformCommand(command.Item, prizes[value].OpenTibiaId, prizes[value].Count) );
                     } );

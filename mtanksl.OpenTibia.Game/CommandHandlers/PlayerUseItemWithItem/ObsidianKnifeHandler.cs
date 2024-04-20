@@ -26,9 +26,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (iceCubes.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
                 {
-                    int value = Context.Server.Randomization.Take(1, 4);
-
-                    if (value == 1)
+                    if (Context.Server.Randomization.HasProbability(1.0 / 4) )
                     {
                         return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.Puff) ).Then( () =>
                         {

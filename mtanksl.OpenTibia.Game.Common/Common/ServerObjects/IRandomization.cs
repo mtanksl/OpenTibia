@@ -2,6 +2,8 @@
 {
     public interface IRandomization
     {
+        bool HasProbability(double probability);
+
         int Take(int minInclusive, int maxInclusive);
 
         T Take<T>(T[] array);

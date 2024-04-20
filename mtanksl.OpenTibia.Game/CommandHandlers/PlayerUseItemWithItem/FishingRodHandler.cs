@@ -36,7 +36,7 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             int count = await Context.AddCommand(new PlayerCountItemsCommand(command.Player, worm, 1) );
 
-                            if (count > 0 && Context.Server.Randomization.Take(1, 10) == 1)
+                            if (count > 0 && Context.Server.Randomization.HasProbability(1.0 / 10) )
                             {
                                 await Context.AddCommand(new PlayerDestroyItemsCommand(command.Player, worm, 1, 1) );
 

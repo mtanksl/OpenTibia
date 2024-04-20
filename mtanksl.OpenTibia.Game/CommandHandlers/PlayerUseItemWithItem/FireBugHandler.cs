@@ -34,7 +34,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (sugarCanes.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
                 {
-                    if (Context.Server.Randomization.Take(1, 10) == 1)
+                    if (Context.Server.Randomization.HasProbability(1.0 / 10) )
                     {
                         return Context.AddCommand(new ItemDestroyCommand(command.Item) ).Then( () =>
                         {
@@ -68,7 +68,7 @@ namespace OpenTibia.Game.CommandHandlers
                 }
                 else if (emptyCoalBasins.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
                 { 
-                    if (Context.Server.Randomization.Take(1, 10) == 1)
+                    if (Context.Server.Randomization.HasProbability(1.0 / 10) )
                     {
                         return Context.AddCommand(new ItemDestroyCommand(command.Item) ).Then( () =>
                         {

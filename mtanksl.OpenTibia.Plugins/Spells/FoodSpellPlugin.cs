@@ -23,13 +23,13 @@ namespace OpenTibia.Plugins.Spells
 
         public override Promise OnCast(Player player, Creature target, string message)
         {
-            ushort openTibiaId = foods[Context.Server.Randomization.Take(0, foods.Count - 1) ];
+            int value = Context.Server.Randomization.Take(0, foods.Count - 1);
 
-            int count = Context.Server.Randomization.Take(1, 2);
+            ushort openTibiaId = foods[value];
 
             return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.GreenShimmer) ).Then( () =>
             {
-                return Context.AddCommand(new PlayerCreateItemsCommand(player, openTibiaId, 1, count) );
+                return Context.AddCommand(new PlayerCreateItemsCommand(player, openTibiaId, 1, Context.Server.Randomization.Take(1, 2) ) );
             } );
         }
      }
