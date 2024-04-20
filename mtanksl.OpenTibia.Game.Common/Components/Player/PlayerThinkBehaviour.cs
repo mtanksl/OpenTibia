@@ -23,13 +23,9 @@ namespace OpenTibia.Game.Components
 
         private IAttackStrategy attackStrategy;
 
-        private IWalkStrategy walkStrategy;
-
-        public PlayerThinkBehaviour(IAttackStrategy attackStrategy, IWalkStrategy walkStrategy)
+        public PlayerThinkBehaviour(IAttackStrategy attackStrategy)
         {
             this.attackStrategy = attackStrategy;
-
-            this.walkStrategy = walkStrategy;
         }
 
         private State state;
@@ -116,16 +112,13 @@ namespace OpenTibia.Game.Components
                             {
                                 if (DateTime.UtcNow >= nextWalk)
                                 {
-                                    if (walkStrategy != null)
+                                    Tile toTile;
+
+                                    if (FollowWalkStrategy.Instance.CanWalk(player, target, out toTile) )
                                     {
-                                        Tile toTile;
+                                        nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / player.Speed);
 
-                                        if (walkStrategy.CanWalk(player, target, out toTile) )
-                                        {
-                                            nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / player.Speed);
-
-                                            await Context.AddCommand(new CreatureMoveCommand(player, toTile) );
-                                        }
+                                        await Context.AddCommand(new CreatureMoveCommand(player, toTile) );
                                     }
                                 }
                             }
@@ -138,7 +131,7 @@ namespace OpenTibia.Game.Components
                                     {
                                         if (attackStrategy.CanAttack(player, target) )
                                         {
-                                            nextAttack = DateTime.UtcNow.Add(attackStrategy.Cooldown);
+                                            nextAttack = DateTime.UtcNow.Add(TimeSpan.FromSeconds(1) );
 
                                             await attackStrategy.Attack(player, target);
                                         }

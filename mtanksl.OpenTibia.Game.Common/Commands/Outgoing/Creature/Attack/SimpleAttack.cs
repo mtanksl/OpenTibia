@@ -10,32 +10,32 @@ namespace OpenTibia.Game.Commands
 {
     public class SimpleAttack : Attack
     {
+        protected ProjectileType? projectileType;
+
+        private MagicEffectType? magicEffectType;
+
+        private AnimatedTextColor? animatedTextColor;
+
+        private int min;
+
+        private int max;
+
         public SimpleAttack(ProjectileType? projectileType, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int min, int max)
         {
-            ShowProjectileType = projectileType;
+            this.projectileType = projectileType;
 
-            ShowMagicEffectType = magicEffectType;
+            this.magicEffectType = magicEffectType;
 
-            ShowAnimatedTextColor = animatedTextColor;
+            this.animatedTextColor = animatedTextColor;
 
-            Min = min;
+            this.min = min;
 
-            Max = max;
+            this.max = max;
         }
-
-        public ProjectileType? ShowProjectileType { get; set; }
-
-        public MagicEffectType? ShowMagicEffectType { get; set; }
-
-        public AnimatedTextColor? ShowAnimatedTextColor { get; set; }
-
-        public int Min { get; set; }
-
-        public int Max { get; set; }
 
         public override int Calculate(Creature attacker, Creature target)
         {
-            return Context.Current.Server.Randomization.Take(Min, Max);
+            return Context.Current.Server.Randomization.Take(min, max);
         }
 
         public override async Promise Missed(Creature attacker, Creature target)
@@ -53,9 +53,9 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Hit(Creature attacker, Creature target, int damage)
         {
-            if (ShowProjectileType != null)
+            if (projectileType != null)
             {
-                await Context.Current.AddCommand(new ShowProjectileCommand(attacker, target, ShowProjectileType.Value) );
+                await Context.Current.AddCommand(new ShowProjectileCommand(attacker, target, projectileType.Value) );
             }
 
             if (target is Player player)
@@ -100,14 +100,14 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                if (ShowMagicEffectType != null)
+                if (magicEffectType != null)
                 {
-                    await Context.Current.AddCommand(new ShowMagicEffectCommand(target, ShowMagicEffectType.Value) );
+                    await Context.Current.AddCommand(new ShowMagicEffectCommand(target, magicEffectType.Value) );
                 }
 
-                if (ShowAnimatedTextColor != null)
+                if (animatedTextColor != null)
                 {
-                    await Context.Current.AddCommand(new ShowAnimatedTextCommand(target, ShowAnimatedTextColor.Value, damage.ToString() ) );
+                    await Context.Current.AddCommand(new ShowAnimatedTextCommand(target, animatedTextColor.Value, damage.ToString() ) );
                 }
 
                 if (attacker != null)
@@ -130,14 +130,14 @@ namespace OpenTibia.Game.Commands
             }
             else
             {
-                if (ShowMagicEffectType != null)
+                if (magicEffectType != null)
                 {
-                    await Context.Current.AddCommand(new ShowMagicEffectCommand(target, ShowMagicEffectType.Value) );
+                    await Context.Current.AddCommand(new ShowMagicEffectCommand(target, magicEffectType.Value) );
                 }
 
-                if (ShowAnimatedTextColor != null)
+                if (animatedTextColor != null)
                 {
-                    await Context.Current.AddCommand(new ShowAnimatedTextCommand(target, ShowAnimatedTextColor.Value, damage.ToString() ) );
+                    await Context.Current.AddCommand(new ShowAnimatedTextCommand(target, animatedTextColor.Value, damage.ToString() ) );
                 }                
             }
 

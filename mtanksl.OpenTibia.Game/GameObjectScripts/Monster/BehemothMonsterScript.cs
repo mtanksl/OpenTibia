@@ -1,17 +1,16 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
-using System;
 
 namespace OpenTibia.Game.GameObjectScripts
 {
-    public class AmazonMonsterScript : MonsterScript
+    public class BehemothMonsterScript : MonsterScript
     {
         public override string Key
         {
             get
             {
-                return "Amazon";
+                return "Behemoth";
             }
         }
 
@@ -21,9 +20,9 @@ namespace OpenTibia.Game.GameObjectScripts
 
             Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
                 new CombineRandomAttackStrategy(
-                    new MeleeAttackStrategy(0, 20),
-                    new DistanceAttackStrategy(ProjectileType.ThrowingKnife, 0, 30) ),
-                KeepDistanceWalkStrategy.Instance) );
+                    new MeleeAttackStrategy(0, 430),
+                    new DistanceAttackStrategy(ProjectileType.BigStone, 0, 200) ),
+                ApproachWalkStrategy.Instance) );
         }
 
         public override void Stop(Monster monster)

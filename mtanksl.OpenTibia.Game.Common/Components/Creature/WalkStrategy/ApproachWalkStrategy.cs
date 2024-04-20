@@ -10,6 +10,11 @@ namespace OpenTibia.Game.Components
     {
         public static readonly ApproachWalkStrategy Instance = new ApproachWalkStrategy();
 
+        private ApproachWalkStrategy()
+        {
+            
+        }
+
         public bool CanWalk(Creature attacker, Creature target, out Tile tile)
         {
             int deltaY = attacker.Tile.Position.Y - target.Tile.Position.Y;

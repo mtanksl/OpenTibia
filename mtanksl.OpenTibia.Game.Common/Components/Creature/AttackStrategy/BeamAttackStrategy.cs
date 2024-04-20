@@ -5,17 +5,25 @@ using OpenTibia.Game.Common;
 
 namespace OpenTibia.Game.Components
 {
-    public class DistanceAttackStrategy : IAttackStrategy
+    public class BeamAttackStrategy : IAttackStrategy
     {
-        private ProjectileType projectileType;
+        private Offset[] area;
+
+        private MagicEffectType? magicEffectType;
+
+        private AnimatedTextColor? animatedTextColor;
 
         private int min;
 
         private int max;
 
-        public DistanceAttackStrategy(ProjectileType projectileType, int min, int max)
+        public BeamAttackStrategy(Offset[] area, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int min, int max)
         {
-            this.projectileType = projectileType;
+            this.area = area;
+
+            this.magicEffectType = magicEffectType;
+
+            this.animatedTextColor = animatedTextColor;
 
             this.min = min;
 
@@ -34,9 +42,9 @@ namespace OpenTibia.Game.Components
 
         public Promise Attack(Creature attacker, Creature target)
         {            
-            return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, 
+            return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, magicEffectType, 
                 
-                new DistanceAttack(projectileType, min, max) ) );
+                new SimpleAttack(null, null, animatedTextColor, min, max) ) );
         }
     }
 }

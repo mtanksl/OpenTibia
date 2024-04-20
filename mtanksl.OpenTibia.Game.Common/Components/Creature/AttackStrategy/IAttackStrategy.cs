@@ -9,7 +9,5 @@ namespace OpenTibia.Game.Components
         bool CanAttack(Creature attacker, Creature target);
 
         Promise Attack(Creature attacker, Creature target);
-
-        TimeSpan Cooldown { get; }
     }
 }

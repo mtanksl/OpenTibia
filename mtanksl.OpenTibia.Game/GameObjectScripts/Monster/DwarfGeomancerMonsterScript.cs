@@ -1,17 +1,16 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
-using System;
 
 namespace OpenTibia.Game.GameObjectScripts
 {
-    public class AmazonMonsterScript : MonsterScript
+    public class DwarfGeomancerMonsterScript : MonsterScript
     {
         public override string Key
         {
             get
             {
-                return "Amazon";
+                return "Dwarf Geomancer";
             }
         }
 
@@ -21,8 +20,8 @@ namespace OpenTibia.Game.GameObjectScripts
 
             Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
                 new CombineRandomAttackStrategy(
-                    new MeleeAttackStrategy(0, 20),
-                    new DistanceAttackStrategy(ProjectileType.ThrowingKnife, 0, 30) ),
+                    new SimpleAttackStrategy(ProjectileType.Poison, MagicEffectType.GreenRings, AnimatedTextColor.Green, 50, 145), 
+                    new HealingAttackStrategy(0, 130) ), 
                 KeepDistanceWalkStrategy.Instance) );
         }
 

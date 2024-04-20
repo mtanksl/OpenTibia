@@ -28,11 +28,11 @@ namespace OpenTibia.Game.GameObjectScripts
             {
                 if (Context.Server.Config.GameplayPrivateNpcSystem)
                 {
-                    Context.Server.GameObjectComponents.AddComponent(npc, new MultipleQueueNpcThinkBehaviour(dialoguePlugin, new RandomWalkStrategy(2) ) );
+                    Context.Server.GameObjectComponents.AddComponent(npc, new MultipleQueueNpcThinkBehaviour(dialoguePlugin, NpcWalkStrategy.Instance) );
                 }
                 else
                 {
-                    Context.Server.GameObjectComponents.AddComponent(npc, new SingleQueueNpcThinkBehaviour(dialoguePlugin, new RandomWalkStrategy(2) ) );
+                    Context.Server.GameObjectComponents.AddComponent(npc, new SingleQueueNpcThinkBehaviour(dialoguePlugin, NpcWalkStrategy.Instance) );
                 }
             }
         }

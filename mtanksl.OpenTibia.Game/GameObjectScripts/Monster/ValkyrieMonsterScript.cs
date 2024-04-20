@@ -19,7 +19,11 @@ namespace OpenTibia.Game.GameObjectScripts
         {
             base.Start(monster);
 
-            Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(new DistanceAttackStrategy(ProjectileType.Spear, 0, 30, TimeSpan.FromSeconds(2) ), new KeepDistanceWalkStrategy(3) ) );
+            Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
+                new CombineRandomAttackStrategy(
+                    new MeleeAttackStrategy(0, 40), 
+                    new DistanceAttackStrategy(ProjectileType.Spear, 0, 45) ), 
+                new RunAwayOnLowHealthWalkStrategy(10, ApproachWalkStrategy.Instance) ) );
         }
 
         public override void Stop(Monster monster)

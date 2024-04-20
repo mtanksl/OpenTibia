@@ -1,16 +1,19 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
+using System;
 
 namespace OpenTibia.Game.Components
 {
-    public class RandomWalkStrategy : IWalkStrategy
+    public class NpcWalkStrategy : IWalkStrategy
     {
-        public static readonly RandomWalkStrategy Instance = new RandomWalkStrategy();
+        public static readonly NpcWalkStrategy Instance = new NpcWalkStrategy(2);
+        
+        private int radius;
 
-        private RandomWalkStrategy()
+        public NpcWalkStrategy(int radius)
         {
-            
+            this.radius = radius;
         }
 
         public bool CanWalk(Creature attacker, Creature target, out Tile tile)
@@ -21,7 +24,7 @@ namespace OpenTibia.Game.Components
             {
                 Tile toTile = Context.Current.Server.Map.GetTile(attacker.Tile.Position.Offset(direction) );
 
-                if (toTile == null || toTile.Ground == null || toTile.NotWalkable || toTile.BlockPathFinding || toTile.Block || (attacker is Monster && toTile.ProtectionZone) )
+                if (toTile == null || toTile.Ground == null || toTile.NotWalkable || toTile.BlockPathFinding || toTile.Block || (attacker is Monster && toTile.ProtectionZone) || Math.Abs(toTile.Position.X - attacker.Spawn.Position.X) > radius || Math.Abs(toTile.Position.Y - attacker.Spawn.Position.Y) > radius)
                 {
 
                 }

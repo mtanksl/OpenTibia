@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
-using System;
 
 namespace OpenTibia.Game.GameObjectScripts
 {
@@ -22,7 +21,9 @@ namespace OpenTibia.Game.GameObjectScripts
                 Context.Server.GameObjectComponents.AddComponent(monster, new CreatureTalkBehaviour(TalkType.MonsterSay, monster.Metadata.Sentences) );
             }
 
-            Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(new MeleeAttackStrategy(0, 20, TimeSpan.FromSeconds(2) ), new FollowWalkStrategy() ) );
+            Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
+                new MeleeAttackStrategy(0, 20), 
+                ApproachWalkStrategy.Instance) );
         }
 
         public override void Stop(Monster monster)

@@ -10,19 +10,11 @@ namespace OpenTibia.Game.Components
 {
     public class InventoryWeaponAttackStrategy : IAttackStrategy
     {
-        private TimeSpan cooldown;
+        public static readonly InventoryWeaponAttackStrategy Instance = new InventoryWeaponAttackStrategy();
 
-        public InventoryWeaponAttackStrategy(TimeSpan cooldown)
+        private InventoryWeaponAttackStrategy()
         {
-            this.cooldown = cooldown;
-        }
-
-        public TimeSpan Cooldown
-        {
-            get
-            {
-                return cooldown;
-            }
+           
         }
 
         public bool CanAttack(Creature attacker, Creature target)

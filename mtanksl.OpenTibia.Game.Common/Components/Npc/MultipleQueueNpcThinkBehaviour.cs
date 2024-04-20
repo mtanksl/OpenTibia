@@ -146,7 +146,7 @@ namespace OpenTibia.Game.Components
 
                                 if (RandomWalkStrategy.Instance.CanWalk(npc, null, out toTile) )
                                 {
-                                    nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / npc.Speed);
+                                    nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / npc.Speed).Add(TimeSpan.FromSeconds(1) );
 
                                     await Context.Current.AddCommand(new CreatureMoveCommand(npc, toTile) );
                                 }

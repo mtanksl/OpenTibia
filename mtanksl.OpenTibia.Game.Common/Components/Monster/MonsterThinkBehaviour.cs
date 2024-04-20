@@ -120,7 +120,7 @@ namespace OpenTibia.Game.Components
                                 {
                                     if (attackStrategy.CanAttack(monster, target) )
                                     {
-                                        nextAttack = DateTime.UtcNow.Add(attackStrategy.Cooldown);
+                                        nextAttack = DateTime.UtcNow.Add(TimeSpan.FromSeconds(2) );
 
                                         await attackStrategy.Attack(monster, target);
                                     }

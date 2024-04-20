@@ -1,16 +1,17 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
 
 namespace OpenTibia.Game.Components
 {
-    public class MeleeAttackStrategy : IAttackStrategy
+    public class HealingAttackStrategy : IAttackStrategy
     {
         private int min;
 
         private int max;
 
-        public MeleeAttackStrategy(int min, int max)
+        public HealingAttackStrategy(int min, int max)
         {
             this.min = min;
 
@@ -19,19 +20,14 @@ namespace OpenTibia.Game.Components
 
         public bool CanAttack(Creature attacker, Creature target)
         {
-            if (attacker.Tile.Position.IsNextTo(target.Tile.Position) )
-            {
-                return true;
-            }
-
-            return false;
+            return true;
         }
 
         public Promise Attack(Creature attacker, Creature target)
         {
-            return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
-                
-                new MeleeAttack(min, max) ) );            
+            return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, attacker,
+
+                new HealingAttack(MagicEffectType.BlueShimmer, min, max) ) );            
         }
     }
 }

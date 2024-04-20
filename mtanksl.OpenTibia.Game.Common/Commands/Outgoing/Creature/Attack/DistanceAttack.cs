@@ -13,9 +13,9 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Missed(Creature attacker, Creature target)
         {
-            if (ShowProjectileType != null)
+            if (projectileType != null)
             {
-                await Context.Current.AddCommand(new ShowProjectileCommand(attacker, target, ShowProjectileType.Value) );
+                await Context.Current.AddCommand(new ShowProjectileCommand(attacker, target, projectileType.Value) );
             }
             
             await base.Missed(attacker, target);
