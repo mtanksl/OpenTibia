@@ -153,23 +153,13 @@ namespace OpenTibia.Game.Commands
 
                         if (Attack != null)
                         {
-                            if (Attacker is Player)
+                            foreach (var monster in toTile.GetMonsters().ToList() )
                             {
-                                foreach (var monster in toTile.GetMonsters().ToList() )
-                                {
-                                    await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, monster, Attack, Condition) );
-                                }
+                                await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, monster, Attack, Condition) );
                             }
-                            else if (Attacker is Monster)
-                            {
-                                foreach (var monster in toTile.GetMonsters().ToList() )
-                                {
-                                    if (monster != Attacker)
-                                    {
-                                        await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, monster, Attack, Condition) );
-                                    }
-                                }
 
+                            if (Attacker is Monster)
+                            {
                                 foreach (var player in toTile.GetPlayers().ToList() )
                                 {
                                     await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, player, Attack, Condition) );
