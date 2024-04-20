@@ -64,7 +64,7 @@ namespace OpenTibia.Game.Commands
                             {
                                 return Context.AddCommand(new TileCreateMonsterCorpseCommand(Creature.Tile, monster.Metadata) ).Then( (item) =>
                                 {                                    
-                                    _ = Context.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(10) ) );
+                                    _ = Context.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(30) ) );
 
                                     return Promise.Completed;
                                 } );
@@ -73,7 +73,7 @@ namespace OpenTibia.Game.Commands
                             {
                                 return Context.AddCommand(new TileCreateItemCommand(Creature.Tile, 2317, 1) ).Then( (item) =>
                                 {
-                                    _ = Context.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(10) ) );
+                                    _ = Context.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(30) ) );
 
                                     return Promise.Completed;
                                 } );

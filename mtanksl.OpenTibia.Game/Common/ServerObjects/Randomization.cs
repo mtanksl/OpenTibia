@@ -16,7 +16,12 @@ namespace OpenTibia.Game.Common.ServerObjects
                 throw new ArgumentException("Chance must be greater then or equals to 0.");
             }
 
-            if (probability >= 1)
+            if (probability == 1)
+            {
+                return true;
+            }
+
+            if (probability > 1)
             {
                 probability = 0.9;
             }

@@ -72,11 +72,11 @@ namespace OpenTibia.FileFormats.Xml.Monsters
                     { 
                         Id = (ushort)(int)itemNode.Attribute("id"),
 
-                        KillsToGetOne = (int)itemNode.Attribute("killsToGetOne"),
-
                         CountMin = (int?)itemNode.Attribute("countmin"),
 
-                        CountMax = (int?)itemNode.Attribute("countmax")
+                        CountMax = (int?)itemNode.Attribute("countmax"),
+
+                        KillsToGetOne = (int)itemNode.Attribute("killsToGetOne")
                     } );
                 }
             }
