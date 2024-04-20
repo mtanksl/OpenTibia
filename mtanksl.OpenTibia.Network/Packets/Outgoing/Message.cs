@@ -17,24 +17,18 @@ namespace OpenTibia.Network.Packets.Outgoing
             writer = new ByteArrayStreamWriter(stream);
         }
 
-        public Message Add(IOutgoingPacket packet)
+        public int Position
         {
-            packet.Write(writer);
-
-            return this;
-        }
-
-        public Message Add(IOutgoingPacket[] packets)
-        {
-            foreach (var packet in packets)
+            get
             {
-                packet.Write(writer);
+                return stream.Position;
             }
-
-            return this;
         }
 
-        //TODO: Reduce allocation
+        public void Write(byte[] buffer, int offset, int length)
+        {
+            writer.Write(buffer, offset, length);
+        }
 
         private byte[] Length(byte[] bytes)
         {

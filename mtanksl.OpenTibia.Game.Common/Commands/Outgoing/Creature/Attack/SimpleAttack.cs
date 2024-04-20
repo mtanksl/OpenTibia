@@ -60,7 +60,9 @@ namespace OpenTibia.Game.Commands
 
             if (target is Player player)
             {
-                CreatureConditionBehaviour creatureConditionBehaviour = Context.Current.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(target).Where(c => c.Condition.ConditionSpecialCondition == ConditionSpecialCondition.MagicShield).FirstOrDefault();
+                CreatureConditionBehaviour creatureConditionBehaviour = Context.Current.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(target)
+                    .Where(c => c.Condition.ConditionSpecialCondition == ConditionSpecialCondition.MagicShield)
+                    .FirstOrDefault();
 
                 if (creatureConditionBehaviour != null && player.Mana > 0)
                 {
@@ -114,7 +116,7 @@ namespace OpenTibia.Game.Commands
 
                     if (target == attacker)
                     {
-                        Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + damage + " hitpoints due own attack.") );
+                        Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + damage + " hitpoints due to own attack.") );
                     }
                     else
                     {

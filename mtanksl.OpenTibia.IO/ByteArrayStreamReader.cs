@@ -122,7 +122,7 @@ namespace OpenTibia.IO
         {
             lock (locker)
             {
-                stream.Read(buffer, 0, length);
+                ReadBytes(buffer, 0, length);
 
                 return encoding.GetString(buffer, 0, length);
             }
@@ -130,11 +130,16 @@ namespace OpenTibia.IO
 
         public byte[] ReadBytes(int length)
         {
-            byte[] buffer = new byte[length]; 
+            byte[] buffer = new byte[length];
 
-            stream.Read(buffer, 0, buffer.Length);
+            ReadBytes(buffer, 0, buffer.Length);
             
             return buffer;
+        }
+
+        public void ReadBytes(byte[] buffer, int offset, int count)
+        {
+            stream.Read(buffer, offset, count);
         }
     }
 }

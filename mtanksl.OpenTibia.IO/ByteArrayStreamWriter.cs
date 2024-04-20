@@ -123,14 +123,19 @@ namespace OpenTibia.IO
                 {
                     encoding.GetBytes(value, 0, length, buffer, 0);
 
-                    stream.Write(buffer, 0, length);
+                    Write(buffer, 0, length);
                 }
             }
         }
 
         public void Write(byte[] buffer)
         {
-            stream.Write(buffer, 0, buffer.Length);
+            Write(buffer, 0, buffer.Length);
+        }
+
+        public void Write(byte[] buffer, int offset, int length)
+        {
+            stream.Write(buffer, offset, length);
         }
     }
 }

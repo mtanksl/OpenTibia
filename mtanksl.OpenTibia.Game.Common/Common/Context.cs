@@ -159,7 +159,7 @@ namespace OpenTibia.Game.Common
             events.Enqueue( (gameObject, e) );
         }
 
-        private Dictionary<IConnection, Message> messages;
+        private Dictionary<IConnection, MessageCollection> messageCollections;
 
         /// <exception cref="ObjectDisposedException"></exception>
 
@@ -180,21 +180,21 @@ namespace OpenTibia.Game.Common
                 throw new ObjectDisposedException(nameof(Context) );
             }
 
-            if (messages == null)
+            if (messageCollections == null)
             {
-                messages = new Dictionary<IConnection, Message>();
+                messageCollections = new Dictionary<IConnection, MessageCollection>();
             }
 
-            Message message;
+            MessageCollection messageCollection;
 
-            if ( !messages.TryGetValue(connection, out message) )
+            if ( !messageCollections.TryGetValue(connection, out messageCollection) )
             {
-                message = new Message();
+                messageCollection = new MessageCollection();
 
-                messages.Add(connection, message);
+                messageCollections.Add(connection, messageCollection);
             }
 
-            message.Add(packet);
+            messageCollection.Add(packet);
         }
 
         private HashSet<IConnection> connections;
@@ -278,18 +278,21 @@ namespace OpenTibia.Game.Common
                 }
             }
 
-            if (messages != null)
+            if (messageCollections != null)
             {
-                foreach (var pair in messages)
+                foreach (var pair in messageCollections)
                 {
                     IConnection connection = pair.Key;
 
-                    Message message = pair.Value;
+                    MessageCollection messageCollection = pair.Value;
 
-                    connection.Send( message.GetBytes(connection.Keys) );
+                    foreach (var message in messageCollection.GetMessages() )
+                    {
+                        connection.Send( message.GetBytes(connection.Keys) );
+                    }
                 }
 
-                messages.Clear();
+                messageCollections.Clear();
             }
 
             if (connections != null)
@@ -320,7 +323,10 @@ namespace OpenTibia.Game.Common
 
                 if (disposing)
                 {
-
+                    if (database != null)
+                    {
+                        database.Dispose();
+                    }
                 }
             }
         }        
