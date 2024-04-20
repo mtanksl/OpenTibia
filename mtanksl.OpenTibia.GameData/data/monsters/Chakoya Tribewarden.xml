@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Chakoya Tribewarden" nameDescription="a chakoya tribewarden" speed="270">
+<monster name="Chakoya Tribewarden" nameDescription="a chakoya tribewarden" speed="270" experience="40">
   <health now="68" max="68" />
   <look typeex="0" type="259" head="0" body="0" legs="0" feet="0" corpse="7320" />
   <voices>

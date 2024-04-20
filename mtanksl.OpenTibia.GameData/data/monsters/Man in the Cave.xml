@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Man in the Cave" nameDescription="Man in the Cave" speed="210">
+<monster name="Man in the Cave" nameDescription="Man in the Cave" speed="210" experience="555">
   <health now="485" max="485" />
   <look typeex="0" type="128" head="95" body="116" legs="95" feet="114" corpse="6080" />
   <voices>

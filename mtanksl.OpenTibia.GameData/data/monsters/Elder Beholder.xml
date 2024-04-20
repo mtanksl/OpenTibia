@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Elder Beholder" nameDescription="an elder beholder" speed="270">
+<monster name="Elder Beholder" nameDescription="an elder beholder" speed="270" experience="280">
   <health now="1100" max="1100" />
   <look typeex="0" type="108" head="0" body="0" legs="0" feet="0" corpse="6037" />
   <voices>

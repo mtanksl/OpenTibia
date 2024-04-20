@@ -16,7 +16,8 @@ server = {
 		infiniterunes = false,
 		maxvips = 100,
 		maxdepotitems = 2000,
-		lootrate = 1
+		lootrate = 1,
+		experiencerate = 1
 	},
 	security = {
 		-- multi-client

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Energy Elemental" nameDescription="an energy elemental" speed="250">
+<monster name="Energy Elemental" nameDescription="an energy elemental" speed="250" experience="450">
   <health now="500" max="500" />
   <look typeex="0" type="293" head="0" body="0" legs="0" feet="0" corpse="1495" />
 </monster>

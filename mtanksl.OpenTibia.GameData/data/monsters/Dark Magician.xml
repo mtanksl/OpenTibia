@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Dark Magician" nameDescription="a dark magician" speed="220">
+<monster name="Dark Magician" nameDescription="a dark magician" speed="220" experience="185">
   <health now="325" max="325" />
   <look typeex="0" type="133" head="116" body="95" legs="50" feet="132" corpse="6080" />
   <voices>

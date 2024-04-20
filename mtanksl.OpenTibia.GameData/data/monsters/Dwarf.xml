@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Dwarf" nameDescription="a dwarf" speed="170">
+<monster name="Dwarf" nameDescription="a dwarf" speed="170" experience="45">
   <health now="90" max="90" />
   <look typeex="0" type="69" head="0" body="0" legs="0" feet="0" corpse="6007" />
   <voices>

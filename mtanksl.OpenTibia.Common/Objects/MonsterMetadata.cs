@@ -10,6 +10,8 @@ namespace OpenTibia.Common.Objects
 
         public ushort Speed { get; set; }
 
+        public uint Experience { get; set; }
+
         public ushort Health { get; set; }
 
         public ushort MaxHealth { get; set; }

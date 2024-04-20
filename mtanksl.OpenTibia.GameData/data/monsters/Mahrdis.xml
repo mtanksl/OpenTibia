@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Mahrdis" nameDescription="a mahrdis" speed="340">
+<monster name="Mahrdis" nameDescription="a mahrdis" speed="340" experience="3050">
   <health now="3900" max="3900" />
   <look typeex="0" type="90" head="0" body="0" legs="0" feet="0" corpse="6025" />
   <voices>

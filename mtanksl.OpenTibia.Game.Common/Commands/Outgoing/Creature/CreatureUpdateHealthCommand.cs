@@ -58,29 +58,7 @@ namespace OpenTibia.Game.Commands
 
                     if (Creature.Health == 0)
                     {
-                        return Context.AddCommand(new CreatureDestroyCommand(Creature) ).Then( () =>
-                        {
-                            if (Creature is Monster monster)
-                            {
-                                return Context.AddCommand(new TileCreateMonsterCorpseCommand(Creature.Tile, monster.Metadata) ).Then( (item) =>
-                                {                                    
-                                    _ = Context.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(30) ) );
-
-                                    return Promise.Completed;
-                                } );
-                            }
-                            else if (Creature is Player player)
-                            {
-                                return Context.AddCommand(new TileCreateItemCommand(Creature.Tile, 2317, 1) ).Then( (item) =>
-                                {
-                                    _ = Context.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(30) ) );
-
-                                    return Promise.Completed;
-                                } );
-                            }
-
-                            return Promise.Completed;
-                        } );
+                        return Context.AddCommand(new CreatureDestroyCommand(Creature) );
                     }
                 }
             }

@@ -33,6 +33,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Speed = (ushort)xmlMonster.Speed,
 
+                    Experience = xmlMonster.Experience,
+
                     Health = (ushort)xmlMonster.Health.Now,
 
                     MaxHealth = (ushort)xmlMonster.Health.Max,
@@ -43,7 +45,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Sentences = xmlMonster.Voices?.Select(v => v.Sentence).ToArray(),
 
-                    LootItems = xmlMonster.LootItems?.Select(l => new LootItem() { OpenTibiaId = l.Id, KillsToGetOne = l.KillsToGetOne, CountMin = l.CountMin ?? 1, CountMax = l.CountMax ?? 1 } ).ToArray()
+                    LootItems = xmlMonster.LootItems?.Select(l => new LootItem() { OpenTibiaId = l.Id, KillsToGetOne = l.KillsToGetOne ?? 1, CountMin = l.CountMin ?? 1, CountMax = l.CountMax ?? 1 } ).ToArray()
                 } );
             }
 

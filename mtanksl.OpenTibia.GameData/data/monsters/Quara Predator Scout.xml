@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Quara Predator Scout" nameDescription="a quara predator scout" speed="290">
+<monster name="Quara Predator Scout" nameDescription="a quara predator scout" speed="290" experience="400">
   <health now="890" max="890" />
   <look typeex="0" type="20" head="0" body="0" legs="0" feet="0" corpse="6067" />
   <voices>

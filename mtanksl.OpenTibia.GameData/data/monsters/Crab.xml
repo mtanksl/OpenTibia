@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Crab" nameDescription="a crab" speed="180">
+<monster name="Crab" nameDescription="a crab" speed="180" experience="30">
   <health now="55" max="55" />
   <look typeex="0" type="112" head="0" body="0" legs="0" feet="0" corpse="6039" />
   <voices>

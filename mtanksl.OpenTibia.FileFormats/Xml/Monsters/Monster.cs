@@ -17,6 +17,8 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
             monster.Speed = (int)monsterNode.Attribute("speed");
 
+            monster.Experience = (uint)monsterNode.Attribute("experience");
+
             XElement healthNode = monsterNode.Element("health");
 
             monster.Health = new Health()
@@ -76,7 +78,7 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
                         CountMax = (int?)itemNode.Attribute("countmax"),
 
-                        KillsToGetOne = (int)itemNode.Attribute("killsToGetOne")
+                        KillsToGetOne = (int?)itemNode.Attribute("killsToGetOne")
                     } );
                 }
             }
@@ -92,6 +94,9 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
         [XmlAttribute("speed")]
         public int Speed { get; set; }
+
+        [XmlAttribute("experience")]
+        public uint Experience { get; set; }
 
         [XmlElement("health")]
         public Health Health { get; set; }

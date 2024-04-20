@@ -88,6 +88,8 @@ namespace OpenTibia.Game.Common
 
             NpcTradings = new NpcTradingCollection();
 
+            Combats = new CombatCollection();
+
             GameObjectPool = new GameObjectPool();
 
             GameObjects = new GameObjectCollection();
@@ -171,6 +173,8 @@ namespace OpenTibia.Game.Common
         public ITradingCollection Tradings { get; set; }
 
         public INpcTradingCollection NpcTradings { get; set; }
+
+        public ICombatCollection Combats { get; set; }
 
         public IGameObjectPool GameObjectPool { get; set; }
 

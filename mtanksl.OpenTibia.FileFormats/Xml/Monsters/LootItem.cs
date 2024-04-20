@@ -17,6 +17,6 @@ namespace OpenTibia.FileFormats.Xml.Monsters
         // public int Chance { get; set; }
 
         [XmlAttribute("killsToGetOne")]
-        public int KillsToGetOne { get; set; }
+        public int? KillsToGetOne { get; set; }
     }
 }

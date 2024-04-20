@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="The Horned Fox" nameDescription="the Horned Fox" speed="210">
+<monster name="The Horned Fox" nameDescription="the Horned Fox" speed="210" experience="200">
   <health now="265" max="265" />
   <look typeex="0" type="202" head="0" body="0" legs="0" feet="0" corpse="5983" />
   <voices>

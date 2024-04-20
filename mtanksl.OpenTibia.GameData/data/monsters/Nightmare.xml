@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Nightmare" nameDescription="a nightmare" speed="270">
+<monster name="Nightmare" nameDescription="a nightmare" speed="270" experience="2150">
   <health now="2700" max="2700" />
   <look typeex="0" type="245" head="0" body="0" legs="0" feet="0" corpse="6340" />
   <voices>

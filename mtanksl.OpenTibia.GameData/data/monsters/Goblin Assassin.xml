@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Goblin Assassin" nameDescription="a goblin assassin" speed="220">
+<monster name="Goblin Assassin" nameDescription="a goblin assassin" speed="220" experience="52">
   <health now="75" max="75" />
   <look typeex="0" type="296" head="0" body="0" legs="0" feet="0" corpse="6002" />
   <voices>

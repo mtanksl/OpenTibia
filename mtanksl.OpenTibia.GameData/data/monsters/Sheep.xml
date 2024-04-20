@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Sheep" nameDescription="a sheep" speed="110">
+<monster name="Sheep" nameDescription="a sheep" speed="110" experience="0">
   <health now="20" max="20" />
   <look typeex="0" type="14" head="0" body="0" legs="0" feet="0" corpse="5991" />
   <voices>

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Leviathan" nameDescription="Leviathan" speed="758">
+<monster name="Leviathan" nameDescription="Leviathan" speed="758" experience="5000">
   <health now="6000" max="6000" />
   <look typeex="0" type="275" head="0" body="0" legs="0" feet="0" corpse="8307" />
   <voices>

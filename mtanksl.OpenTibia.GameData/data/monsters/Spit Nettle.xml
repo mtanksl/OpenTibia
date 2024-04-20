@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Spit Nettle" nameDescription="a spit nettle" speed="0">
+<monster name="Spit Nettle" nameDescription="a spit nettle" speed="0" experience="20">
   <health now="150" max="150" />
   <look typeex="0" type="221" head="0" body="0" legs="0" feet="0" corpse="6062" />
 </monster>

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Gang Member" nameDescription="a gang member" speed="220">
+<monster name="Gang Member" nameDescription="a gang member" speed="220" experience="70">
   <health now="295" max="295" />
   <look typeex="0" type="151" head="114" body="19" legs="42" feet="20" corpse="3058" />
   <voices>

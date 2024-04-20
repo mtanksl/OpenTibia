@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Badger" nameDescription="a badger" speed="180">
+<monster name="Badger" nameDescription="a badger" speed="180" experience="5">
   <health now="20" max="20" />
   <look typeex="0" type="105" head="0" body="0" legs="0" feet="0" corpse="6034" />
 </monster>

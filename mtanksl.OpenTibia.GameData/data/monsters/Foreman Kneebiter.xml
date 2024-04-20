@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Foreman Kneebiter" nameDescription="Foreman Kneebiter" speed="200">
+<monster name="Foreman Kneebiter" nameDescription="Foreman Kneebiter" speed="200" experience="570">
   <health now="445" max="445" />
   <look typeex="0" type="70" head="0" body="0" legs="0" feet="0" corpse="6013" />
 </monster>

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Dark Monk" nameDescription="a dark monk" speed="210">
+<monster name="Dark Monk" nameDescription="a dark monk" speed="210" experience="145">
   <health now="190" max="190" />
   <look typeex="0" type="225" head="0" body="0" legs="0" feet="0" corpse="6080" />
   <voices>

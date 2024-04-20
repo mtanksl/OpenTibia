@@ -19,6 +19,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         int GameplayMaxVips { get; set; }
         int GameplayMaxDepotItems { get; set; }
         int GameplayLootRate { get; set; }
+        int GameplayExperienceRate { get; set; }
 
         int SecurityMaxConnectionsWithSameIpAddress { get; set; }
         int SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds { get; set; }

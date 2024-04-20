@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Massive Water Elemental" nameDescription="a massive water elemental" speed="500">
+<monster name="Massive Water Elemental" nameDescription="a massive water elemental" speed="500" experience="800">
   <health now="1250" max="1250" />
   <look typeex="0" type="11" head="0" body="0" legs="0" feet="0" corpse="2025" />
 </monster>

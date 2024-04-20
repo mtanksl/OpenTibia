@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Wisp" nameDescription="a wisp" speed="200">
+<monster name="Wisp" nameDescription="a wisp" speed="200" experience="0">
   <health now="115" max="115" />
   <look typeex="0" type="294" head="0" body="0" legs="0" feet="0" corpse="6324" />
   <voices>

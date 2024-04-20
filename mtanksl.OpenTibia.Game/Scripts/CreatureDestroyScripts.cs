@@ -19,6 +19,10 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CommandHandlers.AddCommandHandler(new CleanUpContainerCollectionHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new CleanUpWindowCollectionHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new LootHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new ExperienceHandler() );
         }
 
         public override void Stop()
