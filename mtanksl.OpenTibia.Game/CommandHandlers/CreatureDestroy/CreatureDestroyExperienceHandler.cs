@@ -6,7 +6,7 @@ using System;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class ExperienceHandler : CommandHandler<CreatureDestroyCommand>
+    public class CreatureDestroyExperienceHandler : CommandHandler<CreatureDestroyCommand>
     {
         public override Promise Handle(Func<Promise> next, CreatureDestroyCommand command)
         {
