@@ -36,6 +36,8 @@ namespace OpenTibia.Game.Common
 
         INpcTradingCollection NpcTradings { get; set; }
 
+        ICombatCollection Combats { get; set; }
+
         IGameObjectPool GameObjectPool { get; set; }
 
         IGameObjectCollection GameObjects { get; set; }

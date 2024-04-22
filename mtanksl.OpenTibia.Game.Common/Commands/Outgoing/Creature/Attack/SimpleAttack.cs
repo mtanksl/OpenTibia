@@ -63,6 +63,8 @@ namespace OpenTibia.Game.Commands
 
             if (target != attacker)
             {
+                Context.Current.Server.Combats.AddHitToTarget(attacker, target, damage);
+
                 if (target is Player player)
                 {
                     CreatureConditionBehaviour creatureConditionBehaviour = Context.Current.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(target)

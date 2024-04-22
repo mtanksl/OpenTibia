@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             for (var node = queue.First; node != null; node = node.Next)
             {
-                if (DateTimeOffset.UtcNow >= node.Value.Timeout)
+                if (DateTime.UtcNow >= node.Value.Timeout)
                 {
                     queue.Remove(node);
                 }

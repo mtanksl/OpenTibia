@@ -10,7 +10,7 @@
 	- vs Player
 	- PVP vs non-PVP configuration
 	- Logout block
-	- Experience, level, magic level and skills
+	- Magic level and skills
 	- Skull
 	- War
 	- Drop bag
@@ -79,6 +79,7 @@
 		- Monster spawn/respawn	
 		- Monster despawn
 		- Loot
+		- Experience, level and level percent
 	- Weapon attributes (range, atk, def, arm)
 	- Ammunition
 	- Bow and arrow
