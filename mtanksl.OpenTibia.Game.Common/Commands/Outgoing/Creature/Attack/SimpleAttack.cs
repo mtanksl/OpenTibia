@@ -63,7 +63,10 @@ namespace OpenTibia.Game.Commands
 
             if (target != attacker)
             {
-                Context.Current.Server.Combats.AddHitToTarget(attacker, target, damage);
+                if (attacker != null && target != null && damage > 0)
+                {
+                    Context.Current.Server.Combats.AddHitToTarget(attacker, target, damage);
+                }
 
                 if (target is Player player)
                 {
