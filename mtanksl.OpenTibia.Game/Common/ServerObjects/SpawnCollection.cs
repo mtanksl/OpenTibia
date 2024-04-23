@@ -89,7 +89,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                     {
                         if (spawner.NextSpawn == null)
                         {
-                            spawner.NextSpawn = DateTime.UtcNow.AddMilliseconds(spawner.SpawnTime);
+                            spawner.NextSpawn = DateTime.UtcNow.AddSeconds(spawner.SpawnTime);
                         }
                         else
                         {

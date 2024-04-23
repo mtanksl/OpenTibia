@@ -516,7 +516,10 @@ namespace OpenTibia.Common
                     {
                         if (Client == null || Client.Player == null || Client.Player.Tile == null || Client.Player.IsDestroyed)
                         {
-                            Disconnect();
+							if (identification != 0x87)
+							{
+								Disconnect();
+							}
                         }
                         else
                         {
