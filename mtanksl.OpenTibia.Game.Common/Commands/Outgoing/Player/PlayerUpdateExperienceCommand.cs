@@ -7,7 +7,7 @@ namespace OpenTibia.Game.Commands
 {
     public class PlayerUpdateExperienceCommand : Command
     {
-        public PlayerUpdateExperienceCommand(Player player, uint experience, ushort level, byte levelPercent)
+        public PlayerUpdateExperienceCommand(Player player, ulong experience, ushort level, byte levelPercent)
         {
             Player = player;
 
@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        public uint Experience { get; set; }
+        public ulong Experience { get; set; }
 
         public ushort Level { get; set; }
 

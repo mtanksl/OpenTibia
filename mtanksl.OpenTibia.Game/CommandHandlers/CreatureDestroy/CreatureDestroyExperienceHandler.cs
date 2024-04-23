@@ -22,15 +22,15 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (command.Creature is Monster monster)
                 {
-                    uint totalExperience = (uint)Context.Server.Config.GameplayExperienceRate * monster.Metadata.Experience;
+                    ulong totalExperience = (ulong)Context.Server.Config.GameplayExperienceRate * monster.Metadata.Experience;
 
-                    uint totalDamage = (uint)hits.Values.Sum(h => h.Damage);
+                    ulong totalDamage = (ulong)hits.Values.Sum(h => h.Damage);
 
                     foreach (var pair in hits)
                     {
                         Creature attacker = pair.Key;
 
-                        uint damage = (uint)pair.Value.Damage;
+                        ulong damage = (ulong)pair.Value.Damage;
 
                         if (attacker.Tile == null || attacker.IsDestroyed )
                         {
@@ -38,7 +38,7 @@ namespace OpenTibia.Game.CommandHandlers
                         }
                         else
                         {
-                            uint experience = totalExperience * damage / totalDamage;
+                            ulong experience = totalExperience * damage / totalDamage;
 
                             if (experience > 0)
                             {
@@ -50,11 +50,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                                     byte correctLevelPercent = 0;
 
-                                    uint levelMinExperience = (uint)( ( 50 * Math.Pow(correctLevel - 1, 3) - 150 * Math.Pow(correctLevel - 1, 2) + 400 * (correctLevel - 1) ) / 3 );
+                                    ulong levelMinExperience = (ulong)( ( 50 * Math.Pow(correctLevel - 1, 3) - 150 * Math.Pow(correctLevel - 1, 2) + 400 * (correctLevel - 1) ) / 3 );
 
                                     while (true)
                                     {
-                                        uint levelMaxExperience = (uint)( ( 50 * Math.Pow(correctLevel, 3) - 150 * Math.Pow(correctLevel, 2) + 400 * (correctLevel) ) / 3 );
+                                        ulong levelMaxExperience = (ulong)( ( 50 * Math.Pow(correctLevel, 3) - 150 * Math.Pow(correctLevel, 2) + 400 * (correctLevel) ) / 3 );
 
                                         if (player.Experience + experience < levelMaxExperience)
                                         {

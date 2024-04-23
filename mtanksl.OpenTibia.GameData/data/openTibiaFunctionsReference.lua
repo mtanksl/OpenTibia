@@ -445,11 +445,11 @@ return {
 				args = "(Player player, int capacity)",
 				returns = "void",
 			},
-			-- void command.playerupdateexperience(Player player, int experience, ushort level, byte levelPercent)
+			-- void command.playerupdateexperience(Player player, ulong experience, ushort level, byte levelPercent)
 			playerupdateexperience = {
 				type = "function",
 				description = "",
-				args = "(Player player, int experience, ushort level, byte levelPercent)",
+				args = "(Player player, ulong experience, ushort level, byte levelPercent)",
 				returns = "void",
 			},
 			-- void command.playerupdatemana(Player player, int mana)

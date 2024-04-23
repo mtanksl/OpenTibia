@@ -101,7 +101,7 @@ namespace OpenTibia.Common.Objects
         
         public Skills Skills { get; set; }
 
-        public uint Experience { get; set; }
+        public ulong Experience { get; set; }
 
         public ushort Level { get; set; }
 
@@ -129,7 +129,7 @@ namespace OpenTibia.Common.Objects
 
             BaseSpeed = Speed = (ushort)( 2 * level + 218 );
 
-            Experience = (uint)( ( 50 * Math.Pow(level - 1, 3) - 150 * Math.Pow(level - 1, 2) + 400 * (level - 1) ) / 3 );
+            Experience = (ulong)( ( 50 * Math.Pow(level - 1, 3) - 150 * Math.Pow(level - 1, 2) + 400 * (level - 1) ) / 3 );
         }
 
         /// <exception cref="InvalidOperationException"></exception>

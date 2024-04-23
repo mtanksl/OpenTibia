@@ -4,7 +4,7 @@ namespace OpenTibia.Game.Events
 {
     public class PlayerUpdateExperienceEventArgs : GameEventArgs
     {
-        public PlayerUpdateExperienceEventArgs(Player player, uint experience, ushort level)
+        public PlayerUpdateExperienceEventArgs(Player player, ulong experience, ushort level)
         {
             Player = player;
 
@@ -15,7 +15,7 @@ namespace OpenTibia.Game.Events
 
         public Player Player { get; set; }
 
-        public uint Experience { get; set; }
+        public ulong Experience { get; set; }
 
         public ushort Level { get; set; }
     }

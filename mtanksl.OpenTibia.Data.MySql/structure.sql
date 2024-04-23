@@ -243,7 +243,7 @@ CREATE TABLE `Players` (
   `SkillShieldPercent` int(11) NOT NULL,
   `SkillFish` int(11) NOT NULL,
   `SkillFishPercent` int(11) NOT NULL,
-  `Experience` int(11) NOT NULL,
+  `Experience` bigint(11) NOT NULL,
   `Level` int(11) NOT NULL,
   `LevelPercent` int(11) NOT NULL,
   `Mana` int(11) NOT NULL,

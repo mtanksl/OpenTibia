@@ -139,7 +139,7 @@ CREATE TABLE Players (
   SkillShieldPercent INTEGER NOT NULL, 
   SkillFish INTEGER NOT NULL, 
   SkillFishPercent INTEGER NOT NULL, 
-  Experience INTEGER NOT NULL, 
+  Experience BIGINT NOT NULL, 
   Level INTEGER NOT NULL, 
   LevelPercent INTEGER NOT NULL, 
   Mana INTEGER NOT NULL, 

@@ -182,7 +182,7 @@ CREATE TABLE [dbo].[Players](
 	[SkillShieldPercent] [int] NOT NULL,
 	[SkillFish] [int] NOT NULL,
 	[SkillFishPercent] [int] NOT NULL,
-	[Experience] [int] NOT NULL,
+	[Experience] [bigint] NOT NULL,
 	[Level] [int] NOT NULL,
 	[LevelPercent] [int] NOT NULL,
 	[Mana] [int] NOT NULL,

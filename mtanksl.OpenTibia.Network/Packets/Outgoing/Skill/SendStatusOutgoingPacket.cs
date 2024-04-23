@@ -1,10 +1,11 @@
 ﻿using OpenTibia.IO;
+using System;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
     public class SendStatusOutgoingPacket : IOutgoingPacket
     {
-        public SendStatusOutgoingPacket(ushort health, ushort maxHealth, uint capacity, uint experience, ushort level, byte levelPercent, ushort mana, ushort maxMana, byte magicLevel, byte magicLevelPercent, byte soul, ushort stamina)
+        public SendStatusOutgoingPacket(ushort health, ushort maxHealth, uint capacity, ulong experience, ushort level, byte levelPercent, ushort mana, ushort maxMana, byte magicLevel, byte magicLevelPercent, byte soul, ushort stamina)
         {
             this.Health = health;
 
@@ -37,7 +38,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public uint Capacity { get; set; }
 
-        public uint Experience { get; set; }
+        public ulong Experience { get; set; }
 
         public ushort Level { get; set; }
 
@@ -65,7 +66,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             writer.Write(Capacity);
 
-            writer.Write(Experience);
+            writer.Write( (uint)Math.Min(2147483647, Experience) );
 
             writer.Write(Level);
 

@@ -177,7 +177,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             player.Skills.FishPercent = (byte)dbPlayer.SkillFishPercent;
 
-            player.Experience = (uint)dbPlayer.Experience;
+            player.Experience = (ulong)dbPlayer.Experience;
 
             player.Level = (ushort)dbPlayer.Level;
 
@@ -436,7 +436,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             dbPlayer.SkillFishPercent = player.Skills.FishPercent;
 
-            dbPlayer.Experience = (int)player.Experience;
+            dbPlayer.Experience = (long)player.Experience;
 
             dbPlayer.Level = player.Level;
 

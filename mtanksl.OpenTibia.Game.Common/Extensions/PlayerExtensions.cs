@@ -261,7 +261,7 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdateExperience(this Player player, uint experience, ushort level, byte levelPercent)
+        public static Promise UpdateExperience(this Player player, ulong experience, ushort level, byte levelPercent)
         {
             Context context = Context.Current;
 

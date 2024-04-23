@@ -87,7 +87,7 @@ namespace OpenTibia.Data.Models
 
         public int SkillFishPercent { get; set; }
 
-        public int Experience { get; set; }
+        public long Experience { get; set; }
 
         public int Level { get; set; }
 
