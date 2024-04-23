@@ -43,8 +43,6 @@ namespace OpenTibia.Game.Commands
 
                 Context.Server.PlayerFactory.Load(DbPlayer, player);
 
-                player.CalculateKnight(3000);
-
                 Context.Server.GameObjectPool.AddPlayer(player);
             }
             else
