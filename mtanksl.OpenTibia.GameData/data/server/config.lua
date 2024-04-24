@@ -1,42 +1,51 @@
+DNS = ""
+IP_ADDRESS = "127.0.0.1"
+LOGIN_PORT = 7171
+GAME_PORT = 7172
+INFO_PORT = 7173
+
 server = {
+	info = {
+		maxconnections = 1,
+		port = INFO_PORT,
+		public = {
+			servername = "MTOTS",
+			ipaddress = DNS,
+			port = LOGIN_PORT,
+			location = "",
+			url = "",
+			ownername = "",
+			owneremail = "",
+			mapname = "",
+			mapauthor = ""
+		}
+	},
 	login = {
 		maxconnections = 100,
-		port = 7171
+		port = LOGIN_PORT,
+		motd = "MTOTS - An open Tibia server developed by mtanksl",
+		worlds = {
+			["Cormaya"] = {
+				ipaddress = IP_ADDRESS,
+				port = GAME_PORT
+			}
+		}
 	},
 	game = {
 		maxconnections = 1100,
-		port = 7172
-	},		
-	info = {
-		maxconnections = 1,
-		port = 7173,
-		servername = "MTOTS",
-		ipaddress = "",
-		location = "",
-		url = "",
-		ownername = "",
-		owneremail = "",
-		mapname = "",
-		mapauthor = ""
-	},
-	motd = "MTOTS - An open Tibia server developed by mtanksl",
-	worlds = {
-		["Cormaya"] = {
-			ipaddress = "127.0.0.1",
-			port = 7172
+		port = GAME_PORT,
+		gameplay = {
+			maxplayers = 1000,
+			privatenpcsystem = true,
+			learnspellfirst = false,
+			infinitepotions = false,
+			infinitearrows = false,
+			infiniterunes = false,
+			maxvips = 100,
+			maxdepotitems = 2000,
+			lootrate = 1,
+			experiencerate = 1
 		}
-	},
-	gameplay = {
-		maxplayers = 1000,
-		privatenpcsystem = true,
-		learnspellfirst = false,
-		infinitepotions = false,
-		infinitearrows = false,
-		infiniterunes = false,
-		maxvips = 100,
-		maxdepotitems = 2000,
-		lootrate = 1,
-		experiencerate = 1
 	},
 	security = {
 		-- multi-client

@@ -5,25 +5,27 @@ namespace OpenTibia.Game.Common.ServerObjects
 {
     public interface IConfig : IDisposable
     {
+        int InfoMaxConnections { get; set; }
+        int InfoPort { get; set; }
+
+        string IPAddress { get; set; }
+        int Port { get; set; }
+        string ServerName { get; set; }
+        string Location { get; set; }
+        string Url { get; set; }
+        string OwnerName { get; set; }
+        string OwnerEmail { get; set; }
+        string MapName { get; set; }
+        string MapAuthor { get; set; }
+
         int LoginMaxconnections { get; set; }
         int LoginPort { get; set; }
 
-        int GameMaxConnections { get; set; }
-        int GamePort { get; set; }
-
-        int InfoMaxConnections { get; set; }
-        int InfoPort { get; set; }
-        string InfoIPAddress { get; set; }
-        string InfoServerName { get; set; }
-        string InfoLocation { get; set; }
-        string InfoUrl { get; set; }
-        string InfoOwnerName { get; set; }
-        string InfoOwnerEmail { get; set; }
-        string InfoMapName { get; set; }
-        string InfoMapAuthor { get; set; }
-
         string Motd { get; set; }
         DbWorld[] Worlds { get; set; }
+
+        int GameMaxConnections { get; set; }
+        int GamePort { get; set; }
 
         int GameplayMaxPlayers { get; set; }
         bool GameplayPrivateNpcSystem { get; set; }

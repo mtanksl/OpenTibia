@@ -352,33 +352,36 @@ namespace OpenTibia.Game.Common
                     }
                 }
 
-                using (Logger.Measure("Updating message of the day") )
+                if (Config.LoginMaxconnections > 0 && Config.LoginPort > 0)
                 {
-                    DbMotd motd = Context.Current.Database.MotdRepository.GetLastMessageOfTheDay();
-
-                    if (motd == null || motd.Message != Config.Motd)
+                    using (Logger.Measure("Updating message of the day") )
                     {
-                        Context.Current.Database.MotdRepository.AddMessageOfTheDay(new DbMotd() { Message = Config.Motd } );
+                        DbMotd motd = Context.Current.Database.MotdRepository.GetLastMessageOfTheDay();
 
-                        Context.Current.Database.Commit();
-                    }
-                }
-
-                using (Logger.Measure("Updating worlds") )
-                {
-                    foreach (var dbWorld in Context.Current.Database.WorldRepository.GetWorlds() )
-                    {
-                        var world = Config.Worlds.Where(w => w.Name == dbWorld.Name).FirstOrDefault();
-
-                        if (world != null)
+                        if (motd == null || motd.Message != Config.Motd)
                         {
-                            dbWorld.Ip = world.Ip;
+                            Context.Current.Database.MotdRepository.AddMessageOfTheDay(new DbMotd() { Message = Config.Motd } );
 
-                            dbWorld.Port = world.Port;
+                            Context.Current.Database.Commit();
                         }
                     }
 
-                    Context.Current.Database.Commit();
+                    using (Logger.Measure("Updating worlds") )
+                    {
+                        foreach (var dbWorld in Context.Current.Database.WorldRepository.GetWorlds() )
+                        {
+                            var world = Config.Worlds.Where(w => w.Name == dbWorld.Name).FirstOrDefault();
+
+                            if (world != null)
+                            {
+                                dbWorld.Ip = world.Ip;
+
+                                dbWorld.Port = world.Port;
+                            }
+                        }
+
+                        Context.Current.Database.Commit();
+                    }
                 }
 
                 using (Logger.Measure("Loading houses") )
@@ -438,11 +441,11 @@ namespace OpenTibia.Game.Common
                 gameServer.Start(Config.GameMaxConnections, Config.GamePort);
             }
 
-            if (Config.GameMaxConnections > 0 && Config.InfoPort > 0)
+            if (Config.InfoMaxConnections > 0 && Config.InfoPort > 0)
             {
                 infoServer = new Listener(socket => new InfoConnection(this, socket) );
 
-                infoServer.Start(Config.GameMaxConnections, Config.InfoPort);
+                infoServer.Start(Config.InfoMaxConnections, Config.InfoPort);
             }
 
             Status = ServerStatus.Running;

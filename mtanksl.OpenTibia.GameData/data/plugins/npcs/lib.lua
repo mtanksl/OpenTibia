@@ -1,4 +1,4 @@
-﻿PRIVATE_NPC_SYSTEM = getconfig("server", "server.gameplay.privatenpcsystem")
+﻿PRIVATE_NPC_SYSTEM = getconfig("server", "server.game.gameplay.privatenpcsystem")
 
 topiccondition = {}
 

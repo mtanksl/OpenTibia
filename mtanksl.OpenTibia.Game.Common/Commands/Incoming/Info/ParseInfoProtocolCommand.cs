@@ -33,17 +33,17 @@ namespace OpenTibia.Game.Commands
                         new XAttribute("version", "1.0"), 
                         new XElement("serverinfo",
                             new XAttribute("uptime", (uint)Context.Server.Uptime.TotalSeconds),
-                            new XAttribute("ip", Context.Server.Config.InfoIPAddress),
-                            new XAttribute("servername", Context.Server.Config.InfoServerName),
-                            new XAttribute("port", Context.Server.Config.LoginPort),
-                            new XAttribute("location", Context.Server.Config.InfoLocation),
-                            new XAttribute("url", Context.Server.Config.InfoUrl),
+                            new XAttribute("servername", Context.Server.Config.ServerName),
+                            new XAttribute("ip", Context.Server.Config.IPAddress),
+                            new XAttribute("port", Context.Server.Config.Port),
+                            new XAttribute("location", Context.Server.Config.Location),
+                            new XAttribute("url", Context.Server.Config.Url),
                             new XAttribute("server", Context.Server.ServerName),
                             new XAttribute("version", Context.Server.ServerVersion),
                             new XAttribute("client", Context.Server.ClientVersion) ),
                         new XElement("owner",
-                            new XAttribute("name", Context.Server.Config.InfoOwnerName),
-                            new XAttribute("email", Context.Server.Config.InfoOwnerEmail) ),
+                            new XAttribute("name", Context.Server.Config.OwnerName),
+                            new XAttribute("email", Context.Server.Config.OwnerEmail) ),
                         new XElement("players",
                             new XAttribute("online", Context.Server.GameObjects.GetPlayers().Count() ),
                             new XAttribute("max", Context.Server.Config.GameplayMaxPlayers),
@@ -59,8 +59,8 @@ namespace OpenTibia.Game.Commands
                             new XAttribute("magic", 1),
                             new XAttribute("spawn", 1) ),
                         new XElement("map",
-                            new XAttribute("name", Context.Server.Config.InfoMapName),
-                            new XAttribute("author", Context.Server.Config.InfoMapAuthor),
+                            new XAttribute("name", Context.Server.Config.MapName),
+                            new XAttribute("author", Context.Server.Config.MapAuthor),
                             new XAttribute("width", Context.Server.Map.Width),
                             new XAttribute("height", Context.Server.Map.Height) ),
                         new XElement("motd", Context.Server.Config.Motd) );
@@ -72,17 +72,17 @@ namespace OpenTibia.Game.Commands
             {
                 if (Packet.RequestedInfo.Is(RequestedInfo.BasicInfo) )
                 {
-                    Context.AddPacket(Connection, new BasicInfoOutgoingPacket(Context.Server.Config.InfoServerName, Context.Server.Config.InfoIPAddress, Context.Server.Config.LoginPort) );
+                    Context.AddPacket(Connection, new BasicInfoOutgoingPacket(Context.Server.Config.ServerName, Context.Server.Config.IPAddress, Context.Server.Config.Port) );
                 }
 
                 if (Packet.RequestedInfo.Is(RequestedInfo.OwnerInfo) )
                 {
-                    Context.AddPacket(Connection, new OwnerInfoOutgoingPacket(Context.Server.Config.InfoOwnerName, Context.Server.Config.InfoOwnerEmail) );
+                    Context.AddPacket(Connection, new OwnerInfoOutgoingPacket(Context.Server.Config.OwnerName, Context.Server.Config.OwnerEmail) );
                 }
 
                 if (Packet.RequestedInfo.Is(RequestedInfo.MiscInfo) )
                 {
-                    Context.AddPacket(Connection, new MiscInfoOutgoingPacket(Context.Server.Config.Motd, Context.Server.Config.InfoLocation, Context.Server.Config.InfoUrl, (uint)Context.Server.Uptime.TotalSeconds) );
+                    Context.AddPacket(Connection, new MiscInfoOutgoingPacket(Context.Server.Config.Motd, Context.Server.Config.Location, Context.Server.Config.Url, (uint)Context.Server.Uptime.TotalSeconds) );
                 }
 
                 if (Packet.RequestedInfo.Is(RequestedInfo.PlayersInfo) )
@@ -92,7 +92,7 @@ namespace OpenTibia.Game.Commands
 
                 if (Packet.RequestedInfo.Is(RequestedInfo.MapInfo) )
                 {
-                    Context.AddPacket(Connection, new MapInfoOutgoingPacket(Context.Server.Config.InfoMapName, Context.Server.Config.InfoMapAuthor, Context.Server.Map.Width, Context.Server.Map.Height) );
+                    Context.AddPacket(Connection, new MapInfoOutgoingPacket(Context.Server.Config.MapName, Context.Server.Config.MapAuthor, Context.Server.Map.Width, Context.Server.Map.Height) );
                 }
 
                 if (Packet.RequestedInfo.Is(RequestedInfo.ExtPlayersInfo) )

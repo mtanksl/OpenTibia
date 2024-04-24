@@ -19,25 +19,27 @@ namespace OpenTibia.Game.Common.ServerObjects
             Dispose(false);
         }
 
+        public int InfoMaxConnections { get; set; }
+        public int InfoPort { get; set; }
+
+        public string ServerName { get; set; }
+        public string IPAddress { get; set; }
+        public int Port { get; set; }
+        public string Location { get; set; }
+        public string Url { get; set; }
+        public string OwnerName { get; set; }
+        public string OwnerEmail { get; set; }
+        public string MapName { get; set; }
+        public string MapAuthor { get; set; }
+
         public int LoginMaxconnections { get; set; }
         public int LoginPort { get; set; }
 
-        public int GameMaxConnections { get; set; }
-        public int GamePort { get; set; }
-
-        public int InfoMaxConnections { get; set; }
-        public int InfoPort { get; set; }
-        public string InfoServerName { get; set; }
-        public string InfoIPAddress { get; set; }
-        public string InfoLocation { get; set; }
-        public string InfoUrl { get; set; }
-        public string InfoOwnerName { get; set; }
-        public string InfoOwnerEmail { get; set; }
-        public string InfoMapName { get; set; }
-        public string InfoMapAuthor { get; set; }
-
         public string Motd { get; set; }
         public DbWorld[] Worlds { get; set; }
+
+        public int GameMaxConnections { get; set; }
+        public int GamePort { get; set; }
 
         public int GameplayMaxPlayers { get; set; }
         public bool GameplayPrivateNpcSystem { get; set; }
@@ -96,59 +98,59 @@ namespace OpenTibia.Game.Common.ServerObjects
                 server.PathResolver.GetFullPath("data/server/lib.lua"),
                 server.PathResolver.GetFullPath("data/lib.lua") );
 
+            InfoMaxConnections = LuaScope.GetInt32(script["server.info.maxconnections"], 1);
+
+            InfoPort = LuaScope.GetInt32(script["server.info.port"], 7173);
+
+            ServerName = LuaScope.GetString(script["server.info.public.servername"], "MTOTS");
+
+            IPAddress = LuaScope.GetString(script["server.info.public.ipaddress"], "");
+
+            Port = LuaScope.GetInt32(script["server.info.public.port"], 7171);
+
+            Location = LuaScope.GetString(script["server.info.public.location"], "");
+
+            Url = LuaScope.GetString(script["server.info.public.url"], "");
+
+            OwnerName = LuaScope.GetString(script["server.info.public.ownername"], "");
+
+            OwnerEmail = LuaScope.GetString(script["server.info.public.owneremail"], "");
+
+            MapName = LuaScope.GetString(script["server.info.public.mapname"], "");
+
+            MapAuthor = LuaScope.GetString(script["server.info.public.mapauthor"], "");
+
             LoginMaxconnections = LuaScope.GetInt32(script["server.login.maxconnections"], 1000);  
             
             LoginPort = LuaScope.GetInt32(script["server.login.port"], 7171);
+                        
+            Motd = LuaScope.GetString(script["server.login.motd"], "MTOTS - An open Tibia server developed by mtanksl");
+
+            LuaTable worlds = (LuaTable)script["server.login.worlds"]; Worlds = worlds.Keys.Cast<string>().Select(key => new DbWorld() { Name = key, Ip = (string)( (LuaTable)worlds[key] )["ipaddress"], Port = (int)(long)( (LuaTable)worlds[key] )["port"] } ).ToArray();
 
             GameMaxConnections = LuaScope.GetInt32(script["server.game.maxconnections"], 1100);
 
             GamePort = LuaScope.GetInt32(script["server.game.port"], 7172);
 
-            InfoMaxConnections = LuaScope.GetInt32(script["server.info.maxconnections"], 1);
+            GameplayMaxPlayers = LuaScope.GetInt32(script["server.game.gameplay.maxplayers"], 1000);
 
-            InfoPort = LuaScope.GetInt32(script["server.info.port"], 7173);
+            GameplayPrivateNpcSystem = LuaScope.GetBoolean(script["server.game.gameplay.privatenpcsystem"], true);
 
-            InfoServerName = LuaScope.GetString(script["server.info.servername"], "MTOTS");
+            GameplayLearnSpellFirst = LuaScope.GetBoolean(script["server.game.gameplay.learnspellfirst"], false);
 
-            InfoIPAddress = LuaScope.GetString(script["server.info.ipaddress"], "");
+            GameplayInfinitePotions = LuaScope.GetBoolean(script["server.game.gameplay.infinitepotions"], false);
 
-            InfoLocation = LuaScope.GetString(script["server.info.location"], "");
+            GameplayInfiniteArrows = LuaScope.GetBoolean(script["server.game.gameplay.infinitearrows"], false);
 
-            InfoUrl = LuaScope.GetString(script["server.info.url"], "");
+            GameplayInfiniteRunes = LuaScope.GetBoolean(script["server.game.gameplay.infiniterunes"], false);
 
-            InfoOwnerName = LuaScope.GetString(script["server.info.ownername"], "");
+            GameplayMaxVips = LuaScope.GetInt32(script["server.game.gameplay.maxvips"], 100);
 
-            InfoOwnerEmail = LuaScope.GetString(script["server.info.owneremail"], "");
+            GameplayMaxDepotItems = LuaScope.GetInt32(script["server.game.gameplay.maxdepotitems"], 2000);
 
-            InfoMapName = LuaScope.GetString(script["server.info.mapname"], "");
+            GameplayLootRate = LuaScope.GetInt32(script["server.game.gameplay.lootrate"], 1);
 
-            InfoMapAuthor = LuaScope.GetString(script["server.info.mapauthor"], "");
-
-            Motd = LuaScope.GetString(script["server.motd"], "MTOTS - An open Tibia server developed by mtanksl");
-
-            LuaTable worlds = (LuaTable)script["server.worlds"];
-
-            Worlds = worlds.Keys.Cast<string>().Select(key => new DbWorld() { Name = key, Ip = (string)( (LuaTable)worlds[key] )["ipaddress"], Port = (int)(long)( (LuaTable)worlds[key] )["port"] } ).ToArray();
-
-            GameplayMaxPlayers = LuaScope.GetInt32(script["server.gameplay.maxplayers"], 1000);
-
-            GameplayPrivateNpcSystem = LuaScope.GetBoolean(script["server.gameplay.privatenpcsystem"], true);
-
-            GameplayLearnSpellFirst = LuaScope.GetBoolean(script["server.gameplay.learnspellfirst"], false);
-
-            GameplayInfinitePotions = LuaScope.GetBoolean(script["server.gameplay.infinitepotions"], false);
-
-            GameplayInfiniteArrows = LuaScope.GetBoolean(script["server.gameplay.infinitearrows"], false);
-
-            GameplayInfiniteRunes = LuaScope.GetBoolean(script["server.gameplay.infiniterunes"], false);
-
-            GameplayMaxVips = LuaScope.GetInt32(script["server.gameplay.maxvips"], 100);
-
-            GameplayMaxDepotItems = LuaScope.GetInt32(script["server.gameplay.maxdepotitems"], 2000);
-
-            GameplayLootRate = LuaScope.GetInt32(script["server.gameplay.lootrate"], 1);
-
-            GameplayExperienceRate = LuaScope.GetInt32(script["server.gameplay.experiencerate"], 1);
+            GameplayExperienceRate = LuaScope.GetInt32(script["server.game.gameplay.experiencerate"], 1);
 
             SecurityMaxConnectionsWithSameIpAddress = LuaScope.GetInt32(script["server.security.maxconnectionswithsameipaddress"], 2);       
             

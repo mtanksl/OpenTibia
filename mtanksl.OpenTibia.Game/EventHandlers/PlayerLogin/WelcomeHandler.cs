@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(PlayerLoginEventArgs e)
         {
-            Context.AddPacket(e.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "Welcome to " + Context.Server.Config.InfoServerName + ".") );
+            Context.AddPacket(e.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "Welcome to " + Context.Server.Config.ServerName + ".") );
 
             return Promise.Completed;
         }
