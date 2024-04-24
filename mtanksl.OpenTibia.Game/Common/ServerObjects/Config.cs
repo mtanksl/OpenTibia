@@ -106,7 +106,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             InfoIPAddress = LuaScope.GetString(script["server.info.ipaddress"], "");
 
-            InfoServerName = LuaScope.GetString(script["server.info.servername"], "");
+            InfoServerName = LuaScope.GetString(script["server.info.servername"], "MTOTS");
 
             InfoLocation = LuaScope.GetString(script["server.info.location"], "");
 

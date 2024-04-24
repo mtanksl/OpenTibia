@@ -1,4 +1,5 @@
-﻿using OpenTibia.Game.Commands;
+﻿using OpenTibia.Common.Structures;
+using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.IO;
@@ -24,6 +25,8 @@ namespace OpenTibia.Common
         public LoginConnection(IServer server, Socket socket) : base(server, socket)
         {
             this.server = server;
+
+            MessageProtocol = MessageProtocol.Tibia;
         }
 
         protected override void OnConnected()

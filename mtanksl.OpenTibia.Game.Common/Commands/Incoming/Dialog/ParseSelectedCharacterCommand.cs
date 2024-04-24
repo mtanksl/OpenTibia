@@ -22,8 +22,6 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Connection.MessageProtocol = MessageProtocol.Tibia;
-
             Connection.Keys = Packet.Keys;
 
             if (Packet.Version != 860)

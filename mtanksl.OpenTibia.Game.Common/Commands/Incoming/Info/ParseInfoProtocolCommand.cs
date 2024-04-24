@@ -25,8 +25,6 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Connection.MessageProtocol = MessageProtocol.Raw;
-
             if (Packet.Xml)
             {
                 if (Packet.RequestedInfo != RequestedInfo.None)

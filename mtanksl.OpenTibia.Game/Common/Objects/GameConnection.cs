@@ -447,6 +447,8 @@ namespace OpenTibia.Common
         public GameConnection(IServer server, Socket socket) : base(server, socket)
         {
             this.server = server;
+
+            MessageProtocol = MessageProtocol.Tibia;
         }
 
         protected override void OnConnected()
