@@ -358,7 +358,7 @@ namespace OpenTibia.Game.Common
 
                     if (motd == null || motd.Message != Config.Motd)
                     {
-                        Context.Current.Database.MotdRepository.AddMessageOfTheDay(new DbMotd() { Message = motd.Message } );
+                        Context.Current.Database.MotdRepository.AddMessageOfTheDay(new DbMotd() { Message = Config.Motd } );
 
                         Context.Current.Database.Commit();
                     }
