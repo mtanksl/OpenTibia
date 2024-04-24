@@ -29,8 +29,6 @@ namespace OpenTibia.Game.Commands
             {
                 if (Packet.RequestedInfo != RequestedInfo.None)
                 {
-                    DbMotd dbMotd = Context.Database.MotdRepository.GetLastMessageOfTheDay();
-
                     XElement xml = new XElement("tsqp", 
                         new XAttribute("version", "1.0"), 
                         new XElement("serverinfo",
@@ -48,7 +46,7 @@ namespace OpenTibia.Game.Commands
                             new XAttribute("email", Context.Server.Config.InfoOwnerEmail) ),
                         new XElement("players",
                             new XAttribute("online", Context.Server.GameObjects.GetPlayers().Count() ),
-                            new XAttribute("max", Context.Server.Config.GameMaxPlayers),
+                            new XAttribute("max", Context.Server.Config.GameplayMaxPlayers),
                             new XAttribute("peek", 0) ),
                         new XElement("monsters",
                             new XAttribute("total", Context.Server.GameObjects.GetMonsters().Count() ) ),
@@ -65,7 +63,7 @@ namespace OpenTibia.Game.Commands
                             new XAttribute("author", Context.Server.Config.InfoMapAuthor),
                             new XAttribute("width", Context.Server.Map.Width),
                             new XAttribute("height", Context.Server.Map.Height) ),
-                        new XElement("motd", dbMotd.Message) );
+                        new XElement("motd", Context.Server.Config.Motd) );
 
                     Context.AddPacket(Connection, new XmlInfoOutgoingPacket(xml) );
                 }
@@ -84,14 +82,12 @@ namespace OpenTibia.Game.Commands
 
                 if (Packet.RequestedInfo.Is(RequestedInfo.MiscInfo) )
                 {
-                    DbMotd dbMotd = Context.Database.MotdRepository.GetLastMessageOfTheDay();
-
-                    Context.AddPacket(Connection, new MiscInfoOutgoingPacket(dbMotd.Message, Context.Server.Config.InfoLocation, Context.Server.Config.InfoUrl, (uint)Context.Server.Uptime.TotalSeconds) );
+                    Context.AddPacket(Connection, new MiscInfoOutgoingPacket(Context.Server.Config.Motd, Context.Server.Config.InfoLocation, Context.Server.Config.InfoUrl, (uint)Context.Server.Uptime.TotalSeconds) );
                 }
 
                 if (Packet.RequestedInfo.Is(RequestedInfo.PlayersInfo) )
                 {
-                    Context.AddPacket(Connection, new PlayersInfoOutgoingPacket( (uint)Context.Server.GameObjects.GetPlayers().Count(), (uint)Context.Server.Config.GameMaxPlayers, 0) );
+                    Context.AddPacket(Connection, new PlayersInfoOutgoingPacket( (uint)Context.Server.GameObjects.GetPlayers().Count(), (uint)Context.Server.Config.GameplayMaxPlayers, 0) );
                 }
 
                 if (Packet.RequestedInfo.Is(RequestedInfo.MapInfo) )

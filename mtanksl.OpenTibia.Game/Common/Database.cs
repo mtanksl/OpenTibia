@@ -89,6 +89,16 @@ namespace OpenTibia.Game.Common
             }
         }
 
+        private IWorldRepository worldRepository;
+
+        public IWorldRepository WorldRepository
+        {
+            get
+            {
+                return worldRepository ?? (worldRepository = new WorldRepository(databaseContext) );
+            }
+        }
+
         public bool CanConnect()
         {
             return databaseContext.Database.CanConnect();

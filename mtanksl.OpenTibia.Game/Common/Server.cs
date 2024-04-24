@@ -352,16 +352,33 @@ namespace OpenTibia.Game.Common
                     }
                 }
 
-                using (Logger.Measure("Loading message of the day") )
+                using (Logger.Measure("Updating message of the day") )
                 {
                     DbMotd motd = Context.Current.Database.MotdRepository.GetLastMessageOfTheDay();
 
-                    if (motd == null || motd.Message != Config.LoginMotd)
+                    if (motd == null || motd.Message != Config.Motd)
                     {
                         Context.Current.Database.MotdRepository.AddMessageOfTheDay(new DbMotd() { Message = motd.Message } );
 
                         Context.Current.Database.Commit();
                     }
+                }
+
+                using (Logger.Measure("Updating worlds") )
+                {
+                    foreach (var dbWorld in Context.Current.Database.WorldRepository.GetWorlds() )
+                    {
+                        var world = Config.Worlds.Where(w => w.Name == dbWorld.Name).FirstOrDefault();
+
+                        if (world != null)
+                        {
+                            dbWorld.Ip = world.Ip;
+
+                            dbWorld.Port = world.Port;
+                        }
+                    }
+
+                    Context.Current.Database.Commit();
                 }
 
                 using (Logger.Measure("Loading houses") )
@@ -407,21 +424,21 @@ namespace OpenTibia.Game.Common
                 GC.WaitForPendingFinalizers();
             }
 
-            if (Config.LoginPort > 0)
+            if (Config.LoginMaxconnections > 0 && Config.LoginPort > 0)
             {
                 loginServer = new Listener(socket => new LoginConnection(this, socket) );
 
                 loginServer.Start(Config.LoginMaxconnections, Config.LoginPort);
             }
 
-            if (Config.GamePort > 0)
+            if (Config.GameMaxConnections > 0 && Config.GamePort > 0)
             {
                 gameServer = new Listener(socket => new GameConnection(this, socket) );
 
                 gameServer.Start(Config.GameMaxConnections, Config.GamePort);
             }
 
-            if (Config.InfoPort > 0)
+            if (Config.GameMaxConnections > 0 && Config.InfoPort > 0)
             {
                 infoServer = new Listener(socket => new InfoConnection(this, socket) );
 

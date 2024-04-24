@@ -1,19 +1,17 @@
 server = {
 	login = {
 		maxconnections = 100,
-		port = 7171,
-		motd = "MTOTS - An open Tibia server developed by mtanksl"
+		port = 7171
 	},
 	game = {
 		maxconnections = 1100,
-		port = 7172,
-		maxplayers = 1000
+		port = 7172
 	},		
 	info = {
 		maxconnections = 1,
 		port = 7173,
-		ipaddress = "",
 		servername = "MTOTS",
+		ipaddress = "",
 		location = "",
 		url = "",
 		ownername = "",
@@ -21,7 +19,15 @@ server = {
 		mapname = "",
 		mapauthor = ""
 	},
+	motd = "MTOTS - An open Tibia server developed by mtanksl",
+	worlds = {
+		["Cormaya"] = {
+			ipaddress = "127.0.0.1",
+			port = 7172
+		}
+	},
 	gameplay = {
+		maxplayers = 1000,
 		privatenpcsystem = true,
 		learnspellfirst = false,
 		infinitepotions = false,

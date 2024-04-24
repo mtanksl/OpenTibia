@@ -40,7 +40,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (plugin != null)
             {
-                if (Context.Server.Config.LearnSpellFirst)
+                if (Context.Server.Config.GameplayLearnSpellFirst)
                 {
                     if ( !command.Player.Spells.HasSpell(plugin.Spell.Name) )
                     {

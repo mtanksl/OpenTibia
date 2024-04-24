@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             if (queue.Count == 0)
             {
-                if (onlinePlayers < server.Config.GameMaxPlayers)
+                if (onlinePlayers < server.Config.GameplayMaxPlayers)
                 {
                     position = 0;
 
@@ -69,7 +69,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                 time = GetTime(position);
 
-                if (onlinePlayers + position > server.Config.GameMaxPlayers)
+                if (onlinePlayers + position > server.Config.GameplayMaxPlayers)
                 {
                     item.Timeout = DateTime.UtcNow.AddSeconds(time + 1);
 

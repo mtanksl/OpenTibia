@@ -19,6 +19,8 @@ namespace OpenTibia.Game.Common
 
         IMotdRepository MotdRepository { get; }
 
+        IWorldRepository WorldRepository { get; }
+
         bool CanConnect();
 
         void CreateDatabase(int gamePort);
