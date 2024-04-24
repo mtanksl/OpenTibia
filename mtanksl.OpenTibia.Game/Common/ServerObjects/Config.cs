@@ -18,6 +18,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public int LoginMaxconnections { get; set; }
         public int LoginPort { get; set; }
+        public string LoginMotd { get; set; }
 
         public int GameMaxConnections { get; set; }
         public int GamePort { get; set; }
@@ -93,7 +94,9 @@ namespace OpenTibia.Game.Common.ServerObjects
             LoginMaxconnections = LuaScope.GetInt32(script["server.login.maxconnections"], 1000);
             
             LoginPort = LuaScope.GetInt32(script["server.login.port"], 7171);
-                        
+
+            LoginMotd = LuaScope.GetString(script["server.login.motd"], "MTOTS - An open Tibia server developed by mtanksl");
+
             GameMaxConnections = LuaScope.GetInt32(script["server.game.maxconnections"], 1100);
             
             GamePort = LuaScope.GetInt32(script["server.game.port"], 7172);

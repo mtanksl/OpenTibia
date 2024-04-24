@@ -84,9 +84,6 @@ CREATE TABLE `Motd` (
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4;
 
-insert  into `Motd`(`Id`,`Message`) values 
-(0,'MTOTS - An open Tibia server developed by mtanksl');
-
 -- PlayerDepotItems
 
 DROP TABLE IF EXISTS `PlayerDepotItems`;

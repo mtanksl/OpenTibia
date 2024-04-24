@@ -389,13 +389,6 @@ GO
 SET IDENTITY_INSERT [dbo].[Accounts] OFF
 GO
 
-SET IDENTITY_INSERT [dbo].[Motd] ON 
-GO
-INSERT [dbo].[Motd] ([Id], [Message]) VALUES (0, N'MTOTS - An open Tibia server developed by mtanksl')
-GO
-SET IDENTITY_INSERT [dbo].[Motd] OFF
-GO
-
 INSERT [dbo].[PlayerItems] ([PlayerId], [SequenceId], [ParentId], [OpenTibiaId], [Count]) VALUES (1, 101, 3, 1987, 1)
 GO
 INSERT [dbo].[PlayerItems] ([PlayerId], [SequenceId], [ParentId], [OpenTibiaId], [Count]) VALUES (1, 102, 101, 2120, 1)

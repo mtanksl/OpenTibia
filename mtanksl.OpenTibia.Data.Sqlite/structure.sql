@@ -54,8 +54,6 @@ CREATE TABLE Motd (
   Message NVARCHAR (255) NOT NULL
 );
 
-INSERT INTO Motd (Id, Message) VALUES (0, 'MTOTS - An open Tibia server developed by mtanksl');
-
 -- PlayerDepotItems
 
 CREATE TABLE PlayerDepotItems (

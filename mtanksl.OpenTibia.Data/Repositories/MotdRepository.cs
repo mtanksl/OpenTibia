@@ -19,5 +19,10 @@ namespace OpenTibia.Data.Repositories
                 .OrderByDescending(m => m.Id)
                 .FirstOrDefault();
         }
+
+        public void AddMessageOfTheDay(DbMotd motd)
+        {
+            context.Motd.Add(motd);
+        }
     }
 }

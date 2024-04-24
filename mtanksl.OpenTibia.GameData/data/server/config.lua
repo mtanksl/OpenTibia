@@ -1,7 +1,8 @@
 server = {
 	login = {
 		maxconnections = 100,
-		port = 7171
+		port = 7171,
+		motd = "MTOTS - An open Tibia server developed by mtanksl"
 	},
 	game = {
 		maxconnections = 1100,

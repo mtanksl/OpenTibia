@@ -348,7 +348,19 @@ namespace OpenTibia.Game.Common
                         if (Config.DatabaseType == "memory")
                         {
                             Context.Current.Database.CreateDatabase(Config.GamePort);
-                        }
+                        }                        
+                    }
+                }
+
+                using (Logger.Measure("Loading message of the day") )
+                {
+                    DbMotd motd = Context.Current.Database.MotdRepository.GetLastMessageOfTheDay();
+
+                    if (motd == null || motd.Message != Config.LoginMotd)
+                    {
+                        Context.Current.Database.MotdRepository.AddMessageOfTheDay(new DbMotd() { Message = motd.Message } );
+
+                        Context.Current.Database.Commit();
                     }
                 }
 

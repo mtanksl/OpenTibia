@@ -98,8 +98,6 @@ namespace OpenTibia.Game.Common
         {
             databaseContext.Database.EnsureDeleted();
 
-            databaseContext.Motd.Add(new DbMotd() { Id = 0, Message = "MTOTS - An open Tibia server developed by mtanksl" } );
-
             databaseContext.Accounts.Add(new DbAccount() { Id = 1, Name = "1", Password = "1", PremiumDays = 0 } );
 
             databaseContext.Worlds.Add(new DbWorld() { Id = 1, Name = "Cormaya", Ip = "127.0.0.1", Port = gamePort } );

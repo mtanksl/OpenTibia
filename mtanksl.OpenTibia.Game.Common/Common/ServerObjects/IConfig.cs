@@ -6,6 +6,7 @@ namespace OpenTibia.Game.Common.ServerObjects
     {
         int LoginMaxconnections { get; set; }
         int LoginPort { get; set; }
+        string LoginMotd { get; set; }
 
         int GameMaxConnections { get; set; }
         int GamePort { get; set; }
