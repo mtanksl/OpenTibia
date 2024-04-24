@@ -14,6 +14,10 @@ namespace OpenTibia.Game.Common.ServerObjects
 {
     public interface IMap : IMapGetTile
     {
+        ushort Width { get; }
+
+        ushort Height { get; }
+
         void Start(OtbmFile otbmFile, HouseFile houseFile);
 
         Town GetTown(string name);

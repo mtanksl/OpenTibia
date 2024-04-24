@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using System;
 using System.Net;
 using System.Net.Sockets;
@@ -73,7 +74,9 @@ namespace OpenTibia.Network.Sockets
                 }
             }
         }
-        
+
+        public MessageProtocol MessageProtocol { get; set; }
+
         public uint[] Keys { get; set; }
 
         public void Start()

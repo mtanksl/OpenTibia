@@ -11,6 +11,17 @@ namespace OpenTibia.Game.Common.ServerObjects
         int GamePort { get; set; }
         int GameMaxPlayers { get; set; }
 
+        int InfoMaxConnections { get; set; }
+        int InfoPort { get; set; }
+        string InfoIPAddress { get; set; }
+        string InfoServerName { get; set; }
+        string InfoLocation { get; set; }
+        string InfoUrl { get; set; }
+        string InfoOwnerName { get; set; }
+        string InfoOwnerEmail { get; set; }
+        string InfoMapName { get; set; }
+        string InfoMapAuthor { get; set; }
+
         bool GameplayPrivateNpcSystem { get; set; }
         bool LearnSpellFirst { get; set; }
         bool GameplayInfinitePotions { get; set; }

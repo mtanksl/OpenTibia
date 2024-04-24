@@ -6,8 +6,20 @@ server = {
 	game = {
 		maxconnections = 1100,
 		port = 7172,
-		maxplayers = 1000,
+		maxplayers = 1000
 	},		
+	info = {
+		maxconnections = 1,
+		port = 7173,
+		ipaddress = "",
+		servername = "",
+		location = "",
+		url = "",
+		ownername = "",
+		owneremail = "",
+		mapname = "",
+		mapauthor = ""
+	},
 	gameplay = {
 		privatenpcsystem = true,
 		learnspellfirst = false,

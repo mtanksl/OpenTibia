@@ -86,8 +86,32 @@ namespace OpenTibia.Game.Common.ServerObjects
             this.server = server;
         }
 
+        private ushort width;
+
+        public ushort Width
+        {
+            get
+            {
+                return width;
+            }
+        }
+
+        private ushort height;
+
+        public ushort Height
+        {
+            get
+            {
+                return height;
+            }
+        }
+
         public void Start(OtbmFile otbmFile, HouseFile houseFile)
         {
+            width = otbmFile.OtbmInfo.Width;
+
+            height = otbmFile.OtbmInfo.Height;
+
             if (otbmFile.Towns != null)
             {
                 this.townsByName = new Dictionary<string, Town>(otbmFile.Towns.Count);

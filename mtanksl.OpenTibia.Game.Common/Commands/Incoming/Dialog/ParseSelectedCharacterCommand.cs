@@ -4,7 +4,6 @@ using OpenTibia.Data.Models;
 using OpenTibia.Game.Common;
 using OpenTibia.Network.Packets.Incoming;
 using OpenTibia.Network.Packets.Outgoing;
-using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -23,6 +22,8 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            Connection.MessageProtocol = MessageProtocol.Tibia;
+
             Connection.Keys = Packet.Keys;
 
             if (Packet.Version != 860)

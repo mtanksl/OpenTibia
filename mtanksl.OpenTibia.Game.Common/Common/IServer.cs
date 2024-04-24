@@ -6,6 +6,14 @@ namespace OpenTibia.Game.Common
 {
     public interface IServer : IDisposable
     {
+        TimeSpan Uptime { get; }
+
+        string ServerName { get; }
+
+        string ServerVersion { get; }
+
+        string ClientVersion { get; }
+
         ServerStatus Status { get; }
 
         IClientFactory ClientFactory { get; set; }

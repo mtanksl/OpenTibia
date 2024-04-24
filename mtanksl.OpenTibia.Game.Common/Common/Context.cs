@@ -288,7 +288,7 @@ namespace OpenTibia.Game.Common
 
                     foreach (var message in messageCollection.GetMessages() )
                     {
-                        connection.Send( message.GetBytes(connection.Keys) );
+                        connection.Send(message.GetBytes(connection.MessageProtocol, connection.Keys) );
                     }
                 }
 

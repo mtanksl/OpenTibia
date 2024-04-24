@@ -17,13 +17,16 @@
 	- Splash
 	- Persist loss
 	- ...
-- Rings and amulets charges
-- Hangable items
-- Guild
-- Save house items
 - Bed
 - Bless/AOL
+- Channel mute
+- Guild
+- Hangable items
 - Map clean up
+- Premium days
+- Raids
+- Rings and amulets charges
+- Save house items
 - ...
 
 # Done (or good enough for now)
@@ -36,6 +39,7 @@
 - The base objects
 	- Vocation (knight, paladin, sorcerer, druid, etc) and rank (player, tutor, gamemaster) 
 - The base structures
+- Server status info protocol
 - Interacting with the client
 	- Message of the day
 	- Waiting list

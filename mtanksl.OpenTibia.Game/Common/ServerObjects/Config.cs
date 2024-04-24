@@ -23,6 +23,17 @@ namespace OpenTibia.Game.Common.ServerObjects
         public int GamePort { get; set; }
         public int GameMaxPlayers { get; set; }
 
+        public int InfoMaxConnections { get; set; }
+        public int InfoPort { get; set; }
+        public string InfoIPAddress { get; set; }
+        public string InfoServerName { get; set; }
+        public string InfoLocation { get; set; }
+        public string InfoUrl { get; set; }
+        public string InfoOwnerName { get; set; }
+        public string InfoOwnerEmail { get; set; }
+        public string InfoMapName { get; set; }
+        public string InfoMapAuthor { get; set; }
+
         public bool GameplayPrivateNpcSystem { get; set; }
         public bool LearnSpellFirst { get; set; }
         public bool GameplayInfinitePotions { get; set; }
@@ -88,7 +99,27 @@ namespace OpenTibia.Game.Common.ServerObjects
             GamePort = LuaScope.GetInt32(script["server.game.port"], 7172);
             
             GameMaxPlayers = LuaScope.GetInt32(script["server.game.maxplayers"], 1000);
-                        
+
+            InfoMaxConnections = LuaScope.GetInt32(script["server.info.maxconnections"], 1);
+
+            InfoPort = LuaScope.GetInt32(script["server.info.port"], 7173);
+
+            InfoIPAddress = LuaScope.GetString(script["server.info.ipaddress"], "");
+
+            InfoServerName = LuaScope.GetString(script["server.info.servername"], "");
+
+            InfoLocation = LuaScope.GetString(script["server.info.location"], "");
+
+            InfoUrl = LuaScope.GetString(script["server.info.url"], "");
+
+            InfoOwnerName = LuaScope.GetString(script["server.info.ownername"], "");
+
+            InfoOwnerEmail = LuaScope.GetString(script["server.info.owneremail"], "");
+
+            InfoMapName = LuaScope.GetString(script["server.info.mapname"], "");
+
+            InfoMapAuthor = LuaScope.GetString(script["server.info.mapauthor"], "");
+
             GameplayPrivateNpcSystem = LuaScope.GetBoolean(script["server.gameplay.privatenpcsystem"], true);
 
             LearnSpellFirst = LuaScope.GetBoolean(script["server.gameplay.learnspellfirst"], false);

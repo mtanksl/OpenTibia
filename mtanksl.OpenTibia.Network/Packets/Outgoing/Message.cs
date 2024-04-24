@@ -1,4 +1,5 @@
-﻿using OpenTibia.IO;
+﻿using OpenTibia.Common.Structures;
+using OpenTibia.IO;
 using OpenTibia.Security;
 using System;
 
@@ -56,14 +57,25 @@ namespace OpenTibia.Network.Packets.Outgoing
             return Xtea.Encrypt(bytes, 32, keys);
         }
 
-        public byte[] GetBytes(uint[] keys)
+        public byte[] GetBytes(MessageProtocol type, uint[] keys)
         {
-            if (keys == null)
+            if (type == MessageProtocol.Raw)
             {
-                return Length(Hash(Length(stream.GetBytes() ) ) );
+                return stream.GetBytes();
             }
+            else if (type == MessageProtocol.Tibia)
+            {
+                if (keys == null)
+                {
+                    return Length(Hash(Length(stream.GetBytes() ) ) );
+                }
 
-            return Length(Hash(Encrypt(keys, Length(stream.GetBytes() ) ) ) );
+                return Length(Hash(Encrypt(keys, Length(stream.GetBytes() ) ) ) );
+            }
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

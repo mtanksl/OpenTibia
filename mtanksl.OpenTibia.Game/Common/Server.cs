@@ -32,10 +32,6 @@ namespace OpenTibia.Game.Common
 
             scheduler = new Scheduler(dispatcher);
 
-            loginServer = new Listener(socket => new LoginConnection(this, socket) );
-
-            gameServer = new Listener(socket => new GameConnection(this, socket) );
-
             ClientFactory = new ClientFactory(this);
 
             DatabaseFactory = new DatabaseFactory(this, builder =>
@@ -136,7 +132,39 @@ namespace OpenTibia.Game.Common
             Dispose(false);
         }
 
-        public ServerStatus Status { get; private set; }
+        private DateTime startDate;
+
+        public TimeSpan Uptime
+        {
+            get
+            {
+                return DateTime.UtcNow - startDate;
+            }
+        }
+
+        public string ServerName
+        {
+            get
+            {
+                return "MTOTS";
+            }
+        }
+
+        public string ServerVersion
+        {
+            get
+            {
+                return "1.2";
+            }
+        }
+
+        public string ClientVersion
+        {
+            get
+            {
+                return "8.60";
+            }
+        }
 
         private Dispatcher dispatcher;
 
@@ -145,6 +173,10 @@ namespace OpenTibia.Game.Common
         private Listener loginServer;
 
         private Listener gameServer;
+
+        private Listener infoServer;
+
+        public ServerStatus Status { get; private set; }
 
         public IClientFactory ClientFactory { get; set; }
 
@@ -218,13 +250,15 @@ namespace OpenTibia.Game.Common
 
         public void Start()
         {
+            startDate = DateTime.UtcNow;
+
             dispatcher.Start();
 
             scheduler.Start();
 
             QueueForExecution( () =>
             {
-                Logger.WriteLine("MTOTS v1.2 - An open Tibia server developed by mtanksl");
+                Logger.WriteLine(ServerName + " " + ServerVersion + " - An open Tibia server developed by mtanksl");
 
                 Logger.WriteLine("Source code: https://github.com/mtanksl/OpenTibia");
 
@@ -361,9 +395,26 @@ namespace OpenTibia.Game.Common
                 GC.WaitForPendingFinalizers();
             }
 
-            loginServer.Start(Config.LoginMaxconnections, Config.LoginPort);
+            if (Config.LoginPort > 0)
+            {
+                loginServer = new Listener(socket => new LoginConnection(this, socket) );
 
-            gameServer.Start(Config.GameMaxConnections, Config.GamePort);
+                loginServer.Start(Config.LoginMaxconnections, Config.LoginPort);
+            }
+
+            if (Config.GamePort > 0)
+            {
+                gameServer = new Listener(socket => new GameConnection(this, socket) );
+
+                gameServer.Start(Config.GameMaxConnections, Config.GamePort);
+            }
+
+            if (Config.InfoPort > 0)
+            {
+                infoServer = new Listener(socket => new InfoConnection(this, socket) );
+
+                infoServer.Start(Config.GameMaxConnections, Config.InfoPort);
+            }
 
             Status = ServerStatus.Running;
 
@@ -694,9 +745,20 @@ namespace OpenTibia.Game.Common
 
             } ).Wait();
 
-            loginServer.Stop();
+            if (loginServer != null)
+            {
+                loginServer.Stop();
+            }
 
-            gameServer.Stop();
+            if (gameServer != null)
+            {
+                gameServer.Stop();
+            }
+
+            if (infoServer != null)
+            {
+                infoServer.Stop();
+            }
 
             scheduler.Stop();
 
@@ -752,6 +814,11 @@ namespace OpenTibia.Game.Common
                     if (gameServer != null)
                     {
                         gameServer.Dispose();
+                    }
+
+                    if (infoServer != null)
+                    {
+                        infoServer.Dispose();
                     }
 
                     if (PluginLoader != null)
