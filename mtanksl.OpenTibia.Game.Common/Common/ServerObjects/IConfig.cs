@@ -35,6 +35,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         bool GameplayInfiniteRunes { get; set; }
         int GameplayMaxVips { get; set; }
         int GameplayMaxDepotItems { get; set; }       
+        int GameplayKickLostConnectionAfterMinutes { get; set; }
         int GameplayKickIdlePlayerAfterMinutes { get; set; }
         int GameplayMonsterDeSpawnRange { get; set; }
         int GameplayMonsterDeSpawnRadius { get; set; }

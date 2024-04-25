@@ -39,7 +39,7 @@ namespace OpenTibia.Game.Components
             {
                 var totalMinutes = (DateTime.UtcNow - lastPingResponse).TotalMinutes;
 
-                if (totalMinutes >= 1)
+                if (totalMinutes >= Context.Server.Config.GameplayKickLostConnectionAfterMinutes)
                 {
                     return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.Puff) ).Then( () =>
                     {
