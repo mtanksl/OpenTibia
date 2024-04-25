@@ -43,6 +43,9 @@ server = {
 			infiniterunes = false,
 			maxvips = 100,
 			maxdepotitems = 2000,
+			kickidleplayerafterminutes = 15,
+			monsterdespawnrange = 2,
+			monsterdespawnradius = 50,
 			lootrate = 1,
 			experiencerate = 1
 		}

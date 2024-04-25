@@ -5,9 +5,9 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public class MessageCollection
     {
-        private const int MaxPacketSize = 8192; // What is the max realistic packet size?
+        private const int MaxPacketSize = 8192;
 
-        private const int MaxMessageSize = 15000; // What is the max Tibia protocol message size?
+        private const int MaxMessageSize = 15000;
 
         private static readonly object locker = new object();
 

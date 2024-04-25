@@ -49,6 +49,9 @@ namespace OpenTibia.Game.Common.ServerObjects
         public bool GameplayInfiniteRunes { get; set; }
         public int GameplayMaxVips { get; set; }
         public int GameplayMaxDepotItems { get; set; }
+        public int GameplayKickIdlePlayerAfterMinutes { get; set; }
+        public int GameplayMonsterDeSpawnRange { get; set; }
+        public int GameplayMonsterDeSpawnRadius { get; set; }
         public int GameplayLootRate { get; set; }
         public int GameplayExperienceRate { get; set; }
 
@@ -147,6 +150,12 @@ namespace OpenTibia.Game.Common.ServerObjects
             GameplayMaxVips = LuaScope.GetInt32(script["server.game.gameplay.maxvips"], 100);
 
             GameplayMaxDepotItems = LuaScope.GetInt32(script["server.game.gameplay.maxdepotitems"], 2000);
+
+            GameplayKickIdlePlayerAfterMinutes = LuaScope.GetInt32(script["server.game.gameplay.kickidleplayerafterminutes"], 15);
+            
+            GameplayMonsterDeSpawnRange = LuaScope.GetInt32(script["server.game.gameplay.monsterdespawnrange"], 2);
+
+            GameplayMonsterDeSpawnRadius = LuaScope.GetInt32(script["server.game.gameplay.monsterdespawnradius"], 50);
 
             GameplayLootRate = LuaScope.GetInt32(script["server.game.gameplay.lootrate"], 1);
 

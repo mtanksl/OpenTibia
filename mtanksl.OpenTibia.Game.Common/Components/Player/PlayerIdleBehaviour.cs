@@ -27,14 +27,14 @@ namespace OpenTibia.Game.Components
             {
                 var totalMinutes = (DateTime.UtcNow - lastAction).TotalMinutes;
 
-                if (totalMinutes >= 16)
+                if (totalMinutes >= Context.Server.Config.GameplayKickIdlePlayerAfterMinutes + 1)
                 {
                     return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.Puff) ).Then( () =>
                     {
                         return Context.AddCommand(new CreatureDestroyCommand(player) );
                     } );
                 }
-                else if (totalMinutes >= 15)
+                else if (totalMinutes >= Context.Server.Config.GameplayKickIdlePlayerAfterMinutes)
                 {
                     Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, "There was no variation in your behaviour for 15 minutes. You will be disconnected in one minute if there is no change in your actions until then.") );
                 }

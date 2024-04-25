@@ -39,7 +39,7 @@ namespace OpenTibia.Game.Components
             {
                 if (e.Index == monster.Id % 10)
                 {
-                    if (Math.Abs(monster.Tile.Position.X - monster.Spawn.Position.X) > 50 || Math.Abs(monster.Tile.Position.Y - monster.Spawn.Position.Y) > 50 || Math.Abs(monster.Tile.Position.Z - monster.Spawn.Position.Z) > 2)
+                    if (Math.Abs(monster.Tile.Position.X - monster.Spawn.Position.X) > Context.Server.Config.GameplayMonsterDeSpawnRadius || Math.Abs(monster.Tile.Position.Y - monster.Spawn.Position.Y) > Context.Server.Config.GameplayMonsterDeSpawnRadius || Math.Abs(monster.Tile.Position.Z - monster.Spawn.Position.Z) > Context.Server.Config.GameplayMonsterDeSpawnRange)
                     {
                         await Context.AddCommand(new ShowMagicEffectCommand(monster, MagicEffectType.Puff) );
 
