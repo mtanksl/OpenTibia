@@ -120,7 +120,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             OwnerEmail = LuaScope.GetString(script["server.info.public.owneremail"], "");
 
-            MapName = LuaScope.GetString(script["server.info.public.mapname"], "");
+            MapName = LuaScope.GetString(script["server.info.public.mapname"], "map");
 
             MapAuthor = LuaScope.GetString(script["server.info.public.mapauthor"], "");
 

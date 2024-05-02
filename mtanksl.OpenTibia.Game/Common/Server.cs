@@ -316,15 +316,19 @@ namespace OpenTibia.Game.Common
                     Scripts.Start();
                 }
 
+                OtbmFile otbmFile;
+
                 using (Logger.Measure("Loading map") )
                 {
-                    Map.Start(OtbmFile.Load(PathResolver.GetFullPath("data/world/map.otbm") ), 
-                              HouseFile.Load(PathResolver.GetFullPath("data/world/map-house.xml") ) );
+                    otbmFile = OtbmFile.Load(PathResolver.GetFullPath("data/world/" + Config.MapName + ".otbm") );
+
+                    Map.Start(otbmFile, 
+                              HouseFile.Load(PathResolver.GetFullPath("data/world/" + otbmFile.MapInfo.HouseFile) ) );
                 }
 
                 using (Logger.Measure("Loading spawns") )
                 {
-                    Spawns.Start(SpawnFile.Load(PathResolver.GetFullPath("data/world/map-spawn.xml") ) );
+                    Spawns.Start(SpawnFile.Load(PathResolver.GetFullPath("data/world/" + otbmFile.MapInfo.SpawnFile) ) );
                 }
 
                 if (Spawns.UnknownMonsters.Count > 0)

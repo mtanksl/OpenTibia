@@ -16,7 +16,7 @@ server = {
 			url = "",
 			ownername = "",
 			owneremail = "",
-			mapname = "",
+			mapname = "map",
 			mapauthor = ""
 		}
 	},
