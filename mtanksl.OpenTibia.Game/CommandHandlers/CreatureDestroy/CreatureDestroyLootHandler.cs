@@ -24,7 +24,7 @@ namespace OpenTibia.Game.CommandHandlers
                     }
                     else if (command.Creature is Player player)
                     {
-                        return Context.AddCommand(new TileCreateItemCommand(command.Creature.Tile, 2317, 1) ).Then( (item) =>
+                        return Context.AddCommand(new TileCreatePlayerCorpseCommand(command.Creature.Tile, player) ).Then( (item) =>
                         {
                             _ = Context.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(30) ) );
 

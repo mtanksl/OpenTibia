@@ -201,7 +201,7 @@ namespace OpenTibia.Game.Commands
 
                 foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(ToPosition) )
                 {
-                    if (observer.Tile.Position.CanSee(ToPosition) )
+                    if (observer.Tile.Position.CanHearSay(ToPosition) )
                     {
                         Context.AddPacket(observer, showProjectileOutgoingPacket);
                     }

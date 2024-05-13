@@ -87,5 +87,15 @@
         public static readonly string YourVocationCannotUseThisSpell = "Your vocation cannot use this spell.";
 
         public static readonly int ObjectsPerPoint = 10;
+
+        public static readonly ushort LockerOpenTibiaItemId = 2591;
+
+        public static readonly ushort DepotOpenTibiaItemId = 2594;
+
+        public static readonly ushort HumanMaleCorpseOpenTibiaItemId = 6080;
+
+        public static readonly ushort HumanFemaleCorpseOpenTibiaItemId = 6081;
+
+        public static readonly ushort AmuletOfLossOpenTibiaId = 2173;
     }
 }

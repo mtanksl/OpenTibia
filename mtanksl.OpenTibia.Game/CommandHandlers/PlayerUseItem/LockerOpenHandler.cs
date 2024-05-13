@@ -15,13 +15,13 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (locker == null)
                 {
-                    locker = (Locker)Context.Server.ItemFactory.Create(2591, 1);
+                    locker = (Locker)Context.Server.ItemFactory.Create(Constants.LockerOpenTibiaItemId, 1);
 
                     locker.TownId = mapLocker.TownId;
 
                     Context.Server.ItemFactory.Attach(locker);
 
-                    Item depot = Context.Server.ItemFactory.Create(2594, 1);
+                    Item depot = Context.Server.ItemFactory.Create(Constants.DepotOpenTibiaItemId, 1);
 
                     Context.Server.ItemFactory.Attach(depot);
 

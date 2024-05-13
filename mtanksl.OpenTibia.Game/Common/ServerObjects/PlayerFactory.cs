@@ -221,7 +221,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             foreach (var playerDepotItem in dbPlayer.PlayerDepotItems.Where(i => i.ParentId >= 0 /* Town Id */ && i.ParentId <= 100 /* Town Id */ ) )
             {
-                Locker locker = (Locker)context.Server.ItemFactory.Create(2591, 1);
+                Locker locker = (Locker)context.Server.ItemFactory.Create(Constants.LockerOpenTibiaItemId, 1);
 
                 locker.TownId = (ushort)playerDepotItem.ParentId;
 

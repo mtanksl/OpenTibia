@@ -13,12 +13,12 @@
 	- Magic level and skills
 	- Skull
 	- War
-	- Drop bag
 	- Splash
 	- Persist loss
+	- Remove experience and skills on player death
 	- ...
 - Bed
-- Bless/AOL
+- Bless
 - Channel mute
 - Guild
 - Hangable items
@@ -84,6 +84,9 @@
 		- Monster despawn
 		- Loot
 		- Experience, level and level percent
+		- Drop bag
+		- Drop items
+		- AOL
 	- Weapon attributes (range, atk, def, arm)
 	- Ammunition
 	- Bow and arrow

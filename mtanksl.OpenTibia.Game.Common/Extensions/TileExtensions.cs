@@ -79,6 +79,20 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
+        public static PromiseResult<Item> TileCreatePlayerCorpseCommand(this Tile tile, Player player)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new TileCreatePlayerCorpseCommand(tile, player) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
         public static PromiseResult<Monster> CreateMonster(this Tile tile, string name)
         {
             Context context = Context.Current;
