@@ -28,16 +28,13 @@ namespace OpenTibia.Game.Components
         {
             Creature creature = (Creature)GameObject;
 
-            globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
+            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance[creature.Id % 10], (context, e) =>
             {
-                if (e.Index == creature.Id % 10)
+                if (DateTime.UtcNow >= nextTalk)
                 {
-                    if (DateTime.UtcNow >= nextTalk)
-                    {
-                        nextTalk = DateTime.UtcNow.Add(TimeSpan.FromSeconds(30) );
+                    nextTalk = DateTime.UtcNow.Add(TimeSpan.FromSeconds(30) );
 
-                        return Context.AddCommand(new ShowTextCommand(creature, talkType, Context.Server.Randomization.Take(sentences) ) );
-                    }
+                    return Context.AddCommand(new ShowTextCommand(creature, talkType, Context.Server.Randomization.Take(sentences) ) );
                 }
 
                 return Promise.Completed;
@@ -46,7 +43,9 @@ namespace OpenTibia.Game.Components
 
         public override void Stop()
         {
-            Context.Server.EventHandlers.Unsubscribe<GlobalTickEventArgs>(globalTick);
+            Creature creature = (Creature)GameObject;
+
+            Context.Server.EventHandlers.Unsubscribe(GlobalTickEventArgs.Instance[creature.Id % 10], globalTick);
         }
     }
 }

@@ -15,6 +15,12 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         bool Unsubscribe<T>(Guid token) where T : GameEventArgs;
 
+        Guid Subscribe<T>(T e, Func<Context, T, Promise> execute) where T : GameEventArgs;
+
+        Guid Subscribe<T>(T e, IEventHandler<T> eventHandler) where T : GameEventArgs;
+
+        bool Unsubscribe<T>(T e, Guid token) where T : GameEventArgs;
+
         IEnumerable<IEventHandler> GetEventHandlers(GameEventArgs e);
 
         void Clear();

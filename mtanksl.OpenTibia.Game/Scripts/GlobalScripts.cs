@@ -54,35 +54,17 @@ namespace OpenTibia.Game.Scripts
             } );
         }
 
-        //TODO: Improve performance
-
-        private static GlobalTickEventArgs[] globalTickEventArgs = new GlobalTickEventArgs[10]
-        {
-            new GlobalTickEventArgs() { Index = 0 },
-            new GlobalTickEventArgs() { Index = 1 },
-            new GlobalTickEventArgs() { Index = 2 },
-            new GlobalTickEventArgs() { Index = 3 },
-            new GlobalTickEventArgs() { Index = 4 },
-            new GlobalTickEventArgs() { Index = 5 },
-            new GlobalTickEventArgs() { Index = 6 },
-            new GlobalTickEventArgs() { Index = 7 },
-            new GlobalTickEventArgs() { Index = 8 },
-            new GlobalTickEventArgs() { Index = 9 }
-        };
-
         private void Tick(int index)
         {
             Promise.Delay("Tick", TimeSpan.FromMilliseconds(100) ).Then( () =>
             {
                 Tick( (index + 1) % 10 );
 
-                Context.AddEvent(globalTickEventArgs[index] );
+                Context.AddEvent(GlobalTickEventArgs.Instance[index] );
 
                 return Promise.Completed;
             } );
         }
-
-        private static GlobalSpawnEventArgs globalSpawnEventArgs = new GlobalSpawnEventArgs();
 
         private void Spawn()
         {
@@ -90,27 +72,23 @@ namespace OpenTibia.Game.Scripts
             {
                 Spawn();
 
-                Context.AddEvent(globalSpawnEventArgs);
+                Context.AddEvent(GlobalSpawnEventArgs.Instance);
 
                 return Promise.Completed;
             } );
         }
-
-        private static GlobalEnvironmentLightEventArgs globalLightEventArgs = new GlobalEnvironmentLightEventArgs();
-
+        
         private void Light()
         {
             Promise.Delay("Light", TimeSpan.FromSeconds(10) ).Then( () =>
             {
                 Light();
 
-                Context.AddEvent(globalLightEventArgs);
+                Context.AddEvent(GlobalEnvironmentLightEventArgs.Instance);
 
                 return Promise.Completed;
             } );
         }
-
-        private static GlobalPingEventArgs globalPingEventArgs = new GlobalPingEventArgs();
 
         private void Ping()
         {
@@ -118,7 +96,7 @@ namespace OpenTibia.Game.Scripts
             {
                 Ping();
 
-                Context.AddEvent(globalPingEventArgs);
+                Context.AddEvent(GlobalPingEventArgs.Instance);
 
                 return Promise.Completed;
             } );

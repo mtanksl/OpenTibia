@@ -124,47 +124,44 @@ namespace OpenTibia.Game.Components
 
             playerSayToNpc = Context.Server.EventHandlers.Subscribe<PlayerSayToNpcEventArgs>( (context, e) => Say(e.Player, e.Message) );
 
-            globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>(async (context, e) =>
+            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance[npc.Id % 10], async (context, e) =>
             {
-                if (e.Index == npc.Id % 10)
+                foreach (var player in queue.ToList() )
                 {
-                    foreach (var player in queue.ToList() )
+                    if (player.Tile == null || player.IsDestroyed || !npc.Tile.Position.IsInRange(player.Tile.Position, 3) )
                     {
-                        if (player.Tile == null || player.IsDestroyed || !npc.Tile.Position.IsInRange(player.Tile.Position, 3) )
-                        {
-                            await Disappear(player);
-                        }
+                        await Disappear(player);
                     }
+                }
 
-                    if (queue.Count == 0)
+                if (queue.Count == 0)
+                {
+                    if (DateTime.UtcNow >= nextWalk)
                     {
-                        if (DateTime.UtcNow >= nextWalk)
+                        if (walkStrategy != null)
                         {
-                            if (walkStrategy != null)
+                            Tile toTile;
+
+                            if (walkStrategy.CanWalk(npc, null, out toTile) )
                             {
-                                Tile toTile;
+                                nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / npc.Speed).Add(TimeSpan.FromSeconds(1) );
 
-                                if (walkStrategy.CanWalk(npc, null, out toTile) )
-                                {
-                                    nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / npc.Speed).Add(TimeSpan.FromSeconds(1) );
-
-                                    await Context.Current.AddCommand(new CreatureMoveCommand(npc, toTile) );
-                                }
+                                await Context.Current.AddCommand(new CreatureMoveCommand(npc, toTile) );
                             }
                         }
                     }
-                    else
-                    {
-                        Player target = queue.Peek();
-
-                        Direction? direction = npc.Tile.Position.ToDirection(target.Tile.Position);
-
-                        if (direction != null)
-                        {
-                            await Context.AddCommand(new CreatureUpdateDirectionCommand(npc, direction.Value) );
-                        }
-                    }
                 }
+                else
+                {
+                    Player target = queue.Peek();
+
+                    Direction? direction = npc.Tile.Position.ToDirection(target.Tile.Position);
+
+                    if (direction != null)
+                    {
+                        await Context.AddCommand(new CreatureUpdateDirectionCommand(npc, direction.Value) );
+                    }
+                }                
             } );
 
             async Promise Say(Player player, string message)
@@ -197,11 +194,13 @@ namespace OpenTibia.Game.Components
 
         public override void Stop()
         {
+            Npc npc = (Npc)GameObject;
+
             Context.Server.EventHandlers.Unsubscribe<PlayerSayEventArgs>(playerSay);
 
             Context.Server.EventHandlers.Unsubscribe<PlayerSayToNpcEventArgs>(playerSayToNpc);
 
-            Context.Server.EventHandlers.Unsubscribe<GlobalTickEventArgs>(globalTick);
+            Context.Server.EventHandlers.Unsubscribe(GlobalTickEventArgs.Instance[npc.Id % 10], globalTick);
         }
     }
 }

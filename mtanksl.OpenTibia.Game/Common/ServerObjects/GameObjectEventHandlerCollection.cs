@@ -54,6 +54,49 @@ namespace OpenTibia.Game.Common.ServerObjects
             return false;
         }
 
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public Guid Subscribe<T>(GameObject gameObject, T e, Func<Context, T, Promise> execute) where T : GameEventArgs
+        {
+            return Subscribe<T>(gameObject, e, new InlineEventHandler<T>(execute) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public Guid Subscribe<T>(GameObject gameObject, T e, IEventHandler<T> eventHandler) where T : GameEventArgs
+        {
+            EventHandlerCollection eventHandlerCollection;
+
+            if ( !buckets.TryGetValue(gameObject.Id, out eventHandlerCollection) )
+            {
+                eventHandlerCollection = new EventHandlerCollection();
+
+                buckets.Add(gameObject.Id, eventHandlerCollection);
+            }
+
+            return eventHandlerCollection.Subscribe(e, eventHandler);
+        }
+
+        public bool Unsubscribe<T>(GameObject gameObject, T e, Guid token) where T : GameEventArgs
+        {
+            EventHandlerCollection eventHandlerCollection;
+
+            if (buckets.TryGetValue(gameObject.Id, out eventHandlerCollection) )
+            {
+                if (eventHandlerCollection.Unsubscribe<T>(e, token) )
+                {
+                    if (eventHandlerCollection.Count == 0)
+                    {
+                        buckets.Remove(gameObject.Id);
+                    }
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public IEnumerable<IEventHandler> GetEventHandlers(GameObject gameObject, GameEventArgs e)
         {
             EventHandlerCollection eventHandlerCollection;

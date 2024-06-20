@@ -1,4 +1,5 @@
-﻿using OpenTibia.Game.Common;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.Common;
 using OpenTibia.Game.Events;
 using System;
 
@@ -10,14 +11,9 @@ namespace OpenTibia.Game.Components
 
         public override void Start()
         {
-            globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>( (context, e) =>
+            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance[GameObject.Id % 10], (context, e) =>
             {
-                if (e.Index == GameObject.Id % 10)
-                {
-                    return Update();
-                }
-
-                return Promise.Completed;
+                return Update();
             } );
         }
 
@@ -25,7 +21,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop()
         {
-            Context.Server.EventHandlers.Unsubscribe<GlobalTickEventArgs>(globalTick);
+            Context.Server.EventHandlers.Unsubscribe(GlobalTickEventArgs.Instance[GameObject.Id % 10], globalTick);
         }
     }
 }

@@ -154,7 +154,7 @@ namespace OpenTibia.Game.Common
         {
             get
             {
-                return "1.2";
+                return "1.3";
             }
         }
 
