@@ -219,13 +219,11 @@ namespace OpenTibia.Game.Components
 
         public override void Stop()
         {
-            Npc npc = (Npc)GameObject;
+            Context.Server.EventHandlers.Unsubscribe(playerSay);
 
-            Context.Server.EventHandlers.Unsubscribe<PlayerSayEventArgs>(playerSay);
-
-            Context.Server.EventHandlers.Unsubscribe<PlayerSayToNpcEventArgs>(playerSayToNpc);
+            Context.Server.EventHandlers.Unsubscribe(playerSayToNpc);
             
-            Context.Server.EventHandlers.Unsubscribe(GlobalTickEventArgs.Instance[npc.Id % 10], globalTick);
+            Context.Server.EventHandlers.Unsubscribe(globalTick);
         }
     }
 }

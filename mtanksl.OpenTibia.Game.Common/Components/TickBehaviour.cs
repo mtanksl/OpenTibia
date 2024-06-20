@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop()
         {
-            Context.Server.EventHandlers.Unsubscribe(GlobalTickEventArgs.Instance[GameObject.Id % 10], globalTick);
+            Context.Server.EventHandlers.Unsubscribe(globalTick);
         }
     }
 }

@@ -59,7 +59,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop()
         {
-            Context.Server.EventHandlers.Unsubscribe<GlobalPingEventArgs>(globalPing);
+            Context.Server.EventHandlers.Unsubscribe(globalPing);
         }
     }
 }

@@ -8,9 +8,18 @@ namespace OpenTibia.Game.Common.ServerObjects
 {
     public class EventHandlerCollection : IEventHandlerCollection
     {
+        private class GuidItem
+        {
+            public Type Type { get; set; }
+
+            public GameEventArgs Object { get; set; }
+        }
+
         private Dictionary<Type, Dictionary<Guid, IEventHandler> > types = new Dictionary<Type, Dictionary<Guid, IEventHandler> >();
 
         private Dictionary<GameEventArgs, Dictionary<Guid, IEventHandler> > objects = new Dictionary<GameEventArgs, Dictionary<Guid, IEventHandler> >();
+
+        private Dictionary<Guid, GuidItem> guids = new Dictionary<Guid, GuidItem>();
 
         public int Count
         {
@@ -47,36 +56,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             eventHandlers.Add(eventHandler.Token, eventHandler);
 
+            guids.Add(eventHandler.Token, new GuidItem() { Type = typeof(T) } );
+
             return eventHandler.Token;
-        }
-
-        public bool Unsubscribe<T>(Guid token) where T : GameEventArgs
-        {
-            Dictionary<Guid, IEventHandler> eventHandlers;
-
-            if ( types.TryGetValue(typeof(T), out eventHandlers) )
-            {
-                IEventHandler eventHandler;
-
-                if (eventHandlers.TryGetValue(token, out eventHandler) )
-                {
-                    if ( !eventHandler.IsDestroyed)
-                    {
-                        eventHandler.IsDestroyed = true;
-
-                        eventHandlers.Remove(token);
-
-                        if (eventHandlers.Count == 0)
-                        {
-                            types.Remove(typeof(T) );
-                        }
-
-                        return true;
-                    }
-                }
-            }
-
-            return false;
         }
 
         /// <exception cref="InvalidOperationException"></exception>
@@ -106,31 +88,69 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             eventHandlers.Add(eventHandler.Token, eventHandler);
 
+            guids.Add(eventHandler.Token, new GuidItem() { Object = e } );
+
             return eventHandler.Token;
         }
 
-        public bool Unsubscribe<T>(T e, Guid token) where T : GameEventArgs
+        public bool Unsubscribe(Guid token)
         {
-            Dictionary<Guid, IEventHandler> eventHandlers;
+            GuidItem item;
 
-            if (objects.TryGetValue(e, out eventHandlers) )
+            if (guids.TryGetValue(token, out item) )
             {
-                IEventHandler eventHandler;
+                guids.Remove(token);
 
-                if (eventHandlers.TryGetValue(token, out eventHandler) )
+                if (item.Type != null)
                 {
-                    if ( !eventHandler.IsDestroyed)
+                    Dictionary<Guid, IEventHandler> eventHandlers;
+
+                    if ( types.TryGetValue(item.Type, out eventHandlers) )
                     {
-                        eventHandler.IsDestroyed = true;
+                        IEventHandler eventHandler;
 
-                        eventHandlers.Remove(token);
-
-                        if (eventHandlers.Count == 0)
+                        if (eventHandlers.TryGetValue(token, out eventHandler) )
                         {
-                            objects.Remove(e);
-                        }
+                            if ( !eventHandler.IsDestroyed)
+                            {
+                                eventHandler.IsDestroyed = true;
 
-                        return true;
+                                eventHandlers.Remove(token);
+
+                                if (eventHandlers.Count == 0)
+                                {
+                                    types.Remove(item.Type);
+                                }
+
+                                return true;
+                            }
+                        }
+                    }
+                }
+                else if (item.Object != null)
+                {
+                    Dictionary<Guid, IEventHandler> eventHandlers;
+
+                    if (objects.TryGetValue(item.Object, out eventHandlers) )
+                    {
+                        IEventHandler eventHandler;
+
+                        if (eventHandlers.TryGetValue(token, out eventHandler) )
+                        {
+                            if ( !eventHandler.IsDestroyed)
+                            {
+                                eventHandler.IsDestroyed = true;
+
+                                eventHandlers.Remove(token);
+
+                                if (eventHandlers.Count == 0)
+                                {
+                                    objects.Remove(item.Object);
+                                }
+
+                                return true;
+                            }
+                        }
                     }
                 }
             }
@@ -167,6 +187,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public void Clear()
         {
+            guids.Clear();
+
             types.Clear();
 
             objects.Clear();

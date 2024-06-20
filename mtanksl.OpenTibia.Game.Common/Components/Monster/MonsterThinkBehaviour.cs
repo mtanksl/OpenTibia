@@ -131,9 +131,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop()
         {
-            Monster monster = (Monster)GameObject;
-
-            Context.Server.EventHandlers.Unsubscribe(GlobalTickEventArgs.Instance[monster.Id % 10], globalTick);
+            Context.Server.EventHandlers.Unsubscribe(globalTick);
         }
     }
 }

@@ -43,9 +43,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop()
         {
-            Creature creature = (Creature)GameObject;
-
-            Context.Server.EventHandlers.Unsubscribe(GlobalTickEventArgs.Instance[creature.Id % 10], globalTick);
+            Context.Server.EventHandlers.Unsubscribe(globalTick);
         }
     }
 }

@@ -136,7 +136,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public void Stop()
         {
-            server.EventHandlers.Unsubscribe<GlobalSpawnEventArgs>(globalSpawnEventArgs);
+            server.EventHandlers.Unsubscribe(globalSpawnEventArgs);
         }
     }
 }

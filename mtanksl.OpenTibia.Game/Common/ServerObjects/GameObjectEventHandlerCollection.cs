@@ -34,26 +34,6 @@ namespace OpenTibia.Game.Common.ServerObjects
             return eventHandlerCollection.Subscribe(eventHandler);
         }
 
-        public bool Unsubscribe<T>(GameObject gameObject, Guid token) where T : GameEventArgs
-        {
-            EventHandlerCollection eventHandlerCollection;
-
-            if (buckets.TryGetValue(gameObject.Id, out eventHandlerCollection) )
-            {
-                if (eventHandlerCollection.Unsubscribe<T>(token) )
-                {
-                    if (eventHandlerCollection.Count == 0)
-                    {
-                        buckets.Remove(gameObject.Id);
-                    }
-
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         /// <exception cref="InvalidOperationException"></exception>
 
         public Guid Subscribe<T>(GameObject gameObject, T e, Func<Context, T, Promise> execute) where T : GameEventArgs
@@ -77,13 +57,13 @@ namespace OpenTibia.Game.Common.ServerObjects
             return eventHandlerCollection.Subscribe(e, eventHandler);
         }
 
-        public bool Unsubscribe<T>(GameObject gameObject, T e, Guid token) where T : GameEventArgs
+        public bool Unsubscribe(GameObject gameObject, Guid token)
         {
             EventHandlerCollection eventHandlerCollection;
 
             if (buckets.TryGetValue(gameObject.Id, out eventHandlerCollection) )
             {
-                if (eventHandlerCollection.Unsubscribe<T>(e, token) )
+                if (eventHandlerCollection.Unsubscribe(token) )
                 {
                     if (eventHandlerCollection.Count == 0)
                     {
