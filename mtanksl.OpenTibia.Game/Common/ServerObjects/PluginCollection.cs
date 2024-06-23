@@ -667,22 +667,6 @@ namespace OpenTibia.Game.Common.ServerObjects
             return script[key];
         }
 
-        private Dictionary<string, Plugin> plugins = new Dictionary<string, Plugin>();
-
-        private T GetPlugin<T>(string fileName, Func<T> factory) where T: Plugin
-        {
-            Plugin plugin;
-
-            if ( !plugins.TryGetValue(fileName, out plugin) )
-            {
-                plugin = factory();
-
-                plugins.Add(fileName, plugin);
-            }
-
-            return (T)plugin;
-        }
-
         private PluginDictionaryCached<ushort, PlayerRotateItemPlugin> playerRotateItemPlugins = new PluginDictionaryCached<ushort, PlayerRotateItemPlugin>();
 
         public void AddPlayerRotateItemPlugin(ushort openTibiaId, PlayerRotateItemPlugin playerRotateItemPlugin)

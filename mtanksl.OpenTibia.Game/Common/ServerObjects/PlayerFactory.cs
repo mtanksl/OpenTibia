@@ -3,7 +3,6 @@ using OpenTibia.Common.Structures;
 using OpenTibia.Data.Models;
 using OpenTibia.Game.GameObjectScripts;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace OpenTibia.Game.Common.ServerObjects
@@ -15,43 +14,6 @@ namespace OpenTibia.Game.Common.ServerObjects
         public PlayerFactory(IServer server)
         {
             this.server = server;
-        }
-
-        public void Start()
-        {
-            gameObjectScripts = new Dictionary<string, GameObjectScript<string, Player> >();
-#if AOT
-            foreach (var gameObjectScript in _AotCompilation.Players)
-            {
-                gameObjectScripts.Add(gameObjectScript.Key, gameObjectScript);
-            }
-#else
-            foreach (var type in server.PluginLoader.GetTypes(typeof(GameObjectScript<string, Player>) ) )
-            {
-                GameObjectScript<string, Player> gameObjectScript = (GameObjectScript<string, Player>)Activator.CreateInstance(type);
-
-                gameObjectScripts.Add(gameObjectScript.Key, gameObjectScript);
-            }
-#endif
-        }
-
-        private Dictionary<string, GameObjectScript<string, Player> > gameObjectScripts;
-
-        public GameObjectScript<string, Player> GetPlayerGameObjectScript(string name)
-        {
-            GameObjectScript<string, Player> gameObjectScript;
-
-            if (gameObjectScripts.TryGetValue(name, out gameObjectScript) )
-            {
-                return gameObjectScript;
-            }
-            
-            if (gameObjectScripts.TryGetValue("", out gameObjectScript) )
-            {
-                return gameObjectScript;
-            }
-
-            return null;
         }
 
         public Player Create(int databasePlayerId, string name, Tile town, Tile spawn)
@@ -76,7 +38,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             server.GameObjects.AddGameObject(player);
 
-            GameObjectScript<string, Player> gameObjectScript = GetPlayerGameObjectScript(player.Name);
+            GameObjectScript<Player> gameObjectScript = server.GameObjectScripts.GetPlayerGameObjectScript(player.Name);
 
             if (gameObjectScript != null)
             {
@@ -88,7 +50,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             if (server.GameObjects.RemoveGameObject(player) )
             {
-                GameObjectScript<string, Player> gameObjectScript = GetPlayerGameObjectScript(player.Name);
+                GameObjectScript<Player> gameObjectScript = server.GameObjectScripts.GetPlayerGameObjectScript(player.Name);
 
                 if (gameObjectScript != null)
                 {

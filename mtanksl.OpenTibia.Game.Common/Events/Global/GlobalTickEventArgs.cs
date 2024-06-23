@@ -2,7 +2,7 @@
 {
     public class GlobalTickEventArgs : GameEventArgs
     {
-        public static GlobalTickEventArgs[] Instance = new GlobalTickEventArgs[10]
+        public static readonly GlobalTickEventArgs[] Instance = new GlobalTickEventArgs[10]
         {
             new GlobalTickEventArgs() { Index = 0 },
             new GlobalTickEventArgs() { Index = 1 },

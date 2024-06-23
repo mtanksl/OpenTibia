@@ -5,14 +5,6 @@ namespace OpenTibia.Game.GameObjectScripts
 {
     public class StreetLampSwitchOnItemScript : ItemScript
     {
-        public override ushort Key
-        {
-            get
-            {
-                return 1479;
-            }
-        }
-
         public override void Start(Item item)
         {
             base.Start(item);

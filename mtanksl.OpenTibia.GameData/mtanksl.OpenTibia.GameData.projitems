@@ -54,6 +54,10 @@
     <None Include="$(MSBuildThisFileDirectory)data\plugins\weapons\wand of inferno example.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\quests\config.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\quests\lib.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\gameobjectscripts\config.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\gameobjectscripts\lib.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\scripts\config.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\scripts\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\server\config.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\server\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\world\map.otbm" />
@@ -404,6 +408,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)data\dlls\mtanksl.OpenTibia.Plugins\" />
-    <Folder Include="$(MSBuildThisFileDirectory)data\plugins\scripts\npcs\" />
+    <Folder Include="$(MSBuildThisFileDirectory)data\plugins\scripts\" />
   </ItemGroup>
 </Project>

@@ -4,23 +4,17 @@ using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.GameObjectScripts
 {
-    public class CyclopsMonsterScript : MonsterScript
+    public class ValkyrieMonsterScript : MonsterScript
     {
-        public override string Key
-        {
-            get
-            {
-                return "Cyclops";
-            }
-        }
-
         public override void Start(Monster monster)
         {
             base.Start(monster);
 
             Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
-                new MeleeAttackStrategy(0, 105),
-                ApproachWalkStrategy.Instance) );
+                new CombineRandomAttackStrategy(
+                    new MeleeAttackStrategy(0, 70), 
+                    new DistanceAttackStrategy(ProjectileType.Spear, 0, 50) ), 
+                new RunAwayOnLowHealthWalkStrategy(10, ApproachWalkStrategy.Instance) ) );
         }
 
         public override void Stop(Monster monster)

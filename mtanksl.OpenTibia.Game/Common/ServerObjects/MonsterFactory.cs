@@ -2,7 +2,6 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.FileFormats.Xml.Monsters;
 using OpenTibia.Game.GameObjectScripts;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using LootItem = OpenTibia.Common.Objects.LootItem;
@@ -48,21 +47,6 @@ namespace OpenTibia.Game.Common.ServerObjects
                     LootItems = xmlMonster.LootItems?.Select(l => new LootItem() { OpenTibiaId = l.Id, KillsToGetOne = l.KillsToGetOne ?? 1, CountMin = l.CountMin ?? 1, CountMax = l.CountMax ?? 1 } ).ToArray()
                 } );
             }
-
-            gameObjectScripts = new Dictionary<string, GameObjectScript<string, Monster> >();
-#if AOT
-            foreach (var gameObjectScript in _AotCompilation.Monsters)
-            {
-                gameObjectScripts.Add(gameObjectScript.Key, gameObjectScript);
-            }
-#else
-            foreach (var type in server.PluginLoader.GetTypes(typeof(GameObjectScript<string, Monster>) ) )
-            {
-                GameObjectScript<string, Monster> gameObjectScript = (GameObjectScript<string, Monster>)Activator.CreateInstance(type);
-
-                gameObjectScripts.Add(gameObjectScript.Key, gameObjectScript);
-            }
-#endif
         }
 
         private Dictionary<string, MonsterMetadata> metadatas;
@@ -74,25 +58,6 @@ namespace OpenTibia.Game.Common.ServerObjects
             if (metadatas.TryGetValue(name, out metadata) )
             {
                 return metadata;
-            }
-
-            return null;
-        }
-
-        private Dictionary<string, GameObjectScript<string, Monster> > gameObjectScripts;
-
-        public GameObjectScript<string, Monster> GetMonsterGameObjectScript(string name)
-        {
-            GameObjectScript<string, Monster> gameObjectScript;
-
-            if (gameObjectScripts.TryGetValue(name, out gameObjectScript) )
-            {
-                return gameObjectScript;
-            }
-            
-            if (gameObjectScripts.TryGetValue("", out gameObjectScript) )
-            {
-                return gameObjectScript;
             }
 
             return null;
@@ -123,7 +88,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             server.GameObjects.AddGameObject(monster);
 
-            GameObjectScript<string, Monster> gameObjectScript = GetMonsterGameObjectScript(monster.Name);
+            GameObjectScript<Monster> gameObjectScript = server.GameObjectScripts.GetMonsterGameObjectScript(monster.Name);
 
             if (gameObjectScript != null)
             {
@@ -135,7 +100,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             if (server.GameObjects.RemoveGameObject(monster) )
             {
-                GameObjectScript<string, Monster> gameObjectScript = GetMonsterGameObjectScript(monster.Name);
+                GameObjectScript<Monster> gameObjectScript = server.GameObjectScripts.GetMonsterGameObjectScript(monster.Name);
 
                 if (gameObjectScript != null)
                 {

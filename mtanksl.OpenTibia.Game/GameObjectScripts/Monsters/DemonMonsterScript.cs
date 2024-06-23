@@ -6,14 +6,6 @@ namespace OpenTibia.Game.GameObjectScripts
 {
     public class DemonMonsterScript : MonsterScript
     {
-        public override string Key
-        {
-            get
-            {
-                return "Demon";
-            }
-        }
-
         public override void Start(Monster monster)
         {
             base.Start(monster);

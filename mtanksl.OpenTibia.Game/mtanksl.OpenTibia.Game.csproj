@@ -34,11 +34,6 @@
     <ProjectReference Include="..\mtanksl.OpenTibia.Threading\mtanksl.OpenTibia.Threading.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="GameObjectScripts\Player\" />
-    <Folder Include="GameObjectScripts\Npc\" />
-  </ItemGroup>
-
   <Import Project="..\mtanksl.OpenTibia.GameData\mtanksl.OpenTibia.GameData.projitems" Label="Shared" />
 
 </Project>

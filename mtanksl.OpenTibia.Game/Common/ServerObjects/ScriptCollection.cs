@@ -1,4 +1,5 @@
-﻿using OpenTibia.Game.Scripts;
+﻿using NLua;
+using OpenTibia.Game.Scripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,25 +15,51 @@ namespace OpenTibia.Game.Common.ServerObjects
             this.server = server;
         }
 
+        ~ScriptCollection()
+        {
+            Dispose(false);
+        }
+
+        private LuaScope script;
+
         public void Start()
         {
-#if AOT
-            foreach (var script in _AotCompilation.Scripts)
+            script = server.LuaScripts.LoadScript(
+                server.PathResolver.GetFullPath("data/scripts/config.lua"),
+                server.PathResolver.GetFullPath("data/scripts/lib.lua"),
+                server.PathResolver.GetFullPath("data/lib.lua"));
+
+            HashSet<Type> types = new HashSet<Type>();
+
+            foreach (LuaTable plugin in ( (LuaTable)script["scripts"] ).Values)
             {
-                scripts.Add(script);
+                string fileName = (string)plugin["filename"];
+
+                Type type = server.PluginLoader.GetType(fileName);
+
+                if (types.Add(type) )
+                {
+                    scripts.Add( (Script)Activator.CreateInstance(type) );
+                }
             }
-#else
+
             foreach (var type in server.PluginLoader.GetTypes(typeof(Script) ) )
             {
-                Script script = (Script)Activator.CreateInstance(type);
-
-                scripts.Add(script);
+                if (types.Add(type) )
+                {
+                    scripts.Add( (Script)Activator.CreateInstance(type) );
+                }
             }
-#endif
+
             foreach (var script in scripts)
             {
                 script.Start();
             }
+        }
+
+        public object GetValue(string key)
+        {
+            return script[key];
         }
 
         private List<Script> scripts = new List<Script>();
@@ -46,12 +73,37 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             return scripts;
         }
-        
+
         public void Stop()
         {
             foreach (var script in scripts)
             {
                 script.Stop();
+            }
+        }
+
+        private bool disposed = false;
+
+        public void Dispose()
+        {
+            Dispose(true);
+
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposed)
+            {
+                disposed = true;
+
+                if (disposing)
+                {
+                    if (script != null)
+                    {
+                        script.Dispose();
+                    }
+                }
             }
         }
     }

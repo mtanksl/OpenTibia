@@ -4,16 +4,8 @@ using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.GameObjectScripts
 {
-    public class MonsterScript : GameObjectScript<string, Monster>
+    public class MonsterScript : GameObjectScript<Monster>
     {
-        public override string Key
-        {
-            get
-            {
-                return "";
-            }
-        }
-
         public override void Start(Monster monster)
         {
             if (monster.Metadata.Sentences != null && monster.Metadata.Sentences.Length > 0)

@@ -1,27 +1,16 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.GameObjectScripts
 {
-    public class BehemothMonsterScript : MonsterScript
+    public class CyclopsMonsterScript : MonsterScript
     {
-        public override string Key
-        {
-            get
-            {
-                return "Behemoth";
-            }
-        }
-
         public override void Start(Monster monster)
         {
             base.Start(monster);
 
             Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
-                new CombineRandomAttackStrategy(
-                    new MeleeAttackStrategy(0, 455),
-                    new DistanceAttackStrategy(ProjectileType.BigStone, 0, 200) ),
+                new MeleeAttackStrategy(0, 105),
                 ApproachWalkStrategy.Instance) );
         }
 

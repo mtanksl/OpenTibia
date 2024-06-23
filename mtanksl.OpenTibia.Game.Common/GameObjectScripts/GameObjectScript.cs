@@ -3,7 +3,7 @@ using OpenTibia.Game.Common;
 
 namespace OpenTibia.Game.GameObjectScripts
 {
-    public abstract class GameObjectScript<TKey, TGameObject> where TGameObject : GameObject
+    public abstract class GameObjectScript<TGameObject> where TGameObject : GameObject
     {
         public Context Context
         {
@@ -12,8 +12,6 @@ namespace OpenTibia.Game.GameObjectScripts
                 return Context.Current;
             }
         }
-
-        public abstract TKey Key { get; }
 
         public abstract void Start(TGameObject gameObject);
 

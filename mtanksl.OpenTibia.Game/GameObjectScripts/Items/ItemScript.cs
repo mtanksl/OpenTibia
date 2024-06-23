@@ -2,16 +2,8 @@
 
 namespace OpenTibia.Game.GameObjectScripts
 {
-    public class ItemScript : GameObjectScript<ushort, Item>
+    public class ItemScript : GameObjectScript<Item>
     {
-        public override ushort Key
-        {
-            get
-            {
-                return 0;
-            }
-        }
-
         public override void Start(Item item)
         {
 

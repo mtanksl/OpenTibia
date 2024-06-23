@@ -5,16 +5,8 @@ using OpenTibia.Game.Plugins;
 
 namespace OpenTibia.Game.GameObjectScripts
 {
-    public class NpcScript : GameObjectScript<string, Npc>
+    public class NpcScript : GameObjectScript<Npc>
     {
-        public override string Key
-        {
-            get
-            {
-                return "";
-            }
-        }
-
         public override void Start(Npc npc)
         {
             if (npc.Metadata.Sentences != null && npc.Metadata.Sentences.Length > 0)

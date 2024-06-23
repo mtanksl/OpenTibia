@@ -72,6 +72,8 @@ namespace OpenTibia.Game.Common
 
         IScriptCollection Scripts { get; set; }
 
+        IGameObjectScriptCollection GameObjectScripts { get; set; }
+
         IItemFactory ItemFactory { get; set; }
 
         IPlayerFactory PlayerFactory { get; set; }

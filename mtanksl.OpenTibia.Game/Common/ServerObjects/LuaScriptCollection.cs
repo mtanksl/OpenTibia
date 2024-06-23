@@ -924,6 +924,14 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 return server.Plugins.GetValue(key);
             }
+            else if (file == "scripts")
+            {
+                return server.Scripts.GetValue(key);
+            }
+            else if (file == "gameobjectscripts")
+            {
+                return server.GameObjectScripts.GetValue(key);
+            }
 
             return null;
         }

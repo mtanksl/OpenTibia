@@ -125,6 +125,8 @@ namespace OpenTibia.Game.Common
             Pathfinding = new Pathfinding(Map);
 
             Scripts = new ScriptCollection(this);
+
+            GameObjectScripts = new GameObjectScriptCollection(this);
         }
 
         ~Server()
@@ -234,6 +236,8 @@ namespace OpenTibia.Game.Common
 
         public IScriptCollection Scripts { get; set; }
 
+        public IGameObjectScriptCollection GameObjectScripts { get; set; }
+
         public IItemFactory ItemFactory { get; set; }
 
         public IPlayerFactory PlayerFactory { get; set; }
@@ -284,16 +288,16 @@ namespace OpenTibia.Game.Common
                     Outfits.Start();
                 }
 
+                using (Logger.Measure("Loading game object scripts config") )
+                {
+                    GameObjectScripts.Start();
+                }
+
                 using (Logger.Measure("Loading items") )
                 {
                     ItemFactory.Start(OtbFile.Load(PathResolver.GetFullPath("data/items/items.otb") ), 
                                       DatFile.Load(PathResolver.GetFullPath("data/items/tibia.dat") ), 
                                       ItemsFile.Load(PathResolver.GetFullPath("data/items/items.xml") ) );
-                }
-
-                using (Logger.Measure("Loading players") )
-                {
-                    PlayerFactory.Start();
                 }
 
                 using (Logger.Measure("Loading monsters") )
@@ -306,12 +310,12 @@ namespace OpenTibia.Game.Common
                     NpcFactory.Start(NpcFile.Load(PathResolver.GetFullPath("data/npcs") ) );
                 }
 
-                using (Logger.Measure("Loading plugins config") )
+                using (Logger.Measure("Loading plugins config and plugins") )
                 {
                     Plugins.Start();
                 }
 
-                using (Logger.Measure("Loading scripts") )
+                using (Logger.Measure("Loading scripts config and scripts") )
                 {
                     Scripts.Start();
                 }
@@ -822,9 +826,9 @@ namespace OpenTibia.Game.Common
 
                 if (disposing)
                 {
-                    if (Plugins != null)
+                    if (Config != null)
                     {
-                        Plugins.Dispose();
+                        Config.Dispose();
                     }
 
                     if (Quests != null)
@@ -832,9 +836,24 @@ namespace OpenTibia.Game.Common
                         Quests.Dispose();
                     }
 
-                    if (Config != null)
+                    if (Outfits != null)
                     {
-                        Config.Dispose();
+                        Outfits.Dispose();
+                    }
+
+                    if (GameObjectScripts != null)
+                    {
+                        GameObjectScripts.Dispose();
+                    }
+
+                    if (Plugins != null)
+                    {
+                        Plugins.Dispose();
+                    }
+
+                    if (Scripts != null)
+                    {
+                        Scripts.Dispose();
                     }
 
                     if (LuaScripts != null)

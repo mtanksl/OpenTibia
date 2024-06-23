@@ -3,16 +3,8 @@ using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.GameObjectScripts
 {
-    public class PlayerScript : GameObjectScript<string, Player>
+    public class PlayerScript : GameObjectScript<Player>
     {
-        public override string Key
-        {
-            get
-            {
-                return "";
-            }
-        }
-
         public override void Start(Player player)
         {
             Context.Server.GameObjectComponents.AddComponent(player, new PlayerThinkBehaviour(InventoryWeaponAttackStrategy.Instance) );

@@ -39,6 +39,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                             tile.AddContent(monster);
 
+                            server.Map.AddObserver(tile.Position, monster);
+
                             Spawner spawner = new Spawner()
                             {
                                 SpawnTime = xmlMonster.SpawnTime,
@@ -72,6 +74,8 @@ namespace OpenTibia.Game.Common.ServerObjects
                             server.NpcFactory.Attach(npc);
 
                             tile.AddContent(npc);
+
+                            server.Map.AddObserver(tile.Position, npc);
                         }
                         else
                         {

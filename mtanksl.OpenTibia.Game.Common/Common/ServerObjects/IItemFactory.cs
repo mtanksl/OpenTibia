@@ -2,7 +2,6 @@
 using OpenTibia.FileFormats.Dat;
 using OpenTibia.FileFormats.Otb;
 using OpenTibia.FileFormats.Xml.Items;
-using OpenTibia.Game.GameObjectScripts;
 using Item = OpenTibia.Common.Objects.Item;
 
 namespace OpenTibia.Game.Common.ServerObjects
@@ -14,8 +13,6 @@ namespace OpenTibia.Game.Common.ServerObjects
         ItemMetadata GetItemMetadataByOpenTibiaId(ushort openTibiaId);
 
         ItemMetadata GetItemMetadataByTibiaId(ushort tibiaId);
-
-        GameObjectScript<ushort, Item> GetItemGameObjectScript(ushort openTibiaId);
 
         Item Create(ushort openTibiaId, byte count);
 
