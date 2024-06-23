@@ -18,7 +18,6 @@
 	- Remove experience and skills on player death
 	- ...
 - Bed
-- Bless
 - Channel mute
 - Guild
 - Hangable items
@@ -87,6 +86,8 @@
 		- Drop bag
 		- Drop items
 		- AOL
+		- Bless
+			- Database for storing blesses
 	- Weapon attributes (range, atk, def, arm)
 	- Ammunition
 	- Bow and arrow

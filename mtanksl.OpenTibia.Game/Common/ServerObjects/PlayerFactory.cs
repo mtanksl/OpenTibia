@@ -82,6 +82,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             LoadSpells(Context.Current, dbPlayer, player);
 
+            LoadBlesses(Context.Current, dbPlayer, player);
+
             LoadAchievements(Context.Current, dbPlayer, player);
 
             LoadOutfits(Context.Current, dbPlayer, player);
@@ -239,17 +241,25 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private static void LoadSpells(Context context, DbPlayer dbPlayer, Player player)
         {
-            foreach (var dbPlayerStorage in dbPlayer.PlayerSpells)
+            foreach (var dbPlayerSpell in dbPlayer.PlayerSpells)
             {
-                player.Spells.SetSpell(dbPlayerStorage.Name);
+                player.Spells.SetSpell(dbPlayerSpell.Name);
+            }
+        }
+
+        private static void LoadBlesses(Context context, DbPlayer dbPlayer, Player player)
+        {
+            foreach (var dbPlayerBless in dbPlayer.DbPlayerBlesses)
+            {
+                player.Blesses.SetBless(dbPlayerBless.Name);
             }
         }
 
         private static void LoadAchievements(Context context, DbPlayer dbPlayer, Player player)
         {
-            foreach (var dbPlayerStorage in dbPlayer.PlayerAchievements)
+            foreach (var dbPlayerAchievement in dbPlayer.PlayerAchievements)
             {
-                player.Achievements.SetAchievement(dbPlayerStorage.Name);
+                player.Achievements.SetAchievement(dbPlayerAchievement.Name);
             }
         }
 
@@ -316,6 +326,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             SaveStorages(Context.Current, dbPlayer, player);
 
             SaveSpells(Context.Current, dbPlayer, player);
+
+            SaveBlesses(Context.Current, dbPlayer, player);
 
             SaveAchievements(Context.Current, dbPlayer, player);
 
@@ -552,6 +564,21 @@ namespace OpenTibia.Game.Common.ServerObjects
             foreach (var name in player.Spells.GetSpells() )
             {
                 dbPlayer.PlayerSpells.Add(new DbPlayerSpell()
+                {
+                    PlayerId = dbPlayer.Id,
+
+                    Name = name
+                } );
+            }
+        }
+
+        private static void SaveBlesses(Context context, DbPlayer dbPlayer, Player player)
+        {
+            dbPlayer.DbPlayerBlesses.Clear();
+
+            foreach (var name in player.Blesses.GetBlesses() )
+            {
+                dbPlayer.DbPlayerBlesses.Add(new DbPlayerBless()
                 {
                     PlayerId = dbPlayer.Id,
 

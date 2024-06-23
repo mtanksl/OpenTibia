@@ -48,6 +48,9 @@ namespace OpenTibia.Data.Contexts
             modelBuilder.Entity<DbPlayerSpell>()
                 .HasKey(m => new { m.PlayerId, m.Name } );
 
+            modelBuilder.Entity<DbPlayerBless>()
+                .HasKey(m => new { m.PlayerId, m.Name } );
+
             modelBuilder.Entity<DbPlayerAchievement>()
                 .HasKey(m => new { m.PlayerId, m.Name } );
 
@@ -81,6 +84,8 @@ namespace OpenTibia.Data.Contexts
         public DbSet<DbPlayerOutfit> PlayerOutfits { get; set; }
 
         public DbSet<DbPlayerSpell> PlayerSpells { get; set; }
+
+        public DbSet<DbPlayerBless> PlayerBlesses { get; set; }
 
         public DbSet<DbPlayerAchievement> PlayerAchievements { get; set; }
 

@@ -19,6 +19,8 @@ namespace OpenTibia.Common.Objects
 
             Spells = new PlayerSpellCollection();
 
+            Blesses = new PlayerBlessCollection();
+
             Vips = new PlayerVipCollection();
 
             Skills = new Skills(this)
@@ -96,6 +98,8 @@ namespace OpenTibia.Common.Objects
         public PlayerAchievementsCollection Achievements { get; }
 
         public PlayerSpellCollection Spells { get; }
+
+        public PlayerBlessCollection Blesses { get; }
 
         public PlayerVipCollection Vips { get; }
         

@@ -169,6 +169,18 @@ CREATE TABLE `PlayerSpells` (
   CONSTRAINT `FK_PlayerSpells_PlayerId` FOREIGN KEY (`PlayerId`) REFERENCES `Players` (`Id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- PlayerBlesses
+
+DROP TABLE IF EXISTS `PlayerBlesses`;
+
+CREATE TABLE `PlayerBlesses` (
+  `PlayerId` int(11) NOT NULL,
+  `Name` varchar(255) NOT NULL,
+  PRIMARY KEY (`PlayerId`,`Name`),
+  KEY `IX_PlayerBlesses_PlayerId` (`PlayerId`),
+  CONSTRAINT `FK_PlayerBlesses_PlayerId` FOREIGN KEY (`PlayerId`) REFERENCES `Players` (`Id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 -- PlayerAchievements
 
 DROP TABLE IF EXISTS `PlayerAchievements`;
