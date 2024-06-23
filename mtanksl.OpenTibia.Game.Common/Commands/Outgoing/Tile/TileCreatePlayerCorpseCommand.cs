@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,6 +9,10 @@ namespace OpenTibia.Game.Commands
 {
     public class TileCreatePlayerCorpseCommand : CommandResult<Item>
     {
+        private static readonly double[] equipmentLosses = new double[] { 10, 7, 4.5, 2.5, 1, 0 };
+
+        private static readonly double[] containerLosses = new double[] { 100, 70, 45, 25, 10, 0 };
+
         public TileCreatePlayerCorpseCommand(Tile tile, Player player)
         {
             Tile = tile;
@@ -25,6 +30,19 @@ namespace OpenTibia.Game.Commands
             {
                 if (corpse is Container container)
                 {
+                    int blesses = 0;
+
+                    foreach (var bless in Player.Blesses.GetBlesses().ToList() )
+                    {
+                        Player.Blesses.RemoveBless(bless);
+
+                        blesses++;
+                    }
+
+                    double equipmentLoss = equipmentLosses[Math.Min(blesses, equipmentLosses.Length - 1) ];
+
+                    double containerLoss = containerLosses[Math.Min(blesses, containerLosses.Length - 1) ];
+
                     Item amulet = (Item)Player.Inventory.GetContent( (byte)Slot.Amulet);
 
                     if (amulet == null || amulet.Metadata.OpenTibiaId != Constants.AmuletOfLossOpenTibiaId)
@@ -33,9 +51,19 @@ namespace OpenTibia.Game.Commands
 
                         foreach (var item in Player.Inventory.GetItems().ToList() )
                         {
-                            if (item is Container || Context.Server.Randomization.HasProbability(10.0 / 100) )
+                            if (item is Container)
                             {
-                                promises.Add(Context.AddCommand(new ItemMoveCommand(item, container, 0) ) );
+                                if (Context.Server.Randomization.HasProbability(containerLoss / 100) )
+                                {
+                                    promises.Add(Context.AddCommand(new ItemMoveCommand(item, container, 0) ) );
+                                }
+                            }
+                            else
+                            {
+                                if (Context.Server.Randomization.HasProbability(equipmentLoss / 100) )
+                                {
+                                    promises.Add(Context.AddCommand(new ItemMoveCommand(item, container, 0) ) );
+                                }
                             }
                         }
 
