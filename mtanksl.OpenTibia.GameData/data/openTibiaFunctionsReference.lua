@@ -375,6 +375,13 @@ return {
 				args = "(Player player, int incrementStorageKey, int requiredStorageValue, string achievementName)",
 				returns = "void",
 			},
+			-- void command.playerbless(Player player, string message, string blessName)
+			playerbless = {
+				type = "function",
+				description = "",
+				args = "(Player player, string message, string blessName)",
+				returns = "void",
+			},
 			-- void command.playerupdateaxe(Player player, byte skill, byte skillPercent)
 			playerupdateaxe = {
 				type = "function",

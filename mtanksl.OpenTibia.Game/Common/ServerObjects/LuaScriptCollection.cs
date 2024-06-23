@@ -509,6 +509,14 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
+            lua.RegisterCoFunction("playerbless", parameters =>
+            {
+                return Context.Current.AddCommand(new PlayerBlessCommand( (Player)parameters[0], (string)parameters[1], (string)parameters[2] ) ).Then( () =>
+                {
+                    return Promise.FromResultAsEmptyObjectArray;
+                } );
+            } );
+
             lua.RegisterCoFunction("playerupdateaxe", parameters =>
             {
                 return Context.Current.AddCommand(new PlayerUpdateAxeCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>

@@ -121,6 +121,20 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
+        public static Promise Bless(this Player player, string message, string blessName)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new PlayerBlessCommand(player, message, blessName) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
         public static Promise UpdateAxe(this Player player, byte axe, byte axePercent)
         {
             Context context = Context.Current;

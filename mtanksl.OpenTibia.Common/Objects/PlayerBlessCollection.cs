@@ -6,7 +6,7 @@ namespace OpenTibia.Common.Objects
     {
         private HashSet<string> blesses = new HashSet<string>();
 
-        public bool hasBless(string name)
+        public bool HasBless(string name)
         {
             return blesses.Contains(name);
         }

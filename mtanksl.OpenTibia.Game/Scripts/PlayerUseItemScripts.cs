@@ -152,6 +152,16 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CommandHandlers.AddCommandHandler(new WatchHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new WindowHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new PhoenixCharmHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new SolitudeCharmHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new SpiritualCharmHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new TwinSunHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new UnityCharmHandler() );
         }
 
         public override void Stop()
