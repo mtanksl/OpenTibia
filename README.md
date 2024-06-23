@@ -13,7 +13,7 @@ From time to time, I take this project to have some fun and recall the good old 
 
 # First run
 
-- You need Visual Studio 2022 and .NET 7.
+- You need Visual Studio 2022 and .NET 8.
 - Download and extract the files.
 - Open `mtanksl.OpenTibia.sln`.
 - Set `mtanksl.OpenTibia.Host` or `mtanksl.OpenTibia.Host.GUI` as startup project.
