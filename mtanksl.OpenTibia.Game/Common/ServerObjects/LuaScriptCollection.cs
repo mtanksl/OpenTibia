@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 #endif
     public class LuaScriptCollection : ILuaScriptCollection
     {
-        private LuaScope lua;
+        private ILuaScope lua;
 
         public LuaScriptCollection(IServer server)
         {
@@ -1250,20 +1250,20 @@ namespace OpenTibia.Game.Common.ServerObjects
             return chunk;
         }
 
-        private Dictionary<string, LuaScope> libs = new Dictionary<string, LuaScope>();
+        private Dictionary<string, ILuaScope> libs = new Dictionary<string, ILuaScope>();
 
-        public bool TryGetLib(string libPath, out LuaScope lib)
+        public bool TryGetLib(string libPath, out ILuaScope lib)
         {
             return libs.TryGetValue(libPath, out lib);
         }
 
-        public LuaScope LoadLib(string libPath, Func<LuaScope> loadParent)
+        public ILuaScope LoadLib(string libPath, Func<ILuaScope> loadParent)
         {
-            LuaScope lib;
+            ILuaScope lib;
 
             if ( !TryGetLib(libPath, out lib) )
             {
-                LuaScope parent = loadParent();
+                ILuaScope parent = loadParent();
 
                 if (parent == null)
                 {
@@ -1278,9 +1278,9 @@ namespace OpenTibia.Game.Common.ServerObjects
             return lib;
         }
 
-        public LuaScope LoadLib(params string[] libPaths)
+        public ILuaScope LoadLib(params string[] libPaths)
         {
-            LuaScope Load(int i)
+            ILuaScope Load(int i)
             {
                 if (i > libPaths.Length - 1)
                 {
@@ -1293,17 +1293,17 @@ namespace OpenTibia.Game.Common.ServerObjects
             return Load(0);
         }
 
-        public LuaScope LoadScript(string scriptPath, LuaScope parent)
+        public ILuaScope LoadScript(string scriptPath, ILuaScope parent)
         {
             if (parent == null)
             {
                 parent = lua;
             }
-                
+
             return parent.LoadNewChunk(GetChunk(scriptPath), scriptPath);
         }
 
-        public LuaScope LoadScript(params string[] scriptPathAndLibPaths)
+        public ILuaScope LoadScript(params string[] scriptPathAndLibPaths)
         {
             return LoadScript(scriptPathAndLibPaths[0], LoadLib(scriptPathAndLibPaths[1..] ) );
         }

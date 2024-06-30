@@ -8,14 +8,14 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         string GetChunk(string path);
 
-        bool TryGetLib(string libPath, out LuaScope lib);
+        bool TryGetLib(string libPath, out ILuaScope lib);
 
-        LuaScope LoadLib(string libPath, Func<LuaScope> loadParent);
+        ILuaScope LoadLib(string libPath, Func<ILuaScope> loadParent);
 
-        LuaScope LoadLib(params string[] libPaths);
+        ILuaScope LoadLib(params string[] libPaths);
 
-        LuaScope LoadScript(string scriptPath, LuaScope parent);
+        ILuaScope LoadScript(string scriptPath, ILuaScope parent);
 
-        LuaScope LoadScript(params string[] scriptPathAndLibPaths);
+        ILuaScope LoadScript(params string[] scriptPathAndLibPaths);
     }
 }

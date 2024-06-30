@@ -90,7 +90,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private class AutoLoadPlugin : IDisposable
         {
-            private LuaScope script;
+            private ILuaScope script;
 
             ~AutoLoadPlugin()
             {
@@ -99,7 +99,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             public AutoLoadPlugin(PluginCollection pluginCollection, string filePath)
             {
-                LuaScope scripts = pluginCollection.server.LuaScripts.LoadLib(
+                ILuaScope scripts = pluginCollection.server.LuaScripts.LoadLib(
                     pluginCollection.server.PathResolver.GetFullPath("data/plugins/scripts/lib.lua"), 
                     pluginCollection.server.PathResolver.GetFullPath("data/plugins/lib.lua"),
                     pluginCollection.server.PathResolver.GetFullPath("data/lib.lua") );
@@ -381,7 +381,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             Dispose(false);
         }
 
-        private LuaScope script;
+        private ILuaScope script;
 
         private List<AutoLoadPlugin> autoLoadPlugins = new List<AutoLoadPlugin>();
 
@@ -654,7 +654,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 }
             }
 
-            LuaScope scripts;
+            ILuaScope scripts;
 
             if (server.LuaScripts.TryGetLib(server.PathResolver.GetFullPath("data/plugins/scripts/lib.lua"), out scripts) )
             {
@@ -686,7 +686,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public void AddPlayerRotateItemPlugin(ushort openTibiaId, LuaScope script, LuaTable parameters)
+        public void AddPlayerRotateItemPlugin(ushort openTibiaId, ILuaScope script, LuaTable parameters)
         {
             AddPlayerRotateItemPlugin(openTibiaId, new LuaScriptingPlayerRotateItemPlugin(script, parameters) );
         }
@@ -715,7 +715,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public void AddPlayerUseItemPlugin(ushort openTibiaId, LuaScope script, LuaTable parameters)
+        public void AddPlayerUseItemPlugin(ushort openTibiaId, ILuaScope script, LuaTable parameters)
         {
             AddPlayerUseItemPlugin(openTibiaId, new LuaScriptingPlayerUseItemPlugin(script, parameters) );
         }
@@ -752,7 +752,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public void AddPlayerUseItemWithItemPlugin(bool allowFarUse, ushort openTibiaId, LuaScope script, LuaTable parameters)
+        public void AddPlayerUseItemWithItemPlugin(bool allowFarUse, ushort openTibiaId, ILuaScope script, LuaTable parameters)
         {
             AddPlayerUseItemWithItemPlugin(allowFarUse, openTibiaId, new LuaScriptingPlayerUseItemWithItemPlugin(script, parameters) );
         }
@@ -796,7 +796,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public void AddPlayerUseItemWithCreaturePlugin(bool allowFarUse, ushort openTibiaId, LuaScope script, LuaTable parameters)
+        public void AddPlayerUseItemWithCreaturePlugin(bool allowFarUse, ushort openTibiaId, ILuaScope script, LuaTable parameters)
         {
             AddPlayerUseItemWithCreaturePlugin(allowFarUse, openTibiaId, new LuaScriptingPlayerUseItemWithCreaturePlugin(script, parameters) );
         }
@@ -832,7 +832,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public void AddPlayerMoveCreaturePlugin(string name, LuaScope script, LuaTable parameters)
+        public void AddPlayerMoveCreaturePlugin(string name, ILuaScope script, LuaTable parameters)
         {
             AddPlayerMoveCreaturePlugin(name, new LuaScriptingPlayerMoveCreaturePlugin(script, parameters) );
         }
@@ -861,7 +861,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public void AddPlayerMoveItemPlugin(ushort openTibiaId, LuaScope script, LuaTable parameters)
+        public void AddPlayerMoveItemPlugin(ushort openTibiaId, ILuaScope script, LuaTable parameters)
         {
             AddPlayerMoveItemPlugin(openTibiaId, new LuaScriptingPlayerMoveItemPlugin(script, parameters) );
         }
@@ -890,7 +890,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public void AddCreatureStepInPlugin(ushort openTibiaId, LuaScope script, LuaTable parameters)
+        public void AddCreatureStepInPlugin(ushort openTibiaId, ILuaScope script, LuaTable parameters)
         {
             AddCreatureStepInPlugin(openTibiaId, new LuaScriptingCreatureStepInPlugin(script, parameters) );
         }
@@ -919,7 +919,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public void AddCreatureStepOutPlugin(ushort openTibiaId, LuaScope script, LuaTable parameters)
+        public void AddCreatureStepOutPlugin(ushort openTibiaId, ILuaScope script, LuaTable parameters)
         {
             AddCreatureStepOutPlugin(openTibiaId, new LuaScriptingCreatureStepOutPlugin(script, parameters));
         }
@@ -948,7 +948,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public void AddInventoryEquipPlugin(ushort openTibiaId, LuaScope script, LuaTable parameters)
+        public void AddInventoryEquipPlugin(ushort openTibiaId, ILuaScope script, LuaTable parameters)
         {
             AddInventoryEquipPlugin(openTibiaId, new LuaScriptingInventoryEquipPlugin(script, parameters) );
         }
@@ -977,7 +977,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public void AddInventoryDeEquipPlugin(ushort openTibiaId, LuaScope script, LuaTable parameters)
+        public void AddInventoryDeEquipPlugin(ushort openTibiaId, ILuaScope script, LuaTable parameters)
         {
             AddInventoryDeEquipPlugin(openTibiaId, new LuaScriptingInventoryDeEquipPlugin(script, parameters) );
         }
@@ -1006,7 +1006,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public void AddPlayerSayPlugin(string message, LuaScope script, LuaTable parameters)
+        public void AddPlayerSayPlugin(string message, ILuaScope script, LuaTable parameters)
         {
             AddPlayerSayPlugin(message, new LuaScriptingPlayerSayPlugin(script, parameters) );
         }
@@ -1035,7 +1035,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public void AddPlayerLoginPlugin(LuaScope script, LuaTable parameters)
+        public void AddPlayerLoginPlugin(ILuaScope script, LuaTable parameters)
         {
             AddPlayerLoginPlugin(new LuaScriptingPlayerLoginPlugin(script, parameters) );
         }
@@ -1064,7 +1064,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public void AddPlayerLogoutPlugin(LuaScope script, LuaTable parameters)
+        public void AddPlayerLogoutPlugin(ILuaScope script, LuaTable parameters)
         {
             AddPlayerLogoutPlugin(new LuaScriptingPlayerLogoutPlugin(script, parameters) );
         }
@@ -1093,7 +1093,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public void AddDialoguePlugin(string name, LuaScope script, LuaTable parameters)
+        public void AddDialoguePlugin(string name, ILuaScope script, LuaTable parameters)
         {
             AddDialoguePlugin(name, () => new LuaScriptingDialoguePlugin(script, parameters) );
         }
@@ -1132,7 +1132,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public void AddSpellPlugin(bool requiresTarget, LuaScope script, LuaTable parameters, Spell spell)
+        public void AddSpellPlugin(bool requiresTarget, ILuaScope script, LuaTable parameters, Spell spell)
         {
             AddSpellPlugin(requiresTarget, new LuaScriptingSpellPlugin(script, parameters, spell) );
         }
@@ -1178,7 +1178,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public void AddRunePlugin(bool requiresTarget, LuaScope script, LuaTable parameters, Rune rune)
+        public void AddRunePlugin(bool requiresTarget, ILuaScope script, LuaTable parameters, Rune rune)
         {
             AddRunePlugin(requiresTarget, new LuaScriptingRunePlugin(script, parameters, rune) );
         }
@@ -1216,7 +1216,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public void AddWeaponPlugin(LuaScope script, LuaTable parameters, Weapon weapon)
+        public void AddWeaponPlugin(ILuaScope script, LuaTable parameters, Weapon weapon)
         {
             AddWeaponPlugin(new LuaScriptingWeaponPlugin(script, parameters, weapon) );
         }
@@ -1247,7 +1247,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public void AddAmmunitionPlugin(LuaScope script, LuaTable parameters, Ammunition ammunition)
+        public void AddAmmunitionPlugin(ILuaScope script, LuaTable parameters, Ammunition ammunition)
         {
             AddAmmunitionPlugin(new LuaScriptingAmmunitionPlugin(script, parameters, ammunition) );
         }

@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class LuaScope : IDisposable
+    public class LuaScope : ILuaScope
     {
         private Lua lua;
 
@@ -15,9 +15,9 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             lua = new Lua();
 
-                lua["package.path"] = Path.Combine(server.PathResolver.GetFullPath("data/lualibs"), "?.lua");
+            lua["package.path"] = Path.Combine(server.PathResolver.GetFullPath("data/lualibs"), "?.lua");
 
-                lua["package.cpath"] = Path.Combine(server.PathResolver.GetFullPath("data/clibs"), "?.dll");
+            lua["package.cpath"] = Path.Combine(server.PathResolver.GetFullPath("data/clibs"), "?.dll");
 
             lua.DoString("""
 
@@ -77,7 +77,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             this.chunkName = "LuaScope.cs";
         }
 
-        public LuaScope(LuaScope parent, LuaTable env, string chunkName)
+        public LuaScope(ILuaScope parent, LuaTable env, string chunkName)
         {
             this.parent = parent;
 
@@ -91,9 +91,9 @@ namespace OpenTibia.Game.Common.ServerObjects
             Dispose(false);
         }
 
-        private LuaScope parent;
+        private ILuaScope parent;
 
-        public LuaScope Parent
+        public ILuaScope Parent
         {
             get
             {
@@ -140,8 +140,8 @@ namespace OpenTibia.Game.Common.ServerObjects
         }
 
         /// <exception cref="LuaException"></exception>
-        
-        public LuaScope LoadNewChunk(string chunk, string chunkName)
+
+        public ILuaScope LoadNewChunk(string chunk, string chunkName)
         {
             var loadResult = ( (LuaFunction)env["bridge.load"] ).Call(chunk, chunkName, env);
 
@@ -181,7 +181,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                     var success = (bool)pcallResult[0];
 
                     if (success)
-                    {                    
+                    {
                         var completed = (bool)pcallResult[1];
 
                         var result = pcallResult.Skip(2).ToArray();
@@ -198,7 +198,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                             var parameters = (LuaTable)method["parameters"];
 
-                            LuaScope current = this;
+                            ILuaScope current = this;
 
                             while (true)
                             {
@@ -222,7 +222,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                                     break;
                                 }
-                              
+
                                 current = current.Parent;
                             }
                         }
@@ -234,7 +234,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                         reject(new LuaException(chunkName, errorMessage) );
                     }
                 }
-                
+
                 Next(args);
             } );
         }

@@ -9,7 +9,7 @@ namespace OpenTibia.Game.Plugins
     {
         private string fileName;
 
-        private LuaScope script;
+        private ILuaScope script;
 
         private LuaTable parameters;
 
@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Plugins
             this.fileName = fileName;
         }
 
-        public LuaScriptingAmmunitionPlugin(LuaScope script, LuaTable parameters, Ammunition ammunition) : base(ammunition)
+        public LuaScriptingAmmunitionPlugin(ILuaScope script, LuaTable parameters, Ammunition ammunition) : base(ammunition)
         {
             this.script = script;
 

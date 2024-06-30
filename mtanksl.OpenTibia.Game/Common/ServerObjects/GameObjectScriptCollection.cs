@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             Dispose(false);
         }
-        private LuaScope script;
+        private ILuaScope script;
 
         public void Start()
         {

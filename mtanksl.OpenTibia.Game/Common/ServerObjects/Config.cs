@@ -93,7 +93,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         public string DatabasePassword { get; set; }
         public string DatabaseName { get; set; }
 
-        private LuaScope script;
+        private ILuaScope script;
 
         public void Start()
         {
