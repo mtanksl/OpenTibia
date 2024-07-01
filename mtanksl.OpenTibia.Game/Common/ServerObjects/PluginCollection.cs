@@ -103,15 +103,17 @@ namespace OpenTibia.Game.Common.ServerObjects
                     pluginCollection.server.PathResolver.GetFullPath("data/plugins/scripts/lib.lua"), 
                     pluginCollection.server.PathResolver.GetFullPath("data/plugins/lib.lua"),
                     pluginCollection.server.PathResolver.GetFullPath("data/lib.lua") );
-
+                
                 var initializations = new List<(string Type, LuaTable Parameters)>();
 
-                scripts["registerplugin"] = (string type, LuaTable parameters) => 
+                scripts["registerplugin"] = (string type, LuaTable parameters) =>
                 {
                     initializations.Add( (type, parameters) );
                 };
 
                 script = pluginCollection.server.LuaScripts.LoadScript(pluginCollection.server.PathResolver.GetFullPath(filePath), scripts);
+
+                scripts["registerplugin"] = null;
 
                 foreach (var initialization in initializations)
                 {
@@ -652,13 +654,6 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     autoLoadPlugins.Add(new AutoLoadPlugin(this, filePath) );
                 }
-            }
-
-            ILuaScope scripts;
-
-            if (server.LuaScripts.TryGetLib(server.PathResolver.GetFullPath("data/plugins/scripts/lib.lua"), out scripts) )
-            {
-                scripts["registerplugin"] = null;
             }
         }
 

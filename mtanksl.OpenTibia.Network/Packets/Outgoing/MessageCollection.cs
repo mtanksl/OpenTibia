@@ -9,7 +9,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         private const int MaxMessageSize = 15000;
 
-        private static readonly object locker = new object();
+        private static readonly object sync = new object();
 
         private static byte[] tempArray;
 
@@ -32,7 +32,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public void Add(IOutgoingPacket packet)
         {
-            lock (locker)
+            lock (sync)
             {
                 tempStream.Seek(Origin.Begin, 0);
 
