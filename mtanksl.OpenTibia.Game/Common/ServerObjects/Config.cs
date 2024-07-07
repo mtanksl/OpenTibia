@@ -223,8 +223,15 @@ namespace OpenTibia.Game.Common.ServerObjects
             DatabaseName = LuaScope.GetString(script["server.database.name"], "mtots");
         }
 
+        /// <exception cref="ObjectDisposedException"></exception>
+
         public object GetValue(string key)
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(Config) );
+            }
+
             return script[key];
         }
 

@@ -22,9 +22,16 @@ namespace OpenTibia.IO
         private int lastPosition;
 
         private int lastLength;
-        
+
+        /// <exception cref="ObjectDisposedException"></exception>
+      
         private void Load()
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(ByteArrayBufferedStream) );
+            }
+
             lastPosition = position;
 
             stream.Seek(lastPosition, SeekOrigin.Begin);
@@ -33,9 +40,16 @@ namespace OpenTibia.IO
 
             lastLength = length;
         }
-        
+
+        /// <exception cref="ObjectDisposedException"></exception>
+       
         public byte GetByte()
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(ByteArrayBufferedStream) );
+            }
+
             int index = position - lastPosition;
 
             if (index < 0 || lastLength - index < 1)
@@ -52,8 +66,15 @@ namespace OpenTibia.IO
             return value;
         }
 
+        /// <exception cref="ObjectDisposedException"></exception>
+       
         public void GetBytes(byte[] buffer, int offset, int count)
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(ByteArrayBufferedStream) );
+            }
+
             int index = position - lastPosition;
 
             if (index < 0 || lastLength - index < count)

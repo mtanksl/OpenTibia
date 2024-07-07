@@ -76,8 +76,15 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
+        /// <exception cref="ObjectDisposedException"></exception>
+      
         public Type GetType(string typeName)
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(PluginLoader));
+            }
+
             string[] split = typeName.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 
             if (split.Length == 1)
@@ -95,8 +102,15 @@ namespace OpenTibia.Game.Common.ServerObjects
             return null;
         }
 
+        /// <exception cref="ObjectDisposedException"></exception>
+     
         public IEnumerable<Type> GetTypes(Type baseClass)
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(PluginLoader) );
+            }
+
             foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => baseClass.IsAssignableFrom(t) && !t.IsInterface && !t.IsAbstract) )
             {
                 yield return type;
@@ -111,8 +125,15 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
+        /// <exception cref="ObjectDisposedException"></exception>
+      
         public Assembly GetAssembly(string pluginName)
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(PluginLoader) );
+            }
+
             (PluginLoadContext AssemblyLoadContext, Assembly Assembly) context;
 
             if (contexts.TryGetValue(pluginName, out context) )
@@ -123,8 +144,15 @@ namespace OpenTibia.Game.Common.ServerObjects
             return null;
         }
 
+        /// <exception cref="ObjectDisposedException"></exception>
+       
         public IEnumerable< KeyValuePair<string, Assembly> > GetAssemblies()
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(PluginLoader) );
+            }
+
             foreach (var context in contexts)
             {
                 yield return new KeyValuePair<string, Assembly>(context.Key, context.Value.Assembly);

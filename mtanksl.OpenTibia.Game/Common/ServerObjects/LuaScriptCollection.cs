@@ -1243,13 +1243,27 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private Dictionary<string, ILuaScope> libs = new Dictionary<string, ILuaScope>();
 
+        /// <exception cref="ObjectDisposedException"></exception>
+     
         public bool TryGetLib(string libPath, out ILuaScope lib)
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(LuaScriptCollection) );
+            }
+
             return libs.TryGetValue(libPath, out lib);
         }
 
+        /// <exception cref="ObjectDisposedException"></exception>
+      
         public ILuaScope LoadLib(string libPath, Func<ILuaScope> loadParent)
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(LuaScriptCollection) );
+            }
+
             ILuaScope lib;
 
             if ( !TryGetLib(libPath, out lib) )
@@ -1269,8 +1283,15 @@ namespace OpenTibia.Game.Common.ServerObjects
             return lib;
         }
 
+        /// <exception cref="ObjectDisposedException"></exception>
+     
         public ILuaScope LoadLib(params string[] libPaths)
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(LuaScriptCollection) );
+            }
+
             ILuaScope Load(int i)
             {
                 if (i > libPaths.Length - 1)
@@ -1284,8 +1305,15 @@ namespace OpenTibia.Game.Common.ServerObjects
             return Load(0);
         }
 
+        /// <exception cref="ObjectDisposedException"></exception>
+     
         public ILuaScope LoadScript(string scriptPath, ILuaScope parent)
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(LuaScriptCollection) );
+            }
+
             if (parent == null)
             {
                 parent = lua;
@@ -1294,8 +1322,15 @@ namespace OpenTibia.Game.Common.ServerObjects
             return parent.LoadNewChunk(GetChunk(scriptPath), scriptPath);
         }
 
+        /// <exception cref="ObjectDisposedException"></exception>
+     
         public ILuaScope LoadScript(params string[] scriptPathAndLibPaths)
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(LuaScriptCollection) );
+            }
+
             return LoadScript(scriptPathAndLibPaths[0], LoadLib(scriptPathAndLibPaths[1..] ) );
         }
 

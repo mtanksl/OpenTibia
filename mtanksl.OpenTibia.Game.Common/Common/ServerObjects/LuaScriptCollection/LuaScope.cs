@@ -103,20 +103,39 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private LuaTable env;
 
+        /// <exception cref="ObjectDisposedException"></exception>
+
         public object this[string key]
         {
             get
             {
+                if (disposed)
+                {
+                    throw new ObjectDisposedException(nameof(LuaScope) );
+                }
+
                 return env[key];
             }
             set
             {
+                if (disposed)
+                {
+                    throw new ObjectDisposedException(nameof(LuaScope) );
+                }
+
                 env[key] = value;
             }
         }
 
+        /// <exception cref="ObjectDisposedException"></exception>
+
         public void RegisterFunction(string name, object target, MethodBase method)
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(LuaScope) );
+            }
+
             if (parent == null)
             {
                 lua.RegisterFunction(name, target, method);
@@ -140,9 +159,15 @@ namespace OpenTibia.Game.Common.ServerObjects
         }
 
         /// <exception cref="LuaException"></exception>
+        /// <exception cref="ObjectDisposedException"></exception>
 
         public ILuaScope LoadNewChunk(string chunk, string chunkName)
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(LuaScope) );
+            }
+
             var loadResult = ( (LuaFunction)env["bridge.load"] ).Call(chunk, chunkName, env);
 
             var success = (bool)loadResult[0];
@@ -163,13 +188,27 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private string chunkName;
 
+        /// <exception cref="ObjectDisposedException"></exception>
+
         public PromiseResult<object[]> CallFunction(string name, params object[] args)
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(LuaScope) );
+            }
+
             return CallFunction( (LuaFunction)env[name], args);
         }
 
+        /// <exception cref="ObjectDisposedException"></exception>
+
         public PromiseResult<object[]> CallFunction(LuaFunction luaFunction, params object[] args)
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(LuaScope) );
+            }
+
             return Promise.Run<object[]>( (resolve, reject) =>
             {
                 var wrapResult = (LuaFunction)( (LuaFunction)env["bridge.wrap"] ).Call(luaFunction)[0];

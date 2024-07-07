@@ -21,91 +21,161 @@ namespace OpenTibia.Game.Common
 
         private IBanRepository banRepository;
 
+        /// <exception cref="ObjectDisposedException"></exception>
+
         public IBanRepository BanRepository
         {
             get
             {
+                if (disposed)
+                {
+                    throw new ObjectDisposedException(nameof(Database) );
+                }
+
                 return banRepository ?? (banRepository = new BanRepository(databaseContext) );
             }
         }
 
         private IBugReportRepository bugReportRepository;
 
+        /// <exception cref="ObjectDisposedException"></exception>
+
         public IBugReportRepository BugReportRepository
         {
             get
             {
+                if (disposed)
+                {
+                    throw new ObjectDisposedException(nameof(Database) );
+                }
+
                 return bugReportRepository ?? (bugReportRepository = new BugReportRepository(databaseContext) );
             }
         }
 
         private IDebugAssertRepository debugAssertRepository;
 
+        /// <exception cref="ObjectDisposedException"></exception>
+
         public IDebugAssertRepository DebugAssertRepository
         {
             get
             {
+                if (disposed)
+                {
+                    throw new ObjectDisposedException(nameof(Database) );
+                }
+
                 return debugAssertRepository ?? (debugAssertRepository = new DebugAssertRepository(databaseContext) );
             }
         }
 
         private IHouseRepository houseRepository;
 
+        /// <exception cref="ObjectDisposedException"></exception>
+
         public IHouseRepository HouseRepository
         {
             get
             {
+                if (disposed)
+                {
+                    throw new ObjectDisposedException(nameof(Database) );
+                }
+
                 return houseRepository ?? (houseRepository = new HouseRepository(databaseContext) );
             }
         }
 
         private IRuleViolationReportRepository ruleViolationReportRepository;
 
+        /// <exception cref="ObjectDisposedException"></exception>
+
         public IRuleViolationReportRepository RuleViolationReportRepository
         {
             get
             {
+                if (disposed)
+                {
+                    throw new ObjectDisposedException(nameof(Database) );
+                }
+
                 return ruleViolationReportRepository ?? (ruleViolationReportRepository = new RuleViolationReportRepository(databaseContext) );
             }
         }
 
         private IPlayerRepository playerRepository;
 
+        /// <exception cref="ObjectDisposedException"></exception>
+
         public IPlayerRepository PlayerRepository
         {
             get
             {
+                if (disposed)
+                {
+                    throw new ObjectDisposedException(nameof(Database) );
+                }
+
                 return playerRepository ?? (playerRepository = new PlayerRepository(databaseContext) );
             }
         }
 
         private IMotdRepository motdRepository;
 
+        /// <exception cref="ObjectDisposedException"></exception>
+
         public IMotdRepository MotdRepository
         {
             get
             {
+                if (disposed)
+                {
+                    throw new ObjectDisposedException(nameof(Database) );
+                }
+
                 return motdRepository ?? (motdRepository = new MotdRepository(databaseContext) );
             }
         }
 
         private IWorldRepository worldRepository;
 
+        /// <exception cref="ObjectDisposedException"></exception>
+
         public IWorldRepository WorldRepository
         {
             get
             {
+                if (disposed)
+                {
+                    throw new ObjectDisposedException(nameof(Database) );
+                }
+
                 return worldRepository ?? (worldRepository = new WorldRepository(databaseContext) );
             }
         }
 
+        /// <exception cref="ObjectDisposedException"></exception>
+
         public bool CanConnect()
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(Database) );
+            }
+
             return databaseContext.Database.CanConnect();
         }
 
+        /// <exception cref="ObjectDisposedException"></exception>
+
         public void CreateDatabase(int gamePort)
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(Database) );
+            }
+
             databaseContext.Database.EnsureDeleted();
 
             databaseContext.Accounts.Add(new DbAccount() { Id = 1, Name = "1", Password = "1", PremiumDays = 0 } );
@@ -125,8 +195,15 @@ namespace OpenTibia.Game.Common
             databaseContext.SaveChanges();
         }
 
+        /// <exception cref="ObjectDisposedException"></exception>
+
         public void Commit()
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(Database) );
+            }
+
             databaseContext.SaveChanges();
         }
 

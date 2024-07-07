@@ -57,8 +57,15 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
+        /// <exception cref="ObjectDisposedException"></exception>
+    
         public object GetValue(string key)
         {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(ScriptCollection) );
+            }
+
             return script[key];
         }
 
