@@ -52,6 +52,8 @@ namespace mtanksl.OpenTibia.Host.GUI
 
                 startToolStripMenuItem.Enabled = false;
 
+                reloadToolStripMenuItem.Enabled = true;
+
                 restartToolStripMenuItem.Enabled = true;
 
                 stopToolStripMenuItem.Enabled = true;
@@ -70,8 +72,16 @@ namespace mtanksl.OpenTibia.Host.GUI
             }
             finally
             {
-                Enabled = true;               
+                Enabled = true;
             }
+        }
+
+        private async void pluginsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await Task.Run( () =>
+            {
+                server.ReloadPlugins();            
+            } );
         }
 
         private async void restartToolStripMenuItem_Click(object sender, EventArgs e)
@@ -148,6 +158,8 @@ namespace mtanksl.OpenTibia.Host.GUI
 
                 startToolStripMenuItem.Enabled = true;
 
+                reloadToolStripMenuItem.Enabled = false;
+
                 restartToolStripMenuItem.Enabled = false;
 
                 stopToolStripMenuItem.Enabled = false;
@@ -166,7 +178,7 @@ namespace mtanksl.OpenTibia.Host.GUI
             }
             finally
             {
-                Enabled = true;                
+                Enabled = true;
             }
         }
 
@@ -281,6 +293,8 @@ namespace mtanksl.OpenTibia.Host.GUI
 
                         startToolStripMenuItem.Enabled = true;
 
+                        reloadToolStripMenuItem.Enabled = false;
+
                         restartToolStripMenuItem.Enabled = false;
 
                         stopToolStripMenuItem.Enabled = false;
@@ -303,7 +317,7 @@ namespace mtanksl.OpenTibia.Host.GUI
                     }
                     finally
                     {
-                        Enabled = true;                        
+                        Enabled = true;
                     }
                 }
             }

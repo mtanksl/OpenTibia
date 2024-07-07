@@ -15,6 +15,7 @@ using OpenTibia.FileFormats.Xml.Npcs;
 using OpenTibia.FileFormats.Xml.Spawns;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common.ServerObjects;
+using OpenTibia.Game.Events;
 using OpenTibia.Network.Sockets;
 using OpenTibia.Threading;
 using System;
@@ -610,6 +611,37 @@ namespace OpenTibia.Game.Common
             }
 
             return false;
+        }
+
+        public void ReloadPlugins()
+        {
+            QueueForExecution( () =>
+            {
+                using (Logger.Measure("Reloading plugins config and plugins") )
+                {
+                    try
+                    {
+                        var plugin = new PluginCollection(this);
+
+                        plugin.Start();
+
+                        Plugins.Stop();
+
+                        Plugins.Dispose();
+
+                        Plugins = plugin;
+
+                        Context.Current.AddEvent(GlobalServerReloadedEventArgs.Instance);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                    }
+                }
+
+                return Promise.Completed;
+
+            } ).Wait();
         }
 
         public void KickAll()

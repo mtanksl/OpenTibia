@@ -10,8 +10,6 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         ILuaScope LoadScript(string scriptPath, ILuaScope parent);
 
-        ILuaScope LoadOverrideScript(string scriptPath, ILuaScope parent);
-
         ILuaScope LoadScript(params string[] scriptPathAndLibPaths);
     }
 }

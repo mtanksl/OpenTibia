@@ -84,5 +84,12 @@ namespace OpenTibia.Game.Common
         {
             return hashSet.Contains(value);
         }
+
+        public void Clear()
+        {
+            queue.Clear();
+
+            hashSet.Clear();
+        }
     }
 }

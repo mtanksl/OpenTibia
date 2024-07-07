@@ -17,10 +17,8 @@ namespace OpenTibia.Game.Components
 
         private IWalkStrategy walkStrategy;
 
-        public MultipleQueueNpcThinkBehaviour(DialoguePlugin dialoguePlugin, IWalkStrategy walkStrategy)
+        public MultipleQueueNpcThinkBehaviour(IWalkStrategy walkStrategy)
         {
-            this.dialoguePlugin = dialoguePlugin;
-
             this.walkStrategy = walkStrategy;
         }
 
@@ -108,6 +106,8 @@ namespace OpenTibia.Game.Components
             await dialoguePlugin.OnDisappear(npc, player);
         }
 
+        private Guid globalServerReloaded;
+
         private Guid playerSay;
 
         private Guid playerSayToNpc;
@@ -119,6 +119,17 @@ namespace OpenTibia.Game.Components
         public override void Start()
         {
             Npc npc = (Npc)GameObject;
+
+            dialoguePlugin = Context.Server.Plugins.GetDialoguePlugin(npc.Name) ?? Context.Server.Plugins.GetDialoguePlugin("Default");
+
+            globalServerReloaded = Context.Server.EventHandlers.Subscribe<GlobalServerReloadedEventArgs>( (context, e) =>
+            {
+                queue.Clear();
+
+                dialoguePlugin = Context.Server.Plugins.GetDialoguePlugin(npc.Name) ?? Context.Server.Plugins.GetDialoguePlugin("Default");
+
+                return Promise.Completed;
+            } );
 
             playerSay = Context.Server.EventHandlers.Subscribe<PlayerSayEventArgs>( (context, e) => Say(e.Player, e.Message) );
 
@@ -194,6 +205,8 @@ namespace OpenTibia.Game.Components
 
         public override void Stop()
         {
+            Context.Server.EventHandlers.Unsubscribe(globalServerReloaded);
+
             Context.Server.EventHandlers.Unsubscribe(playerSay);
 
             Context.Server.EventHandlers.Unsubscribe(playerSayToNpc);

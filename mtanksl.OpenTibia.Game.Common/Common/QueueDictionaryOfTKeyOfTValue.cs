@@ -74,5 +74,12 @@ namespace OpenTibia.Game.Common
         {
             return dictionary.ContainsKey(key);
         }
+
+        public void Clear()
+        {
+            queue.Clear();
+
+            dictionary.Clear();
+        }
     }
 }

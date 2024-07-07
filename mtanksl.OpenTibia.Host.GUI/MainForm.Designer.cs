@@ -33,6 +33,8 @@
             menuStrip1 = new System.Windows.Forms.MenuStrip();
             serverToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            pluginsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             restartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             commandToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,7 +60,7 @@
             // 
             // serverToolStripMenuItem
             // 
-            serverToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { startToolStripMenuItem, restartToolStripMenuItem, stopToolStripMenuItem });
+            serverToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { startToolStripMenuItem, reloadToolStripMenuItem, restartToolStripMenuItem, stopToolStripMenuItem });
             serverToolStripMenuItem.Name = "serverToolStripMenuItem";
             serverToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             serverToolStripMenuItem.Text = "Server";
@@ -70,6 +72,21 @@
             startToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             startToolStripMenuItem.Text = "Start";
             startToolStripMenuItem.Click += startToolStripMenuItem_Click;
+            // 
+            // reloadToolStripMenuItem
+            // 
+            reloadToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { pluginsToolStripMenuItem });
+            reloadToolStripMenuItem.Enabled = false;
+            reloadToolStripMenuItem.Name = "reloadToolStripMenuItem";
+            reloadToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            reloadToolStripMenuItem.Text = "Reload";
+            // 
+            // pluginsToolStripMenuItem
+            // 
+            pluginsToolStripMenuItem.Name = "pluginsToolStripMenuItem";
+            pluginsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            pluginsToolStripMenuItem.Text = "Plugins";
+            pluginsToolStripMenuItem.Click += pluginsToolStripMenuItem_Click;
             // 
             // restartToolStripMenuItem
             // 
@@ -190,5 +207,7 @@
         private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem maintenanceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reloadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pluginsToolStripMenuItem;
     }
 }

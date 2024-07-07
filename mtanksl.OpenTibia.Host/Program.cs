@@ -8,7 +8,7 @@ namespace OpenTibia.Host
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Available commands: help, clear, kick, save, maintenance, stop.");
+            Console.WriteLine("Available commands: help, clear, reload-plugins, kick, save, maintenance, stop.");
             Console.WriteLine();
 
             try
@@ -33,6 +33,7 @@ namespace OpenTibia.Host
                             case "help":
 
                                 Console.WriteLine("clear \t\t Clears the console screen. Alternative commands: cls.");
+                                Console.WriteLine("reload-plugins \t\t Reloads plugins.");
                                 Console.WriteLine("kick \t\t Kicks all the players.");
                                 Console.WriteLine("save \t\t Saves the server.");
                                 Console.WriteLine("maintenance \t Starts or stops the server maintenance.");
@@ -45,6 +46,12 @@ namespace OpenTibia.Host
                             case "clear":
 
                                 Console.Clear();
+
+                                break;
+
+                            case "reload-plugins":
+
+                                server.ReloadPlugins();
 
                                 break;
 

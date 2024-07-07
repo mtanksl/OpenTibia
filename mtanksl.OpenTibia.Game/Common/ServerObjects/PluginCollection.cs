@@ -664,7 +664,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private PluginDictionaryCached<ushort, PlayerRotateItemPlugin> playerRotateItemPlugins = new PluginDictionaryCached<ushort, PlayerRotateItemPlugin>();
 
-        public void AddPlayerRotateItemPlugin(ushort openTibiaId, PlayerRotateItemPlugin playerRotateItemPlugin)
+        private void AddPlayerRotateItemPlugin(ushort openTibiaId, PlayerRotateItemPlugin playerRotateItemPlugin)
         {
             playerRotateItemPlugins.AddPlugin(openTibiaId, playerRotateItemPlugin);
         }
@@ -693,7 +693,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private PluginDictionaryCached<ushort, PlayerUseItemPlugin> playerUseItemPlugins = new PluginDictionaryCached<ushort, PlayerUseItemPlugin>();
 
-        public void AddPlayerUseItemPlugin(ushort openTibiaId, PlayerUseItemPlugin playerUseItemPlugin)
+        private void AddPlayerUseItemPlugin(ushort openTibiaId, PlayerUseItemPlugin playerUseItemPlugin)
         {
             playerUseItemPlugins.AddPlugin(openTibiaId, playerUseItemPlugin);
         }
@@ -723,7 +723,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         private PluginDictionaryCached<ushort, PlayerUseItemWithItemPlugin> playerUseItemWithItemPluginsAllowFarUse = new PluginDictionaryCached<ushort, PlayerUseItemWithItemPlugin>();
         private PluginDictionaryCached<ushort, PlayerUseItemWithItemPlugin> playerUseItemWithItemPlugins = new PluginDictionaryCached<ushort, PlayerUseItemWithItemPlugin>();
 
-        public void AddPlayerUseItemWithItemPlugin(bool allowFarUse, ushort openTibiaId, PlayerUseItemWithItemPlugin playerUseItemWithItemPlugin)
+        private void AddPlayerUseItemWithItemPlugin(bool allowFarUse, ushort openTibiaId, PlayerUseItemWithItemPlugin playerUseItemWithItemPlugin)
         {
             if (allowFarUse)
             {
@@ -767,7 +767,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         private PluginDictionaryCached<ushort, PlayerUseItemWithCreaturePlugin> playerUseItemWithCreaturePluginsAllowFarUse = new PluginDictionaryCached<ushort, PlayerUseItemWithCreaturePlugin>();
         private PluginDictionaryCached<ushort, PlayerUseItemWithCreaturePlugin> playerUseItemWithCreaturePlugins = new PluginDictionaryCached<ushort, PlayerUseItemWithCreaturePlugin>();
 
-        public void AddPlayerUseItemWithCreaturePlugin(bool allowFarUse, ushort openTibiaId, PlayerUseItemWithCreaturePlugin playerUseItemWithCreaturePlugin)
+        private void AddPlayerUseItemWithCreaturePlugin(bool allowFarUse, ushort openTibiaId, PlayerUseItemWithCreaturePlugin playerUseItemWithCreaturePlugin)
         {
             if (allowFarUse)
             {
@@ -810,7 +810,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private PluginDictionaryCached<string, PlayerMoveCreaturePlugin> playerMoveCreaturePlugins = new PluginDictionaryCached<string, PlayerMoveCreaturePlugin>();
 
-        public void AddPlayerMoveCreaturePlugin(string name, PlayerMoveCreaturePlugin playerMoveCreaturePlugin)
+        private void AddPlayerMoveCreaturePlugin(string name, PlayerMoveCreaturePlugin playerMoveCreaturePlugin)
         {
             playerMoveCreaturePlugins.AddPlugin(name, playerMoveCreaturePlugin);
         }
@@ -839,7 +839,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private PluginDictionaryCached<ushort, PlayerMoveItemPlugin> playerMoveItemPlugins = new PluginDictionaryCached<ushort, PlayerMoveItemPlugin>();
 
-        public void AddPlayerMoveItemPlugin(ushort openTibiaId, PlayerMoveItemPlugin playerMoveItemPlugin)
+        private void AddPlayerMoveItemPlugin(ushort openTibiaId, PlayerMoveItemPlugin playerMoveItemPlugin)
         {
             playerMoveItemPlugins.AddPlugin(openTibiaId, playerMoveItemPlugin);
         }
@@ -868,7 +868,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private PluginDictionaryCached<ushort, CreatureStepInPlugin> creatureStepInPlugins = new PluginDictionaryCached<ushort, CreatureStepInPlugin>();
 
-        public void AddCreatureStepInPlugin(ushort openTibiaId, CreatureStepInPlugin creatureStepInPlugin)
+        private void AddCreatureStepInPlugin(ushort openTibiaId, CreatureStepInPlugin creatureStepInPlugin)
         {
             creatureStepInPlugins.AddPlugin(openTibiaId, creatureStepInPlugin);
         }
@@ -897,7 +897,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private PluginDictionaryCached<ushort, CreatureStepOutPlugin> creatureStepOutPlugins = new PluginDictionaryCached<ushort, CreatureStepOutPlugin>();
 
-        public void AddCreatureStepOutPlugin(ushort openTibiaId, CreatureStepOutPlugin creatureStepOutPlugin)
+        private void AddCreatureStepOutPlugin(ushort openTibiaId, CreatureStepOutPlugin creatureStepOutPlugin)
         {
             creatureStepOutPlugins.AddPlugin(openTibiaId, creatureStepOutPlugin);
         }
@@ -926,7 +926,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private PluginDictionaryCached<ushort, InventoryEquipPlugin> inventoryEquipPlugins = new PluginDictionaryCached<ushort, InventoryEquipPlugin>();
 
-        public void AddInventoryEquipPlugin(ushort openTibiaId, InventoryEquipPlugin inventoryEquipPlugin)
+        private void AddInventoryEquipPlugin(ushort openTibiaId, InventoryEquipPlugin inventoryEquipPlugin)
         {
             inventoryEquipPlugins.AddPlugin(openTibiaId, inventoryEquipPlugin);
         }
@@ -955,7 +955,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private PluginDictionaryCached<ushort, InventoryDeEquipPlugin> inventoryDeEquipPlugins = new PluginDictionaryCached<ushort, InventoryDeEquipPlugin>();
 
-        public void AddInventoryDeEquipPlugin(ushort openTibiaId, InventoryDeEquipPlugin inventoryDeEquipPlugin)
+        private void AddInventoryDeEquipPlugin(ushort openTibiaId, InventoryDeEquipPlugin inventoryDeEquipPlugin)
         {
             inventoryDeEquipPlugins.AddPlugin(openTibiaId, inventoryDeEquipPlugin);
         }
@@ -984,7 +984,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private PluginDictionaryCached<string, PlayerSayPlugin> playerSayPlugins = new PluginDictionaryCached<string, PlayerSayPlugin>();
 
-        public void AddPlayerSayPlugin(string message, PlayerSayPlugin playerSayPlugin)
+        private void AddPlayerSayPlugin(string message, PlayerSayPlugin playerSayPlugin)
         {
             playerSayPlugins.AddPlugin(message, playerSayPlugin);
         }
@@ -1013,7 +1013,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private PluginListCached<PlayerLoginPlugin> playerLoginPlugins = new PluginListCached<PlayerLoginPlugin>();
 
-        public void AddPlayerLoginPlugin(PlayerLoginPlugin playerLoginPlugin)
+        private void AddPlayerLoginPlugin(PlayerLoginPlugin playerLoginPlugin)
         {
             playerLoginPlugins.AddPlugin(playerLoginPlugin);
         }
@@ -1042,7 +1042,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private PluginListCached<PlayerLogoutPlugin> playerLogoutPlugins = new PluginListCached<PlayerLogoutPlugin>();
 
-        public void AddPlayerLogoutPlugin(PlayerLogoutPlugin playerLogoutPlugin)
+        private void AddPlayerLogoutPlugin(PlayerLogoutPlugin playerLogoutPlugin)
         {
             playerLogoutPlugins.AddPlugin(playerLogoutPlugin);
         }
@@ -1071,7 +1071,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private PluginDictionary<string, DialoguePlugin> dialoguePlugins = new PluginDictionary<string, DialoguePlugin>();
 
-        public void AddDialoguePlugin(string name, Func<DialoguePlugin> dialoguePlugin)
+        private void AddDialoguePlugin(string name, Func<DialoguePlugin> dialoguePlugin)
         {
             dialoguePlugins.AddPlugin(name, dialoguePlugin);
         }
@@ -1101,7 +1101,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         private PluginDictionaryCached<string, SpellPlugin> spellPluginsRequiresTarget = new PluginDictionaryCached<string, SpellPlugin>();
         private PluginDictionaryCached<string, SpellPlugin> spellPlugins = new PluginDictionaryCached<string, SpellPlugin>();
 
-        public void AddSpellPlugin(bool requiresTarget, SpellPlugin spellPlugin)
+        private void AddSpellPlugin(bool requiresTarget, SpellPlugin spellPlugin)
         {
             spells.Add(spellPlugin.Spell);
 
@@ -1147,7 +1147,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         private PluginDictionaryCached<ushort, RunePlugin> runePluginsRequiresTarget = new PluginDictionaryCached<ushort, RunePlugin>();
         private PluginDictionaryCached<ushort, RunePlugin> runePlugins = new PluginDictionaryCached<ushort, RunePlugin>();
 
-        public void AddRunePlugin(bool requiresTarget, RunePlugin runePlugin)
+        private void AddRunePlugin(bool requiresTarget, RunePlugin runePlugin)
         {
             runes.Add(runePlugin.Rune);
 
@@ -1192,7 +1192,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private PluginDictionaryCached<ushort, WeaponPlugin> weaponPlugins = new PluginDictionaryCached<ushort, WeaponPlugin>();
 
-        public void AddWeaponPlugin(WeaponPlugin weaponPlugin)
+        private void AddWeaponPlugin(WeaponPlugin weaponPlugin)
         {
             weapons.Add(weaponPlugin.Weapon);
 
@@ -1223,7 +1223,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private PluginDictionaryCached<ushort, AmmunitionPlugin> ammunitionPlugins = new PluginDictionaryCached<ushort, AmmunitionPlugin>();
 
-        public void AddAmmunitionPlugin(AmmunitionPlugin ammunitionPlugin)
+        private void AddAmmunitionPlugin(AmmunitionPlugin ammunitionPlugin)
         {
             ammunitions.Add(ammunitionPlugin.Ammunition);
 

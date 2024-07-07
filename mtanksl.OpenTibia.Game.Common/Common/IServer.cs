@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common.ServerObjects;
 using System;
 
@@ -97,6 +98,8 @@ namespace OpenTibia.Game.Common
         Promise QueueForExecution(string key, TimeSpan executeIn, Func<Promise> run);
 
         bool CancelQueueForExecution(string key);
+
+        void ReloadPlugins();
 
         void KickAll();
 

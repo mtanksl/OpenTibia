@@ -21,7 +21,7 @@
 		{ type = "PlayerLogout", filename = "logout.lua" }
 	},
 	npcs = {
-		-- { type = "Dialogue", name = "Npc Name", filename = "default.lua" }
+		{ type = "Dialogue", name = "Default", filename = "default.lua" }
 	},
 	spells = {
 		{ words = "exani tera", name = "Magic Rope", group = "Support", cooldown = 2, groupcooldown = 2, level = 9, mana = 20, soul = 0, premium = true, vocations = { vocation.knight, vocation.paladin, vocation.druid, vocation.sorcerer, vocation.eliteknight, vocation.royalpaladin, vocation.elderdruid, vocation.mastersorcerer }, requirestarget = false, filename = "OpenTibia.Plugins.Spells.MagicRopeSpellPlugin, mtanksl.OpenTibia.Plugins" },

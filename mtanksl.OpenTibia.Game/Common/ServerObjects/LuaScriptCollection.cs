@@ -1234,18 +1234,9 @@ namespace OpenTibia.Game.Common.ServerObjects
             throw new ArgumentException("Parameter must by Condition or LuaTable with type, specialcondition, magiceffecttype, animatedtextcolor, damages, interval, damage, speed, duration, light, outfit and/or regenerationtick.");
         }
 
-        private Dictionary<string, string> chunks = new Dictionary<string, string>();
-
         public string GetChunk(string path)
         {
-            string chunk;
-
-            if ( !chunks.TryGetValue(path, out chunk) )
-            {
-                chunk = File.ReadAllText(path);
-
-                chunks.Add(path, chunk);
-            }
+            string chunk = File.ReadAllText(path);
 
             return chunk;
         }

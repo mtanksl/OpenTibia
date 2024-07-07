@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
-using OpenTibia.Game.Plugins;
 
 namespace OpenTibia.Game.GameObjectScripts
 {
@@ -14,18 +13,13 @@ namespace OpenTibia.Game.GameObjectScripts
                 Context.Server.GameObjectComponents.AddComponent(npc, new CreatureTalkBehaviour(TalkType.Say, npc.Metadata.Sentences) );
             }
 
-            DialoguePlugin dialoguePlugin = Context.Server.Plugins.GetDialoguePlugin(npc.Name);
-
-            if (dialoguePlugin != null)
+            if (Context.Server.Config.GameplayPrivateNpcSystem)
             {
-                if (Context.Server.Config.GameplayPrivateNpcSystem)
-                {
-                    Context.Server.GameObjectComponents.AddComponent(npc, new MultipleQueueNpcThinkBehaviour(dialoguePlugin, NpcWalkStrategy.Instance) );
-                }
-                else
-                {
-                    Context.Server.GameObjectComponents.AddComponent(npc, new SingleQueueNpcThinkBehaviour(dialoguePlugin, NpcWalkStrategy.Instance) );
-                }
+                Context.Server.GameObjectComponents.AddComponent(npc, new MultipleQueueNpcThinkBehaviour(NpcWalkStrategy.Instance) );
+            }
+            else
+            {
+                Context.Server.GameObjectComponents.AddComponent(npc, new SingleQueueNpcThinkBehaviour(NpcWalkStrategy.Instance) );
             }
         }
 
