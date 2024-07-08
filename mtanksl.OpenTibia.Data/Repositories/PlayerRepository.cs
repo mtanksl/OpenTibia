@@ -35,6 +35,7 @@ namespace OpenTibia.Data.Repositories
         public DbPlayer GetAccountPlayer(string accountName, string accountPassword, string playerName)
         {
             DbPlayer player = context.Players
+                .Include(p => p.Account)
                 .Where(p => p.Account.Name == accountName &&
                             p.Account.Password == accountPassword &&
                             p.Name == playerName)

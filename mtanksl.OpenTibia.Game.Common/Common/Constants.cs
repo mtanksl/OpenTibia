@@ -80,7 +80,9 @@
 
         public static readonly string YouMayNotLogoutDuringOrImmediatelyAfterAFight = "You may not logout during or immediately after a fight!";
 
-        public static readonly string YouNeedToLearnThisSpellFirst = "You need to learn this spell first";
+        public static readonly string YouNeedAPremiumAccount = "You need a premium account.";
+
+        public static readonly string YouNeedToLearnThisSpellFirst = "You need to learn this spell first.";
 
         public static readonly string YourDepotIsFull = "Your depot is full. Remove surplus items before storing new ones.";
 

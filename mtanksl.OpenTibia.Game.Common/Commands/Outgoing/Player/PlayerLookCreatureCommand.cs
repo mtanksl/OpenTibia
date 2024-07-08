@@ -120,11 +120,25 @@ namespace OpenTibia.Game.Commands
 
                             if (playerPingBehaviour != null)
                             {
-                                builder.Append("You see " + player.Name + " (Level: " + player.Level + ", Latency: " + playerPingBehaviour.GetLatency() + "ms).");
+                                if (player.Premium)
+                                {
+                                    builder.Append("You see " + player.Name + " (Level: " + player.Level + ", Latency: " + playerPingBehaviour.GetLatency() + "ms, Premium Account).");
+                                }
+                                else
+                                {
+                                    builder.Append("You see " + player.Name + " (Level: " + player.Level + ", Latency: " + playerPingBehaviour.GetLatency() + "ms).");
+                                }
                             }
                             else
                             {
-                                builder.Append("You see " + player.Name + " (Level: " + player.Level + ").");
+                                if (player.Premium)
+                                {
+                                    builder.Append("You see " + player.Name + " (Level: " + player.Level + ", Premium Account).");
+                                }
+                                else
+                                {
+                                    builder.Append("You see " + player.Name + " (Level: " + player.Level + ").");
+                                }
                             }
                         }
                         else

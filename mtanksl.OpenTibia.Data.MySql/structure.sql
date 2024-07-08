@@ -16,13 +16,13 @@ CREATE TABLE `Accounts` (
   `Id` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
-  `PremiumDays` int(11) NOT NULL,
+  `PremiumUntil` datetime NULL,
   PRIMARY KEY (`Id`),
   UNIQUE KEY `UQ_Accounts_Name` (`Name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
-insert  into `Accounts`(`Id`,`Name`,`Password`,`PremiumDays`) values 
-(1,'1','1',0);
+insert  into `Accounts`(`Id`,`Name`,`Password`,`PremiumUntil`) values 
+(1,'1','1',NULL);
 
 -- Bans
 

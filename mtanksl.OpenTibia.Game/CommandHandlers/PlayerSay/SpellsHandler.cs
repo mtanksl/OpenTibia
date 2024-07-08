@@ -40,6 +40,15 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (plugin != null)
             {
+                if (plugin.Spell.Vocations != null && !plugin.Spell.Vocations.Contains(command.Player.Vocation) )
+                {
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourVocationCannotUseThisSpell) );
+
+                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+
+                    await Promise.Break;
+                }
+
                 if (Context.Server.Config.GameplayLearnSpellFirst)
                 {
                     if ( !command.Player.Spells.HasSpell(plugin.Spell.Name) )
@@ -50,6 +59,15 @@ namespace OpenTibia.Game.CommandHandlers
 
                         await Promise.Break;
                     }
+                }
+
+                if (plugin.Spell.Premium && !command.Player.Premium)
+                {
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouNeedAPremiumAccount) );
+
+                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+
+                    await Promise.Break;
                 }
 
                 if (command.Player.Level < plugin.Spell.Level)
@@ -78,16 +96,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     await Promise.Break;
                 }
-
-                if (plugin.Spell.Vocations != null && !plugin.Spell.Vocations.Contains(command.Player.Vocation) )
-                {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourVocationCannotUseThisSpell) );
-
-                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
-
-                    await Promise.Break;
-                }
-                 
+                                 
                 if (plugin.Spell.Group == "Attack" && command.Player.Tile.ProtectionZone)
                 {
                     Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisActionIsNotPermittedInAProtectionZone) );

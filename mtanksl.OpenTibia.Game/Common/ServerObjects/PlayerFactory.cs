@@ -162,6 +162,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             player.Vocation = (Vocation)dbPlayer.Vocation;
 
             player.Rank = (Rank)dbPlayer.Rank;
+
+            player.Premium = dbPlayer.Account.PremiumUntil != null && (dbPlayer.Account.PremiumUntil.Value - DateTime.UtcNow).TotalDays > 0;
         }
 
         private static void LoadLockers(Context context, DbPlayer dbPlayer, Player player)

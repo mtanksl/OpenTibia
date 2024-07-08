@@ -127,6 +127,8 @@ namespace OpenTibia.Common.Objects
 
         public Rank Rank { get; set; }
 
+        public bool Premium { get; set; }
+
         private void Calculate(ushort level)
         {
             Level = level;

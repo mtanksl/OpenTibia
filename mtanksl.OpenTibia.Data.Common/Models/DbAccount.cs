@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace OpenTibia.Data.Models
@@ -15,7 +16,7 @@ namespace OpenTibia.Data.Models
         [StringLength(255)]
         public string Password { get; set; }
 
-        public int PremiumDays { get; set; }
+        public DateTime? PremiumUntil { get; set; }
 
 
         public ICollection<DbPlayer> Players { get; set; } = new List<DbPlayer>();

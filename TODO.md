@@ -22,7 +22,6 @@
 - Guild
 - Hangable items
 - Map clean up
-- Premium days
 - Raids
 - Rings and amulets charges
 - Save house items
@@ -40,6 +39,7 @@
 - The base structures
 - Server status info protocol
 - Interacting with the client
+	- Premium days
 	- Message of the day
 	- Waiting list
 	- Quests

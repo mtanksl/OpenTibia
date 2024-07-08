@@ -178,7 +178,7 @@ namespace OpenTibia.Game.Common
 
             databaseContext.Database.EnsureDeleted();
 
-            databaseContext.Accounts.Add(new DbAccount() { Id = 1, Name = "1", Password = "1", PremiumDays = 0 } );
+            databaseContext.Accounts.Add(new DbAccount() { Id = 1, Name = "1", Password = "1", PremiumUntil = null } );
 
             databaseContext.Worlds.Add(new DbWorld() { Id = 1, Name = "Cormaya", Ip = "127.0.0.1", Port = gamePort } );
 

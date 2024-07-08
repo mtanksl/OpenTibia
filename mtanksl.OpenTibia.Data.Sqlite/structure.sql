@@ -7,10 +7,10 @@ CREATE TABLE Accounts (
   Id INTEGER CONSTRAINT PK_Accounts_Id PRIMARY KEY AUTOINCREMENT NOT NULL, 
   Name NVARCHAR (255) NOT NULL UNIQUE, 
   Password NVARCHAR (255) NOT NULL, 
-  PremiumDays INTEGER NOT NULL
+  PremiumUntil DATETIME
 );
 
-INSERT INTO Accounts (Id, Name, Password, PremiumDays) VALUES (1, '1', '1', 0);
+INSERT INTO Accounts (Id, Name, Password, PremiumUntil) VALUES (1, '1', '1', NULL);
 
 -- Bans
 

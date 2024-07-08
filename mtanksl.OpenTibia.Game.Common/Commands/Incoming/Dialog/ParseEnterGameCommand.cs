@@ -1,10 +1,10 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
 using OpenTibia.Data.Models;
 using OpenTibia.Game.Common;
 using OpenTibia.Network.Packets;
 using OpenTibia.Network.Packets.Incoming;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
@@ -100,7 +100,30 @@ namespace OpenTibia.Game.Commands
                 characters.Add( new CharacterDto(player.Name, player.World.Name, player.World.Ip, (ushort)player.World.Port) );
             }
 
-            Context.AddPacket(Connection, new OpenSelectCharacterDialogOutgoingPacket(characters, (ushort)dbAccount.PremiumDays) );
+            int premiumDays;
+
+            if (dbAccount.PremiumUntil != null)
+            {
+                premiumDays = (int)Math.Ceiling( (dbAccount.PremiumUntil.Value - DateTime.UtcNow).TotalDays );
+
+                if (premiumDays > 0)
+                {
+                    if (premiumDays > ushort.MaxValue)
+                    {
+                        premiumDays = ushort.MaxValue;
+                    }
+                }
+                else
+                {
+                    premiumDays = 0;
+                }
+            }
+            else
+            {
+                premiumDays = 0;
+            }
+
+            Context.AddPacket(Connection, new OpenSelectCharacterDialogOutgoingPacket(characters, (ushort)premiumDays) );
 
             Context.Disconnect(Connection);
 

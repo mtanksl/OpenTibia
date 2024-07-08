@@ -11,7 +11,7 @@ CREATE TABLE [dbo].[Accounts](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[Name] [nvarchar](255) NOT NULL,
 	[Password] [nvarchar](255) NOT NULL,
-	[PremiumDays] [int] NOT NULL,
+	[PremiumUntil] [datetime2](7) NULL,
  CONSTRAINT [PK_Accounts] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -401,7 +401,7 @@ GO
 
 SET IDENTITY_INSERT [dbo].[Accounts] ON 
 GO
-INSERT [dbo].[Accounts] ([Id], [Name], [Password], [PremiumDays]) VALUES (1, N'1', N'1', 0)
+INSERT [dbo].[Accounts] ([Id], [Name], [Password], [PremiumUntil]) VALUES (1, N'1', N'1', NULL)
 GO
 SET IDENTITY_INSERT [dbo].[Accounts] OFF
 GO
