@@ -22,6 +22,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using House = OpenTibia.Common.Objects.House;
+using Tile = OpenTibia.Common.Objects.Tile;
+using Item = OpenTibia.Common.Objects.Item;
 
 namespace OpenTibia.Game.Common
 {
@@ -421,6 +423,50 @@ namespace OpenTibia.Game.Common
                                     house.GetDoorList( (byte)dbHouseAccessList.ListId).SetText(dbHouseAccessList.Text);
                                 }
                             }
+
+                            void AddItems(Container parent, long sequenceId)
+                            {
+                                foreach (var dbHouseItem in dbHouse.HouseItems.Where(hi => hi.ParentId == sequenceId) )
+                                {
+                                    Item item = ItemFactory.Create( (ushort)dbHouseItem.OpenTibiaId, (byte)dbHouseItem.Count);
+
+                                    ItemFactory.Attach(item);
+
+                                    if (item is Container container)
+                                    {
+                                        AddItems(container, dbHouseItem.SequenceId);
+                                    }
+
+                                    parent.AddContent(item);
+                                }
+                            }
+
+                            foreach (var dbHouseItem in dbHouse.HouseItems.Where(hi => ( (hi.ParentId >> 36) & 0x01) == 0x01) )
+                            {
+                                int x = (int)( ( (dbHouseItem.ParentId >> 20) & 0xFFFF) );
+
+                                int y = (int)( ( (dbHouseItem.ParentId >> 4) & 0xFFFF) );
+
+                                int z = (int)( (dbHouseItem.ParentId & 0xF) );
+
+                                Tile tile = Map.GetTile(new Position(x, y, z) );
+
+                                if (tile != null)
+                                {
+                                    //TODO: Warn about moveable items inside the house during map load
+
+                                    Item item = ItemFactory.Create( (ushort)dbHouseItem.OpenTibiaId, (byte)dbHouseItem.Count);
+
+                                    ItemFactory.Attach(item);
+
+                                    if (item is Container container)
+                                    {
+                                        AddItems(container, dbHouseItem.SequenceId);
+                                    }
+
+                                    tile.AddContent(item);
+                                }
+                            }
                         }
                     }
                 }
@@ -768,6 +814,48 @@ namespace OpenTibia.Game.Common
 
                                         Text = doorList.Value.Text
                                     } );
+                                }
+                            }
+
+                            long sequenceId = 1;
+
+                            void AddItems(long parentId, Item item)
+                            {
+                                DbHouseItem dbHouseItem = new DbHouseItem()
+                                {
+                                    HouseId = dbHouse.Id,
+
+                                    SequenceId = sequenceId++,
+
+                                    ParentId = parentId,
+
+                                    OpenTibiaId = item.Metadata.OpenTibiaId,
+
+                                    Count = item is StackableItem stackableItem ? stackableItem.Count :
+
+                                            item is FluidItem fluidItem ? (int)fluidItem.FluidType :
+
+                                            item is SplashItem splashItem ? (int)splashItem.FluidType : 1
+                                };
+
+                                dbHouse.HouseItems.Add(dbHouseItem);
+
+                                if (item is Container container)
+                                {
+                                    foreach (var child in container.GetItems().Reverse() )
+                                    {
+                                        AddItems(dbHouseItem.SequenceId, child);
+                                    }
+                                }
+                            }
+
+                            dbHouse.HouseItems.Clear();
+
+                            foreach (var tile in house.GetTiles() )
+                            {
+                                foreach (var moveable in tile.GetItems().Reverse().Where(i => !i.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) ) )
+                                {
+                                    AddItems( (long)0x01 << 36 | (long)tile.Position.X << 20 | (long)tile.Position.Y << 4 | (long)tile.Position.Z, moveable);
                                 }
                             }
                         }

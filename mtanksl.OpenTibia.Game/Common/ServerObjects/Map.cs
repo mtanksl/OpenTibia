@@ -238,6 +238,8 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     Position position = otbmArea.Position.Offset(otbmTile.OffsetX, otbmTile.OffsetY, 0);
 
+                    //TODO: Use List Capacity
+
                     Tile tile;
 
                     if (otbmTile is OtbmHouseTile otbmHouseTile)

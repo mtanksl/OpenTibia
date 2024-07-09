@@ -12,5 +12,8 @@ namespace OpenTibia.Data.Models
         public DbPlayer Owner { get; set; }
 
         public ICollection<DbHouseAccessList> HouseAccessLists { get; set; } = new List<DbHouseAccessList>();
+
+        public ICollection<DbHouseItem> HouseItems { get; set; } = new List<DbHouseItem>();
+
     }
 }

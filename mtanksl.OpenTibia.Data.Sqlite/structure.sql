@@ -265,5 +265,17 @@ CREATE TABLE HouseAccessLists (
 );
 CREATE INDEX IX_HouseAccessLists_HouseId ON HouseAccessLists (HouseId);
 
+-- HouseItems
+
+CREATE TABLE HouseItems (
+    HouseId INTEGER NOT NULL REFERENCES Houses (Id) ON DELETE CASCADE,
+    SequenceId BIGINT  NOT NULL,
+    ParentId BIGINT  NOT NULL,
+    OpenTibiaId INTEGER NOT NULL,
+    Count INTEGER NOT NULL,
+    PRIMARY KEY (HouseId, SequenceId)
+);
+CREATE INDEX IX_HouseItems_HouseId ON HouseItems (HouseId);
+
 COMMIT TRANSACTION;
 PRAGMA foreign_keys = ON;

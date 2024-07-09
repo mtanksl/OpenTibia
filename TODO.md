@@ -24,7 +24,6 @@
 - Map clean up
 - Raids
 - Rings and amulets charges
-- Save house items
 - ...
 
 # Done (or good enough for now)
@@ -118,6 +117,7 @@
 		- Send letter
 	- House
 		- Access list
+		- House items
 - Plugins
 	- Lua scripting
 	- Lua debugging with ZeroBrane

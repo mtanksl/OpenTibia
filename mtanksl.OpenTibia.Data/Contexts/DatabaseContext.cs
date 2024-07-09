@@ -20,6 +20,9 @@ namespace OpenTibia.Data.Contexts
             modelBuilder.Entity<DbHouseAccessList>()
                 .HasKey(m => new { m.HouseId, m.ListId } );
 
+            modelBuilder.Entity<DbHouseItem>()
+                .HasKey(m => new { m.HouseId, m.SequenceId } );
+
             modelBuilder.Entity<DbPlayerDepotItem>()
                 .HasKey(m => new { m.PlayerId, m.SequenceId } );
 
@@ -68,6 +71,8 @@ namespace OpenTibia.Data.Contexts
         public DbSet<DbHouse> Houses { get; set; }
 
         public DbSet<DbHouseAccessList> HouseAccessLists { get; set; }
+
+        public DbSet<DbHouseItem> HouseItems { get; set; }
 
         public DbSet<DbMotd> Motd { get; set; }
 

@@ -24,6 +24,9 @@ namespace OpenTibia.Data.Repositories
             {
                 context.HouseAccessLists
                     .Load();
+
+                context.HouseItems
+                    .Load();
             }
 
             return houses;
