@@ -99,9 +99,9 @@ namespace OpenTibia.IO
             InternalWriteInt64(8, (long)value);
         }
 
-        private static object locker = new object();
+        private static readonly object locker = new object();
 
-        private static byte[] buffer = new byte[65535];
+        private static readonly byte[] buffer = new byte[65535];
 
         public void Write(string value)
         {

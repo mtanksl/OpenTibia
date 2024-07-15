@@ -238,8 +238,6 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     Position position = otbmArea.Position.Offset(otbmTile.OffsetX, otbmTile.OffsetY, 0);
 
-                    //TODO: Use List Capacity
-
                     Tile tile;
 
                     if (otbmTile is OtbmHouseTile otbmHouseTile)
@@ -248,7 +246,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                         if (house != null)
                         {
-                            HouseTile houseTile = new HouseTile(position)
+                            HouseTile houseTile = new HouseTile(position, (otbmTile.OpenTibiaItemId > 0 ? 1 : 0) + (otbmTile.Items != null ? otbmTile.Items.Count : 0) )
                             {
                                 House = house
                             };
@@ -259,12 +257,12 @@ namespace OpenTibia.Game.Common.ServerObjects
                         }
                         else
                         {
-                            tile = new Tile(position);
+                            tile = new Tile(position, (otbmTile.OpenTibiaItemId > 0 ? 1 : 0) + (otbmTile.Items != null ? otbmTile.Items.Count : 0) );
                         }
                     }
                     else
                     {
-                        tile = new Tile(position);
+                        tile = new Tile(position, (otbmTile.OpenTibiaItemId > 0 ? 1 : 0) + (otbmTile.Items != null ? otbmTile.Items.Count : 0) );
                     }
 
                     tile.ProtectionZone = (otbmTile.Flags & TileFlags.ProtectionZone) == TileFlags.ProtectionZone;
@@ -291,7 +289,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                         {
                             foreach (var otbmItem in items)
                             {
-                                Item item = server.ItemFactory.Create(otbmItem.OpenTibiaId, otbmItem.Count);
+                                Item item = server.ItemFactory.Create(otbmItem.OpenTibiaId, otbmItem.Count); //TODO: Create with Capacity
 
                                 if (item != null)
                                 {

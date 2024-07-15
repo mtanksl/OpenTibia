@@ -1,10 +1,13 @@
 ﻿using OpenTibia.IO;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenTibia.FileFormats.Otbm
 {
     public class HouseTile : Tile
     {
+        private static readonly List<Item> tempItems = new List<Item>();
+
         public static HouseTile Load(ByteArrayFileTreeStream stream, ByteArrayStreamReader reader)
         {
             HouseTile houseTile = new HouseTile();
@@ -37,18 +40,21 @@ namespace OpenTibia.FileFormats.Otbm
 
                         if ( stream.Child() )
                         {
-                            houseTile.items = new List<Item>();
-
+                            tempItems.Clear();
+                                                        
                             while (true)
                             {
-                                houseTile.items.Add( Item.Load(stream, reader) );
+                                tempItems.Add( Item.Load(stream, reader) );
 
                                 if ( !stream.Next() )
                                 {
                                     break;
                                 }
                             }
+
+                            houseTile.items = tempItems.ToList();
                         }
+
                         return houseTile;
                 }
             }

@@ -9,6 +9,11 @@ namespace OpenTibia.Common.Objects
 
         }
 
+        public HouseTile(Position position, int capacity) : base(position, capacity)
+        {
+
+        }
+
         public House House { get; set; }
     }
 }

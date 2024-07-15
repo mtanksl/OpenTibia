@@ -1,11 +1,14 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.IO;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenTibia.FileFormats.Otbm
 {
     public class Area
     {
+        private static readonly List<Tile> tempTiles = new List<Tile>();
+
         public static Area Load(ByteArrayFileTreeStream stream, ByteArrayStreamReader reader)
         {
             Area area = new Area();
@@ -14,7 +17,7 @@ namespace OpenTibia.FileFormats.Otbm
 
             if ( stream.Child() )
             {
-                area.tiles = new List<Tile>(1);
+                tempTiles.Clear();
 
                 while (true)
                 {
@@ -35,13 +38,15 @@ namespace OpenTibia.FileFormats.Otbm
                             break;
                     }
 
-                    area.tiles.Add(tile);
+                    tempTiles.Add(tile);
                     
                     if ( !stream.Next() )
                     {
                         break; 
                     }
                 }
+
+                area.tiles = tempTiles.ToList();
             }
 
             return area;

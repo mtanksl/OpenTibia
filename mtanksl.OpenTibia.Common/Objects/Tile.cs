@@ -153,6 +153,15 @@ namespace OpenTibia.Common.Objects
         public Tile(Position position)
         {
             this.position = position;
+
+            this.contents = new List<IContent>();
+        }
+
+        public Tile(Position position, int capacity)
+        {
+            this.position = position;
+
+            this.contents = new List<IContent>(capacity);
         }
 
         private Position position;
@@ -289,7 +298,7 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        private List<IContent> contents = new List<IContent>();
+        private List<IContent> contents;
 
         public int Count
         {

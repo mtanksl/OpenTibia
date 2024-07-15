@@ -100,9 +100,9 @@ namespace OpenTibia.IO
             return (ulong)InternalReadInt64(8);
         }
 
-        private static object locker = new object();
+        private static readonly object locker = new object();
 
-        private static byte[] buffer = new byte[65535];
+        private static readonly byte[] buffer = new byte[65535];
 
         public string ReadString()
         {

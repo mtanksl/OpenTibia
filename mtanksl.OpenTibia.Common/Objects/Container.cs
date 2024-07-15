@@ -38,7 +38,12 @@ namespace OpenTibia.Common.Objects
 
         public Container(ItemMetadata metadata) : base(metadata)
         {
-            
+            this.contents = new List<IContent>();
+        }
+
+        public Container(ItemMetadata metadata, int capacity) : base(metadata)
+        {
+            this.contents = new List<IContent>(capacity);
         }
 
         private uint weight;
@@ -58,7 +63,7 @@ namespace OpenTibia.Common.Objects
             return child.IsContentOf(this);
         }
 
-        private List<IContent> contents = new List<IContent>();
+        private List<IContent> contents;
 
         public int Count
         {
