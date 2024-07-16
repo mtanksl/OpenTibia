@@ -45,6 +45,7 @@
             richTextBox1 = new System.Windows.Forms.RichTextBox();
             contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(components);
             clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
@@ -60,7 +61,7 @@
             // 
             // serverToolStripMenuItem
             // 
-            serverToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { startToolStripMenuItem, reloadToolStripMenuItem, restartToolStripMenuItem, stopToolStripMenuItem });
+            serverToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { startToolStripMenuItem, statisticsToolStripMenuItem, reloadToolStripMenuItem, restartToolStripMenuItem, stopToolStripMenuItem });
             serverToolStripMenuItem.Name = "serverToolStripMenuItem";
             serverToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             serverToolStripMenuItem.Text = "Server";
@@ -170,6 +171,14 @@
             clearToolStripMenuItem.Text = "Clear";
             clearToolStripMenuItem.Click += clearToolStripMenuItem_Click;
             // 
+            // statisticsToolStripMenuItem
+            // 
+            statisticsToolStripMenuItem.Enabled = false;
+            statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
+            statisticsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            statisticsToolStripMenuItem.Text = "Statistics";
+            statisticsToolStripMenuItem.Click += statisticsToolStripMenuItem_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -209,5 +218,6 @@
         private System.Windows.Forms.ToolStripMenuItem maintenanceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reloadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pluginsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem statisticsToolStripMenuItem;
     }
 }

@@ -250,7 +250,7 @@ namespace OpenTibia.Network.Sockets
 
                         if (bytes.Length == socket.EndSend(result) )
                         {
-                            //
+                            OnSent(bytes, bytes.Length);
                         }
                         else
                         {
@@ -317,6 +317,11 @@ namespace OpenTibia.Network.Sockets
         }
 
         protected virtual void OnReceived(byte[] body, int length)
+        {
+
+        }
+
+        protected virtual void OnSent(byte[] bytes, int length)
         {
 
         }

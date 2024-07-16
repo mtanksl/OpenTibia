@@ -1,5 +1,4 @@
-﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common.ServerObjects;
 using System;
 
@@ -7,8 +6,6 @@ namespace OpenTibia.Game.Common
 {
     public interface IServer : IDisposable
     {
-        TimeSpan Uptime { get; }
-
         string ServerName { get; }
 
         string ServerVersion { get; }
@@ -20,6 +17,8 @@ namespace OpenTibia.Game.Common
         IClientFactory ClientFactory { get; set; }
 
         IDatabaseFactory DatabaseFactory { get; set; }
+
+        IServerStatistics Statistics { get; set; }
 
         ILogger Logger { get; set; }
 

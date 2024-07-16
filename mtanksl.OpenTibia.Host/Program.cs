@@ -8,7 +8,7 @@ namespace OpenTibia.Host
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Available commands: help, clear, reload-plugins, kick, save, maintenance, stop.");
+            Console.WriteLine("Available commands: help, stats, clear, reload-plugins, kick, save, maintenance, stop.");
             Console.WriteLine();
 
             try
@@ -32,6 +32,7 @@ namespace OpenTibia.Host
                         {
                             case "help":
 
+                                Console.WriteLine("stats \t\t Displays server statistics.");
                                 Console.WriteLine("clear \t\t Clears the console screen. Alternative commands: cls.");
                                 Console.WriteLine("reload-plugins \t\t Reloads plugins.");
                                 Console.WriteLine("kick \t\t Kicks all the players.");
@@ -39,6 +40,16 @@ namespace OpenTibia.Host
                                 Console.WriteLine("maintenance \t Starts or stops the server maintenance.");
                                 Console.WriteLine("stop \t\t Stops the server. Alternative commands: exit, quit.");
                                 Console.WriteLine();
+
+                                break;
+
+                            case "stats":
+
+                                server.Logger.WriteLine("Uptime: " + (int)server.Statistics.Uptime.TotalMinutes + " minutes", LogLevel.Information);
+                                server.Logger.WriteLine("Total messages sent: " + server.Statistics.TotalMessagesSent, LogLevel.Information);
+                                server.Logger.WriteLine("Total bytes sent: " + server.Statistics.TotalBytesSent + " bytes", LogLevel.Information);
+                                server.Logger.WriteLine("Total messages received: " + server.Statistics.TotalMessagesReceived, LogLevel.Information);
+                                server.Logger.WriteLine("Total bytes received: " + server.Statistics.TotalBytesReceived + " bytes", LogLevel.Information);
 
                                 break;
 

@@ -1,6 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Data.Models;
 using OpenTibia.Game.Common;
 using OpenTibia.Network.Packets;
 using OpenTibia.Network.Packets.Incoming;
@@ -32,7 +31,7 @@ namespace OpenTibia.Game.Commands
                     XElement xml = new XElement("tsqp", 
                         new XAttribute("version", "1.0"), 
                         new XElement("serverinfo",
-                            new XAttribute("uptime", (uint)Context.Server.Uptime.TotalSeconds),
+                            new XAttribute("uptime", (uint)Context.Server.Statistics.Uptime.TotalSeconds),
                             new XAttribute("servername", Context.Server.Config.ServerName),
                             new XAttribute("ip", Context.Server.Config.IPAddress),
                             new XAttribute("port", Context.Server.Config.Port),
@@ -82,7 +81,7 @@ namespace OpenTibia.Game.Commands
 
                 if (Packet.RequestedInfo.Is(RequestedInfo.MiscInfo) )
                 {
-                    Context.AddPacket(Connection, new MiscInfoOutgoingPacket(Context.Server.Config.Motd, Context.Server.Config.Location, Context.Server.Config.Url, (uint)Context.Server.Uptime.TotalSeconds) );
+                    Context.AddPacket(Connection, new MiscInfoOutgoingPacket(Context.Server.Config.Motd, Context.Server.Config.Location, Context.Server.Config.Url, (uint)Context.Server.Statistics.Uptime.TotalSeconds) );
                 }
 
                 if (Packet.RequestedInfo.Is(RequestedInfo.PlayersInfo) )

@@ -63,6 +63,8 @@ namespace OpenTibia.Game.Common
                 }
             } );
 
+            Statistics = new ServerStatistics();
+
             Logger = new Logger(new ConsoleLoggerProvider(), LogLevel.Debug);
 
             PathResolver = new PathResolver();
@@ -137,16 +139,6 @@ namespace OpenTibia.Game.Common
             Dispose(false);
         }
 
-        private DateTime startDate;
-
-        public TimeSpan Uptime
-        {
-            get
-            {
-                return DateTime.UtcNow - startDate;
-            }
-        }
-
         public string ServerName
         {
             get
@@ -186,6 +178,8 @@ namespace OpenTibia.Game.Common
         public IClientFactory ClientFactory { get; set; }
 
         public IDatabaseFactory DatabaseFactory { get; set; }
+
+        public IServerStatistics Statistics { get; set; }
 
         public ILogger Logger { get; set; }
 
@@ -257,7 +251,7 @@ namespace OpenTibia.Game.Common
 
         public void Start()
         {
-            startDate = DateTime.UtcNow;
+            Statistics.Start();
 
             dispatcher.Start();
 

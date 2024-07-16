@@ -76,5 +76,23 @@ namespace OpenTibia.Common
                 OnDisconnected(new DisconnectedEventArgs(DisconnectionType.RateLimited) );
             }
         }
+
+        protected override void OnReceived(byte[] body, int length)
+        {
+            server.Statistics.IncreaseMessagesReceived();
+
+            server.Statistics.IncreaseBytesReceived(length);
+
+            base.OnReceived(body, length);
+        }
+
+        protected override void OnSent(byte[] bytes, int length)
+        {
+            server.Statistics.IncreaseMessagesSent();
+
+            server.Statistics.IncreaseBytesSent(length);
+
+            base.OnSent(bytes, length);
+        }
     }
 }

@@ -52,6 +52,8 @@ namespace mtanksl.OpenTibia.Host.GUI
 
                 startToolStripMenuItem.Enabled = false;
 
+                statisticsToolStripMenuItem.Enabled = true;
+
                 reloadToolStripMenuItem.Enabled = true;
 
                 restartToolStripMenuItem.Enabled = true;
@@ -76,12 +78,48 @@ namespace mtanksl.OpenTibia.Host.GUI
             }
         }
 
+        private void statisticsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (server == null)
+            {
+                MessageBox.Show("Server is not running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            server.Logger.WriteLine("Uptime: " + (int)server.Statistics.Uptime.TotalMinutes + " minutes", LogLevel.Information);
+            server.Logger.WriteLine("Total messages sent: " + server.Statistics.TotalMessagesSent, LogLevel.Information);
+            server.Logger.WriteLine("Total bytes sent: " + server.Statistics.TotalBytesSent + " bytes", LogLevel.Information);
+            server.Logger.WriteLine("Total messages received: " + server.Statistics.TotalMessagesReceived, LogLevel.Information);
+            server.Logger.WriteLine("Total bytes received: " + server.Statistics.TotalBytesReceived + " bytes", LogLevel.Information);
+        }
+
         private async void pluginsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            await Task.Run( () =>
+            if (server == null)
             {
-                server.ReloadPlugins();            
-            } );
+                MessageBox.Show("Server is not running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            try
+            {
+                Enabled = false;
+
+                await Task.Run( () =>
+                {
+                    server.ReloadPlugins();
+                } );
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                Enabled = true;
+            }
         }
 
         private async void restartToolStripMenuItem_Click(object sender, EventArgs e)
@@ -157,6 +195,8 @@ namespace mtanksl.OpenTibia.Host.GUI
                 } );
 
                 startToolStripMenuItem.Enabled = true;
+
+                statisticsToolStripMenuItem.Enabled = false;
 
                 reloadToolStripMenuItem.Enabled = false;
 
@@ -292,6 +332,8 @@ namespace mtanksl.OpenTibia.Host.GUI
                         } );
 
                         startToolStripMenuItem.Enabled = true;
+
+                        statisticsToolStripMenuItem.Enabled = false;
 
                         reloadToolStripMenuItem.Enabled = false;
 
