@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace OpenTibia.Game.Common.ServerObjects
 {
@@ -19,13 +20,45 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public ulong TotalMessagesSent { get; private set; }
+        private ulong totalMessagesSent;
 
-        public ulong TotalBytesSent { get; private set; }
+        public ulong TotalMessagesSent
+        { 
+            get
+            {
+                return Interlocked.CompareExchange(ref totalMessagesSent, 0, 0);
+            }
+        }
 
-        public ulong TotalMessagesReceived { get; private set; }
+        private ulong totalBytesSent;
 
-        public ulong TotalBytesReceived { get; private set; }
+        public ulong TotalBytesSent
+        {
+            get
+            {
+                return Interlocked.CompareExchange(ref totalBytesSent, 0, 0);
+            }
+        }
+
+        private ulong totalMessagesReceived;
+
+        public ulong TotalMessagesReceived
+        {
+            get
+            {
+                return Interlocked.CompareExchange(ref totalMessagesReceived, 0, 0);
+            }
+        }
+
+        private ulong totalBytesReceived;
+
+        public ulong TotalBytesReceived
+        {
+            get
+            {
+                return Interlocked.CompareExchange(ref totalBytesReceived, 0, 0);
+            }
+        }
 
         public void Start()
         {
@@ -34,22 +67,22 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public void IncreaseMessagesSent()
         {
-            TotalMessagesSent += 1;
+            Interlocked.Increment(ref totalMessagesSent);
         }
 
         public void IncreaseBytesSent(int count)
         {
-            TotalBytesSent += (ulong)count;
+            Interlocked.Add(ref totalBytesSent, (ulong)count);
         }
 
         public void IncreaseMessagesReceived()
         {
-            TotalMessagesReceived += 1;
+            Interlocked.Increment(ref totalMessagesReceived);
         }
 
         public void IncreaseBytesReceived(int count)
         {
-            TotalBytesReceived += (ulong)count;
+            Interlocked.Add(ref totalBytesReceived, (ulong)count);
         }
     }
 }
