@@ -136,3 +136,8 @@
 	- Kick after 1 minute without pong response
 	- Kick after 15 minutes idle
 	- Maintenance info
+- Server statistics
+	- Active connections
+	- #Received messages and bytes
+	- #Sent messages and bytes
+	- Average processing time

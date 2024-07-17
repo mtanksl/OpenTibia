@@ -15,6 +15,8 @@ namespace OpenTibia.Common
 
         protected override bool IncreaseActiveConnection()
         {
+            server.Statistics.IncreaseActiveConnection();
+
             if ( !server.RateLimiting.IncreaseActiveConnection(IpAddress) )
             {
                 OnDisconnected(new DisconnectedEventArgs(DisconnectionType.RateLimited) );
@@ -27,6 +29,8 @@ namespace OpenTibia.Common
 
         protected override void DecreaseActiveConnection()
         {
+            server.Statistics.DecreaseActiveConnection();
+
             server.RateLimiting.DecreaseActiveConnection(IpAddress);
         }
 

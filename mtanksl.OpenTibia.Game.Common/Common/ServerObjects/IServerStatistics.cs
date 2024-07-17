@@ -6,6 +6,8 @@ namespace OpenTibia.Game.Common.ServerObjects
     {
         TimeSpan Uptime { get; }
 
+        ulong ActiveConnections { get; }
+
         ulong TotalMessagesSent { get; }
 
         ulong TotalBytesSent { get; }
@@ -14,7 +16,13 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         ulong TotalBytesReceived { get; }
 
+        double AverageProcessingTime { get; }
+
         void Start();
+
+        void IncreaseActiveConnection();
+
+        void DecreaseActiveConnection();
 
         void IncreaseMessagesSent();
 
@@ -23,5 +31,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         void IncreaseMessagesReceived();
 
         void IncreaseBytesReceived(int count);
+
+        void IncreaseProcessingTime(long elapsedTicks);
     }
 }
