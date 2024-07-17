@@ -82,7 +82,7 @@ namespace OpenTibia.Game.CommandHandlers
                                 {
                                     if (left is StackableItem stackableItem)
                                     {
-                                        if (stackableItem.Count == command.Count)
+                                        if (stackableItem.Count == command.Count || left.Metadata.WeaponType != WeaponType.Distance)
                                         {
                                             proceed = true;
                                         }
@@ -120,7 +120,7 @@ namespace OpenTibia.Game.CommandHandlers
                                 {
                                     if (right is StackableItem stackableItem)
                                     {
-                                        if (stackableItem.Count == command.Count)
+                                        if (stackableItem.Count == command.Count || right.Metadata.WeaponType != WeaponType.Distance)
                                         {
                                             proceed = true;
                                         }
