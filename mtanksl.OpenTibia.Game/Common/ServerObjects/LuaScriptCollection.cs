@@ -708,12 +708,51 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );
-                      
+            
+            lua.RegisterCoFunction("playergetachievements", parameters =>
+            {
+                Player player = (Player)parameters[0];
+                
+                return Promise.FromResult<object[]>(player.Achievements.GetAchievements().ToArray() );
+            } );
+
+            lua.RegisterCoFunction("playerhasachievement", parameters =>
+            {
+                Player player = (Player)parameters[0];
+
+                return player.Achievements.HasAchievement( (string)parameters[1] ) ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
+            } );
+
+            lua.RegisterCoFunction("playersetachievement", parameters =>
+            {
+                Player player = (Player)parameters[0];
+
+                player.Achievements.SetAchievement( (string)parameters[1] );
+
+                return Promise.FromResultAsEmptyObjectArray;
+            } );
+
+            lua.RegisterCoFunction("playerremoveachievement", parameters =>
+            {
+                Player player = (Player)parameters[0];
+
+                player.Achievements.RemoveAchievement( (string)parameters[1] );
+
+                return Promise.FromResultAsEmptyObjectArray;
+            } );
+
             lua.RegisterCoFunction("playergetspells", parameters =>
             {
                 Player player = (Player)parameters[0];
                 
                 return Promise.FromResult<object[]>(player.Spells.GetSpells().ToArray() );
+            } );
+
+            lua.RegisterCoFunction("playerhasspell", parameters =>
+            {
+                Player player = (Player)parameters[0];
+
+                return player.Spells.HasSpell( (string)parameters[1] ) ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
             } );
 
             lua.RegisterCoFunction("playersetspell", parameters =>
@@ -730,6 +769,38 @@ namespace OpenTibia.Game.Common.ServerObjects
                 Player player = (Player)parameters[0];
 
                 player.Spells.RemoveSpell( (string)parameters[1] );
+
+                return Promise.FromResultAsEmptyObjectArray;
+            } );
+
+            lua.RegisterCoFunction("playergetblesses", parameters =>
+            {
+                Player player = (Player)parameters[0];
+                
+                return Promise.FromResult<object[]>(player.Blesses.GetBlesses().ToArray() );
+            } );
+
+            lua.RegisterCoFunction("playerhasbless", parameters =>
+            {
+                Player player = (Player)parameters[0];
+
+                return player.Blesses.HasBless( (string)parameters[1] ) ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
+            } );
+
+            lua.RegisterCoFunction("playersetbless", parameters =>
+            {
+                Player player = (Player)parameters[0];
+
+                player.Blesses.SetBless( (string)parameters[1] );
+
+                return Promise.FromResultAsEmptyObjectArray;
+            } );
+
+            lua.RegisterCoFunction("playerremovebless", parameters =>
+            {
+                Player player = (Player)parameters[0];
+
+                player.Blesses.RemoveBless( (string)parameters[1] );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );
