@@ -750,6 +750,41 @@ return {
 				description = "",
 				args = "(Tile tile, Item fromItem, Item toItem)",
 				returns = "void"
+			},
+			-- Town command.mapgettownbyname(string name)
+			mapgettownbyname = {
+				type = "function",
+				description = "",
+				args = "(string name)",
+				returns = "Town"
+			},
+			-- Waypoint command.mapgetwaypointbyname(string name)
+			mapgetwaypointbyname = {
+				type = "function",
+				description = "",
+				args = "(string name)",
+				returns = "Waypoint"
+			},
+			-- House command.mapgethousebyname(string name)
+			mapgethousebyname = {
+				type = "function",
+				description = "",
+				args = "(string name)",
+				returns = "House"
+			},
+			-- Tile command.mapgettile(Position position)
+			mapgettile = {
+				type = "function",
+				description = "",
+				args = "(Position position)",
+				returns = "Tile"
+			},
+			-- Player command.gameobjectsgetplayerbyname(string name)
+			gameobjectsgetplayerbyname = {
+				type = "function",
+				description = "",
+				args = "(string name)",
+				returns = "Player"
 			}
 		}
 	}

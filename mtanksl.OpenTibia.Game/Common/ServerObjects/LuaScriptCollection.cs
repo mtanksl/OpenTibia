@@ -948,6 +948,41 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
+            lua.RegisterCoFunction("mapgettownbyname", parameters =>
+            {
+                Town town = Context.Current.Server.Map.GetTown( (string)parameters[0] );
+
+                return Promise.FromResult(new object[] { town } );
+            } );
+
+            lua.RegisterCoFunction("mapgetwaypointbyname", parameters =>
+            {
+                Waypoint waypoint = Context.Current.Server.Map.GetWaypoint( (string)parameters[0] );
+
+                return Promise.FromResult(new object[] { waypoint } );
+            } );
+
+            lua.RegisterCoFunction("mapgethousebyname", parameters =>
+            {
+                House house = Context.Current.Server.Map.GetHouse( (string)parameters[0] );
+
+                return Promise.FromResult(new object[] { house } );
+            } );
+
+            lua.RegisterCoFunction("mapgettile", parameters =>
+            {
+                Tile tile = Context.Current.Server.Map.GetTile(ToPosition(parameters[0] ) );
+
+                return Promise.FromResult(new object[] { tile } );
+            } );
+
+            lua.RegisterCoFunction("gameobjectsgetplayerbyname", parameters =>
+            {
+                Player player = Context.Current.Server.GameObjects.GetPlayerByName( (string)parameters[0] );
+
+                return Promise.FromResult(new object[] { player } );
+            } );
+
             this.server = server;
         }
 
