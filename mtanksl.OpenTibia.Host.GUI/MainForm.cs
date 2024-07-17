@@ -78,24 +78,6 @@ namespace mtanksl.OpenTibia.Host.GUI
             }
         }
 
-        private void statisticsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (server == null)
-            {
-                MessageBox.Show("Server is not running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                return;
-            }
-
-            server.Logger.WriteLine("Uptime: " + (int)server.Statistics.Uptime.TotalMinutes + " minutes", LogLevel.Information);
-            server.Logger.WriteLine("Active connections: " + server.Statistics.ActiveConnections, LogLevel.Information);
-            server.Logger.WriteLine("Total messages sent: " + server.Statistics.TotalMessagesSent, LogLevel.Information);
-            server.Logger.WriteLine("Total bytes sent: " + server.Statistics.TotalBytesSent + " bytes", LogLevel.Information);
-            server.Logger.WriteLine("Total messages received: " + server.Statistics.TotalMessagesReceived, LogLevel.Information);
-            server.Logger.WriteLine("Total bytes received: " + server.Statistics.TotalBytesReceived + " bytes", LogLevel.Information);
-            server.Logger.WriteLine("Average processing time: " + server.Statistics.AverageProcessingTime.ToString("N3") + " milliseconds", LogLevel.Information);
-        }
-
         private async void pluginsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (server == null)
@@ -364,6 +346,33 @@ namespace mtanksl.OpenTibia.Host.GUI
                         Enabled = true;
                     }
                 }
+            }
+        }
+
+        private StatisticsForm statisticsForm;
+
+        private void statisticsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (statisticsForm == null)
+            {
+                statisticsForm = new StatisticsForm( () => server);
+
+                statisticsForm.FormClosed += (s, e) =>
+                {
+                    statisticsForm.Dispose();
+
+                    statisticsForm = null;
+
+                    statisticsToolStripMenuItem.Checked = false;
+                };
+
+                statisticsForm.Show();
+
+                statisticsToolStripMenuItem.Checked = true;
+            }
+            else
+            {
+                statisticsForm.Close();
             }
         }
     }

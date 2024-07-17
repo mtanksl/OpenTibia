@@ -45,6 +45,7 @@
             richTextBox1 = new System.Windows.Forms.RichTextBox();
             contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(components);
             clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             contextMenuStrip1.SuspendLayout();
@@ -52,7 +53,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { serverToolStripMenuItem, commandToolStripMenuItem });
+            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { serverToolStripMenuItem, commandToolStripMenuItem, windowToolStripMenuItem });
             menuStrip1.Location = new System.Drawing.Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new System.Drawing.Size(584, 24);
@@ -61,7 +62,7 @@
             // 
             // serverToolStripMenuItem
             // 
-            serverToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { startToolStripMenuItem, statisticsToolStripMenuItem, reloadToolStripMenuItem, restartToolStripMenuItem, stopToolStripMenuItem });
+            serverToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { startToolStripMenuItem, reloadToolStripMenuItem, restartToolStripMenuItem, stopToolStripMenuItem });
             serverToolStripMenuItem.Name = "serverToolStripMenuItem";
             serverToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             serverToolStripMenuItem.Text = "Server";
@@ -171,11 +172,17 @@
             clearToolStripMenuItem.Text = "Clear";
             clearToolStripMenuItem.Click += clearToolStripMenuItem_Click;
             // 
+            // windowToolStripMenuItem
+            // 
+            windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { statisticsToolStripMenuItem });
+            windowToolStripMenuItem.Name = "windowToolStripMenuItem";
+            windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            windowToolStripMenuItem.Text = "Window";
+            // 
             // statisticsToolStripMenuItem
             // 
-            statisticsToolStripMenuItem.Enabled = false;
             statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
-            statisticsToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            statisticsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             statisticsToolStripMenuItem.Text = "Statistics";
             statisticsToolStripMenuItem.Click += statisticsToolStripMenuItem_Click;
             // 
@@ -218,6 +225,7 @@
         private System.Windows.Forms.ToolStripMenuItem maintenanceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reloadToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pluginsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem windowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem statisticsToolStripMenuItem;
     }
 }
