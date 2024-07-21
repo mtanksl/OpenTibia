@@ -146,14 +146,14 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        private Dictionary<string, Func<object[], PromiseResult<object[]>>> callbacks = new Dictionary<string, Func<object[], PromiseResult<object[]>>>();
+        private Dictionary<string, Func<ILuaScope, object[], PromiseResult<object[]>>> callbacks = new Dictionary<string, Func<ILuaScope, object[], PromiseResult<object[]>>>();
 
-        public void RegisterCoFunction(string name, Func<object[], PromiseResult<object[]>> callback)
+        public void RegisterCoFunction(string name, Func<ILuaScope, object[], PromiseResult<object[]>> callback)
         {
             callbacks[name] = callback;
         }
 
-        public bool TryGetCoFunction(string name, out Func<object[], PromiseResult<object[]>> callback)
+        public bool TryGetCoFunction(string name, out Func<ILuaScope, object[], PromiseResult<object[]>> callback)
         {
             return callbacks.TryGetValue(name, out callback);
         }
@@ -257,7 +257,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                                         values.Add(parameters[i] );
                                     }
 
-                                    callback(values.ToArray() ).Then(Next).Catch(reject);
+                                    callback(this, values.ToArray() ).Then(Next).Catch(reject);
 
                                     break;
                                 }

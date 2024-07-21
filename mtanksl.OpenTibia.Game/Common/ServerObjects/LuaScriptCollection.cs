@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             lua.RegisterFunction("getfullpath", this, GetType().GetMethod(nameof(GetFullPath) ) );
 
-            lua.RegisterCoFunction("delay", parameters =>
+            lua.RegisterCoFunction("delay", (luaScope, parameters) =>
             {                   
                 string key = Guid.NewGuid().ToString();
 
@@ -46,7 +46,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     _ = promise.Then( () =>
                     {
-                        ( (LuaFunction)parameters[1] ).Call();
+                        return luaScope.CallFunction( (LuaFunction)parameters[1] );
                     } ); 
 
                     return Promise.FromResult(new object[] { key } );
@@ -58,7 +58,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );                
             } );
 
-            lua.RegisterCoFunction("delaygameobject", parameters =>
+            lua.RegisterCoFunction("delaygameobject", (luaScope, parameters) =>
             {
                 MultipleDelayBehaviour multipleDelayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)parameters[0], new MultipleDelayBehaviour(TimeSpan.FromSeconds( (long)parameters[1] ) ), false);
 
@@ -66,7 +66,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     _ = multipleDelayBehaviour.Promise.Then( () =>
                     {
-                        ( (LuaFunction)parameters[2] ).Call();
+                        return luaScope.CallFunction( (LuaFunction)parameters[2] );
                     } );
 
                     return Promise.FromResult(new object[] { multipleDelayBehaviour.Key } );
@@ -78,14 +78,14 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("canceldelay", parameters =>
+            lua.RegisterCoFunction("canceldelay", (luaScope, parameters) =>
             {
                 bool canceled = Context.Current.Server.CancelQueueForExecution( (string)parameters[0] );
 
                 return canceled ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
             } );
 
-            lua.RegisterCoFunction("containeradditem", parameters =>
+            lua.RegisterCoFunction("containeradditem", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new ContainerAddItemCommand( (Container)parameters[0], (Item)parameters[1] ) ).Then( () =>
                 {
@@ -93,7 +93,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("containercreateitem", parameters =>
+            lua.RegisterCoFunction("containercreateitem", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new ContainerCreateItemCommand( (Container)parameters[0], (ushort)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( (item) =>
                 {
@@ -101,7 +101,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("containerremoveitem", parameters =>
+            lua.RegisterCoFunction("containerremoveitem", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new ContainerRemoveItemCommand( (Container)parameters[0], (Item)parameters[1] ) ).Then( () =>
                 {
@@ -109,7 +109,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("containerreplaceitem", parameters =>
+            lua.RegisterCoFunction("containerreplaceitem", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new ContainerReplaceItemCommand( (Container)parameters[0], (Item)parameters[1], (Item)parameters[2] ) ).Then( () =>
                 {
@@ -117,7 +117,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureaddcondition", parameters =>
+            lua.RegisterCoFunction("creatureaddcondition", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new CreatureAddConditionCommand( (Creature)parameters[0], ToCondition(parameters[1] ) ) ).Then( () =>
                 {
@@ -125,7 +125,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureattackarea", parameters =>
+            lua.RegisterCoFunction("creatureattackarea", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new CreatureAttackAreaCommand( (Creature)parameters[0], (bool)parameters[1], ToPosition(parameters[2] ), ToOffsetArray(parameters[3] ), (ProjectileType?)(long?)parameters[4], (MagicEffectType?)(long?)parameters[5], ToAttack(parameters[6] ), ToCondition(parameters[7] ) ) ).Then( () =>
                 {
@@ -133,7 +133,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureattackcreature", parameters =>
+            lua.RegisterCoFunction("creatureattackcreature", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new CreatureAttackCreatureCommand( (Creature)parameters[0], (Creature)parameters[1], ToAttack(parameters[2] ), ToCondition(parameters[3] ) ) ).Then( () =>
                 {
@@ -141,7 +141,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureremovecondition", parameters =>
+            lua.RegisterCoFunction("creatureremovecondition", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new CreatureRemoveConditionCommand( (Creature)parameters[0], (ConditionSpecialCondition)(long)parameters[1] ) ).Then( () =>
                 {
@@ -149,7 +149,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("creaturedestroy", parameters =>
+            lua.RegisterCoFunction("creaturedestroy", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new CreatureDestroyCommand( (Creature)parameters[0] ) ).Then( () =>
                 {
@@ -157,7 +157,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureupdatedirection", parameters =>
+            lua.RegisterCoFunction("creatureupdatedirection", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new CreatureUpdateDirectionCommand( (Creature)parameters[0], (Direction)(long)parameters[1] ) ).Then( () =>
                 {
@@ -165,7 +165,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureupdatehealth", parameters =>
+            lua.RegisterCoFunction("creatureupdatehealth", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new CreatureUpdateHealthCommand( (Creature)parameters[0], (int)(long)parameters[1] ) ).Then( () =>
                 {
@@ -173,7 +173,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureupdateinvisible", parameters =>
+            lua.RegisterCoFunction("creatureupdateinvisible", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new CreatureUpdateInvisibleCommand( (Creature)parameters[0], (bool)parameters[1] ) ).Then( () =>
                 {
@@ -181,7 +181,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureupdatelight", parameters =>
+            lua.RegisterCoFunction("creatureupdatelight", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new CreatureUpdateLightCommand( (Creature)parameters[0], ToLight(parameters[1] ) ) ).Then( () =>
                 {
@@ -189,7 +189,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureupdateoutfit", parameters =>
+            lua.RegisterCoFunction("creatureupdateoutfit", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new CreatureUpdateOutfitCommand( (Creature)parameters[0], ToOutfit(parameters[1] ), ToOutfit(parameters[2] ) ) ).Then( () =>
                 {
@@ -197,7 +197,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureupdatepartyicon", parameters =>
+            lua.RegisterCoFunction("creatureupdatepartyicon", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new CreatureUpdatePartyIconCommand( (Creature)parameters[0], (PartyIcon)(long)parameters[1] ) ).Then( () =>
                 {
@@ -205,7 +205,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureupdateskullicon", parameters =>
+            lua.RegisterCoFunction("creatureupdateskullicon", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new CreatureUpdateSkullIconCommand( (Creature)parameters[0], (SkullIcon)(long)parameters[1] ) ).Then( () =>
                 {
@@ -213,7 +213,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureupdatespeed", parameters =>
+            lua.RegisterCoFunction("creatureupdatespeed", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new CreatureUpdateSpeedCommand( (Creature)parameters[0], (ushort)(long)parameters[1], (ushort)(long)parameters[2] ) ).Then( () =>
                 {
@@ -221,7 +221,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("creaturemove", parameters =>
+            lua.RegisterCoFunction("creaturemove", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new CreatureMoveCommand( (Creature)parameters[0], ToTile(parameters[1] ) ) ).Then( () =>
                 {
@@ -229,7 +229,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("fluiditemupdatefluidtype", parameters =>
+            lua.RegisterCoFunction("fluiditemupdatefluidtype", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new FluidItemUpdateFluidTypeCommand( (FluidItem)parameters[0], (FluidType)(long)parameters[1] ) ).Then( () =>
                 {
@@ -237,7 +237,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("inventoryadditem", parameters =>
+            lua.RegisterCoFunction("inventoryadditem", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new InventoryAddItemCommand( (Inventory)parameters[0], (byte)(long)parameters[1], (Item)parameters[2] ) ).Then( () =>
                 {
@@ -245,7 +245,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("inventorycreateitem", parameters =>
+            lua.RegisterCoFunction("inventorycreateitem", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new InventoryCreateItemCommand( (Inventory)parameters[0], (byte)(long)parameters[1], (ushort)(long)parameters[2], (byte)(long)parameters[3] ) ).Then( (item) =>
                 {
@@ -253,7 +253,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("inventoryremoveitem", parameters =>
+            lua.RegisterCoFunction("inventoryremoveitem", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new InventoryRemoveItemCommand( (Inventory)parameters[0], (Item)parameters[1] ) ).Then( () =>
                 {
@@ -261,7 +261,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("inventoryreplaceitem", parameters =>
+            lua.RegisterCoFunction("inventoryreplaceitem", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new InventoryReplaceItemCommand( (Inventory)parameters[0], (Item)parameters[1], (Item)parameters[2] ) ).Then( () =>
                 {
@@ -269,7 +269,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("itemclone", parameters =>
+            lua.RegisterCoFunction("itemclone", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new ItemCloneCommand( (Item)parameters[0], (bool)parameters[1] ) ).Then( (item) =>
                 {
@@ -277,7 +277,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("itemdecrement", parameters =>
+            lua.RegisterCoFunction("itemdecrement", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new ItemDecrementCommand( (Item)parameters[0], (byte)(long)parameters[1] ) ).Then( () =>
                 {
@@ -285,7 +285,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("itemdestroy", parameters =>
+            lua.RegisterCoFunction("itemdestroy", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new ItemDestroyCommand( (Item)parameters[0] ) ).Then( () =>
                 {
@@ -293,7 +293,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("itemmove", parameters =>
+            lua.RegisterCoFunction("itemmove", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new ItemMoveCommand( (Item)parameters[0], (IContainer)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
                 {
@@ -301,7 +301,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("itemtransform", parameters =>
+            lua.RegisterCoFunction("itemtransform", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new ItemTransformCommand( (Item)parameters[0], (ushort)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( (item) =>
                 {
@@ -309,7 +309,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("monstersay", parameters =>
+            lua.RegisterCoFunction("monstersay", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new MonsterSayCommand( (Monster)parameters[0], (string)parameters[1] ) ).Then( () =>
                 {
@@ -317,7 +317,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("npcsay", parameters =>
+            lua.RegisterCoFunction("npcsay", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new NpcSayCommand( (Npc)parameters[0], (string)parameters[1] ) ).Then( () =>
                 {
@@ -325,7 +325,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
                         
-            lua.RegisterCoFunction("npcsaytoplayer", parameters =>
+            lua.RegisterCoFunction("npcsaytoplayer", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new NpcSayToPlayerCommand( (Npc)parameters[0], (Player)parameters[1], (string)parameters[2] ) ).Then( () =>
                 {
@@ -333,7 +333,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("npctrade", parameters =>
+            lua.RegisterCoFunction("npctrade", (luaScope, parameters) =>
             {
                 List<OfferDto> offers = new List<OfferDto>();
 
@@ -363,7 +363,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );                
             } );
 
-            lua.RegisterCoFunction("npcidle", parameters =>
+            lua.RegisterCoFunction("npcidle", (luaScope, parameters) =>
             {
                 if (server.Config.GameplayPrivateNpcSystem)
                 {
@@ -393,7 +393,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("npcfarewell", parameters =>
+            lua.RegisterCoFunction("npcfarewell", (luaScope, parameters) =>
             {
                 if (server.Config.GameplayPrivateNpcSystem)
                 {
@@ -423,7 +423,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("npcdisappear", parameters =>
+            lua.RegisterCoFunction("npcdisappear", (luaScope, parameters) =>
             {
                 if (server.Config.GameplayPrivateNpcSystem)
                 {
@@ -453,7 +453,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("playercreatemoney", parameters =>
+            lua.RegisterCoFunction("playercreatemoney", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerCreateMoneyCommand( (Player)parameters[0], (int)(long)parameters[1] ) ).Then( () =>
                 {
@@ -461,7 +461,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("playerdestroymoney", parameters =>
+            lua.RegisterCoFunction("playerdestroymoney", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerDestroyMoneyCommand( (Player)parameters[0], (int)(long)parameters[1] ) ).Then( (success) =>
                 {
@@ -469,7 +469,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );                
             } );
 
-            lua.RegisterCoFunction("playercountmoney", parameters =>
+            lua.RegisterCoFunction("playercountmoney", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerCountMoneyCommand( (Player)parameters[0] ) ).Then( (price) =>
                 {
@@ -477,7 +477,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );                  
             } );
 
-            lua.RegisterCoFunction("playercreateitems", parameters =>
+            lua.RegisterCoFunction("playercreateitems", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerCreateItemsCommand( (Player)parameters[0], (ushort)(long)parameters[1], (byte)(long)parameters[2], (int)(long)parameters[3] ) ).Then( () =>
                 {
@@ -485,7 +485,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("playerdestroyitems", parameters =>
+            lua.RegisterCoFunction("playerdestroyitems", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerDestroyItemsCommand( (Player)parameters[0], (ushort)(long)parameters[1], (byte)(long)parameters[2], (int)(long)parameters[3] ) ).Then( (success) =>
                 {
@@ -493,7 +493,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );                
             } );
 
-            lua.RegisterCoFunction("playercountitems", parameters =>
+            lua.RegisterCoFunction("playercountitems", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerCountItemsCommand( (Player)parameters[0], (ushort)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( (count) =>
                 {
@@ -501,7 +501,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );                
             } );
 
-            lua.RegisterCoFunction("playerachievement", parameters =>
+            lua.RegisterCoFunction("playerachievement", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerAchievementCommand( (Player)parameters[0], (int)(long)parameters[1], (int)(long)parameters[2], (string)parameters[3] ) ).Then( () =>
                 {
@@ -509,7 +509,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("playerbless", parameters =>
+            lua.RegisterCoFunction("playerbless", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerBlessCommand( (Player)parameters[0], (string)parameters[1], (string)parameters[2] ) ).Then( () =>
                 {
@@ -517,7 +517,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("playerupdateaxe", parameters =>
+            lua.RegisterCoFunction("playerupdateaxe", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerUpdateAxeCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
                 {
@@ -525,7 +525,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("playerupdateclub", parameters =>
+            lua.RegisterCoFunction("playerupdateclub", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerUpdateClubCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
                 {
@@ -533,7 +533,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("playerupdatedistance", parameters =>
+            lua.RegisterCoFunction("playerupdatedistance", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerUpdateDistanceCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
                 {
@@ -541,7 +541,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("playerupdatefish", parameters =>
+            lua.RegisterCoFunction("playerupdatefish", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerUpdateFishCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
                 {
@@ -549,7 +549,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("playerupdatefist", parameters =>
+            lua.RegisterCoFunction("playerupdatefist", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerUpdateFistCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
                 {
@@ -557,7 +557,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("playerupdatemagiclevel", parameters =>
+            lua.RegisterCoFunction("playerupdatemagiclevel", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerUpdateMagicLevelCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
                 {
@@ -565,7 +565,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("playerupdateshield", parameters =>
+            lua.RegisterCoFunction("playerupdateshield", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerUpdateShieldCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
                 {
@@ -573,7 +573,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("playerupdatesword", parameters =>
+            lua.RegisterCoFunction("playerupdatesword", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerUpdateSwordCommand( (Player)parameters[0], (byte)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
                 {
@@ -581,7 +581,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
             
-            lua.RegisterCoFunction("playersay", parameters =>
+            lua.RegisterCoFunction("playersay", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerSayCommand( (Player)parameters[0], (string)parameters[1] ) ).Then( () =>
                 {
@@ -589,7 +589,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
             
-            lua.RegisterCoFunction("playerupdatecapacity", parameters =>
+            lua.RegisterCoFunction("playerupdatecapacity", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerUpdateCapacityCommand( (Player)parameters[0], (uint)(long)parameters[1] ) ).Then( () =>
                 {
@@ -597,7 +597,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("playerupdateexperience", parameters =>
+            lua.RegisterCoFunction("playerupdateexperience", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerUpdateExperienceCommand( (Player)parameters[0], (uint)(long)parameters[1], (ushort)(long)parameters[2], (byte)(long)parameters[3] ) ).Then( () =>
                 {
@@ -605,7 +605,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("playerupdatemana", parameters =>
+            lua.RegisterCoFunction("playerupdatemana", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerUpdateManaCommand( (Player)parameters[0], (int)(long)parameters[1] ) ).Then( () =>
                 {
@@ -613,7 +613,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("playerupdatesoul", parameters =>
+            lua.RegisterCoFunction("playerupdatesoul", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerUpdateSoulCommand( (Player)parameters[0], (int)(long)parameters[1] ) ).Then( () =>
                 {
@@ -621,7 +621,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("playerupdatestamina", parameters =>
+            lua.RegisterCoFunction("playerupdatestamina", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerUpdateStaminaCommand( (Player)parameters[0], (int)(long)parameters[1] ) ).Then( () =>
                 {
@@ -629,7 +629,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("playerwhisper", parameters =>
+            lua.RegisterCoFunction("playerwhisper", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerWhisperCommand( (Player)parameters[0], (string)parameters[1] ) ).Then( () =>
                 {
@@ -637,7 +637,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
             
-            lua.RegisterCoFunction("playeryell", parameters =>
+            lua.RegisterCoFunction("playeryell", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerYellCommand( (Player)parameters[0], (string)parameters[1] ) ).Then( () =>
                 {
@@ -645,7 +645,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
             
-            lua.RegisterCoFunction("playergetoutfit", parameters =>
+            lua.RegisterCoFunction("playergetoutfit", (luaScope, parameters) =>
             {
                 Player player = (Player)parameters[0];
 
@@ -659,7 +659,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsBooleanFalseObjectArray;
             } );
 
-            lua.RegisterCoFunction("playersetoutfit", parameters =>
+            lua.RegisterCoFunction("playersetoutfit", (luaScope, parameters) =>
             {
                 Player player = (Player)parameters[0];
 
@@ -668,7 +668,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("playerremoveoutfit", parameters =>
+            lua.RegisterCoFunction("playerremoveoutfit", (luaScope, parameters) =>
             {
                 Player player = (Player)parameters[0];
 
@@ -677,7 +677,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("playergetstorage", parameters =>
+            lua.RegisterCoFunction("playergetstorage", (luaScope, parameters) =>
             {
                 Player player = (Player)parameters[0];
 
@@ -691,7 +691,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsBooleanFalseObjectArray;
             } );
 
-            lua.RegisterCoFunction("playersetstorage", parameters =>
+            lua.RegisterCoFunction("playersetstorage", (luaScope, parameters) =>
             {
                 Player player = (Player)parameters[0];
 
@@ -700,7 +700,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("playerremovestorage", parameters =>
+            lua.RegisterCoFunction("playerremovestorage", (luaScope, parameters) =>
             {
                 Player player = (Player)parameters[0];
 
@@ -709,21 +709,21 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsEmptyObjectArray;
             } );
             
-            lua.RegisterCoFunction("playergetachievements", parameters =>
+            lua.RegisterCoFunction("playergetachievements", (luaScope, parameters) =>
             {
                 Player player = (Player)parameters[0];
                 
                 return Promise.FromResult<object[]>(player.Achievements.GetAchievements().ToArray() );
             } );
 
-            lua.RegisterCoFunction("playerhasachievement", parameters =>
+            lua.RegisterCoFunction("playerhasachievement", (luaScope, parameters) =>
             {
                 Player player = (Player)parameters[0];
 
                 return player.Achievements.HasAchievement( (string)parameters[1] ) ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
             } );
 
-            lua.RegisterCoFunction("playersetachievement", parameters =>
+            lua.RegisterCoFunction("playersetachievement", (luaScope, parameters) =>
             {
                 Player player = (Player)parameters[0];
 
@@ -732,7 +732,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("playerremoveachievement", parameters =>
+            lua.RegisterCoFunction("playerremoveachievement", (luaScope, parameters) =>
             {
                 Player player = (Player)parameters[0];
 
@@ -741,21 +741,21 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("playergetspells", parameters =>
+            lua.RegisterCoFunction("playergetspells", (luaScope, parameters) =>
             {
                 Player player = (Player)parameters[0];
                 
                 return Promise.FromResult<object[]>(player.Spells.GetSpells().ToArray() );
             } );
 
-            lua.RegisterCoFunction("playerhasspell", parameters =>
+            lua.RegisterCoFunction("playerhasspell", (luaScope, parameters) =>
             {
                 Player player = (Player)parameters[0];
 
                 return player.Spells.HasSpell( (string)parameters[1] ) ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
             } );
 
-            lua.RegisterCoFunction("playersetspell", parameters =>
+            lua.RegisterCoFunction("playersetspell", (luaScope, parameters) =>
             {
                 Player player = (Player)parameters[0];
 
@@ -764,7 +764,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("playerremovespell", parameters =>
+            lua.RegisterCoFunction("playerremovespell", (luaScope, parameters) =>
             {
                 Player player = (Player)parameters[0];
 
@@ -773,21 +773,21 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("playergetblesses", parameters =>
+            lua.RegisterCoFunction("playergetblesses", (luaScope, parameters) =>
             {
                 Player player = (Player)parameters[0];
                 
                 return Promise.FromResult<object[]>(player.Blesses.GetBlesses().ToArray() );
             } );
 
-            lua.RegisterCoFunction("playerhasbless", parameters =>
+            lua.RegisterCoFunction("playerhasbless", (luaScope, parameters) =>
             {
                 Player player = (Player)parameters[0];
 
                 return player.Blesses.HasBless( (string)parameters[1] ) ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
             } );
 
-            lua.RegisterCoFunction("playersetbless", parameters =>
+            lua.RegisterCoFunction("playersetbless", (luaScope, parameters) =>
             {
                 Player player = (Player)parameters[0];
 
@@ -796,7 +796,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("playerremovebless", parameters =>
+            lua.RegisterCoFunction("playerremovebless", (luaScope, parameters) =>
             {
                 Player player = (Player)parameters[0];
 
@@ -805,7 +805,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("showanimatedtext", parameters =>
+            lua.RegisterCoFunction("showanimatedtext", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new ShowAnimatedTextCommand(ToPosition(parameters[0] ), (AnimatedTextColor)(long)parameters[1], (string)parameters[2] ) ).Then( () =>
                 {
@@ -813,7 +813,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("showmagiceffect", parameters =>
+            lua.RegisterCoFunction("showmagiceffect", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new ShowMagicEffectCommand(ToPosition(parameters[0] ), (MagicEffectType)(long)parameters[1] ) ).Then( () =>
                 {
@@ -821,7 +821,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("showprojectile", parameters =>
+            lua.RegisterCoFunction("showprojectile", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new ShowProjectileCommand(ToPosition(parameters[0] ), ToPosition(parameters[1] ), (ProjectileType)(long)parameters[2] ) ).Then( () =>
                 {
@@ -829,7 +829,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("showtext", parameters =>
+            lua.RegisterCoFunction("showtext", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new ShowTextCommand( (Creature)parameters[0], (TalkType)(long)parameters[1], (string)parameters[2] ) ).Then( () =>
                 {
@@ -837,14 +837,14 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("showwindowtext", parameters =>
+            lua.RegisterCoFunction("showwindowtext", (luaScope, parameters) =>
             {
                 Context.Current.AddPacket( (Player)parameters[0], new ShowWindowTextOutgoingPacket( (TextColor)(long)parameters[1], (string)parameters[2] ) );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
-            lua.RegisterCoFunction("splashitemupdatefluidtype", parameters =>
+            lua.RegisterCoFunction("splashitemupdatefluidtype", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new SplashItemUpdateFluidTypeCommand( (SplashItem)parameters[0], (FluidType)(long)parameters[1] ) ).Then( () =>
                 {
@@ -852,7 +852,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
                                                
-            lua.RegisterCoFunction("stackableitemupdatecount", parameters =>
+            lua.RegisterCoFunction("stackableitemupdatecount", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new StackableItemUpdateCountCommand( (StackableItem)parameters[0], (byte)parameters[1] ) ).Then( () =>
                 {
@@ -860,7 +860,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("tileaddcreature", parameters =>
+            lua.RegisterCoFunction("tileaddcreature", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new TileAddCreatureCommand( (Tile)parameters[0], (Creature)parameters[1] ) ).Then( () =>
                 {
@@ -868,7 +868,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("tileadditem", parameters =>
+            lua.RegisterCoFunction("tileadditem", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new TileAddItemCommand( (Tile)parameters[0], (Item)parameters[1] ) ).Then( () =>
                 {
@@ -876,7 +876,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("tilecreateitem", parameters =>
+            lua.RegisterCoFunction("tilecreateitem", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new TileCreateItemCommand( (Tile)parameters[0], (ushort)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( (item) =>
                 {
@@ -884,7 +884,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("tilecreateitemorincrement", parameters =>
+            lua.RegisterCoFunction("tilecreateitemorincrement", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new TileCreateItemOrIncrementCommand( (Tile)parameters[0], (ushort)(long)parameters[1], (byte)(long)parameters[2] ) ).Then( () =>
                 {
@@ -892,7 +892,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("tilecreatemonstercorpse", parameters =>
+            lua.RegisterCoFunction("tilecreatemonstercorpse", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new TileCreateMonsterCorpseCommand( (Tile)parameters[0], (MonsterMetadata)parameters[1] ) ).Then( (item) =>
                 {
@@ -900,7 +900,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("tilecreateplayercorpse", parameters =>
+            lua.RegisterCoFunction("tilecreateplayercorpse", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new TileCreatePlayerCorpseCommand( (Tile)parameters[0], (Player)parameters[1] ) ).Then( (item) =>
                 {
@@ -908,7 +908,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("tilecreatemonster", parameters =>
+            lua.RegisterCoFunction("tilecreatemonster", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new TileCreateMonsterCommand( (Tile)parameters[0], (string)parameters[1] ) ).Then( (monster) =>
                 {
@@ -916,7 +916,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("tilecreatenpc", parameters =>
+            lua.RegisterCoFunction("tilecreatenpc", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new TileCreateNpcCommand( (Tile)parameters[0], (string)parameters[1] ) ).Then( (npc) =>
                 {
@@ -924,7 +924,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("tileremovecreature", parameters =>
+            lua.RegisterCoFunction("tileremovecreature", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new TileRemoveCreatureCommand ( (Tile)parameters[0], (Creature)parameters[1] ) ).Then( () =>
                 {
@@ -932,7 +932,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("tileremoveitem", parameters =>
+            lua.RegisterCoFunction("tileremoveitem", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new TileRemoveItemCommand ( (Tile)parameters[0], (Item)parameters[1] ) ).Then( () =>
                 {
@@ -940,7 +940,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("tilereplaceitem", parameters =>
+            lua.RegisterCoFunction("tilereplaceitem", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new TileReplaceItemCommand( (Tile)parameters[0], (Item)parameters[1], (Item)parameters[2] ) ).Then( () =>
                 {
@@ -948,35 +948,35 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("mapgettownbyname", parameters =>
+            lua.RegisterCoFunction("mapgettownbyname", (luaScope, parameters) =>
             {
                 Town town = Context.Current.Server.Map.GetTown( (string)parameters[0] );
 
                 return Promise.FromResult(new object[] { town } );
             } );
 
-            lua.RegisterCoFunction("mapgetwaypointbyname", parameters =>
+            lua.RegisterCoFunction("mapgetwaypointbyname", (luaScope, parameters) =>
             {
                 Waypoint waypoint = Context.Current.Server.Map.GetWaypoint( (string)parameters[0] );
 
                 return Promise.FromResult(new object[] { waypoint } );
             } );
 
-            lua.RegisterCoFunction("mapgethousebyname", parameters =>
+            lua.RegisterCoFunction("mapgethousebyname", (luaScope, parameters) =>
             {
                 House house = Context.Current.Server.Map.GetHouse( (string)parameters[0] );
 
                 return Promise.FromResult(new object[] { house } );
             } );
 
-            lua.RegisterCoFunction("mapgettile", parameters =>
+            lua.RegisterCoFunction("mapgettile", (luaScope, parameters) =>
             {
                 Tile tile = Context.Current.Server.Map.GetTile(ToPosition(parameters[0] ) );
 
                 return Promise.FromResult(new object[] { tile } );
             } );
 
-            lua.RegisterCoFunction("gameobjectsgetplayerbyname", parameters =>
+            lua.RegisterCoFunction("gameobjectsgetplayerbyname", (luaScope, parameters) =>
             {
                 Player player = Context.Current.Server.GameObjects.GetPlayerByName( (string)parameters[0] );
 

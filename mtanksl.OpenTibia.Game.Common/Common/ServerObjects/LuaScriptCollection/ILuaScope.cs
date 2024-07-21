@@ -12,9 +12,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         void RegisterFunction(string name, object target, MethodBase method);
 
-        void RegisterCoFunction(string name, Func<object[], PromiseResult<object[]>> callback);
+        void RegisterCoFunction(string name, Func<ILuaScope, object[], PromiseResult<object[]>> callback);
 
-        bool TryGetCoFunction(string name, out Func<object[], PromiseResult<object[]>> callback);
+        bool TryGetCoFunction(string name, out Func<ILuaScope, object[], PromiseResult<object[]>> callback);
 
         ILuaScope LoadNewChunk(string chunk, string chunkName);
 
