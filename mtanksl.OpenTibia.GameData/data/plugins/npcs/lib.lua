@@ -362,23 +362,14 @@ function context:trade(offers)
 end
 
 function context:idle()
-	if self.delay then
-		command.canceldelay(self.delay)
-	end
 	command.npcidle(self.npc, self.player)
 end
 
 function context:farewell()
-	if self.delay then
-		command.canceldelay(self.delay)
-	end
 	command.npcfarewell(self.npc, self.player)
 end
 
 function context:disappear()
-	if self.delay then
-		command.canceldelay(self.delay)
-	end
 	command.npcdisappear(self.npc, self.player)
 end
 
@@ -489,8 +480,8 @@ function npchandler:onenqueue(npc, player)
 end
 
 function npchandler:ondequeue(npc, player) 
-	if self.contexts[player.Id].key then
-		command.canceldelay(self.contexts[player.Id].key)
+	if self.contexts[player.Id].delay then
+		command.canceldelay(self.contexts[player.Id].delay)
 	end
 	self.contexts[player.Id] = nil
 end
