@@ -868,7 +868,7 @@ namespace OpenTibia.Game.Common
 
                             foreach (var tile in house.GetTiles() )
                             {
-                                foreach (var moveable in tile.GetItems().Reverse().Where(i => !i.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) ) )
+                                foreach (var moveable in tile.GetItems().Where(i => !i.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) ).Reverse() )
                                 {
                                     AddItems( (long)0x01 << 36 | (long)tile.Position.X << 20 | (long)tile.Position.Y << 4 | (long)tile.Position.Z, moveable);
                                 }

@@ -135,7 +135,7 @@ namespace OpenTibia.Game.Components
 
             playerSayToNpc = Context.Server.EventHandlers.Subscribe<PlayerSayToNpcEventArgs>( (context, e) => Say(e.Player, e.Message) );
 
-            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance[npc.Id % 10], async (context, e) =>
+            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance[npc.Id % GlobalTickEventArgs.Instance.Length], async (context, e) =>
             {
                 foreach (var player in queue.ToList() )
                 {

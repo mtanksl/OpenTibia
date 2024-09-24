@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Components
         {
             Creature creature = (Creature)GameObject;
 
-            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance[creature.Id % 10], (context, e) =>
+            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance[creature.Id % GlobalTickEventArgs.Instance.Length], (context, e) =>
             {
                 if (DateTime.UtcNow >= nextTalk)
                 {

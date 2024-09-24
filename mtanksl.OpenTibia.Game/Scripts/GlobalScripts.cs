@@ -58,7 +58,7 @@ namespace OpenTibia.Game.Scripts
         {
             Promise.Delay("Tick", TimeSpan.FromMilliseconds(100) ).Then( () =>
             {
-                Tick( (index + 1) % 10 );
+                Tick( (index + 1) % GlobalTickEventArgs.Instance.Length);
 
                 Context.AddEvent(GlobalTickEventArgs.Instance[index] );
 
