@@ -6,11 +6,10 @@ topiccondition.mt = {
 	__index = topiccondition
 }
 
-function topiccondition:new(success, continue, captures)
+function topiccondition:new(success, continue)
 	local o = {
 		success = success,
-		continue = continue,
-		captures = captures
+		continue = continue
 	}
 	setmetatable(o, self.mt)
 	return o
@@ -37,10 +36,9 @@ topicmatchresult.mt = {
 	__index = topicmatchresult
 }
 
-function topicmatchresult:new(topic, captures, callback)
+function topicmatchresult:new(topic, callback)
 	local o = {
 		topic = topic,
-		captures = captures,
 		callback = callback
 	}
 	setmetatable(o, self.mt)
@@ -109,20 +107,25 @@ function topic:new(parent)
 	return o
 end
 
-function topic:add(question, answer, newparameters)
+function topic:add(question, answer, parameters)
 	local condition = nil
 	if type(question) == "function" then
 		condition = question
 	else 
 		if question == "" then
-			condition = function(npc, player, message)
+			condition = function(context)
 				return topiccondition:new(true, true)
 			end
 		else
-			condition = function(npc, player, message)
-				local captures = { string.match(message, question) }
+			condition = function(context)
+				local captures = { 
+					string.match(context.message, question)
+				}
 				if #captures > 0 then
-					return topiccondition:new(true, false, captures)
+					for key, value in pairs(captures) do
+						context.captures[key] = value
+					end
+					return topiccondition:new(true, false)
 				end
 				return topiccondition:new(false)
 			end
@@ -132,14 +135,36 @@ function topic:add(question, answer, newparameters)
 	if type(answer) == "function" then
 		callback = answer
 	else
-		callback = function(module, npc, player, message, captures, parameters)
-			if newparameters then
-				module.setparameters(newparameters)
+		callback = function(context)
+			if parameters then
+				context:setparameters(parameters)
 			end
-			module.say(answer)
+			context:say(answer)
 		end	
 	end
 	table.insert(self.matches, topicmatch:new(condition, callback) )
+end
+
+function topic:match(context)
+	local result = nil
+	local current = self
+	while current do
+		for _, topicmatch in ipairs(current.matches) do
+			local topiccondition = topicmatch.condition(context)
+			if topiccondition.success then
+				if topiccondition.continue then
+					if not result then
+						result = topicmatchresult:new(current, topicmatch.callback)
+					end
+				else
+					result = topicmatchresult:new(current, topicmatch.callback)
+					return result
+				end
+			end
+		end
+		current = current.parent
+	end
+	return result
 end
 
 function topic:addtrade(offers, responses)
@@ -147,10 +172,10 @@ function topic:addtrade(offers, responses)
 		responses = responses or {}
 		responses.trade = responses.trade or {}
 		setmetatable(responses.trade, self.responses.trade.mt)
-		self:add(responses.trade.question, function(module, npc, player, message, captures, parameters) 
-			module.setresponses( { onbuy = responses.trade.onbuy, onsell = responses.trade.onsell, onclosenpctrade = responses.trade.onclosenpctrade } )
-			module.trade(offers)
-			module.say(responses.trade.answer)
+		self:add(responses.trade.question, function(context) 
+			context:setresponses( { onbuy = responses.trade.onbuy, onsell = responses.trade.onsell, onclosenpctrade = responses.trade.onclosenpctrade } )
+			context:trade(offers)
+			context:say(responses.trade.answer)
 		end)
 	else
 		local selling = false
@@ -170,33 +195,33 @@ function topic:addtrade(offers, responses)
 			local confirm = topic:new(self)
 			for _, offer in ipairs(offers) do
 				if offer.sellprice and offer.sellprice > 0 then
-					self:add("sell (%d+) " .. offer.name, function(module, npc, player, message, captures, parameters)
-						local count = math.max(1, math.min(10000, tonumber(captures[1] ) ) ) 
-						module.setparameters(offer, { count = count, sellprice = offer.sellprice * count, topic = confirm } )
-						module.say(responses.sell.items)
+					self:add("sell (%d+) " .. offer.name, function(context)
+						local count = math.max(1, math.min(10000, tonumber(context.captures[1] ) ) ) 
+						context:setparameters(offer, { count = count, sellprice = offer.sellprice * count, topic = confirm } )
+						context:say(responses.sell.items)
 					end)
-					self:add("sell " .. offer.name, function(module, npc, player, message, captures, parameters) 
-						module.setparameters(offer, { count = 1, sellprice = offer.sellprice, topic = confirm } )
-						module.say(responses.sell.item)
+					self:add("sell " .. offer.name, function(context) 
+						context:setparameters(offer, { count = 1, sellprice = offer.sellprice, topic = confirm } )
+						context:say(responses.sell.item)
 					end)
 				end
 			end
-			confirm:add("yes", function(module, npc, player, message, captures, parameters) 
-				module.setparameters( { topic = self } )
-				if command.playerdestroyitems(player, parameters.item, parameters.type, parameters.count) then
-					command.playercreatemoney(player, parameters.sellprice)
-					module.say(responses.sell.yes)
+			confirm:add("yes", function(context) 
+				context:setparameters( { topic = self } )
+				if command.playerdestroyitems(context.player, context.parameters.item, context.parameters.type, context.parameters.count) then
+					command.playercreatemoney(context.player, context.parameters.sellprice)
+					context:say(responses.sell.yes)
 				else
-					if parameters.count > 1 then
-						module.say(responses.sell.notenoughitems)
+					if context.parameters.count > 1 then
+						context:say(responses.sell.notenoughitems)
 					else
-						module.say(responses.sell.notenoughitem)
+						context:say(responses.sell.notenoughitem)
 					end
 				end
 			end)
-			confirm:add("", function(module, npc, player, message, captures, parameters) 
-				module.setparameters( { topic = self } )
-				module.say(responses.sell.no)
+			confirm:add("", function(context) 
+				context:setparameters( { topic = self } )
+				context:say(responses.sell.no)
 			end)
 		end
 		if buying then
@@ -206,38 +231,38 @@ function topic:addtrade(offers, responses)
 			local confirm = topic:new(self)
 			for _, offer in ipairs(offers) do
 				if offer.buyprice and offer.buyprice > 0 then 
-					self:add("buy (%d+) " .. offer.name, function(module, npc, player, message, captures, parameters) 
-						local count = math.max(1, math.min(100, tonumber(captures[1] ) ) )
-						module.setparameters(offer, { count = count, buyprice = offer.buyprice * count, topic = confirm } )
-						module.say(responses.buy.items)
+					self:add("buy (%d+) " .. offer.name, function(context) 
+						local count = math.max(1, math.min(100, tonumber(context.captures[1] ) ) )
+						context:setparameters(offer, { count = count, buyprice = offer.buyprice * count, topic = confirm } )
+						context:say(responses.buy.items)
 					end)
-					self:add("(%d+) " .. offer.name, function(module, npc, player, message, captures, parameters) 
-						local count = math.max(1, math.min(100, tonumber(captures[1] ) ) )
-						module.setparameters(offer, { count = count, buyprice = offer.buyprice * count, topic = confirm } )
-						module.say(responses.buy.items)
+					self:add("(%d+) " .. offer.name, function(context) 
+						local count = math.max(1, math.min(100, tonumber(context.captures[1] ) ) )
+						context:setparameters(offer, { count = count, buyprice = offer.buyprice * count, topic = confirm } )
+						context:say(responses.buy.items)
 					end)
-					self:add("buy " .. offer.name, function(module, npc, player, message, captures, parameters) 
-						module.setparameters(offer, { count = 1, buyprice = offer.buyprice, topic = confirm } )
-						module.say(responses.buy.item)
+					self:add("buy " .. offer.name, function(context) 
+						context:setparameters(offer, { count = 1, buyprice = offer.buyprice, topic = confirm } )
+						context:say(responses.buy.item)
 					end)
-					self:add("" .. offer.name, function(module, npc, player, message, captures, parameters) 
-						module.setparameters(offer, { count = 1, buyprice = offer.buyprice, topic = confirm } )
-						module.say(responses.buy.item)
+					self:add("" .. offer.name, function(context) 
+						context:setparameters(offer, { count = 1, buyprice = offer.buyprice, topic = confirm } )
+						context:say(responses.buy.item)
 					end)
 				end
 			end
-			confirm:add("yes", function(module, npc, player, message, captures, parameters) 
-				module.setparameters( { topic = self } )
-				if command.playerdestroymoney(player, parameters.buyprice) then
-					command.playercreateitems(player, parameters.item, parameters.type, parameters.count)
-					module.say(responses.buy.yes)
+			confirm:add("yes", function(context) 
+				context:setparameters( { topic = self } )
+				if command.playerdestroymoney(context.player, context.parameters.buyprice) then
+					command.playercreateitems(context.player, context.parameters.item, context.parameters.type, context.parameters.count)
+					context:say(responses.buy.yes)
 				else
-					module.say(responses.buy.notenoughtgold)
+					context:say(responses.buy.notenoughtgold)
 				end
 			end)
-			confirm:add("", function(module, npc, player, message, captures, parameters) 
-				module.setparameters( { topic = self } )
-				module.say(responses.buy.no)
+			confirm:add("", function(context) 
+				context:setparameters( { topic = self } )
+				context:say(responses.buy.no)
 			end)
 		end
 	end
@@ -249,48 +274,112 @@ function topic:addtravel(destinations, responses)
 	setmetatable(responses.travel, self.responses.travel.mt)
 	local confirm = topic:new(self)
 	for _, destination in ipairs(destinations) do
-		self:add("" .. destination.name, function(module, npc, player, message, captures, parameters) 
-			module.setparameters(destination, { topic = confirm } )
-			module.say(responses.travel.passage)
+		self:add("" .. destination.name, function(context) 
+			context:setparameters(destination, { topic = confirm } )
+			context:say(responses.travel.passage)
 		end)
 	end
-	confirm:add("yes", function(module, npc, player, message, captures, parameters) 
-		module.setparameters( { topic = self } )
-		if command.playerdestroymoney(player, parameters.price) then
-			module.say(responses.travel.yes)
-			module.idle()
-			command.creaturemove(player, parameters.position)
-			command.showmagiceffect(parameters.position, magiceffecttype.teleport)
+	confirm:add("yes", function(context) 
+		context:setparameters( { topic = self } )
+		if command.playerdestroymoney(context.player, context.parameters.price) then
+			context:say(responses.travel.yes)
+			context:idle()
+			command.creaturemove(context.player, context.parameters.position)
+			command.showmagiceffect(context.parameters.position, magiceffecttype.teleport)
 		else
-			module.say(responses.travel.notenoughtgold)
+			context:say(responses.travel.notenoughtgold)
 		end
 	end)
-	confirm:add("", function(module, npc, player, message, captures, parameters) 
-		module.setparameters( { topic = self } )
-		module.say(responses.travel.no)
+	confirm:add("", function(context) 
+		context:setparameters( { topic = self } )
+		context:say(responses.travel.no)
 	end)
 end
 
-function topic:match(npc, player, message)
-	local result = nil
-	local current = self
-	while current do
-		for _, topicmatch in ipairs(current.matches) do
-			local topiccondition = topicmatch.condition(npc, player, message)
-			if topiccondition.success then
-				if topiccondition.continue then
-					if not result then
-						result = topicmatchresult:new(current, topiccondition.captures, topicmatch.callback)
-					end
-				else
-					result = topicmatchresult:new(current, topiccondition.captures, topicmatch.callback)
-					return result
-				end
+context = {}
+
+context.mt = {
+	__index = context
+}
+
+function context:new(npchandler, npc, player, parameters)
+	local o = {
+		npchandler = npchandler,
+		npc = npc,
+		player = player,
+		message = nil,
+		captures = nil,
+		parameters = parameters,
+		delay = nil
+	}
+	setmetatable(o, self.mt)
+	return o
+end
+
+function context:setresponses(responses) 
+	for key, value in pairs(responses) do
+		self.npchandler.responses[key] = value
+	end
+end
+
+function context:setparameters(...)
+	local t = { ... }
+	for _, arg in ipairs(t) do
+		for key, value in pairs(arg) do
+			self.parameters[key] = value
+		end
+	end
+end
+
+function context:say(answer)
+	if self.delay then
+		command.canceldelay(self.delay)
+	end
+	self.npchandler:say(self.npc, self.player, answer)
+end
+
+function context:tell(answers, resolve)
+	if self.delay then
+		command.canceldelay(self.delay)
+	end
+	function next(i)
+		if answers[i] then
+			self.npchandler:say(self.npc, self.player, answers[i] )
+			self.delay = command.delaygameobject(self.npc, math.max(3, math.ceil(string.len(answers[i] ) / 10) ), function() 
+				next(i + 1)
+			end)
+		else
+			if resolve then
+				resolve()
 			end
 		end
-		current = current.parent
 	end
-	return result
+	next(1)
+end
+
+function context:trade(offers)
+	command.npctrade(self.npc, self.player, offers)
+end
+
+function context:idle()
+	if self.delay then
+		command.canceldelay(self.delay)
+	end
+	command.npcidle(self.npc, self.player)
+end
+
+function context:farewell()
+	if self.delay then
+		command.canceldelay(self.delay)
+	end
+	command.npcfarewell(self.npc, self.player)
+end
+
+function context:disappear()
+	if self.delay then
+		command.canceldelay(self.delay)
+	end
+	command.npcdisappear(self.npc, self.player)
 end
 
 npchandler = {}
@@ -302,15 +391,15 @@ npchandler.mt = {
 function npchandler:new(responses)
 	local o = {
 		responses = responses,
-		players = {}
+		contexts = {}
 	}
 	setmetatable(o, self.mt)
 	return o
 end
 
 function npchandler:say(npc, player, answer)
-	if self.players[player.Id] then
-		for key, value in pairs(self.players[player.Id] ) do
+	if self.contexts[player.Id] then
+		for key, value in pairs(self.contexts[player.Id].parameters) do
 			answer = string.gsub(answer, "%[" .. tostring(key) .. "%]", tostring(value) )
 		end
 	end
@@ -346,41 +435,14 @@ function npchandler:onbusy(npc, player)
 end
 
 function npchandler:onsay(npc, player, message)
-	local topic = self.players[player.Id].topic
-	local topicmatchresult = topic:match(npc, player, message)
+	local context = self.contexts[player.Id]
+	context.message = message
+	context.captures = {}
+	local topic = context.parameters.topic
+	local topicmatchresult = topic:match(context)
 	if topicmatchresult then
-		self.players[player.Id].topic = topicmatchresult.topic
-		local module = {
-			setresponses = function(responses) 
-				for key, value in pairs(responses) do
-					self.responses[key] = value
-				end
-			end,
-			setparameters = function(...)
-				local t = { ... }
-				for _, arg in ipairs(t) do
-					for key, value in pairs(arg) do
-						self.players[player.Id][key] = value
-					end
-				end
-			end,
-			say = function(answer)
-				self:say(npc, player, answer)
-			end,
-			trade = function(offers)
-				command.npctrade(npc, player, offers)
-			end,
-			idle = function()
-				command.npcidle(npc, player)
-			end,
-			farewell = function()
-				command.npcfarewell(npc, player)
-			end,
-			disappear = function()
-				command.npcdisappear(npc, player)
-			end
-		}
-		topicmatchresult.callback(module, npc, player, message, topicmatchresult.captures, self.players[player.Id] )
+		context.parameters.topic = topicmatchresult.topic
+		topicmatchresult.callback(context)
 	end
 end
 
@@ -421,11 +483,14 @@ function npchandler:ondisappear(npc, player)
 end
 
 function npchandler:onenqueue(npc, player) 
-	self.players[player.Id] = {
+	self.contexts[player.Id] = context:new(self, npc, player, { 
 		topic = self.responses.say
-	}
+	} )
 end
 
 function npchandler:ondequeue(npc, player) 
-	self.players[player.Id] = nil
+	if self.contexts[player.Id].key then
+		command.canceldelay(self.contexts[player.Id].key)
+	end
+	self.contexts[player.Id] = nil
 end

@@ -3,8 +3,8 @@ local topic1 = topic:new(say)
 local topic2 = topic:new(say)
 local topic3 = topic:new(say)
 
-say:add("", function(module, npc, player, message, captures, parameters)
-                module.farewell()
+say:add("", function(context)
+                context:farewell()
             end)
 say:add("yes", "In which town do you want to leave: Carlin, Thais or Venore?", { topic = topic1 } )
 
@@ -19,9 +19,9 @@ topic2:add("sorcerer", "A Sorcerer! Are you sure? This decision is irreversible!
 topic2:add("druid", "A Druid! Are you sure? This decision is irreversible!", { profession = "Druid", topic = topic3 } )
 topic2:add("", "Knight, Paladin, Sorcerer ou Druid?")
 
-topic3:add("yes", function(module, npc, player, message, captures, parameters)
-                      module.say("So be it!")
-                      module.idle()
+topic3:add("yes", function(context)
+                      context:say("So be it!")
+                      context:idle()
                       --TODO
                   end)
 
