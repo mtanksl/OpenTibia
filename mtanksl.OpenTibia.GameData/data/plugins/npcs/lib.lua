@@ -339,15 +339,15 @@ function context:say(answer)
 end
 
 function context:tell(answers, resolve)
-	if self.delay then
-		command.canceldelay(self.delay)
-	end
 	function next(i)
+		if self.delay then
+			command.canceldelay(self.delay)
+		end
 		if answers[i] then
-			self.npchandler:say(self.npc, self.player, answers[i] )
 			self.delay = command.delaygameobject(self.npc, math.max(3, math.ceil(string.len(answers[i] ) / 10) ), function() 
 				next(i + 1)
 			end)
+			self.npchandler:say(self.npc, self.player, answers[i] )
 		else
 			if resolve then
 				resolve()
