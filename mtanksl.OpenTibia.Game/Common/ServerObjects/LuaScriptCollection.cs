@@ -427,7 +427,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 if (server.Config.GameplayPrivateNpcSystem)
                 {
-                    MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>( (Npc)parameters[0]);
+                    MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Current.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>( (Npc)parameters[0] );
 
                     if (npcThinkBehaviour != null)
                     {
@@ -1022,7 +1022,11 @@ namespace OpenTibia.Game.Common.ServerObjects
 #endif
         public object GetConfig(string file, string key)
         {
-            if (file == "server")
+            if (file == "values")
+            {
+                return server.Values.GetValue(key);
+            }
+            else if (file == "server")
             {
                 return server.Config.GetValue(key);
             }

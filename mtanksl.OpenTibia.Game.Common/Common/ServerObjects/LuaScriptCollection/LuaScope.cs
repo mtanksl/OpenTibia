@@ -337,5 +337,75 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             return defaultValue;
         }
+
+        public static bool[] GetBooleanArray(object value)
+        {
+            if (value != null)
+            {
+                return ( (LuaTable)value).Values.Cast<bool>().ToArray();
+            }
+
+            return null;
+        }
+
+        public static int[] GetInt32Array(object value)
+        {
+            if (value != null)
+            {
+                return ( (LuaTable)value).Values.Cast<long>().Select(v => (int)v ).ToArray();
+            }
+
+            return null;
+        }
+
+        public static string[] GetStringArray(object value)
+        {
+            if (value != null)
+            {
+                return ( (LuaTable)value).Values.Cast<string>().ToArray();
+            }
+
+            return null;
+        }
+
+        public static HashSet<int> GetInt32HashSet(object value)
+        {
+            if (value != null)
+            {
+                var hashSet = new HashSet<int>();
+
+                var table = (LuaTable)value;
+
+                foreach (var v in table.Values)
+                {
+                    hashSet.Add( (int)(long)v);
+                }
+
+                return hashSet;
+            }
+
+            return null;
+        }
+
+        public static Dictionary<int, int> GetInt32Int32Dictionary(object value)
+        {
+            if (value != null)
+            {
+                var dictionary = new Dictionary<int, int>();
+
+                var table = (LuaTable)value;
+
+                foreach (var k in table.Keys)
+                {
+                    var v = table[k];
+
+                    dictionary.Add( (int)(long)k, (int)(long)v);
+                }
+
+                return dictionary;
+            }
+
+            return null;
+        }
     }
 }

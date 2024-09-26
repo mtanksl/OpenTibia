@@ -62,6 +62,8 @@ namespace OpenTibia.Game.Common
 
         IPluginLoader PluginLoader { get; set; }
 
+        IValues Values { get; set; }
+
         IConfig Config { get; set; }
 
         IQuestCollection Quests { get; set; }

@@ -20,11 +20,11 @@ using OpenTibia.Network.Sockets;
 using OpenTibia.Threading;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using House = OpenTibia.Common.Objects.House;
-using Tile = OpenTibia.Common.Objects.Tile;
 using Item = OpenTibia.Common.Objects.Item;
-using System.Diagnostics;
+using Tile = OpenTibia.Common.Objects.Tile;
 
 namespace OpenTibia.Game.Common
 {
@@ -107,6 +107,8 @@ namespace OpenTibia.Game.Common
             LuaScripts = new LuaScriptCollection(this);
 
             PluginLoader = new PluginLoader(this);
+
+            Values = new Values(this);
 
             Config = new Config(this);
 
@@ -224,6 +226,8 @@ namespace OpenTibia.Game.Common
 
         public IPluginLoader PluginLoader { get; set; }
 
+        public IValues Values { get; set; }
+
         public IConfig Config { get; set; }
 
         public IQuestCollection Quests { get; set; }
@@ -269,6 +273,11 @@ namespace OpenTibia.Game.Common
                 using (Logger.Measure("Loading dlls") )
                 {
                     PluginLoader.Start();
+                }
+
+                using (Logger.Measure("Loading values config") )
+                {
+                    Values.Start();
                 }
 
                 using (Logger.Measure("Loading server config") )
@@ -961,6 +970,11 @@ namespace OpenTibia.Game.Common
 
                 if (disposing)
                 {
+                    if (Values != null)
+                    {
+                        Values.Dispose();
+                    }
+
                     if (Config != null)
                     {
                         Config.Dispose();

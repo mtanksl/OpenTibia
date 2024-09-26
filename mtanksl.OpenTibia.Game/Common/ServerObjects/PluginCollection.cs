@@ -292,7 +292,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                             Premium = (bool)initialization.Parameters["premium"],
 
-                            Vocations = ( (LuaTable)initialization.Parameters["vocations"]).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
+                            Vocations = ( (LuaTable)initialization.Parameters["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
                         };
 
                         pluginCollection.AddSpellPlugin(requiresTarget, script, initialization.Parameters, spell);
@@ -309,7 +309,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                             Group = (string)initialization.Parameters["group"],
 
-                            GroupCooldown = TimeSpan.FromSeconds( (int)(long)initialization.Parameters["groupcooldown"]),
+                            GroupCooldown = TimeSpan.FromSeconds( (int)(long)initialization.Parameters["groupcooldown"] ),
 
                             Level = (int)(long)initialization.Parameters["level"],
 
@@ -328,7 +328,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                             Mana = (int)(long)initialization.Parameters["mana"],
 
-                            Vocations = ( (LuaTable)initialization.Parameters["vocations"]).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
+                            Vocations = ( (LuaTable)initialization.Parameters["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
                         };
 
                         pluginCollection.AddWeaponPlugin( script, initialization.Parameters, weapon);
@@ -570,9 +570,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Group = (string)plugin["group"],
 
-                    Cooldown = TimeSpan.FromSeconds( (int)(long)plugin["cooldown"]),
+                    Cooldown = TimeSpan.FromSeconds( (int)(long)plugin["cooldown"] ),
 
-                    GroupCooldown = TimeSpan.FromSeconds( (int)(long)plugin["groupcooldown"]),
+                    GroupCooldown = TimeSpan.FromSeconds( (int)(long)plugin["groupcooldown"] ),
 
                     Level = (int)(long)plugin["level"],
 
@@ -586,7 +586,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Premium = (bool)plugin["premium"],
 
-                    Vocations = ( (LuaTable)plugin["vocations"]).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
+                    Vocations = ( (LuaTable)plugin["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
                 };
 
                 AddSpellPlugin(requiresTarget, fileName, spell);
@@ -606,7 +606,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Group = (string)plugin["group"],
 
-                    GroupCooldown = TimeSpan.FromSeconds( (int)(long)plugin["groupcooldown"]),
+                    GroupCooldown = TimeSpan.FromSeconds( (int)(long)plugin["groupcooldown"] ),
 
                     Level = (int)(long)plugin["level"],
 
@@ -628,7 +628,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Mana = (int)(long)plugin["mana"],
 
-                    Vocations = ( (LuaTable)plugin["vocations"]).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
+                    Vocations = ( (LuaTable)plugin["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
                 };
 
                 AddWeaponPlugin(fileName, weapon);

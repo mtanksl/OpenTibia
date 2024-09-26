@@ -15,6 +15,8 @@
     <None Include="$(MSBuildThisFileDirectory)data\items\tibia.dat" />
     <None Include="$(MSBuildThisFileDirectory)data\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\openTibiaFunctionsReference.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\values\config.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\values\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\outfits\config.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\outfits\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\actions\lib.lua" />
