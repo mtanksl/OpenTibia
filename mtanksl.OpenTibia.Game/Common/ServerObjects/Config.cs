@@ -2,6 +2,8 @@
 using OpenTibia.Data.Models;
 using System;
 using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 
 namespace OpenTibia.Game.Common.ServerObjects
 {
@@ -130,7 +132,39 @@ namespace OpenTibia.Game.Common.ServerObjects
                         
             Motd = LuaScope.GetString(script["server.login.motd"], "MTOTS - An open Tibia server developed by mtanksl");
 
-            LuaTable worlds = (LuaTable)script["server.login.worlds"]; Worlds = worlds.Keys.Cast<string>().Select(key => new DbWorld() { Name = key, Ip = (string)( (LuaTable)worlds[key] )["ipaddress"], Port = (int)(long)( (LuaTable)worlds[key] )["port"] } ).ToArray();
+            LuaTable worlds = (LuaTable)script["server.login.worlds"]; 
+            
+            Worlds = worlds.Keys.Cast<string>().Select(key =>
+            {
+                string ipAddress = (string)( (LuaTable)worlds[key] )["ipaddress"];
+
+                int port = (int)(long)( (LuaTable)worlds[key] )["port"];
+
+                try
+                {
+                    var dns = Dns.GetHostEntry(ipAddress);
+
+                    if (dns.AddressList.Length == 0)
+                    {
+                        throw new NotImplementedException("File config.lua parameter server.login.words[\"" + key + "\"].ipaddress could not be resolved.");
+                    }
+
+                    ipAddress = dns.AddressList[0].ToString();
+                }
+                catch (SocketException)
+                {
+                    throw new NotImplementedException("File config.lua parameter server.login.words[\"" + key + "\"].ipaddress could not be resolved.");
+                }
+
+                return new DbWorld()
+                {
+                    Name = key, 
+                
+                    Ip = ipAddress, 
+                
+                    Port = port 
+                };
+            } ).ToArray();
 
             GameMaxConnections = LuaScope.GetInt32(script["server.game.maxconnections"], 1100);
 
