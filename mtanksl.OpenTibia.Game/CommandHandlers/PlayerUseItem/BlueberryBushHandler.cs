@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -8,23 +9,22 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class BlueberryBushHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private static Dictionary<ushort, ushort> blueberryBushs = new Dictionary<ushort, ushort>() 
-        {
-            { 2785, 2786 }
-        };
+        private readonly Dictionary<ushort, ushort> blueberryBushes;
+        private readonly Dictionary<ushort, ushort> decay;
+        private readonly ushort blueberry;
 
-        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>() 
+        public BlueberryBushHandler()
         {
-            { 2786, 2785 }
-        };
-
-        private static ushort blueberry = 2677;
+            blueberryBushes = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.blueberryBushes") );
+            decay = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.decay.blueberryBushes") );
+            blueberry = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.blueberry") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
             ushort toOpenTibiaId;
 
-            if (blueberryBushs.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
+            if (blueberryBushes.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
                 return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.Bluebarian, 500, "Bluebarian") ).Then( () =>
                 {

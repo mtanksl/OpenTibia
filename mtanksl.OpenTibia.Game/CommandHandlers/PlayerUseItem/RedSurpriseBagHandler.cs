@@ -1,14 +1,20 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class SurpriseBagRedHandler : CommandHandler<PlayerUseItemCommand>
+    public class RedSurpriseBagHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private static HashSet<ushort> surpriseBags = new HashSet<ushort>() { 6571 };
+        private readonly HashSet<ushort> redSurpriseBags;
+
+        public RedSurpriseBagHandler()
+        {
+            redSurpriseBags = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.redSurpriseBags"));
+        }
 
         private static List< (ushort OpenTibiaId, byte Count) > prizes = new List< (ushort OpenTibiaId, byte Count) >()
         {
@@ -32,7 +38,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
-            if (surpriseBags.Contains(command.Item.Metadata.OpenTibiaId) )
+            if (redSurpriseBags.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.GiftWraps) ).Then( () =>
                 {

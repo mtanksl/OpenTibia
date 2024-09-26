@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,16 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class SpellbookHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private static HashSet<ushort> books = new HashSet<ushort>() { 2175 };
+        private readonly HashSet<ushort> spellbooks;
+
+        public SpellbookHandler()
+        {
+            spellbooks = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.spellbooks") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
-            if (books.Contains(command.Item.Metadata.OpenTibiaId) )
+            if (spellbooks.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 foreach (var pair in command.Player.Client.Windows.GetIndexedWindows() )
                 {

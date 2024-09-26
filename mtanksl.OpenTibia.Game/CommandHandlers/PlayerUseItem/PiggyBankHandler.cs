@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -8,14 +9,16 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class PiggyBankHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private static Dictionary<ushort, ushort> piggyBanks = new Dictionary<ushort, ushort>()
+        private readonly Dictionary<ushort, ushort> piggyBanks;
+        private readonly ushort platinumCoin;
+        private readonly ushort goldCoin;
+
+        public PiggyBankHandler()
         {
-            { 2114, 2115 }
-        };
-
-        private static ushort platinumCoin = 2152;
-
-        private static ushort goldCoin = 2148;
+            piggyBanks = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.piggyBanks") );
+            platinumCoin = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.platinumCoin") );
+            goldCoin = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.goldCoin") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

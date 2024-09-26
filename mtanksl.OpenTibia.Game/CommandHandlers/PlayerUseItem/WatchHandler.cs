@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,12 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class WatchHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private static HashSet<ushort> watches = new HashSet<ushort>() { 1728, 1729, 1730, 1731, 1873, 1874, 1875, 1876, 1877, 1881, 2036, 3900, 7828, 9235, 9236, 9237, 9238 };
+        private readonly HashSet<ushort> watches;
+
+        public WatchHandler()
+        {
+            watches = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.watches") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

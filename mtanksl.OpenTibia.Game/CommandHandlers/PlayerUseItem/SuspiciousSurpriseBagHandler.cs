@@ -1,14 +1,20 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class SurpriseBagSuspiciousHandler : CommandHandler<PlayerUseItemCommand>
+    public class SuspiciousSurpriseBagHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private static HashSet<ushort> surpriseBags = new HashSet<ushort>() { 9108 };
+        private readonly HashSet<ushort> suspiciousSurpriseBags;
+
+        public SuspiciousSurpriseBagHandler()
+        {
+            suspiciousSurpriseBags = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.suspiciousSurpriseBags") );
+        }
 
         private static List< (ushort OpenTibiaId, byte Count) > prizes = new List< (ushort OpenTibiaId, byte Count) >()
         {
@@ -27,7 +33,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
-            if (surpriseBags.Contains(command.Item.Metadata.OpenTibiaId) )
+            if (suspiciousSurpriseBags.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 if (Context.Server.Randomization.HasProbability(1.0 / 5)  )
                 {

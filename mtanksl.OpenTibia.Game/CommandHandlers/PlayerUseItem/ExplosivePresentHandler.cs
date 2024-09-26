@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -8,11 +9,16 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class ExplosivePresentHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private static HashSet<ushort> explosivePresent = new HashSet<ushort>() { 8110 };
+        private readonly HashSet<ushort> explosivePresents;
+
+        public ExplosivePresentHandler()
+        {
+            explosivePresents = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.explosivePresents") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
-            if (explosivePresent.Contains(command.Item.Metadata.OpenTibiaId) )
+            if (explosivePresents.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.JokesOnYou, 1, "Jokes On You") ).Then( () =>
                 {

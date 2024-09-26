@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -9,7 +10,12 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class PartyHatHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private static HashSet<ushort> partyHats = new HashSet<ushort>() { 6578 };
+        private readonly HashSet<ushort> partyHats;
+
+        public PartyHatHandler()
+        {
+            partyHats = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.partyHats") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

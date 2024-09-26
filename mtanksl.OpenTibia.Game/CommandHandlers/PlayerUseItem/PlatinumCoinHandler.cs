@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -9,28 +10,27 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class PlatinumCoinHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private static Dictionary<ushort, ushort> platinumCoinsToCrystalCoin = new Dictionary<ushort, ushort>() 
-        {
-            { 2152, 2160 }
-        };
+        private readonly Dictionary<ushort, ushort> platinumCoinToGoldCoin;
+        private readonly Dictionary<ushort, ushort> platinumCoinToCrystalCoin;
 
-        private static Dictionary<ushort, ushort> platinumCoinToGoldCoins = new Dictionary<ushort, ushort>() 
+        public PlatinumCoinHandler()
         {
-            { 2152, 2148 }
-        };
+            platinumCoinToGoldCoin = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.platinumCoinToGoldCoin") );
+            platinumCoinToCrystalCoin = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.platinumCoinToCrystalCoin") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
             ushort toOpenTibiaId;
 
-            if (platinumCoinsToCrystalCoin.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) && ( (StackableItem)command.Item).Count == 100)
+            if (platinumCoinToCrystalCoin.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) && ( (StackableItem)command.Item).Count == 100)
             {
                 return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.BlueShimmer) ).Then( () =>
                 {
                     return Context.AddCommand(new ItemTransformCommand(command.Item, toOpenTibiaId, 1) );
                 } );                
             }
-            else if (platinumCoinToGoldCoins.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) && ( (StackableItem)command.Item).Count == 1)
+            else if (platinumCoinToGoldCoin.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) && ( (StackableItem)command.Item).Count == 1)
             {
                 return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.BlueShimmer) ).Then( () =>
                 {

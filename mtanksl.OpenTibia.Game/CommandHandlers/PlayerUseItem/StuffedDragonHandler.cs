@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -8,7 +9,12 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class StuffedDragonHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private static HashSet<ushort> stuffedDragons = new HashSet<ushort>() { 5791 };
+        private readonly HashSet<ushort> stuffedDragons;
+
+        public StuffedDragonHandler()
+        {
+            stuffedDragons = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.stuffedDragons") );
+        }
 
         private static List<string> sounds = new List<string>() { "Fchhhhhh!", "Zchhhhhh!", "Grooaaaaar*cough*", "Aaa... CHOO!", "You... will.... burn!!" };
 

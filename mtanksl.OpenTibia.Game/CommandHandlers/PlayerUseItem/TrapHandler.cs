@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,12 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class TrapHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private static Dictionary<ushort, ushort> traps = new Dictionary<ushort, ushort>()
+        private readonly Dictionary<ushort, ushort> traps;
+
+        public TrapHandler()
         {
-            { 2578, 2579 }
-        };
+            traps = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.traps") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

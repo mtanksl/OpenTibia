@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -9,7 +10,12 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class FireworksRocketHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private static HashSet<ushort> fireworksRockets = new HashSet<ushort>() { 6576 };
+        private readonly HashSet<ushort> fireworksRockets;
+
+        public FireworksRocketHandler()
+        {
+            fireworksRockets = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.fireworksRockets") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

@@ -1,9 +1,9 @@
 ﻿values = {
 	items = {
 		transformation = {
-			babySealDoll = { [7183] = 7184 },
-			blueberryBush = { [2785] = 2786 },
-			constructionKit = {
+			babySealDolls = { [7183] = 7184 },
+			blueberryBushes = { [2785] = 2786 },
+			constructionKits = {
 				[3901] = 1652, -- Wooden chair
 				[3902] = 1658, -- Sofa chair
 				[3903] = 1666, -- Red cushioned chair
@@ -55,10 +55,10 @@
 			platinumCoinToGoldCoin = { [2152] = 2148 },
 			platinumCoinToCrystalCoin = { [2152] = 2160 },
 			crystalCoinToPlatinumCoin = { [2160] = 2152 },
-			partyTrumpet = { [6572] = 6573 },
+			partyTrumpets = { [6572] = 6573 },
 			piggyBanks = { [2114] = 2115 },
-			trap = { [2578] = 2579 },
-			openDoor = {
+			traps = { [2578] = 2579 },
+			openDoors = {
 				-- Brick
 				[5099] = 5100,
 				[5101] = 5102,
@@ -109,7 +109,7 @@
 				[1638] = 1639,
 				[1640] = 1641
 			},
-			closeHorizontalDoor = {
+			closeHorizontalDoors = {
 				-- Brick
 				[5100] = 5099,
 				[5102] = 5101,	
@@ -143,7 +143,7 @@
 				[1637] = 1636,
 				[1641] = 1640
 			},
-			closeVerticalDoor = {
+			closeVerticalDoors = {
 				-- Brick
 				[5109] = 5108,
 				[5111] = 5110,	
@@ -177,7 +177,7 @@
 				[1635] = 1634,
 				[1639] = 1638
 			},
-			openGateOfExpertise = {
+			openGateOfExpertiseDoors = {
 				[1227] = 1228,
 				[1229] = 1230,
 
@@ -229,7 +229,45 @@
 				[10780] = 10781,
 				[10789] = 10790
 			},
-			openSealedDoor = {
+			closeHorizontalGateOfExpertiseDoors = {
+				[1230] = 1229,
+				[1248] = 1247,
+				[1262] = 1261,
+				[3541] = 3540,
+				[5104] = 5103,
+				[5122] = 5121,
+				[5295] = 5294,
+				[6209] = 6208,
+				[6266] = 6265,
+				[6897] = 6896,
+				[7039] = 7038,
+				[8558] = 8557,
+				[9182] = 9181,
+				[9284] = 9283,
+				[10285] = 10284,
+				[10474] = 10473,
+				[10781] = 10780
+			},
+			closeVerticalGateOfExpertiseDoors = {
+				[1228] = 1227,
+				[1246] = 1245,
+				[1260] = 1259,
+				[3550] = 3549,
+				[5113] = 5112,
+				[5131] = 5130,
+				[5293] = 5292,
+				[6207] = 6206,
+				[6264] = 6263,
+				[6906] = 6905,
+				[7048] = 7047,
+				[8556] = 8555,
+				[9180] = 9179,
+				[9282] = 9281,
+				[10283] = 10282,
+				[10483] = 10482,
+				[10790] = 10789
+			},
+			openSealedDoors = {
 				[1223] = 1224,
 				[1225] = 1226,
 				
@@ -284,7 +322,47 @@
 				[10782] = 10783,
 				[10791] = 10792
 			},
-			window = {
+			closeHorizontalSealedDoors = {
+				[1226] = 1225,
+				[1244] = 1243,
+				[1258] = 1257,
+				[3543] = 3542,
+				[5106] = 5105,
+				[5124] = 5123,
+				[5291] = 5290,
+				[5746] = 5745,
+				[6205] = 6204,
+				[6262] = 6261,
+				[6899] = 6898,
+				[7041] = 7040,
+				[8554] = 8553,
+				[9178] = 9177,
+				[9280] = 9279,
+				[10281] = 10280,
+				[10476] = 10475,
+				[10783] = 10782
+			},
+			closeVerticalSealedDoors = {
+				[1224] = 1223,
+				[1242] = 1241,
+				[1256] = 1255,
+				[3552] = 3551,
+				[5115] = 5114,
+				[5133] = 5132,
+				[5289] = 5288,
+				[5749] = 5748,
+				[6203] = 6202,
+				[6260] = 6259,
+				[6908] = 6907,
+				[7050] = 7049,
+				[8552] = 8551,
+				[9176] = 9175,
+				[9278] = 9277,
+				[10279] = 10278,
+				[10485] = 10484,
+				[10792] = 10791
+			},
+			windows = {
 				-- Framework
 				[6438] = 6436,
 				[6436] = 6438,
@@ -382,7 +460,7 @@
 				[10489] = 10491,
 				[10491] = 10489
 			},
-			default = {
+			transformations = {
 				-- Street lamp
 				[1479] = 1480,
 				[1480] = 1479,
@@ -494,11 +572,12 @@
 			}
 		},
 		decay = {
-			babySealDoll = { [7184] = 7183 },
-			blueberryBush = { [2786] = 2785 },
-			partyTrumpet = { [6573] = 6572 }
+			babySealDolls = { [7184] = 7183 },
+			blueberryBushes = { [2786] = 2785 },
+			partyTrumpets = { [6573] = 6572 }
 		},
-		clayLump = 11339,
+		blueberry = 2677,
+		clayLumps = { 11339 },
 		roughClayStatue = 11340,
 		clayStatue = 11341,
 		prettyClayStatue = 11342,
@@ -530,8 +609,9 @@
 		spellbooks = { 2175 },
 		spiritualCharms = { 11260 },
 		stuffedDragons = { 5791 },
-		surpriseBagBlues = { 6570 },
-		surpriseBagReds = { 6571 },
+		suspiciousSurpriseBags = { 9108 },
+		blueSurpriseBags = { 6570 },
+		redSurpriseBags = { 6571 },
 		twinSunCharms = { 11261 },
 		unityCharms = { 11259 },
 		chests = { 1740, 1747, 1748, 1749 },

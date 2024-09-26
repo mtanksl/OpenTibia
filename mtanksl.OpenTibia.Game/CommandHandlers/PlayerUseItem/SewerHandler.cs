@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -9,7 +10,12 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class SewerHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private static HashSet<ushort> sewers = new HashSet<ushort>() { 430 };
+        private readonly HashSet<ushort> sewers;
+
+        public SewerHandler()
+        {
+            sewers = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.sewers") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

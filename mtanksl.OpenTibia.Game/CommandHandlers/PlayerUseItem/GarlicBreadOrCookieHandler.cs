@@ -1,14 +1,20 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class GarlicBreadOrCookie : CommandHandler<PlayerUseItemCommand>
+    public class GarlicBreadOrCookieHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private static HashSet<ushort> garlicBreadOrCookie = new HashSet<ushort>() { 9111, 9116 };
+        private readonly HashSet<ushort> garlicBreadOrCookie;
+
+        public GarlicBreadOrCookieHandler()
+        {
+            garlicBreadOrCookie = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.garlicBreadOrCookie") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

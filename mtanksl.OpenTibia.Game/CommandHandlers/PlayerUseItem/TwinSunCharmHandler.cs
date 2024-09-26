@@ -1,18 +1,24 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class TwinSunHandler : CommandHandler<PlayerUseItemCommand>
+    public class TwinSunCharmHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private static HashSet<ushort> charms = new HashSet<ushort>() { 11261 };
+        private readonly HashSet<ushort> twinSunCharms;
+
+        public TwinSunCharmHandler()
+        {
+            twinSunCharms = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.twinSunCharms") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
-            if (charms.Contains(command.Item.Metadata.OpenTibiaId) )
+            if (twinSunCharms.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 return Context.AddCommand(new PlayerBlessCommand(command.Player, "The Fire of the Suns engulfs you.", "Twin Sun Charm") ).Then( () =>
                 {

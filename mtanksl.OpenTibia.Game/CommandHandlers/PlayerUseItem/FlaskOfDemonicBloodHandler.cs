@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -8,11 +9,16 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class FlaskOfDemonicBloodHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private static HashSet<ushort> flaskOfDemonicBloods = new HashSet<ushort>() { 6558 };
+        private readonly HashSet<ushort> flaskOfDemonicBloods;
+        private readonly ushort strongHealthPotion;
+        private readonly ushort strongManaPotion;
 
-        private static ushort strongHealthPotion = 7588;
-
-        private static ushort strongManaPotion = 7589;
+        public FlaskOfDemonicBloodHandler()
+        {
+            flaskOfDemonicBloods = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.flaskOfDemonicBloods") );
+            strongHealthPotion = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.strongHealthPotion") );
+            strongManaPotion = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.strongManaPotion") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

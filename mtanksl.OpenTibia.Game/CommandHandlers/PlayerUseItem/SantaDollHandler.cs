@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -8,7 +9,12 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class SantaDollHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private static HashSet<ushort> santaDolls = new HashSet<ushort>() { 6567 };
+        private readonly HashSet<ushort> santaDolls;
+
+        public SantaDollHandler()
+        {
+            santaDolls = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.santaDolls") );
+        }
 
         private static List<string> sounds = new List<string>() { "Ho ho ho!", "Jingle bells, jingle bells...", "Have you been naughty?", "Have you been nice?", "Merry Christmas!", "Can you stop squeezing me now... I'm starting to feel a little sick." };
 

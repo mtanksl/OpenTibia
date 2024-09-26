@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -8,17 +9,22 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class MusicalInstrumentHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private static HashSet<ushort> green = new HashSet<ushort>() { 2070, 2071, 2073, 2075, 2076, 2078, 2367, 2374 };
+        private readonly HashSet<ushort> greenMusicalInstruments;
+        private readonly HashSet<ushort> purpleMusicalInstruments;
 
-        private static HashSet<ushort> purple = new HashSet<ushort>() { 2079 };
+        public MusicalInstrumentHandler()
+        {
+            greenMusicalInstruments = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.greenMusicalInstruments") );
+            purpleMusicalInstruments = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.purpleMusicalInstruments") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
-            if (green.Contains(command.Item.Metadata.OpenTibiaId) )
+            if (greenMusicalInstruments.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.GreenNotes) );
             }
-            else if (purple.Contains(command.Item.Metadata.OpenTibiaId) )
+            else if (purpleMusicalInstruments.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.PurpleNotes) );
             }

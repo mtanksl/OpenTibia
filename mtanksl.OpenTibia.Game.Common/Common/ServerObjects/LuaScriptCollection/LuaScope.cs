@@ -318,6 +318,16 @@ namespace OpenTibia.Game.Common.ServerObjects
             return defaultValue;
         }
 
+        public static ushort GetInt16(object value, ushort defaultValue = default(ushort) )
+        {
+            if (value != null)
+            {
+                return (ushort)(long)value;
+            }
+
+            return defaultValue;
+        }
+
         public static int GetInt32(object value, int defaultValue = default(int) )
         {
             if (value != null)
@@ -348,6 +358,16 @@ namespace OpenTibia.Game.Common.ServerObjects
             return null;
         }
 
+        public static ushort[] GetInt16Array(object value)
+        {
+            if (value != null)
+            {
+                return ( (LuaTable)value).Values.Cast<long>().Select(v => (ushort)v ).ToArray();
+            }
+
+            return null;
+        }
+
         public static int[] GetInt32Array(object value)
         {
             if (value != null)
@@ -368,17 +388,17 @@ namespace OpenTibia.Game.Common.ServerObjects
             return null;
         }
 
-        public static HashSet<int> GetInt32HashSet(object value)
+        public static HashSet<ushort> GetInt16HashSet(object value)
         {
             if (value != null)
             {
-                var hashSet = new HashSet<int>();
+                var hashSet = new HashSet<ushort>();
 
                 var table = (LuaTable)value;
 
                 foreach (var v in table.Values)
                 {
-                    hashSet.Add( (int)(long)v);
+                    hashSet.Add( (ushort)(long)v);
                 }
 
                 return hashSet;
@@ -387,11 +407,11 @@ namespace OpenTibia.Game.Common.ServerObjects
             return null;
         }
 
-        public static Dictionary<int, int> GetInt32Int32Dictionary(object value)
+        public static Dictionary<ushort, ushort> GetInt16Int16Dictionary(object value)
         {
             if (value != null)
             {
-                var dictionary = new Dictionary<int, int>();
+                var dictionary = new Dictionary<ushort, ushort>();
 
                 var table = (LuaTable)value;
 
@@ -399,7 +419,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     var v = table[k];
 
-                    dictionary.Add( (int)(long)k, (int)(long)v);
+                    dictionary.Add( (ushort)(long)k, (ushort)(long)v);
                 }
 
                 return dictionary;

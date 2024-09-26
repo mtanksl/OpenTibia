@@ -9,24 +9,24 @@ using System.Collections.Generic;
 
 namespace OpenTibia.Game.CommandHandlers
 {
-    public class SealedDoorHandler : CommandHandler<PlayerUseItemCommand>
+    public class GateOfExpertiseDoorHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private readonly Dictionary<ushort, ushort> openSealedDoors;
+        private readonly Dictionary<ushort, ushort> openGateOfExpertiseDoors;
 
-        public SealedDoorHandler()
+        public GateOfExpertiseDoorHandler()
         {
-            openSealedDoors = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.openSealedDoors") );
+            openGateOfExpertiseDoors = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.openGateOfExpertiseDoors") );
         }
-        
+
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
             ushort toOpenTibiaId;
 
-            if (openSealedDoors.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
+            if (openGateOfExpertiseDoors.TryGetValue(command.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
-                if (command.Item.ActionId < 1000 || !command.Player.Storages.TryGetValue(command.Item.ActionId - 1000, out _) )
+                if (command.Item.ActionId < 1000 || command.Player.Level < command.Item.ActionId - 1000)
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "The door seems to be sealed against unwanted intruders.") );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "Only the worthy may pass.") );
 
                     return Promise.Completed;
                 }

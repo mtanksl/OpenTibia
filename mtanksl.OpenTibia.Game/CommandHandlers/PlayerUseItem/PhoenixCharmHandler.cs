@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -8,11 +9,16 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class PhoenixCharmHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private static HashSet<ushort> charms = new HashSet<ushort>() { 11258 };
+        private readonly HashSet<ushort> phoenixCharms;
+        
+        public PhoenixCharmHandler()
+        {
+            phoenixCharms = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.phoenixCharms") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
-            if (charms.Contains(command.Item.Metadata.OpenTibiaId) )
+            if (phoenixCharms.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 return Context.AddCommand(new PlayerBlessCommand(command.Player, "The Spark of the Phoenix emblazes you.", "Phoenix Charm") ).Then( () =>
                 {

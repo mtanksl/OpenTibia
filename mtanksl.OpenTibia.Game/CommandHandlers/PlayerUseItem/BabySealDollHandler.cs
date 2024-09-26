@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -7,15 +8,14 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class BabySealDollHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private static Dictionary<ushort, ushort> babySealDolls = new Dictionary<ushort, ushort>() 
-        {
-            { 7183, 7184 }
-        };
+        private readonly Dictionary<ushort, ushort> babySealDolls;
+        private readonly Dictionary<ushort, ushort> decay;
 
-        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>() 
+        public BabySealDollHandler()
         {
-            { 7184, 7183 }
-        };
+            babySealDolls = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.babySealDolls") );
+            decay = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.decay.babySealDolls") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {

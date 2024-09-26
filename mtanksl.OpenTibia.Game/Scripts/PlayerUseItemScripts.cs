@@ -103,7 +103,7 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new FoodHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new GateOfExpertiseHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new GateOfExpertiseDoorHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new GoldCoinHandler() );
 
@@ -129,7 +129,7 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new SantaDollHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new GarlicBreadOrCookie() );
+            Context.Server.CommandHandlers.AddCommandHandler(new GarlicBreadOrCookieHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new SealedDoorHandler() );
 
@@ -139,11 +139,11 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new StuffedDragonHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new SurpriseBagBlueHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new BlueSurpriseBagHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new SurpriseBagRedHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new RedSurpriseBagHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new SurpriseBagSuspiciousHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new SuspiciousSurpriseBagHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new UseItemTransformHandler() );
 
@@ -159,7 +159,7 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new SpiritualCharmHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new TwinSunHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler(new TwinSunCharmHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new UnityCharmHandler() );
         }

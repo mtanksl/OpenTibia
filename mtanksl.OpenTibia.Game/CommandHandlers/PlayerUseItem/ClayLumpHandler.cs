@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -8,17 +9,22 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class ClayLumpHandler : CommandHandler<PlayerUseItemCommand>
     {
-        private static HashSet<ushort> clayLumpHandler = new HashSet<ushort>() { 11339 };
+        private readonly HashSet<ushort> clayLumps;
+        private readonly ushort roughClayStatue;
+        private readonly ushort clayStatue;
+        private readonly ushort prettyClayStatue;
 
-        private static ushort roughClayStatue = 11340;
-
-        private static ushort clayStatue = 11341;
-
-        private static ushort prettyClayStatue = 11342;
+        public ClayLumpHandler()
+        {
+            clayLumps = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.clayLumps") );
+            roughClayStatue = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.roughClayStatue") );
+            clayStatue = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.clayStatue") );
+            prettyClayStatue = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.prettyClayStatue") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
         {
-            if (clayLumpHandler.Contains(command.Item.Metadata.OpenTibiaId) )
+            if (clayLumps.Contains(command.Item.Metadata.OpenTibiaId) )
             {
                 int value = Context.Server.Randomization.Take(1, 4);
 
