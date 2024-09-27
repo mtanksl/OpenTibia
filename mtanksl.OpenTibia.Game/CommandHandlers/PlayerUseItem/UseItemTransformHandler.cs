@@ -12,7 +12,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public UseItemTransformHandler()
         {
-            transformations = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.transformations") );
+            transformations = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.use") );
         }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)

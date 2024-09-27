@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,12 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class RotateItemChestHandler : CommandHandler<PlayerRotateItemCommand>
     {
-        private static HashSet<ushort> chests = new HashSet<ushort>() { 1740, 1747, 1748, 1749 };
+        private readonly HashSet<ushort> chests;
+
+        public RotateItemChestHandler()
+        {
+            chests = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.chests") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerRotateItemCommand command)
         {
