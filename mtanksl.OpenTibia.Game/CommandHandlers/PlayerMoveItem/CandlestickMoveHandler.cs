@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -8,19 +9,14 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class CandlestickMoveHandler : CommandHandler<PlayerMoveItemCommand>
     {
-        private static HashSet<ushort> candlestick = new HashSet<ushort>() { 2048 };
+        private readonly HashSet<ushort> candlesticks;
+        private readonly Dictionary<ushort, ushort> transformations;
 
-        private static Dictionary<ushort, ushort> transformations = new Dictionary<ushort, ushort>()
+        public CandlestickMoveHandler()
         {
-            // Pumkinhead
-            { 2096, 2097 },
-
-            // Cake
-            { 6279, 6280 },
-
-            // Skull candle
-            { 5813, 5812 }
-        };
+            candlesticks = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.candlesticks") );
+            transformations = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.candlesticks") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {
@@ -28,7 +24,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 ushort toOpenTibiaId;
 
-                if (candlestick.Contains(command.Item.Metadata.OpenTibiaId) && tile.TopItem != null && transformations.TryGetValue(tile.TopItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+                if (candlesticks.Contains(command.Item.Metadata.OpenTibiaId) && tile.TopItem != null && transformations.TryGetValue(tile.TopItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
                 {
                     return Context.AddCommand(new ItemTransformCommand(tile.TopItem, toOpenTibiaId, 1) ).Then( (item) =>
                     {

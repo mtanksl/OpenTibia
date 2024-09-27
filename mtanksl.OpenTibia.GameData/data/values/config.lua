@@ -3,6 +3,16 @@
 		transformation = {
 			babySealDolls = { [7183] = 7184 },
 			blueberryBushes = { [2785] = 2786 },
+			candlesticks = { 
+				-- Pumkinhead
+				[2096] = 2097,
+
+				-- Cake
+				[6279] = 6280,
+
+				-- Skull candle
+				[5813] = 5812
+			},
 			constructionKits = {
 				[3901] = 1652, -- Wooden chair
 				[3902] = 1658, -- Sofa chair
@@ -57,6 +67,7 @@
 			crystalCoinToPlatinumCoin = { [2160] = 2152 },
 			partyTrumpets = { [6572] = 6573 },
 			piggyBanks = { [2114] = 2115 },
+			pitfalls = { [293] = 294 },
 			traps = { [2578] = 2579 },
 			openDoors = {
 				-- Brick
@@ -714,25 +725,86 @@
 		decay = {
 			babySealDolls = { [7184] = 7183 },
 			blueberryBushes = { [2786] = 2785 },
-			partyTrumpets = { [6573] = 6572 }
+			partyTrumpets = { [6573] = 6572 },
+			pitfalls = { [294] = 293 },
+			traps = { [2579] = 2578 }
 		},
 		blueberry = 2677,
+		candlesticks = { 2048 },
 		clayLumps = { 11339 },
 		roughClayStatue = 11340,
 		clayStatue = 11341,
 		prettyClayStatue = 11342,
 		dices = { 5792, 5793, 5794, 5795, 5796, 5797 },
 		dice = 5792,
+		dustbins = { 1777 },
 		explosivePresents = { 8110 },
 		fireworksRockets = { 6576 },
 		flaskOfDemonicBloods = { 6558 },
         strongHealthPotion = 7588,
         strongManaPotion = 7589,
 		garlicBreadOrCookie = { 9111, 9116 },
+		holes = {
+			-- Pitfall
+            294,
+
+            -- Hole
+            383, 469, 470, 482, 484, 485, 
+
+            -- Invisible
+            459, 
+
+            -- Wooden
+            369, 370, 408, 409, 410, 411, 8276, 8277, 8279, 8280, 8281, 8282, 
+            
+            -- Wooden
+            423, 427, 428, 429, 8283, 8284, 8285, 8286, 
+                        
+            -- White marble
+            432, 433, 9606,
+
+            -- Dark wooden
+            3135, 3136, 3137, 3138,
+                       
+            -- Stone
+            3219, 3220,
+
+            -- Black marble
+            4834, 4835, 8170,
+
+            -- Gray marble
+            4836, 4837,
+
+            -- Flat roof
+            924, 5081,
+
+            -- Grass roof
+            6173, 6174,
+                      
+            -- Stone
+            475, 476, 479, 480, 6127, 6128, 6129, 6130,
+
+            -- Snow
+            6917, 6918, 6919, 6920, 6921, 6922, 6923, 6924,
+
+            -- Earth
+            8559, 8560, 8561, 8562, 8563, 8564, 8565, 8566,
+
+            -- Corkscrew
+            9574, 9846
+		},
 		ladders = { 1386, 3678, 5543, 8599, 10035 },
 		lockedDoors = { 1209, 1212, 1231, 1234, 1249, 1252, 3535, 3544, 4913, 4916, 5098, 5107, 5116, 5125, 5134, 5137, 5140, 5143, 5278, 5281, 5732, 5735, 6192, 6195, 6249, 6252, 6799, 6801, 6891, 6900, 7033, 7042, 8541, 8544, 9165, 9168, 9267, 9270 },
+		lavas = { 598, 599, 600, 601 },
 		greenMusicalInstruments = { 2070, 2071, 2073, 2075, 2076, 2078, 2367, 2374 },
         purpleMusicalInstruments = { 2079 },
+		magicForcefields = { 1387 },
+		mailboxes = { 2593, 3981 },
+		letter = 2597,
+        stampedLetter = 2598,
+		parcel = 2595,
+        label = 2599,
+        stampedParcel = 2596,
 		pandaTeddies = { 5080 },
 		partyCakes = { 6280 },
         decoratedCake = 6279,
@@ -743,15 +815,34 @@
         crystalCoin = 2160,
 		santaDolls = { 6567 },
 		sewers = { 430 },
+		shallowWaters = { 4608, 4609, 4610, 4611, 4612, 4613, 4614, 4615, 4616, 4617, 4618, 4619, 4620, 4621, 4622, 4623, 4624, 4625, 4820, 4821, 4822, 4823, 4824, 4825 },
 		snowHeaps = { 486 },
         snowBall = 2111,
+		stairs = {
+			-- Stairs
+            1385, 5258, 1396, 8709, 3687, 3688, 5259, 5260, 
+                     
+            -- Ramps
+            1388, 1390, 1392, 1394,
+
+            3679, 3981, 3983, 3985,
+
+            6909, 6911, 6913, 6915, 
+
+            8372, 8374, 8376, 8378,
+
+            -- Pyramid
+            1398, 1400, 1402, 1404, 1553, 1555, 1557, 1559
+		},
 		solitudeCharms = { 11262 },
 		spellbooks = { 2175 },
 		spiritualCharms = { 11260 },
 		stuffedDragons = { 5791 },
 		suspiciousSurpriseBags = { 9108 },
+		swamps = { 4691, 4692, 4693, 4694, 4695, 4696, 4697, 4698, 4699, 4700, 4701, 4702, 4703, 4704, 4705, 4706, 4707, 4708, 4709, 4710, 4711, 4712 },
 		blueSurpriseBags = { 6570 },
 		redSurpriseBags = { 6571 },
+		tars = { 708, 709, 710, 711 },
 		twinSunCharms = { 11261 },
 		unityCharms = { 11259 },
 		chests = { 1740, 1747, 1748, 1749 },

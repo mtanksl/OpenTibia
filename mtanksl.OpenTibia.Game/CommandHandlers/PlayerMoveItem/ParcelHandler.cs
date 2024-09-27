@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,17 +10,22 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class ParcelHandler : CommandHandler<PlayerMoveItemCommand>
     {
-        private static ushort parcel = 2595;
+        private readonly ushort parcel;
+        private readonly ushort label;
+        private readonly HashSet<ushort> mailboxes;
+        private readonly ushort stampedParcel;
 
-        private static ushort label = 2599;
-
-        private static HashSet<ushort> mailbox = new HashSet<ushort>() { 2593, 3981 };
-
-        private static ushort stampedParcel = 2596;
+        public ParcelHandler()
+        {
+            parcel = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.parcel") );
+            label = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.label") );
+            mailboxes = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.mailboxes") );
+            stampedParcel = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.stampedParcel") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {
-            if (command.Item.Metadata.OpenTibiaId == parcel && command.ToContainer is Tile toTile && toTile.TopItem != null && mailbox.Contains(toTile.TopItem.Metadata.OpenTibiaId) )
+            if (command.Item.Metadata.OpenTibiaId == parcel && command.ToContainer is Tile toTile && toTile.TopItem != null && mailboxes.Contains(toTile.TopItem.Metadata.OpenTibiaId) )
             {
                 Container parcelItem = (Container)command.Item;
 

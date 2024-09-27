@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -9,15 +10,14 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class Pitfall2Handler : CommandHandler<PlayerMoveItemCommand>
     {
-        private static Dictionary<ushort, ushort> pitfalls = new Dictionary<ushort, ushort>()
-        {
-            {  293, 294 }
-        };
+        private readonly Dictionary<ushort, ushort> pitfalls;
+        private readonly Dictionary<ushort, ushort> decay;
 
-        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
+        public Pitfall2Handler()
         {
-            {  294, 293 }
-        };
+            pitfalls = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.pitfalls") );
+            decay = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.decay.pitfalls") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {

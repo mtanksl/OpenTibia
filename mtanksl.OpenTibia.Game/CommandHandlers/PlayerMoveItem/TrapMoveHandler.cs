@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -8,10 +9,12 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class TrapMoveHandler : CommandHandler<PlayerMoveItemCommand>
     {
-        private static Dictionary<ushort, ushort> traps = new Dictionary<ushort, ushort>()
+        private readonly Dictionary<ushort, ushort> traps;
+
+        public TrapMoveHandler()
         {
-            { 2579, 2578 }
-        };
+            traps = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.decay.traps") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {

@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -8,15 +9,20 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class LetterHandler : CommandHandler<PlayerMoveItemCommand>
     {
-        private static ushort letter = 2597;
+        private readonly ushort letter;
+        private readonly HashSet<ushort> mailboxes;
+        private readonly ushort stampedLetter;
 
-        private static HashSet<ushort> mailbox = new HashSet<ushort>() { 2593, 3981 };
-
-        private static ushort stampedLetter = 2598;
-
+        public LetterHandler()
+        {
+            letter = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.letter") );
+            mailboxes = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.mailboxes") );
+            stampedLetter = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.stampedLetter") );
+        }
+            
         public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {
-            if (command.Item.Metadata.OpenTibiaId == letter && command.ToContainer is Tile toTile && toTile.TopItem != null && mailbox.Contains(toTile.TopItem.Metadata.OpenTibiaId) )
+            if (command.Item.Metadata.OpenTibiaId == letter && command.ToContainer is Tile toTile && toTile.TopItem != null && mailboxes.Contains(toTile.TopItem.Metadata.OpenTibiaId) )
             {
                 ReadableItem letterItem = (ReadableItem)command.Item;
 

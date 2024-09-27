@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -9,7 +10,12 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class LavaHandler : CommandHandler<PlayerMoveItemCommand>
     {
-        private static HashSet<ushort> lavas = new HashSet<ushort>() { 598, 599, 600, 601 };
+        private readonly HashSet<ushort> lavas;
+
+        public LavaHandler()
+        {
+            lavas = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.lavas") );
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)
         {
