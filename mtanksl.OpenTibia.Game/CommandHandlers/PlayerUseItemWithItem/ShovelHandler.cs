@@ -7,21 +7,16 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class ShovelHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private static HashSet<ushort> shovels = new HashSet<ushort>() { 2554, 5710, 10513, 10515, 10511 };
+        private readonly HashSet<ushort> shovels;
+        private readonly Dictionary<ushort, ushort> stonePiles;
+        private readonly Dictionary<ushort, ushort> decay;
 
-        private static Dictionary<ushort, ushort> stonePiles = new Dictionary<ushort, ushort>()
+        public ShovelHandler()
         {
-            { 468, 469 },
-            { 481, 482 },
-            { 483, 484 }
-        };
-
-        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
-        {
-            { 469, 468 },
-            { 482, 481 },
-            { 484, 483 }
-        };
+            shovels = Context.Server.Values.GetUInt16HashSet("values.items.shovels");
+            stonePiles = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.stonePiles");
+            decay = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.decay.stonePiles");
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {

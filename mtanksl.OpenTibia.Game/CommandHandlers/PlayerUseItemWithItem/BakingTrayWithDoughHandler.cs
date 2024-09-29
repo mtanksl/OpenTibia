@@ -8,17 +8,22 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class BakingTrayWithDoughHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private static HashSet<ushort> bakingTrayWithDough = new HashSet<ushort>() { 8848 };
+        private readonly HashSet<ushort> bakingTrayWithDoughs;
+        private readonly HashSet<ushort> ovens;
+        private readonly ushort bakingTray;
+        private readonly ushort cookie;
 
-        private static HashSet<ushort> ovens = new HashSet<ushort>() { 1786, 1788, 1790, 1792, 6356, 6358, 6360, 6362 };
-
-        private static ushort bakingTray = 2561;
-
-        private static ushort cookie = 2687;
+        public BakingTrayWithDoughHandler()
+        {
+            bakingTrayWithDoughs = Context.Server.Values.GetUInt16HashSet("values.items.bakingTrayWithDoughs");
+            ovens = Context.Server.Values.GetUInt16HashSet("values.items.ovens");
+            bakingTray = Context.Server.Values.GetUInt16("values.items.bakingTray");
+            cookie = Context.Server.Values.GetUInt16("values.items.cookie");
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
-            if (bakingTrayWithDough.Contains(command.Item.Metadata.OpenTibiaId) && ovens.Contains(command.ToItem.Metadata.OpenTibiaId) )
+            if (bakingTrayWithDoughs.Contains(command.Item.Metadata.OpenTibiaId) && ovens.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
                 return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.CookieMonster, 20, "Cookie Monster") ).Then( () =>
                 {

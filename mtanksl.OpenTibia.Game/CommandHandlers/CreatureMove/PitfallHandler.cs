@@ -9,15 +9,14 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class PitfallHandler : CommandHandler<CreatureMoveCommand>
     {
-        private static Dictionary<ushort, ushort> pitfalls = new Dictionary<ushort, ushort>() 
-        {
-            {  293, 294 }
-        };
+        private readonly Dictionary<ushort, ushort> pitfalls;
+        private readonly Dictionary<ushort, ushort> decay;
 
-        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
+        public PitfallHandler()
         {
-            {  294, 293 }
-        };
+            pitfalls = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.pitfalls");
+            decay = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.decay.pitfalls");
+        }
 
         public override Promise Handle(Func<Promise> next, CreatureMoveCommand command)
         {

@@ -9,19 +9,24 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class FlourHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private static HashSet<ushort> flours = new HashSet<ushort>() { 2692 };
+        private readonly HashSet<ushort> flours;
+        private readonly HashSet<ushort> buckets;
+        private readonly HashSet<ushort> holyWaters;
+        private readonly ushort lumpOfDough;
+        private readonly ushort lumpOfCakeDough;
+        private readonly ushort lumpOfHolyWaterDough;
+        private readonly ushort emptyVial;
 
-        private static HashSet<ushort> buckets = new HashSet<ushort>() { 1775, 2005 };
-
-        private static HashSet<ushort> holyWater = new HashSet<ushort>() { 7494 };
-
-        private static ushort lumpOfDough = 2693;
-
-        private static ushort lumpOfCakeDough = 6277;
-
-        private static ushort lumpOfHolyWaterDough = 9112;
-
-        private static ushort emptyVial = 11396;
+        public FlourHandler()
+        {
+            flours = Context.Server.Values.GetUInt16HashSet("values.items.flours");
+            buckets = Context.Server.Values.GetUInt16HashSet("values.items.buckets");
+            holyWaters = Context.Server.Values.GetUInt16HashSet("values.items.holyWaters");
+            lumpOfDough = Context.Server.Values.GetUInt16("values.items.lumpOfDough");
+            lumpOfCakeDough = Context.Server.Values.GetUInt16("values.items.lumpOfCakeDough");
+            lumpOfHolyWaterDough = Context.Server.Values.GetUInt16("values.items.lumpOfHolyWaterDough");
+            emptyVial = Context.Server.Values.GetUInt16("values.items.emptyVial");
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
@@ -54,7 +59,7 @@ namespace OpenTibia.Game.CommandHandlers
                         } );
                     }
                 }
-                else if (holyWater.Contains(command.ToItem.Metadata.OpenTibiaId) )
+                else if (holyWaters.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
                     return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                     {

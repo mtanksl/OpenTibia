@@ -8,19 +8,24 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class LumpOfCakeDoughHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private static HashSet<ushort> lumpOfCakeDoughs = new HashSet<ushort>() { 6277 };
+        private readonly HashSet<ushort> lumpOfCakeDoughs;
+        private readonly HashSet<ushort> ovens;
+        private readonly ushort cake;
+        private readonly HashSet<ushort> barOfChocolates;
+        private readonly ushort lumpOfChocolateDough;
+        private readonly HashSet<ushort> bakingTrays;
+        private readonly ushort bakingTrayWithDough;
 
-        private static HashSet<ushort> ovens = new HashSet<ushort>() { 1786, 1788, 1790, 1792, 6356, 6358, 6360, 6362 };
-
-        private static ushort cake = 6278;
-
-        private static HashSet<ushort> barOfChocolate = new HashSet<ushort>() { 6574 };
-
-        private static ushort lumpOfChocolateDough = 8846;
-
-        private static HashSet<ushort> bakingTrays = new HashSet<ushort>() { 2561 };
-
-        private static ushort bakingTrayWithDough = 8848;
+        public LumpOfCakeDoughHandler()
+        {
+            lumpOfCakeDoughs = Context.Server.Values.GetUInt16HashSet("values.items.lumpOfCakeDoughs");
+            ovens = Context.Server.Values.GetUInt16HashSet("values.items.ovens");
+            cake = Context.Server.Values.GetUInt16("values.items.cake");
+            barOfChocolates = Context.Server.Values.GetUInt16HashSet("values.items.barOfChocolates");
+            lumpOfChocolateDough = Context.Server.Values.GetUInt16("values.items.lumpOfChocolateDough");
+            bakingTrays = Context.Server.Values.GetUInt16HashSet("values.items.bakingTrays");
+            bakingTrayWithDough = Context.Server.Values.GetUInt16("values.items.bakingTrayWithDough");
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
@@ -37,7 +42,7 @@ namespace OpenTibia.Game.CommandHandlers
                         return Context.AddCommand(new TileCreateItemOrIncrementCommand( (Tile)command.ToItem.Parent, cake, 1) );
                     } );
                 }
-                else if (barOfChocolate.Contains(command.ToItem.Metadata.OpenTibiaId) )
+                else if (barOfChocolates.Contains(command.ToItem.Metadata.OpenTibiaId) )
                 {
                     return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                     {

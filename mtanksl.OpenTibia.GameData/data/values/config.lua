@@ -720,6 +720,60 @@
 				[6369] = 6370,
 				[6370] = 6371,
 				[6371] = 6368
+			},
+			stonePiles = {
+				[468] = 469,
+				[481] = 482,
+				[483] = 484
+			},
+			fragileIces = {
+				[7200] = 7236
+			},
+			wheats = {
+				[2739] = 2737
+			},
+			sugarCanes = {
+				[5471] = 5463
+			},
+			jungleGrasses = {
+				[2782] = 2781,
+				[3985] = 3984
+			},
+			iceCubes = {
+				[7441] = 7442,
+				[7442] = 7444,
+				[7444] = 7445,
+				[7445] = 7446
+			},
+			unlockedDoors = {
+				[1209] = 1211,
+				[1212] = 1214,
+				[1231] = 1233,
+				[1234] = 1236,
+				[1249] = 1251,
+				[1252] = 1254,
+				[3535] = 3537,
+				[3544] = 3546
+			},
+			lockedDoors = {
+				[1211] = 1209,
+				[1214] = 1212,
+				[1233] = 1231,
+				[1236] = 1234,
+				[1251] = 1249,
+				[1254] = 1252,
+				[3537] = 3535,
+				[3546] = 3544
+			},
+			distillingMachines = {
+				[5469] = 5513,
+				[5470] = 5514,
+			},
+			goodSugarCanes = {
+				[5466] = 5465
+			},
+			emptyCoalBasins = {
+				[1485] = 1483
 			}
 		},
 		decay = {
@@ -727,7 +781,35 @@
 			blueberryBushes = { [2786] = 2785 },
 			partyTrumpets = { [6573] = 6572 },
 			pitfalls = { [294] = 293 },
-			traps = { [2579] = 2578 }
+			traps = { [2579] = 2578 },
+			stonePiles = {
+				[469] = 468,
+				[482] = 481,
+				[484] = 483
+			},
+			fragileIces = {
+				[7236] = 7200
+			},
+			wheats = {
+				[2737] = 2738,
+				[2738] = 2739
+			},
+			sugarCanes = {
+				[5463] = 5464,
+				[5464] = 5466
+			},
+			jungleGrasses = {
+				[2781] = 2782,
+				[3984] = 3985
+			},
+			distillingMachines = {
+				[5513] = 5469,
+				[5514] = 5470
+			},
+			goodSugarCanes = {
+				[5465] = 5471,
+				[5471] = 5466
+			}
 		},
 		blueberry = 2677,
 		candlesticks = { 2048 },
@@ -859,6 +941,68 @@
 		greatEmptyPotionFlask = 7635,
 		strongEmptyPotionFlask = 7634,
 		smallEmptyPotionFlask = 7636,
-		voodooDolls = { 10018 }
+		voodooDolls = { 10018 },
+		shovels = { 2554, 5710, 10513, 10515, 10511 },
+		ropes = { 2120, 10513, 10515, 10511 },
+        ropeSpots = { 384, 418, 8278 },
+		picks = { 2553, 10513, 10515, 10511 },
+		scythes = { 2550, 10513 },
+		wheat = 2694,
+		sickles = { 2405, 2418, 10513 },
+		bunchOfSugarCane = 5467,
+		fishingRods = { 2580 },
+		worm = 3976,
+        fish = 2667,
+		machetes = { 2420, 10513, 10515, 10511 },
+		obsidianKnifes = { 5908 },
+		knifes = { 2566, 10515, 10511 },
+        pumpkins = { 2683 },
+        pumpkinhead = 2096,
+        fruits = { 2676, 2677, 2684, 2679, 2678, 2681, 8841, 5097, 2672, 2675, 2673, 8839, 8840, 2674, 2680 },
+        cake = 6278,
+        decoratedCake = 6279,
+		wheats = { 2694 },
+        millstones = { 1381, 1382, 1383, 1384 },
+        flour = 2692,
+		flours = { 2692 },
+        buckets = { 1775, 2005 },
+        holyWaters = { 7494 },
+        lumpOfDough = 2693,
+        lumpOfCakeDough = 6277,
+        lumpOfHolyWaterDough = 9112,
+        emptyVial = 11396,
+		juiceSqueezers = { 5865, 10513 },
+        coconuts = { 2678 },
+		keys = { 2086, 2087, 2088, 2089, 2090, 2091, 2092 },
+		drawWells = { 1368, 1369 },		
+        distillingMachines = { 5513, 5514 },
+        waterCasks = { 1771 },		
+		beerCasks = { 1772 },
+        wineCasks = { 1773 },
+        lemonadeCasks = { 1776 },
+        rumCasks = { 5539 },
+		bunchOfSugarCanes = { 5467 },
+		bakingTrayWithDoughs = { 8848 },
+		ovens = { 1786, 1788, 1790, 1792, 6356, 6358, 6360, 6362 },
+		bakingTray = 2561,
+		cookie = 2687,
+		bakingTrayWithGarlicDoughs = { 9115 },
+		garlicCookie = 9116,
+		lumpOfDoughs = { 2693 },
+		bread = 2689,
+		lumpOfCakeDoughs = { 6277 },
+        barOfChocolates = { 6574 },
+        lumpOfChocolateDough = 8846,
+        bakingTrays = { 2561 },
+        bakingTrayWithDough = 8848,
+		lumpOfChocolateDoughs = { 8846 },
+		chocolateCake = 8847,
+		lumpOfHolyWaterDoughs = { 9112 },
+        garlics = { 9114 },
+        lumpOfGarlicDough = 9113,
+		lumpOfGarlicDoughs = { 9113 },
+        garlicBread = 9111,
+        bakingTrayWithGarlicDough = 9115,
+		fireBugs = { 5468 }
 	}
 }

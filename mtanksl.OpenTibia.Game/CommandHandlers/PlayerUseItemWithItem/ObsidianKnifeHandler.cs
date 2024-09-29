@@ -8,15 +8,14 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class ObsidianKnifeHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private static HashSet<ushort> obsidianKnifes = new HashSet<ushort>() { 5908 };
+        private readonly HashSet<ushort> obsidianKnifes;
+        private readonly Dictionary<ushort, ushort> iceCubes;
 
-        private static Dictionary<ushort, ushort> iceCubes = new Dictionary<ushort, ushort>()
+        public ObsidianKnifeHandler()
         {
-            { 7441, 7442 },
-            { 7442, 7444 },
-            { 7444, 7445 },
-            { 7445, 7446 }
-        };
+            obsidianKnifes = Context.Server.Values.GetUInt16HashSet("values.items.obsidianKnifes");
+            iceCubes = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.iceCubes");
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {

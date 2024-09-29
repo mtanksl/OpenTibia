@@ -8,17 +8,16 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class PickHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private static HashSet<ushort> picks = new HashSet<ushort>() { 2553, 10513, 10515, 10511 };
+        private readonly HashSet<ushort> picks;
+        private readonly Dictionary<ushort, ushort> fragileIces;
+        private readonly Dictionary<ushort, ushort> decay;
 
-        private static Dictionary<ushort, ushort> fragileIces = new Dictionary<ushort, ushort>()
+        public PickHandler()
         {
-            { 7200, 7236 },
-        };
-
-        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
-        {
-            { 7236, 7200 }
-        };
+            picks = Context.Server.Values.GetUInt16HashSet("values.items.picks");
+            fragileIces = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.fragileIces");
+            decay = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.decay.fragileIces");
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {

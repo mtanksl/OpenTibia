@@ -7,17 +7,22 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class KnifeHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private static HashSet<ushort> knifes = new HashSet<ushort>() { 2566, 10515, 10511 };
+        private readonly HashSet<ushort> knifes;
+        private readonly HashSet<ushort> pumpkins;
+        private readonly ushort pumpkinhead;
+        private readonly HashSet<ushort> fruits;   
+        private readonly ushort cake;
+        private readonly ushort decoratedCake;
 
-        private static HashSet<ushort> pumpkins = new HashSet<ushort>() { 2683 };
-
-        private static ushort pumpkinhead = 2096;
-
-        private static HashSet<ushort> fruits = new HashSet<ushort>() { 2676, 2677, 2684, 2679, 2678, 2681, 8841, 5097, 2672, 2675, 2673, 8839, 8840, 2674, 2680 };
-
-        private static ushort cake = 6278;
-
-        private static ushort decoratedCake = 6279;
+        public KnifeHandler()
+        {
+            knifes = Context.Server.Values.GetUInt16HashSet("values.items.knifes");
+            pumpkins = Context.Server.Values.GetUInt16HashSet("values.items.pumpkins");
+            pumpkinhead = Context.Server.Values.GetUInt16("values.items.pumpkinhead");
+            fruits = Context.Server.Values.GetUInt16HashSet("values.items.fruits");
+            cake = Context.Server.Values.GetUInt16("values.items.cake");
+            decoratedCake = Context.Server.Values.GetUInt16("values.items.decoratedCake");
+        }
 
         public override async Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {

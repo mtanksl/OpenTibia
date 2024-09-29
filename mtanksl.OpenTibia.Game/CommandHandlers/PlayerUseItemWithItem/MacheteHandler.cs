@@ -7,25 +7,22 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class MacheteHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private static HashSet<ushort> machetes = new HashSet<ushort>() { 2420, 10513, 10515, 10511 };
+        private readonly HashSet<ushort> machetes;
+        private readonly Dictionary<ushort, ushort> jungleGrasses;
+        private readonly Dictionary<ushort, ushort> decay;
 
-        private static Dictionary<ushort, ushort> jungleGrass = new Dictionary<ushort, ushort>()
+        public MacheteHandler()
         {
-            { 2782, 2781 },
-            { 3985, 3984 }
-        };
-
-        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
-        {
-            { 2781, 2782 },
-            { 3984, 3985 }
-        };
+            machetes = Context.Server.Values.GetUInt16HashSet("values.items.machetes");
+            jungleGrasses = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.jungleGrasses");
+            decay = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.decay.jungleGrasses");
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
             ushort toOpenTibiaId;
 
-            if (machetes.Contains(command.Item.Metadata.OpenTibiaId) && jungleGrass.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+            if (machetes.Contains(command.Item.Metadata.OpenTibiaId) && jungleGrasses.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
                 return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.NothingCanStopMe, 100, "Nothing Can Stop Me") ).Then( () =>
                 {

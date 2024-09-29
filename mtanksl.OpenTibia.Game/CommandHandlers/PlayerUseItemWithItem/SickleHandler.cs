@@ -8,26 +8,24 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class SickleHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private static HashSet<ushort> sickles = new HashSet<ushort>() { 2405, 2418, 10513 };
+        private readonly HashSet<ushort> sickles;
+        private readonly Dictionary<ushort, ushort> sugarCanes;
+        private readonly Dictionary<ushort, ushort> decay;
+        private static ushort bunchOfSugarCane;
 
-        private static Dictionary<ushort, ushort> wheats = new Dictionary<ushort, ushort>()
+        public SickleHandler()
         {
-            { 5471, 5463 }
-        };
-
-        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
-        {
-            { 5463, 5464 },
-            { 5464, 5466 }
-        };
-
-        private static ushort bunchOfSugarCane = 5467;
+            sickles = Context.Server.Values.GetUInt16HashSet("values.items.sickles");
+            sugarCanes = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.sugarCanes");
+            decay = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.decay.sugarCanes");
+            bunchOfSugarCane = Context.Server.Values.GetUInt16("values.items.bunchOfSugarCane");
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
             ushort toOpenTibiaId;
 
-            if (sickles.Contains(command.Item.Metadata.OpenTibiaId) && wheats.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+            if (sickles.Contains(command.Item.Metadata.OpenTibiaId) && sugarCanes.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
                 return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.NaturalSweetener, 50, "Natural Sweetener") ).Then( () =>
                 {

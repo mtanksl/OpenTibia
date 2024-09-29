@@ -9,23 +9,12 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class StairsHandler : CommandHandler<CreatureMoveCommand>
     {
-        private static HashSet<ushort> stairs = new HashSet<ushort>()
-        { 
-            // Stairs
-            1385, 5258, 1396, 8709, 3687, 3688, 5259, 5260, 
-                     
-            // Ramps
-            1388, 1390, 1392, 1394,
+        private readonly HashSet<ushort> stairs;
 
-            3679, 3981, 3983, 3985,
-
-            6909, 6911, 6913, 6915, 
-
-            8372, 8374, 8376, 8378,
-
-            // Pyramid
-            1398, 1400, 1402, 1404, 1553, 1555, 1557, 1559
-        };
+        public StairsHandler()
+        {
+            stairs = Context.Server.Values.GetUInt16HashSet("values.items.stairs");
+        }
 
         public override Promise Handle(Func<Promise> next, CreatureMoveCommand command)
         {

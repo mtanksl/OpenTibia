@@ -8,11 +8,16 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class LumpOfDoughHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private static HashSet<ushort> lumpOfDoughs = new HashSet<ushort>() { 2693 };
+        private readonly HashSet<ushort> lumpOfDoughs;
+        private readonly HashSet<ushort> ovens;
+        private readonly ushort bread;
 
-        private static HashSet<ushort> ovens = new HashSet<ushort>() { 1786, 1788, 1790, 1792, 6356, 6358, 6360, 6362 };
-
-        private static ushort bread = 2689;
+        public LumpOfDoughHandler()
+        {
+            lumpOfDoughs = Context.Server.Values.GetUInt16HashSet("values.items.lumpOfDoughs");
+            ovens = Context.Server.Values.GetUInt16HashSet("values.items.ovens");
+            bread = Context.Server.Values.GetUInt16("values.items.bread");
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {

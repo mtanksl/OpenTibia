@@ -9,25 +9,30 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class FluidItem2Handler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private static HashSet<ushort> drawWell = new HashSet<ushort> { 1368, 1369 };
+        private readonly HashSet<ushort> drawWells;
+        private readonly HashSet<ushort> shallowWaters;
+        private readonly HashSet<ushort> swamps;
+        private readonly HashSet<ushort> lavas;
+        private readonly HashSet<ushort> distillingMachines;
+        private readonly HashSet<ushort> waterCasks;
+        private readonly HashSet<ushort> beerCasks;
+        private readonly HashSet<ushort> wineCasks;
+        private readonly HashSet<ushort> lemonadeCasks;
+        private readonly HashSet<ushort> rumCasks;
 
-        private static HashSet<ushort> shallowWaters = new HashSet<ushort>() { 4608, 4609, 4610, 4611, 4612, 4613, 4614, 4615, 4616, 4617, 4618, 4619, 4620, 4621, 4622, 4623, 4624, 4625, 4820, 4821, 4822, 4823, 4824, 4825 };
-
-        private static HashSet<ushort> swamps = new HashSet<ushort>() { 4691, 4692, 4693, 4694, 4695, 4696, 4697, 4698, 4699, 4700, 4701, 4702, 4703, 4704, 4705, 4706, 4707, 4708, 4709, 4710, 4711, 4712 };
-
-        private static HashSet<ushort> lavas = new HashSet<ushort>() { 598, 599, 600, 601 };
-
-        private static HashSet<ushort> distillingMachines = new HashSet<ushort>() { 5513, 5514 };
-
-        private static HashSet<ushort> waterCask = new HashSet<ushort> { 1771 };
-
-        private static HashSet<ushort> beerCask = new HashSet<ushort> { 1772 };
-
-        private static HashSet<ushort> wineCask = new HashSet<ushort> { 1773 };
-
-        private static HashSet<ushort> lemonadeCask = new HashSet<ushort> { 1776 };
-
-        private static HashSet<ushort> rumCask = new HashSet<ushort> { 5539 };
+        public FluidItem2Handler()
+        {
+            drawWells = Context.Server.Values.GetUInt16HashSet("values.items.drawWells");
+            shallowWaters = Context.Server.Values.GetUInt16HashSet("values.items.shallowWaters");
+            swamps = Context.Server.Values.GetUInt16HashSet("values.items.swamps");
+            lavas = Context.Server.Values.GetUInt16HashSet("values.items.lavas");
+            distillingMachines = Context.Server.Values.GetUInt16HashSet("values.items.distillingMachines");
+            waterCasks = Context.Server.Values.GetUInt16HashSet("values.items.waterCasks");
+            beerCasks = Context.Server.Values.GetUInt16HashSet("values.items.beerCasks");
+            wineCasks = Context.Server.Values.GetUInt16HashSet("values.items.wineCasks");
+            lemonadeCasks = Context.Server.Values.GetUInt16HashSet("values.items.lemonadeCasks");
+            rumCasks = Context.Server.Values.GetUInt16HashSet("values.items.rumCasks");
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
@@ -35,7 +40,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (fromItem.FluidType == FluidType.Empty)
                 {
-                    if (drawWell.Contains(command.ToItem.Metadata.OpenTibiaId) )
+                    if (drawWells.Contains(command.ToItem.Metadata.OpenTibiaId) )
                     {
                         return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Water) );
                     }
@@ -64,23 +69,23 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Rum) );
                     }
-                    else if (waterCask.Contains(command.ToItem.Metadata.OpenTibiaId) )
+                    else if (waterCasks.Contains(command.ToItem.Metadata.OpenTibiaId) )
                     {
                         return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Water) );
                     }
-                    else if (beerCask.Contains(command.ToItem.Metadata.OpenTibiaId) )
+                    else if (beerCasks.Contains(command.ToItem.Metadata.OpenTibiaId) )
                     {
                         return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Beer) );
                     }
-                    else if (wineCask.Contains(command.ToItem.Metadata.OpenTibiaId) )
+                    else if (wineCasks.Contains(command.ToItem.Metadata.OpenTibiaId) )
                     {
                         return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Wine) );
                     }
-                    else if (lemonadeCask.Contains(command.ToItem.Metadata.OpenTibiaId) )
+                    else if (lemonadeCasks.Contains(command.ToItem.Metadata.OpenTibiaId) )
                     {
                         return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Lemonade) );
                     }
-                    else if (rumCask.Contains(command.ToItem.Metadata.OpenTibiaId) )
+                    else if (rumCasks.Contains(command.ToItem.Metadata.OpenTibiaId) )
                     {
                         return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Rum) );
                     }

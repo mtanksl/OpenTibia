@@ -8,23 +8,18 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class FireBugHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private static HashSet<ushort> fireBugs = new HashSet<ushort>() { 5468 };
+        private readonly HashSet<ushort> fireBugs;
+        private readonly Dictionary<ushort, ushort> goodSugarCanes;
+        private readonly Dictionary<ushort, ushort> decay;
+        private readonly Dictionary<ushort, ushort> emptyCoalBasins;
 
-        private static Dictionary<ushort, ushort> sugarCanes = new Dictionary<ushort, ushort>()
+        public FireBugHandler()
         {
-            { 5466, 5465 }
-        };
-
-        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
-        {
-            { 5465, 5471 },
-            { 5471, 5466 }
-        };
-
-        private static Dictionary<ushort, ushort> emptyCoalBasins = new Dictionary<ushort, ushort>()
-        {
-            { 1485, 1483 }
-        };
+            fireBugs = Context.Server.Values.GetUInt16HashSet("values.items.fireBugs");
+            goodSugarCanes = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.goodSugarCanes");
+            decay = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.decay.goodSugarCanes");
+            emptyCoalBasins = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.emptyCoalBasins");
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
@@ -32,7 +27,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (fireBugs.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                if (sugarCanes.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+                if (goodSugarCanes.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
                 {
                     if (Context.Server.Randomization.HasProbability(1.0 / 10) )
                     {

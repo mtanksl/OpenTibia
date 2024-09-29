@@ -7,15 +7,20 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class LumpOfHolyWaterDoughHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private static HashSet<ushort> lumpOfHolyWaterDough = new HashSet<ushort>() { 9112 };
+        private readonly HashSet<ushort> lumpOfHolyWaterDoughs;
+        private readonly HashSet<ushort> garlics;
+        private readonly ushort lumpOfGarlicDough;
 
-        private static HashSet<ushort> garlic = new HashSet<ushort>() { 9114 };
-
-        private static ushort lumpOfGarlicDough = 9113;
+        public LumpOfHolyWaterDoughHandler()
+        {
+            lumpOfHolyWaterDoughs = Context.Server.Values.GetUInt16HashSet("values.items.lumpOfHolyWaterDoughs");
+            garlics = Context.Server.Values.GetUInt16HashSet("values.items.garlics");
+            lumpOfGarlicDough = Context.Server.Values.GetUInt16("values.items.lumpOfGarlicDough");
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {
-            if (lumpOfHolyWaterDough.Contains(command.Item.Metadata.OpenTibiaId) && garlic.Contains(command.ToItem.Metadata.OpenTibiaId) )
+            if (lumpOfHolyWaterDoughs.Contains(command.Item.Metadata.OpenTibiaId) && garlics.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
                 return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                 {

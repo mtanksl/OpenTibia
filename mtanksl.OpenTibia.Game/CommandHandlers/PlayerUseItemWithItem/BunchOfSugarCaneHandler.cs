@@ -7,19 +7,16 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class BunchOfSugarCaneHandler : CommandHandler<PlayerUseItemWithItemCommand>
     {
-        private static HashSet<ushort> bunchOfSugarCanes = new HashSet<ushort>() { 5467 };
+        private readonly HashSet<ushort> bunchOfSugarCanes;
+        private readonly Dictionary<ushort, ushort> distillingMachines;
+        private readonly Dictionary<ushort, ushort> decay;
 
-        private static Dictionary<ushort, ushort> distillingMachines = new Dictionary<ushort, ushort>()
+        public BunchOfSugarCaneHandler()
         {
-            { 5469, 5513 },
-            { 5470, 5514 },
-        };
-
-        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
-        {
-            { 5513, 5469 },
-            { 5514, 5470 }
-        };
+            bunchOfSugarCanes = Context.Server.Values.GetUInt16HashSet("values.items.bunchOfSugarCanes");
+            distillingMachines = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.distillingMachines");
+            decay = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.decay.distillingMachines");
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
         {

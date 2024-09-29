@@ -9,7 +9,12 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class MagicForcefieldHandler : CommandHandler<CreatureMoveCommand>
     {
-        private static HashSet<ushort> magicForcefields = new HashSet<ushort>() { 1387 };
+        private readonly HashSet<ushort> magicForcefields;
+
+        public MagicForcefieldHandler()
+        {
+            magicForcefields = Context.Server.Values.GetUInt16HashSet("values.items.magicForcefields");
+        }
 
         public override Promise Handle(Func<Promise> next, CreatureMoveCommand command)
         {
