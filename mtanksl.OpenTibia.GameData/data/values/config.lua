@@ -846,6 +846,19 @@
 		twinSunCharms = { 11261 },
 		unityCharms = { 11259 },
 		chests = { 1740, 1747, 1748, 1749 },
-		watches = { 1728, 1729, 1730, 1731, 1873, 1874, 1875, 1876, 1877, 1881, 2036, 3900, 7828, 9235, 9236, 9237, 9238 }
+		watches = { 1728, 1729, 1730, 1731, 1873, 1874, 1875, 1876, 1877, 1881, 2036, 3900, 7828, 9235, 9236, 9237, 9238 },
+		greatHealthPotions = { 7591 },
+		greatManaPotions = { 7590 },
+		greatspiritPotions = { 8472 },
+		healthPotions = { 7618 },
+		manaPotions = { 7620 },
+		smallHealthPotions = { 8704 },
+		strongHealthPotions = { 7588 },
+		strongManaPotions = { 7589 },
+		ultimateHealthPotions = { 8473 },
+		greatEmptyPotionFlask = 7635,
+		strongEmptyPotionFlask = 7634,
+		smallEmptyPotionFlask = 7636,
+		voodooDolls = { 10018 }
 	}
 }

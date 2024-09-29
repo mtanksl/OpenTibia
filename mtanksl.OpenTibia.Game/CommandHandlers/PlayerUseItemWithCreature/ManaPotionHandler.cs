@@ -9,9 +9,14 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class ManaPotionHandler : CommandHandler<PlayerUseItemWithCreatureCommand>
     {
-        private static HashSet<ushort> manaPotions = new HashSet<ushort>() { 7620 };
+        private readonly HashSet<ushort> manaPotions;
+        private readonly ushort smallEmptyPotionFlask;
 
-        private static ushort emptyPotionFlask = 7636;
+        public ManaPotionHandler()
+        {
+            manaPotions = Context.Server.Values.GetUInt16HashSet("values.items.manaPotions");
+            smallEmptyPotionFlask = Context.Server.Values.GetUInt16("values.items.smallEmptyPotionFlask");
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithCreatureCommand command)
         {
@@ -27,7 +32,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     promise = Context.Current.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                     {
-                        return Context.AddCommand(new PlayerCreateItemCommand(command.Player, emptyPotionFlask, 1) );
+                        return Context.AddCommand(new PlayerCreateItemCommand(command.Player, smallEmptyPotionFlask, 1) );
                     } );
                 }
 

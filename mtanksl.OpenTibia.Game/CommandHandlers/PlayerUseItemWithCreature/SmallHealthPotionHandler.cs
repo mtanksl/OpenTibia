@@ -9,13 +9,18 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class SmallHealthPotionHandler : CommandHandler<PlayerUseItemWithCreatureCommand>
     {
-        private static HashSet<ushort> healthPotions = new HashSet<ushort>() { 8704 };
+        private readonly HashSet<ushort> smallHealthPotions;
+        private readonly ushort smallEmptyPotionFlask;
 
-        private static ushort emptyPotionFlask = 7636;
+        public SmallHealthPotionHandler()
+        {
+            smallHealthPotions = Context.Server.Values.GetUInt16HashSet("values.items.smallHealthPotions");
+            smallEmptyPotionFlask = Context.Server.Values.GetUInt16("values.items.smallEmptyPotionFlask");
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithCreatureCommand command)
         {
-            if (healthPotions.Contains(command.Item.Metadata.OpenTibiaId) && command.ToCreature is Player player)
+            if (smallHealthPotions.Contains(command.Item.Metadata.OpenTibiaId) && command.ToCreature is Player player)
             {
                 Promise promise;
 
@@ -27,7 +32,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     promise = Context.Current.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                     {
-                        return Context.AddCommand(new PlayerCreateItemCommand(command.Player, emptyPotionFlask, 1) );
+                        return Context.AddCommand(new PlayerCreateItemCommand(command.Player, smallEmptyPotionFlask, 1) );
                     } );
                 }
 

@@ -11,9 +11,17 @@ namespace OpenTibia.Game.Commands
 {
     public class NpcTradeUpdateStatsCommand : Command
     {
+        private readonly ushort goldCoin;
+        private readonly ushort platinumCoin;
+        private readonly ushort crystalCoin;
+
         public NpcTradeUpdateStatsCommand(NpcTrading trading)
         {
             Trading = trading;
+
+            goldCoin = Context.Server.Values.GetUInt16("values.items.goldCoin");
+            platinumCoin = Context.Server.Values.GetUInt16("values.items.platinumCoin");
+            crystalCoin = Context.Server.Values.GetUInt16("values.items.crystalCoin");
         }
 
         public NpcTrading Trading { get; set; }
@@ -42,7 +50,7 @@ namespace OpenTibia.Game.Commands
             return Promise.Completed;
         }
 
-        private static int SumMoney(IContainer parent)
+        private int SumMoney(IContainer parent)
         {
             int sum = 0;
 
@@ -53,15 +61,15 @@ namespace OpenTibia.Game.Commands
                     sum += SumMoney(container);
                 }
 
-                if (content.Metadata.OpenTibiaId == 2160) // Crystal coin
+                if (content.Metadata.OpenTibiaId == crystalCoin)
                 {
                     sum += ( (StackableItem)content).Count * 10000;
                 }
-                else if (content.Metadata.OpenTibiaId == 2152) // Platinum coin
+                else if (content.Metadata.OpenTibiaId == platinumCoin)
                 {
                     sum += ( (StackableItem)content).Count * 100;
                 }
-                else if (content.Metadata.OpenTibiaId == 2148) // Gold coin
+                else if (content.Metadata.OpenTibiaId == goldCoin)
                 {
                     sum += ( (StackableItem)content).Count * 1;
                 }
@@ -70,7 +78,7 @@ namespace OpenTibia.Game.Commands
             return sum;
         }
 
-        private static int CountItems(IContainer parent, ushort tibiaId, byte type)
+        private int CountItems(IContainer parent, ushort tibiaId, byte type)
         {
             int sum = 0;
 

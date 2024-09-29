@@ -9,13 +9,18 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class GreatManaPotionHandler : CommandHandler<PlayerUseItemWithCreatureCommand>
     {
-        private static HashSet<ushort> manaPotions = new HashSet<ushort>() { 7590 };
+        private readonly HashSet<ushort> greatManaPotions;
+        private readonly ushort greatEmptyPotionFlask;
 
-        private static ushort emptyPotionFlask = 7635;
+        public GreatManaPotionHandler()
+        {
+            greatManaPotions = Context.Server.Values.GetUInt16HashSet("values.items.greatManaPotions");
+            greatEmptyPotionFlask = Context.Server.Values.GetUInt16("values.items.greatEmptyPotionFlask");
+        }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithCreatureCommand command)
         {
-            if (manaPotions.Contains(command.Item.Metadata.OpenTibiaId) && command.ToCreature is Player player)
+            if (greatManaPotions.Contains(command.Item.Metadata.OpenTibiaId) && command.ToCreature is Player player)
             {
                 if (player.Level < 80 || !(player.Vocation == Vocation.Druid || player.Vocation == Vocation.Sorcerer || player.Vocation == Vocation.ElderDruid || player.Vocation == Vocation.MasterSorcerer) )
                 {
@@ -32,7 +37,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     promise = Context.Current.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                     {
-                        return Context.AddCommand(new PlayerCreateItemCommand(command.Player, emptyPotionFlask, 1) );
+                        return Context.AddCommand(new PlayerCreateItemCommand(command.Player, greatEmptyPotionFlask, 1) );
                     } );
                 }
 
