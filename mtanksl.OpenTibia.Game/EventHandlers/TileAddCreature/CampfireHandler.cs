@@ -9,7 +9,12 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class CampfireHandler : EventHandlers.EventHandler<TileAddCreatureEventArgs>
     {
-        private static HashSet<ushort> campfires = new HashSet<ushort>() { 1423, 1424, 1425 };
+        private readonly HashSet<ushort> campfires;
+
+        public CampfireHandler()
+        {
+            campfires = Context.Server.Values.GetUInt16HashSet("values.items.campfires");
+        }
 
         public override Promise Handle(TileAddCreatureEventArgs e)
         {

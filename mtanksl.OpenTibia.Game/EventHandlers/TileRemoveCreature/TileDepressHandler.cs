@@ -8,19 +8,18 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class TileDepressHandler : EventHandler<TileRemoveCreatureEventArgs>
     {
-        private static Dictionary<ushort, ushort> tiles = new Dictionary<ushort, ushort>()
+        private readonly Dictionary<ushort, ushort> tileDepress;
+
+        public TileDepressHandler()
         {
-            { 417, 416 },
-            { 425, 426 },
-            { 447, 446 },
-            { 3217, 3216 }
-        };
+            tileDepress = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.tileDepress");
+        }
 
         public override Promise Handle(TileRemoveCreatureEventArgs e)
         {
             ushort toOpenTibiaId;
             
-            if (e.FromTile.TopCreature == null && e.FromTile.Ground != null && tiles.TryGetValue(e.FromTile.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) )
+            if (e.FromTile.TopCreature == null && e.FromTile.Ground != null && tileDepress.TryGetValue(e.FromTile.Ground.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
                 return Context.AddCommand(new ItemTransformCommand(e.FromTile.Ground, toOpenTibiaId, 1) );
             }

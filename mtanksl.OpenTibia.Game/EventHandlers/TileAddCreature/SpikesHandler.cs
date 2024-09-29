@@ -9,17 +9,16 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class SpikesHandler : EventHandlers.EventHandler<TileAddCreatureEventArgs>
     {
-        private static ushort activeSpike = 1513;
+        private readonly ushort activeSpike;
+        private readonly Dictionary<ushort, ushort> spikes;
+        private readonly Dictionary<ushort, ushort> decay;
 
-        private static Dictionary<ushort, ushort> spikes = new Dictionary<ushort, ushort>()
+        public SpikesHandler()
         {
-            { 1512, 1513 }
-        };
-
-        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
-        {
-            { 1513, 1512 }
-        };
+            activeSpike = Context.Server.Values.GetUInt16("values.items.activeSpike");
+            spikes = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.spikes");
+            decay = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.decay.spikes");
+        }
 
         public override Promise Handle(TileAddCreatureEventArgs e)
         {

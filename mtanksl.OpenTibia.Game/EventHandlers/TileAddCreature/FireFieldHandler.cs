@@ -9,7 +9,12 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class FireFieldHandler : EventHandlers.EventHandler<TileAddCreatureEventArgs>
     {
-        private static HashSet<ushort> fireFields = new HashSet<ushort>() { 1487, 1488, 1492, 1493 };
+        private readonly HashSet<ushort> fireFields;
+
+        public FireFieldHandler()
+        {
+            fireFields = Context.Server.Values.GetUInt16HashSet("values.items.fireFields");
+        }
 
         public override Promise Handle(TileAddCreatureEventArgs e)
         {

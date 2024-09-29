@@ -8,7 +8,12 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class HelmetOfTheDeepEquipHandler : EventHandlers.EventHandler<InventoryAddItemEventArgs>
     {
-        private static HashSet<ushort> helmetOfTheDeeps = new HashSet<ushort>() { 5461 };
+        private readonly HashSet<ushort> helmetOfTheDeeps;
+
+        public HelmetOfTheDeepEquipHandler()
+        {
+            helmetOfTheDeeps = Context.Server.Values.GetUInt16HashSet("values.items.helmetOfTheDeeps");
+        }
 
         public override Promise Handle(InventoryAddItemEventArgs e)
         {

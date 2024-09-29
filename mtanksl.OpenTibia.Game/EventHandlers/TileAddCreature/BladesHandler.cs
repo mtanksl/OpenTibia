@@ -9,17 +9,16 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class BladesHandler : EventHandlers.EventHandler<TileAddCreatureEventArgs>
     {
-        private static ushort activeBlade = 1511;
+        private readonly ushort activeBlade;
+        private readonly Dictionary<ushort, ushort> blades;
+        private readonly Dictionary<ushort, ushort> decay;
 
-        private static Dictionary<ushort, ushort> blades = new Dictionary<ushort, ushort>()
+        public BladesHandler()
         {
-            { 1510, 1511 }
-        };
-
-        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>()
-        {
-            { 1511, 1510 }
-        };
+            activeBlade = Context.Server.Values.GetUInt16("values.items.activeBlade");
+            blades = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.blades");
+            decay = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.decay.blades");
+        }
 
         public override Promise Handle(TileAddCreatureEventArgs e)
         {

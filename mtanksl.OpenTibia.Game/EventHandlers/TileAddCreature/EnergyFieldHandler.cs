@@ -9,7 +9,12 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class EnergyFieldHandler : EventHandlers.EventHandler<TileAddCreatureEventArgs>
     {
-        private static HashSet<ushort> energyFields = new HashSet<ushort>() { 1491, 1495 };
+        private readonly HashSet<ushort> energyFields;
+
+        public EnergyFieldHandler()
+        {
+            energyFields = Context.Server.Values.GetUInt16HashSet("values.items.energyFields");
+        }
 
         public override Promise Handle(TileAddCreatureEventArgs e)
         {

@@ -10,9 +10,14 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class OceanFloorHandler : EventHandlers.EventHandler<TileAddCreatureEventArgs>
     {
-        private static HashSet<ushort> oceanFloors = new HashSet<ushort>() { 5405, 5406, 5407, 5408, 5409, 5410 };
+        private readonly HashSet<ushort> oceanFloors;
+        private readonly HashSet<ushort> helmetOfTheDeeps;
 
-        private static HashSet<ushort> helmetOfTheDeeps = new HashSet<ushort>() { 5461 };
+        public OceanFloorHandler()
+        {
+            oceanFloors = Context.Server.Values.GetUInt16HashSet("values.items.oceanFloors");
+            helmetOfTheDeeps = Context.Server.Values.GetUInt16HashSet("values.items.helmetOfTheDeeps");
+        }
 
         public override Promise Handle(TileAddCreatureEventArgs e)
         {

@@ -9,15 +9,14 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class JungleMawHandler : EventHandlers.EventHandler<TileAddCreatureEventArgs>
     {
-        private static Dictionary<ushort, ushort> jungleMaws = new Dictionary<ushort, ushort>()
-        {
-            { 4208, 4209 }
-        };
+        private readonly Dictionary<ushort, ushort> jungleMaws;
+        private readonly Dictionary<ushort, ushort> decay;
 
-        private static Dictionary<ushort, ushort> decay = new Dictionary<ushort, ushort>() 
+        public JungleMawHandler()
         {
-            { 4209, 4208 }
-        };
+            jungleMaws = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.jungleMaws");
+            decay = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.decay.jungleMaws");
+        }        
 
         public override Promise Handle(TileAddCreatureEventArgs e)
         {

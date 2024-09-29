@@ -9,7 +9,12 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class SearingFireHandler : EventHandler<TileAddCreatureEventArgs>
     {
-        private static HashSet<ushort> searingFires = new HashSet<ushort>() { 1506, 1507 };
+        private readonly HashSet<ushort> searingFires;
+
+        public SearingFireHandler()
+        {
+            searingFires = Context.Server.Values.GetUInt16HashSet("values.items.searingFires");
+        }
 
         public override Promise Handle(TileAddCreatureEventArgs e)
         {

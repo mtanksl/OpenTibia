@@ -9,10 +9,12 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class OpenTrapHandler : EventHandler<TileAddCreatureEventArgs>
     {
-        private static Dictionary<ushort, ushort> traps = new Dictionary<ushort, ushort>()
+        private readonly Dictionary<ushort, ushort> traps;
+
+        public OpenTrapHandler()
         {
-            { 2579, 2578 }
-        };
+            traps = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.decay.traps");
+        }
 
         public override Promise Handle(TileAddCreatureEventArgs e)
         {

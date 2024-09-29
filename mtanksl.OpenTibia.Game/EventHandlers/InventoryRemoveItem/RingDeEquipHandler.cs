@@ -8,25 +8,18 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class RingDeEquipHandler : EventHandlers.EventHandler<InventoryRemoveItemEventArgs>
     {
-        private static Dictionary<ushort, ushort> dequip = new Dictionary<ushort, ushort>()
+        private readonly Dictionary<ushort, ushort> ringDequip;
+
+        public RingDeEquipHandler()
         {
-            { 2202, 2165 }, // Stealth ring
-            { 2203, 2166 }, // Power ring
-            { 2204, 2167 }, // Energy ring
-            { 2205, 2168 }, // Life ring
-            { 2206, 2169 }, // Time ring
-            { 2210, 2207 }, // Sword ring
-            { 2211, 2208 }, // Axe ring
-            { 2212, 2209 }, // Club ring
-            { 2213, 2210 }, // Dwarven ring
-            { 2214, 2211 } // Ring of healing
-        };
+            ringDequip = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.ringDequip");
+        }
 
         public override Promise Handle(InventoryRemoveItemEventArgs e)
         {
             ushort toOpenTibiaId;
 
-            if (dequip.TryGetValue(e.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
+            if (ringDequip.TryGetValue(e.Item.Metadata.OpenTibiaId, out toOpenTibiaId) )
             {
                 if ( (Slot)e.Slot == Slot.Ring)
                 {
