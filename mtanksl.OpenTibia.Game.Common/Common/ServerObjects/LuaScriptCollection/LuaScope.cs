@@ -318,7 +318,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             return defaultValue;
         }
 
-        public static ushort GetInt16(object value, ushort defaultValue = default(ushort) )
+        public static ushort GetUInt16(object value, ushort defaultValue = default(ushort) )
         {
             if (value != null)
             {
@@ -333,6 +333,16 @@ namespace OpenTibia.Game.Common.ServerObjects
             if (value != null)
             {
                 return (int)(long)value;
+            }
+
+            return defaultValue;
+        }
+
+        public static long GetInt64(object value, long defaultValue = default(long) )
+        {
+            if (value != null)
+            {
+                return (long)value;
             }
 
             return defaultValue;
@@ -358,7 +368,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             return null;
         }
 
-        public static ushort[] GetInt16Array(object value)
+        public static ushort[] GetUInt16Array(object value)
         {
             if (value != null)
             {
@@ -378,6 +388,16 @@ namespace OpenTibia.Game.Common.ServerObjects
             return null;
         }
 
+        public static long[] GetInt64Array(object value)
+        {
+            if (value != null)
+            {
+                return ( (LuaTable)value).Values.Cast<long>().ToArray();
+            }
+
+            return null;
+        }
+
         public static string[] GetStringArray(object value)
         {
             if (value != null)
@@ -388,7 +408,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             return null;
         }
 
-        public static HashSet<ushort> GetInt16HashSet(object value)
+        public static HashSet<ushort> GetUInt16HashSet(object value)
         {
             if (value != null)
             {
@@ -407,7 +427,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             return null;
         }
 
-        public static Dictionary<ushort, ushort> GetInt16Int16Dictionary(object value)
+        public static Dictionary<ushort, ushort> GetUInt16IUnt16Dictionary(object value)
         {
             if (value != null)
             {

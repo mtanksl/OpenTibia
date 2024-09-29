@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -13,7 +12,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public DustbinHandler()
         {
-            dustbins = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.dustbins") );
+            dustbins = Context.Server.Values.GetUInt16HashSet("values.items.dustbins");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)

@@ -1,6 +1,5 @@
 ﻿using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -13,8 +12,8 @@ namespace OpenTibia.Game.CommandHandlers
 
         public SnowHeapHandler()
         {
-            snowHeaps = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.snowHeaps") );
-            snowBall = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.snowBall") );
+            snowHeaps = Context.Server.Values.GetUInt16HashSet("values.items.snowHeaps");
+            snowBall = Context.Server.Values.GetUInt16("values.items.snowBall");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)

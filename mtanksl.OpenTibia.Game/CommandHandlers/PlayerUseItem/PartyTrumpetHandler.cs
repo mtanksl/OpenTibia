@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -14,8 +13,8 @@ namespace OpenTibia.Game.CommandHandlers
 
         public PartyTrumpetHandler()
         {
-            partyTrumpets = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.partyTrumpets") );
-            decay = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.decay.partyTrumpets") );
+            partyTrumpets = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.partyTrumpets");
+            decay = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.decay.partyTrumpets");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)

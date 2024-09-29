@@ -2,7 +2,6 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Game.EventHandlers;
 using OpenTibia.Game.Events;
 using System.Collections.Generic;
@@ -19,24 +18,24 @@ namespace OpenTibia.Game.CommandHandlers
         {
             closeHorizontalDoors = new Dictionary<ushort, ushort>();
 
-            foreach (var item in LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.closeHorizontalGateOfExpertiseDoors") ) )
+            foreach (var item in Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.closeHorizontalGateOfExpertiseDoors") )
             {
                 closeHorizontalDoors.Add(item.Key, item.Value);
             }
 
-            foreach (var item in LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.closeHorizontalSealedDoors") ) )
+            foreach (var item in Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.closeHorizontalSealedDoors") )
             {
                 closeHorizontalDoors.Add(item.Key, item.Value);
             }
 
             closeVerticalDoors = new Dictionary<ushort, ushort>();
 
-            foreach (var item in LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.closeVerticalGateOfExpertiseDoors") ) )
+            foreach (var item in Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.closeVerticalGateOfExpertiseDoors") )
             {
                 closeVerticalDoors.Add(item.Key, item.Value);
             }
 
-            foreach (var item in LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.closeVerticalSealedDoors") ) )
+            foreach (var item in Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.closeVerticalSealedDoors") )
             {
                 closeVerticalDoors.Add(item.Key, item.Value);
             }

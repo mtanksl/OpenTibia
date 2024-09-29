@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -14,8 +13,8 @@ namespace OpenTibia.Game.CommandHandlers
 
         public CandlestickMoveHandler()
         {
-            candlesticks = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.candlesticks") );
-            transformations = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.candlesticks") );
+            candlesticks = Context.Server.Values.GetUInt16HashSet("values.items.candlesticks");
+            transformations = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.candlesticks");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)

@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -14,8 +13,8 @@ namespace OpenTibia.Game.CommandHandlers
 
         public PartyCakeHandler()
         {
-            partyCakes = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.partyCakes") );
-            decoratedCake = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.decoratedCake") );
+            partyCakes = Context.Server.Values.GetUInt16HashSet("values.items.partyCakes");
+            decoratedCake = Context.Server.Values.GetUInt16("values.items.decoratedCake");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)

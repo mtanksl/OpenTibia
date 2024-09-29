@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +16,10 @@ namespace OpenTibia.Game.CommandHandlers
 
         public ParcelHandler()
         {
-            parcel = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.parcel") );
-            label = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.label") );
-            mailboxes = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.mailboxes") );
-            stampedParcel = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.stampedParcel") );
+            parcel = Context.Server.Values.GetUInt16("values.items.parcel");
+            label = Context.Server.Values.GetUInt16("values.items.label");
+            mailboxes = Context.Server.Values.GetUInt16HashSet("values.items.mailboxes");
+            stampedParcel = Context.Server.Values.GetUInt16("values.items.stampedParcel");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)

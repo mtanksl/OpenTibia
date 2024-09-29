@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -14,8 +13,8 @@ namespace OpenTibia.Game.CommandHandlers
 
         public DiceHandler()
         {
-            dices = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.dices") );
-            dice = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.dice") );
+            dices = Context.Server.Values.GetUInt16HashSet("values.items.dices");
+            dice = Context.Server.Values.GetUInt16("values.items.dice");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)

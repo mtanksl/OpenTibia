@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -13,7 +12,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public BlueSurpriseBagHandler()
         {
-            blueSurpriseBags = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.blueSurpriseBags") );
+            blueSurpriseBags = Context.Server.Values.GetUInt16HashSet("values.items.blueSurpriseBags");
         }
 
         private static List< (ushort OpenTibiaId, byte Count) > prizes = new List< (ushort OpenTibiaId, byte Count) >()

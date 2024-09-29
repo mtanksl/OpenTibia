@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -15,9 +14,9 @@ namespace OpenTibia.Game.CommandHandlers
 
         public BlueberryBushHandler()
         {
-            blueberryBushes = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.blueberryBushes") );
-            decay = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.decay.blueberryBushes") );
-            blueberry = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.blueberry") );
+            blueberryBushes = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.blueberryBushes");
+            decay = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.decay.blueberryBushes");
+            blueberry = Context.Server.Values.GetUInt16("values.items.blueberry");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)

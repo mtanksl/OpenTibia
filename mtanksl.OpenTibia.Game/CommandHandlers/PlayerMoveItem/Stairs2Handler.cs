@@ -2,7 +2,6 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -14,7 +13,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public Stairs2Handler()
         {
-            stairs = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.stairs") );
+            stairs = Context.Server.Values.GetUInt16HashSet("values.items.stairs");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerMoveItemCommand command)

@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -13,7 +12,7 @@ namespace OpenTibia.Game.CommandHandlers
         
         public SolitudeCharmHandler()
         {
-            solitudeCharms = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.solitudeCharms") );
+            solitudeCharms = Context.Server.Values.GetUInt16HashSet("values.items.solitudeCharms");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)

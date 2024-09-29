@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -13,7 +12,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public SuspiciousSurpriseBagHandler()
         {
-            suspiciousSurpriseBags = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.suspiciousSurpriseBags") );
+            suspiciousSurpriseBags = Context.Server.Values.GetUInt16HashSet("values.items.suspiciousSurpriseBags");
         }
 
         private static List< (ushort OpenTibiaId, byte Count) > prizes = new List< (ushort OpenTibiaId, byte Count) >()

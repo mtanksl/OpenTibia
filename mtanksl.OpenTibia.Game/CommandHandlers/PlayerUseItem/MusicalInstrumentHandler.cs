@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -14,8 +13,8 @@ namespace OpenTibia.Game.CommandHandlers
 
         public MusicalInstrumentHandler()
         {
-            greenMusicalInstruments = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.greenMusicalInstruments") );
-            purpleMusicalInstruments = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.purpleMusicalInstruments") );
+            greenMusicalInstruments = Context.Server.Values.GetUInt16HashSet("values.items.greenMusicalInstruments");
+            purpleMusicalInstruments = Context.Server.Values.GetUInt16HashSet("values.items.purpleMusicalInstruments");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)

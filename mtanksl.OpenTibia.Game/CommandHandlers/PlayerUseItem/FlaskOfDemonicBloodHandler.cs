@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -15,9 +14,9 @@ namespace OpenTibia.Game.CommandHandlers
 
         public FlaskOfDemonicBloodHandler()
         {
-            flaskOfDemonicBloods = LuaScope.GetInt16HashSet(Context.Server.Values.GetValue("values.items.flaskOfDemonicBloods") );
-            strongHealthPotion = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.strongHealthPotion") );
-            strongManaPotion = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.strongManaPotion") );
+            flaskOfDemonicBloods = Context.Server.Values.GetUInt16HashSet("values.items.flaskOfDemonicBloods");
+            strongHealthPotion = Context.Server.Values.GetUInt16("values.items.strongHealthPotion");
+            strongManaPotion = Context.Server.Values.GetUInt16("values.items.strongManaPotion");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)

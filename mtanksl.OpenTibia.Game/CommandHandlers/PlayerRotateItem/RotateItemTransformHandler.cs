@@ -1,6 +1,5 @@
 ﻿using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -12,7 +11,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public RotateItemTransformHandler()
         {
-            transformations = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.rotate") );
+            transformations = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.rotate");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerRotateItemCommand command)

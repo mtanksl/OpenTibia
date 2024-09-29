@@ -2,7 +2,6 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
@@ -17,8 +16,8 @@ namespace OpenTibia.Game.CommandHandlers
 
         public CloseDoorHandler()
         {
-            closeHorizontalDoors = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.closeHorizontalDoors") );
-            closeVerticalDoors = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.closeVerticalDoors") );
+            closeHorizontalDoors = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.closeHorizontalDoors");
+            closeVerticalDoors = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.closeVerticalDoors");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)

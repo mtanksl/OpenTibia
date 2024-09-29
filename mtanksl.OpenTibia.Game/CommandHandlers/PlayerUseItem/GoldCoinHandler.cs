@@ -2,7 +2,6 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -14,7 +13,7 @@ namespace OpenTibia.Game.CommandHandlers
 
         public GoldCoinHandler()
         {
-            goldCoinToPlatinumCoin = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.goldCoinToPlatinumCoin") );
+            goldCoinToPlatinumCoin = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.goldCoinToPlatinumCoin");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)

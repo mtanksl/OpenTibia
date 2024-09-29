@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Collections.Generic;
 
@@ -15,9 +14,9 @@ namespace OpenTibia.Game.CommandHandlers
 
         public PiggyBankHandler()
         {
-            piggyBanks = LuaScope.GetInt16Int16Dictionary(Context.Server.Values.GetValue("values.items.transformation.piggyBanks") );
-            platinumCoin = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.platinumCoin") );
-            goldCoin = LuaScope.GetInt16(Context.Server.Values.GetValue("values.items.goldCoin") );
+            piggyBanks = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.piggyBanks");
+            platinumCoin = Context.Server.Values.GetUInt16("values.items.platinumCoin");
+            goldCoin = Context.Server.Values.GetUInt16("values.items.goldCoin");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemCommand command)
