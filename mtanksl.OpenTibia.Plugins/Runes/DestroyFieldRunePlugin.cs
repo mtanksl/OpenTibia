@@ -9,11 +9,11 @@ namespace OpenTibia.Plugins.Runes
 {
     public class DestroyFieldRunePlugin : RunePlugin
     {
-        private static HashSet<ushort> fields = new HashSet<ushort>() { 1492, 1493, 1494, 1495, 1496 };
+        private readonly HashSet<ushort> fields;
 
         public DestroyFieldRunePlugin(Rune rune) : base(rune)
         {
-
+            fields = Context.Server.Values.GetUInt16HashSet("values.items.fields");
         }
 
         public override PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile tile, Item item)

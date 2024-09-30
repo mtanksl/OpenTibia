@@ -9,11 +9,11 @@ namespace OpenTibia.Plugins.Spells
 {
     public class MagicRopeSpellPlugin : SpellPlugin
     {
-        private static HashSet<ushort> ropeSpots = new HashSet<ushort> { 384, 418, 8278 };
+        private readonly HashSet<ushort> ropeSpots;
 
         public MagicRopeSpellPlugin(Spell spell) : base(spell)
         {
-
+            ropeSpots = Context.Server.Values.GetUInt16HashSet("values.items.ropeSpots");
         }
 
         public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)

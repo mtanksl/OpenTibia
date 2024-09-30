@@ -1076,6 +1076,7 @@
 		oceanFloors = { 5405, 5406, 5407, 5408, 5409, 5410 },
 		helmetOfTheDeeps = { 5461 },
 		activeBlade = 1511,
-		activeSpike = 1513
+		activeSpike = 1513,
+		fields = { 1492, 1493, 1494, 1495, 1496 }
 	}
 }
