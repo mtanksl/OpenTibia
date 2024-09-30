@@ -1,4 +1,3 @@
-DNS = ""
 IP_ADDRESS = "127.0.0.1"
 LOGIN_PORT = 7171
 GAME_PORT = 7172
@@ -10,7 +9,7 @@ server = {
 		port = INFO_PORT,
 		public = {
 			servername = "MTOTS",
-			ipaddress = DNS,
+			ipaddress = IP_ADDRESS,
 			port = LOGIN_PORT,
 			location = "",
 			url = "",
