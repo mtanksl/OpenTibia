@@ -16,9 +16,9 @@
 	- Splash
 	- Persist loss
 	- Remove experience and skills on player death
+	- Drunk and Slowed conditions
 	- ...
 - Bed
-- Channel mute
 - Guild
 - Hangable items
 - Map clean up
@@ -131,11 +131,12 @@
 		- Login attempts abuse
 		- Kick slow sockets
 		- Invalid message abuse
-		- Unknown packet abuse
+		- Unknown packet abuse	
 	- Stop accepting new connections once limit is reached
 	- Kick after 1 minute without pong response
 	- Kick after 15 minutes idle
 	- Maintenance info
+	- Anti-spam: channel mute
 - Server statistics
 	- Active connections
 	- #Received messages and bytes

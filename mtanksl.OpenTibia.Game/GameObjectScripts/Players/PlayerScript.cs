@@ -9,6 +9,8 @@ namespace OpenTibia.Game.GameObjectScripts
         {
             Context.Server.GameObjectComponents.AddComponent(player, new PlayerThinkBehaviour(InventoryWeaponAttackStrategy.Instance) );
 
+            Context.Server.GameObjectComponents.AddComponent(player, new PlayerMuteBehaviour() );
+
             Context.Server.GameObjectComponents.AddComponent(player, new PlayerCooldownBehaviour() );
 
             Context.Server.GameObjectComponents.AddComponent(player, new PlayerEnvironmentLightBehaviour() );

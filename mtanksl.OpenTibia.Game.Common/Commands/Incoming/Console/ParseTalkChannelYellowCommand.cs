@@ -2,7 +2,9 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
+using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -25,6 +27,27 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            PlayerIdleBehaviour playerIdleBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerIdleBehaviour>(Player);
+
+            if (playerIdleBehaviour != null)
+            {
+                playerIdleBehaviour.SetLastAction();
+            }
+
+            PlayerMuteBehaviour playerChannelMuteBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerMuteBehaviour>(Player);
+
+            if (playerChannelMuteBehaviour != null)
+            {
+                string message;
+
+                if (playerChannelMuteBehaviour.IsMuted(out message) )
+                {
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, message) );
+
+                    return Promise.Break;
+                }      
+            }
+
             Channel channel = Context.Server.Channels.GetChannel(ChannelId);
 
             if (channel != null)
@@ -61,23 +84,28 @@ namespace OpenTibia.Game.Commands
                     }
                     else
                     {
-                        if (channel.Id == 9 && (Player.Rank == Rank.Tutor || Player.Rank == Rank.Gamemaster) )
+                        if (channel.Id == 6 || channel.Id == 7)
                         {
-                            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.ChannelOrange, channel.Id, Message);
+                            PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerCooldownBehaviour>(Player);
 
-                            foreach (var observer in channel.GetMembers() )
+                            if (playerCooldownBehaviour != null)
                             {
-                                Context.AddPacket(observer, showTextOutgoingPacket);
+                                if (playerCooldownBehaviour.HasCooldown("Trade") )
+                                {
+                                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, "You may only place one offer in two minutes.") );
+
+                                    return Promise.Break;
+                                }
+
+                                playerCooldownBehaviour.AddCooldown("Trade", TimeSpan.FromMinutes(2) );
                             }
                         }
-                        else
-                        {
-                            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.ChannelYellow, channel.Id, Message);
 
-                            foreach (var observer in channel.GetMembers() )
-                            {
-                                Context.AddPacket(observer, showTextOutgoingPacket);
-                            }
+                        ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, (channel.Id == 9 && (Player.Rank == Rank.Tutor || Player.Rank == Rank.Gamemaster) ) ? TalkType.ChannelOrange : TalkType.ChannelYellow, channel.Id, Message);
+
+                        foreach (var observer in channel.GetMembers() )
+                        {
+                            Context.AddPacket(observer, showTextOutgoingPacket);
                         }
                     }
 

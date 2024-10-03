@@ -34,6 +34,10 @@ namespace OpenTibia.Game.Commands
 
         Bleeding = 4096,
 
+
+
+
+
         Outfit = 32768,
 
         Invisible = 65536,
@@ -42,9 +46,7 @@ namespace OpenTibia.Game.Commands
 
         Regeneration = 262144,
 
-        Soul = 524288,
-
-        Muted = 1048576
+        Soul = 524288
     }
 
     public static class SpecialConditionExtensions

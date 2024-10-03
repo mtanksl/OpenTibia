@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.Commands
 {
@@ -19,6 +20,13 @@ namespace OpenTibia.Game.Commands
         public override Promise Execute()
         {
             // #y <message>
+
+            PlayerIdleBehaviour playerIdleBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerIdleBehaviour>(Player);
+
+            if (playerIdleBehaviour != null)
+            {
+                playerIdleBehaviour.SetLastAction();
+            }
 
             return Context.AddCommand(new PlayerYellCommand(Player, Message) );
         }
