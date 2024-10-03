@@ -17,8 +17,6 @@ namespace OpenTibia.FileFormats.Otbm
 
             if ( stream.Child() )
             {
-                tempTiles.Clear();
-
                 while (true)
                 {
                     Tile tile = null;
@@ -47,6 +45,8 @@ namespace OpenTibia.FileFormats.Otbm
                 }
 
                 area.tiles = tempTiles.ToList();
+
+                tempTiles.Clear();
             }
 
             return area;

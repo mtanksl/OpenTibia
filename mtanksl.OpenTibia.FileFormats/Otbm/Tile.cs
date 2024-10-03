@@ -38,8 +38,6 @@ namespace OpenTibia.FileFormats.Otbm
                         
                         if ( stream.Child() )
                         {
-                            tempItems.Clear();
-
                             while (true)
                             {
                                 tempItems.Add( Item.Load(stream, reader) );
@@ -51,6 +49,8 @@ namespace OpenTibia.FileFormats.Otbm
                             }
 
                             tile.items = tempItems.ToList();
+
+                            tempItems.Clear();
                         }
 
                         return tile;

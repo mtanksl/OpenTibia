@@ -129,8 +129,6 @@ namespace OpenTibia.FileFormats.Otbm
 
                         if ( stream.Child() )
                         {
-                            tempItems.Clear();
-
                             while (true)
                             {
                                 tempItems.Add( Item.Load(stream, reader) );
@@ -142,7 +140,10 @@ namespace OpenTibia.FileFormats.Otbm
                             }
 
                             item.items = tempItems.ToList();
+
+                            tempItems.Clear();
                         }
+
                         return item;
                 }
             }

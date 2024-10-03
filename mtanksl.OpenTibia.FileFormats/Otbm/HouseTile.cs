@@ -39,9 +39,7 @@ namespace OpenTibia.FileFormats.Otbm
                         stream.Seek(Origin.Current, -1);
 
                         if ( stream.Child() )
-                        {
-                            tempItems.Clear();
-                                                        
+                        {                                                        
                             while (true)
                             {
                                 tempItems.Add( Item.Load(stream, reader) );
@@ -53,6 +51,8 @@ namespace OpenTibia.FileFormats.Otbm
                             }
 
                             houseTile.items = tempItems.ToList();
+
+                            tempItems.Clear();
                         }
 
                         return houseTile;
