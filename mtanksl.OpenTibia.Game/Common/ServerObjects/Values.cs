@@ -114,6 +114,11 @@ namespace OpenTibia.Game.Common.ServerObjects
             return GetValue(key, value => LuaScope.GetStringArray(value) );
         }
 
+        public List<ushort> GetUInt16List(string key)
+        {
+            return GetValue(key, value => LuaScope.GetUInt16List(value) );
+        }
+
         public HashSet<ushort> GetUInt16HashSet(string key)
         {
             return GetValue(key, value => LuaScope.GetUInt16HashSet(value) );

@@ -407,6 +407,25 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             return null;
         }
+     
+        public static List<ushort> GetUInt16List(object value)
+        {
+            if (value != null)
+            {
+                var list = new List<ushort>();
+
+                var table = (LuaTable)value;
+
+                foreach (var v in table.Values)
+                {
+                    list.Add( (ushort)(long)v);
+                }
+
+                return list;
+            }
+
+            return null;
+        }
 
         public static HashSet<ushort> GetUInt16HashSet(object value)
         {

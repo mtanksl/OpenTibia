@@ -409,7 +409,6 @@
     <Content Include="$(MSBuildThisFileDirectory)data\world\map-spawn.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)data\dlls\mtanksl.OpenTibia.Plugins\" />
     <Folder Include="$(MSBuildThisFileDirectory)data\plugins\scripts\" />
   </ItemGroup>
 </Project>

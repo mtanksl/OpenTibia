@@ -9,11 +9,11 @@ namespace OpenTibia.Plugins.Spells
 {
     public class FoodSpellPlugin : SpellPlugin
     {
-        private static List<ushort> foods = new List<ushort>() { 2681 /* Grape */, 2689 /* Bread */, 2690 /* Roll */, 8368 /* Cheese*/, 2674 /* Red apple*/, 2666 /* Meat */, 2671 /* Ham */ };
+        private readonly List<ushort> foods;
 
         public FoodSpellPlugin(Spell spell) : base(spell)
         {
-
+            foods = Context.Server.Values.GetUInt16List("values.items.foods");
         }
 
         public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)

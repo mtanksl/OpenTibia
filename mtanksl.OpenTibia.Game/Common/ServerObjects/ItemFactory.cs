@@ -13,11 +13,38 @@ namespace OpenTibia.Game.Common.ServerObjects
 {
     public class ItemFactory : IItemFactory
     {
+        private readonly HashSet<ushort> lockers;
+        private readonly HashSet<ushort> doors;
+                
         private IServer server;
 
         public ItemFactory(IServer server)
         {
             this.server = server;
+
+            lockers = server.Values.GetUInt16HashSet("values.items.lockers");
+
+            doors = new HashSet<ushort>();
+
+            foreach (var item in server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.openDoors") )
+            {
+                doors.Add(item.Key);
+            }
+
+            foreach (var item in server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.closeHorizontalDoors") )
+            {
+                doors.Add(item.Key);
+            }
+
+            foreach (var item in server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.closeVerticalDoors") )
+            {
+                doors.Add(item.Key);
+            }
+
+            foreach (var item in server.Values.GetUInt16HashSet("values.items.lockedDoors") )
+            {
+                doors.Add(item);
+            }
         }
 
         public void Start(OtbFile otbFile, DatFile datFile, ItemsFile itemsFile)
@@ -279,115 +306,6 @@ namespace OpenTibia.Game.Common.ServerObjects
             return null;
         }
 
-        private static HashSet<ushort> lockers = new HashSet<ushort>() { 2589, 2590, 2591, 2592 };
-
-        private static HashSet<ushort> lockedDoors = new HashSet<ushort>() { 1209, 1212, 1231, 1234, 1249, 1252, 3535, 3544, 4913, 4916, 5098, 5107, 5116, 5125, 5134, 5137, 5140, 5143, 5278, 5281, 5732, 5735, 6192, 6195, 6249, 6252, 6799, 6801, 6891, 6900, 7033, 7042, 8541, 8544, 9165, 9168, 9267, 9270 };
-
-        private static HashSet<ushort> closeAndOpenDoors = new HashSet<ushort>()
-        {
-            // Brick
-            5099,
-            5101,
-            5108,
-            5110,
-
-            5100,
-            5102,
-
-            5109,
-            5111, 
-            
-            // Framework
-            1210,
-            1213,
-            1219,
-            1221,
-            5138,
-            5141,
-
-            1214,
-            1222,
-            5139,
-                      
-            1211,
-            1220,
-            5142,
-                  
-            // Pyramid
-            1232,
-            1235,
-            1237,
-            1239,
-
-            1236,
-            1240,
-
-            1233,
-            1238,
-                  
-            // White stone
-            1250,
-            1253,
-            5515,
-            5517,
-
-            1254,
-            5518,
-                               
-            1251,
-            5516,
-
-            // Stone
-            5117,
-            5119,
-            5126,
-            5128,
-            5135,
-            5144,
-
-            5118,
-            5120,
-            5136,
-
-            5127,
-            5129,
-            5145,
-
-            // Stone
-            6250,
-            6253,
-            6255,
-            6257,
-
-            6254,
-            6258,
-                           
-            6251,
-            6256,
-
-            // Fence
-            1539,
-            1541,
-
-            1542,
-
-            1540,
-
-            //Table
-            1634,
-            1636,
-            1638,
-            1640,
-
-            1637,
-            1641,
-
-            1635,
-            1639,
-
-            //TODO: More items
-        };
-
         public Item Create(ushort openTibiaId, byte count)
         {
             ItemMetadata metadata = GetItemMetadataByOpenTibiaId(openTibiaId);
@@ -407,7 +325,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 item = new Locker(metadata);
             }
-            else if (lockedDoors.Contains(openTibiaId) || closeAndOpenDoors.Contains(openTibiaId) )
+            else if (doors.Contains(openTibiaId) )
             {
                 item = new DoorItem(metadata);
             }

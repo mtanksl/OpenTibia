@@ -118,8 +118,6 @@ namespace OpenTibia.Game.Common
 
             Plugins = new PluginCollection(this);
 
-            ItemFactory = new ItemFactory(this);
-
             PlayerFactory = new PlayerFactory(this);
 
             MonsterFactory = new MonsterFactory(this);
@@ -299,6 +297,8 @@ namespace OpenTibia.Game.Common
                 {
                     GameObjectScripts.Start();
                 }
+
+                ItemFactory = new ItemFactory(this);
 
                 using (Logger.Measure("Loading items") )
                 {

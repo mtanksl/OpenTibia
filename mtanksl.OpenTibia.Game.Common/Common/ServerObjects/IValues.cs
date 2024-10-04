@@ -30,6 +30,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         string[] GetStringArray(string key);
 
+        List<ushort> GetUInt16List(string key);
+
         HashSet<ushort> GetUInt16HashSet(string key);
 
         Dictionary<ushort, ushort> GetUInt16IUnt16Dictionary(string key);
