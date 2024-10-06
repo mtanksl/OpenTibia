@@ -18,6 +18,8 @@ namespace OpenTibia.Game.Common
 
         IDatabaseFactory DatabaseFactory { get; set; }
 
+        IDatabase Database { get; }
+
         IServerStatistics Statistics { get; set; }
 
         ILogger Logger { get; set; }

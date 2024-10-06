@@ -52,16 +52,6 @@ namespace OpenTibia.Game.Common
             }
         }
 
-        private IDatabase database;
-
-        public IDatabase Database
-        {
-            get
-            {
-                return database ?? (database = server.DatabaseFactory.Create() );
-            }
-        }
-
         private Dictionary<string, object> data;
 
         public Dictionary<string, object> Data
@@ -323,10 +313,7 @@ namespace OpenTibia.Game.Common
 
                 if (disposing)
                 {
-                    if (database != null)
-                    {
-                        database.Dispose();
-                    }
+
                 }
             }
         }        

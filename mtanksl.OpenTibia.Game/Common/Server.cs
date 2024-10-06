@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common;
 using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Data.InMemory.Contexts;
 using OpenTibia.Data.Models;
 using OpenTibia.Data.MsSql.Contexts;
 using OpenTibia.Data.MySql.Contexts;
@@ -118,6 +119,12 @@ namespace OpenTibia.Game.Common
 
             Plugins = new PluginCollection(this);
 
+            Scripts = new ScriptCollection(this);
+
+            GameObjectScripts = new GameObjectScriptCollection(this);
+
+            ItemFactory = new ItemFactory(this);
+
             PlayerFactory = new PlayerFactory(this);
 
             MonsterFactory = new MonsterFactory(this);
@@ -129,10 +136,6 @@ namespace OpenTibia.Game.Common
             Spawns = new SpawnCollection(this);
 
             Pathfinding = new Pathfinding(Map);
-
-            Scripts = new ScriptCollection(this);
-
-            GameObjectScripts = new GameObjectScriptCollection(this);
         }
 
         ~Server()
@@ -179,6 +182,8 @@ namespace OpenTibia.Game.Common
         public IClientFactory ClientFactory { get; set; }
 
         public IDatabaseFactory DatabaseFactory { get; set; }
+
+        public IDatabase Database { get; private set; }
 
         public IServerStatistics Statistics { get; set; }
 
@@ -298,8 +303,6 @@ namespace OpenTibia.Game.Common
                     GameObjectScripts.Start();
                 }
 
-                ItemFactory = new ItemFactory(this);
-
                 using (Logger.Measure("Loading items") )
                 {
                     ItemFactory.Start(OtbFile.Load(PathResolver.GetFullPath("data/items/items.otb") ), 
@@ -354,7 +357,9 @@ namespace OpenTibia.Game.Common
 
                 using (Logger.Measure("Testing database") )
                 {
-                    if ( !Context.Current.Database.CanConnect() )
+                    Database = DatabaseFactory.Create();
+
+                    if ( !Database.CanConnect() )
                     {
                         Logger.WriteLine("Unable to connect to database.", LogLevel.Error);
                     }
@@ -362,7 +367,7 @@ namespace OpenTibia.Game.Common
                     {
                         if (Config.DatabaseType == "memory")
                         {
-                            Context.Current.Database.CreateDatabase(Config.GamePort);
+                            Database.CreateDatabase(Config.GamePort);
                         }                        
                     }
                 }
@@ -371,19 +376,19 @@ namespace OpenTibia.Game.Common
                 {
                     using (Logger.Measure("Updating message of the day") )
                     {
-                        DbMotd motd = Context.Current.Database.MotdRepository.GetLastMessageOfTheDay();
+                        DbMotd motd = Database.MotdRepository.GetLastMessageOfTheDay();
 
                         if (motd == null || motd.Message != Config.Motd)
                         {
-                            Context.Current.Database.MotdRepository.AddMessageOfTheDay(new DbMotd() { Message = Config.Motd } );
+                            Database.MotdRepository.AddMessageOfTheDay(new DbMotd() { Message = Config.Motd } );
 
-                            Context.Current.Database.Commit();
+                            Database.Commit();
                         }
                     }
 
                     using (Logger.Measure("Updating worlds") )
                     {
-                        foreach (var dbWorld in Context.Current.Database.WorldRepository.GetWorlds() )
+                        foreach (var dbWorld in Database.WorldRepository.GetWorlds() )
                         {
                             var world = Config.Worlds.Where(w => w.Name == dbWorld.Name).FirstOrDefault();
 
@@ -395,13 +400,13 @@ namespace OpenTibia.Game.Common
                             }
                         }
 
-                        Context.Current.Database.Commit();
+                        Database.Commit();
                     }
                 }
 
                 using (Logger.Measure("Loading houses") )
                 {
-                    foreach (var dbHouse in Context.Current.Database.HouseRepository.GetHouses() )
+                    foreach (var dbHouse in Database.HouseRepository.GetHouses() )
                     {
                         House house = Map.GetHouse( (ushort)dbHouse.Id);
 
@@ -742,7 +747,7 @@ namespace OpenTibia.Game.Common
 
                     if (players.Length > 0)
                     {
-                        DbPlayer[] dbPlayers = Context.Current.Database.PlayerRepository.GetPlayerByIds(players.Select(p => p.DatabasePlayerId).ToArray() );
+                        DbPlayer[] dbPlayers = Database.PlayerRepository.GetPlayerByIds(players.Select(p => p.DatabasePlayerId).ToArray() );
 
                         foreach (var item in players.GroupJoin(dbPlayers, p => p.DatabasePlayerId, p => p.Id, (player, dbPlayers) => new { Player = player, DbPlayer = dbPlayers.FirstOrDefault() } ) )
                         {
@@ -764,7 +769,7 @@ namespace OpenTibia.Game.Common
 
                     if (houses.Length > 0)
                     {
-                        DbHouse[] dbHouses = Context.Current.Database.HouseRepository.GetHouses();
+                        DbHouse[] dbHouses = Database.HouseRepository.GetHouses();
 
                         foreach (var item in houses.GroupJoin(dbHouses, h => h.Id, h => h.Id, (house, dbHouses) => new { House = house, DbHouse = dbHouses.FirstOrDefault() } ) )
                         {
@@ -779,7 +784,7 @@ namespace OpenTibia.Game.Common
                                     Id = house.Id
                                 };
 
-                                Context.Current.Database.HouseRepository.AddHouse(dbHouse);
+                                Database.HouseRepository.AddHouse(dbHouse);
                             }
                                                           
                             dbHouse.HouseAccessLists.Clear();
@@ -790,7 +795,7 @@ namespace OpenTibia.Game.Common
                             }
                             else
                             {
-                                DbPlayer dbPlayer = Context.Current.Database.PlayerRepository.GetPlayerByName(house.Owner); //TODO: Improve performance
+                                DbPlayer dbPlayer = Database.PlayerRepository.GetPlayerByName(house.Owner); //TODO: Improve performance
 
                                 if (dbPlayer != null)
                                 {
@@ -886,7 +891,7 @@ namespace OpenTibia.Game.Common
                     }
                 }
 
-                Context.Current.Database.Commit();
+                Database.Commit();
 
                 return Promise.Completed;
 
@@ -1028,6 +1033,11 @@ namespace OpenTibia.Game.Common
                     if (PluginLoader != null)
                     {
                         PluginLoader.Dispose();
+                    }
+
+                    if (Database != null)
+                    {
+                        Database.Dispose();
                     }
                 }
             }

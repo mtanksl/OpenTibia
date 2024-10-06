@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Commands
         {
             // ctrl + j
 
-            Context.Database.RuleViolationReportRepository.AddRuleViolationReport(new DbRuleViolationReport()
+            Context.Server.Database.RuleViolationReportRepository.AddRuleViolationReport(new DbRuleViolationReport()
             {
                 PlayerId = Player.DatabasePlayerId,
                 Type = Type,
@@ -56,7 +56,7 @@ namespace OpenTibia.Game.Commands
                 CreationDate = DateTime.UtcNow
             } );
 
-            Context.Database.Commit();
+            Context.Server.Database.Commit();
 
             Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "Your report has been sent.") );
 

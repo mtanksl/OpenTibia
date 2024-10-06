@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            DbPlayer dbPlayer = Context.Database.PlayerRepository.GetPlayerByName(Name);
+            DbPlayer dbPlayer = Context.Server.Database.PlayerRepository.GetPlayerByName(Name);
 
             if (dbPlayer != null && dbPlayer.Id != Player.DatabasePlayerId)
             {

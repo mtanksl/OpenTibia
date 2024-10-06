@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OpenTibia.Data.Contexts;
 
-namespace OpenTibia.Data.MySql.Contexts
+namespace OpenTibia.Data.InMemory.Contexts
 {
     public class InMemoryContext : DatabaseContext
     {

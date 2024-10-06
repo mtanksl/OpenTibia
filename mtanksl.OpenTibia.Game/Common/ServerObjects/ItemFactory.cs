@@ -13,15 +13,18 @@ namespace OpenTibia.Game.Common.ServerObjects
 {
     public class ItemFactory : IItemFactory
     {
-        private readonly HashSet<ushort> lockers;
-        private readonly HashSet<ushort> doors;
-                
+        private HashSet<ushort> lockers;
+        private HashSet<ushort> doors;
+
         private IServer server;
 
         public ItemFactory(IServer server)
         {
             this.server = server;
+        }
 
+        public void Start(OtbFile otbFile, DatFile datFile, ItemsFile itemsFile)
+        {
             lockers = server.Values.GetUInt16HashSet("values.items.lockers");
 
             doors = new HashSet<ushort>();
@@ -45,10 +48,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 doors.Add(item);
             }
-        }
 
-        public void Start(OtbFile otbFile, DatFile datFile, ItemsFile itemsFile)
-        {
             openTibiaMetadatas = new Dictionary<ushort, ItemMetadata>(datFile.Items.Count);
 
             tibiaMetadatas = new Dictionary<ushort, List<ItemMetadata> >(datFile.Items.Count);
