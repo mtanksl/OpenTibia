@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -41,31 +42,48 @@ namespace OpenTibia.Game.Commands
 
                 if (toTile != null)
                 {
-                    switch (Player.Client.GetContent(toTile, ToIndex) )
+                    if (Player.Tile.Position.Z == toTile.Position.Z)
                     {
-                        case Item toItem:
-
-                            if (toItem.Metadata.TibiaId == ToTibiaId)
+                        if (Player.Tile.Position.CanHearSay(toTile.Position) )
+                        {
+                            switch (Player.Client.GetContent(toTile, ToIndex) )
                             {
-                                if ( IsUseable(fromItem) )
-                                {
-                                    return Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) );
-                                }
+                                case Item toItem:
+
+                                    if (toItem.Metadata.TibiaId == ToTibiaId)
+                                    {
+                                        if ( IsUseable(fromItem) )
+                                        {
+                                            return Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) );
+                                        }
+                                    }
+
+                                    break;
+
+                                case Creature toCreature:
+
+                                    if (ToTibiaId == 99)
+                                    {
+                                        if ( IsUseable(fromItem) )
+                                        {
+                                            return Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) );
+                                        }
+                                    }
+
+                                    break;
                             }
-
-                            break;
-
-                        case Creature toCreature:
-
-                            if (ToTibiaId == 99)
-                            {
-                                if ( IsUseable(fromItem) )
-                                {
-                                    return Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) );
-                                }
-                            }
-
-                            break;
+                        }
+                    }
+                    else
+                    {
+                        if (Player.Tile.Position.Z > toTile.Position.Z)
+                        {
+                            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.FirstGoUpstairs) );
+                        }
+                        else
+                        {
+                            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.FirstGoDownstairs) );
+                        }
                     }
                 }
             }

@@ -40,9 +40,12 @@ namespace OpenTibia.Game.Commands
 
                     if (toCreature != null)
                     {
-                        if ( IsUseable(fromItem) )
+                        if (Player.Tile.Position.CanHearSay(toCreature.Tile.Position) )
                         {
-                            return Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) );
+                            if ( IsUseable(fromItem) )
+                            {
+                                return Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) );
+                            }
                         }
                     }
                 }

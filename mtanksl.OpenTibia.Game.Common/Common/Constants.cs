@@ -5,7 +5,11 @@
         public static readonly string AccountNameOrPasswordIsNotCorrect = "Account name or password is not correct.";
     
         public static readonly string DestinationIsOutOfReach = "Destination is out of reach.";
-        
+
+        public static readonly string FirstGoUpstairs = "First go upstairs.";
+
+        public static readonly string FirstGoDownstairs = "First go downstairs.";
+
         public static readonly string ItIsEmpty = "It is empty.";
         
         public static readonly string OnlyProtocol86Allowed = "Only protocol 8.6 allowed.";

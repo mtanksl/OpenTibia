@@ -43,17 +43,20 @@ namespace OpenTibia.Game.Commands
 
                         if (toCreature != null)
                         {
-                            if ( IsUseable(fromItem) )
+                            if (Player.Tile.Position.CanHearSay(toCreature.Tile.Position) )
                             {
-                                if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
+                                if ( IsUseable(fromItem) )
                                 {
-                                    return Context.AddCommand(new PlayerWalkToCommand(Player, fromTile) ).Then( () =>
+                                    if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
                                     {
-                                        return Execute();
-                                    } );
-                                }
+                                        return Context.AddCommand(new PlayerWalkToCommand(Player, fromTile) ).Then( () =>
+                                        {
+                                            return Execute();
+                                        } );
+                                    }
 
-                                return Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) );
+                                    return Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) );
+                                }
                             }
                         }
                     }

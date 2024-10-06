@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -27,21 +28,35 @@ namespace OpenTibia.Game.Commands
 
             if (fromTile != null)
             {
-                if (Player.Tile.Position.CanHearSay(fromTile.Position) )
+                if (Player.Tile.Position.Z == fromTile.Position.Z)
                 {
-                    Item fromItem = Player.Client.GetContent(fromTile, FromIndex) as Item;
+                    if (Player.Tile.Position.CanHearSay(fromTile.Position) )
+                    {
+                        Item fromItem = Player.Client.GetContent(fromTile, FromIndex) as Item;
 
-                    if (fromItem != null && fromItem.Metadata.TibiaId == TibiaId)
-                    {    
-                        if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
+                        if (fromItem != null && fromItem.Metadata.TibiaId == TibiaId)
                         {
-                            return Context.AddCommand(new PlayerWalkToCommand(Player, fromTile) ).Then( () =>
+                            if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
                             {
-                                return Execute();
-                            } );
-                        }
+                                return Context.AddCommand(new PlayerWalkToCommand(Player, fromTile) ).Then( () =>
+                                {
+                                    return Execute();
+                                } );
+                            }
 
-                        return Context.AddCommand(new PlayerUseItemCommand(Player, fromItem, null) );
+                            return Context.AddCommand(new PlayerUseItemCommand(Player, fromItem, null) );
+                        }
+                    }
+                }
+                else
+                {
+                    if (Player.Tile.Position.Z > fromTile.Position.Z)
+                    {
+                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.FirstGoUpstairs) );
+                    }
+                    else
+                    {
+                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.FirstGoDownstairs) );
                     }
                 }
             }

@@ -41,11 +41,14 @@ namespace OpenTibia.Game.Commands
 
                 if (toCreature != null)
                 {
-                    if ( IsUseable(fromItem) )
+                    if (Player.Tile.Position.CanHearSay(toCreature.Tile.Position) )
                     {
-                        Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
+                        if ( IsUseable(fromItem) )
+                        {
+                            Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
 
-                        return Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) );
+                            return Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) );
+                        }
                     }
                 }
             }

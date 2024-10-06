@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -49,47 +50,64 @@ namespace OpenTibia.Game.Commands
 
                         if (toTile != null)
                         {
-                            switch (Player.Client.GetContent(toTile, ToIndex) )
+                            if (Player.Tile.Position.Z == toTile.Position.Z)
                             {
-                                case Item toItem:
-
-                                    if (toItem.Metadata.TibiaId == ToTibiaId)
+                                if (Player.Tile.Position.CanHearSay(toTile.Position) )
+                                {
+                                    switch (Player.Client.GetContent(toTile, ToIndex) )
                                     {
-                                        if ( IsUseable(fromItem) )
-                                        {
-                                            if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
+                                        case Item toItem:
+
+                                            if (toItem.Metadata.TibiaId == ToTibiaId)
                                             {
-                                                return Context.AddCommand(new PlayerWalkToCommand(Player, fromTile) ).Then( () =>
+                                                if ( IsUseable(fromItem) )
                                                 {
-                                                    return Execute();
-                                                } );
+                                                    if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
+                                                    {
+                                                        return Context.AddCommand(new PlayerWalkToCommand(Player, fromTile) ).Then( () =>
+                                                        {
+                                                            return Execute();
+                                                        } );
+                                                    }
+
+                                                    return Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) );
+                                                }
                                             }
 
-                                            return Context.AddCommand(new PlayerUseItemWithItemCommand(Player, fromItem, toItem) );
-                                        }
-                                    }
+                                            break;
 
-                                    break;
+                                        case Creature toCreature:
 
-                                case Creature toCreature:
-
-                                    if (ToTibiaId == 99)
-                                    {
-                                        if ( IsUseable(fromItem) )
-                                        {
-                                            if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
+                                            if (ToTibiaId == 99)
                                             {
-                                                return Context.AddCommand(new PlayerWalkToCommand(Player, fromTile) ).Then( () =>
+                                                if ( IsUseable(fromItem) )
                                                 {
-                                                    return Execute();
-                                                } );
+                                                    if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
+                                                    {
+                                                        return Context.AddCommand(new PlayerWalkToCommand(Player, fromTile) ).Then( () =>
+                                                        {
+                                                            return Execute();
+                                                        } );
+                                                    }
+
+                                                    return Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) );
+                                                }
                                             }
 
-                                            return Context.AddCommand(new PlayerUseItemWithCreatureCommand(Player, fromItem, toCreature) );
-                                        }
+                                            break;
                                     }
-
-                                    break;
+                                }
+                            }
+                            else
+                            {
+                                if (Player.Tile.Position.Z > toTile.Position.Z)
+                                {
+                                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.FirstGoUpstairs) );
+                                }
+                                else
+                                {
+                                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.FirstGoDownstairs) );
+                                }
                             }
                         }
                     }
