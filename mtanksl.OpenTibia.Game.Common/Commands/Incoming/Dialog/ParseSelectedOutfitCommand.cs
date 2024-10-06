@@ -19,6 +19,11 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            if ( !Context.Server.Config.GameplayAllowChangeOutfit)
+            {
+                return Promise.Break;
+            }
+
             return Context.AddCommand(new CreatureUpdateOutfitCommand(Player, Outfit, Outfit) );
         }
     }

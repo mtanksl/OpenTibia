@@ -40,6 +40,7 @@ server = {
 			infinitepotions = false,
 			infinitearrows = false,
 			infiniterunes = false,
+			allowchangeoutfit = true,
 			maxvips = 100,
 			maxdepotitems = 2000,
 			kicklostconnectionafterminutes = 1,

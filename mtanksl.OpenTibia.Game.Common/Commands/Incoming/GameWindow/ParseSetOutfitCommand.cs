@@ -19,6 +19,11 @@ namespace OpenTibia.Game.Commands
                 
         public override Promise Execute()
         {
+            if ( !Context.Server.Config.GameplayAllowChangeOutfit)
+            {
+                return Promise.Break;
+            }
+
             List<OutfitDto> outfits = new List<OutfitDto>();
 
             foreach (var pair in Player.Outfits.GetIndexed() )

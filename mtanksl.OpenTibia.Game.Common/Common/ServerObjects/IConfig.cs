@@ -33,6 +33,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         bool GameplayInfinitePotions { get; set; }
         bool GameplayInfiniteArrows { get; set; }
         bool GameplayInfiniteRunes { get; set; }
+        bool GameplayAllowChangeOutfit { get; set; }
         int GameplayMaxVips { get; set; }
         int GameplayMaxDepotItems { get; set; }       
         int GameplayKickLostConnectionAfterMinutes { get; set; }
