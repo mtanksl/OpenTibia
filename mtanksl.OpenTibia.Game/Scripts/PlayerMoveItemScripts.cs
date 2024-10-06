@@ -23,6 +23,8 @@ namespace OpenTibia.Game.Scripts
                 return next();
             } );
 
+            Context.Server.CommandHandlers.AddCommandHandler(new HouseTile2Handler() );
+
             Context.Server.CommandHandlers.AddCommandHandler(new MoveItemScriptingHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler(new MoveItemChestHandler() );
