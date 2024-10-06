@@ -1,6 +1,8 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Components;
+using OpenTibia.Network.Packets.Outgoing;
 
 namespace OpenTibia.Game.Commands
 {
@@ -26,6 +28,20 @@ namespace OpenTibia.Game.Commands
             if (playerIdleBehaviour != null)
             {
                 playerIdleBehaviour.SetLastAction();
+            }
+
+            PlayerMuteBehaviour playerChannelMuteBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerMuteBehaviour>(Player);
+
+            if (playerChannelMuteBehaviour != null)
+            {
+                string message;
+
+                if (playerChannelMuteBehaviour.IsMuted(out message) )
+                {
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, message) );
+
+                    return Promise.Break;
+                }                
             }
 
             return Context.AddCommand(new PlayerWhisperCommand(Player, Message) );

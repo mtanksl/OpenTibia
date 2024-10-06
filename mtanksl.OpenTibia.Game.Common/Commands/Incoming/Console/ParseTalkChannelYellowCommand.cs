@@ -34,6 +34,13 @@ namespace OpenTibia.Game.Commands
                 playerIdleBehaviour.SetLastAction();
             }
 
+            if (Player.Level == 1)
+            {
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, "You may not speak into channels as long as you are on level 1.") );
+
+                return Promise.Break;
+            }
+
             PlayerMuteBehaviour playerChannelMuteBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerMuteBehaviour>(Player);
 
             if (playerChannelMuteBehaviour != null)
