@@ -51,48 +51,55 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            DbPlayer dbPlayer = Context.Server.Database.PlayerRepository.GetAccountPlayer(Packet.Account, Packet.Password, Packet.Character);
+            DbPlayer dbPlayer;
 
-            if (dbPlayer == null)
+            DbBan dbBan;
+
+            using (var database = Context.Server.DatabaseFactory.Create() )
             {
-                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.AccountNameOrPasswordIsNotCorrect) );
+                dbPlayer = database.PlayerRepository.GetAccountPlayer(Packet.Account, Packet.Password, Packet.Character);
 
-                Context.Disconnect(Connection);
+                if (dbPlayer == null)
+                {
+                    Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.AccountNameOrPasswordIsNotCorrect) );
 
-                return Promise.Break;
-            }
+                    Context.Disconnect(Connection);
 
-            DbBan dbBan = Context.Server.Database.BanRepository.GetBanByIpAddress(Connection.IpAddress);
+                    return Promise.Break;
+                }
 
-            if (dbBan != null)
-            {
-                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, dbBan.Message) );
+                dbBan = database.BanRepository.GetBanByIpAddress(Connection.IpAddress);
 
-                Context.Disconnect(Connection);
+                if (dbBan != null)
+                {
+                    Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, dbBan.Message) );
 
-                return Promise.Break;
-            }
+                    Context.Disconnect(Connection);
 
-            dbBan = Context.Server.Database.BanRepository.GetBanByAccountId(dbPlayer.AccountId);
+                    return Promise.Break;
+                }
 
-            if (dbBan != null)
-            {
-                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, dbBan.Message) );
+                dbBan = database.BanRepository.GetBanByAccountId(dbPlayer.AccountId);
 
-                Context.Disconnect(Connection);
+                if (dbBan != null)
+                {
+                    Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, dbBan.Message) );
 
-                return Promise.Break;
-            }
+                    Context.Disconnect(Connection);
 
-            dbBan = Context.Server.Database.BanRepository.GetBanByPlayerId(dbPlayer.Id);
+                    return Promise.Break;
+                }
 
-            if (dbBan != null)
-            {
-                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, dbBan.Message) );
+                dbBan = database.BanRepository.GetBanByPlayerId(dbPlayer.Id);
 
-                Context.Disconnect(Connection);
+                if (dbBan != null)
+                {
+                    Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, dbBan.Message) );
 
-                return Promise.Break;
+                    Context.Disconnect(Connection);
+
+                    return Promise.Break;
+                }
             }
 
             int position;

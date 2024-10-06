@@ -15,22 +15,25 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 string name = command.Message.Substring(7);
 
-                DbPlayer dbPlayer = Context.Server.Database.PlayerRepository.GetPlayerByName(name);
-
-                if (dbPlayer != null)
+                using (var database = Context.Server.DatabaseFactory.Create() )
                 {
-                    DbBan dbBan = Context.Server.Database.BanRepository.GetBanByPlayerId(dbPlayer.Id);
+                    DbPlayer dbPlayer = database.PlayerRepository.GetPlayerByName(name);
 
-                    if (dbBan != null)
+                    if (dbPlayer != null)
                     {
-                        Context.Server.Database.BanRepository.RemoveBan(dbBan);
+                        DbBan dbBan = database.BanRepository.GetBanByPlayerId(dbPlayer.Id);
 
-                        Context.Server.Database.Commit();
+                        if (dbBan != null)
+                        {
+                            database.BanRepository.RemoveBan(dbBan);
+
+                            database.Commit();
+                        }
+
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, dbPlayer.Name + " has been unbanned.") );
+
+                        return Promise.Completed;
                     }
-
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, dbPlayer.Name + " has been unbanned.") );
-
-                    return Promise.Completed;
                 }
 
                 return Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );

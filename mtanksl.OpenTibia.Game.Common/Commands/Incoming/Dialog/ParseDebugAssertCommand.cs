@@ -32,17 +32,20 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Context.Server.Database.DebugAssertRepository.AddDebugAssert(new DbDebugAssert()
+            using (var database = Context.Server.DatabaseFactory.Create() )
             {
-                PlayerId = Player.DatabasePlayerId,
-                AssertLine = AssertLine,
-                ReportDate = ReportDate,
-                Description = Description,
-                Comment = Comment,
-                CreationDate = DateTime.UtcNow
-            } );
+                database.DebugAssertRepository.AddDebugAssert(new DbDebugAssert()
+                {
+                    PlayerId = Player.DatabasePlayerId,
+                    AssertLine = AssertLine,
+                    ReportDate = ReportDate,
+                    Description = Description,
+                    Comment = Comment,
+                    CreationDate = DateTime.UtcNow
+                } );
 
-            Context.Server.Database.Commit();
+                database.Commit();
+            }
 
             return Promise.Completed;
         }

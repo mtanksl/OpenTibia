@@ -26,14 +26,17 @@ namespace OpenTibia.Game.Commands
 
             if (Player.Rank == Rank.Tutor || Player.Rank == Rank.Gamemaster)
             {
-                Context.Server.Database.BugReportRepository.AddBugReport(new DbBugReport()
+                using (var database = Context.Server.DatabaseFactory.Create() )
                 {
-                    PlayerId = Player.DatabasePlayerId,
-                    Message = Message,
-                    CreationDate = DateTime.UtcNow
-                } );
+                    database.BugReportRepository.AddBugReport(new DbBugReport()
+                    {
+                        PlayerId = Player.DatabasePlayerId,
+                        Message = Message,
+                        CreationDate = DateTime.UtcNow
+                    } );
 
-                Context.Server.Database.Commit();
+                    database.Commit();
+                }
 
                 Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "Your report has been sent.") );
 
