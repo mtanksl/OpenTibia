@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Data.Repositories;
 using System;
+using System.Threading.Tasks;
 
 namespace OpenTibia.Game.Common
 {
@@ -23,8 +24,8 @@ namespace OpenTibia.Game.Common
 
         bool CanConnect();
 
-        void CreateDatabase(int gamePort);
+        Task CreateDatabase(int gamePort);
 
-        void Commit();
+        Task Commit();
     }
 }

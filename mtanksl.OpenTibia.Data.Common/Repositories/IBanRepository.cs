@@ -1,14 +1,15 @@
 ﻿using OpenTibia.Data.Models;
+using System.Threading.Tasks;
 
 namespace OpenTibia.Data.Repositories
 {
     public interface IBanRepository
     {
-        DbBan GetBanByAccountId(int accountId);
+        Task<DbBan> GetBanByAccountId(int accountId);
 
-        DbBan GetBanByPlayerId(int playerId);
-        
-        DbBan GetBanByIpAddress(string ipAddress);
+        Task<DbBan> GetBanByPlayerId(int playerId);
+
+        Task<DbBan> GetBanByIpAddress(string ipAddress);
         
         void AddBan(DbBan ban);
         

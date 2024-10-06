@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
 
         public SelectedCharacterIncomingPacket Packet { get; set; }
 
-        public override Promise Execute()
+        public override async Promise Execute()
         {
             Connection.Keys = Packet.Keys;
 
@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
 
                 Context.Disconnect(Connection);
 
-                return Promise.Break;
+                await Promise.Break; return;
             }
 
             if (Context.Server.Status != ServerStatus.Running && Connection.IpAddress != "127.0.0.1")
@@ -39,7 +39,7 @@ namespace OpenTibia.Game.Commands
 
                 Context.Disconnect(Connection);
 
-                return Promise.Break;
+                await Promise.Break; return;
             }
 
             if ( !Context.Server.RateLimiting.IsLoginAttempsOk(Connection.IpAddress) )
@@ -48,7 +48,7 @@ namespace OpenTibia.Game.Commands
 
                 Context.Disconnect(Connection);
 
-                return Promise.Break;
+                await Promise.Break; return;
             }
 
             DbPlayer dbPlayer;
@@ -57,7 +57,7 @@ namespace OpenTibia.Game.Commands
 
             using (var database = Context.Server.DatabaseFactory.Create() )
             {
-                dbPlayer = database.PlayerRepository.GetAccountPlayer(Packet.Account, Packet.Password, Packet.Character);
+                dbPlayer = await database.PlayerRepository.GetAccountPlayer(Packet.Account, Packet.Password, Packet.Character);
 
                 if (dbPlayer == null)
                 {
@@ -65,10 +65,10 @@ namespace OpenTibia.Game.Commands
 
                     Context.Disconnect(Connection);
 
-                    return Promise.Break;
+                    await Promise.Break; return;
                 }
 
-                dbBan = database.BanRepository.GetBanByIpAddress(Connection.IpAddress);
+                dbBan = await database.BanRepository.GetBanByIpAddress(Connection.IpAddress);
 
                 if (dbBan != null)
                 {
@@ -76,10 +76,10 @@ namespace OpenTibia.Game.Commands
 
                     Context.Disconnect(Connection);
 
-                    return Promise.Break;
+                    await Promise.Break; return;
                 }
 
-                dbBan = database.BanRepository.GetBanByAccountId(dbPlayer.AccountId);
+                dbBan = await database.BanRepository.GetBanByAccountId(dbPlayer.AccountId);
 
                 if (dbBan != null)
                 {
@@ -87,10 +87,10 @@ namespace OpenTibia.Game.Commands
 
                     Context.Disconnect(Connection);
 
-                    return Promise.Break;
+                    await Promise.Break; return;
                 }
 
-                dbBan = database.BanRepository.GetBanByPlayerId(dbPlayer.Id);
+                dbBan = await database.BanRepository.GetBanByPlayerId(dbPlayer.Id);
 
                 if (dbBan != null)
                 {
@@ -98,7 +98,7 @@ namespace OpenTibia.Game.Commands
 
                     Context.Disconnect(Connection);
 
-                    return Promise.Break;
+                    await Promise.Break; return;
                 }
             }
 
@@ -112,7 +112,7 @@ namespace OpenTibia.Game.Commands
 
                 Context.Disconnect(Connection);
 
-                return Promise.Break;
+                await Promise.Break; return;
             }
 
             Player onlinePlayer = Context.Server.GameObjects.GetPlayerByName(dbPlayer.Name);
@@ -123,13 +123,14 @@ namespace OpenTibia.Game.Commands
 
                 Context.Disconnect(Connection);
 
-                return Promise.Break;
+                await Promise.Break; return;
             }
 
-            return Context.AddCommand(new TileCreatePlayerCommand(Connection, dbPlayer) ).Then( (player) =>
+            await Context.AddCommand(new TileCreatePlayerCommand(Connection, dbPlayer) ).Then( (player) =>
             {
                 return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.Teleport) );
-            } );
+
+            } ); return;
         }
     }
 }

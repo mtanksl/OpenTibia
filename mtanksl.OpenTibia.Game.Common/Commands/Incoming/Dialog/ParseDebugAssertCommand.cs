@@ -30,7 +30,7 @@ namespace OpenTibia.Game.Commands
 
         public string Comment { get; set; }
 
-        public override Promise Execute()
+        public override async Promise Execute()
         {
             using (var database = Context.Server.DatabaseFactory.Create() )
             {
@@ -44,10 +44,10 @@ namespace OpenTibia.Game.Commands
                     CreationDate = DateTime.UtcNow
                 } );
 
-                database.Commit();
+                await database.Commit();
             }
 
-            return Promise.Completed;
+            await Promise.Completed; return;
         }
     }
 }

@@ -263,7 +263,7 @@ namespace OpenTibia.Game.Common
 
             scheduler.Start();
 
-            QueueForExecution( () =>
+            QueueForExecution(async () =>
             {
                 Logger.WriteLine(ServerName + " " + ServerVersion + " - An open Tibia server developed by mtanksl");
 
@@ -365,7 +365,7 @@ namespace OpenTibia.Game.Common
                         {
                             if (Config.DatabaseType == "memory")
                             {
-                                database.CreateDatabase(Config.GamePort);
+                                await database.CreateDatabase(Config.GamePort);
                             }                        
                         }
                     }
@@ -374,19 +374,19 @@ namespace OpenTibia.Game.Common
                     {
                         using (Logger.Measure("Updating message of the day") )
                         {
-                            DbMotd motd = database.MotdRepository.GetLastMessageOfTheDay();
+                            DbMotd motd = await database.MotdRepository.GetLastMessageOfTheDay();
 
                             if (motd == null || motd.Message != Config.Motd)
                             {
                                 database.MotdRepository.AddMessageOfTheDay(new DbMotd() { Message = Config.Motd } );
 
-                                database.Commit();
+                                await database.Commit();
                             }
                         }
 
                         using (Logger.Measure("Updating worlds") )
                         {
-                            foreach (var dbWorld in database.WorldRepository.GetWorlds() )
+                            foreach (var dbWorld in await database.WorldRepository.GetWorlds() )
                             {
                                 var world = Config.Worlds.Where(w => w.Name == dbWorld.Name).FirstOrDefault();
 
@@ -398,13 +398,13 @@ namespace OpenTibia.Game.Common
                                 }
                             }
 
-                            database.Commit();
+                            await database.Commit();
                         }
                     }
 
                     using (Logger.Measure("Loading houses") )
                     {
-                        foreach (var dbHouse in database.HouseRepository.GetHouses() )
+                        foreach (var dbHouse in await database.HouseRepository.GetHouses() )
                         {
                             House house = Map.GetHouse( (ushort)dbHouse.Id);
 
@@ -479,7 +479,7 @@ namespace OpenTibia.Game.Common
                     }
                 }
 
-                return Promise.Completed;
+                await Promise.Completed; return;
 
             } ).Wait();
 
@@ -738,7 +738,7 @@ namespace OpenTibia.Game.Common
 
         public void Save()
         {
-            QueueForExecution( () =>
+            QueueForExecution(async () =>
             {
                 using (var database = DatabaseFactory.Create() )
                 {
@@ -748,7 +748,7 @@ namespace OpenTibia.Game.Common
 
                         if (players.Length > 0)
                         {
-                            DbPlayer[] dbPlayers = database.PlayerRepository.GetPlayerByIds(players.Select(p => p.DatabasePlayerId).ToArray() );
+                            DbPlayer[] dbPlayers = await database.PlayerRepository.GetPlayerByIds(players.Select(p => p.DatabasePlayerId).ToArray() );
 
                             foreach (var item in players.GroupJoin(dbPlayers, p => p.DatabasePlayerId, p => p.Id, (player, dbPlayers) => new { Player = player, DbPlayer = dbPlayers.FirstOrDefault() } ) )
                             {
@@ -770,7 +770,7 @@ namespace OpenTibia.Game.Common
 
                         if (houses.Length > 0)
                         {
-                            DbHouse[] dbHouses = database.HouseRepository.GetHouses();
+                            DbHouse[] dbHouses = await database.HouseRepository.GetHouses();
 
                             foreach (var item in houses.GroupJoin(dbHouses, h => h.Id, h => h.Id, (house, dbHouses) => new { House = house, DbHouse = dbHouses.FirstOrDefault() } ) )
                             {
@@ -796,7 +796,7 @@ namespace OpenTibia.Game.Common
                                 }
                                 else
                                 {
-                                    DbPlayer dbPlayer = database.PlayerRepository.GetPlayerByName(house.Owner); //TODO: Improve performance
+                                    DbPlayer dbPlayer = await database.PlayerRepository.GetPlayerByName(house.Owner); //TODO: Improve performance
 
                                     if (dbPlayer != null)
                                     {
@@ -892,10 +892,10 @@ namespace OpenTibia.Game.Common
                         }
                     }
 
-                    database.Commit();
+                    await database.Commit();
                 }
 
-                return Promise.Completed;
+                await Promise.Completed; return;
 
             } ).Wait();
 

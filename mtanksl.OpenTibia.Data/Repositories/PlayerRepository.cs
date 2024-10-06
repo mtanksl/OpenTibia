@@ -2,6 +2,7 @@
 using OpenTibia.Data.Contexts;
 using OpenTibia.Data.Models;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OpenTibia.Data.Repositories
 {
@@ -14,122 +15,130 @@ namespace OpenTibia.Data.Repositories
             this.context = context;
         }
 
-        public DbAccount GetAccount(string accountName, string accountPassword)
+        public async Task<DbAccount> GetAccount(string accountName, string accountPassword)
         {
-            DbAccount account = context.Accounts
+            await Task.Yield();
+            
+            DbAccount account = await context.Accounts
                 .Where(a => a.Name == accountName &&
                             a.Password == accountPassword)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
             if (account != null)
             {
-                context.Players
+                await context.Players
                     .Include(p => p.World)
                     .Where(p => p.AccountId == account.Id)
-                    .Load();
+                    .LoadAsync();
             }
 
             return account;
         }
 
-        public DbPlayer GetAccountPlayer(string accountName, string accountPassword, string playerName)
+        public async Task<DbPlayer> GetAccountPlayer(string accountName, string accountPassword, string playerName)
         {
-            DbPlayer player = context.Players
+            await Task.Yield();
+
+            DbPlayer player = await context.Players
                 .Include(p => p.Account)
                 .Where(p => p.Account.Name == accountName &&
                             p.Account.Password == accountPassword &&
                             p.Name == playerName)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
             if (player != null)
             {
-                context.PlayerDepotItems
+                await context.PlayerDepotItems
                     .Where(pi => pi.PlayerId == player.Id)
-                    .Load();
+                    .LoadAsync();
 
-                context.PlayerItems
+                await context.PlayerItems
                     .Where(pi => pi.PlayerId == player.Id)
-                    .Load();
+                    .LoadAsync();
 
-                context.PlayerStorages
+                await context.PlayerStorages
                     .Where(pi => pi.PlayerId == player.Id)
-                    .Load();
+                    .LoadAsync();
 
-                context.PlayerSpells
+                await context.PlayerSpells
                     .Where(pi => pi.PlayerId == player.Id)
-                    .Load();
+                    .LoadAsync();
 
-                context.PlayerBlesses
-                   .Where(pi => pi.PlayerId == player.Id)
-                   .Load();
-
-                context.PlayerAchievements
-                   .Where(pi => pi.PlayerId == player.Id)
-                   .Load();
-
-                context.PlayerOutfits
+                await context.PlayerBlesses
                     .Where(pi => pi.PlayerId == player.Id)
-                    .Load();
+                    .LoadAsync();
 
-                context.PlayerVips
+                await context.PlayerAchievements
+                    .Where(pi => pi.PlayerId == player.Id)
+                    .LoadAsync();
+
+                await context.PlayerOutfits
+                    .Where(pi => pi.PlayerId == player.Id)
+                    .LoadAsync();
+
+                await context.PlayerVips
                     .Include(v => v.Vip)
                     .Where(pi => pi.PlayerId == player.Id)
-                    .Load();
+                    .LoadAsync();
             }
 
             return player;
         }
 
-        public DbPlayer[] GetPlayerByIds(int[] ids)
+        public async Task<DbPlayer[]> GetPlayerByIds(int[] ids)
         {
-            DbPlayer[] players = context.Players
+            await Task.Yield();
+
+            DbPlayer[] players = await context.Players
                 .Where(p => ids.Contains(p.Id) )
-                .ToArray();
+                .ToArrayAsync();
 
             if (players.Length > 0)
             {
-                context.PlayerDepotItems
+                await context.PlayerDepotItems
                     .Where(pi => ids.Contains(pi.PlayerId) )
-                    .Load();
+                    .LoadAsync();
 
-                context.PlayerItems
+                await context.PlayerItems
                     .Where(pi => ids.Contains(pi.PlayerId) )
-                    .Load();
+                    .LoadAsync();
 
-                context.PlayerStorages
+                await context.PlayerStorages
                     .Where(pi => ids.Contains(pi.PlayerId) )
-                    .Load();
+                    .LoadAsync();
 
-                context.PlayerSpells
+                await context.PlayerSpells
                     .Where(pi => ids.Contains(pi.PlayerId) )
-                    .Load(); 
-                
-                context.PlayerBlesses
-                    .Where(pi => ids.Contains(pi.PlayerId) )
-                    .Load();
+                    .LoadAsync();
 
-                context.PlayerAchievements
+                await context.PlayerBlesses
                     .Where(pi => ids.Contains(pi.PlayerId) )
-                    .Load();
+                    .LoadAsync();
 
-                context.PlayerOutfits
+                await context.PlayerAchievements
                     .Where(pi => ids.Contains(pi.PlayerId) )
-                    .Load();
+                    .LoadAsync();
 
-                context.PlayerVips
+                await context.PlayerOutfits
+                    .Where(pi => ids.Contains(pi.PlayerId) )
+                    .LoadAsync();
+
+                await context.PlayerVips
                     .Include(v => v.Vip)
                     .Where(pi => ids.Contains(pi.PlayerId) )
-                    .Load();              
+                    .LoadAsync();              
             }
 
             return players;
         }
 
-        public DbPlayer GetPlayerByName(string name)
+        public async Task<DbPlayer> GetPlayerByName(string name)
         {
-            return context.Players
+            await Task.Yield();
+
+            return await context.Players
                 .Where(p => p.Name == name)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
         }
     }
 }

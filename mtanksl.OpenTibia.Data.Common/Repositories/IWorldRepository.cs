@@ -1,9 +1,10 @@
 ﻿using OpenTibia.Data.Models;
+using System.Threading.Tasks;
 
 namespace OpenTibia.Data.Repositories
 {
     public interface IWorldRepository
     {
-        DbWorld[] GetWorlds();
+        Task<DbWorld[]> GetWorlds();
     }
 }

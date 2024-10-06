@@ -18,11 +18,11 @@ namespace OpenTibia.Game.Commands
 
         public string Name { get; set; }
 
-        public override Promise Execute()
+        public override async Promise Execute()
         {
             using (var database = Context.Server.DatabaseFactory.Create() )
             {
-                DbPlayer dbPlayer = database.PlayerRepository.GetPlayerByName(Name);
+                DbPlayer dbPlayer = await database.PlayerRepository.GetPlayerByName(Name);
 
                 if (dbPlayer != null && dbPlayer.Id != Player.DatabasePlayerId)
                 {
@@ -32,13 +32,13 @@ namespace OpenTibia.Game.Commands
                         {
                             Context.AddPacket(Player, new VipOutgoingPacket( (uint)dbPlayer.Id, dbPlayer.Name, Context.Server.GameObjects.GetPlayerByName(dbPlayer.Name) != null) );
 
-                            return Promise.Completed;
+                            await Promise.Completed; return;
                         }
                     }
                 }
             }
 
-            return Promise.Break;
+            await Promise.Break; return;
         }
     }
 }

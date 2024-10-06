@@ -2,6 +2,7 @@
 using OpenTibia.Data.Models;
 using OpenTibia.Data.Repositories;
 using System;
+using System.Threading.Tasks;
 
 namespace OpenTibia.Game.Common
 {
@@ -169,14 +170,16 @@ namespace OpenTibia.Game.Common
 
         /// <exception cref="ObjectDisposedException"></exception>
 
-        public void CreateDatabase(int gamePort)
+        public async Task CreateDatabase(int gamePort)
         {
             if (disposed)
             {
                 throw new ObjectDisposedException(nameof(Database) );
             }
 
-            databaseContext.Database.EnsureDeleted();
+            await Task.Yield();
+
+            await databaseContext.Database.EnsureDeletedAsync();
 
             databaseContext.Accounts.Add(new DbAccount() { Id = 1, Name = "1", Password = "1", PremiumUntil = null } );
 
@@ -192,19 +195,21 @@ namespace OpenTibia.Game.Common
 
             databaseContext.Players.Add(new DbPlayer() { Id = 5, AccountId = 1, WorldId = 1, Name = "Druid", Health = 645, MaxHealth = 645, Direction = 2, BaseOutfitId = 130, OutfitId = 130, BaseSpeed = 418, Speed = 418, Experience = 15694800, Level = 100, Mana = 2850, MaxMana = 2850, Soul = 100, Capacity = 139000, Stamina = 2520, Vocation = 3, SpawnX = 921, SpawnY = 771, SpawnZ = 6, TownX = 921, TownY = 771, TownZ = 6 } );
 
-            databaseContext.SaveChanges();
+            await databaseContext.SaveChangesAsync();
         }
 
         /// <exception cref="ObjectDisposedException"></exception>
 
-        public void Commit()
+        public async Task Commit()
         {
             if (disposed)
             {
                 throw new ObjectDisposedException(nameof(Database) );
             }
 
-            databaseContext.SaveChanges();
+            await Task.Yield();    
+
+            await databaseContext.SaveChangesAsync();
         }
 
         private bool disposed = false;

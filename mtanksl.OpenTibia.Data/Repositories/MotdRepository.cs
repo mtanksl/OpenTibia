@@ -1,6 +1,8 @@
-﻿using OpenTibia.Data.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using OpenTibia.Data.Contexts;
 using OpenTibia.Data.Models;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OpenTibia.Data.Repositories
 {
@@ -13,11 +15,13 @@ namespace OpenTibia.Data.Repositories
             this.context = context;
         }
 
-        public DbMotd GetLastMessageOfTheDay()
+        public async Task<DbMotd> GetLastMessageOfTheDay()
         {
-            return context.Motd
+            await Task.Yield();
+
+            return await context.Motd
                 .OrderByDescending(m => m.Id)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
         }
 
         public void AddMessageOfTheDay(DbMotd motd)

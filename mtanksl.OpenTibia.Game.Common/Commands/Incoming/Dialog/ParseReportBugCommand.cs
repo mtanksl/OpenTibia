@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
 
         public string Message { get; set; }
 
-        public override Promise Execute()
+        public override async Promise Execute()
         {
             // ctrl + z
 
@@ -35,15 +35,15 @@ namespace OpenTibia.Game.Commands
                         CreationDate = DateTime.UtcNow
                     } );
 
-                    database.Commit();
+                    await database.Commit();
                 }
 
                 Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "Your report has been sent.") );
 
-                return Promise.Completed;
+                await Promise.Completed; return;
             }
 
-            return Promise.Break;
+            await Promise.Break; return;
         }
     }
 }

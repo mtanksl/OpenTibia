@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OpenTibia.Data.Contexts;
 using OpenTibia.Data.Models;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace OpenTibia.Data.Repositories
 {
@@ -14,19 +14,21 @@ namespace OpenTibia.Data.Repositories
             this.context = context;
         }
 
-        public DbHouse[] GetHouses()
+        public async Task<DbHouse[]> GetHouses()
         {
-            DbHouse[] houses = context.Houses
+            await Task.Yield();
+
+            DbHouse[] houses = await context.Houses
                 .Include(h => h.Owner)
-                .ToArray();
+                .ToArrayAsync();
 
             if (houses.Length > 0)
             {
-                context.HouseAccessLists
-                    .Load();
+                await context.HouseAccessLists
+                    .LoadAsync();
 
-                context.HouseItems
-                    .Load();
+                await context.HouseItems
+                    .LoadAsync();
             }
 
             return houses;

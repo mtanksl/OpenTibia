@@ -1,6 +1,7 @@
-﻿using OpenTibia.Data.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using OpenTibia.Data.Contexts;
 using OpenTibia.Data.Models;
-using System.Linq;
+using System.Threading.Tasks;
 
 namespace OpenTibia.Data.Repositories
 {
@@ -13,10 +14,12 @@ namespace OpenTibia.Data.Repositories
             this.context = context;
         }
 
-        public DbWorld[] GetWorlds()
+        public async Task<DbWorld[]> GetWorlds()
         {
-            return context.Worlds
-                .ToArray();
+            await Task.Yield();
+
+            return await context.Worlds
+                .ToArrayAsync();
         }
     }
 }

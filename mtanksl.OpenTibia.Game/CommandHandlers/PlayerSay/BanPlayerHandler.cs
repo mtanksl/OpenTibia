@@ -10,7 +10,7 @@ namespace OpenTibia.Game.CommandHandlers
 {
     public class BanPlayerHandler : CommandHandler<PlayerSayCommand>
     {
-        public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
+        public override async Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
             if (command.Message.StartsWith("/ban ") )
             {
@@ -18,11 +18,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 using (var database = Context.Server.DatabaseFactory.Create() )
                 {
-                    DbPlayer dbPlayer = database.PlayerRepository.GetPlayerByName(name);
+                    DbPlayer dbPlayer = await database.PlayerRepository.GetPlayerByName(name);
 
                     if (dbPlayer != null)
                     {
-                        DbBan dbBan = database.BanRepository.GetBanByPlayerId(dbPlayer.Id);
+                        DbBan dbBan = await database.BanRepository.GetBanByPlayerId(dbPlayer.Id);
 
                         if (dbBan == null)
                         {
@@ -39,7 +39,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                             database.BanRepository.AddBan(dbBan);
 
-                            database.Commit();
+                            await database.Commit();
                         }
 
                         Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, dbPlayer.Name + " has been banned.") );
@@ -48,18 +48,19 @@ namespace OpenTibia.Game.CommandHandlers
 
                         if (observer != null)
                         {
-                            return Context.AddCommand(new ShowMagicEffectCommand(observer, MagicEffectType.Puff) ).Then( () =>
+                            await Context.AddCommand(new ShowMagicEffectCommand(observer, MagicEffectType.Puff) ).Then( () =>
                             {
                                 return Context.AddCommand(new CreatureDestroyCommand(observer) );
-                            } );
+
+                            } ); return;
                         }
                     }
                 }
 
-                return Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+                await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) ); return;
             }
 
-            return next();
+            await next(); return;
         }
     }
 }

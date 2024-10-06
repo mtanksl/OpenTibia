@@ -1,6 +1,8 @@
-﻿using OpenTibia.Data.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using OpenTibia.Data.Contexts;
 using OpenTibia.Data.Models;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace OpenTibia.Data.Repositories
 {
@@ -13,25 +15,31 @@ namespace OpenTibia.Data.Repositories
             this.context = context;
         }
 
-        public DbBan GetBanByAccountId(int accountId)
+        public async Task<DbBan> GetBanByAccountId(int accountId)
         {
-            return context.Bans
+            await Task.Yield();
+
+            return await context.Bans
                 .Where(b => b.AccountId == accountId)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
         }
 
-        public DbBan GetBanByPlayerId(int playerId)
+        public async Task<DbBan> GetBanByPlayerId(int playerId)
         {
-            return context.Bans
+            await Task.Yield();
+
+            return await context.Bans
                 .Where(b => b.PlayerId == playerId)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
         }
 
-        public DbBan GetBanByIpAddress(string ipAddress)
+        public async Task<DbBan> GetBanByIpAddress(string ipAddress)
         {
-            return context.Bans
+            await Task.Yield();
+
+            return await context.Bans
                 .Where(b => b.IpAddress == ipAddress)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
         }
 
         public void AddBan(DbBan ban)
