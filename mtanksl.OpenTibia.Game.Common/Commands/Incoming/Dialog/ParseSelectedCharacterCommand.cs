@@ -117,20 +117,32 @@ namespace OpenTibia.Game.Commands
 
             Player onlinePlayer = Context.Server.GameObjects.GetPlayerByName(dbPlayer.Name);
 
-            if (onlinePlayer != null)
+            if ( !Context.Server.Config.GameplayReplaceKickOnLogin)
             {
-                Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.YouAreAlreadyLoggedIn) );
+                if (onlinePlayer != null)
+                {
+                    Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.YouAreAlreadyLoggedIn) );
 
-                Context.Disconnect(Connection);
+                    Context.Disconnect(Connection);
 
-                await Promise.Break; return;
+                    await Promise.Break; return;
+                }                
+            }
+            else
+            {               
+                if (onlinePlayer != null)
+                {
+                    await Context.AddCommand(new ShowMagicEffectCommand(onlinePlayer, MagicEffectType.Puff) );
+                    
+                    await Context.AddCommand(new CreatureDestroyCommand(onlinePlayer) );
+
+                    await Promise.Yield();
+                }
             }
 
-            await Context.AddCommand(new TileCreatePlayerCommand(Connection, dbPlayer) ).Then( (player) =>
-            {
-                return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.Teleport) );
-
-            } ); return;
+            var player = await Context.AddCommand(new TileCreatePlayerCommand(Connection, dbPlayer) );
+            
+                         await Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.Teleport) );
         }
     }
 }

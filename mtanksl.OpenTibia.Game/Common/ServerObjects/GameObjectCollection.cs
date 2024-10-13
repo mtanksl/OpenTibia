@@ -160,10 +160,10 @@ namespace OpenTibia.Game.Common.ServerObjects
             return GetGameObject<Player>(id);
         }
 
-        public Item GetItem(uint id)
-        {
-            return GetGameObject<Item>(id);
-        }
+        // public Item GetItem(uint id)
+        // {
+        //     return GetGameObject<Item>(id);
+        // }
 
         private IEnumerable<GameObject> GetGameObjects(Type type)
         {
@@ -206,9 +206,9 @@ namespace OpenTibia.Game.Common.ServerObjects
             return GetGameObjects<Player>();
         }
 
-        public IEnumerable<Item> GetItems()
-        {
-            return GetGameObjects<Item>();
-        }
+        // public IEnumerable<Item> GetItems()
+        // {
+        //     return GetGameObjects<Item>();
+        // }
     }
 }

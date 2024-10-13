@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         Player GetPlayer(uint id);
 
-        public Item GetItem(uint id);
+        // Item GetItem(uint id);
 
         IEnumerable<Creature> GetCreatures();
 
@@ -29,6 +29,6 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         IEnumerable<Player> GetPlayers();
 
-        IEnumerable<Item> GetItems();
+        // IEnumerable<Item> GetItems();
     }
 }

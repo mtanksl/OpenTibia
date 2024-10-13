@@ -50,6 +50,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         public bool GameplayInfiniteArrows { get; set; }
         public bool GameplayInfiniteRunes { get; set; }
         public bool GameplayAllowChangeOutfit { get; set; }
+        public bool GameplayReplaceKickOnLogin { get; set; }
         public int GameplayMaxVips { get; set; }
         public int GameplayMaxDepotItems { get; set; }
         public int GameplayKickIdlePlayerAfterMinutes { get; set; }
@@ -184,6 +185,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             GameplayInfiniteRunes = LuaScope.GetBoolean(script["server.game.gameplay.infiniterunes"], false);
 
             GameplayAllowChangeOutfit = LuaScope.GetBoolean(script["server.game.gameplay.allowchangeoutfit"], true);
+
+            GameplayReplaceKickOnLogin = LuaScope.GetBoolean(script["server.game.gameplay.replacekickonlogin"], false);
 
             GameplayMaxVips = LuaScope.GetInt32(script["server.game.gameplay.maxvips"], 100);
 

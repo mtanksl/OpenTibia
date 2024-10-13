@@ -41,6 +41,7 @@ server = {
 			infinitearrows = false,
 			infiniterunes = false,
 			allowchangeoutfit = true,
+			replacekickonlogin = false,
 			maxvips = 100,
 			maxdepotitems = 2000,
 			kicklostconnectionafterminutes = 1,
