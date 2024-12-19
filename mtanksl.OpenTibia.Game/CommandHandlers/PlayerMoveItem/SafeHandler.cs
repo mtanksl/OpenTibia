@@ -19,9 +19,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (toContainer.IsContentOf(locker) )
                     {
+                        int maxDepotItems = command.Player.Premium ? Context.Server.Config.GameplayMaxDepotItemsPremiumAccount : Context.Server.Config.GameplayMaxDepotItems;
+
                         if (command.Item is Container container)
                         {
-                            if (Sum(locker) + Sum(container) >= Context.Server.Config.GameplayMaxDepotItems)
+                            if (Sum(locker) + Sum(container) >= maxDepotItems)
                             {
                                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourDepotIsFull) );
 
@@ -30,7 +32,7 @@ namespace OpenTibia.Game.CommandHandlers
                         }
                         else
                         {
-                            if (Sum(locker) >= Context.Server.Config.GameplayMaxDepotItems)
+                            if (Sum(locker) >= maxDepotItems)
                             {
                                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourDepotIsFull) );
 

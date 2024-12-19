@@ -15,7 +15,7 @@ server = {
 			url = "",
 			ownername = "",
 			owneremail = "",
-			mapname = "map",
+			mapname = "map", -- data/world/map.otbm
 			mapauthor = ""
 		}
 	},
@@ -35,16 +35,34 @@ server = {
 		port = GAME_PORT,
 		gameplay = {
 			maxplayers = 1000,
+			-- true = NPCs channel (Tibia)
+			-- false = Default channel
 			privatenpcsystem = true,
+			-- true = need to learn the spell before using it (Tibia)
+			-- false = no need to learn the spell before using it
 			learnspellfirst = false,
+			-- true = potions do not disappear after use
+			-- false = potions disappear after use (Tibia)
 			infinitepotions = false,
+			-- true = ammunitions do not disappear after attack
+			-- false = ammunitions disappear after attack (Tibia)
 			infinitearrows = false,
+			-- true = runes do not disappear after use
+			-- false = runes disappear after use (Tibia)
 			infiniterunes = false,
+			-- true = allow change outfit (Tibia)
+			-- false = do not allow change outfit
 			allowchangeoutfit = true,
+			-- true = replace client after logging into the same account/player
+			-- false = displays "You are already logged in." (Tibia)
 			replacekickonlogin = false,
-			maxvips = 100,
+			maxvips = 20,
+			maxvipspremiumaccount = 100,
 			maxdepotitems = 2000,
+			maxdepotitemspremiumaccount = 15000,
+			-- kick player after 1 minute without connection
 			kicklostconnectionafterminutes = 1,
+			-- kick player after 15 minutes idle
 			kickidleplayerafterminutes = 15,
 			monsterdespawnrange = 2,
 			monsterdespawnradius = 50,

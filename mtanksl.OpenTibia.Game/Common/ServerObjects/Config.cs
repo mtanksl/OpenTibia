@@ -52,7 +52,9 @@ namespace OpenTibia.Game.Common.ServerObjects
         public bool GameplayAllowChangeOutfit { get; set; }
         public bool GameplayReplaceKickOnLogin { get; set; }
         public int GameplayMaxVips { get; set; }
+        public int GameplayMaxVipsPremiumAccount { get; set; }
         public int GameplayMaxDepotItems { get; set; }
+        public int GameplayMaxDepotItemsPremiumAccount { get; set; }
         public int GameplayKickIdlePlayerAfterMinutes { get; set; }
         public int GameplayKickLostConnectionAfterMinutes { get; set; }
         public int GameplayMonsterDeSpawnRange { get; set; }
@@ -188,9 +190,13 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             GameplayReplaceKickOnLogin = LuaScope.GetBoolean(script["server.game.gameplay.replacekickonlogin"], false);
 
-            GameplayMaxVips = LuaScope.GetInt32(script["server.game.gameplay.maxvips"], 100);
+            GameplayMaxVips = LuaScope.GetInt32(script["server.game.gameplay.maxvips"], 20);
+
+            GameplayMaxVipsPremiumAccount = LuaScope.GetInt32(script["server.game.gameplay.maxvipspremiumaccount"], 100);
 
             GameplayMaxDepotItems = LuaScope.GetInt32(script["server.game.gameplay.maxdepotitems"], 2000);
+
+            GameplayMaxDepotItemsPremiumAccount = LuaScope.GetInt32(script["server.game.gameplay.maxdepotitemspremiumaccount"], 15000);
 
             GameplayKickLostConnectionAfterMinutes = LuaScope.GetInt32(script["server.game.gameplay.kicklostconnectionafterminutes"], 1);
 

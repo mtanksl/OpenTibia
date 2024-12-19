@@ -36,7 +36,9 @@ namespace OpenTibia.Game.Common.ServerObjects
         bool GameplayAllowChangeOutfit { get; set; }
         bool GameplayReplaceKickOnLogin { get; set; }
         int GameplayMaxVips { get; set; }
+        int GameplayMaxVipsPremiumAccount { get; set; }
         int GameplayMaxDepotItems { get; set; }       
+        int GameplayMaxDepotItemsPremiumAccount { get; set; }       
         int GameplayKickLostConnectionAfterMinutes { get; set; }
         int GameplayKickIdlePlayerAfterMinutes { get; set; }
         int GameplayMonsterDeSpawnRange { get; set; }

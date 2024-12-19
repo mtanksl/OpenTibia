@@ -1,5 +1,7 @@
 # To do
 
+- Account manager (create account, create player)
+- Player balance (banker NPC)
 - Player information
 	- Capacity
 	- Soul regeneration
