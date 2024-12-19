@@ -1,4 +1,5 @@
-﻿using OpenTibia.Data.Models;
+﻿using OpenTibia.Common.Structures;
+using OpenTibia.Data.Models;
 using System;
 
 namespace OpenTibia.Game.Common.ServerObjects
@@ -20,6 +21,14 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         int LoginMaxconnections { get; set; }
         int LoginPort { get; set; }
+        bool LoginAccountManagerEnabled { get; set; }
+        string LoginAccountManagerAccountName { get; set; }
+        string LoginAccountManagerAccountPassword { get; set; }
+        string LoginAccountManagerPlayerName { get; set; }
+        Position LoginAccountManagerPlayerPosition { get; set; }
+        string LoginAccountManagerWorldName { get; set; }
+        string LoginAccountManagerIpAddress { get; set; }
+        int LoginAccountManagerPort { get; set; }
 
         string Motd { get; set; }
         DbWorld[] Worlds { get; set; }

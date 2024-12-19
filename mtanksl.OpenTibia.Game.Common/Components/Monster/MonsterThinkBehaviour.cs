@@ -48,7 +48,8 @@ namespace OpenTibia.Game.Components
                     if (target == null || target.Tile == null || target.IsDestroyed || target.Tile.ProtectionZone || !monster.Tile.Position.CanHearSay(target.Tile.Position) )
                     {
                         Player[] visiblePlayers = Context.Server.Map.GetObserversOfTypePlayer(monster.Tile.Position)
-                            .Where(p => p.Rank != Rank.Gamemaster && 
+                            .Where(p => p.Rank != Rank.Gamemaster &&
+                                        p.Rank != Rank.AccountManager &&
                                         monster.Tile.Position.CanSee(p.Tile.Position) )
                             .ToArray();
 

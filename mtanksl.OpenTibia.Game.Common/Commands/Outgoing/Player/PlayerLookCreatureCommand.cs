@@ -107,6 +107,12 @@ namespace OpenTibia.Game.Commands
 
                                 break;
 
+                            case Rank.AccountManager:
+
+                                builder.Append(" You are an Account Manager.");
+
+                                break;
+
                             default:
 
                                 throw new NotImplementedException();
@@ -236,6 +242,12 @@ namespace OpenTibia.Game.Commands
                             case Rank.Gamemaster:
 
                                 builder.Append(" is a Gamemaster.");
+
+                                break;
+
+                            case Rank.AccountManager:
+
+                                builder.Append(" is an Account Manager.");
 
                                 break;
 

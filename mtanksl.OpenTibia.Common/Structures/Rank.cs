@@ -6,6 +6,8 @@
 
         Tutor = 1,
 
-        Gamemaster = 2
+        Gamemaster = 2,
+
+        AccountManager = 3
     }
 }

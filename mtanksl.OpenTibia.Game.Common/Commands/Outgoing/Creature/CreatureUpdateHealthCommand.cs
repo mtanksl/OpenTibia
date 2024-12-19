@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            if ( !(Creature is Npc || (Creature is Player player && player.Rank == Rank.Gamemaster) ) )
+            if ( !(Creature is Npc || (Creature is Player player && (player.Rank == Rank.Gamemaster || player.Rank == Rank.AccountManager) ) ) )
             {
                 if (Creature.Health != Health || Creature.MaxHealth != MaxHealth)
                 {

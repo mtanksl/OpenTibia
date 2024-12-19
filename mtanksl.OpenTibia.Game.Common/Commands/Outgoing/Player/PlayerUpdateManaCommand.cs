@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            if (Player.Rank != Rank.Gamemaster)
+            if (Player.Rank != Rank.Gamemaster && Player.Rank != Rank.AccountManager)
             {
                 if (Player.Mana != Mana || Player.MaxMana != MaxMana)
                 {

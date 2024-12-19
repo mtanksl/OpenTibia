@@ -1,6 +1,9 @@
 # To do
 
 - Account manager (create account, create player)
+- One player online per account
+- Allow clones
+- Gamemaster flag during login
 - Player balance (banker NPC)
 - Player information
 	- Capacity

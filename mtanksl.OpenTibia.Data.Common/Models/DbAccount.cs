@@ -19,6 +19,6 @@ namespace OpenTibia.Data.Models
         public DateTime? PremiumUntil { get; set; }
 
 
-        public ICollection<DbPlayer> Players { get; set; } = new List<DbPlayer>();
+        public IList<DbPlayer> Players { get; set; } = new List<DbPlayer>();
     }
 }

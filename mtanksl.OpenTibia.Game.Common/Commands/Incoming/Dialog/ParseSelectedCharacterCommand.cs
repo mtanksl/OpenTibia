@@ -57,17 +57,6 @@ namespace OpenTibia.Game.Commands
 
             using (var database = Context.Server.DatabaseFactory.Create() )
             {
-                dbPlayer = await database.PlayerRepository.GetAccountPlayer(Packet.Account, Packet.Password, Packet.Character);
-
-                if (dbPlayer == null)
-                {
-                    Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.AccountNameOrPasswordIsNotCorrect) );
-
-                    Context.Disconnect(Connection);
-
-                    await Promise.Break; return;
-                }
-
                 dbBan = await database.BanRepository.GetBanByIpAddress(Connection.IpAddress);
 
                 if (dbBan != null)
@@ -79,26 +68,94 @@ namespace OpenTibia.Game.Commands
                     await Promise.Break; return;
                 }
 
-                dbBan = await database.BanRepository.GetBanByAccountId(dbPlayer.AccountId);
-
-                if (dbBan != null)
+                if (Context.Server.Config.LoginAccountManagerEnabled && Packet.Character == Context.Server.Config.LoginAccountManagerPlayerName)
                 {
-                    Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, dbBan.Message) );
+                    dbPlayer = new DbPlayer() 
+                    { 
+                        Account = new DbAccount()
+                        { 
+                            PremiumUntil = null
+                        },
+                         
+                        Name = Context.Server.Config.LoginAccountManagerPlayerName, 
+                        
+                        Health = 150, 
+                        
+                        MaxHealth = 150, 
+                        
+                        Direction = 2, 
+                         
+                        BaseOutfitItemId = 2031, 
+                        
+                        OutfitItemId = 2031, 
+                        
+                        BaseSpeed = 220,
+                        
+                        Speed = 220, 
+                        
+                        Experience = 0, 
+                        
+                        Level = 1, 
+                        
+                        Mana = 55,
+                        
+                        MaxMana = 55, 
+                        
+                        Soul = 100, 
+                        
+                        Capacity = 40000, 
+                        
+                        Stamina = 2520, 
 
-                    Context.Disconnect(Connection);
+                        Rank = 3,
 
-                    await Promise.Break; return;
+                        SpawnX = Context.Server.Config.LoginAccountManagerPlayerPosition.X, 
+                        
+                        SpawnY = Context.Server.Config.LoginAccountManagerPlayerPosition.Y,
+                        
+                        SpawnZ = Context.Server.Config.LoginAccountManagerPlayerPosition.Z, 
+                        
+                        TownX = Context.Server.Config.LoginAccountManagerPlayerPosition.X, 
+                        
+                        TownY = Context.Server.Config.LoginAccountManagerPlayerPosition.Y, 
+                        
+                        TownZ = Context.Server.Config.LoginAccountManagerPlayerPosition.Z
+                    };
                 }
-
-                dbBan = await database.BanRepository.GetBanByPlayerId(dbPlayer.Id);
-
-                if (dbBan != null)
+                else
                 {
-                    Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, dbBan.Message) );
+                    dbPlayer = await database.PlayerRepository.GetAccountPlayer(Packet.Account, Packet.Password, Packet.Character);
 
-                    Context.Disconnect(Connection);
+                    if (dbPlayer == null)
+                    {
+                        Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.AccountNameOrPasswordIsNotCorrect) );
 
-                    await Promise.Break; return;
+                        Context.Disconnect(Connection);
+
+                        await Promise.Break; return;
+                    }
+
+                    dbBan = await database.BanRepository.GetBanByAccountId(dbPlayer.AccountId);
+
+                    if (dbBan != null)
+                    {
+                        Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, dbBan.Message) );
+
+                        Context.Disconnect(Connection);
+
+                        await Promise.Break; return;
+                    }
+
+                    dbBan = await database.BanRepository.GetBanByPlayerId(dbPlayer.Id);
+
+                    if (dbBan != null)
+                    {
+                        Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, dbBan.Message) );
+
+                        Context.Disconnect(Connection);
+
+                        await Promise.Break; return;
+                    }
                 }
             }
 

@@ -28,6 +28,16 @@ server = {
 				ipaddress = IP_ADDRESS,
 				port = GAME_PORT
 			}
+		},
+		accountmanager = {
+			enabled = false,
+			accountname = "",
+			accountpassword = "",
+			playername = "Account Manager",
+			playerposition = { x = 915, y = 769, z = 6 },
+			worldname = "Cormaya",
+			ipaddress = IP_ADDRESS,
+			port = GAME_PORT
 		}
 	},
 	game = {

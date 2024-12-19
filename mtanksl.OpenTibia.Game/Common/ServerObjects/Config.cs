@@ -1,4 +1,5 @@
 ﻿using NLua;
+using OpenTibia.Common.Structures;
 using OpenTibia.Data.Models;
 using System;
 using System.Linq;
@@ -36,6 +37,14 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public int LoginMaxconnections { get; set; }
         public int LoginPort { get; set; }
+        public bool LoginAccountManagerEnabled { get; set; }
+        public string LoginAccountManagerAccountName { get; set; }
+        public string LoginAccountManagerAccountPassword { get; set; }
+        public string LoginAccountManagerPlayerName { get; set; }
+        public Position LoginAccountManagerPlayerPosition { get; set; }
+        public string LoginAccountManagerWorldName { get; set; }
+        public string LoginAccountManagerIpAddress { get; set; }
+        public int LoginAccountManagerPort { get; set; }
 
         public string Motd { get; set; }
         public DbWorld[] Worlds { get; set; }
@@ -133,7 +142,25 @@ namespace OpenTibia.Game.Common.ServerObjects
             LoginMaxconnections = LuaScope.GetInt32(script["server.login.maxconnections"], 1000);  
             
             LoginPort = LuaScope.GetInt32(script["server.login.port"], 7171);
-                        
+
+            LoginAccountManagerEnabled = LuaScope.GetBoolean(script["server.login.accountmanager.enabled"], true);
+
+            LoginAccountManagerAccountName = LuaScope.GetString(script["server.login.accountmanager.accountname"], "");
+
+            LoginAccountManagerAccountPassword = LuaScope.GetString(script["server.login.accountmanager.accountpassword"], "");
+
+            LoginAccountManagerPlayerName = LuaScope.GetString(script["server.login.accountmanager.playername"], "");
+
+            LuaTable position = (LuaTable)script["server.login.accountmanager.playerposition"];
+
+            LoginAccountManagerPlayerPosition = new Position( (int)(long)position["x"], (int)(long)position["y"], (int)(long)position["z"] );
+
+            LoginAccountManagerWorldName = LuaScope.GetString(script["server.login.accountmanager.worldname"], "");
+
+            LoginAccountManagerIpAddress = LuaScope.GetString(script["server.login.accountmanager.ipaddress"], "127.0.0.1");
+
+            LoginAccountManagerPort = LuaScope.GetInt32(script["server.login.accountmanager.port"], 7172);
+
             Motd = LuaScope.GetString(script["server.login.motd"], "MTOTS - An open Tibia server developed by mtanksl");
 
             LuaTable worlds = (LuaTable)script["server.login.worlds"]; 

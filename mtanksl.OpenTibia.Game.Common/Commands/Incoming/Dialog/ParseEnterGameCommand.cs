@@ -59,17 +59,6 @@ namespace OpenTibia.Game.Commands
 
             using (var database = Context.Server.DatabaseFactory.Create() )
             {
-                dbAccount = await database.PlayerRepository.GetAccount(Packet.Account, Packet.Password);
-
-                if (dbAccount == null)
-                {
-                    Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
-
-                    Context.Disconnect(Connection);
-
-                    await Promise.Break; return;
-                }
-
                 dbBan = await database.BanRepository.GetBanByIpAddress(Connection.IpAddress);
 
                 if (dbBan != null)
@@ -81,15 +70,42 @@ namespace OpenTibia.Game.Commands
                     await Promise.Break; return;
                 }
 
-                dbBan = await database.BanRepository.GetBanByAccountId(dbAccount.Id);
-
-                if (dbBan != null)
+                if (Context.Server.Config.LoginAccountManagerEnabled && Packet.Account == Context.Server.Config.LoginAccountManagerAccountName && Packet.Password == Context.Server.Config.LoginAccountManagerAccountPassword)
                 {
-                    Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, dbBan.Message) );
+                    dbAccount = new DbAccount()
+                    {
+                        Name = Context.Server.Config.LoginAccountManagerAccountName,
 
-                    Context.Disconnect(Connection);
+                        Password = Context.Server.Config.LoginAccountManagerAccountPassword,
 
-                    await Promise.Break; return;
+                        Players = new List<DbPlayer>(),
+
+                        PremiumUntil = null
+                    };
+                }
+                else
+                {
+                    dbAccount = await database.PlayerRepository.GetAccount(Packet.Account, Packet.Password);
+
+                    if (dbAccount == null)
+                    {
+                        Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
+
+                        Context.Disconnect(Connection);
+
+                        await Promise.Break; return;
+                    }
+
+                    dbBan = await database.BanRepository.GetBanByAccountId(dbAccount.Id);
+
+                    if (dbBan != null)
+                    {
+                        Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, dbBan.Message) );
+
+                        Context.Disconnect(Connection);
+
+                        await Promise.Break; return;
+                    }
                 }
 
                 DbMotd dbMotd = await database.MotdRepository.GetLastMessageOfTheDay();
@@ -99,6 +115,23 @@ namespace OpenTibia.Game.Commands
                     Context.AddPacket(Connection, new OpenMessageOfTheDayDialogOutgoingPacket(dbMotd.Id, dbMotd.Message) );    
                 }
             }
+
+            if (Context.Server.Config.LoginAccountManagerEnabled)
+            {
+                dbAccount.Players.Insert(0, new DbPlayer()
+                {
+                    Name = Context.Server.Config.LoginAccountManagerPlayerName,
+
+                    World = new DbWorld()
+                    {
+                        Name = Context.Server.Config.LoginAccountManagerWorldName,
+
+                        Ip = Context.Server.Config.LoginAccountManagerIpAddress,
+
+                        Port = Context.Server.Config.LoginAccountManagerPort
+                    }
+                } );
+            }  
 
             List<CharacterDto> characters = new List<CharacterDto>();
 
