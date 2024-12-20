@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public string GetPlayerNameFor(string ipAddress, int databasePlayerId, string playerName)
         {
-            if (server.Config.GameplayAllowClones)
+            if (server.Config.GameplayAllowClones || (server.Config.LoginAccountManagerEnabled && playerName == server.Config.LoginAccountManagerPlayerName) )
             {
                 if ( !names.TryGetValue(ipAddress + "_" + databasePlayerId, out var name) )
                 {
