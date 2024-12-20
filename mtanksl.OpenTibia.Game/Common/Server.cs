@@ -742,150 +742,145 @@ namespace OpenTibia.Game.Common
             {
                 using (var database = DatabaseFactory.Create() )
                 {
-                    using (Logger.Measure("Saving players") )
+                    if (Config.GameplayAllowClones)
                     {
-                        Player[] players = GameObjectPool.GetPlayers().ToArray();
+                        Logger.WriteLine("Saving players skipped, because file config.lua parameter server.game.gameplay.allowclones is true.", LogLevel.Warning);
 
-                        if (players.Length > 0)
-                        {
-                            DbPlayer[] dbPlayers = await database.PlayerRepository.GetPlayerByIds(players.Select(p => p.DatabasePlayerId).ToArray() );
-
-                            foreach (var item in players.GroupJoin(dbPlayers, p => p.DatabasePlayerId, p => p.Id, (player, dbPlayers) => new { Player = player, DbPlayer = dbPlayers.FirstOrDefault() } ) )
-                            {
-                                Player player = item.Player;
-
-                                DbPlayer dbPlayer = item.DbPlayer;
-
-                                if (dbPlayer != null)
-                                {
-                                    PlayerFactory.Save(dbPlayer, player);
-                                }
-                            }                   
-                        }
+                        Logger.WriteLine("Saving houses skipped, because file config.lua parameter server.game.gameplay.allowclones is true.", LogLevel.Warning);
                     }
-
-                    using (Logger.Measure("Saving houses") )
+                    else
                     {
-                        House[] houses = Map.GetHouses().ToArray();
-
-                        if (houses.Length > 0)
+                        using (Logger.Measure("Saving players") )
                         {
-                            DbHouse[] dbHouses = await database.HouseRepository.GetHouses();
+                            Player[] players = GameObjectPool.GetPlayers().ToArray();
 
-                            foreach (var item in houses.GroupJoin(dbHouses, h => h.Id, h => h.Id, (house, dbHouses) => new { House = house, DbHouse = dbHouses.FirstOrDefault() } ) )
+                            if (players.Length > 0)
                             {
-                                House house = item.House;
+                                DbPlayer[] dbPlayers = await database.PlayerRepository.GetPlayerByIds(players.Select(p => p.DatabasePlayerId).ToArray() );
 
-                                DbHouse dbHouse = item.DbHouse;
+                                foreach (var item in players.GroupJoin(dbPlayers, p => p.DatabasePlayerId, p => p.Id, (player, dbPlayers) => new { Player = player, DbPlayer = dbPlayers.FirstOrDefault() } ) )
+                                {
+                                    Player player = item.Player;
 
-                                if (dbHouse == null)
-                                {
-                                    dbHouse = new DbHouse()
-                                    {
-                                        Id = house.Id
-                                    };
-
-                                    database.HouseRepository.AddHouse(dbHouse);
-                                }
-                                                          
-                                dbHouse.HouseAccessLists.Clear();
-                            
-                                if (house.Owner == null)
-                                {
-                                    dbHouse.OwnerId = null;
-                                }
-                                else
-                                {
-                                    DbPlayer dbPlayer = await database.PlayerRepository.GetPlayerByName(house.Owner); //TODO: Improve performance
+                                    DbPlayer dbPlayer = item.DbPlayer;
 
                                     if (dbPlayer != null)
                                     {
-                                        dbHouse.OwnerId = dbPlayer.Id;
+                                        PlayerFactory.Save(dbPlayer, player);
                                     }
-                                }
+                                }                   
+                            }
+                        }
 
-                                HouseAccessList subOwnersList = house.GetSubOwnersList();
+                        using (Logger.Measure("Saving houses") )
+                        {
+                            House[] houses = Map.GetHouses().ToArray();
 
-                                if (subOwnersList.Text != null)
+                            if (houses.Length > 0)
+                            {
+                                DbHouse[] dbHouses = await database.HouseRepository.GetHouses();
+
+                                foreach (var item in houses.GroupJoin(dbHouses, h => h.Id, h => h.Id, (house, dbHouses) => new { House = house, DbHouse = dbHouses.FirstOrDefault() } ) )
                                 {
-                                    dbHouse.HouseAccessLists.Add(new DbHouseAccessList()
+                                    House house = item.House;
+
+                                    DbHouse dbHouse = item.DbHouse;
+
+                                    if (dbHouse == null)
                                     {
-                                        HouseId = house.Id,
+                                        dbHouse = new DbHouse()
+                                        {
+                                            Id = house.Id
+                                        };
 
-                                        ListId = 0xFE,
+                                        database.HouseRepository.AddHouse(dbHouse);
+                                    }
+                                                          
+                                    dbHouse.HouseAccessLists.Clear();
 
-                                        Text = subOwnersList.Text
-                                    } );
-                                }
+                                    HouseAccessList subOwnersList = house.GetSubOwnersList();
 
-                                HouseAccessList guestsList = house.GetGuestsList();
-
-                                if (guestsList.Text != null)
-                                {
-                                    dbHouse.HouseAccessLists.Add(new DbHouseAccessList()
-                                    {
-                                        HouseId = house.Id,
-
-                                        ListId = 0xFF,
-
-                                        Text = guestsList.Text
-                                    } );
-                                }
-
-                                foreach (var doorList in house.GetDoorsList() )
-                                {
-                                    if (doorList.Value.Text != null)
+                                    if (subOwnersList.Text != null)
                                     {
                                         dbHouse.HouseAccessLists.Add(new DbHouseAccessList()
                                         {
                                             HouseId = house.Id,
 
-                                            ListId = doorList.Key,
+                                            ListId = 0xFE,
 
-                                            Text = doorList.Value.Text
+                                            Text = subOwnersList.Text
                                         } );
                                     }
-                                }
 
-                                long sequenceId = 1;
+                                    HouseAccessList guestsList = house.GetGuestsList();
 
-                                void AddItems(long parentId, Item item)
-                                {
-                                    DbHouseItem dbHouseItem = new DbHouseItem()
+                                    if (guestsList.Text != null)
                                     {
-                                        HouseId = dbHouse.Id,
-
-                                        SequenceId = sequenceId++,
-
-                                        ParentId = parentId,
-
-                                        OpenTibiaId = item.Metadata.OpenTibiaId,
-
-                                        Count = item is StackableItem stackableItem ? stackableItem.Count :
-
-                                                item is FluidItem fluidItem ? (int)fluidItem.FluidType :
-
-                                                item is SplashItem splashItem ? (int)splashItem.FluidType : 1
-                                    };
-
-                                    dbHouse.HouseItems.Add(dbHouseItem);
-
-                                    if (item is Container container)
-                                    {
-                                        foreach (var child in container.GetItems().Reverse() )
+                                        dbHouse.HouseAccessLists.Add(new DbHouseAccessList()
                                         {
-                                            AddItems(dbHouseItem.SequenceId, child);
+                                            HouseId = house.Id,
+
+                                            ListId = 0xFF,
+
+                                            Text = guestsList.Text
+                                        } );
+                                    }
+
+                                    foreach (var doorList in house.GetDoorsList() )
+                                    {
+                                        if (doorList.Value.Text != null)
+                                        {
+                                            dbHouse.HouseAccessLists.Add(new DbHouseAccessList()
+                                            {
+                                                HouseId = house.Id,
+
+                                                ListId = doorList.Key,
+
+                                                Text = doorList.Value.Text
+                                            } );
                                         }
                                     }
-                                }
 
-                                dbHouse.HouseItems.Clear();
+                                    long sequenceId = 1;
 
-                                foreach (var tile in house.GetTiles() )
-                                {
-                                    foreach (var moveable in tile.GetItems().Where(i => !i.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) ).Reverse() )
+                                    void AddItems(long parentId, Item item)
                                     {
-                                        AddItems( (long)0x01 << 36 | (long)tile.Position.X << 20 | (long)tile.Position.Y << 4 | (long)tile.Position.Z, moveable);
+                                        DbHouseItem dbHouseItem = new DbHouseItem()
+                                        {
+                                            HouseId = dbHouse.Id,
+
+                                            SequenceId = sequenceId++,
+
+                                            ParentId = parentId,
+
+                                            OpenTibiaId = item.Metadata.OpenTibiaId,
+
+                                            Count = item is StackableItem stackableItem ? stackableItem.Count :
+
+                                                    item is FluidItem fluidItem ? (int)fluidItem.FluidType :
+
+                                                    item is SplashItem splashItem ? (int)splashItem.FluidType : 1
+                                        };
+
+                                        dbHouse.HouseItems.Add(dbHouseItem);
+
+                                        if (item is Container container)
+                                        {
+                                            foreach (var child in container.GetItems().Reverse() )
+                                            {
+                                                AddItems(dbHouseItem.SequenceId, child);
+                                            }
+                                        }
+                                    }
+
+                                    dbHouse.HouseItems.Clear();
+
+                                    foreach (var tile in house.GetTiles() )
+                                    {
+                                        foreach (var moveable in tile.GetItems().Where(i => !i.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) ).Reverse() )
+                                        {
+                                            AddItems( (long)0x01 << 36 | (long)tile.Position.X << 20 | (long)tile.Position.Y << 4 | (long)tile.Position.Z, moveable);
+                                        }
                                     }
                                 }
                             }
