@@ -1,4 +1,5 @@
-﻿using NLua;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using NLua;
 using OpenTibia.Common.Structures;
 using OpenTibia.Data.Models;
 using System;
@@ -163,6 +164,22 @@ namespace OpenTibia.Game.Common.ServerObjects
             LoginAccountManagerWorldName = LuaScope.GetString(script["server.login.accountmanager.worldname"], "");
 
             LoginAccountManagerIpAddress = LuaScope.GetString(script["server.login.accountmanager.ipaddress"], "127.0.0.1");
+
+            try
+            {
+                var dns = Dns.GetHostEntry(LoginAccountManagerIpAddress);
+
+                if (dns.AddressList.Length == 0)
+                {
+                    throw new NotImplementedException("File config.lua parameter server.login.accountmanager.ipaddress could not be resolved.");
+                }
+
+                LoginAccountManagerIpAddress = dns.AddressList[0].ToString();
+            }
+            catch (SocketException)
+            {
+                throw new NotImplementedException("File config.lua parameter server.login.accountmanager.ipaddress could not be resolved.");
+            }
 
             LoginAccountManagerPort = LuaScope.GetInt32(script["server.login.accountmanager.port"], 7172);
 
