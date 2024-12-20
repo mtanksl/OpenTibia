@@ -8,6 +8,8 @@ namespace OpenTibia.Game.Scripts
         {
             Context.Server.CommandHandlers.AddCommandHandler(new PlayerSayScriptingHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler(new AccountManagerSayHandler() );
+
             var gamemasterCommandHandler = new GamemasterCommandHandler();
 
                 gamemasterCommandHandler.CommandHandlers.AddCommandHandler(new TeleportHandler() ); //a

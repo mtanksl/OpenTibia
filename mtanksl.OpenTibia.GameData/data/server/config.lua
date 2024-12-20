@@ -30,7 +30,7 @@ server = {
 			}
 		},
 		accountmanager = {
-			enabled = false,
+			enabled = true,
 			accountname = "",
 			accountpassword = "",
 			playername = "Account Manager",

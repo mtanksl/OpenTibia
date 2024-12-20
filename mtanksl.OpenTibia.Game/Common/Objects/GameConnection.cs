@@ -512,7 +512,7 @@ namespace OpenTibia.Common
             
 			accountManagerCommands.Add(0x8C, new PacketToCommand<LookIncomingPacket>("Look", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
             
-			accountManagerCommands.Add(0x96, new PacketToCommand<TalkIncomingPacket>("Talk", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
+			accountManagerCommands.Add(0x96, new PacketToCommand<TalkIncomingPacket>("Talk", (connection, packet) => new ParseTalkSayCommand(connection.Client.Player, packet.Message) ) );
             
 			accountManagerCommands.Add(0x97, new PacketToCommand<OpenNewChannelIncomingPacket>("Open New Channel", (connection, packet) => new IgnoreCommand(connection.Client.Player) ) );
             

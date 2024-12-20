@@ -1,9 +1,16 @@
 ﻿using OpenTibia.Common.Structures;
+using System.Collections.Generic;
 
 namespace OpenTibia.Common.Objects
 {
     public interface IClient 
     {
+        Dictionary<string, object> Data { get; }
+
+        string AccountNumber { get; set; }
+
+        AccountManagerType AccountManagerType { get; set; }
+
         IBattleCollection Battles { get; }
 
         IContainerCollection Containers { get; }

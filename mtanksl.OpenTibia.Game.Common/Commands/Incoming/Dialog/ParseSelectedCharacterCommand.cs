@@ -200,6 +200,24 @@ namespace OpenTibia.Game.Commands
             var player = await Context.AddCommand(new TileCreatePlayerCommand(Connection, dbPlayer) );
             
                          await Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.Teleport) );
+
+            player.Client.AccountNumber = Packet.Account;
+
+            if (Context.Server.Config.LoginAccountManagerEnabled && Packet.Character == Context.Server.Config.LoginAccountManagerPlayerName)
+            {
+                if (Packet.Account == Context.Server.Config.LoginAccountManagerAccountName)
+                {
+                    player.Client.AccountManagerType = AccountManagerType.NewAccountManager;
+                }
+                else
+                {
+                    player.Client.AccountManagerType = AccountManagerType.AccountManager;
+                }
+            }
+            else
+            {
+                player.Client.AccountManagerType = AccountManagerType.None;
+            }
         }
     }
 }

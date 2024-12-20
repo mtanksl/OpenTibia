@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
+using System.Collections.Generic;
 
 namespace OpenTibia.Common
 {
@@ -14,6 +15,20 @@ namespace OpenTibia.Common
 
             this.Windows = new WindowCollection(this);
         }
+
+        private Dictionary<string, object> data;
+
+        public Dictionary<string, object> Data
+        {
+            get
+            {
+                return data ?? (data = new Dictionary<string, object>() );
+            }
+        }
+
+        public string AccountNumber { get; set; }
+        
+        public AccountManagerType AccountManagerType { get; set; }
 
         public IBattleCollection Battles { get; }
 
