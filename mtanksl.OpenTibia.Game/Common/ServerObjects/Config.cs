@@ -61,6 +61,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         public bool GameplayInfiniteArrows { get; set; }
         public bool GameplayInfiniteRunes { get; set; }
         public bool GameplayAllowChangeOutfit { get; set; }
+        public bool GameplayOnePlayerOnlinePerAccount { get; set; }
         public bool GameplayReplaceKickOnLogin { get; set; }
         public int GameplayMaxVips { get; set; }
         public int GameplayMaxVipsPremiumAccount { get; set; }
@@ -236,6 +237,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             GameplayInfiniteRunes = LuaScope.GetBoolean(script["server.game.gameplay.infiniterunes"], false);
 
             GameplayAllowChangeOutfit = LuaScope.GetBoolean(script["server.game.gameplay.allowchangeoutfit"], true);
+
+            GameplayOnePlayerOnlinePerAccount = LuaScope.GetBoolean(script["server.game.gameplay.oneplayeronlineperaccount"], false);
 
             GameplayReplaceKickOnLogin = LuaScope.GetBoolean(script["server.game.gameplay.replacekickonlogin"], false);
 

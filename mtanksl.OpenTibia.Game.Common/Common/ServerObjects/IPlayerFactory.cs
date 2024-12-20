@@ -5,7 +5,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 {
     public interface IPlayerFactory
     {
-        Player Create(int databasePlayerId, string name, Tile town, Tile spawn);
+        Player Create(int databasePlayerId, int databaseAccountId, string name, Tile town, Tile spawn);
 
         void Attach(Player player);
 

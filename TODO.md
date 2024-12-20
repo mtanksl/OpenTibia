@@ -1,6 +1,5 @@
 # To do
 
-- One player online per account
 - Allow clones
 - Check Gamemaster flag during login
 - Player balance (banker NPC)
@@ -32,7 +31,6 @@
 
 # Done (or good enough for now)
 
-- Account manager (create account, change password, create player)
 - Tibia and Open Tibia's file format interpreters (.dat, .otb, .otbm, .pic, .spr)
 - TCP socket management for login and game servers
 - Packets and communication protocol (with RSA, Xtea, Adler32)
@@ -42,7 +40,10 @@
 	- Vocation (knight, paladin, sorcerer, druid, etc) and rank (player, tutor, gamemaster) 
 - The base structures
 - Server status info protocol
+- Account manager (create account, change password, create player)
 - Interacting with the client
+	- One player online per account
+	- Replace kick on login
 	- Premium days
 	- Message of the day
 	- Waiting list

@@ -44,6 +44,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         bool GameplayInfiniteArrows { get; set; }
         bool GameplayInfiniteRunes { get; set; }
         bool GameplayAllowChangeOutfit { get; set; }
+        bool GameplayOnePlayerOnlinePerAccount { get; set; }
         bool GameplayReplaceKickOnLogin { get; set; }
         int GameplayMaxVips { get; set; }
         int GameplayMaxVipsPremiumAccount { get; set; }

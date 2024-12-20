@@ -20,8 +20,6 @@ namespace OpenTibia.Game.Common.ServerObjects
             // { typeof(Item), new Dictionary<uint, GameObject>() }
         };
 
-        private Dictionary<string, Player> players = new Dictionary<string, Player>();
-
         private uint uniqueId = 0;
 
         private uint GenerateId()
@@ -59,8 +57,6 @@ namespace OpenTibia.Game.Common.ServerObjects
                 }
                 else if (gameObject is Player player)
                 {
-                    players.Add(player.Name, player);
-
                     buckets[ typeof(Player) ].Add(gameObject.Id, gameObject);
                 }
             }
@@ -90,8 +86,6 @@ namespace OpenTibia.Game.Common.ServerObjects
                     }
                     else if (gameObject is Player player)
                     {
-                        players.Remove(player.Name);
-
                         buckets[ typeof(Player) ].Remove(gameObject.Id);
                     }
                 }
@@ -104,15 +98,6 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
 
             return false;
-        }
-
-        public Player GetPlayerByName(string name)
-        {
-            Player player;
-
-            players.TryGetValue(name, out player);
-
-            return player;
         }
 
         private GameObject GetGameObject(uint id, Type type)
@@ -210,5 +195,19 @@ namespace OpenTibia.Game.Common.ServerObjects
         // {
         //     return GetGameObjects<Item>();
         // }
+
+        public Player GetPlayerByAccount(int databaseAccountId)
+        {
+            return GetPlayers()
+                .Where(p => p.DatabaseAccountId == databaseAccountId)
+                .FirstOrDefault();
+        }
+
+        public Player GetPlayerByName(string name)
+        {
+            return GetPlayers()
+                .Where(p => p.Name == name)
+                .FirstOrDefault();
+        }
     }
 }

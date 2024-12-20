@@ -291,7 +291,7 @@ namespace OpenTibia.Game.CommandHandlers
                                 {
                                     using (var database = Context.Server.DatabaseFactory.Create() )
                                     {
-                                        var dbAccount = await database.AccountRepository.GetAccountByName(command.Player.Client.AccountNumber);
+                                        var dbAccount = await database.AccountRepository.GetAccountById(command.Player.DatabaseAccountId);
 
                                         dbAccount.Password = accountManagerState.Password;
 
@@ -393,7 +393,7 @@ namespace OpenTibia.Game.CommandHandlers
                                 {
                                     using (var database = Context.Server.DatabaseFactory.Create() )
                                     {
-                                        var dbAccount = await database.AccountRepository.GetAccountByName(command.Player.Client.AccountNumber);
+                                        var dbAccount = await database.AccountRepository.GetAccountById(command.Player.DatabaseAccountId);
 
                                         var dbWorld = await database.WorldRepository.GetWorldByName(Context.Server.Config.LoginAccountManagerWorldName);
 

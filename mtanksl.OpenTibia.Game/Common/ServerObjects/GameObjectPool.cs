@@ -1,29 +1,28 @@
 ﻿using OpenTibia.Common.Objects;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenTibia.Game.Common.ServerObjects
 {
     public class GameObjectPool : IGameObjectPool
     {
-        private Dictionary<string, Player> players = new Dictionary<string, Player>();
-
-        public Player GetPlayerByName(string name)
-        {
-            Player player;
-
-            players.TryGetValue(name, out player);
-
-            return player;
-        }
+        private List<Player> players = new List<Player>();
 
         public void AddPlayer(Player player)
         {
-            players.Add(player.Name, player);
+            players.Add(player);
         }
 
         public IEnumerable<Player> GetPlayers() 
         { 
-            return players.Values;
+            return players;
+        }
+
+        public Player GetPlayerByName(string name)
+        {
+            return GetPlayers()
+                .Where(p => p.Name == name)
+                .FirstOrDefault();
         }
     }
 }

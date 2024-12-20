@@ -25,9 +25,7 @@ namespace OpenTibia.Common
                 return data ?? (data = new Dictionary<string, object>() );
             }
         }
-
-        public string AccountNumber { get; set; }
-        
+                
         public AccountManagerType AccountManagerType { get; set; }
 
         public IBattleCollection Battles { get; }

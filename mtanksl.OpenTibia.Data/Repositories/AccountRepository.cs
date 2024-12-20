@@ -35,6 +35,15 @@ namespace OpenTibia.Data.Repositories
             return account;
         }
 
+        public async Task<DbAccount> GetAccountById(int id)
+        {
+            await Task.Yield();
+
+            return await context.Accounts
+                .Where(p => p.Id == id)
+                .FirstOrDefaultAsync();
+        }
+                
         public async Task<DbAccount> GetAccountByName(string name)
         {
             await Task.Yield();

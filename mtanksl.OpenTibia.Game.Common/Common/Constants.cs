@@ -84,6 +84,8 @@
 
         public static readonly string YouMayNotLogoutDuringOrImmediatelyAfterAFight = "You may not logout during or immediately after a fight!";
 
+        public static readonly string YouMayOnlyLoginWithOneCharacterOfYourAccountAtTheSameTime = "You may only login with one character of your account at the same time.";
+
         public static readonly string YouNeedAPremiumAccount = "You need a premium account.";
 
         public static readonly string YouNeedToLearnThisSpellFirst = "You need to learn this spell first.";

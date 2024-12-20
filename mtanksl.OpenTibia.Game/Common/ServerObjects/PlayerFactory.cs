@@ -16,11 +16,13 @@ namespace OpenTibia.Game.Common.ServerObjects
             this.server = server;
         }
 
-        public Player Create(int databasePlayerId, string name, Tile town, Tile spawn)
+        public Player Create(int databasePlayerId, int databaseAccountId, string name, Tile town, Tile spawn)
         {
             Player player = new Player()
             {
                 DatabasePlayerId = databasePlayerId,
+
+                DatabaseAccountId = databaseAccountId,
 
                 Name = name,
 

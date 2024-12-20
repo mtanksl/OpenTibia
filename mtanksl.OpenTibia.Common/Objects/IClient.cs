@@ -7,8 +7,6 @@ namespace OpenTibia.Common.Objects
     {
         Dictionary<string, object> Data { get; }
 
-        string AccountNumber { get; set; }
-
         AccountManagerType AccountManagerType { get; set; }
 
         IBattleCollection Battles { get; }

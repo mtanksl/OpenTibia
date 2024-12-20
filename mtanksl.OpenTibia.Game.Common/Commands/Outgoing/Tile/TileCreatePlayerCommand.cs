@@ -37,7 +37,7 @@ namespace OpenTibia.Game.Commands
                     spawn = town;
                 }
 
-                player = Context.Server.PlayerFactory.Create(DbPlayer.Id, DbPlayer.Name, town, spawn);
+                player = Context.Server.PlayerFactory.Create(DbPlayer.Id, DbPlayer.AccountId, DbPlayer.Name, town, spawn);
 
                 player.Client = client;
 

@@ -87,6 +87,8 @@ namespace OpenTibia.Common.Objects
 
         public int DatabasePlayerId { get; set; }
 
+        public int DatabaseAccountId { get; set; }
+
         public Inventory Inventory { get; }
 
         public Safe Lockers { get; }

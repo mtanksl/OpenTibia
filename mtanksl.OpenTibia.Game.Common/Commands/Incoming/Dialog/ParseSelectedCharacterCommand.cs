@@ -205,6 +205,22 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
+            Player onlinePlayer;
+
+            if (Context.Server.Config.GameplayOnePlayerOnlinePerAccount)
+            {
+                onlinePlayer = Context.Server.GameObjects.GetPlayerByAccount(dbPlayer.AccountId);
+
+                if (onlinePlayer != null)
+                {
+                    Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.YouMayOnlyLoginWithOneCharacterOfYourAccountAtTheSameTime) );
+
+                    Context.Disconnect(Connection);
+                                            
+                    await Promise.Break; return;
+                }
+            }
+
             int position;
 
             byte time;
@@ -218,7 +234,7 @@ namespace OpenTibia.Game.Commands
                 await Promise.Break; return;
             }
 
-            Player onlinePlayer = Context.Server.GameObjects.GetPlayerByName(dbPlayer.Name);
+            onlinePlayer = Context.Server.GameObjects.GetPlayerByName(dbPlayer.Name);
 
             if ( !Context.Server.Config.GameplayReplaceKickOnLogin)
             {
@@ -246,8 +262,6 @@ namespace OpenTibia.Game.Commands
             var player = await Context.AddCommand(new TileCreatePlayerCommand(Connection, dbPlayer) );
             
                          await Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.Teleport) );
-
-            player.Client.AccountNumber = Packet.Account;
 
             player.Client.AccountManagerType = accountManagerType;
         }
