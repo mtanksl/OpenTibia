@@ -175,7 +175,7 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 try
                                 {
-                                    using (var database = Context.Current.Server.DatabaseFactory.Create() )
+                                    using (var database = Context.Server.DatabaseFactory.Create() )
                                     {
                                         database.AccountRepository.AddDbAccount(new DbAccount()
                                         {
@@ -289,7 +289,7 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 try
                                 {
-                                    using (var database = Context.Current.Server.DatabaseFactory.Create() )
+                                    using (var database = Context.Server.DatabaseFactory.Create() )
                                     {
                                         var dbAccount = await database.AccountRepository.GetAccountByName(command.Player.Client.AccountNumber);
 
@@ -326,9 +326,23 @@ namespace OpenTibia.Game.CommandHandlers
                             }
                             else
                             {
-                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
+                                using (var database = Context.Server.DatabaseFactory.Create() )
+                                {
+                                    var dbPlayer = await database.PlayerRepository.GetPlayerByName(accountManagerState.PlayerName);
+
+                                    if (dbPlayer != null)
+                                    {
+                                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "This character name already exists. What would you like as your character name?") );
+
+                                        accountManagerState.Index = AccountManagerStateIndex.WaitingForPlayerName;
+                                    }
+                                    else
+                                    {
+                                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
                          
-                                accountManagerState.Index = AccountManagerStateIndex.WaitingForPlayerNameConfirmation;
+                                        accountManagerState.Index = AccountManagerStateIndex.WaitingForPlayerNameConfirmation;
+                                    }
+                                }
                             }
                         }
                         else if (accountManagerState.Index == AccountManagerStateIndex.WaitingForPlayerNameConfirmation)
@@ -377,7 +391,7 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 try
                                 {
-                                    using (var database = Context.Current.Server.DatabaseFactory.Create() )
+                                    using (var database = Context.Server.DatabaseFactory.Create() )
                                     {
                                         var dbAccount = await database.AccountRepository.GetAccountByName(command.Player.Client.AccountNumber);
 
