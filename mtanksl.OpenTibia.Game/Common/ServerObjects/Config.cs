@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using NLua;
+﻿using NLua;
 using OpenTibia.Common.Structures;
 using OpenTibia.Data.Models;
 using System;
@@ -27,7 +26,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         public int InfoPort { get; set; }
 
         public string ServerName { get; set; }
-        public string IPAddress { get; set; }
+        public string IpAddress { get; set; }
         public int Port { get; set; }
         public string Location { get; set; }
         public string Url { get; set; }
@@ -61,6 +60,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         public bool GameplayInfiniteArrows { get; set; }
         public bool GameplayInfiniteRunes { get; set; }
         public bool GameplayAllowChangeOutfit { get; set; }
+        public bool GameplayAllowClones { get; set; }
         public bool GameplayOnePlayerOnlinePerAccount { get; set; }
         public bool GameplayReplaceKickOnLogin { get; set; }
         public int GameplayMaxVips { get; set; }
@@ -126,7 +126,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             ServerName = LuaScope.GetString(script["server.info.public.servername"], "MTOTS");
 
-            IPAddress = LuaScope.GetString(script["server.info.public.ipaddress"], "");
+            IpAddress = LuaScope.GetString(script["server.info.public.ipaddress"], "");
 
             Port = LuaScope.GetInt32(script["server.info.public.port"], 7171);
 
@@ -237,6 +237,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             GameplayInfiniteRunes = LuaScope.GetBoolean(script["server.game.gameplay.infiniterunes"], false);
 
             GameplayAllowChangeOutfit = LuaScope.GetBoolean(script["server.game.gameplay.allowchangeoutfit"], true);
+
+            GameplayAllowClones = LuaScope.GetBoolean(script["server.game.gameplay.allowclones"], false);
 
             GameplayOnePlayerOnlinePerAccount = LuaScope.GetBoolean(script["server.game.gameplay.oneplayeronlineperaccount"], false);
 

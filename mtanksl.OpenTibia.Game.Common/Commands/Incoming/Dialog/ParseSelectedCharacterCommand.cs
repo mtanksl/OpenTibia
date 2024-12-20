@@ -205,6 +205,8 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
+            dbPlayer.Name = Context.Server.GameObjectPool.GetPlayerNameFor(Connection.IpAddress, dbPlayer.Id, dbPlayer.Name);
+
             Player onlinePlayer;
 
             if (Context.Server.Config.GameplayOnePlayerOnlinePerAccount)
@@ -225,7 +227,7 @@ namespace OpenTibia.Game.Commands
 
             byte time;
 
-            if ( !Context.Server.WaitingList.CanLogin(dbPlayer.Id, out position, out time) )
+            if ( !Context.Server.WaitingList.CanLogin(dbPlayer.Name, out position, out time) )
             {
                 Context.AddPacket(Connection, new OpenPleaseWaitDialogOutgoingPacket("Too many players online. You are at " + position + " place on the waiting list.", time) );
 

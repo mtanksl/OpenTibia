@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Commands
                         new XElement("serverinfo",
                             new XAttribute("uptime", (uint)Context.Server.Statistics.Uptime.TotalSeconds),
                             new XAttribute("servername", Context.Server.Config.ServerName),
-                            new XAttribute("ip", Context.Server.Config.IPAddress),
+                            new XAttribute("ip", Context.Server.Config.IpAddress),
                             new XAttribute("port", Context.Server.Config.Port),
                             new XAttribute("location", Context.Server.Config.Location),
                             new XAttribute("url", Context.Server.Config.Url),
@@ -71,7 +71,7 @@ namespace OpenTibia.Game.Commands
             {
                 if (Packet.RequestedInfo.Is(RequestedInfo.BasicInfo) )
                 {
-                    Context.AddPacket(Connection, new BasicInfoOutgoingPacket(Context.Server.Config.ServerName, Context.Server.Config.IPAddress, Context.Server.Config.Port) );
+                    Context.AddPacket(Connection, new BasicInfoOutgoingPacket(Context.Server.Config.ServerName, Context.Server.Config.IpAddress, Context.Server.Config.Port) );
                 }
 
                 if (Packet.RequestedInfo.Is(RequestedInfo.OwnerInfo) )

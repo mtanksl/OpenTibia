@@ -8,7 +8,7 @@ namespace OpenTibia.Game.Common.ServerObjects
     {
         private class WaitingItem
         {
-            public int DatabasePlayerId { get; set; }
+            public string Name { get; set; }
 
             public DateTime Timeout { get; set; }
         }
@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private LinkedList<WaitingItem> queue = new LinkedList<WaitingItem>();
 
-        public bool CanLogin(int databasePlayerId, out int position, out byte time)
+        public bool CanLogin(string name, out int position, out byte time)
         {
             int onlinePlayers = server.GameObjects.GetPlayers().Count();
 
@@ -46,7 +46,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 }
             }
 
-            WaitingItem item = GetItem(databasePlayerId);
+            WaitingItem item = GetItem(name);
 
             if (item == null)
             {
@@ -56,7 +56,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                 queue.AddLast(new WaitingItem()
                 {
-                    DatabasePlayerId = databasePlayerId,
+                    Name = name,
 
                     Timeout = DateTime.UtcNow.AddSeconds(time + 1)
                 } );
@@ -65,7 +65,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
             else
             {
-                position = GetIndex(databasePlayerId) + 1;
+                position = GetIndex(name) + 1;
 
                 time = GetTime(position);
 
@@ -82,11 +82,11 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        private WaitingItem GetItem(int databasePlayerId)
+        private WaitingItem GetItem(string name)
         {
             for (var node = queue.First; node != null; node = node.Next)
             {
-                if (node.Value.DatabasePlayerId == databasePlayerId)
+                if (node.Value.Name == name)
                 {
                     return node.Value;
                 }
@@ -95,13 +95,13 @@ namespace OpenTibia.Game.Common.ServerObjects
             return null;
         }
 
-        private int GetIndex(int databasePlayerId)
+        private int GetIndex(string name)
         {
             int i = 0;
 
             for (var node = queue.First; node != null; node = node.Next, i++)
             {
-                if (node.Value.DatabasePlayerId == databasePlayerId)
+                if (node.Value.Name == name)
                 {
                     return i;
                 }

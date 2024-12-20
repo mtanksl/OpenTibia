@@ -1,28 +1,70 @@
 ﻿using OpenTibia.Common.Objects;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace OpenTibia.Game.Common.ServerObjects
 {
     public class GameObjectPool : IGameObjectPool
     {
-        private List<Player> players = new List<Player>();
+        private IServer server;
+
+        public GameObjectPool(IServer server)
+        {
+            this.server = server;
+        }
+
+        private Dictionary<string, string> names = new Dictionary<string, string>();
+
+        private Dictionary<int, int> ids = new Dictionary<int, int>();
+
+        public string GetPlayerNameFor(string ipAddress, int databasePlayerId, string playerName)
+        {
+            if (server.Config.GameplayAllowClones)
+            {
+                if ( !names.TryGetValue(ipAddress + "_" + databasePlayerId, out var name) )
+                {
+                    if ( !ids.TryGetValue(databasePlayerId, out var id) )
+                    {
+                        id = 1;
+
+                        ids.Add(databasePlayerId, id);
+                    }
+                    else
+                    {
+                        id = ids[databasePlayerId] + 1;
+
+                        ids[databasePlayerId] = id;
+                    }
+
+                    name = playerName + " " + id;
+
+                    names.Add(ipAddress + "_" + databasePlayerId, name);
+                }
+
+                return name;
+            }
+
+            return playerName;
+        }
+
+        private Dictionary<string, Player> players = new Dictionary<string, Player>();
 
         public void AddPlayer(Player player)
         {
-            players.Add(player);
+            players.Add(player.Name, player);
         }
 
         public IEnumerable<Player> GetPlayers() 
         { 
-            return players;
+            return players.Values;
         }
 
         public Player GetPlayerByName(string name)
         {
-            return GetPlayers()
-                .Where(p => p.Name == name)
-                .FirstOrDefault();
+            Player player;
+
+            players.TryGetValue(name, out player);
+
+            return player;
         }
     }
 }

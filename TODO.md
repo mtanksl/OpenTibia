@@ -1,8 +1,5 @@
 # To do
 
-- Allow clones
-- Check Gamemaster flag during login
-- Player balance (banker NPC)
 - Player information
 	- Capacity
 	- Soul regeneration
@@ -27,6 +24,8 @@
 - Map clean up
 - Raids
 - Rings and amulets charges
+- Player balance (banker NPC)
+- Check Gamemaster flag during login
 - ...
 
 # Done (or good enough for now)
@@ -42,8 +41,6 @@
 - Server status info protocol
 - Account manager (create account, change password, create player)
 - Interacting with the client
-	- One player online per account
-	- Replace kick on login
 	- Premium days
 	- Message of the day
 	- Waiting list
@@ -128,7 +125,7 @@
 	- Lua scripting
 	- Lua debugging with ZeroBrane
 	- Lua autocomplete intellisense
-- Security
+- Security and Connection
 	- Ban/unban by player name, account or ip address
 	- Rate limiting
 		- Kick multi-client
@@ -143,6 +140,9 @@
 	- Kick after 15 minutes idle
 	- Maintenance info
 	- Anti-spam: channel mute
+	- Allow clones configuration
+	- One player online per account configuration
+	- Replace kick on login configuration
 - Server statistics
 	- Active connections
 	- #Received messages and bytes

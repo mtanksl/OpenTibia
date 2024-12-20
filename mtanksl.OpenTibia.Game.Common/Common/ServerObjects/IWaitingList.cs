@@ -2,6 +2,6 @@
 {
     public interface IWaitingList
     {
-        bool CanLogin(int databasePlayerId, out int position, out byte time);
+        bool CanLogin(string name, out int position, out byte time);
     }
 }

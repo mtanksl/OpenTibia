@@ -93,7 +93,7 @@ namespace OpenTibia.Game.Common
 
             Combats = new CombatCollection();
 
-            GameObjectPool = new GameObjectPool();
+            GameObjectPool = new GameObjectPool(this);
 
             GameObjects = new GameObjectCollection();
 

@@ -9,7 +9,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         int InfoMaxConnections { get; set; }
         int InfoPort { get; set; }
 
-        string IPAddress { get; set; }
+        string IpAddress { get; set; }
         int Port { get; set; }
         string ServerName { get; set; }
         string Location { get; set; }
@@ -44,6 +44,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         bool GameplayInfiniteArrows { get; set; }
         bool GameplayInfiniteRunes { get; set; }
         bool GameplayAllowChangeOutfit { get; set; }
+        bool GameplayAllowClones { get; set; }
         bool GameplayOnePlayerOnlinePerAccount { get; set; }
         bool GameplayReplaceKickOnLogin { get; set; }
         int GameplayMaxVips { get; set; }
