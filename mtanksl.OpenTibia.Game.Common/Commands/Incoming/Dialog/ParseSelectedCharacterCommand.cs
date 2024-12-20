@@ -202,26 +202,24 @@ namespace OpenTibia.Game.Commands
 
                         await Promise.Break; return;
                     }
+
+                    if (Context.Server.Config.GameplayOnePlayerOnlinePerAccount)
+                    {
+                        Player onlinePlayer = Context.Server.GameObjects.GetPlayerByAccount(dbPlayer.AccountId);
+
+                        if (onlinePlayer != null)
+                        {
+                            Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.YouMayOnlyLoginWithOneCharacterOfYourAccountAtTheSameTime) );
+
+                            Context.Disconnect(Connection);
+                                            
+                            await Promise.Break; return;
+                        }
+                    }
                 }
             }
 
             dbPlayer.Name = Context.Server.GameObjectPool.GetPlayerNameFor(Connection.IpAddress, dbPlayer.Id, dbPlayer.Name);
-
-            Player onlinePlayer;
-
-            if (Context.Server.Config.GameplayOnePlayerOnlinePerAccount)
-            {
-                onlinePlayer = Context.Server.GameObjects.GetPlayerByAccount(dbPlayer.AccountId);
-
-                if (onlinePlayer != null)
-                {
-                    Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.YouMayOnlyLoginWithOneCharacterOfYourAccountAtTheSameTime) );
-
-                    Context.Disconnect(Connection);
-                                            
-                    await Promise.Break; return;
-                }
-            }
 
             int position;
 
@@ -236,36 +234,38 @@ namespace OpenTibia.Game.Commands
                 await Promise.Break; return;
             }
 
-            onlinePlayer = Context.Server.GameObjects.GetPlayerByName(dbPlayer.Name);
-
-            if ( !Context.Server.Config.GameplayReplaceKickOnLogin)
             {
-                if (onlinePlayer != null)
+                Player onlinePlayer = Context.Server.GameObjects.GetPlayerByName(dbPlayer.Name);
+
+                if ( !Context.Server.Config.GameplayReplaceKickOnLogin)
                 {
-                    Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.YouAreAlreadyLoggedIn) );
+                    if (onlinePlayer != null)
+                    {
+                        Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.YouAreAlreadyLoggedIn) );
 
-                    Context.Disconnect(Connection);
+                        Context.Disconnect(Connection);
 
-                    await Promise.Break; return;
-                }                
-            }
-            else
-            {               
-                if (onlinePlayer != null)
-                {
-                    await Context.AddCommand(new ShowMagicEffectCommand(onlinePlayer, MagicEffectType.Puff) );
-                    
-                    await Context.AddCommand(new CreatureDestroyCommand(onlinePlayer) );
-
-                    await Promise.Yield();
+                        await Promise.Break; return;
+                    }                
                 }
-            }
+                else
+                {               
+                    if (onlinePlayer != null)
+                    {
+                        await Context.AddCommand(new ShowMagicEffectCommand(onlinePlayer, MagicEffectType.Puff) );
+                    
+                        await Context.AddCommand(new CreatureDestroyCommand(onlinePlayer) );
 
-            var player = await Context.AddCommand(new TileCreatePlayerCommand(Connection, dbPlayer) );
+                        await Promise.Yield();
+                    }
+                }
+
+                var player = await Context.AddCommand(new TileCreatePlayerCommand(Connection, dbPlayer) );
             
-                         await Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.Teleport) );
+                             await Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.Teleport) );
 
-            player.Client.AccountManagerType = accountManagerType;
+                player.Client.AccountManagerType = accountManagerType;
+            }
         }
     }
 }
