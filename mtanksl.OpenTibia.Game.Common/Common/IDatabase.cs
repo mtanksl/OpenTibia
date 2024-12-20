@@ -6,6 +6,8 @@ namespace OpenTibia.Game.Common
 {
     public interface IDatabase : IDisposable
     {
+        IAccountRepository AccountRepository { get; }
+
         IBanRepository BanRepository { get; }
 
         IBugReportRepository BugReportRepository { get; }

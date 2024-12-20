@@ -15,27 +15,7 @@ namespace OpenTibia.Data.Repositories
             this.context = context;
         }
 
-        public async Task<DbAccount> GetAccount(string accountName, string accountPassword)
-        {
-            await Task.Yield();
-            
-            DbAccount account = await context.Accounts
-                .Where(a => a.Name == accountName &&
-                            a.Password == accountPassword)
-                .FirstOrDefaultAsync();
-
-            if (account != null)
-            {
-                await context.Players
-                    .Include(p => p.World)
-                    .Where(p => p.AccountId == account.Id)
-                    .LoadAsync();
-            }
-
-            return account;
-        }
-
-        public async Task<DbPlayer> GetAccountPlayer(string accountName, string accountPassword, string playerName)
+        public async Task<DbPlayer> GetPlayer(string accountName, string accountPassword, string playerName)
         {
             await Task.Yield();
 
@@ -139,6 +119,11 @@ namespace OpenTibia.Data.Repositories
             return await context.Players
                 .Where(p => p.Name == name)
                 .FirstOrDefaultAsync();
+        }
+
+        public void AddPlayer(DbPlayer player)
+        {
+            context.Players.Add(player);
         }
     }
 }

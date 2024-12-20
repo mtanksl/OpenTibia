@@ -35,6 +35,7 @@ server = {
 			accountpassword = "",
 			playername = "Account Manager",
 			playerposition = { x = 915, y = 769, z = 6 },
+			playernewposition = { x = 921, y = 771, z = 6 },
 			worldname = "Cormaya",
 			ipaddress = IP_ADDRESS,
 			port = GAME_PORT

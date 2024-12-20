@@ -51,9 +51,13 @@ namespace OpenTibia.Game.Commands
                 await Promise.Break; return;
             }
 
+            DbAccount dbAccount;
+
             DbPlayer dbPlayer;
 
             DbBan dbBan;
+
+            AccountManagerType accountManagerType = AccountManagerType.None;
 
             using (var database = Context.Server.DatabaseFactory.Create() )
             {
@@ -68,7 +72,49 @@ namespace OpenTibia.Game.Commands
                     await Promise.Break; return;
                 }
 
-                if (Context.Server.Config.LoginAccountManagerEnabled && Packet.Character == Context.Server.Config.LoginAccountManagerPlayerName)
+                bool isAccountManager = false;
+
+                if (Context.Server.Config.LoginAccountManagerEnabled &&
+                    Packet.Character == Context.Server.Config.LoginAccountManagerPlayerName)
+                {
+                    if (Packet.Account == Context.Server.Config.LoginAccountManagerAccountName &&
+                        Packet.Password == Context.Server.Config.LoginAccountManagerAccountPassword)
+                    {
+                        isAccountManager = true;
+
+                        accountManagerType = AccountManagerType.NewAccountManager;
+                    }
+                    else
+                    {
+                        dbAccount = await database.AccountRepository.GetAccount(Packet.Account, Packet.Password);
+
+                        if (dbAccount == null)
+                        {
+                            Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, Constants.AccountNameOrPasswordIsNotCorrect) );
+
+                            Context.Disconnect(Connection);
+
+                            await Promise.Break; return;
+                        }
+
+                        dbBan = await database.BanRepository.GetBanByAccountId(dbAccount.Id);
+
+                        if (dbBan != null)
+                        {
+                            Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(true, dbBan.Message) );
+
+                            Context.Disconnect(Connection);
+
+                            await Promise.Break; return;
+                        }
+
+                        isAccountManager = true;
+
+                        accountManagerType = AccountManagerType.AccountManager;
+                    }
+                }
+
+                if (isAccountManager)
                 {
                     dbPlayer = new DbPlayer() 
                     { 
@@ -124,7 +170,7 @@ namespace OpenTibia.Game.Commands
                 }
                 else
                 {
-                    dbPlayer = await database.PlayerRepository.GetAccountPlayer(Packet.Account, Packet.Password, Packet.Character);
+                    dbPlayer = await database.PlayerRepository.GetPlayer(Packet.Account, Packet.Password, Packet.Character);
 
                     if (dbPlayer == null)
                     {
@@ -203,21 +249,7 @@ namespace OpenTibia.Game.Commands
 
             player.Client.AccountNumber = Packet.Account;
 
-            if (Context.Server.Config.LoginAccountManagerEnabled && Packet.Character == Context.Server.Config.LoginAccountManagerPlayerName)
-            {
-                if (Packet.Account == Context.Server.Config.LoginAccountManagerAccountName)
-                {
-                    player.Client.AccountManagerType = AccountManagerType.NewAccountManager;
-                }
-                else
-                {
-                    player.Client.AccountManagerType = AccountManagerType.AccountManager;
-                }
-            }
-            else
-            {
-                player.Client.AccountManagerType = AccountManagerType.None;
-            }
+            player.Client.AccountManagerType = accountManagerType;
         }
     }
 }

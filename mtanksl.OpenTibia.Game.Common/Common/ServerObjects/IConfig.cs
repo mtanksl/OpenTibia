@@ -26,6 +26,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         string LoginAccountManagerAccountPassword { get; set; }
         string LoginAccountManagerPlayerName { get; set; }
         Position LoginAccountManagerPlayerPosition { get; set; }
+        Position LoginAccountManagerPlayerNewPosition { get; set; }
         string LoginAccountManagerWorldName { get; set; }
         string LoginAccountManagerIpAddress { get; set; }
         int LoginAccountManagerPort { get; set; }

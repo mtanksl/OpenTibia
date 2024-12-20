@@ -664,13 +664,13 @@ namespace OpenTibia.Common
                         {
 							Dictionary<byte, IPacketToCommand> current;
 
-							if (server.Config.LoginAccountManagerEnabled && Client.Player.Name == server.Config.LoginAccountManagerPlayerName)
+							if (Client.AccountManagerType == AccountManagerType.None)
 							{
-								current = accountManagerCommands;
+								current = commands;
                             }
 							else
 							{
-								current = commands;
+								current = accountManagerCommands;
 							}
 
                             if (current.TryGetValue(identification, out IPacketToCommand packetToCommand) )

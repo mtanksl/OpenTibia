@@ -1,8 +1,10 @@
 ﻿using OpenTibia.Common.Structures;
+using OpenTibia.Data.Models;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
+using System.Text.RegularExpressions;
 
 namespace OpenTibia.Game.CommandHandlers
 {
@@ -18,9 +20,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             WaitingForPassword,
 
-            WaitingForPasswordConfirmation,
-
-            End
+            WaitingForPasswordConfirmation
         }
 
         private class NewAccountManagerState
@@ -48,9 +48,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             WaitingForPlayerGender,
 
-            WaitingForPlayerGenderConfirmation,
-
-            End
+            WaitingForPlayerGenderConfirmation
         }
 
         private class AccountManagerState
@@ -64,7 +62,7 @@ namespace OpenTibia.Game.CommandHandlers
             public Gender PlayerGender { get; set; }
         }
 
-        public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
+        public override async Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
             if (command.Player.Rank == Rank.AccountManager)
             {
@@ -112,9 +110,32 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             newAccountManagerState.Account = command.Message;
 
-                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
+                            if (newAccountManagerState.Account == Context.Server.Config.LoginAccountManagerAccountName || !IsValidAccountName(newAccountManagerState.Account) )
+                            {
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "This account is not valid, it must have at least 6 characters with letters or numbers. What would you like your account to be?") );
+                                
+                                newAccountManagerState.Index = NewAccountManagerStateIndex.WaitingForAccount;
+                            }
+                            else
+                            { 
+                                using (var database = Context.Server.DatabaseFactory.Create() )
+                                {
+                                    var dbAccount = await database.AccountRepository.GetAccountByName(newAccountManagerState.Account);
 
-                            newAccountManagerState.Index = NewAccountManagerStateIndex.WaitingForAccountConfirmation;
+                                    if (dbAccount != null)
+                                    {
+                                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "This account already exists. What would you like your account to be?") );
+                                
+                                        newAccountManagerState.Index = NewAccountManagerStateIndex.WaitingForAccount;
+                                    }
+                                    else
+                                    {
+                                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
+
+                                        newAccountManagerState.Index = NewAccountManagerStateIndex.WaitingForAccountConfirmation;
+                                    }
+                                }
+                            }
                         }
                         else if (newAccountManagerState.Index == NewAccountManagerStateIndex.WaitingForAccountConfirmation)
                         {
@@ -135,19 +156,47 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             newAccountManagerState.Password = command.Message;
 
-                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
+                            if ( !IsValidPassword(newAccountManagerState.Password) )
+                            {
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "This password is not valid, it must have at least 6 characters. What would you like your password to be?") );
 
-                            newAccountManagerState.Index = NewAccountManagerStateIndex.WaitingForPasswordConfirmation;
+                                newAccountManagerState.Index = NewAccountManagerStateIndex.WaitingForPassword;
+                            }
+                            else
+                            {
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
+
+                                newAccountManagerState.Index = NewAccountManagerStateIndex.WaitingForPasswordConfirmation;
+                            }
                         }
                         else if (newAccountManagerState.Index == NewAccountManagerStateIndex.WaitingForPasswordConfirmation)
                         {
                             if (command.Message == "yes")
                             {
-                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Your account '" + newAccountManagerState.Account + "' with password '" + newAccountManagerState.Password + "' has been created.") );
+                                try
+                                {
+                                    using (var database = Context.Current.Server.DatabaseFactory.Create() )
+                                    {
+                                        database.AccountRepository.AddDbAccount(new DbAccount()
+                                        {
+                                            Name = newAccountManagerState.Account,
 
-                                newAccountManagerState.Index = NewAccountManagerStateIndex.End;
+                                            Password = newAccountManagerState.Password,
 
-                                //TODO: Create account
+                                            PremiumUntil = null
+                                        } );
+
+                                        await database.Commit();
+                                    } 
+
+                                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Your account '" + newAccountManagerState.Account + "' with password '" + newAccountManagerState.Password + "' has been created.") );
+                                }
+                                catch
+                                {
+                                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "There was a problem while creating your account, please try again.") );
+                                }
+
+                                newAccountManagerState.Index = NewAccountManagerStateIndex.Start;                                                                    
                             }
                             else
                             {
@@ -220,19 +269,43 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             accountManagerState.Password = command.Message;
 
-                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
+                            if ( !IsValidPassword(accountManagerState.Password) )
+                            {
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "This password is not valid, it must have at least 6 characters. What would you like your password to be?") );
 
-                            accountManagerState.Index = AccountManagerStateIndex.WaitingForPasswordConfirmation;
+                                accountManagerState.Index = AccountManagerStateIndex.WaitingForPassword;
+                            }
+                            else
+                            {
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
+
+                                accountManagerState.Index = AccountManagerStateIndex.WaitingForPasswordConfirmation;
+                            }
+
                         }
                         else if (accountManagerState.Index == AccountManagerStateIndex.WaitingForPasswordConfirmation)
                         {
                             if (command.Message == "yes")
                             {
-                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Your password has been changed to '" + accountManagerState.Password + "'.") );
+                                try
+                                {
+                                    using (var database = Context.Current.Server.DatabaseFactory.Create() )
+                                    {
+                                        var dbAccount = await database.AccountRepository.GetAccountByName(command.Player.Client.AccountNumber);
 
-                                accountManagerState.Index = AccountManagerStateIndex.End;
+                                        dbAccount.Password = accountManagerState.Password;
 
-                                //TODO: Change password
+                                        await database.Commit();
+                                    }  
+
+                                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Your password has been changed to '" + accountManagerState.Password + "'."));
+                                }
+                                catch
+                                {
+                                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "There was a problem while changing your password, please try again.") );
+                                }
+
+                                accountManagerState.Index = AccountManagerStateIndex.Start;                                  
                             }
                             else
                             {
@@ -245,9 +318,18 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             accountManagerState.PlayerName = command.Message;
 
-                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
+                            if (accountManagerState.PlayerName == Context.Server.Config.LoginAccountManagerPlayerName || !IsValidPlayerName(accountManagerState.PlayerName) )
+                            {
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "This character name is not valid, it must have at least 3 characters with letters. What would you like as your character name?") );
 
-                            accountManagerState.Index = AccountManagerStateIndex.WaitingForPlayerNameConfirmation;
+                                accountManagerState.Index = AccountManagerStateIndex.WaitingForPlayerName;
+                            }
+                            else
+                            {
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
+                         
+                                accountManagerState.Index = AccountManagerStateIndex.WaitingForPlayerNameConfirmation;
+                            }
                         }
                         else if (accountManagerState.Index == AccountManagerStateIndex.WaitingForPlayerNameConfirmation)
                         {
@@ -293,11 +375,80 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             if (command.Message == "yes")
                             {
-                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Your character '" + accountManagerState.PlayerName + "' has been created.") );
+                                try
+                                {
+                                    using (var database = Context.Current.Server.DatabaseFactory.Create() )
+                                    {
+                                        var dbAccount = await database.AccountRepository.GetAccountByName(command.Player.Client.AccountNumber);
 
-                                accountManagerState.Index = AccountManagerStateIndex.End;
+                                        var dbWorld = await database.WorldRepository.GetWorldByName(Context.Server.Config.LoginAccountManagerWorldName);
 
-                                //TODO: Create character
+                                        database.PlayerRepository.AddPlayer(new DbPlayer()
+                                        {
+                                            AccountId = dbAccount.Id,
+
+                                            WorldId = dbWorld.Id,
+
+                                            Name = accountManagerState.PlayerName, 
+                        
+                                            Health = 150, 
+                        
+                                            MaxHealth = 150, 
+                        
+                                            Direction = 2,
+
+                                            BaseOutfitId = 131,
+
+                                            OutfitId = 131,
+
+                                            BaseSpeed = 220,
+                        
+                                            Speed = 220, 
+                        
+                                            Experience = 0, 
+                        
+                                            Level = 1, 
+                        
+                                            Mana = 55,
+                        
+                                            MaxMana = 55, 
+                        
+                                            Soul = 100, 
+                        
+                                            Capacity = 40000, 
+                        
+                                            Stamina = 2520, 
+
+                                            Gender = (int)accountManagerState.PlayerGender,
+
+                                            Vocation = 0,
+
+                                            Rank = 0,
+
+                                            SpawnX = Context.Server.Config.LoginAccountManagerPlayerNewPosition.X, 
+                        
+                                            SpawnY = Context.Server.Config.LoginAccountManagerPlayerNewPosition.Y,
+                        
+                                            SpawnZ = Context.Server.Config.LoginAccountManagerPlayerNewPosition.Z, 
+                        
+                                            TownX = Context.Server.Config.LoginAccountManagerPlayerNewPosition.X, 
+                        
+                                            TownY = Context.Server.Config.LoginAccountManagerPlayerNewPosition.Y, 
+                        
+                                            TownZ = Context.Server.Config.LoginAccountManagerPlayerNewPosition.Z
+                                        } );
+
+                                        await database.Commit();
+                                    } 
+
+                                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Your character '" + accountManagerState.PlayerName + "' has been created.") );
+                                }
+                                catch
+                                {
+                                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "There was a problem while creating your character, please try again.") );
+                                }     
+                                    
+                                accountManagerState.Index = AccountManagerStateIndex.Start;
                             }
                             else
                             {
@@ -314,10 +465,53 @@ namespace OpenTibia.Game.CommandHandlers
                         throw new NotImplementedException();
                 }
 
-                return Promise.Completed;
+                await Promise.Completed; return;
             }
 
-            return next();
+            await next(); return;
+        }
+
+        private static bool IsValidPassword(string password)
+        {
+            if (string.IsNullOrEmpty(password) || password.Length < 6 || password.Length > 29 || !IsValidISO88591(password) )
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool IsValidAccountName(string accountName)
+        {
+            if (string.IsNullOrEmpty(accountName) || accountName.Length < 6 || accountName.Length > 29 || !IsValidISO88591(accountName) || !Regex.IsMatch(accountName, "^[a-zA-Z0-9]+$") )
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool IsValidPlayerName(string playerName)
+        {
+            if (string.IsNullOrEmpty(playerName) || playerName.Length < 3 || playerName.Length > 29 || !IsValidISO88591(playerName) || !Regex.IsMatch(playerName, "^[a-zA-Z]+(?:[ '][a-zA-Z]+)*$") )
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private static bool IsValidISO88591(string input)
+        {
+            foreach (char c in input)
+            {
+                if (c > 255)
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

@@ -9,7 +9,10 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(PlayerLoginEventArgs e)
         {
-            Context.AddPacket(e.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Type 'account' to manage your account and if you want to start over then type 'cancel'.") );
+            if (e.Player.Rank == Rank.AccountManager)
+            {
+                Context.AddPacket(e.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Type 'account' to manage your account and if you want to start over then type 'cancel'.") );
+            }
 
             return Promise.Completed;
         }

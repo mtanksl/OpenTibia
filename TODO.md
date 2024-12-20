@@ -1,9 +1,8 @@
 # To do
 
-- Account manager (create account, create player)
 - One player online per account
 - Allow clones
-- Gamemaster flag during login
+- Check Gamemaster flag during login
 - Player balance (banker NPC)
 - Player information
 	- Capacity
@@ -33,6 +32,7 @@
 
 # Done (or good enough for now)
 
+- Account manager (create account, change password, create player)
 - Tibia and Open Tibia's file format interpreters (.dat, .otb, .otbm, .pic, .spr)
 - TCP socket management for login and game servers
 - Packets and communication protocol (with RSA, Xtea, Adler32)

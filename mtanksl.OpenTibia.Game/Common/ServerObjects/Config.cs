@@ -42,6 +42,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         public string LoginAccountManagerAccountPassword { get; set; }
         public string LoginAccountManagerPlayerName { get; set; }
         public Position LoginAccountManagerPlayerPosition { get; set; }
+        public Position LoginAccountManagerPlayerNewPosition { get; set; }
         public string LoginAccountManagerWorldName { get; set; }
         public string LoginAccountManagerIpAddress { get; set; }
         public int LoginAccountManagerPort { get; set; }
@@ -154,6 +155,10 @@ namespace OpenTibia.Game.Common.ServerObjects
             LuaTable position = (LuaTable)script["server.login.accountmanager.playerposition"];
 
             LoginAccountManagerPlayerPosition = new Position( (int)(long)position["x"], (int)(long)position["y"], (int)(long)position["z"] );
+
+            LuaTable newPosition = (LuaTable)script["server.login.accountmanager.playernewposition"];
+
+            LoginAccountManagerPlayerNewPosition = new Position( (int)(long)newPosition["x"], (int)(long)newPosition["y"], (int)(long)newPosition["z"] );
 
             LoginAccountManagerWorldName = LuaScope.GetString(script["server.login.accountmanager.worldname"], "");
 

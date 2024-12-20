@@ -70,7 +70,16 @@ namespace OpenTibia.Game.Commands
                     await Promise.Break; return;
                 }
 
-                if (Context.Server.Config.LoginAccountManagerEnabled && Packet.Account == Context.Server.Config.LoginAccountManagerAccountName && Packet.Password == Context.Server.Config.LoginAccountManagerAccountPassword)
+                bool isAccountManager = false;
+
+                if (Context.Server.Config.LoginAccountManagerEnabled && 
+                    Packet.Account == Context.Server.Config.LoginAccountManagerAccountName && 
+                    Packet.Password == Context.Server.Config.LoginAccountManagerAccountPassword)
+                {
+                    isAccountManager = true;
+                }
+
+                if (isAccountManager)
                 {
                     dbAccount = new DbAccount()
                     {
@@ -85,7 +94,7 @@ namespace OpenTibia.Game.Commands
                 }
                 else
                 {
-                    dbAccount = await database.PlayerRepository.GetAccount(Packet.Account, Packet.Password);
+                    dbAccount = await database.AccountRepository.GetAccount(Packet.Account, Packet.Password);
 
                     if (dbAccount == null)
                     {

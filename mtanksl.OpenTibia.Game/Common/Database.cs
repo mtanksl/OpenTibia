@@ -20,6 +20,23 @@ namespace OpenTibia.Game.Common
             Dispose(false);
         }
 
+        private IAccountRepository accountRepository;
+
+        /// <exception cref="ObjectDisposedException"></exception>
+
+        public IAccountRepository AccountRepository
+        {
+            get
+            {
+                if (disposed)
+                {
+                    throw new ObjectDisposedException(nameof(Database) );
+                }
+
+                return accountRepository ?? (accountRepository = new AccountRepository(databaseContext) );
+            }
+        }
+
         private IBanRepository banRepository;
 
         /// <exception cref="ObjectDisposedException"></exception>
