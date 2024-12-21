@@ -7,16 +7,28 @@ namespace OpenTibia.Game.Scripts
 {
     public class GlobalScripts : Script
     {
+        private static DateTime GetNext(DateTime now, int millisecond)
+        {
+            return new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0, 0)
+                .AddMilliseconds(Round(now.Second * 1000 + now.Millisecond, millisecond) )
+                .AddMilliseconds(millisecond);
+        }
+
+        private static int Round(double value, int round)
+        {
+            return (int)Math.Floor(value / round) * round;
+        }
+
         public override void Start()
         {
             RealClockTick();
-
+            
             TibiaClockTick();
-
+             
             Tick(0);
-
+             
             Spawn();
-
+            
             Light();
 
             Ping();
@@ -26,11 +38,9 @@ namespace OpenTibia.Game.Scripts
         {
             DateTime now = DateTime.Now;
 
-            DateTime next = new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0).AddMinutes(1);
+            DateTime next = GetNext(now, 60 * 1000);
 
-            TimeSpan diff = next - now;
-
-            Promise.Delay("RealClockTick", diff).Then( () =>
+            Promise.Delay("RealClockTick", next - now).Then( () =>
             {
                 RealClockTick();
 
@@ -42,7 +52,11 @@ namespace OpenTibia.Game.Scripts
 
         private void TibiaClockTick()
         {
-            Promise.Delay("TibiaClockTick", TimeSpan.FromMilliseconds(Clock.Interval) ).Then( () =>
+            DateTime now = DateTime.Now;
+
+            DateTime next = GetNext(now, Clock.Interval);
+
+            Promise.Delay("TibiaClockTick", next - now).Then( () =>
             {
                 TibiaClockTick();
 
@@ -56,7 +70,11 @@ namespace OpenTibia.Game.Scripts
 
         private void Tick(int index)
         {
-            Promise.Delay("Tick", TimeSpan.FromMilliseconds(100) ).Then( () =>
+            DateTime now = DateTime.Now;
+
+            DateTime next = GetNext(now, 100);
+
+            Promise.Delay("Tick", next - now).Then( () =>
             {
                 Tick( (index + 1) % GlobalTickEventArgs.Instance.Length);
 
@@ -68,7 +86,11 @@ namespace OpenTibia.Game.Scripts
 
         private void Spawn()
         {
-            Promise.Delay("Spawn", TimeSpan.FromSeconds(10) ).Then(() =>
+            DateTime now = DateTime.Now;
+
+            DateTime next = GetNext(now, 10 * 1000);
+
+            Promise.Delay("Spawn", next - now).Then(() =>
             {
                 Spawn();
 
@@ -80,7 +102,11 @@ namespace OpenTibia.Game.Scripts
         
         private void Light()
         {
-            Promise.Delay("Light", TimeSpan.FromSeconds(10) ).Then( () =>
+            DateTime now = DateTime.Now;
+
+            DateTime next = GetNext(now, 10 * 1000);
+
+            Promise.Delay("Light", next - now).Then( () =>
             {
                 Light();
 
@@ -92,7 +118,11 @@ namespace OpenTibia.Game.Scripts
 
         private void Ping()
         {
-            Promise.Delay("Ping", TimeSpan.FromSeconds(10) ).Then( () =>
+            DateTime now = DateTime.Now;
+
+            DateTime next = GetNext(now, 10 * 1000);
+
+            Promise.Delay("Ping", next - now).Then( () =>
             {
                 Ping();
 

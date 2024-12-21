@@ -34,13 +34,13 @@ namespace OpenTibia.Game.Components
                 case State.Success:
                 case State.Canceled:
 
-                    Context.Current.Server.GameObjectComponents.RemoveComponent(GameObject, this);
+                    Context.Server.GameObjectComponents.RemoveComponent(GameObject, this);
 
                     break;
 
                 case State.Stopped:
                              
-                    Context.Current.Server.CancelQueueForExecution(key);
+                    Context.Server.CancelQueueForExecution(key);
 
                     break;
             }
