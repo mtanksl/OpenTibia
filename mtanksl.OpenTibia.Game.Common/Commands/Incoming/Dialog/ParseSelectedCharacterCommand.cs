@@ -51,7 +51,7 @@ namespace OpenTibia.Game.Commands
                 await Promise.Break; return;
             }
 
-            DbAccount dbAccount;
+            DbAccount dbAccount = null;
 
             DbPlayer dbPlayer;
 
@@ -120,9 +120,13 @@ namespace OpenTibia.Game.Commands
                     { 
                         Account = new DbAccount()
                         { 
+                            Id = dbAccount == null ? 0 : dbAccount.Id,
+
                             PremiumUntil = null
                         },
                          
+                        AccountId = dbAccount == null ? 0 : dbAccount.Id,
+
                         Name = Context.Server.Config.LoginAccountManagerPlayerName, 
                         
                         Health = 150, 

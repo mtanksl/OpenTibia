@@ -411,9 +411,9 @@ namespace OpenTibia.Game.CommandHandlers
                         
                                             Direction = 2,
 
-                                            BaseOutfitId = 131,
+                                            BaseOutfitId = accountManagerState.PlayerGender == Gender.Male ? 136 : 128,
 
-                                            OutfitId = 131,
+                                            OutfitId = accountManagerState.PlayerGender == Gender.Male ? 136 : 128,
 
                                             BaseSpeed = 220,
                         
