@@ -51,7 +51,7 @@
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new System.Drawing.Size(284, 261);
+            dataGridView1.Size = new System.Drawing.Size(334, 231);
             dataGridView1.TabIndex = 0;
             // 
             // Column1
@@ -80,9 +80,9 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            ClientSize = new System.Drawing.Size(284, 261);
+            ClientSize = new System.Drawing.Size(334, 231);
             Controls.Add(dataGridView1);
-            MinimumSize = new System.Drawing.Size(300, 300);
+            MinimumSize = new System.Drawing.Size(350, 270);
             Name = "StatisticsForm";
             ShowIcon = false;
             Text = "Statistics";
