@@ -41,8 +41,7 @@ namespace mtanksl.OpenTibia.Host.GUI
 
             ("Total bytes received", server => server.Statistics.TotalBytesReceived + " bytes (" + ConvertBytesToHumanReadable(server.Statistics.TotalBytesReceived) + ")"),
 
-            ("Average processing time", server =>server.Statistics.AverageProcessingTime.ToString("N3") + " milliseconds")
-
+            ("Average processing time", server =>server.Statistics.AverageProcessingTime.ToString("N3") + " milliseconds (" + (1000 / server.Statistics.AverageProcessingTime).ToString("N0") + " FPS)")
         };
 
         public StatisticsForm(Func<IServer> getServer)

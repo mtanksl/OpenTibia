@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
 using System;
+using System.Threading;
 
 namespace OpenTibia.Host
 {
@@ -8,6 +9,15 @@ namespace OpenTibia.Host
     {
         static void Main(string[] args)
         {
+            var sync = new AutoResetEvent(false);
+
+            Console.CancelKeyPress += (s, e) =>
+            {
+                e.Cancel = true;
+
+                sync.Set();
+            };
+
             Console.WriteLine("Available commands: help, stats, clear, reload-plugins, kick, save, maintenance, stop.");
             Console.WriteLine();
 
@@ -27,6 +37,11 @@ namespace OpenTibia.Host
                     while ( !exit )
                     {
                         string option = Console.ReadLine();
+                        
+                        if (option == null)
+                        {
+                            sync.WaitOne();
+                        }
 
                         switch (option)
                         {
@@ -51,12 +66,12 @@ namespace OpenTibia.Host
                                 server.Logger.WriteLine("Total bytes sent: " + server.Statistics.TotalBytesSent + " bytes (" + ConvertBytesToHumanReadable(server.Statistics.TotalBytesSent) + ")", LogLevel.Information);
                                 server.Logger.WriteLine("Total messages received: " + server.Statistics.TotalMessagesReceived, LogLevel.Information);
                                 server.Logger.WriteLine("Total bytes received: " + server.Statistics.TotalBytesReceived + " bytes (" + ConvertBytesToHumanReadable(server.Statistics.TotalBytesReceived) + ")", LogLevel.Information);
-                                server.Logger.WriteLine("Average processing time: " + server.Statistics.AverageProcessingTime.ToString("N3") + " milliseconds", LogLevel.Information);
+                                server.Logger.WriteLine("Average processing time: " + server.Statistics.AverageProcessingTime.ToString("N3") + " milliseconds (" + (1000 / server.Statistics.AverageProcessingTime).ToString("N0") + " FPS)", LogLevel.Information);
 
                                 break;
 
-                            case "cls":
                             case "clear":
+                            case "cls":
 
                                 Console.Clear();
 
@@ -93,10 +108,10 @@ namespace OpenTibia.Host
 
                                 break;
 
-                            case "":
+                            case null:
+                            case "stop":
                             case "exit":
                             case "quit":
-                            case "stop":
 
                                 exit = true;
 
@@ -112,8 +127,6 @@ namespace OpenTibia.Host
                 }
             }
             catch { }
-
-            Console.ReadKey();
         }
 
         private static readonly string[] Sizes = { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
