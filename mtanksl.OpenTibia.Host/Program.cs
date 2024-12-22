@@ -1,23 +1,23 @@
 ﻿using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
 using System;
-using System.Threading;
+using System.Threading.Tasks;
 
 namespace OpenTibia.Host
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task<int> Main(string[] args)
         {
-            var sync = new AutoResetEvent(false);
+            var tcs = new TaskCompletionSource<string>();
 
             Console.CancelKeyPress += (s, e) =>
             {
                 e.Cancel = true;
 
-                sync.Set();
+                tcs.SetResult(null);
             };
-
+            
             Console.WriteLine("Available commands: help, stats, clear, reload-plugins, kick, save, maintenance, stop.");
             Console.WriteLine();
 
@@ -36,25 +36,19 @@ namespace OpenTibia.Host
 
                     while ( !exit )
                     {
-                        string option = Console.ReadLine();
+                        var option = await await Task.WhenAny(tcs.Task, Task.Run( () => Console.ReadLine() ) );
                         
-                        if (option == null)
-                        {
-                            sync.WaitOne();
-                        }
-
                         switch (option)
                         {
                             case "help":
 
-                                Console.WriteLine("stats \t\t Displays server statistics.");
-                                Console.WriteLine("clear \t\t Clears the console screen. Alternative commands: cls.");
-                                Console.WriteLine("reload-plugins \t\t Reloads plugins.");
-                                Console.WriteLine("kick \t\t Kicks all the players.");
-                                Console.WriteLine("save \t\t Saves the server.");
-                                Console.WriteLine("maintenance \t Starts or stops the server maintenance.");
-                                Console.WriteLine("stop \t\t Stops the server. Alternative commands: exit, quit.");
-                                Console.WriteLine();
+                                server.Logger.WriteLine("stats \t\t Displays server statistics.");
+                                server.Logger.WriteLine("clear \t\t Clears the console screen. Alternative commands: cls.");
+                                server.Logger.WriteLine("reload-plugins \t\t Reloads plugins.");
+                                server.Logger.WriteLine("kick \t\t Kicks all the players.");
+                                server.Logger.WriteLine("save \t\t Saves the server.");
+                                server.Logger.WriteLine("maintenance \t Starts or stops the server maintenance.");
+                                server.Logger.WriteLine("stop \t\t Stops the server. Alternative commands: exit, quit.");
 
                                 break;
 
@@ -126,7 +120,14 @@ namespace OpenTibia.Host
                     server.Stop();
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString() );
+
+                return 1;
+            }
+
+            return 0;
         }
 
         private static readonly string[] Sizes = { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };

@@ -3,6 +3,11 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>11</LangVersion>
+    <RuntimeIdentifiers>win-x64;linux-x64</RuntimeIdentifiers>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(RuntimeIdentifier)'=='linux-x64'">
+    <DefineConstants>$(DefineConstants);Target_Runtime_Linux_x64</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

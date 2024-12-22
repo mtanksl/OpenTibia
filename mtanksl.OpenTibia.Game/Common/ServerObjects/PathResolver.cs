@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace OpenTibia.Game.Common.ServerObjects
 {
@@ -6,7 +7,7 @@ namespace OpenTibia.Game.Common.ServerObjects
     {
         public bool Exists(string relativePath)
         {
-            var directory = new DirectoryInfo(Directory.GetCurrentDirectory() );
+            var directory = new DirectoryInfo(AppContext.BaseDirectory);
 
             var appended = false;
 
@@ -36,7 +37,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         
         public string GetFullPath(string relativePath)
         {
-            var directory = new DirectoryInfo(Directory.GetCurrentDirectory() );
+            var directory = new DirectoryInfo(AppContext.BaseDirectory);
 
             var appended = false;
 

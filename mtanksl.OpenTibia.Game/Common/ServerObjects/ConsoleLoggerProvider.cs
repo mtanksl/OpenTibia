@@ -47,7 +47,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public void EndWrite()
         {
-            
+            Console.ResetColor();
         }
     }
 }

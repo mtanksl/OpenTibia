@@ -66,11 +66,15 @@ namespace OpenTibia.Game.Common.ServerObjects
                 		end
                 	end
                 } )
-
-                debugger = require("mobdebug")
-                debugger.coro()
-
                 """);
+
+#if !Target_Runtime_Linux_x64
+
+            lua.DoString("""
+                    debugger = require("mobdebug")
+                    debugger.coro()
+                """);
+#endif
 
             this.env = lua.GetTable("_G");
 

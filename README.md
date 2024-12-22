@@ -11,20 +11,49 @@ I believe one can only learn by doing.
 This project is really old, I did it as a tribute to the open Tibia community. 
 From time to time, I take this project to have some fun and recall the good old days.
 
-# First run
-
-- You need Visual Studio 2022 and .NET 8.
-- Download and extract the files.
-- Open `mtanksl.OpenTibia.sln`.
-- Set `mtanksl.OpenTibia.Host` or `mtanksl.OpenTibia.Host.GUI` as startup project.
-- Press F5 to run the server. 
-- Use Tibia 8.6 client (download below) with an IP changer (download also below) to connect to localhost (IP address 127.0.0.1) on port 7171.
-- Use account number `1` and password `1` to enter game.
-- Sqlite database location: `\mtanksl.OpenTibia.GameData\data\database.db`.
-
 ![Server and Client](/server.png)
 
 ![Debugging .lua scripts](/debugging-lua-scripts.png)
+
+# Running the server
+
+### Option 1 - Running on Windows (GUI)
+
+- Download the last GUI release asset [mtanksl.OpenTibia.Host.GUI_win-x64](https://github.com/mtanksl/OpenTibia/releases)
+- Extract and run server
+
+### Option 2 - Running on Windows (console)
+
+- Download the last release asset [mtanksl.OpenTibia.Host_win-x64](https://github.com/mtanksl/OpenTibia/releases)
+- Extract and run server
+
+### Option 3 - Running on Linux (console)
+
+- Download the last release asset [mtanksl.OpenTibia.Host_linux-x64](https://github.com/mtanksl/OpenTibia/releases)
+- Extract 
+- Allow executing file as program permission
+```
+chmod +x ./mtanksl.OpenTibia.Host
+```
+- Run server
+```
+./mtanksl.OpenTibia.Host
+```
+- Sqlite database location: `\mtanksl.OpenTibia.GameData\data\database.db`.
+- Server configuration file location: `\mtanksl.OpenTibia.GameData\data\server\config.lua`.
+
+# Connecting to the server
+
+- Use Tibia 8.6 client (download below) with an IP changer (download also below) to connect to localhost (IP address 127.0.0.1) on port 7171.
+- Use account number `1` and password `1` to enter game.
+
+### Tibia 8.6 client
+
+You can download the official release direct from here [4Shared](https://www.4shared.com/s/fVTbjUnjCiq).
+
+### IP changer 
+
+You can use [jo3bingham's IP changer](https://github.com/jo3bingham/tibia-ip-changer), [OtLand IP changer](https://otland.net/threads/otland-ip-changer.134369/) or download direct from here [4Shared](https://www.4shared.com/s/f2VQahgxIiq).
 
 # Troubleshoot
 
@@ -32,13 +61,6 @@ From time to time, I take this project to have some fun and recall the good old 
 
 Go to `\mtanksl.OpenTibia.Host.GUI\MainForm.resx` file in Windows File Explorer. Right-click and select properties. At the bottom of the the dialog is an "unblock" option.
 
-# Tibia 8.6 client
-
-You can download the official release direct from here [4Shared](https://www.4shared.com/s/fVTbjUnjCiq).
-
-# IP changer 
-
-You can use [jo3bingham's IP changer](https://github.com/jo3bingham/tibia-ip-changer), [OtLand IP changer](https://otland.net/threads/otland-ip-changer.134369/) or download direct from here [4Shared](https://www.4shared.com/s/f2VQahgxIiq).
 
 # Other resources
 
