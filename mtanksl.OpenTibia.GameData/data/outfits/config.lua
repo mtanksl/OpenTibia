@@ -66,5 +66,8 @@
 	{ id = 335, name = "Warmaster", gender = gender.male },
 
 	{ id = 329, name = "Wedding", gender = gender.female },
-	{ id = 328, name = "Wedding", gender = gender.male }
+	{ id = 328, name = "Wedding", gender = gender.male },
+
+	{ id = 366, name = "Wayfarer", gender = gender.female },
+	{ id = 367, name = "Wayfarer", gender = gender.male }
 }
