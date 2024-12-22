@@ -99,11 +99,11 @@ namespace OpenTibia.Game.Common.ServerObjects
                         {
                             if (DateTime.UtcNow >= spawner.NextSpawn.Value)
                             {
-                                await Context.Current.AddCommand(new ShowMagicEffectCommand(spawner.Tile.Position, MagicEffectType.Teleport) );
+                                spawner.NextSpawn = null;
 
                                 spawner.Monster = await Context.Current.AddCommand(new TileCreateMonsterCommand(spawner.Tile, spawner.Monster.Name) );
 
-                                spawner.NextSpawn = null;
+                                                  await Context.Current.AddCommand(new ShowMagicEffectCommand(spawner.Tile.Position, MagicEffectType.Teleport) );
                             }
                         }
                     }
