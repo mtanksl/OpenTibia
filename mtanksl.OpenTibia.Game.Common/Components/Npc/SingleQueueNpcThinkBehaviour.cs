@@ -60,6 +60,11 @@ namespace OpenTibia.Game.Components
             }
         }
 
+        private void Clear()
+        {
+            queue.Clear();
+        }
+
         public async Promise Idle(Player player)
         {
             Npc npc = (Npc)GameObject;
@@ -134,7 +139,7 @@ namespace OpenTibia.Game.Components
 
             globalServerReloaded = Context.Server.EventHandlers.Subscribe<GlobalServerReloadedEventArgs>( (context, e) =>
             {
-                queue.Clear();
+                Clear();
 
                 dialoguePlugin = Context.Server.Plugins.GetDialoguePlugin(npc.Name) ?? Context.Server.Plugins.GetDialoguePlugin("Default");
 

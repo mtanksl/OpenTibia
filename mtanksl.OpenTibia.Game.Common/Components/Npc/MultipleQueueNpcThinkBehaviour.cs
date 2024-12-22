@@ -53,6 +53,23 @@ namespace OpenTibia.Game.Components
             }
         }
 
+        private void Clear()
+        {
+            foreach (var player in queue)
+            {
+                NpcTrading trading = Context.Server.NpcTradings.GetTradingByCounterOfferPlayer(player);
+
+                if (trading != null)
+                {
+                    Context.Server.NpcTradings.RemoveTrading(trading);
+
+                    Context.AddPacket(trading.CounterOfferPlayer, new CloseNpcTradeOutgoingPacket() );
+                }
+            }
+
+            queue.Clear();
+        }
+
         public async Promise Buy(Player player, ushort openTibiaId, byte type, byte count, int price, bool ignoreCapacity, bool buyWithBackpacks)
         {
             Npc npc = (Npc)GameObject;
@@ -124,7 +141,7 @@ namespace OpenTibia.Game.Components
 
             globalServerReloaded = Context.Server.EventHandlers.Subscribe<GlobalServerReloadedEventArgs>( (context, e) =>
             {
-                queue.Clear();
+                Clear();
 
                 dialoguePlugin = Context.Server.Plugins.GetDialoguePlugin(npc.Name) ?? Context.Server.Plugins.GetDialoguePlugin("Default");
 
