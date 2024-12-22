@@ -48,6 +48,8 @@ namespace OpenTibia.Game.Commands
             else
             {
                 player.Client = client;
+
+                player.DatabaseAccountId = DbPlayer.AccountId;
             }
 
             Context.Server.PlayerFactory.Attach(player);
