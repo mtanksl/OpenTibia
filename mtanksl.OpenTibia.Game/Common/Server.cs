@@ -762,6 +762,8 @@ namespace OpenTibia.Game.Common
                                 {
                                     Player player = item.Player;
 
+                                    player.Spawn = player.Tile;
+
                                     DbPlayer dbPlayer = item.DbPlayer;
 
                                     if (dbPlayer != null)
