@@ -42,13 +42,13 @@ namespace OpenTibia.Host
                         {
                             case "help":
 
-                                server.Logger.WriteLine("stats \t\t Displays server statistics.");
-                                server.Logger.WriteLine("clear \t\t Clears the console screen. Alternative commands: cls.");
-                                server.Logger.WriteLine("reload-plugins \t\t Reloads plugins.");
-                                server.Logger.WriteLine("kick \t\t Kicks all the players.");
-                                server.Logger.WriteLine("save \t\t Saves the server.");
-                                server.Logger.WriteLine("maintenance \t Starts or stops the server maintenance.");
-                                server.Logger.WriteLine("stop \t\t Stops the server. Alternative commands: exit, quit.");
+                                server.Logger.WriteLine("stats \t\t Display server statistics.");
+                                server.Logger.WriteLine("clear \t\t Clear the console screen. Alternative commands: cls.");
+                                server.Logger.WriteLine("reload-plugins \t Reload plugins.");
+                                server.Logger.WriteLine("maintenance \t Start or stop the server maintenance.");
+                                server.Logger.WriteLine("kick \t\t Kick all the players.");
+                                server.Logger.WriteLine("save \t\t Save the server.");
+                                server.Logger.WriteLine("stop \t\t Stop the server. Alternative commands: exit, quit.");
 
                                 break;
 
@@ -77,18 +77,6 @@ namespace OpenTibia.Host
 
                                 break;
 
-                            case "kick":
-
-                                server.KickAll();
-
-                                break;
-
-                            case "save":
-
-                                server.Save();
-
-                                break;
-
                             case "maintenance":
 
                                 if (server.Status == ServerStatus.Running)
@@ -99,6 +87,18 @@ namespace OpenTibia.Host
                                 {
                                     server.Continue();
                                 }
+
+                                break;
+
+                            case "kick":
+
+                                server.KickAll();
+
+                                break;
+
+                            case "save":
+
+                                server.Save();
 
                                 break;
 
