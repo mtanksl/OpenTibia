@@ -38,9 +38,10 @@
             restartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             commandToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            maintenanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             kickAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            maintenanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            broadcastMessageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             onlinePlayersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -111,16 +112,24 @@
             // 
             // commandToolStripMenuItem
             // 
-            commandToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { maintenanceToolStripMenuItem, kickAllToolStripMenuItem, saveToolStripMenuItem });
+            commandToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { broadcastMessageToolStripMenuItem, maintenanceToolStripMenuItem, kickAllToolStripMenuItem, saveToolStripMenuItem });
             commandToolStripMenuItem.Name = "commandToolStripMenuItem";
             commandToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
             commandToolStripMenuItem.Text = "Command";
+            // 
+            // maintenanceToolStripMenuItem
+            // 
+            maintenanceToolStripMenuItem.Enabled = false;
+            maintenanceToolStripMenuItem.Name = "maintenanceToolStripMenuItem";
+            maintenanceToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            maintenanceToolStripMenuItem.Text = "Maintenance";
+            maintenanceToolStripMenuItem.Click += maintenanceToolStripMenuItem_Click;
             // 
             // kickAllToolStripMenuItem
             // 
             kickAllToolStripMenuItem.Enabled = false;
             kickAllToolStripMenuItem.Name = "kickAllToolStripMenuItem";
-            kickAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            kickAllToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             kickAllToolStripMenuItem.Text = "Kick all";
             kickAllToolStripMenuItem.Click += kickAllToolStripMenuItem_Click;
             // 
@@ -128,17 +137,17 @@
             // 
             saveToolStripMenuItem.Enabled = false;
             saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            saveToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             saveToolStripMenuItem.Text = "Save";
             saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
             // 
-            // maintenanceToolStripMenuItem
+            // broadcastMessageToolStripMenuItem
             // 
-            maintenanceToolStripMenuItem.Enabled = false;
-            maintenanceToolStripMenuItem.Name = "maintenanceToolStripMenuItem";
-            maintenanceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            maintenanceToolStripMenuItem.Text = "Maintenance";
-            maintenanceToolStripMenuItem.Click += maintenanceToolStripMenuItem_Click;
+            broadcastMessageToolStripMenuItem.Enabled = false;
+            broadcastMessageToolStripMenuItem.Name = "broadcastMessageToolStripMenuItem";
+            broadcastMessageToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            broadcastMessageToolStripMenuItem.Text = "Broadcast Message";
+            broadcastMessageToolStripMenuItem.Click += broadcastMessageToolStripMenuItem_Click;
             // 
             // windowToolStripMenuItem
             // 
@@ -236,5 +245,6 @@
         private System.Windows.Forms.ToolStripMenuItem windowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem statisticsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem onlinePlayersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem broadcastMessageToolStripMenuItem;
     }
 }

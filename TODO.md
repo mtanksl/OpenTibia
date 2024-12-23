@@ -149,6 +149,7 @@
 	- #Sent messages and bytes
 	- Average processing time
 - Player admin management panel
+	- Broadcast Message
 	- Send Message
 	- Kick Player
 	- Ban Player

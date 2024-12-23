@@ -1,5 +1,7 @@
-﻿using OpenTibia.Game.Common;
+﻿using OpenTibia.Common.Structures;
+using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -52,21 +54,21 @@ namespace mtanksl.OpenTibia.Host.GUI
 
                 startToolStripMenuItem.Enabled = false;
 
-                statisticsToolStripMenuItem.Enabled = true;
-
                 reloadToolStripMenuItem.Enabled = true;
 
                 restartToolStripMenuItem.Enabled = true;
 
                 stopToolStripMenuItem.Enabled = true;
 
-                kickAllToolStripMenuItem.Enabled = true;
-
-                saveToolStripMenuItem.Enabled = true;
+                broadcastMessageToolStripMenuItem.Enabled = true;
 
                 maintenanceToolStripMenuItem.Enabled = true;
 
                 maintenanceToolStripMenuItem.Checked = false;
+
+                kickAllToolStripMenuItem.Enabled = true;
+
+                saveToolStripMenuItem.Enabled = true;
             }
             catch
             {
@@ -180,21 +182,21 @@ namespace mtanksl.OpenTibia.Host.GUI
 
                 startToolStripMenuItem.Enabled = true;
 
-                statisticsToolStripMenuItem.Enabled = false;
-
                 reloadToolStripMenuItem.Enabled = false;
 
                 restartToolStripMenuItem.Enabled = false;
 
                 stopToolStripMenuItem.Enabled = false;
 
-                kickAllToolStripMenuItem.Enabled = false;
-
-                saveToolStripMenuItem.Enabled = false;
+                broadcastMessageToolStripMenuItem.Enabled = false;               
 
                 maintenanceToolStripMenuItem.Enabled = false;
 
                 maintenanceToolStripMenuItem.Checked = false;
+
+                kickAllToolStripMenuItem.Enabled = false;
+
+                saveToolStripMenuItem.Enabled = false;
             }
             catch
             {
@@ -203,6 +205,58 @@ namespace mtanksl.OpenTibia.Host.GUI
             finally
             {
                 Enabled = true;
+            }
+        }
+
+        private void broadcastMessageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (server == null)
+            {
+                MessageBox.Show("Server is not running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            var promptForm = new PromptForm("Broadcast Message", "Message:");
+
+            if (promptForm.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            server.QueueForExecution( () =>
+            {
+                ShowWindowTextOutgoingPacket showTextOutgoingPacket = new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, promptForm.Message);
+
+                foreach (var observer in Context.Current.Server.GameObjects.GetPlayers() )
+                {
+                    Context.Current.AddPacket(observer, showTextOutgoingPacket);
+                }
+
+                return Promise.Completed;
+            } );
+        }
+
+        private void maintenanceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (server == null)
+            {
+                MessageBox.Show("Server is not running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            if (server.Status == ServerStatus.Running)
+            {
+                server.Pause();
+
+                maintenanceToolStripMenuItem.Checked = true;
+            }
+            else if (server.Status == ServerStatus.Paused)
+            {
+                server.Continue();
+
+                maintenanceToolStripMenuItem.Checked = false;
             }
         }
 
@@ -262,22 +316,6 @@ namespace mtanksl.OpenTibia.Host.GUI
             }
         }
 
-        private void maintenanceToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (server.Status == ServerStatus.Running)
-            {
-                server.Pause();
-
-                maintenanceToolStripMenuItem.Checked = true;
-            }
-            else if (server.Status == ServerStatus.Paused)
-            {
-                server.Continue();
-
-                maintenanceToolStripMenuItem.Checked = false;
-            }
-        }
-
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
             richTextBox1.Clear();
@@ -317,21 +355,21 @@ namespace mtanksl.OpenTibia.Host.GUI
 
                         startToolStripMenuItem.Enabled = true;
 
-                        statisticsToolStripMenuItem.Enabled = false;
-
                         reloadToolStripMenuItem.Enabled = false;
 
                         restartToolStripMenuItem.Enabled = false;
 
                         stopToolStripMenuItem.Enabled = false;
 
-                        kickAllToolStripMenuItem.Enabled = false;
-
-                        saveToolStripMenuItem.Enabled = false;
+                        broadcastMessageToolStripMenuItem.Enabled = false;
 
                         maintenanceToolStripMenuItem.Enabled = false;
 
                         maintenanceToolStripMenuItem.Checked = false;
+
+                        kickAllToolStripMenuItem.Enabled = false;
+
+                        saveToolStripMenuItem.Enabled = false;
 
                         ignoreCloseEvent = true;
 

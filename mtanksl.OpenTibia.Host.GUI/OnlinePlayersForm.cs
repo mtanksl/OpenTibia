@@ -31,7 +31,7 @@ namespace mtanksl.OpenTibia.Host.GUI
 
             if (server != null)
             {
-                foreach (var player in server.GameObjects.GetPlayers().OrderBy(p => p.Name))
+                foreach (var player in server.GameObjects.GetPlayers().OrderBy(p => p.Name) )
                 {
                     var rowIndex = dataGridViewPlayers.Rows.Add(player.Name, player.Level.ToString(), Enum.GetName(player.Vocation), Enum.GetName(player.Rank), player.Client.Connection.IpAddress);
 
@@ -131,9 +131,9 @@ namespace mtanksl.OpenTibia.Host.GUI
                 {
                     if (player.Tile != null && !player.IsDestroyed)
                     {
-                        await Context.Current.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.Puff));
+                        await Context.Current.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.Puff) );
 
-                        await Context.Current.AddCommand(new CreatureDestroyCommand(player));
+                        await Context.Current.AddCommand(new CreatureDestroyCommand(player) );
                     }
                 } );
             }
@@ -156,34 +156,37 @@ namespace mtanksl.OpenTibia.Host.GUI
             {
                 server.QueueForExecution(async () =>
                 {
-                    using (var database = Context.Current.Server.DatabaseFactory.Create())
+                    using (var database = Context.Current.Server.DatabaseFactory.Create() )
                     {
-                        DbBan dbBan = await database.BanRepository.GetBanByPlayerId(player.DatabasePlayerId);
-
-                        if (dbBan == null)
+                        if (player.DatabasePlayerId > 0)
                         {
-                            dbBan = new DbBan()
+                            DbBan dbBan = await database.BanRepository.GetBanByPlayerId(player.DatabasePlayerId);
+
+                            if (dbBan == null)
                             {
-                                Type = BanType.Player,
+                                dbBan = new DbBan()
+                                {
+                                    Type = BanType.Player,
 
-                                PlayerId = player.DatabasePlayerId,
+                                    PlayerId = player.DatabasePlayerId,
 
-                                Message = "This player has been banned.",
+                                    Message = "This player has been banned.",
 
-                                CreationDate = DateTime.UtcNow
-                            };
+                                    CreationDate = DateTime.UtcNow
+                                };
 
-                            database.BanRepository.AddBan(dbBan);
+                                database.BanRepository.AddBan(dbBan);
 
-                            await database.Commit();
+                                await database.Commit();
+                            }
                         }
                     }
 
                     if (player.Tile != null && !player.IsDestroyed)
                     {
-                        await Context.Current.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.Puff));
+                        await Context.Current.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.Puff) );
 
-                        await Context.Current.AddCommand(new CreatureDestroyCommand(player));
+                        await Context.Current.AddCommand(new CreatureDestroyCommand(player) );
                     }
                 } );
             }
@@ -206,7 +209,7 @@ namespace mtanksl.OpenTibia.Host.GUI
             {
                 server.QueueForExecution(async () =>
                 {
-                    using (var database = Context.Current.Server.DatabaseFactory.Create())
+                    using (var database = Context.Current.Server.DatabaseFactory.Create() )
                     {
                         DbBan dbBan = await database.BanRepository.GetBanByIpAddress(player.Client.Connection.IpAddress);
 
@@ -231,9 +234,9 @@ namespace mtanksl.OpenTibia.Host.GUI
 
                     if (player.Tile != null && !player.IsDestroyed)
                     {
-                        await Context.Current.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.Puff));
+                        await Context.Current.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.Puff) );
 
-                        await Context.Current.AddCommand(new CreatureDestroyCommand(player));
+                        await Context.Current.AddCommand(new CreatureDestroyCommand(player) );
                     }
                 } );
             }
