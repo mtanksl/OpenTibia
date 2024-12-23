@@ -518,13 +518,11 @@ namespace OpenTibia.Game.Common
 
         private Dictionary<string, SchedulerEvent> schedulerEvents = new Dictionary<string, SchedulerEvent>();
 
-        private Stopwatch ticks = new Stopwatch();
-
         public void Post(Context previousContext, Action run)
         {
             DispatcherEvent dispatcherEvent = new DispatcherEvent( () =>
             {
-                ticks.Restart();
+                var start = Stopwatch.GetTimestamp();
 
                 try
                 {
@@ -543,9 +541,7 @@ namespace OpenTibia.Game.Common
                     Logger.WriteLine(ex.ToString(), LogLevel.Error);
                 }
 
-                ticks.Stop();
-
-                Statistics.IncreaseProcessingTime(ticks.ElapsedTicks);
+                Statistics.IncreaseProcessingTime(Stopwatch.GetElapsedTime(start, Stopwatch.GetTimestamp() ).Ticks);
             } );
 
             dispatcher.QueueForExecution(dispatcherEvent);
@@ -559,7 +555,7 @@ namespace OpenTibia.Game.Common
 
                 DispatcherEvent dispatcherEvent = new DispatcherEvent( () =>
                 {
-                    ticks.Restart();
+                    var start = Stopwatch.GetTimestamp();
 
                     try
                     {
@@ -592,9 +588,7 @@ namespace OpenTibia.Game.Common
                         reject(ex);
                     }
 
-                    ticks.Stop();
-
-                    Statistics.IncreaseProcessingTime(ticks.ElapsedTicks);
+                    Statistics.IncreaseProcessingTime(Stopwatch.GetElapsedTime(start, Stopwatch.GetTimestamp() ).Ticks);
                 } );
 
                 dispatcher.QueueForExecution(dispatcherEvent);
@@ -618,7 +612,7 @@ namespace OpenTibia.Game.Common
 
                 schedulerEvent = new SchedulerEvent(executeIn, () =>
                 {
-                    ticks.Restart();
+                    var start = Stopwatch.GetTimestamp();
 
                     schedulerEvents.Remove(key);
 
@@ -653,9 +647,7 @@ namespace OpenTibia.Game.Common
                         reject(ex);
                     }
 
-                    ticks.Stop();
-
-                    Statistics.IncreaseProcessingTime(ticks.ElapsedTicks);
+                    Statistics.IncreaseProcessingTime(Stopwatch.GetElapsedTime(start, Stopwatch.GetTimestamp() ).Ticks);
                 } );
 
                 schedulerEvent.Canceled += (sender, e) =>
