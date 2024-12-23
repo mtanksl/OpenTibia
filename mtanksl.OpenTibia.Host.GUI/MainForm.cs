@@ -375,5 +375,32 @@ namespace mtanksl.OpenTibia.Host.GUI
                 statisticsForm.Close();
             }
         }
+
+        private OnlinePlayersForm onlinePlayersForm;
+
+        private void onlinePlayersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (onlinePlayersForm == null)
+            {
+                onlinePlayersForm = new OnlinePlayersForm( () => server);
+
+                onlinePlayersForm.FormClosed += (s, e) =>
+                {
+                    onlinePlayersForm.Dispose();
+
+                    onlinePlayersForm = null;
+
+                    onlinePlayersToolStripMenuItem.Checked = false;
+                };
+
+                onlinePlayersForm.Show();
+
+                onlinePlayersToolStripMenuItem.Checked = true;
+            }
+            else
+            {
+                onlinePlayersForm.Close();
+            }
+        }
     }
 }

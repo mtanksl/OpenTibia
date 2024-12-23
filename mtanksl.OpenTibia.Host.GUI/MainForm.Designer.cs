@@ -41,12 +41,13 @@
             kickAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             maintenanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            onlinePlayersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             statusStrip1 = new System.Windows.Forms.StatusStrip();
             richTextBox1 = new System.Windows.Forms.RichTextBox();
             contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(components);
             clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
@@ -86,7 +87,7 @@
             // pluginsToolStripMenuItem
             // 
             pluginsToolStripMenuItem.Name = "pluginsToolStripMenuItem";
-            pluginsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            pluginsToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             pluginsToolStripMenuItem.Text = "Plugins";
             pluginsToolStripMenuItem.Click += pluginsToolStripMenuItem_Click;
             // 
@@ -110,7 +111,7 @@
             // 
             // commandToolStripMenuItem
             // 
-            commandToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { kickAllToolStripMenuItem, saveToolStripMenuItem, maintenanceToolStripMenuItem });
+            commandToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { maintenanceToolStripMenuItem, kickAllToolStripMenuItem, saveToolStripMenuItem });
             commandToolStripMenuItem.Name = "commandToolStripMenuItem";
             commandToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
             commandToolStripMenuItem.Text = "Command";
@@ -138,6 +139,27 @@
             maintenanceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             maintenanceToolStripMenuItem.Text = "Maintenance";
             maintenanceToolStripMenuItem.Click += maintenanceToolStripMenuItem_Click;
+            // 
+            // windowToolStripMenuItem
+            // 
+            windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { statisticsToolStripMenuItem, onlinePlayersToolStripMenuItem });
+            windowToolStripMenuItem.Name = "windowToolStripMenuItem";
+            windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
+            windowToolStripMenuItem.Text = "Window";
+            // 
+            // statisticsToolStripMenuItem
+            // 
+            statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
+            statisticsToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            statisticsToolStripMenuItem.Text = "Statistics";
+            statisticsToolStripMenuItem.Click += statisticsToolStripMenuItem_Click;
+            // 
+            // onlinePlayersToolStripMenuItem
+            // 
+            onlinePlayersToolStripMenuItem.Name = "onlinePlayersToolStripMenuItem";
+            onlinePlayersToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
+            onlinePlayersToolStripMenuItem.Text = "Online Players";
+            onlinePlayersToolStripMenuItem.Click += onlinePlayersToolStripMenuItem_Click;
             // 
             // statusStrip1
             // 
@@ -171,20 +193,6 @@
             clearToolStripMenuItem.Size = new System.Drawing.Size(101, 22);
             clearToolStripMenuItem.Text = "Clear";
             clearToolStripMenuItem.Click += clearToolStripMenuItem_Click;
-            // 
-            // windowToolStripMenuItem
-            // 
-            windowToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { statisticsToolStripMenuItem });
-            windowToolStripMenuItem.Name = "windowToolStripMenuItem";
-            windowToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
-            windowToolStripMenuItem.Text = "Window";
-            // 
-            // statisticsToolStripMenuItem
-            // 
-            statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
-            statisticsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            statisticsToolStripMenuItem.Text = "Statistics";
-            statisticsToolStripMenuItem.Click += statisticsToolStripMenuItem_Click;
             // 
             // MainForm
             // 
@@ -227,5 +235,6 @@
         private System.Windows.Forms.ToolStripMenuItem pluginsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem windowToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem statisticsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem onlinePlayersToolStripMenuItem;
     }
 }

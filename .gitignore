@@ -1,4 +1,4 @@
 .vs/
 packages
-/mtanksl.OpenTibia.Tests/PromiseExample.cs
 /mtanksl.OpenTibia.Game.Common/Promises/Example.cs
+/build.txt

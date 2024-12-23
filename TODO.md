@@ -148,3 +148,8 @@
 	- #Received messages and bytes
 	- #Sent messages and bytes
 	- Average processing time
+- Player admin management panel
+	- Send Message
+	- Kick Player
+	- Ban Player
+	- Ban IP Address
