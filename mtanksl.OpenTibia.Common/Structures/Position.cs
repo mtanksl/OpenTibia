@@ -1,4 +1,6 @@
-﻿namespace OpenTibia.Common.Structures
+﻿using System;
+
+namespace OpenTibia.Common.Structures
 {
     public class Position
     {
@@ -123,6 +125,21 @@
             {
                 return (byte)(z);
             }
+        }
+
+        public int EuclideanDistance(Position that)
+        {
+            return (int)Math.Sqrt( Math.Pow(that.X - this.X, 2) + Math.Pow(that.Y - this.Y, 2) );
+        }
+
+        public int ChebyshevDistance(Position that)
+        {
+            return Math.Max(Math.Abs(that.X - this.X), Math.Abs(that.Y - this.Y) );
+        }
+
+        public int ManhattanDistance(Position that)
+        {
+            return Math.Abs(that.X - this.X) + Math.Abs(that.Y - this.Y);
         }
 
         public Position Offset(int x, int y, int z)

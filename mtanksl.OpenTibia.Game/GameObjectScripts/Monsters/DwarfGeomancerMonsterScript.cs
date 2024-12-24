@@ -15,7 +15,9 @@ namespace OpenTibia.Game.GameObjectScripts
                     new MeleeAttackStrategy(0, 100),
                     new SimpleAttackStrategy(ProjectileType.Poison, MagicEffectType.GreenRings, AnimatedTextColor.Green, 50, 110), 
                     new HealingAttackStrategy(25, 130) ), 
-                KeepDistanceWalkStrategy.Instance) );
+                KeepDistanceWalkStrategy.Instance,
+                DoNotChangeTargetStrategy.Instance,
+                RandomTargetStrategy.Instance) );
         }
 
         public override void Stop(Monster monster)

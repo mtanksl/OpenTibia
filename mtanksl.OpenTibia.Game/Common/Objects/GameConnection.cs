@@ -29,7 +29,7 @@ namespace OpenTibia.Common
 			
 			commands.Add(0x1E, new PacketToCommand<PongIncomingPacket>("Pong", (connection, packet) => new ParsePongCommand(connection.Client.Player) ) );
 			
-			commands.Add(0x64, new PacketToCommand<WalkToIncomingPacket>("Walk To", (connection, packet) => new ParseWalkToKnownPathCommand(connection.Client.Player, packet.MoveDirections) ) );
+			commands.Add(0x64, new PacketToCommand<WalkToIncomingPacket>("Walk To", (connection, packet) => new ParseWalkToCommand(connection.Client.Player, packet.MoveDirections) ) );
 			
 			commands.Add(0x65, new PacketToCommand<WalkNorthIncomingPacket>("Walk North", (connection, packet) => new ParseWalkCommand(connection.Client.Player, packet.MoveDirection) ) );
 			

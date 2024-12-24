@@ -14,7 +14,9 @@ namespace OpenTibia.Game.GameObjectScripts
                 new CombineRandomAttackStrategy(
                     new MeleeAttackStrategy(0, 70), 
                     new DistanceAttackStrategy(ProjectileType.Spear, 0, 50) ), 
-                new RunAwayOnLowHealthWalkStrategy(10, ApproachWalkStrategy.Instance) ) );
+                new RunAwayOnLowHealthWalkStrategy(10, ApproachWalkStrategy.Instance),
+                DoNotChangeTargetStrategy.Instance,
+                RandomTargetStrategy.Instance) );
         }
 
         public override void Stop(Monster monster)

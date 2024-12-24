@@ -16,7 +16,9 @@ namespace OpenTibia.Game.GameObjectScripts
                     new AreaAttackStrategy(Offset.Circle7, ProjectileType.Fire, MagicEffectType.FireArea, AnimatedTextColor.Orange, 150, 250),
                     new BeamAttackStrategy(Offset.Beam7, MagicEffectType.EnergyArea, AnimatedTextColor.LightBlue, 300, 480),
                     new HealingAttackStrategy(80, 250) ),
-                ApproachWalkStrategy.Instance) );
+                ApproachWalkStrategy.Instance,
+                DoNotChangeTargetStrategy.Instance,
+                RandomTargetStrategy.Instance) );
         }
 
         public override void Stop(Monster monster)

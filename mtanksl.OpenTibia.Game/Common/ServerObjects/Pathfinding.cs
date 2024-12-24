@@ -13,7 +13,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 FromPosition = fromPosition;
 
-                EstimatedMoves = Node.ChebyshevDistance(fromPosition, toPosition);
+                EstimatedMoves = fromPosition.ChebyshevDistance(toPosition);
             }
 
             public Position FromPosition { get; }
@@ -37,21 +37,6 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Score.CompareTo(node.Score);
             }
 
-            public static int EuclideanDistance(Position fromPosition, Position toPosition)
-            {
-                return (int)Math.Sqrt( Math.Pow(toPosition.X - fromPosition.X, 2) + Math.Pow(toPosition.Y - fromPosition.Y, 2) );
-            }
-
-            public static int ChebyshevDistance(Position fromPosition, Position toPosition)
-            {
-                return Math.Max(Math.Abs(toPosition.X - fromPosition.X), Math.Abs(toPosition.Y - fromPosition.Y) );
-            }
-
-            public static int ManhattanDistance(Position fromPosition, Position toPosition)
-            {
-                return Math.Abs(toPosition.X - fromPosition.X) + Math.Abs(toPosition.Y - fromPosition.Y);
-            }
-            
             public static int CalculateCost(MoveDirection direction)
             {
                 if (direction == MoveDirection.NorthEast || direction == MoveDirection.NorthWest || direction == MoveDirection.SouthEast || direction == MoveDirection.SouthWest)

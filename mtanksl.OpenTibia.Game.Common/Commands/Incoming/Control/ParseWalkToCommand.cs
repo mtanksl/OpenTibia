@@ -7,9 +7,9 @@ using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class ParseWalkToKnownPathCommand : IncomingCommand
+    public class ParseWalkToCommand : IncomingCommand
     {
-        public ParseWalkToKnownPathCommand(Player player, MoveDirection[] moveDirections)
+        public ParseWalkToCommand(Player player, MoveDirection[] moveDirections)
         {
             Player = player;
 

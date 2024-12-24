@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Game.Events;
 using System;
 using System.Linq;
@@ -14,68 +15,183 @@ namespace OpenTibia.Game.Components
 
         private IWalkStrategy walkStrategy;
 
-        public MonsterThinkBehaviour(IAttackStrategy attackStrategy, IWalkStrategy walkStrategy)
+        private IChangeTargetStrategy changeTargetStrategy;
+
+        private ITargetStrategy targetStrategy;
+
+        public MonsterThinkBehaviour(IAttackStrategy attackStrategy, IWalkStrategy walkStrategy, IChangeTargetStrategy changeTargetStrategy, ITargetStrategy targetStrategy)
         {
             this.attackStrategy = attackStrategy;
 
             this.walkStrategy = walkStrategy;
+
+            this.changeTargetStrategy = changeTargetStrategy;
+
+            this.targetStrategy = targetStrategy;
+        }
+
+        private Monster attacker;
+
+        private Player target;
+
+        private bool hasVisiblePlayers;
+
+        private void CheckTarget()
+        {
+            if (target == null || target.Tile == null || target.IsDestroyed || target.Tile.ProtectionZone || !attacker.Tile.Position.CanHearSay(target.Tile.Position) || changeTargetStrategy.ShouldChange(attacker, target) )
+            {
+                Player[] visiblePlayers = Context.Server.Map.GetObserversOfTypePlayer(attacker.Tile.Position)
+                    .Where(p => p.Rank != Rank.Gamemaster &&
+                                p.Rank != Rank.AccountManager &&
+                                attacker.Tile.Position.CanSee(p.Tile.Position) )
+                    .ToArray();
+
+                if (visiblePlayers.Length > 0)
+                {
+                    target = targetStrategy.GetTarget(attacker, visiblePlayers);
+
+                    hasVisiblePlayers = true;
+                }
+                else
+                {
+                    target = null;
+
+                    hasVisiblePlayers = false;
+                }
+            }
+        }
+
+        private Player currentTarget;
+
+        private string attackingKey = Guid.NewGuid().ToString();
+
+        private string followingKey = Guid.NewGuid().ToString();
+
+        private void StartAttackAndFollow()
+        {
+            currentTarget = target;
+
+            if (attackStrategy != null)
+            {
+                Promise.Run(async () =>
+                {
+                    while (true)
+                    {
+                        if (currentTarget.Tile == null || currentTarget.IsDestroyed || currentTarget.Tile.ProtectionZone || !attacker.Tile.Position.CanHearSay(currentTarget.Tile.Position) )
+                        {
+                            StopAttackAndFollow();
+
+                            break;
+                        }
+
+                        if (attackStrategy.CanAttack(attacker, currentTarget) )
+                        {
+                            await attackStrategy.Attack(attacker, currentTarget);
+                        }
+
+                        await Promise.Delay(attackingKey, TimeSpan.FromSeconds(2) );
+                    }
+
+                } ).Catch( (ex) =>
+                {
+                    if (ex is PromiseCanceledException)
+                    {
+                        //
+                    }
+                    else
+                    {
+                        Context.Server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                    }
+                } );
+            }
+
+            if (walkStrategy != null)
+            {
+                Promise.Run(async () =>
+                {
+                    while (true)
+                    {
+                        if (currentTarget.Tile == null || currentTarget.IsDestroyed || currentTarget.Tile.ProtectionZone || !attacker.Tile.Position.CanHearSay(currentTarget.Tile.Position) )
+                        {
+                            StopAttackAndFollow();
+
+                            break;
+                        }
+
+                        Tile toTile;
+
+                        if (walkStrategy.CanWalk(attacker, currentTarget, out toTile) )
+                        {
+                            MoveDirection moveDirection = attacker.Tile.Position.ToMoveDirection(toTile.Position).Value;
+
+                            await Context.Current.AddCommand(new CreatureMoveCommand(attacker, toTile) );
+
+                            int diagonalCost = (moveDirection == MoveDirection.NorthWest || moveDirection == MoveDirection.NorthEast || moveDirection == MoveDirection.SouthWest || moveDirection == MoveDirection.SouthEast) ? 2 : 1;
+
+                            await Promise.Delay(followingKey, TimeSpan.FromMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.Speed / attacker.Speed) );
+                        }
+                        else
+                        {
+                            await Promise.Delay(followingKey, TimeSpan.FromSeconds(1) );
+                        }
+                    }
+
+                } ).Catch( (ex) =>
+                {
+                    if (ex is PromiseCanceledException)
+                    {
+                        //
+                    }
+                    else
+                    {
+                        Context.Server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                    }
+                } );
+            }            
+        }
+
+        private void StopAttackAndFollow()
+        {
+            Context.Server.CancelQueueForExecution(attackingKey);
+
+            Context.Server.CancelQueueForExecution(followingKey);
+
+            currentTarget = null;
         }
 
         private Guid globalTick;
 
-        private Player target = null;
-
-        private bool hasVisiblePlayers = false;
-
-        private DateTime nextAttack = DateTime.MinValue;
-
-        private DateTime nextWalk = DateTime.MinValue;
-
         public override void Start()
         {
-            Monster monster = (Monster)GameObject;
+            attacker = (Monster)GameObject;
 
-            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance[monster.Id % GlobalTickEventArgs.Instance.Length], async (context, e) =>
+            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance[attacker.Id % GlobalTickEventArgs.Instance.Length], async (context, e) =>
             {
-                if (Math.Abs(monster.Tile.Position.X - monster.Spawn.Position.X) > Context.Server.Config.GameplayMonsterDeSpawnRadius || Math.Abs(monster.Tile.Position.Y - monster.Spawn.Position.Y) > Context.Server.Config.GameplayMonsterDeSpawnRadius || Math.Abs(monster.Tile.Position.Z - monster.Spawn.Position.Z) > Context.Server.Config.GameplayMonsterDeSpawnRange)
+                if (Math.Abs(attacker.Tile.Position.X - attacker.Spawn.Position.X) > Context.Server.Config.GameplayMonsterDeSpawnRadius || Math.Abs(attacker.Tile.Position.Y - attacker.Spawn.Position.Y) > Context.Server.Config.GameplayMonsterDeSpawnRadius || Math.Abs(attacker.Tile.Position.Z - attacker.Spawn.Position.Z) > Context.Server.Config.GameplayMonsterDeSpawnRange)
                 {
-                    await Context.AddCommand(new ShowMagicEffectCommand(monster, MagicEffectType.Puff) );
+                    await Context.AddCommand(new ShowMagicEffectCommand(attacker, MagicEffectType.Puff) );
 
-                    await Context.AddCommand(new CreatureDestroyCommand(monster) );
+                    await Context.AddCommand(new CreatureDestroyCommand(attacker) );
                 }
                 else
                 {
-                    if (target == null || target.Tile == null || target.IsDestroyed || target.Tile.ProtectionZone || !monster.Tile.Position.CanHearSay(target.Tile.Position) )
+                    CheckTarget();
+
+                    if (target == null && currentTarget != null)
                     {
-                        Player[] visiblePlayers = Context.Server.Map.GetObserversOfTypePlayer(monster.Tile.Position)
-                            .Where(p => p.Rank != Rank.Gamemaster &&
-                                        p.Rank != Rank.AccountManager &&
-                                        monster.Tile.Position.CanSee(p.Tile.Position) )
-                            .ToArray();
-
-                        if (visiblePlayers.Length > 0)
+                        StopAttackAndFollow();                        
+                    }
+                    else if (target != null && currentTarget == null)
+                    {
+                        StartAttackAndFollow();
+                    }
+                    else if (target != null && currentTarget != null)
+                    {
+                        if (target != currentTarget)
                         {
-                            Player[] targets = visiblePlayers
-                                .Where(p => !p.Tile.ProtectionZone &&
-                                            monster.Tile.Position.CanHearSay(p.Tile.Position) )
-                                .ToArray();
+                            StopAttackAndFollow();
 
-                            if (targets.Length > 0)
-                            {
-                                target = Context.Server.Randomization.Take(targets);
-                            }
-                            else
-                            {
-                                target = null;
-                            }
-                            
-                            hasVisiblePlayers = true;
-                        }
-                        else
-                        {
-                            target = null;
-
-                            hasVisiblePlayers = false;
+                            StartAttackAndFollow();
                         }
                     }
 
@@ -83,55 +199,22 @@ namespace OpenTibia.Game.Components
                     {
                         if (hasVisiblePlayers)
                         {
-                            if (DateTime.UtcNow >= nextWalk)
-                            {                            
-                                Tile toTile;
+                            Tile toTile;
 
-                                if (RandomWalkStrategy.Instance.CanWalk(monster, null, out toTile) )
-                                {
-                                    nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / monster.Speed);
-
-                                    await Context.Current.AddCommand(new CreatureMoveCommand(monster, toTile) );
-                                }
+                            if (RandomWalkStrategy.Instance.CanWalk(attacker, null, out toTile) )
+                            {
+                                await Context.Current.AddCommand(new CreatureMoveCommand(attacker, toTile) );
                             }
                         }
                     }
-                    else
-                    {
-                        if (DateTime.UtcNow >= nextWalk)
-                        {
-                            if (walkStrategy != null)
-                            {
-                                Tile toTile;
-
-                                if (walkStrategy.CanWalk(monster, target, out toTile) )
-                                {
-                                    nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / monster.Speed);
-
-                                    await Context.Current.AddCommand(new CreatureMoveCommand(monster, toTile) );
-                                }
-                            }
-                        }
-
-                        if (DateTime.UtcNow >= nextAttack)
-                        {
-                            if (attackStrategy != null)
-                            {
-                                if (attackStrategy.CanAttack(monster, target) )
-                                {
-                                    nextAttack = DateTime.UtcNow.Add(TimeSpan.FromSeconds(2) );
-
-                                    await attackStrategy.Attack(monster, target);
-                                }
-                            }
-                        }
-                    }
-                }                
-            } );
+                }
+            } );            
         }
 
         public override void Stop()
         {
+            StopAttackAndFollow();
+
             Context.Server.EventHandlers.Unsubscribe(globalTick);
         }
     }
