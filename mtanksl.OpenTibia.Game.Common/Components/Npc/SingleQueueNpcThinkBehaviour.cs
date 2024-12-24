@@ -129,8 +129,6 @@ namespace OpenTibia.Game.Components
 
         private Guid globalTick;
 
-        private DateTime nextWalk = DateTime.MinValue;
-
         public override void Start()
         {
             Npc npc = (Npc)GameObject;
@@ -154,19 +152,11 @@ namespace OpenTibia.Game.Components
             {
                 if (queue.Count == 0)
                 {
-                    if (DateTime.UtcNow >= nextWalk)
+                    Tile toTile;
+
+                    if (walkStrategy.CanWalk(npc, null, out toTile) )
                     {
-                        if (walkStrategy != null)
-                        {
-                            Tile toTile;
-
-                            if (walkStrategy.CanWalk(npc, null, out toTile) )
-                            {
-                                nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / npc.Speed);
-
-                                await Context.Current.AddCommand(new CreatureMoveCommand(npc, toTile) );
-                            }
-                        }
+                        await Context.Current.AddCommand(new CreatureMoveCommand(npc, toTile) );
                     }
                 }
                 else

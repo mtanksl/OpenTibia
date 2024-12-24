@@ -14,19 +14,12 @@ namespace OpenTibia.Game.Components
 
         public Player GetTarget(Creature attacker, Player[] visiblePlayers)
         {
-            Player weakest = visiblePlayers
+            return visiblePlayers
                 .Where(p => !p.Tile.ProtectionZone &&
                             attacker.Tile.Position.CanHearSay(p.Tile.Position) )
                 .OrderBy(p => p.MaxHealth)
                     .ThenBy(p => p.Health)
                 .FirstOrDefault();
-
-            if (weakest != null)
-            {
-                return weakest;
-            }
-               
-            return null;
         }
     }
 }

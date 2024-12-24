@@ -11,7 +11,7 @@ namespace OpenTibia.Game.GameObjectScripts
             base.Start(monster);
 
             Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
-                new CombineRandomAttackStrategy(
+                new CombineRandomAttackStrategy(false,
                     new MeleeAttackStrategy(0, 12),
                     new BeamAttackStrategy(Offset.Wave1133355, MagicEffectType.FireArea, AnimatedTextColor.Orange, 100, 170),
                     new AreaAttackStrategy(Offset.Circle5, ProjectileType.Fire, MagicEffectType.FireArea, AnimatedTextColor.Orange, 60, 140),

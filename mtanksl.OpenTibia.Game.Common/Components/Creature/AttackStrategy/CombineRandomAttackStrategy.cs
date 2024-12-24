@@ -5,10 +5,14 @@ namespace OpenTibia.Game.Components
 {
     public class CombineRandomAttackStrategy : IAttackStrategy
     {
+        private bool aggressive;
+
         private IAttackStrategy[] attackStrategies;
 
-        public CombineRandomAttackStrategy(params IAttackStrategy[] attackStrategies)
+        public CombineRandomAttackStrategy(bool aggressive, params IAttackStrategy[] attackStrategies)
         {
+            this.aggressive = aggressive;
+
             this.attackStrategies = attackStrategies;
         }
 
@@ -16,9 +20,28 @@ namespace OpenTibia.Game.Components
 
         public bool CanAttack(Creature attacker, Creature target)
         {
-            attackStrategy = Context.Current.Server.Randomization.Take(attackStrategies);
+            if (aggressive)
+            {
+                Context.Current.Server.Randomization.Shuffle(attackStrategies);
 
-            return attackStrategy.CanAttack(attacker, target);
+                foreach (var attackStrategy in attackStrategies)
+                {
+                    if (attackStrategy.CanAttack(attacker, target) )
+                    {
+                        this.attackStrategy = attackStrategy;
+
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+            else
+            {
+                this.attackStrategy = Context.Current.Server.Randomization.Take(attackStrategies);
+
+                return attackStrategy.CanAttack(attacker, target);
+            }
         }
 
         public Promise Attack(Creature attacker, Creature target)

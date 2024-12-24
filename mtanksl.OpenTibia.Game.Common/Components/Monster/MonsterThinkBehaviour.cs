@@ -195,16 +195,13 @@ namespace OpenTibia.Game.Components
                         }
                     }
 
-                    if (target == null)
+                    if (target == null && hasVisiblePlayers)
                     {
-                        if (hasVisiblePlayers)
-                        {
-                            Tile toTile;
+                        Tile toTile;
 
-                            if (RandomWalkStrategy.Instance.CanWalk(attacker, null, out toTile) )
-                            {
-                                await Context.Current.AddCommand(new CreatureMoveCommand(attacker, toTile) );
-                            }
+                        if (RandomWalkStrategy.Instance.CanWalk(attacker, null, out toTile) )
+                        {
+                            await Context.Current.AddCommand(new CreatureMoveCommand(attacker, toTile) );
                         }
                     }
                 }
