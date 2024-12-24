@@ -31,16 +31,23 @@ namespace OpenTibia.Game.Commands
                 Context.Server.GameObjectComponents.RemoveComponent(Creature, playerWalkDelayBehaviour);
             }
 
+            //List<Creature> canSeeFromEvents = new List<Creature>();
+
             Dictionary<Player, byte> canSeeFrom = new Dictionary<Player, byte>();
 
-            foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Creature.Tile.Position) )
+            foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(Creature.Tile.Position) )
             {
-                byte clientIndex;
-
-                if (observer.Client.TryGetIndex(Creature, out clientIndex) )
+                if (observer is Player player)
                 {
-                    canSeeFrom.Add(observer, clientIndex);
+                    byte clientIndex;
+
+                    if (player.Client.TryGetIndex(Creature, out clientIndex) )
+                    {
+                        canSeeFrom.Add(player, clientIndex);
+                    }
                 }
+
+                //canSeeFromEvents.Add(observer);
             }
 
             Tile fromTile = Creature.Tile;
@@ -50,21 +57,28 @@ namespace OpenTibia.Game.Commands
             fromTile.RemoveContent(fromIndex);
 
             Context.Server.Map.RemoveObserver(fromTile.Position, Creature);
-
+                        
             int toIndex = ToTile.AddContent(Creature);
 
             Context.Server.Map.AddObserver(ToTile.Position, Creature);
 
+            //List<Creature> canSeeToEvents = new List<Creature>();
+
             Dictionary<Player, byte> canSeeTo = new Dictionary<Player, byte>();
 
-            foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Creature.Tile.Position) )
+            foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(Creature.Tile.Position) )
             {
-                byte clientIndex;
-
-                if (observer.Client.TryGetIndex(Creature, out clientIndex) )
+                if (observer is Player player)
                 {
-                    canSeeTo.Add(observer, clientIndex);
+                    byte clientIndex;
+
+                    if (player.Client.TryGetIndex(Creature, out clientIndex) )
+                    {
+                        canSeeTo.Add(player, clientIndex);
+                    }
                 }
+
+                //canSeeToEvents.Add(observer);
             }
 
             Direction? direction = fromTile.Position.ToDirection(ToTile.Position);
@@ -74,116 +88,118 @@ namespace OpenTibia.Game.Commands
                 Creature.Direction = direction.Value;
             }
 
-            if (Creature is Player player)
             {
-                int deltaZ = ToTile.Position.Z - fromTile.Position.Z;
-
-                int deltaY = ToTile.Position.Y - fromTile.Position.Y;
-
-                int deltaX = ToTile.Position.X - fromTile.Position.X;
-
-                if (deltaZ < -1 || deltaZ > 1 || deltaY < -6 || deltaY > 7 || deltaX < -8 || deltaX > 9 || (fromTile.Position.Z == 7 && ToTile.Position.Z == 8) )
+                if (Creature is Player player)
                 {
-                    Context.AddPacket(player, new SendTilesOutgoingPacket(Context.Server.Map, player.Client, ToTile.Position) );
-                }
-                else
-                {
-                    if (canSeeFrom.ContainsKey(player) && canSeeTo.ContainsKey(player) )
-                    {
-                        Context.AddPacket(player, new WalkOutgoingPacket(fromTile.Position, canSeeFrom[player], ToTile.Position) );
+                    int deltaZ = ToTile.Position.Z - fromTile.Position.Z;
 
-                        if (fromTile.Count >= Constants.ObjectsPerPoint)
+                    int deltaY = ToTile.Position.Y - fromTile.Position.Y;
+
+                    int deltaX = ToTile.Position.X - fromTile.Position.X;
+
+                    if (deltaZ < -1 || deltaZ > 1 || deltaY < -6 || deltaY > 7 || deltaX < -8 || deltaX > 9 || (fromTile.Position.Z == 7 && ToTile.Position.Z == 8) )
+                    {
+                        Context.AddPacket(player, new SendTilesOutgoingPacket(Context.Server.Map, player.Client, ToTile.Position) );
+                    }
+                    else
+                    {
+                        if (canSeeFrom.ContainsKey(player) && canSeeTo.ContainsKey(player) )
                         {
-                            Context.AddPacket(player, new SendTileOutgoingPacket(Context.Server.Map, player.Client, fromTile.Position) );
+                            Context.AddPacket(player, new WalkOutgoingPacket(fromTile.Position, canSeeFrom[player], ToTile.Position) );
+
+                            if (fromTile.Count >= Constants.ObjectsPerPoint)
+                            {
+                                Context.AddPacket(player, new SendTileOutgoingPacket(Context.Server.Map, player.Client, fromTile.Position) );
+                            }
                         }
-                    }
-                    else if (canSeeFrom.ContainsKey(player) )
-                    {
-                        if (fromTile.Count >= Constants.ObjectsPerPoint)
+                        else if (canSeeFrom.ContainsKey(player) )
                         {
-                            Context.AddPacket(player, new SendTileOutgoingPacket(Context.Server.Map, player.Client, fromTile.Position) );
+                            if (fromTile.Count >= Constants.ObjectsPerPoint)
+                            {
+                                Context.AddPacket(player, new SendTileOutgoingPacket(Context.Server.Map, player.Client, fromTile.Position) );
+                            }
+                            else
+                            {
+                                Context.AddPacket(player, new ThingRemoveOutgoingPacket(fromTile.Position, canSeeFrom[player] ) );
+                            }
                         }
-                        else
+                        else if (canSeeTo.ContainsKey(player) )
                         {
-                            Context.AddPacket(player, new ThingRemoveOutgoingPacket(fromTile.Position, canSeeFrom[player] ) );
-                        }
-                    }
-                    else if (canSeeTo.ContainsKey(player) )
-                    {
-                        uint removeId;
+                            uint removeId;
 
-                        if (player.Client.Battles.IsKnownCreature(Creature.Id, out removeId) )
+                            if (player.Client.Battles.IsKnownCreature(Creature.Id, out removeId) )
+                            {
+                                Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, canSeeTo[player], Creature) );
+                            }
+                            else
+                            {
+                                Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, canSeeTo[player], removeId, Creature) );
+                            }
+                        }
+
+                        Position position = fromTile.Position;
+
+                        while (deltaZ < 0)
                         {
-                            Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, canSeeTo[player], Creature) );
+                            Context.AddPacket(player, new SendMapUpOutgoingPacket(Context.Server.Map, player.Client, position) );
+
+                            Context.AddPacket(player, new SendMapWestOutgoingPacket(Context.Server.Map, player.Client, position.Offset(0, 1, -1) ) );
+
+                            Context.AddPacket(player, new SendMapNorthOutgoingPacket(Context.Server.Map, player.Client, position.Offset(0, 0, -1) ) );
+
+                            position = position.Offset(0, 0, -1);
+
+                            deltaZ++;
                         }
-                        else
+
+                        while (deltaZ > 0)
                         {
-                            Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, canSeeTo[player], removeId, Creature) );
+                            Context.AddPacket(player, new SendMapDownOutgoingPacket(Context.Server.Map, player.Client, position) );
+
+                            Context.AddPacket(player, new SendMapEastOutgoingPacket(Context.Server.Map, player.Client, position.Offset(0, -1, 1) ) );
+
+                            Context.AddPacket(player, new SendMapSouthOutgoingPacket(Context.Server.Map, player.Client, position.Offset(0, 0, 1) ) );
+
+                            position = position.Offset(0, 0, 1);
+
+                            deltaZ--;
                         }
-                    }
 
-                    Position position = fromTile.Position;
+                        while (deltaY < 0)
+                        {
+                            Context.AddPacket(player, new SendMapNorthOutgoingPacket(Context.Server.Map, player.Client, position.Offset(0, -1, 0) ) );
 
-                    while (deltaZ < 0)
-                    {
-                        Context.AddPacket(player, new SendMapUpOutgoingPacket(Context.Server.Map, player.Client, position) );
+                            position = position.Offset(0, -1, 0);
 
-                        Context.AddPacket(player, new SendMapWestOutgoingPacket(Context.Server.Map, player.Client, position.Offset(0, 1, -1) ) );
+                            deltaY++;
+                        }
 
-                        Context.AddPacket(player, new SendMapNorthOutgoingPacket(Context.Server.Map, player.Client, position.Offset(0, 0, -1) ) );
+                        while (deltaY > 0)
+                        {
+                            Context.AddPacket(player, new SendMapSouthOutgoingPacket(Context.Server.Map, player.Client, position.Offset(0, 1, 0) ) );
 
-                        position = position.Offset(0, 0, -1);
+                            position = position.Offset(0, 1, 0);
 
-                        deltaZ++;
-                    }
+                            deltaY--;
+                        }
 
-                    while (deltaZ > 0)
-                    {
-                        Context.AddPacket(player, new SendMapDownOutgoingPacket(Context.Server.Map, player.Client, position) );
+                        while (deltaX < 0)
+                        {
+                            Context.AddPacket(player, new SendMapWestOutgoingPacket(Context.Server.Map, player.Client, position.Offset(-1, 0, 0) ) );
 
-                        Context.AddPacket(player, new SendMapEastOutgoingPacket(Context.Server.Map, player.Client, position.Offset(0, -1, 1) ) );
+                            position = position.Offset(-1, 0, 0);
 
-                        Context.AddPacket(player, new SendMapSouthOutgoingPacket(Context.Server.Map, player.Client, position.Offset(0, 0, 1) ) );
+                            deltaX++;
+                        }
 
-                        position = position.Offset(0, 0, 1);
+                        while (deltaX > 0)
+                        {
+                            Context.AddPacket(player, new SendMapEastOutgoingPacket(Context.Server.Map, player.Client, position.Offset(1, 0, 0) ) );
 
-                        deltaZ--;
-                    }
+                            position = position.Offset(1, 0, 0);
 
-                    while (deltaY < 0)
-                    {
-                        Context.AddPacket(player, new SendMapNorthOutgoingPacket(Context.Server.Map, player.Client, position.Offset(0, -1, 0) ) );
-
-                        position = position.Offset(0, -1, 0);
-
-                        deltaY++;
-                    }
-
-                    while (deltaY > 0)
-                    {
-                        Context.AddPacket(player, new SendMapSouthOutgoingPacket(Context.Server.Map, player.Client, position.Offset(0, 1, 0) ) );
-
-                        position = position.Offset(0, 1, 0);
-
-                        deltaY--;
-                    }
-
-                    while (deltaX < 0)
-                    {
-                        Context.AddPacket(player, new SendMapWestOutgoingPacket(Context.Server.Map, player.Client, position.Offset(-1, 0, 0) ) );
-
-                        position = position.Offset(-1, 0, 0);
-
-                        deltaX++;
-                    }
-
-                    while (deltaX > 0)
-                    {
-                        Context.AddPacket(player, new SendMapEastOutgoingPacket(Context.Server.Map, player.Client, position.Offset(1, 0, 0) ) );
-
-                        position = position.Offset(1, 0, 0);
-
-                        deltaX--;
+                            deltaX--;
+                        }
                     }
                 }
             }
@@ -233,9 +249,23 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            Context.AddEvent(new TileRemoveCreatureEventArgs(Creature, fromTile, fromIndex, ToTile, toIndex) );
+            TileRemoveCreatureEventArgs tileRemoveCreatureEventArgs = new TileRemoveCreatureEventArgs(Creature, fromTile, fromIndex, ToTile, toIndex);
 
-            Context.AddEvent(new TileAddCreatureEventArgs(Creature, fromTile, fromIndex, ToTile, toIndex) );
+            //foreach (var e in canSeeFromEvents)
+            //{
+            //    Context.AddEvent(e, tileRemoveCreatureEventArgs);
+            //}
+
+            Context.AddEvent(tileRemoveCreatureEventArgs);
+
+            TileAddCreatureEventArgs tileAddCreatureEventArgs = new TileAddCreatureEventArgs(Creature, fromTile, fromIndex, ToTile, toIndex);
+            
+            //foreach (var e in canSeeToEvents)
+            //{
+            //    Context.AddEvent(e, tileAddCreatureEventArgs);
+            //}
+
+            Context.AddEvent(tileAddCreatureEventArgs);
 
             return Promise.Completed;
         }

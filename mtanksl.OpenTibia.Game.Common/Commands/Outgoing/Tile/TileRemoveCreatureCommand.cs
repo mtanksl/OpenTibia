@@ -2,59 +2,71 @@
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
     public class TileRemoveCreatureCommand : Command
     {
-        public TileRemoveCreatureCommand(Tile tile, Creature creature)
+        public TileRemoveCreatureCommand(Tile fromTile, Creature creature)
         {
-            Tile = tile;
+            FromTile = fromTile;
 
             Creature = creature;
         }
 
-        public Tile Tile { get; set; }
+        public Tile FromTile { get; set; }
 
         public Creature Creature { get; set; }
 
         public override Promise Execute()
         {
-            var canSeeFrom = new Dictionary<Player, byte>();
+            //List<Creature> canSeeFromEvents = new List<Creature>();
 
-            foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Tile.Position) )
+            Dictionary<Player, byte> canSeeFrom = new Dictionary<Player, byte>();
+
+            foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(FromTile.Position) )
             {
-                if (observer != Creature)
+                if (observer is Player player && observer != Creature)
                 {
                     byte clientIndex;
 
-                    if (observer.Client.TryGetIndex(Creature, out clientIndex) )
+                    if (player.Client.TryGetIndex(Creature, out clientIndex) )
                     {
-                        canSeeFrom.Add(observer, clientIndex);
+                        canSeeFrom.Add(player, clientIndex);
                     }
                 }
+
+                //canSeeFromEvents.Add(observer);
             }
 
-            int index = Tile.GetIndex(Creature);
+            int fromIndex = FromTile.GetIndex(Creature);
 
-            Tile.RemoveContent(index);
+            FromTile.RemoveContent(fromIndex);
 
-            Context.Server.Map.RemoveObserver(Tile.Position, Creature);
+            Context.Server.Map.RemoveObserver(FromTile.Position, Creature);
 
             foreach (var pair in canSeeFrom)
             {
-                if (Tile.Count >= Constants.ObjectsPerPoint)
+                if (FromTile.Count >= Constants.ObjectsPerPoint)
                 {
-                    Context.AddPacket(pair.Key, new SendTileOutgoingPacket(Context.Server.Map, pair.Key.Client, Tile.Position) );
+                    Context.AddPacket(pair.Key, new SendTileOutgoingPacket(Context.Server.Map, pair.Key.Client, FromTile.Position) );
                 }
                 else
                 {
-                    Context.AddPacket(pair.Key, new ThingRemoveOutgoingPacket(Tile.Position, pair.Value) );
+                    Context.AddPacket(pair.Key, new ThingRemoveOutgoingPacket(FromTile.Position, pair.Value) );
                 }
             }
 
-            Context.AddEvent(new TileRemoveCreatureEventArgs(Creature, Tile, index, null, null) );
+            TileRemoveCreatureEventArgs tileRemoveCreatureEventArgs = new TileRemoveCreatureEventArgs(Creature, FromTile, fromIndex, null, null);
+
+            //foreach (var e in canSeeFromEvents)
+            //{
+            //    Context.AddEvent(e, tileRemoveCreatureEventArgs);
+            //}
+
+            Context.AddEvent(tileRemoveCreatureEventArgs);
 
             return Promise.Completed;
         }

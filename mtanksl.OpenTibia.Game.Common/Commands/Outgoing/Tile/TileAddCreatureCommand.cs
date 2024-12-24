@@ -2,51 +2,70 @@
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
+using System.Collections.Generic;
 
 namespace OpenTibia.Game.Commands
 {
     public class TileAddCreatureCommand : Command
     {
-        public TileAddCreatureCommand(Tile tile, Creature creature)
+        public TileAddCreatureCommand(Tile toTile, Creature creature)
         {
-            Tile = tile;
+            ToTile = toTile;
 
             Creature = creature;
         }
 
-        public Tile Tile { get; set; }
+        public Tile ToTile { get; set; }
 
         public Creature Creature { get; set; }
 
         public override Promise Execute()
         {
-            int index = Tile.AddContent(Creature);
+            int toIndex = ToTile.AddContent(Creature);
 
-            Context.Server.Map.AddObserver(Tile.Position, Creature);
+            Context.Server.Map.AddObserver(ToTile.Position, Creature);
 
-            foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Tile.Position) )
+            //List<Creature> canSeeToEvents = new List<Creature>();
+
+            Dictionary<Player, byte> canSeeTo = new Dictionary<Player, byte>();
+
+            foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(Creature.Tile.Position) )
             {
-                if (observer != Creature)
+                if (observer is Player player && observer != Creature)
                 {
                     byte clientIndex;
 
-                    if (observer.Client.TryGetIndex(Creature, out clientIndex) )
+                    if (player.Client.TryGetIndex(Creature, out clientIndex) )
                     {
-                        uint removeId;
-
-                        if (observer.Client.Battles.IsKnownCreature(Creature.Id, out removeId) )
-                        {
-                            Context.AddPacket(observer, new ThingAddOutgoingPacket(Tile.Position, clientIndex, Creature) );
-                        }
-                        else
-                        {
-                            Context.AddPacket(observer, new ThingAddOutgoingPacket(Tile.Position, clientIndex, removeId, Creature) );
-                        }
+                        canSeeTo.Add(player, clientIndex);
                     }
+                }
+
+                //canSeeToEvents.Add(observer);
+            }
+
+            foreach (var pair in canSeeTo)
+            {
+                uint removeId;
+
+                if (pair.Key.Client.Battles.IsKnownCreature(Creature.Id, out removeId) )
+                {
+                    Context.AddPacket(pair.Key, new ThingAddOutgoingPacket(ToTile.Position, pair.Value, Creature) );
+                }
+                else
+                {
+                    Context.AddPacket(pair.Key, new ThingAddOutgoingPacket(ToTile.Position, pair.Value, removeId, Creature) );
                 }
             }
 
-            Context.AddEvent(new TileAddCreatureEventArgs(Creature, null, null, Tile, index) );
+            TileAddCreatureEventArgs tileAddCreatureEventArgs = new TileAddCreatureEventArgs(Creature, null, null, ToTile, toIndex);
+
+            //foreach (var e in canSeeToEvents)
+            //{
+            //    Context.AddEvent(e, tileAddCreatureEventArgs);
+            //}
+
+            Context.AddEvent(tileAddCreatureEventArgs);
 
             return Promise.Completed;
         }

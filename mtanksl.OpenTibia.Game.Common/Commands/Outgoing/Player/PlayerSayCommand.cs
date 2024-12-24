@@ -38,6 +38,8 @@ namespace OpenTibia.Game.Commands
 
             ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.Say, Player.Tile.Position, Message);
 
+            PlayerSayEventArgs playerSayEventArgs = new PlayerSayEventArgs(Player, Message);
+
             foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(Player.Tile.Position) )
             {
                 if (observer.Tile.Position.CanHearSay(Player.Tile.Position) )
@@ -47,11 +49,11 @@ namespace OpenTibia.Game.Commands
                         Context.AddPacket(player, showTextOutgoingPacket);
                     }
                    
-                    Context.AddEvent(observer, new PlayerSayEventArgs(Player, Message) );
+                    Context.AddEvent(observer, playerSayEventArgs);
                 }
             }
 
-            Context.AddEvent(new PlayerSayEventArgs(Player, Message) );
+            Context.AddEvent(playerSayEventArgs);
 
             return Promise.Completed;
         }

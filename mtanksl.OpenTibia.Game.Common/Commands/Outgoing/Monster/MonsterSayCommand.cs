@@ -23,17 +23,19 @@ namespace OpenTibia.Game.Commands
         {
             ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(0, Monster.Name, 0, TalkType.MonsterSay, Monster.Tile.Position, Message);
 
+            MonsterSayEventArgs monsterSayEventArgs = new MonsterSayEventArgs(Monster, Message);
+
             foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Monster.Tile.Position) )
             {
                 if (observer.Tile.Position.CanHearSay(Monster.Tile.Position) )
                 {
                     Context.AddPacket(observer, showTextOutgoingPacket);
 
-                    Context.AddEvent(observer, new MonsterSayEventArgs(Monster, Message) );
+                    Context.AddEvent(observer, monsterSayEventArgs);
                 }
             }
 
-            Context.AddEvent(new MonsterSayEventArgs(Monster, Message) );
+            Context.AddEvent(monsterSayEventArgs);
 
             return Promise.Completed;
         }

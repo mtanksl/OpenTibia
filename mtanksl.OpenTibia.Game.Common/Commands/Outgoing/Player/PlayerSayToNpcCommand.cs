@@ -19,15 +19,17 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
+            PlayerSayToNpcEventArgs playerSayToNpcEventArgs = new PlayerSayToNpcEventArgs(Player, Message);
+
             foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(Player.Tile.Position) )
             {
                 if (observer.Tile.Position.CanHearSay(Player.Tile.Position) )
                 {
-                    Context.AddEvent(observer, new PlayerSayToNpcEventArgs(Player, Message) );
+                    Context.AddEvent(observer, playerSayToNpcEventArgs);
                 }
             }
 
-            Context.AddEvent(new PlayerSayToNpcEventArgs(Player, Message) );
+            Context.AddEvent(playerSayToNpcEventArgs);
 
             return Promise.Completed;
         }
