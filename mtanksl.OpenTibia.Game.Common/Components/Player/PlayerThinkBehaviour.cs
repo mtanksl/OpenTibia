@@ -23,13 +23,11 @@ namespace OpenTibia.Game.Components
         }
 
         private IAttackStrategy attackStrategy;
-
         private IWalkStrategy walkStrategy;
 
         public PlayerThinkBehaviour(IAttackStrategy attackStrategy, IWalkStrategy walkStrategy)
         {
             this.attackStrategy = attackStrategy;
-
             this.walkStrategy = walkStrategy;
         }
 
@@ -136,7 +134,7 @@ namespace OpenTibia.Game.Components
                         }
                         else
                         {
-                            await Promise.Delay(attackingKey, TimeSpan.FromMilliseconds(100) );
+                            await Promise.Delay(attackingKey, TimeSpan.FromMilliseconds(250) );
                         }
                     }
 
@@ -205,7 +203,7 @@ namespace OpenTibia.Game.Components
                         }
                         else
                         {
-                            await Promise.Delay(followingKey, TimeSpan.FromMilliseconds(500) );
+                            await Promise.Delay(followingKey, TimeSpan.FromMilliseconds(250) );
                         }
                     }
 

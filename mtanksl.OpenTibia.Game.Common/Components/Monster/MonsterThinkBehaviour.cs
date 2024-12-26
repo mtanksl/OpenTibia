@@ -12,25 +12,17 @@ namespace OpenTibia.Game.Components
     public class MonsterThinkBehaviour : Behaviour
     {
         private IAttackStrategy attackStrategy;
-
         private IWalkStrategy walkStrategy;
-
         private IWalkStrategy idleWalkStrategy;
-
         private IChangeTargetStrategy changeTargetStrategy;
-
         private ITargetStrategy targetStrategy;
 
         public MonsterThinkBehaviour(IAttackStrategy attackStrategy, IWalkStrategy walkStrategy, IWalkStrategy idleWalkStrategy, IChangeTargetStrategy changeTargetStrategy, ITargetStrategy targetStrategy)
         {
             this.attackStrategy = attackStrategy;
-
             this.walkStrategy = walkStrategy;
-
             this.idleWalkStrategy = idleWalkStrategy;
-
             this.changeTargetStrategy = changeTargetStrategy;
-
             this.targetStrategy = targetStrategy;
         }
 

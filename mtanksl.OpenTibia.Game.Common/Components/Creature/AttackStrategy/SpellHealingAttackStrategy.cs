@@ -5,13 +5,13 @@ using OpenTibia.Game.Common;
 
 namespace OpenTibia.Game.Components
 {
-    public class HealingAttackStrategy : IAttackStrategy
+    public class SpellHealingAttackStrategy : IAttackStrategy
     {
         private int min;
 
         private int max;
 
-        public HealingAttackStrategy(int min, int max)
+        public SpellHealingAttackStrategy(int min, int max)
         {
             this.min = min;
 

@@ -5,11 +5,9 @@ using OpenTibia.Game.Common;
 
 namespace OpenTibia.Game.Components
 {
-    public class AreaAttackStrategy : IAttackStrategy
+    public class SpellAreaAttackStrategy : IAttackStrategy
     {
         private Offset[] area;
-
-        private ProjectileType? projectileType;
 
         private MagicEffectType? magicEffectType;
 
@@ -19,11 +17,9 @@ namespace OpenTibia.Game.Components
 
         private int max;
 
-        public AreaAttackStrategy(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int min, int max)
+        public SpellAreaAttackStrategy(Offset[] area, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int min, int max)
         {
             this.area = area;
-
-            this.projectileType = projectileType;
 
             this.magicEffectType = magicEffectType;
 
@@ -36,18 +32,13 @@ namespace OpenTibia.Game.Components
 
         public bool CanAttack(Creature attacker, Creature target)
         {
-            if (Context.Current.Server.Pathfinding.CanThrow(attacker.Tile.Position, target.Tile.Position) )
-            {
-                return true;
-            }
-
-            return false;
+            return true;
         }
 
         public Promise Attack(Creature attacker, Creature target)
-        {            
-            return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, target.Tile.Position, area, projectileType, magicEffectType, 
-                
+        {
+            return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, magicEffectType, 
+                        
                 new SimpleAttack(null, null, animatedTextColor, min, max) ) );
         }
     }

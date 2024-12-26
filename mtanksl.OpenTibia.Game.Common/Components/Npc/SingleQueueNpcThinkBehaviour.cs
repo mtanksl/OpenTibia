@@ -11,7 +11,6 @@ namespace OpenTibia.Game.Components
     public class SingleQueueNpcThinkBehaviour : Behaviour
     {
         private DialoguePlugin dialoguePlugin;
-
         private IWalkStrategy walkStrategy;
 
         public SingleQueueNpcThinkBehaviour(IWalkStrategy walkStrategy)

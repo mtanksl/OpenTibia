@@ -117,10 +117,11 @@ return {
 				returns = "void"
 			},	
 			-- void command.creatureattackarea(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, Attack attack, Condition condition)
+			-- void command.creatureattackarea(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, Attack attack, Condition condition)
 			creatureattackarea = {
 				type = "function",
 				description = "",
-				args = "(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, Attack attack, Condition condition)",
+				args = "(Creature attacker, bool beam, Position center, Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType [, ushort openTibiaId, byte count], Attack attack, Condition condition)",
 				returns = "void"
 			},	
 			-- void command.creatureattackcreature(Creature attacker, Creature target, Attack attack, Condition condition)

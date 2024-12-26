@@ -5,7 +5,7 @@ using OpenTibia.Game.Common;
 
 namespace OpenTibia.Game.Components
 {
-    public class SimpleAttackStrategy : IAttackStrategy
+    public class RuneTargetSimpleAttackStrategy : IAttackStrategy
     {
         private ProjectileType? projectileType;
 
@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Components
 
         private int max;
 
-        public SimpleAttackStrategy(ProjectileType? projectileType, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int min, int max)
+        public RuneTargetSimpleAttackStrategy(ProjectileType? projectileType, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int min, int max)
         {
             this.projectileType = projectileType;
 

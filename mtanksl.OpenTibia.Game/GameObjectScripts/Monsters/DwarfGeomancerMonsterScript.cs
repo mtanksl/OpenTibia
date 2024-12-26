@@ -13,8 +13,8 @@ namespace OpenTibia.Game.GameObjectScripts
             Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
                 new CombineRandomAttackStrategy(false,
                     new MeleeAttackStrategy(0, 100),
-                    new SimpleAttackStrategy(ProjectileType.Poison, MagicEffectType.GreenRings, AnimatedTextColor.Green, 50, 110), 
-                    new HealingAttackStrategy(25, 130) ), 
+                    new RuneTargetSimpleAttackStrategy(ProjectileType.Poison, MagicEffectType.GreenRings, AnimatedTextColor.Green, 50, 110), 
+                    new SpellHealingAttackStrategy(25, 130) ), 
                 KeepDistanceWalkStrategy.Instance,
                 RandomWalkStrategy.Instance,
                 DoNotChangeTargetStrategy.Instance,

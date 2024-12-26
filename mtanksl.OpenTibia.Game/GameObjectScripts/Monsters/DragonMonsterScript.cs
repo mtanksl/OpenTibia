@@ -13,9 +13,9 @@ namespace OpenTibia.Game.GameObjectScripts
             Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
                 new CombineRandomAttackStrategy(false,
                     new MeleeAttackStrategy(0, 12),
-                    new BeamAttackStrategy(Offset.Wave1133355, MagicEffectType.FireArea, AnimatedTextColor.Orange, 100, 170),
-                    new AreaAttackStrategy(Offset.Circle5, ProjectileType.Fire, MagicEffectType.FireArea, AnimatedTextColor.Orange, 60, 140),
-                    new HealingAttackStrategy(40, 70) ),
+                    new SpellBeamAttackStrategy(Offset.Wave1133355, MagicEffectType.FireArea, AnimatedTextColor.Orange, 100, 170),
+                    new RuneAreaAttackStrategy(Offset.Circle5, ProjectileType.Fire, MagicEffectType.FireArea, AnimatedTextColor.Orange, 60, 140),
+                    new SpellHealingAttackStrategy(40, 70) ),
                 new RunAwayOnLowHealthWalkStrategy(300, ApproachWalkStrategy.Instance),
                 RandomWalkStrategy.Instance,
                 DoNotChangeTargetStrategy.Instance,

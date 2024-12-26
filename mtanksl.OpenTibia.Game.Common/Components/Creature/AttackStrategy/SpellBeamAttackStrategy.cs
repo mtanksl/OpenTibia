@@ -5,7 +5,7 @@ using OpenTibia.Game.Common;
 
 namespace OpenTibia.Game.Components
 {
-    public class BeamAttackStrategy : IAttackStrategy
+    public class SpellBeamAttackStrategy : IAttackStrategy
     {
         private Offset[] area;
 
@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Components
 
         private int max;
 
-        public BeamAttackStrategy(Offset[] area, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int min, int max)
+        public SpellBeamAttackStrategy(Offset[] area, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int min, int max)
         {
             this.area = area;
 
@@ -32,18 +32,13 @@ namespace OpenTibia.Game.Components
 
         public bool CanAttack(Creature attacker, Creature target)
         {
-            if (Context.Current.Server.Pathfinding.CanThrow(attacker.Tile.Position, target.Tile.Position) )
-            {
-                return true;
-            }
-
-            return false;
+            return true;
         }
 
         public Promise Attack(Creature attacker, Creature target)
         {            
             return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, magicEffectType, 
-                
+                        
                 new SimpleAttack(null, null, animatedTextColor, min, max) ) );
         }
     }

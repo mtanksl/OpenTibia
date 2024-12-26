@@ -14,7 +14,6 @@ namespace OpenTibia.Game.Components
     public class MultipleQueueNpcThinkBehaviour : Behaviour
     {
         private DialoguePlugin dialoguePlugin;
-
         private IWalkStrategy walkStrategy;
 
         public MultipleQueueNpcThinkBehaviour(IWalkStrategy walkStrategy)
