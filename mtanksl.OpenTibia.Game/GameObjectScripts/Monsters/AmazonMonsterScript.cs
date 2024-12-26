@@ -15,6 +15,7 @@ namespace OpenTibia.Game.GameObjectScripts
                     new MeleeAttackStrategy(0, 45),
                     new DistanceAttackStrategy(ProjectileType.ThrowingKnife, 0, 40) ),
                 KeepDistanceWalkStrategy.Instance,
+                RandomWalkStrategy.Instance,
                 DoNotChangeTargetStrategy.Instance,
                 RandomTargetStrategy.Instance) );
         }

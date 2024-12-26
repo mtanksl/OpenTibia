@@ -17,6 +17,7 @@ namespace OpenTibia.Game.GameObjectScripts
                     new AreaAttackStrategy(Offset.Circle5, ProjectileType.Fire, MagicEffectType.FireArea, AnimatedTextColor.Orange, 60, 140),
                     new HealingAttackStrategy(40, 70) ),
                 new RunAwayOnLowHealthWalkStrategy(300, ApproachWalkStrategy.Instance),
+                RandomWalkStrategy.Instance,
                 DoNotChangeTargetStrategy.Instance,
                 RandomTargetStrategy.Instance) );
         }

@@ -17,6 +17,7 @@ namespace OpenTibia.Game.GameObjectScripts
                     new BeamAttackStrategy(Offset.Beam7, MagicEffectType.EnergyArea, AnimatedTextColor.LightBlue, 300, 480),
                     new HealingAttackStrategy(80, 250) ),
                 ApproachWalkStrategy.Instance,
+                RandomWalkStrategy.Instance,
                 DoNotChangeTargetStrategy.Instance,
                 RandomTargetStrategy.Instance) );
         }

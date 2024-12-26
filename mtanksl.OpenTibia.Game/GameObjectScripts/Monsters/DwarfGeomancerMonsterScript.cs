@@ -16,6 +16,7 @@ namespace OpenTibia.Game.GameObjectScripts
                     new SimpleAttackStrategy(ProjectileType.Poison, MagicEffectType.GreenRings, AnimatedTextColor.Green, 50, 110), 
                     new HealingAttackStrategy(25, 130) ), 
                 KeepDistanceWalkStrategy.Instance,
+                RandomWalkStrategy.Instance,
                 DoNotChangeTargetStrategy.Instance,
                 RandomTargetStrategy.Instance) );
         }

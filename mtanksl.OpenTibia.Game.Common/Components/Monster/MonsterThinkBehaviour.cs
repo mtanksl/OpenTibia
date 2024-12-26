@@ -15,61 +15,40 @@ namespace OpenTibia.Game.Components
 
         private IWalkStrategy walkStrategy;
 
+        private IWalkStrategy idleWalkStrategy;
+
         private IChangeTargetStrategy changeTargetStrategy;
 
         private ITargetStrategy targetStrategy;
 
-        public MonsterThinkBehaviour(IAttackStrategy attackStrategy, IWalkStrategy walkStrategy, IChangeTargetStrategy changeTargetStrategy, ITargetStrategy targetStrategy)
+        public MonsterThinkBehaviour(IAttackStrategy attackStrategy, IWalkStrategy walkStrategy, IWalkStrategy idleWalkStrategy, IChangeTargetStrategy changeTargetStrategy, ITargetStrategy targetStrategy)
         {
             this.attackStrategy = attackStrategy;
 
             this.walkStrategy = walkStrategy;
+
+            this.idleWalkStrategy = idleWalkStrategy;
 
             this.changeTargetStrategy = changeTargetStrategy;
 
             this.targetStrategy = targetStrategy;
         }
 
-        private Monster attacker;
+        private Monster monster;
 
         private Player target;
 
         private bool hasVisiblePlayers;
 
-        private void CheckTarget()
-        {
-            if (target == null || target.Tile == null || target.IsDestroyed || target.Tile.ProtectionZone || !attacker.Tile.Position.CanHearSay(target.Tile.Position) || changeTargetStrategy.ShouldChange(attacker, target) )
-            {
-                Player[] visiblePlayers = Context.Server.Map.GetObserversOfTypePlayer(attacker.Tile.Position)
-                    .Where(p => p.Rank != Rank.Gamemaster &&
-                                p.Rank != Rank.AccountManager &&
-                                attacker.Tile.Position.CanSee(p.Tile.Position) )
-                    .ToArray();
-
-                if (visiblePlayers.Length > 0)
-                {
-                    target = targetStrategy.GetTarget(attacker, visiblePlayers);
-
-                    hasVisiblePlayers = true;
-                }
-                else
-                {
-                    target = null;
-
-                    hasVisiblePlayers = false;
-                }
-            }
-        }
-
-        private Player currentTarget;
+        private Player current;
 
         private string attackingKey = Guid.NewGuid().ToString();
 
         private string followingKey = Guid.NewGuid().ToString();
 
-        private void StartAttackAndFollow()
+        private void StartThreads()
         {
-            currentTarget = target;
+            current = target;
 
             if (attackStrategy != null)
             {
@@ -77,19 +56,26 @@ namespace OpenTibia.Game.Components
                 {
                     while (true)
                     {
-                        if (currentTarget.Tile == null || currentTarget.IsDestroyed || currentTarget.Tile.ProtectionZone || !attacker.Tile.Position.CanHearSay(currentTarget.Tile.Position) )
+                        if (current.Tile == null || 
+                            current.IsDestroyed || 
+                            current.Tile.ProtectionZone || 
+                            !monster.Tile.Position.CanHearSay(current.Tile.Position) )
                         {
-                            StopAttackAndFollow();
+                            StopThreads();
 
                             break;
                         }
 
-                        if (attackStrategy.CanAttack(attacker, currentTarget) )
+                        if (attackStrategy.CanAttack(monster, current) )
                         {
-                            await attackStrategy.Attack(attacker, currentTarget);
-                        }
+                            await attackStrategy.Attack(monster, current);
 
-                        await Promise.Delay(attackingKey, TimeSpan.FromSeconds(2) );
+                            await Promise.Delay(attackingKey, TimeSpan.FromSeconds(2) );
+                        }
+                        else
+                        {
+                            await Promise.Delay(attackingKey, TimeSpan.FromSeconds(1) );
+                        }
                     }
 
                 } ).Catch( (ex) =>
@@ -111,24 +97,30 @@ namespace OpenTibia.Game.Components
                 {
                     while (true)
                     {
-                        if (currentTarget.Tile == null || currentTarget.IsDestroyed || currentTarget.Tile.ProtectionZone || !attacker.Tile.Position.CanHearSay(currentTarget.Tile.Position) )
+                        if (current.Tile == null || 
+                            current.IsDestroyed || 
+                            current.Tile.ProtectionZone || 
+                            !monster.Tile.Position.CanHearSay(current.Tile.Position) )
                         {
-                            StopAttackAndFollow();
+                            StopThreads();
 
                             break;
                         }
 
                         Tile toTile;
 
-                        if (walkStrategy.CanWalk(attacker, currentTarget, out toTile) )
+                        if (walkStrategy.CanWalk(monster, current, out toTile) )
                         {
-                            MoveDirection moveDirection = attacker.Tile.Position.ToMoveDirection(toTile.Position).Value;
+                            MoveDirection moveDirection = monster.Tile.Position.ToMoveDirection(toTile.Position).Value;
 
-                            await Context.Current.AddCommand(new CreatureMoveCommand(attacker, toTile) );
+                            await Context.Current.AddCommand(new CreatureMoveCommand(monster, toTile) );
 
-                            int diagonalCost = (moveDirection == MoveDirection.NorthWest || moveDirection == MoveDirection.NorthEast || moveDirection == MoveDirection.SouthWest || moveDirection == MoveDirection.SouthEast) ? 2 : 1;
+                            int diagonalCost = (moveDirection == MoveDirection.NorthWest || 
+                                                moveDirection == MoveDirection.NorthEast || 
+                                                moveDirection == MoveDirection.SouthWest || 
+                                                moveDirection == MoveDirection.SouthEast) ? 2 : 1;
 
-                            await Promise.Delay(followingKey, TimeSpan.FromMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.Speed / attacker.Speed) );
+                            await Promise.Delay(followingKey, TimeSpan.FromMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.Speed / monster.Speed) );
                         }
                         else
                         {
@@ -150,58 +142,85 @@ namespace OpenTibia.Game.Components
             }            
         }
 
-        private void StopAttackAndFollow()
+        private void StopThreads()
         {
             Context.Server.CancelQueueForExecution(attackingKey);
 
             Context.Server.CancelQueueForExecution(followingKey);
 
-            currentTarget = null;
+            current = null;
         }
 
         private Guid globalTick;
 
         public override void Start()
         {
-            attacker = (Monster)GameObject;
+            monster = (Monster)GameObject;
 
-            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance[attacker.Id % GlobalTickEventArgs.Instance.Length], async (context, e) =>
+            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance[monster.Id % GlobalTickEventArgs.Instance.Length], async (context, e) =>
             {
-                if (Math.Abs(attacker.Tile.Position.X - attacker.Spawn.Position.X) > Context.Server.Config.GameplayMonsterDeSpawnRadius || Math.Abs(attacker.Tile.Position.Y - attacker.Spawn.Position.Y) > Context.Server.Config.GameplayMonsterDeSpawnRadius || Math.Abs(attacker.Tile.Position.Z - attacker.Spawn.Position.Z) > Context.Server.Config.GameplayMonsterDeSpawnRange)
+                if (Math.Abs(monster.Tile.Position.X - monster.Spawn.Position.X) > Context.Server.Config.GameplayMonsterDeSpawnRadius || 
+                    Math.Abs(monster.Tile.Position.Y - monster.Spawn.Position.Y) > Context.Server.Config.GameplayMonsterDeSpawnRadius ||
+                    Math.Abs(monster.Tile.Position.Z - monster.Spawn.Position.Z) > Context.Server.Config.GameplayMonsterDeSpawnRange)
                 {
-                    await Context.AddCommand(new ShowMagicEffectCommand(attacker, MagicEffectType.Puff) );
+                    await Context.AddCommand(new ShowMagicEffectCommand(monster, MagicEffectType.Puff) );
 
-                    await Context.AddCommand(new CreatureDestroyCommand(attacker) );
+                    await Context.AddCommand(new CreatureDestroyCommand(monster) );
                 }
                 else
                 {
-                    CheckTarget();
+                    if (target == null || 
+                        target.Tile == null || 
+                        target.IsDestroyed || 
+                        target.Tile.ProtectionZone ||
+                        !monster.Tile.Position.CanHearSay(target.Tile.Position) || 
+                        changeTargetStrategy.ShouldChange(monster, target) )
+                    {
+                        Player[] visiblePlayers = Context.Server.Map.GetObserversOfTypePlayer(monster.Tile.Position)
+                            .Where(p => p.Rank != Rank.Gamemaster &&
+                                        p.Rank != Rank.AccountManager &&
+                                        monster.Tile.Position.CanSee(p.Tile.Position) )
+                            .ToArray();
 
-                    if (target == null && currentTarget != null)
-                    {
-                        StopAttackAndFollow();                        
-                    }
-                    else if (target != null && currentTarget == null)
-                    {
-                        StartAttackAndFollow();
-                    }
-                    else if (target != null && currentTarget != null)
-                    {
-                        if (target != currentTarget)
+                        if (visiblePlayers.Length > 0)
                         {
-                            StopAttackAndFollow();
+                            target = targetStrategy.GetTarget(monster, visiblePlayers);
 
-                            StartAttackAndFollow();
+                            hasVisiblePlayers = true;
+                        }
+                        else
+                        {
+                            target = null;
+
+                            hasVisiblePlayers = false;
                         }
                     }
 
-                    if (target == null && hasVisiblePlayers)
+                    if (target == null && current != null)
+                    {
+                        StopThreads();                        
+                    }
+                    else if (target != null && current == null)
+                    {
+                        StartThreads();
+                    }
+                    else if (target != null && current != null)
+                    {
+                        if (target != current)
+                        {
+                            StopThreads();
+
+                            StartThreads();
+                        }
+                    }
+
+                    if (hasVisiblePlayers && target == null && idleWalkStrategy != null)
                     {
                         Tile toTile;
 
-                        if (RandomWalkStrategy.Instance.CanWalk(attacker, null, out toTile) )
+                        if (idleWalkStrategy.CanWalk(monster, null, out toTile) )
                         {
-                            await Context.Current.AddCommand(new CreatureMoveCommand(attacker, toTile) );
+                            await Context.Current.AddCommand(new CreatureMoveCommand(monster, toTile) );
                         }
                     }
                 }
@@ -210,7 +229,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop()
         {
-            StopAttackAndFollow();
+            StopThreads();
 
             Context.Server.EventHandlers.Unsubscribe(globalTick);
         }

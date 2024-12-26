@@ -15,6 +15,7 @@ namespace OpenTibia.Game.GameObjectScripts
                     new MeleeAttackStrategy(0, 70), 
                     new DistanceAttackStrategy(ProjectileType.Spear, 0, 50) ), 
                 new RunAwayOnLowHealthWalkStrategy(10, ApproachWalkStrategy.Instance),
+                RandomWalkStrategy.Instance,
                 DoNotChangeTargetStrategy.Instance,
                 RandomTargetStrategy.Instance) );
         }

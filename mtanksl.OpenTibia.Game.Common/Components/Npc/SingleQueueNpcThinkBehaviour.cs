@@ -152,11 +152,14 @@ namespace OpenTibia.Game.Components
             {
                 if (queue.Count == 0)
                 {
-                    Tile toTile;
-
-                    if (walkStrategy.CanWalk(npc, null, out toTile) )
+                    if (walkStrategy != null)
                     {
-                        await Context.Current.AddCommand(new CreatureMoveCommand(npc, toTile) );
+                        Tile toTile;
+
+                        if (walkStrategy.CanWalk(npc, null, out toTile) )
+                        {
+                            await Context.Current.AddCommand(new CreatureMoveCommand(npc, toTile) );
+                        }
                     }
                 }
                 else
