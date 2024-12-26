@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Components
             {
                 if (DateTime.UtcNow >= nextTalk)
                 {
-                    nextTalk = DateTime.UtcNow.Add(TimeSpan.FromSeconds(30) );
+                    nextTalk = DateTime.UtcNow.AddSeconds(30);
 
                     return Context.AddCommand(new ShowTextCommand(creature, talkType, Context.Server.Randomization.Take(sentences) ) );
                 }

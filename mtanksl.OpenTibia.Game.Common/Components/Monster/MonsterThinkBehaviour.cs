@@ -38,6 +38,10 @@ namespace OpenTibia.Game.Components
 
         private string followingKey = Guid.NewGuid().ToString();
 
+        private DateTime nextAttack = DateTime.MinValue;
+
+        private DateTime nextWalk = DateTime.MinValue;
+
         private void StartThreads()
         {
             current = target;
@@ -48,6 +52,8 @@ namespace OpenTibia.Game.Components
                 {
                     while (true)
                     {
+                        await Promise.Delay(attackingKey, nextAttack - DateTime.UtcNow);
+
                         if (current.Tile == null || 
                             current.IsDestroyed || 
                             current.Tile.ProtectionZone || 
@@ -62,11 +68,11 @@ namespace OpenTibia.Game.Components
                         {
                             await attackStrategy.Attack(monster, current);
 
-                            await Promise.Delay(attackingKey, TimeSpan.FromSeconds(2) );
+                            nextAttack = DateTime.UtcNow.AddSeconds(2);
                         }
                         else
                         {
-                            await Promise.Delay(attackingKey, TimeSpan.FromSeconds(1) );
+                            nextAttack = DateTime.UtcNow.AddSeconds(1);
                         }
                     }
 
@@ -88,7 +94,9 @@ namespace OpenTibia.Game.Components
                 Promise.Run(async () =>
                 {
                     while (true)
-                    {
+                    {                            
+                        await Promise.Delay(followingKey, nextWalk - DateTime.UtcNow);
+
                         if (current.Tile == null || 
                             current.IsDestroyed || 
                             current.Tile.ProtectionZone || 
@@ -112,11 +120,11 @@ namespace OpenTibia.Game.Components
                                                 moveDirection == MoveDirection.SouthWest || 
                                                 moveDirection == MoveDirection.SouthEast) ? 2 : 1;
 
-                            await Promise.Delay(followingKey, TimeSpan.FromMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.Speed / monster.Speed) );
+                            nextWalk = DateTime.UtcNow.AddMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.Speed / monster.Speed);
                         }
                         else
                         {
-                            await Promise.Delay(followingKey, TimeSpan.FromSeconds(1) );
+                            nextWalk = DateTime.UtcNow.AddSeconds(1);
                         }
                     }
 

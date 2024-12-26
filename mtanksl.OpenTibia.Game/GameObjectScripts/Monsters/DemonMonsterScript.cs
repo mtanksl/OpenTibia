@@ -22,7 +22,7 @@ namespace OpenTibia.Game.GameObjectScripts
                         new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(4) ) ) ),
                 ApproachWalkStrategy.Instance,
                 RandomWalkStrategy.Instance,
-                new RandomChangeTargetStrategy(10),
+                new RandomChangeTargetStrategy(10.0 / 100),
                 RandomTargetStrategy.Instance) );
         }
 

@@ -43,6 +43,10 @@ namespace OpenTibia.Game.Components
 
         private string followingKey = Guid.NewGuid().ToString();
 
+        private DateTime nextAttack = DateTime.MinValue;
+
+        private DateTime nextWalk = DateTime.MinValue;
+
         public void Attack(Creature creature)
         {
             target = creature;
@@ -97,6 +101,8 @@ namespace OpenTibia.Game.Components
                 {
                     while (true)
                     {
+                        await Promise.Delay(attackingKey, nextAttack - DateTime.UtcNow);
+
                         if (current.Tile == null ||
                             current.IsDestroyed ||
                             current.Tile.ProtectionZone ||
@@ -130,11 +136,11 @@ namespace OpenTibia.Game.Components
                         {
                             await attackStrategy.Attack(player, current);
 
-                            await Promise.Delay(attackingKey, TimeSpan.FromSeconds(1) );
+                            nextAttack = DateTime.UtcNow.AddSeconds(1);
                         }
                         else
                         {
-                            await Promise.Delay(attackingKey, TimeSpan.FromMilliseconds(250) );
+                            nextAttack = DateTime.UtcNow.AddMilliseconds(250);
                         }
                     }
 
@@ -154,9 +160,11 @@ namespace OpenTibia.Game.Components
             if (walkStrategy != null)
             {
                 Promise.Run(async () =>
-                {
+                {                       
                     while (true)
                     {
+                        await Promise.Delay(followingKey, nextWalk - DateTime.UtcNow);
+
                         if (current.Tile == null ||
                             current.IsDestroyed ||
                             current.Tile.ProtectionZone ||
@@ -198,12 +206,12 @@ namespace OpenTibia.Game.Components
                                                 moveDirection == MoveDirection.NorthEast || 
                                                 moveDirection == MoveDirection.SouthWest || 
                                                 moveDirection == MoveDirection.SouthEast) ? 2 : 1;
-
-                            await Promise.Delay(followingKey, TimeSpan.FromMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.Speed / player.Speed) );
+                            
+                            nextWalk = DateTime.UtcNow.AddMilliseconds(diagonalCost * 1000 * toTile.Ground.Metadata.Speed / player.Speed);
                         }
                         else
                         {
-                            await Promise.Delay(followingKey, TimeSpan.FromMilliseconds(250) );
+                            nextWalk = DateTime.UtcNow.AddMilliseconds(250);
                         }
                     }
 
