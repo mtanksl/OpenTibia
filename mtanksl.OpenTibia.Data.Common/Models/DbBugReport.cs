@@ -9,6 +9,12 @@ namespace OpenTibia.Data.Models
 
         public int PlayerId { get; set; }
 
+        public int PositionX { get; set; }
+
+        public int PositionY { get; set; }
+
+        public int PositionZ { get; set; }
+
         [Required]
         [StringLength(255)]
         public string Message { get; set; }

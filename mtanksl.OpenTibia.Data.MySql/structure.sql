@@ -50,12 +50,15 @@ DROP TABLE IF EXISTS `BugReports`;
 CREATE TABLE `BugReports` (
   `Id` INT(11) NOT NULL AUTO_INCREMENT,
   `PlayerId` INT(11) NOT NULL,
+  `PositionX` INT(11) NOT NULL,
+  `PositionY` INT(11) NOT NULL,
+  `PositionZ` INT(11) NOT NULL,
   `Message` VARCHAR(255) NOT NULL,
   `CreationDate` DATETIME NOT NULL,
   PRIMARY KEY (`Id`),
   KEY `IX_BugReports_PlayerId` (`PlayerId`),
   CONSTRAINT `FK_BugReports_PlayerId` FOREIGN KEY (`PlayerId`) REFERENCES `Players` (`Id`) ON DELETE CASCADE
-) ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 
 -- DebugAsserts
 

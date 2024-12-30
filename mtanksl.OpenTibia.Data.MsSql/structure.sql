@@ -49,6 +49,9 @@ GO
 CREATE TABLE [dbo].[BugReports](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[PlayerId] [int] NOT NULL,
+	[PositionX] [int] NOT NULL,
+	[PositionY] [int] NOT NULL,
+	[PositionZ] [int] NOT NULL,
 	[Message] [nvarchar](255) NOT NULL,
 	[CreationDate] [datetime2](7) NOT NULL,
  CONSTRAINT [PK_BugReports] PRIMARY KEY CLUSTERED 

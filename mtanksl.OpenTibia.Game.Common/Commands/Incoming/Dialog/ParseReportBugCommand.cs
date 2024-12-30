@@ -31,6 +31,9 @@ namespace OpenTibia.Game.Commands
                     database.BugReportRepository.AddBugReport(new DbBugReport()
                     {
                         PlayerId = Player.DatabasePlayerId,
+                        PositionX = Player.Tile.Position.X,
+                        PositionY = Player.Tile.Position.Y,
+                        PositionZ = Player.Tile.Position.Z,
                         Message = Message,
                         CreationDate = DateTime.UtcNow
                     } );
