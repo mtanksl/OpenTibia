@@ -96,6 +96,7 @@
 
         public static readonly int ObjectsPerPoint = 10;
 
+
         public static readonly ushort LockerOpenTibiaItemId = 2591;
 
         public static readonly ushort DepotOpenTibiaItemId = 2594;

@@ -6,7 +6,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 {
     public class CombatCollection : ICombatCollection
     {
-        private Dictionary<Creature, Dictionary<Creature, Hit> > hitss = new Dictionary<Creature, Dictionary<Creature, Hit> >();
+        private Dictionary<Creature /* target */, Dictionary<Creature /* attacker */, Hit> > hitss = new Dictionary<Creature, Dictionary<Creature, Hit> >();
 
         public void AddHitToTarget(Creature attacker, Creature target, int damage)
         {
@@ -23,12 +23,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             if ( !hits.TryGetValue(attacker, out hit) )
             {
-                hit = new Hit()
-                {
-                    Damage = damage,
-
-                    LastAttack = DateTime.UtcNow
-                };
+                hit = new Hit();
 
                 hits.Add(attacker, hit);
             }

@@ -20,9 +20,9 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler(new CleanUpWindowCollectionHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new CreatureDestroyLootHandler() );
-
             Context.Server.CommandHandlers.AddCommandHandler(new CreatureDestroyExperienceHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler(new CreatureDestroyLootHandler() );
         }
 
         public override void Stop()
