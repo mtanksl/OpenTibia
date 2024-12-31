@@ -25,30 +25,97 @@ namespace OpenTibia.Game.Components
 
             HashSet<Direction> directions = new HashSet<Direction>();
 
-            if (deltaY < 0)
+            if (deltaY == -1 && deltaX == -1)
             {
                 directions.Add(Direction.South);
 
-                randomDirections.Remove(Direction.South);
-            }
-            else if (deltaY > 0)
-            {
-                directions.Add(Direction.North);
-
-                randomDirections.Remove(Direction.North);
-            }
-
-            if (deltaX < 0)
-            {
                 directions.Add(Direction.East);
 
-                randomDirections.Remove(Direction.East);
+                randomDirections.Clear();
             }
-            else if (deltaX > 0)
+            else if (deltaY == -1 && deltaX == 0)
             {
                 directions.Add(Direction.West);
 
-                randomDirections.Remove(Direction.West);
+                directions.Add(Direction.East);
+
+                randomDirections.Clear();
+            }
+            else if (deltaY == -1 && deltaX == 1)
+            {
+                directions.Add(Direction.South);
+
+                directions.Add(Direction.West);
+
+                randomDirections.Clear();
+            }
+            else if (deltaY == 0 && deltaX == -1)
+            {
+                directions.Add(Direction.North);
+
+                directions.Add(Direction.South);
+
+                randomDirections.Clear();
+            }
+            else if (deltaY == 0 && deltaX == 1)
+            {
+                directions.Add(Direction.North);
+
+                directions.Add(Direction.South);
+
+                randomDirections.Clear();
+            }
+            else if (deltaY == 1 && deltaX == -1)
+            {
+                directions.Add(Direction.North);
+
+                directions.Add(Direction.East);
+
+                randomDirections.Clear();
+            }
+            else if (deltaY == 1 && deltaX == 0)
+            {
+                directions.Add(Direction.West);
+
+                directions.Add(Direction.East);
+
+                randomDirections.Clear();
+            }
+            else if (deltaY == 1 && deltaX == 1)
+            {
+                directions.Add(Direction.North);
+
+                directions.Add(Direction.West);
+
+                randomDirections.Clear();
+            }
+            else
+            {
+                if (deltaY < 0)
+                {
+                    directions.Add(Direction.South);
+
+                    randomDirections.Remove(Direction.South);
+                }
+                else if (deltaY > 0)
+                {
+                    directions.Add(Direction.North);
+
+                    randomDirections.Remove(Direction.North);
+                }
+
+                if (deltaX < 0)
+                {
+                    directions.Add(Direction.East);
+
+                    randomDirections.Remove(Direction.East);
+                }
+                else if (deltaX > 0)
+                {
+                    directions.Add(Direction.West);
+
+                    randomDirections.Remove(Direction.West);
+                }
             }
 
             foreach (var collection in new[] { directions, randomDirections } )
