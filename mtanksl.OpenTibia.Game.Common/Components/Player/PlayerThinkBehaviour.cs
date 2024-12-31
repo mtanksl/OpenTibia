@@ -14,11 +14,8 @@ namespace OpenTibia.Game.Components
         private enum State
         {
             None,
-
             Attack,
-
             Follow,
-
             AttackAndFollow
         }
 
@@ -37,21 +34,22 @@ namespace OpenTibia.Game.Components
 
         private State state;
 
-        private Creature current;
-
-        private string attackingKey = Guid.NewGuid().ToString();
-
-        private string followingKey = Guid.NewGuid().ToString();
-
-        private DateTime nextAttack = DateTime.MinValue;
-
-        private DateTime nextWalk = DateTime.MinValue;
-
         public void Attack(Creature creature)
         {
             target = creature;
 
             state = State.Attack;
+
+            if (current == null)
+            {
+                StartThreads();
+            }
+            else if (target != current)
+            {
+                StopThreads();
+
+                StartThreads();
+            }
         }
 
         public void Follow(Creature creature)
@@ -59,6 +57,17 @@ namespace OpenTibia.Game.Components
             target = creature;
 
             state = State.Follow;
+
+            if (current == null)
+            {
+                StartThreads();
+            }
+            else if (target != current)
+            {
+                StopThreads();
+
+                StartThreads();
+            }
         }
 
         public void AttackAndFollow(Creature creature)
@@ -66,6 +75,17 @@ namespace OpenTibia.Game.Components
             target = creature;
 
             state = State.AttackAndFollow;
+
+            if (current == null)
+            {
+                StartThreads();
+            }
+            else if (target != current)
+            {
+                StopThreads();
+
+                StartThreads();
+            }
         }
 
         public void StartFollow()
@@ -89,7 +109,22 @@ namespace OpenTibia.Game.Components
             target = null;
 
             state = State.None;
+
+            if (current != null)
+            {
+                StopThreads();
+            }
         }
+
+        private Creature current;
+
+        private DateTime nextAttack = DateTime.MinValue;
+
+        private DateTime nextWalk = DateTime.MinValue;
+
+        private string attackingKey = Guid.NewGuid().ToString();
+
+        private string followingKey = Guid.NewGuid().ToString();
 
         private void StartThreads()
         {
@@ -108,8 +143,6 @@ namespace OpenTibia.Game.Components
                             current.Tile.ProtectionZone ||
                             player.Tile.ProtectionZone)
                         {
-                            StopThreads();
-
                             StopAttackAndFollow();
 
                             Context.AddPacket(player, new StopAttackAndFollowOutgoingPacket(0) );
@@ -120,8 +153,6 @@ namespace OpenTibia.Game.Components
                         {
                             if ( !player.Tile.Position.CanHearSay(current.Tile.Position) )
                             {
-                                StopThreads();
-
                                 StopAttackAndFollow();
 
                                 Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost) );
@@ -170,8 +201,6 @@ namespace OpenTibia.Game.Components
                             current.Tile.ProtectionZone ||
                             player.Tile.ProtectionZone)
                         {
-                            StopThreads();
-
                             StopAttackAndFollow();
 
                             Context.AddPacket(player, new StopAttackAndFollowOutgoingPacket(0) );
@@ -182,8 +211,6 @@ namespace OpenTibia.Game.Components
                         {
                             if ( !player.Tile.Position.CanHearSay(current.Tile.Position) )
                             {
-                                StopThreads();
-
                                 StopAttackAndFollow();
 
                                 Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TargetLost) );
@@ -267,24 +294,6 @@ namespace OpenTibia.Game.Components
 
                             Context.AddPacket(player, new StopAttackAndFollowOutgoingPacket(0) );
                         }
-                    }
-                }
-
-                if (target == null && current != null)
-                {
-                    StopThreads();
-                }
-                else if (target != null && current == null)
-                {
-                    StartThreads();
-                }
-                else if (target != null && current != null)
-                {
-                    if (target != current)
-                    {
-                        StopThreads();
-
-                        StartThreads();
                     }
                 }
 
