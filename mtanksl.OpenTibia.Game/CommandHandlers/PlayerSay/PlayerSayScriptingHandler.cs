@@ -9,7 +9,7 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
-            if (command.Message.StartsWith("/") )
+            if (command.Message.StartsWith("/") || command.Message.StartsWith("!") )
             {
                 int index = command.Message.IndexOf(" ");
 
