@@ -73,6 +73,18 @@ namespace OpenTibia.Game.CommandHandlers
                                     if (correctLevel > player.Level)
                                     {
                                         Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You advanced from level " + player.Level + " to level " + correctLevel + ".") );
+
+                                        var vocationConfig = Context.Server.Vocations.GetVocationById( (byte)player.Vocation);
+
+                                        player.Capacity = (uint)(player.Capacity + (correctLevel - player.Level) * vocationConfig.CapacityPerLevel * 100);
+
+                                        player.Health = (ushort)(player.Health + (correctLevel - player.Level) * vocationConfig.HealthPerLevel);
+
+                                        player.MaxHealth = (ushort)(player.MaxHealth + (correctLevel - player.Level) * vocationConfig.HealthPerLevel);
+
+                                        player.Mana = (ushort)(player.Mana + (correctLevel - player.Level) * vocationConfig.ManaPerLevel);
+
+                                        player.MaxMana = (ushort)(player.MaxMana + (correctLevel - player.Level) * vocationConfig.ManaPerLevel);
                                     }
 
                                     await Context.Current.AddCommand(new PlayerUpdateExperienceCommand(player, player.Experience + experience, correctLevel, correctLevelPercent) );
@@ -152,6 +164,14 @@ namespace OpenTibia.Game.CommandHandlers
                         if (correctLevel < player.Level)
                         {
                             Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You downgraded from level " + player.Level + " to level " + correctLevel + ".") );
+                        
+                            var vocationConfig = Context.Server.Vocations.GetVocationById( (byte)player.Vocation);
+
+                            player.Capacity = (uint)(player.Capacity - (player.Level - correctLevel) * vocationConfig.CapacityPerLevel * 100);
+
+                            player.MaxHealth = (ushort)(player.MaxHealth - (player.Level - correctLevel) * vocationConfig.HealthPerLevel);
+
+                            player.MaxMana = (ushort)(player.MaxMana - (player.Level - correctLevel) * vocationConfig.ManaPerLevel);
                         }
 
                         await Context.Current.AddCommand(new PlayerUpdateExperienceCommand(player, player.Experience - experience, correctLevel, correctLevelPercent) );

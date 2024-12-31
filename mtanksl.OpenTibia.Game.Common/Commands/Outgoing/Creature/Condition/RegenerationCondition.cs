@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
 using System;
 
@@ -39,109 +38,14 @@ namespace OpenTibia.Game.Commands
         public override async Promise AddCondition(Creature creature)
         {
             Player player = (Player)creature;
+            
+            var vocationConfig = Context.Current.Server.Vocations.GetVocationById( (byte)player.Vocation);
 
-            int health;
-            int healthDelayInSeconds;
+            int health = vocationConfig.Health;
+            int healthDelayInSeconds = vocationConfig.HealthDelayInSeconds;
 
-            int mana;
-            int manaDelayInSeconds;
-
-            switch (player.Vocation)
-            {
-                case Vocation.None:
-
-                    health = 1;
-                    healthDelayInSeconds = 12;
-
-                    mana = 2;
-                    manaDelayInSeconds = 6;
-
-                    break;
-
-                case Vocation.Knight:
-
-                    health = 1;
-                    healthDelayInSeconds = 6;
-
-                    mana = 2;
-                    manaDelayInSeconds = 6;
-
-                    break;
-
-                case Vocation.Paladin:
-
-                    health = 1;
-                    healthDelayInSeconds = 8;
-
-                    mana = 2;
-                    manaDelayInSeconds = 4;
-
-                    break;
-
-                case Vocation.Druid:
-
-                    health = 1;
-                    healthDelayInSeconds = 12;
-
-                    mana = 2;
-                    manaDelayInSeconds = 3;
-
-                    break;
-
-                case Vocation.Sorcerer:
-
-                    health = 1;
-                    healthDelayInSeconds = 12;
-
-                    mana = 2;
-                    manaDelayInSeconds = 3;
-
-                    break;
-
-                case Vocation.EliteKnight:
-
-                    health = 1;
-                    healthDelayInSeconds = 4;
-
-                    mana = 2;
-                    manaDelayInSeconds = 6;
-
-                    break;
-
-                case Vocation.RoyalPaladin:
-
-                    health = 1;
-                    healthDelayInSeconds = 6;
-
-                    mana = 2;
-                    manaDelayInSeconds = 3;
-
-                    break;
-
-                case Vocation.ElderDruid:
-
-                    health = 1;
-                    healthDelayInSeconds = 12;
-
-                    mana = 2;
-                    manaDelayInSeconds = 2;
-
-                    break;
-
-                case Vocation.MasterSorcerer:
-
-                    health = 1;
-                    healthDelayInSeconds = 12;
-
-                    mana = 2;
-                    manaDelayInSeconds = 2;
-
-                    break;
-
-                default:
-
-                    throw new NotImplementedException();
-            }
+            int mana = vocationConfig.Mana;
+            int manaDelayInSeconds = vocationConfig.ManaDelayInSeconds;
 
             int healthTick = healthDelayInSeconds;
 

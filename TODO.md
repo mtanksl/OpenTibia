@@ -11,11 +11,10 @@
 	- PVP vs non-PVP configuration
 	- Logout block
 	- Magic level and skills
+	- Remove skills on player death
 	- Skull
 	- War
 	- Splash
-	- Persist loss
-	- Remove experience and skills on player death
 	- Drunk and Slowed conditions
 	- ...
 - Bed
@@ -84,7 +83,7 @@
 		- Monster spawn/respawn	
 		- Monster despawn
 		- Loot
-		- Experience, level and level percent
+		- Experience, level and level percent (advance and downgrade)
 		- Drop bag
 		- Drop items
 		- AOL

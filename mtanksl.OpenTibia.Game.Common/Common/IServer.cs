@@ -70,6 +70,8 @@ namespace OpenTibia.Game.Common
 
         IOutfitCollection Outfits { get; set; }
 
+        IVocationCollection Vocations { get; set; }
+
         IPluginCollection Plugins { get; set; }
 
         IScriptCollection Scripts { get; set; }

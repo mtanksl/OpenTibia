@@ -117,6 +117,8 @@ namespace OpenTibia.Game.Common
 
             Outfits = new OutfitCollection(this);
 
+            Vocations = new VocationCollection(this);
+
             Plugins = new PluginCollection(this);
 
             Scripts = new ScriptCollection(this);
@@ -235,6 +237,8 @@ namespace OpenTibia.Game.Common
 
         public IOutfitCollection Outfits { get; set; }
 
+        public IVocationCollection Vocations { get; set; }
+
         public IPluginCollection Plugins { get; set; }
 
         public IScriptCollection Scripts { get; set; }
@@ -296,6 +300,11 @@ namespace OpenTibia.Game.Common
                     Outfits.Start();
                 }
 
+                using (Logger.Measure("Loading vocations config") )
+                {
+                    Vocations.Start();
+                }
+                
                 using (Logger.Measure("Loading game object scripts config") )
                 {
                     GameObjectScripts.Start();
