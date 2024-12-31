@@ -28,11 +28,11 @@ namespace OpenTibia.Plugins.Spells
                 new Offset(-1, 1),  new Offset(0, 1),  new Offset(1, 1)
             };
 
-            Item itemWeapon = GetWeapon(player);
+            Item itemWeapon = Formula.GetKnightWeapon(player);
 
             if (itemWeapon == null)
             {
-                var formula = BerserkFormula(player.Level, player.Skills.Fist, 7);
+                var formula = Formula.BerserkFormula(player.Level, player.Skills.Fist, 7);
 
                 return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.BlackSpark,
                         
@@ -40,7 +40,7 @@ namespace OpenTibia.Plugins.Spells
             }
             else if (itemWeapon.Metadata.WeaponType == WeaponType.Sword)
             {
-                var formula = BerserkFormula(player.Level, player.Skills.Sword, itemWeapon.Metadata.Attack.Value);
+                var formula = Formula.BerserkFormula(player.Level, player.Skills.Sword, itemWeapon.Metadata.Attack.Value);
 
                 return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.BlackSpark,
                         
@@ -48,7 +48,7 @@ namespace OpenTibia.Plugins.Spells
             }
             else if (itemWeapon.Metadata.WeaponType == WeaponType.Axe)
             {
-                var formula = BerserkFormula(player.Level, player.Skills.Axe, itemWeapon.Metadata.Attack.Value);
+                var formula = Formula.BerserkFormula(player.Level, player.Skills.Axe, itemWeapon.Metadata.Attack.Value);
 
                 return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.BlackSpark,
                         
@@ -56,7 +56,7 @@ namespace OpenTibia.Plugins.Spells
             }
             else if (itemWeapon.Metadata.WeaponType == WeaponType.Club)
             {
-                var formula = BerserkFormula(player.Level, player.Skills.Club, itemWeapon.Metadata.Attack.Value);
+                var formula = Formula.BerserkFormula(player.Level, player.Skills.Club, itemWeapon.Metadata.Attack.Value);
 
                 return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.BlackSpark,
                         

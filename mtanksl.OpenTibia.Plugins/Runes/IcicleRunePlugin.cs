@@ -20,7 +20,7 @@ namespace OpenTibia.Plugins.Runes
 
         public override Promise OnUseRune(Player player, Creature target, Tile tile, Item item)
         {
-            var formula = GenericFormula(player.Level, player.Skills.MagicLevel, 1.81, 10, 3, 18);
+            var formula = Formula.GenericFormula(player.Level, player.Skills.MagicLevel, 1.81, 10, 3, 18);
 
             return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 

@@ -34,13 +34,13 @@ namespace OpenTibia.Game.Components
 
         private Player current;
 
-        private string attackingKey = Guid.NewGuid().ToString();
-
-        private string followingKey = Guid.NewGuid().ToString();
-
         private DateTime nextAttack = DateTime.MinValue;
 
         private DateTime nextWalk = DateTime.MinValue;
+
+        private string attackingKey = Guid.NewGuid().ToString();
+
+        private string followingKey = Guid.NewGuid().ToString();
 
         private void StartThreads()
         {

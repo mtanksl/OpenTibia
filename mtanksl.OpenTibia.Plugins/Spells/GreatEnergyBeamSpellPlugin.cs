@@ -31,7 +31,7 @@ namespace OpenTibia.Plugins.Spells
                 new Offset(0, 7)
             };
 
-            var formula = GenericFormula(player.Level, player.Skills.MagicLevel, 4, 0, 7, 0);
+            var formula = Formula.GenericFormula(player.Level, player.Skills.MagicLevel, 4, 0, 7, 0);
 
             return Context.AddCommand(new CreatureAttackAreaCommand(player, true, player.Tile.Position, area, null, MagicEffectType.EnergyArea, 
                         

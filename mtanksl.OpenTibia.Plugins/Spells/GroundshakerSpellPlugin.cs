@@ -32,11 +32,11 @@ namespace OpenTibia.Plugins.Spells
                                                         new Offset(-1, 3),  new Offset(0, 3),  new Offset(1, 3)
             };
 
-            Item itemWeapon = GetWeapon(player);
+            Item itemWeapon = Formula.GetKnightWeapon(player);
 
             if (itemWeapon == null)
             {
-                var formula = GroundshakerFormula(player.Level, player.Skills.Fist, 7);
+                var formula = Formula.GroundshakerFormula(player.Level, player.Skills.Fist, 7);
 
                 return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.GroundShaker,
                         
@@ -44,7 +44,7 @@ namespace OpenTibia.Plugins.Spells
             }
             else if (itemWeapon.Metadata.WeaponType == WeaponType.Sword)
             {
-                var formula = GroundshakerFormula(player.Level, player.Skills.Sword, itemWeapon.Metadata.Attack.Value);
+                var formula = Formula.GroundshakerFormula(player.Level, player.Skills.Sword, itemWeapon.Metadata.Attack.Value);
 
                 return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.GroundShaker,
                         
@@ -52,7 +52,7 @@ namespace OpenTibia.Plugins.Spells
             }
             else if (itemWeapon.Metadata.WeaponType == WeaponType.Axe)
             {
-                var formula = GroundshakerFormula(player.Level, player.Skills.Axe, itemWeapon.Metadata.Attack.Value);
+                var formula = Formula.GroundshakerFormula(player.Level, player.Skills.Axe, itemWeapon.Metadata.Attack.Value);
 
                 return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.GroundShaker,
                         
@@ -60,7 +60,7 @@ namespace OpenTibia.Plugins.Spells
             }
             else if (itemWeapon.Metadata.WeaponType == WeaponType.Club)
             {
-                var formula = GroundshakerFormula(player.Level, player.Skills.Club, itemWeapon.Metadata.Attack.Value);
+                var formula = Formula.GroundshakerFormula(player.Level, player.Skills.Club, itemWeapon.Metadata.Attack.Value);
 
                 return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.GroundShaker,
                         

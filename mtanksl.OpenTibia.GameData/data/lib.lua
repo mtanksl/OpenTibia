@@ -274,7 +274,8 @@ vocation = {
 rank = {
 	player = 0,
 	tutor = 1,
-	gamemaster = 2
+	gamemaster = 2,
+	accountmanager = 3
 }
 
 attack = {

@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Components
         {
             Player player = (Player)attacker;
 
-            Item itemWeapon = GetWeapon(player);
+            Item itemWeapon = Formula.GetWeapon(player);
 
             if (itemWeapon != null)
             {
@@ -65,7 +65,7 @@ namespace OpenTibia.Game.Components
                     }
                     else
                     {
-                        Item itemAmmunition = GetAmmunition(player);
+                        Item itemAmmunition = Formula.GetAmmunition(player);
 
                         if (itemAmmunition == null || itemWeapon.Metadata.AmmoType != itemAmmunition.Metadata.AmmoType || !Context.Current.Server.Pathfinding.CanThrow(player.Tile.Position, target.Tile.Position) )
                         {
@@ -93,7 +93,7 @@ namespace OpenTibia.Game.Components
         {
             Player player = (Player)attacker;
 
-            Item itemWeapon = GetWeapon(player);
+            Item itemWeapon = Formula.GetWeapon(player);
 
             if (itemWeapon != null)
             {
@@ -107,7 +107,7 @@ namespace OpenTibia.Game.Components
                     }
                     else
                     {
-                        var formula = MeleeFormula(player.Level, player.Skills.Sword, itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
+                        var formula = Formula.MeleeFormula(player.Level, player.Skills.Sword, itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
 
                         return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target,
                             
@@ -124,7 +124,7 @@ namespace OpenTibia.Game.Components
                     }
                     else
                     {
-                        var formula = MeleeFormula(player.Level, player.Skills.Club, itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
+                        var formula = Formula.MeleeFormula(player.Level, player.Skills.Club, itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
 
                         return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                             
@@ -141,7 +141,7 @@ namespace OpenTibia.Game.Components
                     }
                     else
                     {
-                        var formula = MeleeFormula(player.Level, player.Skills.Axe, itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
+                        var formula = Formula.MeleeFormula(player.Level, player.Skills.Axe, itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
 
                         return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                             
@@ -163,7 +163,7 @@ namespace OpenTibia.Game.Components
                     {
                         return Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - plugin.Weapon.Mana) ).Then( () =>
                         {
-                            var formula = WandFormula(itemWeapon.Metadata.AttackStrength.Value, itemWeapon.Metadata.AttackVariation.Value);
+                            var formula = Formula.WandFormula(itemWeapon.Metadata.AttackStrength.Value, itemWeapon.Metadata.AttackVariation.Value);
 
                             return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target,
                             
@@ -199,7 +199,7 @@ namespace OpenTibia.Game.Components
                         {
                             return promise.Then( () =>
                             {
-                                var formula = DistanceFormula(player.Level, player.Skills.Distance, itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
+                                var formula = Formula.DistanceFormula(player.Level, player.Skills.Distance, itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
 
                                 return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                                 
@@ -209,7 +209,7 @@ namespace OpenTibia.Game.Components
                     }
                     else
                     {
-                        Item itemAmmunition = GetAmmunition(player);
+                        Item itemAmmunition = Formula.GetAmmunition(player);
 
                         AmmunitionPlugin plugin = Context.Current.Server.Plugins.GetAmmunitionPlugin(itemAmmunition.Metadata.OpenTibiaId);
 
@@ -235,7 +235,7 @@ namespace OpenTibia.Game.Components
                         {
                             return promise.Then( () =>
                             {
-                                var formula = DistanceFormula(player.Level, player.Skills.Distance, itemAmmunition.Metadata.Attack.Value, player.Client.FightMode);
+                                var formula = Formula.DistanceFormula(player.Level, player.Skills.Distance, itemAmmunition.Metadata.Attack.Value, player.Client.FightMode);
 
                                 return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                                 
@@ -251,70 +251,12 @@ namespace OpenTibia.Game.Components
             }
             else
             {
-                var formula = MeleeFormula(player.Level, player.Skills.Fist, 7, player.Client.FightMode); 
+                var formula = Formula.MeleeFormula(player.Level, player.Skills.Fist, 7, player.Client.FightMode); 
 
                 return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                     
                     new MeleeAttack(formula.Min, formula.Max) ) );
             }
-        }
-
-        private static Item GetWeapon(Player player)
-        {
-            Item item = (Item)player.Inventory.GetContent( (byte)Slot.Left);
-
-            if (item != null && (item.Metadata.WeaponType == WeaponType.Sword || item.Metadata.WeaponType == WeaponType.Club || item.Metadata.WeaponType == WeaponType.Axe || item.Metadata.WeaponType == WeaponType.Distance || item.Metadata.WeaponType == WeaponType.Wand) )
-            {
-                return item;
-            }
-
-            item = (Item)player.Inventory.GetContent( (byte)Slot.Right);
-
-            if (item != null && (item.Metadata.WeaponType == WeaponType.Sword || item.Metadata.WeaponType == WeaponType.Club || item.Metadata.WeaponType == WeaponType.Axe || item.Metadata.WeaponType == WeaponType.Distance || item.Metadata.WeaponType == WeaponType.Wand) )
-            {
-                return item;
-            }
-
-            return null;
-        }
-
-        private static Item GetAmmunition(Player player)
-        {
-            Item item = (Item)player.Inventory.GetContent( (byte)Slot.Extra);
-
-            if (item != null && item.Metadata.WeaponType == WeaponType.Ammo)
-            {
-                return item;
-            }
-
-            return null;
-        }
-
-        private static (int Min, int Max) MeleeFormula(int level, int skill, int attack, FightMode fightMode)
-        {
-            int min = 0;
-
-            int max = (int)Math.Floor(0.085 * (fightMode == FightMode.Offensive ? 1 : fightMode == FightMode.Balanced ? 0.75 : 0.5) * skill * attack) + (int)Math.Floor(level / 5.0);
-
-            return (min, max);
-        }
-
-        private static (int Min, int Max) DistanceFormula(int level, int skill, int attack, FightMode fightMode)
-        {
-            int min = (int)Math.Floor(level / 5.0);
-
-            int max = (int)Math.Floor(0.09 * (fightMode == FightMode.Offensive ? 1 : fightMode == FightMode.Balanced ? 0.75 : 0.5) * skill * attack) + min;
-
-            return (min, max);
-        }
-
-        private static (int Min, int Max) WandFormula(int attackStrength, int attackVariation)
-        {
-            int min = attackStrength - attackVariation;
-
-            int max = attackStrength + attackVariation;
-
-            return (min, max);
         }
     }
 }

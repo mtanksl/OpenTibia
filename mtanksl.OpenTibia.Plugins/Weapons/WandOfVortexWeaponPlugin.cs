@@ -14,7 +14,7 @@ namespace OpenTibia.Plugins.Weapons
 
         public override Promise OnUseWeapon(Player player, Creature target, Item weapon)
         {
-           var formula = WandFormula(13, 5);
+           var formula = Formula.WandFormula(13, 5);
 
             return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 

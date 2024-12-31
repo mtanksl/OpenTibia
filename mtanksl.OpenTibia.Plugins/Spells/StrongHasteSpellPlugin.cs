@@ -21,7 +21,7 @@ namespace OpenTibia.Plugins.Spells
 
         public override Promise OnCast(Player player, Creature target, string message)
         {
-            var speed = StrongHasteFormula(player.BaseSpeed);
+            var speed = Formula.StrongHasteFormula(player.BaseSpeed);
 
             return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.GreenShimmer) ).Then( () =>
             {
