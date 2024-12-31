@@ -6,6 +6,14 @@ namespace OpenTibia.Common.Objects
     {
         private HashSet<string> blesses = new HashSet<string>();
 
+        public int Count
+        {
+            get
+            {
+                return blesses.Count;
+            }
+        }
+
         public bool HasBless(string name)
         {
             return blesses.Contains(name);
@@ -19,6 +27,11 @@ namespace OpenTibia.Common.Objects
         public void RemoveBless(string name)
         {
             blesses.Remove(name);
+        }
+
+        public void ClearBlesses()
+        {
+            blesses.Clear();
         }
 
         public IEnumerable<string> GetBlesses()

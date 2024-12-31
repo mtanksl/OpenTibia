@@ -30,14 +30,9 @@ namespace OpenTibia.Game.Commands
             {
                 if (corpse is Container container)
                 {
-                    int blesses = 0;
+                    int blesses = Player.Blesses.Count;
 
-                    foreach (var bless in Player.Blesses.GetBlesses().ToList() )
-                    {
-                        Player.Blesses.RemoveBless(bless);
-
-                        blesses++;
-                    }
+                    Player.Blesses.ClearBlesses();
 
                     double equipmentLoss = equipmentLosses[Math.Min(blesses, equipmentLosses.Length - 1) ];
 

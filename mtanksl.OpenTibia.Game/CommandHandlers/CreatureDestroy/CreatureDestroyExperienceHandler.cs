@@ -32,20 +32,18 @@ namespace OpenTibia.Game.CommandHandlers
 
                         ulong damage = (ulong)pair.Value.Damage;
 
-                        if (attacker.Tile == null || attacker.IsDestroyed)
+                        if (attacker is Player player)
                         {
-
-                        }
-                        else
-                        {
-                            ulong experience = totalExperience * damage / totalDamage;
-
-                            if (experience > 0)
+                            if (attacker.Tile == null || attacker.IsDestroyed)
                             {
-                                if (attacker is Player player)
-                                {
-                                    await Context.Current.AddCommand(new ShowAnimatedTextCommand(player, AnimatedTextColor.White, experience.ToString() ) );
 
+                            }
+                            else
+                            {
+                                ulong experience = totalExperience * damage / totalDamage;
+
+                                if (experience > 0)
+                                {
                                     ushort correctLevel = player.Level;
 
                                     byte correctLevelPercent = 0;
@@ -70,6 +68,8 @@ namespace OpenTibia.Game.CommandHandlers
                                         }
                                     }
 
+                                    await Context.Current.AddCommand(new ShowAnimatedTextCommand(player, AnimatedTextColor.White, experience.ToString() ) );
+
                                     if (correctLevel > player.Level)
                                     {
                                         Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You advanced from level " + player.Level + " to level " + correctLevel + ".") );
@@ -89,27 +89,38 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         double x = player.Level + player.LevelPercent / 100.0;
 
-                        lossPercent = (0.5 * x * x * x + 22.5 * x * x - 121 * x + 200) / player.Experience;
+                        lossPercent = (50 * x * x * x + 2250 * x * x - 12100 * x + 20000) / player.Experience;
                     }
                     else
                     {
-                        lossPercent = 0.1;
+                        lossPercent = 10;
                     }
 
-                    if (player.Vocation == Vocation.EliteKnight || player.Vocation == Vocation.RoyalPaladin || player.Vocation == Vocation.ElderDruid || player.Vocation == Vocation.MasterSorcerer)
+                    if (player.Vocation == Vocation.EliteKnight || 
+                        player.Vocation == Vocation.RoyalPaladin || 
+                        player.Vocation == Vocation.ElderDruid || 
+                        player.Vocation == Vocation.MasterSorcerer)
                     {
                         lossPercent *= 0.7;
                     }
+
+                    int blesses = player.Blesses.Count;
+
+                    lossPercent *= Math.Pow(0.92, blesses) / 100;
 
                     ulong experience = (ulong)(player.Experience * lossPercent);
 
                     if (experience > 0)
                     {
+                        ushort correctLevel;
+
+                        byte correctLevelPercent;
+
                         if (player.Experience > experience)
                         {
-                            ushort correctLevel = player.Level;
+                            correctLevel = player.Level;
 
-                            byte correctLevelPercent = 0;
+                            correctLevelPercent = 0;
 
                             ulong levelMaxExperience = (ulong)( ( 50 * Math.Pow(correctLevel, 3) - 150 * Math.Pow(correctLevel, 2) + 400 * (correctLevel) ) / 3 );
 
@@ -129,28 +140,21 @@ namespace OpenTibia.Game.CommandHandlers
 
                                     levelMaxExperience = levelMinExperience;
                                 }
-                            }
-
-                            if (correctLevel < player.Level)
-                            {
-                                Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You downgraded from level " + player.Level + " to level " + correctLevel + ".") );
-                            }
-
-                            await Context.Current.AddCommand(new PlayerUpdateExperienceCommand(player, player.Experience - experience, correctLevel, correctLevelPercent) );
+                            }                            
                         }
                         else
                         {
-                            ushort correctLevel = 1;
+                            correctLevel = 1;
 
-                            byte correctLevelPercent = 0;
-
-                            if (correctLevel < player.Level)
-                            {
-                                Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You downgraded from level " + player.Level + " to level " + correctLevel + ".") );
-                            }
-
-                            await Context.Current.AddCommand(new PlayerUpdateExperienceCommand(player, player.Experience - experience, correctLevel, correctLevelPercent) );
+                            correctLevelPercent = 0;
                         }
+
+                        if (correctLevel < player.Level)
+                        {
+                            Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You downgraded from level " + player.Level + " to level " + correctLevel + ".") );
+                        }
+
+                        await Context.Current.AddCommand(new PlayerUpdateExperienceCommand(player, player.Experience - experience, correctLevel, correctLevelPercent) );
                     }
                 }
             }

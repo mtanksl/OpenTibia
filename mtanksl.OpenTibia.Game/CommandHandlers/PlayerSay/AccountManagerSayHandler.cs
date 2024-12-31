@@ -417,8 +417,22 @@ namespace OpenTibia.Game.CommandHandlers
 
                                             BaseSpeed = 220,
                         
-                                            Speed = 220, 
-                        
+                                            Speed = 220,
+
+                                            SkillFist = 10,
+
+                                            SkillClub = 10,
+
+                                            SkillSword = 10,
+
+                                            SkillAxe = 10,
+
+                                            SkillDistance = 10,
+
+                                            SkillShield = 10,
+
+                                            SkillFish = 10,
+
                                             Experience = 0, 
                         
                                             Level = 1, 
