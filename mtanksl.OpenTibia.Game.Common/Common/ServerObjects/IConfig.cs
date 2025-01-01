@@ -57,6 +57,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         int GameplayMonsterDeSpawnRadius { get; set; }
         int GameplayLootRate { get; set; }
         int GameplayExperienceRate { get; set; }
+        StageConfig GameplayStages { get; set; }
 
         int SecurityMaxConnectionsWithSameIpAddress { get; set; }
         int SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds { get; set; }

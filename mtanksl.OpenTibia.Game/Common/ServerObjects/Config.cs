@@ -73,6 +73,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         public int GameplayMonsterDeSpawnRadius { get; set; }
         public int GameplayLootRate { get; set; }
         public int GameplayExperienceRate { get; set; }
+        public StageConfig GameplayStages { get; set; }
 
         public int SecurityMaxConnectionsWithSameIpAddress { get; set; }
         public int SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds { get; set; }
@@ -218,6 +219,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 
                     Port = port 
                 };
+
             } ).ToArray();
 
             GameMaxConnections = LuaScope.GetInt32(script["server.game.maxconnections"], 1100);
@@ -264,6 +266,23 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             GameplayExperienceRate = LuaScope.GetInt32(script["server.game.gameplay.experiencerate"], 1);
 
+            LuaTable stages = (LuaTable)script["server.game.gameplay.stages"]; 
+
+            GameplayStages = new StageConfig()
+            {
+                Enabled = (bool)stages["enabled"],
+
+                Levels = ( (LuaTable)stages["levels"] ).Values.Cast<LuaTable>().Select(l => new LevelConfig() 
+                { 
+                    MinLevel = (int)(long)l["minlevel"],
+
+                    MaxLevel = (int)(long)l["maxlevel"],
+
+                    Multiplier = (int)(long)l["multiplier"]
+
+                } ).ToArray()
+            };
+                
             SecurityMaxConnectionsWithSameIpAddress = LuaScope.GetInt32(script["server.security.maxconnectionswithsameipaddress"], 2);       
             
             SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds = LuaScope.GetInt32(script["server.security.connectionswithsameipaddressabusebanmilliseconds"], 15 * 60 * 1000);

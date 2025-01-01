@@ -42,6 +42,19 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 ulong experience = totalExperience * damage / totalDamage;
 
+                                if (Context.Server.Config.GameplayStages.Enabled)
+                                {
+                                    foreach (var level in Context.Server.Config.GameplayStages.Levels)
+                                    {
+                                        if (player.Level >= level.MinLevel && player.Level <= level.MaxLevel)
+                                        {
+                                            experience *= (ulong)level.Multiplier;
+
+                                            break;
+                                        }
+                                    }
+                                }
+
                                 if (experience > 0)
                                 {
                                     ushort correctLevel = player.Level;
