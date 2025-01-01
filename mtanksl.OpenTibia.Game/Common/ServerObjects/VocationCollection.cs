@@ -35,6 +35,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Name = (string)lVocation["name"],
 
+                    Description = (string)lVocation["description"],
+
                     CapacityPerLevel = (int)(long)lVocation["capacityperlevel"],
 
                     HealthPerLevel = (int)(long)lVocation["healthperlevel"],
