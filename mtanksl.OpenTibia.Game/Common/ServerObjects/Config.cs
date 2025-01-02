@@ -73,7 +73,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         public int GameplayMonsterDeSpawnRange { get; set; }
         public int GameplayMonsterDeSpawnRadius { get; set; }
         public int GameplayLootRate { get; set; }
-        public int GameplayExperienceRate { get; set; }
+        public double GameplayExperienceRate { get; set; }
         public ExperienceStagesConfig GameplayExperienceStages { get; set; }
 
         public int SecurityMaxConnectionsWithSameIpAddress { get; set; }
@@ -267,7 +267,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             GameplayLootRate = LuaScope.GetInt32(script["server.game.gameplay.lootrate"], 1);
 
-            GameplayExperienceRate = LuaScope.GetInt32(script["server.game.gameplay.experiencerate"], 1);
+            GameplayExperienceRate = LuaScope.GetDouble(script["server.game.gameplay.experiencerate"], 1);
 
             LuaTable stages = (LuaTable)script["server.game.gameplay.experiencestages"];
 
@@ -281,7 +281,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     MaxLevel = (int)(long)l["maxlevel"],
 
-                    Multiplier = (int)(long)l["multiplier"]
+                    Multiplier = (double)l["multiplier"]
 
                 } ).ToArray()
             };

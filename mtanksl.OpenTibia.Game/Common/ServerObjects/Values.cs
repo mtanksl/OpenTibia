@@ -84,6 +84,11 @@ namespace OpenTibia.Game.Common.ServerObjects
             return GetValue(key, value => LuaScope.GetInt64(value) );
         }
 
+        public double GetDouble(string key)
+        {
+            return GetValue(key, value => LuaScope.GetDouble(value) );
+        }
+
         public string GetString(string key)
         {
             return GetValue(key, value => LuaScope.GetString(value) );

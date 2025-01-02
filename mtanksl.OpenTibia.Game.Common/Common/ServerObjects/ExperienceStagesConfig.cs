@@ -13,6 +13,6 @@
 
         public int MaxLevel { get; set; }
 
-        public int Multiplier { get; set; }
+        public double Multiplier { get; set; }
     }
 }

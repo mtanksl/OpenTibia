@@ -352,6 +352,16 @@ namespace OpenTibia.Game.Common.ServerObjects
             return defaultValue;
         }
 
+        public static double GetDouble(object value, double defaultValue = default(double) )
+        {
+            if (value != null)
+            {
+                return (double)value;
+            }
+
+            return defaultValue;
+        }
+
         public static string GetString(object value, string defaultValue = default(string) )
         {
             if (value != null)

@@ -22,7 +22,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (command.Creature is Monster monster)
                 {
-                    ulong totalExperience = (ulong)Context.Server.Config.GameplayExperienceRate * monster.Metadata.Experience;
+                    ulong totalExperience = (ulong)(monster.Metadata.Experience * Context.Server.Config.GameplayExperienceRate);
 
                     ulong totalDamage = (ulong)hits.Values.Sum(h => h.Damage);
 
@@ -48,7 +48,7 @@ namespace OpenTibia.Game.CommandHandlers
                                     {
                                         if (player.Level >= level.MinLevel && player.Level <= level.MaxLevel)
                                         {
-                                            experience *= (ulong)level.Multiplier;
+                                            experience = (ulong)(experience * level.Multiplier);
 
                                             break;
                                         }
