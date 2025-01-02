@@ -19,7 +19,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (toContainer.IsContentOf(locker) )
                     {
-                        int maxDepotItems = command.Player.Premium ? Context.Server.Config.GameplayMaxDepotItemsPremiumAccount : Context.Server.Config.GameplayMaxDepotItems;
+                        int maxDepotItems = command.Player.Premium ? Context.Server.Config.GameplayDepotPremiumLimit : Context.Server.Config.GameplayDepotFreeLimit;
 
                         if (command.Item is Container container)
                         {

@@ -1,6 +1,6 @@
 ﻿namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class StageConfig
+    public class ExperienceStagesConfig
     {
         public bool Enabled { get; set; }
 

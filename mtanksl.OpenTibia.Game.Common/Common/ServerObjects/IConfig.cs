@@ -40,24 +40,25 @@ namespace OpenTibia.Game.Common.ServerObjects
         int GameplayMaxPlayers { get; set; }
         bool GameplayPrivateNpcSystem { get; set; }
         bool GameplayLearnSpellFirst { get; set; }
-        bool GameplayInfinitePotions { get; set; }
-        bool GameplayInfiniteArrows { get; set; }
-        bool GameplayInfiniteRunes { get; set; }
+        bool GameplayRemoveChargesFromPotions { get; set; }
+        bool GameplayRemoveWeaponAmmunition { get; set; }
+        bool GameplayRemoveChargesFromRunes { get; set; }
+        bool GameplayRemoveWeaponCharges { get; set; }
         bool GameplayAllowChangeOutfit { get; set; }
         bool GameplayAllowClones { get; set; }
         bool GameplayOnePlayerOnlinePerAccount { get; set; }
         bool GameplayReplaceKickOnLogin { get; set; }
-        int GameplayMaxVips { get; set; }
-        int GameplayMaxVipsPremiumAccount { get; set; }
-        int GameplayMaxDepotItems { get; set; }       
-        int GameplayMaxDepotItemsPremiumAccount { get; set; }       
+        int GameplayVipFreeLimit { get; set; }
+        int GameplayVipPremiumLimit { get; set; }
+        int GameplayDepotFreeLimit { get; set; }       
+        int GameplayDepotPremiumLimit { get; set; }       
         int GameplayKickLostConnectionAfterMinutes { get; set; }
         int GameplayKickIdlePlayerAfterMinutes { get; set; }
         int GameplayMonsterDeSpawnRange { get; set; }
         int GameplayMonsterDeSpawnRadius { get; set; }
         int GameplayLootRate { get; set; }
         int GameplayExperienceRate { get; set; }
-        StageConfig GameplayStages { get; set; }
+        ExperienceStagesConfig GameplayExperienceStages { get; set; }
 
         int SecurityMaxConnectionsWithSameIpAddress { get; set; }
         int SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds { get; set; }

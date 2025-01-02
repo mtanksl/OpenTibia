@@ -179,7 +179,7 @@ namespace OpenTibia.Game.Components
 
                         Promise promise;
 
-                        if (Context.Current.Server.Config.GameplayInfiniteArrows)
+                        if ( !Context.Current.Server.Config.GameplayRemoveWeaponCharges)
                         {
                             promise = Promise.Completed;
                         }
@@ -215,7 +215,7 @@ namespace OpenTibia.Game.Components
 
                         Promise promise;
 
-                        if (Context.Current.Server.Config.GameplayInfiniteArrows)
+                        if ( !Context.Current.Server.Config.GameplayRemoveWeaponAmmunition)
                         {
                             promise = Promise.Completed;
                         }

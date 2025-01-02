@@ -56,24 +56,25 @@ namespace OpenTibia.Game.Common.ServerObjects
         public int GameplayMaxPlayers { get; set; }
         public bool GameplayPrivateNpcSystem { get; set; }
         public bool GameplayLearnSpellFirst { get; set; }
-        public bool GameplayInfinitePotions { get; set; }
-        public bool GameplayInfiniteArrows { get; set; }
-        public bool GameplayInfiniteRunes { get; set; }
+        public bool GameplayRemoveChargesFromPotions { get; set; }
+        public bool GameplayRemoveWeaponAmmunition { get; set; }
+        public bool GameplayRemoveChargesFromRunes { get; set; }
+        public bool GameplayRemoveWeaponCharges { get; set; }
         public bool GameplayAllowChangeOutfit { get; set; }
         public bool GameplayAllowClones { get; set; }
         public bool GameplayOnePlayerOnlinePerAccount { get; set; }
         public bool GameplayReplaceKickOnLogin { get; set; }
-        public int GameplayMaxVips { get; set; }
-        public int GameplayMaxVipsPremiumAccount { get; set; }
-        public int GameplayMaxDepotItems { get; set; }
-        public int GameplayMaxDepotItemsPremiumAccount { get; set; }
+        public int GameplayVipFreeLimit { get; set; }
+        public int GameplayVipPremiumLimit { get; set; }
+        public int GameplayDepotFreeLimit { get; set; }
+        public int GameplayDepotPremiumLimit { get; set; }
         public int GameplayKickIdlePlayerAfterMinutes { get; set; }
         public int GameplayKickLostConnectionAfterMinutes { get; set; }
         public int GameplayMonsterDeSpawnRange { get; set; }
         public int GameplayMonsterDeSpawnRadius { get; set; }
         public int GameplayLootRate { get; set; }
         public int GameplayExperienceRate { get; set; }
-        public StageConfig GameplayStages { get; set; }
+        public ExperienceStagesConfig GameplayExperienceStages { get; set; }
 
         public int SecurityMaxConnectionsWithSameIpAddress { get; set; }
         public int SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds { get; set; }
@@ -232,11 +233,13 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             GameplayLearnSpellFirst = LuaScope.GetBoolean(script["server.game.gameplay.learnspellfirst"], false);
 
-            GameplayInfinitePotions = LuaScope.GetBoolean(script["server.game.gameplay.infinitepotions"], false);
+            GameplayRemoveChargesFromPotions = LuaScope.GetBoolean(script["server.game.gameplay.removechargesfrompotions"], true);
 
-            GameplayInfiniteArrows = LuaScope.GetBoolean(script["server.game.gameplay.infinitearrows"], false);
+            GameplayRemoveWeaponAmmunition = LuaScope.GetBoolean(script["server.game.gameplay.removeweaponammunition"], true);
 
-            GameplayInfiniteRunes = LuaScope.GetBoolean(script["server.game.gameplay.infiniterunes"], false);
+            GameplayRemoveChargesFromRunes = LuaScope.GetBoolean(script["server.game.gameplay.removechargesfromrunes"], true);
+
+            GameplayRemoveWeaponCharges = LuaScope.GetBoolean(script["server.game.gameplay.removeweaponcharges"], true);
 
             GameplayAllowChangeOutfit = LuaScope.GetBoolean(script["server.game.gameplay.allowchangeoutfit"], true);
 
@@ -246,13 +249,13 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             GameplayReplaceKickOnLogin = LuaScope.GetBoolean(script["server.game.gameplay.replacekickonlogin"], false);
 
-            GameplayMaxVips = LuaScope.GetInt32(script["server.game.gameplay.maxvips"], 20);
+            GameplayVipFreeLimit = LuaScope.GetInt32(script["server.game.gameplay.vipfreelimit"], 20);
 
-            GameplayMaxVipsPremiumAccount = LuaScope.GetInt32(script["server.game.gameplay.maxvipspremiumaccount"], 100);
+            GameplayVipPremiumLimit = LuaScope.GetInt32(script["server.game.gameplay.vippremiumlimit"], 100);
 
-            GameplayMaxDepotItems = LuaScope.GetInt32(script["server.game.gameplay.maxdepotitems"], 2000);
+            GameplayDepotFreeLimit = LuaScope.GetInt32(script["server.game.gameplay.depotfreelimit"], 2000);
 
-            GameplayMaxDepotItemsPremiumAccount = LuaScope.GetInt32(script["server.game.gameplay.maxdepotitemspremiumaccount"], 15000);
+            GameplayDepotPremiumLimit = LuaScope.GetInt32(script["server.game.gameplay.depotpremiumlimit"], 15000);
 
             GameplayKickLostConnectionAfterMinutes = LuaScope.GetInt32(script["server.game.gameplay.kicklostconnectionafterminutes"], 1);
 
@@ -266,9 +269,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             GameplayExperienceRate = LuaScope.GetInt32(script["server.game.gameplay.experiencerate"], 1);
 
-            LuaTable stages = (LuaTable)script["server.game.gameplay.stages"]; 
+            LuaTable stages = (LuaTable)script["server.game.gameplay.experiencestages"];
 
-            GameplayStages = new StageConfig()
+            GameplayExperienceStages = new ExperienceStagesConfig()
             {
                 Enabled = (bool)stages["enabled"],
 

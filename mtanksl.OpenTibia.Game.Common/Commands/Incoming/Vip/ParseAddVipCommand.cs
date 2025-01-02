@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Commands
 
                 if (dbPlayer != null && dbPlayer.Id != Player.DatabasePlayerId)
                 {
-                    int maxVips = Player.Premium ? Context.Server.Config.GameplayMaxVipsPremiumAccount : Context.Server.Config.GameplayMaxVips;
+                    int maxVips = Player.Premium ? Context.Server.Config.GameplayVipPremiumLimit : Context.Server.Config.GameplayVipFreeLimit;
 
                     if (Player.Vips.Count < maxVips)
                     {
