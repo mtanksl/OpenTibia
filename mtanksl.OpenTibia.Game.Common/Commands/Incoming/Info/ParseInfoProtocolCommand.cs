@@ -4,6 +4,7 @@ using OpenTibia.Game.Common;
 using OpenTibia.Network.Packets;
 using OpenTibia.Network.Packets.Incoming;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -52,7 +53,7 @@ namespace OpenTibia.Game.Commands
                         new XElement("npcs",
                             new XAttribute("total", Context.Server.GameObjects.GetNpcs().Count() ) ),
                         new XElement("rates",
-                            new XAttribute("experience", Context.Server.Config.GameplayExperienceRate),
+                            new XAttribute("experience", Context.Server.Config.GameplayExperienceRate.ToString(CultureInfo.InvariantCulture) ),
                             new XAttribute("skill", 1),
                             new XAttribute("loot", Context.Server.Config.GameplayLootRate),
                             new XAttribute("magic", 1),

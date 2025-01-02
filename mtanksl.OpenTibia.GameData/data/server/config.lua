@@ -87,11 +87,11 @@ server = {
 			monsterdespawnrange = 2,
 			monsterdespawnradius = 50,
 			lootrate = 1,
-			experiencerate = 1,
+			experiencerate = 1.0,
 			experiencestages = {
 				enabled = false,
 				levels = {
-					{ minlevel = 1, maxlevel = 8, multiplier = 10 }
+					{ minlevel = 1, maxlevel = 8, multiplier = 10.0 }
 				}
 			}
 		}

@@ -356,6 +356,11 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             if (value != null)
             {
+                if (value is long)
+                {
+                    return (double)(long)value;
+                }
+
                 return (double)value;
             }
 

@@ -158,11 +158,11 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             LuaTable position = (LuaTable)script["server.login.accountmanager.playerposition"];
 
-            LoginAccountManagerPlayerPosition = new Position( (int)(long)position["x"], (int)(long)position["y"], (int)(long)position["z"] );
+            LoginAccountManagerPlayerPosition = new Position(LuaScope.GetInt32(position["x"] ), LuaScope.GetInt32(position["y"] ), LuaScope.GetInt32(position["z"] ) );
 
             LuaTable newPosition = (LuaTable)script["server.login.accountmanager.playernewposition"];
 
-            LoginAccountManagerPlayerNewPosition = new Position( (int)(long)newPosition["x"], (int)(long)newPosition["y"], (int)(long)newPosition["z"] );
+            LoginAccountManagerPlayerNewPosition = new Position(LuaScope.GetInt32(newPosition["x"] ), LuaScope.GetInt32(newPosition["y"] ), LuaScope.GetInt32(newPosition["z"] ) );
 
             LoginAccountManagerWorldName = LuaScope.GetString(script["server.login.accountmanager.worldname"], "");
 
@@ -192,9 +192,9 @@ namespace OpenTibia.Game.Common.ServerObjects
             
             Worlds = worlds.Keys.Cast<string>().Select(key =>
             {
-                string ipAddress = (string)( (LuaTable)worlds[key] )["ipaddress"];
+                string ipAddress = LuaScope.GetString( ( (LuaTable)worlds[key] )["ipaddress"] );
 
-                int port = (int)(long)( (LuaTable)worlds[key] )["port"];
+                int port = LuaScope.GetInt32( ( (LuaTable)worlds[key] )["port"] );
 
                 try
                 {
@@ -273,15 +273,15 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             GameplayExperienceStages = new ExperienceStagesConfig()
             {
-                Enabled = (bool)stages["enabled"],
+                Enabled = LuaScope.GetBoolean(stages["enabled"] ),
 
                 Levels = ( (LuaTable)stages["levels"] ).Values.Cast<LuaTable>().Select(l => new LevelConfig() 
                 { 
-                    MinLevel = (int)(long)l["minlevel"],
+                    MinLevel = LuaScope.GetInt32(l["minlevel"] ),
 
-                    MaxLevel = (int)(long)l["maxlevel"],
+                    MaxLevel = LuaScope.GetInt32(l["maxlevel"] ),
 
-                    Multiplier = (double)l["multiplier"]
+                    Multiplier = LuaScope.GetDouble(l["multiplier"] )
 
                 } ).ToArray()
             };
