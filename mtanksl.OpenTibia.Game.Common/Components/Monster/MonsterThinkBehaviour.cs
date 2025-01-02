@@ -163,9 +163,20 @@ namespace OpenTibia.Game.Components
                     Math.Abs(monster.Tile.Position.Y - monster.Spawn.Position.Y) > Context.Server.Config.GameplayMonsterDeSpawnRadius ||
                     Math.Abs(monster.Tile.Position.Z - monster.Spawn.Position.Z) > Context.Server.Config.GameplayMonsterDeSpawnRange)
                 {
-                    await Context.AddCommand(new ShowMagicEffectCommand(monster, MagicEffectType.Puff) );
+                    if (Context.Server.Config.GameplayMonsterRemoveOnDeSpawn)
+                    {
+                        await Context.AddCommand(new ShowMagicEffectCommand(monster, MagicEffectType.Puff) );
 
-                    await Context.AddCommand(new CreatureDestroyCommand(monster) );
+                        await Context.AddCommand(new CreatureDestroyCommand(monster) );
+                    }
+                    else
+                    {
+                        await Context.AddCommand(new ShowMagicEffectCommand(monster, MagicEffectType.Puff) );
+
+                        await Context.AddCommand(new CreatureMoveCommand(monster, monster.Spawn) );
+
+                        await Context.AddCommand(new ShowMagicEffectCommand(monster, MagicEffectType.Teleport) );
+                    }
                 }
                 else
                 {

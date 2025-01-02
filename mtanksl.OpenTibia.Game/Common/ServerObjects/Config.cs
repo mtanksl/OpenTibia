@@ -72,6 +72,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         public int GameplayKickLostConnectionAfterMinutes { get; set; }
         public int GameplayMonsterDeSpawnRange { get; set; }
         public int GameplayMonsterDeSpawnRadius { get; set; }
+        public bool GameplayMonsterRemoveOnDeSpawn { get; set; }
         public int GameplayLootRate { get; set; }
         public double GameplayExperienceRate { get; set; }
         public ExperienceStagesConfig GameplayExperienceStages { get; set; }
@@ -264,6 +265,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             GameplayMonsterDeSpawnRange = LuaScope.GetInt32(script["server.game.gameplay.monsterdespawnrange"], 2);
 
             GameplayMonsterDeSpawnRadius = LuaScope.GetInt32(script["server.game.gameplay.monsterdespawnradius"], 50);
+
+            GameplayMonsterRemoveOnDeSpawn = LuaScope.GetBoolean(script["server.game.gameplay.monsterremoveondespawn"], true);
 
             GameplayLootRate = LuaScope.GetInt32(script["server.game.gameplay.lootrate"], 1);
 

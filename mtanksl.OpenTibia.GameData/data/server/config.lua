@@ -86,6 +86,7 @@ server = {
 			kickidleplayerafterminutes = 15,
 			monsterdespawnrange = 2,
 			monsterdespawnradius = 50,
+			monsterremoveondespawn = true,
 			lootrate = 1,
 			experiencerate = 1.0,
 			experiencestages = {
