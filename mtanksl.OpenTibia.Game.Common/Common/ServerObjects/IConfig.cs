@@ -48,6 +48,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         bool GameplayAllowClones { get; set; }
         bool GameplayOnePlayerOnlinePerAccount { get; set; }
         bool GameplayReplaceKickOnLogin { get; set; }
+        bool GameplayHotkeyAimbotEnabled { get; set; }
         int GameplayVipFreeLimit { get; set; }
         int GameplayVipPremiumLimit { get; set; }
         int GameplayDepotFreeLimit { get; set; }       

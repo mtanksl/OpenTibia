@@ -64,6 +64,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         public bool GameplayAllowClones { get; set; }
         public bool GameplayOnePlayerOnlinePerAccount { get; set; }
         public bool GameplayReplaceKickOnLogin { get; set; }
+        public bool GameplayHotkeyAimbotEnabled { get; set; }
         public int GameplayVipFreeLimit { get; set; }
         public int GameplayVipPremiumLimit { get; set; }
         public int GameplayDepotFreeLimit { get; set; }
@@ -249,6 +250,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             GameplayOnePlayerOnlinePerAccount = LuaScope.GetBoolean(script["server.game.gameplay.oneplayeronlineperaccount"], false);
 
             GameplayReplaceKickOnLogin = LuaScope.GetBoolean(script["server.game.gameplay.replacekickonlogin"], false);
+
+            GameplayHotkeyAimbotEnabled = LuaScope.GetBoolean(script["server.game.gameplay.hotkeyaimbotenabled"], true);
 
             GameplayVipFreeLimit = LuaScope.GetInt32(script["server.game.gameplay.vipfreelimit"], 20);
 
