@@ -225,13 +225,19 @@ namespace OpenTibia.Game.Components
                         }
                     }
 
-                    if (hasVisiblePlayers && target == null && idleWalkStrategy != null)
+                    if (target == null && hasVisiblePlayers && idleWalkStrategy != null && DateTime.UtcNow >= nextWalk)
                     {
                         Tile toTile;
 
                         if (idleWalkStrategy.CanWalk(monster, null, out toTile) )
                         {
                             await Context.Current.AddCommand(new CreatureMoveCommand(monster, toTile) );
+
+                            nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / monster.Speed);
+                        }
+                        else
+                        {
+                            nextWalk = DateTime.UtcNow.AddSeconds(1);
                         }
                     }
                 }

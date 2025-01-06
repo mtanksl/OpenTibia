@@ -11,11 +11,11 @@ namespace OpenTibia.Game.Components
     public class SingleQueueNpcThinkBehaviour : Behaviour
     {
         private DialoguePlugin dialoguePlugin;
-        private IWalkStrategy walkStrategy;
+        private IWalkStrategy idleWalkStrategy;
 
-        public SingleQueueNpcThinkBehaviour(IWalkStrategy walkStrategy)
+        public SingleQueueNpcThinkBehaviour(IWalkStrategy idleWalkStrategy)
         {
-            this.walkStrategy = walkStrategy;
+            this.idleWalkStrategy = idleWalkStrategy;
         }
 
         private QueueHashSet<Player> queue = new QueueHashSet<Player>();
@@ -128,6 +128,8 @@ namespace OpenTibia.Game.Components
 
         private Guid globalTick;
 
+        private DateTime nextWalk = DateTime.MinValue;
+
         public override void Start()
         {
             Npc npc = (Npc)GameObject;
@@ -151,13 +153,19 @@ namespace OpenTibia.Game.Components
             {
                 if (queue.Count == 0)
                 {
-                    if (walkStrategy != null)
+                    if (idleWalkStrategy != null && DateTime.UtcNow >= nextWalk)
                     {
                         Tile toTile;
 
-                        if (walkStrategy.CanWalk(npc, null, out toTile) )
+                        if (idleWalkStrategy.CanWalk(npc, null, out toTile) )
                         {
                             await Context.Current.AddCommand(new CreatureMoveCommand(npc, toTile) );
+
+                            nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / npc.Speed);
+                        }
+                        else
+                        {
+                            nextWalk = DateTime.UtcNow.AddSeconds(1);
                         }
                     }
                 }
