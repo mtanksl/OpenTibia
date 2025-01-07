@@ -119,13 +119,13 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     if (initialization.Type == "actions")
                     {
-                        string type = (string)initialization.Parameters["type"];
+                        string type = LuaScope.GetString(initialization.Parameters["type"] );
 
                         switch (type)
                         {
                             case "PlayerRotateItem":
                             {
-                                ushort openTibiaId = (ushort)(long)initialization.Parameters["opentibiaid"];
+                                ushort openTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
 
                                 pluginCollection.AddPlayerRotateItemPlugin(openTibiaId, script, initialization.Parameters);
                             }
@@ -133,7 +133,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                             case "PlayerUseItem":
                             {
-                                ushort openTibiaId = (ushort)(long)initialization.Parameters["opentibiaid"];
+                                ushort openTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
 
                                 pluginCollection.AddPlayerUseItemPlugin(openTibiaId, script, initialization.Parameters);
                             }
@@ -141,9 +141,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                             case "PlayerUseItemWithItem":
                             {
-                                ushort openTibiaId = (ushort)(long)initialization.Parameters["opentibiaid"];
+                                ushort openTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
 
-                                bool allowFarUse = (bool)initialization.Parameters["allowfaruse"];
+                                bool allowFarUse = LuaScope.GetBoolean(initialization.Parameters["allowfaruse"] );
 
                                 pluginCollection.AddPlayerUseItemWithItemPlugin(allowFarUse, openTibiaId, script, initialization.Parameters);                     
                             }
@@ -151,9 +151,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                             case "PlayerUseItemWithCreature":
                             {
-                                ushort openTibiaId = (ushort)(long)initialization.Parameters["opentibiaid"];
+                                ushort openTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
 
-                                bool allowFarUse = (bool)initialization.Parameters["allowfaruse"];
+                                bool allowFarUse = LuaScope.GetBoolean(initialization.Parameters["allowfaruse"] );
 
                                 pluginCollection.AddPlayerUseItemWithCreaturePlugin(allowFarUse, openTibiaId, script, initialization.Parameters);
                             }
@@ -161,7 +161,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                             case "PlayerMoveItem":
                             {
-                                ushort openTibiaId = (ushort)(long)initialization.Parameters["opentibiaid"];
+                                ushort openTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
 
                                 pluginCollection.AddPlayerMoveItemPlugin(openTibiaId, script, initialization.Parameters);
                             }
@@ -169,7 +169,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                             case "PlayerMoveCreature":
                             {
-                                string name = (string)initialization.Parameters["name"];
+                                string name = LuaScope.GetString(initialization.Parameters["name"] );
 
                                 pluginCollection.AddPlayerMoveCreaturePlugin(name, script, initialization.Parameters);
                             }
@@ -178,13 +178,13 @@ namespace OpenTibia.Game.Common.ServerObjects
                     }
                     else if (initialization.Type == "movements")
                     {
-                        string type = (string)initialization.Parameters["type"];
+                        string type = LuaScope.GetString(initialization.Parameters["type"] );
 
                         switch (type)
                         {
                             case "CreatureStepIn":
                             {
-                                ushort openTibiaId = (ushort)(long)initialization.Parameters["opentibiaid"];
+                                ushort openTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
 
                                 pluginCollection.AddCreatureStepInPlugin(openTibiaId, script, initialization.Parameters);
                             }
@@ -192,7 +192,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                             case "CreatureStepOut":
                             {
-                                ushort openTibiaId = (ushort)(long)initialization.Parameters["opentibiaid"];
+                                ushort openTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
 
                                 pluginCollection.AddCreatureStepOutPlugin(openTibiaId, script, initialization.Parameters);
                             }
@@ -200,7 +200,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                             case "InventoryEquip":
                             {
-                                ushort openTibiaId = (ushort)(long)initialization.Parameters["opentibiaid"];
+                                ushort openTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
 
                                 pluginCollection.AddInventoryEquipPlugin(openTibiaId, script, initialization.Parameters);
                             }
@@ -208,7 +208,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                             case "InventoryDeEquip":
                             {
-                                ushort openTibiaId = (ushort)(long)initialization.Parameters["opentibiaid"];
+                                ushort openTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] );
 
                                 pluginCollection.AddInventoryDeEquipPlugin(openTibiaId, script, initialization.Parameters);
                             }
@@ -217,13 +217,13 @@ namespace OpenTibia.Game.Common.ServerObjects
                     }
                     else if (initialization.Type == "talkactions")
                     {
-                        string type = (string)initialization.Parameters["type"];
+                        string type = LuaScope.GetString(initialization.Parameters["type"] );
 
                         switch (type)
                         {
                             case "PlayerSay":
                             {
-                                string message = (string)initialization.Parameters["message"];
+                                string message = LuaScope.GetString(initialization.Parameters["message"] );
 
                                 pluginCollection.AddPlayerSayPlugin(message, script, initialization.Parameters);
                             }
@@ -232,7 +232,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                     }
                     else if (initialization.Type == "creaturescripts")
                     {
-                        string type = (string)initialization.Parameters["type"];
+                        string type = LuaScope.GetString(initialization.Parameters["type"] );
 
                         switch (type)
                         {
@@ -251,7 +251,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                     }                    
                     else if (initialization.Type == "globalevents")
                     {
-                        string type = (string)initialization.Parameters["type"];
+                        string type = LuaScope.GetString(initialization.Parameters["type"] );
 
                         switch (type)
                         {
@@ -282,13 +282,13 @@ namespace OpenTibia.Game.Common.ServerObjects
                     }
                     else if (initialization.Type == "npcs")
                     {
-                        string type = (string)initialization.Parameters["type"];
+                        string type = LuaScope.GetString(initialization.Parameters["type"] );
 
                         switch (type)
                         {
                             case "Dialogue":
                             {
-                                string name = (string)initialization.Parameters["name"];
+                                string name = LuaScope.GetString(initialization.Parameters["name"] );
 
                                 pluginCollection.AddDialoguePlugin(name, script, initialization.Parameters);
                             }
@@ -297,31 +297,31 @@ namespace OpenTibia.Game.Common.ServerObjects
                     }
                     else if (initialization.Type == "spells")
                     {
-                        bool requiresTarget = (bool)initialization.Parameters["requirestarget"];
+                        bool requiresTarget = LuaScope.GetBoolean(initialization.Parameters["requirestarget"] );
 
                         Spell spell = new Spell()
                         {
-                            Words = (string)initialization.Parameters["words"],
+                            Words = LuaScope.GetString(initialization.Parameters["words"] ),
 
-                            Name = (string)initialization.Parameters["name"],
+                            Name = LuaScope.GetString(initialization.Parameters["name"] ),
 
-                            Group = (string)initialization.Parameters["group"],
+                            Group = LuaScope.GetString(initialization.Parameters["group"] ),
 
-                            Cooldown = TimeSpan.FromSeconds( (int)(long)initialization.Parameters["cooldown"] ),
+                            Cooldown = TimeSpan.FromSeconds(LuaScope.GetInt32(initialization.Parameters["cooldown"] ) ),
 
-                            GroupCooldown = TimeSpan.FromSeconds( (int)(long)initialization.Parameters["groupcooldown"] ),
+                            GroupCooldown = TimeSpan.FromSeconds(LuaScope.GetInt32(initialization.Parameters["groupcooldown"] ) ),
 
-                            Level = (int)(long)initialization.Parameters["level"],
+                            Level = LuaScope.GetInt32(initialization.Parameters["level"] ),
 
-                            Mana = (int)(long)initialization.Parameters["mana"],
+                            Mana = LuaScope.GetInt32(initialization.Parameters["mana"] ),
 
-                            Soul = (int)(long)initialization.Parameters["soul"],
+                            Soul = LuaScope.GetInt32(initialization.Parameters["soul"] ),
 
-                            ConjureOpenTibiaId = (ushort?)(long?)initialization.Parameters["conjureopentibiaid"],
+                            ConjureOpenTibiaId = LuaScope.GetNullableUInt16(initialization.Parameters["conjureopentibiaid"] ),
 
-                            ConjureCount = (int?)(long?)initialization.Parameters["conjurecount"],
+                            ConjureCount = LuaScope.GetNullableInt32(initialization.Parameters["conjurecount"] ),
 
-                            Premium = (bool)initialization.Parameters["premium"],
+                            Premium = LuaScope.GetBoolean(initialization.Parameters["premium"] ),
 
                             Vocations = ( (LuaTable)initialization.Parameters["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
                         };
@@ -330,21 +330,21 @@ namespace OpenTibia.Game.Common.ServerObjects
                     }
                     else if (initialization.Type == "runes")
                     {
-                        bool requiresTarget = (bool)initialization.Parameters["requirestarget"];
+                        bool requiresTarget = LuaScope.GetBoolean(initialization.Parameters["requirestarget"] );
 
                         Rune rune = new Rune()
                         {
-                            OpenTibiaId = (ushort)(long)initialization.Parameters["opentibiaid"],
+                            OpenTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] ),
 
-                            Name = (string)initialization.Parameters["name"],
+                            Name = LuaScope.GetString(initialization.Parameters["name"] ),
 
-                            Group = (string)initialization.Parameters["group"],
+                            Group = LuaScope.GetString(initialization.Parameters["group"] ),
 
-                            GroupCooldown = TimeSpan.FromSeconds( (int)(long)initialization.Parameters["groupcooldown"] ),
+                            GroupCooldown = TimeSpan.FromSeconds(LuaScope.GetInt32(initialization.Parameters["groupcooldown"] ) ),
 
-                            Level = (int)(long)initialization.Parameters["level"],
+                            Level = LuaScope.GetInt32(initialization.Parameters["level"] ),
 
-                            MagicLevel = (int)(long)initialization.Parameters["magiclevel"]
+                            MagicLevel = LuaScope.GetInt32(initialization.Parameters["magiclevel"] )
                         };
 
                         pluginCollection.AddRunePlugin(requiresTarget, script, initialization.Parameters, rune);
@@ -353,11 +353,11 @@ namespace OpenTibia.Game.Common.ServerObjects
                     {
                         Weapon weapon = new Weapon()
                         {
-                            OpenTibiaId = (ushort)(long)initialization.Parameters["opentibiaid"],
+                            OpenTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] ),
 
-                            Level = (int)(long)initialization.Parameters["level"],
+                            Level = LuaScope.GetInt32(initialization.Parameters["level"] ),
 
-                            Mana = (int)(long)initialization.Parameters["mana"],
+                            Mana = LuaScope.GetInt32(initialization.Parameters["mana"] ),
 
                             Vocations = ( (LuaTable)initialization.Parameters["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
                         };
@@ -368,7 +368,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                     {
                         Ammunition ammunition = new Ammunition()
                         {
-                            OpenTibiaId = (ushort)(long)initialization.Parameters["opentibiaid"]
+                            OpenTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] )
                         };
 
                         pluginCollection.AddAmmunitionPlugin(script, initialization.Parameters, ammunition);
@@ -377,13 +377,13 @@ namespace OpenTibia.Game.Common.ServerObjects
                     {
                         Raid raid = new Raid()
                         {
-                            Name = (string)initialization.Parameters["name"],
+                            Name = LuaScope.GetString(initialization.Parameters["name"] ),
 
-                            Repeatable = (bool)initialization.Parameters["repeatable"],
+                            Repeatable = LuaScope.GetBoolean(initialization.Parameters["repeatable"] ),
 
-                            Cooldown = (int)(long)initialization.Parameters["cooldown"],
+                            Cooldown = LuaScope.GetInt32(initialization.Parameters["cooldown"] ),
 
-                            Chance = (int)(long)initialization.Parameters["chance"],
+                            Chance = LuaScope.GetInt32(initialization.Parameters["chance"] ),
                         };
 
                         pluginCollection.AddRaidPlugin(script, initialization.Parameters, raid);
@@ -442,15 +442,15 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.actions"] ).Values)
             {
-                string type = (string)plugin["type"];
+                string type = LuaScope.GetString(plugin["type"] );
 
-                string fileName = (string)plugin["filename"];
+                string fileName = LuaScope.GetString(plugin["filename"] );
 
                 switch (type)
                 {
                     case "PlayerRotateItem":
                     {
-                        ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
+                        ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
 
                         AddPlayerRotateItemPlugin(openTibiaId, fileName);
                     }
@@ -458,7 +458,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     case "PlayerUseItem":
                     { 
-                        ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
+                        ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
 
                         AddPlayerUseItemPlugin(openTibiaId, fileName);
                     }
@@ -466,9 +466,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     case "PlayerUseItemWithItem":
                     {
-                        ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
+                        ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
 
-                        bool allowFarUse = (bool)plugin["allowfaruse"];
+                        bool allowFarUse = LuaScope.GetBoolean(plugin["allowfaruse"] );
 
                         AddPlayerUseItemWithItemPlugin(allowFarUse, openTibiaId, fileName);
                     }
@@ -476,9 +476,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     case "PlayerUseItemWithCreature":
                     {
-                        ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
+                        ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
 
-                        bool allowFarUse = (bool)plugin["allowfaruse"];
+                        bool allowFarUse = LuaScope.GetBoolean(plugin["allowfaruse"] );
 
                         AddPlayerUseItemWithCreaturePlugin(allowFarUse, openTibiaId, fileName);
                     }
@@ -486,7 +486,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     case "PlayerMoveItem":
                     {
-                        ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
+                        ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
 
                         AddPlayerMoveItemPlugin(openTibiaId, fileName);
                     }
@@ -494,7 +494,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     case "PlayerMoveCreature":
                     {
-                        string name = (string)plugin["name"];
+                        string name = LuaScope.GetString(plugin["name"] );
 
                         AddPlayerMoveCreaturePlugin(name, fileName);
                     }
@@ -504,15 +504,15 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.movements"] ).Values)
             {
-                string type = (string)plugin["type"];
+                string type = LuaScope.GetString(plugin["type"] );
 
-                string fileName = (string)plugin["filename"];
+                string fileName = LuaScope.GetString(plugin["filename"] );
 
                 switch (type)
                 {
                     case "CreatureStepIn":
                     {
-                        ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
+                        ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
 
                         AddCreatureStepInPlugin(openTibiaId, fileName);
                     }
@@ -520,7 +520,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     case "CreatureStepOut":
                     {
-                        ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
+                        ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
 
                         AddCreatureStepOutPlugin(openTibiaId, fileName);
                     }
@@ -528,7 +528,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     case "InventoryEquip":
                     {
-                        ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
+                        ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
 
                         AddInventoryEquipPlugin(openTibiaId, fileName);
                     }
@@ -536,7 +536,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     case "InventoryDeEquip":
                     {
-                        ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
+                        ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
 
                         AddInventoryDeEquipPlugin(openTibiaId, fileName);
                     }
@@ -546,15 +546,15 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.talkactions"] ).Values)
             {
-                string type = (string)plugin["type"];
+                string type = LuaScope.GetString(plugin["type"] );
 
-                string fileName = (string)plugin["filename"];
+                string fileName = LuaScope.GetString(plugin["filename"] );
 
                 switch (type)
                 {
                     case "PlayerSay":
                     {
-                        string message = (string)plugin["message"];
+                        string message = LuaScope.GetString(plugin["message"] );
 
                         AddPlayerSayPlugin(message, fileName);
                     }
@@ -564,9 +564,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.creaturescripts"] ).Values)
             {
-                string type = (string)plugin["type"];
+                string type = LuaScope.GetString(plugin["type"] );
 
-                string fileName = (string)plugin["filename"];
+                string fileName = LuaScope.GetString(plugin["filename"] );
 
                 switch (type)
                 {
@@ -586,9 +586,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.globalevents"] ).Values)
             {
-                string type = (string)plugin["type"];
+                string type = LuaScope.GetString(plugin["type"] );
 
-                string fileName = (string)plugin["filename"];
+                string fileName = LuaScope.GetString(plugin["filename"] );
 
                 switch (type)
                 {
@@ -620,15 +620,15 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.npcs"] ).Values)
             {
-                string type = (string)plugin["type"];
+                string type = LuaScope.GetString(plugin["type"] );
 
-                string fileName = (string)plugin["filename"];
+                string fileName = LuaScope.GetString(plugin["filename"] );
 
                 switch (type)
                 {
                     case "Dialogue":
                     {
-                        string name = (string)plugin["name"];
+                        string name = LuaScope.GetString(plugin["name"] );
 
                         AddDialoguePlugin(name, fileName);
                     }
@@ -638,33 +638,33 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.spells"] ).Values)
             {
-                string fileName = (string)plugin["filename"];
+                string fileName = LuaScope.GetString(plugin["filename"] );
 
-                bool requiresTarget = (bool)plugin["requirestarget"];
+                bool requiresTarget = LuaScope.GetBoolean(plugin["requirestarget"] );
 
                 Spell spell = new Spell()
                 {
-                    Words = (string)plugin["words"],
+                    Words = LuaScope.GetString(plugin["words"] ),
 
-                    Name = (string)plugin["name"],
+                    Name = LuaScope.GetString(plugin["name"] ),
 
-                    Group = (string)plugin["group"],
+                    Group = LuaScope.GetString(plugin["group"] ),
 
-                    Cooldown = TimeSpan.FromSeconds( (int)(long)plugin["cooldown"] ),
+                    Cooldown = TimeSpan.FromSeconds(LuaScope.GetInt32(plugin["cooldown"] ) ),
 
-                    GroupCooldown = TimeSpan.FromSeconds( (int)(long)plugin["groupcooldown"] ),
+                    GroupCooldown = TimeSpan.FromSeconds(LuaScope.GetInt32(plugin["groupcooldown"] ) ),
 
-                    Level = (int)(long)plugin["level"],
+                    Level = LuaScope.GetInt32(plugin["level"] ),
 
-                    Mana = (int)(long)plugin["mana"],
+                    Mana = LuaScope.GetInt32(plugin["mana"] ),
 
-                    Soul = (int)(long)plugin["soul"],
+                    Soul = LuaScope.GetInt32(plugin["soul"] ),
 
-                    ConjureOpenTibiaId = (ushort?)(long?)plugin["conjureopentibiaid"],
+                    ConjureOpenTibiaId = LuaScope.GetNullableUInt16(plugin["conjureopentibiaid"] ),
 
-                    ConjureCount = (int?)(long?)plugin["conjurecount"],
+                    ConjureCount = LuaScope.GetNullableInt32(plugin["conjurecount"] ),
 
-                    Premium = (bool)plugin["premium"],
+                    Premium = LuaScope.GetBoolean(plugin["premium"] ),
 
                     Vocations = ( (LuaTable)plugin["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
                 };
@@ -674,23 +674,23 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.runes"] ).Values)
             {
-                string fileName = (string)plugin["filename"];
+                string fileName = LuaScope.GetString(plugin["filename"] );
 
-                bool requiresTarget = (bool)plugin["requirestarget"];
+                bool requiresTarget = LuaScope.GetBoolean(plugin["requirestarget"] );
 
                 Rune rune = new Rune()
                 {
-                    OpenTibiaId = (ushort)(long)plugin["opentibiaid"],
+                    OpenTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] ),
 
-                    Name = (string)plugin["name"],
+                    Name = LuaScope.GetString(plugin["name"] ),
 
-                    Group = (string)plugin["group"],
+                    Group = LuaScope.GetString(plugin["group"] ),
 
-                    GroupCooldown = TimeSpan.FromSeconds( (int)(long)plugin["groupcooldown"] ),
+                    GroupCooldown = TimeSpan.FromSeconds(LuaScope.GetInt32(plugin["groupcooldown"] ) ),
 
-                    Level = (int)(long)plugin["level"],
+                    Level = LuaScope.GetInt32(plugin["level"] ),
 
-                    MagicLevel = (int)(long)plugin["magiclevel"]
+                    MagicLevel = LuaScope.GetInt32(plugin["magiclevel"] )
                 };
 
                 AddRunePlugin(requiresTarget, fileName, rune);
@@ -698,15 +698,15 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.weapons"] ).Values)
             {
-                string fileName = (string)plugin["filename"];
+                string fileName = LuaScope.GetString(plugin["filename"] );
 
                 Weapon weapon = new Weapon()
                 {
-                    OpenTibiaId = (ushort)(long)plugin["opentibiaid"],
+                    OpenTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] ),
 
-                    Level = (int)(long)plugin["level"],
+                    Level = LuaScope.GetInt32(plugin["level"] ),
 
-                    Mana = (int)(long)plugin["mana"],
+                    Mana = LuaScope.GetInt32(plugin["mana"] ),
 
                     Vocations = ( (LuaTable)plugin["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
                 };
@@ -716,11 +716,11 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.ammunitions"] ).Values)
             {
-                string fileName = (string)plugin["filename"];
+                string fileName = LuaScope.GetString(plugin["filename"] );
 
                 Ammunition ammunition = new Ammunition()
                 {
-                    OpenTibiaId = (ushort)(long)plugin["opentibiaid"]
+                    OpenTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] )
                 };
 
                 AddAmmunitionPlugin(fileName, ammunition);
@@ -728,17 +728,17 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             foreach (LuaTable plugin in ( (LuaTable)script["plugins.raids"] ).Values)
             {
-                string fileName = (string)plugin["filename"];
+                string fileName = LuaScope.GetString(plugin["filename"] );
 
                 Raid raid = new Raid()
                 {
-                    Name = (string)plugin["name"],
+                    Name = LuaScope.GetString(plugin["name"] ),
 
-                    Repeatable = (bool)plugin["repeatable"],
+                    Repeatable = LuaScope.GetBoolean(plugin["repeatable"] ),
 
-                    Cooldown = (int)(long)plugin["cooldown"],
+                    Cooldown = LuaScope.GetInt32(plugin["cooldown"] ),
 
-                    Chance = (int)(long)plugin["chance"],
+                    Chance = LuaScope.GetInt32(plugin["chance"] ),
                 };
 
                 AddRaidPlugin(fileName, raid);

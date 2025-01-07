@@ -31,22 +31,22 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 QuestConfig quest = new QuestConfig()
                 {
-                    Id = (ushort)(long)lQuest["id"],
+                    Id = LuaScope.GetUInt16(lQuest["id"] ),
 
-                    Name = (string)lQuest["name"]
+                    Name = LuaScope.GetString(lQuest["name"] )
                 };
 
                 foreach (LuaTable lMission in ( (LuaTable)lQuest["missions"] ).Values)
                 {
                     MissionConfig mission = new MissionConfig()
                     {
-                        Name = (string)lMission["name"],
+                        Name = LuaScope.GetString(lMission["name"] ),
 
-                        Description = (string)lMission["description"],
+                        Description = LuaScope.GetString(lMission["description"] ),
 
-                        StorageKey = (int)(long)lMission["storagekey"],
+                        StorageKey = LuaScope.GetInt32(lMission["storagekey"] ),
 
-                        StorageValue = (int)(long)lMission["storagevalue"]
+                        StorageValue = LuaScope.GetInt32(lMission["storagevalue"] )
                     };
 
                     quest.Missions.Add(mission);

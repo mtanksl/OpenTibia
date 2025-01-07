@@ -33,7 +33,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             foreach (LuaTable plugin in ( (LuaTable)script["scripts"] ).Values)
             {
-                string fileName = (string)plugin["filename"];
+                string fileName = LuaScope.GetString(plugin["filename"] );
 
                 Type type = server.PluginLoader.GetType(fileName);
 

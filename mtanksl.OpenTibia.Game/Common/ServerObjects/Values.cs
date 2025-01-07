@@ -69,6 +69,11 @@ namespace OpenTibia.Game.Common.ServerObjects
             return GetValue(key, value => LuaScope.GetBoolean(value) );
         }
 
+        public ushort GetByte(string key)
+        {
+            return GetValue(key, value => LuaScope.GetByte(value) );
+        }
+
         public ushort GetUInt16(string key)
         {
             return GetValue(key, value => LuaScope.GetUInt16(value) );

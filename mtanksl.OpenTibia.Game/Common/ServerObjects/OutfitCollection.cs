@@ -32,11 +32,11 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 OutfitConfig outfit = new OutfitConfig()
                 {
-                    Id = (ushort)(long)lOutfit["id"],
+                    Id = LuaScope.GetUInt16(lOutfit["id"] ),
 
-                    Name = (string)lOutfit["name"],
+                    Name = LuaScope.GetString(lOutfit["name"] ),
 
-                    Gender = (Gender)(int)(long)lOutfit["gender"]
+                    Gender = (Gender)LuaScope.GetInt32(lOutfit["gender"] )
                 };
 
                 outfits.Add(outfit.Id, outfit);

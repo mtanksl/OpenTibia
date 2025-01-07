@@ -30,36 +30,36 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             foreach (LuaTable plugin in ( (LuaTable)script["gameobjectscripts.items"] ).Values)
             {
-                ushort openTibiaId = (ushort)(long)plugin["opentibiaid"];
+                ushort openTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] );
 
-                string fileName = (string)plugin["filename"];
+                string fileName = LuaScope.GetString(plugin["filename"] );
 
                 items.Add(openTibiaId, (GameObjectScript<Item>)Activator.CreateInstance(server.PluginLoader.GetType(fileName) ) );
             }
 
             foreach (LuaTable plugin in ( (LuaTable)script["gameobjectscripts.players"] ).Values)
             {
-                string name = (string)plugin["name"];
+                string name = LuaScope.GetString(plugin["name"] );
 
-                string fileName = (string)plugin["filename"];
+                string fileName = LuaScope.GetString(plugin["filename"] );
 
                 players.Add(name, (GameObjectScript<Player>)Activator.CreateInstance(server.PluginLoader.GetType(fileName) ) );               
             }
 
             foreach (LuaTable plugin in ( (LuaTable)script["gameobjectscripts.monsters"] ).Values)
             {
-                string name = (string)plugin["name"];
+                string name = LuaScope.GetString(plugin["name"] );
 
-                string fileName = (string)plugin["filename"];
+                string fileName = LuaScope.GetString(plugin["filename"] );
 
                 monsters.Add(name, (GameObjectScript<Monster>)Activator.CreateInstance(server.PluginLoader.GetType(fileName) ) );
             }
 
             foreach (LuaTable plugin in ( (LuaTable)script["gameobjectscripts.npcs"] ).Values)
             {
-                string name = (string)plugin["name"];
+                string name = LuaScope.GetString(plugin["name"] );
 
-                string fileName = (string)plugin["filename"];
+                string fileName = LuaScope.GetString(plugin["filename"] );
 
                 npcs.Add(name, (GameObjectScript<Npc>)Activator.CreateInstance(server.PluginLoader.GetType(fileName) ) );                
             }

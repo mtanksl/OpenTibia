@@ -347,6 +347,36 @@ namespace OpenTibia.Game.Common.ServerObjects
             return defaultValue;
         }
 
+        public static bool? GetNullableBoolean(object value)
+        {
+            if (value != null)
+            {
+                return (bool)value;
+            }
+
+            return null;
+        }
+
+        public static byte GetByte(object value, byte defaultValue = default(byte) )
+        {
+            if (value != null)
+            {
+                return (byte)(long)value;
+            }
+
+            return defaultValue;
+        }
+
+        public static byte? GetNullableByte(object value)
+        {
+            if (value != null)
+            {
+                return (byte)(long)value;
+            }
+
+            return null;
+        }
+
         public static ushort GetUInt16(object value, ushort defaultValue = default(ushort) )
         {
             if (value != null)
@@ -355,6 +385,16 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
 
             return defaultValue;
+        }
+
+        public static ushort? GetNullableUInt16(object value)
+        {
+            if (value != null)
+            {
+                return (ushort)(long)value;
+            }
+
+            return null;
         }
 
         public static int GetInt32(object value, int defaultValue = default(int) )
@@ -367,6 +407,16 @@ namespace OpenTibia.Game.Common.ServerObjects
             return defaultValue;
         }
 
+        public static int? GetNullableInt32(object value)
+        {
+            if (value != null)
+            {
+                return (int)(long)value;
+            }
+
+            return null;
+        }
+
         public static long GetInt64(object value, long defaultValue = default(long) )
         {
             if (value != null)
@@ -375,6 +425,16 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
 
             return defaultValue;
+        }
+
+        public static long? GetNullableInt64(object value)
+        {
+            if (value != null)
+            {
+                return (long)value;
+            }
+
+            return null;
         }
 
         public static double GetDouble(object value, double defaultValue = default(double) )
@@ -390,6 +450,21 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
 
             return defaultValue;
+        }
+
+        public static double? GetNullableDouble(object value)
+        {
+            if (value != null)
+            {
+                if (value is long)
+                {
+                    return (double)(long)value;
+                }
+
+                return (double)value;
+            }
+
+            return null;
         }
 
         public static string GetString(object value, string defaultValue = default(string) )

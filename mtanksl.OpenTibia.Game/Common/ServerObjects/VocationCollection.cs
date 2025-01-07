@@ -31,25 +31,25 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 VocationConfig vocation = new VocationConfig()
                 {
-                    Id = (byte)(long)lVocation["id"],
+                    Id = LuaScope.GetByte(lVocation["id"] ),
 
-                    Name = (string)lVocation["name"],
+                    Name = LuaScope.GetString(lVocation["name"] ),
 
-                    Description = (string)lVocation["description"],
+                    Description = LuaScope.GetString(lVocation["description"] ),
 
-                    CapacityPerLevel = (int)(long)lVocation["capacityperlevel"],
+                    CapacityPerLevel = LuaScope.GetInt32(lVocation["capacityperlevel"] ),
 
-                    HealthPerLevel = (int)(long)lVocation["healthperlevel"],
+                    HealthPerLevel = LuaScope.GetInt32(lVocation["healthperlevel"] ),
 
-                    ManaPerLevel = (int)(long)lVocation["manaperlevel"],
+                    ManaPerLevel = LuaScope.GetInt32(lVocation["manaperlevel"] ),
 
-                    Health = (int)(long)lVocation["health"],
+                    Health = LuaScope.GetInt32(lVocation["health"] ),
 
-                    HealthDelayInSeconds = (int)(long)lVocation["healthdelayinseconds"],
+                    HealthDelayInSeconds = LuaScope.GetInt32(lVocation["healthdelayinseconds"] ),
 
-                    Mana = (int)(long)lVocation["mana"],
+                    Mana = LuaScope.GetInt32(lVocation["mana"] ),
 
-                    ManaDelayInSeconds = (int)(long)lVocation["manadelayinseconds"]
+                    ManaDelayInSeconds = LuaScope.GetInt32(lVocation["manadelayinseconds"] )
                 };
 
                 vocations.Add(vocation.Id, vocation);
