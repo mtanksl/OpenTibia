@@ -80,7 +80,8 @@ namespace OpenTibia.Game.Common
                 .GetCommandHandlers(command)
                 .GetEnumerator();
 
-            [DebuggerStepThrough] Promise Next()
+            [DebuggerStepThrough] 
+            Promise Next()
             {
                 if (commandHandlers.MoveNext() )
                 {
@@ -108,7 +109,8 @@ namespace OpenTibia.Game.Common
                 .GetCommandResultHandlers(command)
                 .GetEnumerator();
 
-            [DebuggerStepThrough] PromiseResult<TResult> Next()
+            [DebuggerStepThrough]
+            PromiseResult<TResult> Next()
             {
                 if (commandHandlers.MoveNext() )
                 {

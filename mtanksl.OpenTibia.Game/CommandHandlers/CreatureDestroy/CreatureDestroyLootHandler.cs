@@ -9,10 +9,10 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, CreatureDestroyCommand command)
         {
-            if (command.Creature.Health == 0)
+            return next().Then( () =>
             {
-                return next().Then( () =>
-                {
+                if (command.Creature.Health == 0)
+                {                
                     if (command.Creature is Monster monster)
                     {
                         return Context.AddCommand(new TileCreateMonsterCorpseCommand(command.Creature.Tile, monster.Metadata) ).Then( (item) =>
@@ -31,12 +31,10 @@ namespace OpenTibia.Game.CommandHandlers
                             return Promise.Completed;
                         } );
                     }
+                }
 
-                    return Promise.Completed;
-                } );
-            }
-
-            return next();            
+                return Promise.Completed;
+            } );
         }
     }
 }

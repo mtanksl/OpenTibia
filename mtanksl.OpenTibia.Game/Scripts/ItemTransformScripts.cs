@@ -1,4 +1,6 @@
-﻿using OpenTibia.Game.CommandHandlers;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Game.CommandHandlers;
+using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Scripts
 {
@@ -6,9 +8,9 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new ItemTransformContainerCloseHandler() ); 
+            Context.Server.CommandHandlers.AddCommandHandler<Item, ItemTransformCommand>(new ItemTransformContainerCloseHandler() ); 
             
-            Context.Server.CommandHandlers.AddCommandHandler(new ItemTransformTradingRejectHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<Item, ItemTransformCommand>(new ItemTransformTradingRejectHandler() );
         }
 
         public override void Stop()

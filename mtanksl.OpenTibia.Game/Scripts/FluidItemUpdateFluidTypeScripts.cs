@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Game.CommandHandlers;
+using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Scripts
 {
@@ -6,9 +7,9 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new FluidItemUpdateFluidTypeTradingRejectHandler() );       
+            Context.Server.CommandHandlers.AddCommandHandler<FluidItemUpdateFluidTypeCommand>(new FluidItemUpdateFluidTypeTradingRejectHandler() );       
             
-            Context.Server.CommandHandlers.AddCommandHandler(new FluidItemUpdateFluidTypeNpcTradingUpdateStatsHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<FluidItemUpdateFluidTypeCommand>(new FluidItemUpdateFluidTypeNpcTradingUpdateStatsHandler() );
         }
 
         public override void Stop()

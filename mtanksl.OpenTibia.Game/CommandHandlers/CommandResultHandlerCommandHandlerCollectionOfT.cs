@@ -23,7 +23,8 @@ namespace OpenTibia.Game.CommandHandlers
                     .GetCommandResultHandlers(command)
                     .GetEnumerator();
 
-                [DebuggerStepThrough] PromiseResult<TResult> Next()
+                [DebuggerStepThrough] 
+                PromiseResult<TResult> Next()
                 {
                     if (commandHandlers.MoveNext() )
                     {

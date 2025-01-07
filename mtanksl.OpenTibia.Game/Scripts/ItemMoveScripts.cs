@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Game.CommandHandlers;
+using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Scripts
 {
@@ -6,9 +7,9 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new ItemMoveContainerCloseHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<ItemMoveCommand>(new ItemMoveContainerCloseHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new ItemMoveTradingRejectHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<ItemMoveCommand>(new ItemMoveTradingRejectHandler() );
         }
 
         public override void Stop()

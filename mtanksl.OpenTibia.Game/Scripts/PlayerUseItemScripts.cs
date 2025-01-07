@@ -69,99 +69,99 @@ namespace OpenTibia.Game.Scripts
                 return next();
             } );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new UseItemScriptingHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new UseItemScriptingHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new UseItemChestHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new UseItemChestHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new LockerOpenHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new LockerOpenHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new ContainerOpenHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new ContainerOpenHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new BookHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new BookHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new SpellbookHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new SpellbookHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new BabySealDollHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new BabySealDollHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new BlueberryBushHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new BlueberryBushHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new ConstructionKitHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new ConstructionKitHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new ClayLumpHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new ClayLumpHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new CloseDoorHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new CloseDoorHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new CrystalCoinHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new CrystalCoinHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new DiceHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new DiceHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new ExplosivePresentHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new ExplosivePresentHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new FireworksRocketHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new FireworksRocketHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new FlaskOfDemonicBloodHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new FlaskOfDemonicBloodHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new FoodHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new FoodHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new GateOfExpertiseDoorHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new GateOfExpertiseDoorHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new GoldCoinHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new GoldCoinHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new LadderHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new LadderHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new LockedDoorHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new LockedDoorHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new MusicalInstrumentHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new MusicalInstrumentHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new OpenDoorHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new OpenDoorHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new PandaTeddyHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new PandaTeddyHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new PartyCakeHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new PartyCakeHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new PartyHatHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new PartyHatHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new PartyTrumpetHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new PartyTrumpetHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new PiggyBankHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new PiggyBankHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new PlatinumCoinHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new PlatinumCoinHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new SantaDollHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new SantaDollHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new GarlicBreadOrCookieHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new GarlicBreadOrCookieHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new SealedDoorHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new SealedDoorHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new SewerHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new SewerHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new SnowHeapHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new SnowHeapHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new StuffedDragonHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new StuffedDragonHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new BlueSurpriseBagHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new BlueSurpriseBagHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new RedSurpriseBagHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new RedSurpriseBagHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new SuspiciousSurpriseBagHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new SuspiciousSurpriseBagHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new UseItemTransformHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new UseItemTransformHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new TrapHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new TrapHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new WatchHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new WatchHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new WindowHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new WindowHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new PhoenixCharmHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new PhoenixCharmHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new SolitudeCharmHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new SolitudeCharmHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new SpiritualCharmHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new SpiritualCharmHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new TwinSunCharmHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new TwinSunCharmHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new UnityCharmHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new UnityCharmHandler() );
         }
 
         public override void Stop()

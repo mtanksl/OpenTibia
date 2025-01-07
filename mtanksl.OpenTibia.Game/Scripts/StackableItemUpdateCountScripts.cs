@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Game.CommandHandlers;
+using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Scripts
 {
@@ -6,9 +7,9 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new StackableItemUpdateCountTradingRejectHandler() );        
+            Context.Server.CommandHandlers.AddCommandHandler<StackableItemUpdateCountCommand>(new StackableItemUpdateCountTradingRejectHandler() );        
             
-            Context.Server.CommandHandlers.AddCommandHandler(new StackableItemUpdateCountNpcTradingUpdateStatsHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<StackableItemUpdateCountCommand>(new StackableItemUpdateCountNpcTradingUpdateStatsHandler() );
         }
 
         public override void Stop()

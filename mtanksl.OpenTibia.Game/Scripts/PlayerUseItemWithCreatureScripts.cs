@@ -10,9 +10,9 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithCreatureScriptingHandler(true) );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithCreatureCommand>(new UseItemWithCreatureScriptingHandler(true) );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new RunesHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithCreatureCommand>(new RunesHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithCreatureCommand>( (context, next, command) =>
             {
@@ -26,29 +26,29 @@ namespace OpenTibia.Game.Scripts
                 return next();
             } );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithCreatureScriptingHandler(false) );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithCreatureCommand>(new UseItemWithCreatureScriptingHandler(false) );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new SmallHealthPotionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithCreatureCommand>(new SmallHealthPotionHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new HealthPotionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithCreatureCommand>(new HealthPotionHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new GreatHealthPotionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithCreatureCommand>(new GreatHealthPotionHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new StrongHealthPotionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithCreatureCommand>(new StrongHealthPotionHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new UltimateHealthPotionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithCreatureCommand>(new UltimateHealthPotionHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new ManaPotionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithCreatureCommand>(new ManaPotionHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new GreatManaPotionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithCreatureCommand>(new GreatManaPotionHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new StrongManaPotionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithCreatureCommand>(new StrongManaPotionHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new GreatSpiritPotionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithCreatureCommand>(new GreatSpiritPotionHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new FluidItemHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithCreatureCommand>(new FluidItemHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new VoodooDollHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithCreatureCommand>(new VoodooDollHandler() );
         }
 
         public override void Stop()

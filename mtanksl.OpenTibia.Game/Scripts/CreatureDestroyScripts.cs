@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Game.CommandHandlers;
+using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Scripts
 {
@@ -6,23 +7,23 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new PlayerDestroyTradingRejectHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<CreatureDestroyCommand>(new PlayerDestroyTradingRejectHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new NpcDestroyNpcTradingRejectHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<CreatureDestroyCommand>(new NpcDestroyNpcTradingRejectHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new CleanUpChannelCollectionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<CreatureDestroyCommand>(new CleanUpChannelCollectionHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new CleanUpPartyCollectionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<CreatureDestroyCommand>(new CleanUpPartyCollectionHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new CleanUpRuleViolationCollectionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<CreatureDestroyCommand>(new CleanUpRuleViolationCollectionHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new CleanUpContainerCollectionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<CreatureDestroyCommand>(new CleanUpContainerCollectionHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new CleanUpWindowCollectionHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<CreatureDestroyCommand>(new CleanUpWindowCollectionHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new CreatureDestroyExperienceHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<CreatureDestroyCommand>(new CreatureDestroyExperienceHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new CreatureDestroyLootHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<CreatureDestroyCommand>(new CreatureDestroyLootHandler() );
         }
 
         public override void Stop()

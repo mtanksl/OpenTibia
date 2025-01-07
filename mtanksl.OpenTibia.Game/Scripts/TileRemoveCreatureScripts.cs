@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Game.CommandHandlers;
+using OpenTibia.Game.Events;
 
 namespace OpenTibia.Game.Scripts
 {
@@ -6,13 +7,13 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.EventHandlers.Subscribe(new TileRemoveCreatureScriptingHandler() );
+            Context.Server.EventHandlers.Subscribe<TileRemoveCreatureEventArgs>(new TileRemoveCreatureScriptingHandler() );
 
-            Context.Server.EventHandlers.Subscribe(new TileDepressHandler() );
+            Context.Server.EventHandlers.Subscribe<TileRemoveCreatureEventArgs>(new TileDepressHandler() );
 
-            Context.Server.EventHandlers.Subscribe(new CloseDoorAutomaticallyHandler() );
+            Context.Server.EventHandlers.Subscribe<TileRemoveCreatureEventArgs>(new CloseDoorAutomaticallyHandler() );
 
-            Context.Server.EventHandlers.Subscribe(new SwimLeaveHandler() );
+            Context.Server.EventHandlers.Subscribe<TileRemoveCreatureEventArgs>(new SwimLeaveHandler() );
         }
 
         public override void Stop()

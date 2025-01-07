@@ -29,7 +29,7 @@ namespace OpenTibia.Game.Scripts
                 return next();
             } );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new MoveCreatureScriptingHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveCreatureCommand>(new MoveCreatureScriptingHandler() );
         }
 
         public override void Stop()

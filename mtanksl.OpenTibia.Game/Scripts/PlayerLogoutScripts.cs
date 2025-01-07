@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Game.CommandHandlers;
+using OpenTibia.Game.Events;
 
 namespace OpenTibia.Game.Scripts
 {
@@ -6,9 +7,9 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.EventHandlers.Subscribe(new PlayerLogoutScriptingHandler() );
+            Context.Server.EventHandlers.Subscribe<PlayerLogoutEventArgs>(new PlayerLogoutScriptingHandler() );
 
-            Context.Server.EventHandlers.Subscribe(new PlayerLogoutVipHandler() );
+            Context.Server.EventHandlers.Subscribe<PlayerLogoutEventArgs>(new PlayerLogoutVipHandler() );
         }
 
         public override void Stop()

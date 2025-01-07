@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Game.CommandHandlers;
+using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Scripts
 {
@@ -6,19 +7,19 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new CreatureMoveContainerCloseHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<CreatureMoveCommand>(new CreatureMoveContainerCloseHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new CreatureMoveTradingRejectHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<CreatureMoveCommand>(new CreatureMoveTradingRejectHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new HouseTileHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<CreatureMoveCommand>(new HouseTileHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new MagicForcefieldHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<CreatureMoveCommand>(new MagicForcefieldHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new HoleHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<CreatureMoveCommand>(new HoleHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new PitfallHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<CreatureMoveCommand>(new PitfallHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new StairsHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<CreatureMoveCommand>(new StairsHandler() );
         }
 
         public override void Stop()

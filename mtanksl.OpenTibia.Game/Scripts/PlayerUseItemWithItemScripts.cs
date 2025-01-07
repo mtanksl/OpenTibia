@@ -11,11 +11,11 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithItemScriptingHandler(true) );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new UseItemWithItemScriptingHandler(true) );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new Runes2Handler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new Runes2Handler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new FishingRodHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new FishingRodHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>( (context, next, command) =>
             {
@@ -29,51 +29,51 @@ namespace OpenTibia.Game.Scripts
                 return next();
             } );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new UseItemWithItemScriptingHandler(false) );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new UseItemWithItemScriptingHandler(false) );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new BakingTrayWithDoughHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new BakingTrayWithDoughHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new BakingTrayWithGarlicDoughHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new BakingTrayWithGarlicDoughHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new BunchOfSugarCaneHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new BunchOfSugarCaneHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new FireBugHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new FireBugHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new FlourHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new FlourHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new FluidItem2Handler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new FluidItem2Handler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new JuiceSqueezerHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new JuiceSqueezerHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new KeyHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new KeyHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new KnifeHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new KnifeHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new LumpOfCakeDoughHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new LumpOfCakeDoughHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new LumpOfChocolateDoughHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new LumpOfChocolateDoughHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new LumpOfDoughHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new LumpOfDoughHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new LumpOfHolyWaterDoughHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new LumpOfHolyWaterDoughHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new LumpOfGarlicDoughHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new LumpOfGarlicDoughHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new MacheteHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new MacheteHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new ObsidianKnifeHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new ObsidianKnifeHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new PickHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new PickHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new RopeHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new RopeHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new ScytheHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new ScytheHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new ShovelHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new ShovelHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new SickleHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new SickleHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler(new WheatHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new WheatHandler() );
         }
 
         public override void Stop()

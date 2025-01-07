@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Game.CommandHandlers;
+using OpenTibia.Game.Commands;
 
 namespace OpenTibia.Game.Scripts
 {
@@ -6,7 +7,7 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
-            Context.Server.CommandHandlers.AddCommandHandler(new TradeWithChestHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerTradeWithCommand>(new TradeWithChestHandler() );
         }
 
         public override void Stop()

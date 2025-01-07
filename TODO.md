@@ -21,10 +21,8 @@
 - Guild
 - Hangable items
 - Map clean up
-- Raids
 - Rings and amulets charges
 - Player balance (banker NPC)
-- Check Gamemaster flag during login
 - ...
 
 # Done (or good enough for now)
