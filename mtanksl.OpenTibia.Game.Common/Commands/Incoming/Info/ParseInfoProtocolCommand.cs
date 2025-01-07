@@ -47,7 +47,7 @@ namespace OpenTibia.Game.Commands
                         new XElement("players",
                             new XAttribute("online", Context.Server.GameObjects.GetPlayers().Count() ),
                             new XAttribute("max", Context.Server.Config.GameplayMaxPlayers),
-                            new XAttribute("peek", 0) ),
+                            new XAttribute("peek", Context.Server.Statistics.PlayersPeek) ),
                         new XElement("monsters",
                             new XAttribute("total", Context.Server.GameObjects.GetMonsters().Count() ) ),
                         new XElement("npcs",
@@ -87,7 +87,7 @@ namespace OpenTibia.Game.Commands
 
                 if (Packet.RequestedInfo.Is(RequestedInfo.PlayersInfo) )
                 {
-                    Context.AddPacket(Connection, new PlayersInfoOutgoingPacket( (uint)Context.Server.GameObjects.GetPlayers().Count(), (uint)Context.Server.Config.GameplayMaxPlayers, 0) );
+                    Context.AddPacket(Connection, new PlayersInfoOutgoingPacket( (uint)Context.Server.GameObjects.GetPlayers().Count(), (uint)Context.Server.Config.GameplayMaxPlayers, Context.Server.Statistics.PlayersPeek) );
                 }
 
                 if (Packet.RequestedInfo.Is(RequestedInfo.MapInfo) )

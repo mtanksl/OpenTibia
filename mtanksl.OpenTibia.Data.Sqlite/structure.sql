@@ -280,5 +280,14 @@ CREATE TABLE HouseItems (
 );
 CREATE INDEX IX_HouseItems_HouseId ON HouseItems (HouseId);
 
+-- ServerStorages
+
+CREATE TABLE ServerStorages (
+    [Key] NVARCHAR (255) NOT NULL PRIMARY KEY,
+    [Value] NVARCHAR (255) NOT NULL
+);
+
+INSERT INTO ServerStorages([Key],[Value]) VALUES ('PlayersPeek','0');
+
 COMMIT TRANSACTION;
 PRAGMA foreign_keys = ON;

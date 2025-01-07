@@ -55,6 +55,7 @@ namespace OpenTibia.Host
                             case "stats":
 
                                 server.Logger.WriteLine("Uptime: " + server.Statistics.Uptime.Days + " days " + server.Statistics.Uptime.Hours + " hours " + server.Statistics.Uptime.Minutes + " minutes", LogLevel.Information);
+                                server.Logger.WriteLine("Players peek: " + server.Statistics.PlayersPeek, LogLevel.Information);
                                 server.Logger.WriteLine("Active connections: " + server.Statistics.ActiveConnections, LogLevel.Information);
                                 server.Logger.WriteLine("Total messages sent: " + server.Statistics.TotalMessagesSent, LogLevel.Information);
                                 server.Logger.WriteLine("Total bytes sent: " + server.Statistics.TotalBytesSent + " bytes (" + ConvertBytesToHumanReadable(server.Statistics.TotalBytesSent) + ")", LogLevel.Information);

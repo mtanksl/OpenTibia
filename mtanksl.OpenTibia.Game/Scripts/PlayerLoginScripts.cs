@@ -13,6 +13,8 @@ namespace OpenTibia.Game.Scripts
             Context.Server.EventHandlers.Subscribe(new WelcomeHandler() );
 
             Context.Server.EventHandlers.Subscribe(new AccountManagerLoginHandler() );
+
+            Context.Server.EventHandlers.Subscribe(new RecordHandler() );
         }
 
         public override void Stop()

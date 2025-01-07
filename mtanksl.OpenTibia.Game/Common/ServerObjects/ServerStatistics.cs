@@ -21,6 +21,20 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
+        private uint playersPeek;
+
+        public uint PlayersPeek
+        {
+            get
+            {
+                return playersPeek;
+            }
+            set
+            {
+                playersPeek = value;
+            }
+        }
+
         private ulong activeConnections;
 
         public ulong ActiveConnections

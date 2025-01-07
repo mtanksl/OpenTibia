@@ -31,6 +31,8 @@ namespace mtanksl.OpenTibia.Host.GUI
         {
             ("Uptime", server => server.Statistics.Uptime.Days + " days " + server.Statistics.Uptime.Hours + " hours " + server.Statistics.Uptime.Minutes + " minutes"),
 
+            ("Players peek", server => server.Statistics.PlayersPeek.ToString() ),
+
             ("Active connections", server => server.Statistics.ActiveConnections.ToString() ),
 
             ("Total messages sent", server => server.Statistics.TotalMessagesSent.ToString() ),

@@ -22,6 +22,8 @@ namespace OpenTibia.Game.Common
 
         IMotdRepository MotdRepository { get; }
 
+        IServerStorageRepository ServerStorageRepository { get; }
+
         IWorldRepository WorldRepository { get; }
 
         bool CanConnect();

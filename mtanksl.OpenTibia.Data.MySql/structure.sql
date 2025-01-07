@@ -368,6 +368,17 @@ CREATE TABLE `Worlds` (
 INSERT INTO `Worlds`(`Id`,`Name`,`Ip`,`Port`) VALUES 
 (1,'Cormaya','127.0.0.1',7172);
 
+-- ServerStorages
+
+CREATE TABLE `ServerStorages`(  
+  `Key` VARCHAR(255) NOT NULL,
+  `Value` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`Key`)
+);
+
+INSERT INTO `ServerStorages`(`Key`, `Value`) VALUES 
+('PlayersPeek', '0'); 
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

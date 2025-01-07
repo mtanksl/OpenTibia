@@ -156,6 +156,23 @@ namespace OpenTibia.Game.Common
             }
         }
 
+        private IServerStorageRepository serverStorageRepository;
+
+        /// <exception cref="ObjectDisposedException"></exception>
+
+        public IServerStorageRepository ServerStorageRepository
+        {
+            get
+            {
+                if (disposed)
+                {
+                    throw new ObjectDisposedException(nameof(Database));
+                }
+
+                return serverStorageRepository ?? (serverStorageRepository = new ServerStorageRepository(databaseContext));
+            }
+        }
+
         private IWorldRepository worldRepository;
 
         /// <exception cref="ObjectDisposedException"></exception>

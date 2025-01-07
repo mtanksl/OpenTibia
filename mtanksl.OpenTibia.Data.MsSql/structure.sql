@@ -430,6 +430,25 @@ GO
 ALTER TABLE [dbo].[HouseItems] CHECK CONSTRAINT [FK_HouseItems_Houses_HouseId]
 GO
 
+-- ServerStorages
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ServerStorages](
+	[Key] [nvarchar](255) NOT NULL,
+	[Value] [nvarchar](255) NOT NULL,
+ CONSTRAINT [PK_ServerStorages] PRIMARY KEY CLUSTERED 
+(
+	[Key] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+INSERT [dbo].[ServerStorages] ([Key], [Value]) VALUES (N'PlayersPeek', N'0')
+GO
+
 SET IDENTITY_INSERT [dbo].[Accounts] ON 
 GO
 INSERT [dbo].[Accounts] ([Id], [Name], [Password], [PremiumUntil]) VALUES (1, N'1', N'1', NULL)

@@ -6,6 +6,8 @@ namespace OpenTibia.Game.Common.ServerObjects
     {
         TimeSpan Uptime { get; }
 
+        uint PlayersPeek { get; set; }
+
         ulong ActiveConnections { get; }
 
         ulong TotalMessagesSent { get; }

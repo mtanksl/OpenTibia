@@ -406,7 +406,7 @@ namespace OpenTibia.Game.Common
                         {
                             foreach (var dbWorld in await database.WorldRepository.GetWorlds() )
                             {
-                                var world = Config.Worlds.Where(w => w.Name == dbWorld.Name).FirstOrDefault();
+                                DbWorld world = Config.Worlds.Where(w => w.Name == dbWorld.Name).FirstOrDefault();
 
                                 if (world != null)
                                 {
@@ -418,6 +418,27 @@ namespace OpenTibia.Game.Common
 
                             await database.Commit();
                         }
+                    }
+
+                    using (Logger.Measure("Loading server storages") )
+                    {
+                        DbServerStorage playersPeek = await database.ServerStorageRepository.GetServerStorageByKey("PlayersPeek");
+
+                        if (playersPeek == null)
+                        {
+                            playersPeek = new DbServerStorage()
+                            {
+                                Key = "PlayersPeek",
+
+                                Value = "0"
+                            };
+
+                            database.ServerStorageRepository.AddServerStorage(playersPeek);
+
+                            await database.Commit();
+                        }
+
+                        Statistics.PlayersPeek = uint.Parse(playersPeek.Value);
                     }
 
                     using (Logger.Measure("Loading houses") )

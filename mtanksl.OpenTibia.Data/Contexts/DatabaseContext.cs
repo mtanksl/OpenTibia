@@ -57,6 +57,9 @@ namespace OpenTibia.Data.Contexts
             modelBuilder.Entity<DbPlayerAchievement>()
                 .HasKey(m => new { m.PlayerId, m.Name } );
 
+            modelBuilder.Entity<DbServerStorage>()
+                .HasKey(m => m.Key);
+
             base.OnModelCreating(modelBuilder);
         }
 
@@ -75,6 +78,8 @@ namespace OpenTibia.Data.Contexts
         public DbSet<DbHouseItem> HouseItems { get; set; }
 
         public DbSet<DbMotd> Motd { get; set; }
+
+        public DbSet<DbServerStorage> ServerStorages { get; set; }
 
         public DbSet<DbPlayer> Players { get; set; }
 
