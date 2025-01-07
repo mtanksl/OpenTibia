@@ -98,7 +98,7 @@ namespace OpenTibia.Game.Scripts
         {
             DateTime now = DateTime.Now;
 
-            DateTime next = GetNextSecond(now, 60 * 1000);
+            DateTime next = GetNextMinute(now);
 
             Promise.Delay("Raid", next - now).Then(() =>
             {

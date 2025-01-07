@@ -63,6 +63,18 @@ namespace OpenTibia.Game.Common.ServerObjects
         void AddPlayerLogoutPlugin(string fileName);
         IEnumerable<PlayerLogoutPlugin> GetPlayerLogoutPlugins();
 
+        void AddServerStartupPlugin(ILuaScope script, LuaTable parameters);
+        void AddServerStartupPlugin(string fileName);
+        IEnumerable<ServerStartupPlugin> GetServerStartupPlugins();
+
+        void AddServerShutdownPlugin(ILuaScope script, LuaTable parameters);
+        void AddServerShutdownPlugin(string fileName);
+        IEnumerable<ServerShutdownPlugin> GetServerShutdownPlugins();
+
+        void AddServerSavePlugin(ILuaScope script, LuaTable parameters);
+        void AddServerSavePlugin(string fileName);
+        IEnumerable<ServerSavePlugin> GetServerSavePlugins();
+
         void AddDialoguePlugin(string name, ILuaScope script, LuaTable parameters);
         void AddDialoguePlugin(string name, string fileName);
         DialoguePlugin GetDialoguePlugin(string name);

@@ -497,6 +497,11 @@ namespace OpenTibia.Game.Common
                     }
                 }
 
+                foreach (var plugin in Plugins.GetServerStartupPlugins() )
+                {
+                    await plugin.OnStartup();
+                }
+
                 await Promise.Completed; return;
 
             } ).Wait();
@@ -905,6 +910,11 @@ namespace OpenTibia.Game.Common
                     await database.Commit();
                 }
 
+                foreach (var plugin in Plugins.GetServerSavePlugins() )
+                {
+                    await plugin.OnSave();
+                }
+
                 await Promise.Completed; return;
 
             } ).Wait();
@@ -934,8 +944,13 @@ namespace OpenTibia.Game.Common
 
         public void Stop()
         {
-            QueueForExecution( () =>
+            QueueForExecution(async () =>
             {
+                foreach (var plugin in Plugins.GetServerShutdownPlugins() )
+                {
+                    await plugin.OnShutdown();
+                }
+
                 Plugins.Stop();
 
                 Scripts.Stop();
@@ -944,7 +959,7 @@ namespace OpenTibia.Game.Common
 
                 Raids.Stop();
 
-                return Promise.Completed;
+                await Promise.Completed; return;
 
             } ).Wait();
 

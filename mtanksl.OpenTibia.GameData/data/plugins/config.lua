@@ -11,7 +11,7 @@
 		-- { type = "CreatureStepIn", opentibiaid = 446, filename = "step in.lua" },
 		-- { type = "CreatureStepOut", opentibiaid = 446, filename = "step out.lua" },
 		-- { type = "InventoryEquip", opentibiaid = 2125, filename = "equip.lua" },
-		-- { type = "InventoryDeEquip", opentibiaid = 2125, filename = "deequip.lua" }
+		-- { type = "InventoryDeEquip", opentibiaid = 2125, filename = "de equip.lua" }
 	},
 	talkactions = {
 		-- { type = "PlayerSay", message = "/hello", filename = "say.lua" }
@@ -19,6 +19,11 @@
 	creaturescripts = {
 		{ type = "PlayerLogin", filename = "login.lua" },
 		{ type = "PlayerLogout", filename = "logout.lua" }
+	},
+	globalevents = {
+		-- { type = "ServerStartup", filename = "startup.lua" },
+		-- { type = "ServerShutdown", filename = "shutdown.lua" },
+		-- { type = "ServerSave", filename = "save.lua" }
 	},
 	npcs = {
 		{ type = "Dialogue", name = "Default", filename = "default.lua" }

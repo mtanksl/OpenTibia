@@ -248,6 +248,31 @@ namespace OpenTibia.Game.Common.ServerObjects
                             }
                             break;
                         }
+                    }                    
+                    else if (initialization.Type == "globalevents")
+                    {
+                        string type = (string)initialization.Parameters["type"];
+
+                        switch (type)
+                        {
+                            case "ServerStartup":
+                            {
+                                pluginCollection.AddServerStartupPlugin(script, initialization.Parameters);
+                            }
+                            break;
+
+                            case "ServerShutdown":
+                            {
+                                pluginCollection.AddServerShutdownPlugin(script, initialization.Parameters);
+                            }
+                            break;
+
+                            case "ServerSave":
+                            {
+                                pluginCollection.AddServerSavePlugin(script, initialization.Parameters);
+                            }
+                            break;
+                        }
                     }
                     else if (initialization.Type == "npcs")
                     {
@@ -548,6 +573,34 @@ namespace OpenTibia.Game.Common.ServerObjects
                     case "PlayerLogout":
                     {
                         AddPlayerLogoutPlugin(fileName);
+                    }
+                    break;
+                }
+            }
+
+            foreach (LuaTable plugin in ( (LuaTable)script["plugins.globalevents"] ).Values)
+            {
+                string type = (string)plugin["type"];
+
+                string fileName = (string)plugin["filename"];
+
+                switch (type)
+                {
+                    case "ServerStartup":
+                    {
+                        AddServerStartupPlugin(fileName);
+                    }
+                    break;
+
+                    case "ServerShutdown":
+                    {
+                        AddServerShutdownPlugin(fileName);
+                    }
+                    break;
+
+                    case "ServerSave":
+                    {
+                        AddServerSavePlugin(fileName);
                     }
                     break;
                 }
@@ -956,7 +1009,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public void AddCreatureStepOutPlugin(ushort openTibiaId, ILuaScope script, LuaTable parameters)
         {
-            AddCreatureStepOutPlugin(openTibiaId, new LuaScriptingCreatureStepOutPlugin(script, parameters));
+            AddCreatureStepOutPlugin(openTibiaId, new LuaScriptingCreatureStepOutPlugin(script, parameters) );
         }
 
         public CreatureStepOutPlugin GetCreatureStepOutPlugin(ushort openTibiaId)
@@ -1107,6 +1160,93 @@ namespace OpenTibia.Game.Common.ServerObjects
         public IEnumerable<PlayerLogoutPlugin> GetPlayerLogoutPlugins()
         {
             return playerLogoutPlugins.GetPlugins();
+        }
+
+        private PluginListCached<ServerStartupPlugin> serverStartupPlugins = new PluginListCached<ServerStartupPlugin>();
+
+        private void AddServerStartupPlugin(ServerStartupPlugin serverStartupPlugin)
+        {
+            serverStartupPlugins.AddPlugin(serverStartupPlugin);
+        }
+
+        public void AddServerStartupPlugin(string fileName)
+        {
+            if (fileName.EndsWith(".lua") )
+            {
+                AddServerStartupPlugin(new LuaScriptingServerStartupPlugin(fileName) );
+            }
+            else
+            {
+                AddServerStartupPlugin( (ServerStartupPlugin)Activator.CreateInstance(server.PluginLoader.GetType(fileName) ) );
+            }
+        }
+
+        public void AddServerStartupPlugin(ILuaScope script, LuaTable parameters)
+        {
+            AddServerStartupPlugin(new LuaScriptingServerStartupPlugin(script, parameters) );
+        }
+
+        public IEnumerable<ServerStartupPlugin> GetServerStartupPlugins()
+        {
+            return serverStartupPlugins.GetPlugins();
+        }
+
+        private PluginListCached<ServerShutdownPlugin> serverShutdownPlugins = new PluginListCached<ServerShutdownPlugin>();
+
+        private void AddServerShutdownPlugin(ServerShutdownPlugin serverShutdownPlugin)
+        {
+            serverShutdownPlugins.AddPlugin(serverShutdownPlugin);
+        }
+
+        public void AddServerShutdownPlugin(string fileName)
+        {
+            if (fileName.EndsWith(".lua") )
+            {
+                AddServerShutdownPlugin(new LuaScriptingServerShutdownPlugin(fileName) );
+            }
+            else
+            {
+                AddServerShutdownPlugin( (ServerShutdownPlugin)Activator.CreateInstance(server.PluginLoader.GetType(fileName) ) );
+            }
+        }
+
+        public void AddServerShutdownPlugin(ILuaScope script, LuaTable parameters)
+        {
+            AddServerShutdownPlugin(new LuaScriptingServerShutdownPlugin(script, parameters) );
+        }
+
+        public IEnumerable<ServerShutdownPlugin> GetServerShutdownPlugins()
+        {
+            return serverShutdownPlugins.GetPlugins();
+        }
+
+        private PluginListCached<ServerSavePlugin> serverSavePlugins = new PluginListCached<ServerSavePlugin>();
+
+        private void AddServerSavePlugin(ServerSavePlugin serverSavePlugin)
+        {
+            serverSavePlugins.AddPlugin(serverSavePlugin);
+        }
+
+        public void AddServerSavePlugin(string fileName)
+        {
+            if (fileName.EndsWith(".lua") )
+            {
+                AddServerSavePlugin(new LuaScriptingServerSavePlugin(fileName) );
+            }
+            else
+            {
+                AddServerSavePlugin( (ServerSavePlugin)Activator.CreateInstance(server.PluginLoader.GetType(fileName) ) );
+            }
+        }
+
+        public void AddServerSavePlugin(ILuaScope script, LuaTable parameters)
+        {
+            AddServerSavePlugin(new LuaScriptingServerSavePlugin(script, parameters) );
+        }
+
+        public IEnumerable<ServerSavePlugin> GetServerSavePlugins()
+        {
+            return serverSavePlugins.GetPlugins();
         }
 
         private PluginDictionary<string, DialoguePlugin> dialoguePlugins = new PluginDictionary<string, DialoguePlugin>();
@@ -1406,6 +1546,12 @@ namespace OpenTibia.Game.Common.ServerObjects
                 playerLoginPlugins.GetPlugins(),
 
                 playerLogoutPlugins.GetPlugins(),
+
+                serverStartupPlugins.GetPlugins(),
+
+                serverSavePlugins.GetPlugins(),
+
+                serverShutdownPlugins.GetPlugins(),
 
                 dialoguePlugins.GetPlugins(),
 

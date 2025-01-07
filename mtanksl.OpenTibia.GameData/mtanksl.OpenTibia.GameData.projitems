@@ -15,6 +15,10 @@
     <None Include="$(MSBuildThisFileDirectory)data\items\tibia.dat" />
     <None Include="$(MSBuildThisFileDirectory)data\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\openTibiaFunctionsReference.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\globalevents\lib.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\globalevents\save.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\globalevents\startup.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\globalevents\shutdown.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\raids\rats.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\raids\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\vocations\config.lua" />
@@ -37,7 +41,7 @@
     <None Include="$(MSBuildThisFileDirectory)data\plugins\creaturescripts\login.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\creaturescripts\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\lib.lua" />
-    <None Include="$(MSBuildThisFileDirectory)data\plugins\movements\deequip.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\movements\de equip.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\movements\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\movements\equip.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\movements\step in.lua" />

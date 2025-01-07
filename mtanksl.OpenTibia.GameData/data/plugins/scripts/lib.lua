@@ -104,6 +104,27 @@ function registercreaturescriptsplayerlogout(onlogout)
     } )
 end
 
+function registerglobaleventsserverstartup(onstartup)
+    registerplugin("globalevents", {
+	    type = "ServerStartup",
+	    onstartup = onstartup
+    } )
+end
+
+function registerglobaleventsservershutdown(onshutdown)
+    registerplugin("globalevents", {
+	    type = "ServerShutdown",
+	    onshutdown = onshutdown
+    } )
+end
+
+function registerglobaleventsserversave(onsave)
+    registerplugin("globalevents", {
+	    type = "ServerSave",
+	    onsave = onsave
+    } )
+end
+
 function registernpcsdialogue(name, handler)
     registerplugin("npcs", { 
         type = "Dialogue", 
