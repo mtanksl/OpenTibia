@@ -96,6 +96,7 @@
 	- Two-handed items
 	- Protection zone
 	- No-logout zone
+	- Raids
 - Interacting with the game world 
 	- Look item
 		- Sign items
