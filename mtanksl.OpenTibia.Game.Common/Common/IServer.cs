@@ -90,6 +90,8 @@ namespace OpenTibia.Game.Common
 
         ISpawnCollection Spawns { get; set; }
 
+        IRaidCollection Raids { get; set; }
+
         IPathfinding Pathfinding { get; set; }
 
         void Start();

@@ -18,7 +18,9 @@ namespace OpenTibia.Game.Scripts
             Tick(0);
              
             Spawn();
-            
+
+            Raid();
+
             Light();
 
             Ping();
@@ -87,6 +89,22 @@ namespace OpenTibia.Game.Scripts
                 Spawn();
 
                 Context.AddEvent(GlobalSpawnEventArgs.Instance);
+
+                return Promise.Completed;
+            } );
+        }
+
+        private void Raid()
+        {
+            DateTime now = DateTime.Now;
+
+            DateTime next = GetNextSecond(now, 60 * 1000);
+
+            Promise.Delay("Raid", next - now).Then(() =>
+            {
+                Raid();
+
+                Context.AddEvent(GlobalRaidEventArgs.Instance);
 
                 return Promise.Completed;
             } );
@@ -240,6 +258,8 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CancelQueueForExecution("Tick");
 
             Context.Server.CancelQueueForExecution("Spawn");
+
+            Context.Server.CancelQueueForExecution("Raid");
 
             Context.Server.CancelQueueForExecution("Light");
 

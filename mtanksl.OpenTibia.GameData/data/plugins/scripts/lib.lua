@@ -1,106 +1,106 @@
 ﻿dofile(getfullpath("data/plugins/npcs/lib.lua"))
 
-function registeractionsplayerrotateitem(opentibiaid, handler)
+function registeractionsplayerrotateitem(opentibiaid, onrotateitem)
     registerplugin("actions", {
 	    type = "PlayerRotateItem",
 	    opentibiaid = opentibiaid, 
-	    onrotateitem = handler
+	    onrotateitem = onrotateitem
     } )
 end
 
-function registeractionsplayeruseitem(opentibiaid, handler)
+function registeractionsplayeruseitem(opentibiaid, onuseitem)
     registerplugin("actions", {
 	    type = "PlayerUseItem",
 	    opentibiaid = opentibiaid, 
-	    onuseitem = handler
+	    onuseitem = onuseitem
     } )
 end
 
-function registeractionsplayeruseitemwithitem(opentibiaid, allowfaruse, handler)
+function registeractionsplayeruseitemwithitem(opentibiaid, allowfaruse, onuseitemwithitem)
     registerplugin("actions", {
 	    type = "PlayerUseItemWithItem",
 	    opentibiaid = opentibiaid,
         allowfaruse = allowfaruse,
-	    onuseitemwithitem = handler
+	    onuseitemwithitem = onuseitemwithitem
     } )
 end
 
-function registeractionsplayeruseitemwithcreature(opentibiaid, allowfaruse, handler)
+function registeractionsplayeruseitemwithcreature(opentibiaid, allowfaruse, onuseitemwithcreature)
     registerplugin("actions", {
 	    type = "PlayerUseItemWithCreature",
 	    opentibiaid = opentibiaid,
         allowfaruse = allowfaruse,
-	    onuseitemwithcreature = handler
+	    onuseitemwithcreature = onuseitemwithcreature
     } )
 end
 
-function registeractionsplayermoveitem(opentibiaid, handler)
+function registeractionsplayermoveitem(opentibiaid, onmoveitem)
     registerplugin("actions", {
 	    type = "PlayerMoveItem",
 	    opentibiaid = opentibiaid,
-	    onmoveitem = handler
+	    onmoveitem = onmoveitem
     } )
 end
 
-function registeractionsplayermovecreature(name, handler)
+function registeractionsplayermovecreature(name, onmovecreature)
     registerplugin("actions", {
 	    type = "PlayerMoveCreature",
 	    name = name,
-	    onmovecreature = handler
+	    onmovecreature = onmovecreature
     } )
 end
 
-function registermovementscreaturestepin(opentibiaid, handler)
+function registermovementscreaturestepin(opentibiaid, onstepin)
     registerplugin("movements", {
 	    type = "CreatureStepIn",
 	    opentibiaid = opentibiaid,
-	    onstepin = handler
+	    onstepin = onstepin
     } )
 end
 
-function registermovementscreaturestepout(opentibiaid, handler)
+function registermovementscreaturestepout(opentibiaid, onstepout)
     registerplugin("movements", {
 	    type = "CreatureStepOut",
 	    opentibiaid = opentibiaid,
-	    onstepout = handler
+	    onstepout = onstepout
     } )
 end
 
-function registermovementsinventoryequip(opentibiaid, handler)
+function registermovementsinventoryequip(opentibiaid, onequip)
     registerplugin("movements", {
 	    type = "InventoryEquip",
 	    opentibiaid = opentibiaid,
-	    onequip = handler
+	    onequip = onequip
     } )
 end
 
-function registermovementsinventorydeequip(opentibiaid, handler)
+function registermovementsinventorydeequip(opentibiaid, ondeequip)
     registerplugin("movements", {
 	    type = "InventoryDeEquip",
 	    opentibiaid = opentibiaid,
-	    ondeequip = handler
+	    ondeequip = ondeequip
     } )
 end
 
-function registertalkactionsplayersay(message, handler)
+function registertalkactionsplayersay(message, onsay)
     registerplugin("talkactions", {
 	    type = "PlayerSay",
 	    message = message,
-	    onsay = handler
+	    onsay = onsay
     } )
 end
 
-function registercreaturescriptsplayerlogin(handler)
+function registercreaturescriptsplayerlogin(onlogin)
     registerplugin("creaturescripts", {
 	    type = "PlayerLogin",
-	    onlogin = handler
+	    onlogin = onlogin
     } )
 end
 
-function registercreaturescriptsplayerlogout(handler)
+function registercreaturescriptsplayerlogout(onlogout)
     registerplugin("creaturescripts", {
 	    type = "PlayerLogout",
-	    onlogout = handler
+	    onlogout = onlogout
     } )
 end
 
@@ -120,5 +120,64 @@ function registernpcsdialogue(name, handler)
         ondisappear = function(npc, player) handler:ondisappear(npc, player) end,
         onenqueue = function(npc, player) handler:onenqueue(npc, player) end,
         ondequeue = function(npc, player) handler:ondequeue(npc, player) end
+    } )
+end
+
+function registerspell(words, name, group, cooldown, groupcooldown, level, mana, soul, premium, vocations, requirestarget, oncasting, oncast)
+    registerplugin("spells", {
+        words = words, 
+        name = name, 
+        group = group, 
+        cooldown = cooldown, 
+        groupcooldown = groupcooldown, 
+        level = level, 
+        mana = mana, 
+        soul = soul, 
+        premium = premium, 
+        vocations = vocations, 
+        requirestarget = requirestarget, 
+        oncasting = oncasting, 
+        oncast = oncast
+    } )
+end
+
+function registerrune(opentibiaid, name, group, groupcooldown, level, magiclevel, requirestarget, onusingrune, onuserune)
+    registerplugin("runes", {
+        opentibiaid = opentibiaid, 
+        name = name, 
+        group = group, 
+        groupcooldown = groupcooldown, 
+        level = level, 
+        magiclevel = magiclevel,
+        requirestarget = requirestarget,
+        onusingrune = onusingrune,
+        onuserune = onuserune
+    } )
+end
+
+function registerweapon(opentibiaid, level, mana, vocations, onuseweapon)
+    registerplugin("weapons", {
+        opentibiaid = opentibiaid,
+        level = level,
+        mana = mana,
+        vocations = vocations,
+        onuseweapon = onuseweapon
+    } )
+end
+
+function registerammunition(opentibiaid, onuseammunition)
+    registerplugin("ammunitions", {
+        opentibiaid = opentibiaid,
+        onuseammunition = onuseammunition
+    } )
+end
+
+function registerraid(name, repeatable, cooldown, chance, onraid)
+    registerplugin("raids", {
+        name = name,
+        repeatable = repeatable,
+        cooldown = cooldown,
+        chance = chance,
+	    onraid = onraid
     } )
 end

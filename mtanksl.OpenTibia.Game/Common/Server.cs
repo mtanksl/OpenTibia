@@ -137,6 +137,8 @@ namespace OpenTibia.Game.Common
 
             Spawns = new SpawnCollection(this);
 
+            Raids = new RaidCollection(this);
+
             Pathfinding = new Pathfinding(Map);
         }
 
@@ -257,6 +259,8 @@ namespace OpenTibia.Game.Common
 
         public ISpawnCollection Spawns { get; set; }
 
+        public IRaidCollection Raids { get; set; }
+
         public IPathfinding Pathfinding { get; set; }
 
         public void Start()
@@ -360,6 +364,11 @@ namespace OpenTibia.Game.Common
                 if (Spawns.UnknownNpcs.Count > 0)
                 {
                     Logger.WriteLine("Unable to load npcs: " + string.Join(", ", Spawns.UnknownNpcs), LogLevel.Warning);
+                }
+
+                using (Logger.Measure("Loading raids") )
+                {
+                    Raids.Start();
                 }
 
                 using (var database = DatabaseFactory.Create() )
@@ -932,6 +941,8 @@ namespace OpenTibia.Game.Common
                 Scripts.Stop();
 
                 Spawns.Stop();
+
+                Raids.Stop();
 
                 return Promise.Completed;
 

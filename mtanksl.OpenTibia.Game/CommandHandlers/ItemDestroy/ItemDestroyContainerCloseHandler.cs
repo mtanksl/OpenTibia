@@ -15,6 +15,8 @@ namespace OpenTibia.Game.CommandHandlers
                 return next().Then( () =>
                 {
                     CloseContainer(container);
+
+                    return Promise.Completed;
                 } );
             }
 

@@ -342,6 +342,21 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                         pluginCollection.AddAmmunitionPlugin(script, initialization.Parameters, ammunition);
                     }
+                    else if (initialization.Type == "raids")
+                    {
+                        Raid raid = new Raid()
+                        {
+                            Name = (string)initialization.Parameters["name"],
+
+                            Repeatable = (bool)initialization.Parameters["repeatable"],
+
+                            Cooldown = (int)(long)initialization.Parameters["cooldown"],
+
+                            Chance = (int)(long)initialization.Parameters["chance"],
+                        };
+
+                        pluginCollection.AddRaidPlugin(script, initialization.Parameters, raid);
+                    }
                 }
             }
 
@@ -644,6 +659,24 @@ namespace OpenTibia.Game.Common.ServerObjects
                 };
 
                 AddAmmunitionPlugin(fileName, ammunition);
+            }
+
+            foreach (LuaTable plugin in ( (LuaTable)script["plugins.raids"] ).Values)
+            {
+                string fileName = (string)plugin["filename"];
+
+                Raid raid = new Raid()
+                {
+                    Name = (string)plugin["name"],
+
+                    Repeatable = (bool)plugin["repeatable"],
+
+                    Cooldown = (int)(long)plugin["cooldown"],
+
+                    Chance = (int)(long)plugin["chance"],
+                };
+
+                AddRaidPlugin(fileName, raid);
             }
 
             foreach (var filePath in Directory.GetFiles(server.PathResolver.GetFullPath("data/plugins/scripts"), "*.lua", SearchOption.AllDirectories) )
@@ -1259,6 +1292,37 @@ namespace OpenTibia.Game.Common.ServerObjects
             return ammunitionPlugins.GetPlugin(openTibiaId);
         }
 
+        private PluginDictionaryCached<string, RaidPlugin> raidPlugins = new PluginDictionaryCached<string, RaidPlugin>();
+
+        private void AddRaidPlugin(RaidPlugin raidPlugin)
+        {
+            raids.Add(raidPlugin.Raid);
+
+            raidPlugins.AddPlugin(raidPlugin.Raid.Name, raidPlugin);
+        }
+
+        public void AddRaidPlugin(string fileName, Raid raid)
+        {
+            if (fileName.EndsWith(".lua") )
+            {
+                AddRaidPlugin(new LuaScriptingRaidPlugin(fileName, raid) );
+            }
+            else
+            {
+                AddRaidPlugin( (RaidPlugin)Activator.CreateInstance(server.PluginLoader.GetType(fileName), raid) );
+            }
+        }
+
+        public void AddRaidPlugin(ILuaScope script, LuaTable parameters, Raid raid)
+        {
+            AddRaidPlugin(new LuaScriptingRaidPlugin(script, parameters, raid) );
+        }
+
+        public RaidPlugin GetRaidPlugin(string name)
+        {
+            return raidPlugins.GetPlugin(name);
+        }
+
         private List<Spell> spells = new List<Spell>();
 
         public List<Spell> Spells
@@ -1296,6 +1360,16 @@ namespace OpenTibia.Game.Common.ServerObjects
             get
             {
                 return ammunitions;
+            }
+        }
+
+        private List<Raid> raids = new List<Raid>();
+
+        public List<Raid> Raids
+        {
+            get
+            {
+                return raids;
             }
         }
 
@@ -1345,7 +1419,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                 weaponPlugins.GetPlugins(),
 
-                ammunitionPlugins.GetPlugins()
+                ammunitionPlugins.GetPlugins(),
+
+                raidPlugins.GetPlugins()
             };
 
             foreach (var pluginList in pluginLists)

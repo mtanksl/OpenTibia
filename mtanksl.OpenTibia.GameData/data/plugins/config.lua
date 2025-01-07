@@ -148,5 +148,8 @@
 	ammunitions = {
 		{ opentibiaid = 2545, filename = "OpenTibia.Plugins.Ammunitions.PoisonArrowAmmunitionPlugin, mtanksl.OpenTibia.Plugins" },
 		{ opentibiaid = 2546, filename = "OpenTibia.Plugins.Ammunitions.BurstArrowAmmunitionPlugin, mtanksl.OpenTibia.Plugins" }
+	},
+	raids = {
+		-- { name = "Rat plague", repeatable = true, cooldown = 60, chance = 144, filename = "rats.lua" }
 	}
 }

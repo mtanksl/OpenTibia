@@ -21,5 +21,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         PromiseResult<object[]> CallFunction(string name, params object[] args);
 
         PromiseResult<object[]> CallFunction(LuaFunction luaFunction, params object[] args);
+
+        LuaTable ToTable<T>(T[] value);
     }
 }

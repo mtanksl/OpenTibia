@@ -83,6 +83,10 @@ namespace OpenTibia.Game.Common.ServerObjects
         void AddAmmunitionPlugin(string fileName, Ammunition ammunition);
         AmmunitionPlugin GetAmmunitionPlugin(ushort openTibiaId);
 
+        void AddRaidPlugin(ILuaScope script, LuaTable parameters, Raid raid);
+        void AddRaidPlugin(string fileName, Raid raid);
+        RaidPlugin GetRaidPlugin(string name);
+
         List<Spell> Spells { get; }
 
         List<Rune> Runes { get; }
@@ -90,6 +94,8 @@ namespace OpenTibia.Game.Common.ServerObjects
         List<Weapon> Weapons { get; }
 
         List<Ammunition> Ammunitions { get; }
+
+        List<Raid> Raids { get; }
 
         void Stop();
     }

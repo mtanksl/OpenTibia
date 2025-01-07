@@ -127,6 +127,8 @@ namespace OpenTibia.Game.CommandHandlers
                     CloseContainer(container, isNextFrom, isNextTo);
 
                     UpdateContainer(container, isNextFrom, isNextTo);
+
+                    return Promise.Completed;
                 } );
             }
 

@@ -20,7 +20,6 @@ namespace OpenTibia.Game.Common.ServerObjects
             lua["package.cpath"] = Path.Combine(server.PathResolver.GetFullPath("data/clibs"), "?.dll");
 
             lua.DoString("""
-
                 bridge = {}
                 function bridge.call(name, ...)
                 	local method = { 
@@ -140,13 +139,13 @@ namespace OpenTibia.Game.Common.ServerObjects
                 throw new ObjectDisposedException(nameof(LuaScope) );
             }
 
-            if (parent == null)
+            if (parent != null)
             {
-                lua.RegisterFunction(name, target, method);
+                parent.RegisterFunction(name, target, method);
             }
             else
             {
-                parent.RegisterFunction(name, target, method);
+                lua.RegisterFunction(name, target, method);
             }
         }
 
@@ -309,6 +308,32 @@ namespace OpenTibia.Game.Common.ServerObjects
                         lua.Dispose();
                     }
                 }
+            }
+        }
+
+        /// <exception cref="ObjectDisposedException"></exception>
+
+        public LuaTable ToTable<T>(T[] value) // Because there is an issue that throws ArrayOutOfBoundsException when iterating a C# array object using ipairs in lua
+        {
+            if (disposed)
+            {
+                throw new ObjectDisposedException(nameof(LuaScope) );
+            }
+
+            if (parent != null)
+            {
+                return parent.ToTable(value);               
+            }
+            else
+            {
+                var table = (LuaTable)lua.DoString("return setmetatable( {}, { __mode = 'v' } )")[0];
+
+                for (int i = 0; i < value.Length; i++)
+                {
+                    table[i + 1] = value[i];
+                }
+
+                return table;
             }
         }
 

@@ -58,20 +58,20 @@ return {
 		type = "lib",
 		description = "",
 		childs = {			
-			-- void command.delay(int seconds)
-			-- string command.delay(int seconds, Action callback)
+			-- void command.delay(int milliseconds)
+			-- string command.delay(int milliseconds, Action callback)
 			delay = {
 				type = "function",
 				description = "",
-				args = "(int seconds [, Action callback])",
+				args = "(int milliseconds [, Action callback])",
 				returns = "string"
 			},
-			-- void command.delaygameobject(GameObject gameObject, int seconds)
-			-- string command.delaygameobject(GameObject gameObject, int seconds, Action callback)
+			-- void command.delaygameobject(GameObject gameObject, int milliseconds)
+			-- string command.delaygameobject(GameObject gameObject, int milliseconds, Action callback)
 			delaygameobject = {
 				type = "function",
 				description = "",
-				args = "(GameObject gameObject, int seconds [, Action callback])",
+				args = "(GameObject gameObject, int milliseconds [, Action callback])",
 				returns = "string"
 			},
 			-- bool command.canceldelay(string key)
@@ -779,6 +779,20 @@ return {
 				description = "",
 				args = "(Position position)",
 				returns = "Tile"
+			},
+			-- Player[] command.mapgetobserversoftypeplayer(Position position)
+			mapgetobserversoftypeplayer = {
+				type = "function",
+				description = "",
+				args = "(Position position)",
+				returns = "Player[]"
+			},
+			-- Player[] command.gameobjectsgetplayers()
+			gameobjectsgetplayers = {
+				type = "function",
+				description = "",
+				args = "()",
+				returns = "Player[]"
 			},
 			-- Player command.gameobjectsgetplayerbyname(string name)
 			gameobjectsgetplayerbyname = {

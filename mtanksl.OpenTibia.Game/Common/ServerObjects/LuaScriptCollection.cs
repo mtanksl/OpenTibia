@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             {                   
                 string key = Guid.NewGuid().ToString();
 
-                Promise promise = Promise.Delay(key, TimeSpan.FromSeconds( (long)parameters[0] ) );
+                Promise promise = Promise.Delay(key, TimeSpan.FromMilliseconds( (long)parameters[0] ) );
 
                 if (parameters.Length == 2)
                 {
@@ -60,7 +60,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             lua.RegisterCoFunction("delaygameobject", (luaScope, parameters) =>
             {
-                MultipleDelayBehaviour multipleDelayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)parameters[0], new MultipleDelayBehaviour(TimeSpan.FromSeconds( (long)parameters[1] ) ), false);
+                MultipleDelayBehaviour multipleDelayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)parameters[0], new MultipleDelayBehaviour(TimeSpan.FromMilliseconds( (long)parameters[1] ) ), false);
 
                 if (parameters.Length == 3)
                 {
@@ -720,8 +720,10 @@ namespace OpenTibia.Game.Common.ServerObjects
             lua.RegisterCoFunction("playergetachievements", (luaScope, parameters) =>
             {
                 Player player = (Player)parameters[0];
-                
-                return Promise.FromResult<object[]>(player.Achievements.GetAchievements().ToArray() );
+
+                string[] achievements = player.Achievements.GetAchievements().ToArray();
+
+                return Promise.FromResult(new object[] { lua.ToTable(achievements) } );
             } );
 
             lua.RegisterCoFunction("playerhasachievement", (luaScope, parameters) =>
@@ -752,8 +754,10 @@ namespace OpenTibia.Game.Common.ServerObjects
             lua.RegisterCoFunction("playergetspells", (luaScope, parameters) =>
             {
                 Player player = (Player)parameters[0];
-                
-                return Promise.FromResult<object[]>(player.Spells.GetSpells().ToArray() );
+
+                string[] spells = player.Spells.GetSpells().ToArray();
+
+                return Promise.FromResult(new object[] { lua.ToTable(spells) } );
             } );
 
             lua.RegisterCoFunction("playerhasspell", (luaScope, parameters) =>
@@ -784,8 +788,10 @@ namespace OpenTibia.Game.Common.ServerObjects
             lua.RegisterCoFunction("playergetblesses", (luaScope, parameters) =>
             {
                 Player player = (Player)parameters[0];
-                
-                return Promise.FromResult<object[]>(player.Blesses.GetBlesses().ToArray() );
+
+                string[] blesses = player.Blesses.GetBlesses().ToArray();
+
+                return Promise.FromResult(new object[] { lua.ToTable(blesses) } );
             } );
 
             lua.RegisterCoFunction("playerhasbless", (luaScope, parameters) =>
@@ -984,6 +990,20 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResult(new object[] { tile } );
             } );
 
+            lua.RegisterCoFunction("mapgetobserversoftypeplayer", (luaScope, parameters) =>
+            {
+                Player[] players = Context.Current.Server.Map.GetObserversOfTypePlayer(ToPosition(parameters[0] ) ).ToArray();
+
+                return Promise.FromResult(new object[] { lua.ToTable(players) } );
+            } );
+
+            lua.RegisterCoFunction("gameobjectsgetplayers", (luaScope, parameters) =>
+            {
+                Player[] players = Context.Current.Server.GameObjects.GetPlayers().ToArray();
+
+                return Promise.FromResult(new object[] { lua.ToTable(players) } );
+            } );
+
             lua.RegisterCoFunction("gameobjectsgetplayerbyname", (luaScope, parameters) =>
             {
                 Player player = Context.Current.Server.GameObjects.GetPlayerByName( (string)parameters[0] );
@@ -1045,6 +1065,10 @@ namespace OpenTibia.Game.Common.ServerObjects
             else if (file == "outfits")
             {
                 return server.Outfits.GetValue(key);
+            }
+            else if (file == "vocations")
+            {
+                return server.Vocations.GetValue(key);
             }
             else if (file == "plugins")
             {
