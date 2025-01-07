@@ -75,6 +75,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         public int GameplayMonsterDeSpawnRadius { get; set; }
         public bool GameplayMonsterRemoveOnDeSpawn { get; set; }
         public int GameplayLootRate { get; set; }
+        public int GameplayMoneyRate { get; set; }
         public double GameplayExperienceRate { get; set; }
         public ExperienceStagesConfig GameplayExperienceStages { get; set; }
 
@@ -273,7 +274,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             GameplayLootRate = LuaScope.GetInt32(script["server.game.gameplay.lootrate"], 1);
 
-            GameplayExperienceRate = LuaScope.GetDouble(script["server.game.gameplay.experiencerate"], 1);
+            GameplayMoneyRate = LuaScope.GetInt32(script["server.game.gameplay.moneyRate"], 1);
+
+            GameplayExperienceRate = LuaScope.GetDouble(script["server.game.gameplay.experiencerate"], 1.0);
 
             LuaTable stages = (LuaTable)script["server.game.gameplay.experiencestages"];
 

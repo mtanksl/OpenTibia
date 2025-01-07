@@ -91,6 +91,7 @@ server = {
 			monsterdespawnradius = 50,
 			monsterremoveondespawn = true,
 			lootrate = 1,
+			moneyRate = 1,
 			experiencerate = 1.0,
 			experiencestages = {
 				enabled = false,

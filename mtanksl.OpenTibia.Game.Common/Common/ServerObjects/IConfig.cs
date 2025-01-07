@@ -59,6 +59,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         int GameplayMonsterDeSpawnRadius { get; set; }
         bool GameplayMonsterRemoveOnDeSpawn { get; set; }
         int GameplayLootRate { get; set; }
+        int GameplayMoneyRate { get; set; }
         double GameplayExperienceRate { get; set; }
         ExperienceStagesConfig GameplayExperienceStages { get; set; }
 

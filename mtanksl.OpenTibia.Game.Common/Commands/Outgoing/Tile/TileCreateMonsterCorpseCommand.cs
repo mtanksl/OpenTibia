@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
 using System;
 
@@ -6,8 +7,16 @@ namespace OpenTibia.Game.Commands
 {
     public class TileCreateMonsterCorpseCommand : CommandResult<Item>
     {
+        private readonly ushort goldCoin;
+        private readonly ushort platinumCoin;
+        private readonly ushort crystalCoin;
+
         public TileCreateMonsterCorpseCommand(Tile tile, MonsterMetadata metadata)
         {
+            goldCoin = Context.Server.Values.GetUInt16("values.items.goldCoin");
+            platinumCoin = Context.Server.Values.GetUInt16("values.items.platinumCoin");
+            crystalCoin = Context.Server.Values.GetUInt16("values.items.crystalCoin");
+
             Tile = tile;
 
             Metadata = metadata;
@@ -29,9 +38,27 @@ namespace OpenTibia.Game.Commands
                         {
                             if (Context.Server.Randomization.HasProbability( (double)Context.Server.Config.GameplayLootRate / lootItem.KillsToGetOne) )
                             {
-                                //TODO: CountMax for unstackable items
+                                int min = 1;
 
-                                int total = Context.Server.Randomization.Take(lootItem.CountMin, lootItem.CountMax);
+                                int max = 1;
+
+                                if (lootItem.OpenTibiaId == goldCoin || lootItem.OpenTibiaId == platinumCoin || lootItem.OpenTibiaId == crystalCoin)
+                                {
+                                    max *= Context.Server.Config.GameplayMoneyRate;
+                                }
+                                else
+                                {
+                                    ItemMetadata itemMetadata = Context.Server.ItemFactory.GetItemMetadataByOpenTibiaId(lootItem.OpenTibiaId);
+
+                                    if (itemMetadata.Flags.Is(ItemMetadataFlags.Stackable) )
+                                    {
+                                        min = lootItem.CountMin;
+
+                                        max = lootItem.CountMax;
+                                    }
+                                }
+
+                                int total = Context.Server.Randomization.Take(min, max);
 
                                 while (total > 0)
                                 {
