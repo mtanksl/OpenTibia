@@ -23,7 +23,8 @@
 	globalevents = {
 		-- { type = "ServerStartup", filename = "startup.lua" },
 		-- { type = "ServerShutdown", filename = "shutdown.lua" },
-		-- { type = "ServerSave", filename = "save.lua" }
+		-- { type = "ServerSave", filename = "save.lua" },
+		{ type = "ServerRecord", filename = "record.lua" }
 	},
 	npcs = {
 		{ type = "Dialogue", name = "Default", filename = "default.lua" }

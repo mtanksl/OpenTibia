@@ -272,6 +272,12 @@ namespace OpenTibia.Game.Common.ServerObjects
                                 pluginCollection.AddServerSavePlugin(script, initialization.Parameters);
                             }
                             break;
+
+                            case "ServerRecord":
+                            {
+                                pluginCollection.AddServerRecordPlugin(script, initialization.Parameters);
+                            }
+                            break;
                         }
                     }
                     else if (initialization.Type == "npcs")
@@ -601,6 +607,12 @@ namespace OpenTibia.Game.Common.ServerObjects
                     case "ServerSave":
                     {
                         AddServerSavePlugin(fileName);
+                    }
+                    break;
+                        
+                    case "ServerRecord":
+                    {
+                        AddServerRecordPlugin(fileName);
                     }
                     break;
                 }
@@ -1249,6 +1261,35 @@ namespace OpenTibia.Game.Common.ServerObjects
             return serverSavePlugins.GetPlugins();
         }
 
+        private PluginListCached<ServerRecordPlugin> serverRecordPlugins = new PluginListCached<ServerRecordPlugin>();
+
+        private void AddServerRecordPlugin(ServerRecordPlugin serverRecordPlugin)
+        {
+            serverRecordPlugins.AddPlugin(serverRecordPlugin);
+        }
+
+        public void AddServerRecordPlugin(string fileName)
+        {
+            if (fileName.EndsWith(".lua") )
+            {
+                AddServerRecordPlugin(new LuaScriptingServerRecordPlugin(fileName) );
+            }
+            else
+            {
+                AddServerRecordPlugin( (ServerRecordPlugin)Activator.CreateInstance(server.PluginLoader.GetType(fileName) ) );
+            }
+        }
+
+        public void AddServerRecordPlugin(ILuaScope script, LuaTable parameters)
+        {
+            AddServerRecordPlugin(new LuaScriptingServerRecordPlugin(script, parameters) );
+        }
+
+        public IEnumerable<ServerRecordPlugin> GetServerRecordPlugins()
+        {
+            return serverRecordPlugins.GetPlugins();
+        }
+
         private PluginDictionary<string, DialoguePlugin> dialoguePlugins = new PluginDictionary<string, DialoguePlugin>();
 
         private void AddDialoguePlugin(string name, Func<DialoguePlugin> dialoguePlugin)
@@ -1550,6 +1591,8 @@ namespace OpenTibia.Game.Common.ServerObjects
                 serverStartupPlugins.GetPlugins(),
 
                 serverSavePlugins.GetPlugins(),
+
+                serverRecordPlugins.GetPlugins(),
 
                 serverShutdownPlugins.GetPlugins(),
 

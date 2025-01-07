@@ -16,6 +16,7 @@
     <None Include="$(MSBuildThisFileDirectory)data\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\openTibiaFunctionsReference.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\globalevents\lib.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\globalevents\record.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\globalevents\save.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\globalevents\startup.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\globalevents\shutdown.lua" />

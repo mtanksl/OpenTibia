@@ -125,6 +125,13 @@ function registerglobaleventsserversave(onsave)
     } )
 end
 
+function registerglobaleventsserverrecord(onrecord)
+    registerplugin("globalevents", {
+	    type = "ServerRecord",
+	    onrecord = onrecord
+    } )
+end
+
 function registernpcsdialogue(name, handler)
     registerplugin("npcs", { 
         type = "Dialogue", 

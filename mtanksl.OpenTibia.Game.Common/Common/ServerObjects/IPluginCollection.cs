@@ -75,6 +75,10 @@ namespace OpenTibia.Game.Common.ServerObjects
         void AddServerSavePlugin(string fileName);
         IEnumerable<ServerSavePlugin> GetServerSavePlugins();
 
+        void AddServerRecordPlugin(ILuaScope script, LuaTable parameters);
+        void AddServerRecordPlugin(string fileName);
+        IEnumerable<ServerRecordPlugin> GetServerRecordPlugins();
+
         void AddDialoguePlugin(string name, ILuaScope script, LuaTable parameters);
         void AddDialoguePlugin(string name, string fileName);
         DialoguePlugin GetDialoguePlugin(string name);

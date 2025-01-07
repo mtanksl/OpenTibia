@@ -3,8 +3,8 @@ using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
 
 namespace OpenTibia.Game.Plugins
-{    
-    public class LuaScriptingServerSavePlugin : ServerSavePlugin
+{
+    public class LuaScriptingServerRecordPlugin : ServerRecordPlugin
     {
         private string fileName;
 
@@ -12,12 +12,12 @@ namespace OpenTibia.Game.Plugins
 
         private LuaTable parameters;
 
-        public LuaScriptingServerSavePlugin(string fileName)
+        public LuaScriptingServerRecordPlugin(string fileName)
         {
             this.fileName = fileName;
         }
 
-        public LuaScriptingServerSavePlugin(ILuaScope script, LuaTable parameters)
+        public LuaScriptingServerRecordPlugin(ILuaScope script, LuaTable parameters)
         {
             this.script = script;
 
@@ -36,15 +36,15 @@ namespace OpenTibia.Game.Plugins
             }
         }
 
-        public override Promise OnSave()
+        public override Promise OnRecord(uint count)
         {
             if (fileName != null)
             {
-                return script.CallFunction("onsave");
+                return script.CallFunction("onrecord", count);
             }
             else
             {
-                return script.CallFunction( (LuaFunction)parameters["onsave"] );
+                return script.CallFunction( (LuaFunction)parameters["onrecord"], count);
             }           
         }
 

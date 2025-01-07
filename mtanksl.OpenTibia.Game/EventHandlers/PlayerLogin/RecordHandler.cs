@@ -37,6 +37,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                     await database.Commit();
                 }
+
+                foreach (var plugin in Context.Server.Plugins.GetServerRecordPlugins() )
+                {
+                    await plugin.OnRecord(count);
+                }
             }
         }
     }    
