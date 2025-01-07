@@ -42,20 +42,18 @@ namespace OpenTibia.Game.Commands
 
                                 int max = 1;
 
+                                ItemMetadata itemMetadata = Context.Server.ItemFactory.GetItemMetadataByOpenTibiaId(lootItem.OpenTibiaId);
+
+                                if (itemMetadata.Flags.Is(ItemMetadataFlags.Stackable) )
+                                {
+                                    min = lootItem.CountMin;
+
+                                    max = lootItem.CountMax;
+                                }
+
                                 if (lootItem.OpenTibiaId == goldCoin || lootItem.OpenTibiaId == platinumCoin || lootItem.OpenTibiaId == crystalCoin)
                                 {
                                     max *= Context.Server.Config.GameplayMoneyRate;
-                                }
-                                else
-                                {
-                                    ItemMetadata itemMetadata = Context.Server.ItemFactory.GetItemMetadataByOpenTibiaId(lootItem.OpenTibiaId);
-
-                                    if (itemMetadata.Flags.Is(ItemMetadataFlags.Stackable) )
-                                    {
-                                        min = lootItem.CountMin;
-
-                                        max = lootItem.CountMax;
-                                    }
                                 }
 
                                 int total = Context.Server.Randomization.Take(min, max);
