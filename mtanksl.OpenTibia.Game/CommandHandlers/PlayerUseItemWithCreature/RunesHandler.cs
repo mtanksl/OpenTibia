@@ -5,6 +5,7 @@ using OpenTibia.Game.Components;
 using OpenTibia.Game.Plugins;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
+using System.Linq;
 
 namespace OpenTibia.Game.CommandHandlers
 {
@@ -16,6 +17,15 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (plugin != null)
             {
+                if (plugin.Rune.Vocations != null && !plugin.Rune.Vocations.Contains(command.Player.Vocation) )
+                {
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourVocationCannotUseThisSpell) );
+
+                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+
+                    await Promise.Break;
+                }
+
                 if (command.Player.Level < plugin.Rune.Level)
                 {
                     Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughLevel) );

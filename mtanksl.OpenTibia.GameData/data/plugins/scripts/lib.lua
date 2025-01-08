@@ -169,7 +169,7 @@ function registerspell(words, name, group, cooldown, groupcooldown, level, mana,
     } )
 end
 
-function registerrune(opentibiaid, name, group, groupcooldown, level, magiclevel, requirestarget, onusingrune, onuserune)
+function registerrune(opentibiaid, name, group, groupcooldown, level, magiclevel, vocations, requirestarget, onusingrune, onuserune)
     registerplugin("runes", {
         opentibiaid = opentibiaid, 
         name = name, 
@@ -177,6 +177,7 @@ function registerrune(opentibiaid, name, group, groupcooldown, level, magiclevel
         groupcooldown = groupcooldown, 
         level = level, 
         magiclevel = magiclevel,
+        vocations = vocations, 
         requirestarget = requirestarget,
         onusingrune = onusingrune,
         onuserune = onuserune

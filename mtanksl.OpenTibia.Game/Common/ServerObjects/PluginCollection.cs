@@ -344,7 +344,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                             Level = LuaScope.GetInt32(initialization.Parameters["level"] ),
 
-                            MagicLevel = LuaScope.GetInt32(initialization.Parameters["magiclevel"] )
+                            MagicLevel = LuaScope.GetInt32(initialization.Parameters["magiclevel"] ),
+
+                            Vocations = ( (LuaTable)initialization.Parameters["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
                         };
 
                         pluginCollection.AddRunePlugin(requiresTarget, script, initialization.Parameters, rune);
@@ -690,7 +692,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Level = LuaScope.GetInt32(plugin["level"] ),
 
-                    MagicLevel = LuaScope.GetInt32(plugin["magiclevel"] )
+                    MagicLevel = LuaScope.GetInt32(plugin["magiclevel"] ),
+                          
+                    Vocations = ( (LuaTable)plugin["vocations"] ).Values.Cast<long>().Select(v => (Vocation)v ).ToArray()
                 };
 
                 AddRunePlugin(requiresTarget, fileName, rune);

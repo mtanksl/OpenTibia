@@ -33,20 +33,23 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Execute()
         {
-            int damage = Attack.Calculate(Attacker, Target);
-
-            if (damage == 0)
+            if (Attack != null)
             {
-                await Attack.Missed(Attacker, Target);
-            }
-            else
-            {
-                await Attack.Hit(Attacker, Target, damage);
+                int damage = Attack.Calculate(Attacker, Target);
 
-                if (Condition != null)
+                if (damage == 0)
                 {
-                    await Context.AddCommand(new CreatureAddConditionCommand(Target, Condition) );
+                    await Attack.Missed(Attacker, Target);
                 }
+                else
+                {
+                    await Attack.Hit(Attacker, Target, damage);
+                }
+            }
+
+            if (Condition != null)
+            {
+                await Context.AddCommand(new CreatureAddConditionCommand(Target, Condition) );
             }
         }
     }

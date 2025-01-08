@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTibia.Common.Structures;
+using System;
 
 namespace OpenTibia.Game.Plugins
 {
@@ -15,5 +16,7 @@ namespace OpenTibia.Game.Plugins
         public int Level { get; set; }
 
         public int MagicLevel { get; set; }
+
+        public Vocation[] Vocations { get; set; }
     }
 }
