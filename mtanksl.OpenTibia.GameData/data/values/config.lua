@@ -297,6 +297,7 @@
 		},
 		bunchOfSugarCane = 5467,
 		bunchOfSugarCanes = { 5467 },
+		blankrune = 2260,
 		cake = 6278,
 		campfires = { 1423, 1424, 1425 },
 		candlesticks = { 2048 },
@@ -315,6 +316,8 @@
 		drawWells = { 1368, 1369 },		
 		dustbins = { 1777 },
 		emptyVial = 11396,
+		enchantedstaff = 2433,
+		enchantedspear = 7367,
 		energyFields = { 1491, 1495 },
 		explosivePresents = { 8110 },
 		fields = {
@@ -499,6 +502,7 @@
 		snowBall = 2111,
 		snowHeaps = { 486 },
 		solitudeCharms = { 11262 },
+		spear = 2389,
 		spellbooks = { 2175 },
 		spiritualCharms = { 11260 },
 		stairs = {
@@ -509,6 +513,7 @@
             8372, 8374, 8376, 8378,            
             1398, 1400, 1402, 1404, 1553, 1555, 1557, 1559 -- Pyramid
 		},
+		staff = 2401,
 		stampedLetter = 2598,
 		stampedParcel = 2596,
 		strongEmptyPotionFlask = 7634,

@@ -6,18 +6,20 @@ using OpenTibia.Game.Plugins;
 
 namespace OpenTibia.Plugins.Spells
 {
-    public class ConjureRuneSpellPlugin : SpellPlugin
+    public class ConjureEnchantedSpearSpellPlugin : SpellPlugin
     {
-        private readonly ushort blankRune;
+        private readonly ushort spear;
+        private readonly ushort enchantedSpear;
 
-        public ConjureRuneSpellPlugin(Spell spell) : base(spell)
+        public ConjureEnchantedSpearSpellPlugin(Spell spell) : base(spell)
         {
-            blankRune = Context.Server.Values.GetUInt16("values.items.blankrune");
+            spear = Context.Server.Values.GetUInt16("values.items.spear");
+            enchantedSpear = Context.Server.Values.GetUInt16("values.items.enchantedspear");
         }
 
         public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
         {
-            return Context.AddCommand(new PlayerCountItemsCommand(player, blankRune, 1) ).Then( (count) =>
+            return Context.AddCommand(new PlayerCountItemsCommand(player, spear, 1) ).Then( (count) =>
             {
                 return count > 0 ? Promise.FromResultAsBooleanTrue : Promise.FromResultAsBooleanFalse;
             } );
@@ -25,17 +27,13 @@ namespace OpenTibia.Plugins.Spells
 
         public override Promise OnCast(Player player, Creature target, string message)
         {
-            ushort openTibiaId = Spell.ConjureOpenTibiaId.Value;
-
-            int count = Spell.ConjureCount.Value;
-
             return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.BlueShimmer) ).Then( () =>
             {
-                return Context.AddCommand(new PlayerCreateItemsCommand(player, openTibiaId, 1, count) );
+                return Context.AddCommand(new PlayerCreateItemsCommand(player, enchantedSpear, 1, 1) );
 
             } ).Then( () =>
             {
-                return Context.AddCommand(new PlayerDestroyItemsCommand(player, blankRune, 1, 1) );
+                return Context.AddCommand(new PlayerDestroyItemsCommand(player, spear, 1, 1) );
             } );
         }
      }

@@ -12,8 +12,8 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private readonly HashSet<ushort> fishingRods;
         private readonly HashSet<ushort> shallowWaters;
-        private static ushort worm;
-        private static ushort fish;
+        private readonly ushort worm;
+        private readonly ushort fish;
 
         public FishingRodHandler()
         {

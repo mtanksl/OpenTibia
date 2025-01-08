@@ -11,7 +11,7 @@ namespace OpenTibia.Game.CommandHandlers
         private readonly HashSet<ushort> scythes;
         private readonly Dictionary<ushort, ushort> wheats;
         private readonly Dictionary<ushort, ushort> decay;
-        private static ushort wheat;
+        private readonly ushort wheat;
 
         public ScytheHandler()
         {

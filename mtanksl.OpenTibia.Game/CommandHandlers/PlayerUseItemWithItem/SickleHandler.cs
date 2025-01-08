@@ -11,7 +11,7 @@ namespace OpenTibia.Game.CommandHandlers
         private readonly HashSet<ushort> sickles;
         private readonly Dictionary<ushort, ushort> sugarCanes;
         private readonly Dictionary<ushort, ushort> decay;
-        private static ushort bunchOfSugarCane;
+        private readonly ushort bunchOfSugarCane;
 
         public SickleHandler()
         {

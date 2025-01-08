@@ -6,18 +6,20 @@ using OpenTibia.Game.Plugins;
 
 namespace OpenTibia.Plugins.Spells
 {
-    public class ConjureRuneSpellPlugin : SpellPlugin
+    public class ConjureEnchantedStaffSpellPlugin : SpellPlugin
     {
-        private readonly ushort blankRune;
+        private readonly ushort staff;
+        private readonly ushort enchantedStaff;
 
-        public ConjureRuneSpellPlugin(Spell spell) : base(spell)
+        public ConjureEnchantedStaffSpellPlugin(Spell spell) : base(spell)
         {
-            blankRune = Context.Server.Values.GetUInt16("values.items.blankrune");
+            staff = Context.Server.Values.GetUInt16("values.items.staff");
+            enchantedStaff = Context.Server.Values.GetUInt16("values.items.enchantedstaff");
         }
 
         public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
         {
-            return Context.AddCommand(new PlayerCountItemsCommand(player, blankRune, 1) ).Then( (count) =>
+            return Context.AddCommand(new PlayerCountItemsCommand(player, staff, 1) ).Then( (count) =>
             {
                 return count > 0 ? Promise.FromResultAsBooleanTrue : Promise.FromResultAsBooleanFalse;
             } );
@@ -25,17 +27,13 @@ namespace OpenTibia.Plugins.Spells
 
         public override Promise OnCast(Player player, Creature target, string message)
         {
-            ushort openTibiaId = Spell.ConjureOpenTibiaId.Value;
-
-            int count = Spell.ConjureCount.Value;
-
             return Context.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.BlueShimmer) ).Then( () =>
             {
-                return Context.AddCommand(new PlayerCreateItemsCommand(player, openTibiaId, 1, count) );
+                return Context.AddCommand(new PlayerCreateItemsCommand(player, enchantedStaff, 1, 1) );
 
             } ).Then( () =>
             {
-                return Context.AddCommand(new PlayerDestroyItemsCommand(player, blankRune, 1, 1) );
+                return Context.AddCommand(new PlayerDestroyItemsCommand(player, staff, 1, 1) );
             } );
         }
      }
