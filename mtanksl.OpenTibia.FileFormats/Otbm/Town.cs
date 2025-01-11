@@ -20,6 +20,21 @@ namespace OpenTibia.FileFormats.Otbm
             return town;
         }
 
+        public static void Save(Town town, ByteArrayMemoryFileTreeStream stream, ByteArrayStreamWriter writer)
+        {
+            writer.Write( (byte)OtbmType.Town);
+
+            writer.Write( (uint)town.Id);
+            
+            writer.Write( (string)town.Name);
+
+            writer.Write( (ushort)town.Position.X);
+
+            writer.Write( (ushort)town.Position.Y);
+
+            writer.Write( (byte)town.Position.Z);
+        }
+
         public uint Id { get; set; }
 
         public string Name { get; set; }

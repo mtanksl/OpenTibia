@@ -52,6 +52,36 @@ namespace OpenTibia.FileFormats.Otbm
             return area;
         }
 
+        public static void Save(Area area, ByteArrayMemoryFileTreeStream stream, ByteArrayStreamWriter writer)
+        {
+            writer.Write( (byte)OtbmType.Area);
+
+            writer.Write( (ushort)area.Position.X);
+
+            writer.Write( (ushort)area.Position.Y);
+
+            writer.Write( (byte)area.Position.Z);
+
+            if (area.tiles != null)
+            {
+                foreach (var tile in area.tiles)
+                {
+                    stream.StartChild();
+
+                    if (tile is HouseTile houseTile)
+                    {
+                        HouseTile.Save(houseTile, stream, writer);
+                    }
+                    else
+                    {
+                        Tile.Save(tile, stream, writer);
+                    }
+
+                    stream.EndChild();
+                }
+            }
+        }
+
         public Position Position { get; set; }
 
         private List<Tile> tiles;

@@ -9,7 +9,7 @@ namespace OpenTibia.FileFormats.Otbm
         {
             OtbmInfo otbmInfo = new OtbmInfo();
 
-            stream.Seek(Origin.Current, 6);
+            stream.Seek(Origin.Current, 1);
 
             otbmInfo.OtbmVersion = (OtbmVersion)reader.ReadUInt();
 
@@ -22,6 +22,21 @@ namespace OpenTibia.FileFormats.Otbm
             otbmInfo.MinorVersion = (TibiaVersion)reader.ReadUInt();
 
             return otbmInfo;
+        }
+
+        public static void Save(OtbmInfo otbmInfo, ByteArrayMemoryFileTreeStream stream, ByteArrayStreamWriter writer)
+        {
+            writer.Write( (byte)OtbmType.Root);
+
+            writer.Write( (uint)otbmInfo.OtbmVersion);
+
+            writer.Write( (ushort)otbmInfo.Width);
+
+            writer.Write( (ushort)otbmInfo.Height);
+
+            writer.Write( (uint)otbmInfo.MajorVersion);
+
+            writer.Write( (uint)otbmInfo.MinorVersion);
         }
 
         public OtbmVersion OtbmVersion { get; set; }

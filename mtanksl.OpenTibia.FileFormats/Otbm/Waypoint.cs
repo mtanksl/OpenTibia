@@ -18,6 +18,19 @@ namespace OpenTibia.FileFormats.Otbm
             return waypoint;
         }
 
+        public static void Save(Waypoint waypoint, ByteArrayMemoryFileTreeStream stream, ByteArrayStreamWriter writer)
+        {
+            writer.Write( (byte)OtbmType.Waypoint);
+
+            writer.Write( (string)waypoint.Name);
+
+            writer.Write( (ushort)waypoint.Position.X);
+
+            writer.Write( (ushort)waypoint.Position.Y);
+
+            writer.Write( (byte)waypoint.Position.Z);
+        }
+
         public string Name { get; set; }
 
         public Position Position { get; set; }

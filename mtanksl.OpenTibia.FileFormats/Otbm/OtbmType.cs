@@ -2,7 +2,7 @@
 {
     public enum OtbmType : byte
     {
-        Root = 1,
+        Root = 0,
 
         Map = 2,
 

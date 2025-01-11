@@ -149,6 +149,148 @@ namespace OpenTibia.FileFormats.Otbm
             }
         }
 
+        public static void Save(Item item, ByteArrayMemoryFileTreeStream stream, ByteArrayStreamWriter writer)
+        {
+            writer.Write( (byte)OtbmType.Item);
+
+            writer.Write( (ushort)item.OpenTibiaId);
+
+            if (item.Count > 0) // Don't need to write 0 for stackable, fluid nor splash items
+            {
+                writer.Write( (byte)OtbmAttribute.Count);
+
+                writer.Write( (byte)item.Count);
+            }
+
+            if (item.ActionId > 0)
+            {
+                writer.Write( (byte)OtbmAttribute.ActionId);
+
+                writer.Write( (ushort)item.ActionId);
+            }
+
+            if (item.UniqueId > 0)
+            {
+                writer.Write( (byte)OtbmAttribute.UniqueId);
+
+                writer.Write( (ushort)item.UniqueId);
+            }
+
+            if (item.Text != null)
+            {
+                writer.Write( (byte)OtbmAttribute.Text);
+
+                writer.Write( (string)item.Text);
+            }
+
+            if (item.WrittenDate > 0)
+            {
+                writer.Write( (byte)OtbmAttribute.WrittenDate);
+
+                writer.Write( (uint)item.WrittenDate);
+            }
+
+            if (item.WrittenBy != null)
+            {
+                writer.Write( (byte)OtbmAttribute.WrittenBy);
+
+                writer.Write( (string)item.WrittenBy);
+            }
+
+            if (item.SpecialDescription != null)
+            {
+                writer.Write( (byte)OtbmAttribute.SpecialDescription);
+
+                writer.Write( (string)item.SpecialDescription);
+            }
+
+            if (item.RuneCharges > 0)
+            {
+                writer.Write( (byte)OtbmAttribute.RuneCharges);
+
+                writer.Write( (byte)item.RuneCharges);
+            }
+
+            if (item.Charges > 0)
+            {
+                writer.Write( (byte)OtbmAttribute.Charges);
+
+                writer.Write( (ushort)item.Charges);
+            }
+
+            if (item.Duration > 0)
+            {
+                writer.Write( (byte)OtbmAttribute.Duration);
+
+                writer.Write( (uint)item.Duration);
+            }
+
+            if (item.Decaying > 0)
+            {
+                writer.Write( (byte)OtbmAttribute.Decaying);
+
+                writer.Write( (byte)item.Decaying);
+            }
+
+            if (item.TownId > 0)
+            {
+                writer.Write( (byte)OtbmAttribute.DepotId);
+
+                writer.Write( (ushort)item.TownId);
+            }
+
+            if (item.DoorId > 0)
+            {
+                writer.Write( (byte)OtbmAttribute.HouseDoorId);
+
+                writer.Write( (byte)item.DoorId);
+            }
+
+            if (item.SleeperId > 0)
+            {
+                writer.Write( (byte)OtbmAttribute.SleeperId);
+
+                writer.Write( (uint)item.SleeperId);
+            }
+
+            if (item.SleepterStart > 0)
+            {
+                writer.Write( (byte)OtbmAttribute.SleepStart);
+
+                writer.Write( (uint)item.SleepterStart);
+            }
+
+            if (item.TeleportPosition != null)
+            {
+                writer.Write( (byte)OtbmAttribute.TeleportDestination);
+
+                writer.Write( (ushort)item.TeleportPosition.X);
+
+                writer.Write( (ushort)item.TeleportPosition.Y);
+
+                writer.Write( (byte)item.TeleportPosition.Z);
+            }
+
+            if (item.ContainerItems > 0)
+            {
+                writer.Write( (byte)OtbmAttribute.ContainerItems);
+
+                writer.Write( (uint)item.ContainerItems);
+            }
+
+            if (item.items != null)
+            {
+                foreach (var item2 in item.items)
+                {
+                    stream.StartChild();
+
+                    Item.Save(item2, stream, writer);
+
+                    stream.EndChild();
+                }
+            }
+        }
+
         public ushort OpenTibiaId { get; set; }
 
         public byte Count { get; set; }

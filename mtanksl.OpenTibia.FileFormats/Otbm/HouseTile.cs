@@ -60,6 +60,43 @@ namespace OpenTibia.FileFormats.Otbm
             }
         }
 
+        public static void Save(HouseTile houseTile, ByteArrayMemoryFileTreeStream stream, ByteArrayStreamWriter writer)
+        {
+            writer.Write( (byte)OtbmType.HouseTile);
+
+            writer.Write( (byte)houseTile.OffsetX);
+
+            writer.Write( (byte)houseTile.OffsetY);
+
+            writer.Write( (uint)houseTile.HouseId);
+
+            if (houseTile.Flags > 0)
+            {
+                writer.Write( (byte)OtbmAttribute.Flags);
+
+                writer.Write( (uint)houseTile.Flags);
+            }
+
+            if (houseTile.OpenTibiaItemId > 0)
+            {
+                writer.Write( (byte)OtbmAttribute.ItemId);
+
+                writer.Write( (ushort)houseTile.OpenTibiaItemId);
+            }
+
+            if (houseTile.items != null)
+            {
+                foreach (var item in houseTile.items)
+                {
+                    stream.StartChild();
+
+                    Item.Save(item, stream, writer);
+
+                    stream.EndChild();
+                }
+            }
+        }
+
         public uint HouseId { get; set; }
     }
 }

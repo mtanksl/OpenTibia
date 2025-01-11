@@ -42,6 +42,26 @@ namespace OpenTibia.FileFormats.Otbm
             }
         }
 
+        public static void Save(MapInfo mapInfo, ByteArrayMemoryFileTreeStream stream, ByteArrayStreamWriter writer)
+        {
+            writer.Write( (byte)OtbmType.Map);
+
+            foreach (var description in mapInfo.descriptions)
+            {
+                writer.Write( (byte)OtbmAttribute.Description);
+
+                writer.Write( (string)description);
+            }
+
+            writer.Write( (byte)OtbmAttribute.SpawnFile);
+
+            writer.Write( (string)mapInfo.SpawnFile);
+
+            writer.Write( (byte)OtbmAttribute.HouseFile);
+
+            writer.Write( (string)mapInfo.HouseFile);
+        }
+
         private List<string> descriptions = new List<string>();
 
         public List<string> Descriptions
