@@ -30,6 +30,14 @@ namespace OpenTibia.Game.Components
 
         private Player target;
 
+        public Player Target
+        {
+            get
+            {
+                return target;
+            }
+        }
+
         private bool hasVisiblePlayers;
 
         private Player current;

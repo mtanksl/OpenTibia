@@ -17,7 +17,12 @@ namespace OpenTibia.Plugins.Spells
 
         public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
         {
-            return Promise.FromResultAsBooleanTrue;
+            if (target != null)
+            {
+                return Promise.FromResultAsBooleanTrue;
+            }
+
+            return Promise.FromResultAsBooleanFalse;
         }
 
         public override Promise OnCast(Player player, Creature target, string message)

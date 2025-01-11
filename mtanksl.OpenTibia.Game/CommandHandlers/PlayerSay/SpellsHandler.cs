@@ -22,6 +22,13 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (index == -1)
             {
+                PlayerThinkBehaviour playerThinkBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerThinkBehaviour>(command.Player);
+
+                if (playerThinkBehaviour != null)
+                {
+                    target = playerThinkBehaviour.Target;
+                }
+
                 plugin = Context.Server.Plugins.GetSpellPlugin(false, command.Message);
             }
             else

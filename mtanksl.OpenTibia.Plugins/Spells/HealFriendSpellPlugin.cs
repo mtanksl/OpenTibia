@@ -15,7 +15,7 @@ namespace OpenTibia.Plugins.Spells
 
         public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
         {
-            if (player.Tile.Position.CanHearSay(target.Tile.Position) )
+            if (target != null && player.Tile.Position.CanHearSay(target.Tile.Position) )
             {
                 return Promise.FromResultAsBooleanTrue;
             }

@@ -32,6 +32,14 @@ namespace OpenTibia.Game.Components
 
         private Creature target;
 
+        public Creature Target
+        {
+            get
+            {
+                return target;
+            }
+        }
+
         private State state;
 
         public void Attack(Creature creature)

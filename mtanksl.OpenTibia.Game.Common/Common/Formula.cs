@@ -80,6 +80,16 @@ namespace OpenTibia.Game.Common
             return ( (int)( (skill + weapon * 2) * 1.1 + level * 0.2), (int)( (skill + weapon * 2) * 3 + level * 0.2) );
         }
 
+        public static (int Min, int Max) WhirlwindThrowFormula(ushort level, byte skill, int weapon)
+        {
+             return ( (int)( (skill + weapon) * 0.3 + level * 0.2), (int)(skill + weapon + level * 0.2) );
+        }
+          
+        public static (int Min, int Max) EtherealSpearFormula(ushort level, byte skill)
+        {
+             return ( (int)( (skill + 25) * 0.3 + level * 0.2), (int)(skill + 25 + level * 0.2) );
+        }
+
         public static Item GetKnightWeapon(Player player)
         {
             Item item = (Item)player.Inventory.GetContent( (byte)Slot.Left);
