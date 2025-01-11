@@ -144,9 +144,31 @@ namespace OpenTibia.Game.Commands
 
             List<CharacterDto> characters = new List<CharacterDto>();
 
-            foreach (var player in dbAccount.Players)
+            foreach (var dbPlayer in dbAccount.Players)
             {
-                characters.Add( new CharacterDto(player.Name, player.World.Name, player.World.Ip, (ushort)player.World.Port) );
+                string worldName;
+
+                if (Context.Server.Config.GameplayShowOnlineStatusInCharlist)
+                {                
+                    string playerName = Context.Server.GameObjectPool.GetPlayerNameFor(Connection.IpAddress, dbPlayer.Id, dbPlayer.Name);
+
+                    Player onlinePlayer = Context.Server.GameObjects.GetPlayerByName(playerName);
+
+                    if (onlinePlayer == null)
+                    {
+                        worldName = "Offline";
+                    }
+                    else
+                    {
+                        worldName = "Online";
+                    }
+                }
+                else
+                {
+                    worldName = dbPlayer.World.Name;
+                }
+
+                characters.Add(new CharacterDto(dbPlayer.Name, worldName, dbPlayer.World.Ip, (ushort)dbPlayer.World.Port) );
             }
 
             int premiumDays;

@@ -45,10 +45,11 @@ namespace OpenTibia.Game.Common.ServerObjects
         bool GameplayRemoveChargesFromRunes { get; set; }
         bool GameplayRemoveWeaponCharges { get; set; }
         bool GameplayAllowChangeOutfit { get; set; }
+        bool GameplayHotkeyAimbotEnabled { get; set; }
+        bool GameplayShowOnlineStatusInCharlist { get; set; }
         bool GameplayAllowClones { get; set; }
         bool GameplayOnePlayerOnlinePerAccount { get; set; }
         bool GameplayReplaceKickOnLogin { get; set; }
-        bool GameplayHotkeyAimbotEnabled { get; set; }
         int GameplayVipFreeLimit { get; set; }
         int GameplayVipPremiumLimit { get; set; }
         int GameplayDepotFreeLimit { get; set; }       
