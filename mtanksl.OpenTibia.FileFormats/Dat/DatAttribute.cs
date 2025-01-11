@@ -14,6 +14,8 @@
 
         Stackable = 5,
 
+        IsCorpse = 6,
+
         Useable = 7,
 
         Writeable = 8,

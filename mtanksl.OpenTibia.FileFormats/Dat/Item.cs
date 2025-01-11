@@ -55,6 +55,10 @@ namespace OpenTibia.FileFormats.Dat
 
                         break;
 
+                    case DatAttribute.IsCorpse:
+
+                        break;
+
                     case DatAttribute.Useable:
 
                         item.Flags |= ItemFlags.Useable;
