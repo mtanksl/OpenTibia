@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Commands
 
                 if (window.Item is ReadableItem readableItem && Text != readableItem.Text)
                 {
-                    readableItem.Text = Text;
+                    readableItem.Text = Text == "" ? null : Text;
 
                     readableItem.Author = Player.Name;
 
