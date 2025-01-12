@@ -2,7 +2,7 @@
 using System.IO;
 using System.Xml.Linq;
 
-namespace OpenTibia.MonsterImport
+namespace mtanksl.OpenTibia.MonsterImport
 {
     class Program
     {
@@ -12,6 +12,7 @@ namespace OpenTibia.MonsterImport
 
             var toPath = @"";
 
+            // Update all monster .xml files
             /*
             foreach (var folder in Directory.GetDirectories(fromPath) )
             {
@@ -32,6 +33,7 @@ namespace OpenTibia.MonsterImport
             }
             */
 
+            // Copy all monster .xml files
             /*
             var serializer = new XmlSerializer(typeof(Monster) );
 

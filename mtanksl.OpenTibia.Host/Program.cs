@@ -3,7 +3,7 @@ using OpenTibia.Game.Common.ServerObjects;
 using System;
 using System.Threading.Tasks;
 
-namespace OpenTibia.Host
+namespace mtanksl.OpenTibia.Host
 {
     internal class Program
     {
@@ -18,7 +18,7 @@ namespace OpenTibia.Host
                 tcs.SetResult(null);
             };
             
-            Console.WriteLine("Available commands: help, stats, clear, reload-plugins, kick, save, maintenance, stop.");
+            Console.WriteLine("Available commands: help, stats, clear, reload-plugins, maintenance, kick, save, stop.");
             Console.WriteLine();
 
             try

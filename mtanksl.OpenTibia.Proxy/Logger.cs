@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OpenTibia.Proxy
+namespace mtanksl.OpenTibia.Proxy
 {
     public class Logger
     {

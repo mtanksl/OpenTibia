@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 
-namespace OpenTibia.Proxy
+namespace mtanksl.OpenTibia.Proxy
 {
     public class Listener : IDisposable
     {

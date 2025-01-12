@@ -3,7 +3,7 @@ using OpenTibia.Security;
 using System;
 using System.Net.Sockets;
 
-namespace OpenTibia.Proxy
+namespace mtanksl.OpenTibia.Proxy
 {
     public class GameProxyConnection : ProxyConnection
     {
