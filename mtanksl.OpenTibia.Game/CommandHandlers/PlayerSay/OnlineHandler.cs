@@ -13,13 +13,15 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (command.Message.StartsWith("!online") ) 
             {
+                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.PurpleDefault, command.Message) );
+
                 var players = Context.Server.GameObjects.GetPlayers().ToArray();
 
-                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.PurpleDefault, "Players online: " + players.Length) );
+                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Players online: " + players.Length) );
 
                 for (int i = 0; i < players.Length; i += 10)
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.PurpleDefault, string.Join(", ", players.Skip(i).Take(10).Select(p => p.Name + " (" + p.Level + ")") ) ) );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, string.Join(", ", players.Skip(i).Take(10).Select(p => p.Name + " [" + p.Level + "]") ) ) );
                 }
 
                 return Promise.Completed;

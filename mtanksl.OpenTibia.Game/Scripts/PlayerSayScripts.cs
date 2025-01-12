@@ -57,6 +57,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new ServerInfoHandler() ); // !serverinfo
 
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new UptimeHandler() ); // !uptime
+
             Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new SpellsHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new EditHouseSubOwnerHandler() ); // aleta som
