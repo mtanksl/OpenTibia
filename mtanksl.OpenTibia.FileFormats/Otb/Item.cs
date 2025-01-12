@@ -17,7 +17,7 @@ namespace OpenTibia.FileFormats.Otb
             {
                 OtbAttribute attribute = (OtbAttribute)reader.ReadByte();
 
-                stream.Seek(Origin.Current, 2);
+                stream.Seek(Origin.Current, 2); // Length
 
                 switch (attribute)
                 {

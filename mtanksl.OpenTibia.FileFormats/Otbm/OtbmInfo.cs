@@ -9,7 +9,7 @@ namespace OpenTibia.FileFormats.Otbm
         {
             OtbmInfo otbmInfo = new OtbmInfo();
 
-            stream.Seek(Origin.Current, 1);
+            stream.Seek(Origin.Current, 1); // OtbmType.Root
 
             otbmInfo.OtbmVersion = (OtbmVersion)reader.ReadUInt();
 

@@ -9,7 +9,7 @@ namespace OpenTibia.FileFormats.Otbm
         {
             MapInfo mapInfo = new MapInfo();
 
-            stream.Seek(Origin.Current, 1);
+            stream.Seek(Origin.Current, 1); // OtbmType.MapInfo
 
             while (true)
             {
@@ -44,7 +44,7 @@ namespace OpenTibia.FileFormats.Otbm
 
         public static void Save(MapInfo mapInfo, ByteArrayMemoryFileTreeStream stream, ByteArrayStreamWriter writer)
         {
-            writer.Write( (byte)OtbmType.Map);
+            writer.Write( (byte)OtbmType.MapInfo);
 
             foreach (var description in mapInfo.descriptions)
             {

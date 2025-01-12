@@ -9,7 +9,7 @@ namespace OpenTibia.FileFormats.Otbm
         {
             Town town = new Town();
 
-            stream.Seek(Origin.Current, 1);
+            stream.Seek(Origin.Current, 1); // OtbmType.Town
 
             town.Id = reader.ReadUInt();
 

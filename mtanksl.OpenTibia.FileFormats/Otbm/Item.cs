@@ -13,7 +13,7 @@ namespace OpenTibia.FileFormats.Otbm
         {
             Item item = new Item();
 
-            stream.Seek(Origin.Current, 1);
+            stream.Seek(Origin.Current, 1); // OtbmType.Item
 
             item.OpenTibiaId = reader.ReadUShort();
 

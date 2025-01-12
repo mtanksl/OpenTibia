@@ -14,7 +14,7 @@ namespace OpenTibia.FileFormats.Otbm
             
                 OtbmFile file = new OtbmFile();
 
-                stream.Seek(Origin.Current, 4);
+                stream.Seek(Origin.Current, 4); // Empty
 
                 if ( stream.Child() )
                 {

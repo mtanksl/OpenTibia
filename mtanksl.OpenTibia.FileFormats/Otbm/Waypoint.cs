@@ -9,7 +9,7 @@ namespace OpenTibia.FileFormats.Otbm
         {
             Waypoint waypoint = new Waypoint();
 
-            stream.Seek(Origin.Current, 1);
+            stream.Seek(Origin.Current, 1); // OtbmType.Waypoint
 
             waypoint.Name = reader.ReadString();
 

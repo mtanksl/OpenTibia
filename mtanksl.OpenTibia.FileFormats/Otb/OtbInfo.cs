@@ -8,11 +8,17 @@ namespace OpenTibia.FileFormats.Otb
         {
             OtbInfo otbInfo = new OtbInfo();
 
-            stream.Seek(Origin.Current, 13);
+            stream.Seek(Origin.Current, 1); // OtbType.Root
 
-            otbInfo.MajorVersion = (OtbVersion)reader.ReadUInt();
+            otbInfo.Flags = reader.ReadUInt();
 
-            otbInfo.MinorVersion = (TibiaVersion)reader.ReadUInt();
+            stream.Seek(Origin.Current, 1); // OtbType.OtbInfo
+
+            stream.Seek(Origin.Current, 2); // Length
+
+            otbInfo.OtbVersion = (OtbVersion)reader.ReadUInt();
+
+            otbInfo.TibiaVersion = (TibiaVersion)reader.ReadUInt();
 
             otbInfo.Revision = reader.ReadUInt();
 
@@ -21,9 +27,11 @@ namespace OpenTibia.FileFormats.Otb
             return otbInfo;
         }
 
-        public OtbVersion MajorVersion { get; set; }
+        public uint Flags { get; set; }
 
-        public TibiaVersion MinorVersion { get; set; }
+        public OtbVersion OtbVersion { get; set; }
+
+        public TibiaVersion TibiaVersion { get; set; }
 
         public uint Revision { get; set; }
 

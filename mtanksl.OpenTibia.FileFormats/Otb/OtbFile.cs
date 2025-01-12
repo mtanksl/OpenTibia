@@ -13,19 +13,24 @@ namespace OpenTibia.FileFormats.Otb
             
                 OtbFile file = new OtbFile();
 
-                file.otbInfo = OtbInfo.Load(stream, reader);
+                stream.Seek(Origin.Current, 4); // Empty
 
                 if ( stream.Child() )
                 {
-                    file.items = new List<Item>();
+                    file.otbInfo = OtbInfo.Load(stream, reader);
 
-                    while (true)
+                    if ( stream.Child() )
                     {
-                        file.items.Add( Item.Load(stream, reader) );
+                        file.items = new List<Item>();
 
-                        if ( !stream.Next() )
+                        while (true)
                         {
-                            break;
+                            file.items.Add( Item.Load(stream, reader) );
+
+                            if ( !stream.Next() )
+                            {
+                                break;
+                            }
                         }
                     }
                 }

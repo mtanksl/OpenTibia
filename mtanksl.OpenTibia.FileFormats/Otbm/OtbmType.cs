@@ -4,7 +4,7 @@
     {
         Root = 0,
 
-        Map = 2,
+        MapInfo = 2,
 
         Area = 4,
          
