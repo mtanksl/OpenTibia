@@ -17,9 +17,9 @@ namespace OpenTibia.FileFormats.Otbm
 
             otbmInfo.Height = reader.ReadUShort();
 
-            otbmInfo.MajorVersion = (OtbVersion)reader.ReadUInt();
+            otbmInfo.OtbVersion = (OtbVersion)reader.ReadUInt();
 
-            otbmInfo.MinorVersion = (TibiaVersion)reader.ReadUInt();
+            otbmInfo.TibiaVersion = (TibiaVersion)reader.ReadUInt();
 
             return otbmInfo;
         }
@@ -34,9 +34,9 @@ namespace OpenTibia.FileFormats.Otbm
 
             writer.Write( (ushort)otbmInfo.Height);
 
-            writer.Write( (uint)otbmInfo.MajorVersion);
+            writer.Write( (uint)otbmInfo.OtbVersion);
 
-            writer.Write( (uint)otbmInfo.MinorVersion);
+            writer.Write( (uint)otbmInfo.TibiaVersion);
         }
 
         public OtbmVersion OtbmVersion { get; set; }
@@ -45,8 +45,8 @@ namespace OpenTibia.FileFormats.Otbm
 
         public ushort Height { get; set; }
 
-        public OtbVersion MajorVersion { get; set; }
+        public OtbVersion OtbVersion { get; set; }
 
-        public TibiaVersion MinorVersion { get; set; }
+        public TibiaVersion TibiaVersion { get; set; }
     }
 }

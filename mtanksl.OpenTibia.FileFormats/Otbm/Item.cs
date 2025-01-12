@@ -117,9 +117,39 @@ namespace OpenTibia.FileFormats.Otbm
 
                         break;
 
-                    case OtbmAttribute.ContainerItems:
+                    case OtbmAttribute.KeyNumber:
 
-                        item.ContainerItems = reader.ReadUInt();
+                        item.KeyNumber = reader.ReadUShort();
+
+                        break;
+
+                    case OtbmAttribute.KeyHoleNumber:
+
+                        item.KeyHoleNumber = reader.ReadUShort();
+
+                        break;
+
+                    case OtbmAttribute.DoorQuestNumber:
+
+                        item.DoorQuestNumber = reader.ReadUShort();
+
+                        break;
+
+                    case OtbmAttribute.DoorQuestValue:
+
+                        item.DoorQuestValue = reader.ReadUShort();
+
+                        break;
+
+                    case OtbmAttribute.DoorLevel:
+
+                        item.DoorLevel = reader.ReadUShort();
+
+                        break;
+
+                    case OtbmAttribute.ChestQuestNumber:
+
+                        item.ChestQuestNumber = reader.ReadUShort();
 
                         break;
 
@@ -271,12 +301,49 @@ namespace OpenTibia.FileFormats.Otbm
                 writer.Write( (byte)item.TeleportPosition.Z);
             }
 
-            if (item.ContainerItems > 0)
+            /*
+            if (item.KeyNumber > 0)
             {
-                writer.Write( (byte)OtbmAttribute.ContainerItems);
+                writer.Write( (byte)OtbmAttribute.KeyNumber);
 
-                writer.Write( (uint)item.ContainerItems);
+                writer.Write( (ushort)item.KeyNumber);
             }
+
+            if (item.KeyHoleNumber > 0)
+            {
+                writer.Write( (byte)OtbmAttribute.KeyHoleNumber);
+
+                writer.Write( (ushort)item.KeyHoleNumber);
+            }
+
+            if (item.DoorQuestNumber > 0)
+            {
+                writer.Write( (byte)OtbmAttribute.DoorQuestNumber);
+
+                writer.Write( (ushort)item.DoorQuestNumber);
+            }
+
+            if (item.DoorQuestValue > 0)
+            {
+                writer.Write( (byte)OtbmAttribute.DoorQuestValue);
+
+                writer.Write( (ushort)item.DoorQuestValue);
+            }
+
+            if (item.DoorLevel > 0)
+            {
+                writer.Write( (byte)OtbmAttribute.DoorLevel);
+
+                writer.Write( (ushort)item.DoorLevel);
+            }
+
+            if (item.ChestQuestNumber > 0)
+            {
+                writer.Write( (byte)OtbmAttribute.ChestQuestNumber);
+
+                writer.Write( (ushort)item.ChestQuestNumber);
+            }
+            */
 
             if (item.items != null)
             {
@@ -325,7 +392,17 @@ namespace OpenTibia.FileFormats.Otbm
 
         public Position TeleportPosition { get; set; }
 
-        public uint ContainerItems { get; set; }
+        public ushort KeyNumber { get; set; }
+
+        public ushort KeyHoleNumber { get; set; }
+
+        public ushort DoorQuestNumber { get; set; }
+
+        public ushort DoorQuestValue { get; set; }
+
+        public ushort DoorLevel { get; set; }
+
+        public ushort ChestQuestNumber { get; set; }
 
         private List<Item> items;
 

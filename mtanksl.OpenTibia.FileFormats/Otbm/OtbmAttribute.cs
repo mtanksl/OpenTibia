@@ -44,6 +44,18 @@
 
         Charges = 22,        
 
-        ContainerItems = 23
+        //
+
+        KeyNumber = 23,
+
+        KeyHoleNumber = 24,
+
+        DoorQuestNumber = 25,
+
+        DoorQuestValue = 26,
+
+        DoorLevel = 27,
+
+        ChestQuestNumber = 28
     }
 }
