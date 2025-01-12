@@ -19,15 +19,15 @@ namespace OpenTibia.Game.Scripts
 
                 gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new TeleportPlayerHandler() ); //c
 
-                gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new TeleportDownHandler() ); //down
+                gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new TeleportDownHandler() ); //down                (alani hur down)
 
                 gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new InvisibleHandler() ); //ghost
 
-                gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new TeleportToPlayerHandler() ); //goto
+                gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new TeleportToPlayerHandler() ); //goto            (alani sio)
 
                 gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new CreateItemHandler() ); //i
 
-                gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new KickPlayerHandler() ); //kick
+                gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new KickPlayerHandler() ); //kick                  (omana)
 
                 gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new DisplayMagicEffectHandler() ); //me
 
@@ -37,29 +37,29 @@ namespace OpenTibia.Game.Scripts
 
                 gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new DisplayProjectileTypeHandler() ); //pe
 
-                gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new DestroyMonsterNpcItemHandler() ); //r
+                gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new DestroyMonsterNpcItemHandler() ); //r          (alito tera)
 
                 gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new TeleportToTownHandler() ); //town
 
-                gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new TeleportToHomeTownHandler() ); //t
+                gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new TeleportToHomeTownHandler() ); //t             (omani)
 
                 gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new UnBanPlayerHandler() ); //unban
 
-                gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new TeleportUpHandler() ); //up
+                gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new TeleportUpHandler() ); //up                    (alani hur up)
 
-                gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new TeleportToWaypointHandler() ); //w
-            
+                gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new TeleportToWaypointHandler() ); //w             (alani)
+
             Context.Server.CommandHandlers.AddCommandHandler(gamemasterCommandHandler);
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new SpellsHandler() );
 
-            Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new EditHouseSubOwnerHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new EditHouseSubOwnerHandler() ); // aleta som
 
-            Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new EditHouseGuestHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new EditHouseGuestHandler() ); // aleta sio
 
-            Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new EditHouseDoorHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new EditHouseDoorHandler() ); // aleta grav
 
-            Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new HouseKickHandler() );
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new HouseKickHandler() ); // alana sio
         }
 
         public override void Stop()
