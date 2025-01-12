@@ -350,7 +350,19 @@ namespace OpenTibia.Common
 					case TalkType.Broadcast:
 
 						return new ParseTalkBroadcastCommand(connection.Client.Player, packet.Message);
-			
+
+                    case TalkType.ChannelRed:
+
+                        return new ParseTalkChannelRedCommand(connection.Client.Player, packet.ChannelId, packet.Message);
+
+                    case TalkType.PrivateRed:
+
+						return new ParseTalkPrivateRedCommand(connection.Client.Player, packet.Name, packet.Message);
+
+					case TalkType.Unknown:
+
+						return new ParseTalkUnknownCommand(connection.Client.Player, packet.Message);
+
 					case TalkType.ChannelRedAnonymous:
 
 						return new ParseTalkChannelRedAnonymousCommand(connection.Client.Player, packet.ChannelId, packet.Message);

@@ -32,6 +32,8 @@
 
         ChannelOrange = 15,
 
+        Unknown = 16,
+
         ChannelRedAnonymous = 17,
 
         MonsterSay = 19,
