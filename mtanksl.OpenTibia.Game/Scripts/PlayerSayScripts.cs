@@ -39,7 +39,9 @@ namespace OpenTibia.Game.Scripts
 
                 gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new DestroyMonsterNpcItemHandler() ); //r
 
-                gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new TeleportToTownHandler() ); //t
+                gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new TeleportToTownHandler() ); //town
+
+                gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new TeleportToHomeTownHandler() ); //t
 
                 gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new UnBanPlayerHandler() ); //unban
 

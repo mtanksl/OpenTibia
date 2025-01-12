@@ -10,9 +10,9 @@ namespace OpenTibia.Game.CommandHandlers
     {
         public override Promise Handle(Func<Promise> next, PlayerSayCommand command)
         {
-            if (command.Message.StartsWith("/t ") )
+            if (command.Message.StartsWith("/town ") )
             {
-                string name = command.Message.Substring(3);
+                string name = command.Message.Substring(6);
 
                 Town town = Context.Server.Map.GetTown(name);
 
