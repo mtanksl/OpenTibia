@@ -22,17 +22,19 @@ namespace OpenTibia.Game.Components
 
         private Guid globalTick;
 
-        private DateTime nextTalk = DateTime.MinValue;
-
         public override void Start()
         {
             Creature creature = (Creature)GameObject;
 
+            int ticks = 30000;
+
             globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance[creature.Id % GlobalTickEventArgs.Instance.Length], (context, e) =>
             {
-                if (DateTime.UtcNow >= nextTalk)
+                ticks -= e.Ticks;
+
+                if (ticks <= 0)
                 {
-                    nextTalk = DateTime.UtcNow.AddSeconds(30);
+                    ticks += 30000;
 
                     return Context.AddCommand(new ShowTextCommand(creature, talkType, Context.Server.Randomization.Take(sentences) ) );
                 }

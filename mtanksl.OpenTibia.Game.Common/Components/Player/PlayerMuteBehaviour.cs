@@ -44,18 +44,20 @@ namespace OpenTibia.Game.Components
 
         public override void Start()
         {
-            DateTime nextAction = DateTime.MinValue;
+            int ticks = 1500;
 
             globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance[GameObject.Id % GlobalTickEventArgs.Instance.Length], (context, e) =>
             {
-                if (DateTime.UtcNow >= nextAction)
+                ticks -= e.Ticks;
+
+                if (ticks <= 0)
                 {
+                    ticks += 1500;
+
                     if (count > 0)
                     {
                         count--;
                     }
-
-                    nextAction = DateTime.UtcNow.AddMilliseconds(1500);
                 }
 
                 return Promise.Completed;
