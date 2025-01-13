@@ -15,19 +15,19 @@ namespace OpenTibia.Game.Commands
 
         private string key = Guid.NewGuid().ToString();
 
-        public override Promise AddCondition(Creature creature)
+        public override Promise OnStart(Creature creature)
         {
             return Promise.Delay(key, Duration);
-        }
-
-        public override Promise RemoveCondition(Creature creature)
-        {
-            return Promise.Completed;
         }
 
         public override void Cancel()
         {
             Context.Current.Server.CancelQueueForExecution(key);
+        }
+
+        public override Promise OnStop(Creature creature)
+        {
+            return Promise.Completed;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
 
         private string key = Guid.NewGuid().ToString();
 
-        public override async Promise AddCondition(Creature creature)
+        public override async Promise OnStart(Creature creature)
         {
             while (true)
             {
@@ -32,14 +32,14 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        public override Promise RemoveCondition(Creature creature)
-        {
-            return Promise.Completed;
-        }
-
         public override void Cancel()
         {
             Context.Current.Server.CancelQueueForExecution(key);
+        }
+
+        public override Promise OnStop(Creature creature)
+        {
+            return Promise.Completed;
         }
     }
 }

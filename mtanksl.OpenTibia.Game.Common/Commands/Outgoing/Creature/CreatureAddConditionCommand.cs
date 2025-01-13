@@ -20,7 +20,32 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            CreatureConditionBehaviour creatureConditionBehaviour = Context.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(Target)
+            CreatureConditionBehaviour creatureConditionBehaviour;
+
+            if (Condition.ConditionSpecialCondition == ConditionSpecialCondition.Haste)
+            {
+                creatureConditionBehaviour = Context.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(Target)
+                    .Where(c => c.Condition.ConditionSpecialCondition == ConditionSpecialCondition.Slowed)
+                    .FirstOrDefault();
+
+                if (creatureConditionBehaviour != null)
+                {
+                    Context.Server.GameObjectComponents.RemoveComponent(Target, creatureConditionBehaviour);
+                }
+            }
+            else if (Condition.ConditionSpecialCondition == ConditionSpecialCondition.Slowed)
+            {
+                creatureConditionBehaviour = Context.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(Target)
+                    .Where(c => c.Condition.ConditionSpecialCondition == ConditionSpecialCondition.Haste)
+                    .FirstOrDefault();
+
+                if (creatureConditionBehaviour != null)
+                {
+                    Context.Server.GameObjectComponents.RemoveComponent(Target, creatureConditionBehaviour);
+                }
+            }
+                        
+            creatureConditionBehaviour = Context.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(Target)
                 .Where(c => c.Condition.ConditionSpecialCondition == Condition.ConditionSpecialCondition)
                 .FirstOrDefault();
 
@@ -30,7 +55,7 @@ namespace OpenTibia.Game.Commands
             }
 
             Context.Server.GameObjectComponents.AddComponent(Target, new CreatureConditionBehaviour(Condition), false);
-
+                        
             return Promise.Completed;
         }
     }

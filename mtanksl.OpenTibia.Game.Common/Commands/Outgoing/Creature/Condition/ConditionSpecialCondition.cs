@@ -42,11 +42,7 @@ namespace OpenTibia.Game.Commands
 
         Invisible = 65536,
 
-        Light = 131072,
-
-        Regeneration = 262144,
-
-        Soul = 524288
+        Light = 131072
     }
 
     public static class SpecialConditionExtensions

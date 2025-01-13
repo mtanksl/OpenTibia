@@ -4,12 +4,16 @@ using System;
 
 namespace OpenTibia.Game.Commands
 {
-    public class InvisibleCondition : Condition
+    public class SlowedCondition : Condition
     {
-        public InvisibleCondition(TimeSpan duration) : base(ConditionSpecialCondition.Invisible)
+        public SlowedCondition(ushort speed, TimeSpan duration) : base(ConditionSpecialCondition.Slowed)
         {
+            Speed = speed;
+
             Duration = duration;
         }
+
+        public ushort Speed { get; set; }
 
         public TimeSpan Duration { get; set; }
 
@@ -17,7 +21,10 @@ namespace OpenTibia.Game.Commands
 
         public override Promise OnStart(Creature creature)
         {
-            return Promise.Delay(key, Duration);
+            return Context.Current.AddCommand(new CreatureUpdateSpeedCommand(creature, creature.BaseSpeed, Speed) ).Then( () =>
+            {
+                return Promise.Delay(key, Duration);
+            } );
         }
 
         public override void Cancel()
@@ -27,7 +34,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise OnStop(Creature creature)
         {
-            return Promise.Completed;
+            return Context.Current.AddCommand(new CreatureUpdateSpeedCommand(creature, creature.BaseSpeed, creature.BaseSpeed) );
         }
     }
 }

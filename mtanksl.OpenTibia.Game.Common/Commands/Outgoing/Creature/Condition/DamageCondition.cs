@@ -9,8 +9,6 @@ namespace OpenTibia.Game.Commands
     {
         public DamageCondition(SpecialCondition specialCondition, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int[] damages, TimeSpan interval) : base( (ConditionSpecialCondition)specialCondition)
         {
-            SpecialCondition = specialCondition;
-
             MagicEffectType = magicEffectType;
 
             AnimatedTextColor = animatedTextColor;
@@ -19,8 +17,6 @@ namespace OpenTibia.Game.Commands
 
             Interval = interval;
         }
-
-        public SpecialCondition SpecialCondition { get; set; }
 
         public MagicEffectType? MagicEffectType { get; set; }
 
@@ -32,7 +28,7 @@ namespace OpenTibia.Game.Commands
 
         private string key = Guid.NewGuid().ToString();
 
-        public override async Promise AddCondition(Creature creature)
+        public override async Promise OnStart(Creature creature)
         {
             for (int i = 0; i < Damages.Length; i++)
             {
@@ -44,14 +40,14 @@ namespace OpenTibia.Game.Commands
             }
         }
 
-        public override Promise RemoveCondition(Creature creature)
-        {
-            return Promise.Completed;  
-        }
-
         public override void Cancel()
         {
             Context.Current.Server.CancelQueueForExecution(key);
-        }   
+        }
+
+        public override Promise OnStop(Creature creature)
+        {
+            return Promise.Completed;  
+        } 
     }
 }

@@ -12,10 +12,10 @@ namespace OpenTibia.Game.Commands
 
         public ConditionSpecialCondition ConditionSpecialCondition { get; }
 
-        public abstract Promise AddCondition(Creature creature);
-
-        public abstract Promise RemoveCondition(Creature creature);
+        public abstract Promise OnStart(Creature creature);
 
         public abstract void Cancel();
+
+        public abstract Promise OnStop(Creature creature);
     }
 }

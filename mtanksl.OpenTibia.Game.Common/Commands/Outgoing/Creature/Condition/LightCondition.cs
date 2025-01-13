@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
 
         private string key = Guid.NewGuid().ToString();
 
-        public override Promise AddCondition(Creature creature)
+        public override Promise OnStart(Creature creature)
         {
             return Context.Current.AddCommand(new CreatureUpdateLightCommand(creature, Light) ).Then( () =>
             {
@@ -28,14 +28,14 @@ namespace OpenTibia.Game.Commands
             } );
         }
 
-        public override Promise RemoveCondition(Creature creature)
-        {
-            return Context.Current.AddCommand(new CreatureUpdateLightCommand(creature, Light.None) );
-        }
-
         public override void Cancel()
         {
             Context.Current.Server.CancelQueueForExecution(key);
+        }
+
+        public override Promise OnStop(Creature creature)
+        {
+            return Context.Current.AddCommand(new CreatureUpdateLightCommand(creature, Light.None) );
         }
     }
 }

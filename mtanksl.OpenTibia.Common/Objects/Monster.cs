@@ -10,9 +10,9 @@
 
             MaxHealth = metadata.MaxHealth;
 
-            Outfit = metadata.Outfit;
+            BaseOutfit = Outfit = metadata.Outfit;
 
-            Speed = metadata.Speed;
+            BaseSpeed = Speed = metadata.Speed;
 
             this.metadata = metadata;
         }

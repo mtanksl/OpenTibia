@@ -39,7 +39,7 @@ namespace OpenTibia.Game.Components
                 }
             }
 
-            return Condition.AddCondition(creature);
+            return Condition.OnStart(creature);
         }
 
         protected override Promise OnStop(State state)
@@ -63,7 +63,7 @@ namespace OpenTibia.Game.Components
                 case State.Success:
                 case State.Canceled:
 
-                    Context.Current.Server.GameObjectComponents.RemoveComponent(GameObject, this);
+                    Context.Server.GameObjectComponents.RemoveComponent(GameObject, this);
 
                     break;
 
@@ -74,7 +74,7 @@ namespace OpenTibia.Game.Components
                     break;
             }
 
-            return Condition.RemoveCondition(creature);
+            return Condition.OnStop(creature);
         }
     }
 }
