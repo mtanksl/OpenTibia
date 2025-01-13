@@ -70,7 +70,7 @@ namespace OpenTibia.Game.Commands
 
         protected bool IsMoveable(Creature fromCreature)
         {
-            if (fromCreature is Npc || fromCreature is Monster)
+            if (fromCreature is Player || fromCreature is Npc || fromCreature is Monster)
             {
                 Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
 
