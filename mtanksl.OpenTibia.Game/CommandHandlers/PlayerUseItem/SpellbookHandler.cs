@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Plugins;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,19 @@ namespace OpenTibia.Game.CommandHandlers
 
                 StringBuilder builder = new StringBuilder();
 
-                foreach (var group in Context.Server.Plugins.Spells.Where(s => s.Vocations.Contains(command.Player.Vocation) ).OrderBy(s => s.Level).ThenBy(s => s.Mana).GroupBy(s => s.Level) )
+                IEnumerable<Spell> spells = Context.Server.Plugins.Spells.Where(s => s.Vocations.Contains(command.Player.Vocation) && s.Level <= command.Player.Level);
+
+                if (Context.Server.Config.GameplayLearnSpellFirst)
+                {
+                    spells = spells.Where(s => command.Player.Spells.HasSpell(s.Name) );
+                }
+
+                if ( !command.Player.Premium)
+                {
+                    spells = spells.Where(s => !s.Premium);
+                }
+
+                foreach (var group in spells.OrderBy(s => s.Level).ThenBy(s => s.Mana).GroupBy(s => s.Level) )
                 {
                     builder.Append(group.Key + ". Level Spells\n");
 
