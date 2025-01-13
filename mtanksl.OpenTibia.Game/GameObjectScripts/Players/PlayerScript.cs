@@ -11,6 +11,8 @@ namespace OpenTibia.Game.GameObjectScripts
 
             Context.Server.GameObjectComponents.AddComponent(player, new PlayerMuteBehaviour() );
 
+            Context.Server.GameObjectComponents.AddComponent(player, new PlayerRegenerationConditionBehaviour() );
+
             Context.Server.GameObjectComponents.AddComponent(player, new PlayerCooldownBehaviour() );
 
             Context.Server.GameObjectComponents.AddComponent(player, new PlayerEnvironmentLightBehaviour() );

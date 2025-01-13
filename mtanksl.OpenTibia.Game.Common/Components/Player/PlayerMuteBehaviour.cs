@@ -46,11 +46,11 @@ namespace OpenTibia.Game.Components
         {
             int ticks = 1500;
 
-            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance[GameObject.Id % GlobalTickEventArgs.Instance.Length], (context, e) =>
+            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(GameObject.Id), (context, e) =>
             {
                 ticks -= e.Ticks;
 
-                if (ticks <= 0)
+                while (ticks <= 0)
                 {
                     ticks += 1500;
 

@@ -314,8 +314,5 @@ condition = {
 	end,
 	outfit = function(outfit, duration)
 		return { type = "outfit", outfit = outfit, duration = duration }
-	end,
-	regeneration = function(regenerationtick)
-		return { type = "regeneration", regenerationtick = regenerationtick }
 	end
 }

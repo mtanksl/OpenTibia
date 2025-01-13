@@ -5,7 +5,6 @@ using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace OpenTibia.Game.CommandHandlers
 {
@@ -230,35 +229,22 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (foods.TryGetValue(command.Item.Metadata.OpenTibiaId, out food) )
             {
-                CreatureConditionBehaviour creatureConditionBehaviour = Context.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(command.Player)
-                    .Where(c => c.Condition.ConditionSpecialCondition == ConditionSpecialCondition.Regeneration)
-                    .FirstOrDefault();
+                PlayerRegenerationConditionBehaviour playerRegenerationConditionBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerRegenerationConditionBehaviour>(command.Player);
 
-                if (creatureConditionBehaviour == null)
+                if (playerRegenerationConditionBehaviour != null)
                 {
-                    return Context.AddCommand(new CreatureAddConditionCommand(command.Player, new RegenerationCondition(food.Regeneration) ) ).Then( () =>
+                    if (playerRegenerationConditionBehaviour.AddRegeneration(food.Regeneration) )
                     {
-                        return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
+                        return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, food.Sound) );
+                        } );
+                    }
 
-                    } ).Then( () =>
-                    {
-                        return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, food.Sound) );
-                    } );
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreFull) );
+
+                    return Promise.Break;
                 }
-
-                RegenerationCondition conditionRegeneration = (RegenerationCondition)creatureConditionBehaviour.Condition;
-
-                if (conditionRegeneration.AddRegenerationTick(food.Regeneration) )
-                {
-                    return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
-                    {
-                        return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, food.Sound) );
-                    } );
-                }
-
-                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreFull) );
-
-                return Promise.Break;
             }
 
             return next();

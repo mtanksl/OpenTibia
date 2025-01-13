@@ -279,7 +279,7 @@ namespace OpenTibia.Game.Components
         {
             player = (Player)GameObject;
 
-            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance[player.Id % GlobalTickEventArgs.Instance.Length], (context, e) =>
+            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(player.Id), (context, e) =>
             {
                 if (target != null)
                 {

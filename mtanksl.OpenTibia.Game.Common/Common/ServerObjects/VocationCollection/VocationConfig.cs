@@ -14,12 +14,12 @@
 
         public int ManaPerLevel { get; set; }
 
-        public int Health { get; set; }
+        public int RegenerateHealth { get; set; }
 
-        public int HealthDelayInSeconds { get; set; }
+        public int RegenerateHealthInSeconds { get; set; }
 
-        public int Mana { get; set; }
+        public int RegenerateMana { get; set; }
 
-        public int ManaDelayInSeconds { get; set; }
+        public int RegenerateManaInSeconds { get; set; }
     }
 }

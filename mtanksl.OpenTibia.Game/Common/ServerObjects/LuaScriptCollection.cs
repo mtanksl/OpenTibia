@@ -1365,15 +1365,10 @@ namespace OpenTibia.Game.Common.ServerObjects
                     case "outfit":
 
                         return new OutfitCondition(ToOutfit(table["outfit"] ), TimeSpan.FromSeconds( (int)(long)table["duration"] ) );
-
-                    case "regeneration":
-
-                       return new RegenerationCondition( (int)(long)table["regenerationtick"] );
-
                 }
             }
          
-            throw new ArgumentException("Parameter must by Condition or LuaTable with type, specialcondition, magiceffecttype, animatedtextcolor, damages, interval, damage, speed, duration, light, outfit and/or regenerationtick.");
+            throw new ArgumentException("Parameter must be Condition or LuaTable with type, specialcondition, magiceffecttype, animatedtextcolor, damages, interval, damage, speed, duration, light and/or outfit.");
         }
 
         public string GetChunk(string path)

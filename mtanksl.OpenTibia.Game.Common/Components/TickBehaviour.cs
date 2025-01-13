@@ -11,7 +11,7 @@ namespace OpenTibia.Game.Components
 
         public override void Start()
         {
-            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance[GameObject.Id % GlobalTickEventArgs.Instance.Length], (context, e) =>
+            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(GameObject.Id), (context, e) =>
             {
                 return Update();
             } );

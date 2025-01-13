@@ -2,7 +2,12 @@
 {
     public class GlobalTickEventArgs : GameEventArgs
     {
-        public static readonly GlobalTickEventArgs[] Instance = new GlobalTickEventArgs[10]
+        public static GlobalTickEventArgs Instance(uint id)
+        {
+            return Instances[id % Instances.Length];
+        }
+
+        public static readonly GlobalTickEventArgs[] Instances = new GlobalTickEventArgs[10]
         {
             new GlobalTickEventArgs(0, 1000),
             new GlobalTickEventArgs(1, 1000),

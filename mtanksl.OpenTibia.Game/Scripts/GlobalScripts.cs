@@ -70,9 +70,9 @@ namespace OpenTibia.Game.Scripts
 
             Promise.Delay("Tick", next - now).Then( () =>
             {
-                Tick( (index + 1) % GlobalTickEventArgs.Instance.Length);
+                Tick( (index + 1) % GlobalTickEventArgs.Instances.Length);
 
-                Context.AddEvent(GlobalTickEventArgs.Instance[index] );
+                Context.AddEvent(GlobalTickEventArgs.Instances[index] );
 
                 return Promise.Completed;
             } );

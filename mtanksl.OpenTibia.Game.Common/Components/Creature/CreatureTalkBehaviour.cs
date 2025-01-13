@@ -28,18 +28,16 @@ namespace OpenTibia.Game.Components
 
             int ticks = 30000;
 
-            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance[creature.Id % GlobalTickEventArgs.Instance.Length], (context, e) =>
+            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(creature.Id), async (context, e) =>
             {
                 ticks -= e.Ticks;
 
-                if (ticks <= 0)
+                while (ticks <= 0)
                 {
                     ticks += 30000;
 
-                    return Context.AddCommand(new ShowTextCommand(creature, talkType, Context.Server.Randomization.Take(sentences) ) );
+                    await Context.AddCommand(new ShowTextCommand(creature, talkType, Context.Server.Randomization.Take(sentences) ) );
                 }
-
-                return Promise.Completed;
             } );
         }
 
