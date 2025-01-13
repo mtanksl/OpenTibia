@@ -115,13 +115,16 @@ namespace OpenTibia.Game.CommandHandlers
 
                 PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerCooldownBehaviour>(command.Player);
 
-                if (playerCooldownBehaviour.HasCooldown(plugin.Spell.Name) || playerCooldownBehaviour.HasCooldown(plugin.Spell.Group) )
+                if (playerCooldownBehaviour != null)
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
+                    if (playerCooldownBehaviour.HasCooldown(plugin.Spell.Name) || playerCooldownBehaviour.HasCooldown(plugin.Spell.Group) )
+                    {
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
 
-                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
-                    await Promise.Break;
+                        await Promise.Break;
+                    }
                 }
 
                 if ( !await plugin.OnCasting(command.Player, target, command.Message) )

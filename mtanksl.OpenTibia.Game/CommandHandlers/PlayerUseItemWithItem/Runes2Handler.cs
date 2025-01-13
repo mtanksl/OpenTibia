@@ -73,13 +73,16 @@ namespace OpenTibia.Game.CommandHandlers
 
                     PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerCooldownBehaviour>(command.Player);
 
-                    if (playerCooldownBehaviour.HasCooldown(plugin.Rune.Group) )
-                    {                     
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
+                    if (playerCooldownBehaviour != null)
+                    { 
+                        if (playerCooldownBehaviour.HasCooldown(plugin.Rune.Group) )
+                        {                     
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouAreExhausted) );
 
-                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+                            await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
-                        await Promise.Break;
+                            await Promise.Break;
+                        }
                     }
 
                     if ( !Context.Server.Pathfinding.CanThrow(command.Player.Tile.Position, toTile.Position) )

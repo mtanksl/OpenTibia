@@ -10,17 +10,19 @@ namespace OpenTibia.Game.Components
 {
     public class PlayerPingBehaviour : Behaviour
     {
+        private bool waitingPingResponse = false;
+
         private DateTime lastPingRequest = DateTime.UtcNow;
 
         private DateTime lastPingResponse = DateTime.UtcNow;
 
         public void SetLastPingResponse()
         {
-            DateTime now = DateTime.UtcNow;
-
-            if (now > lastPingRequest)
+            if (waitingPingResponse)
             {
-                lastPingResponse = now;
+                waitingPingResponse = false;
+
+                lastPingResponse = DateTime.UtcNow;
             }
         }
 
@@ -48,6 +50,8 @@ namespace OpenTibia.Game.Components
                 }
                 else
                 {
+                    waitingPingResponse = true;
+
                     lastPingRequest = DateTime.UtcNow;
 
                     Context.AddPacket(player, new PingOutgoingPacket() );
