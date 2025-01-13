@@ -14,7 +14,7 @@
 	- Skull
 	- War
 	- Splash
-	- Drunk and Slowed conditions
+	- Drunk condition
 	- ...
 - Bed
 - Guild
@@ -94,6 +94,7 @@
 	- Protection zone
 	- No-logout zone
 	- Raids
+	- Special Conditions
 - Interacting with the game world 
 	- Look item
 		- Sign items

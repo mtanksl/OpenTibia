@@ -13,9 +13,9 @@ namespace OpenTibia.Plugins.Runes
 
         }
 
-        public override PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile tile, Item item)
+        public override PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile toTile, Item rune)
         {
-            if (tile == null || tile.Ground == null || tile.NotWalkable)
+            if (toTile == null || toTile.Ground == null || toTile.NotWalkable)
             {
                 return Promise.FromResultAsBooleanFalse;
             }
@@ -23,7 +23,7 @@ namespace OpenTibia.Plugins.Runes
             return Promise.FromResultAsBooleanTrue;
         }
 
-        public override Promise OnUseRune(Player player, Creature target, Tile tile, Item item)
+        public override Promise OnUseRune(Player player, Creature target, Tile toTile, Item rune)
         {
             Offset[] area = new Offset[]
             {
@@ -34,7 +34,7 @@ namespace OpenTibia.Plugins.Runes
 
             var formula = Formula.GenericFormula(player.Level, player.Skills.MagicLevel, 0, 0, 4.8, 0);
 
-            return Context.AddCommand(new CreatureAttackAreaCommand(player, false, tile.Position, area, ProjectileType.Explosion, MagicEffectType.ExplosionArea,
+            return Context.AddCommand(new CreatureAttackAreaCommand(player, false, toTile.Position, area, ProjectileType.Explosion, MagicEffectType.ExplosionArea,
 
                 new SimpleAttack(null, null, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
         }

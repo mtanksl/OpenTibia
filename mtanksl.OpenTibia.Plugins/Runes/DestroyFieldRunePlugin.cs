@@ -16,9 +16,9 @@ namespace OpenTibia.Plugins.Runes
             fields = Context.Server.Values.GetUInt16HashSet("values.items.fields");
         }
 
-        public override PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile tile, Item item)
+        public override PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile toTile, Item rune)
         {
-            if (tile == null || tile.Ground == null || tile.TopItem == null || !fields.Contains(tile.TopItem.Metadata.OpenTibiaId) )
+            if (toTile == null || toTile.Ground == null || toTile.TopItem == null || !fields.Contains(toTile.TopItem.Metadata.OpenTibiaId) )
             {
                 return Promise.FromResultAsBooleanFalse;
             }
@@ -26,11 +26,11 @@ namespace OpenTibia.Plugins.Runes
             return Promise.FromResultAsBooleanTrue;
         }
 
-        public override Promise OnUseRune(Player player, Creature target, Tile tile, Item item)
+        public override Promise OnUseRune(Player player, Creature target, Tile toTile, Item rune)
         {
-            return Context.AddCommand(new ShowMagicEffectCommand(tile.Position, MagicEffectType.Puff) ).Then( () =>
+            return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.Puff) ).Then( () =>
             {
-                return Context.AddCommand(new ItemDestroyCommand(tile.TopItem) );
+                return Context.AddCommand(new ItemDestroyCommand(toTile.TopItem) );
             } );
         }
     }

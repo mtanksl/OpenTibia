@@ -13,12 +13,12 @@ namespace OpenTibia.Plugins.Runes
 
         }
 
-        public override PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile tile, Item item)
+        public override PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile toTile, Item rune)
         {
             return Promise.FromResultAsBooleanTrue;
         }
 
-        public override Promise OnUseRune(Player player, Creature target, Tile tile, Item item)
+        public override Promise OnUseRune(Player player, Creature target, Tile toTile, Item rune)
         {
             return Context.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.BlueShimmer) ).Then( () =>
             {

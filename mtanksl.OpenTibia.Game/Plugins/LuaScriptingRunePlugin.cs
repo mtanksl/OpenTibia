@@ -37,33 +37,33 @@ namespace OpenTibia.Game.Plugins
             }
         }
 
-        public override PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile tile, Item item)
+        public override PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile toTile, Item rune)
         {
             if (fileName != null)
             {
-                return script.CallFunction("onusingrune", player, target, tile, item).Then(result =>
+                return script.CallFunction("onusingrune", player, target, toTile, rune).Then(result =>
                 {
                     return (bool)result[0] ? Promise.FromResultAsBooleanTrue : Promise.FromResultAsBooleanFalse;
                 } );
             }
             else
             {
-                return script.CallFunction( (LuaFunction)parameters["onusingrune"], player, target, tile, item).Then(result =>
+                return script.CallFunction( (LuaFunction)parameters["onusingrune"], player, target, toTile, rune).Then(result =>
                 {
                     return (bool)result[0] ? Promise.FromResultAsBooleanTrue : Promise.FromResultAsBooleanFalse;
                 } );
             }            
         }
 
-        public override Promise OnUseRune(Player player, Creature target, Tile tile, Item item)
+        public override Promise OnUseRune(Player player, Creature target, Tile toTile, Item rune)
         {
             if (fileName != null)
             {
-                return script.CallFunction("onuserune", player, target, tile, item);
+                return script.CallFunction("onuserune", player, target, toTile, rune);
             }
             else
             {
-                return script.CallFunction( (LuaFunction)parameters["onuserune"], player, target, tile, item);
+                return script.CallFunction( (LuaFunction)parameters["onuserune"], player, target, toTile, rune);
             }
         }
 

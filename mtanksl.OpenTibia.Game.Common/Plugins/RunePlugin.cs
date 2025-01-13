@@ -12,8 +12,8 @@ namespace OpenTibia.Game.Plugins
 
         public Rune Rune { get; }
 
-        public abstract PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile tile, Item item);
+        public abstract PromiseResult<bool> OnUsingRune(Player player, Creature target, Tile toTile, Item rune);
 
-        public abstract Promise OnUseRune(Player player, Creature target, Tile tile, Item item);
+        public abstract Promise OnUseRune(Player player, Creature target, Tile toTile, Item rune);
     }
 }

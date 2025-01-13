@@ -1,9 +1,9 @@
-function onusingrune(player, target, tile, item)
+function onusingrune(player, target, toTile, rune)
 	--TODO
 	return true
 end
 
-function onuserune(player, target, tile, item)
+function onuserune(player, target, toTile, rune)
 	local area = {
 							{-1, -3}, {0, -3}, {1, -3},
 				  {-2, -2}, {-1, -2}, {0, -2}, {1, -2}, {2, -2},
@@ -14,5 +14,5 @@ function onuserune(player, target, tile, item)
 							{-1, 3},  {0, 3},  {1, 3}
 	}
 	local min, max = formula.generic(player.Level, player.Skills.MagicLevel, 1.2, 7, 2.8, 17)
-	command.creatureattackarea(player, false, tile.Position, area, projectiletype.fire, magiceffecttype.firearea, attack.simple(nil, nil, animatedtextcolor.orange, min, max), nil)
+	command.creatureattackarea(player, false, toTile.Position, area, projectiletype.fire, magiceffecttype.firearea, attack.simple(nil, nil, animatedtextcolor.orange, min, max), nil)
 end
