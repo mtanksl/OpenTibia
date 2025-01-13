@@ -20,7 +20,7 @@ namespace OpenTibia.Plugins.Spells
                 return Promise.FromResultAsBooleanTrue;
             }
 
-            if (player.Tile.Position.IsInRange(target.Tile.Position, 3) && Context.Current.Server.Pathfinding.CanThrow(player.Tile.Position, target.Tile.Position) )
+            if (player.Tile.Position.IsInRange(target.Tile.Position, 3) && Context.Server.Pathfinding.CanThrow(player.Tile.Position, target.Tile.Position) )
             {
                 return Promise.FromResultAsBooleanTrue;
             }

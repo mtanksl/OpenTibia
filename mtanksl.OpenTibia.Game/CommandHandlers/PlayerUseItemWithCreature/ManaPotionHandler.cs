@@ -24,13 +24,13 @@ namespace OpenTibia.Game.CommandHandlers
             {   
                 Promise promise;
 
-                if ( !Context.Current.Server.Config.GameplayRemoveChargesFromPotions)
+                if ( !Context.Server.Config.GameplayRemoveChargesFromPotions)
                 {
                     promise = Promise.Completed;
                 }
                 else
                 {
-                    promise = Context.Current.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
+                    promise = Context.AddCommand(new ItemDecrementCommand(command.Item, 1) ).Then( () =>
                     {
                         return Context.AddCommand(new PlayerCreateItemCommand(command.Player, smallEmptyPotionFlask, 1) );
                     } );

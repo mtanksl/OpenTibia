@@ -169,7 +169,7 @@ namespace OpenTibia.Game.Components
 
                         if (idleWalkStrategy.CanWalk(npc, null, out toTile) )
                         {
-                            await Context.Current.AddCommand(new CreatureMoveCommand(npc, toTile) );
+                            await Context.AddCommand(new CreatureMoveCommand(npc, toTile) );
 
                             nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / npc.Speed);
                         }

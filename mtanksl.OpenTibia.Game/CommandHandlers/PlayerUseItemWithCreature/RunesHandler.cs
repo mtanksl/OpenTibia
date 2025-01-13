@@ -96,7 +96,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 playerCooldownBehaviour.AddCooldown(plugin.Rune.Group, plugin.Rune.GroupCooldown);
 
-                if (Context.Current.Server.Config.GameplayRemoveChargesFromRunes)
+                if (Context.Server.Config.GameplayRemoveChargesFromRunes)
                 {
                     await Context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
                 }

@@ -16,7 +16,7 @@ namespace OpenTibia.Plugins.Spells
 
         public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
         {
-            if (target != null && player.Tile.Position.IsInRange(target.Tile.Position, 5) && Context.Current.Server.Pathfinding.CanThrow(player.Tile.Position, target.Tile.Position) && Formula.GetKnightWeapon(player) != null)
+            if (target != null && player.Tile.Position.IsInRange(target.Tile.Position, 5) && Context.Server.Pathfinding.CanThrow(player.Tile.Position, target.Tile.Position) && Formula.GetKnightWeapon(player) != null)
             {
                 return Promise.FromResultAsBooleanTrue;
             }

@@ -121,7 +121,7 @@ namespace OpenTibia.Game.Components
                         {
                             MoveDirection moveDirection = monster.Tile.Position.ToMoveDirection(toTile.Position).Value;
 
-                            await Context.Current.AddCommand(new CreatureMoveCommand(monster, toTile) );
+                            await Context.AddCommand(new CreatureMoveCommand(monster, toTile) );
 
                             int diagonalCost = (moveDirection == MoveDirection.NorthWest || 
                                                 moveDirection == MoveDirection.NorthEast || 
@@ -239,7 +239,7 @@ namespace OpenTibia.Game.Components
 
                         if (idleWalkStrategy.CanWalk(monster, null, out toTile) )
                         {
-                            await Context.Current.AddCommand(new CreatureMoveCommand(monster, toTile) );
+                            await Context.AddCommand(new CreatureMoveCommand(monster, toTile) );
 
                             nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / monster.Speed);
                         }

@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Components
         {
             Player player = (Player)GameObject;
 
-            VocationConfig vocationConfig = Context.Current.Server.Vocations.GetVocationById( (byte)player.Vocation);
+            VocationConfig vocationConfig = Context.Server.Vocations.GetVocationById( (byte)player.Vocation);
 
             int health = vocationConfig.RegenerateHealthInSeconds;
 
@@ -66,7 +66,7 @@ namespace OpenTibia.Game.Components
                         {
                             health = vocationConfig.RegenerateHealthInSeconds;
 
-                            await Context.Current.AddCommand(new CreatureUpdateHealthCommand(player, player.Health + vocationConfig.RegenerateHealth) );
+                            await Context.AddCommand(new CreatureUpdateHealthCommand(player, player.Health + vocationConfig.RegenerateHealth) );
                         }
 
                         if (mana > 0)
@@ -77,7 +77,7 @@ namespace OpenTibia.Game.Components
                         {
                             mana = vocationConfig.RegenerateManaInSeconds;
 
-                            await Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana + vocationConfig.RegenerateMana) );
+                            await Context.AddCommand(new PlayerUpdateManaCommand(player, player.Mana + vocationConfig.RegenerateMana) );
                         }
                     }
 
@@ -95,7 +95,7 @@ namespace OpenTibia.Game.Components
 
                             if (player.Soul < vocationConfig.SoulMax)
                             {
-                                await Context.Current.AddCommand(new PlayerUpdateSoulCommand(player, player.Soul + vocationConfig.RegenerateSoul, vocationConfig.SoulMax) );
+                                await Context.AddCommand(new PlayerUpdateSoulCommand(player, player.Soul + vocationConfig.RegenerateSoul, vocationConfig.SoulMax) );
                             }
                         }
                     }

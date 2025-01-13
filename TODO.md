@@ -2,7 +2,6 @@
 
 - Player information
 	- Capacity
-	- Soul regeneration
 	- Item that modifies player light (ex. torch)
 	- Item that modifies player speed (ex. BOH)
 	- Item that modifies player skills
@@ -119,6 +118,8 @@
 	- House
 		- Access list
 		- House items
+	- Health and mana regeneration
+	- Soul regeneration
 - Plugins
 	- Lua scripting
 	- Lua debugging with ZeroBrane

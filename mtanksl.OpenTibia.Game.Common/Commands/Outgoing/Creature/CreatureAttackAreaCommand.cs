@@ -126,7 +126,7 @@ namespace OpenTibia.Game.Commands
                     offset = area;
                 }
 
-                Tile toTile = Context.Current.Server.Map.GetTile(Center.Offset(offset) );
+                Tile toTile = Context.Server.Map.GetTile(Center.Offset(offset) );
 
                 if (toTile != null)
                 {
