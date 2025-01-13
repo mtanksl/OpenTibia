@@ -43,13 +43,19 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     ManaPerLevel = LuaScope.GetInt32(lVocation["manaperlevel"] ),
 
+                    SoulMax = LuaScope.GetInt32(lVocation["soulmax"]),
+
                     RegenerateHealth = LuaScope.GetInt32(lVocation["regeneratehealth"] ),
 
                     RegenerateHealthInSeconds = LuaScope.GetInt32(lVocation["regeneratehealthinseconds"] ),
 
                     RegenerateMana = LuaScope.GetInt32(lVocation["regeneratemana"] ),
 
-                    RegenerateManaInSeconds = LuaScope.GetInt32(lVocation["regeneratemanainseconds"] )
+                    RegenerateManaInSeconds = LuaScope.GetInt32(lVocation["regeneratemanainseconds"] ),
+
+                    RegenerateSoul = LuaScope.GetInt32(lVocation["regeneratesoul"] ),
+
+                    RegenerateSoulInSeconds = LuaScope.GetInt32(lVocation["regeneratesoulinseconds"] )
                 };
 
                 vocations.Add(vocation.Id, vocation);

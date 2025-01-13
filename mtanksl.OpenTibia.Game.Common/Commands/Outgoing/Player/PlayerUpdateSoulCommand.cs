@@ -9,11 +9,16 @@ namespace OpenTibia.Game.Commands
 {
     public class PlayerUpdateSoulCommand : Command
     {
-        public PlayerUpdateSoulCommand(Player player, int soul)
+        public PlayerUpdateSoulCommand(Player player, int soul) : this(player, soul, 200)
+        {
+            
+        }
+
+        public PlayerUpdateSoulCommand(Player player, int soul, int maxSoul)
         {
             Player = player;
 
-            Soul = (byte)Math.Max(0, Math.Min(100, soul) );
+            Soul = (byte)Math.Max(0, Math.Min(maxSoul, soul) );
         }
 
         public Player Player { get; set; }

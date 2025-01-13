@@ -3,6 +3,7 @@ using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
+using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
@@ -57,6 +58,16 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 if (experience > 0)
                                 {
+                                    if (experience > player.Level)
+                                    {
+                                        PlayerRegenerationConditionBehaviour playerRegenerationConditionBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerRegenerationConditionBehaviour>(player);
+
+                                        if (playerRegenerationConditionBehaviour != null)
+                                        {
+                                            playerRegenerationConditionBehaviour.AddSoulRegeneration();
+                                        }
+                                    }
+
                                     ushort correctLevel = player.Level;
 
                                     byte correctLevelPercent = 0;
@@ -81,7 +92,7 @@ namespace OpenTibia.Game.CommandHandlers
                                         }
                                     }
 
-                                    await Context.Current.AddCommand(new ShowAnimatedTextCommand(player, AnimatedTextColor.White, experience.ToString() ) );
+                                    await Context.AddCommand(new ShowAnimatedTextCommand(player, AnimatedTextColor.White, experience.ToString() ) );
 
                                     if (correctLevel > player.Level)
                                     {
@@ -100,7 +111,7 @@ namespace OpenTibia.Game.CommandHandlers
                                         player.MaxMana = (ushort)(player.MaxMana + (correctLevel - player.Level) * vocationConfig.ManaPerLevel);
                                     }
 
-                                    await Context.Current.AddCommand(new PlayerUpdateExperienceCommand(player, player.Experience + experience, correctLevel, correctLevelPercent) );
+                                    await Context.AddCommand(new PlayerUpdateExperienceCommand(player, player.Experience + experience, correctLevel, correctLevelPercent) );
                                 }
                             }
                         }
@@ -187,7 +198,7 @@ namespace OpenTibia.Game.CommandHandlers
                             player.MaxMana = (ushort)(player.MaxMana - (player.Level - correctLevel) * vocationConfig.ManaPerLevel);
                         }
 
-                        await Context.Current.AddCommand(new PlayerUpdateExperienceCommand(player, player.Experience - experience, correctLevel, correctLevelPercent) );
+                        await Context.AddCommand(new PlayerUpdateExperienceCommand(player, player.Experience - experience, correctLevel, correctLevelPercent) );
                     }
                 }
             }

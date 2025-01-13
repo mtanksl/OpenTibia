@@ -11,14 +11,6 @@ namespace OpenTibia.Game.Components
     {
         private int regeneration;
 
-        public int Regeneration
-        {
-            get
-            {
-                return regeneration;
-            }
-        }
-
         public bool AddRegeneration(int regenerationInSeconds)
         {
             if (regeneration + regenerationInSeconds > 20 * 60)
@@ -29,6 +21,13 @@ namespace OpenTibia.Game.Components
             regeneration += regenerationInSeconds;
 
             return true;
+        }
+
+        private int soulRegeneration;
+
+        public void AddSoulRegeneration()
+        {
+            soulRegeneration = 4 * 60;
         }
 
         private Guid globalTick;
@@ -42,6 +41,8 @@ namespace OpenTibia.Game.Components
             int health = vocationConfig.RegenerateHealthInSeconds;
 
             int mana = vocationConfig.RegenerateManaInSeconds;
+
+            int soul = vocationConfig.RegenerateSoulInSeconds;
 
             int ticks = 1000;
 
@@ -77,6 +78,25 @@ namespace OpenTibia.Game.Components
                             mana = vocationConfig.RegenerateManaInSeconds;
 
                             await Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana + vocationConfig.RegenerateMana) );
+                        }
+                    }
+
+                    if (soulRegeneration > 0)
+                    {
+                        soulRegeneration--;
+
+                        if (soul > 0)
+                        {
+                            soul--;
+                        }
+                        else
+                        {
+                            soul = vocationConfig.RegenerateSoulInSeconds;
+
+                            if (player.Soul < vocationConfig.SoulMax)
+                            {
+                                await Context.Current.AddCommand(new PlayerUpdateSoulCommand(player, player.Soul + vocationConfig.RegenerateSoul, vocationConfig.SoulMax) );
+                            }
                         }
                     }
                 }
