@@ -43,11 +43,13 @@ namespace OpenTibia.Game.CommandHandlers
 
                     Tile south = Context.Server.Map.GetTile(hole.Position.Offset(0, 1, 0) );
 
-                    if (down.TopCreature != null)
+                    Creature creature = down.TopCreature;
+
+                    if (creature != null)
                     {
-                        return Context.AddCommand(new CreatureMoveCommand(down.TopCreature, south) ).Then( () =>
+                        return Context.AddCommand(new CreatureMoveCommand(creature, south) ).Then( () =>
                         {
-                            return Context.AddCommand(new CreatureUpdateDirectionCommand(down.TopCreature, Direction.South) );
+                            return Context.AddCommand(new CreatureUpdateDirectionCommand(creature, Direction.South) );
                         } );
                     }
                     else if (down.TopItem != null && !down.TopItem.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
