@@ -914,22 +914,6 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("tilecreatemonstercorpse", (luaScope, parameters) =>
-            {
-                return Context.Current.AddCommand(new TileCreateMonsterCorpseCommand( (Tile)parameters[0], (MonsterMetadata)parameters[1] ) ).Then( (item) =>
-                {
-                    return Promise.FromResult(new object[] { item } );
-                } );
-            } );
-
-            lua.RegisterCoFunction("tilecreateplayercorpse", (luaScope, parameters) =>
-            {
-                return Context.Current.AddCommand(new TileCreatePlayerCorpseCommand( (Tile)parameters[0], (Player)parameters[1] ) ).Then( (item) =>
-                {
-                    return Promise.FromResult(new object[] { item } );
-                } );
-            } );
-
             lua.RegisterCoFunction("tilecreatemonster", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new TileCreateMonsterCommand( (Tile)parameters[0], (string)parameters[1] ) ).Then( (monster) =>

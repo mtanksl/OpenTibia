@@ -710,20 +710,6 @@ return {
 				args = "(Tile tile, ushort openTibiaId, byte count)",
 				returns = "void"
 			},
-			-- Item command.tilecreatemonstercorpse(Tile tile, MonsterMetadata metadata)
-			tilecreatemonstercorpse = {
-				type = "function",
-				description = "",
-				args = "(Tile tile, MonsterMetadata metadata)",
-				returns = "Item"
-			},
-			-- Item command.tilecreateplayercorpse(Tile tile, Player player)
-			tilecreateplayercorpse = {
-				type = "function",
-				description = "",
-				args = "(Tile tile, Player player)",
-				returns = "Item"
-			},
 			-- Monster command.tilecreatemonster(Tile tile, string name)
 			tilecreatemonster = {
 				type = "function",

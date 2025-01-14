@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            if (Tile.TopItem != null && Tile.TopItem.Metadata.OpenTibiaId == OpenTibiaId && Tile.TopItem is StackableItem stackableItem)
+            if (Tile.TopItem != null && Tile.TopItem is StackableItem stackableItem && stackableItem.Metadata.OpenTibiaId == OpenTibiaId)
             {
                 if (stackableItem.Count + Count > 100)
                 { 
