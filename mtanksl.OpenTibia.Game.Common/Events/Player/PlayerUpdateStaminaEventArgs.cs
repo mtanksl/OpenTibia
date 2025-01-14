@@ -11,8 +11,8 @@ namespace OpenTibia.Game.Events
             Stamina = stamina;
         }
 
-        public Player Player { get; set; }
+        public Player Player { get; }
 
-        public ushort Stamina { get; set; }
+        public ushort Stamina { get; }
     }
 }

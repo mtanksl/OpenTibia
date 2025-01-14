@@ -13,10 +13,10 @@ namespace OpenTibia.Game.Events
             Level = level;
         }
 
-        public Player Player { get; set; }
+        public Player Player { get; }
 
-        public ulong Experience { get; set; }
+        public ulong Experience { get; }
 
-        public ushort Level { get; set; }
+        public ushort Level { get; }
     }
 }

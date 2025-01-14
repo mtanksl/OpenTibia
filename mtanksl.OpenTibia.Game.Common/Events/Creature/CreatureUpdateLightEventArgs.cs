@@ -12,8 +12,8 @@ namespace OpenTibia.Game.Events
             Light = light;
         }
 
-        public Creature Creature { get; set; }
+        public Creature Creature { get; }
 
-        public Light Light { get; set; }
+        public Light Light { get; }
     }
 }

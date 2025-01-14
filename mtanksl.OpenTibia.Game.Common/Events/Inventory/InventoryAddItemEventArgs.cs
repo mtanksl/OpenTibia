@@ -13,10 +13,10 @@ namespace OpenTibia.Game.Events
             Slot = slot;
         }
 
-        public Inventory Inventory { get; set; }
+        public Inventory Inventory { get; }
 
-        public Item Item { get; set; }
+        public Item Item { get; }
 
-        public byte Slot { get; set; }
+        public byte Slot { get; }
     }
 }

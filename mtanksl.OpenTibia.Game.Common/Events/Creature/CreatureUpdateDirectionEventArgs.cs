@@ -12,8 +12,8 @@ namespace OpenTibia.Game.Events
             Direction = direction;
         }
 
-        public Creature Creature { get; set; }
+        public Creature Creature { get; }
 
-        public Direction Direction { get; set; }
+        public Direction Direction { get; }
     }
 }

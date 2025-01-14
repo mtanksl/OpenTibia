@@ -13,10 +13,10 @@ namespace OpenTibia.Game.Events
             Speed = speed;
         }
 
-        public Creature Creature { get; set; }
+        public Creature Creature { get; }
 
-        public ushort BaseSpeed { get; set; }
+        public ushort BaseSpeed { get; }
 
-        public ushort Speed { get; set; }
+        public ushort Speed { get; }
     }
 }

@@ -11,8 +11,8 @@ namespace OpenTibia.Game.Events
             Mana = mana;
         }
 
-        public Player Player { get; set; }
+        public Player Player { get; }
 
-        public ushort Mana { get; set; }
+        public ushort Mana { get; }
     }
 }

@@ -11,8 +11,8 @@ namespace OpenTibia.Game.Events
             Player = player;
         }
 
-        public Tile Tile { get; set; }
+        public Tile Tile { get; }
 
-        public Player Player { get; set; }
+        public Player Player { get; }
     }
 }

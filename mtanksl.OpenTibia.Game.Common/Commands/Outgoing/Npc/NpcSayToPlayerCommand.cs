@@ -27,13 +27,13 @@ namespace OpenTibia.Game.Commands
         {
             ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(0, Npc.Name, 0, TalkType.PrivateNpcToPlayer, Npc.Tile.Position, Message);
 
-            NpcSayEventArgs npcSayEventArgs = new NpcSayEventArgs(Npc, Message);
+            NpcSayToPlayerEventArgs npcSayToPlayerEventArgs = new NpcSayToPlayerEventArgs(Npc, Player, Message);
 
             Context.AddPacket(Player, showTextOutgoingPacket);
 
-            Context.AddEvent(Player, npcSayEventArgs);
+            Context.AddEvent(Player, npcSayToPlayerEventArgs);
 
-            Context.AddEvent(npcSayEventArgs);
+            Context.AddEvent(npcSayToPlayerEventArgs);
 
             return Promise.Completed;
         }

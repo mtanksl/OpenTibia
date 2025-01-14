@@ -17,14 +17,14 @@ namespace OpenTibia.Game.Events
             ToIndex = toIndex;
         }
 
-        public Creature Creature { get; set; }
+        public Creature Creature { get; }
 
-        public Tile FromTile { get; set; }
+        public Tile FromTile { get; }
 
-        public int? FromIndex { get; set; }
+        public int? FromIndex { get; }
 
-        public Tile ToTile { get; set; }
+        public Tile ToTile { get; }
 
-        public int? ToIndex { get; set; }
+        public int? ToIndex { get; }
     }
 }

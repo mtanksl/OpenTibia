@@ -14,10 +14,10 @@ namespace OpenTibia.Game.Events
             Outfit = outfit;
         }
 
-        public Creature Creature { get; set; }
+        public Creature Creature { get; }
 
-        public Outfit BaseOutfit { get; set; }
+        public Outfit BaseOutfit { get; }
 
-        public Outfit Outfit { get; set; }
+        public Outfit Outfit { get; }
     }
 }

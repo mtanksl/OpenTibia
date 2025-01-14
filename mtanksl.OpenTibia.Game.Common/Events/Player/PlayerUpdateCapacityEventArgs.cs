@@ -11,8 +11,8 @@ namespace OpenTibia.Game.Events
             Capacity = capacity;
         }
 
-        public Player Player { get; set; }
+        public Player Player { get; }
 
-        public uint Capacity { get; set; }
+        public uint Capacity { get; }
     }
 }

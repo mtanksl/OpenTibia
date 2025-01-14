@@ -11,8 +11,8 @@ namespace OpenTibia.Game.Events
             Health = health;
         }
 
-        public Creature Creature { get; set; }
+        public Creature Creature { get; }
 
-        public ushort Health { get; set; }
+        public ushort Health { get; }
     }
 }

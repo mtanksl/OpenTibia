@@ -12,8 +12,8 @@ namespace OpenTibia.Game.Events
             SkullIcon = skullIcon;
         }
 
-        public Creature Creature { get; set; }
+        public Creature Creature { get; }
 
-        public SkullIcon SkullIcon { get; set; }
+        public SkullIcon SkullIcon { get; }
     }
 }

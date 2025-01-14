@@ -15,12 +15,12 @@ namespace OpenTibia.Game.Events
             Index = index;
         }
 
-        public Container Container { get; set; }
+        public Container Container { get; }
 
-        public Item FromItem { get; set; }
+        public Item FromItem { get; }
 
-        public Item ToItem { get; set; }
+        public Item ToItem { get; }
 
-        public byte Index { get; set; }
+        public byte Index { get; }
     }
 }

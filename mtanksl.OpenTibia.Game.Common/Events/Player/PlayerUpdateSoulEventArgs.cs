@@ -11,8 +11,8 @@ namespace OpenTibia.Game.Events
             Soul = soul;
         }
 
-        public Player Player { get; set; }
+        public Player Player { get; }
 
-        public byte Soul { get; set; }
+        public byte Soul { get; }
     }
 }

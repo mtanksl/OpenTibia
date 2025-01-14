@@ -12,8 +12,8 @@ namespace OpenTibia.Game.Events
             PartyIcon = partyIcon;
         }
 
-        public Creature Creature { get; set; }
+        public Creature Creature { get; }
 
-        public PartyIcon PartyIcon { get; set; }
+        public PartyIcon PartyIcon { get; }
     }
 }

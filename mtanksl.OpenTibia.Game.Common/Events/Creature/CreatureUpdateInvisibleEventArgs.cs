@@ -11,8 +11,8 @@ namespace OpenTibia.Game.Events
             Invisible = invisible;
         }
 
-        public Creature Creature { get; set; }
+        public Creature Creature { get; }
 
-        public bool Invisible { get; set; }
+        public bool Invisible { get; }
     }
 }
