@@ -18,18 +18,22 @@ namespace mtanksl.OpenTibia.Host
                 tcs.SetResult(null);
             };
             
-            Console.WriteLine("Available commands: help, stats, clear, reload-plugins, maintenance, kick, save, stop.");
-            Console.WriteLine();
+#if DEBUG
+            ILogger logger = new Logger(new ConsoleLoggerProvider(), LogLevel.Debug);
+#else
+            ILogger logger = new Logger(new ConsoleLoggerProvider(), LogLevel.Information);
+#endif
+
+            logger.WriteLine("Available commands: help, stats, clear, reload-plugins, maintenance, kick, save, stop.");
+
+            logger.WriteLine();
 
             try
             {
                 using (var server = new Server() )
                 {
-#if DEBUG
-                    server.Logger = new Logger(new ConsoleLoggerProvider(), LogLevel.Debug);
-#else
-                    server.Logger = new Logger(new ConsoleLoggerProvider(), LogLevel.Information);
-#endif
+                    server.Logger = logger;
+
                     server.Start();
 
                     bool exit = false;
@@ -123,7 +127,7 @@ namespace mtanksl.OpenTibia.Host
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString() );
+                logger.WriteLine(ex.ToString(), LogLevel.Error);
 
                 return 1;
             }

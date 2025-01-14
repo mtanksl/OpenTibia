@@ -13,9 +13,17 @@ namespace mtanksl.OpenTibia.Host.GUI
     {
         private IServer server;
 
+        private ILogger logger;
+
         public MainForm()
         {
             InitializeComponent();
+
+#if DEBUG
+            logger = new Logger(new RichTextboxLoggerProvider(richTextBox1), LogLevel.Debug);
+#else
+            logger = new Logger(new RichTextboxLoggerProvider(richTextBox1), LogLevel.Information);
+#endif
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -44,11 +52,9 @@ namespace mtanksl.OpenTibia.Host.GUI
                 await Task.Run( () =>
                 {
                     server = new Server();
-#if DEBUG
-                    server.Logger = new Logger(new RichTextboxLoggerProvider(richTextBox1), LogLevel.Debug);
-#else
-                    server.Logger = new Logger(new RichTextboxLoggerProvider(richTextBox1), LogLevel.Information);
-#endif
+
+                    server.Logger = logger;
+
                     server.Start();
                 } );
 
@@ -70,9 +76,11 @@ namespace mtanksl.OpenTibia.Host.GUI
 
                 saveToolStripMenuItem.Enabled = true;
             }
-            catch
+            catch (Exception ex)
             {
                 server = null;
+
+                logger.WriteLine(ex.ToString(), LogLevel.Error);
             }
             finally
             {
@@ -98,9 +106,9 @@ namespace mtanksl.OpenTibia.Host.GUI
                     server.ReloadPlugins();
                 } );
             }
-            catch
+            catch (Exception ex)
             {
-
+                logger.WriteLine(ex.ToString(), LogLevel.Error);
             }
             finally
             {
@@ -134,19 +142,19 @@ namespace mtanksl.OpenTibia.Host.GUI
                     server = null;
 
                     server = new Server();
-#if DEBUG
-                    server.Logger = new Logger(new RichTextboxLoggerProvider(richTextBox1), LogLevel.Debug);
-#else
-                    server.Logger = new Logger(new RichTextboxLoggerProvider(richTextBox1), LogLevel.Information);
-#endif
+
+                    server.Logger = logger;
+
                     server.Start();
                 } );
 
                 maintenanceToolStripMenuItem.Checked = false;
             }
-            catch
+            catch (Exception ex)
             {
                 server = null;
+
+                logger.WriteLine(ex.ToString(), LogLevel.Error);
             }
             finally
             {
@@ -198,9 +206,9 @@ namespace mtanksl.OpenTibia.Host.GUI
 
                 saveToolStripMenuItem.Enabled = false;
             }
-            catch
+            catch (Exception ex)
             {
-
+                logger.WriteLine(ex.ToString(), LogLevel.Error);
             }
             finally
             {
@@ -278,9 +286,9 @@ namespace mtanksl.OpenTibia.Host.GUI
                     server.KickAll();
                 } );
             }
-            catch
+            catch (Exception ex)
             {
-
+                logger.WriteLine(ex.ToString(), LogLevel.Error);
             }
             finally
             {
@@ -306,9 +314,9 @@ namespace mtanksl.OpenTibia.Host.GUI
                     server.Save();
                 } );
             }
-            catch
+            catch (Exception ex)
             {
-
+                logger.WriteLine(ex.ToString(), LogLevel.Error);
             }
             finally
             {
@@ -375,9 +383,9 @@ namespace mtanksl.OpenTibia.Host.GUI
 
                         Close();
                     }
-                    catch
+                    catch (Exception ex)
                     {
-
+                        logger.WriteLine(ex.ToString(), LogLevel.Error);
                     }
                     finally
                     {

@@ -69,12 +69,14 @@ namespace OpenTibia.Game.Common.ServerObjects
 
 #if !Target_Runtime_Linux_x64
 
-            lua.DoString("""
-                    debugger = require("mobdebug")
-                    debugger.coro()
-                """);
+            if (server.PathResolver.Exists("data/lualibs/mobdebug.lua") )
+            {
+                lua.DoString("""
+                        debugger = require("mobdebug")
+                        debugger.coro()
+                    """);
+            }
 #endif
-
             this.env = lua.GetTable("_G");
 
             this.chunkName = "LuaScope.cs";

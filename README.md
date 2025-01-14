@@ -61,6 +61,9 @@ You can use [jo3bingham's IP changer](https://github.com/jo3bingham/tibia-ip-cha
 
 Go to `\mtanksl.OpenTibia.Host.GUI\MainForm.resx` file in Windows File Explorer. Right-click and select properties. At the bottom of the the dialog is an "unblock" option.
 
+> How do I enable lua debugger?
+
+Lua debugger is disabled by default. On Windows, go to `\mtanksl.OpenTibia.GameData\data\lualibs\` and rename the file `_mobdebug.lua` to `mobdebug.lua`. See [How to debug scripts](https://github.com/mtanksl/OpenTibia/wiki/lua-how-to-debug) and [How to add autocomplete](https://github.com/mtanksl/OpenTibia/wiki/lua-how-to-add-autocomplete) for additional info.
 
 # Other resources
 

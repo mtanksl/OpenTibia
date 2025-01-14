@@ -159,7 +159,7 @@ namespace OpenTibia.Game.Common
         {
             get
             {
-                return "1.5";
+                return "1.6";
             }
         }
 
@@ -279,6 +279,18 @@ namespace OpenTibia.Game.Common
 
                 Logger.WriteLine();
                             
+                using (Logger.Measure("Loading lua") )
+                {
+                    LuaScripts.Start();
+                }
+
+#if !Target_Runtime_Linux_x64
+
+                if ( !PathResolver.Exists("data/lualibs/mobdebug.lua") )
+                {
+                    Logger.WriteLine("Lua debugger is disabled due to missing data/lualibs/mobdebug.lua", LogLevel.Warning);
+                }
+#endif
                 using (Logger.Measure("Loading dlls") )
                 {
                     PluginLoader.Start();
@@ -354,6 +366,8 @@ namespace OpenTibia.Game.Common
                 using (Logger.Measure("Loading spawns") )
                 {
                     Spawns.Start(SpawnFile.Load(PathResolver.GetFullPath("data/world/" + otbmFile.MapInfo.SpawnFile) ) );
+
+                    Raids.Start();
                 }
 
                 if (Spawns.UnknownMonsters.Count > 0)
@@ -364,11 +378,6 @@ namespace OpenTibia.Game.Common
                 if (Spawns.UnknownNpcs.Count > 0)
                 {
                     Logger.WriteLine("Unable to load npcs: " + string.Join(", ", Spawns.UnknownNpcs), LogLevel.Warning);
-                }
-
-                using (Logger.Measure("Loading raids") )
-                {
-                    Raids.Start();
                 }
 
                 using (var database = DatabaseFactory.Create() )

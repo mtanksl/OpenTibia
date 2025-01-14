@@ -20,9 +20,21 @@ namespace OpenTibia.Game.Common.ServerObjects
 #endif
     public class LuaScriptCollection : ILuaScriptCollection
     {
-        private ILuaScope lua;
+        private IServer server;
 
         public LuaScriptCollection(IServer server)
+        {
+            this.server = server;
+        }
+
+        ~LuaScriptCollection()
+        {
+            Dispose(false);
+        }
+
+        private ILuaScope lua;
+
+        public void Start()
         {
             lua = new LuaScope(server);
 
@@ -1002,16 +1014,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                 return Promise.FromResult(new object[] { player } );
             } );
-
-            this.server = server;
         }
-
-        ~LuaScriptCollection()
-        {
-            Dispose(false);
-        }
-
-        private IServer server;
 
 #if AOT
         [RequiresUnreferencedCode("Used by lua.RegisterFunction.")]
