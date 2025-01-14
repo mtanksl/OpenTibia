@@ -1,51 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="OpenTibia.Common.Objects.Item" Collapsed="true">
-    <Position X="15.25" Y="1.75" Width="1.5" />
+    <Position X="17" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQACAAAAAAAACAEACAAQIAAACAAAAEAAAAAAAAEQAA=</HashCode>
+      <HashCode>AAQACAAAAAAAACAEACAAQIAAACAAAAAAAAAAAAAEQAA=</HashCode>
       <FileName>Objects\Item.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="OpenTibia.Common.Objects.Container" Collapsed="true">
-    <Position X="10" Y="3.25" Width="1.5" />
+    <Position X="11.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BEEAACAAEAIAAAAQBFAAAAQAACAAAgAAICgAAAAgAAA=</HashCode>
+      <HashCode>BEUAACAAEAIAAAAQBFAAAAQAACAAAgEgICgAAAAhIAA=</HashCode>
       <FileName>Objects\Container.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="OpenTibia.Common.Objects.FluidItem" Collapsed="true">
-    <Position X="17" Y="3.25" Width="1.5" />
+    <Position X="18.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Objects\FluidItem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OpenTibia.Common.Objects.ReadableItem" Collapsed="true">
-    <Position X="13.5" Y="3.25" Width="1.5" />
+    <Position X="15.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAgAAAAAAAAAAAAAABAAAACAAAAAA=</HashCode>
       <FileName>Objects\ReadableItem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OpenTibia.Common.Objects.SplashItem" Collapsed="true">
-    <Position X="18.75" Y="3.25" Width="1.5" />
+    <Position X="20.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Objects\SplashItem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OpenTibia.Common.Objects.Locker" Collapsed="true">
-    <Position X="10" Y="4.25" Width="1.5" />
+    <Position X="11.75" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAA=</HashCode>
       <FileName>Objects\Locker.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="OpenTibia.Common.Objects.StackableItem" Collapsed="true">
-    <Position X="15.25" Y="3.25" Width="1.5" />
+    <Position X="17" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAACAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Objects\StackableItem.cs</FileName>
@@ -87,7 +87,7 @@
   <Class Name="OpenTibia.Common.Objects.Tile" Collapsed="true">
     <Position X="8.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BMMiACAABAIAAAAwBEQAIAQAAIAAAgAAACAAAAAgFAA=</HashCode>
+      <HashCode>FMe2ACAABAIAQAQwBEQgJAQABIAAAgAAACAEBBAhtAA=</HashCode>
       <FileName>Objects\Tile.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -95,7 +95,7 @@
   <Class Name="OpenTibia.Common.Objects.Player" Collapsed="true">
     <Position X="4" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAABAABCAAAAAAyIAAAAAAASADAAAAAhAAAAJgAAQgw=</HashCode>
+      <HashCode>FAABAABKAAAAAAyIAAEAAAASADAAAIExAAAAJgAAwgw=</HashCode>
       <FileName>Objects\Player.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -127,7 +127,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="OpenTibia.Common.Objects.DoorItem" Collapsed="true">
-    <Position X="11.75" Y="4.25" Width="1.5" />
+    <Position X="13.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAA=</HashCode>
       <FileName>Objects\DoorItem.cs</FileName>
@@ -155,11 +155,19 @@
     </TypeIdentifier>
   </Class>
   <Class Name="OpenTibia.Common.Objects.TeleportItem" Collapsed="true">
-    <Position X="20.5" Y="3.25" Width="1.5" />
+    <Position X="22.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Objects\TeleportItem.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="OpenTibia.Common.Objects.Safe" Collapsed="true">
+    <Position X="10" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BEEAAAAAAAIAAAAQBEAAAAAAAAAAAgABACAAAQAgAAA=</HashCode>
+      <FileName>Objects\Safe.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

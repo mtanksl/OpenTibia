@@ -8,6 +8,8 @@ namespace OpenTibia.Game.Scripts
         public override void Start()
         {
             Context.Server.CommandHandlers.AddCommandHandler<PlayerTradeWithCommand>(new TradeWithChestHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerTradeWithCommand>(new TradeWithHouseTileHandler() );
         }
 
         public override void Stop()
