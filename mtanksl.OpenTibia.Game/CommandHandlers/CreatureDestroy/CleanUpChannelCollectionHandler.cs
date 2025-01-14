@@ -16,7 +16,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 return next().Then( () =>
                 {
-                    foreach (var channel in Context.Server.Channels.GetChannels().ToList() )
+                    foreach (var channel in Context.Server.Channels.GetChannels().ToArray() )
                     {
                         if (channel.ContainerMember(player) )
                         {
@@ -33,14 +33,14 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 if (privateChannel.Owner == player)
                                 {
-                                    foreach (var observer in privateChannel.GetMembers().ToList() )
+                                    foreach (var observer in privateChannel.GetMembers().ToArray() )
                                     {
                                         privateChannel.RemoveMember(observer);
 
                                         Context.AddPacket(observer, new CloseChannelOutgoingPacket(channel.Id) );
                                     }
 
-                                    foreach (var observer in privateChannel.GetInvitations().ToList() )
+                                    foreach (var observer in privateChannel.GetInvitations().ToArray() )
                                     {
                                         privateChannel.RemoveInvitation(observer);
                                     }

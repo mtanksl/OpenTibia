@@ -15,7 +15,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 return next().Then( () =>
                 {
-                    foreach (var ruleViolation in Context.Server.RuleViolations.GetRuleViolations().ToList() )
+                    foreach (var ruleViolation in Context.Server.RuleViolations.GetRuleViolations().ToArray() )
                     {
                         if (ruleViolation.Reporter == player)
                         {

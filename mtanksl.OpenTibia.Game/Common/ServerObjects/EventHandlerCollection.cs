@@ -164,7 +164,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             if ( types.TryGetValue(e.GetType(), out eventHandlers) )
             {
-                foreach (var eventHandler in eventHandlers.Values.ToList() )
+                foreach (var eventHandler in eventHandlers.Values.ToArray() )
                 {
                     if ( !eventHandler.IsDestroyed)
                     {
@@ -175,7 +175,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             if ( objects.TryGetValue(e, out eventHandlers) )
             {
-                foreach (var eventHandler in eventHandlers.Values.ToList() )
+                foreach (var eventHandler in eventHandlers.Values.ToArray() )
                 {
                     if ( !eventHandler.IsDestroyed)
                     {

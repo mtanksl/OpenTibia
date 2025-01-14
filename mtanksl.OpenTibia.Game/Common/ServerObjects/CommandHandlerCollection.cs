@@ -156,7 +156,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             if ( types.TryGetValue(type, out commandHandlers) )
             {
-                foreach (ICommandHandler commandHandler in commandHandlers.Values.ToList() )
+                foreach (ICommandHandler commandHandler in commandHandlers.Values.ToArray() )
                 {
                     if ( !commandHandler.IsDestroyed )
                     {
@@ -174,7 +174,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             if ( types.TryGetValue(type, out commandResultHandlers) )
             {
-                foreach (ICommandResultHandler<TResult> commandResultHandler in commandResultHandlers.Values.ToList() )
+                foreach (ICommandResultHandler<TResult> commandResultHandler in commandResultHandlers.Values.ToArray() )
                 {
                     if ( !commandResultHandler.IsDestroyed )
                     {

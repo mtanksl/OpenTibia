@@ -61,7 +61,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 if (south != null)
                                 {
-                                    foreach (var moveable in e.FromTile.GetItems().Where(i => !i.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) ).Reverse().ToList() )
+                                    foreach (var moveable in e.FromTile.GetItems().Where(i => !i.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) ).Reverse().ToArray() )
                                     {
                                         promises.Add(Context.AddCommand(new ItemMoveCommand(moveable, south, 0) ) );
                                     }
@@ -80,7 +80,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 if (east != null)
                                 {
-                                    foreach (var moveable in e.FromTile.GetItems().Where(i => !i.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) ).Reverse().ToList() )
+                                    foreach (var moveable in e.FromTile.GetItems().Where(i => !i.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) ).Reverse().ToArray() )
                                     {
                                         promises.Add(Context.AddCommand(new ItemMoveCommand(moveable, east, 0) ) );
                                     }

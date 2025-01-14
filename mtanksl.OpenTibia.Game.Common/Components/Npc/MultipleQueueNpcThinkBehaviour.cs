@@ -153,7 +153,7 @@ namespace OpenTibia.Game.Components
 
             globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(npc.Id), async (context, e) =>
             {
-                foreach (var player in queue.ToList() )
+                foreach (var player in queue.ToArray() )
                 {
                     if (player.Tile == null || player.IsDestroyed || !npc.Tile.Position.IsInRange(player.Tile.Position, 3) )
                     {

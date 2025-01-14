@@ -156,7 +156,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             if (buckets.TryGetValue(type, out gameObjects) )
             {
-                foreach (var gameObject in gameObjects.Values.ToList() )
+                foreach (var gameObject in gameObjects.Values.ToArray() )
                 {
                     if ( !gameObject.IsDestroyed)
                     {

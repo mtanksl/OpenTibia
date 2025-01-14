@@ -22,7 +22,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             if (isUnique)
             {
-                foreach (var _component in components.OfType<T>().ToList() )
+                foreach (var _component in components.OfType<T>().ToArray() )
                 {
                     if (components.Remove(_component) )
                     {
@@ -101,7 +101,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             if (buckets.TryGetValue(gameObject.Id, out components) )
             {
-                foreach (var component in components.ToList() )
+                foreach (var component in components.ToArray() )
                 {
                     if (components.Remove(component) )
                     {

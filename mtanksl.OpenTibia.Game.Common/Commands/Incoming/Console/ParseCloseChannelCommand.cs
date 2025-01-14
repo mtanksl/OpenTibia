@@ -35,14 +35,14 @@ namespace OpenTibia.Game.Commands
                     {
                         if (privateChannel.Owner == Player)
                         {
-                            foreach (var observer in privateChannel.GetMembers().ToList() )
+                            foreach (var observer in privateChannel.GetMembers().ToArray() )
                             {
                                 privateChannel.RemoveMember(observer);
 
                                 Context.AddPacket(observer, new CloseChannelOutgoingPacket(channel.Id) );
                             }
 
-                            foreach (var observer in privateChannel.GetInvitations().ToList() )
+                            foreach (var observer in privateChannel.GetInvitations().ToArray() )
                             {
                                 privateChannel.RemoveInvitation(observer);
                             }

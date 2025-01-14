@@ -17,7 +17,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     if (Context.Server.NpcTradings.Count > 0)
                     {
-                        foreach (var trading in Context.Server.NpcTradings.GetTradingByOfferNpc(npc).ToList() )
+                        foreach (var trading in Context.Server.NpcTradings.GetTradingByOfferNpc(npc).ToArray() )
                         {
                             Context.Server.NpcTradings.RemoveTrading(trading);
 

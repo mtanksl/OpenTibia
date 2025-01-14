@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Commands
                     {
                         List<Promise> promises = new List<Promise>();
 
-                        foreach (var item in Player.Inventory.GetItems().ToList() )
+                        foreach (var item in Player.Inventory.GetItems().ToArray() )
                         {
                             if (item is Container)
                             {

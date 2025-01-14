@@ -43,8 +43,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         public IEnumerable<Party> GetPartyThatContainsInvitation(Player player)
         {
             return GetParties()
-                .Where(c => c.ContainsInvitation(player) )
-                .ToList();
+                .Where(c => c.ContainsInvitation(player) );
         }
 
         public IEnumerable<Party> GetParties()
