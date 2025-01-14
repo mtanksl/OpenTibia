@@ -647,34 +647,30 @@ namespace OpenTibia.Game.CommandHandlers
                                 }
                                 else
                                 {
-                                    player = Context.Server.GameObjectPool.GetPlayerByName(accountManagerState.PlayerName);
-
-                                    if (player != null)
+                                    try
                                     {
-                                        player.Name = accountManagerState.PlayerNewName;
+                                        using (var database = Context.Server.DatabaseFactory.Create() )
+                                        {
+                                            var dbPlayer = await database.PlayerRepository.GetPlayerByName(accountManagerState.PlayerName);
+
+                                            dbPlayer.Name = accountManagerState.PlayerNewName;
+
+                                            await database.Commit();
+                                        }
+
+                                        player = Context.Server.GameObjectPool.GetPlayerByName(accountManagerState.PlayerName);
+
+                                        if (player != null)
+                                        {
+                                            player.Name = accountManagerState.PlayerNewName;
+                                        }
 
                                         Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Your character '" + accountManagerState.PlayerName + "' has been changed.") );
                                     }
-                                    else
+                                    catch
                                     {
-                                        try
-                                        {
-                                            using (var database = Context.Server.DatabaseFactory.Create() )
-                                            {
-                                                var dbPlayer = await database.PlayerRepository.GetPlayerByName(accountManagerState.PlayerName);
-
-                                                dbPlayer.Name = accountManagerState.PlayerNewName;
-
-                                                await database.Commit();
-                                            }
-
-                                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Your character '" + accountManagerState.PlayerName + "' has been changed.") );
-                                        }
-                                        catch
-                                        {
-                                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "There was a problem while changing your character, please try again.") );
-                                        }
-                                    }
+                                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "There was a problem while changing your character, please try again.") );
+                                    }                                    
                                 }
 
                                 accountManagerState.Index = AccountManagerStateIndex.Start;
