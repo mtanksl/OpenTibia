@@ -285,6 +285,13 @@ return {
 				args = "(Monster monster, string message)",
 				returns = "void"
 			},
+			-- void command.monsteryell(Monster monster, string message)
+			monsteryell = {
+				type = "function",
+				description = "",
+				args = "(Monster monster, string message)",
+				returns = "void"
+			},
 			-- void command.npcsay(Npc npc, string message)
 			npcsay = {
 				type = "function",

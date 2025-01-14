@@ -20,5 +20,19 @@ namespace OpenTibia.Game.Extensions
 
             return context.AddCommand(new MonsterSayCommand(monster, message) );
         }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public static Promise Yell(this Monster monster, string message)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new MonsterYellCommand(monster, message) );
+        }
     }
 }

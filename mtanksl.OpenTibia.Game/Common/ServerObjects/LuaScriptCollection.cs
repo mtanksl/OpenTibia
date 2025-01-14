@@ -325,6 +325,14 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
+            lua.RegisterCoFunction("monsteryell", (luaScope, parameters) =>
+            {
+                return Context.Current.AddCommand(new MonsterYellCommand( (Monster)parameters[0], (string)parameters[1] ) ).Then( () =>
+                {
+                    return Promise.FromResultAsEmptyObjectArray;
+                } );
+            } );
+
             lua.RegisterCoFunction("npcsay", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new NpcSayCommand( (Npc)parameters[0], (string)parameters[1] ) ).Then( () =>
