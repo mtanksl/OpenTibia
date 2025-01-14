@@ -38,6 +38,8 @@ namespace OpenTibia.Game.Common.ServerObjects
         public int LoginMaxconnections { get; set; }
         public int LoginPort { get; set; }
         public bool LoginAccountManagerEnabled { get; set; }
+        public bool LoginAccountManagerAllowChangePlayerName { get; set; }
+        public bool LoginAccountManagerAllowChangePlayerGender { get; set; }
         public string LoginAccountManagerAccountName { get; set; }
         public string LoginAccountManagerAccountPassword { get; set; }
         public string LoginAccountManagerPlayerName { get; set; }
@@ -153,6 +155,10 @@ namespace OpenTibia.Game.Common.ServerObjects
             LoginPort = LuaScope.GetInt32(script["server.login.port"], 7171);
 
             LoginAccountManagerEnabled = LuaScope.GetBoolean(script["server.login.accountmanager.enabled"], true);
+
+            LoginAccountManagerAllowChangePlayerName = LuaScope.GetBoolean(script["server.login.accountmanager.allowchangeplayername"], true);
+
+            LoginAccountManagerAllowChangePlayerGender = LuaScope.GetBoolean(script["server.login.accountmanager.allowchangeplayergender"], true);
 
             LoginAccountManagerAccountName = LuaScope.GetString(script["server.login.accountmanager.accountname"], "");
 

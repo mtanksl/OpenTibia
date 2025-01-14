@@ -116,9 +116,18 @@ namespace OpenTibia.Data.Repositories
         {
             await Task.Yield();
 
-            return await context.Players
+            DbPlayer player = await context.Players
                 .Where(p => p.Name == name)
                 .FirstOrDefaultAsync();
+
+            if (player != null)
+            {
+                await context.PlayerOutfits
+                    .Where(pi => pi.PlayerId == player.Id)
+                    .LoadAsync();
+            }
+
+            return player;
         }
 
         public void AddPlayer(DbPlayer player)

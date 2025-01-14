@@ -22,6 +22,8 @@ namespace OpenTibia.Game.Common.ServerObjects
         int LoginMaxconnections { get; set; }
         int LoginPort { get; set; }
         bool LoginAccountManagerEnabled { get; set; }
+        bool LoginAccountManagerAllowChangePlayerName { get; set; }
+        bool LoginAccountManagerAllowChangePlayerGender { get; set; }
         string LoginAccountManagerAccountName { get; set; }
         string LoginAccountManagerAccountPassword { get; set; }
         string LoginAccountManagerPlayerName { get; set; }

@@ -32,6 +32,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 OutfitConfig outfit = new OutfitConfig()
                 {
+                    Group = LuaScope.GetUInt16(lOutfit["group"] ),
+
                     Id = LuaScope.GetUInt16(lOutfit["id"] ),
 
                     Name = LuaScope.GetString(lOutfit["name"] ),
@@ -40,6 +42,17 @@ namespace OpenTibia.Game.Common.ServerObjects
                 };
 
                 outfits.Add(outfit.Id, outfit);
+
+                Dictionary<Gender, OutfitConfig> group;
+
+                if ( !groups.TryGetValue(outfit.Group, out group) )
+                {
+                    group = new Dictionary<Gender, OutfitConfig>();
+
+                    groups.Add(outfit.Group, group);
+                }
+
+                group.Add(outfit.Gender, outfit);
             }
         }
 
@@ -55,7 +68,21 @@ namespace OpenTibia.Game.Common.ServerObjects
             return script[key];
         }
 
+        private Dictionary<ushort, Dictionary<Gender, OutfitConfig>> groups = new Dictionary<ushort, Dictionary<Gender, OutfitConfig>>();
+
         private Dictionary<ushort, OutfitConfig> outfits = new Dictionary<ushort, OutfitConfig>();
+
+        public OutfitConfig GetCorrespondingOutfitById(ushort id)
+        {
+            OutfitConfig outfit;
+
+            if (outfits.TryGetValue(id, out outfit) )
+            {
+                return groups[outfit.Group][outfit.Gender == Gender.Male ? Gender.Female : Gender.Male];
+            }
+
+            return null;
+        }
 
         public OutfitConfig GetOutfitById(ushort id)
         {

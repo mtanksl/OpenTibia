@@ -31,6 +31,8 @@ server = {
 		},
 		accountmanager = {
 			enabled = true,
+			allowchangeplayername = true,
+			allowchangeplayergender = true,
 			accountname = "",
 			accountpassword = "",
 			playername = "Account Manager",

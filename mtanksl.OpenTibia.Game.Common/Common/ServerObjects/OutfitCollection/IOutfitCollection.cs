@@ -9,6 +9,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         object GetValue(string key);
 
+        OutfitConfig GetCorrespondingOutfitById(ushort id);
+
         OutfitConfig GetOutfitById(ushort id);
 
         IEnumerable<OutfitConfig> GetOutfits();

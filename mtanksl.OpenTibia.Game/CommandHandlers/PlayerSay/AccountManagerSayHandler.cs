@@ -1,9 +1,13 @@
-﻿using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Data.Models;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace OpenTibia.Game.CommandHandlers
@@ -14,13 +18,13 @@ namespace OpenTibia.Game.CommandHandlers
         {
             Start,
 
-            WaitingForAccount,
+            AccountWaitingForAccount,
 
-            WaitingForAccountConfirmation,
+            AccountWaitingForAccountConfirmation,
 
-            WaitingForPassword,
+            PasswordWaitingForPassword,
 
-            WaitingForPasswordConfirmation
+            PasswordWaitingForPasswordConfirmation
         }
 
         private class NewAccountManagerState
@@ -38,17 +42,37 @@ namespace OpenTibia.Game.CommandHandlers
 
             WaitingForAction,
 
-            WaitingForPassword,
+            PasswordWaitingForPassword,
 
-            WaitingForPasswordConfirmation,
+            PasswordWaitingForPasswordConfirmation,
 
-            WaitingForPlayerName,
+            CharacterWaitingForPlayerName,
 
-            WaitingForPlayerNameConfirmation,
+            CharacterWaitingForPlayerNameConfirmation,
 
-            WaitingForPlayerGender,
+            CharacterWaitingForPlayerGender,
 
-            WaitingForPlayerGenderConfirmation
+            CharacterWaitingForPlayerGenderConfirmation,
+
+            NameWaitingForPlayerName,
+
+            NameWaitingForPlayerNameConfirmation,
+
+            NameWaitingForPlayerNewName,
+
+            NameWaitingForPlayerNewNameConfirmation,
+
+            GenderWaitingForPlayerName,
+
+            GenderWaitingForPlayerNameConfirmation,
+
+            GenderWaitingForPlayerNewGender,
+
+            GenderWaitingForPlayerNewGenderConfirmation,
+
+            MoveWaitingForPlayerName,
+
+            MoveWaitingForPlayerNameConfirmation
         }
 
         private class AccountManagerState
@@ -58,6 +82,8 @@ namespace OpenTibia.Game.CommandHandlers
             public string Password { get; set; }
 
             public string PlayerName { get; set; }
+
+            public string PlayerNewName { get; set; }
 
             public Gender PlayerGender { get; set; }
         }
@@ -97,7 +123,7 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "What would you like your account to be?") );
                                 
-                                newAccountManagerState.Index = NewAccountManagerStateIndex.WaitingForAccount;
+                                newAccountManagerState.Index = NewAccountManagerStateIndex.AccountWaitingForAccount;
                             }
                             else
                             {
@@ -106,7 +132,7 @@ namespace OpenTibia.Game.CommandHandlers
                                 newAccountManagerState.Index = NewAccountManagerStateIndex.Start;
                             }
                         }
-                        else if (newAccountManagerState.Index == NewAccountManagerStateIndex.WaitingForAccount)
+                        else if (newAccountManagerState.Index == NewAccountManagerStateIndex.AccountWaitingForAccount)
                         {
                             newAccountManagerState.Account = command.Message;
 
@@ -114,7 +140,7 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "This account is not valid, it must have at least 6 characters with letters or numbers. What would you like your account to be?") );
                                 
-                                newAccountManagerState.Index = NewAccountManagerStateIndex.WaitingForAccount;
+                                newAccountManagerState.Index = NewAccountManagerStateIndex.AccountWaitingForAccount;
                             }
                             else
                             { 
@@ -126,33 +152,33 @@ namespace OpenTibia.Game.CommandHandlers
                                     {
                                         Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "This account already exists. What would you like your account to be?") );
                                 
-                                        newAccountManagerState.Index = NewAccountManagerStateIndex.WaitingForAccount;
+                                        newAccountManagerState.Index = NewAccountManagerStateIndex.AccountWaitingForAccount;
                                     }
                                     else
                                     {
                                         Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
 
-                                        newAccountManagerState.Index = NewAccountManagerStateIndex.WaitingForAccountConfirmation;
+                                        newAccountManagerState.Index = NewAccountManagerStateIndex.AccountWaitingForAccountConfirmation;
                                     }
                                 }
                             }
                         }
-                        else if (newAccountManagerState.Index == NewAccountManagerStateIndex.WaitingForAccountConfirmation)
+                        else if (newAccountManagerState.Index == NewAccountManagerStateIndex.AccountWaitingForAccountConfirmation)
                         {
                             if (command.Message == "yes")
                             {
                                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "What would you like your password to be?") );
 
-                                newAccountManagerState.Index = NewAccountManagerStateIndex.WaitingForPassword;
+                                newAccountManagerState.Index = NewAccountManagerStateIndex.PasswordWaitingForPassword;
                             }
                             else
                             {
                                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "What would you like your account to be?") );
 
-                                newAccountManagerState.Index = NewAccountManagerStateIndex.WaitingForAccount;
+                                newAccountManagerState.Index = NewAccountManagerStateIndex.AccountWaitingForAccount;
                             }
                         }
-                        else if (newAccountManagerState.Index == NewAccountManagerStateIndex.WaitingForPassword)
+                        else if (newAccountManagerState.Index == NewAccountManagerStateIndex.PasswordWaitingForPassword)
                         {
                             newAccountManagerState.Password = command.Message;
 
@@ -160,16 +186,16 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "This password is not valid, it must have at least 6 characters. What would you like your password to be?") );
 
-                                newAccountManagerState.Index = NewAccountManagerStateIndex.WaitingForPassword;
+                                newAccountManagerState.Index = NewAccountManagerStateIndex.PasswordWaitingForPassword;
                             }
                             else
                             {
                                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
 
-                                newAccountManagerState.Index = NewAccountManagerStateIndex.WaitingForPasswordConfirmation;
+                                newAccountManagerState.Index = NewAccountManagerStateIndex.PasswordWaitingForPasswordConfirmation;
                             }
                         }
-                        else if (newAccountManagerState.Index == NewAccountManagerStateIndex.WaitingForPasswordConfirmation)
+                        else if (newAccountManagerState.Index == NewAccountManagerStateIndex.PasswordWaitingForPasswordConfirmation)
                         {
                             if (command.Message == "yes")
                             {
@@ -202,7 +228,7 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "What would you like your password to be?") );
 
-                                newAccountManagerState.Index = NewAccountManagerStateIndex.WaitingForPassword;
+                                newAccountManagerState.Index = NewAccountManagerStateIndex.PasswordWaitingForPassword;
                             }
                         }
                     }
@@ -233,8 +259,27 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             if (command.Message == "account")
                             {
-                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Do you want to change your 'password' or add a 'character'?") );
+                                StringBuilder message = new StringBuilder("Do you want to change your 'password', add a 'character'");
 
+                                if ( !Context.Server.Config.GameplayAllowClones)
+                                {
+                                    if (Context.Server.Config.LoginAccountManagerAllowChangePlayerName)
+                                    {
+                                        message.Append(", change a character 'name'");
+                                    }
+
+                                    if (Context.Server.Config.LoginAccountManagerAllowChangePlayerGender)
+                                    {
+                                        message.Append(", change a character 'gender'");
+                                    }
+
+                                    message.Append(", 'move' a character to the temple");
+                                }
+                                      
+                                message.Append("?");
+
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, message.ToString() ) );
+                                
                                 accountManagerState.Index = AccountManagerStateIndex.WaitingForAction;
                             }
                             else
@@ -250,22 +295,59 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "What would you like your password to be?") );
 
-                                accountManagerState.Index = AccountManagerStateIndex.WaitingForPassword;
+                                accountManagerState.Index = AccountManagerStateIndex.PasswordWaitingForPassword;
                             }
                             else if (command.Message == "character")
                             {
                                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "What would you like as your character name?") );
 
-                                accountManagerState.Index = AccountManagerStateIndex.WaitingForPlayerName;
+                                accountManagerState.Index = AccountManagerStateIndex.CharacterWaitingForPlayerName;
+                            }
+                            else if (command.Message == "name" && !Context.Server.Config.GameplayAllowClones && Context.Server.Config.LoginAccountManagerAllowChangePlayerName)
+                            {
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Which character?") );
+
+                                accountManagerState.Index = AccountManagerStateIndex.NameWaitingForPlayerName;
+                            }
+                            else if (command.Message == "gender" && !Context.Server.Config.GameplayAllowClones && Context.Server.Config.LoginAccountManagerAllowChangePlayerGender)
+                            {
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Which character?") );
+
+                                accountManagerState.Index = AccountManagerStateIndex.GenderWaitingForPlayerName;
+                            }
+                            else if (command.Message == "move" && !Context.Server.Config.GameplayAllowClones)
+                            {
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Which character?") );
+
+                                accountManagerState.Index = AccountManagerStateIndex.MoveWaitingForPlayerName;
                             }
                             else
                             {
-                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Do you want to change your 'password' or add a 'character'?") );
+                                StringBuilder message = new StringBuilder("Do you want to change your 'password', add a 'character'");
+
+                                if ( !Context.Server.Config.GameplayAllowClones)
+                                {
+                                    if (Context.Server.Config.LoginAccountManagerAllowChangePlayerName)
+                                    {
+                                        message.Append(", change a character 'name'");
+                                    }
+
+                                    if (Context.Server.Config.LoginAccountManagerAllowChangePlayerGender)
+                                    {
+                                        message.Append(", change a character 'gender'");
+                                    }
+
+                                    message.Append(", 'move' a character to the temple");
+                                }
+                                      
+                                message.Append("?");
+
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, message.ToString() ) );
 
                                 accountManagerState.Index = AccountManagerStateIndex.WaitingForAction;
                             }
                         }
-                        else if (accountManagerState.Index == AccountManagerStateIndex.WaitingForPassword)
+                        else if (accountManagerState.Index == AccountManagerStateIndex.PasswordWaitingForPassword)
                         {
                             accountManagerState.Password = command.Message;
 
@@ -273,17 +355,17 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "This password is not valid, it must have at least 6 characters. What would you like your password to be?") );
 
-                                accountManagerState.Index = AccountManagerStateIndex.WaitingForPassword;
+                                accountManagerState.Index = AccountManagerStateIndex.PasswordWaitingForPassword;
                             }
                             else
                             {
                                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
 
-                                accountManagerState.Index = AccountManagerStateIndex.WaitingForPasswordConfirmation;
+                                accountManagerState.Index = AccountManagerStateIndex.PasswordWaitingForPasswordConfirmation;
                             }
 
                         }
-                        else if (accountManagerState.Index == AccountManagerStateIndex.WaitingForPasswordConfirmation)
+                        else if (accountManagerState.Index == AccountManagerStateIndex.PasswordWaitingForPasswordConfirmation)
                         {
                             if (command.Message == "yes")
                             {
@@ -311,10 +393,10 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "What would you like your password to be?") );
 
-                                accountManagerState.Index = AccountManagerStateIndex.WaitingForPassword;
+                                accountManagerState.Index = AccountManagerStateIndex.PasswordWaitingForPassword;
                             }
                         }
-                        else if (accountManagerState.Index == AccountManagerStateIndex.WaitingForPlayerName)
+                        else if (accountManagerState.Index == AccountManagerStateIndex.CharacterWaitingForPlayerName)
                         {
                             accountManagerState.PlayerName = command.Message;
 
@@ -322,7 +404,7 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "This character name is not valid, it must have at least 3 characters with letters. What would you like as your character name?") );
 
-                                accountManagerState.Index = AccountManagerStateIndex.WaitingForPlayerName;
+                                accountManagerState.Index = AccountManagerStateIndex.CharacterWaitingForPlayerName;
                             }
                             else
                             {
@@ -334,33 +416,33 @@ namespace OpenTibia.Game.CommandHandlers
                                     {
                                         Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "This character name already exists. What would you like as your character name?") );
 
-                                        accountManagerState.Index = AccountManagerStateIndex.WaitingForPlayerName;
+                                        accountManagerState.Index = AccountManagerStateIndex.CharacterWaitingForPlayerName;
                                     }
                                     else
                                     {
                                         Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
                          
-                                        accountManagerState.Index = AccountManagerStateIndex.WaitingForPlayerNameConfirmation;
+                                        accountManagerState.Index = AccountManagerStateIndex.CharacterWaitingForPlayerNameConfirmation;
                                     }
                                 }
                             }
                         }
-                        else if (accountManagerState.Index == AccountManagerStateIndex.WaitingForPlayerNameConfirmation)
+                        else if (accountManagerState.Index == AccountManagerStateIndex.CharacterWaitingForPlayerNameConfirmation)
                         {
                             if (command.Message == "yes")
                             {
                                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Should your character be 'male' or 'female'?") );
 
-                                accountManagerState.Index = AccountManagerStateIndex.WaitingForPlayerGender;
+                                accountManagerState.Index = AccountManagerStateIndex.CharacterWaitingForPlayerGender;
                             }
                             else
                             {
                                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "What would you like as your character name?") );
 
-                                accountManagerState.Index = AccountManagerStateIndex.WaitingForPlayerName;
+                                accountManagerState.Index = AccountManagerStateIndex.CharacterWaitingForPlayerName;
                             }
                         }
-                        else if (accountManagerState.Index == AccountManagerStateIndex.WaitingForPlayerGender)
+                        else if (accountManagerState.Index == AccountManagerStateIndex.CharacterWaitingForPlayerGender)
                         {
                             if (command.Message == "male")
                             {
@@ -368,7 +450,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
 
-                                accountManagerState.Index = AccountManagerStateIndex.WaitingForPlayerGenderConfirmation;
+                                accountManagerState.Index = AccountManagerStateIndex.CharacterWaitingForPlayerGenderConfirmation;
                             }
                             else if (command.Message == "female")
                             {
@@ -376,16 +458,16 @@ namespace OpenTibia.Game.CommandHandlers
 
                                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
 
-                                accountManagerState.Index = AccountManagerStateIndex.WaitingForPlayerGenderConfirmation;
+                                accountManagerState.Index = AccountManagerStateIndex.CharacterWaitingForPlayerGenderConfirmation;
                             }
                             else
                             {
                                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Should your character be 'male' or 'female'?") );
 
-                                accountManagerState.Index = AccountManagerStateIndex.WaitingForPlayerGender;
+                                accountManagerState.Index = AccountManagerStateIndex.CharacterWaitingForPlayerGender;
                             }
                         }
-                        else if (accountManagerState.Index == AccountManagerStateIndex.WaitingForPlayerGenderConfirmation)
+                        else if (accountManagerState.Index == AccountManagerStateIndex.CharacterWaitingForPlayerGenderConfirmation)
                         {
                             if (command.Message == "yes")
                             {
@@ -482,7 +564,351 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Should your character be 'male' or 'female'?") );
 
-                                accountManagerState.Index = AccountManagerStateIndex.WaitingForPlayerGender;
+                                accountManagerState.Index = AccountManagerStateIndex.CharacterWaitingForPlayerGender;
+                            }
+                        }
+                        else if (accountManagerState.Index == AccountManagerStateIndex.NameWaitingForPlayerName)
+                        {
+                            accountManagerState.PlayerName = command.Message;
+
+                            using (var database = Context.Server.DatabaseFactory.Create() )
+                            {
+                                var dbPlayer = await database.PlayerRepository.GetPlayerByName(accountManagerState.PlayerName);
+
+                                if (dbPlayer == null || dbPlayer.AccountId != command.Player.DatabaseAccountId)
+                                {
+                                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "This character was not found. Which character?") );
+
+                                    accountManagerState.Index = AccountManagerStateIndex.NameWaitingForPlayerName;
+                                }
+                                else
+                                {
+                                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
+                         
+                                    accountManagerState.Index = AccountManagerStateIndex.NameWaitingForPlayerNameConfirmation;
+                                }
+                            }
+                        }
+                        else if (accountManagerState.Index == AccountManagerStateIndex.NameWaitingForPlayerNameConfirmation)
+                        {
+                            if (command.Message == "yes")
+                            {
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "What would you like as your character name?") );
+
+                                accountManagerState.Index = AccountManagerStateIndex.NameWaitingForPlayerNewName;
+                            }
+                            else
+                            {
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Which character?") );
+
+                                accountManagerState.Index = AccountManagerStateIndex.NameWaitingForPlayerName;
+                            }
+                        }
+                        else if (accountManagerState.Index == AccountManagerStateIndex.NameWaitingForPlayerNewName)
+                        {
+                            accountManagerState.PlayerNewName = command.Message;
+
+                            if (accountManagerState.PlayerNewName == Context.Server.Config.LoginAccountManagerPlayerName || !IsValidPlayerName(accountManagerState.PlayerNewName) )
+                            {
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "This character name is not valid, it must have at least 3 characters with letters. What would you like as your character name?") );
+
+                                accountManagerState.Index = AccountManagerStateIndex.NameWaitingForPlayerNewName;
+                            }
+                            else
+                            {
+                                using (var database = Context.Server.DatabaseFactory.Create() )
+                                {
+                                    var dbPlayer = await database.PlayerRepository.GetPlayerByName(accountManagerState.PlayerNewName);
+
+                                    if (dbPlayer != null)
+                                    {
+                                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "This character name already exists. What would you like as your character name?") );
+
+                                        accountManagerState.Index = AccountManagerStateIndex.NameWaitingForPlayerNewName;
+                                    }
+                                    else
+                                    {
+                                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
+                         
+                                        accountManagerState.Index = AccountManagerStateIndex.NameWaitingForPlayerNewNameConfirmation;
+                                    }
+                                }
+                            }
+                        }
+                        else if (accountManagerState.Index == AccountManagerStateIndex.NameWaitingForPlayerNewNameConfirmation)
+                        {
+                            if (command.Message == "yes")
+                            {
+                                Player player = Context.Server.GameObjects.GetPlayerByName(accountManagerState.PlayerName);
+
+                                if (player != null)
+                                {
+                                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "This character is currently online and can't be changed at this time.") );
+                                }
+                                else
+                                {
+                                    player = Context.Server.GameObjectPool.GetPlayerByName(accountManagerState.PlayerName);
+
+                                    if (player != null)
+                                    {
+                                        player.Name = accountManagerState.PlayerNewName;
+
+                                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Your character '" + accountManagerState.PlayerName + "' has been changed.") );
+                                    }
+                                    else
+                                    {
+                                        try
+                                        {
+                                            using (var database = Context.Server.DatabaseFactory.Create() )
+                                            {
+                                                var dbPlayer = await database.PlayerRepository.GetPlayerByName(accountManagerState.PlayerName);
+
+                                                dbPlayer.Name = accountManagerState.PlayerNewName;
+
+                                                await database.Commit();
+                                            }
+
+                                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Your character '" + accountManagerState.PlayerName + "' has been changed.") );
+                                        }
+                                        catch
+                                        {
+                                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "There was a problem while changing your character, please try again.") );
+                                        }
+                                    }
+                                }
+
+                                accountManagerState.Index = AccountManagerStateIndex.Start;
+                            }
+                            else
+                            {
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "What would you like as your character name?") );
+
+                                accountManagerState.Index = AccountManagerStateIndex.NameWaitingForPlayerNewName;
+                            }
+                        }
+                        else if (accountManagerState.Index == AccountManagerStateIndex.GenderWaitingForPlayerName)
+                        {
+                            accountManagerState.PlayerName = command.Message;
+
+                            using (var database = Context.Server.DatabaseFactory.Create() )
+                            {
+                                var dbPlayer = await database.PlayerRepository.GetPlayerByName(accountManagerState.PlayerName);
+
+                                if (dbPlayer == null || dbPlayer.AccountId != command.Player.DatabaseAccountId)
+                                {
+                                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "This character was not found. Which character?") );
+
+                                    accountManagerState.Index = AccountManagerStateIndex.GenderWaitingForPlayerName;
+                                }
+                                else
+                                {
+                                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
+                         
+                                    accountManagerState.Index = AccountManagerStateIndex.GenderWaitingForPlayerNameConfirmation;
+                                }
+                            }
+                        }
+                        else if (accountManagerState.Index == AccountManagerStateIndex.GenderWaitingForPlayerNameConfirmation)
+                        {
+                            if (command.Message == "yes")
+                            {
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Should your character be 'male' or 'female'?") );
+
+                                accountManagerState.Index = AccountManagerStateIndex.GenderWaitingForPlayerNewGender;
+                            }
+                            else
+                            {
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Which character?") );
+
+                                accountManagerState.Index = AccountManagerStateIndex.GenderWaitingForPlayerName;
+                            }
+                        }
+                        else if (accountManagerState.Index == AccountManagerStateIndex.GenderWaitingForPlayerNewGender)
+                        {
+                            if (command.Message == "male")
+                            {
+                                accountManagerState.PlayerGender = Gender.Male;
+
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
+
+                                accountManagerState.Index = AccountManagerStateIndex.GenderWaitingForPlayerNewGenderConfirmation;
+                            }
+                            else if (command.Message == "female")
+                            {
+                                accountManagerState.PlayerGender = Gender.Female;
+
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
+
+                                accountManagerState.Index = AccountManagerStateIndex.GenderWaitingForPlayerNewGenderConfirmation;
+                            }
+                            else
+                            {
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Should your character be 'male' or 'female'?") );
+
+                                accountManagerState.Index = AccountManagerStateIndex.GenderWaitingForPlayerNewGender;
+                            }
+                        }
+                        else if (accountManagerState.Index == AccountManagerStateIndex.GenderWaitingForPlayerNewGenderConfirmation)
+                        {
+                            if (command.Message == "yes")
+                            {
+                                Player player = Context.Server.GameObjects.GetPlayerByName(accountManagerState.PlayerName);
+
+                                if (player != null)
+                                {
+                                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "This character is currently online and can't be changed at this time.") );
+                                }
+                                else
+                                {
+                                    player = Context.Server.GameObjectPool.GetPlayerByName(accountManagerState.PlayerName);
+
+                                    if (player != null)
+                                    {
+                                        player.Gender = accountManagerState.PlayerGender;
+
+                                        foreach (var pair in player.Outfits.GetIndexed().ToArray() )
+                                        {
+                                            OutfitConfig outfitConfig = Context.Server.Outfits.GetCorrespondingOutfitById(pair.Key);
+
+                                            if (outfitConfig != null)
+                                            {
+                                                player.Outfits.RemoveOutfit(pair.Key);
+
+                                                player.Outfits.SetOutfit(outfitConfig.Id, pair.Value);
+                                            }
+                                        }
+
+                                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Your character '" + accountManagerState.PlayerName + "' has been changed.") );
+                                    }
+                                    else
+                                    {
+                                        try
+                                        {
+                                            using (var database = Context.Server.DatabaseFactory.Create() )
+                                            {
+                                                var dbPlayer = await database.PlayerRepository.GetPlayerByName(accountManagerState.PlayerName);
+
+                                                dbPlayer.Gender = (int)accountManagerState.PlayerGender;
+
+                                                foreach (var dbPlayerOutfit in dbPlayer.PlayerOutfits.ToArray() )
+                                                {
+                                                    OutfitConfig outfitConfig = Context.Server.Outfits.GetCorrespondingOutfitById( (ushort)dbPlayerOutfit.OutfitId);
+
+                                                    if (outfitConfig != null)
+                                                    {
+                                                        dbPlayer.PlayerOutfits.Remove(dbPlayerOutfit);
+
+                                                        dbPlayer.PlayerOutfits.Add(new DbPlayerOutfit()
+                                                        {
+                                                            PlayerId = dbPlayer.Id,
+
+                                                            OutfitId = (int)outfitConfig.Id,
+
+                                                            OutfitAddon = dbPlayerOutfit.OutfitAddon
+                                                        } );
+                                                    }
+                                                }
+
+                                                await database.Commit();
+                                            }
+
+                                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Your character '" + accountManagerState.PlayerName + "' has been changed.") );
+                                        }
+                                        catch
+                                        {
+                                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "There was a problem while changing your character, please try again.") );
+                                        }
+                                    }
+                                }
+
+                                accountManagerState.Index = AccountManagerStateIndex.Start;
+                            }
+                            else
+                            {
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Should your character be 'male' or 'female'?") );
+
+                                accountManagerState.Index = AccountManagerStateIndex.GenderWaitingForPlayerNewGender;
+                            }
+                        }
+                        else if (accountManagerState.Index == AccountManagerStateIndex.MoveWaitingForPlayerName)
+                        {
+                            accountManagerState.PlayerName = command.Message;
+
+                            using (var database = Context.Server.DatabaseFactory.Create() )
+                            {
+                                var dbPlayer = await database.PlayerRepository.GetPlayerByName(accountManagerState.PlayerName);
+
+                                if (dbPlayer == null || dbPlayer.AccountId != command.Player.DatabaseAccountId)
+                                {
+                                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "This character was not found. Which character?") );
+
+                                    accountManagerState.Index = AccountManagerStateIndex.MoveWaitingForPlayerName;
+                                }
+                                else
+                                {
+                                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "'" + command.Message + "' are you sure?") );
+                         
+                                    accountManagerState.Index = AccountManagerStateIndex.MoveWaitingForPlayerNameConfirmation;
+                                }
+                            }
+                        }
+                        else if (accountManagerState.Index == AccountManagerStateIndex.MoveWaitingForPlayerNameConfirmation)
+                        {
+                            if (command.Message == "yes")
+                            {
+                                Player player = Context.Server.GameObjects.GetPlayerByName(accountManagerState.PlayerName);
+
+                                if (player != null)
+                                {
+                                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "This character is currently online and can't be moved at this time.") );
+                                }
+                                else
+                                {
+                                    player = Context.Server.GameObjectPool.GetPlayerByName(accountManagerState.PlayerName);
+
+                                    if (player != null)
+                                    {
+                                        player.Direction = Direction.South;
+
+                                        player.Spawn = player.Town;
+
+                                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Your character '" + accountManagerState.PlayerName + "' has been moved.") );
+                                    }
+                                    else
+                                    {
+                                        try
+                                        {
+                                            using (var database = Context.Server.DatabaseFactory.Create() )
+                                            {
+                                                var dbPlayer = await database.PlayerRepository.GetPlayerByName(accountManagerState.PlayerName);
+
+                                                dbPlayer.Direction = 2;
+
+                                                dbPlayer.SpawnX = dbPlayer.TownX;
+
+                                                dbPlayer.SpawnY = dbPlayer.TownY;
+
+                                                dbPlayer.SpawnZ = dbPlayer.TownZ;
+
+                                                await database.Commit();
+                                            }
+
+                                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Your character '" + accountManagerState.PlayerName + "' has been moved.") );
+                                        }
+                                        catch
+                                        {
+                                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "There was a problem while moving your character, please try again.") );
+                                        }
+                                    }
+                                }
+
+                                accountManagerState.Index = AccountManagerStateIndex.Start;
+                            }
+                            else
+                            {
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Which character?") );
+
+                                accountManagerState.Index = AccountManagerStateIndex.MoveWaitingForPlayerName;
                             }
                         }
                     }

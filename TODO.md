@@ -58,6 +58,7 @@
 - Interacting with other players
 	- Say
 		- Gamemaster in-game commands
+		- Player in-game commands
 		- Spells
 			- Database for storing spells
 	- Whisper
@@ -94,7 +95,7 @@
 	- Protection zone
 	- No-logout zone
 	- Raids
-	- Special Conditions
+	- Special conditions
 - Interacting with the game world 
 	- Look item
 		- Sign items
@@ -103,7 +104,7 @@
 	- Rotate item
 	- Use item
 		- Containers
-		- Lockers and towns
+		- Depot lockers and towns
 		- Read and write items
 		- Quest chest item
 		- etc
