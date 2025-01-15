@@ -29,6 +29,8 @@ namespace OpenTibia.Common.Objects
 
         public IContainer Parent { get; set; }
 
+        public bool LoadedFromMap { get; set; }
+
         public ushort ActionId { get; set; }
 
         public ushort UniqueId { get; set; }

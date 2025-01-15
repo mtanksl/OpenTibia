@@ -75,6 +75,8 @@ namespace mtanksl.OpenTibia.Host.GUI
                 kickAllToolStripMenuItem.Enabled = true;
 
                 saveToolStripMenuItem.Enabled = true;
+
+                cleanToolStripMenuItem.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -196,7 +198,7 @@ namespace mtanksl.OpenTibia.Host.GUI
 
                 stopToolStripMenuItem.Enabled = false;
 
-                broadcastMessageToolStripMenuItem.Enabled = false;               
+                broadcastMessageToolStripMenuItem.Enabled = false;
 
                 maintenanceToolStripMenuItem.Enabled = false;
 
@@ -205,6 +207,8 @@ namespace mtanksl.OpenTibia.Host.GUI
                 kickAllToolStripMenuItem.Enabled = false;
 
                 saveToolStripMenuItem.Enabled = false;
+
+                cleanToolStripMenuItem.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -324,6 +328,34 @@ namespace mtanksl.OpenTibia.Host.GUI
             }
         }
 
+        private async void cleanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (server == null)
+            {
+                MessageBox.Show("Server is not running.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            try
+            {
+                Enabled = false;
+
+                await Task.Run( () =>
+                {
+                    server.Clean();
+                } );
+            }
+            catch (Exception ex)
+            {
+                logger.WriteLine(ex.ToString(), LogLevel.Error);
+            }
+            finally
+            {
+                Enabled = true;
+            }
+        }
+
         private void clearToolStripMenuItem_Click(object sender, EventArgs e)
         {
             richTextBox1.Clear();
@@ -378,6 +410,8 @@ namespace mtanksl.OpenTibia.Host.GUI
                         kickAllToolStripMenuItem.Enabled = false;
 
                         saveToolStripMenuItem.Enabled = false;
+
+                        cleanToolStripMenuItem.Enabled = false;
 
                         ignoreCloseEvent = true;
 

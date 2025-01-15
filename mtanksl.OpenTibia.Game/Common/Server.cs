@@ -536,7 +536,7 @@ namespace OpenTibia.Game.Common
 
             } ).Wait();
 
-            using (Logger.Measure("Clean up") )
+            using (Logger.Measure("Garbage collection") )
             {
                 GC.Collect();
 
@@ -958,6 +958,33 @@ namespace OpenTibia.Game.Common
             } ).Wait();
 
             Logger.WriteLine("Save complete.");
+        }
+
+        public void Clean()
+        {
+            QueueForExecution( () =>
+            {
+                List<Promise> promises = new List<Promise>();
+
+                foreach (var tile in Map.GetTiles() )
+                {
+                    if ( !tile.ProtectionZone)
+                    {
+                        foreach (var item in tile.GetItems() )
+                        {
+                            if ( !item.LoadedFromMap && item.ActionId == 0 && item.UniqueId == 0 && item.Metadata.Flags.Is(ItemMetadataFlags.Pickupable) && !item.Metadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
+                            {
+                                promises.Add(Context.Current.AddCommand(new ItemDestroyCommand(item) ) );
+                            }
+                        }
+                    }
+                }
+
+                return Promise.WhenAll(promises.ToArray() );
+
+            } ).Wait();
+
+            Logger.WriteLine("Clean complete.");
         }
 
         public void Pause()

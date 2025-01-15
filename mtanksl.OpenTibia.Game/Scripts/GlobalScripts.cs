@@ -25,14 +25,16 @@ namespace OpenTibia.Game.Scripts
 
             Ping();
 
-            ServerSave(0);
+            Save(0);
+
+            Clean(0);
         }
 
         private void RealClockTick()
         {
             DateTime now = DateTime.Now;
 
-            DateTime next = GetNextMinute(now);
+            DateTime next = GetSecondInterval(now, 60 * 1000);
 
             Promise.Delay("RealClockTick", next - now).Then( () =>
             {
@@ -48,7 +50,7 @@ namespace OpenTibia.Game.Scripts
         {
             DateTime now = DateTime.Now;
 
-            DateTime next = GetNextSecond(now, Clock.Interval);
+            DateTime next = GetSecondInterval(now, Clock.Interval);
 
             Promise.Delay("TibiaClockTick", next - now).Then( () =>
             {
@@ -66,7 +68,7 @@ namespace OpenTibia.Game.Scripts
         {
             DateTime now = DateTime.Now;
 
-            DateTime next = GetNextSecond(now, 100);
+            DateTime next = GetSecondInterval(now, 100);
 
             Promise.Delay("Tick", next - now).Then( () =>
             {
@@ -82,7 +84,7 @@ namespace OpenTibia.Game.Scripts
         {
             DateTime now = DateTime.Now;
 
-            DateTime next = GetNextSecond(now, 10 * 1000);
+            DateTime next = GetSecondInterval(now, 10 * 1000);
 
             Promise.Delay("Spawn", next - now).Then(() =>
             {
@@ -98,7 +100,7 @@ namespace OpenTibia.Game.Scripts
         {
             DateTime now = DateTime.Now;
 
-            DateTime next = GetNextMinute(now);
+            DateTime next = GetSecondInterval(now, 60 * 1000);
 
             Promise.Delay("Raid", next - now).Then(() =>
             {
@@ -114,7 +116,7 @@ namespace OpenTibia.Game.Scripts
         {
             DateTime now = DateTime.Now;
 
-            DateTime next = GetNextSecond(now, 10 * 1000);
+            DateTime next = GetSecondInterval(now, 10 * 1000);
 
             Promise.Delay("Light", next - now).Then( () =>
             {
@@ -130,7 +132,7 @@ namespace OpenTibia.Game.Scripts
         {
             DateTime now = DateTime.Now;
 
-            DateTime next = GetNextSecond(now, 10 * 1000);
+            DateTime next = GetSecondInterval(now, 10 * 1000);
 
             Promise.Delay("Ping", next - now).Then( () =>
             {
@@ -142,45 +144,45 @@ namespace OpenTibia.Game.Scripts
             } );
         }
 
-        private void ServerSave(int state)
+        private void Save(int state)
         {
             if (state == 0)
             {
                 DateTime now = DateTime.Now;
 
-                DateTime next = GetNextDay(now);
+                DateTime next = GetDayInterval(now, 24 * 60 * 60 * 1000);
 
                 if ( (next - now).TotalMinutes > 5)
                 {
-                    ServerSave(1);
+                    Save(1);
                 }
                 else if ( (next - now).TotalMinutes > 3)
                 {
-                    ServerSave(2);
+                    Save(2);
                 }
                 else if ( (next - now).TotalMinutes > 1)
                 {
-                    ServerSave(3);
+                    Save(3);
                 }
                 else
                 {
-                    ServerSave(4);
+                    Save(4);
                 }
             }
             else if (state == 1)
             {
                 DateTime now = DateTime.Now;
 
-                DateTime next = GetNextDay(now).AddMinutes(-5);
+                DateTime next = GetDayInterval(now, 24 * 60 * 60 * 1000).AddMinutes(-5);
 
-                Promise.Delay("ServerSave", next - now).Then( () =>
+                Promise.Delay("Save", next - now).Then( () =>
                 {
                     foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                     {
                         Context.AddPacket(observer, new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, "Server is saving game in 5 minutes. Please come back in 10 minutes.") );
                     }
 
-                    ServerSave(2);
+                    Save(2);
                                     
                     return Promise.Completed;
                 } );
@@ -189,16 +191,16 @@ namespace OpenTibia.Game.Scripts
             {
                 DateTime now = DateTime.Now;
 
-                DateTime next = GetNextDay(now).AddMinutes(-3);
+                DateTime next = GetDayInterval(now, 24 * 60 * 60 * 1000).AddMinutes(-3);
 
-                Promise.Delay("ServerSave", next - now).Then( () =>
+                Promise.Delay("Save", next - now).Then( () =>
                 {
                     foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                     {
                         Context.AddPacket(observer, new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, "Server is saving game in 3 minutes. Please come back in 10 minutes.") );
                     }
 
-                    ServerSave(3);
+                    Save(3);
 
                     return Promise.Completed;
                 } );
@@ -207,16 +209,16 @@ namespace OpenTibia.Game.Scripts
             {
                 DateTime now = DateTime.Now;
 
-                DateTime next = GetNextDay(now).AddMinutes(-1);
+                DateTime next = GetDayInterval(now, 24 * 60 * 60 * 1000).AddMinutes(-1);
 
-                Promise.Delay("ServerSave", next - now).Then( () =>
+                Promise.Delay("Save", next - now).Then( () =>
                 {
                     foreach (var observer in Context.Server.GameObjects.GetPlayers() )
                     {
                         Context.AddPacket(observer, new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, "Server is saving game in 1 minute. Please log out.") );
                     }
 
-                    ServerSave(4);
+                    Save(4);
 
                     return Promise.Completed;
                 } );
@@ -225,9 +227,9 @@ namespace OpenTibia.Game.Scripts
             {
                 DateTime now = DateTime.Now;
 
-                DateTime next = GetNextDay(now);
+                DateTime next = GetDayInterval(now, 24 * 60 * 60 * 1000);
 
-                Promise.Delay("ServerSave", next - now).Then( () =>
+                Promise.Delay("Save", next - now).Then( () =>
                 {
                     IServer server = Context.Server;
 
@@ -242,7 +244,68 @@ namespace OpenTibia.Game.Scripts
                         server.Continue();
                     } );
 
-                    ServerSave(0);
+                    Save(0);
+
+                    return Promise.Completed;
+                } );
+            }
+        }
+
+        private void Clean(int state)
+        {
+            if (state == 0)
+            {
+                DateTime now = DateTime.Now;
+
+                DateTime next = GetDayInterval(now, 6 * 60 * 60 * 1000).AddHours(-3);
+
+                if ( (next - now).TotalMinutes > 1)
+                {
+                    Clean(1);
+                }
+                else
+                {
+                    Clean(2);
+                }
+            }
+            else if (state == 1)
+            {
+                DateTime now = DateTime.Now;
+
+                DateTime next = GetDayInterval(now, 6 * 60 * 60 * 1000).AddHours(-3).AddMinutes(-1);
+
+                Promise.Delay("Clean", next - now).Then( () =>
+                {
+                    foreach (var observer in Context.Server.GameObjects.GetPlayers() )
+                    {
+                        Context.AddPacket(observer, new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, "Server is cleaning floor in 1 minute. Please take all your items.") );
+                    }
+
+                    Clean(2);
+
+                    return Promise.Completed;
+                } );
+            }
+            else if (state == 2)
+            {
+                DateTime now = DateTime.Now;
+
+                DateTime next = GetDayInterval(now, 6 * 60 * 60 * 1000).AddHours(-3);
+
+                Promise.Delay("Clean", next - now).Then( () =>
+                {
+                    IServer server = Context.Server;
+
+                    Task.Run( () =>
+                    {
+                        server.Pause();
+
+                        server.Clean();
+
+                        server.Continue();
+                    } );
+
+                    Clean(0);
 
                     return Promise.Completed;
                 } );
@@ -265,36 +328,18 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CancelQueueForExecution("Ping");
 
-            Context.Server.CancelQueueForExecution("ServerSave");
+            Context.Server.CancelQueueForExecution("Save");
+
+            Context.Server.CancelQueueForExecution("Clean");
         }
 
-        private static DateTime GetNextDay(DateTime now)
+        private static DateTime GetDayInterval(DateTime now, int millisecond)
         {
-            return new DateTime(now.Year, now.Month, now.Day, 0, 0, 0, 0).AddDays(1);
+            return new DateTime(now.Year, now.Month, now.Day, 0, 0, 0, 0).AddMilliseconds(Round(now.Hour * 60 * 60 * 1000 + now.Minute * 60 * 1000 + now.Second * 1000 + now.Millisecond, millisecond) ).AddMilliseconds(millisecond);
         }
 
-        private static DateTime GetNextHour(DateTime now)
+        private static DateTime GetSecondInterval(DateTime now, int millisecond)
         {
-            return new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0, 0).AddHours(1);
-        }
-
-        private static DateTime GetNextMinute(DateTime now)
-        {
-            return new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0, 0).AddMinutes(1);
-        }
-
-        private static DateTime GetNextSecond(DateTime now)
-        {
-            return new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, now.Second, 0).AddSeconds(1);
-        }
-
-        private static DateTime GetNextSecond(DateTime now, int millisecond)
-        {
-            if (millisecond < 0 || millisecond > 60000)
-            {
-                throw new ArgumentException("Millisecond must be between 0 and 60000");
-            }
-
             return new DateTime(now.Year, now.Month, now.Day, now.Hour, now.Minute, 0, 0).AddMilliseconds(Round(now.Second * 1000 + now.Millisecond, millisecond) ).AddMilliseconds(millisecond);
         }
 

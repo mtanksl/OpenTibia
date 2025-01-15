@@ -26,7 +26,7 @@ namespace mtanksl.OpenTibia.Host
             ILogger logger = new Logger(new ConsoleLoggerProvider(), LogLevel.Information);
 #endif
 
-            logger.WriteLine("Available commands: help, clear, reload-plugins, broadcast, maintenance, kick, save, stop, stats.");
+            logger.WriteLine("Available commands: help, clear, reload-plugins, broadcast, maintenance, kick, save, clean, stop, stats.");
 
             logger.WriteLine();
 
@@ -54,7 +54,8 @@ namespace mtanksl.OpenTibia.Host
                                 server.Logger.WriteLine("maintenance \t Start or stop the server maintenance.");
                                 server.Logger.WriteLine("kick \t\t Kick all the players.");
                                 server.Logger.WriteLine("save \t\t Save the server.");
-                                server.Logger.WriteLine("stop \t\t Stop the server. Alternative commands: exit, quit.");
+                                server.Logger.WriteLine("clean \t\t Clean the server.");
+                                server.Logger.WriteLine("stop \t\t Stop the server. Alternative commands: exit.");
                                 server.Logger.WriteLine("stats \t\t Display server statistics.");
 
                                 break;
@@ -121,10 +122,15 @@ namespace mtanksl.OpenTibia.Host
 
                                 break;
 
+                            case "clean":
+
+                                server.Clean();
+
+                                break;
+
                             case null:
                             case "stop":
                             case "exit":
-                            case "quit":
 
                                 exit = true;
 

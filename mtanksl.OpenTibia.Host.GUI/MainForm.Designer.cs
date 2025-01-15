@@ -38,10 +38,10 @@
             restartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             commandToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            broadcastMessageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             maintenanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             kickAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            broadcastMessageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             onlinePlayersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,6 +49,7 @@
             richTextBox1 = new System.Windows.Forms.RichTextBox();
             contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(components);
             clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            cleanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
@@ -112,16 +113,24 @@
             // 
             // commandToolStripMenuItem
             // 
-            commandToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { broadcastMessageToolStripMenuItem, maintenanceToolStripMenuItem, kickAllToolStripMenuItem, saveToolStripMenuItem });
+            commandToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { broadcastMessageToolStripMenuItem, maintenanceToolStripMenuItem, kickAllToolStripMenuItem, saveToolStripMenuItem, cleanToolStripMenuItem });
             commandToolStripMenuItem.Name = "commandToolStripMenuItem";
             commandToolStripMenuItem.Size = new System.Drawing.Size(76, 20);
             commandToolStripMenuItem.Text = "Command";
+            // 
+            // broadcastMessageToolStripMenuItem
+            // 
+            broadcastMessageToolStripMenuItem.Enabled = false;
+            broadcastMessageToolStripMenuItem.Name = "broadcastMessageToolStripMenuItem";
+            broadcastMessageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            broadcastMessageToolStripMenuItem.Text = "Broadcast Message";
+            broadcastMessageToolStripMenuItem.Click += broadcastMessageToolStripMenuItem_Click;
             // 
             // maintenanceToolStripMenuItem
             // 
             maintenanceToolStripMenuItem.Enabled = false;
             maintenanceToolStripMenuItem.Name = "maintenanceToolStripMenuItem";
-            maintenanceToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            maintenanceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             maintenanceToolStripMenuItem.Text = "Maintenance";
             maintenanceToolStripMenuItem.Click += maintenanceToolStripMenuItem_Click;
             // 
@@ -129,7 +138,7 @@
             // 
             kickAllToolStripMenuItem.Enabled = false;
             kickAllToolStripMenuItem.Name = "kickAllToolStripMenuItem";
-            kickAllToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            kickAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             kickAllToolStripMenuItem.Text = "Kick all";
             kickAllToolStripMenuItem.Click += kickAllToolStripMenuItem_Click;
             // 
@@ -137,17 +146,9 @@
             // 
             saveToolStripMenuItem.Enabled = false;
             saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             saveToolStripMenuItem.Text = "Save";
             saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
-            // 
-            // broadcastMessageToolStripMenuItem
-            // 
-            broadcastMessageToolStripMenuItem.Enabled = false;
-            broadcastMessageToolStripMenuItem.Name = "broadcastMessageToolStripMenuItem";
-            broadcastMessageToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
-            broadcastMessageToolStripMenuItem.Text = "Broadcast Message";
-            broadcastMessageToolStripMenuItem.Click += broadcastMessageToolStripMenuItem_Click;
             // 
             // windowToolStripMenuItem
             // 
@@ -203,6 +204,14 @@
             clearToolStripMenuItem.Text = "Clear";
             clearToolStripMenuItem.Click += clearToolStripMenuItem_Click;
             // 
+            // cleanToolStripMenuItem
+            // 
+            cleanToolStripMenuItem.Enabled = false;
+            cleanToolStripMenuItem.Name = "cleanToolStripMenuItem";
+            cleanToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            cleanToolStripMenuItem.Text = "Clean";
+            cleanToolStripMenuItem.Click += cleanToolStripMenuItem_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -246,5 +255,6 @@
         private System.Windows.Forms.ToolStripMenuItem statisticsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem onlinePlayersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem broadcastMessageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cleanToolStripMenuItem;
     }
 }

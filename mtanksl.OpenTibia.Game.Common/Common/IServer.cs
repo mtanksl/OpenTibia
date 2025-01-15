@@ -110,6 +110,8 @@ namespace OpenTibia.Game.Common
 
         void Save();
 
+        void Clean();
+
         void Pause();
 
         void Continue();

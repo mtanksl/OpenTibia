@@ -19,7 +19,6 @@
 - Bed
 - Guild
 - Hangable items
-- Map clean up
 - Rings and amulets charges
 - Player balance (banker NPC)
 - ...
@@ -36,6 +35,8 @@
 - The base structures
 - Server status info protocol
 - Account manager (create account, change password, create player)
+- Server save routine
+- Map clean routine
 - Interacting with the client
 	- Premium days
 	- Message of the day

@@ -295,6 +295,8 @@ namespace OpenTibia.Game.Common.ServerObjects
                                 {
                                     server.ItemFactory.Attach(item);
 
+                                    item.LoadedFromMap = true;
+
                                     item.ActionId = otbmItem.ActionId;
 
                                     item.UniqueId = otbmItem.UniqueId;
