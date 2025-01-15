@@ -279,6 +279,8 @@ namespace OpenTibia.Game.Common.ServerObjects
                         {
                             server.ItemFactory.Attach(ground);
 
+                            ground.LoadedFromMap = true;
+
                             tile.AddContent(ground);
                         }
                     }
