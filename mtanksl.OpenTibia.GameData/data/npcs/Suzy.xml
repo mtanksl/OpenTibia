@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<npc name="Suzy" nameDescription="Suzy" speed="220">
+	<health now="100" max="100"/>
+	<look type="136" head="78" body="10" legs="96" feet="95"/>
+  <voices>
+    <voice sentence="Yes indeed, it's a wise idea to store your money in your bank account." />
+  </voices>
+</npc>

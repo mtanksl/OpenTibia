@@ -79,6 +79,15 @@ topic.responses = {
 		yes = "Set the sails!",
 		notenoughtgold = "You don't have enough money.",
 		no = "We would like to serve you some time."	
+	},
+	bank = {
+		balance = "Your account balance is [count] gold.",
+		deposit = "Would you really like to deposit [count] gold?",
+		deposityes = "Alright, we have added the amount of [count] gold to your balance. You can withdraw your gold anytime you want to.",
+		withdraw = "Are you sure you wish to withdraw [count] gold from your bank account?",
+		withdrawyes = "Here you are, [count] gold. Please let me know if there is something else I can do for you.",
+		notenoughtgold = "Sorry, do not have enough gold.",
+		no = "Well, can I help you with something else?"
 	}
 }
 
@@ -96,6 +105,10 @@ topic.responses.trade.mt = {
 
 topic.responses.travel.mt = {
 	__index = topic.responses.travel
+}
+
+topic.responses.bank.mt = {
+	__index = topic.responses.bank
 }
 
 function topic:new(parent)
@@ -293,6 +306,58 @@ function topic:addtravel(destinations, responses)
 	confirm:add("", function(context) 
 		context:setparameters( { topic = self } )
 		context:say(responses.travel.no)
+	end)
+end
+
+function topic:addbank(responses)
+	responses = responses or {}
+	responses.bank = responses.bank or {}
+	setmetatable(responses.bank, self.responses.bank.mt)
+
+	self:add("balance", function(context)
+		context:setparameters( { count = context.player.BankAccount, topic = self } )
+		context:say(responses.bank.balance)
+	end)
+
+	local confirmdeposit = topic:new(self)
+	self:add("deposit (%d+)", function(context) 
+		local count = math.max(1, tonumber(context.captures[1] ) )
+		context:setparameters( { count = count, topic = confirmdeposit } )
+		context:say(responses.bank.deposit)
+	end)
+	confirmdeposit:add("yes", function(context) 
+		context:setparameters( { topic = self } )
+		if command.playerdestroymoney(context.player, context.parameters.count) then
+			context.player.BankAccount = context.player.BankAccount + context.parameters.count
+			context:say(responses.bank.deposityes)
+		else
+			context:say(responses.bank.notenoughtgold)
+		end		
+	end)
+	confirmdeposit:add("", function(context) 
+		context:setparameters( { topic = self } )
+		context:say(responses.bank.no)
+	end)
+
+	local confirmwithdraw = topic:new(self)
+	self:add("withdraw (%d+)", function(context) 
+		local count = math.max(1, tonumber(context.captures[1] ) )
+		context:setparameters( { count = count, topic = confirmwithdraw } )
+		context:say(responses.bank.withdraw)
+	end)
+	confirmwithdraw:add("yes", function(context) 
+		context:setparameters( { topic = self } )
+		if context.player.BankAccount >= context.parameters.count then
+			context.player.BankAccount = context.player.BankAccount - context.parameters.count
+			command.playercreatemoney(context.player, context.parameters.count)
+			context:say(responses.bank.withdrawyes)
+		else
+			context:say(responses.bank.notenoughtgold)
+		end
+	end)
+	confirmwithdraw:add("", function(context) 
+		context:setparameters( { topic = self } )
+		context:say(responses.bank.no)
 	end)
 end
 

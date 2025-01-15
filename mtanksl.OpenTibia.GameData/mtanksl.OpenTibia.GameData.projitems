@@ -22,6 +22,7 @@
     <None Include="$(MSBuildThisFileDirectory)data\plugins\globalevents\shutdown.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\raids\rats.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\raids\lib.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\scripts\npcs\suzy.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\vocations\config.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\vocations\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\values\config.lua" />
@@ -409,6 +410,7 @@
     <Content Include="$(MSBuildThisFileDirectory)data\monsters\Young Sea Serpent.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\monsters\Zombie.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\monsters\Zugurosh.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)data\npcs\Suzy.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\npcs\The Oracle.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\npcs\Al Dee.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\npcs\Captain Bluebear.xml" />
@@ -416,8 +418,5 @@
     <Content Include="$(MSBuildThisFileDirectory)data\npcs\Rachel.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\world\map-house.xml" />
     <Content Include="$(MSBuildThisFileDirectory)data\world\map-spawn.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)data\plugins\scripts\" />
   </ItemGroup>
 </Project>
