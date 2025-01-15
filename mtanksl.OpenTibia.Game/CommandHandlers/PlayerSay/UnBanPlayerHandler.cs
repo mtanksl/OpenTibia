@@ -4,6 +4,7 @@ using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
+using System.Net;
 
 namespace OpenTibia.Game.CommandHandlers
 {
@@ -17,11 +18,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 using (var database = Context.Server.DatabaseFactory.Create() )
                 {
-                    DbPlayer dbPlayer = await database.PlayerRepository.GetPlayerByName(name);
+                    IPAddress ipAddress;
 
-                    if (dbPlayer != null)
+                    if (IPAddress.TryParse(name, out ipAddress) )
                     {
-                        DbBan dbBan = await database.BanRepository.GetBanByPlayerId(dbPlayer.Id);
+                        DbBan dbBan = await database.BanRepository.GetBanByIpAddress(name);
 
                         if (dbBan != null)
                         {
@@ -30,9 +31,29 @@ namespace OpenTibia.Game.CommandHandlers
                             await database.Commit();
                         }
 
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, dbPlayer.Name + " has been unbanned.") );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "IP Address " + name + " has been unbanned.") );
 
-                        await Promise.Completed; return;
+                        return;
+                    }
+                    else
+                    {
+                        DbPlayer dbPlayer = await database.PlayerRepository.GetPlayerByName(name);
+
+                        if (dbPlayer != null)
+                        {
+                            DbBan dbBan = await database.BanRepository.GetBanByPlayerId(dbPlayer.Id);
+
+                            if (dbBan != null)
+                            {
+                                database.BanRepository.RemoveBan(dbBan);
+
+                                await database.Commit();
+                            }
+
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "Player " + name + " has been unbanned.") );
+
+                            return;
+                        }
                     }
                 }
 

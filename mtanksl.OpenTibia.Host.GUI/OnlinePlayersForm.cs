@@ -3,6 +3,7 @@ using OpenTibia.Common.Structures;
 using OpenTibia.Data.Models;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Linq;
@@ -33,7 +34,16 @@ namespace mtanksl.OpenTibia.Host.GUI
             {
                 foreach (var player in server.GameObjects.GetPlayers().OrderBy(p => p.Name) )
                 {
-                    var rowIndex = dataGridViewPlayers.Rows.Add(player.Name, player.Level.ToString(), Enum.GetName(player.Vocation), Enum.GetName(player.Rank), player.Client.Connection.IpAddress);
+                    int latency = 0;
+
+                    PlayerPingBehaviour playerPingBehaviour = server.GameObjectComponents.GetComponent<PlayerPingBehaviour>(player);
+
+                    if (playerPingBehaviour != null)
+                    {
+                        latency = playerPingBehaviour.GetLatency();
+                    }
+
+                    var rowIndex = dataGridViewPlayers.Rows.Add(player.Name, player.Level.ToString(), Enum.GetName(player.Vocation), Enum.GetName(player.Rank), player.Premium ? "Premium" : "Free", player.Client.Connection.IpAddress, latency + " ms" );
 
                     var row = dataGridViewPlayers.Rows[rowIndex];
 
@@ -158,70 +168,17 @@ namespace mtanksl.OpenTibia.Host.GUI
                 {
                     using (var database = Context.Current.Server.DatabaseFactory.Create() )
                     {
-                        if (player.DatabasePlayerId > 0)
-                        {
-                            DbBan dbBan = await database.BanRepository.GetBanByPlayerId(player.DatabasePlayerId);
-
-                            if (dbBan == null)
-                            {
-                                dbBan = new DbBan()
-                                {
-                                    Type = BanType.Player,
-
-                                    PlayerId = player.DatabasePlayerId,
-
-                                    Message = "This player has been banned.",
-
-                                    CreationDate = DateTime.UtcNow
-                                };
-
-                                database.BanRepository.AddBan(dbBan);
-
-                                await database.Commit();
-                            }
-                        }
-                    }
-
-                    if (player.Tile != null && !player.IsDestroyed)
-                    {
-                        await Context.Current.AddCommand(new ShowMagicEffectCommand(player, MagicEffectType.Puff) );
-
-                        await Context.Current.AddCommand(new CreatureDestroyCommand(player) );
-                    }
-                } );
-            }
-        }
-
-        private void banIPAddressToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var row = dataGridViewPlayers.Rows[rowIndex];
-
-            var player = (Player)row.Tag;
-
-            if (MessageBox.Show("Do you want to ban the IP Address " + player.Client.Connection.IpAddress + "?", "Confimation", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning) != DialogResult.Yes)
-            {
-                return;
-            }
-
-            var server = getServer();
-
-            if (server != null)
-            {
-                server.QueueForExecution(async () =>
-                {
-                    using (var database = Context.Current.Server.DatabaseFactory.Create() )
-                    {
-                        DbBan dbBan = await database.BanRepository.GetBanByIpAddress(player.Client.Connection.IpAddress);
+                        DbBan dbBan = await database.BanRepository.GetBanByPlayerId(player.DatabasePlayerId);
 
                         if (dbBan == null)
                         {
                             dbBan = new DbBan()
                             {
-                                Type = BanType.IpAddress,
+                                Type = BanType.Player,
 
-                                IpAddress = player.Client.Connection.IpAddress,
+                                PlayerId = player.DatabasePlayerId,
 
-                                Message = "This IP Address has been banned.",
+                                Message = "This player has been banned.",
 
                                 CreationDate = DateTime.UtcNow
                             };
@@ -240,6 +197,6 @@ namespace mtanksl.OpenTibia.Host.GUI
                     }
                 } );
             }
-        }        
+        }
     }
 }

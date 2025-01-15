@@ -34,18 +34,19 @@
             Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             contextMenuStripNoRowSelected = new System.Windows.Forms.ContextMenuStrip(components);
             refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             contextMenuStripRowSelected = new System.Windows.Forms.ContextMenuStrip(components);
             refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            sendMessageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             kickPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             banPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            banIPAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             statusStrip1 = new System.Windows.Forms.StatusStrip();
             toolStripStatusLabelPlayers = new System.Windows.Forms.ToolStripStatusLabel();
-            sendMessageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)dataGridViewPlayers).BeginInit();
             contextMenuStripNoRowSelected.SuspendLayout();
             contextMenuStripRowSelected.SuspendLayout();
@@ -60,7 +61,7 @@
             dataGridViewPlayers.BackgroundColor = System.Drawing.SystemColors.Window;
             dataGridViewPlayers.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewPlayers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewPlayers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column5 });
+            dataGridViewPlayers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column7, Column5, Column6 });
             dataGridViewPlayers.Dock = System.Windows.Forms.DockStyle.Fill;
             dataGridViewPlayers.Location = new System.Drawing.Point(0, 0);
             dataGridViewPlayers.MultiSelect = false;
@@ -101,12 +102,26 @@
             Column4.ReadOnly = true;
             Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // Column7
+            // 
+            Column7.HeaderText = "Account Status";
+            Column7.Name = "Column7";
+            Column7.ReadOnly = true;
+            Column7.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // Column5
             // 
             Column5.HeaderText = "IP Address";
             Column5.Name = "Column5";
             Column5.ReadOnly = true;
             Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Column6
+            // 
+            Column6.HeaderText = "Latency";
+            Column6.Name = "Column6";
+            Column6.ReadOnly = true;
+            Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // contextMenuStripNoRowSelected
             // 
@@ -123,9 +138,9 @@
             // 
             // contextMenuStripRowSelected
             // 
-            contextMenuStripRowSelected.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { refreshToolStripMenuItem1, toolStripSeparator1, sendMessageToolStripMenuItem, kickPlayerToolStripMenuItem, banPlayerToolStripMenuItem, banIPAddressToolStripMenuItem });
+            contextMenuStripRowSelected.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { refreshToolStripMenuItem1, toolStripSeparator1, sendMessageToolStripMenuItem, kickPlayerToolStripMenuItem, banPlayerToolStripMenuItem });
             contextMenuStripRowSelected.Name = "contextMenuStrip1";
-            contextMenuStripRowSelected.Size = new System.Drawing.Size(181, 142);
+            contextMenuStripRowSelected.Size = new System.Drawing.Size(181, 120);
             // 
             // refreshToolStripMenuItem1
             // 
@@ -138,6 +153,13 @@
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
             toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // sendMessageToolStripMenuItem
+            // 
+            sendMessageToolStripMenuItem.Name = "sendMessageToolStripMenuItem";
+            sendMessageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            sendMessageToolStripMenuItem.Text = "Send Message";
+            sendMessageToolStripMenuItem.Click += sendMessageToolStripMenuItem_Click;
             // 
             // kickPlayerToolStripMenuItem
             // 
@@ -153,13 +175,6 @@
             banPlayerToolStripMenuItem.Text = "Ban Player";
             banPlayerToolStripMenuItem.Click += banPlayerToolStripMenuItem_Click;
             // 
-            // banIPAddressToolStripMenuItem
-            // 
-            banIPAddressToolStripMenuItem.Name = "banIPAddressToolStripMenuItem";
-            banIPAddressToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            banIPAddressToolStripMenuItem.Text = "Ban IP Address";
-            banIPAddressToolStripMenuItem.Click += banIPAddressToolStripMenuItem_Click;
-            // 
             // statusStrip1
             // 
             statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripStatusLabelPlayers });
@@ -174,13 +189,6 @@
             toolStripStatusLabelPlayers.Name = "toolStripStatusLabelPlayers";
             toolStripStatusLabelPlayers.Size = new System.Drawing.Size(94, 17);
             toolStripStatusLabelPlayers.Text = "Online Players: 0";
-            // 
-            // sendMessageToolStripMenuItem
-            // 
-            sendMessageToolStripMenuItem.Name = "sendMessageToolStripMenuItem";
-            sendMessageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            sendMessageToolStripMenuItem.Text = "Send Message";
-            sendMessageToolStripMenuItem.Click += sendMessageToolStripMenuItem_Click;
             // 
             // OnlinePlayersForm
             // 
@@ -212,14 +220,15 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem kickPlayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem banPlayerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem banIPAddressToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelPlayers;
+        private System.Windows.Forms.ToolStripMenuItem sendMessageToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelPlayers;
-        private System.Windows.Forms.ToolStripMenuItem sendMessageToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
     }
 }

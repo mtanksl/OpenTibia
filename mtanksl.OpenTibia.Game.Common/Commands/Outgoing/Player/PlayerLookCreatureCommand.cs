@@ -4,6 +4,7 @@ using OpenTibia.Game.Common;
 using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace OpenTibia.Game.Commands
@@ -70,37 +71,32 @@ namespace OpenTibia.Game.Commands
                     }
                     else
                     {
+                        List<string> attributes = new List<string>();
+
+                        attributes.Add("Level: " + player.Level);
+
                         if (Player.Rank == Rank.Gamemaster)
                         {
+                            attributes.Add("Account Status: " + (player.Premium ? "Premium" : "Free") );
+
+                            attributes.Add("IP Address: " + Player.Client.Connection.IpAddress);
+
                             PlayerPingBehaviour playerPingBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerPingBehaviour>(Creature);
 
                             if (playerPingBehaviour != null)
                             {
-                                if (player.Premium)
-                                {
-                                    builder.Append("You see " + player.Name + " (Level: " + player.Level + ", Latency: " + playerPingBehaviour.GetLatency() + "ms, Premium Account).");
-                                }
-                                else
-                                {
-                                    builder.Append("You see " + player.Name + " (Level: " + player.Level + ", Latency: " + playerPingBehaviour.GetLatency() + "ms).");
-                                }
-                            }
-                            else
-                            {
-                                if (player.Premium)
-                                {
-                                    builder.Append("You see " + player.Name + " (Level: " + player.Level + ", Premium Account).");
-                                }
-                                else
-                                {
-                                    builder.Append("You see " + player.Name + " (Level: " + player.Level + ").");
-                                }
+                                attributes.Add("Latency: " + playerPingBehaviour.GetLatency() + " ms");
                             }
                         }
-                        else
+
+                        builder.Append("You see " + player.Name);
+
+                        if (attributes.Count > 0)
                         {
-                            builder.Append("You see " + player.Name + " (Level: " + player.Level + ").");
+                            builder.Append(" (" + string.Join(", ", attributes) + ")");
                         }
+
+                        builder.Append(".");
 
                         switch (player.Gender)
                         {

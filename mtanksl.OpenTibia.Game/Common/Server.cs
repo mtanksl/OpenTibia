@@ -543,11 +543,15 @@ namespace OpenTibia.Game.Common
                 GC.WaitForPendingFinalizers();
             }
 
+            List<int> ports = new List<int>();
+
             if (Config.LoginMaxconnections > 0 && Config.LoginPort > 0)
             {
                 loginServer = new Listener(socket => new LoginConnection(this, socket) );
 
                 loginServer.Start(Config.LoginMaxconnections, Config.LoginPort);
+
+                ports.Add(Config.LoginPort);
             }
 
             if (Config.GameMaxConnections > 0 && Config.GamePort > 0)
@@ -555,6 +559,8 @@ namespace OpenTibia.Game.Common
                 gameServer = new Listener(socket => new GameConnection(this, socket) );
 
                 gameServer.Start(Config.GameMaxConnections, Config.GamePort);
+
+                ports.Add(Config.GamePort);
             }
 
             if (Config.InfoMaxConnections > 0 && Config.InfoPort > 0)
@@ -562,11 +568,13 @@ namespace OpenTibia.Game.Common
                 infoServer = new Listener(socket => new InfoConnection(this, socket) );
 
                 infoServer.Start(Config.InfoMaxConnections, Config.InfoPort);
+
+                ports.Add(Config.InfoPort);
             }
 
             Status = ServerStatus.Running;
 
-            Logger.WriteLine("Server status: running.");
+            Logger.WriteLine("Server status: running. Listening on " + Config.IpAddress + " at ports " + string.Join(", ", ports) + ".");
         }
 
         private Dictionary<string, SchedulerEvent> schedulerEvents = new Dictionary<string, SchedulerEvent>();
