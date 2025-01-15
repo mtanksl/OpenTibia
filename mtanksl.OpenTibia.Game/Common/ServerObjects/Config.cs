@@ -34,6 +34,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         public string OwnerEmail { get; set; }
         public string MapName { get; set; }
         public string MapAuthor { get; set; }
+        public string Rules { get; set; }
 
         public int LoginMaxconnections { get; set; }
         public int LoginPort { get; set; }
@@ -149,6 +150,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             MapName = LuaScope.GetString(script["server.info.public.mapname"], "map");
 
             MapAuthor = LuaScope.GetString(script["server.info.public.mapauthor"], "");
+
+            Rules = LuaScope.GetString(script["server.info.rules"], null);
 
             LoginMaxconnections = LuaScope.GetInt32(script["server.login.maxconnections"], 1000);  
             

@@ -53,6 +53,11 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new HelpHandler() ); // !help
 
+            if (Context.Server.Config.Rules != null)
+            {
+                Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new RulesHandler() ); // !rules
+            }
+
             Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new OnlineHandler() ); // !online
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new ServerInfoHandler() ); // !serverinfo

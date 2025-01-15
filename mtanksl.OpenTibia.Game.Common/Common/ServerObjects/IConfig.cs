@@ -18,6 +18,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         string OwnerEmail { get; set; }
         string MapName { get; set; }
         string MapAuthor { get; set; }
+        string Rules { get; set; }
 
         int LoginMaxconnections { get; set; }
         int LoginPort { get; set; }

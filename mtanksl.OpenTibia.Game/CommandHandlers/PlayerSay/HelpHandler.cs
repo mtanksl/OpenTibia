@@ -14,7 +14,14 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.PurpleDefault, command.Message) );
 
-                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Commands: !help, !online, !serverinfo, !uptime") );
+                if (Context.Server.Config.Rules != null)
+                {
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Commands: !help, !rules, !online, !serverinfo, !uptime") );
+                }
+                else
+                {
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.TealDefault, "Commands: !help, !online, !serverinfo, !uptime") );
+                }
 
                 return Promise.Completed;
             }

@@ -17,7 +17,8 @@ server = {
 			owneremail = "",
 			mapname = "map", -- data/world/map.otbm
 			mapauthor = ""
-		}
+		},
+		rules = nil
 	},
 	login = {
 		maxconnections = 100,
@@ -149,3 +150,72 @@ server = {
 		name = "mtots"
 	}
 }
+
+server.info.rules = [[
+Tibia is an online role-playing game in which thousands of players from all over the world meet everyday.
+In order to ensure that the game is fun for everyone, we expect all players to behave in a reasonable and respectful manner.
+We reserve the right to stop destructive behaviour in the game, on the official website or in any other part of our services.
+Such behaviour includes, but is not limited to, the following offences:
+
+1. Names
+
+a) Offensive Name
+Names that are insulting, racist, sexually related, drug-related, harassing or generally objectionable.
+
+b) Name Containing Forbidden Advertising
+Names that advertise brands, products or services of third parties, content which is not related to the game or trades for real money.
+
+c) Unsuitable Name
+Names that express religious or political views.
+
+d) Name Supporting Rule Violation
+Names that support, incite, announce or imply a violation of the Tibia Rules.
+
+2. Statements
+
+a) Offensive Statement
+Insulting, racist, sexually related, drug-related, harassing or generally objectionable statements.
+
+b) Spamming
+Excessively repeating identical or similar statements or using badly formatted or nonsensical text.
+
+c) Forbidden Advertising
+Advertising brands, products or services of third parties, content which is not related to the game or trades for real money.
+
+d) Off-Topic Public Statement
+Religious or political public statements or other public statements which are not related to the topic of the used channel or board.
+
+e) Violating Language Restriction
+Non-English statements in boards and channels where the use of English is explicitly required.
+
+f) Disclosing Personal Data of Others
+Disclosing personal data of other people.
+
+g) Supporting Rule Violation
+Statements that support, incite, announce or imply a violation of the Tibia Rules.
+ 
+3. Cheating
+
+a) Bug Abuse
+Exploiting obvious errors of the game or any other part of our services.
+
+b) Using Unofficial Software to Play
+Manipulating the official client program or using additional software to play the game.
+ 
+4. Legal Issues
+
+a) Hacking
+Stealing other players' account or personal data.
+
+b) Attacking Service
+Attacking, disrupting or damaging the operation of any server, the game or any other part of our services.
+
+c) Violating Law or Regulations
+Violating any applicable law, the Service Agreement or rights of third parties.
+
+Violating or attempting to violate the Tibia Rules may lead to a temporary suspension of characters and accounts.
+In severe cases the removal or modification of character skills, attributes and belongings, as well as the permanent removal of characters and accounts without any compensation may be considered.
+The sanction is based on the seriousness of the rule violation and the previous record of the player.
+It can be imposed without any previous warning.
+These rules may be changed at any time.
+]]
