@@ -257,7 +257,7 @@ namespace OpenTibia.Game.Scripts
             {
                 DateTime now = DateTime.Now;
 
-                DateTime next = GetDayInterval(now, 6 * 60 * 60 * 1000).AddHours(-3);
+                DateTime next = GetDayInterval(now.AddHours(3), 6 * 60 * 60 * 1000).AddHours(-3);
 
                 if ( (next - now).TotalMinutes > 1)
                 {
@@ -272,7 +272,7 @@ namespace OpenTibia.Game.Scripts
             {
                 DateTime now = DateTime.Now;
 
-                DateTime next = GetDayInterval(now, 6 * 60 * 60 * 1000).AddHours(-3).AddMinutes(-1);
+                DateTime next = GetDayInterval(now.AddHours(3), 6 * 60 * 60 * 1000).AddHours(-3).AddMinutes(-1);
 
                 Promise.Delay("Clean", next - now).Then( () =>
                 {
@@ -290,7 +290,7 @@ namespace OpenTibia.Game.Scripts
             {
                 DateTime now = DateTime.Now;
 
-                DateTime next = GetDayInterval(now, 6 * 60 * 60 * 1000).AddHours(-3);
+                DateTime next = GetDayInterval(now.AddHours(3), 6 * 60 * 60 * 1000).AddHours(-3);
 
                 Promise.Delay("Clean", next - now).Then( () =>
                 {
