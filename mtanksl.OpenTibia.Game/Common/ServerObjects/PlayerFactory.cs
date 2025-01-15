@@ -166,6 +166,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             player.Rank = (Rank)dbPlayer.Rank;
 
             player.Premium = dbPlayer.Account.PremiumUntil != null && (dbPlayer.Account.PremiumUntil.Value - DateTime.UtcNow).TotalDays > 0;
+
+            player.BankAccount = (ulong)dbPlayer.BankAccount;
         }
 
         private static void LoadLockers(Context context, DbPlayer dbPlayer, Player player)
@@ -441,6 +443,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             dbPlayer.SpawnY = player.Spawn.Position.Y;
 
             dbPlayer.SpawnZ = player.Spawn.Position.Z;
+
+            dbPlayer.BankAccount = (long)player.BankAccount;
         }
 
         private static void SaveLockers(Context context, DbPlayer dbPlayer, Player player)

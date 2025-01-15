@@ -121,6 +121,8 @@ namespace OpenTibia.Data.Models
 
         public int TownZ { get; set; }
 
+        public long BankAccount { get; set; }
+
 
         public DbAccount Account { get; set; }
 

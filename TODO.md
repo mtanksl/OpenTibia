@@ -20,7 +20,6 @@
 - Guild
 - Hangable items
 - Rings and amulets charges
-- Player balance (banker NPC)
 - ...
 
 # Done (or good enough for now)
@@ -77,6 +76,7 @@
 	- Buy and sell items
 	- Trade window
 	- Travel
+	- Bank Account
 - Interacting with monsters
 	- Fight
 		- Monster spawn/respawn	

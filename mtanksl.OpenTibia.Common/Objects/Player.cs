@@ -131,6 +131,8 @@ namespace OpenTibia.Common.Objects
 
         public bool Premium { get; set; }
 
+        public ulong BankAccount { get; set; }
+
         private void Calculate(ushort level)
         {
             Level = level;
