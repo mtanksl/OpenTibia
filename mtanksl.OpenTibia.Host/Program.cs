@@ -1,5 +1,7 @@
-﻿using OpenTibia.Game.Common;
+﻿using OpenTibia.Common.Structures;
+using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Threading.Tasks;
 
@@ -24,7 +26,7 @@ namespace mtanksl.OpenTibia.Host
             ILogger logger = new Logger(new ConsoleLoggerProvider(), LogLevel.Information);
 #endif
 
-            logger.WriteLine("Available commands: help, stats, clear, reload-plugins, maintenance, kick, save, stop.");
+            logger.WriteLine("Available commands: help, clear, reload-plugins, broadcast, maintenance, kick, save, stop, stats.");
 
             logger.WriteLine();
 
@@ -46,26 +48,14 @@ namespace mtanksl.OpenTibia.Host
                         {
                             case "help":
 
-                                server.Logger.WriteLine("stats \t\t Display server statistics.");
                                 server.Logger.WriteLine("clear \t\t Clear the console screen. Alternative commands: cls.");
                                 server.Logger.WriteLine("reload-plugins \t Reload plugins.");
+                                server.Logger.WriteLine("broadcast \t Broadcast message to all the players.");
                                 server.Logger.WriteLine("maintenance \t Start or stop the server maintenance.");
                                 server.Logger.WriteLine("kick \t\t Kick all the players.");
                                 server.Logger.WriteLine("save \t\t Save the server.");
                                 server.Logger.WriteLine("stop \t\t Stop the server. Alternative commands: exit, quit.");
-
-                                break;
-
-                            case "stats":
-
-                                server.Logger.WriteLine("Uptime: " + server.Statistics.Uptime.Days + " days " + server.Statistics.Uptime.Hours + " hours " + server.Statistics.Uptime.Minutes + " minutes", LogLevel.Information);
-                                server.Logger.WriteLine("Players peek: " + server.Statistics.PlayersPeek, LogLevel.Information);
-                                server.Logger.WriteLine("Active connections: " + server.Statistics.ActiveConnections, LogLevel.Information);
-                                server.Logger.WriteLine("Total messages sent: " + server.Statistics.TotalMessagesSent, LogLevel.Information);
-                                server.Logger.WriteLine("Total bytes sent: " + server.Statistics.TotalBytesSent + " bytes (" + ConvertBytesToHumanReadable(server.Statistics.TotalBytesSent) + ")", LogLevel.Information);
-                                server.Logger.WriteLine("Total messages received: " + server.Statistics.TotalMessagesReceived, LogLevel.Information);
-                                server.Logger.WriteLine("Total bytes received: " + server.Statistics.TotalBytesReceived + " bytes (" + ConvertBytesToHumanReadable(server.Statistics.TotalBytesReceived) + ")", LogLevel.Information);
-                                server.Logger.WriteLine("Average processing time: " + server.Statistics.AverageProcessingTime.ToString("N3") + " milliseconds (" + (1000 / server.Statistics.AverageProcessingTime).ToString("N0") + " FPS)", LogLevel.Information);
+                                server.Logger.WriteLine("stats \t\t Display server statistics.");
 
                                 break;
 
@@ -79,6 +69,30 @@ namespace mtanksl.OpenTibia.Host
                             case "reload-plugins":
 
                                 server.ReloadPlugins();
+
+                                break;
+
+                            case "broadcast":
+
+                                logger.Write("Message: ");
+
+                                string message = Console.ReadLine();
+
+                                if ( !string.IsNullOrEmpty(message) )
+                                {
+                                    server.QueueForExecution( () =>
+                                    {
+                                        ShowWindowTextOutgoingPacket showTextOutgoingPacket = new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, message);
+
+                                        foreach (var observer in Context.Current.Server.GameObjects.GetPlayers() )
+                                        {
+                                            Context.Current.AddPacket(observer, showTextOutgoingPacket);
+                                        }
+
+                                        return Promise.Completed;
+
+                                    } ).Wait();
+                                }
 
                                 break;
 
@@ -113,6 +127,19 @@ namespace mtanksl.OpenTibia.Host
                             case "quit":
 
                                 exit = true;
+
+                                break;
+                                                                
+                            case "stats":
+
+                                server.Logger.WriteLine("Uptime: " + server.Statistics.Uptime.Days + " days " + server.Statistics.Uptime.Hours + " hours " + server.Statistics.Uptime.Minutes + " minutes", LogLevel.Information);
+                                server.Logger.WriteLine("Players peek: " + server.Statistics.PlayersPeek, LogLevel.Information);
+                                server.Logger.WriteLine("Active connections: " + server.Statistics.ActiveConnections, LogLevel.Information);
+                                server.Logger.WriteLine("Total messages sent: " + server.Statistics.TotalMessagesSent, LogLevel.Information);
+                                server.Logger.WriteLine("Total bytes sent: " + server.Statistics.TotalBytesSent + " bytes (" + ConvertBytesToHumanReadable(server.Statistics.TotalBytesSent) + ")", LogLevel.Information);
+                                server.Logger.WriteLine("Total messages received: " + server.Statistics.TotalMessagesReceived, LogLevel.Information);
+                                server.Logger.WriteLine("Total bytes received: " + server.Statistics.TotalBytesReceived + " bytes (" + ConvertBytesToHumanReadable(server.Statistics.TotalBytesReceived) + ")", LogLevel.Information);
+                                server.Logger.WriteLine("Average processing time: " + server.Statistics.AverageProcessingTime.ToString("N3") + " milliseconds (" + (1000 / server.Statistics.AverageProcessingTime).ToString("N0") + " FPS)", LogLevel.Information);
 
                                 break;
                         }
