@@ -4,6 +4,7 @@ using OpenTibia.Data.Models;
 using OpenTibia.Game.Common;
 using OpenTibia.Network.Packets.Incoming;
 using OpenTibia.Network.Packets.Outgoing;
+using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
@@ -209,9 +210,7 @@ namespace OpenTibia.Game.Commands
 
                     if (Context.Server.Config.GameplayOnePlayerOnlinePerAccount)
                     {
-                        Player onlinePlayer = Context.Server.GameObjects.GetPlayerByAccount(dbPlayer.AccountId);
-
-                        if (onlinePlayer != null)
+                        if (Context.Server.GameObjects.GetPlayersByAccount(dbPlayer.AccountId).Any() )
                         {
                             Context.AddPacket(Connection, new OpenSorryDialogOutgoingPacket(false, Constants.YouMayOnlyLoginWithOneCharacterOfYourAccountAtTheSameTime) );
 

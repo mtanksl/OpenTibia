@@ -196,11 +196,16 @@ namespace OpenTibia.Game.Common.ServerObjects
         //     return GetGameObjects<Item>();
         // }
 
-        public Player GetPlayerByAccount(int databaseAccountId)
+        public IEnumerable<Player> GetPlayersByIpAddress(string ipAddress)
         {
             return GetPlayers()
-                .Where(p => p.DatabaseAccountId == databaseAccountId)
-                .FirstOrDefault();
+                .Where(p => p.Client.Connection.IpAddress == ipAddress);
+        }
+
+        public IEnumerable<Player> GetPlayersByAccount(int databaseAccountId)
+        {
+            return GetPlayers()
+                .Where(p => p.DatabaseAccountId == databaseAccountId);
         }
 
         public Player GetPlayerByName(string name)

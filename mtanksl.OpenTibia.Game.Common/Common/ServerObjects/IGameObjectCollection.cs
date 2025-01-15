@@ -29,7 +29,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         // IEnumerable<Item> GetItems();
 
-        Player GetPlayerByAccount(int databaseAccountId);
+        IEnumerable<Player> GetPlayersByIpAddress(string ipAddress);
+
+        IEnumerable<Player> GetPlayersByAccount(int databaseAccountId);
 
         Player GetPlayerByName(string name);
     }

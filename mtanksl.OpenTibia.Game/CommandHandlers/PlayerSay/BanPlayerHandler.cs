@@ -16,15 +16,15 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (command.Message.StartsWith("/ban ") )
             {
-                string name = command.Message.Substring(5);
+                string parameter = command.Message.Substring(5);
 
                 using (var database = Context.Server.DatabaseFactory.Create() )
                 {
                     IPAddress ipAddress;
 
-                    if (IPAddress.TryParse(name, out ipAddress) )
+                    if (IPAddress.TryParse(parameter, out ipAddress) )
                     {
-                        DbBan dbBan = await database.BanRepository.GetBanByIpAddress(name);
+                        DbBan dbBan = await database.BanRepository.GetBanByIpAddress(ipAddress.ToString() );
 
                         if (dbBan == null)
                         {
@@ -32,7 +32,7 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 Type = BanType.IpAddress,
 
-                                IpAddress = name,
+                                IpAddress = ipAddress.ToString(),
 
                                 Message = "This account has been banned by " + command.Player.Name + ".",
 
@@ -44,23 +44,20 @@ namespace OpenTibia.Game.CommandHandlers
                             await database.Commit();
                         }
 
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "IP Address " + name + " has been banned.") );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "IP Address " + parameter + " has been banned.") );
 
-                        foreach (var observer in Context.Server.GameObjects.GetPlayers().ToArray() )
+                        foreach (var observer in Context.Server.GameObjects.GetPlayersByIpAddress(ipAddress.ToString() ).ToArray() )
                         {
-                            if (observer.Client.Connection.IpAddress == name)
-                            {
-                                await Context.AddCommand(new ShowMagicEffectCommand(observer, MagicEffectType.Puff) );
+                            await Context.AddCommand(new ShowMagicEffectCommand(observer, MagicEffectType.Puff) );
                                 
-                                await Context.AddCommand(new CreatureDestroyCommand(observer) );
-                            }
+                            await Context.AddCommand(new CreatureDestroyCommand(observer) );
                         }
 
                         return;
                     }
                     else
                     {
-                        DbPlayer dbPlayer = await database.PlayerRepository.GetPlayerByName(name);
+                        DbPlayer dbPlayer = await database.PlayerRepository.GetPlayerByName(parameter);
 
                         if (dbPlayer != null)
                         {
@@ -84,9 +81,9 @@ namespace OpenTibia.Game.CommandHandlers
                                 await database.Commit();
                             }
 
-                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "Player " + name + " has been banned.") );
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "Player " + parameter + " has been banned.") );
 
-                            Player observer = Context.Server.GameObjects.GetPlayerByName(name);
+                            Player observer = Context.Server.GameObjects.GetPlayerByName(dbPlayer.Name);
 
                             if (observer != null)
                             {
@@ -96,6 +93,44 @@ namespace OpenTibia.Game.CommandHandlers
                             }
 
                             return;
+                        }
+                        else
+                        {
+                            DbAccount dbAccount = await database.AccountRepository.GetAccountByName(parameter);
+
+                            if (dbAccount != null)
+                            {
+                                DbBan dbBan = await database.BanRepository.GetBanByAccountId(dbAccount.Id);
+
+                                if (dbBan == null)
+                                {
+                                    dbBan = new DbBan()
+                                    {
+                                        Type = BanType.Account,
+
+                                        AccountId = dbAccount.Id,
+
+                                        Message = "This account has been banned by " + command.Player.Name + ".",
+
+                                        CreationDate = DateTime.UtcNow
+                                    };
+
+                                    database.BanRepository.AddBan(dbBan);
+
+                                    await database.Commit();
+                                }
+
+                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "Account " + parameter + " has been banned.") );
+
+                                foreach (var observer in Context.Server.GameObjects.GetPlayersByAccount(dbAccount.Id).ToArray() )
+                                {
+                                    await Context.AddCommand(new ShowMagicEffectCommand(observer, MagicEffectType.Puff) );
+                                
+                                    await Context.AddCommand(new CreatureDestroyCommand(observer) );
+                                }
+
+                                return;
+                            }
                         }
                     }
                 }
