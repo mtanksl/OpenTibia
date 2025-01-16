@@ -167,25 +167,6 @@ namespace OpenTibia.Game.Common
             return (byte)Math.Ceiling(100.0 * (experience - minExperience) / (maxExperience - minExperience) );
         }
 
-        private static Dictionary<Skill, int> skillConstants = new Dictionary<Skill, int>()
-        {
-            { Skill.MagicLevel, 1600 },
-
-            { Skill.Fist, 50 },
-
-            { Skill.Club, 50 },
-
-            { Skill.Sword, 50 },
-
-            { Skill.Axe, 50 },
-
-            { Skill.Distance, 30 },
-
-            { Skill.Shield, 100 },
-
-            { Skill.Fish, 20 }
-        };
-
         private static Dictionary<Skill, Dictionary<byte, ulong> > skillCaches = new Dictionary<Skill, Dictionary<byte, ulong> >()
         {
             { Skill.MagicLevel, new Dictionary<byte, ulong>() },
@@ -205,7 +186,7 @@ namespace OpenTibia.Game.Common
             { Skill.Fish, new Dictionary<byte, ulong>() }
         };
 
-        public static ulong GetRequiredSkillTries(byte skillLevel, Skill skill, VocationConfig vocationConfig)
+        public static ulong GetRequiredSkillTries(Skill skill, byte skillLevel, ushort skillConstant, double vocationConstant)
         {
             Dictionary<byte, ulong> skillCache;
 
@@ -217,11 +198,11 @@ namespace OpenTibia.Game.Common
             {
                 if (skill == Skill.MagicLevel)
                 {
-                    skillTries = (ulong)(skillConstants[skill] * (Math.Pow(vocationConfig.VocationConstants.GetValue(skill), skillLevel) - 1 ) / (vocationConfig.VocationConstants.GetValue(skill) - 1) );
+                    skillTries = (ulong)(skillConstant * (Math.Pow(vocationConstant, skillLevel) - 1 ) / (vocationConstant - 1) );
                 }
                 else
                 {
-                    skillTries = (ulong)(skillConstants[skill] * (Math.Pow(vocationConfig.VocationConstants.GetValue(skill), skillLevel - 10) - 1 ) / (vocationConfig.VocationConstants.GetValue(skill) - 1) );
+                    skillTries = (ulong)(skillConstant * (Math.Pow(vocationConstant, skillLevel - 10) - 1 ) / (vocationConstant - 1) );
                 }
 
                 skillCache[skillLevel] = skillTries;
@@ -230,11 +211,42 @@ namespace OpenTibia.Game.Common
             return skillTries;
         }
 
-        public static byte GetSkillPercent(byte skillLevel, ulong skillTries, Skill skill, VocationConfig vocationConfig)
+        private static Dictionary<Skill, ushort> skillConstants = new Dictionary<Skill, ushort>()
         {
-            ulong minSkillTries = GetRequiredSkillTries(skillLevel, skill, vocationConfig);
+            { Skill.MagicLevel, 1600 },
 
-            ulong maxSkillTries = GetRequiredSkillTries( (byte)(skillLevel + 1), skill, vocationConfig);
+            { Skill.Fist, 50 },
+
+            { Skill.Club, 50 },
+
+            { Skill.Sword, 50 },
+
+            { Skill.Axe, 50 },
+
+            { Skill.Distance, 30 },
+
+            { Skill.Shield, 100 },
+
+            { Skill.Fish, 20 }
+        };
+
+        public static byte GetSkillPercent(Player player, Skill skill)
+        {
+            VocationConfig vocationConfig = Context.Current.Server.Vocations.GetVocationById( (byte)player.Vocation);
+
+
+            byte skillLevel = player.Skills.GetSkillLevel(skill);
+
+            ulong skillTries = player.Skills.GetSkillTries(skill);
+
+            ushort skillConstant = skillConstants[skill];
+
+            double vocationConstant = vocationConfig.VocationConstants.GetValue(skill);
+
+
+            ulong minSkillTries = GetRequiredSkillTries(skill, skillLevel, skillConstant, vocationConstant);
+
+            ulong maxSkillTries = GetRequiredSkillTries(skill, (byte)(skillLevel + 1), skillConstant, vocationConstant);
 
             return (byte)Math.Ceiling(100.0 * (skillTries - minSkillTries) / (maxSkillTries - minSkillTries) );
         }

@@ -147,45 +147,5 @@ namespace OpenTibia.Common.Objects
 
             throw new NotImplementedException();
         }
-
-        public byte GetSkillPercent(Skill skill)
-        {
-            switch (skill)
-            {
-                case Skill.MagicLevel:
-                    
-                    return MagicLevelPercent;
-
-                case Skill.Fist:
-
-                    return FistPercent;
-
-                case Skill.Club:
-
-                    return ClubPercent;
-
-                case Skill.Sword:
-
-                    return SwordPercent;
-
-                case Skill.Axe:
-
-                    return AxePercent;
-
-                case Skill.Distance:
-
-                    return DistancePercent;
-
-                case Skill.Shield:
-
-                    return ShieldPercent;
-
-                case Skill.Fish:
-
-                    return FishPercent;
-            }
-
-            throw new NotImplementedException();
-        }
     }
 }

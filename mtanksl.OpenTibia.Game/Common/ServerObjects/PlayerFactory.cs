@@ -95,8 +95,6 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private static void LoadPlayer(Context context, DbPlayer dbPlayer, Player player)
         {
-            VocationConfig vocationConfig = context.Server.Vocations.GetVocationById( (byte)dbPlayer.Vocation);
-
             player.Health = (ushort)dbPlayer.Health;
 
             player.MaxHealth = (ushort)dbPlayer.MaxHealth;
@@ -117,49 +115,49 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             player.Skills.MagicLevelTries = (ulong)dbPlayer.SkillMagicLevelTries;
 
-            player.Skills.MagicLevelPercent = Formula.GetSkillPercent(player.Skills.MagicLevel, player.Skills.MagicLevelTries, Skill.MagicLevel, vocationConfig);
+            player.Skills.MagicLevelPercent = Formula.GetSkillPercent(player, Skill.MagicLevel);
 
             player.Skills.Fist = (byte)dbPlayer.SkillFist;
 
             player.Skills.FistTries = (ulong)dbPlayer.SkillFistTries;
 
-            player.Skills.FistPercent = Formula.GetSkillPercent(player.Skills.Fist, player.Skills.FistTries, Skill.Fist, vocationConfig);
+            player.Skills.FistPercent = Formula.GetSkillPercent(player, Skill.Fist);
 
             player.Skills.Club = (byte)dbPlayer.SkillClub;
 
             player.Skills.ClubTries = (ulong)dbPlayer.SkillClubTries;
 
-            player.Skills.ClubPercent = Formula.GetSkillPercent(player.Skills.Club, player.Skills.ClubTries, Skill.Club, vocationConfig);
+            player.Skills.ClubPercent = Formula.GetSkillPercent(player, Skill.Club);
 
             player.Skills.Sword = (byte)dbPlayer.SkillSword;
 
             player.Skills.SwordTries = (ulong)dbPlayer.SkillSwordTries;
 
-            player.Skills.SwordPercent = Formula.GetSkillPercent(player.Skills.Sword, player.Skills.SwordTries, Skill.Sword, vocationConfig);
+            player.Skills.SwordPercent = Formula.GetSkillPercent(player, Skill.Sword);
 
             player.Skills.Axe = (byte)dbPlayer.SkillAxe;
 
             player.Skills.AxeTries = (ulong)dbPlayer.SkillAxeTries;
 
-            player.Skills.AxePercent = Formula.GetSkillPercent(player.Skills.Axe, player.Skills.AxeTries, Skill.Axe, vocationConfig);
+            player.Skills.AxePercent = Formula.GetSkillPercent(player, Skill.Axe);
 
             player.Skills.Distance = (byte)dbPlayer.SkillDistance;
 
             player.Skills.DistanceTries = (ulong)dbPlayer.SkillDistanceTries;
 
-            player.Skills.DistancePercent = Formula.GetSkillPercent(player.Skills.Distance, player.Skills.DistanceTries, Skill.Distance, vocationConfig);
+            player.Skills.DistancePercent = Formula.GetSkillPercent(player, Skill.Distance);
 
             player.Skills.Shield = (byte)dbPlayer.SkillShield;
 
             player.Skills.ShieldTries = (ulong)dbPlayer.SkillShieldTries;
 
-            player.Skills.ShieldPercent = Formula.GetSkillPercent(player.Skills.Shield, player.Skills.ShieldTries, Skill.Shield, vocationConfig);
+            player.Skills.ShieldPercent = Formula.GetSkillPercent(player, Skill.Shield);
 
             player.Skills.Fish = (byte)dbPlayer.SkillFish;
 
             player.Skills.FishTries = (ulong)dbPlayer.SkillFishTries;
 
-            player.Skills.FishPercent = Formula.GetSkillPercent(player.Skills.Fish, player.Skills.FishTries, Skill.Fish, vocationConfig);
+            player.Skills.FishPercent = Formula.GetSkillPercent(player, Skill.Fish);
 
             player.Experience = (ulong)dbPlayer.Experience;
 
