@@ -154,14 +154,22 @@ namespace OpenTibia.Game.Components
 
                     if (plugin != null)
                     {
-                        return Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - plugin.Weapon.Mana) ).Then( () =>
+                        return Context.Current.AddCommand(new PlayerAddSkillPointsCommand(player, Skill.MagicLevel, (ulong)plugin.Weapon.Mana) ).Then( () =>
+                        {
+                            return Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - plugin.Weapon.Mana) );
+
+                        } ).Then( () =>
                         {
                             return plugin.OnUseWeapon(player, target, itemWeapon);
                         } );
                     }
                     else
                     {
-                        return Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - plugin.Weapon.Mana) ).Then( () =>
+                        return Context.Current.AddCommand(new PlayerAddSkillPointsCommand(player, Skill.MagicLevel, (ulong)plugin.Weapon.Mana) ).Then( () =>
+                        {
+                            return Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - plugin.Weapon.Mana) );
+
+                        } ).Then( () =>
                         {
                             var formula = Formula.WandFormula(itemWeapon.Metadata.AttackStrength.Value, itemWeapon.Metadata.AttackVariation.Value);
 

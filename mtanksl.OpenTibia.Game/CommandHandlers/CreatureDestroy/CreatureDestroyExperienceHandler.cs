@@ -3,7 +3,6 @@ using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
-using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
@@ -23,7 +22,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (command.Creature is Monster monster)
                 {
-                    ulong totalExperience = (ulong)(monster.Metadata.Experience * Context.Server.Config.GameplayExperienceRate);
+                    ulong totalExperience = (ulong)monster.Metadata.Experience;
 
                     ulong totalDamage = (ulong)hits.Values.Sum(h => h.Damage);
 
@@ -43,76 +42,7 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 ulong experience = totalExperience * damage / totalDamage;
 
-                                if (Context.Server.Config.GameplayExperienceStages.Enabled)
-                                {
-                                    foreach (var level in Context.Server.Config.GameplayExperienceStages.Levels)
-                                    {
-                                        if (player.Level >= level.MinLevel && player.Level <= level.MaxLevel)
-                                        {
-                                            experience = (ulong)(experience * level.Multiplier);
-
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                if (experience > 0)
-                                {
-                                    if (experience > player.Level)
-                                    {
-                                        PlayerRegenerationConditionBehaviour playerRegenerationConditionBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerRegenerationConditionBehaviour>(player);
-
-                                        if (playerRegenerationConditionBehaviour != null)
-                                        {
-                                            playerRegenerationConditionBehaviour.AddSoulRegeneration();
-                                        }
-                                    }
-
-                                    ushort correctLevel = player.Level;
-
-                                    byte correctLevelPercent = 0;
-
-                                    ulong levelMinExperience = (ulong)( ( 50 * Math.Pow(correctLevel - 1, 3) - 150 * Math.Pow(correctLevel - 1, 2) + 400 * (correctLevel - 1) ) / 3 );
-
-                                    while (true)
-                                    {
-                                        ulong levelMaxExperience = (ulong)( ( 50 * Math.Pow(correctLevel, 3) - 150 * Math.Pow(correctLevel, 2) + 400 * (correctLevel) ) / 3 );
-
-                                        if (player.Experience + experience < levelMaxExperience)
-                                        {
-                                            correctLevelPercent = (byte)( 100 * (player.Experience + experience - levelMinExperience) / (levelMaxExperience - levelMinExperience) );
-
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            correctLevel++;
-
-                                            levelMinExperience = levelMaxExperience;
-                                        }
-                                    }
-
-                                    await Context.AddCommand(new ShowAnimatedTextCommand(player, AnimatedTextColor.White, experience.ToString() ) );
-
-                                    if (correctLevel > player.Level)
-                                    {
-                                        Context.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You advanced from level " + player.Level + " to level " + correctLevel + ".") );
-
-                                        var vocationConfig = Context.Server.Vocations.GetVocationById( (byte)player.Vocation);
-
-                                        player.Capacity = (uint)(player.Capacity + (correctLevel - player.Level) * vocationConfig.CapacityPerLevel * 100);
-
-                                        player.Health = (ushort)(player.Health + (correctLevel - player.Level) * vocationConfig.HealthPerLevel);
-
-                                        player.MaxHealth = (ushort)(player.MaxHealth + (correctLevel - player.Level) * vocationConfig.HealthPerLevel);
-
-                                        player.Mana = (ushort)(player.Mana + (correctLevel - player.Level) * vocationConfig.ManaPerLevel);
-
-                                        player.MaxMana = (ushort)(player.MaxMana + (correctLevel - player.Level) * vocationConfig.ManaPerLevel);
-                                    }
-
-                                    await Context.AddCommand(new PlayerUpdateExperienceCommand(player, player.Experience + experience, correctLevel, correctLevelPercent) );
-                                }
+                                await Context.AddCommand(new PlayerAddExperienceCommand(player, experience) );
                             }
                         }
                     }

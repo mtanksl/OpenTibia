@@ -142,6 +142,8 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (plugin.Spell.Mana > 0)
                 {
+                    await Context.AddCommand(new PlayerAddSkillPointsCommand(command.Player, Skill.MagicLevel, (ulong)plugin.Spell.Mana) );
+
                     await Context.AddCommand(new PlayerUpdateManaCommand(command.Player, command.Player.Mana - plugin.Spell.Mana) );
                 }
 
