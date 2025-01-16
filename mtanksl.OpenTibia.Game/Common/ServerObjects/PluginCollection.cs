@@ -247,6 +247,18 @@ namespace OpenTibia.Game.Common.ServerObjects
                                 pluginCollection.AddPlayerLogoutPlugin(script, initialization.Parameters);
                             }
                             break;
+
+                            case "PlayerAdvanceLevel":
+                            {
+                                pluginCollection.AddPlayerAdvanceLevelPlugin(script, initialization.Parameters);
+                            }
+                            break;
+
+                            case "PlayerAdvanceSkill":
+                            {
+                                pluginCollection.AddPlayerAdvanceSkillPlugin(script, initialization.Parameters);
+                            }
+                            break;
                         }
                     }                    
                     else if (initialization.Type == "globalevents")
@@ -581,6 +593,18 @@ namespace OpenTibia.Game.Common.ServerObjects
                     case "PlayerLogout":
                     {
                         AddPlayerLogoutPlugin(fileName);
+                    }
+                    break;
+
+                    case "PlayerAdvanceLevel":
+                    {
+                        AddPlayerAdvanceLevelPlugin(fileName);
+                    }
+                    break;
+
+                    case "PlayerAdvanceSkill":
+                    {
+                        AddPlayerAdvanceSkillPlugin(fileName);
                     }
                     break;
                 }
@@ -1177,6 +1201,64 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             return playerLogoutPlugins.GetPlugins();
         }
+        
+        private PluginListCached<PlayerAdvanceLevelPlugin> playerAdvanceLevelPlugins = new PluginListCached<PlayerAdvanceLevelPlugin>();
+
+        private void AddPlayerAdvanceLevelPlugin(PlayerAdvanceLevelPlugin playerAdvanceLevelPlugin)
+        {
+            playerAdvanceLevelPlugins.AddPlugin(playerAdvanceLevelPlugin);
+        }
+
+        public void AddPlayerAdvanceLevelPlugin(string fileName)
+        {
+            if (fileName.EndsWith(".lua") )
+            {
+                AddPlayerAdvanceLevelPlugin(new LuaScriptingPlayerAdvanceLevelPlugin(fileName) );
+            }
+            else
+            {
+                AddPlayerAdvanceLevelPlugin( (PlayerAdvanceLevelPlugin)Activator.CreateInstance(server.PluginLoader.GetType(fileName) ) );
+            }
+        }
+
+        public void AddPlayerAdvanceLevelPlugin(ILuaScope script, LuaTable parameters)
+        {
+            AddPlayerAdvanceLevelPlugin(new LuaScriptingPlayerAdvanceLevelPlugin(script, parameters) );
+        }
+
+        public IEnumerable<PlayerAdvanceLevelPlugin> GetPlayerAdvanceLevelPlugins()
+        {
+            return playerAdvanceLevelPlugins.GetPlugins();
+        }
+
+        private PluginListCached<PlayerAdvanceSkillPlugin> playerAdvanceSkillPlugins = new PluginListCached<PlayerAdvanceSkillPlugin>();
+
+        private void AddPlayerAdvanceSkillPlugin(PlayerAdvanceSkillPlugin playerAdvanceSkillPlugin)
+        {
+            playerAdvanceSkillPlugins.AddPlugin(playerAdvanceSkillPlugin);
+        }
+
+        public void AddPlayerAdvanceSkillPlugin(string fileName)
+        {
+            if (fileName.EndsWith(".lua") )
+            {
+                AddPlayerAdvanceSkillPlugin(new LuaScriptingPlayerAdvanceSkillPlugin(fileName) );
+            }
+            else
+            {
+                AddPlayerAdvanceSkillPlugin( (PlayerAdvanceSkillPlugin)Activator.CreateInstance(server.PluginLoader.GetType(fileName) ) );
+            }
+        }
+
+        public void AddPlayerAdvanceSkillPlugin(ILuaScope script, LuaTable parameters)
+        {
+            AddPlayerAdvanceSkillPlugin(new LuaScriptingPlayerAdvanceSkillPlugin(script, parameters) );
+        }
+
+        public IEnumerable<PlayerAdvanceSkillPlugin> GetPlayerAdvanceSkillPlugins()
+        {
+            return playerAdvanceSkillPlugins.GetPlugins();
+        }
 
         private PluginListCached<ServerStartupPlugin> serverStartupPlugins = new PluginListCached<ServerStartupPlugin>();
 
@@ -1591,6 +1673,10 @@ namespace OpenTibia.Game.Common.ServerObjects
                 playerLoginPlugins.GetPlugins(),
 
                 playerLogoutPlugins.GetPlugins(),
+
+                playerAdvanceLevelPlugins.GetPlugins(),
+
+                playerAdvanceSkillPlugins.GetPlugins(),
 
                 serverStartupPlugins.GetPlugins(),
 

@@ -104,6 +104,20 @@ function registercreaturescriptsplayerlogout(onlogout)
     } )
 end
 
+function registercreaturescriptsplayeradvancelevel(onadvancelevel)
+    registerplugin("creaturescripts", {
+	    type = "PlayerAdvanceLevel",
+	    onadvancelevel = onadvancelevel
+    } )
+end
+
+function registercreaturescriptsplayeradvanceskill(onadvanceskill)
+    registerplugin("creaturescripts", {
+	    type = "PlayerAdvanceSkill",
+	    onadvanceskill = onadvanceskill
+    } )
+end
+
 function registerglobaleventsserverstartup(onstartup)
     registerplugin("globalevents", {
 	    type = "ServerStartup",

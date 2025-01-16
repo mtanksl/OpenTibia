@@ -12,6 +12,8 @@
     { filename = "OpenTibia.Game.Scripts.ItemTransformScripts" },
     { filename = "OpenTibia.Game.Scripts.PlayerLoginScripts" },
     { filename = "OpenTibia.Game.Scripts.PlayerLogoutScripts" },
+    { filename = "OpenTibia.Game.Scripts.PlayerAdvanceLevelScripts" },
+    { filename = "OpenTibia.Game.Scripts.PlayerAdvanceSkillScripts" },
     { filename = "OpenTibia.Game.Scripts.PlayerMoveCreatureScripts" },
     { filename = "OpenTibia.Game.Scripts.PlayerMoveItemScripts" },
     { filename = "OpenTibia.Game.Scripts.PlayerRotateItemScripts" },

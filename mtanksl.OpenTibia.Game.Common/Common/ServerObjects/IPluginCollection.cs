@@ -63,6 +63,14 @@ namespace OpenTibia.Game.Common.ServerObjects
         void AddPlayerLogoutPlugin(string fileName);
         IEnumerable<PlayerLogoutPlugin> GetPlayerLogoutPlugins();
 
+        void AddPlayerAdvanceLevelPlugin(string fileName);
+        void AddPlayerAdvanceLevelPlugin(ILuaScope script, LuaTable parameters);
+        IEnumerable<PlayerAdvanceLevelPlugin> GetPlayerAdvanceLevelPlugins();
+
+        void AddPlayerAdvanceSkillPlugin(string fileName);
+        void AddPlayerAdvanceSkillPlugin(ILuaScope script, LuaTable parameters);
+        IEnumerable<PlayerAdvanceSkillPlugin> GetPlayerAdvanceSkillPlugins();
+
         void AddServerStartupPlugin(ILuaScope script, LuaTable parameters);
         void AddServerStartupPlugin(string fileName);
         IEnumerable<ServerStartupPlugin> GetServerStartupPlugins();

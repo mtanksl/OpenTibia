@@ -1,6 +1,8 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
+using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 
@@ -21,7 +23,7 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Execute()
         {
-            // VocationConfig vocationConfig = Context.Current.Server.Vocations.GetVocationById( (byte)Player.Vocation);
+            VocationConfig vocationConfig = Context.Current.Server.Vocations.GetVocationById( (byte)Player.Vocation);
 
             ushort level = Player.Level;
 
@@ -56,7 +58,19 @@ namespace OpenTibia.Game.Commands
 
             if (correctLevel > level)
             {
+                Player.Capacity = (uint)(Player.Capacity + (correctLevel - level) * vocationConfig.CapacityPerLevel * 100);
+
+                Player.Health = (ushort)(Player.Health + (correctLevel - level) * vocationConfig.HealthPerLevel);
+
+                Player.MaxHealth = (ushort)(Player.MaxHealth + (correctLevel - level) * vocationConfig.HealthPerLevel);
+
+                Player.Mana = (ushort)(Player.Mana + (correctLevel - level) * vocationConfig.ManaPerLevel);
+
+                Player.MaxMana = (ushort)(Player.MaxMana + (correctLevel - level) * vocationConfig.ManaPerLevel);
+
                 Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You advanced from level " + level + " to level " + correctLevel + ".") );
+                
+                Context.AddEvent(new PlayerAdvanceLevelEventArgs(Player, level, correctLevel) );
             }
 
             await Context.AddCommand(new PlayerUpdateExperienceCommand(Player, experience + Experience, correctLevel, correctLevelPercent) );

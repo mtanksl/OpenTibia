@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
+using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 
@@ -119,6 +120,8 @@ namespace OpenTibia.Game.Commands
                 }
 
                 Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You advanced to " + name + " level " + correctSkillLevel + ".") );
+
+                Context.AddEvent(new PlayerAdvanceSkillEventArgs(Player, Skill, skillLevel, correctSkillLevel) );
             }
 
             switch (Skill)

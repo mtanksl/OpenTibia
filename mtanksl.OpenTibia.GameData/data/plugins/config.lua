@@ -17,6 +17,8 @@
 		-- { type = "PlayerSay", message = "/hello", filename = "say.lua" }
 	},
 	creaturescripts = {
+		-- { type = "PlayerAdvanceLevel", filename = "advancelevel.lua" },
+		-- { type = "PlayerAdvanceSkill", filename = "advanceskill.lua" },
 		{ type = "PlayerLogin", filename = "login.lua" },
 		{ type = "PlayerLogout", filename = "logout.lua" }
 	},
@@ -43,6 +45,7 @@
 		{ words = "utani tempo hur", name = "Charge", group = "Support", cooldown = 2, groupcooldown = 2, level = 25, mana = 100, soul = 0, premium = true, vocations = { vocation.knight, vocation.eliteknight }, requirestarget = false, filename = "OpenTibia.Plugins.Spells.ChargeSpellPlugin, mtanksl.OpenTibia.Plugins" },
 		{ words = "utamo tempo san", name = "Swift Foot", group = "Support", cooldown = 2, groupcooldown = 2, level = 55, mana = 400, soul = 0, premium = true, vocations = { vocation.paladin, vocation.royalpaladin }, requirestarget = false, filename = "OpenTibia.Plugins.Spells.SwiftFootSpellPlugin, mtanksl.OpenTibia.Plugins" },
 		{ words = "utamo vita", name = "Magic Shield", group = "Support", cooldown = 14, groupcooldown = 2, level = 14, mana = 50, soul = 0, premium = false, vocations = { vocation.druid, vocation.sorcerer, vocation.elderdruid, vocation.mastersorcerer }, requirestarget = false, filename = "OpenTibia.Plugins.Spells.MagicShieldSpellPlugin, mtanksl.OpenTibia.Plugins" },
+		-- { words = "exana ina", name = "Cancel Invisibility", group = "Support", cooldown = 2, groupcooldown = 2, level = 26, mana = 200, soul = 0, premium = true, vocations = { vocation.paladin, vocation.royalpaladin, vocation.druid, vocation.sorcerer, vocation.eliteknight, vocation.royalpaladin, vocation.elderdruid, vocation.mastersorcerer }, requirestarget = false, filename = "OpenTibia.Plugins.Spells.CancelInvisibilitySpellPlugin, mtanksl.OpenTibia.Plugins" },
 
 		{ words = "exana pox", name = "Cure Poison", group = "Healing", cooldown = 6, groupcooldown = 1, level = 10, mana = 30, soul = 0, premium = false, vocations = { vocation.knight, vocation.paladin, vocation.druid, vocation.sorcerer, vocation.eliteknight, vocation.royalpaladin, vocation.elderdruid, vocation.mastersorcerer }, requirestarget = false, filename = "OpenTibia.Plugins.Spells.CurePoisonSpellPlugin, mtanksl.OpenTibia.Plugins" },
 		{ words = "exura", name = "Light Healing", group = "Healing", cooldown = 1, groupcooldown = 1, level = 8, mana = 20, soul = 0, premium = false, vocations = { vocation.paladin, vocation.druid, vocation.sorcerer, vocation.royalpaladin, vocation.elderdruid, vocation.mastersorcerer }, requirestarget = false, filename = "OpenTibia.Plugins.Spells.LightHealingSpellPlugin, mtanksl.OpenTibia.Plugins" },

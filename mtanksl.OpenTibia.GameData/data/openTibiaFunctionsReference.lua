@@ -132,6 +132,20 @@ return {
 		args = "(onlogout)",
 		returns = "void"
 	},
+	-- void registercreaturescriptsplayeradvancelevel(onadvancelevel)
+	registercreaturescriptsplayeradvancelevel = {
+		type = "function",
+		description = "",
+		args = "(onadvancelevel)",
+		returns = "void"
+	},
+	-- void registercreaturescriptsplayeradvanceskill(onadvanceskill)
+	registercreaturescriptsplayeradvanceskill = {
+		type = "function",
+		description = "",
+		args = "(onadvanceskill)",
+		returns = "void"
+	},
 	-- void registerglobaleventsserverstartup(onstartup)
 	registerglobaleventsserverstartup = {
 		type = "function",
