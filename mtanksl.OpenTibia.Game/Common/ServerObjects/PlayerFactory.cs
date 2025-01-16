@@ -111,57 +111,11 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             player.Invisible = dbPlayer.Invisible;
 
-            player.Skills.MagicLevel = (byte)dbPlayer.SkillMagicLevel;
-
-            player.Skills.MagicLevelPoints = (ulong)dbPlayer.SkillMagicLevelPoints;
-
-            player.Skills.MagicLevelPercent = Formula.GetSkillPercent(player, Skill.MagicLevel);
-
-            player.Skills.Fist = (byte)dbPlayer.SkillFist;
-
-            player.Skills.FistPoints = (ulong)dbPlayer.SkillFistPoints;
-
-            player.Skills.FistPercent = Formula.GetSkillPercent(player, Skill.Fist);
-
-            player.Skills.Club = (byte)dbPlayer.SkillClub;
-
-            player.Skills.ClubPoints = (ulong)dbPlayer.SkillClubPoints;
-
-            player.Skills.ClubPercent = Formula.GetSkillPercent(player, Skill.Club);
-
-            player.Skills.Sword = (byte)dbPlayer.SkillSword;
-
-            player.Skills.SwordPoints = (ulong)dbPlayer.SkillSwordPoints;
-
-            player.Skills.SwordPercent = Formula.GetSkillPercent(player, Skill.Sword);
-
-            player.Skills.Axe = (byte)dbPlayer.SkillAxe;
-
-            player.Skills.AxePoints = (ulong)dbPlayer.SkillAxePoints;
-
-            player.Skills.AxePercent = Formula.GetSkillPercent(player, Skill.Axe);
-
-            player.Skills.Distance = (byte)dbPlayer.SkillDistance;
-
-            player.Skills.DistancePoints = (ulong)dbPlayer.SkillDistancePoints;
-
-            player.Skills.DistancePercent = Formula.GetSkillPercent(player, Skill.Distance);
-
-            player.Skills.Shield = (byte)dbPlayer.SkillShield;
-
-            player.Skills.ShieldPoints = (ulong)dbPlayer.SkillShieldPoints;
-
-            player.Skills.ShieldPercent = Formula.GetSkillPercent(player, Skill.Shield);
-
-            player.Skills.Fish = (byte)dbPlayer.SkillFish;
-
-            player.Skills.FishPoints = (ulong)dbPlayer.SkillFishPoints;
-
-            player.Skills.FishPercent = Formula.GetSkillPercent(player, Skill.Fish);
+            player.Level = (ushort)dbPlayer.Level;
 
             player.Experience = (ulong)dbPlayer.Experience;
 
-            player.Level = (ushort)dbPlayer.Level;
+            player.Experience = Formula.FixRequiredExperience(player.Level, player.Experience);
 
             player.LevelPercent = Formula.GetLevelPercent(player.Level, player.Experience);
 
@@ -184,6 +138,70 @@ namespace OpenTibia.Game.Common.ServerObjects
             player.Premium = dbPlayer.Account.PremiumUntil != null && (dbPlayer.Account.PremiumUntil.Value - DateTime.UtcNow).TotalDays > 0;
 
             player.BankAccount = (ulong)dbPlayer.BankAccount;
+
+            player.Skills.MagicLevel = (byte)dbPlayer.SkillMagicLevel;
+
+            player.Skills.MagicLevelPoints = (ulong)dbPlayer.SkillMagicLevelPoints;
+
+            player.Skills.MagicLevelPoints = Formula.FixRequiredSkillPoints(player, Skill.MagicLevel);
+
+            player.Skills.MagicLevelPercent = Formula.GetSkillPercent(player, Skill.MagicLevel);
+
+            player.Skills.Fist = (byte)dbPlayer.SkillFist;
+
+            player.Skills.FistPoints = (ulong)dbPlayer.SkillFistPoints;
+
+            player.Skills.FistPoints = Formula.FixRequiredSkillPoints(player, Skill.Fist);
+
+            player.Skills.FistPercent = Formula.GetSkillPercent(player, Skill.Fist);
+
+            player.Skills.Club = (byte)dbPlayer.SkillClub;
+
+            player.Skills.ClubPoints = (ulong)dbPlayer.SkillClubPoints;
+
+            player.Skills.ClubPoints = Formula.FixRequiredSkillPoints(player, Skill.Club);
+
+            player.Skills.ClubPercent = Formula.GetSkillPercent(player, Skill.Club);
+
+            player.Skills.Sword = (byte)dbPlayer.SkillSword;
+
+            player.Skills.SwordPoints = (ulong)dbPlayer.SkillSwordPoints;
+
+            player.Skills.SwordPoints = Formula.FixRequiredSkillPoints(player, Skill.Sword);
+
+            player.Skills.SwordPercent = Formula.GetSkillPercent(player, Skill.Sword);
+
+            player.Skills.Axe = (byte)dbPlayer.SkillAxe;
+
+            player.Skills.AxePoints = (ulong)dbPlayer.SkillAxePoints;
+
+            player.Skills.AxePoints = Formula.FixRequiredSkillPoints(player, Skill.Axe);
+
+            player.Skills.AxePercent = Formula.GetSkillPercent(player, Skill.Axe);
+
+            player.Skills.Distance = (byte)dbPlayer.SkillDistance;
+
+            player.Skills.DistancePoints = (ulong)dbPlayer.SkillDistancePoints;
+
+            player.Skills.DistancePoints = Formula.FixRequiredSkillPoints(player, Skill.Distance);
+
+            player.Skills.DistancePercent = Formula.GetSkillPercent(player, Skill.Distance);
+
+            player.Skills.Shield = (byte)dbPlayer.SkillShield;
+
+            player.Skills.ShieldPoints = (ulong)dbPlayer.SkillShieldPoints;
+
+            player.Skills.ShieldPoints = Formula.FixRequiredSkillPoints(player, Skill.Shield);
+
+            player.Skills.ShieldPercent = Formula.GetSkillPercent(player, Skill.Shield);
+
+            player.Skills.Fish = (byte)dbPlayer.SkillFish;
+
+            player.Skills.FishPoints = (ulong)dbPlayer.SkillFishPoints;
+
+            player.Skills.FishPoints = Formula.FixRequiredSkillPoints(player, Skill.Fish);
+
+            player.Skills.FishPercent = Formula.GetSkillPercent(player, Skill.Fish);
         }
 
         private static void LoadLockers(Context context, DbPlayer dbPlayer, Player player)

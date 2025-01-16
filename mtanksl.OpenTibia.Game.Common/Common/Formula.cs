@@ -158,6 +158,20 @@ namespace OpenTibia.Game.Common
             return experience;
         }
 
+        public static ulong FixRequiredExperience(ushort level, ulong experience)
+        {
+            ulong minExperience = GetRequiredExperience(level);
+
+            ulong maxExperience = GetRequiredExperience( (ushort)(level + 1) );
+
+            if (experience >= minExperience && experience < maxExperience)
+            {
+                return experience;
+            }
+
+            return minExperience;
+        }
+
         public static byte GetLevelPercent(ushort level, ulong experience)
         {
             ulong minExperience = GetRequiredExperience(level);
@@ -186,68 +200,81 @@ namespace OpenTibia.Game.Common
             { Skill.Fish, 20 }
         };
 
-        private static Dictionary<Skill, Dictionary<byte, ulong> > skillPointsCaches = new Dictionary<Skill, Dictionary<byte, ulong> >()
+        private static Dictionary<Skill, Dictionary<Vocation, Dictionary<byte, ulong> > > skillPointsCaches = new Dictionary<Skill, Dictionary<Vocation, Dictionary<byte, ulong> > >();
+
+        public static ulong GetRequiredSkillPoints(Skill skill, Vocation vocation, byte skillLevel)
         {
-            { Skill.MagicLevel, new Dictionary<byte, ulong>() },
-
-            { Skill.Fist, new Dictionary<byte, ulong>() },
-
-            { Skill.Club, new Dictionary<byte, ulong>() },
-
-            { Skill.Sword, new Dictionary<byte, ulong>() },
-
-            { Skill.Axe, new Dictionary<byte, ulong>() },
-
-            { Skill.Distance, new Dictionary<byte, ulong>() },
-
-            { Skill.Shield, new Dictionary<byte, ulong>() },
-
-            { Skill.Fish, new Dictionary<byte, ulong>() }
-        };
-
-        public static ulong GetRequiredSkillPoints(Skill skill, byte skillLevel, double vocationConstant)
-        {
-            static ulong GetRequiredSkillPoints(Skill skill, byte skillLevel, ushort skillConstant, double vocationConstant)
+            static ulong GetRequiredSkillPoints(Skill skill, Vocation vocation, byte skillLevel, ushort skillConstant, double vocationConstant)
             {
-                Dictionary<byte, ulong> skillPointsCache;
+                Dictionary<Vocation, Dictionary<byte, ulong>> vocationsCache;
 
-                skillPointsCaches.TryGetValue(skill, out skillPointsCache);
+                if ( !skillPointsCaches.TryGetValue(skill, out vocationsCache) )
+                {
+                    vocationsCache = new Dictionary<Vocation, Dictionary<byte, ulong>>();
+
+                    skillPointsCaches.Add(skill, vocationsCache);
+                }
+
+                Dictionary<byte, ulong> skillPointCache;
+
+                if ( !vocationsCache.TryGetValue(vocation, out skillPointCache) )
+                {
+                    skillPointCache = new Dictionary<byte, ulong>();
+
+                    vocationsCache.Add(vocation, skillPointCache);
+                }
 
                 ulong skillPoints;
 
-                if ( !skillPointsCache.TryGetValue(skillLevel, out skillPoints) )
+                if ( !skillPointCache.TryGetValue(skillLevel, out skillPoints) )
                 {
                     if (skill == Skill.MagicLevel)
                     {
-                        skillPoints = (ulong)(skillConstant * (Math.Pow(vocationConstant, skillLevel) - 1 ) / (vocationConstant - 1) );
+                        skillPoints = (ulong)Math.Min(ulong.MaxValue, skillConstant * (Math.Pow(vocationConstant, skillLevel) - 1 ) / (vocationConstant - 1) );
                     }
                     else
                     {
-                        skillPoints = (ulong)(skillConstant * (Math.Pow(vocationConstant, skillLevel - 10) - 1 ) / (vocationConstant - 1) );
+                        skillPoints = (ulong)Math.Min(ulong.MaxValue, skillConstant * (Math.Pow(vocationConstant, skillLevel - 10) - 1 ) / (vocationConstant - 1) );
                     }
 
-                    skillPointsCache[skillLevel] = skillPoints;
+                    skillPointCache.Add(skillLevel, skillPoints);
                 }
 
                 return skillPoints;
             }
 
-            return GetRequiredSkillPoints(skill, skillLevel, skillConstants[skill], vocationConstant);
+            VocationConfig vocationConfig = Context.Current.Server.Vocations.GetVocationById( (byte)vocation);
+
+            return GetRequiredSkillPoints(skill, vocation, skillLevel, skillConstants[skill], vocationConfig.VocationConstants.GetValue(skill) );
         }
 
-        public static byte GetSkillPercent(Player player, Skill skill)
+        public static ulong FixRequiredSkillPoints(Player player, Skill skill)
         {
-            VocationConfig vocationConfig = Context.Current.Server.Vocations.GetVocationById( (byte)player.Vocation);
-
             byte skillLevel = player.Skills.GetSkillLevel(skill);
 
             ulong skillPoints = player.Skills.GetSkillPoints(skill);
 
-            double vocationConstant = vocationConfig.VocationConstants.GetValue(skill);
+            ulong minSkillPoints = GetRequiredSkillPoints(skill, player.Vocation, skillLevel);
 
-            ulong minSkillPoints = GetRequiredSkillPoints(skill, skillLevel, vocationConstant);
+            ulong maxSkillPoints = GetRequiredSkillPoints(skill, player.Vocation, (byte)(skillLevel + 1) );
 
-            ulong maxSkillPoints = GetRequiredSkillPoints(skill, (byte)(skillLevel + 1), vocationConstant);
+            if (skillPoints >= minSkillPoints && skillPoints < maxSkillPoints)
+            {
+                return skillPoints;
+            }
+
+            return minSkillPoints;
+        }
+
+        public static byte GetSkillPercent(Player player, Skill skill)
+        {
+            byte skillLevel = player.Skills.GetSkillLevel(skill);
+
+            ulong skillPoints = player.Skills.GetSkillPoints(skill);
+
+            ulong minSkillPoints = GetRequiredSkillPoints(skill, player.Vocation, skillLevel);
+
+            ulong maxSkillPoints = GetRequiredSkillPoints(skill, player.Vocation, (byte)(skillLevel + 1) );
 
             return (byte)Math.Ceiling(100.0 * (skillPoints - minSkillPoints) / (maxSkillPoints - minSkillPoints) );
         }
