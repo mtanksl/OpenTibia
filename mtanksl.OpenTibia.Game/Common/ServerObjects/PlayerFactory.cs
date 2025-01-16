@@ -143,6 +143,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             player.Skills.MagicLevelPoints = (ulong)dbPlayer.SkillMagicLevelPoints;
 
+            player.Skills.MagicLevel = Formula.FixRequiredSkillLevel(player, Skill.MagicLevel);
+
             player.Skills.MagicLevelPoints = Formula.FixRequiredSkillPoints(player, Skill.MagicLevel);
 
             player.Skills.MagicLevelPercent = Formula.GetSkillPercent(player, Skill.MagicLevel);
@@ -150,6 +152,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             player.Skills.Fist = (byte)dbPlayer.SkillFist;
 
             player.Skills.FistPoints = (ulong)dbPlayer.SkillFistPoints;
+
+            player.Skills.Fist = Formula.FixRequiredSkillLevel(player, Skill.Fist);
 
             player.Skills.FistPoints = Formula.FixRequiredSkillPoints(player, Skill.Fist);
 
@@ -159,6 +163,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             player.Skills.ClubPoints = (ulong)dbPlayer.SkillClubPoints;
 
+            player.Skills.Club = Formula.FixRequiredSkillLevel(player, Skill.Club);
+
             player.Skills.ClubPoints = Formula.FixRequiredSkillPoints(player, Skill.Club);
 
             player.Skills.ClubPercent = Formula.GetSkillPercent(player, Skill.Club);
@@ -166,6 +172,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             player.Skills.Sword = (byte)dbPlayer.SkillSword;
 
             player.Skills.SwordPoints = (ulong)dbPlayer.SkillSwordPoints;
+
+            player.Skills.Sword = Formula.FixRequiredSkillLevel(player, Skill.Sword);
 
             player.Skills.SwordPoints = Formula.FixRequiredSkillPoints(player, Skill.Sword);
 
@@ -175,6 +183,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             player.Skills.AxePoints = (ulong)dbPlayer.SkillAxePoints;
 
+            player.Skills.Axe = Formula.FixRequiredSkillLevel(player, Skill.Axe);
+
             player.Skills.AxePoints = Formula.FixRequiredSkillPoints(player, Skill.Axe);
 
             player.Skills.AxePercent = Formula.GetSkillPercent(player, Skill.Axe);
@@ -182,6 +192,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             player.Skills.Distance = (byte)dbPlayer.SkillDistance;
 
             player.Skills.DistancePoints = (ulong)dbPlayer.SkillDistancePoints;
+
+            player.Skills.Distance = Formula.FixRequiredSkillLevel(player, Skill.Distance);
 
             player.Skills.DistancePoints = Formula.FixRequiredSkillPoints(player, Skill.Distance);
 
@@ -191,6 +203,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             player.Skills.ShieldPoints = (ulong)dbPlayer.SkillShieldPoints;
 
+            player.Skills.Shield = Formula.FixRequiredSkillLevel(player, Skill.Shield);
+
             player.Skills.ShieldPoints = Formula.FixRequiredSkillPoints(player, Skill.Shield);
 
             player.Skills.ShieldPercent = Formula.GetSkillPercent(player, Skill.Shield);
@@ -198,6 +212,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             player.Skills.Fish = (byte)dbPlayer.SkillFish;
 
             player.Skills.FishPoints = (ulong)dbPlayer.SkillFishPoints;
+
+            player.Skills.Fish = Formula.FixRequiredSkillLevel(player, Skill.Fish);
 
             player.Skills.FishPoints = Formula.FixRequiredSkillPoints(player, Skill.Fish);
 

@@ -248,6 +248,21 @@ namespace OpenTibia.Game.Common
             return GetRequiredSkillPoints(skill, vocation, skillLevel, skillConstants[skill], vocationConfig.VocationConstants.GetValue(skill) );
         }
 
+        public static byte FixRequiredSkillLevel(Player player, Skill skill)
+        {
+            byte skillLevel = player.Skills.GetSkillLevel(skill);
+
+            if (skill != Skill.MagicLevel)
+            {
+                if (skillLevel < 10)
+                {
+                    return 10;
+                }
+            }
+
+            return skillLevel;
+        }
+
         public static ulong FixRequiredSkillPoints(Player player, Skill skill)
         {
             byte skillLevel = player.Skills.GetSkillLevel(skill);
