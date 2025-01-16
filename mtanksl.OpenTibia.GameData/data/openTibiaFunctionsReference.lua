@@ -551,60 +551,74 @@ return {
 				args = "(Player player, string message, string blessName)",
 				returns = "void"
 			},
-			-- void command.playerupdateaxe(Player player, byte skill, byte skillPercent)
+			-- void command.playeraddexperience(Player player, ulong experience)
+			playeraddexperience = {
+				type = "function",
+				description = "",
+				args = "(Player player, ulong experience)",
+				returns = "void"
+			},
+			-- void command.playeraddskillpoints(Player player, Skill skill, ulong skillPoints)
+			playeraddskillpoints = {
+				type = "function",
+				description = "",
+				args = "(Player player, Skill skill, ulong skillPoints)",
+				returns = "void"
+			},
+			-- void command.playerupdateaxe(Player player, ulong skillPoint, byte skill, byte skillPercent)
 			playerupdateaxe = {
 				type = "function",
 				description = "",
-				args = "(Player player, byte skill, byte skillPercent)",
+				args = "(Player player, ulong skillPoint, byte skill, byte skillPercent)",
 				returns = "void"
 			},
-			-- void command.playerupdateclub(Player player, byte skill, byte skillPercent)
+			-- void command.playerupdateclub(Player player, ulong skillPoint, byte skill, byte skillPercent)
 			playerupdateclub = {
 				type = "function",
 				description = "",
-				args = "(Player player, byte skill, byte skillPercent)",
+				args = "(Player player, ulong skillPoint, byte skill, byte skillPercent)",
 				returns = "void"
 			},
-			-- void command.playerupdatedistance(Player player, byte skill, byte skillPercent)
+			-- void command.playerupdatedistance(Player player, ulong skillPoint, byte skill, byte skillPercent)
 			playerupdatedistance = {
 				type = "function",
 				description = "",
-				args = "(Player player, byte skill, byte skillPercent)",
+				args = "(Player player, ulong skillPoint, byte skill, byte skillPercent)",
 				returns = "void"
 			},
-			-- void command.playerupdatefish(Player player, byte skill, byte skillPercent)
+			-- void command.playerupdatefish(Player player, ulong skillPoint, byte skill, byte skillPercent)
 			playerupdatefish = {
 				type = "function",
 				description = "",
-				args = "(Player player, byte skill, byte skillPercent)",
+				args = "(Player player, ulong skillPoint, byte skill, byte skillPercent)",
 				returns = "void"
 			},
-			-- void command.playerupdatefist(Player player, byte skill, byte skillPercent)
+			-- void command.playerupdatefist(Player player, ulong skillPoint, byte skill, byte skillPercent)
 			playerupdatefist = {
 				type = "function",
 				description = "",
-				args = "(Player player, byte skill, byte skillPercent)",
+				args = "(Player player, ulong skillPoint, byte skill, byte skillPercent)",
 				returns = "void"
 			},
-			-- void command.playerupdatemagiclevel(Player player, byte skill, byte skillPercent)
+			-- void command.playerupdatemagiclevel(Player player, ulong skillPoint, byte skill, byte skillPercent)
 			playerupdatemagiclevel = {
 				type = "function",
 				description = "",
-				args = "(Player player, byte skill, byte skillPercent)",
+				args = "(Player player, ulong skillPoint, byte skill, byte skillPercent)",
 				returns = "void"
 			},
-			-- void command.playerupdateshield(Player player, byte skill, byte skillPercent)
+			-- void command.playerupdateshield(Player player, ulong skillPoint, byte skill, byte skillPercent)
 			playerupdateshield = {
 				type = "function",
 				description = "",
-				args = "(Player player, byte skill, byte skillPercent)",
+				args = "(Player player, ulong skillPoint, byte skill, byte skillPercent)",
 				returns = "void"
 			},
-			-- void command.playerupdatesword(Player player, byte skill, byte skillPercent)
+			-- void command.playerupdatesword(Player player, ulong skillPoint, byte skill, byte skillPercent)
 			playerupdatesword = {
 				type = "function",
 				description = "",
-				args = "(Player player, byte skill, byte skillPercent)",
+				args = "(Player player, ulong skillPoint, byte skill, byte skillPercent)",
 				returns = "void"
 			},
 			-- void command.playersay(Player player, string message)

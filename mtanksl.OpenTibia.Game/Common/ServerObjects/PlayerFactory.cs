@@ -113,49 +113,49 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             player.Skills.MagicLevel = (byte)dbPlayer.SkillMagicLevel;
 
-            player.Skills.MagicLevelTries = (ulong)dbPlayer.SkillMagicLevelTries;
+            player.Skills.MagicLevelPoints = (ulong)dbPlayer.SkillMagicLevelPoints;
 
             player.Skills.MagicLevelPercent = Formula.GetSkillPercent(player, Skill.MagicLevel);
 
             player.Skills.Fist = (byte)dbPlayer.SkillFist;
 
-            player.Skills.FistTries = (ulong)dbPlayer.SkillFistTries;
+            player.Skills.FistPoints = (ulong)dbPlayer.SkillFistPoints;
 
             player.Skills.FistPercent = Formula.GetSkillPercent(player, Skill.Fist);
 
             player.Skills.Club = (byte)dbPlayer.SkillClub;
 
-            player.Skills.ClubTries = (ulong)dbPlayer.SkillClubTries;
+            player.Skills.ClubPoints = (ulong)dbPlayer.SkillClubPoints;
 
             player.Skills.ClubPercent = Formula.GetSkillPercent(player, Skill.Club);
 
             player.Skills.Sword = (byte)dbPlayer.SkillSword;
 
-            player.Skills.SwordTries = (ulong)dbPlayer.SkillSwordTries;
+            player.Skills.SwordPoints = (ulong)dbPlayer.SkillSwordPoints;
 
             player.Skills.SwordPercent = Formula.GetSkillPercent(player, Skill.Sword);
 
             player.Skills.Axe = (byte)dbPlayer.SkillAxe;
 
-            player.Skills.AxeTries = (ulong)dbPlayer.SkillAxeTries;
+            player.Skills.AxePoints = (ulong)dbPlayer.SkillAxePoints;
 
             player.Skills.AxePercent = Formula.GetSkillPercent(player, Skill.Axe);
 
             player.Skills.Distance = (byte)dbPlayer.SkillDistance;
 
-            player.Skills.DistanceTries = (ulong)dbPlayer.SkillDistanceTries;
+            player.Skills.DistancePoints = (ulong)dbPlayer.SkillDistancePoints;
 
             player.Skills.DistancePercent = Formula.GetSkillPercent(player, Skill.Distance);
 
             player.Skills.Shield = (byte)dbPlayer.SkillShield;
 
-            player.Skills.ShieldTries = (ulong)dbPlayer.SkillShieldTries;
+            player.Skills.ShieldPoints = (ulong)dbPlayer.SkillShieldPoints;
 
             player.Skills.ShieldPercent = Formula.GetSkillPercent(player, Skill.Shield);
 
             player.Skills.Fish = (byte)dbPlayer.SkillFish;
 
-            player.Skills.FishTries = (ulong)dbPlayer.SkillFishTries;
+            player.Skills.FishPoints = (ulong)dbPlayer.SkillFishPoints;
 
             player.Skills.FishPercent = Formula.GetSkillPercent(player, Skill.Fish);
 
@@ -402,35 +402,35 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             dbPlayer.SkillMagicLevel = player.Skills.MagicLevel;
 
-            dbPlayer.SkillMagicLevelTries = (long)player.Skills.MagicLevelTries;
+            dbPlayer.SkillMagicLevelPoints = (long)player.Skills.MagicLevelPoints;
 
             dbPlayer.SkillFist = player.Skills.Fist;
 
-            dbPlayer.SkillFistTries = (long)player.Skills.FistTries;
+            dbPlayer.SkillFistPoints = (long)player.Skills.FistPoints;
 
             dbPlayer.SkillClub = player.Skills.Club;
 
-            dbPlayer.SkillClubTries = (long)player.Skills.ClubTries;
+            dbPlayer.SkillClubPoints = (long)player.Skills.ClubPoints;
 
             dbPlayer.SkillSword = player.Skills.Sword;
 
-            dbPlayer.SkillSwordTries = (long)player.Skills.SwordTries;
+            dbPlayer.SkillSwordPoints = (long)player.Skills.SwordPoints;
 
             dbPlayer.SkillAxe = player.Skills.Axe;
 
-            dbPlayer.SkillAxeTries = (long)player.Skills.AxeTries;
+            dbPlayer.SkillAxePoints = (long)player.Skills.AxePoints;
 
             dbPlayer.SkillDistance = player.Skills.Distance;
 
-            dbPlayer.SkillDistanceTries = (long)player.Skills.DistanceTries;
+            dbPlayer.SkillDistancePoints = (long)player.Skills.DistancePoints;
 
             dbPlayer.SkillShield = player.Skills.Shield;
 
-            dbPlayer.SkillShieldTries = (long)player.Skills.ShieldTries;
+            dbPlayer.SkillShieldPoints = (long)player.Skills.ShieldPoints;
 
             dbPlayer.SkillFish = player.Skills.Fish;
 
-            dbPlayer.SkillFishTries = (long)player.Skills.FishTries;
+            dbPlayer.SkillFishPoints = (long)player.Skills.FishPoints;
 
             dbPlayer.Experience = (long)player.Experience;
 

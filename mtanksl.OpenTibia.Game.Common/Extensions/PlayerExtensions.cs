@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
 using System;
@@ -121,6 +122,34 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
+        public static Promise AddExperience(this Player player, ulong experience)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new PlayerAddExperienceCommand(player, experience) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public static Promise AddSkillPoints(this Player player, Skill skill, ulong skillPoints)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new PlayerAddSkillPointsCommand(player, skill, skillPoints) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
         public static Promise Bless(this Player player, string message, string blessName)
         {
             Context context = Context.Current;
@@ -135,7 +164,7 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdateAxe(this Player player, byte axe, byte axePercent)
+        public static Promise UpdateAxe(this Player player, ulong axePoints, byte axe, byte axePercent)
         {
             Context context = Context.Current;
 
@@ -144,12 +173,12 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new PlayerUpdateAxeCommand(player, axe, axePercent) );
+            return context.AddCommand(new PlayerUpdateAxeCommand(player, axePoints, axe, axePercent) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdateClub(this Player player, byte club, byte clubPercent)
+        public static Promise UpdateClub(this Player player, ulong clubPoints, byte club, byte clubPercent)
         {
             Context context = Context.Current;
 
@@ -158,12 +187,12 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new PlayerUpdateClubCommand(player, club, clubPercent) );
+            return context.AddCommand(new PlayerUpdateClubCommand(player, clubPoints, club, clubPercent) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdateDistance(this Player player, byte distance, byte distancePercent)
+        public static Promise UpdateDistance(this Player player, ulong distancePoints, byte distance, byte distancePercent)
         {
             Context context = Context.Current;
 
@@ -172,12 +201,12 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new PlayerUpdateDistanceCommand(player, distance, distancePercent) );
+            return context.AddCommand(new PlayerUpdateDistanceCommand(player, distancePoints, distance, distancePercent) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdateFish(this Player player, byte fish, byte fishPercent)
+        public static Promise UpdateFish(this Player player, ulong fishPoints, byte fish, byte fishPercent)
         {
             Context context = Context.Current;
 
@@ -186,12 +215,12 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new PlayerUpdateFishCommand(player, fish, fishPercent) );
+            return context.AddCommand(new PlayerUpdateFishCommand(player, fishPoints, fish, fishPercent) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdateFist(this Player player, byte fist, byte fistPercent)
+        public static Promise UpdateFist(this Player player, ulong fistPoints, byte fist, byte fistPercent)
         {
             Context context = Context.Current;
 
@@ -200,12 +229,12 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new PlayerUpdateFistCommand(player, fist, fistPercent) );
+            return context.AddCommand(new PlayerUpdateFistCommand(player, fistPoints, fist, fistPercent) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdateMagicLevel(this Player player, byte magicLevel, byte magicLevelPercent)
+        public static Promise UpdateMagicLevel(this Player player, ulong magicLevelPoints, byte magicLevel, byte magicLevelPercent)
         {
             Context context = Context.Current;
 
@@ -214,12 +243,12 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new PlayerUpdateMagicLevelCommand(player, magicLevel, magicLevelPercent) );
+            return context.AddCommand(new PlayerUpdateMagicLevelCommand(player, magicLevelPoints, magicLevel, magicLevelPercent) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdateShield(this Player player, byte shield, byte shieldPercent)
+        public static Promise UpdateShield(this Player player, ulong shieldPoints, byte shield, byte shieldPercent)
         {
             Context context = Context.Current;
 
@@ -228,12 +257,12 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new PlayerUpdateShieldCommand(player, shield, shieldPercent) );
+            return context.AddCommand(new PlayerUpdateShieldCommand(player, shieldPoints, shield, shieldPercent) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdateSword(this Player player, byte sword, byte swordPercent)
+        public static Promise UpdateSword(this Player player, ulong swordPoints, byte sword, byte swordPercent)
         {
             Context context = Context.Current;
 
@@ -242,7 +271,7 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new PlayerUpdateSwordCommand(player, sword, swordPercent) );
+            return context.AddCommand(new PlayerUpdateSwordCommand(player, swordPoints, sword, swordPercent) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>

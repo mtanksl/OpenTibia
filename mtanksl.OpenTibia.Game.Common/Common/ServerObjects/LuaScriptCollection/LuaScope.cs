@@ -419,6 +419,26 @@ namespace OpenTibia.Game.Common.ServerObjects
             return null;
         }
 
+        public static uint GetUInt32(object value, uint defaultValue = default(uint) )
+        {
+            if (value != null)
+            {
+                return (uint)(long)value;
+            }
+
+            return defaultValue;
+        }
+
+        public static uint? GetNullableUInt32(object value)
+        {
+            if (value != null)
+            {
+                return (uint)(long)value;
+            }
+
+            return null;
+        }
+
         public static long GetInt64(object value, long defaultValue = default(long) )
         {
             if (value != null)
@@ -434,6 +454,26 @@ namespace OpenTibia.Game.Common.ServerObjects
             if (value != null)
             {
                 return (long)value;
+            }
+
+            return null;
+        }
+
+        public static ulong GetUInt64(object value, ulong defaultValue = default(ulong) )
+        {
+            if (value != null)
+            {
+                return (ulong)value;
+            }
+
+            return defaultValue;
+        }
+
+        public static ulong? GetNullableUInt64(object value)
+        {
+            if (value != null)
+            {
+                return (ulong)value;
             }
 
             return null;

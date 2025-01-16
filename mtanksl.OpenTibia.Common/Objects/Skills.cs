@@ -22,49 +22,49 @@ namespace OpenTibia.Common.Objects
 
         public byte MagicLevel { get; set; }
 
-        public ulong MagicLevelTries { get; set; }
+        public ulong MagicLevelPoints { get; set; }
 
         public byte MagicLevelPercent { get; set; }
 
         public byte Fist { get; set; }
 
-        public ulong FistTries { get; set; }
+        public ulong FistPoints { get; set; }
 
         public byte FistPercent { get; set; }
 
         public byte Club { get; set; }
 
-        public ulong ClubTries { get; set; }
+        public ulong ClubPoints { get; set; }
 
         public byte ClubPercent { get; set; }
 
         public byte Sword { get; set; }
 
-        public ulong SwordTries { get; set; }
+        public ulong SwordPoints { get; set; }
 
         public byte SwordPercent { get; set; }
 
         public byte Axe { get; set; }
 
-        public ulong AxeTries { get; set; }
+        public ulong AxePoints { get; set; }
 
         public byte AxePercent { get; set; }
 
         public byte Distance { get; set; }
 
-        public ulong DistanceTries { get; set; }
+        public ulong DistancePoints { get; set; }
 
         public byte DistancePercent { get; set; }
 
         public byte Shield { get; set; }
 
-        public ulong ShieldTries { get; set; }
+        public ulong ShieldPoints { get; set; }
 
         public byte ShieldPercent { get; set; }
 
         public byte Fish { get; set; }
 
-        public ulong FishTries { get; set; }
+        public ulong FishPoints { get; set; }
 
         public byte FishPercent { get; set; }
 
@@ -108,41 +108,41 @@ namespace OpenTibia.Common.Objects
             throw new NotImplementedException();
         }
 
-        public ulong GetSkillTries(Skill skill)
+        public ulong GetSkillPoints(Skill skill)
         {
             switch (skill)
             {
                 case Skill.MagicLevel:
                     
-                    return MagicLevelTries;
+                    return MagicLevelPoints;
 
                 case Skill.Fist:
 
-                    return FistTries;
+                    return FistPoints;
 
                 case Skill.Club:
 
-                    return ClubTries;
+                    return ClubPoints;
 
                 case Skill.Sword:
 
-                    return SwordTries;
+                    return SwordPoints;
 
                 case Skill.Axe:
 
-                    return AxeTries;
+                    return AxePoints;
 
                 case Skill.Distance:
 
-                    return DistanceTries;
+                    return DistancePoints;
 
                 case Skill.Shield:
 
-                    return ShieldTries;
+                    return ShieldPoints;
 
                 case Skill.Fish:
 
-                    return FishTries;
+                    return FishPoints;
             }
 
             throw new NotImplementedException();
