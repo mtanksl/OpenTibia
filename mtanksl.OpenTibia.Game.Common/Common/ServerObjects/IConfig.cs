@@ -65,6 +65,8 @@ namespace OpenTibia.Game.Common.ServerObjects
         int GameplayLootRate { get; set; }
         int GameplayMoneyRate { get; set; }
         double GameplayExperienceRate { get; set; }
+        double GameplayMagicLevelRate { get; set; }
+        double GameplaySkillRate { get; set; }
         ExperienceStagesConfig GameplayExperienceStages { get; set; }
 
         int SecurityMaxConnectionsWithSameIpAddress { get; set; }

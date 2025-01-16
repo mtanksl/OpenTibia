@@ -9,8 +9,6 @@
 	- vs Player
 	- PVP vs non-PVP configuration
 	- Logout block
-	- Magic level and skills
-	- Remove skills on player death
 	- Skull
 	- War
 	- Splash
@@ -83,6 +81,7 @@
 		- Monster despawn
 		- Loot
 		- Experience, level and level percent (advance and downgrade)
+		- Magic level and skills (advance and downgrade)
 		- Drop bag
 		- Drop items
 		- AOL

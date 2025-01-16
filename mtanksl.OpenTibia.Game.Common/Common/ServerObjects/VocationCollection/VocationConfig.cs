@@ -14,8 +14,6 @@
 
         public int ManaPerLevel { get; set; }
 
-        public int SoulMax { get; set; }
-
         public int RegenerateHealth { get; set; }
 
         public int RegenerateHealthInSeconds { get; set; }
@@ -27,5 +25,9 @@
         public int RegenerateSoul { get; set; }
 
         public int RegenerateSoulInSeconds { get; set; }
+
+        public int SoulMax { get; set; }
+
+        public SkillsMultiplier SkillsMultiplier { get; set; }
     }
 }

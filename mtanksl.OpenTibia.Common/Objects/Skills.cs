@@ -1,4 +1,7 @@
-﻿namespace OpenTibia.Common.Objects
+﻿using OpenTibia.Common.Structures;
+using System;
+
+namespace OpenTibia.Common.Objects
 {
     public class Skills
     {
@@ -48,5 +51,85 @@
         public byte Fish { get; set; }
 
         public byte FishPercent { get; set; }
+
+        public byte GetSkill(Skill skill)
+        {
+            switch (skill)
+            {
+                case Skill.MagicLevel:
+                    
+                    return MagicLevel;
+
+                case Skill.Fist:
+
+                    return Fist;
+
+                case Skill.Club:
+
+                    return Club;
+
+                case Skill.Sword:
+
+                    return Sword;
+
+                case Skill.Axe:
+
+                    return Axe;
+
+                case Skill.Distance:
+
+                    return Distance;
+
+                case Skill.Shield:
+
+                    return Shield;
+
+                case Skill.Fish:
+
+                    return Fish;
+            }
+
+            throw new NotImplementedException();
+        }
+
+        public byte GetSkillPercent(Skill skill)
+        {
+            switch (skill)
+            {
+                case Skill.MagicLevel:
+                    
+                    return MagicLevelPercent;
+
+                case Skill.Fist:
+
+                    return FistPercent;
+
+                case Skill.Club:
+
+                    return ClubPercent;
+
+                case Skill.Sword:
+
+                    return SwordPercent;
+
+                case Skill.Axe:
+
+                    return AxePercent;
+
+                case Skill.Distance:
+
+                    return DistancePercent;
+
+                case Skill.Shield:
+
+                    return ShieldPercent;
+
+                case Skill.Fish:
+
+                    return FishPercent;
+            }
+
+            throw new NotImplementedException();
+        }
     }
 }

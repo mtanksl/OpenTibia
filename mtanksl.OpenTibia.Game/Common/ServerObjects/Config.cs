@@ -81,6 +81,8 @@ namespace OpenTibia.Game.Common.ServerObjects
         public int GameplayLootRate { get; set; }
         public int GameplayMoneyRate { get; set; }
         public double GameplayExperienceRate { get; set; }
+        public double GameplayMagicLevelRate { get; set; }
+        public double GameplaySkillRate { get; set; }
         public ExperienceStagesConfig GameplayExperienceStages { get; set; }
 
         public int SecurityMaxConnectionsWithSameIpAddress { get; set; }
@@ -289,6 +291,10 @@ namespace OpenTibia.Game.Common.ServerObjects
             GameplayMoneyRate = LuaScope.GetInt32(script["server.game.gameplay.moneyRate"], 1);
 
             GameplayExperienceRate = LuaScope.GetDouble(script["server.game.gameplay.experiencerate"], 1.0);
+
+            GameplayMagicLevelRate = LuaScope.GetDouble(script["server.game.gameplay.magiclevelrate"], 1.0);
+
+            GameplaySkillRate = LuaScope.GetDouble(script["server.game.gameplay.skillrate"], 1.0);
 
             LuaTable stages = (LuaTable)script["server.game.gameplay.experiencestages"];
 

@@ -43,8 +43,6 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     ManaPerLevel = LuaScope.GetInt32(lVocation["manaperlevel"] ),
 
-                    SoulMax = LuaScope.GetInt32(lVocation["soulmax"]),
-
                     RegenerateHealth = LuaScope.GetInt32(lVocation["regeneratehealth"] ),
 
                     RegenerateHealthInSeconds = LuaScope.GetInt32(lVocation["regeneratehealthinseconds"] ),
@@ -55,7 +53,28 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     RegenerateSoul = LuaScope.GetInt32(lVocation["regeneratesoul"] ),
 
-                    RegenerateSoulInSeconds = LuaScope.GetInt32(lVocation["regeneratesoulinseconds"] )
+                    RegenerateSoulInSeconds = LuaScope.GetInt32(lVocation["regeneratesoulinseconds"] ),
+
+                    SoulMax = LuaScope.GetInt32(lVocation["soulmax"] ),
+
+                    SkillsMultiplier = new SkillsMultiplier()
+                    {
+                        MagicLevel = LuaScope.GetDouble(lVocation["skillsmultiplier.magiclevel"] ),
+                        
+                        Fist = LuaScope.GetDouble(lVocation["skillsmultiplier.fist"] ),
+
+                        Club = LuaScope.GetDouble(lVocation["skillsmultiplier.club"] ),
+
+                        Sword = LuaScope.GetDouble(lVocation["skillsmultiplier.sword"] ),
+
+                        Axe = LuaScope.GetDouble(lVocation["skillsmultiplier.axe"] ),
+
+                        Distance = LuaScope.GetDouble(lVocation["skillsmultiplier.distance"] ),
+
+                        Shield = LuaScope.GetDouble(lVocation["skillsmultiplier.shield"] ),
+
+                        Fish = LuaScope.GetDouble(lVocation["skillsmultiplier.fish"] )
+                    }
                 };
 
                 vocations.Add(vocation.Id, vocation);
