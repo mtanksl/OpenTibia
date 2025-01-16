@@ -41,13 +41,18 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             int count = await Context.AddCommand(new PlayerCountItemsCommand(command.Player, worm, 1) );
 
-                            if (count > 0 && Context.Server.Randomization.HasProbability(1.0 / 10) )
+                            if (count > 0)
                             {
-                                await Context.AddCommand(new PlayerDestroyItemsCommand(command.Player, worm, 1, 1) );
+                                await Context.AddCommand(new PlayerAddSkillPointsCommand(command.Player, Skill.Fish, 1) );
 
-                                await Context.AddCommand(new PlayerCreateItemCommand(command.Player, fish, 1) );
+                                if (Context.Server.Randomization.HasProbability(1.0 / 10) )
+                                {
+                                    await Context.AddCommand(new PlayerDestroyItemsCommand(command.Player, worm, 1, 1) );
 
-                                await Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.HereFishyFishy, 1000, "Here, Fishy Fishy!") );
+                                    await Context.AddCommand(new PlayerCreateItemCommand(command.Player, fish, 1) );
+
+                                    await Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.HereFishyFishy, 1000, "Here, Fishy Fishy!") );
+                                }
                             }
                         }
 

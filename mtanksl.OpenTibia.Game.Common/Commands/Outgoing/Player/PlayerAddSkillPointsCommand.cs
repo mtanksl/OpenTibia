@@ -40,21 +40,21 @@ namespace OpenTibia.Game.Commands
 
             byte correctSkillPercent = 0;
 
-            ulong minSkillPoints = Formula.GetRequiredSkillPoints(Skill, skillLevel, vocationConstant);
+            ulong minSkillPoints = Formula.GetRequiredSkillPoints(Skill, correctSkillLevel, vocationConstant);
 
             while (true)
             {
-                ulong maxSkillPoints = Formula.GetRequiredSkillPoints(Skill, (byte)(skillLevel + 1), vocationConstant);
+                ulong maxSkillPoints = Formula.GetRequiredSkillPoints(Skill, (byte)(correctSkillLevel + 1), vocationConstant);
 
                 if (skillPoints + SkillPoints < maxSkillPoints)
                 {
-                    correctSkillPercent = (byte)Math.Ceiling(100.0 * (skillPoints - minSkillPoints) / (maxSkillPoints - minSkillPoints));
+                    correctSkillPercent = (byte)Math.Ceiling(100.0 * (skillPoints + SkillPoints - minSkillPoints) / (maxSkillPoints - minSkillPoints));
 
                     break;
                 }
                 else
                 {
-                    skillLevel++;
+                    correctSkillLevel++;
 
                     minSkillPoints = maxSkillPoints;
                 }

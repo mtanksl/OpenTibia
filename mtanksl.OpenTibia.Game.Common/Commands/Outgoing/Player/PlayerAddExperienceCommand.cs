@@ -34,21 +34,21 @@ namespace OpenTibia.Game.Commands
 
             byte correctLevelPercent = 0;
 
-            ulong minExperience = Formula.GetRequiredExperience(level);
+            ulong minExperience = Formula.GetRequiredExperience(correctLevel);
 
             while (true)
             {
-                ulong maxExperience = Formula.GetRequiredExperience( (ushort)(level + 1) );
+                ulong maxExperience = Formula.GetRequiredExperience( (ushort)(correctLevel + 1) );
 
                 if (experience + Experience < maxExperience)
                 {
-                    correctLevelPercent = (byte)Math.Ceiling(100.0 * (experience - minExperience) / (maxExperience - minExperience) );
+                    correctLevelPercent = (byte)Math.Ceiling(100.0 * (experience + Experience - minExperience) / (maxExperience - minExperience) );
 
                     break;
                 }
                 else
                 {
-                    level++;
+                    correctLevel++;
 
                     minExperience = maxExperience;
                 }
