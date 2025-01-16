@@ -28,6 +28,6 @@
 
         public int SoulMax { get; set; }
 
-        public SkillsMultiplier SkillsMultiplier { get; set; }
+        public VocationConstantsConfig VocationConstants { get; set; }
     }
 }

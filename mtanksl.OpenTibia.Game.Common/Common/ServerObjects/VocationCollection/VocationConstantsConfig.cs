@@ -3,7 +3,7 @@ using System;
 
 namespace OpenTibia.Game.Common.ServerObjects
 {
-    public class SkillsMultiplier
+    public class VocationConstantsConfig
     {
         public double MagicLevel { get; set; }
 
@@ -21,7 +21,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public double Fish { get; set; }
 
-        public double GetSkillMultiplier(Skill skill)
+        public double GetValue(Skill skill)
         {
             switch (skill)
             {
