@@ -288,24 +288,23 @@ CREATE TABLE `Players` (
   `Speed` INT(11) NOT NULL,
   `Invisible` INT(11) NOT NULL,
   `SkillMagicLevel` INT(11) NOT NULL,
-  `SkillMagicLevelPercent` INT(11) NOT NULL,
+  `SkillMagicLevelTries` BIGINT(11) NOT NULL,
   `SkillFist` INT(11) NOT NULL,
-  `SkillFistPercent` INT(11) NOT NULL,
+  `SkillFistTries` BIGINT(11) NOT NULL,
   `SkillClub` INT(11) NOT NULL,
-  `SkillClubPercent` INT(11) NOT NULL,
+  `SkillClubTries` BIGINT(11) NOT NULL,
   `SkillSword` INT(11) NOT NULL,
-  `SkillSwordPercent` INT(11) NOT NULL,
+  `SkillSwordTries` BIGINT(11) NOT NULL,
   `SkillAxe` INT(11) NOT NULL,
-  `SkillAxePercent` INT(11) NOT NULL,
+  `SkillAxeTries` BIGINT(11) NOT NULL,
   `SkillDistance` INT(11) NOT NULL,
-  `SkillDistancePercent` INT(11) NOT NULL,
+  `SkillDistanceTries` BIGINT(11) NOT NULL,
   `SkillShield` INT(11) NOT NULL,
-  `SkillShieldPercent` INT(11) NOT NULL,
+  `SkillShieldTries` BIGINT(11) NOT NULL,
   `SkillFish` INT(11) NOT NULL,
-  `SkillFishPercent` INT(11) NOT NULL,
+  `SkillFishTries` BIGINT(11) NOT NULL,
   `Experience` BIGINT(11) NOT NULL,
   `Level` INT(11) NOT NULL,
-  `LevelPercent` INT(11) NOT NULL,
   `Mana` INT(11) NOT NULL,
   `MaxMana` INT(11) NOT NULL,
   `Soul` INT(11) NOT NULL,
@@ -328,12 +327,12 @@ CREATE TABLE `Players` (
   CONSTRAINT `IX_Players_WorldId` FOREIGN KEY (`WorldId`) REFERENCES `Worlds` (`Id`) ON DELETE CASCADE
 ) ENGINE=INNODB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `Players`(`Id`,`AccountId`,`WorldId`,`Name`,`Health`,`MaxHealth`,`Direction`,`BaseOutfitItemId`,`BaseOutfitId`,`BaseOutfitHead`,`BaseOutfitBody`,`BaseOutfitLegs`,`BaseOutfitFeet`,`BaseOutfitAddon`,`OutfitItemId`,`OutfitId`,`OutfitHead`,`OutfitBody`,`OutfitLegs`,`OutfitFeet`,`OutfitAddon`,`BaseSpeed`,`Speed`,`Invisible`,`SkillMagicLevel`,`SkillMagicLevelPercent`,`SkillFist`,`SkillFistPercent`,`SkillClub`,`SkillClubPercent`,`SkillSword`,`SkillSwordPercent`,`SkillAxe`,`SkillAxePercent`,`SkillDistance`,`SkillDistancePercent`,`SkillShield`,`SkillShieldPercent`,`SkillFish`,`SkillFishPercent`,`Experience`,`Level`,`LevelPercent`,`Mana`,`MaxMana`,`Soul`,`Capacity`,`Stamina`,`Gender`,`Vocation`,`Rank`,`SpawnX`,`SpawnY`,`SpawnZ`,`TownX`,`TownY`,`TownZ`, `BankAccount`) VALUES 
-(1,1,1,'Gamemaster',645,645,2,0,266,0,0,0,0,0,0,266,0,0,0,0,0,2218,2218,0,0,0,10,0,10,0,10,0,10,0,10,0,10,0,10,0,15694800,100,0,550,550,100,139000,2520,0,0,2,921,771,6,921,771,6, 0),
-(2,1,1,'Knight',1565,1565,2,0,131,78,69,58,76,0,0,131,78,69,58,76,0,418,418,0,4,0,10,0,10,0,90,0,10,0,10,0,80,0,10,0,15694800,100,0,550,550,100,277000,2520,0,1,0,921,771,6,921,771,6, 0),
-(3,1,1,'Paladin',1105,1105,2,0,129,78,69,58,76,0,0,129,78,69,58,76,0,418,418,0,20,0,10,0,10,0,10,0,10,0,70,0,40,0,10,0,15694800,100,0,1470,1470,100,231000,2520,0,2,0,921,771,6,921,771,6, 0),
-(4,1,1,'Sorcerer',645,645,2,0,130,78,69,58,76,0,0,130,78,69,58,76,0,418,418,0,70,0,10,0,10,0,10,0,10,0,10,0,10,0,10,0,15694800,100,0,2850,2850,100,139000,2520,0,4,0,921,771,6,921,771,6, 0),
-(5,1,1,'Druid',645,645,2,0,130,78,69,58,76,0,0,130,78,69,58,76,0,418,418,0,70,0,10,0,10,0,10,0,10,0,10,0,10,0,10,0,15694800,100,0,2850,2850,100,139000,2520,0,3,0,921,771,6,921,771,6, 0);
+INSERT INTO `Players`(`Id`,`AccountId`,`WorldId`,`Name`,`Health`,`MaxHealth`,`Direction`,`BaseOutfitItemId`,`BaseOutfitId`,`BaseOutfitHead`,`BaseOutfitBody`,`BaseOutfitLegs`,`BaseOutfitFeet`,`BaseOutfitAddon`,`OutfitItemId`,`OutfitId`,`OutfitHead`,`OutfitBody`,`OutfitLegs`,`OutfitFeet`,`OutfitAddon`,`BaseSpeed`,`Speed`,`Invisible`,`SkillMagicLevel`,`SkillMagicLevelTries`,`SkillFist`,`SkillFistTries`,`SkillClub`,`SkillClubTries`,`SkillSword`,`SkillSwordTries`,`SkillAxe`,`SkillAxeTries`,`SkillDistance`,`SkillDistanceTries`,`SkillShield`,`SkillShieldTries`,`SkillFish`,`SkillFishTries`,`Experience`,`Level`,`Mana`,`MaxMana`,`Soul`,`Capacity`,`Stamina`,`Gender`,`Vocation`,`Rank`,`SpawnX`,`SpawnY`,`SpawnZ`,`TownX`,`TownY`,`TownZ`, `BankAccount`) VALUES 
+(1,1,1,'Gamemaster',645,645,2,0,266,0,0,0,0,0,0,266,0,0,0,0,0,2218,2218,0,0,0,10,0,10,0,10,0,10,0,10,0,10,0,10,0,15694800,100,550,550,100,139000,2520,0,0,2,921,771,6,921,771,6, 0),
+(2,1,1,'Knight',1565,1565,2,0,131,78,69,58,76,0,0,131,78,69,58,76,0,418,418,0,4,0,10,0,10,0,90,0,10,0,10,0,80,0,10,0,15694800,100,550,550,100,277000,2520,0,1,0,921,771,6,921,771,6, 0),
+(3,1,1,'Paladin',1105,1105,2,0,129,78,69,58,76,0,0,129,78,69,58,76,0,418,418,0,20,0,10,0,10,0,10,0,10,0,70,0,40,0,10,0,15694800,100,1470,1470,100,231000,2520,0,2,0,921,771,6,921,771,6, 0),
+(4,1,1,'Sorcerer',645,645,2,0,130,78,69,58,76,0,0,130,78,69,58,76,0,418,418,0,70,0,10,0,10,0,10,0,10,0,10,0,10,0,10,0,15694800,100,2850,2850,100,139000,2520,0,4,0,921,771,6,921,771,6, 0),
+(5,1,1,'Druid',645,645,2,0,130,78,69,58,76,0,0,130,78,69,58,76,0,418,418,0,70,0,10,0,10,0,10,0,10,0,10,0,10,0,10,0,15694800,100,2850,2850,100,139000,2520,0,3,0,921,771,6,921,771,6, 0);
 
 -- RuleViolationReports
 

@@ -95,6 +95,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private static void LoadPlayer(Context context, DbPlayer dbPlayer, Player player)
         {
+            VocationConfig vocationConfig = context.Server.Vocations.GetVocationById( (byte)dbPlayer.Vocation);
+
             player.Health = (ushort)dbPlayer.Health;
 
             player.MaxHealth = (ushort)dbPlayer.MaxHealth;
@@ -113,41 +115,57 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             player.Skills.MagicLevel = (byte)dbPlayer.SkillMagicLevel;
 
-            player.Skills.MagicLevelPercent = (byte)dbPlayer.SkillMagicLevelPercent;
+            player.Skills.MagicLevelTries = (ulong)dbPlayer.SkillMagicLevelTries;
+
+            player.Skills.MagicLevelPercent = (byte)Math.Ceiling(100.0 * player.Skills.MagicLevelTries / Formula.GetRequiredSkillTries(player.Skills.MagicLevel, Skill.MagicLevel, vocationConfig) );
 
             player.Skills.Fist = (byte)dbPlayer.SkillFist;
 
-            player.Skills.FistPercent = (byte)dbPlayer.SkillFistPercent;
+            player.Skills.FistTries = (ulong)dbPlayer.SkillFistTries;
+
+            player.Skills.FistPercent = (byte)Math.Ceiling(100.0 * player.Skills.FistTries / Formula.GetRequiredSkillTries(player.Skills.Fist, Skill.Fist, vocationConfig) );
 
             player.Skills.Club = (byte)dbPlayer.SkillClub;
 
-            player.Skills.ClubPercent = (byte)dbPlayer.SkillClubPercent;
+            player.Skills.ClubTries = (ulong)dbPlayer.SkillClubTries;
+
+            player.Skills.ClubPercent = (byte)Math.Ceiling(100.0 * player.Skills.ClubTries / Formula.GetRequiredSkillTries(player.Skills.Club, Skill.Club, vocationConfig) );
 
             player.Skills.Sword = (byte)dbPlayer.SkillSword;
 
-            player.Skills.SwordPercent = (byte)dbPlayer.SkillSwordPercent;
+            player.Skills.SwordTries = (ulong)dbPlayer.SkillSwordTries;
+
+            player.Skills.SwordPercent = (byte)Math.Ceiling(100.0 * player.Skills.SwordTries / Formula.GetRequiredSkillTries(player.Skills.Sword, Skill.Sword, vocationConfig) );
 
             player.Skills.Axe = (byte)dbPlayer.SkillAxe;
 
-            player.Skills.AxePercent = (byte)dbPlayer.SkillAxePercent;
+            player.Skills.AxeTries = (ulong)dbPlayer.SkillAxeTries;
+
+            player.Skills.AxePercent = (byte)Math.Ceiling(100.0 * player.Skills.AxeTries / Formula.GetRequiredSkillTries(player.Skills.Axe, Skill.Axe, vocationConfig) );
 
             player.Skills.Distance = (byte)dbPlayer.SkillDistance;
 
-            player.Skills.DistancePercent = (byte)dbPlayer.SkillDistancePercent;
+            player.Skills.DistanceTries = (ulong)dbPlayer.SkillDistanceTries;
+
+            player.Skills.DistancePercent = (byte)Math.Ceiling(100.0 * player.Skills.DistanceTries / Formula.GetRequiredSkillTries(player.Skills.Distance, Skill.Distance, vocationConfig) );
 
             player.Skills.Shield = (byte)dbPlayer.SkillShield;
 
-            player.Skills.ShieldPercent = (byte)dbPlayer.SkillShieldPercent;
+            player.Skills.ShieldTries = (ulong)dbPlayer.SkillShieldTries;
+
+            player.Skills.ShieldPercent = (byte)Math.Ceiling(100.0 * player.Skills.ShieldTries / Formula.GetRequiredSkillTries(player.Skills.Shield, Skill.Shield, vocationConfig) );
 
             player.Skills.Fish = (byte)dbPlayer.SkillFish;
 
-            player.Skills.FishPercent = (byte)dbPlayer.SkillFishPercent;
+            player.Skills.FishTries = (ulong)dbPlayer.SkillFishTries;
+
+            player.Skills.FishPercent = (byte)Math.Ceiling(100.0 * player.Skills.FishTries / Formula.GetRequiredSkillTries(player.Skills.Fish, Skill.Fish, vocationConfig) );
 
             player.Experience = (ulong)dbPlayer.Experience;
 
             player.Level = (ushort)dbPlayer.Level;
 
-            player.LevelPercent = (byte)dbPlayer.LevelPercent;
+            player.LevelPercent = (byte)Math.Ceiling(100.0 * player.Experience / Formula.GetRequiredExperience(player.Level) );
 
             player.Mana = (ushort)dbPlayer.Mana;
 
@@ -386,41 +404,39 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             dbPlayer.SkillMagicLevel = player.Skills.MagicLevel;
 
-            dbPlayer.SkillMagicLevelPercent = player.Skills.MagicLevelPercent;
+            dbPlayer.SkillMagicLevelTries = (long)player.Skills.MagicLevelTries;
 
             dbPlayer.SkillFist = player.Skills.Fist;
 
-            dbPlayer.SkillFistPercent = player.Skills.FistPercent;
+            dbPlayer.SkillFistTries = (long)player.Skills.FistTries;
 
             dbPlayer.SkillClub = player.Skills.Club;
 
-            dbPlayer.SkillClubPercent = player.Skills.ClubPercent;
+            dbPlayer.SkillClubTries = (long)player.Skills.ClubTries;
 
             dbPlayer.SkillSword = player.Skills.Sword;
 
-            dbPlayer.SkillSwordPercent = player.Skills.SwordPercent;
+            dbPlayer.SkillSwordTries = (long)player.Skills.SwordTries;
 
             dbPlayer.SkillAxe = player.Skills.Axe;
 
-            dbPlayer.SkillAxePercent = player.Skills.AxePercent;
+            dbPlayer.SkillAxeTries = (long)player.Skills.AxeTries;
 
             dbPlayer.SkillDistance = player.Skills.Distance;
 
-            dbPlayer.SkillDistancePercent = player.Skills.DistancePercent;
+            dbPlayer.SkillDistanceTries = (long)player.Skills.DistanceTries;
 
             dbPlayer.SkillShield = player.Skills.Shield;
 
-            dbPlayer.SkillShieldPercent = player.Skills.ShieldPercent;
+            dbPlayer.SkillShieldTries = (long)player.Skills.ShieldTries;
 
             dbPlayer.SkillFish = player.Skills.Fish;
 
-            dbPlayer.SkillFishPercent = player.Skills.FishPercent;
+            dbPlayer.SkillFishTries = (long)player.Skills.FishTries;
 
             dbPlayer.Experience = (long)player.Experience;
 
             dbPlayer.Level = player.Level;
-
-            dbPlayer.LevelPercent = player.LevelPercent;
 
             dbPlayer.Mana = player.Mana;
 

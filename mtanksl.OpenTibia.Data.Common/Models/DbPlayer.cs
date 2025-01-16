@@ -57,41 +57,39 @@ namespace OpenTibia.Data.Models
 
         public int SkillMagicLevel { get; set; }
 
-        public int SkillMagicLevelPercent { get; set; }
+        public long SkillMagicLevelTries { get; set; }
 
         public int SkillFist { get; set; }
 
-        public int SkillFistPercent { get; set; }
+        public long SkillFistTries { get; set; }
 
         public int SkillClub { get; set; }
 
-        public int SkillClubPercent { get; set; }
+        public long SkillClubTries { get; set; }
 
         public int SkillSword { get; set; }
 
-        public int SkillSwordPercent { get; set; }
+        public long SkillSwordTries { get; set; }
 
         public int SkillAxe { get; set; }
 
-        public int SkillAxePercent { get; set; }
+        public long SkillAxeTries { get; set; }
 
         public int SkillDistance { get; set; }
 
-        public int SkillDistancePercent { get; set; }
+        public long SkillDistanceTries { get; set; }
 
         public int SkillShield { get; set; }
 
-        public int SkillShieldPercent { get; set; }
+        public long SkillShieldTries { get; set; }
 
         public int SkillFish { get; set; }
 
-        public int SkillFishPercent { get; set; }
+        public long SkillFishTries { get; set; }
 
         public long Experience { get; set; }
 
         public int Level { get; set; }
-
-        public int LevelPercent { get; set; }
 
         public int Mana { get; set; }
 
