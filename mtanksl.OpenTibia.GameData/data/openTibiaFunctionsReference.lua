@@ -41,6 +41,167 @@ return {
 		args = "(string type, LuaTable parameters)",
 		returns = "void"
 	},
+	-- void registeractionsplayerrotateitem(opentibiaid, onrotateitem)
+	registeractionsplayerrotateitem = {
+		type = "function",
+		description = "",
+		args = "(opentibiaid, onrotateitem)",
+		returns = "void"
+	},
+	-- void registeractionsplayeruseitem(opentibiaid, onuseitem)
+	registeractionsplayeruseitem = {
+		type = "function",
+		description = "",
+		args = "(opentibiaid, onuseitem)",
+		returns = "void"
+	},
+	-- void registeractionsplayeruseitemwithitem(opentibiaid, allowfaruse, onuseitemwithitem)
+	registeractionsplayeruseitemwithitem = {
+		type = "function",
+		description = "",
+		args = "(opentibiaid, allowfaruse, onuseitemwithitem)",
+		returns = "void"
+	},
+	-- void registeractionsplayeruseitemwithcreature(opentibiaid, allowfaruse, onuseitemwithcreature)
+	registeractionsplayeruseitemwithcreature = {
+		type = "function",
+		description = "",
+		args = "(opentibiaid, allowfaruse, onuseitemwithcreature)",
+		returns = "void"
+	},
+	-- void registeractionsplayermoveitem(opentibiaid, onmoveitem)
+	registeractionsplayermoveitem = {
+		type = "function",
+		description = "",
+		args = "(opentibiaid, onmoveitem)",
+		returns = "void"
+	},
+	-- void registeractionsplayermovecreature(name, onmovecreature)
+	registeractionsplayermovecreature = {
+		type = "function",
+		description = "",
+		args = "(name, onmovecreature)",
+		returns = "void"
+	},
+	-- void registermovementscreaturestepin(opentibiaid, onstepin)
+	registermovementscreaturestepin = {
+		type = "function",
+		description = "",
+		args = "(opentibiaid, onstepin)",
+		returns = "void"
+	},
+	-- void registermovementscreaturestepout(opentibiaid, onstepout)
+	registermovementscreaturestepout = {
+		type = "function",
+		description = "",
+		args = "(opentibiaid, onstepout)",
+		returns = "void"
+	},
+	-- void registermovementsinventoryequip(opentibiaid, onequip)
+	registermovementsinventoryequip = {
+		type = "function",
+		description = "",
+		args = "(opentibiaid, onequip)",
+		returns = "void"
+	},
+	-- void registermovementsinventorydeequip(opentibiaid, ondeequip)
+	registermovementsinventorydeequip = {
+		type = "function",
+		description = "",
+		args = "(opentibiaid, ondeequip)",
+		returns = "void"
+	},
+	-- void registertalkactionsplayersay(message, onsay)
+	registertalkactionsplayersay = {
+		type = "function",
+		description = "",
+		args = "(message, onsay)",
+		returns = "void"
+	},
+	-- void registercreaturescriptsplayerlogin(onlogin)
+	registercreaturescriptsplayerlogin = {
+		type = "function",
+		description = "",
+		args = "(onlogin)",
+		returns = "void"
+	},
+	-- void registercreaturescriptsplayerlogout(onlogout)
+	registercreaturescriptsplayerlogout = {
+		type = "function",
+		description = "",
+		args = "(onlogout)",
+		returns = "void"
+	},
+	-- void registerglobaleventsserverstartup(onstartup)
+	registerglobaleventsserverstartup = {
+		type = "function",
+		description = "",
+		args = "(onstartup)",
+		returns = "void"
+	},
+	-- void registerglobaleventsservershutdown(onshutdown)
+	registerglobaleventsservershutdown = {
+		type = "function",
+		description = "",
+		args = "(onshutdown)",
+		returns = "void"
+	},
+	-- void registerglobaleventsserversave(onsave)
+	registerglobaleventsserversave = {
+		type = "function",
+		description = "",
+		args = "(onsave)",
+		returns = "void"
+	},
+	-- void registerglobaleventsserverrecord(onrecord)
+	registerglobaleventsserverrecord = {
+		type = "function",
+		description = "",
+		args = "(onrecord)",
+		returns = "void"
+	},
+	-- void registernpcsdialogue(name, handler)
+	registernpcsdialogue = {
+		type = "function",
+		description = "",
+		args = "(name, handler)",
+		returns = "void"
+	},
+	-- void registerspell(words, name, group, cooldown, groupcooldown, level, mana, soul, premium, vocations, requirestarget, oncasting, oncast)
+	registerspell = {
+		type = "function",
+		description = "",
+		args = "(words, name, group, cooldown, groupcooldown, level, mana, soul, premium, vocations, requirestarget, oncasting, oncast)",
+		returns = "void"
+	},
+	-- void registerrune(opentibiaid, name, group, groupcooldown, level, magiclevel, vocations, requirestarget, onusingrune, onuserune)
+	registerrune = {
+		type = "function",
+		description = "",
+		args = "(opentibiaid, name, group, groupcooldown, level, magiclevel, vocations, requirestarget, onusingrune, onuserune)",
+		returns = "void"
+	},
+	-- void registerweapon(opentibiaid, level, mana, vocations, onuseweapon)
+	registerweapon = {
+		type = "function",
+		description = "",
+		args = "(opentibiaid, level, mana, vocations, onuseweapon)",
+		returns = "void"
+	},
+	-- void registerammunition(opentibiaid, onuseammunition)
+	registerammunition = {
+		type = "function",
+		description = "",
+		args = "(opentibiaid, onuseammunition)",
+		returns = "void"
+	},
+	-- void registerraid(name, repeatable, cooldown, chance, onraid)
+	registerraid = {
+		type = "function",
+		description = "",
+		args = "(name, repeatable, cooldown, chance, onraid)",
+		returns = "void"
+	},
 	debugger = {
 		type = "lib",
 		description = "",

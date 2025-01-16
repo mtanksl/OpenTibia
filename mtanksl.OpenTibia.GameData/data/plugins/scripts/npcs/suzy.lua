@@ -1,5 +1,6 @@
 ﻿local say = topic:new()
 say:add("name", "I am Suzy.")
+say:add("job", "I work in this bank. I can change money for you.")
 say:addbank()
 
 local handler = npchandler:new( {

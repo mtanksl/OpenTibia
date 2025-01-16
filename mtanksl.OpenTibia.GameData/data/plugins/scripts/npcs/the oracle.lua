@@ -3,10 +3,10 @@ local topic1 = topic:new(say)
 local topic2 = topic:new(say)
 local topic3 = topic:new(say)
 
+say:add("yes", "In which town do you want to leave: Carlin, Thais or Venore?", { topic = topic1 } )
 say:add("", function(context)
                 context:farewell()
             end)
-say:add("yes", "In which town do you want to leave: Carlin, Thais or Venore?", { topic = topic1 } )
 
 topic1:add("thais", "In Thais! And what profession have you choosen: Knight, Paladin, Sorcerer ou Druid?", { city = "Thais", topic = topic2 } )
 topic1:add("carlin", "In Carlin! And what profession have you choosen: Knight, Paladin, Sorcerer ou Druid?", { city = "Carlin", topic = topic2 } )
