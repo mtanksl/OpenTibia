@@ -117,55 +117,55 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             player.Skills.MagicLevelTries = (ulong)dbPlayer.SkillMagicLevelTries;
 
-            player.Skills.MagicLevelPercent = (byte)Math.Ceiling(100.0 * player.Skills.MagicLevelTries / Formula.GetRequiredSkillTries(player.Skills.MagicLevel, Skill.MagicLevel, vocationConfig) );
+            player.Skills.MagicLevelPercent = Formula.GetSkillPercent(player.Skills.MagicLevel, player.Skills.MagicLevelTries, Skill.MagicLevel, vocationConfig);
 
             player.Skills.Fist = (byte)dbPlayer.SkillFist;
 
             player.Skills.FistTries = (ulong)dbPlayer.SkillFistTries;
 
-            player.Skills.FistPercent = (byte)Math.Ceiling(100.0 * player.Skills.FistTries / Formula.GetRequiredSkillTries(player.Skills.Fist, Skill.Fist, vocationConfig) );
+            player.Skills.FistPercent = Formula.GetSkillPercent(player.Skills.Fist, player.Skills.FistTries, Skill.Fist, vocationConfig);
 
             player.Skills.Club = (byte)dbPlayer.SkillClub;
 
             player.Skills.ClubTries = (ulong)dbPlayer.SkillClubTries;
 
-            player.Skills.ClubPercent = (byte)Math.Ceiling(100.0 * player.Skills.ClubTries / Formula.GetRequiredSkillTries(player.Skills.Club, Skill.Club, vocationConfig) );
+            player.Skills.ClubPercent = Formula.GetSkillPercent(player.Skills.Club, player.Skills.ClubTries, Skill.Club, vocationConfig);
 
             player.Skills.Sword = (byte)dbPlayer.SkillSword;
 
             player.Skills.SwordTries = (ulong)dbPlayer.SkillSwordTries;
 
-            player.Skills.SwordPercent = (byte)Math.Ceiling(100.0 * player.Skills.SwordTries / Formula.GetRequiredSkillTries(player.Skills.Sword, Skill.Sword, vocationConfig) );
+            player.Skills.SwordPercent = Formula.GetSkillPercent(player.Skills.Sword, player.Skills.SwordTries, Skill.Sword, vocationConfig);
 
             player.Skills.Axe = (byte)dbPlayer.SkillAxe;
 
             player.Skills.AxeTries = (ulong)dbPlayer.SkillAxeTries;
 
-            player.Skills.AxePercent = (byte)Math.Ceiling(100.0 * player.Skills.AxeTries / Formula.GetRequiredSkillTries(player.Skills.Axe, Skill.Axe, vocationConfig) );
+            player.Skills.AxePercent = Formula.GetSkillPercent(player.Skills.Axe, player.Skills.AxeTries, Skill.Axe, vocationConfig);
 
             player.Skills.Distance = (byte)dbPlayer.SkillDistance;
 
             player.Skills.DistanceTries = (ulong)dbPlayer.SkillDistanceTries;
 
-            player.Skills.DistancePercent = (byte)Math.Ceiling(100.0 * player.Skills.DistanceTries / Formula.GetRequiredSkillTries(player.Skills.Distance, Skill.Distance, vocationConfig) );
+            player.Skills.DistancePercent = Formula.GetSkillPercent(player.Skills.Distance, player.Skills.DistanceTries, Skill.Distance, vocationConfig);
 
             player.Skills.Shield = (byte)dbPlayer.SkillShield;
 
             player.Skills.ShieldTries = (ulong)dbPlayer.SkillShieldTries;
 
-            player.Skills.ShieldPercent = (byte)Math.Ceiling(100.0 * player.Skills.ShieldTries / Formula.GetRequiredSkillTries(player.Skills.Shield, Skill.Shield, vocationConfig) );
+            player.Skills.ShieldPercent = Formula.GetSkillPercent(player.Skills.Shield, player.Skills.ShieldTries, Skill.Shield, vocationConfig);
 
             player.Skills.Fish = (byte)dbPlayer.SkillFish;
 
             player.Skills.FishTries = (ulong)dbPlayer.SkillFishTries;
 
-            player.Skills.FishPercent = (byte)Math.Ceiling(100.0 * player.Skills.FishTries / Formula.GetRequiredSkillTries(player.Skills.Fish, Skill.Fish, vocationConfig) );
+            player.Skills.FishPercent = Formula.GetSkillPercent(player.Skills.Fish, player.Skills.FishTries, Skill.Fish, vocationConfig);
 
             player.Experience = (ulong)dbPlayer.Experience;
 
             player.Level = (ushort)dbPlayer.Level;
 
-            player.LevelPercent = (byte)Math.Ceiling(100.0 * player.Experience / Formula.GetRequiredExperience(player.Level) );
+            player.LevelPercent = Formula.GetLevelPercent(player.Level, player.Experience);
 
             player.Mana = (ushort)dbPlayer.Mana;
 

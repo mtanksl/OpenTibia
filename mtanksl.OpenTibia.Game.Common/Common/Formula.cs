@@ -150,12 +150,21 @@ namespace OpenTibia.Game.Common
 
             if ( !experienceCache.TryGetValue(level, out experience) )
             {
-                experience = (ulong)( ( 50 * Math.Pow(level, 3) - 150 * Math.Pow(level, 2) + 400 * (level) ) / 3 );
+                experience = (ulong)( ( 50 * Math.Pow(level - 1, 3) - 150 * Math.Pow(level - 1, 2) + 400 * (level - 1) ) / 3 );
 
                 experienceCache.Add(level, experience);
             }
 
             return experience;
+        }
+
+        public static byte GetLevelPercent(ushort level, ulong experience)
+        {
+            ulong minExperience = GetRequiredExperience(level);
+
+            ulong maxExperience = GetRequiredExperience( (ushort)(level + 1) );
+
+            return (byte)Math.Ceiling(100.0 * (experience - minExperience) / (maxExperience - minExperience) );
         }
 
         private static Dictionary<Skill, int> skillConstants = new Dictionary<Skill, int>()
@@ -219,6 +228,15 @@ namespace OpenTibia.Game.Common
             }
 
             return skillTries;
+        }
+
+        public static byte GetSkillPercent(byte skillLevel, ulong skillTries, Skill skill, VocationConfig vocationConfig)
+        {
+            ulong minSkillTries = GetRequiredSkillTries(skillLevel, skill, vocationConfig);
+
+            ulong maxSkillTries = GetRequiredSkillTries( (byte)(skillLevel + 1), skill, vocationConfig);
+
+            return (byte)Math.Ceiling(100.0 * (skillTries - minSkillTries) / (maxSkillTries - minSkillTries) );
         }
     }
 }
