@@ -27,90 +27,160 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Execute()
         {
-            VocationConfig vocationConfig = Context.Current.Server.Vocations.GetVocationById( (byte)Player.Vocation);
-
-            byte skillLevel = Player.Skills.GetSkillLevel(Skill);
-
-            ulong skillPoints = Player.Skills.GetSkillPoints(Skill);
-
-            double vocationConstant = vocationConfig.VocationConstants.GetValue(Skill);
-
-
-            byte correctSkillLevel = skillLevel;
-
-            byte correctSkillPercent = 0;
-
-            ulong minSkillPoints = Formula.GetRequiredSkillPoints(Skill, correctSkillLevel, vocationConstant);
-
-            while (true)
+            if (SkillPoints > 0)
             {
-                ulong maxSkillPoints = Formula.GetRequiredSkillPoints(Skill, (byte)(correctSkillLevel + 1), vocationConstant);
-
-                if (skillPoints + SkillPoints < maxSkillPoints)
+                if (Skill == Skill.MagicLevel)
                 {
-                    correctSkillPercent = (byte)Math.Ceiling(100.0 * (skillPoints + SkillPoints - minSkillPoints) / (maxSkillPoints - minSkillPoints));
-
-                    break;
+                    SkillPoints = (ulong)(SkillPoints * Context.Server.Config.GameplayMagicLevelRate);
                 }
                 else
                 {
-                    correctSkillLevel++;
-
-                    minSkillPoints = maxSkillPoints;
+                    SkillPoints = (ulong)(SkillPoints * Context.Server.Config.GameplaySkillRate);
                 }
-            }
 
-            if (correctSkillLevel > skillLevel)
-            {
-                string name;
+                VocationConfig vocationConfig = Context.Current.Server.Vocations.GetVocationById( (byte)Player.Vocation);
+
+                double vocationConstant = vocationConfig.VocationConstants.GetValue(Skill);
+
+                byte currentSkillLevel = Player.Skills.GetSkillLevel(Skill);
+
+                ulong currentSkillPoints = Player.Skills.GetSkillPoints(Skill);
+
+                byte correctSkillLevel = currentSkillLevel;
+
+                byte correctSkillPercent = 0;
+
+                ulong minSkillPoints = Formula.GetRequiredSkillPoints(Skill, correctSkillLevel, vocationConstant);
+
+                while (true)
+                {
+                    ulong maxSkillPoints = Formula.GetRequiredSkillPoints(Skill, (byte)(correctSkillLevel + 1), vocationConstant);
+
+                    if (currentSkillPoints + SkillPoints < maxSkillPoints)
+                    {
+                        correctSkillPercent = (byte)Math.Ceiling(100.0 * (currentSkillPoints + SkillPoints - minSkillPoints) / (maxSkillPoints - minSkillPoints));
+
+                        break;
+                    }
+                    else
+                    {
+                        correctSkillLevel++;
+
+                        minSkillPoints = maxSkillPoints;
+                    }
+                }
+
+                if (correctSkillLevel > currentSkillLevel)
+                {
+                    string name;
+
+                    switch (Skill)
+                    {
+                        case Skill.MagicLevel:
+
+                            name = "magic level";
+
+                            break;
+
+                        case Skill.Fist:
+
+                            name = "fist fighting";
+
+                            break;
+
+                        case Skill.Club:
+
+                            name = "club fighting";
+
+                            break;
+
+                        case Skill.Sword:
+
+                            name = "sword fighting";
+
+                            break;
+
+                        case Skill.Axe:
+
+                            name = "axe fighting";
+
+                            break;
+
+                        case Skill.Distance:
+
+                            name = "distance fighting";
+
+                            break;
+
+                        case Skill.Shield:
+
+                            name = "shielding";
+
+                            break;
+
+                        case Skill.Fish:
+
+                            name = "fishing";
+
+                            break;
+
+                        default:
+
+                            throw new NotImplementedException();
+                    }
+
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You advanced to " + name + " level " + correctSkillLevel + ".") );
+
+                    Context.AddEvent(new PlayerAdvanceSkillEventArgs(Player, Skill, currentSkillLevel, correctSkillLevel) );
+                }
 
                 switch (Skill)
                 {
                     case Skill.MagicLevel:
 
-                        name = "magic level";
+                        await Context.AddCommand(new PlayerUpdateMagicLevelCommand(Player, currentSkillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
 
                         break;
 
                     case Skill.Fist:
-
-                        name = "fist fighting";
+                                                            
+                        await Context.AddCommand(new PlayerUpdateFistCommand(Player, currentSkillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
 
                         break;
 
                     case Skill.Club:
 
-                        name = "club fighting";
+                        await Context.AddCommand(new PlayerUpdateClubCommand(Player, currentSkillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
 
                         break;
 
                     case Skill.Sword:
 
-                        name = "sword fighting";
+                        await Context.AddCommand(new PlayerUpdateSwordCommand(Player, currentSkillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
 
                         break;
 
                     case Skill.Axe:
 
-                        name = "axe fighting";
+                        await Context.AddCommand(new PlayerUpdateAxeCommand(Player, currentSkillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
 
                         break;
 
                     case Skill.Distance:
 
-                        name = "distance fighting";
+                        await Context.AddCommand(new PlayerUpdateDistanceCommand(Player, currentSkillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
 
                         break;
 
                     case Skill.Shield:
 
-                        name = "shielding";
+                        await Context.AddCommand(new PlayerUpdateShieldCommand(Player, currentSkillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
 
                         break;
 
                     case Skill.Fish:
 
-                        name = "fishing";
+                        await Context.AddCommand(new PlayerUpdateFishCommand(Player, currentSkillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
 
                         break;
 
@@ -118,65 +188,6 @@ namespace OpenTibia.Game.Commands
 
                         throw new NotImplementedException();
                 }
-
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You advanced to " + name + " level " + correctSkillLevel + ".") );
-
-                Context.AddEvent(new PlayerAdvanceSkillEventArgs(Player, Skill, skillLevel, correctSkillLevel) );
-            }
-
-            switch (Skill)
-            {
-                case Skill.MagicLevel:
-
-                    await Context.AddCommand(new PlayerUpdateMagicLevelCommand(Player, skillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
-
-                    break;
-
-                case Skill.Fist:
-                                                            
-                    await Context.AddCommand(new PlayerUpdateFistCommand(Player, skillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
-
-                    break;
-
-                case Skill.Club:
-
-                    await Context.AddCommand(new PlayerUpdateClubCommand(Player, skillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
-
-                    break;
-
-                case Skill.Sword:
-
-                    await Context.AddCommand(new PlayerUpdateSwordCommand(Player, skillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
-
-                    break;
-
-                case Skill.Axe:
-
-                    await Context.AddCommand(new PlayerUpdateAxeCommand(Player, skillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
-
-                    break;
-
-                case Skill.Distance:
-
-                    await Context.AddCommand(new PlayerUpdateDistanceCommand(Player, skillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
-
-                    break;
-
-                case Skill.Shield:
-
-                    await Context.AddCommand(new PlayerUpdateShieldCommand(Player, skillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
-
-                    break;
-
-                case Skill.Fish:
-
-                    await Context.AddCommand(new PlayerUpdateFishCommand(Player, skillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
-
-                    break;
-
-                default:
-
-                    throw new NotImplementedException();
             }
         }
     }
