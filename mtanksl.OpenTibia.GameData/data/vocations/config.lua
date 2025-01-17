@@ -93,7 +93,8 @@
 		regeneratesoul = 1,
 		regeneratesoulinseconds = 15, 
 		soulmax = 200,
-		vocationconstants = { magiclevel = 3.0, fist = 1.1, club = 1.1, sword = 1.1, axe = 1.1, distance = 1.4, shield = 1.1, fish = 1.1 }
+		vocationconstants = { magiclevel = 3.0, fist = 1.1, club = 1.1, sword = 1.1, axe = 1.1, distance = 1.4, shield = 1.1, fish = 1.1 },
+		promoted = true
 	},		
 	{ 
 		id = 6,
@@ -109,7 +110,8 @@
 		regeneratesoul = 1, 
 		regeneratesoulinseconds = 15, 
 		soulmax = 200,
-		vocationconstants = { magiclevel = 1.4, fist = 1.2, club = 1.2, sword = 1.2, axe = 1.2, distance = 1.1, shield = 1.1, fish = 1.1 } 
+		vocationconstants = { magiclevel = 1.4, fist = 1.2, club = 1.2, sword = 1.2, axe = 1.2, distance = 1.1, shield = 1.1, fish = 1.1 },
+		promoted = true
 	},	
 	{ 
 		id = 7,
@@ -125,7 +127,8 @@
 		regeneratesoul = 1,
 		regeneratesoulinseconds = 15, 
 		soulmax = 200,
-		vocationconstants = { magiclevel = 1.1, fist = 1.5, club = 1.8, sword = 1.8, axe = 1.8, distance = 1.8, shield = 1.5, fish = 1.1 } 
+		vocationconstants = { magiclevel = 1.1, fist = 1.5, club = 1.8, sword = 1.8, axe = 1.8, distance = 1.8, shield = 1.5, fish = 1.1 },
+		promoted = true 
 	},		
 	{ 
 		id = 8, 
@@ -141,6 +144,7 @@
 		regeneratesoul = 1, 
 		regeneratesoulinseconds = 15,
 		soulmax = 200,
-		vocationconstants = { magiclevel = 1.1, fist = 1.5, club = 2.0, sword = 2.0, axe = 2.0, distance = 2.0, shield = 1.5, fish = 1.1 } 
+		vocationconstants = { magiclevel = 1.1, fist = 1.5, club = 2.0, sword = 2.0, axe = 2.0, distance = 2.0, shield = 1.5, fish = 1.1 },
+		promoted = true 
 	}
 }

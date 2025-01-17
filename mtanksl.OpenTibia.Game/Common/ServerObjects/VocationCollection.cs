@@ -74,7 +74,9 @@ namespace OpenTibia.Game.Common.ServerObjects
                         Shield = LuaScope.GetDouble(lVocation["vocationconstants.shield"] ),
 
                         Fish = LuaScope.GetDouble(lVocation["vocationconstants.fish"] )
-                    }
+                    },
+
+                    Promoted = LuaScope.GetBoolean(lVocation["promoted"] )
                 };
 
                 vocations.Add(vocation.Id, vocation);

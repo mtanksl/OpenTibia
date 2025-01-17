@@ -29,5 +29,7 @@
         public int SoulMax { get; set; }
 
         public VocationConstantsConfig VocationConstants { get; set; }
+
+        public bool Promoted { get; set; }
     }
 }

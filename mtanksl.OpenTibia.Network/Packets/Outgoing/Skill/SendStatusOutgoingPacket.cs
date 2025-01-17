@@ -66,7 +66,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
             writer.Write(Capacity);
 
-            writer.Write( (uint)Math.Min(2147483647, Experience) );
+            writer.Write( (uint)Math.Min(int.MaxValue, Experience) );
 
             writer.Write(Level);
 

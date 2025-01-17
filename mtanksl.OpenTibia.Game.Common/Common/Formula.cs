@@ -47,6 +47,44 @@ namespace OpenTibia.Game.Common
             return (byte)Math.Ceiling(100.0 * (experience - minExperience) / (maxExperience - minExperience) );
         }
 
+        public static double GetLossPercent(ushort level, byte levelPercent, ulong experience, Vocation vocation, int blesses)
+        {
+            static double MaximumExperienceLoss(ushort level, byte levelPercent, ulong experience)
+            {
+                if (level < 24)
+                {
+                    // 10 % for level 23 and below
+
+                    return 10 / 100.0; 
+                }
+                else
+                {
+                    // 50 * (x + 50) * (x² - 5 * x + 8) / experience % for level 24 and above
+
+                    double x = level + (levelPercent / 100.0);
+
+                    return ( (50 * x * x * x) + (2250 * x * x) - (12100 * x) + 20000 ) / experience / 100.0; 
+                }
+            }
+
+            double lossPercent = MaximumExperienceLoss(level, levelPercent, experience);
+
+            VocationConfig vocationConfig = Context.Current.Server.Vocations.GetVocationById( (byte)vocation);
+            
+            if (vocationConfig.Promoted)
+            {
+                // reduce 30 % if player is promoted
+
+                lossPercent *= 70 / 100.0; 
+            }
+
+            // reduce 8 % per bless
+
+            lossPercent *= Math.Pow(92 / 100.0, blesses); 
+
+            return lossPercent;
+        }
+
         private static Dictionary<Skill, ushort> skillConstants = new Dictionary<Skill, ushort>()
         {
             { Skill.MagicLevel, 1600 },
@@ -224,14 +262,14 @@ namespace OpenTibia.Game.Common
         {
             int min = 0;
 
-            int max = (int)Math.Floor(0.085 * (fightMode == FightMode.Offensive ? 1 : fightMode == FightMode.Balanced ? 0.75 : 0.5) * skill * attack) + (int)Math.Floor(level / 5.0);
+            int max = (int)Math.Floor(0.085 * (fightMode == FightMode.Offensive ? 1 : fightMode == FightMode.Balanced ? 0.75 : 0.5) * skill * attack) + (int)Math.Floor(level * 0.2);
 
             return (min, max);
         }
 
         public static (int Min, int Max) DistanceFormula(int level, int skill, int attack, FightMode fightMode)
         {
-            int min = (int)Math.Floor(level / 5.0);
+            int min = (int)Math.Floor(level * 0.2);
 
             int max = (int)Math.Floor(0.09 * (fightMode == FightMode.Offensive ? 1 : fightMode == FightMode.Balanced ? 0.75 : 0.5) * skill * attack) + min;
 

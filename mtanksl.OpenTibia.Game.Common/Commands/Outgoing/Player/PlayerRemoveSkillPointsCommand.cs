@@ -25,115 +25,112 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Execute()
         {
-            if (SkillPoints > 0)
+            byte currentSkillLevel = Player.Skills.GetSkillLevel(Skill);
+
+            ulong currentSkillPoints = Player.Skills.GetSkillPoints(Skill);
+
+            byte correctSkillLevel;
+
+            byte correctSkillPercent;
+
+            if (currentSkillPoints > SkillPoints)
             {
-                byte currentSkillLevel = Player.Skills.GetSkillLevel(Skill);
+                correctSkillLevel = currentSkillLevel;
 
-                ulong currentSkillPoints = Player.Skills.GetSkillPoints(Skill);
+                correctSkillPercent = 0;
 
-                byte correctSkillLevel;
+                ulong maxSkillPoints = Formula.GetRequiredSkillPoints(Skill, Player.Vocation, (byte)(correctSkillLevel + 1) );
 
-                byte correctSkillPercent;
-
-                if (currentSkillPoints > SkillPoints)
+                while (true)
                 {
-                    correctSkillLevel = currentSkillLevel;
+                    ulong minSkillPoints = Formula.GetRequiredSkillPoints(Skill, Player.Vocation, correctSkillLevel);
 
-                    correctSkillPercent = 0;
-
-                    ulong maxSkillPoints = Formula.GetRequiredSkillPoints(Skill, Player.Vocation, (byte)(correctSkillLevel + 1) );
-
-                    while (true)
+                    if (currentSkillPoints - SkillPoints >= minSkillPoints)
                     {
-                        ulong minSkillPoints = Formula.GetRequiredSkillPoints(Skill, Player.Vocation, correctSkillLevel);
+                        correctSkillPercent = (byte)Math.Ceiling(100.0 * (currentSkillPoints - SkillPoints - minSkillPoints) / (maxSkillPoints - minSkillPoints) );
 
-                        if (currentSkillPoints - SkillPoints >= maxSkillPoints)
-                        {
-                            correctSkillPercent = (byte)Math.Ceiling(100.0 * (currentSkillPoints - SkillPoints - minSkillPoints) / (maxSkillPoints - minSkillPoints));
-
-                            break;
-                        }
-                        else
-                        {
-                            correctSkillLevel--;
-
-                            maxSkillPoints = minSkillPoints;
-                        }
-                    }
-                }
-                else
-                {
-                    if (Skill == Skill.MagicLevel)
-                    {
-                        correctSkillLevel = 0;
+                        break;
                     }
                     else
                     {
-                        correctSkillLevel = 10;
+                        correctSkillLevel--;
+
+                        maxSkillPoints = minSkillPoints;
                     }
-
-                    correctSkillPercent = 0;
+                }
+            }
+            else
+            {
+                if (Skill == Skill.MagicLevel)
+                {
+                    correctSkillLevel = 0;
+                }
+                else
+                {
+                    correctSkillLevel = 10;
                 }
 
-                if (correctSkillLevel < currentSkillLevel)
-                {
-                    Context.AddEvent(new PlayerAdvanceSkillEventArgs(Player, Skill, currentSkillLevel, correctSkillLevel) );
-                }
+                correctSkillPercent = 0;
+            }
 
-                switch (Skill)
-                {
-                    case Skill.MagicLevel:
+            if (correctSkillLevel < currentSkillLevel)
+            {
+                Context.AddEvent(new PlayerAdvanceSkillEventArgs(Player, Skill, currentSkillLevel, correctSkillLevel) );
+            }
 
-                        await Context.AddCommand(new PlayerUpdateMagicLevelCommand(Player, currentSkillPoints - SkillPoints, correctSkillLevel, correctSkillPercent) );
+            switch (Skill)
+            {
+                case Skill.MagicLevel:
 
-                        break;
+                    await Context.AddCommand(new PlayerUpdateMagicLevelCommand(Player, currentSkillPoints - SkillPoints, correctSkillLevel, correctSkillPercent) );
 
-                    case Skill.Fist:
+                    break;
+
+                case Skill.Fist:
                                                             
-                        await Context.AddCommand(new PlayerUpdateFistCommand(Player, currentSkillPoints - SkillPoints, correctSkillLevel, correctSkillPercent) );
+                    await Context.AddCommand(new PlayerUpdateFistCommand(Player, currentSkillPoints - SkillPoints, correctSkillLevel, correctSkillPercent) );
 
-                        break;
+                    break;
 
-                    case Skill.Club:
+                case Skill.Club:
 
-                        await Context.AddCommand(new PlayerUpdateClubCommand(Player, currentSkillPoints - SkillPoints, correctSkillLevel, correctSkillPercent) );
+                    await Context.AddCommand(new PlayerUpdateClubCommand(Player, currentSkillPoints - SkillPoints, correctSkillLevel, correctSkillPercent) );
 
-                        break;
+                    break;
 
-                    case Skill.Sword:
+                case Skill.Sword:
 
-                        await Context.AddCommand(new PlayerUpdateSwordCommand(Player, currentSkillPoints - SkillPoints, correctSkillLevel, correctSkillPercent) );
+                    await Context.AddCommand(new PlayerUpdateSwordCommand(Player, currentSkillPoints - SkillPoints, correctSkillLevel, correctSkillPercent) );
 
-                        break;
+                    break;
 
-                    case Skill.Axe:
+                case Skill.Axe:
 
-                        await Context.AddCommand(new PlayerUpdateAxeCommand(Player, currentSkillPoints - SkillPoints, correctSkillLevel, correctSkillPercent) );
+                    await Context.AddCommand(new PlayerUpdateAxeCommand(Player, currentSkillPoints - SkillPoints, correctSkillLevel, correctSkillPercent) );
 
-                        break;
+                    break;
 
-                    case Skill.Distance:
+                case Skill.Distance:
 
-                        await Context.AddCommand(new PlayerUpdateDistanceCommand(Player, currentSkillPoints - SkillPoints, correctSkillLevel, correctSkillPercent) );
+                    await Context.AddCommand(new PlayerUpdateDistanceCommand(Player, currentSkillPoints - SkillPoints, correctSkillLevel, correctSkillPercent) );
 
-                        break;
+                    break;
 
-                    case Skill.Shield:
+                case Skill.Shield:
 
-                        await Context.AddCommand(new PlayerUpdateShieldCommand(Player, currentSkillPoints - SkillPoints, correctSkillLevel, correctSkillPercent) );
+                    await Context.AddCommand(new PlayerUpdateShieldCommand(Player, currentSkillPoints - SkillPoints, correctSkillLevel, correctSkillPercent) );
 
-                        break;
+                    break;
 
-                    case Skill.Fish:
+                case Skill.Fish:
 
-                        await Context.AddCommand(new PlayerUpdateFishCommand(Player, currentSkillPoints - SkillPoints, correctSkillLevel, correctSkillPercent) );
+                    await Context.AddCommand(new PlayerUpdateFishCommand(Player, currentSkillPoints - SkillPoints, correctSkillLevel, correctSkillPercent) );
 
-                        break;
+                    break;
 
-                    default:
+                default:
 
-                        throw new NotImplementedException();
-                }
+                    throw new NotImplementedException();
             }
         }
     }

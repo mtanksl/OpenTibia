@@ -23,68 +23,69 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Execute()
         {
-            if (Experience > 0)
+            ushort currentLevel = Player.Level;
+
+            ulong currentExperience = Player.Experience;
+
+            ushort correctLevel;
+
+            byte correctLevelPercent;
+
+            if (currentExperience > Experience)
             {
-                ushort currentLevel = Player.Level;
+                correctLevel = currentLevel;
 
-                ulong currentExperience = Player.Experience;
+                correctLevelPercent = 0;
 
-                ushort correctLevel;
+                ulong maxExperience = Formula.GetRequiredExperience( (ushort)(correctLevel + 1) );
 
-                byte correctLevelPercent;
-
-                if (currentExperience > Experience)
+                while (true)
                 {
-                    correctLevel = currentLevel;
+                    ulong minExperience = Formula.GetRequiredExperience(correctLevel);
 
-                    correctLevelPercent = 0;
-
-                    ulong maxExperience = Formula.GetRequiredExperience( (ushort)(correctLevel + 1) );
-
-                    while (true)
+                    if (currentExperience - Experience >= minExperience)
                     {
-                        ulong minExperience = Formula.GetRequiredExperience(correctLevel);
+                        correctLevelPercent = (byte)Math.Ceiling(100.0 * (currentExperience - Experience - minExperience) / (maxExperience - minExperience) );
 
-                        if (currentExperience - Experience >= minExperience)
-                        {
-                            correctLevelPercent = (byte)Math.Ceiling(100.0 * (currentExperience - Experience - minExperience) / (maxExperience - minExperience) );
+                        break;
+                    }
+                    else
+                    {
+                        correctLevel--;
 
-                            break;
-                        }
-                        else
-                        {
-                            correctLevel--;
-
-                            maxExperience = minExperience;
-                        }
-                    }                            
-                }
-                else
-                {
-                    correctLevel = 1;
-
-                    correctLevelPercent = 0;
-                }
-
-                if (correctLevel < currentLevel)
-                {
-                    VocationConfig vocationConfig = Context.Current.Server.Vocations.GetVocationById((byte)Player.Vocation);
-
-                    Player.BaseSpeed = Formula.GetBaseSpeed(correctLevel);
-
-                    Player.Capacity = (uint)(Player.Capacity - (correctLevel - currentLevel) * vocationConfig.CapacityPerLevel * 100);
-
-                    Player.Health = Player.MaxHealth = (ushort)(Player.MaxHealth - (correctLevel - currentLevel) * vocationConfig.HealthPerLevel);
-
-                    Player.Mana = Player.MaxMana = (ushort)(Player.MaxMana - (correctLevel - currentLevel) * vocationConfig.ManaPerLevel);
-
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You downgraded from level " + currentLevel + " to level " + correctLevel + ".") );
-                  
-                    Context.AddEvent(new PlayerAdvanceLevelEventArgs(Player, currentLevel, correctLevel) );
-                }
-
-                await Context.AddCommand(new PlayerUpdateExperienceCommand(Player, currentExperience - Experience, correctLevel, correctLevelPercent) );
+                        maxExperience = minExperience;
+                    }
+                }                            
             }
+            else
+            {
+                correctLevel = 1;
+
+                correctLevelPercent = 0;
+            }
+
+            if (correctLevel < currentLevel)
+            {
+                VocationConfig vocationConfig = Context.Current.Server.Vocations.GetVocationById((byte)Player.Vocation);
+
+                Player.BaseSpeed = Formula.GetBaseSpeed(correctLevel);
+
+                Player.Capacity = (uint)(Player.Capacity - (correctLevel - currentLevel) * vocationConfig.CapacityPerLevel * 100);
+
+                Player.MaxHealth = (ushort)(Player.MaxHealth - (correctLevel - currentLevel) * vocationConfig.HealthPerLevel);
+
+                Player.Health = Math.Min(Player.MaxHealth, Player.Health);
+
+                Player.MaxMana = (ushort)(Player.MaxMana - (correctLevel - currentLevel) * vocationConfig.ManaPerLevel);
+
+                Player.Mana = Math.Min(Player.MaxMana, Player.Mana);
+
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You downgraded from level " + currentLevel + " to level " + correctLevel + ".") );
+                  
+                Context.AddEvent(new PlayerAdvanceLevelEventArgs(Player, currentLevel, correctLevel) );
+            }
+
+            await Context.AddCommand(new PlayerUpdateExperienceCommand(Player, currentExperience - Experience, correctLevel, correctLevelPercent) );
         }
     }
 }

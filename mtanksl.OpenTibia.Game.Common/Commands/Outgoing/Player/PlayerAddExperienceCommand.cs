@@ -24,86 +24,83 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Execute()
         {
-            if (Experience > 0)
+            Experience = (ulong)(Experience * Context.Server.Config.GameplayExperienceRate);
+
+            if (Context.Server.Config.GameplayExperienceStages.Enabled)
             {
-                Experience = (ulong)(Experience * Context.Server.Config.GameplayExperienceRate);
-
-                if (Context.Server.Config.GameplayExperienceStages.Enabled)
+                foreach (var level in Context.Server.Config.GameplayExperienceStages.Levels)
                 {
-                    foreach (var level in Context.Server.Config.GameplayExperienceStages.Levels)
+                    if (Player.Level >= level.MinLevel && Player.Level <= level.MaxLevel)
                     {
-                        if (Player.Level >= level.MinLevel && Player.Level <= level.MaxLevel)
-                        {
-                            Experience = (ulong)(Experience * level.Multiplier);
-
-                            break;
-                        }
-                    }
-                }
-
-                if (Experience > Player.Level)
-                {
-                    PlayerRegenerationConditionBehaviour playerRegenerationConditionBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerRegenerationConditionBehaviour>(Player);
-
-                    if (playerRegenerationConditionBehaviour != null)
-                    {
-                        playerRegenerationConditionBehaviour.AddSoulRegeneration();
-                    }
-                }
-
-                ushort currentLevel = Player.Level;
-
-                ulong currentExperience = Player.Experience;
-
-                ushort correctLevel = currentLevel;
-
-                byte correctLevelPercent = 0;
-
-                ulong minExperience = Formula.GetRequiredExperience(correctLevel);
-
-                while (true)
-                {
-                    ulong maxExperience = Formula.GetRequiredExperience( (ushort)(correctLevel + 1) );
-
-                    if (currentExperience + Experience < maxExperience)
-                    {
-                        correctLevelPercent = (byte)Math.Ceiling(100.0 * (currentExperience + Experience - minExperience) / (maxExperience - minExperience) );
+                        Experience = (ulong)(Experience * level.Multiplier);
 
                         break;
                     }
-                    else
-                    {
-                        correctLevel++;
-
-                        minExperience = maxExperience;
-                    }
                 }
-
-                await Context.AddCommand(new ShowAnimatedTextCommand(Player, AnimatedTextColor.White, Experience.ToString() ) );
-
-                if (correctLevel > currentLevel)
-                {
-                    VocationConfig vocationConfig = Context.Current.Server.Vocations.GetVocationById( (byte)Player.Vocation);
-
-                    Player.BaseSpeed = Formula.GetBaseSpeed(correctLevel);
-
-                    Player.Capacity = (uint)(Player.Capacity + (correctLevel - currentLevel) * vocationConfig.CapacityPerLevel * 100);
-
-                    Player.Health = (ushort)(Player.Health + (correctLevel - currentLevel) * vocationConfig.HealthPerLevel);
-
-                    Player.MaxHealth = (ushort)(Player.MaxHealth + (correctLevel - currentLevel) * vocationConfig.HealthPerLevel);
-
-                    Player.Mana = (ushort)(Player.Mana + (correctLevel - currentLevel) * vocationConfig.ManaPerLevel);
-
-                    Player.MaxMana = (ushort)(Player.MaxMana + (correctLevel - currentLevel) * vocationConfig.ManaPerLevel);
-
-                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You advanced from level " + currentLevel + " to level " + correctLevel + ".") );
-                
-                    Context.AddEvent(new PlayerAdvanceLevelEventArgs(Player, currentLevel, correctLevel) );
-                }
-
-                await Context.AddCommand(new PlayerUpdateExperienceCommand(Player, currentExperience + Experience, correctLevel, correctLevelPercent) );
             }
+
+            if (Experience > Player.Level)
+            {
+                PlayerRegenerationConditionBehaviour playerRegenerationConditionBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerRegenerationConditionBehaviour>(Player);
+
+                if (playerRegenerationConditionBehaviour != null)
+                {
+                    playerRegenerationConditionBehaviour.AddSoulRegeneration();
+                }
+            }
+
+            ushort currentLevel = Player.Level;
+
+            ulong currentExperience = Player.Experience;
+
+            ushort correctLevel = currentLevel;
+
+            byte correctLevelPercent = 0;
+
+            ulong minExperience = Formula.GetRequiredExperience(correctLevel);
+
+            while (true)
+            {
+                ulong maxExperience = Formula.GetRequiredExperience( (ushort)(correctLevel + 1) );
+
+                if (currentExperience + Experience < maxExperience)
+                {
+                    correctLevelPercent = (byte)Math.Ceiling(100.0 * (currentExperience + Experience - minExperience) / (maxExperience - minExperience) );
+
+                    break;
+                }
+                else
+                {
+                    correctLevel++;
+
+                    minExperience = maxExperience;
+                }
+            }
+
+            await Context.AddCommand(new ShowAnimatedTextCommand(Player, AnimatedTextColor.White, Experience.ToString() ) );
+
+            if (correctLevel > currentLevel)
+            {
+                VocationConfig vocationConfig = Context.Current.Server.Vocations.GetVocationById( (byte)Player.Vocation);
+
+                Player.BaseSpeed = Formula.GetBaseSpeed(correctLevel);
+
+                Player.Capacity = (uint)(Player.Capacity + (correctLevel - currentLevel) * vocationConfig.CapacityPerLevel * 100);
+
+                Player.MaxHealth = (ushort)(Player.MaxHealth + (correctLevel - currentLevel) * vocationConfig.HealthPerLevel);
+
+                Player.Health = (ushort)(Player.Health + (correctLevel - currentLevel) * vocationConfig.HealthPerLevel);
+
+                Player.MaxMana = (ushort)(Player.MaxMana + (correctLevel - currentLevel) * vocationConfig.ManaPerLevel);
+
+                Player.Mana = (ushort)(Player.Mana + (correctLevel - currentLevel) * vocationConfig.ManaPerLevel);
+
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You advanced from level " + currentLevel + " to level " + correctLevel + ".") );
+                
+                Context.AddEvent(new PlayerAdvanceLevelEventArgs(Player, currentLevel, correctLevel) );
+            }
+
+            await Context.AddCommand(new PlayerUpdateExperienceCommand(Player, currentExperience + Experience, correctLevel, correctLevelPercent) );
         }
     }
 }
