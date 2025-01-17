@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Common
 
             ulong maxExperience = GetRequiredExperience( (ushort)(level + 1) );
 
-            return (byte)Math.Ceiling(100.0 * (experience - minExperience) / (maxExperience - minExperience) );
+            return (byte)Math.Floor(100.0 * (experience - minExperience) / (maxExperience - minExperience) );
         }
 
         public static double GetLossPercent(ushort level, byte levelPercent, ulong experience, Vocation vocation, int blesses)
@@ -83,6 +83,24 @@ namespace OpenTibia.Game.Common
             lossPercent *= Math.Pow(92 / 100.0, blesses); 
 
             return lossPercent;
+        }
+
+        private static double[] containerLosses = new double[] { 100 / 100.0, 70 / 100.0, 45 / 100.0, 25 / 100.0, 10 / 100.0, 0 };
+
+        public static double GetContainerLossPercent(int blesses)
+        {
+            double containerLoss = containerLosses[Math.Min(blesses, containerLosses.Length - 1) ];
+
+            return containerLoss;
+        }
+
+        private static double[] equipmentLosses = new double[] { 10 / 100.0, 7 / 100.0, 4.5 / 100.0, 2.5 / 100.0, 1 / 100.0, 0 };
+       
+        public static double GetEquipmentLossPercent(int blesses)
+        {
+            double equipmentLoss = equipmentLosses[Math.Min(blesses, equipmentLosses.Length - 1) ];
+
+            return equipmentLoss;
         }
 
         private static Dictionary<Skill, ushort> skillConstants = new Dictionary<Skill, ushort>()
@@ -195,7 +213,7 @@ namespace OpenTibia.Game.Common
 
             ulong maxSkillPoints = GetRequiredSkillPoints(skill, player.Vocation, (byte)(skillLevel + 1) );
 
-            return (byte)Math.Ceiling(100.0 * (skillPoints - minSkillPoints) / (maxSkillPoints - minSkillPoints) );
+            return (byte)Math.Floor(100.0 * (skillPoints - minSkillPoints) / (maxSkillPoints - minSkillPoints) );
         }
 
         public static ushort GetBaseSpeed(ushort level)

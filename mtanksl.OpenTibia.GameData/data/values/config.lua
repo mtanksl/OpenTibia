@@ -280,6 +280,7 @@
 		},
 		activeBlade = 1511,
 		activeSpike = 1513,
+		amuletOfLoss = 2173,
 		bakingTray = 2561,
 		bakingTrays = { 2561 },
 		bakingTrayWithDough = 8848,
@@ -403,6 +404,8 @@
             9574, 9846 -- Corkscrew
 		},
 		holyWaters = { 7494 },
+		humanMaleCorpse = 6080,
+		humanFemaleCorpse = 6081,
 		juiceSqueezers = { 5865, 10513 },
 		keys = {
 			2086, -- Magical key

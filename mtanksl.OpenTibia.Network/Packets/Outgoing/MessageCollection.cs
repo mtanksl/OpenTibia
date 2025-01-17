@@ -7,51 +7,46 @@ namespace OpenTibia.Network.Packets.Outgoing
     {
         private const int MaxPacketSize = 8192;
 
-        private const int MaxMessageSize = 15000;
+        private const int MaxMessageSize = 15000; //TODO: What is the max message size?
 
-        private static readonly object sync = new object();
+        private static byte[] buffer;
 
-        private static byte[] tempArray;
+        private static ByteArrayArrayStream bufferStream;
 
-        private static ByteArrayArrayStream tempStream;
-
-        private static ByteArrayStreamWriter tempWriter;
+        private static ByteArrayStreamWriter bufferWriter;
 
         static MessageCollection()
         {
-            tempArray = new byte[MaxPacketSize];
+            buffer = new byte[MaxPacketSize];
 
-            tempStream = new ByteArrayArrayStream(tempArray);
+            bufferStream = new ByteArrayArrayStream(buffer);
 
-            tempWriter = new ByteArrayStreamWriter(tempStream);
+            bufferWriter = new ByteArrayStreamWriter(bufferStream);
         }
 
         private LinkedList<Message> messages;
 
-        private Message current = new Message();
+        private Message message = new Message();
 
         public void Add(IOutgoingPacket packet)
         {
-            lock (sync)
+            bufferStream.Seek(Origin.Begin, 0);
+
+            packet.Write(bufferWriter);
+
+            if (message.Position + bufferStream.Position > MaxMessageSize)
             {
-                tempStream.Seek(Origin.Begin, 0);
-
-                packet.Write(tempWriter);
-
-                if (current.Position + tempStream.Position > MaxMessageSize)
+                if (messages == null)
                 {
-                    if (messages == null)
-                    {
-                        messages = new LinkedList<Message>();
-                    }
-
-                    messages.AddLast(current);
-
-                    current = new Message();
+                    messages = new LinkedList<Message>();
                 }
 
-                current.Write(tempArray, 0, tempStream.Position);
+                messages.AddLast(message);
+
+                message = new Message();
             }
+
+            message.Write(buffer, 0, bufferStream.Position);
         }
 
         public IEnumerable<Message> GetMessages()
@@ -64,7 +59,7 @@ namespace OpenTibia.Network.Packets.Outgoing
                 }
             }
 
-            yield return current;
+            yield return message;
         }
     }
 }
