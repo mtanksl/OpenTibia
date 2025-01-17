@@ -146,6 +146,13 @@ return {
 		args = "(onadvanceskill)",
 		returns = "void"
 	},
+	-- void registercreaturescriptscreaturedeath(ondeath)
+	registercreaturescriptscreaturedeath = {
+		type = "function",
+		description = "",
+		args = "(ondeath)",
+		returns = "void"
+	},
 	-- void registerglobaleventsserverstartup(onstartup)
 	registerglobaleventsserverstartup = {
 		type = "function",

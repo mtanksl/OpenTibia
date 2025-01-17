@@ -259,6 +259,12 @@ namespace OpenTibia.Game.Common.ServerObjects
                                 pluginCollection.AddPlayerAdvanceSkillPlugin(script, initialization.Parameters);
                             }
                             break;
+
+                            case "CreatureDeath":
+                            {
+                                pluginCollection.AddCreatureDeathPlugin(script, initialization.Parameters);
+                            }
+                            break;
                         }
                     }                    
                     else if (initialization.Type == "globalevents")
@@ -605,6 +611,12 @@ namespace OpenTibia.Game.Common.ServerObjects
                     case "PlayerAdvanceSkill":
                     {
                         AddPlayerAdvanceSkillPlugin(fileName);
+                    }
+                    break;
+
+                    case "CreatureDeath":
+                    {
+                        AddCreatureDeathPlugin(fileName);
                     }
                     break;
                 }
@@ -1260,6 +1272,35 @@ namespace OpenTibia.Game.Common.ServerObjects
             return playerAdvanceSkillPlugins.GetPlugins();
         }
 
+        private PluginListCached<CreatureDeathPlugin> creatureDeathPlugins = new PluginListCached<CreatureDeathPlugin>();
+
+        private void AddCreatureDeathPlugin(CreatureDeathPlugin creatureDeathPlugin)
+        {
+            creatureDeathPlugins.AddPlugin(creatureDeathPlugin);
+        }
+
+        public void AddCreatureDeathPlugin(string fileName)
+        {
+            if (fileName.EndsWith(".lua") )
+            {
+                AddCreatureDeathPlugin(new LuaScriptingCreatureDeathPlugin(fileName) );
+            }
+            else
+            {
+                AddCreatureDeathPlugin( (CreatureDeathPlugin)Activator.CreateInstance(server.PluginLoader.GetType(fileName) ) );
+            }
+        }
+
+        public void AddCreatureDeathPlugin(ILuaScope script, LuaTable parameters)
+        {
+            AddCreatureDeathPlugin(new LuaScriptingCreatureDeathPlugin(script, parameters) );
+        }
+
+        public IEnumerable<CreatureDeathPlugin> GetCreatureDeathPlugins()
+        {
+            return creatureDeathPlugins.GetPlugins();
+        }
+
         private PluginListCached<ServerStartupPlugin> serverStartupPlugins = new PluginListCached<ServerStartupPlugin>();
 
         private void AddServerStartupPlugin(ServerStartupPlugin serverStartupPlugin)
@@ -1677,6 +1718,8 @@ namespace OpenTibia.Game.Common.ServerObjects
                 playerAdvanceLevelPlugins.GetPlugins(),
 
                 playerAdvanceSkillPlugins.GetPlugins(),
+
+                creatureDeathPlugins.GetPlugins(),
 
                 serverStartupPlugins.GetPlugins(),
 

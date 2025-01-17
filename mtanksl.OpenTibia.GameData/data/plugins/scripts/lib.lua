@@ -118,6 +118,13 @@ function registercreaturescriptsplayeradvanceskill(onadvanceskill)
     } )
 end
 
+function registercreaturescriptscreaturedeath(ondeath)
+    registerplugin("creaturescripts", {
+	    type = "CreatureDeath",
+	    ondeath = ondeath
+    } )
+end
+
 function registerglobaleventsserverstartup(onstartup)
     registerplugin("globalevents", {
 	    type = "ServerStartup",

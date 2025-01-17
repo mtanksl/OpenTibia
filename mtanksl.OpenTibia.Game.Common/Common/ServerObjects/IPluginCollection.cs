@@ -71,6 +71,10 @@ namespace OpenTibia.Game.Common.ServerObjects
         void AddPlayerAdvanceSkillPlugin(ILuaScope script, LuaTable parameters);
         IEnumerable<PlayerAdvanceSkillPlugin> GetPlayerAdvanceSkillPlugins();
 
+        void AddCreatureDeathPlugin(string fileName);
+        void AddCreatureDeathPlugin(ILuaScope script, LuaTable parameters);
+        IEnumerable<CreatureDeathPlugin> GetCreatureDeathPlugins();
+
         void AddServerStartupPlugin(ILuaScope script, LuaTable parameters);
         void AddServerStartupPlugin(string fileName);
         IEnumerable<ServerStartupPlugin> GetServerStartupPlugins();

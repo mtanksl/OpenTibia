@@ -17,6 +17,7 @@
     <None Include="$(MSBuildThisFileDirectory)data\openTibiaFunctionsReference.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\creaturescripts\advanceskill.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\creaturescripts\advancelevel.lua" />
+    <None Include="$(MSBuildThisFileDirectory)data\plugins\creaturescripts\death.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\globalevents\lib.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\globalevents\record.lua" />
     <None Include="$(MSBuildThisFileDirectory)data\plugins\globalevents\save.lua" />

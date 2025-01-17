@@ -19,6 +19,7 @@
 	creaturescripts = {
 		-- { type = "PlayerAdvanceLevel", filename = "advancelevel.lua" },
 		-- { type = "PlayerAdvanceSkill", filename = "advanceskill.lua" },
+		-- { type = "CreatureDeath", filename = "death.lua" },
 		{ type = "PlayerLogin", filename = "login.lua" },
 		{ type = "PlayerLogout", filename = "logout.lua" }
 	},

@@ -41,11 +41,11 @@ namespace OpenTibia.Game.Plugins
         {
             if (fileName != null)
             {
-                return script.CallFunction("onAdvanceLevel", player, fromLevel, toLevel);
+                return script.CallFunction("onadvancelevel", player, fromLevel, toLevel);
             }
             else
             {
-                return script.CallFunction( (LuaFunction)parameters["onAdvanceLevel"], player, fromLevel, toLevel);
+                return script.CallFunction( (LuaFunction)parameters["onadvancelevel"], player, fromLevel, toLevel);
             }           
         }
 

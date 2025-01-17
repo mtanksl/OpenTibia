@@ -1,12 +1,11 @@
 ﻿using NLua;
 using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
 
 namespace OpenTibia.Game.Plugins
 {
-    public class LuaScriptingPlayerAdvanceSkillPlugin : PlayerAdvanceSkillPlugin
+    public class LuaScriptingCreatureDeathPlugin : CreatureDeathPlugin
     {
         private string fileName;
 
@@ -14,12 +13,12 @@ namespace OpenTibia.Game.Plugins
 
         private LuaTable parameters;
 
-        public LuaScriptingPlayerAdvanceSkillPlugin(string fileName)
+        public LuaScriptingCreatureDeathPlugin(string fileName)
         {
             this.fileName = fileName;
         }
 
-        public LuaScriptingPlayerAdvanceSkillPlugin(ILuaScope script, LuaTable parameters)
+        public LuaScriptingCreatureDeathPlugin(ILuaScope script, LuaTable parameters)
         {
             this.script = script;
 
@@ -38,15 +37,15 @@ namespace OpenTibia.Game.Plugins
             }
         }
 
-        public override Promise OnAdvanceSkill(Player player, Skill skill, byte fromLevel, byte toLevel)
+        public override Promise OnDeath(Creature creature, Tile fromTile)
         {
             if (fileName != null)
             {
-                return script.CallFunction("onadvanceskill", player, skill, fromLevel, toLevel);
+                return script.CallFunction("ondeath", creature, fromTile);
             }
             else
             {
-                return script.CallFunction( (LuaFunction)parameters["onadvanceskill"], player, skill, fromLevel, toLevel);
+                return script.CallFunction( (LuaFunction)parameters["ondeath"], creature, fromTile);
             }           
         }
 
