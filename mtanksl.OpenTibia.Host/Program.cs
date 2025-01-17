@@ -1,4 +1,5 @@
-﻿using OpenTibia.Common.Structures;
+﻿using Microsoft.EntityFrameworkCore;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Network.Packets.Outgoing;
@@ -26,8 +27,7 @@ namespace mtanksl.OpenTibia.Host
             ILogger logger = new Logger(new ConsoleLoggerProvider(), LogLevel.Information);
 #endif
 
-            logger.WriteLine("Available commands: help, clear, reload-plugins, broadcast, maintenance, kick, save, clean, stop, stats.");
-
+            logger.WriteLine("Available commands: help, clear, reload-plugins, broadcast, maintenance, kick, save, clean, stop, stats, about.");
             logger.WriteLine();
 
             try
@@ -48,15 +48,17 @@ namespace mtanksl.OpenTibia.Host
                         {
                             case "help":
 
-                                server.Logger.WriteLine("clear \t\t Clear the console screen. Alternative commands: cls.");
-                                server.Logger.WriteLine("reload-plugins \t Reload plugins.");
-                                server.Logger.WriteLine("broadcast \t Broadcast message to all the players.");
-                                server.Logger.WriteLine("maintenance \t Start or stop the server maintenance.");
-                                server.Logger.WriteLine("kick \t\t Kick all the players.");
-                                server.Logger.WriteLine("save \t\t Save the server.");
-                                server.Logger.WriteLine("clean \t\t Clean the server.");
-                                server.Logger.WriteLine("stop \t\t Stop the server. Alternative commands: exit.");
-                                server.Logger.WriteLine("stats \t\t Display server statistics.");
+                                logger.WriteLine("clear \t\t Clear the console screen. Alternative commands: cls.");
+                                logger.WriteLine("reload-plugins \t Reload plugins.");
+                                logger.WriteLine("broadcast \t Broadcast message to all the players.");
+                                logger.WriteLine("maintenance \t Start or stop the server maintenance.");
+                                logger.WriteLine("kick \t\t Kick all the players.");
+                                logger.WriteLine("save \t\t Save the server.");
+                                logger.WriteLine("clean \t\t Clean the server.");
+                                logger.WriteLine("stop \t\t Stop the server. Alternative commands: exit.");
+                                logger.WriteLine("stats \t\t Display server statistics.");
+                                logger.WriteLine("about \t\t Display license.");
+                                logger.WriteLine();
 
                                 break;
 
@@ -138,14 +140,36 @@ namespace mtanksl.OpenTibia.Host
                                                                 
                             case "stats":
 
-                                server.Logger.WriteLine("Uptime: " + server.Statistics.Uptime.Days + " days " + server.Statistics.Uptime.Hours + " hours " + server.Statistics.Uptime.Minutes + " minutes", LogLevel.Information);
-                                server.Logger.WriteLine("Players peek: " + server.Statistics.PlayersPeek, LogLevel.Information);
-                                server.Logger.WriteLine("Active connections: " + server.Statistics.ActiveConnections, LogLevel.Information);
-                                server.Logger.WriteLine("Total messages sent: " + server.Statistics.TotalMessagesSent, LogLevel.Information);
-                                server.Logger.WriteLine("Total bytes sent: " + server.Statistics.TotalBytesSent + " bytes (" + ConvertBytesToHumanReadable(server.Statistics.TotalBytesSent) + ")", LogLevel.Information);
-                                server.Logger.WriteLine("Total messages received: " + server.Statistics.TotalMessagesReceived, LogLevel.Information);
-                                server.Logger.WriteLine("Total bytes received: " + server.Statistics.TotalBytesReceived + " bytes (" + ConvertBytesToHumanReadable(server.Statistics.TotalBytesReceived) + ")", LogLevel.Information);
-                                server.Logger.WriteLine("Average processing time: " + server.Statistics.AverageProcessingTime.ToString("N3") + " milliseconds (" + (1000 / server.Statistics.AverageProcessingTime).ToString("N0") + " FPS)", LogLevel.Information);
+                                logger.WriteLine("Uptime: " + server.Statistics.Uptime.Days + " days " + server.Statistics.Uptime.Hours + " hours " + server.Statistics.Uptime.Minutes + " minutes", LogLevel.Information);
+                                logger.WriteLine("Players peek: " + server.Statistics.PlayersPeek, LogLevel.Information);
+                                logger.WriteLine("Active connections: " + server.Statistics.ActiveConnections, LogLevel.Information);
+                                logger.WriteLine("Total messages sent: " + server.Statistics.TotalMessagesSent, LogLevel.Information);
+                                logger.WriteLine("Total bytes sent: " + server.Statistics.TotalBytesSent + " bytes (" + ConvertBytesToHumanReadable(server.Statistics.TotalBytesSent) + ")", LogLevel.Information);
+                                logger.WriteLine("Total messages received: " + server.Statistics.TotalMessagesReceived, LogLevel.Information);
+                                logger.WriteLine("Total bytes received: " + server.Statistics.TotalBytesReceived + " bytes (" + ConvertBytesToHumanReadable(server.Statistics.TotalBytesReceived) + ")", LogLevel.Information);
+                                logger.WriteLine("Average processing time: " + server.Statistics.AverageProcessingTime.ToString("N3") + " milliseconds (" + (1000 / server.Statistics.AverageProcessingTime).ToString("N0") + " FPS)", LogLevel.Information);
+                                logger.WriteLine();
+
+                                break;
+
+                            case "about":
+
+                                logger.WriteLine("MTOTS - An open Tibia server developed by mtanksl");
+                                logger.WriteLine("Copyright (C) 2024 mtanksl");
+                                logger.WriteLine();
+                                logger.WriteLine("This program is free software: you can redistribute it and/or modify");
+                                logger.WriteLine("it under the terms of the GNU General Public License as published by");
+                                logger.WriteLine("the Free Software Foundation, either version 3 of the License, or");
+                                logger.WriteLine("(at your option) any later version.");
+                                logger.WriteLine();
+                                logger.WriteLine("This program is distributed in the hope that it will be useful,");
+                                logger.WriteLine("but WITHOUT ANY WARRANTY; without even the implied warranty of");
+                                logger.WriteLine("MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the");
+                                logger.WriteLine("GNU General Public License for more details.");
+                                logger.WriteLine();
+                                logger.WriteLine("You should have received a copy of the GNU General Public License");
+                                logger.WriteLine("along with this program. If not, see <https://www.gnu.org/licenses/>.");
+                                logger.WriteLine();
 
                                 break;
                         }

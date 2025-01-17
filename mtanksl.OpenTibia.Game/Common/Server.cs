@@ -274,9 +274,10 @@ namespace OpenTibia.Game.Common
             QueueForExecution(async () =>
             {
                 Logger.WriteLine(ServerName + " " + ServerVersion + " - An open Tibia server developed by mtanksl");
-
+                Logger.WriteLine("Copyright (C) 2024 mtanksl");
+                Logger.WriteLine("This program comes with ABSOLUTELY NO WARRANTY");
+                Logger.WriteLine("This is free software, and you are welcome to redistribute it under certain conditions");
                 Logger.WriteLine("Source code: https://github.com/mtanksl/OpenTibia");
-
                 Logger.WriteLine();
                             
                 using (Logger.Measure("Loading lua") )

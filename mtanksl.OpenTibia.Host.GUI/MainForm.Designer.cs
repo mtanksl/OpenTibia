@@ -42,6 +42,7 @@
             maintenanceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             kickAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            cleanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             statisticsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             onlinePlayersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -49,14 +50,15 @@
             richTextBox1 = new System.Windows.Forms.RichTextBox();
             contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(components);
             clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            cleanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { serverToolStripMenuItem, commandToolStripMenuItem, windowToolStripMenuItem });
+            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { serverToolStripMenuItem, commandToolStripMenuItem, windowToolStripMenuItem, helpToolStripMenuItem });
             menuStrip1.Location = new System.Drawing.Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new System.Drawing.Size(584, 24);
@@ -122,7 +124,7 @@
             // 
             broadcastMessageToolStripMenuItem.Enabled = false;
             broadcastMessageToolStripMenuItem.Name = "broadcastMessageToolStripMenuItem";
-            broadcastMessageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            broadcastMessageToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             broadcastMessageToolStripMenuItem.Text = "Broadcast Message";
             broadcastMessageToolStripMenuItem.Click += broadcastMessageToolStripMenuItem_Click;
             // 
@@ -130,7 +132,7 @@
             // 
             maintenanceToolStripMenuItem.Enabled = false;
             maintenanceToolStripMenuItem.Name = "maintenanceToolStripMenuItem";
-            maintenanceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            maintenanceToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             maintenanceToolStripMenuItem.Text = "Maintenance";
             maintenanceToolStripMenuItem.Click += maintenanceToolStripMenuItem_Click;
             // 
@@ -138,7 +140,7 @@
             // 
             kickAllToolStripMenuItem.Enabled = false;
             kickAllToolStripMenuItem.Name = "kickAllToolStripMenuItem";
-            kickAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            kickAllToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             kickAllToolStripMenuItem.Text = "Kick all";
             kickAllToolStripMenuItem.Click += kickAllToolStripMenuItem_Click;
             // 
@@ -146,9 +148,17 @@
             // 
             saveToolStripMenuItem.Enabled = false;
             saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            saveToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
             saveToolStripMenuItem.Text = "Save";
             saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
+            // 
+            // cleanToolStripMenuItem
+            // 
+            cleanToolStripMenuItem.Enabled = false;
+            cleanToolStripMenuItem.Name = "cleanToolStripMenuItem";
+            cleanToolStripMenuItem.Size = new System.Drawing.Size(175, 22);
+            cleanToolStripMenuItem.Text = "Clean";
+            cleanToolStripMenuItem.Click += cleanToolStripMenuItem_Click;
             // 
             // windowToolStripMenuItem
             // 
@@ -204,13 +214,19 @@
             clearToolStripMenuItem.Text = "Clear";
             clearToolStripMenuItem.Click += clearToolStripMenuItem_Click;
             // 
-            // cleanToolStripMenuItem
+            // helpToolStripMenuItem
             // 
-            cleanToolStripMenuItem.Enabled = false;
-            cleanToolStripMenuItem.Name = "cleanToolStripMenuItem";
-            cleanToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            cleanToolStripMenuItem.Text = "Clean";
-            cleanToolStripMenuItem.Click += cleanToolStripMenuItem_Click;
+            helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] { aboutToolStripMenuItem });
+            helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            helpToolStripMenuItem.Text = "Help";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            aboutToolStripMenuItem.Text = "About";
+            aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
             // 
             // MainForm
             // 
@@ -256,5 +272,7 @@
         private System.Windows.Forms.ToolStripMenuItem onlinePlayersToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem broadcastMessageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cleanToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     }
 }

@@ -482,5 +482,25 @@ namespace mtanksl.OpenTibia.Host.GUI
                 onlinePlayersForm.Close();
             }
         }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            logger.WriteLine("MTOTS - An open Tibia server developed by mtanksl");
+            logger.WriteLine("Copyright (C) 2024 mtanksl");
+            logger.WriteLine();
+            logger.WriteLine("This program is free software: you can redistribute it and/or modify");
+            logger.WriteLine("it under the terms of the GNU General Public License as published by");
+            logger.WriteLine("the Free Software Foundation, either version 3 of the License, or");
+            logger.WriteLine("(at your option) any later version.");
+            logger.WriteLine();
+            logger.WriteLine("This program is distributed in the hope that it will be useful,");
+            logger.WriteLine("but WITHOUT ANY WARRANTY; without even the implied warranty of");
+            logger.WriteLine("MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the");
+            logger.WriteLine("GNU General Public License for more details.");
+            logger.WriteLine();
+            logger.WriteLine("You should have received a copy of the GNU General Public License");
+            logger.WriteLine("along with this program. If not, see <https://www.gnu.org/licenses/>.");
+            logger.WriteLine();
+        }
     }
 }
