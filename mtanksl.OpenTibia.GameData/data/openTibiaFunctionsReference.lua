@@ -579,8 +579,22 @@ return {
 				args = "(Player player, ulong experience)",
 				returns = "void"
 			},
+			-- void command.playeraremoveexperience(Player player, ulong experience)
+			playeraremoveexperience = {
+				type = "function",
+				description = "",
+				args = "(Player player, ulong experience)",
+				returns = "void"
+			},
 			-- void command.playeraddskillpoints(Player player, Skill skill, ulong skillPoints)
 			playeraddskillpoints = {
+				type = "function",
+				description = "",
+				args = "(Player player, Skill skill, ulong skillPoints)",
+				returns = "void"
+			},
+			-- void command.playeraremovekillpoints(Player player, Skill skill, ulong skillPoints)
+			playeraremovekillpoints = {
 				type = "function",
 				description = "",
 				args = "(Player player, Skill skill, ulong skillPoints)",

@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Structures;
-using System;
 
 namespace OpenTibia.Common.Objects
 {
@@ -132,86 +131,5 @@ namespace OpenTibia.Common.Objects
         public bool Premium { get; set; }
 
         public ulong BankAccount { get; set; }
-
-        private void Calculate(ushort level)
-        {
-            Level = level;
-
-            BaseSpeed = Speed = (ushort)( 2 * level + 218 );
-
-            Experience = (ulong)( ( 50 * Math.Pow(level - 1, 3) - 150 * Math.Pow(level - 1, 2) + 400 * (level - 1) ) / 3 );
-        }
-
-        /// <exception cref="InvalidOperationException"></exception>
-
-        public void CalculateRook(ushort level)
-        {
-            if (level < 1 || level > 507)
-            {
-                throw new InvalidOperationException();
-            }
-
-            Calculate(level);
-
-            MaxHealth = Health = (ushort)( 5 * level + 145 );
-
-            MaxMana = Mana = (ushort)( 5 * level + 50 );
-
-            Capacity = (uint)( 10 * level + 390 ) * 100;
-        }
-
-        /// <exception cref="InvalidOperationException"></exception>
-
-        public void CalculateKnight(ushort level)
-        {
-            if (level < 8 || level > 507)
-            {
-                throw new InvalidOperationException();
-            }
-
-            Calculate(level);
-
-            MaxHealth = Health = (ushort)( 15 * level + 65 );
-
-            MaxMana = Mana = (ushort)( 5 * level + 50 );
-
-            Capacity = (uint)( 25 * level + 270 ) * 100;
-        }
-
-        /// <exception cref="InvalidOperationException"></exception>
-
-        public void CalculatePaladin(ushort level)
-        {
-            if (level < 8 || level > 507)
-            {
-                throw new InvalidOperationException();
-            }
-
-            Calculate(level);
-
-            MaxHealth = Health = (ushort)( 10 * level + 105 );
-
-            MaxMana = Mana = (ushort)( 15 * level - 30 );
-
-            Capacity = (uint)( 20 * level + 310 ) * 100;
-        }
-
-        /// <exception cref="InvalidOperationException"></exception>
-
-        public void CalculateSorcererAndDruid(ushort level)
-        {
-            if (level < 8 || level > 507)
-            {
-                throw new InvalidOperationException();
-            }
-
-            Calculate(level);
-
-            MaxHealth = Health = (ushort)( 5 * level + 145 );
-
-            MaxMana = Mana = (ushort)( 30 * level - 150 );
-
-            Capacity = (uint)( 10 * level + 390 ) * 100;            
-        }
     }
 }

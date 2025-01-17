@@ -553,9 +553,25 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
+            lua.RegisterCoFunction("playerremoveexperience", (luaScope, parameters) =>
+            {
+                return Context.Current.AddCommand(new PlayerRemoveExperienceCommand( (Player)parameters[0], (ulong)parameters[1] ) ).Then( () =>
+                {
+                    return Promise.FromResultAsEmptyObjectArray;
+                } );
+            } );
+
             lua.RegisterCoFunction("playeraddskillpoints", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerAddSkillPointsCommand( (Player)parameters[0], (Skill)(int)parameters[1], (ulong)parameters[2] ) ).Then( () =>
+                {
+                    return Promise.FromResultAsEmptyObjectArray;
+                } );
+            } );
+
+            lua.RegisterCoFunction("playerremoveskillpoints", (luaScope, parameters) =>
+            {
+                return Context.Current.AddCommand(new PlayerRemoveSkillPointsCommand( (Player)parameters[0], (Skill)(int)parameters[1], (ulong)parameters[2] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );

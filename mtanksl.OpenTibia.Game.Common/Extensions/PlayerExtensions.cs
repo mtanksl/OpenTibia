@@ -136,6 +136,20 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
+        public static Promise RemoveExperience(this Player player, ulong experience)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new PlayerRemoveExperienceCommand(player, experience) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
         public static Promise AddSkillPoints(this Player player, Skill skill, ulong skillPoints)
         {
             Context context = Context.Current;
@@ -146,6 +160,20 @@ namespace OpenTibia.Game.Extensions
             }
 
             return context.AddCommand(new PlayerAddSkillPointsCommand(player, skill, skillPoints) );
+        }
+
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public static Promise RemoveSkillPoints(this Player player, Skill skill, ulong skillPoints)
+        {
+            Context context = Context.Current;
+
+            if (context == null)
+            {
+                throw new InvalidOperationException("Context not found.");
+            }
+
+            return context.AddCommand(new PlayerRemoveSkillPointsCommand(player, skill, skillPoints) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>

@@ -85,6 +85,8 @@ namespace OpenTibia.Game.Commands
                 {
                     VocationConfig vocationConfig = Context.Current.Server.Vocations.GetVocationById( (byte)Player.Vocation);
 
+                    Player.BaseSpeed = Formula.GetBaseSpeed(correctLevel);
+
                     Player.Capacity = (uint)(Player.Capacity + (correctLevel - currentLevel) * vocationConfig.CapacityPerLevel * 100);
 
                     Player.Health = (ushort)(Player.Health + (correctLevel - currentLevel) * vocationConfig.HealthPerLevel);
