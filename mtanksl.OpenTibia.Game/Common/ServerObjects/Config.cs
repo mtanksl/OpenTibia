@@ -187,16 +187,18 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 var dns = Dns.GetHostEntry(LoginAccountManagerIpAddress);
 
-                if (dns.AddressList.Length == 0)
+                var ipv4 = dns.AddressList.Where(a => a.AddressFamily == AddressFamily.InterNetwork).FirstOrDefault();
+
+                if (ipv4 == null)
                 {
-                    throw new NotImplementedException("File config.lua parameter server.login.accountmanager.ipaddress could not be resolved.");
+                    throw new NotImplementedException("File config.lua parameter server.login.accountmanager.ipaddress could not be resolved to IPV4.");
                 }
 
-                LoginAccountManagerIpAddress = dns.AddressList[0].ToString();
+                LoginAccountManagerIpAddress = ipv4.ToString();
             }
             catch (SocketException)
             {
-                throw new NotImplementedException("File config.lua parameter server.login.accountmanager.ipaddress could not be resolved.");
+                throw new NotImplementedException("File config.lua parameter server.login.accountmanager.ipaddress could not be resolved to IPV4.");
             }
 
             LoginAccountManagerPort = LuaScope.GetInt32(script["server.login.accountmanager.port"], 7172);
@@ -215,12 +217,14 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     var dns = Dns.GetHostEntry(ipAddress);
 
-                    if (dns.AddressList.Length == 0)
+                    var ipv4 = dns.AddressList.Where(a => a.AddressFamily == AddressFamily.InterNetwork).FirstOrDefault();
+
+                    if (ipv4 == null)
                     {
                         throw new NotImplementedException("File config.lua parameter server.login.words[\"" + key + "\"].ipaddress could not be resolved.");
                     }
 
-                    ipAddress = dns.AddressList[0].ToString();
+                    ipAddress = ipv4.ToString();
                 }
                 catch (SocketException)
                 {
