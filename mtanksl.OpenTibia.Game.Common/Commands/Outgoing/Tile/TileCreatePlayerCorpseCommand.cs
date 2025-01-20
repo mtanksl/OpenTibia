@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,7 +12,7 @@ namespace OpenTibia.Game.Commands
         private readonly ushort humanMaleCorpse;
         private readonly ushort humanFemaleCorpse;
 
-        public TileCreatePlayerCorpseCommand(Tile tile, Player player, int blesses)
+        public TileCreatePlayerCorpseCommand(Tile tile, Player player, bool dropAll, int blesses)
         {
             amuletOfLoss = Context.Server.Values.GetUInt16("values.items.amuletOfLoss");
             humanMaleCorpse = Context.Server.Values.GetUInt16("values.items.humanMaleCorpse");
@@ -23,12 +22,16 @@ namespace OpenTibia.Game.Commands
 
             Player = player;
 
+            DropAll = dropAll;
+
             Blesses = blesses;
         }
 
         public Tile Tile { get; set; }
 
         public Player Player { get; set; }
+
+        public bool DropAll { get; set; }
 
         public int Blesses { get; set; }
 
@@ -38,46 +41,63 @@ namespace OpenTibia.Game.Commands
             {
                 if (corpse is Container container)
                 {
-                    Item amulet = (Item)Player.Inventory.GetContent( (byte)Slot.Amulet);
+                    List<Promise> promises = new List<Promise>();
 
-                    if (amulet == null || amulet.Metadata.OpenTibiaId != amuletOfLoss)
+                    if (DropAll)
                     {
-                        double containerLoss = Formula.GetContainerLossPercent(Blesses);
+                        Item amulet = (Item)Player.Inventory.GetContent( (byte)Slot.Amulet);
 
-                        double equipmentLoss = Formula.GetEquipmentLossPercent(Blesses);
-
-                        List<Promise> promises = new List<Promise>();
+                        if (amulet != null && amulet.Metadata.OpenTibiaId == amuletOfLoss)
+                        {
+                            promises.Add(Context.AddCommand(new ItemDestroyCommand(amulet) ) );
+                        }
 
                         foreach (var item in Player.Inventory.GetItems().ToArray() )
                         {
-                            if (item is Container)
+                            if (item != amulet)
                             {
-                                if (Context.Server.Randomization.HasProbability(containerLoss) )
-                                {
-                                    promises.Add(Context.AddCommand(new ItemMoveCommand(item, container, 0) ) );
-                                }
-                            }
-                            else
-                            {
-                                if (Context.Server.Randomization.HasProbability(equipmentLoss) )
-                                {
-                                    promises.Add(Context.AddCommand(new ItemMoveCommand(item, container, 0) ) );
-                                }
+                                promises.Add(Context.AddCommand(new ItemMoveCommand(item, container, 0) ) );
                             }
                         }
-
-                        return Promise.WhenAll(promises.ToArray() ).Then( () =>
-                        {
-                            return Promise.FromResult(corpse);
-                        } );
                     }
                     else
                     {
-                        return Context.AddCommand(new ItemDestroyCommand(amulet) ).Then( () =>
+                        Item amulet = (Item)Player.Inventory.GetContent( (byte)Slot.Amulet);
+
+                        if (amulet != null && amulet.Metadata.OpenTibiaId == amuletOfLoss)
                         {
-                            return Promise.FromResult(corpse);
-                        } );
+                            promises.Add(Context.AddCommand(new ItemDestroyCommand(amulet) ) );
+                        }
+                        else
+                        {
+                            double containerLoss = Formula.GetContainerLossPercent(Blesses);
+
+                            double equipmentLoss = Formula.GetEquipmentLossPercent(Blesses);
+
+                            foreach (var item in Player.Inventory.GetItems().ToArray() )
+                            {
+                                if (item is Container)
+                                {
+                                    if (Context.Server.Randomization.HasProbability(containerLoss) )
+                                    {
+                                        promises.Add(Context.AddCommand(new ItemMoveCommand(item, container, 0) ) );
+                                    }
+                                }
+                                else
+                                {
+                                    if (Context.Server.Randomization.HasProbability(equipmentLoss) )
+                                    {
+                                        promises.Add(Context.AddCommand(new ItemMoveCommand(item, container, 0) ) );
+                                    }
+                                }
+                            }
+                        }
                     }
+
+                    return Promise.WhenAll(promises.ToArray() ).Then( () =>
+                    {
+                        return Promise.FromResult(corpse);
+                    } );
                 }
 
                 return Promise.FromResult(corpse);

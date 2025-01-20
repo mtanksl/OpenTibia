@@ -84,6 +84,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         public double GameplayMagicLevelRate { get; set; }
         public double GameplaySkillRate { get; set; }
         public ExperienceStagesConfig GameplayExperienceStages { get; set; }
+        public RookingConfig GameplayRooking { get; set; }
 
         public int SecurityMaxConnectionsWithSameIpAddress { get; set; }
         public int SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds { get; set; }
@@ -316,7 +317,20 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                 } ).ToArray()
             };
-                
+
+            LuaTable rooking = (LuaTable)script["server.game.gameplay.rooking"];
+                      
+            LuaTable rookingPlayerNewPosition = (LuaTable)rooking["playernewposition"];
+
+            GameplayRooking = new RookingConfig()
+            {
+                Enabled = LuaScope.GetBoolean(rooking["enabled"] ),
+
+                ExperienceThreshold = LuaScope.GetUInt64(rooking["experiencethreshold"], 1500),
+
+                PlayerNewPosition = new Position(LuaScope.GetInt32(rookingPlayerNewPosition["x"] ), LuaScope.GetInt32(rookingPlayerNewPosition["y"] ), LuaScope.GetInt32(rookingPlayerNewPosition["z"] ) )
+            };
+
             SecurityMaxConnectionsWithSameIpAddress = LuaScope.GetInt32(script["server.security.maxconnectionswithsameipaddress"], 2);       
             
             SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds = LuaScope.GetInt32(script["server.security.connectionswithsameipaddressabusebanmilliseconds"], 15 * 60 * 1000);

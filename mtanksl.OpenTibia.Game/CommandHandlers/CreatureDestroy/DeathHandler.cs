@@ -67,27 +67,66 @@ namespace OpenTibia.Game.CommandHandlers
                                     
                     ulong experience = (ulong)(player.Experience * lossPercent);
 
-                    if (experience > 0)
-                    {
-                        await Context.AddCommand(new PlayerRemoveExperienceCommand(player, experience) );
-                    }
+                    bool rooking = false;
 
-                    foreach (var skill in new[] { Skill.MagicLevel, Skill.Fist, Skill.Club, Skill.Sword, Skill.Axe, Skill.Distance, Skill.Shield, Skill.Fish } )
+                    if (Context.Server.Config.GameplayRooking.Enabled)
                     {
-                        ulong skillPoints = (ulong)(player.Skills.GetSkillPoints(skill) * lossPercent);
-
-                        if (skillPoints > 0)
+                        if (player.Vocation != Vocation.None)
                         {
-                            await Context.AddCommand(new PlayerRemoveSkillPointsCommand(player, skill, skillPoints) );
+                            if (player.Experience > experience)
+                            {
+                                if (player.Experience - experience < Context.Server.Config.GameplayRooking.ExperienceThreshold)
+                                {
+                                    rooking = true;
+                                }
+                            }
+                            else
+                            {
+                                rooking = true;
+                            }
                         }
                     }
 
-                    await Context.AddCommand(new TileCreatePlayerCorpseCommand(command.Creature.Tile, player, blesses) ).Then( (item) =>
+                    if (rooking)
                     {
-                        _ = Context.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(30) ) );
+                        await Context.AddCommand(new PlayerRookingCommand(player) );
 
-                        return Promise.Completed;
-                    } );
+                        //TODO: Reset player status to level 1
+
+                        //TODO: Reset player skills
+
+                        await Context.AddCommand(new TileCreatePlayerCorpseCommand(command.Creature.Tile, player, true, blesses) ).Then( (item) =>
+                        {
+                            _ = Context.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(30) ) );
+
+                            return Promise.Completed;
+                        } );
+                    }
+                    else
+                    {
+                        if (experience > 0)
+                        {
+                            await Context.AddCommand(new PlayerRemoveExperienceCommand(player, experience) );
+                        }
+
+                        foreach (var skill in new[] { Skill.MagicLevel, Skill.Fist, Skill.Club, Skill.Sword, Skill.Axe, Skill.Distance, Skill.Shield, Skill.Fish } )
+                        {
+                            ulong skillPoints = (ulong)(player.Skills.GetSkillPoints(skill) * lossPercent);
+
+                            if (skillPoints > 0)
+                            {
+                                await Context.AddCommand(new PlayerRemoveSkillPointsCommand(player, skill, skillPoints) );
+                            }
+                        }
+                    
+
+                        await Context.AddCommand(new TileCreatePlayerCorpseCommand(command.Creature.Tile, player, player.SkullIcon == SkullIcon.Red || player.SkullIcon == SkullIcon.Black, blesses) ).Then( (item) =>
+                        {
+                            _ = Context.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(30) ) );
+
+                            return Promise.Completed;
+                        } );
+                    }
                 }
 
                 Context.AddEvent(new CreatureDeathEventArgs(command.Creature.Tile, command.Creature) );

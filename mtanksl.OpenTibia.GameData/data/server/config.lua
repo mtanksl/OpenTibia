@@ -106,6 +106,11 @@ server = {
 				levels = {
 					{ minlevel = 1, maxlevel = 8, multiplier = 10.0 }
 				}
+			},
+			rooking = {
+				enabled = false,
+				experiencethreshold = 1500,
+				playernewposition = { x = 921, y = 771, z = 6 }
 			}
 		}
 	},

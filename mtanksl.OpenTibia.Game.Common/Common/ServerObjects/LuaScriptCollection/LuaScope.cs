@@ -463,7 +463,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             if (value != null)
             {
-                return (ulong)value;
+                return (ulong)(long)value;
             }
 
             return defaultValue;
@@ -473,7 +473,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             if (value != null)
             {
-                return (ulong)value;
+                return (ulong)(long)value;
             }
 
             return null;

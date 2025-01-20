@@ -68,6 +68,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         double GameplayMagicLevelRate { get; set; }
         double GameplaySkillRate { get; set; }
         ExperienceStagesConfig GameplayExperienceStages { get; set; }
+        RookingConfig GameplayRooking { get; set; }
 
         int SecurityMaxConnectionsWithSameIpAddress { get; set; }
         int SecurityConnectionsWithSameIpAddressAbuseBanMilliseconds { get; set; }
