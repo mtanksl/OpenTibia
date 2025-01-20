@@ -156,6 +156,16 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             Rules = LuaScope.GetString(script["server.info.rules"], null);
 
+            if (Rules != null)
+            {
+                Rules = Rules.Replace("\t", "");
+
+                if (Rules.EndsWith("\n") )
+                {
+                    Rules = Rules.Remove(Rules.Length - 1, 1);
+                }
+            }
+
             LoginMaxconnections = LuaScope.GetInt32(script["server.login.maxconnections"], 1000);  
             
             LoginPort = LuaScope.GetInt32(script["server.login.port"], 7171);
