@@ -238,10 +238,6 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     metadata.Attack = xmlItem.Attack;
 
-                    metadata.AttackStrength = xmlItem.AttackStrength;
-
-                    metadata.AttackVariation = xmlItem.AttackVariation;
-
                     metadata.FloorChange = xmlItem.FloorChange;
 
                     metadata.Capacity = xmlItem.ContainerSize;

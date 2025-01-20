@@ -60,8 +60,8 @@ namespace OpenTibia.Game.Common.ServerObjects
         public bool GameplayPrivateNpcSystem { get; set; }
         public bool GameplayLearnSpellFirst { get; set; }
         public bool GameplayRemoveChargesFromPotions { get; set; }
-        public bool GameplayRemoveWeaponAmmunition { get; set; }
         public bool GameplayRemoveChargesFromRunes { get; set; }
+        public bool GameplayRemoveWeaponAmmunition { get; set; }
         public bool GameplayRemoveWeaponCharges { get; set; }
         public bool GameplayAllowChangeOutfit { get; set; }
         public bool GameplayHotkeyAimbotEnabled { get; set; }
@@ -254,9 +254,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             GameplayRemoveChargesFromPotions = LuaScope.GetBoolean(script["server.game.gameplay.removechargesfrompotions"], true);
 
-            GameplayRemoveWeaponAmmunition = LuaScope.GetBoolean(script["server.game.gameplay.removeweaponammunition"], true);
-
             GameplayRemoveChargesFromRunes = LuaScope.GetBoolean(script["server.game.gameplay.removechargesfromrunes"], true);
+
+            GameplayRemoveWeaponAmmunition = LuaScope.GetBoolean(script["server.game.gameplay.removeweaponammunition"], true);
 
             GameplayRemoveWeaponCharges = LuaScope.GetBoolean(script["server.game.gameplay.removeweaponcharges"], true);
 

@@ -91,18 +91,6 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                         break;
 
-                    case "attackStrength":
-
-                        item.AttackStrength = (byte)(uint)value;
-
-                        break;
-
-                    case "attackVariation":
-
-                        item.AttackVariation = (byte)(uint)value;
-
-                        break;
-
                     case "floorchange":
 
                         FloorChange floorChange = Common.Structures.FloorChange.None;
@@ -1085,10 +1073,6 @@ namespace OpenTibia.FileFormats.Xml.Items
         public bool? BlockProjectile { get; set; }
 
         public byte? Attack { get; set; }
-
-        public byte? AttackStrength { get; set; }
-
-        public byte? AttackVariation { get; set; }
 
         public FloorChange? FloorChange { get; set; }
 

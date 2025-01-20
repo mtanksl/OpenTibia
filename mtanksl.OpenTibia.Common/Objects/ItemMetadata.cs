@@ -40,10 +40,6 @@ namespace OpenTibia.Common.Objects
 
         public byte? Attack { get; set; }
 
-        public byte? AttackStrength { get; set; }
-
-        public byte? AttackVariation { get; set; }
-
         public FloorChange? FloorChange { get; set; }
 
         public byte? Capacity { get; set; }

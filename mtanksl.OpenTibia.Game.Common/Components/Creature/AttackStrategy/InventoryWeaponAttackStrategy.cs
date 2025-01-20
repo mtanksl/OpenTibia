@@ -49,6 +49,11 @@ namespace OpenTibia.Game.Components
                 }
                 else if (itemWeapon.Metadata.WeaponType == WeaponType.Wand)
                 {
+                    if (plugin == null)
+                    {
+                        return false;
+                    }
+
                     if ( !Context.Current.Server.Pathfinding.CanThrow(player.Tile.Position, target.Tile.Position) )
                     {
                         return false;
@@ -56,22 +61,20 @@ namespace OpenTibia.Game.Components
                 }
                 else if (itemWeapon.Metadata.WeaponType == WeaponType.Distance)
                 {
-                    if (itemWeapon.Metadata.AmmoType == null)
+                    if ( !Context.Current.Server.Pathfinding.CanThrow(player.Tile.Position, target.Tile.Position) )
                     {
-                        if ( !Context.Current.Server.Pathfinding.CanThrow(player.Tile.Position, target.Tile.Position) )
+                        return false;
+                    }
+
+                    if (itemWeapon.Metadata.AmmoType != null)
+                    {
+                        Item itemAmmunition = Formula.GetAmmunition(player);
+
+                        if (itemAmmunition == null || itemAmmunition.Metadata.AmmoType != itemWeapon.Metadata.AmmoType)
                         {
                             return false;
                         }
                     }
-                    else
-                    {
-                        Item itemAmmunition = Formula.GetAmmunition(player);
-
-                        if (itemAmmunition == null || itemWeapon.Metadata.AmmoType != itemAmmunition.Metadata.AmmoType || !Context.Current.Server.Pathfinding.CanThrow(player.Tile.Position, target.Tile.Position) )
-                        {
-                            return false;
-                        }
-                    }                  
                 }                
                 else
                 {
@@ -89,7 +92,7 @@ namespace OpenTibia.Game.Components
             return true;
         }
 
-        public Promise Attack(Creature attacker, Creature target)
+        public async Promise Attack(Creature attacker, Creature target)
         {
             Player player = (Player)attacker;
 
@@ -99,51 +102,57 @@ namespace OpenTibia.Game.Components
             {
                 if (itemWeapon.Metadata.WeaponType == WeaponType.Sword)
                 {
+                    await Context.Current.AddCommand(new PlayerAddSkillPointsCommand(player, Skill.Sword, 1) );
+                    
                     WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
 
                     if (plugin != null)
                     {
-                        return plugin.OnUseWeapon(player, target, itemWeapon);
+                        await plugin.OnUseWeapon(player, target, itemWeapon);
                     }
                     else
                     {
                         var formula = Formula.MeleeFormula(player.Level, player.Skills.GetSkillLevel(Skill.Sword), itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
 
-                        return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target,
+                        await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target,
                             
                             new MeleeAttack(formula.Min, formula.Max) ) );
                     }
                 }
                 else if (itemWeapon.Metadata.WeaponType == WeaponType.Club)
                 {
+                    await Context.Current.AddCommand(new PlayerAddSkillPointsCommand(player, Skill.Club, 1) );
+                    
                     WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
 
                     if (plugin != null)
                     {
-                        return plugin.OnUseWeapon(player, target, itemWeapon);
+                        await plugin.OnUseWeapon(player, target, itemWeapon);
                     }
                     else
                     {
                         var formula = Formula.MeleeFormula(player.Level, player.Skills.GetSkillLevel(Skill.Club), itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
 
-                        return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
+                        await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                             
                             new MeleeAttack(formula.Min, formula.Max) ) );
                     }
                 }
                 else if (itemWeapon.Metadata.WeaponType == WeaponType.Axe)
                 {
+                    await Context.Current.AddCommand(new PlayerAddSkillPointsCommand(player, Skill.Axe, 1) );
+                    
                     WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
 
                     if (plugin != null)
                     {
-                        return plugin.OnUseWeapon(player, target, itemWeapon);
+                        await plugin.OnUseWeapon(player, target, itemWeapon);
                     }
                     else
                     {
                         var formula = Formula.MeleeFormula(player.Level, player.Skills.GetSkillLevel(Skill.Axe), itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
 
-                        return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
+                        await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                             
                             new MeleeAttack(formula.Min, formula.Max) ) );
                     }
@@ -154,102 +163,75 @@ namespace OpenTibia.Game.Components
 
                     if (plugin != null)
                     {
-                        return Context.Current.AddCommand(new PlayerAddSkillPointsCommand(player, Skill.MagicLevel, (ulong)plugin.Weapon.Mana) ).Then( () =>
-                        {
-                            return Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - plugin.Weapon.Mana) );
+                        await Context.Current.AddCommand(new PlayerAddSkillPointsCommand(player, Skill.MagicLevel, (ulong)plugin.Weapon.Mana) );
 
-                        } ).Then( () =>
-                        {
-                            return plugin.OnUseWeapon(player, target, itemWeapon);
-                        } );
+                        await Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - plugin.Weapon.Mana) );
+
+                        await plugin.OnUseWeapon(player, target, itemWeapon);
                     }
                     else
                     {
-                        return Context.Current.AddCommand(new PlayerAddSkillPointsCommand(player, Skill.MagicLevel, (ulong)plugin.Weapon.Mana) ).Then( () =>
-                        {
-                            return Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - plugin.Weapon.Mana) );
-
-                        } ).Then( () =>
-                        {
-                            var formula = Formula.WandFormula(itemWeapon.Metadata.AttackStrength.Value, itemWeapon.Metadata.AttackVariation.Value);
-
-                            return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target,
-                            
-                                new DistanceAttack(itemWeapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
-                        } );
+                        throw new NotImplementedException();
                     }
                 }
                 else if (itemWeapon.Metadata.WeaponType == WeaponType.Distance)
                 {
-                    if (itemWeapon.Metadata.AmmoType == null)
-                    {
-                        WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
-
-                        Promise promise;
-
-                        if ( !Context.Current.Server.Config.GameplayRemoveWeaponCharges)
-                        {
-                            promise = Promise.Completed;
-                        }
-                        else
-                        {
-                            promise = Context.Current.AddCommand(new ItemDecrementCommand(itemWeapon, 1) );
-                        }
-
-                        if (plugin != null)
-                        {
-                            return promise.Then( () =>
-                            {
-                                return plugin.OnUseWeapon(player, target, itemWeapon);
-                            } );
-                        }
-                        else
-                        {
-                            return promise.Then( () =>
-                            {
-                                var formula = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
-
-                                return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
-                                
-                                    new DistanceAttack(itemWeapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
-                            } );
-                        }
-                    }
-                    else
+                    if (itemWeapon.Metadata.AmmoType != null)
                     {
                         Item itemAmmunition = Formula.GetAmmunition(player);
 
-                        AmmunitionPlugin plugin = Context.Current.Server.Plugins.GetAmmunitionPlugin(itemAmmunition.Metadata.OpenTibiaId);
-
-                        Promise promise;
-
-                        if ( !Context.Current.Server.Config.GameplayRemoveWeaponAmmunition)
+                        if (itemAmmunition != null)
                         {
-                            promise = Promise.Completed;
+                            await Context.Current.AddCommand(new PlayerAddSkillPointsCommand(player, Skill.Distance, 1) );
+
+                            if (Context.Current.Server.Config.GameplayRemoveWeaponAmmunition)
+                            {
+                                await Context.Current.AddCommand(new ItemDecrementCommand(itemAmmunition, 1) );
+                            }
+
+                            AmmunitionPlugin plugin = Context.Current.Server.Plugins.GetAmmunitionPlugin(itemAmmunition.Metadata.OpenTibiaId);
+
+                            if (plugin != null)
+                            {
+                                await plugin.OnUseAmmunition(player, target, itemWeapon, itemAmmunition);
+                            }
+                            else
+                            {                                 
+                                var formula = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), itemAmmunition.Metadata.Attack.Value, player.Client.FightMode);
+
+                                await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
+                                
+                                    new DistanceAttack(itemAmmunition.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
+                            }
                         }
                         else
                         {
-                            promise = Context.Current.AddCommand(new ItemDecrementCommand(itemAmmunition, 1) );
+                            throw new NotImplementedException();
+                        }                        
+                    }
+                    else
+                    {
+                        await Context.Current.AddCommand(new PlayerAddSkillPointsCommand(player, Skill.Distance, 1) );
+
+                        if (Context.Current.Server.Config.GameplayRemoveWeaponCharges)
+                        {
+                            await Context.Current.AddCommand(new ItemDecrementCommand(itemWeapon, 1) );
                         }
+
+                        WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
 
                         if (plugin != null)
                         {
-                            return promise.Then( () =>
-                            {
-                                return plugin.OnUseAmmunition(player, target, itemWeapon, itemAmmunition);
-                            } );                        
+                            await plugin.OnUseWeapon(player, target, itemWeapon);
                         }
                         else
                         {
-                            return promise.Then( () =>
-                            {
-                                var formula = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), itemAmmunition.Metadata.Attack.Value, player.Client.FightMode);
+                            var formula = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
 
-                                return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
+                            await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                                 
-                                    new DistanceAttack(itemAmmunition.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
-                            } );
-                        }                        
+                                new DistanceAttack(itemWeapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
+                        }
                     }
                 }
                 else
@@ -259,9 +241,11 @@ namespace OpenTibia.Game.Components
             }
             else
             {
+                await Context.Current.AddCommand(new PlayerAddSkillPointsCommand(player, Skill.Fist, 1) );
+
                 var formula = Formula.MeleeFormula(player.Level, player.Skills.GetSkillLevel(Skill.Fist), 7, player.Client.FightMode); 
 
-                return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
+                await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                     
                     new MeleeAttack(formula.Min, formula.Max) ) );
             }
