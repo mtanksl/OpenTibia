@@ -80,12 +80,16 @@ namespace OpenTibia.Game.Commands
 
                 Player.Mana = Math.Min(Player.MaxMana, Player.Mana);
 
+                await Context.AddCommand(new PlayerUpdateExperienceCommand(Player, currentExperience - Experience, correctLevel, correctLevelPercent) );
+
                 Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You downgraded from level " + currentLevel + " to level " + correctLevel + ".") );
                   
                 Context.AddEvent(new PlayerAdvanceLevelEventArgs(Player, currentLevel, correctLevel) );
             }
-
-            await Context.AddCommand(new PlayerUpdateExperienceCommand(Player, currentExperience - Experience, correctLevel, correctLevelPercent) );
+            else
+            {
+                await Context.AddCommand(new PlayerUpdateExperienceCommand(Player, currentExperience - Experience, correctLevel, correctLevelPercent) );
+            }
         }
     }
 }

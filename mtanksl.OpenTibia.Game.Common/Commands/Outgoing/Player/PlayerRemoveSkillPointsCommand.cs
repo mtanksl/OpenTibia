@@ -73,12 +73,12 @@ namespace OpenTibia.Game.Commands
                 correctSkillPercent = 0;
             }
 
+            await Context.AddCommand(new PlayerUpdateSkillCommand(Player, Skill, currentSkillPoints - SkillPoints, correctSkillLevel, correctSkillPercent) );
+
             if (correctSkillLevel < currentSkillLevel)
             {
                 Context.AddEvent(new PlayerAdvanceSkillEventArgs(Player, Skill, currentSkillLevel, correctSkillLevel) );
             }
-
-            await Context.AddCommand(new PlayerUpdateSkillCommand(Player, Skill, currentSkillPoints - SkillPoints, correctSkillLevel, correctSkillPercent) );
         }
     }
 }

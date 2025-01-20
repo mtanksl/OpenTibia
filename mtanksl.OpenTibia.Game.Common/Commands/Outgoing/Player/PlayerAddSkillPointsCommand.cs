@@ -64,6 +64,8 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
+            await Context.AddCommand(new PlayerUpdateSkillCommand(Player, Skill, currentSkillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
+
             if (correctSkillLevel > currentSkillLevel)
             {
                 string name;
@@ -126,9 +128,7 @@ namespace OpenTibia.Game.Commands
                 Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You advanced to " + name + " level " + correctSkillLevel + ".") );
 
                 Context.AddEvent(new PlayerAdvanceSkillEventArgs(Player, Skill, currentSkillLevel, correctSkillLevel) );
-            }
-
-            await Context.AddCommand(new PlayerUpdateSkillCommand(Player, Skill, currentSkillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
+            }            
         }
     }
 }
