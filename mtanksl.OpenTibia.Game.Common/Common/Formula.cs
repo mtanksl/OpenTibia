@@ -280,16 +280,16 @@ namespace OpenTibia.Game.Common
         {
             int min = 0;
 
-            int max = (int)Math.Floor(0.085 * (fightMode == FightMode.Offensive ? 1 : fightMode == FightMode.Balanced ? 0.75 : 0.5) * skill * attack) + (int)Math.Floor(level * 0.2);
+            int max = (int)(0.085 * (fightMode == FightMode.Offensive ? 1 : fightMode == FightMode.Balanced ? 0.75 : 0.5) * skill * attack) + (int)(level * 0.2);
 
             return (min, max);
         }
 
         public static (int Min, int Max) DistanceFormula(int level, int skill, int attack, FightMode fightMode)
         {
-            int min = (int)Math.Floor(level * 0.2);
+            int min = (int)(level * 0.2);
 
-            int max = (int)Math.Floor(0.09 * (fightMode == FightMode.Offensive ? 1 : fightMode == FightMode.Balanced ? 0.75 : 0.5) * skill * attack) + min;
+            int max = (int)(0.09 * (fightMode == FightMode.Offensive ? 1 : fightMode == FightMode.Balanced ? 0.75 : 0.5) * skill * attack) + min;
 
             return (min, max);
         }
