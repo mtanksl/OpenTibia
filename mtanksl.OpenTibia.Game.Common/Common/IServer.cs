@@ -8,9 +8,9 @@ namespace OpenTibia.Game.Common
     {
         string ServerName { get; }
 
-        string ServerVersion { get; }
+        Version ServerVersion { get; }
 
-        string ClientVersion { get; }
+        Version ClientVersion { get; }
 
         ServerStatus Status { get; }
 

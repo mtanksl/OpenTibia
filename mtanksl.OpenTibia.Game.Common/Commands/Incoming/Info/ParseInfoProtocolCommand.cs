@@ -116,7 +116,7 @@ namespace OpenTibia.Game.Commands
 
                 if (Packet.RequestedInfo.Is(RequestedInfo.SoftwareInfo) )
                 {
-                    Context.AddPacket(Connection, new SoftwareInfoOutgoingPacket(Context.Server.ServerName, Context.Server.ServerVersion, Context.Server.ClientVersion) );
+                    Context.AddPacket(Connection, new SoftwareInfoOutgoingPacket(Context.Server.ServerName, Context.Server.ServerVersion.ToString(), Context.Server.ClientVersion.ToString() ) );
                 }
             }
 

@@ -155,19 +155,19 @@ namespace OpenTibia.Game.Common
             }
         }
 
-        public string ServerVersion
+        public Version ServerVersion
         {
             get
             {
-                return "1.6";
+                return new Version(1, 6);
             }
         }
 
-        public string ClientVersion
+        public Version ClientVersion
         {
             get
             {
-                return "8.60";
+                return new Version(8, 60);
             }
         }
 
