@@ -71,7 +71,7 @@ namespace OpenTibia.Game.CommandHandlers
                     }
                     else
                     {
-                        lossPercent = Context.Server.Config.GameplayDeathLosePercent;
+                        lossPercent = Context.Server.Config.GameplayDeathLosePercent / 100.0;
                     }
 
                     ulong experience = (ulong)(player.Experience * lossPercent);
