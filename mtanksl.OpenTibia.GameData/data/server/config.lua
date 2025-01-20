@@ -67,6 +67,10 @@ server = {
 			-- true = weapons disappear after attack (Tibia)
 			-- false = weapons do not disappear after attack
 			removeweaponcharges = true,
+			-- -1 means use default formula (Tibia)
+			-- 0 means 0%, or no experience loss and no skill loss
+			-- 10 means 10%, as it was before Mar 10 2009 on version 8.41
+			deathlosepercent = -1,
 			-- true = allow change outfit (Tibia)
 			-- false = do not allow change outfit
 			allowchangeoutfit = true,

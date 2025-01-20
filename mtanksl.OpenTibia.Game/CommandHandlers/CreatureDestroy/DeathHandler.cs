@@ -63,8 +63,17 @@ namespace OpenTibia.Game.CommandHandlers
 
                     player.Blesses.ClearBlesses();
 
-                    double lossPercent = Formula.GetLossPercent(player.Level, player.LevelPercent, player.Experience, player.Vocation, blesses);
-                                    
+                    double lossPercent;
+
+                    if (Context.Server.Config.GameplayDeathLosePercent < 0)
+                    {
+                        lossPercent = Formula.GetLossPercent(player.Level, player.LevelPercent, player.Experience, player.Vocation, blesses);
+                    }
+                    else
+                    {
+                        lossPercent = Context.Server.Config.GameplayDeathLosePercent;
+                    }
+
                     ulong experience = (ulong)(player.Experience * lossPercent);
 
                     bool rooking = false;

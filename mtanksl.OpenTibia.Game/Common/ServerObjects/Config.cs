@@ -63,6 +63,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         public bool GameplayRemoveChargesFromRunes { get; set; }
         public bool GameplayRemoveWeaponAmmunition { get; set; }
         public bool GameplayRemoveWeaponCharges { get; set; }
+        public int GameplayDeathLosePercent { get; set; }
         public bool GameplayAllowChangeOutfit { get; set; }
         public bool GameplayHotkeyAimbotEnabled { get; set; }
         public bool GameplayShowOnlineStatusInCharlist { get; set; }
@@ -270,6 +271,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             GameplayRemoveWeaponAmmunition = LuaScope.GetBoolean(script["server.game.gameplay.removeweaponammunition"], true);
 
             GameplayRemoveWeaponCharges = LuaScope.GetBoolean(script["server.game.gameplay.removeweaponcharges"], true);
+
+            GameplayDeathLosePercent = LuaScope.GetInt32(script["server.game.gameplay.deathlosepercent"], -1);
 
             GameplayAllowChangeOutfit = LuaScope.GetBoolean(script["server.game.gameplay.allowchangeoutfit"], true);
 
