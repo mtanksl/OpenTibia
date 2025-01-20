@@ -205,19 +205,22 @@ function registerrune(opentibiaid, name, group, groupcooldown, level, magiclevel
     } )
 end
 
-function registerweapon(opentibiaid, level, mana, vocations, onuseweapon)
+function registerweapon(opentibiaid, level, mana, vocations, onusingweapon, onuseweapon)
     registerplugin("weapons", {
         opentibiaid = opentibiaid,
         level = level,
         mana = mana,
         vocations = vocations,
+        onusingweapon = onusingweapon,
         onuseweapon = onuseweapon
     } )
 end
 
-function registerammunition(opentibiaid, onuseammunition)
+function registerammunition(opentibiaid, level, onusingammunition, onuseammunition)
     registerplugin("ammunitions", {
         opentibiaid = opentibiaid,
+        level = level,
+        onusingammunition = onusingammunition,
         onuseammunition = onuseammunition
     } )
 end

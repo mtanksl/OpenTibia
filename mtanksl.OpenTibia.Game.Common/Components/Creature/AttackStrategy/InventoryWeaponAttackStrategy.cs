@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Components
            
         }
 
-        public bool CanAttack(Creature attacker, Creature target)
+        public async PromiseResult<bool> CanAttack(Creature attacker, Creature target)
         {
             Player player = (Player)attacker;
 
@@ -25,57 +25,169 @@ namespace OpenTibia.Game.Components
 
             if (itemWeapon != null)
             {
-                WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
-
-                if (plugin != null)
-                {
-                    if (player.Level < plugin.Weapon.Level || player.Mana < plugin.Weapon.Mana || (plugin.Weapon.Vocations != null && !plugin.Weapon.Vocations.Contains(player.Vocation) ) )
-                    {
-                        return false;
-                    }
-                }
-
-                if (itemWeapon.Metadata.Range != null && !player.Tile.Position.IsInRange(target.Tile.Position, itemWeapon.Metadata.Range.Value) )
-                {
-                    return false;
-                }
-
-                if (itemWeapon.Metadata.WeaponType == WeaponType.Sword || itemWeapon.Metadata.WeaponType == WeaponType.Club || itemWeapon.Metadata.WeaponType == WeaponType.Axe)
+                if (itemWeapon.Metadata.WeaponType == WeaponType.Sword)
                 {
                     if ( !player.Tile.Position.IsNextTo(target.Tile.Position) )
                     {
                         return false;
                     }
+
+                    WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
+
+                    if (plugin != null)
+                    {
+                        if (player.Level < plugin.Weapon.Level || (plugin.Weapon.Vocations != null && !plugin.Weapon.Vocations.Contains(player.Vocation) ) )
+                        {
+                            return false;
+                        }
+
+                        if ( !await plugin.OnUsingWeapon(player, target, itemWeapon) )
+                        {
+                            return false;
+                        }
+                    }                    
+                }
+                else if (itemWeapon.Metadata.WeaponType == WeaponType.Club)
+                {
+                    if ( !player.Tile.Position.IsNextTo(target.Tile.Position) )
+                    {
+                        return false;
+                    }
+
+                    WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
+
+                    if (plugin != null)
+                    {
+                        if (player.Level < plugin.Weapon.Level || (plugin.Weapon.Vocations != null && !plugin.Weapon.Vocations.Contains(player.Vocation) ) )
+                        {
+                            return false;
+                        }
+
+                        if ( !await plugin.OnUsingWeapon(player, target, itemWeapon) )
+                        {
+                            return false;
+                        }
+                    }
+                }
+                else if (itemWeapon.Metadata.WeaponType == WeaponType.Axe)
+                {
+                    if ( !player.Tile.Position.IsNextTo(target.Tile.Position) )
+                    {
+                        return false;
+                    }
+
+                    WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
+
+                    if (plugin != null)
+                    {
+                        if (player.Level < plugin.Weapon.Level || (plugin.Weapon.Vocations != null && !plugin.Weapon.Vocations.Contains(player.Vocation) ) )
+                        {
+                            return false;
+                        }
+
+                        if ( !await plugin.OnUsingWeapon(player, target, itemWeapon) )
+                        {
+                            return false;
+                        }
+                    }
                 }
                 else if (itemWeapon.Metadata.WeaponType == WeaponType.Wand)
                 {
-                    if (plugin == null)
+                    if (itemWeapon.Metadata.Range != null && !player.Tile.Position.IsInRange(target.Tile.Position, itemWeapon.Metadata.Range.Value) )
                     {
                         return false;
                     }
 
                     if ( !Context.Current.Server.Pathfinding.CanThrow(player.Tile.Position, target.Tile.Position) )
+                    {
+                        return false;
+                    }
+
+                    WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
+
+                    if (plugin != null)
+                    {
+                        if (player.Level < plugin.Weapon.Level || player.Mana < plugin.Weapon.Mana || (plugin.Weapon.Vocations != null && !plugin.Weapon.Vocations.Contains(player.Vocation) ) )
+                        {
+                            return false;
+                        }
+
+                        if ( !await plugin.OnUsingWeapon(player, target, itemWeapon) )
+                        {
+                            return false;
+                        }
+                    }
+                    else
                     {
                         return false;
                     }
                 }
                 else if (itemWeapon.Metadata.WeaponType == WeaponType.Distance)
-                {
-                    if ( !Context.Current.Server.Pathfinding.CanThrow(player.Tile.Position, target.Tile.Position) )
+                {     
+                    if (itemWeapon.Metadata.Range != null && !player.Tile.Position.IsInRange(target.Tile.Position, itemWeapon.Metadata.Range.Value) )
                     {
                         return false;
                     }
 
+                    if ( !Context.Current.Server.Pathfinding.CanThrow(player.Tile.Position, target.Tile.Position) )
+                    {
+                        return false;
+                    }
+                                                            
                     if (itemWeapon.Metadata.AmmoType != null)
                     {
                         Item itemAmmunition = Formula.GetAmmunition(player);
 
-                        if (itemAmmunition == null || itemAmmunition.Metadata.AmmoType != itemWeapon.Metadata.AmmoType)
+                        if (itemAmmunition != null && itemAmmunition.Metadata.AmmoType == itemWeapon.Metadata.AmmoType)
+                        {
+                            WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
+
+                            if (plugin != null)
+                            {
+                                if (player.Level < plugin.Weapon.Level || (plugin.Weapon.Vocations != null && !plugin.Weapon.Vocations.Contains(player.Vocation) ) )
+                                {
+                                    return false;
+                                }
+                            }
+
+                            AmmunitionPlugin ammunitionPlugin = Context.Current.Server.Plugins.GetAmmunitionPlugin(itemAmmunition.Metadata.OpenTibiaId);
+
+                            if (ammunitionPlugin != null)
+                            {
+                                if (player.Level < ammunitionPlugin.Ammunition.Level)
+                                {
+                                    return false;
+                                }
+
+                                if ( !await ammunitionPlugin.OnUsingAmmunition(player, target, itemWeapon, itemAmmunition) )
+                                {
+                                    return false;
+                                }
+                            }
+                        }
+                        else
                         {
                             return false;
+                        }                        
+                    }
+                    else
+                    {
+                        WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
+
+                        if (plugin != null)
+                        {
+                            if (player.Level < plugin.Weapon.Level || (plugin.Weapon.Vocations != null && !plugin.Weapon.Vocations.Contains(player.Vocation) ) )
+                            {
+                                return false;
+                            }
+
+                            if ( !await plugin.OnUsingWeapon(player, target, itemWeapon) )
+                            {
+                                return false;
+                            }
                         }
                     }
-                }                
+                }
                 else
                 {
                     throw new NotImplementedException();
@@ -189,11 +301,24 @@ namespace OpenTibia.Game.Components
                                 await Context.Current.AddCommand(new ItemDecrementCommand(itemAmmunition, 1) );
                             }
 
-                            AmmunitionPlugin plugin = Context.Current.Server.Plugins.GetAmmunitionPlugin(itemAmmunition.Metadata.OpenTibiaId);
+                            /*
+                            WeaponPlugin plugin = Context.Current.Server.Plugins.GetWeaponPlugin(itemWeapon.Metadata.OpenTibiaId);
 
                             if (plugin != null)
                             {
-                                await plugin.OnUseAmmunition(player, target, itemWeapon, itemAmmunition);
+                                await plugin.OnUseWeapon(player, target, itemWeapon);
+                            }
+                            else 
+                            {
+
+                            }
+                            */
+
+                            AmmunitionPlugin ammunitionPlugin = Context.Current.Server.Plugins.GetAmmunitionPlugin(itemAmmunition.Metadata.OpenTibiaId);
+
+                            if (ammunitionPlugin != null)
+                            {
+                                await ammunitionPlugin.OnUseAmmunition(player, target, itemWeapon, itemAmmunition);
                             }
                             else
                             {                                 

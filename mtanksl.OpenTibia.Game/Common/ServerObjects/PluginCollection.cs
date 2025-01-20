@@ -388,7 +388,9 @@ namespace OpenTibia.Game.Common.ServerObjects
                     {
                         Ammunition ammunition = new Ammunition()
                         {
-                            OpenTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] )
+                            OpenTibiaId = LuaScope.GetUInt16(initialization.Parameters["opentibiaid"] ),
+
+                            Level = LuaScope.GetInt32(initialization.Parameters["level"] )
                         };
 
                         pluginCollection.AddAmmunitionPlugin(script, initialization.Parameters, ammunition);
@@ -760,7 +762,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                 Ammunition ammunition = new Ammunition()
                 {
-                    OpenTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] )
+                    OpenTibiaId = LuaScope.GetUInt16(plugin["opentibiaid"] ),
+
+                    Level = LuaScope.GetInt32(plugin["level"])
                 };
 
                 AddAmmunitionPlugin(fileName, ammunition);

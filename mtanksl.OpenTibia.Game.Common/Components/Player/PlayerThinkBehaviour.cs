@@ -171,7 +171,7 @@ namespace OpenTibia.Game.Components
                             }
                         }
 
-                        if ( (state == State.Attack || state == State.AttackAndFollow) && attackStrategy.CanAttack(player, current) )
+                        if ( (state == State.Attack || state == State.AttackAndFollow) && await attackStrategy.CanAttack(player, current) )
                         {
                             await attackStrategy.Attack(player, current);
 

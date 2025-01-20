@@ -174,8 +174,8 @@
 		{ opentibiaid = 7366, level = 0, mana = 0, vocations = { vocation.knight, vocation.paladin, vocation.druid, vocation.sorcerer, vocation.eliteknight, vocation.royalpaladin, vocation.elderdruid, vocation.mastersorcerer }, filename = "OpenTibia.Plugins.Weapons.ViperStarWeaponPlugin, mtanksl.OpenTibia.Plugins" }		
 	},
 	ammunitions = {
-		{ opentibiaid = 2545, filename = "OpenTibia.Plugins.Ammunitions.PoisonArrowAmmunitionPlugin, mtanksl.OpenTibia.Plugins" },
-		{ opentibiaid = 2546, filename = "OpenTibia.Plugins.Ammunitions.BurstArrowAmmunitionPlugin, mtanksl.OpenTibia.Plugins" }
+		{ opentibiaid = 2545, level = 0, filename = "OpenTibia.Plugins.Ammunitions.PoisonArrowAmmunitionPlugin, mtanksl.OpenTibia.Plugins" },
+		{ opentibiaid = 2546, level = 0, filename = "OpenTibia.Plugins.Ammunitions.BurstArrowAmmunitionPlugin, mtanksl.OpenTibia.Plugins" }
 	},
 	raids = {
 		-- { name = "Rat plague", repeatable = true, cooldown = 60, chance = 144, filename = "rats.lua" }

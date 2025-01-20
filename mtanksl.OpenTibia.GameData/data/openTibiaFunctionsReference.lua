@@ -202,18 +202,18 @@ return {
 		args = "(opentibiaid, name, group, groupcooldown, level, magiclevel, vocations, requirestarget, onusingrune, onuserune)",
 		returns = "void"
 	},
-	-- void registerweapon(opentibiaid, level, mana, vocations, onuseweapon)
+	-- void registerweapon(opentibiaid, level, mana, vocations, onusingweapon, onuseweapon)
 	registerweapon = {
 		type = "function",
 		description = "",
-		args = "(opentibiaid, level, mana, vocations, onuseweapon)",
+		args = "(opentibiaid, level, mana, vocations, onusingweapon, onuseweapon)",
 		returns = "void"
 	},
-	-- void registerammunition(opentibiaid, onuseammunition)
+	-- void registerammunition(opentibiaid, onusingammunition, onuseammunition)
 	registerammunition = {
 		type = "function",
 		description = "",
-		args = "(opentibiaid, onuseammunition)",
+		args = "(opentibiaid, onusingammunition, onuseammunition)",
 		returns = "void"
 	},
 	-- void registerraid(name, repeatable, cooldown, chance, onraid)

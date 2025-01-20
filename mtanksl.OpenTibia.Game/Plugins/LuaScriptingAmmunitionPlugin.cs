@@ -37,6 +37,24 @@ namespace OpenTibia.Game.Plugins
             }
         }
 
+        public override PromiseResult<bool> OnUsingAmmunition(Player player, Creature target, Item weapon, Item ammunition)
+        {
+            if (fileName != null)
+            {
+                return script.CallFunction("onusingammunition", player, target, weapon, ammunition).Then(result =>
+                {
+                    return (bool)result[0] ? Promise.FromResultAsBooleanTrue : Promise.FromResultAsBooleanFalse;
+                } );
+            }
+            else
+            {
+                return script.CallFunction( (LuaFunction)parameters["onusingammunition"], player, target, weapon, ammunition).Then(result =>
+                {
+                    return (bool)result[0] ? Promise.FromResultAsBooleanTrue : Promise.FromResultAsBooleanFalse;
+                } );
+            }
+        }
+
         public override Promise OnUseAmmunition(Player player, Creature target, Item weapon, Item ammunition)
         {
             if (fileName != null)

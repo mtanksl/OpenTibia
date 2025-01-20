@@ -30,9 +30,9 @@ namespace OpenTibia.Game.Components
             this.max = max;
         }
 
-        public bool CanAttack(Creature attacker, Creature target)
+        public PromiseResult<bool> CanAttack(Creature attacker, Creature target)
         {
-            return true;
+            return Promise.FromResultAsBooleanTrue;
         }
 
         public Promise Attack(Creature attacker, Creature target)

@@ -18,6 +18,15 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (plugin != null)
             {
+                if (command.Player.SkullIcon == SkullIcon.Black && plugin.Rune.Group == "Attack")
+                {
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+
+                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+
+                    await Promise.Break;
+                }
+
                 if ( !(command.ToItem.Parent is Tile toTile) )
                 {
                     Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );

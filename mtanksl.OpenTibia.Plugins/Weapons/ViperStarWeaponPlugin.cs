@@ -14,6 +14,11 @@ namespace OpenTibia.Plugins.Weapons
 
         }
 
+        public override PromiseResult<bool> OnUsingWeapon(Player player, Creature target, Item weapon)
+        {
+            return Promise.FromResultAsBooleanTrue;
+        }
+
         public override Promise OnUseWeapon(Player player, Creature target, Item weapon)
         {
              var formula = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), weapon.Metadata.Attack.Value, player.Client.FightMode);

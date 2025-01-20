@@ -12,6 +12,8 @@ namespace OpenTibia.Game.Plugins
 
         public Ammunition Ammunition { get; }
 
+        public abstract PromiseResult<bool> OnUsingAmmunition(Player player, Creature target, Item weapon, Item ammunition);
+
         public abstract Promise OnUseAmmunition(Player player, Creature target, Item weapon, Item ammunition);        
     }
 }

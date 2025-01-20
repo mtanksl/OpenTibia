@@ -72,7 +72,7 @@ namespace OpenTibia.Game.Components
                             break;
                         }
 
-                        if (attackStrategy.CanAttack(monster, current) )
+                        if (await attackStrategy.CanAttack(monster, current) )
                         {
                             await attackStrategy.Attack(monster, current);
 

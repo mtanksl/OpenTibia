@@ -1,3 +1,8 @@
+function onusingammunition(player, target, weapon, ammunition)
+	--TODO
+	return true
+end
+
 function onuseammunition(player, target, weapon, ammunition)
 	local area = {
 		{-1, -1}, {0, -1}, {1, -1},

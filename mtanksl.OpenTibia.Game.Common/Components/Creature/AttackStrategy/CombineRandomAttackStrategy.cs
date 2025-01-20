@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Components
 
         private IAttackStrategy attackStrategy;
 
-        public bool CanAttack(Creature attacker, Creature target)
+        public async PromiseResult<bool> CanAttack(Creature attacker, Creature target)
         {
             if (aggressive)
             {
@@ -26,7 +26,7 @@ namespace OpenTibia.Game.Components
 
                 foreach (var attackStrategy in attackStrategies)
                 {
-                    if (attackStrategy.CanAttack(attacker, target) )
+                    if (await attackStrategy.CanAttack(attacker, target) )
                     {
                         this.attackStrategy = attackStrategy;
 
@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Components
             {
                 this.attackStrategy = Context.Current.Server.Randomization.Take(attackStrategies);
 
-                return attackStrategy.CanAttack(attacker, target);
+                return await attackStrategy.CanAttack(attacker, target);
             }
         }
 
