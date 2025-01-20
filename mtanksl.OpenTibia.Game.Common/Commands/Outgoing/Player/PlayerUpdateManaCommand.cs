@@ -39,8 +39,15 @@ namespace OpenTibia.Game.Commands
 
                     Player.MaxMana = MaxMana;
 
-                    Context.AddPacket(Player, new SendStatusOutgoingPacket(Player.Health, Player.MaxHealth, Player.Capacity, Player.Experience, Player.Level, Player.LevelPercent, Player.Mana, Player.MaxMana, Player.Skills.MagicLevel, Player.Skills.MagicLevelPercent, Player.Soul, Player.Stamina) );
-             
+                    Context.AddPacket(Player, new SendStatusOutgoingPacket(
+                        Player.Health, Player.MaxHealth, 
+                        Player.Capacity, 
+                        Player.Experience, Player.Level, Player.LevelPercent, 
+                        Player.Mana, Player.MaxMana, 
+                        Player.Skills.GetSkillLevel(Skill.MagicLevel), Player.Skills.GetSkillPercent(Skill.MagicLevel), 
+                        Player.Soul, 
+                        Player.Stamina) );
+
                     Context.AddEvent(new PlayerUpdateManaEventArgs(Player, Mana) );
                 }
             }

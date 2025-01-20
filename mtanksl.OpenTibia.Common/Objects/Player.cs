@@ -22,24 +22,7 @@ namespace OpenTibia.Common.Objects
 
             Vips = new PlayerVipCollection();
 
-            Skills = new Skills(this)
-            {
-                MagicLevel = 0,
-
-                Fist = 10,
-
-                Club = 10,
-
-                Sword = 10,
-
-                Axe = 10,
-
-                Distance = 10,
-
-                Shield = 10,
-
-                Fish = 10
-            };
+            Skills = new Skills(this);
 
             Experience = 0;
 

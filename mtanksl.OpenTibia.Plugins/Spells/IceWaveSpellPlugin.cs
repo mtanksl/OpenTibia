@@ -28,7 +28,7 @@ namespace OpenTibia.Plugins.Spells
                 new Offset(-2, 4), new Offset(-1, 4), new Offset(0, 4), new Offset(1, 4), new Offset(2, 4),
             };
 
-            var formula = Formula.GenericFormula(player.Level, player.Skills.MagicLevel, 0.81, 4, 2, 12);
+            var formula = Formula.GenericFormula(player.Level, player.Skills.GetSkillLevel(Skill.MagicLevel), 0.81, 4, 2, 12);
 
             return Context.AddCommand(new CreatureAttackAreaCommand(player, true, player.Tile.Position, area, null, MagicEffectType.IceArea, 
                         

@@ -577,70 +577,14 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("playerupdateaxe", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerupdatskill", (luaScope, parameters) =>
             {
-                return Context.Current.AddCommand(new PlayerUpdateAxeCommand( (Player)parameters[0], (ulong)parameters[1], (byte)(long)parameters[2], (byte)(long)parameters[3] ) ).Then( () =>
+                return Context.Current.AddCommand(new PlayerUpdateSkillCommand( (Player)parameters[0], (Skill)(int)parameters[1], (ulong)parameters[2], (byte)(long)parameters[3], (byte)(long)parameters[4] ) ).Then( () =>
                 {
                     return Promise.FromResultAsEmptyObjectArray;
                 } );
             } );
-
-            lua.RegisterCoFunction("playerupdateclub", (luaScope, parameters) =>
-            {
-                return Context.Current.AddCommand(new PlayerUpdateClubCommand( (Player)parameters[0], (ulong)parameters[1], (byte)(long)parameters[2], (byte)(long)parameters[3] ) ).Then( () =>
-                {
-                    return Promise.FromResultAsEmptyObjectArray;
-                } );
-            } );
-
-            lua.RegisterCoFunction("playerupdatedistance", (luaScope, parameters) =>
-            {
-                return Context.Current.AddCommand(new PlayerUpdateDistanceCommand( (Player)parameters[0], (ulong)parameters[1], (byte)(long)parameters[2], (byte)(long)parameters[3] ) ).Then( () =>
-                {
-                    return Promise.FromResultAsEmptyObjectArray;
-                } );
-            } );
-
-            lua.RegisterCoFunction("playerupdatefish", (luaScope, parameters) =>
-            {
-                return Context.Current.AddCommand(new PlayerUpdateFishCommand( (Player)parameters[0], (ulong)parameters[1], (byte)(long)parameters[2], (byte)(long)parameters[3] ) ).Then( () =>
-                {
-                    return Promise.FromResultAsEmptyObjectArray;
-                } );
-            } );
-
-            lua.RegisterCoFunction("playerupdatefist", (luaScope, parameters) =>
-            {
-                return Context.Current.AddCommand(new PlayerUpdateFistCommand( (Player)parameters[0], (ulong)parameters[1], (byte)(long)parameters[2], (byte)(long)parameters[3] ) ).Then( () =>
-                {
-                    return Promise.FromResultAsEmptyObjectArray;
-                } );
-            } );
-
-            lua.RegisterCoFunction("playerupdatemagiclevel", (luaScope, parameters) =>
-            {
-                return Context.Current.AddCommand(new PlayerUpdateMagicLevelCommand( (Player)parameters[0], (ulong)parameters[1], (byte)(long)parameters[2], (byte)(long)parameters[3] ) ).Then( () =>
-                {
-                    return Promise.FromResultAsEmptyObjectArray;
-                } );
-            } );
-
-            lua.RegisterCoFunction("playerupdateshield", (luaScope, parameters) =>
-            {
-                return Context.Current.AddCommand(new PlayerUpdateShieldCommand( (Player)parameters[0], (ulong)parameters[1], (byte)(long)parameters[2], (byte)(long)parameters[3] ) ).Then( () =>
-                {
-                    return Promise.FromResultAsEmptyObjectArray;
-                } );
-            } );
-
-            lua.RegisterCoFunction("playerupdatesword", (luaScope, parameters) =>
-            {
-                return Context.Current.AddCommand(new PlayerUpdateSwordCommand( (Player)parameters[0], (ulong)parameters[1], (byte)(long)parameters[2], (byte)(long)parameters[3] ) ).Then( () =>
-                {
-                    return Promise.FromResultAsEmptyObjectArray;
-                } );
-            } );
-            
+                        
             lua.RegisterCoFunction("playersay", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerSayCommand( (Player)parameters[0], LuaScope.GetString(parameters[1] ) ) ).Then( () =>

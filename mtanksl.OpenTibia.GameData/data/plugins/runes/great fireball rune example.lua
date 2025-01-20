@@ -13,6 +13,6 @@ function onuserune(player, target, toTile, rune)
 				  {-2, 2},  {-1, 2},  {0, 2},  {1, 2},  {2, 2},
 							{-1, 3},  {0, 3},  {1, 3}
 	}
-	local min, max = formula.generic(player.Level, player.Skills.MagicLevel, 1.2, 7, 2.8, 17)
+	local min, max = formula.generic(player.Level, player.Skills.GetSkillLevel(skill.magiclevel), 1.2, 7, 2.8, 17)
 	command.creatureattackarea(player, false, toTile.Position, area, projectiletype.fire, magiceffecttype.firearea, attack.simple(nil, nil, animatedtextcolor.orange, min, max), nil)
 end

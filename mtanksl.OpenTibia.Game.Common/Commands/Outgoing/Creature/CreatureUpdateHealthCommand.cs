@@ -43,7 +43,14 @@ namespace OpenTibia.Game.Commands
                     {
                         if (observer == Creature)
                         {
-                            Context.AddPacket(observer, new SendStatusOutgoingPacket(observer.Health, observer.MaxHealth, observer.Capacity, observer.Experience, observer.Level, observer.LevelPercent, observer.Mana, observer.MaxMana, observer.Skills.MagicLevel, observer.Skills.MagicLevelPercent, observer.Soul, observer.Stamina) );
+                            Context.AddPacket(observer, new SendStatusOutgoingPacket(
+                                observer.Health, observer.MaxHealth,
+                                observer.Capacity,
+                                observer.Experience, observer.Level, observer.LevelPercent,
+                                observer.Mana, observer.MaxMana,
+                                observer.Skills.GetSkillLevel(Skill.MagicLevel), observer.Skills.GetSkillPercent(Skill.MagicLevel),
+                                observer.Soul,
+                                observer.Stamina) );
                         }
 
                         byte clientIndex;

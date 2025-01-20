@@ -107,7 +107,7 @@ namespace OpenTibia.Game.Components
                     }
                     else
                     {
-                        var formula = Formula.MeleeFormula(player.Level, player.Skills.Sword, itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
+                        var formula = Formula.MeleeFormula(player.Level, player.Skills.GetSkillLevel(Skill.Sword), itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
 
                         return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target,
                             
@@ -124,7 +124,7 @@ namespace OpenTibia.Game.Components
                     }
                     else
                     {
-                        var formula = Formula.MeleeFormula(player.Level, player.Skills.Club, itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
+                        var formula = Formula.MeleeFormula(player.Level, player.Skills.GetSkillLevel(Skill.Club), itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
 
                         return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                             
@@ -141,7 +141,7 @@ namespace OpenTibia.Game.Components
                     }
                     else
                     {
-                        var formula = Formula.MeleeFormula(player.Level, player.Skills.Axe, itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
+                        var formula = Formula.MeleeFormula(player.Level, player.Skills.GetSkillLevel(Skill.Axe), itemWeapon.Metadata.Attack.Value, player.Client.FightMode); 
 
                         return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                             
@@ -207,7 +207,7 @@ namespace OpenTibia.Game.Components
                         {
                             return promise.Then( () =>
                             {
-                                var formula = Formula.DistanceFormula(player.Level, player.Skills.Distance, itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
+                                var formula = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
 
                                 return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                                 
@@ -243,7 +243,7 @@ namespace OpenTibia.Game.Components
                         {
                             return promise.Then( () =>
                             {
-                                var formula = Formula.DistanceFormula(player.Level, player.Skills.Distance, itemAmmunition.Metadata.Attack.Value, player.Client.FightMode);
+                                var formula = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), itemAmmunition.Metadata.Attack.Value, player.Client.FightMode);
 
                                 return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                                 
@@ -259,7 +259,7 @@ namespace OpenTibia.Game.Components
             }
             else
             {
-                var formula = Formula.MeleeFormula(player.Level, player.Skills.Fist, 7, player.Client.FightMode); 
+                var formula = Formula.MeleeFormula(player.Level, player.Skills.GetSkillLevel(Skill.Fist), 7, player.Client.FightMode); 
 
                 return Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                     

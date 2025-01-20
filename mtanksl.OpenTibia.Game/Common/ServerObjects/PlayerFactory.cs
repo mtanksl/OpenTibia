@@ -139,85 +139,85 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             player.BankAccount = (ulong)dbPlayer.BankAccount;
 
-            player.Skills.MagicLevel = (byte)dbPlayer.SkillMagicLevel;
+            player.Skills.SetSkillLevel(Skill.MagicLevel, (byte)dbPlayer.SkillMagicLevel);
 
-            player.Skills.MagicLevelPoints = (ulong)dbPlayer.SkillMagicLevelPoints;
+            player.Skills.SetSkillPoints(Skill.MagicLevel, (ulong)dbPlayer.SkillMagicLevelPoints);
 
-            player.Skills.MagicLevel = Formula.FixRequiredSkillLevel(player, Skill.MagicLevel);
+            player.Skills.SetSkillLevel(Skill.MagicLevel, Formula.FixRequiredSkillLevel(player, Skill.MagicLevel) );
 
-            player.Skills.MagicLevelPoints = Formula.FixRequiredSkillPoints(player, Skill.MagicLevel);
+            player.Skills.SetSkillPoints(Skill.MagicLevel, Formula.FixRequiredSkillPoints(player, Skill.MagicLevel) );
 
-            player.Skills.MagicLevelPercent = Formula.GetSkillPercent(player, Skill.MagicLevel);
+            player.Skills.SetSkillPercent(Skill.MagicLevel, Formula.GetSkillPercent(player, Skill.MagicLevel) );
 
-            player.Skills.Fist = (byte)dbPlayer.SkillFist;
+            player.Skills.SetSkillLevel(Skill.Fist, (byte)dbPlayer.SkillFist);
 
-            player.Skills.FistPoints = (ulong)dbPlayer.SkillFistPoints;
+            player.Skills.SetSkillPoints(Skill.Fist, (ulong)dbPlayer.SkillFistPoints);
 
-            player.Skills.Fist = Formula.FixRequiredSkillLevel(player, Skill.Fist);
+            player.Skills.SetSkillLevel(Skill.Fist, Formula.FixRequiredSkillLevel(player, Skill.Fist) );
 
-            player.Skills.FistPoints = Formula.FixRequiredSkillPoints(player, Skill.Fist);
+            player.Skills.SetSkillPoints(Skill.Fist, Formula.FixRequiredSkillPoints(player, Skill.Fist) );
 
-            player.Skills.FistPercent = Formula.GetSkillPercent(player, Skill.Fist);
+            player.Skills.SetSkillPercent(Skill.Fist, Formula.GetSkillPercent(player, Skill.Fist) );
 
-            player.Skills.Club = (byte)dbPlayer.SkillClub;
+            player.Skills.SetSkillLevel(Skill.Club, (byte)dbPlayer.SkillClub);
 
-            player.Skills.ClubPoints = (ulong)dbPlayer.SkillClubPoints;
+            player.Skills.SetSkillPoints(Skill.Club, (ulong)dbPlayer.SkillClubPoints);
 
-            player.Skills.Club = Formula.FixRequiredSkillLevel(player, Skill.Club);
+            player.Skills.SetSkillLevel(Skill.Club, Formula.FixRequiredSkillLevel(player, Skill.Club) );
 
-            player.Skills.ClubPoints = Formula.FixRequiredSkillPoints(player, Skill.Club);
+            player.Skills.SetSkillPoints(Skill.Club, Formula.FixRequiredSkillPoints(player, Skill.Club) );
 
-            player.Skills.ClubPercent = Formula.GetSkillPercent(player, Skill.Club);
+            player.Skills.SetSkillPercent(Skill.Club, Formula.GetSkillPercent(player, Skill.Club) );
 
-            player.Skills.Sword = (byte)dbPlayer.SkillSword;
+            player.Skills.SetSkillLevel(Skill.Sword, (byte)dbPlayer.SkillSword);
 
-            player.Skills.SwordPoints = (ulong)dbPlayer.SkillSwordPoints;
+            player.Skills.SetSkillPoints(Skill.Sword, (ulong)dbPlayer.SkillSwordPoints);
 
-            player.Skills.Sword = Formula.FixRequiredSkillLevel(player, Skill.Sword);
+            player.Skills.SetSkillLevel(Skill.Sword, Formula.FixRequiredSkillLevel(player, Skill.Sword) );
 
-            player.Skills.SwordPoints = Formula.FixRequiredSkillPoints(player, Skill.Sword);
+            player.Skills.SetSkillPoints(Skill.Sword, Formula.FixRequiredSkillPoints(player, Skill.Sword) );
 
-            player.Skills.SwordPercent = Formula.GetSkillPercent(player, Skill.Sword);
+            player.Skills.SetSkillPercent(Skill.Sword, Formula.GetSkillPercent(player, Skill.Sword) );
 
-            player.Skills.Axe = (byte)dbPlayer.SkillAxe;
+            player.Skills.SetSkillLevel(Skill.Axe, (byte)dbPlayer.SkillAxe);
 
-            player.Skills.AxePoints = (ulong)dbPlayer.SkillAxePoints;
+            player.Skills.SetSkillPoints(Skill.Axe, (ulong)dbPlayer.SkillAxePoints);
 
-            player.Skills.Axe = Formula.FixRequiredSkillLevel(player, Skill.Axe);
+            player.Skills.SetSkillLevel(Skill.Axe, Formula.FixRequiredSkillLevel(player, Skill.Axe) );
 
-            player.Skills.AxePoints = Formula.FixRequiredSkillPoints(player, Skill.Axe);
+            player.Skills.SetSkillPoints(Skill.Axe, Formula.FixRequiredSkillPoints(player, Skill.Axe) );
 
-            player.Skills.AxePercent = Formula.GetSkillPercent(player, Skill.Axe);
+            player.Skills.SetSkillPercent(Skill.Axe, Formula.GetSkillPercent(player, Skill.Axe) );
 
-            player.Skills.Distance = (byte)dbPlayer.SkillDistance;
+            player.Skills.SetSkillLevel(Skill.Distance, (byte)dbPlayer.SkillDistance);
 
-            player.Skills.DistancePoints = (ulong)dbPlayer.SkillDistancePoints;
+            player.Skills.SetSkillPoints(Skill.Distance, (ulong)dbPlayer.SkillDistancePoints);
 
-            player.Skills.Distance = Formula.FixRequiredSkillLevel(player, Skill.Distance);
+            player.Skills.SetSkillLevel(Skill.Distance, Formula.FixRequiredSkillLevel(player, Skill.Distance) );
 
-            player.Skills.DistancePoints = Formula.FixRequiredSkillPoints(player, Skill.Distance);
+            player.Skills.SetSkillPoints(Skill.Distance, Formula.FixRequiredSkillPoints(player, Skill.Distance) );
 
-            player.Skills.DistancePercent = Formula.GetSkillPercent(player, Skill.Distance);
+            player.Skills.SetSkillPercent(Skill.Distance, Formula.GetSkillPercent(player, Skill.Distance) );
 
-            player.Skills.Shield = (byte)dbPlayer.SkillShield;
+            player.Skills.SetSkillLevel(Skill.Shield, (byte)dbPlayer.SkillShield);
 
-            player.Skills.ShieldPoints = (ulong)dbPlayer.SkillShieldPoints;
+            player.Skills.SetSkillPoints(Skill.Shield, (ulong)dbPlayer.SkillShieldPoints);
 
-            player.Skills.Shield = Formula.FixRequiredSkillLevel(player, Skill.Shield);
+            player.Skills.SetSkillLevel(Skill.Shield, Formula.FixRequiredSkillLevel(player, Skill.Shield) );
 
-            player.Skills.ShieldPoints = Formula.FixRequiredSkillPoints(player, Skill.Shield);
+            player.Skills.SetSkillPoints(Skill.Shield, Formula.FixRequiredSkillPoints(player, Skill.Shield) );
 
-            player.Skills.ShieldPercent = Formula.GetSkillPercent(player, Skill.Shield);
+            player.Skills.SetSkillPercent(Skill.Shield, Formula.GetSkillPercent(player, Skill.Shield) );
 
-            player.Skills.Fish = (byte)dbPlayer.SkillFish;
+            player.Skills.SetSkillLevel(Skill.Fish, (byte)dbPlayer.SkillFish);
 
-            player.Skills.FishPoints = (ulong)dbPlayer.SkillFishPoints;
+            player.Skills.SetSkillPoints(Skill.Fish, (ulong)dbPlayer.SkillFishPoints);
 
-            player.Skills.Fish = Formula.FixRequiredSkillLevel(player, Skill.Fish);
+            player.Skills.SetSkillLevel(Skill.Fish, Formula.FixRequiredSkillLevel(player, Skill.Fish) );
 
-            player.Skills.FishPoints = Formula.FixRequiredSkillPoints(player, Skill.Fish);
+            player.Skills.SetSkillPoints(Skill.Fish, Formula.FixRequiredSkillPoints(player, Skill.Fish) );
 
-            player.Skills.FishPercent = Formula.GetSkillPercent(player, Skill.Fish);
+            player.Skills.SetSkillPercent(Skill.Fish, Formula.GetSkillPercent(player, Skill.Fish) );
         }
 
         private static void LoadLockers(Context context, DbPlayer dbPlayer, Player player)
@@ -434,37 +434,37 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             dbPlayer.Invisible = player.Invisible;
 
-            dbPlayer.SkillMagicLevel = player.Skills.MagicLevel;
+            dbPlayer.SkillMagicLevel = player.Skills.GetSkillLevel(Skill.MagicLevel);
 
-            dbPlayer.SkillMagicLevelPoints = (long)player.Skills.MagicLevelPoints;
+            dbPlayer.SkillMagicLevelPoints = (long)player.Skills.GetSkillPoints(Skill.Sword);
 
-            dbPlayer.SkillFist = player.Skills.Fist;
+            dbPlayer.SkillFist = player.Skills.GetSkillLevel(Skill.Fist);
 
-            dbPlayer.SkillFistPoints = (long)player.Skills.FistPoints;
+            dbPlayer.SkillFistPoints = (long)player.Skills.GetSkillPoints(Skill.Fist);
 
-            dbPlayer.SkillClub = player.Skills.Club;
+            dbPlayer.SkillClub = player.Skills.GetSkillLevel(Skill.Club);
 
-            dbPlayer.SkillClubPoints = (long)player.Skills.ClubPoints;
+            dbPlayer.SkillClubPoints = (long)player.Skills.GetSkillPoints(Skill.Club);
 
-            dbPlayer.SkillSword = player.Skills.Sword;
+            dbPlayer.SkillSword = player.Skills.GetSkillLevel(Skill.Sword);
 
-            dbPlayer.SkillSwordPoints = (long)player.Skills.SwordPoints;
+            dbPlayer.SkillSwordPoints = (long)player.Skills.GetSkillPoints(Skill.Sword);
 
-            dbPlayer.SkillAxe = player.Skills.Axe;
+            dbPlayer.SkillAxe = player.Skills.GetSkillLevel(Skill.Axe);
 
-            dbPlayer.SkillAxePoints = (long)player.Skills.AxePoints;
+            dbPlayer.SkillAxePoints = (long)player.Skills.GetSkillPoints(Skill.Axe);
 
-            dbPlayer.SkillDistance = player.Skills.Distance;
+            dbPlayer.SkillDistance = player.Skills.GetSkillLevel(Skill.Distance);
 
-            dbPlayer.SkillDistancePoints = (long)player.Skills.DistancePoints;
+            dbPlayer.SkillDistancePoints = (long)player.Skills.GetSkillPoints(Skill.Distance);
 
-            dbPlayer.SkillShield = player.Skills.Shield;
+            dbPlayer.SkillShield = player.Skills.GetSkillLevel(Skill.Shield);
 
-            dbPlayer.SkillShieldPoints = (long)player.Skills.ShieldPoints;
+            dbPlayer.SkillShieldPoints = (long)player.Skills.GetSkillPoints(Skill.Shield);
 
-            dbPlayer.SkillFish = player.Skills.Fish;
+            dbPlayer.SkillFish = player.Skills.GetSkillLevel(Skill.Fish);
 
-            dbPlayer.SkillFishPoints = (long)player.Skills.FishPoints;
+            dbPlayer.SkillFishPoints = (long)player.Skills.GetSkillPoints(Skill.Fish);
 
             dbPlayer.Experience = (long)player.Experience;
 

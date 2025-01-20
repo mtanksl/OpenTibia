@@ -45,7 +45,7 @@ namespace OpenTibia.Game.Commands
 
                     if (currentExperience - Experience >= minExperience)
                     {
-                        correctLevelPercent = (byte)Math.Ceiling(100.0 * (currentExperience - Experience - minExperience) / (maxExperience - minExperience) );
+                        correctLevelPercent = (byte)Math.Max(0, Math.Min(100, Math.Floor(100.0 * (currentExperience - Experience - minExperience) / (maxExperience - minExperience) ) ) );
 
                         break;
                     }

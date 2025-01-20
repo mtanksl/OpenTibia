@@ -52,7 +52,7 @@ namespace OpenTibia.Game.Commands
 
                 if (currentSkillPoints + SkillPoints < maxSkillPoints)
                 {
-                    correctSkillPercent = (byte)Math.Ceiling(100.0 * (currentSkillPoints + SkillPoints - minSkillPoints) / (maxSkillPoints - minSkillPoints));
+                    correctSkillPercent = (byte)Math.Max(0, Math.Min(100, Math.Floor(100.0 * (currentSkillPoints + SkillPoints - minSkillPoints) / (maxSkillPoints - minSkillPoints) ) ) );
 
                     break;
                 }
@@ -128,60 +128,7 @@ namespace OpenTibia.Game.Commands
                 Context.AddEvent(new PlayerAdvanceSkillEventArgs(Player, Skill, currentSkillLevel, correctSkillLevel) );
             }
 
-            switch (Skill)
-            {
-                case Skill.MagicLevel:
-
-                    await Context.AddCommand(new PlayerUpdateMagicLevelCommand(Player, currentSkillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
-
-                    break;
-
-                case Skill.Fist:
-                                                            
-                    await Context.AddCommand(new PlayerUpdateFistCommand(Player, currentSkillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
-
-                    break;
-
-                case Skill.Club:
-
-                    await Context.AddCommand(new PlayerUpdateClubCommand(Player, currentSkillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
-
-                    break;
-
-                case Skill.Sword:
-
-                    await Context.AddCommand(new PlayerUpdateSwordCommand(Player, currentSkillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
-
-                    break;
-
-                case Skill.Axe:
-
-                    await Context.AddCommand(new PlayerUpdateAxeCommand(Player, currentSkillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
-
-                    break;
-
-                case Skill.Distance:
-
-                    await Context.AddCommand(new PlayerUpdateDistanceCommand(Player, currentSkillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
-
-                    break;
-
-                case Skill.Shield:
-
-                    await Context.AddCommand(new PlayerUpdateShieldCommand(Player, currentSkillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
-
-                    break;
-
-                case Skill.Fish:
-
-                    await Context.AddCommand(new PlayerUpdateFishCommand(Player, currentSkillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
-
-                    break;
-
-                default:
-
-                    throw new NotImplementedException();
-            }
+            await Context.AddCommand(new PlayerUpdateSkillCommand(Player, Skill, currentSkillPoints + SkillPoints, correctSkillLevel, correctSkillPercent) );
         }
     }
 }

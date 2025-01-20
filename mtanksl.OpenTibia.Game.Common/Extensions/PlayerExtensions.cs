@@ -192,7 +192,7 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdateAxe(this Player player, ulong axePoints, byte axe, byte axePercent)
+        public static Promise UpdateSkill(this Player player, Skill skill, ulong skillPoints, byte skillLevel, byte skillPercent)
         {
             Context context = Context.Current;
 
@@ -201,105 +201,7 @@ namespace OpenTibia.Game.Extensions
                 throw new InvalidOperationException("Context not found.");
             }
 
-            return context.AddCommand(new PlayerUpdateAxeCommand(player, axePoints, axe, axePercent) );
-        }
-
-        /// <exception cref="InvalidOperationException"></exception>
-
-        public static Promise UpdateClub(this Player player, ulong clubPoints, byte club, byte clubPercent)
-        {
-            Context context = Context.Current;
-
-            if (context == null)
-            {
-                throw new InvalidOperationException("Context not found.");
-            }
-
-            return context.AddCommand(new PlayerUpdateClubCommand(player, clubPoints, club, clubPercent) );
-        }
-
-        /// <exception cref="InvalidOperationException"></exception>
-
-        public static Promise UpdateDistance(this Player player, ulong distancePoints, byte distance, byte distancePercent)
-        {
-            Context context = Context.Current;
-
-            if (context == null)
-            {
-                throw new InvalidOperationException("Context not found.");
-            }
-
-            return context.AddCommand(new PlayerUpdateDistanceCommand(player, distancePoints, distance, distancePercent) );
-        }
-
-        /// <exception cref="InvalidOperationException"></exception>
-
-        public static Promise UpdateFish(this Player player, ulong fishPoints, byte fish, byte fishPercent)
-        {
-            Context context = Context.Current;
-
-            if (context == null)
-            {
-                throw new InvalidOperationException("Context not found.");
-            }
-
-            return context.AddCommand(new PlayerUpdateFishCommand(player, fishPoints, fish, fishPercent) );
-        }
-
-        /// <exception cref="InvalidOperationException"></exception>
-
-        public static Promise UpdateFist(this Player player, ulong fistPoints, byte fist, byte fistPercent)
-        {
-            Context context = Context.Current;
-
-            if (context == null)
-            {
-                throw new InvalidOperationException("Context not found.");
-            }
-
-            return context.AddCommand(new PlayerUpdateFistCommand(player, fistPoints, fist, fistPercent) );
-        }
-
-        /// <exception cref="InvalidOperationException"></exception>
-
-        public static Promise UpdateMagicLevel(this Player player, ulong magicLevelPoints, byte magicLevel, byte magicLevelPercent)
-        {
-            Context context = Context.Current;
-
-            if (context == null)
-            {
-                throw new InvalidOperationException("Context not found.");
-            }
-
-            return context.AddCommand(new PlayerUpdateMagicLevelCommand(player, magicLevelPoints, magicLevel, magicLevelPercent) );
-        }
-
-        /// <exception cref="InvalidOperationException"></exception>
-
-        public static Promise UpdateShield(this Player player, ulong shieldPoints, byte shield, byte shieldPercent)
-        {
-            Context context = Context.Current;
-
-            if (context == null)
-            {
-                throw new InvalidOperationException("Context not found.");
-            }
-
-            return context.AddCommand(new PlayerUpdateShieldCommand(player, shieldPoints, shield, shieldPercent) );
-        }
-
-        /// <exception cref="InvalidOperationException"></exception>
-
-        public static Promise UpdateSword(this Player player, ulong swordPoints, byte sword, byte swordPercent)
-        {
-            Context context = Context.Current;
-
-            if (context == null)
-            {
-                throw new InvalidOperationException("Context not found.");
-            }
-
-            return context.AddCommand(new PlayerUpdateSwordCommand(player, swordPoints, sword, swordPercent) );
+            return context.AddCommand(new PlayerUpdateSkillCommand(player, skill, skillPoints, skillLevel, skillPercent) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>

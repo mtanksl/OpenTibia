@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Common
 
             ulong maxExperience = GetRequiredExperience( (ushort)(level + 1) );
 
-            return (byte)Math.Floor(100.0 * (experience - minExperience) / (maxExperience - minExperience) );
+            return (byte)Math.Max(0, Math.Min(100, Math.Floor(100.0 * (experience - minExperience) / (maxExperience - minExperience) ) ) );
         }
 
         public static double GetLossPercent(ushort level, byte levelPercent, ulong experience, Vocation vocation, int blesses)
@@ -213,7 +213,7 @@ namespace OpenTibia.Game.Common
 
             ulong maxSkillPoints = GetRequiredSkillPoints(skill, player.Vocation, (byte)(skillLevel + 1) );
 
-            return (byte)Math.Floor(100.0 * (skillPoints - minSkillPoints) / (maxSkillPoints - minSkillPoints) );
+            return (byte)Math.Max(0, Math.Min(100, Math.Floor(100.0 * (skillPoints - minSkillPoints) / (maxSkillPoints - minSkillPoints) ) ) );
         }
 
         public static ushort GetBaseSpeed(ushort level)

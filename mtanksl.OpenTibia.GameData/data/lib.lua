@@ -191,6 +191,17 @@ projectiletype = {
 	cake = 42
 }
 
+skill = {
+	magiclevel = 0,
+    fist = 1,
+    club = 2,
+    sword = 3,
+    axe = 4,
+    distance = 5,
+    shield = 6,
+    fish = 7
+}
+
 skullicon = {
 	none = 0,
 	yellow = 1,

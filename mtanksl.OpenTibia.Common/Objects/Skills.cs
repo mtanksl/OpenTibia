@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Structures;
-using System;
 
 namespace OpenTibia.Common.Objects
 {
@@ -20,132 +19,40 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        public byte MagicLevel { get; set; }
-
-        public ulong MagicLevelPoints { get; set; }
-
-        public byte MagicLevelPercent { get; set; }
-
-        public byte Fist { get; set; }
-
-        public ulong FistPoints { get; set; }
-
-        public byte FistPercent { get; set; }
-
-        public byte Club { get; set; }
-
-        public ulong ClubPoints { get; set; }
-
-        public byte ClubPercent { get; set; }
-
-        public byte Sword { get; set; }
-
-        public ulong SwordPoints { get; set; }
-
-        public byte SwordPercent { get; set; }
-
-        public byte Axe { get; set; }
-
-        public ulong AxePoints { get; set; }
-
-        public byte AxePercent { get; set; }
-
-        public byte Distance { get; set; }
-
-        public ulong DistancePoints { get; set; }
-
-        public byte DistancePercent { get; set; }
-
-        public byte Shield { get; set; }
-
-        public ulong ShieldPoints { get; set; }
-
-        public byte ShieldPercent { get; set; }
-
-        public byte Fish { get; set; }
-
-        public ulong FishPoints { get; set; }
-
-        public byte FishPercent { get; set; }
+        private byte[] skillLevels = new byte[] { 0, 10, 10, 10, 10, 10, 10, 10 };
 
         public byte GetSkillLevel(Skill skill)
         {
-            switch (skill)
-            {
-                case Skill.MagicLevel:
-                    
-                    return MagicLevel;
-
-                case Skill.Fist:
-
-                    return Fist;
-
-                case Skill.Club:
-
-                    return Club;
-
-                case Skill.Sword:
-
-                    return Sword;
-
-                case Skill.Axe:
-
-                    return Axe;
-
-                case Skill.Distance:
-
-                    return Distance;
-
-                case Skill.Shield:
-
-                    return Shield;
-
-                case Skill.Fish:
-
-                    return Fish;
-            }
-
-            throw new NotImplementedException();
+            return skillLevels[ (byte)skill];
         }
+
+        public void SetSkillLevel(Skill skill, byte skillLevel)
+        {
+            skillLevels[ (byte)skill] = skillLevel;
+        }
+
+        private ulong[] skillPoints = new ulong[8];
 
         public ulong GetSkillPoints(Skill skill)
         {
-            switch (skill)
-            {
-                case Skill.MagicLevel:
-                    
-                    return MagicLevelPoints;
+            return skillPoints[ (byte)skill];
+        }
 
-                case Skill.Fist:
+        public void SetSkillPoints(Skill skill, ulong skillPoint)
+        {
+            skillPoints[ (byte)skill] = skillPoint;
+        }
 
-                    return FistPoints;
+        private byte[] skillPercents = new byte[8];
+                        
+        public byte GetSkillPercent(Skill skill)
+        {
+            return skillPercents[ (byte)skill];
+        }
 
-                case Skill.Club:
-
-                    return ClubPoints;
-
-                case Skill.Sword:
-
-                    return SwordPoints;
-
-                case Skill.Axe:
-
-                    return AxePoints;
-
-                case Skill.Distance:
-
-                    return DistancePoints;
-
-                case Skill.Shield:
-
-                    return ShieldPoints;
-
-                case Skill.Fish:
-
-                    return FishPoints;
-            }
-
-            throw new NotImplementedException();
+        public void SetSkillPercent(Skill skill, byte skillPercent)
+        {
+            skillPercents[ (byte)skill] = skillPercent;
         }
     }
 }

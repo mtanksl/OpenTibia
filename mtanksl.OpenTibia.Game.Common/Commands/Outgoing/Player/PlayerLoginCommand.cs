@@ -23,9 +23,23 @@ namespace OpenTibia.Game.Commands
 
             Context.AddPacket(Player, new SetEnvironmentLightOutgoingPacket(Context.Server.Clock.Light) );
                                 
-            Context.AddPacket(Player, new SendStatusOutgoingPacket(Player.Health, Player.MaxHealth, Player.Capacity, Player.Experience, Player.Level, Player.LevelPercent, Player.Mana, Player.MaxMana, Player.Skills.MagicLevel, Player.Skills.MagicLevelPercent, Player.Soul, Player.Stamina) );
+            Context.AddPacket(Player, new SendStatusOutgoingPacket(
+                    Player.Health, Player.MaxHealth, 
+                    Player.Capacity, 
+                    Player.Experience, Player.Level, Player.LevelPercent, 
+                    Player.Mana, Player.MaxMana, 
+                    Player.Skills.GetSkillLevel(Skill.MagicLevel), Player.Skills.GetSkillPercent(Skill.MagicLevel), 
+                    Player.Soul, 
+                    Player.Stamina) );
 
-            Context.AddPacket(Player, new SendSkillsOutgoingPacket(Player.Skills.Fist, Player.Skills.FistPercent, Player.Skills.Club, Player.Skills.ClubPercent, Player.Skills.Sword, Player.Skills.SwordPercent, Player.Skills.Axe, Player.Skills.AxePercent, Player.Skills.Distance, Player.Skills.DistancePercent, Player.Skills.Shield, Player.Skills.ShieldPercent, Player.Skills.Fish, Player.Skills.FishPercent) );
+            Context.AddPacket(Player, new SendSkillsOutgoingPacket(
+                Player.Skills.GetSkillLevel(Skill.Fist), Player.Skills.GetSkillPercent(Skill.Fist),
+                Player.Skills.GetSkillLevel(Skill.Club), Player.Skills.GetSkillPercent(Skill.Club),
+                Player.Skills.GetSkillLevel(Skill.Sword), Player.Skills.GetSkillPercent(Skill.Sword),
+                Player.Skills.GetSkillLevel(Skill.Axe), Player.Skills.GetSkillPercent(Skill.Axe),
+                Player.Skills.GetSkillLevel(Skill.Distance), Player.Skills.GetSkillPercent(Skill.Distance),
+                Player.Skills.GetSkillLevel(Skill.Shield), Player.Skills.GetSkillPercent(Skill.Shield),
+                Player.Skills.GetSkillLevel(Skill.Fish), Player.Skills.GetSkillPercent(Skill.Fish) ) );
 
             Context.AddPacket(Player, new SetSpecialConditionOutgoingPacket(Player.SpecialConditions) );
 

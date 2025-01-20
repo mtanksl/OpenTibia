@@ -31,7 +31,7 @@ namespace OpenTibia.Plugins.Spells
                                                         new Offset(-1, 3),  new Offset(0, 3),  new Offset(1, 3)
             };
 
-            var formula = Formula.GenericFormula(player.Level, player.Skills.MagicLevel, 5.7, 26, 10.43, 62);
+            var formula = Formula.GenericFormula(player.Level, player.Skills.GetSkillLevel(Skill.MagicLevel), 5.7, 26, 10.43, 62);
 
             return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.BlueShimmer, 
                         

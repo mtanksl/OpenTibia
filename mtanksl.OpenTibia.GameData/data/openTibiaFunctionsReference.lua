@@ -600,60 +600,11 @@ return {
 				args = "(Player player, Skill skill, ulong skillPoints)",
 				returns = "void"
 			},
-			-- void command.playerupdateaxe(Player player, ulong skillPoint, byte skill, byte skillPercent)
-			playerupdateaxe = {
+			-- void command.playerupdatskill(Player player, Skill skill, ulong skillPoints, byte skillLevel, byte skillPercent)
+			playerupdatskill = {
 				type = "function",
 				description = "",
-				args = "(Player player, ulong skillPoint, byte skill, byte skillPercent)",
-				returns = "void"
-			},
-			-- void command.playerupdateclub(Player player, ulong skillPoint, byte skill, byte skillPercent)
-			playerupdateclub = {
-				type = "function",
-				description = "",
-				args = "(Player player, ulong skillPoint, byte skill, byte skillPercent)",
-				returns = "void"
-			},
-			-- void command.playerupdatedistance(Player player, ulong skillPoint, byte skill, byte skillPercent)
-			playerupdatedistance = {
-				type = "function",
-				description = "",
-				args = "(Player player, ulong skillPoint, byte skill, byte skillPercent)",
-				returns = "void"
-			},
-			-- void command.playerupdatefish(Player player, ulong skillPoint, byte skill, byte skillPercent)
-			playerupdatefish = {
-				type = "function",
-				description = "",
-				args = "(Player player, ulong skillPoint, byte skill, byte skillPercent)",
-				returns = "void"
-			},
-			-- void command.playerupdatefist(Player player, ulong skillPoint, byte skill, byte skillPercent)
-			playerupdatefist = {
-				type = "function",
-				description = "",
-				args = "(Player player, ulong skillPoint, byte skill, byte skillPercent)",
-				returns = "void"
-			},
-			-- void command.playerupdatemagiclevel(Player player, ulong skillPoint, byte skill, byte skillPercent)
-			playerupdatemagiclevel = {
-				type = "function",
-				description = "",
-				args = "(Player player, ulong skillPoint, byte skill, byte skillPercent)",
-				returns = "void"
-			},
-			-- void command.playerupdateshield(Player player, ulong skillPoint, byte skill, byte skillPercent)
-			playerupdateshield = {
-				type = "function",
-				description = "",
-				args = "(Player player, ulong skillPoint, byte skill, byte skillPercent)",
-				returns = "void"
-			},
-			-- void command.playerupdatesword(Player player, ulong skillPoint, byte skill, byte skillPercent)
-			playerupdatesword = {
-				type = "function",
-				description = "",
-				args = "(Player player, ulong skillPoint, byte skill, byte skillPercent)",
+				args = "(Player player, Skill skill, ulong skillPoints, byte skillLevel, byte skillPercent)",
 				returns = "void"
 			},
 			-- void command.playersay(Player player, string message)
