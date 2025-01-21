@@ -6,4 +6,11 @@
     <voice sentence="Brrrr" />
     <voice sentence="Broar!" />
   </voices>
+  <elements>
+    <element firePercent="7" />
+    <element holyPercent="5" />
+    <element earthPercent="-3" />
+    <element energyPercent="-4" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

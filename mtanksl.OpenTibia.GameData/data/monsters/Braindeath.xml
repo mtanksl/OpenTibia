@@ -8,4 +8,10 @@
     <voice sentence="Let me taste your brain!" />
     <voice sentence="You will be punished!" />
   </voices>
+  <elements>
+	<element icePercent="13" />
+    <element physicalPercent="9" />
+    <element holyPercent="-10" />
+    <element firePercent="-10" />
+  </elements>
 </monster>

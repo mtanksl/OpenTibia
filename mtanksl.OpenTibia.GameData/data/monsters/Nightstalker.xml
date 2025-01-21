@@ -9,4 +9,11 @@
     <voice sentence="You never know what hides in the night." />
     <voice sentence="I remember your face - and I know where you sleep" />
   </voices>
+  <elements>
+    <element physicalPercent="-25" />
+    <element energyPercent="-15" />
+    <element deathPercent="-5" />
+    <element icePercent="20" />
+    <element holyPercent="10" />
+  </elements>
 </monster>

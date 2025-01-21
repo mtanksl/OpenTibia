@@ -6,4 +6,9 @@
     <voice sentence="No mortal or undead will steal my secrets!" />
     <voice sentence="Ahhhh all those long years." />
   </voices>
+  <elements>
+    <element earthPercent="100" />
+    <element deathPercent="100" />
+    <element holyPercent="-17" />
+  </elements>
 </monster>

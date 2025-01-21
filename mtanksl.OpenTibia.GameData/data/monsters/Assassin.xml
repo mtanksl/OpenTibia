@@ -7,4 +7,8 @@
     <voice sentence="Feel the hand of death!" />
     <voice sentence="You are on my deathlist!" />
   </voices>
+  <elements>
+    <element physicalPercent="-12" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

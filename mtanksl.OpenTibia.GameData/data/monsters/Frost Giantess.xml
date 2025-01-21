@@ -9,4 +9,11 @@
     <voice sentence="Damned fast food." />
     <voice sentence="Come kiss the cook!" />
   </voices>
+  <elements>
+    <element icePercent="100" />
+    <element firePercent="20" />
+    <element holyPercent="10" />
+    <element energyPercent="-10" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

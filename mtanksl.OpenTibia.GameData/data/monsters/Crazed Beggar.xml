@@ -8,4 +8,11 @@
     <voice sentence="You are one of THEM! Die!" />
     <voice sentence="Wanna buy roses??" />
   </voices>
+  <elements>
+    <element physicalPercent="5" />
+    <element energyPercent="20" />
+    <element holyPercent="10" />
+    <element earth="-10" />
+    <element death="-15" />
+  </elements>
 </monster>

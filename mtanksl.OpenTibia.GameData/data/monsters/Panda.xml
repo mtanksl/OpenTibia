@@ -6,4 +6,8 @@
     <voice sentence="Grrrr" />
     <voice sentence="Groar" />
   </voices>
+  <elements>
+    <element earthPercent="100" />
+    <element firePercent="-4" />
+  </elements>
 </monster>

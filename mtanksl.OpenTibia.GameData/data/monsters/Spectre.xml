@@ -6,4 +6,12 @@
     <voice sentence="Revenge ... is so ... sweet!" />
     <voice sentence="Life...force! Feed me your... lifeforce!" />
   </voices>
+  <elements>
+    <element earthPercent="100" />
+    <element deathPercent="100" />
+    <element physicalPercent="60" />
+    <element icePercent="55" />
+    <element firePercent="-23" />
+    <element energyPercent="-20" />
+  </elements>
 </monster>

@@ -6,4 +6,7 @@
     <voice sentence="NOONE WILL STOP ME THIS TIME!" />
     <voice sentence="THE POWER IS MINE!" />
   </voices>
+  <elements>
+    <element firePercent="90" />
+  </elements>
 </monster>

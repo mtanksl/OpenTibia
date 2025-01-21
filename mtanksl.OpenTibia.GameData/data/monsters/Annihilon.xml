@@ -5,4 +5,9 @@
   <voices>
     <voice sentence="Annihilation!" />
   </voices>
+  <elements>
+    <element icePercent="20" />
+    <element deathPercent="20" />
+    <element firePercent="-15" />
+  </elements>
 </monster>

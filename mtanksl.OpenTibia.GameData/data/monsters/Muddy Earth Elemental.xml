@@ -2,4 +2,11 @@
 <monster name="Muddy Earth Elemental" nameDescription="a muddy earth elemental" speed="260" experience="450">
   <health now="650" max="650" />
   <look typeex="0" type="301" head="0" body="0" legs="0" feet="0" corpse="8933" />
+  <elements>
+    <element deathPercent="20" />
+    <element icePercent="20" />
+    <element physicalPercent="20" />
+    <element energyPercent="20" />
+    <element firePercent="-25" />
+  </elements>
 </monster>

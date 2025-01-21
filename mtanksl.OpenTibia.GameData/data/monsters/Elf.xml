@@ -9,4 +9,8 @@
     <voice sentence="Flee as long as you can." />
     <voice sentence="Death to the defilers!" />
   </voices>
+  <elements>
+    <element holyPercent="28" />
+    <element deathPercent="-10" />
+  </elements>
 </monster>

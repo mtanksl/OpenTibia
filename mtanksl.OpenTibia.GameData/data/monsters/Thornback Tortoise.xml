@@ -2,4 +2,10 @@
 <monster name="Thornback Tortoise" nameDescription="a thornback tortoise" speed="200" experience="150">
   <health now="300" max="300" />
   <look typeex="0" type="198" head="0" body="0" legs="0" feet="0" corpse="6073" />
+  <elements>
+    <element physicalPercent="13" />
+    <element earthPercent="12" />
+    <element icePercent="10" />
+    <element firePercent="-9" />
+  </elements>
 </monster>

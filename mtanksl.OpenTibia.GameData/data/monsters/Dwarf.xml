@@ -5,4 +5,9 @@
   <voices>
     <voice sentence="Hail Durin!" />
   </voices>
+  <elements>
+    <element earthPercent="70" />
+    <element firePercent="-5" />
+    <element deathPercent="-3" />
+  </elements>
 </monster>

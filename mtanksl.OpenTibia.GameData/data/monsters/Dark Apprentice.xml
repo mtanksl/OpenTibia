@@ -8,4 +8,7 @@
     <voice sentence="From the spirits that I called Sir, deliver me!" />
     <voice sentence="I must dispose of my masters enemies!" />
   </voices>
+  <elements>
+    <element deathPercent="-10" />
+  </elements>
 </monster>

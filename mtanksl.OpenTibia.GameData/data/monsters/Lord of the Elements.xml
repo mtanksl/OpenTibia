@@ -2,4 +2,8 @@
 <monster name="Lord of the Elements" nameDescription="Lord of the Elements" speed="370" experience="8000">
   <health now="10000" max="10000" />
   <look typeex="0" type="290" head="0" body="0" legs="0" feet="0" corpse="9009" />
+  <elements>
+    <element icePercent="30" />
+    <element energyPercent="30" />
+  </elements>
 </monster>

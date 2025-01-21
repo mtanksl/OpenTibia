@@ -7,4 +7,10 @@
     <voice sentence="Tooooot." />
     <voice sentence="Troooooot!" />
   </voices>
+  <elements>
+    <element physicalPercent="15" />
+    <element icePercent="20" />
+    <element firePercent="20" />
+    <element energyPercent="-10" />
+  </elements>
 </monster>

@@ -5,4 +5,10 @@
   <voices>
     <voice sentence="Huumans stinkk!" />
   </voices>
+  <elements>
+    <element energyPercent="50" />
+    <element holyPercent="25" />
+    <element earthPercent="-5" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

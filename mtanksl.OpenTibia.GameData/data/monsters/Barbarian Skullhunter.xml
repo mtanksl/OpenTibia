@@ -7,4 +7,12 @@
     <voice sentence="Fight harder, coward." />
     <voice sentence="Show that you are a worthy opponent." />
   </voices>
+  <elements>
+    <element icePercent="50" />
+    <element holyPercent="10" />
+    <element energyPercent="20" />
+    <element physicalPercent="5" />
+    <element earthPercent="-10" />
+    <element deathPercent="-7" />
+  </elements>
 </monster>

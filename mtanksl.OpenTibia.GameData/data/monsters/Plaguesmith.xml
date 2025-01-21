@@ -7,4 +7,12 @@
     <voice sentence="Hachoo!" />
     <voice sentence="Cough Cough!" />
   </voices>
+  <elements>
+    <element earthPercent="100" />
+    <element firePercent="40" />
+    <element icePercent="30" />
+    <element deathPercent="20" />
+    <element energyPercent="-10" />
+    <element holyPercent="-10" />
+  </elements>
 </monster>

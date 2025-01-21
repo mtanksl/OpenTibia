@@ -8,4 +8,13 @@
     <voice sentence="Good morning citizen. How may I serve you?" />
     <voice sentence="Target identified: Rat! Termination initiated!" />
   </voices>
+  <elements>
+    <element earthPercent="50" />
+    <element holyPercent="30" />
+    <element firePercent="-10" />
+    <element energyPercent="-5" />
+    <element physicalPercent="40" />
+    <element icePercent="25" />
+    <element deathPercent="30" />
+  </elements>
 </monster>

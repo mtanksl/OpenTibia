@@ -8,9 +8,9 @@ namespace mtanksl.OpenTibia.MonsterImport
     {
         static void Main(string[] args)
         {
-            var fromPath = @"";
+            var fromPath = @"C:\Users\Murilo\Downloads\Crying Damson 0.3.6 860\data\monster";
 
-            var toPath = @"";
+            var toPath = @"C:\Users\Murilo\Documents\Git\mtanksl.OpenTibia\mtanksl.OpenTibia.GameData\data\monsters";
 
             // Update all monster .xml files
             /*
@@ -18,15 +18,24 @@ namespace mtanksl.OpenTibia.MonsterImport
             {
                 foreach (var file in Directory.GetFiles(folder, "*.xml") )
                 {
-                    var monsterFile = Monster.Load(XElement.Load(file) );
+                    var monsterFile = XElement.Load(file, LoadOptions.PreserveWhitespace);
 
-                    var monsterFile2 = XElement.Load(Path.Combine(toPath, monsterFile.Name + ".xml"), LoadOptions.PreserveWhitespace);
+                    var monster = Monster.Load(monsterFile);
+
+                    var monsterFile2 = XElement.Load(Path.Combine(toPath, monster.Name + ".xml"), LoadOptions.PreserveWhitespace);
 
                     try
                     {
-                        monsterFile2.Add(new XAttribute("experience", monsterFile.Experience));
+                        // monsterFile2.Add(new XAttribute("experience", monster.Experience) );
 
-                        File.WriteAllText(Path.Combine(toPath, monsterFile.Name + ".xml"), "<?xml version=\"1.0\"?>\r\n" + monsterFile2.ToString() );
+                        var elements = monsterFile.Element("elements");
+
+                        if (elements != null)
+                        {
+                            monsterFile2.Add(elements);
+
+                            File.WriteAllText(Path.Combine(toPath, monster.Name + ".xml"), "<?xml version=\"1.0\"?>\r\n" + monsterFile2.ToString() );
+                        }
                     }
                     catch { }               
                 }

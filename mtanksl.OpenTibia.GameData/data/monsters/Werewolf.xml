@@ -6,4 +6,13 @@
     <voice sentence="BLOOD!" />
     <voice sentence="HRAAAAAAAAAARRRRRR!" />
   </voices>
+  <elements>
+    <element physicalPercent="5" />
+    <element energyPercent="15" />
+    <element earthPercent="20" />
+    <element firePercent="-10" />
+    <element deathPercent="20" />
+    <element icePercent="-10" />
+    <element holyPercent="-10" />
+  </elements>
 </monster>

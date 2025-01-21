@@ -8,4 +8,12 @@
     <voice sentence="Wishes can come true." />
     <voice sentence="Djinns will soon again be the greatest!" />
   </voices>
+  <elements>
+    <element firePercent="90" />
+    <element earthPercent="70" />
+    <element energyPercent="60" />
+    <element holyPercent="30" />
+    <element icePercent="-20" />
+    <element deathPercent="-15" />
+  </elements>
 </monster>

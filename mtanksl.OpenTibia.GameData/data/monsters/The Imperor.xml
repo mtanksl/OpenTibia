@@ -6,4 +6,9 @@
     <voice sentence="Muahaha!" />
     <voice sentence="He he he!" />
   </voices>
+  <elements>
+    <element icePercent="-20" />
+    <element holyPercent="-20" />
+    <element deathPercent="20" />
+  </elements>
 </monster>

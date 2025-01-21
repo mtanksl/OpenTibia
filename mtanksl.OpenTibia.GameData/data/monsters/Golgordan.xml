@@ -5,4 +5,10 @@
   <voices>
     <voice sentence="Latrivan your fool" />
   </voices>
+  <elements>
+    <element icePercent="-10" />
+    <element holyPercent="15" />
+    <element physicalPercent="20" />
+    <element firePercent="-5" />
+  </elements>
 </monster>

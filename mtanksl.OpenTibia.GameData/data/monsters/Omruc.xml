@@ -7,4 +7,7 @@
     <voice sentence="Chhhhou are marked ashhh my prey." />
     <voice sentence="Psssst, I am over chhhere." />
   </voices>
+  <elements>
+    <element deathPercent="100" />
+  </elements>
 </monster>

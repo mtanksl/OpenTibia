@@ -10,4 +10,7 @@
     <voice sentence="Horre Sjan Flan!" />
     <voice sentence="Forle Bramma!" />
   </voices>
+  <elements>
+    <element icePercent="100" />
+  </elements>
 </monster>

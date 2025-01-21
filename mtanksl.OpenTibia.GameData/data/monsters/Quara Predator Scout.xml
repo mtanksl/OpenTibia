@@ -5,4 +5,7 @@
   <voices>
     <voice sentence="Gnarrr!" />
   </voices>
+  <elements>
+    <element energyPercent="-25" />
+  </elements>
 </monster>

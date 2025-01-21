@@ -2,4 +2,7 @@
 <monster name="Bug" nameDescription="a bug" speed="240" experience="18">
   <health now="29" max="29" />
   <look typeex="0" type="45" head="0" body="0" legs="0" feet="0" corpse="5990" />
+  <elements>
+    <element firePercent="-10" />
+  </elements>
 </monster>

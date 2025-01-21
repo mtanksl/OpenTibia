@@ -10,4 +10,9 @@
     <voice sentence="You will be my toy on the other side!" />
     <voice sentence="What a disgusting smell of life!" />
   </voices>
+  <elements>
+    <element energyPercent="80" />
+    <element holyPercent="-15" />
+    <element firePercent="-10" />
+  </elements>
 </monster>

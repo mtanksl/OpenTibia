@@ -8,4 +8,12 @@
     <voice sentence="CARNAGE!" />
     <voice sentence="You can run but you can't hide" />
   </voices>
+  <elements>
+    <element physicalPercent="5" />
+    <element holyPercent="20" />
+    <element energyPercent="10" />
+    <element icePercent="50" />
+    <element deathPercent="-7" />
+    <element earthPercent="-5" />
+  </elements>
 </monster>

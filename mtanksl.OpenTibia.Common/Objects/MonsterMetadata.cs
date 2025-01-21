@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Structures;
+using System.Collections.Generic;
 
 namespace OpenTibia.Common.Objects
 {
@@ -23,5 +24,7 @@ namespace OpenTibia.Common.Objects
         public string[] Sentences { get; set; }
 
         public LootItem[] LootItems { get; set; }
+
+        public Dictionary<DamageType, double> DamageTakenFromElements { get; set; }
     }
 }

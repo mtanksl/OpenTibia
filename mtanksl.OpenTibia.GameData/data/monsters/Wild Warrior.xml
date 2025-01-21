@@ -6,4 +6,9 @@
     <voice sentence="An enemy!" />
     <voice sentence="Gimme your money!" />
   </voices>
+  <elements>
+    <element holyPercent="10" />
+    <element physicalPercent="-12" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

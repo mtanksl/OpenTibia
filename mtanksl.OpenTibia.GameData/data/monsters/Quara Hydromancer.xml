@@ -10,4 +10,10 @@
     <voice sentence="Blubber." />
     <voice sentence="Blup." />
   </voices>
+  <elements>
+    <element firePercent="100" />
+    <element icePercent="100" />
+    <element earthPercent="-12" />
+    <element energyPercent="-25" />
+  </elements>
 </monster>

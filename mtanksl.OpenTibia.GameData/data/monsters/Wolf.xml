@@ -2,4 +2,10 @@
 <monster name="Wolf" nameDescription="a wolf" speed="195" experience="18">
   <health now="25" max="25" />
   <look typeex="0" type="27" head="0" body="0" legs="0" feet="0" corpse="5968" />
+  <elements>
+    <element earthPercent="10" />
+    <element holyPercent="10" />
+    <element icePercent="-5" />
+		<elemetn deathPercent="-5" />
+  </elements>
 </monster>

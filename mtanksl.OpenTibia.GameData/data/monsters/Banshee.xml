@@ -11,4 +11,10 @@
     <voice sentence="Dance for me your dance of death!" />
     <voice sentence="Feel my gentle kiss of death." />
   </voices>
+  <elements>
+    <element firePercent="100" />
+    <element deathPercent="100" />
+    <element earthPercent="100" />
+    <element holyPercent="-20" />
+  </elements>
 </monster>

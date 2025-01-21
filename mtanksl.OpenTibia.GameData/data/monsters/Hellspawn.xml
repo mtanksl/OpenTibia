@@ -7,4 +7,12 @@
     <voice sentence="You little weasel will not live to see another day." />
     <voice sentence="I'm just a messenger of what's yet to come." />
   </voices>
+  <elements>
+    <element physicalPercent="15" />
+    <element energyPercent="15" />
+    <element firePercent="20" />
+    <element deathPercent="-5" />
+    <element icePercent="-10" />
+    <element holyPercent="10" />
+  </elements>
 </monster>

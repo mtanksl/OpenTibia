@@ -2,4 +2,8 @@
 <monster name="Dreadbeast" nameDescription="a dreadbeast" speed="200" experience="580">
   <health now="515" max="515" />
   <look typeex="0" type="101" head="20" body="30" legs="40" feet="50" corpse="3031" />
+  <elements>
+    <element firePercent="70" />
+    <element physicalPercent="-25" />
+  </elements>
 </monster>

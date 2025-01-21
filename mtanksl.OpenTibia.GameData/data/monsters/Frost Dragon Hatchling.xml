@@ -6,4 +6,10 @@
     <voice sentence="Rooawwrr" />
     <voice sentence="Fchu?" />
   </voices>
+  <elements>
+    <element firePercent="100" />
+    <element earthPercent="100" />
+    <element icePercent="100" />
+    <element energyPercent="-5" />
+  </elements>
 </monster>

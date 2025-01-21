@@ -7,4 +7,10 @@
     <voice sentence="Trak grrrr brik." />
     <voice sentence="Alk!" />
   </voices>
+  <elements>
+    <element energyPercent="30" />
+    <element holyPercent="20" />
+    <element earthPercent="-10" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

@@ -22,9 +22,7 @@
 
         ManaDrain = 9,
 
-        LifeDrain = 10,
-
-        Agony = 11
+        LifeDrain = 10
     }
 
     public static class DamageTypeExtensions

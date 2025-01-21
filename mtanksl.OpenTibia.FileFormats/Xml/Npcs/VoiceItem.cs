@@ -1,8 +1,8 @@
 ﻿using System.Xml.Serialization;
 
-namespace OpenTibia.FileFormats.Xml.Monsters
+namespace OpenTibia.FileFormats.Xml.Npcs
 {
-    public class Voice
+    public class VoiceItem
     {
         [XmlAttribute("sentence")]
         public string Sentence { get; set; }

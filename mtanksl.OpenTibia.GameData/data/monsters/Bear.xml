@@ -6,4 +6,10 @@
     <voice sentence="grrrr" />
     <voice sentence="groar" />
   </voices>
+  <elements>
+    <element earthPercent="20" />
+    <element holyPercent="7" />
+    <element icePercent="-10" />
+    <element deathPercent="-4" />
+  </elements>
 </monster>

@@ -9,4 +9,10 @@
     <voice sentence="Thy living flesh offends me!" />
     <voice sentence="Death and Decay!" />
   </voices>
+  <elements>
+    <element deathPercent="100" />
+    <element earthPercent="100" />
+    <element energyPercent="80" />
+    <element holyPercent="-35" />
+  </elements>
 </monster>

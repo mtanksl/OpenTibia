@@ -8,4 +8,15 @@
     <voice sentence="Tsssse one will risssse again" />
     <voice sentence="I bring your deathhh, mortalssss" />
   </voices>
+  <elements>
+    <element earthPercent="100" />
+    <element icePercent="30" />
+    <element firePercent="-6" />
+    <element energyPercent="-10" />
+	  </elements>  <elements>
+    <element earthPercent="100" />
+    <element icePercent="30" />
+    <element firePercent="-6" />
+    <element energyPercent="-10" />
+  </elements>
 </monster>

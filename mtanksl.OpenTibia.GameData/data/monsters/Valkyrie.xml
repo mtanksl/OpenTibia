@@ -23,4 +23,11 @@
 		<item id="2387" killsToGetOne="252" />              <!-- double axe -->
     <item id="2145" countmax="1" killsToGetOne="926" /> <!-- small diamond -->
 	</loot>
+  <elements>
+    <element icePercent="10" />
+    <element firePercent="10" />
+    <element holyPercent="7" />
+    <element deathPercent="-7" />
+    <element physicalPercent="-6" />
+  </elements>
 </monster>

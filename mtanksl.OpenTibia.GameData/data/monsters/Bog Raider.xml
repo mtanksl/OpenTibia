@@ -6,4 +6,12 @@
     <voice sentence="Tchhh!" />
     <voice sentence="Slurp!" />
   </voices>
+  <elements>
+    <element energyPercent="10" />
+    <element earthPercent="-25" />
+    <element icePercent="10" />
+    <element holyPercent="10" />
+    <element deathPercent="-20" />
+    <element firePercent="-80" />
+  </elements>
 </monster>

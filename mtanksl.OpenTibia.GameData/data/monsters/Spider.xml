@@ -2,4 +2,7 @@
 <monster name="Spider" nameDescription="a spider" speed="152" experience="12">
   <health now="20" max="20" />
   <look typeex="0" type="30" head="0" body="0" legs="0" feet="0" corpse="5961" />
+  <elements>
+    <element firePercent="-10" />
+  </elements>
 </monster>

@@ -8,4 +8,12 @@
     <voice sentence="Let me test this!" />
     <voice sentence="I will study your corpse!" />
   </voices>
+  <elements>
+    <element firePercent="10" />
+    <element earthPercent="20" />
+    <element energyPercent="20" />
+    <element icePercent="10" />
+    <element holyPercent="20" />
+    <element deathPercent="-15" />
+  </elements>
 </monster>

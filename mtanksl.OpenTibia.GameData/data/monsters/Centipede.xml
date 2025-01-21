@@ -2,4 +2,10 @@
 <monster name="Centipede" nameDescription="a centipede" speed="195" experience="30">
   <health now="70" max="70" />
   <look typeex="0" type="124" head="0" body="0" legs="0" feet="0" corpse="6050" />
+  <elements>
+    <element earthPercent="100" />
+    <element icePercent="20" />
+    <element energyPercent="10" />
+    <element firePercent="-15" />
+  </elements>
 </monster>

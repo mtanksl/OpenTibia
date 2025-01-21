@@ -10,4 +10,12 @@
     <voice sentence="Take a ride with me." />
     <voice sentence="Weeeheeheeeheee!" />
   </voices>
+  <elements>
+    <element deathPercent="100" />
+    <element firePercent="25" />
+    <element energyPercent="20" />
+    <element earthPercent="10" />
+    <element icePercent="10" />
+    <element holyPercent="-25" />
+  </elements>
 </monster>

@@ -6,4 +6,10 @@
     <voice sentence="Horax pokti! Hihihihi!" />
     <voice sentence="Herba budinia ex!" />
   </voices>
+  <elements>
+    <element energyPercent="100" />
+    <element earthPercent="30" />
+    <element deathPercent="-5" />
+    <element physicalPercent="-14" />
+  </elements>
 </monster>

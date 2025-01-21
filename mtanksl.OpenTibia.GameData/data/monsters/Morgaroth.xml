@@ -8,4 +8,12 @@
     <voice sentence="THE TRIANGLE OF TERROR WILL RISE!" />
     <voice sentence="ZATHROTH! LOOK AT THE DESTRUCTION I AM CAUSING IN YOUR NAME!" />
   </voices>
+  <elements>
+    <element firePercent="100" />
+    <element earthPercent="100" />
+    <element energyPercent="100" />
+    <element deathPercent="60" />
+    <element physicalPercent="40" />
+    <element icePercent="-25" />
+  </elements>
 </monster>

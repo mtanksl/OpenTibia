@@ -2,4 +2,11 @@
 <monster name="Massive Earth Elemental" nameDescription="a massive earth elemental" speed="290" experience="850">
   <health now="1330" max="1330" />
   <look typeex="0" type="285" head="0" body="0" legs="0" feet="0" corpse="8933" />
+  <elements>
+    <element deathPercent="20" />
+    <element icePercent="20" />
+    <element physicalPercent="20" />
+    <element holyPercent="20" />
+    <element firePercent="-25" />
+  </elements>
 </monster>

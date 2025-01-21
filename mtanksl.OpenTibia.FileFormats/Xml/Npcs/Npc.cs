@@ -47,11 +47,11 @@ namespace OpenTibia.FileFormats.Xml.Npcs
 
             if (voicesNode != null)
             {
-                npc.Voices = new List<Voice>();
+                npc.Voices = new List<VoiceItem>();
 
                 foreach (var voiceNode in voicesNode.Elements() )
                 {
-                    npc.Voices.Add(new Voice() 
+                    npc.Voices.Add(new VoiceItem() 
                     { 
                         Sentence = (string)voiceNode.Attribute("sentence")
                     } );
@@ -78,6 +78,6 @@ namespace OpenTibia.FileFormats.Xml.Npcs
 
         [XmlArray("voices")]
         [XmlArrayItem("voice")]
-        public List<Voice> Voices { get; set; }
+        public List<VoiceItem> Voices { get; set; }
     }
 }

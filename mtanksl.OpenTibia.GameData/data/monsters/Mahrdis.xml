@@ -9,4 +9,11 @@
     <voice sentence="This is why I'm hot." />
     <voice sentence="May my flames engulf you!" />
   </voices>
+  <elements>
+    <element firePercent="100" />
+    <element deathPercent="100" />
+    <element energyPercent="45" />
+    <element holyPercent="-22" />
+    <element icePercent="-25" />
+  </elements>
 </monster>

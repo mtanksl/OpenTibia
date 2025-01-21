@@ -7,4 +7,13 @@
     <voice sentence="You will not tell anyone what you have seen." />
     <voice sentence="Your curiosity will be punished!" />
   </voices>
+  <elements>
+    <element earthPercent="10" />
+    <element icePercent="10" />
+    <element holyPercent="10" />
+    <element physicalPercent="-15" />
+    <element energyPercent="-6" />
+    <element firePercent="-5" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

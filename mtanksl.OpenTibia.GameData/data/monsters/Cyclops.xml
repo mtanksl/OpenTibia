@@ -21,4 +21,10 @@
 		<item id="7618" killsToGetOne="713" />						 <!-- health potion -->
 		<item id="2209" killsToGetOne="2038" />						 <!-- club ring -->
 	</loot>
+  <elements>
+    <element energyPercent="25" />
+    <element holyPercent="20" />
+    <element earthPercent="-10" />
+    <element deathPercent="-10" />
+  </elements>
 </monster>

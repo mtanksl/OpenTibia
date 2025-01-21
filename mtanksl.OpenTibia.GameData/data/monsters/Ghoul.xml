@@ -2,4 +2,11 @@
 <monster name="Ghoul" nameDescription="a ghoul" speed="144" experience="85">
   <health now="100" max="100" />
   <look typeex="0" type="18" head="0" body="0" legs="0" feet="0" corpse="5976" />
+  <elements>
+    <element deathPercent="100" />
+    <element energyPercent="20" />
+    <element earthPercent="20" />
+    <element icePercent="10" />
+    <element holyPercent="-25" />
+  </elements>
 </monster>

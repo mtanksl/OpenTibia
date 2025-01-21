@@ -6,4 +6,10 @@
     <voice sentence="Ruan Wihmpy!" />
     <voice sentence="Kaplar!" />
   </voices>
+  <elements>
+    <element firePercent="20" />
+    <element holyPercent="10" />
+    <element icePercent="-10" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

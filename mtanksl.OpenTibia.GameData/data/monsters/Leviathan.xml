@@ -6,4 +6,10 @@
     <voice sentence="CHHHRRRR" />
     <voice sentence="HISSSS" />
   </voices>
+  <elements>
+    <element firePercent="30" />
+    <element energyPercent="-10" />
+    <element physicalPercent="-10" />
+    <element deathPercent="-10" />
+  </elements>
 </monster>

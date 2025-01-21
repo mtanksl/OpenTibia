@@ -7,4 +7,11 @@
     <voice sentence="Whack da humy!" />
     <voice sentence="Ai humy phary ty kaynon" />
   </voices>
+  <elements>
+    <element energyPercent="20" />
+    <element firePercent="10" />
+    <element holyPercent="10" />
+    <element earthPercent="-10" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

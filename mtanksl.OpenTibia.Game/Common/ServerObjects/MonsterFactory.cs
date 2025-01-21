@@ -24,7 +24,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             foreach (var xmlMonster in monsterFile.Monsters)
             {
-                metadatas.Add(xmlMonster.Name, new MonsterMetadata()
+                MonsterMetadata monsterMetadata = new MonsterMetadata()
                 {
                     Name = xmlMonster.Name,
 
@@ -44,8 +44,47 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Sentences = xmlMonster.Voices?.Select(v => v.Sentence).ToArray(),
 
-                    LootItems = xmlMonster.LootItems?.Select(l => new LootItem() { OpenTibiaId = l.Id, KillsToGetOne = l.KillsToGetOne ?? 1, CountMin = l.CountMin ?? 1, CountMax = l.CountMax ?? 1 } ).ToArray()
-                } );
+                    LootItems = xmlMonster.LootItems?.Select(l => new LootItem() { OpenTibiaId = l.Id, KillsToGetOne = l.KillsToGetOne ?? 1, CountMin = l.CountMin ?? 1, CountMax = l.CountMax ?? 1 } ).ToArray(),
+
+                    DamageTakenFromElements = new Dictionary<DamageType, double>()
+                };
+
+                if (xmlMonster.ElementItems != null)
+                {
+                    foreach (var elementItem in xmlMonster.ElementItems)
+                    {
+                        if (elementItem.HolyPercent != null)
+                        {
+                            monsterMetadata.DamageTakenFromElements[DamageType.Holy] = (100 - elementItem.HolyPercent.Value) / 100.0;
+                        }
+                        else if (elementItem.IcePercent != null)
+                        {
+                            monsterMetadata.DamageTakenFromElements[DamageType.Ice] = (100 - elementItem.IcePercent.Value) / 100.0;
+                        }
+                        else if (elementItem.DeathPercent != null)
+                        {
+                            monsterMetadata.DamageTakenFromElements[DamageType.Death] = (100 - elementItem.DeathPercent.Value) / 100.0;
+                        }
+                        else if (elementItem.PhysicalPercent != null)
+                        {
+                            monsterMetadata.DamageTakenFromElements[DamageType.Physical] = (100 - elementItem.PhysicalPercent.Value) / 100.0;
+                        }
+                        else if (elementItem.Earthpercent != null)
+                        {
+                            monsterMetadata.DamageTakenFromElements[DamageType.Earth] = (100 - elementItem.Earthpercent.Value) / 100.0;
+                        }
+                        else if (elementItem.EnergyPercent != null)
+                        {
+                            monsterMetadata.DamageTakenFromElements[DamageType.Energy] = (100 - elementItem.EnergyPercent.Value) / 100.0;
+                        }
+                        else if (elementItem.FirePercent != null)
+                        {
+                            monsterMetadata.DamageTakenFromElements[DamageType.Fire] = (100 - elementItem.FirePercent.Value) / 100.0;
+                        }
+                    }
+                }
+
+                metadatas.Add(xmlMonster.Name, monsterMetadata);
             }
         }
 

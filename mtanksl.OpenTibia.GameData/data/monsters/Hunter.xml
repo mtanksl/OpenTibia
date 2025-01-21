@@ -8,4 +8,8 @@
     <voice sentence="Bullseye!" />
     <voice sentence="You'll make a nice trophy!" />
   </voices>
+  <elements>
+    <element holyPercent="20" />
+    <element physicalPercent="-20" />
+  </elements>
 </monster>

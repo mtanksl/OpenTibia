@@ -5,4 +5,7 @@
   <voices>
     <voice sentence="Maeh" />
   </voices>
+  <elements>
+    <element firePercent="-10" />
+  </elements>
 </monster>

@@ -9,4 +9,13 @@
     <voice sentence="By Bolg's Blood!" />
     <voice sentence="You're no match for me!" />
   </voices>
+  <elements>
+    <element earthPercent="100" />
+    <element icePercent="100" />
+    <element firePercent="95" />
+    <element energyPercent="80" />
+    <element physicalPercent="22" />
+    <element deathPercent="20" />
+    <element holyPercent="-16" />
+  </elements>
 </monster>

@@ -16,4 +16,8 @@
 		<item id="2125" killsToGetOne="421" />			        <!-- crystal necklace -->
 		<item id="2147" countmax="1" killsToGetOne="793" /> <!-- small ruby -->
 	</loot>
+  <elements>
+    <element physicalPercent="-8" />
+    <element deathPercent="-7" />
+  </elements>
 </monster>

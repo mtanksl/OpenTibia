@@ -8,4 +8,11 @@
     <voice sentence="Suvituka siq chuqua!" />
     <voice sentence="Kiyosa sipaju!" />
   </voices>
+  <elements>
+    <element icePercent="100" />
+    <element firePercent="40" />
+    <element holyPercent="10" />
+    <element energyPercent="-15" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

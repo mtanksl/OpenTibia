@@ -6,4 +6,17 @@
     <voice sentence="FCHHHHH" />
     <voice sentence="HISSSS" />
   </voices>
+  <elements>
+    <element earthPercent="100" />
+    <element icePercent="40" />
+    <element holyPercent="25" />
+    <element physicalPercent="-15" />
+    <element energyPercent="-10" />
+	  </elements>  <elements>
+    <element earthPercent="100" />
+    <element icePercent="40" />
+    <element holyPercent="25" />
+    <element physicalPercent="-15" />
+    <element energyPercent="-10" />
+  </elements>
 </monster>

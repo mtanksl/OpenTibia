@@ -5,4 +5,7 @@
   <voices>
     <voice sentence="DEATH CAN'T STOP MY HUNGER!" />
   </voices>
+  <elements>
+    <element earthPercent="100" />
+  </elements>
 </monster>

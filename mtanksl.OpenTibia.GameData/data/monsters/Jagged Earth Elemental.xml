@@ -5,4 +5,10 @@
   <voices>
     <voice sentence="Stomp STOMP" />
   </voices>
+  <elements>
+    <element deathPercent="20" />
+    <element icePercent="20" />
+    <element energyPercent="20" />
+    <element firePercent="-25" />
+  </elements>
 </monster>

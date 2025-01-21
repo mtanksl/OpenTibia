@@ -10,4 +10,12 @@
     <voice sentence="Meet my friend from hell." />
     <voice sentence="I will make you believe in magic." />
   </voices>
+  <elements>
+    <element icePercent="100" />
+    <element earthPercent="100" />
+    <element deathPercent="100" />
+    <element firePercent="94" />
+    <element energyPercent="92" />
+    <element holyPercent="-25" />
+  </elements>
 </monster>

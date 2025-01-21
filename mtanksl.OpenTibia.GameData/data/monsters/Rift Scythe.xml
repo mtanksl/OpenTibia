@@ -2,4 +2,12 @@
 <monster name="Rift Scythe" nameDescription="a rift scythe" speed="370" experience="2000">
   <health now="3600" max="3600" />
   <look typeex="0" type="300" head="0" body="0" legs="0" feet="0" corpse="0" />
+  <elements>
+    <element energyPercent="-10" />
+    <element earthPercent="20" />
+    <element icePercent="10" />
+    <element holyPercent="-20" />
+    <element deathPercent="60" />
+    <element firePercent="-20" />
+  </elements>
 </monster>

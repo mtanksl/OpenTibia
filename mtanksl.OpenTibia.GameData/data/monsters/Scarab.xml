@@ -2,4 +2,11 @@
 <monster name="Scarab" nameDescription="a scarab" speed="170" experience="120">
   <health now="320" max="320" />
   <look typeex="0" type="83" head="0" body="0" legs="0" feet="0" corpse="6024" />
+  <elements>
+    <element earthPercent="100" />
+    <element energyPercent="10" />
+    <element icePercent="10" />
+    <element physicalPercent="7" />
+    <element firePercent="-20" />
+  </elements>
 </monster>

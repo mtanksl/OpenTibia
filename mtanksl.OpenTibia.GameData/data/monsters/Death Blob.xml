@@ -2,4 +2,11 @@
 <monster name="Death Blob" nameDescription="a death blob" speed="230" experience="300">
   <health now="320" max="320" />
   <look typeex="0" type="315" head="0" body="0" legs="0" feet="0" corpse="9960" />
+  <elements>
+    <element firePercent="-10" />
+    <element physicalPercent="30" />
+    <element holyPercent="-25" />
+    <element icePercent="20" />
+    <element energyPercent="-5" />
+  </elements>
 </monster>

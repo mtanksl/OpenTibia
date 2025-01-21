@@ -6,4 +6,11 @@
     <voice sentence="Let me take a look at you!" />
     <voice sentence="Inferior creatures, bow before my power!" />
   </voices>
+  <elements>
+    <element earthPercent="100" />
+    <element energyPercent="20" />
+    <element icePercent="14" />
+    <element deathPercent="12" />
+    <element firePercent="-10" />
+  </elements>
 </monster>

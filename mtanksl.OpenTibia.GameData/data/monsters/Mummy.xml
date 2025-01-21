@@ -10,4 +10,10 @@
     <voice sentence="Ahkahra exura belil mort!" />
     <voice sentence="Yohag Sssetham!" />
   </voices>
+  <elements>
+    <element earthPercent="100" />
+    <element deathPercent="100" />
+    <element icePercent="22" />
+    <element holyPercent="-25" />
+  </elements>
 </monster>

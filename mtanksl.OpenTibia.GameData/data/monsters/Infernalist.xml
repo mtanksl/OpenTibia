@@ -8,4 +8,11 @@
     <voice sentence="It's cooking time!" />
     <voice sentence="Feel the heat of battle!" />
   </voices>
+  <elements>
+    <element earthPercent="90" />
+    <element physicalPercent="-10" />
+    <element icePercent="-15" />
+    <element holyPercent="10" />
+    <element deathPercent="10" />
+  </elements>
 </monster>

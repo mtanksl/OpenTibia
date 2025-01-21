@@ -7,4 +7,12 @@
     <voice sentence="My masterplan cannot fail!" />
     <voice sentence="Gentlemen, you can't fight here! This is the War Room!" />
   </voices>
+  <elements>
+    <element earthPercent="80" />
+    <element firePercent="60" />
+    <element energyPercent="10" />
+    <element holyPercent="10" />
+    <element icePercent="-10" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

@@ -7,4 +7,12 @@
     <voice sentence="Killing you is getting expensive!" />
     <voice sentence="My secrets are mine alone!" />
   </voices>
+  <elements>
+    <element firePercent="10" />
+    <element earthPercent="8" />
+    <element energyPercent="8" />
+    <element icePercent="8" />
+    <element holyPercent="5" />
+    <element deathPercent="-6" />
+  </elements>
 </monster>

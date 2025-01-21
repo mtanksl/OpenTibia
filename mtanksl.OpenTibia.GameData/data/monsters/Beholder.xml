@@ -8,4 +8,9 @@
     <voice sentence="Let me take a look at you!" />
     <voice sentence="You've got the look!" />
   </voices>
+  <elements>
+    <element earthPercent="100" />
+    <element icePercent="20" />
+    <element firePercent="-10" />
+  </elements>
 </monster>

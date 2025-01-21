@@ -10,4 +10,13 @@
     <voice sentence="I smell your fear." />
     <voice sentence="Delicious!" />
   </voices>
+  <elements>
+    <element icePercent="99" />
+    <element energyPercent="99" />
+    <element earthPercent="99" />
+    <element holyPercent="99" />
+    <element deathPercent="99" />
+    <element firePercent="99" />
+    <element drownPercent="-50" />
+  </elements>
 </monster>

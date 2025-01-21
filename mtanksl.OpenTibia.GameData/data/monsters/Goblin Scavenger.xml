@@ -8,4 +8,10 @@
     <voice sentence="All mine!" />
     <voice sentence="Uhh!" />
   </voices>
+  <elements>
+    <element energyPercent="20" />
+    <element holyPercent="20" />
+    <element earthPercent="-10" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

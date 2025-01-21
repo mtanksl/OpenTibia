@@ -5,4 +5,8 @@
   <voices>
     <voice sentence="Qua hah tsh!" />
   </voices>
+  <elements>
+    <element energyPercent="-25" />
+    <element earthPercent="-10" />
+  </elements>
 </monster>

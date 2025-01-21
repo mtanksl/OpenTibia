@@ -6,4 +6,8 @@
     <voice sentence="Yooodelaaahooohooo!" />
     <voice sentence="Yooodelaaaheeeheee!" />
   </voices>
+  <elements>
+    <element energyPercent="100" />
+    <element earthPercent="-20" />
+  </elements>
 </monster>

@@ -2,4 +2,8 @@
 <monster name="Roaring Water Elemental" nameDescription="a roaring water elemental" speed="390" experience="1300">
   <health now="1750" max="1750" />
   <look typeex="0" type="11" head="0" body="0" legs="0" feet="0" corpse="8965" />
+  <elements>
+    <element physicalPercent="50" />
+    <element holyPercent="30" />
+  </elements>
 </monster>

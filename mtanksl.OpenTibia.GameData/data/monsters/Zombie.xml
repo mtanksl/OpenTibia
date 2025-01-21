@@ -8,4 +8,7 @@
     <voice sentence="Dnnnt... cmmm... clsrrr...." />
     <voice sentence="Httt.... hmnnsss..." />
   </voices>
+  <elements>
+    <element firePercent="-40" />
+  </elements>
 </monster>

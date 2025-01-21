@@ -8,4 +8,7 @@
     <voice sentence="I don't like the way you look!" />
     <voice sentence="You're wearing the wrong colours!" />
   </voices>
+  <elements>
+    <element deathPercent="-10" />
+  </elements>
 </monster>

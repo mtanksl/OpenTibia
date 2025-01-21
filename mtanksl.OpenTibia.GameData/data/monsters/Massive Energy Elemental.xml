@@ -2,4 +2,10 @@
 <monster name="Massive Energy Elemental" nameDescription="a massive energy elemental" speed="300" experience="850">
   <health now="1100" max="1100" />
   <look typeex="0" type="290" head="0" body="0" legs="0" feet="0" corpse="1495" />
+  <elements>
+    <element physicalPercent="30" />
+    <element holyPercent="15" />
+    <element deathPercent="10" />
+    <element deathPercent="-20" />
+  </elements>
 </monster>

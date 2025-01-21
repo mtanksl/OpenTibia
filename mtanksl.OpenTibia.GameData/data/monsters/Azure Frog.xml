@@ -5,4 +5,8 @@
   <voices>
     <voice sentence="Ribbit, ribbit!" />
   </voices>
+  <elements>
+    <element icePercent="22" />
+    <element firePercent="-10" />
+  </elements>
 </monster>

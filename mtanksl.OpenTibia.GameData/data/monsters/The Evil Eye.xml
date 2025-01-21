@@ -5,4 +5,8 @@
   <voices>
     <voice sentence="Inferior creatures, bow before my power!" />
   </voices>
+  <elements>
+    <element earthPercent="100" />
+    <element holyPercent="-20" />
+  </elements>
 </monster>

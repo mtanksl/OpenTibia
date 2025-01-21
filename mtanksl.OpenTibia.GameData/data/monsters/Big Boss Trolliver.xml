@@ -2,4 +2,10 @@
 <monster name="Big Boss Trolliver" nameDescription="Big Boss Trolliver" speed="140" experience="105">
   <health now="150" max="150" />
   <look typeex="0" type="281" head="0" body="0" legs="0" feet="0" corpse="7926" />
+  <elements>
+    <element energyPercent="22" />
+    <element holyPercent="11" />
+    <element earthPercent="-3" />
+    <element deathPercent="-4" />
+  </elements>
 </monster>

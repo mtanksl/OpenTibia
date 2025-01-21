@@ -9,4 +9,8 @@
     <voice sentence="Evicor guide my arrow." />
     <voice sentence="Your existence will end here!" />
   </voices>
+  <elements>
+    <element holyPercent="30" />
+    <element deathPercent="-10" />
+  </elements>
 </monster>

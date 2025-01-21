@@ -38,4 +38,13 @@
 		<item id="2472" killsToGetOne="1251" /> <!-- magic plate armor -->
     <item id="7382" killsToGetOne="1752" /> <!-- demonrage sword -->
 	</loot>
+  <elements>
+    <element firePercent="100" />
+    <element physicalPercent="25" />
+    <element earthpercent="20" />
+    <element energyPercent="20" />
+    <element deathPercent="20" />
+    <element icePercent="-25" />
+    <element holyPercent="-10" />
+  </elements>
 </monster>

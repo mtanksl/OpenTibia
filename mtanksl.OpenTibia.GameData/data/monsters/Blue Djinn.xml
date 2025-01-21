@@ -8,4 +8,11 @@
     <voice sentence="Be careful what you wish for." />
     <voice sentence="Wishes can come true." />
   </voices>
+  <elements>
+    <element firePercent="80" />
+    <element energyPercent="50" />
+    <element holyPercent="20" />
+    <element icePercent="-10" />
+    <element deathPercent="-10" />
+  </elements>
 </monster>

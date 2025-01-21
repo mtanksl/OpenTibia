@@ -7,4 +7,12 @@
     <voice sentence="Even a rat is a better mage than you." />
     <voice sentence="We don't like intruders!" />
   </voices>
+  <elements>
+    <element firePercent="100" />
+    <element energyPercent="100" />
+    <element icePercent="100" />
+    <element earthPercent="90" />
+    <element holyPercent="-25" />
+    <element physicalPercent="-33" />
+  </elements>
 </monster>

@@ -7,4 +7,9 @@
     <voice sentence="There isss no chhhanccce of esscape" />
     <voice sentence="Are you tired or why are you moving thhat sslow" />
   </voices>
+  <elements>
+    <element icePercent="20" />
+    <element firePercent="-5" />
+    <element energyPercent="-10" />
+  </elements>
 </monster>

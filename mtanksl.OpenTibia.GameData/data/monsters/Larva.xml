@@ -2,4 +2,10 @@
 <monster name="Larva" nameDescription="a larva" speed="135" experience="40">
   <health now="70" max="70" />
   <look typeex="0" type="82" head="0" body="0" legs="0" feet="0" corpse="6023" />
+  <elements>
+    <element earthPercent="100" />
+    <element energyPercent="20" />
+    <element firePercent="-10" />
+    <element icePercent="-5" />
+  </elements>
 </monster>

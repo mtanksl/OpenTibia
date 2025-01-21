@@ -51,11 +51,11 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
             if (voicesNode != null)
             {
-                monster.Voices = new List<Voice>();
+                monster.Voices = new List<VoiceItem>();
 
                 foreach (var voiceNode in voicesNode.Elements() )
                 {
-                    monster.Voices.Add(new Voice() 
+                    monster.Voices.Add(new VoiceItem() 
                     { 
                         Sentence = (string)voiceNode.Attribute("sentence")
                     } );
@@ -83,6 +83,33 @@ namespace OpenTibia.FileFormats.Xml.Monsters
                 }
             }
 
+            XElement elementsNode = monsterNode.Element("elements");
+
+            if (elementsNode != null)
+            {
+                monster.ElementItems = new List<ElementItem>();
+
+                foreach (var elementNode in elementsNode.Elements() )
+                {
+                    monster.ElementItems.Add(new ElementItem() 
+                    {
+                        HolyPercent = (int?)elementNode.Attribute("holyPercent"),
+
+                        IcePercent = (int?)elementNode.Attribute("icePercent"),
+
+                        DeathPercent = (int?)elementNode.Attribute("deathPercent"),
+
+                        PhysicalPercent = (int?)elementNode.Attribute("physicalPercent"),
+
+                        Earthpercent = (int?)elementNode.Attribute("earthpercent"),
+
+                        EnergyPercent = (int?)elementNode.Attribute("energyPercent"),
+
+                        FirePercent = (int?)elementNode.Attribute("firePercent")
+                    } );
+                }
+            }
+
             return monster;
         }
 
@@ -106,10 +133,14 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
         [XmlArray("voices")]
         [XmlArrayItem("voice")]
-        public List<Voice> Voices { get; set; }
+        public List<VoiceItem> Voices { get; set; }
 
         [XmlArray("loot")]
         [XmlArrayItem("item")]
         public List<LootItem> LootItems { get; set; }
+
+        [XmlArray("elements")]
+        [XmlArrayItem("element")]
+        public List<ElementItem> ElementItems { get; set; }
     }
 }

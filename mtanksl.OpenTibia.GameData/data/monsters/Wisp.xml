@@ -6,4 +6,9 @@
     <voice sentence="Crackle!" />
     <voice sentence="Tsshh" />
   </voices>
+  <elements>
+    <element energyPercent="-30" />
+    <element earthPercent="-80" />
+    <element deathPercent="-65" />
+  </elements>
 </monster>

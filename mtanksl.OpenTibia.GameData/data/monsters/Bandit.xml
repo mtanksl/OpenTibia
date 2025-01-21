@@ -6,4 +6,8 @@
     <voice sentence="Your money or your life!" />
     <voice sentence="Hand me your purse!" />
   </voices>
+  <elements>
+    <element physicalPercent="-12" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

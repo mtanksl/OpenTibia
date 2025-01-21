@@ -5,4 +5,11 @@
   <voices>
     <voice sentence="Ulderek futgyr human!" />
   </voices>
+  <elements>
+	<element firePercent="100" />
+	<element energyPercent="20" />
+	<element holyPercent="10" />
+	<element earthPercent="-10" />
+	<element deathPercent="-5" />
+  </elements>
 </monster>

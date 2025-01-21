@@ -2,4 +2,8 @@
 <monster name="Penguin" nameDescription="penguin" speed="156" experience="1">
   <health now="33" max="33" />
   <look typeex="0" type="250" head="0" body="0" legs="0" feet="0" corpse="7334" />
+  <elements>
+    <element icePercent="10" />
+    <element energyPercent="-5" />
+  </elements>
 </monster>

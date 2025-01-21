@@ -7,4 +7,10 @@
     <voice sentence="Grow truk grrrrr." />
     <voice sentence="Prek tars, dekklep zurk." />
   </voices>
+  <elements>
+    <element energyPercent="20" />
+    <element holyPercent="10" />
+    <element earthPercent="-20" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

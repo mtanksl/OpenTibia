@@ -6,4 +6,12 @@
     <voice sentence="To me, creatures of the wild!" />
     <voice sentence="My instincts tell me about your cowardice." />
   </voices>
+  <elements>
+    <element icePercent="50" />
+    <element holyPercent="20" />
+    <element energyPercent="20" />
+    <element earthPercent="-13" />
+    <element physicalPercent="-10" />
+    <element deathPercent="-7" />
+  </elements>
 </monster>

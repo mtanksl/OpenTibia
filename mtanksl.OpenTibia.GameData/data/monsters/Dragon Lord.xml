@@ -6,4 +6,10 @@
     <voice sentence="ZCHHHHH" />
     <voice sentence="YOU WILL BURN!" />
   </voices>
+  <elements>
+    <element firePercent="100" />
+    <element earthPercent="90" />
+    <element energyPercent="20" />
+    <element icePercent="-10" />
+  </elements>
 </monster>

@@ -10,4 +10,8 @@
     <voice sentence="Run as fast as you can." />
     <voice sentence="Oh by the gods! What is this... aaaaaargh!" />
   </voices>
+  <elements>
+    <element icePercent="20" />
+    <element holyPercent="-25" />
+  </elements>
 </monster>

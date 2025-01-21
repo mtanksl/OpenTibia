@@ -5,4 +5,10 @@
   <voices>
     <voice sentence="crab crab!" />
   </voices>
+  <elements>
+    <element earthPercent="100" />
+    <element icePercent="40" />
+    <element firePercent="-10" />
+    <element energyPercent="-5" />
+  </elements>
 </monster>

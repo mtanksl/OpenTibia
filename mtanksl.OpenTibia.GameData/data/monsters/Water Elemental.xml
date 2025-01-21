@@ -2,4 +2,13 @@
 <monster name="Water Elemental" nameDescription="a water elemental" speed="450" experience="450">
   <health now="550" max="550" />
   <look typeex="0" type="11" head="0" body="0" legs="0" feet="0" corpse="2025" />
+  <elements>
+    <element firePercent="100" />
+    <element earthPercent="100" />
+    <element icePercent="100" />
+    <element physicalPercent="70" />
+    <element holyPercent="30" />
+    <element deathPercent="30" />
+    <element energyPercent="-25" />
+  </elements>
 </monster>

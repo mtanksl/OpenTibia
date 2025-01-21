@@ -3,7 +3,7 @@
     public enum AnimatedTextColor : byte
     {
         /// <summary>
-        /// Mana Shield ?
+        /// ?
         /// </summary>
         DarkPurple = 112,
 

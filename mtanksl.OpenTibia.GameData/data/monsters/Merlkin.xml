@@ -7,4 +7,11 @@
     <voice sentence="Holy banana!" />
     <voice sentence="Chakka! Chakka!" />
   </voices>
+  <elements>
+    <element firePercent="20" />
+    <element energyPercent="10" />
+    <element holyPercent="10" />
+    <element icePercent="-15" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

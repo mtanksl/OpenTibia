@@ -9,4 +9,11 @@
     <voice sentence="Be prepared for the day my masters will come for you!" />
     <voice sentence="SOULS FOR ORSHABAAL!" />
   </voices>
+  <elements>
+    <element firePercent="100" />
+    <element earthPercent="100" />
+    <element deathPercent="50" />
+    <element icePercent="-20" />
+    <element holyPercent="-25" />
+  </elements>
 </monster>

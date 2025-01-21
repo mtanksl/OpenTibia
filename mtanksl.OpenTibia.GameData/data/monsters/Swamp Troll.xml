@@ -7,4 +7,8 @@
     <voice sentence="Groar!" />
     <voice sentence="Me strong! Me ate spinach!" />
   </voices>
+  <elements>
+    <element earthPercent="20" />
+    <element firePercent="-10" />
+  </elements>
 </monster>

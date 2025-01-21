@@ -6,4 +6,13 @@
     <voice sentence="Hot, eh?" />
     <voice sentence="Hell, oh hell!" />
   </voices>
+  <elements>
+    <element firePercent="100" />
+    <element energyPercent="30" />
+    <element earthPercent="25" />
+    <element deathPercent="15" />
+    <element physicalPercent="10" />
+    <element icePercent="-20" />
+    <element holyPercent="-10" />
+  </elements>
 </monster>

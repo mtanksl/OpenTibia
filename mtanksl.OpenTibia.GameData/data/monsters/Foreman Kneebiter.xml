@@ -2,4 +2,10 @@
 <monster name="Foreman Kneebiter" nameDescription="Foreman Kneebiter" speed="200" experience="570">
   <health now="445" max="445" />
   <look typeex="0" type="70" head="0" body="0" legs="0" feet="0" corpse="6013" />
+  <elements>
+    <element earthPercent="90" />
+    <element physicalPercent="20" />
+    <element firePercent="-5" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

@@ -9,4 +9,10 @@
     <voice sentence="Hmmm, bugs." />
     <voice sentence="Hmmm, dogs." />
   </voices>
+  <elements>
+    <element energyPercent="20" />
+    <element holyPercent="10" />
+    <element earthPercent="-4" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

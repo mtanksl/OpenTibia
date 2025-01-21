@@ -7,4 +7,11 @@
     <voice sentence="Surrender is not option!" />
     <voice sentence="Its you or me!" />
   </voices>
+  <elements>
+    <element icePercent="50" />
+    <element holyPercent="20" />
+    <element energyPercent="20" />
+    <element earthPercent="-13" />
+    <element deathPercent="-7" />
+  </elements>
 </monster>

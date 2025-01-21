@@ -3,4 +3,9 @@
   <health now="250" max="250" />
   <look typeex="0" type="314" head="0" body="0" legs="0" feet="0" corpse="9962" />
   <voices />
+  <elements>
+    <element firePercent="-5" />
+    <element icePercent="8" />
+    <element energyPercent="-10" />
+  </elements>
 </monster>

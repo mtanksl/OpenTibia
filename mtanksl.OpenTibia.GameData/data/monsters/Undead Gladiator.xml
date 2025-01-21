@@ -9,4 +9,11 @@
     <voice sentence="I will not give up!" />
     <voice sentence="Another foolish adventurer who tries to beat me." />
   </voices>
+  <elements>
+    <element earthPercent="-5" />
+    <element holyPercent="10" />
+    <element firePercent="80" />
+    <element energyPercent="20" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

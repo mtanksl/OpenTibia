@@ -5,4 +5,8 @@
   <voices>
     <voice sentence="You will become a feast for my maggots." />
   </voices>
+  <elements>
+    <element earthPercent="100" />
+    <element firePercent="-23" />
+  </elements>
 </monster>

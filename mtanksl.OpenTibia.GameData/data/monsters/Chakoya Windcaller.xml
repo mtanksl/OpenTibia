@@ -8,4 +8,11 @@
     <voice sentence="Jagura taluka taqua!" />
     <voice sentence="Quatu nguraka!" />
   </voices>
+  <elements>
+    <element icePercent="100" />
+    <element firePercent="50" />
+    <element holyPercent="20" />
+    <element energyPercent="-15" />
+    <element deathPercent="-10" />
+  </elements>
 </monster>

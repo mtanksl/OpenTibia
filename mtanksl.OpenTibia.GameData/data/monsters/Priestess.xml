@@ -7,4 +7,11 @@
     <voice sentence="Now, your life has come to an end, hahahha!" />
     <voice sentence="Throw the soul on the altar!" />
   </voices>
+  <elements>
+    <element firePercent="40" />
+    <element earthPercent="20" />
+    <element deathPercent="20" />
+    <element physicalPercent="-13" />
+    <element holyPercent="-10" />
+  </elements>
 </monster>

@@ -2,4 +2,11 @@
 <monster name="Hellfire Fighter" nameDescription="a hellfire fighter" speed="260" experience="3900">
   <health now="3800" max="3800" />
   <look typeex="0" type="243" head="0" body="0" legs="0" feet="0" corpse="6324" />
+  <elements>
+    <element firePercent="100" />
+    <element energyPercent="40" />
+    <element physicalPercent="24" />
+    <element deathPercent="22" />
+    <element icePercent="-20" />
+  </elements>
 </monster>

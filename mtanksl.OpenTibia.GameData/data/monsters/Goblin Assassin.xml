@@ -5,4 +5,10 @@
   <voices>
     <voice sentence="Goblin Powahhh!" />
   </voices>
+  <elements>
+    <element energyPercent="10" />
+    <element earthPercent="-10" />
+    <element holyPercent="5" />
+    <element deathPercent="-15" />
+  </elements>
 </monster>

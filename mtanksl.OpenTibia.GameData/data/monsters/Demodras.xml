@@ -6,4 +6,8 @@
     <voice sentence="I WILL SET THE WORLD IN FIRE!" />
     <voice sentence="I WILL PROTECT MY BROOD!" />
   </voices>
+  <elements>
+    <element firePercent="100" />
+    <element earthPercent="100" />
+  </elements>
 </monster>

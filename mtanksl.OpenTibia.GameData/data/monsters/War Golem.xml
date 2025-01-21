@@ -13,4 +13,13 @@
     <voice sentence="Termination initialized!" />
     <voice sentence="Rrrtttarrrttarrrtta" />
   </voices>
+  <elements>
+    <element earthPercent="50" />
+    <element holyPercent="30" />
+    <element firePercent="45" />
+    <element energyPercent="35" />
+    <element physicalPercent="40" />
+    <element icePercent="25" />
+    <element deathPercent="30" />
+  </elements>
 </monster>

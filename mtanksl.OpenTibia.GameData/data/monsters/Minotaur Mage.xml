@@ -6,4 +6,11 @@
     <voice sentence="Learrn tha secrret uf deathhh!" />
     <voice sentence="Kaplar!" />
   </voices>
+  <elements>
+    <element energyPercent="20" />
+    <element earthPercent="15" />
+    <element holyPercent="10" />
+    <element icePercent="-5" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

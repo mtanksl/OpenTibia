@@ -2,4 +2,11 @@
 <monster name="Enlightened of the Cult" nameDescription="a enlightened of the cult" speed="220" experience="500">
   <health now="700" max="700" />
   <look typeex="0" type="193" head="0" body="0" legs="0" feet="0" corpse="6080" />
+  <elements>
+    <element holyPercent="20" />
+    <element icePercent="10" />
+    <element physicalPercent="-10" />
+    <element energyPercent="-7" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

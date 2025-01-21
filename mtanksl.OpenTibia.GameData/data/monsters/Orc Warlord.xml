@@ -8,4 +8,11 @@
     <voice sentence="Ikem rambo zambo!" />
     <voice sentence="Futchi maruk buta!" />
   </voices>
+  <elements>
+    <element firePercent="80" />
+    <element energyPercent="40" />
+    <element holyPercent="20" />
+    <element earthPercent="-10" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

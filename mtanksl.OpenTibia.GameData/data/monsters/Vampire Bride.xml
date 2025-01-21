@@ -8,4 +8,11 @@
     <voice sentence="Come, let me kiss you, darling. Oh wait, I meant kill." />
     <voice sentence="Enjoy the pain - I know you love it." />
   </voices>
+  <elements>
+    <element energyPercent="10" />
+    <element earthPercent="80" />
+    <element icePercent="15" />
+    <element firePercent="-10" />
+    <element holyPercent="-25" />
+  </elements>
 </monster>

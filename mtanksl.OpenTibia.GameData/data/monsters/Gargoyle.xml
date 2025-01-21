@@ -9,4 +9,10 @@
     <voice sentence="Chhhhhrrrrk!" />
     <voice sentence="There is a stone in your shoe!" />
   </voices>
+  <elements>
+    <element earthPercent="100" />
+    <element physicalPercent="22" />
+    <element deathPercent="20" />
+    <element firePercent="-10" />
+  </elements>
 </monster>

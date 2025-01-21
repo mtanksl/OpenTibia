@@ -8,4 +8,9 @@
     <voice sentence="Fight!" />
     <voice sentence="Take this!" />
   </voices>
+  <elements>
+    <element holyPercent="10" />
+    <element physicalPercent="15" />
+    <element deathPercent="-10" />
+  </elements>
 </monster>

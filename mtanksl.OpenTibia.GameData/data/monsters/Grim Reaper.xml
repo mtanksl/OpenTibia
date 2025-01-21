@@ -7,4 +7,12 @@
     <voice sentence="Come a little closer!" />
     <voice sentence="The end is near!" />
   </voices>
+  <elements>
+    <element energyPercent="10" />
+    <element earthPercent="-20" />
+    <element icePercent="-10" />
+    <element holyPercent="10" />
+    <element deathPercent="-20" />
+    <element firePercent="10" />
+  </elements>
 </monster>

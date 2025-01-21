@@ -6,4 +6,9 @@
     <voice sentence="Come closer to learn the final lesson." />
     <voice sentence="You can't escape death forever." />
   </voices>
+  <elements>
+    <element physicalPercent="100" />
+    <element deathPercent="100" />
+    <element icePercent="30" />
+  </elements>
 </monster>

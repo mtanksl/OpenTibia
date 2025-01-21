@@ -8,4 +8,12 @@
     <voice sentence="I wish you a merry trip to hell!" />
     <voice sentence="Good wishes are for fairytales" />
   </voices>
+  <elements>
+    <element firePercent="80" />
+    <element energyPercent="50" />
+    <element physicalPercent="30" />
+    <element deathPercent="20" />
+    <element icePercent="-10" />
+    <element holyPercent="-10" />
+  </elements>
 </monster>

@@ -6,4 +6,13 @@
     <voice sentence="I can see you decaying!" />
     <voice sentence="Let me taste your mortality!" />
   </voices>
+  <elements>
+    <element earthPercent="100" />
+    <element deathPercent="100" />
+    <element firePercent="60" />
+    <element energyPercent="40" />
+    <element icePercent="33" />
+    <element physicalPercent="-5" />
+    <element holyPercent="-30" />
+  </elements>
 </monster>

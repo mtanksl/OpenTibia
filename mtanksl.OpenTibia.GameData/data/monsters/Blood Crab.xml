@@ -2,4 +2,11 @@
 <monster name="Blood Crab" nameDescription="a blood crab" speed="210" experience="160">
   <health now="290" max="290" />
   <look typeex="0" type="200" head="0" body="0" legs="0" feet="0" corpse="6075" />
+  <elements>
+    <element icePercent="100" />
+    <element earthPercent="100" />
+    <element physicalPercent="12" />
+    <element firePercent="10" />
+    <element energyPercent="5" />
+  </elements>
 </monster>

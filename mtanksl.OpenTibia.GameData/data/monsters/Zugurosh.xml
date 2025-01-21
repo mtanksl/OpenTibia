@@ -7,4 +7,10 @@
     <voice sentence="One little mistake and your all are mine!" />
     <voice sentence="I sense your strength fading!" />
   </voices>
+  <elements>
+    <element icePercent="-15" />
+    <element energyPercent="-5" />
+    <element earthPercent="-8" />
+    <element firePercent="25" />
+  </elements>
 </monster>

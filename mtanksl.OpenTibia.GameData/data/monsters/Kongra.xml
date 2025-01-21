@@ -7,4 +7,11 @@
     <voice sentence="Ungh! Ungh!" />
     <voice sentence="Huaauaauaauaa!" />
   </voices>
+  <elements>
+    <element firePercent="20" />
+    <element earthPercent="10" />
+    <element energyPercent="5" />
+    <element icePercent="-15" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

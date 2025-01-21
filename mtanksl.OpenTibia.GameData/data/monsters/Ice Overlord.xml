@@ -2,4 +2,9 @@
 <monster name="Ice Overlord" nameDescription="an ice overlord" speed="390" experience="1950">
   <health now="4000" max="2800" />
   <look typeex="0" type="11" head="0" body="0" legs="0" feet="0" corpse="8965" />
+  <elements>
+    <element physicalPercent="25" />
+    <element energyPercent="-15" />
+    <element holyPercent="25" />
+  </elements>
 </monster>

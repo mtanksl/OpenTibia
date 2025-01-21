@@ -6,4 +6,8 @@
     <voice sentence="Grrrrrrrrrrrrrr!" />
     <voice sentence="Fcccccchhhhhh" />
   </voices>
+  <elements>
+    <element firePercent="-10" />
+    <element holyPercent="10" />
+  </elements>
 </monster>

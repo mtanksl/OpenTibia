@@ -7,4 +7,12 @@
     <voice sentence="I hope it is not too cold for you! HeHeHe." />
     <voice sentence="Freeze!" />
   </voices>
+  <elements>
+    <element icePercent="100" />
+    <element firePercent="50" />
+    <element earthPercent="40" />
+    <element holyPercent="26" />
+    <element energyPercent="-10" />
+    <element deathPercent="-10" />
+  </elements>
 </monster>

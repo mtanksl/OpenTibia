@@ -5,4 +5,11 @@
   <voices>
     <voice sentence="Shriiiek" />
   </voices>
+  <elements>
+    <element energyPercent="20" />
+    <element icePercent="10" />
+	  </elements>  <elements>
+    <element energyPercent="20" />
+    <element icePercent="10" />
+  </elements>
 </monster>

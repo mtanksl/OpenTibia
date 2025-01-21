@@ -9,4 +9,10 @@
     <voice sentence="The curse! Aww the curse!" />
     <voice sentence="You will not get my treasure!" />
   </voices>
+  <elements>
+    <element physicalPercent="100" />
+    <element deathPercent="100" />
+    <element earthPercent="100" />
+    <element holyPercent="-50" />
+  </elements>
 </monster>

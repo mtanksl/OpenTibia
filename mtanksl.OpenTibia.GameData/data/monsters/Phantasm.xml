@@ -8,4 +8,21 @@
     <voice sentence="Its nothing but a dream!" />
     <voice sentence="Give in!" />
   </voices>
+  <elements>
+    <element deathPercent="100" />
+    <element physicalPercent="100" />
+    <element earthPercent="70" />
+    <element icePercent="70" />
+    <element holyPercent="-25" />
+    <element firePercent="-24" />
+    <element icePercent="-22" />
+	  </elements>  <elements>
+    <element deathPercent="100" />
+    <element physicalPercent="100" />
+    <element earthPercent="70" />
+    <element icePercent="70" />
+    <element holyPercent="-25" />
+    <element firePercent="-24" />
+    <element icePercent="-22" />
+  </elements>
 </monster>

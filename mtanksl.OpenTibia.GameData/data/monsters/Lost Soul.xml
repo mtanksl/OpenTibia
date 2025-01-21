@@ -6,4 +6,12 @@
     <voice sentence="Forgive Meeeee!" />
     <voice sentence="Mouuuurn meeee!" />
   </voices>
+  <elements>
+    <element firePercent="100" />
+    <element deathPercent="100" />
+    <element earthPercent="100" />
+    <element icePercent="50" />
+    <element energyPercent="30" />
+    <element holyPercent="-20" />
+  </elements>
 </monster>

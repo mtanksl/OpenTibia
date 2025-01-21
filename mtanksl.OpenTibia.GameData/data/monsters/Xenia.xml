@@ -7,4 +7,11 @@
     <voice sentence="One more head for me!" />
     <voice sentence="Head off!" />
   </voices>
+  <elements>
+    <element icePercent="10" />
+    <element firePercent="10" />
+    <element holyPercent="7" />
+    <element deathPercent="-7" />
+    <element physicalPercent="-6" />
+  </elements>
 </monster>

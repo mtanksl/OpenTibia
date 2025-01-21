@@ -6,4 +6,12 @@
     <voice sentence="I grant you a deathwish!" />
     <voice sentence="Good wishes are for fairytales" />
   </voices>
+  <elements>
+    <element firePercent="90" />
+    <element energyPercent="60" />
+    <element earthPercent="40" />
+    <element deathPercent="30" />
+    <element icePercent="-10" />
+    <element holyPercent="-10" />
+  </elements>
 </monster>

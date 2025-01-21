@@ -8,4 +8,11 @@
     <voice sentence="Me makking you pulp!" />
     <voice sentence="Humy tasy! Hum hum!" />
   </voices>
+  <elements>
+    <element energyPercent="10" />
+    <element icePercent="10" />
+    <element holyPercent="10" />
+    <element earthPercent="-10" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

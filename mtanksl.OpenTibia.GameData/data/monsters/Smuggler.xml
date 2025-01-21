@@ -6,4 +6,8 @@
     <voice sentence="I will silence you forever!" />
     <voice sentence="You saw something you shouldn't!" />
   </voices>
+  <elements>
+    <element physicalPercent="-12" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

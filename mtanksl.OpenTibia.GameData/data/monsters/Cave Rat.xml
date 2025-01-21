@@ -6,4 +6,7 @@
     <voice sentence="Meeeeep!" />
     <voice sentence="Meep!" />
   </voices>
+  <elements>
+    <element firePercent="-13" />
+  </elements>
 </monster>

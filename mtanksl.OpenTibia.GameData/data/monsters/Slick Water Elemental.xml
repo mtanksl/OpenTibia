@@ -6,4 +6,7 @@
     <voice sentence="Blubb" />
     <voice sentence="Splipsh Splash" />
   </voices>
+  <elements>
+    <element physicalPercent="40" />
+  </elements>
 </monster>

@@ -7,4 +7,9 @@
     <voice sentence="Shhhhhh" />
     <voice sentence="Buuuuuh" />
   </voices>
+  <elements>
+    <element physicalPercent="100" />
+    <element earthPercent="100" />
+    <element deathPercent="100" />
+  </elements>
 </monster>

@@ -5,4 +5,9 @@
   <voices>
     <voice sentence="I might reward you for killing my brother ~ with a swift dead!" />
   </voices>
+  <elements>
+    <element icePercent="-10" />
+    <element energyPercent="35" />
+    <element deathPercent="-12" />
+  </elements>
 </monster>

@@ -2,4 +2,11 @@
 <monster name="Crocodile" nameDescription="a crocodile" speed="240" experience="40">
   <health now="105" max="105" />
   <look typeex="0" type="119" head="0" body="0" legs="0" feet="0" corpse="6046" />
+  <elements>
+    <element earthPercent="25" />
+    <element icePercent="18" />
+    <element energyPercent="-6" />
+    <element firePercent="-10" />
+    <element physicalPercent="-14" />
+  </elements>
 </monster>

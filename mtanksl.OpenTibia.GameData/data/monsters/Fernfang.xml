@@ -8,4 +8,8 @@
     <voice sentence="Grrrrrrr" />
     <voice sentence="Yoooohhuuuu!" />
   </voices>
+  <elements>
+    <element icePercent="70" />
+    <element earthPercent="40" />
+  </elements>
 </monster>

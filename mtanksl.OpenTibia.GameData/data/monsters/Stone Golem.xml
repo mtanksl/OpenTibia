@@ -2,4 +2,12 @@
 <monster name="Stone Golem" nameDescription="a stone golem" speed="180" experience="280">
   <health now="270" max="270" />
   <look typeex="0" type="67" head="0" body="0" legs="0" feet="0" corpse="6005" />
+  <elements>
+    <element earthPercent="100" />
+    <element physicalPercent="22" />
+    <element firePercent="20" />
+    <element energyPercent="13" />
+    <element deathPercent="10" />
+    <element icePercent="-10" />
+  </elements>
 </monster>

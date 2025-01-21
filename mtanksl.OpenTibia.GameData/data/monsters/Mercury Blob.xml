@@ -5,4 +5,11 @@
   <voices>
     <voice sentence="Crackle" />
   </voices>
+  <elements>
+    <element firePercent="15" />
+    <element earthPercent="70" />
+    <element icePercent="10" />
+    <element physicalPercent="20" />
+    <element holyPercent="75" />
+  </elements>
 </monster>

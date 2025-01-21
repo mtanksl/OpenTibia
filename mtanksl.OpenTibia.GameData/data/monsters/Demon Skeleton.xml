@@ -2,4 +2,10 @@
 <monster name="Demon Skeleton" nameDescription="a demon skeleton" speed="230" experience="240">
   <health now="400" max="400" />
   <look typeex="0" type="37" head="0" body="0" legs="0" feet="0" corpse="5963" />
+  <elements>
+    <element firePercent="100" />
+    <element deathPercent="100" />
+    <element earthPercent="100" />
+    <element holyPercent="-25" />
+  </elements>
 </monster>

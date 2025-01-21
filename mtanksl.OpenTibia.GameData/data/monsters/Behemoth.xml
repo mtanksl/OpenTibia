@@ -30,4 +30,13 @@
 		<item id="2023" killsToGetOne="1004" />							<!-- amphora -->
 		<item id="2454" killsToGetOne="1475" />							<!-- war axe -->
 	</loot>
+  <elements>
+    <element earthPercent="80" />
+    <element holyPercent="30" />
+    <element firePercent="30" />
+    <element energyPercent="10" />
+    <element physicalPercent="10" />
+    <element icePercent="-10" />
+    <element deathPercent="-5" />
+  </elements>
 </monster>

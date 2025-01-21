@@ -8,4 +8,13 @@
     <voice sentence="Have you seen princess Lumelia?" />
     <voice sentence="I will sing a tune at your grave." />
   </voices>
+  <elements>
+    <element energyPercent="25" />
+    <element icePercent="20" />
+    <element firePercent="20" />
+    <element holyPercent="20" />
+    <element earthPercent="20" />
+    <element physicalPercent="15" />
+    <element deathPercent="-37" />
+  </elements>
 </monster>

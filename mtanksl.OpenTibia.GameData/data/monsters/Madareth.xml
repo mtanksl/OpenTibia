@@ -5,4 +5,8 @@
   <voices>
     <voice sentence="I am going to play with yourself!" />
   </voices>
+  <elements>
+    <element icePercent="15" />
+    <element deathPercent="-10" />
+  </elements>
 </monster>

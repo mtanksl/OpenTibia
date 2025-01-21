@@ -2,4 +2,7 @@
 <monster name="Tiquandas Revenge" nameDescription="Tiquandas Revenge" speed="440" experience="1755">
   <health now="2000" max="2000" />
   <look typeex="0" type="120" head="0" body="0" legs="0" feet="0" corpse="6047" />
+  <elements>
+    <element earthPercent="100" />
+  </elements>
 </monster>
