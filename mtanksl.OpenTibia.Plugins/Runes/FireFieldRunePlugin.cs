@@ -31,11 +31,11 @@ namespace OpenTibia.Plugins.Runes
                 new Offset(0, 0)
             };
 
-            return Context.AddCommand(new CreatureAttackAreaCommand(player, false, toTile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1500, 1,
+            return Context.AddCommand(new CreatureAttackAreaCommand(player, false, toTile.Position, area, ProjectileType.Fire, MagicEffectType.FireDamage, 1500, 1,
 
-                new SimpleAttack(null, MagicEffectType.FirePlume, DamageType.Fire, 20, 20),
+                new SimpleAttack(null, null, DamageType.Fire, 20, 20),
 
-                new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, DamageType.Fire, new[] { 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(4) ) ) );
+                new DamageCondition(SpecialCondition.Burning, null, DamageType.Fire, new[] { 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(4) ) ) );
         }
     }
 }

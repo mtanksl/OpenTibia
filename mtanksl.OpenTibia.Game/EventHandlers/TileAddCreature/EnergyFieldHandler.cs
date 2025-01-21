@@ -26,9 +26,9 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         return Context.AddCommand(new CreatureAttackCreatureCommand(null, e.Creature, 
 
-                            new SimpleAttack(null, MagicEffectType.EnergyDamage, DamageType.Energy, 30, 30),
+                            new SimpleAttack(null, null, DamageType.Energy, 30, 30),
                                                                                                                          
-                            new DamageCondition(SpecialCondition.Electrified, MagicEffectType.EnergyDamage, DamageType.Energy, new[] { 25, 25 }, TimeSpan.FromSeconds(4) ) ) );
+                            new DamageCondition(SpecialCondition.Electrified, null, DamageType.Energy, new[] { 25, 25 }, TimeSpan.FromSeconds(4) ) ) );
                     }
                 }
             }

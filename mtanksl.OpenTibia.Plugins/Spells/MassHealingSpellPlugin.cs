@@ -35,7 +35,7 @@ namespace OpenTibia.Plugins.Spells
 
             return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.BlueShimmer, 
                         
-                new HealingAttack(null, formula.Min, formula.Max) ) );
+                new HealingAttack(formula.Min, formula.Max) ) );
         }
     }
 }

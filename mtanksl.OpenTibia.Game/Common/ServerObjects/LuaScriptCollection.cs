@@ -1270,7 +1270,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     case "healing":
 
-                        return new HealingAttack( (MagicEffectType?)(long?)table["magiceffecttype"], (int)(long)table["min"], (int)(long)table["max"] );
+                        return new HealingAttack( (int)(long)table["min"], (int)(long)table["max"] );
 
                     case "simple":
 
@@ -1278,7 +1278,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 }
             }
 
-            throw new ArgumentException("Parameter must by Attack or LuaTable with type, projectiletype, magiceffecttype, animatedtextcolor, min and max.");
+            throw new ArgumentException("Parameter must by Attack or LuaTable with type, projectiletype, magiceffecttype, damagetype, min and/or max.");
         }
 
         /// <exception cref="ArgumentException"></exception>

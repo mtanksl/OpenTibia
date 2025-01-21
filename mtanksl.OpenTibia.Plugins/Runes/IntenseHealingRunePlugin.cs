@@ -24,7 +24,7 @@ namespace OpenTibia.Plugins.Runes
 
             return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 
-                new HealingAttack(MagicEffectType.BlueShimmer, formula.Min, formula.Max) ) );
+                new HealingAttack(formula.Min, formula.Max) ) );
         }
     }
 }

@@ -1,8 +1,10 @@
-﻿namespace OpenTibia.Common.Structures
+﻿using System;
+
+namespace OpenTibia.Common.Structures
 {
     public enum DamageType : byte
     {
-        None = 0,
+        Healing = 0,
 
         Physical = 1,
 
@@ -27,10 +29,66 @@
 
     public static class DamageTypeExtensions
     {
+        public static MagicEffectType? ToMagicEffectType(this DamageType damageType)
+        {
+            switch (damageType)
+            {
+                case DamageType.Healing:
+
+                    return MagicEffectType.BlueShimmer;
+
+                case DamageType.Physical:
+
+                    return MagicEffectType.RedSpark;
+
+                case DamageType.Earth:
+
+                    return MagicEffectType.GreenRings;
+
+                case DamageType.Fire:
+
+                    return MagicEffectType.FireDamage;
+
+                case DamageType.Energy:
+
+                    return MagicEffectType.EnergyDamage;
+
+                case DamageType.Ice:
+
+                    return MagicEffectType.IceDamage;
+
+                case DamageType.Death:
+
+                    return MagicEffectType.SmallClouds;
+
+                case DamageType.Holy:
+
+                    return MagicEffectType.HolyDamage;
+
+                case DamageType.Drown:
+
+                    return MagicEffectType.BlueRings;
+
+                case DamageType.ManaDrain:
+
+                    return MagicEffectType.BlueRings;
+
+                case DamageType.LifeDrain:
+
+                    return MagicEffectType.RedShimmer;
+            }
+
+            throw new NotImplementedException();
+        }
+
         public static AnimatedTextColor? ToAnimatedTextColor(this DamageType damageType)
         {
             switch (damageType)
             {
+                case DamageType.Healing:
+
+                    return null;
+
                 case DamageType.Physical:
 
                     return AnimatedTextColor.Red;
@@ -72,7 +130,7 @@
                     return AnimatedTextColor.Red;
             }
 
-            return null;
+            throw new NotImplementedException();
         }
     }
 }

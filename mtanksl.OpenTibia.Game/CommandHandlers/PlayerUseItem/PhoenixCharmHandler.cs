@@ -21,7 +21,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 return Context.AddCommand(new PlayerBlessCommand(command.Player, "The Spark of the Phoenix emblazes you.", "Phoenix Charm") ).Then( () =>
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.FirePlume) );
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.FireDamage) );
 
                 } ).Then( () =>
                 {

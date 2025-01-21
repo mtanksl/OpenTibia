@@ -2,8 +2,14 @@
 {
     public enum MagicEffectType : byte
     {
+        /// <summary>
+        /// Physical Damage (blood race), Physical Damage (fire race)
+        /// </summary>
         RedSpark = 1,
 
+        /// <summary>
+        /// Drown Damage, Mana Drain
+        /// </summary>
         BlueRings = 2,
 
         Puff = 3,
@@ -18,22 +24,43 @@
 
         YellowRings = 8,
 
+        /// <summary>
+        /// Earth Damage
+        /// </summary>
         GreenRings = 9,
 
+        /// <summary>
+        /// Physical Damage (undead race)
+        /// </summary>
         BlackSpark = 10,
 
         Teleport = 11,
 
+        /// <summary>
+        /// Energy Damage
+        /// </summary>
         EnergyDamage = 12,
 
+        /// <summary>
+        /// Healing Damage
+        /// </summary>
         BlueShimmer = 13,
 
+        /// <summary>
+        /// Life Drain
+        /// </summary>
         RedShimmer = 14,
 
         GreenShimmer = 15,
 
-        FirePlume = 16,
+        /// <summary>
+        /// Fire Damage
+        /// </summary>
+        FireDamage = 16,
 
+        /// <summary>
+        /// Physical Damage (venom race)
+        /// </summary>
         GreenSpark = 17,
 
         MortArea = 18,
@@ -78,8 +105,14 @@
 
         EnergyArea = 38,
 
+        /// <summary>
+        /// Death Damage
+        /// </summary>
         SmallClouds = 39,
 
+        /// <summary>
+        /// Holy Damage
+        /// </summary>
         HolyDamage = 40,
 
         BigClouds = 41,
@@ -88,7 +121,10 @@
 
         IceTornado = 43,
 
-        IceAttack = 44,
+        /// <summary>
+        /// Ice Damage
+        /// </summary>
+        IceDamage = 44,
 
         Stones = 45,
 
@@ -96,9 +132,12 @@
 
         Carniphilia = 47,
 
-        PurpleEnergy = 48,
+        /// <summary>
+        /// Physical Damage (energy race)
+        /// </summary>
+        PurpleEnergyDamage = 48,
 
-        YellowEnergy = 49,
+        YellowEnergyDamage = 49,
 
         HolyArea = 50,
 

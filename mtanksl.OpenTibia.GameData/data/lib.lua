@@ -90,7 +90,7 @@ magiceffecttype = {
 	blueshimmer = 13,
 	redshimmer = 14,
 	greenshimmer = 15,
-	fireplume = 16,
+	firedamage = 16,
 	greenspark = 17,
 	mortarea = 18,
 	greennotes = 19,
@@ -118,12 +118,12 @@ magiceffecttype = {
 	bigclouds = 41,
 	icearea = 42,
 	icetornado = 43,
-	iceattack = 44,
+	icedamage = 44,
 	stones = 45,
 	smallplants = 46,
 	carniphilia = 47,
-	purpleenergy = 48,
-	yellowenergy = 49,
+	purpleenergydamage = 48,
+	yellowenergydamage = 49,
 	holyarea = 50,
 	bigplants = 51,
 	cake = 52,
@@ -332,8 +332,8 @@ waricon = {
 }
 
 attack = {
-	healing = function(magiceffecttype, min, max)
-		return { type = "healing", magiceffecttype = magiceffecttype, min = min, max = max }
+	healing = function(min, max)
+		return { type = "healing", min = min, max = max }
 	end,
 	simple = function(projectiletype, magiceffecttype, damagetype, min, max)
 		return { type = "simple", projectiletype = projectiletype, magiceffecttype = magiceffecttype, damagetype = damagetype, min = min, max = max }

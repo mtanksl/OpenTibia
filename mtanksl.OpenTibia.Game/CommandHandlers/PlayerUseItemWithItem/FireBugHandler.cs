@@ -44,7 +44,7 @@ namespace OpenTibia.Game.CommandHandlers
                     }
                     else
                     {
-                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.FirePlume) ).Then( () =>
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.FireDamage) ).Then( () =>
                         {
                             return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
 
@@ -78,7 +78,7 @@ namespace OpenTibia.Game.CommandHandlers
                     }
                     else
                     {
-                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.FirePlume) ).Then( () =>
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.FireDamage) ).Then( () =>
                         {
                             return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
                         } );

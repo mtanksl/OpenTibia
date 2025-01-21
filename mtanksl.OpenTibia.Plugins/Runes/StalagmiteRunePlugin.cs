@@ -24,7 +24,7 @@ namespace OpenTibia.Plugins.Runes
 
             return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 
-                new SimpleAttack(ProjectileType.Poison, MagicEffectType.GreenRings, DamageType.Earth, formula.Min, formula.Max) ) );
+                new SimpleAttack(ProjectileType.Poison, null, DamageType.Earth, formula.Min, formula.Max) ) );
         }
     }
 }

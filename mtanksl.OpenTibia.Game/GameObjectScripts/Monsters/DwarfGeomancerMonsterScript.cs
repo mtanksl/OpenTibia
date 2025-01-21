@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.GameObjectScripts
@@ -12,9 +11,10 @@ namespace OpenTibia.Game.GameObjectScripts
 
             Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
                 new CombineRandomAttackStrategy(false,
-                    new MeleeAttackStrategy(DamageType.Physical, 0, 100),
-                    new RuneTargetSimpleAttackStrategy(ProjectileType.Poison, MagicEffectType.GreenRings, DamageType.Earth, 50, 110), 
-                    new SpellHealingAttackStrategy(25, 130) ), 
+                    AttackStrategyFactory.Create(MinMaxAttackType.Melee, 0, 100),
+                    AttackStrategyFactory.Create(MinMaxAttackType.ManaDrain, 25, 80),
+                    AttackStrategyFactory.Create(MinMaxAttackType.Stalagmite, 50, 110),
+                    AttackStrategyFactory.Create(MinMaxAttackType.SelfHealing, 25, 130) ), 
                 KeepDistanceWalkStrategy.Instance,
                 RandomWalkStrategy.Instance,
                 DoNotChangeTargetStrategy.Instance,

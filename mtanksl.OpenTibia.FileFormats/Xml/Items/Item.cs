@@ -618,7 +618,7 @@ namespace OpenTibia.FileFormats.Xml.Items
                             
                             case "fire":
                             
-                                item.MagicEffectType = Common.Structures.MagicEffectType.FirePlume;
+                                item.MagicEffectType = Common.Structures.MagicEffectType.FireDamage;
                                 
                                 break;
                           
@@ -782,7 +782,7 @@ namespace OpenTibia.FileFormats.Xml.Items
                        
                             case "iceattack":
                             
-                                item.MagicEffectType = Common.Structures.MagicEffectType.IceAttack;
+                                item.MagicEffectType = Common.Structures.MagicEffectType.IceDamage;
                                 
                                 break;
                          
@@ -806,13 +806,13 @@ namespace OpenTibia.FileFormats.Xml.Items
                           
                             case "purpleenergy":
                                 
-                                item.MagicEffectType = Common.Structures.MagicEffectType.PurpleEnergy;
+                                item.MagicEffectType = Common.Structures.MagicEffectType.PurpleEnergyDamage;
                                 
                                 break;
                           
                             case "yellowenergy":
                           
-                                item.MagicEffectType = Common.Structures.MagicEffectType.YellowEnergy;
+                                item.MagicEffectType = Common.Structures.MagicEffectType.YellowEnergyDamage;
                                 
                                 break;
                          

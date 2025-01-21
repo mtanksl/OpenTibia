@@ -9,15 +9,19 @@ namespace OpenTibia.Game.Components
     {
         private ProjectileType projectileType;
 
+        private MagicEffectType? magicEffectType;
+
         private DamageType damageType;
 
         private int min;
 
         private int max;
 
-        public DistanceAttackStrategy(ProjectileType projectileType, DamageType damageType, int min, int max)
+        public DistanceAttackStrategy(ProjectileType projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max)
         {
             this.projectileType = projectileType;
+
+            this.magicEffectType = magicEffectType;
 
             this.damageType = damageType;
 
@@ -40,7 +44,7 @@ namespace OpenTibia.Game.Components
         {            
             return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, 
                 
-                new SimpleAttack(projectileType, null, damageType, min, max) ) );
+                new SimpleAttack(projectileType, magicEffectType, damageType, min, max) ) );
         }
     }
 }

@@ -7,14 +7,18 @@ namespace OpenTibia.Game.Components
 {
     public class MeleeAttackStrategy : IAttackStrategy
     {
+        private MagicEffectType? magicEffectType;
+
         private DamageType damageType;
 
         private int min;
 
         private int max;
 
-        public MeleeAttackStrategy(DamageType damageType, int min, int max)
+        public MeleeAttackStrategy(MagicEffectType? magicEffectType, DamageType damageType, int min, int max)
         {
+            this.magicEffectType = magicEffectType;
+
             this.damageType = damageType;
 
             this.min = min;
@@ -36,7 +40,7 @@ namespace OpenTibia.Game.Components
         {
             return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
                 
-                new SimpleAttack(null, null, damageType, min, max) ) );            
+                new SimpleAttack(null, magicEffectType, damageType, min, max) ) );            
         }
     }
 }

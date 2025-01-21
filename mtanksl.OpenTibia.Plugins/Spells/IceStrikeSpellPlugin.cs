@@ -39,7 +39,7 @@ namespace OpenTibia.Plugins.Spells
                     new Offset(0, 1)
                 };
 
-                return Context.AddCommand(new CreatureAttackAreaCommand(player, true, player.Tile.Position, area, null, MagicEffectType.IceAttack, 
+                return Context.AddCommand(new CreatureAttackAreaCommand(player, true, player.Tile.Position, area, null, MagicEffectType.IceDamage, 
                         
                     new SimpleAttack(null, null, DamageType.Ice, formula.Min, formula.Max) ) );
             }
@@ -47,7 +47,7 @@ namespace OpenTibia.Plugins.Spells
             {
                 return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 
-                    new SimpleAttack(ProjectileType.IceSmall, MagicEffectType.IceAttack, DamageType.Ice, formula.Min, formula.Max) ) );
+                    new SimpleAttack(ProjectileType.IceSmall, null, DamageType.Ice, formula.Min, formula.Max) ) );
             }
         }
     }

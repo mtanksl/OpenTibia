@@ -27,7 +27,7 @@ namespace OpenTibia.Game.Components
         {
             return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, attacker,
 
-                new HealingAttack(MagicEffectType.BlueShimmer, min, max) ) );            
+                new HealingAttack(min, max) ) );            
         }
     }
 }

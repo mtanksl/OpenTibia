@@ -18,7 +18,7 @@ namespace OpenTibia.Game.Commands
         {
             this.projectileType = projectileType;
 
-            this.magicEffectType = magicEffectType;
+            this.magicEffectType = magicEffectType ?? DamageType.ToMagicEffectType();
         }
 
         public override async Promise Missed(Creature attacker, Creature target)
@@ -55,15 +55,38 @@ namespace OpenTibia.Game.Commands
                 {      
                     int manaDamage = 0;
 
-                    CreatureConditionBehaviour creatureConditionBehaviour = Context.Current.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(target)
-                        .Where(c => c.Condition.ConditionSpecialCondition == ConditionSpecialCondition.MagicShield)
-                        .FirstOrDefault();
+                    int healthDamage = 0;
 
-                    if (creatureConditionBehaviour != null)
+                    if (DamageType == DamageType.ManaDrain)
                     {
-                        manaDamage = Math.Min(player.Mana, damage);
+                        manaDamage = damage;
 
-                        damage -= manaDamage;
+                        healthDamage = 0;
+                    }
+                    else if (DamageType == DamageType.LifeDrain)
+                    {
+                        manaDamage = 0;
+
+                        healthDamage = damage;
+                    }
+                    else
+                    {
+                        CreatureConditionBehaviour creatureConditionBehaviour = Context.Current.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(target)
+                            .Where(c => c.Condition.ConditionSpecialCondition == ConditionSpecialCondition.MagicShield)
+                            .FirstOrDefault();
+
+                        if (creatureConditionBehaviour != null)
+                        {
+                            manaDamage = Math.Min(player.Mana, damage);
+
+                            healthDamage = damage - manaDamage;
+                        }
+                        else
+                        {
+                            manaDamage = 0;
+
+                            healthDamage = damage;
+                        }
                     }
 
                     if (attacker != null)
@@ -91,15 +114,15 @@ namespace OpenTibia.Game.Commands
                         await Context.Current.AddCommand(new PlayerUpdateManaCommand(player, player.Mana - manaDamage) );
                     }
 
-                    if (damage > 0)
+                    if (healthDamage > 0)
                     {
                         if (attacker != null)
                         {
-                            Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + damage + " hitpoints due to an attack by " + attacker.Name + ".") );
+                            Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + healthDamage + " hitpoints due to an attack by " + attacker.Name + ".") );
                         }
                         else
                         {
-                            Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + damage + " hitpoints.") );
+                            Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + healthDamage + " hitpoints.") );
                         }
 
                         if (magicEffectType != null)
@@ -111,10 +134,10 @@ namespace OpenTibia.Game.Commands
 
                         if (animatedTextColor != null)
                         {
-                            await Context.Current.AddCommand(new ShowAnimatedTextCommand(target, animatedTextColor.Value, damage.ToString() ) );
+                            await Context.Current.AddCommand(new ShowAnimatedTextCommand(target, animatedTextColor.Value, healthDamage.ToString() ) );
                         }
 
-                        await Context.Current.AddCommand(new CreatureUpdateHealthCommand(target, target.Health - damage) );
+                        await Context.Current.AddCommand(new CreatureUpdateHealthCommand(target, target.Health - healthDamage) );
                     }
                 }
                 else if (target is Monster)

@@ -8,8 +8,7 @@
         DarkPurple = 112,
 
         /// <summary>
-        /// Blood race,
-        /// Physical Damage, Life Drain
+        /// Physical Damage (blood race), Life Drain
         /// </summary>
         Red = 180,
 
@@ -19,14 +18,12 @@
         Green = 18,
 
         /// <summary>
-        /// Fire race,
-        /// Fire Damage
+        /// Physical Damage (fire race), Fire Damage
         /// </summary>
         Orange = 192,
 
         /// <summary>
-        /// Energy race,
-        /// Energy Damage
+        /// Physical Damage (energy race), Energy Damage
         /// </summary>
         Purple = 154,
 
@@ -56,12 +53,12 @@
         Blue = 5,
 
         /// <summary>
-        /// Venom race
+        /// Physical Damage (venom race)
         /// </summary>
         LightGreen = 66,
 
         /// <summary>
-        /// Undead race
+        /// Physical Damage (undead race)
         /// </summary>
         LightGrey = 129,
 

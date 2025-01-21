@@ -35,9 +35,9 @@ namespace OpenTibia.Plugins.Runes
 
             return Context.AddCommand(new CreatureAttackAreaCommand(player, false, toTile.Position, area, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1504, 1,
 
-                new SimpleAttack(null, MagicEffectType.EnergyDamage, DamageType.Energy, 30, 30),
+                new SimpleAttack(null, null, DamageType.Energy, 30, 30),
 
-                new DamageCondition(SpecialCondition.Electrified, MagicEffectType.EnergyDamage, DamageType.Energy, new[] { 25, 25 }, TimeSpan.FromSeconds(4) ) ) );
+                new DamageCondition(SpecialCondition.Electrified, null, DamageType.Energy, new[] { 25, 25 }, TimeSpan.FromSeconds(4) ) ) );
         }
     }
 }

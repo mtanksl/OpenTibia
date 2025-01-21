@@ -20,7 +20,7 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (command.ToContainer is Tile toTile && toTile.Ground != null && lavas.Contains(toTile.Ground.Metadata.OpenTibiaId) )
             {
-                return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.FirePlume) ).Then( () =>
+                return Context.AddCommand(new ShowMagicEffectCommand(toTile.Position, MagicEffectType.FireDamage) ).Then( () =>
                 {
                     return Context.AddCommand(new ItemDecrementCommand(command.Item, command.Count) );
                 } );

@@ -60,7 +60,7 @@ namespace OpenTibia.Game.CommandHandlers
                     }
                     else if (lavas.Contains(command.ToItem.Metadata.OpenTibiaId) )
                     {
-                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.FirePlume) ).Then( () =>
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.FireDamage) ).Then( () =>
                         {
                             return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Lava) );
                         } );

@@ -27,7 +27,7 @@ namespace OpenTibia.Plugins.Ammunitions
 
                 new SimpleAttack(ammunition.Metadata.ProjectileType.Value, null, DamageType.Earth, formula.Min, formula.Max),
                                                                                                                                  
-                new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, DamageType.Earth, new[] { 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(4) ) ) );
+                new DamageCondition(SpecialCondition.Poisoned, null, DamageType.Earth, new[] { 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(4) ) ) );
         }     
     }
 }
