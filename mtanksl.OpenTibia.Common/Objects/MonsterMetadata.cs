@@ -23,7 +23,7 @@ namespace OpenTibia.Common.Objects
         
         public string[] Sentences { get; set; }
 
-        public LootItem[] LootItems { get; set; }
+        public LootItem[] Loot { get; set; }
 
         public Dictionary<DamageType, double> DamageTakenFromElements { get; set; }
     }

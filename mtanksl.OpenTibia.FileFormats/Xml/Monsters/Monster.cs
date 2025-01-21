@@ -66,11 +66,11 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
             if (lootNode != null)
             {
-                monster.LootItems = new List<LootItem>();
+                monster.Loot = new List<LootItem>();
 
                 foreach (var itemNode in lootNode.Elements() )
                 {
-                    monster.LootItems.Add(new LootItem() 
+                    monster.Loot.Add(new LootItem() 
                     { 
                         Id = (ushort)(int)itemNode.Attribute("id"),
 
@@ -87,11 +87,11 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
             if (elementsNode != null)
             {
-                monster.ElementItems = new List<ElementItem>();
+                monster.Elements = new List<ElementItem>();
 
                 foreach (var elementNode in elementsNode.Elements() )
                 {
-                    monster.ElementItems.Add(new ElementItem() 
+                    monster.Elements.Add(new ElementItem() 
                     {
                         HolyPercent = (int?)elementNode.Attribute("holyPercent"),
 
@@ -137,10 +137,10 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
         [XmlArray("loot")]
         [XmlArrayItem("item")]
-        public List<LootItem> LootItems { get; set; }
+        public List<LootItem> Loot { get; set; }
 
         [XmlArray("elements")]
         [XmlArrayItem("element")]
-        public List<ElementItem> ElementItems { get; set; }
+        public List<ElementItem> Elements { get; set; }
     }
 }

@@ -44,14 +44,14 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Sentences = xmlMonster.Voices?.Select(v => v.Sentence).ToArray(),
 
-                    LootItems = xmlMonster.LootItems?.Select(l => new LootItem() { OpenTibiaId = l.Id, KillsToGetOne = l.KillsToGetOne ?? 1, CountMin = l.CountMin ?? 1, CountMax = l.CountMax ?? 1 } ).ToArray(),
+                    Loot = xmlMonster.Loot?.Select(l => new LootItem() { OpenTibiaId = l.Id, KillsToGetOne = l.KillsToGetOne ?? 1, CountMin = l.CountMin ?? 1, CountMax = l.CountMax ?? 1 } ).ToArray(),
 
                     DamageTakenFromElements = new Dictionary<DamageType, double>()
                 };
 
-                if (xmlMonster.ElementItems != null)
+                if (xmlMonster.Elements != null)
                 {
-                    foreach (var elementItem in xmlMonster.ElementItems)
+                    foreach (var elementItem in xmlMonster.Elements)
                     {
                         if (elementItem.HolyPercent != null)
                         {

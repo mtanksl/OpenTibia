@@ -32,9 +32,9 @@ namespace OpenTibia.Game.Commands
             {
                 if (item is Container container)
                 {
-                    if (Metadata.LootItems != null)
+                    if (Metadata.Loot != null)
                     {
-                        foreach (var lootItem in Metadata.LootItems)
+                        foreach (var lootItem in Metadata.Loot)
                         {
                             if (Context.Server.Randomization.HasProbability( (double)Context.Server.Config.GameplayLootRate / lootItem.KillsToGetOne) )
                             {
