@@ -2,8 +2,10 @@
 {
     public enum AmmoAction : byte
     {
-        RemoveCount = 1,
+        Remove = 1,
 
-        MoveBack = 2
+        Move = 2,
+
+        MoveBack = 3
     }
 }

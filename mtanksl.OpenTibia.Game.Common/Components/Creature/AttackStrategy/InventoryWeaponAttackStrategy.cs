@@ -298,11 +298,22 @@ namespace OpenTibia.Game.Components
 
                             if (Context.Current.Server.Config.GameplayRemoveWeaponAmmunition)
                             {
-                                await Context.Current.AddCommand(new ItemDecrementCommand(itemAmmunition, 1) );
-
-                                if (itemAmmunition.Metadata.AmmoAction == AmmoAction.MoveBack && itemAmmunition.Metadata.BreakChance != null && !Context.Current.Server.Randomization.HasProbability(1.0 / itemAmmunition.Metadata.BreakChance.Value) )
+                                if (itemAmmunition.Metadata.BreakChance != null && Context.Current.Server.Randomization.HasProbability(1.0 / itemAmmunition.Metadata.BreakChance.Value) )
                                 {
-                                    await Context.Current.AddCommand(new TileCreateItemOrIncrementCommand(target.Tile, itemAmmunition.Metadata.OpenTibiaId, 1) );
+                                    await Context.Current.AddCommand(new ItemDecrementCommand(itemAmmunition, 1) );
+                                }
+                                else
+                                {
+                                    if (itemAmmunition.Metadata.AmmoAction == AmmoAction.Remove)
+                                    {
+                                        await Context.Current.AddCommand(new ItemDecrementCommand(itemAmmunition, 1) );
+                                    }
+                                    else if (itemAmmunition.Metadata.AmmoAction == AmmoAction.Move)
+                                    {
+                                        await Context.Current.AddCommand(new ItemDecrementCommand(itemAmmunition, 1) );
+
+                                        await Context.Current.AddCommand(new TileCreateItemOrIncrementCommand(target.Tile, itemAmmunition.Metadata.OpenTibiaId, 1) );
+                                    }
                                 }
                             }
 
@@ -345,11 +356,22 @@ namespace OpenTibia.Game.Components
 
                         if (Context.Current.Server.Config.GameplayRemoveWeaponCharges)
                         {
-                            await Context.Current.AddCommand(new ItemDecrementCommand(itemWeapon, 1) );
-
-                            if (itemWeapon.Metadata.AmmoAction == AmmoAction.MoveBack && itemWeapon.Metadata.BreakChance != null && !Context.Current.Server.Randomization.HasProbability(1.0 / itemWeapon.Metadata.BreakChance.Value) )
+                            if (itemWeapon.Metadata.BreakChance != null && Context.Current.Server.Randomization.HasProbability(1.0 / itemWeapon.Metadata.BreakChance.Value) )
                             {
-                                await Context.Current.AddCommand(new TileCreateItemOrIncrementCommand(target.Tile, itemWeapon.Metadata.OpenTibiaId, 1));
+                                await Context.Current.AddCommand(new ItemDecrementCommand(itemWeapon, 1) );
+                            }
+                            else
+                            {
+                                if (itemWeapon.Metadata.AmmoAction == AmmoAction.Remove)
+                                {
+                                    await Context.Current.AddCommand(new ItemDecrementCommand(itemWeapon, 1) );
+                                }
+                                else if (itemWeapon.Metadata.AmmoAction == AmmoAction.Move)
+                                {
+                                    await Context.Current.AddCommand(new ItemDecrementCommand(itemWeapon, 1) );
+
+                                    await Context.Current.AddCommand(new TileCreateItemOrIncrementCommand(target.Tile, itemWeapon.Metadata.OpenTibiaId, 1) );
+                                }
                             }
                         }
 

@@ -1044,8 +1044,15 @@ namespace OpenTibia.FileFormats.Xml.Items
                         switch ( (string)value)
                         {
                             case "removecount":
+                            case "removecharge":
 
-                                item.AmmoAction = Common.Structures.AmmoAction.RemoveCount;
+                                item.AmmoAction = Common.Structures.AmmoAction.Remove;
+
+                                break;
+
+                            case "move":
+
+                                item.AmmoAction = Common.Structures.AmmoAction.Move;
 
                                 break;
 
