@@ -1033,6 +1033,31 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                         break;
 
+                    case "breakChance":
+
+                        item.BreakChance = (byte)(uint)value;
+
+                        break;
+
+                    case "ammoAction":
+
+                        switch ( (string)value)
+                        {
+                            case "removecount":
+
+                                item.AmmoAction = Common.Structures.AmmoAction.RemoveCount;
+
+                                break;
+
+                            case "moveback":
+
+                                item.AmmoAction = Common.Structures.AmmoAction.MoveBack;
+
+                                break;
+                        }
+
+                        break;
+
                     case "readable":
 
                         item.Readable = true;
@@ -1091,6 +1116,10 @@ namespace OpenTibia.FileFormats.Xml.Items
         public byte? Charges { get; set; }
 
         public SlotType? SlotType { get; set; }
+
+        public byte? BreakChance { get; set; }
+
+        public AmmoAction? AmmoAction { get; set; }
 
         public bool? Readable { get; set; }
 

@@ -57,5 +57,9 @@ namespace OpenTibia.Common.Objects
         public byte? Charges { get; set; }
 
         public SlotType? SlotType { get; set; }
+
+        public byte? BreakChance { get; set; }
+
+        public AmmoAction? AmmoAction { get; set; }
     }
 }

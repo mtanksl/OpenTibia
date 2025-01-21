@@ -261,6 +261,10 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     metadata.SlotType = xmlItem.SlotType;
 
+                    metadata.BreakChance = xmlItem.BreakChance;
+
+                    metadata.AmmoAction = xmlItem.AmmoAction;
+
                     if (xmlItem.Readable == true)
                     {
                         metadata.Flags |= ItemMetadataFlags.Readable;
