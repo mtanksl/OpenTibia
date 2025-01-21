@@ -55,44 +55,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            string name;
-
-            if (ItemMetadata.Flags.Is(ItemMetadataFlags.Stackable) && Type > 1)
-            {
-                if (ItemMetadata.Plural != null)
-                {
-                    name = Type + " " + ItemMetadata.Plural;
-                }
-                else
-                {
-                    if (ItemMetadata.Name != null)
-                    {
-                        name = Type + " " + ItemMetadata.Name;
-                    }
-                    else
-                    {
-                        name = "nothing special";
-                    }
-                }
-            }
-            else
-            {
-                if (ItemMetadata.Name != null)
-                {
-                    if (ItemMetadata.Article != null)
-                    {
-                        name = ItemMetadata.Article + " " + ItemMetadata.Name;
-                    }
-                    else
-                    {
-                        name = ItemMetadata.Name;
-                    }
-                }
-                else
-                {
-                    name = "nothing special";
-                }
-            }
+            string decription = ItemMetadata.GetDescription(Type);
 
             List<string> attributes = new List<string>();
 
@@ -160,97 +123,97 @@ namespace OpenTibia.Game.Commands
 
                     case FluidType.Water:
 
-                        name += " of water";
+                        decription += " of water";
 
                         break;
 
                     case FluidType.Blood:
 
-                        name += " of blood";
+                        decription += " of blood";
 
                         break;
 
                     case FluidType.Beer:
 
-                        name += " of beer";
+                        decription += " of beer";
 
                         break;
 
                     case FluidType.Slime:
 
-                        name += " of slime";
+                        decription += " of slime";
 
                         break;
 
                     case FluidType.Lemonade:
 
-                        name += " of lemonade";
+                        decription += " of lemonade";
 
                         break;
 
                     case FluidType.Milk:
 
-                        name += " of milk";
+                        decription += " of milk";
 
                         break;
 
                     case FluidType.Manafluid:
 
-                        name += " of manafluid";
+                        decription += " of manafluid";
 
                         break;
 
                     case FluidType.Lifefluid:
 
-                        name += " of lifefluid";
+                        decription += " of lifefluid";
 
                         break;
 
                     case FluidType.Oil:
 
-                        name += " of oil";
+                        decription += " of oil";
 
                         break;
 
                     case FluidType.Urine:
 
-                        name += " of urine";
+                        decription += " of urine";
 
                         break;
 
                     case FluidType.CoconutMilk:
 
-                        name += " of coconut milk";
+                        decription += " of coconut milk";
 
                         break;
 
                     case FluidType.Wine:
 
-                        name += " of wine";
+                        decription += " of wine";
 
                         break;
 
                     case FluidType.Mud:
 
-                        name += " of mud";
+                        decription += " of mud";
 
                         break;
 
                     case FluidType.FruitJuice:
 
-                        name += " of fruit juice";
+                        decription += " of fruit juice";
 
                         break;
 
                     case FluidType.Lava:
 
-                        name += " of lava";
+                        decription += " of lava";
 
                         break;
 
                     case FluidType.Rum:
 
-                        name += " of rum";
+                        decription += " of rum";
 
                         break;
                 }
@@ -310,7 +273,7 @@ namespace OpenTibia.Game.Commands
 
             StringBuilder builder = new StringBuilder();
 
-            builder.Append("You see " + name);
+            builder.Append("You see " + decription);
 
             if (attributes.Count > 0)
             {

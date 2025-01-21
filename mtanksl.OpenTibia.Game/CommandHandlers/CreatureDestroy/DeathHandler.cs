@@ -4,9 +4,11 @@ using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Game.Events;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace OpenTibia.Game.CommandHandlers
 {
@@ -26,6 +28,10 @@ namespace OpenTibia.Game.CommandHandlers
 
                     ulong totalDamage = (ulong)hits.Values.Sum(h => h.Damage);
 
+                    uint maxDamage = 0;
+
+                    Player owner = null;
+
                     foreach (var pair in hits)
                     {
                         Creature attacker = pair.Key;
@@ -40,6 +46,11 @@ namespace OpenTibia.Game.CommandHandlers
                             {
                                 ulong damage = (ulong)pair.Value.Damage;
 
+                                if (damage > maxDamage)
+                                {
+                                    owner = player;
+                                }
+
                                 ulong experience = totalExperience * damage / totalDamage;
 
                                 if (experience > 0)
@@ -50,12 +61,49 @@ namespace OpenTibia.Game.CommandHandlers
                         }
                     }
 
-                    await Context.AddCommand(new TileCreateMonsterCorpseCommand(command.Creature.Tile, monster.Metadata) ).Then( (item) =>
-                    {                                    
-                        _ = Context.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(30) ) );
+                    var corpse = await Context.AddCommand(new TileCreateMonsterCorpseCommand(command.Creature.Tile, monster.Metadata) );
+                    
+                             _ = Context.AddCommand(new ItemDecayDestroyCommand(corpse, TimeSpan.FromSeconds(30) ) );
 
-                        return Promise.Completed;
-                    } );
+                    if (owner != null)
+                    {
+                        if (corpse is Container container)
+                        {
+                            StringBuilder builder = new StringBuilder();
+
+                            foreach (var item in container.GetItems() )
+                            {
+                                builder.Append(item.Metadata.GetDescription(item is StackableItem stackableItem ? stackableItem.Count : (byte)1) + ", ");
+                            }
+
+                            string message;
+
+                            if (builder.Length > 2)
+                            {
+                                builder.Remove(builder.Length - 2, 2);
+               
+                                message = "Loot of " + monster.Metadata.Description + ": " + builder.ToString() + ".";
+                            }
+                            else
+                            {
+                                message = "Loot of " + monster.Metadata.Description + ": nothing.";
+                            }
+
+                            Party party = Context.Server.Parties.GetPartyThatContainsMember(owner);
+
+                            if (party != null)
+                            {
+                                foreach (var member in party.GetMembers() )
+                                {
+                                    Context.AddPacket(member, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
+                                }
+                            }
+                            else
+                            {
+                                Context.AddPacket(owner, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
+                            }
+                        }
+                    }
                 }
                 else if (command.Creature is Player player)
                 {
@@ -104,12 +152,9 @@ namespace OpenTibia.Game.CommandHandlers
 
                         //TODO: Reset player skills
 
-                        await Context.AddCommand(new TileCreatePlayerCorpseCommand(command.Creature.Tile, player, true, blesses) ).Then( (item) =>
-                        {
-                            _ = Context.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(30) ) );
-
-                            return Promise.Completed;
-                        } );
+                        var corpse = await Context.AddCommand(new TileCreatePlayerCorpseCommand(command.Creature.Tile, player, true, blesses) );
+                        
+                                 _ = Context.AddCommand(new ItemDecayDestroyCommand(corpse, TimeSpan.FromSeconds(30) ) );
                     }
                     else
                     {

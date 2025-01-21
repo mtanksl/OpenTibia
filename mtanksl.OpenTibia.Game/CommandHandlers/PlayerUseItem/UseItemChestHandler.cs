@@ -39,46 +39,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 foreach (var item in ( (Container)command.Item).GetItems() )
                 {
-                    string name;
-
-                    if (item is StackableItem stackableItem && stackableItem.Count > 1)
-                    {
-                        if (item.Metadata.Plural != null)
-                        {
-                            name = stackableItem.Count + " " + item.Metadata.Plural;
-                        }
-                        else
-                        {
-                            if (item.Metadata.Name != null)
-                            {
-                                name = stackableItem.Count + " " + item.Metadata.Name;
-                            }
-                            else
-                            {
-                                name = "nothing special";
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (item.Metadata.Name != null)
-                        {
-                            if (item.Metadata.Article != null)
-                            {
-                                name = item.Metadata.Article + " " + item.Metadata.Name;
-                            }
-                            else
-                            {
-                                name = item.Metadata.Name;
-                            }
-                        }
-                        else
-                        {
-                            name = "nothing special";
-                        }
-                    }
-
-                    builder.Append(name + ", ");
+                    builder.Append(item.Metadata.GetDescription(item is StackableItem stackableItem ? stackableItem.Count : (byte)1) + ", ");
 
                     promises.Add(Context.AddCommand(new ItemCloneCommand(item, true) ).Then( (clone) =>
                     {
@@ -91,6 +52,10 @@ namespace OpenTibia.Game.CommandHandlers
                     builder.Remove(builder.Length - 2, 2);
                
                     Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "You have found " + builder.ToString() + ".") );
+                }
+                else
+                {
+                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, "It is empty.") );
                 }
 
                 return Promise.WhenAll(promises.ToArray() );                

@@ -65,5 +65,49 @@ namespace OpenTibia.Common.Objects
         public byte? HitChance { get; set; }
 
         public byte? MaxHitChance { get; set; }
+
+        public string GetDescription(byte count)
+        {
+            string description;
+
+            if (this.Flags.Is(ItemMetadataFlags.Stackable) && count > 1)
+            {
+                if (this.Plural != null)
+                {
+                    description = count + " " + this.Plural;
+                }
+                else
+                {
+                    if (this.Name != null)
+                    {
+                        description = count + " " + this.Name;
+                    }
+                    else
+                    {
+                        description = "nothing special";
+                    }
+                }
+            }
+            else
+            {
+                if (this.Name != null)
+                {
+                    if (this.Article != null)
+                    {
+                        description = this.Article + " " + this.Name;
+                    }
+                    else
+                    {
+                        description = this.Name;
+                    }
+                }
+                else
+                {
+                    description = "nothing special";
+                }
+            }
+
+            return description;
+        }
     }
 }
