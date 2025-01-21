@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using System.Reflection.Metadata;
 
 namespace OpenTibia.Game.Common.ServerObjects
 {
@@ -197,16 +198,23 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             try
             {
-                var dns = Dns.GetHostEntry(LoginAccountManagerIpAddress);
+                IPAddress ipv4;
 
-                var ipv4 = dns.AddressList.Where(a => a.AddressFamily == AddressFamily.InterNetwork).FirstOrDefault();
-
-                if (ipv4 == null)
+                if (IPAddress.TryParse(LoginAccountManagerIpAddress, out ipv4) )
                 {
-                    throw new NotImplementedException("File config.lua parameter server.login.accountmanager.ipaddress could not be resolved to IPV4.");
+                    LoginAccountManagerIpAddress = ipv4.ToString();
                 }
+                else
+                {
+                    ipv4 = Dns.GetHostEntry(LoginAccountManagerIpAddress).AddressList.Where(a => a.AddressFamily == AddressFamily.InterNetwork).FirstOrDefault();
 
-                LoginAccountManagerIpAddress = ipv4.ToString();
+                    if (ipv4 == null)
+                    {
+                        throw new NotImplementedException("File config.lua parameter server.login.accountmanager.ipaddress could not be resolved to IPV4.");
+                    }
+
+                    LoginAccountManagerIpAddress = ipv4.ToString();
+                }
             }
             catch (SocketException)
             {
@@ -227,20 +235,27 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                 try
                 {
-                    var dns = Dns.GetHostEntry(ipAddress);
+                    IPAddress ipv4;
 
-                    var ipv4 = dns.AddressList.Where(a => a.AddressFamily == AddressFamily.InterNetwork).FirstOrDefault();
-
-                    if (ipv4 == null)
+                    if (IPAddress.TryParse(ipAddress, out ipv4) )
                     {
-                        throw new NotImplementedException("File config.lua parameter server.login.words[\"" + key + "\"].ipaddress could not be resolved.");
+                        ipAddress = ipv4.ToString();
                     }
+                    else
+                    {
+                        ipv4 = Dns.GetHostEntry(ipAddress).AddressList.Where(a => a.AddressFamily == AddressFamily.InterNetwork).FirstOrDefault();
 
-                    ipAddress = ipv4.ToString();
+                        if (ipv4 == null)
+                        {
+                            throw new NotImplementedException("File config.lua parameter server.login.words[\"" + key + "\"].ipaddress could not be resolved to IPV4.");
+                        }
+
+                        ipAddress = ipv4.ToString();
+                    }
                 }
                 catch (SocketException)
                 {
-                    throw new NotImplementedException("File config.lua parameter server.login.words[\"" + key + "\"].ipaddress could not be resolved.");
+                    throw new NotImplementedException("File config.lua parameter server.login.words[\"" + key + "\"].ipaddress could not be resolved to IPV4.");
                 }
 
                 return new DbWorld()
