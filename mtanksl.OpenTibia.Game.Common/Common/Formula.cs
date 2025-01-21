@@ -89,18 +89,18 @@ namespace OpenTibia.Game.Common
 
         public static double GetContainerLossPercent(int blesses)
         {
-            double containerLoss = containerLosses[Math.Min(blesses, containerLosses.Length - 1) ];
+            double containerLossPercent = containerLosses[Math.Min(blesses, containerLosses.Length - 1) ];
 
-            return containerLoss;
+            return containerLossPercent;
         }
 
         private static double[] equipmentLosses = new double[] { 10 / 100.0, 7 / 100.0, 4.5 / 100.0, 2.5 / 100.0, 1 / 100.0, 0 };
        
         public static double GetEquipmentLossPercent(int blesses)
         {
-            double equipmentLoss = equipmentLosses[Math.Min(blesses, equipmentLosses.Length - 1) ];
+            double equipmentLossPercent = equipmentLosses[Math.Min(blesses, equipmentLosses.Length - 1) ];
 
-            return equipmentLoss;
+            return equipmentLossPercent;
         }
 
         private static Dictionary<Skill, ushort> skillConstants = new Dictionary<Skill, ushort>()

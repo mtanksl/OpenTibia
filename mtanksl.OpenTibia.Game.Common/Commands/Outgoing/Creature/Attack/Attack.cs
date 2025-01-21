@@ -23,6 +23,16 @@ namespace OpenTibia.Game.Commands
 
         public virtual int Calculate(Creature attacker, Creature target)
         {
+            if (target is Monster monster)
+            {
+                double elementPercent;
+
+                if (monster.Metadata.DamageTakenFromElements.TryGetValue(DamageType, out elementPercent) )
+                {
+                    return Context.Current.Server.Randomization.Take( (int)(Min * elementPercent), (int)(Max * elementPercent) );
+                }                
+            }
+
             return Context.Current.Server.Randomization.Take(Min, Max);
         }
 
