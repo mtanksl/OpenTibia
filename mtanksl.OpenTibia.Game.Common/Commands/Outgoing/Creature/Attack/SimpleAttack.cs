@@ -14,15 +14,11 @@ namespace OpenTibia.Game.Commands
 
         private MagicEffectType? magicEffectType;
 
-        private AnimatedTextColor? animatedTextColor;
-
-        public SimpleAttack(ProjectileType? projectileType, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int min, int max) : base(min, max)
+        public SimpleAttack(ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max) : base(damageType, min, max)
         {
             this.projectileType = projectileType;
 
             this.magicEffectType = magicEffectType;
-
-            this.animatedTextColor = animatedTextColor;
         }
 
         public override async Promise Missed(Creature attacker, Creature target)
@@ -111,6 +107,8 @@ namespace OpenTibia.Game.Commands
                             await Context.Current.AddCommand(new ShowMagicEffectCommand(target, magicEffectType.Value) );
                         }
 
+                        AnimatedTextColor? animatedTextColor = DamageType.ToAnimatedTextColor();
+
                         if (animatedTextColor != null)
                         {
                             await Context.Current.AddCommand(new ShowAnimatedTextCommand(target, animatedTextColor.Value, damage.ToString() ) );
@@ -132,6 +130,8 @@ namespace OpenTibia.Game.Commands
                     {
                         await Context.Current.AddCommand(new ShowMagicEffectCommand(target, magicEffectType.Value) );
                     }
+
+                    AnimatedTextColor? animatedTextColor = DamageType.ToAnimatedTextColor();
 
                     if (animatedTextColor != null)
                     {

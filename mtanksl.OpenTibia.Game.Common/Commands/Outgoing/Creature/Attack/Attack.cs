@@ -1,16 +1,21 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
 
 namespace OpenTibia.Game.Commands
 {
     public abstract class Attack
     {
-        protected Attack(int min, int max)
+        protected Attack(DamageType damageType, int min, int max)
         {
+            DamageType = damageType;
+
             Min = min;
 
             Max = max;
         }
+
+        public DamageType DamageType { get; }
 
         public int Min { get; }
 

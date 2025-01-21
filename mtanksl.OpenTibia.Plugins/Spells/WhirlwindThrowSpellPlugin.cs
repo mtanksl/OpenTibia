@@ -34,7 +34,7 @@ namespace OpenTibia.Plugins.Spells
 
                 return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 
-                   new SimpleAttack(ProjectileType.WhirlWindSword, MagicEffectType.GroundShaker, AnimatedTextColor.LightGrey, formula.Min, formula.Max) ) );
+                   new SimpleAttack(ProjectileType.WhirlWindSword, MagicEffectType.GroundShaker, DamageType.Physical, formula.Min, formula.Max) ) );
             }
             else if (itemWeapon.Metadata.WeaponType == WeaponType.Axe)
             {
@@ -42,7 +42,7 @@ namespace OpenTibia.Plugins.Spells
             
                 return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 
-                   new SimpleAttack(ProjectileType.WhirlWindAxe, MagicEffectType.GroundShaker, AnimatedTextColor.LightGrey, formula.Min, formula.Max) ) );
+                   new SimpleAttack(ProjectileType.WhirlWindAxe, MagicEffectType.GroundShaker, DamageType.Physical, formula.Min, formula.Max) ) );
             }
             else if (itemWeapon.Metadata.WeaponType == WeaponType.Club)
             {
@@ -50,7 +50,7 @@ namespace OpenTibia.Plugins.Spells
                 
                 return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 
-                   new SimpleAttack(ProjectileType.WhirlWindClub, MagicEffectType.GroundShaker, AnimatedTextColor.LightGrey, formula.Min, formula.Max) ) );
+                   new SimpleAttack(ProjectileType.WhirlWindClub, MagicEffectType.GroundShaker, DamageType.Physical, formula.Min, formula.Max) ) );
             }
             else
             {

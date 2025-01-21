@@ -11,19 +11,19 @@ namespace OpenTibia.Game.Components
 
         private MagicEffectType? magicEffectType;
 
-        private AnimatedTextColor? animatedTextColor;
+        private DamageType damageType;
 
         private int min;
 
         private int max;
 
-        public RuneTargetSimpleAttackStrategy(ProjectileType? projectileType, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int min, int max)
+        public RuneTargetSimpleAttackStrategy(ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max)
         {
             this.projectileType = projectileType;
 
             this.magicEffectType = magicEffectType;
 
-            this.animatedTextColor = animatedTextColor;
+            this.damageType = damageType;
 
             this.min = min;
 
@@ -44,7 +44,7 @@ namespace OpenTibia.Game.Components
         {            
             return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, 
                 
-                new SimpleAttack(projectileType, magicEffectType, animatedTextColor, min, max) ) );
+                new SimpleAttack(projectileType, magicEffectType, damageType, min, max) ) );
         }
     }
 }

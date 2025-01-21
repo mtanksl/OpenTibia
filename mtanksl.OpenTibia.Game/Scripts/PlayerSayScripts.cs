@@ -12,6 +12,8 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new AccountManagerSayHandler() );
 
             var gamemasterCommandHandler = new GamemasterCommandHandler();
+                                       
+                gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new DisplayAnimatedTextHandler() ); // /at
 
                 gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new TeleportHandler() ); // /a
 

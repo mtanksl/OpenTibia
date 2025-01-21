@@ -26,9 +26,9 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         return Context.AddCommand(new CreatureAttackCreatureCommand(null, e.Creature, 
 
-                            new SimpleAttack(null, MagicEffectType.FirePlume, AnimatedTextColor.Orange, 20, 20),
+                            new SimpleAttack(null, MagicEffectType.FirePlume, DamageType.Fire, 20, 20),
                                                                                                                          
-                            new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(4) ) ) );
+                            new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, DamageType.Fire, new[] { 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(4) ) ) );
                     }
                 }
             }

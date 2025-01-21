@@ -40,7 +40,7 @@ namespace OpenTibia.Plugins.Runes
 
             return Context.AddCommand(new CreatureAttackAreaCommand(player, false, toTile.Position, area, ProjectileType.Ice, MagicEffectType.IceArea,
 
-                new SimpleAttack(null, null, AnimatedTextColor.Crystal, formula.Min, formula.Max) ) );
+                new SimpleAttack(null, null, DamageType.Ice, formula.Min, formula.Max) ) );
         } 
     }
 }

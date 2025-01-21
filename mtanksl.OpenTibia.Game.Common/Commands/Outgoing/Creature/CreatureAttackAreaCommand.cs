@@ -162,8 +162,6 @@ namespace OpenTibia.Game.Commands
                             }
                             else if (Attacker is Monster)
                             {
-                                //TODO: Immunities
-
                                 foreach (var player in toTile.GetPlayers().ToArray() )
                                 {
                                     await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, player, Attack, Condition) );

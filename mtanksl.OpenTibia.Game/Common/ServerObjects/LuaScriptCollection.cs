@@ -1282,7 +1282,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     case "simple":
 
-                        return new SimpleAttack( (ProjectileType?)(long?)table["projectiletype"], (MagicEffectType?)(long?)table["magiceffecttype"], (AnimatedTextColor?)(long?)table["animatedtextcolor"], (int)(long)table["min"], (int)(long)table["max"] );
+                        return new SimpleAttack( (ProjectileType?)(long?)table["projectiletype"], (MagicEffectType?)(long?)table["magiceffecttype"], (DamageType)(long)table["damagetype"], (int)(long)table["min"], (int)(long)table["max"] );
                 }
             }
 
@@ -1311,7 +1311,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     case "damage":
 
-                        return new DamageCondition( (SpecialCondition)(long)table["specialcondition"], (MagicEffectType?)(long?)table["magiceffecttype"], (AnimatedTextColor?)(long?)table["animatedtextcolor"], ( (LuaTable)table["damages"] ).Values.Cast<long>().Select(v => (int)v ).ToArray(), TimeSpan.FromSeconds( (int)(long)table["interval"] ) );
+                        return new DamageCondition( (SpecialCondition)(long)table["specialcondition"], (MagicEffectType?)(long?)table["magiceffecttype"], (DamageType)(long)table["damagetype"], ( (LuaTable)table["damages"] ).Values.Cast<long>().Select(v => (int)v ).ToArray(), TimeSpan.FromSeconds( (int)(long)table["interval"] ) );
 
                     case "drowning":
 
@@ -1336,6 +1336,10 @@ namespace OpenTibia.Game.Common.ServerObjects
                     case "outfit":
 
                         return new OutfitCondition(ToOutfit(table["outfit"] ), TimeSpan.FromSeconds( (int)(long)table["duration"] ) );
+                                                                    
+                    case "slowed":
+
+                        return new SlowedCondition( (ushort)(long)table["speed"], TimeSpan.FromSeconds( (int)(long)table["duration"] ) );
                 }
             }
          

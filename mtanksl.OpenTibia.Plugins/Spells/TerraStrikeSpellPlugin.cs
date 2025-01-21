@@ -41,13 +41,13 @@ namespace OpenTibia.Plugins.Spells
 
                 return Context.AddCommand(new CreatureAttackAreaCommand(player, true, player.Tile.Position, area, null, MagicEffectType.Carniphilia, 
                         
-                    new SimpleAttack(null, null, AnimatedTextColor.Green, formula.Min, formula.Max) ) );
+                    new SimpleAttack(null, null, DamageType.Earth, formula.Min, formula.Max) ) );
             }
             else
             {
                 return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 
-                    new SimpleAttack(ProjectileType.Poison, MagicEffectType.Carniphilia, AnimatedTextColor.Green, formula.Min, formula.Max) ) );
+                    new SimpleAttack(ProjectileType.Poison, MagicEffectType.Carniphilia, DamageType.Earth, formula.Min, formula.Max) ) );
             }
         }
     }

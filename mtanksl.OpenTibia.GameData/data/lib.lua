@@ -6,18 +6,34 @@
 }
 
 animatedtextcolor = {
-	blue = 5,
-	green = 30,
-	lightblue = 35,
-	crystal = 65,
-	purple = 83,
-	platinum = 89,
-	lightgrey = 129,
-	darkred = 144,
+	darkpurple = 112,
 	red = 180,
-	orange = 198,
-	gold = 210,
+	green = 18,
+	orange = 192,
+	purple = 154,
+	seablue = 35,
+	darkred = 144,
+	yellow = 210,
+	cyan = 65,
+	blue = 5,
+	lightgreen = 66,
+	lightgrey = 129,
 	white = 215
+}
+
+damagetype = {
+	none = 0,
+	physical = 1,
+	earth = 2,
+	fire = 3,
+	energy = 4,
+	ice = 5,
+	death = 6,
+	holy = 7,
+	drown = 8,
+	manadrain = 9,
+	lifedrain = 10,
+	agony = 11
 }
 
 direction = {
@@ -131,6 +147,29 @@ magiceffecttype = {
 	dragonhead = 70
 }
 
+marker = {
+	tick = 0,
+	question = 1,
+	exclamation = 2,
+	star = 3,
+	cross = 4,
+	temple = 5,
+	kiss = 6,
+	shovel = 7,
+	sword = 8,
+	flag = 9,
+	lock = 10,
+	bag = 11,
+	skull = 12,
+	dollar = 13,
+	rednorth = 14,
+	redsouth = 15,
+	redeast = 16,
+	redwest = 17,
+	greennorth = 18,
+	greensouth = 19
+}
+
 partyicon = {
 	none = 0,
 	whiteyellow = 1,
@@ -191,6 +230,13 @@ projectiletype = {
 	cake = 42
 }
 
+rank = {
+	player = 0,
+	tutor = 1,
+	gamemaster = 2,
+	accountmanager = 3
+}
+
 skill = {
 	magiclevel = 0,
     fist = 1,
@@ -209,6 +255,25 @@ skullicon = {
 	white = 3,
 	red = 4,
 	black = 5
+}
+
+specialcondition = {
+	none = 0,
+	poisoned = 1,
+	burning = 2,
+	electrified = 4,
+	drunk = 8,
+	magicshield = 16,
+	slowed = 32,
+	haste = 64,
+	logoutblock = 128,
+	drowning = 256,
+	freezing = 512,
+	dazzled = 1024,
+	cursed = 2048,
+	bleeding = 4096,
+	protectionzoneblock = 8192,
+	protectionzone = 16384
 }
 
 talktype = {
@@ -247,29 +312,6 @@ textcolor = {
 	whitebottomgamewindow = 26
 }
 
-conditionspecialcondition = {
-	none = 0,
-	poisoned = 1,
-	burning = 2,
-	electrified = 4,
-	drunk = 8,
-	magicshield = 16,
-	slowed = 32,
-	haste = 64,
-	logoutblock = 128,
-	drowning = 256,
-	freezing = 512,
-	dazzled = 1024,
-	cursed = 2048,
-	bleeding = 4096,
-	outfit = 32768,
-	invisible = 65536,
-	light = 131072,
-	regeneration = 262144,
-	soul = 524288,
-	muted = 1048576
-}
-
 vocation = {
 	none = 0,
 	knight = 1,
@@ -282,11 +324,11 @@ vocation = {
 	mastersorcerer = 8
 }
 
-rank = {
-	player = 0,
-	tutor = 1,
-	gamemaster = 2,
-	accountmanager = 3
+waricon = {
+	none = 0,
+    green = 1,
+    red = 2,
+    blue = 3
 }
 
 attack = {
@@ -299,14 +341,14 @@ attack = {
 	melee = function(min, max)
 		return { type = "melee", min = min, max = max }
 	end,
-	simple = function(projectiletype, magiceffecttype, animatedtextcolor, min, max)
-		return { type = "simple", projectiletype = projectiletype, magiceffecttype = magiceffecttype, animatedtextcolor = animatedtextcolor, min = min, max = max }
+	simple = function(projectiletype, magiceffecttype, damagetype, min, max)
+		return { type = "simple", projectiletype = projectiletype, magiceffecttype = magiceffecttype, damagetype = damagetype, min = min, max = max }
 	end
 }
 
 condition = {
-	damage = function(specialcondition, magiceffecttype, animatedtextcolor, damages, interval)
-		return { type = "damage", specialcondition = specialcondition, magiceffecttype = magiceffecttype, animatedtextcolor = animatedtextcolor, damages = damages, interval = interval }
+	damage = function(specialcondition, magiceffecttype,  damagetype, damages, interval)
+		return { type = "damage", specialcondition = specialcondition, magiceffecttype = magiceffecttype, damagetype = damagetype, damages = damages, interval = interval }
 	end,
 	drowning = function(damage, interval)
 		return { type = "drowning", damage = damage, interval = interval }
@@ -325,5 +367,8 @@ condition = {
 	end,
 	outfit = function(outfit, duration)
 		return { type = "outfit", outfit = outfit, duration = duration }
+	end,
+	slowed = function(speed, duration)
+		return { type = "slowed", speed = speed, duration = duration }
 	end
 }

@@ -35,9 +35,9 @@ namespace OpenTibia.Plugins.Runes
 
             return Context.AddCommand(new CreatureAttackAreaCommand(player, false, toTile.Position, area, ProjectileType.Fire, MagicEffectType.FirePlume, 1500, 1,
 
-                new SimpleAttack(null, MagicEffectType.FirePlume, AnimatedTextColor.Orange, 20, 20),
+                new SimpleAttack(null, MagicEffectType.FirePlume, DamageType.Fire, 20, 20),
 
-                new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, AnimatedTextColor.Orange, new[] { 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(4) ) ) );
+                new DamageCondition(SpecialCondition.Burning, MagicEffectType.FirePlume, DamageType.Fire, new[] { 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(4) ) ) );
         }
     }
 }

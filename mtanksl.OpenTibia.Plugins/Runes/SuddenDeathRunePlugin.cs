@@ -24,7 +24,7 @@ namespace OpenTibia.Plugins.Runes
 
             return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 
-                new SimpleAttack(ProjectileType.SuddenDeath, MagicEffectType.MortArea, AnimatedTextColor.DarkRed, formula.Min, formula.Max) ) );
+                new SimpleAttack(ProjectileType.SuddenDeath, MagicEffectType.MortArea, DamageType.Death, formula.Min, formula.Max) ) );
         }
     }
 }

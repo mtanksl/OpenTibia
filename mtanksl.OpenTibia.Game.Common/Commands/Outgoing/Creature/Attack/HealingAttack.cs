@@ -8,7 +8,7 @@ namespace OpenTibia.Game.Commands
     {
         private MagicEffectType? magicEffectType;
 
-        public HealingAttack(MagicEffectType? magicEffectType, int min, int max) : base(min, max)
+        public HealingAttack(MagicEffectType? magicEffectType, int min, int max) : base(DamageType.None, min, max)
         {
             this.magicEffectType = magicEffectType;
         }

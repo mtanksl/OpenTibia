@@ -17,7 +17,7 @@ namespace OpenTibia.Game.Components
 
         private byte? count;
 
-        private AnimatedTextColor? animatedTextColor;
+        private DamageType damageType;
 
         private int min;
 
@@ -25,14 +25,14 @@ namespace OpenTibia.Game.Components
 
         private Condition condition;
 
-        public RuneAreaAttackStrategy(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int min, int max)
+        public RuneAreaAttackStrategy(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max)
 
-            : this(area, projectileType, magicEffectType, animatedTextColor, min, max, null)
+            : this(area, projectileType, magicEffectType, damageType, min, max, null)
         {
 
         }
 
-        public RuneAreaAttackStrategy(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int min, int max, Condition condition)
+        public RuneAreaAttackStrategy(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max, Condition condition)
         {
             this.area = area;
 
@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Components
 
             this.magicEffectType = magicEffectType;
 
-            this.animatedTextColor = animatedTextColor;
+            this.damageType = damageType;
 
             this.min = min;
 
@@ -49,14 +49,14 @@ namespace OpenTibia.Game.Components
             this.condition = condition;
         }
 
-        public RuneAreaAttackStrategy(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, AnimatedTextColor? animatedTextColor, int min, int max)
+        public RuneAreaAttackStrategy(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, DamageType damageType, int min, int max)
         
-            : this(area, projectileType, magicEffectType, openTibiaId, count, animatedTextColor, min, max, null)
+            : this(area, projectileType, magicEffectType, openTibiaId, count, damageType, min, max, null)
         {
 
         }
 
-        public RuneAreaAttackStrategy(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, AnimatedTextColor? animatedTextColor, int min, int max, Condition condition)
+        public RuneAreaAttackStrategy(Offset[] area, ProjectileType? projectileType, MagicEffectType? magicEffectType, ushort openTibiaId, byte count, DamageType damageType, int min, int max, Condition condition)
         {
             this.area = area;
 
@@ -68,7 +68,7 @@ namespace OpenTibia.Game.Components
 
             this.count = count;
 
-            this.animatedTextColor = animatedTextColor;
+            this.damageType = damageType;
 
             this.min = min;
 
@@ -93,14 +93,14 @@ namespace OpenTibia.Game.Components
             {
                 return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, target.Tile.Position, area, projectileType, magicEffectType, openTibiaId.Value, count.Value,
                 
-                    new SimpleAttack(null, null, animatedTextColor, min, max),
+                    new SimpleAttack(null, null, damageType, min, max),
                 
                     condition) );
             }
 
             return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, target.Tile.Position, area, projectileType, magicEffectType, 
                 
-                new SimpleAttack(null, null, animatedTextColor, min, max),
+                new SimpleAttack(null, null, damageType, min, max),
                 
                 condition) );
         }

@@ -29,7 +29,7 @@ namespace OpenTibia.Plugins.Spells
 
             return Context.AddCommand(new CreatureAttackAreaCommand(player, true, player.Tile.Position, area, null, MagicEffectType.FirePlume, 
                         
-                new SimpleAttack(null, null, AnimatedTextColor.Orange, formula.Min, formula.Max) ) );
+                new SimpleAttack(null, null, DamageType.Fire, formula.Min, formula.Max) ) );
         }
     }
 }

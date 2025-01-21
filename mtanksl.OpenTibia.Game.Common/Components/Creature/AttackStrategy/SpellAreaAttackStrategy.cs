@@ -11,19 +11,19 @@ namespace OpenTibia.Game.Components
 
         private MagicEffectType? magicEffectType;
 
-        private AnimatedTextColor? animatedTextColor;
+        private DamageType damageType;
 
         private int min;
 
         private int max;
 
-        public SpellAreaAttackStrategy(Offset[] area, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int min, int max)
+        public SpellAreaAttackStrategy(Offset[] area, MagicEffectType? magicEffectType, DamageType damageType, int min, int max)
         {
             this.area = area;
 
             this.magicEffectType = magicEffectType;
 
-            this.animatedTextColor = animatedTextColor;
+            this.damageType = damageType;
 
             this.min = min;
 
@@ -39,7 +39,7 @@ namespace OpenTibia.Game.Components
         {
             return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, attacker.Tile.Position, area, null, magicEffectType, 
                         
-                new SimpleAttack(null, null, animatedTextColor, min, max) ) );
+                new SimpleAttack(null, null, damageType, min, max) ) );
         }
     }
 }

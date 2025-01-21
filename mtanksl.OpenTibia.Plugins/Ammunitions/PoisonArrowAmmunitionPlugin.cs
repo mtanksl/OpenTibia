@@ -27,7 +27,7 @@ namespace OpenTibia.Plugins.Ammunitions
 
                 new DistanceAttack(ammunition.Metadata.ProjectileType.Value, formula.Min, formula.Max),
                                                                                                                                  
-                new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, AnimatedTextColor.Green, new[] { 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(4) ) ) );
+                new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, DamageType.Earth, new[] { 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(4) ) ) );
         }     
     }
 }

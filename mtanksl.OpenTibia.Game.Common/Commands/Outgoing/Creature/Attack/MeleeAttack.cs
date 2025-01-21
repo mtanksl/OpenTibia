@@ -4,7 +4,7 @@ namespace OpenTibia.Game.Commands
 {
     public class MeleeAttack : SimpleAttack
     {
-        public MeleeAttack(int min, int max) : base(null, MagicEffectType.RedSpark, AnimatedTextColor.DarkRed, min, max)
+        public MeleeAttack(int min, int max) : base(null, MagicEffectType.RedSpark, DamageType.Physical, min, max)
         {
 
         } 

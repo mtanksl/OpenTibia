@@ -2,28 +2,72 @@
 {
     public enum AnimatedTextColor : byte
     {
-        Blue = 5,
+        /// <summary>
+        /// Mana Shield ?
+        /// </summary>
+        DarkPurple = 112,
 
-        Green = 30,
-
-        LightBlue = 35,
-
-        Crystal = 65,
-
-        Purple = 83,
-
-        Platinum = 89,
-
-        LightGrey = 129,
-
-        DarkRed = 144,
-
+        /// <summary>
+        /// Blood race,
+        /// Physical Damage, Life Drain
+        /// </summary>
         Red = 180,
 
-        Orange = 198,
+        /// <summary>
+        /// Earth Damage
+        /// </summary>
+        Green = 18,
 
-        Gold = 210,
+        /// <summary>
+        /// Fire race,
+        /// Fire Damage
+        /// </summary>
+        Orange = 192,
 
+        /// <summary>
+        /// Energy race,
+        /// Energy Damage
+        /// </summary>
+        Purple = 154,
+
+        /// <summary>
+        /// Ice Damage
+        /// </summary>
+        SeaBlue = 35,
+
+        /// <summary>
+        /// Death Damage
+        /// </summary>
+        DarkRed = 144,
+
+        /// <summary>
+        /// Holy Damage
+        /// </summary>
+        Yellow = 210,
+
+        /// <summary>
+        /// Drown Damage
+        /// </summary>
+        Cyan = 65,
+        
+        /// <summary>
+        /// Mana Drain
+        /// </summary>
+        Blue = 5,
+
+        /// <summary>
+        /// Venom race
+        /// </summary>
+        LightGreen = 66,
+
+        /// <summary>
+        /// Undead race
+        /// </summary>
+        LightGrey = 129,
+
+        /// <summary>
+        /// Experience gain
+        /// </summary>
         White = 215
     }
 }

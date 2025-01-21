@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Commands
 
                 await Context.Current.AddCommand(new CreatureAttackCreatureCommand(null, creature, 
                     
-                    new SimpleAttack(null, MagicEffectType.BlueRings, AnimatedTextColor.Crystal, Damage, Damage) ) );
+                    new SimpleAttack(null, MagicEffectType.BlueRings, DamageType.Drown, Damage, Damage) ) );
             }
         }
 

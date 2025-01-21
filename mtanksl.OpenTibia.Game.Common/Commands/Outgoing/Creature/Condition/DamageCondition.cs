@@ -7,11 +7,11 @@ namespace OpenTibia.Game.Commands
 {
     public class DamageCondition : Condition
     {
-        public DamageCondition(SpecialCondition specialCondition, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int[] damages, TimeSpan interval) : base( (ConditionSpecialCondition)specialCondition)
+        public DamageCondition(SpecialCondition specialCondition, MagicEffectType? magicEffectType, DamageType damageType, int[] damages, TimeSpan interval) : base( (ConditionSpecialCondition)specialCondition)
         {
             MagicEffectType = magicEffectType;
 
-            AnimatedTextColor = animatedTextColor;
+            DamageType = damageType;
 
             Damages = damages;
 
@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Commands
 
         public MagicEffectType? MagicEffectType { get; set; }
 
-        public AnimatedTextColor? AnimatedTextColor { get; set; }
+        public DamageType DamageType { get; set; }
 
         public int[] Damages { get; set; }
 
@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
 
                 await Context.Current.AddCommand(new CreatureAttackCreatureCommand(null, creature, 
                     
-                    new SimpleAttack(null, MagicEffectType, AnimatedTextColor, Damages[i], Damages[i] ) ) );
+                    new SimpleAttack(null, MagicEffectType, DamageType, Damages[i], Damages[i] ) ) );
             }
         }
 
