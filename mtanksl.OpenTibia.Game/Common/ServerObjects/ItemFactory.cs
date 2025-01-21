@@ -265,6 +265,22 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     metadata.AmmoAction = xmlItem.AmmoAction;
 
+                    metadata.HitChance = xmlItem.HitChance;
+
+                    metadata.MaxHitChance = xmlItem.MaxHitChance;
+
+                    if (metadata.WeaponType == WeaponType.Distance && metadata.SlotType != SlotType.Extra && metadata.MaxHitChance == null)
+                    {
+                        if (metadata.SlotType == SlotType.TwoHand)
+                        {
+                            metadata.MaxHitChance = 90;
+                        }
+                        else
+                        {
+                            metadata.MaxHitChance = 75;
+                        }
+                    }
+
                     if (xmlItem.Readable == true)
                     {
                         metadata.Flags |= ItemMetadataFlags.Readable;

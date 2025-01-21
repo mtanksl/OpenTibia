@@ -61,5 +61,9 @@ namespace OpenTibia.Common.Objects
         public byte? BreakChance { get; set; }
 
         public AmmoAction? AmmoAction { get; set; }
+
+        public byte? HitChance { get; set; }
+
+        public byte? MaxHitChance { get; set; }
     }
 }

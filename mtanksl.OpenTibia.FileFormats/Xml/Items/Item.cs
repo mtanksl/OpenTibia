@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Structures;
+using System;
 using System.Xml.Linq;
 
 namespace OpenTibia.FileFormats.Xml.Items
@@ -944,13 +945,13 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                     case "range":
 
-                        item.Range = (byte)(uint)value;
+                        item.Range = (byte)(int)value;
 
                         break;
 
                     case "charges":
 
-                        item.Charges = (byte)(uint)value;
+                        item.Charges = (byte)(int)value;
 
                         break;
 
@@ -1035,7 +1036,7 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                     case "breakChance":
 
-                        item.BreakChance = (byte)(uint)value;
+                        item.BreakChance = (byte)Math.Max(0, Math.Min(100, (int)value) );
 
                         break;
 
@@ -1062,6 +1063,18 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                                 break;
                         }
+
+                        break;
+
+                    case "hitChance":
+
+                        item.HitChance = (byte)Math.Max(0, Math.Min(100, (int)value) );
+
+                        break;
+
+                    case "maxHitChance":
+
+                        item.MaxHitChance = (byte)Math.Max(0, Math.Min(100, (int)value) );
 
                         break;
 
@@ -1127,6 +1140,10 @@ namespace OpenTibia.FileFormats.Xml.Items
         public byte? BreakChance { get; set; }
 
         public AmmoAction? AmmoAction { get; set; }
+
+        public byte? HitChance { get; set; }
+
+        public byte? MaxHitChance { get; set; }
 
         public bool? Readable { get; set; }
 

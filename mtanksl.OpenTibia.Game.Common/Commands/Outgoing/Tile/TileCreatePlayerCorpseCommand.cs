@@ -70,22 +70,22 @@ namespace OpenTibia.Game.Commands
                         }
                         else
                         {
-                            double containerLoss = Formula.GetContainerLossPercent(Blesses);
+                            double containerLossPercent = Formula.GetContainerLossPercent(Blesses);
 
-                            double equipmentLoss = Formula.GetEquipmentLossPercent(Blesses);
+                            double equipmentLossPercent = Formula.GetEquipmentLossPercent(Blesses);
 
                             foreach (var item in Player.Inventory.GetItems().ToArray() )
                             {
                                 if (item is Container)
                                 {
-                                    if (Context.Server.Randomization.HasProbability(containerLoss) )
+                                    if (Context.Server.Randomization.HasProbability(containerLossPercent) )
                                     {
                                         promises.Add(Context.AddCommand(new ItemMoveCommand(item, container, 0) ) );
                                     }
                                 }
                                 else
                                 {
-                                    if (Context.Server.Randomization.HasProbability(equipmentLoss) )
+                                    if (Context.Server.Randomization.HasProbability(equipmentLossPercent) )
                                     {
                                         promises.Add(Context.AddCommand(new ItemMoveCommand(item, container, 0) ) );
                                     }

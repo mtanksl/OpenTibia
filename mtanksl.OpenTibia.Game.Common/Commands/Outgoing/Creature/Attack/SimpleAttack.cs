@@ -16,30 +16,22 @@ namespace OpenTibia.Game.Commands
 
         private AnimatedTextColor? animatedTextColor;
 
-        private int min;
-
-        private int max;
-
-        public SimpleAttack(ProjectileType? projectileType, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int min, int max)
+        public SimpleAttack(ProjectileType? projectileType, MagicEffectType? magicEffectType, AnimatedTextColor? animatedTextColor, int min, int max) : base(min, max)
         {
             this.projectileType = projectileType;
 
             this.magicEffectType = magicEffectType;
 
             this.animatedTextColor = animatedTextColor;
-
-            this.min = min;
-
-            this.max = max;
-        }
-
-        public override int Calculate(Creature attacker, Creature target)
-        {
-            return Context.Current.Server.Randomization.Take(min, max);
         }
 
         public override async Promise Missed(Creature attacker, Creature target)
         {
+            if (projectileType != null)
+            {
+                await Context.Current.AddCommand(new ShowProjectileCommand(attacker, target, projectileType.Value) );
+            }
+
             await Context.Current.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.Puff) );
 
             if (target != attacker)

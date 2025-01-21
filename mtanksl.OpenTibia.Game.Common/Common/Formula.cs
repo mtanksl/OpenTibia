@@ -294,6 +294,115 @@ namespace OpenTibia.Game.Common
             return (min, max);
         }
 
+        public static (int Min, int Max) DistanceFormula(int level, int skill, int attack, FightMode fightMode, int? weaponHitChance, int? weaponMaxHitChance, int distance)
+        {
+            double hitChancePercent;
+
+            if (weaponHitChance == null)
+            {
+                if (weaponMaxHitChance == 75) // One handed
+                {
+                    if (distance == 1)
+                    {
+                        hitChancePercent = Math.Min(75, skill + 1) / 100.0;
+                    }
+                    else if (distance == 2)
+                    {
+                        hitChancePercent = Math.Min(75, (int)(2.4 * skill + 8) ) / 100.0;
+                    }
+                    else if (distance == 3)
+                    {
+                        hitChancePercent = Math.Min(75, (int)(1.55 * skill + 6) ) / 100.0;
+                    }
+                    else if (distance == 4)
+                    {
+                        hitChancePercent = Math.Min(75, (int)(1.25 * skill + 3) ) / 100.0;
+                    }
+                    else if (distance == 5)
+                    {
+                        hitChancePercent = Math.Min(75, skill + 1) / 100.0;
+                    }
+                    else if (distance == 6)
+                    {
+                        hitChancePercent = Math.Min(75, 0.8 * skill + 3) / 100.0;
+                    }
+                    else
+                    {
+                        hitChancePercent = Math.Min(75, 0.7 * skill + 2) / 100.0;
+                    }
+                }
+                else if (weaponMaxHitChance == 90) // Two handed
+                {
+                    if (distance == 1)
+                    {
+                        hitChancePercent = Math.Min(90, 1.2 * skill + 1) / 100.0;
+                    }
+                    else if (distance == 2)
+                    {
+                        hitChancePercent = Math.Min(90, 3.2 * skill) / 100.0;
+                    }
+                    else if (distance == 3)
+                    {
+                        hitChancePercent = Math.Min(90, 2 * skill) / 100.0;
+                    }
+                    else if (distance == 4)
+                    {
+                        hitChancePercent = Math.Min(90, 1.55 * skill) / 100.0;
+                    }
+                    else if (distance == 5)
+                    {
+                        hitChancePercent = Math.Min(90, 1.2 * skill + 1) / 100.0;
+                    }
+                    else
+                    {
+                        hitChancePercent = Math.Min(90, skill) / 100.0;
+                    }
+                }
+                else if (weaponMaxHitChance == 100)
+                {
+                    if (distance == 1)
+                    {
+                        hitChancePercent = Math.Min(100, 1.35 * skill + 1) / 100.0;
+                    }
+                    else if (distance == 2)
+                    {
+                        hitChancePercent = Math.Min(100, 3.2 * skill + 5) / 100.0;
+                    }
+                    else if (distance == 3)
+                    {
+                        hitChancePercent = Math.Min(100, 2.25 * skill + 2) / 100.0;
+                    }
+                    else if (distance == 4)
+                    {
+                        hitChancePercent = Math.Min(100, 1.5 * skill + 2) / 100.0;
+                    }
+                    else if (distance == 5)
+                    {
+                        hitChancePercent = Math.Min(100, 1.35 * skill + 1) / 100.0;
+                    }
+                    else
+                    {
+                        hitChancePercent = Math.Min(100, 1.2 * skill - 4) / 100.0;
+                    }
+                }
+                else
+                {
+                    throw new NotImplementedException();
+                }
+            }
+            else
+            {
+                hitChancePercent = weaponHitChance.Value / 100.0;
+            }
+
+            if (Context.Current.Server.Randomization.HasProbability(hitChancePercent) )
+            {
+                return DistanceFormula(level, skill, attack, fightMode);
+            }
+
+            return (0, 0);
+        }
+
         public static (int Min, int Max) WandFormula(int attackStrength, int attackVariation)
         {
             int min = attackStrength - attackVariation;

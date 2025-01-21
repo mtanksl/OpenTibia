@@ -8,22 +8,9 @@ namespace OpenTibia.Game.Commands
     {
         private MagicEffectType? magicEffectType;
 
-        private int min;
-
-        private int max;
-
-        public HealingAttack(MagicEffectType? magicEffectType, int min, int max)
+        public HealingAttack(MagicEffectType? magicEffectType, int min, int max) : base(min, max)
         {
             this.magicEffectType = magicEffectType;
-
-            this.min = min;
-
-            this.max = max;
-        }
-
-        public override int Calculate(Creature attacker, Creature target)
-        {
-            return Context.Current.Server.Randomization.Take(min, max);
         }
 
         public override Promise Missed(Creature attacker, Creature target)

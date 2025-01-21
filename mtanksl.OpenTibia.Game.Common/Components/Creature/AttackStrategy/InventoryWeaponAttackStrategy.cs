@@ -338,7 +338,7 @@ namespace OpenTibia.Game.Components
                             }
                             else
                             {                                 
-                                var formula = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), itemAmmunition.Metadata.Attack.Value, player.Client.FightMode);
+                                var formula = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), itemAmmunition.Metadata.Attack.Value, player.Client.FightMode, itemWeapon.Metadata.HitChance, itemWeapon.Metadata.MaxHitChance, attacker.Tile.Position.ChebyshevDistance(target.Tile.Position) );
 
                                 await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                                 
@@ -383,7 +383,7 @@ namespace OpenTibia.Game.Components
                         }
                         else
                         {
-                            var formula = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), itemWeapon.Metadata.Attack.Value, player.Client.FightMode);
+                            var formula = Formula.DistanceFormula(player.Level, player.Skills.GetSkillLevel(Skill.Distance), itemWeapon.Metadata.Attack.Value, player.Client.FightMode, itemWeapon.Metadata.HitChance, itemWeapon.Metadata.MaxHitChance, attacker.Tile.Position.ChebyshevDistance(target.Tile.Position) );
 
                             await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                                 
