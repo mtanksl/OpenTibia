@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.GameObjectScripts
@@ -10,7 +11,7 @@ namespace OpenTibia.Game.GameObjectScripts
             base.Start(monster);
 
             Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
-                new MeleeAttackStrategy(0, 105),
+                new MeleeAttackStrategy(DamageType.Physical, 0, 105),
                 ApproachWalkStrategy.Instance,
                 RandomWalkStrategy.Instance,
                 DoNotChangeTargetStrategy.Instance,

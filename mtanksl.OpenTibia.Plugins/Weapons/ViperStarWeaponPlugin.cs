@@ -25,9 +25,11 @@ namespace OpenTibia.Plugins.Weapons
 
             return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 
-                new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max),
+                new SimpleAttack(weapon.Metadata.ProjectileType.Value, null, DamageType.Physical, formula.Min, formula.Max),
 
                 new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, DamageType.Earth, new[] { 2, 2, 2, 2, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(4) ) ) );
         }
     }
 }
+
+//TODO: More weapon damage types

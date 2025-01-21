@@ -1268,17 +1268,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                 switch (LuaScope.GetString(table["type"] ) )
                 {
-                    case "distance":
-
-                        return new DistanceAttack( (ProjectileType)(long)table["projectiletype"], (int)(long)table["min"], (int)(long)table["max"] );
-
                     case "healing":
 
                         return new HealingAttack( (MagicEffectType?)(long?)table["magiceffecttype"], (int)(long)table["min"], (int)(long)table["max"] );
-
-                    case "melee":
-
-                        return new MeleeAttack( (int)(long)table["min"], (int)(long)table["max"] );
 
                     case "simple":
 

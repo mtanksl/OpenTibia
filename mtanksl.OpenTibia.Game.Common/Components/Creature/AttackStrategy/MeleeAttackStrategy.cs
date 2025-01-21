@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
 
@@ -6,12 +7,16 @@ namespace OpenTibia.Game.Components
 {
     public class MeleeAttackStrategy : IAttackStrategy
     {
+        private DamageType damageType;
+
         private int min;
 
         private int max;
 
-        public MeleeAttackStrategy(int min, int max)
+        public MeleeAttackStrategy(DamageType damageType, int min, int max)
         {
+            this.damageType = damageType;
+
             this.min = min;
 
             this.max = max;
@@ -31,7 +36,7 @@ namespace OpenTibia.Game.Components
         {
             return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
                 
-                new MeleeAttack(min, max) ) );            
+                new SimpleAttack(null, null, damageType, min, max) ) );            
         }
     }
 }

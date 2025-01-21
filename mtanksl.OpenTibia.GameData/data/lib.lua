@@ -332,14 +332,8 @@ waricon = {
 }
 
 attack = {
-	distance = function(projectiletype, min, max)
-		return { type = "distance", projectiletype = projectiletype, min = min, max = max }
-	end,
 	healing = function(magiceffecttype, min, max)
 		return { type = "healing", magiceffecttype = magiceffecttype, min = min, max = max }
-	end,
-	melee = function(min, max)
-		return { type = "melee", min = min, max = max }
 	end,
 	simple = function(projectiletype, magiceffecttype, damagetype, min, max)
 		return { type = "simple", projectiletype = projectiletype, magiceffecttype = magiceffecttype, damagetype = damagetype, min = min, max = max }

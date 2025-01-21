@@ -25,9 +25,11 @@ namespace OpenTibia.Plugins.Ammunitions
 
             return Context.AddCommand(new CreatureAttackCreatureCommand(player, target, 
 
-                new DistanceAttack(ammunition.Metadata.ProjectileType.Value, formula.Min, formula.Max),
+                new SimpleAttack(ammunition.Metadata.ProjectileType.Value, null, DamageType.Earth, formula.Min, formula.Max),
                                                                                                                                  
                 new DamageCondition(SpecialCondition.Poisoned, MagicEffectType.GreenRings, DamageType.Earth, new[] { 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(4) ) ) );
         }     
     }
 }
+
+//TODO: More ammuniton damage types

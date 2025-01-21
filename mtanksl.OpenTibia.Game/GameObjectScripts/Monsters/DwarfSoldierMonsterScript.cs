@@ -12,8 +12,8 @@ namespace OpenTibia.Game.GameObjectScripts
 
             Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
                 new CombineRandomAttackStrategy(false,
-                    new MeleeAttackStrategy(0, 70), 
-                    new DistanceAttackStrategy(ProjectileType.Bolt, 0, 60) ), 
+                    new MeleeAttackStrategy(DamageType.Physical, 0, 70), 
+                    new DistanceAttackStrategy(ProjectileType.Bolt, DamageType.Physical, 0, 60) ), 
                 ApproachWalkStrategy.Instance,
                 RandomWalkStrategy.Instance,
                 DoNotChangeTargetStrategy.Instance,

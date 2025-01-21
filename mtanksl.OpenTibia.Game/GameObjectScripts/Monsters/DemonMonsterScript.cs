@@ -14,7 +14,7 @@ namespace OpenTibia.Game.GameObjectScripts
 
             Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
                 new CombineRandomAttackStrategy(false,
-                    new MeleeAttackStrategy(0, 500),
+                    new MeleeAttackStrategy(DamageType.Physical, 0, 500),
                     new RuneAreaAttackStrategy(Offset.Circle7, ProjectileType.Fire, MagicEffectType.FireArea, DamageType.Fire, 150, 250),
                     new SpellBeamAttackStrategy(Offset.Beam7, MagicEffectType.EnergyArea, DamageType.Energy, 300, 480),
                     new SpellHealingAttackStrategy(80, 250),

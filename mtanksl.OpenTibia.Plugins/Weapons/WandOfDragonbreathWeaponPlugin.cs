@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Plugins;
@@ -23,7 +24,7 @@ namespace OpenTibia.Plugins.Weapons
 
             return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 
-                new DistanceAttack(weapon.Metadata.ProjectileType.Value, formula.Min, formula.Max) ) );
+                new SimpleAttack(weapon.Metadata.ProjectileType.Value, null, DamageType.Fire, formula.Min, formula.Max) ) );
         }
     }
 }
