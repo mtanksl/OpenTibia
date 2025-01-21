@@ -151,15 +151,19 @@ namespace OpenTibia.Game.Commands
                             } );
                         }
 
-                        if (Attack != null)
+                        if (Attack != null || Condition != null)
                         {
-                            foreach (var monster in toTile.GetMonsters().ToArray() )
+                            if (Attacker is Player)
                             {
-                                await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, monster, Attack, Condition) );
+                                foreach (var monster in toTile.GetMonsters().ToArray() )
+                                {
+                                    await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, monster, Attack, Condition) );
+                                }
                             }
-
-                            if (Attacker is Monster)
+                            else if (Attacker is Monster)
                             {
+                                //TODO: Immunities
+
                                 foreach (var player in toTile.GetPlayers().ToArray() )
                                 {
                                     await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, player, Attack, Condition) );

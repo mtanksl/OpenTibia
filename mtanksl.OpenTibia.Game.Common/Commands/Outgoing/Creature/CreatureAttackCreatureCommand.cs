@@ -44,12 +44,19 @@ namespace OpenTibia.Game.Commands
                 else
                 {
                     await Attack.Hit(Attacker, Target, damage);
+
+                    if (Condition != null)
+                    {
+                        await Context.AddCommand(new CreatureAddConditionCommand(Target, Condition) );
+                    }
                 }
             }
-
-            if (Condition != null)
+            else
             {
-                await Context.AddCommand(new CreatureAddConditionCommand(Target, Condition) );
+                if (Condition != null)
+                {
+                    await Context.AddCommand(new CreatureAddConditionCommand(Target, Condition) );
+                }
             }
         }
     }
