@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -51,7 +52,7 @@ namespace OpenTibia.FileFormats.Xml.Npcs
                 {
                     Interval = (int)voicesNode.Attribute("interval"),
 
-                    Chance = (int)voicesNode.Attribute("chance"),
+                    Chance = Math.Max(0, Math.Min(100, (double)voicesNode.Attribute("chance") ) ),
 
                     Items = new List<VoiceItem>()
                 };

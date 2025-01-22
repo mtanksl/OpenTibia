@@ -7,7 +7,7 @@ namespace OpenTibia.Game.GameObjectScripts
     {
         public override void Start(Npc npc)
         {
-            if (npc.Metadata.Voices != null && npc.Metadata.Voices.Items != null && npc.Metadata.Voices.Items.Length > 0)
+            if (npc.Metadata.Voices != null)
             {
                 Context.Server.GameObjectComponents.AddComponent(npc, new NpcTalkBehaviour(npc.Metadata.Voices) );
             }

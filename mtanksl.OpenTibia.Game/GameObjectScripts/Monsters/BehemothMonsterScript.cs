@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.GameObjectScripts
@@ -11,9 +10,9 @@ namespace OpenTibia.Game.GameObjectScripts
             base.Start(monster);
 
             Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
-                new CombineRandomAttackStrategy(false,
-                    AttackStrategyFactory.Create(MinMaxAttackType.Melee, 0, 455),
-                    AttackStrategyFactory.Create(MinMaxAttackType.BoulderThrow, 0, 200) ),
+                new RandomAttackStrategy(
+                    new SchedulerAttackStrategy(2000, 90, AttackStrategyFactory.Create(AttackType.Melee, 0, 455) ),
+                    new SchedulerAttackStrategy(2000, 90, AttackStrategyFactory.Create(AttackType.BoulderThrow, 0, 200) ) ),
                 ApproachWalkStrategy.Instance,
                 RandomWalkStrategy.Instance,
                 DoNotChangeTargetStrategy.Instance,

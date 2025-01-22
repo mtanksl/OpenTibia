@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Components
                 {
                     ticks += voices.Interval;
 
-                    if (Context.Server.Randomization.HasProbability(1.0 / voices.Chance) )
+                    if (Context.Server.Randomization.HasProbability(voices.Chance / 100.0) )
                     {
                         VoiceItem voiceItem = Context.Server.Randomization.Take(voices.Items);
 

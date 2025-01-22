@@ -298,7 +298,7 @@ namespace OpenTibia.Game.Components
 
                             if (Context.Current.Server.Config.GameplayRemoveWeaponAmmunition)
                             {
-                                if (itemAmmunition.Metadata.BreakChance != null && Context.Current.Server.Randomization.HasProbability(1.0 / itemAmmunition.Metadata.BreakChance.Value) )
+                                if (itemAmmunition.Metadata.BreakChance != null && Context.Current.Server.Randomization.HasProbability(itemAmmunition.Metadata.BreakChance.Value / 100.0) )
                                 {
                                     await Context.Current.AddCommand(new ItemDecrementCommand(itemAmmunition, 1) );
                                 }
@@ -356,7 +356,7 @@ namespace OpenTibia.Game.Components
 
                         if (Context.Current.Server.Config.GameplayRemoveWeaponCharges)
                         {
-                            if (itemWeapon.Metadata.BreakChance != null && Context.Current.Server.Randomization.HasProbability(1.0 / itemWeapon.Metadata.BreakChance.Value) )
+                            if (itemWeapon.Metadata.BreakChance != null && Context.Current.Server.Randomization.HasProbability(itemWeapon.Metadata.BreakChance.Value / 100.0) )
                             {
                                 await Context.Current.AddCommand(new ItemDecrementCommand(itemWeapon, 1) );
                             }

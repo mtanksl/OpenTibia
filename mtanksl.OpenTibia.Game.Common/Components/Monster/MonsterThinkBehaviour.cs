@@ -75,13 +75,9 @@ namespace OpenTibia.Game.Components
                         if (await attackStrategy.CanAttack(monster, current) )
                         {
                             await attackStrategy.Attack(monster, current);
+                        }
 
-                            nextAttack = DateTime.UtcNow.AddSeconds(2);
-                        }
-                        else
-                        {
-                            nextAttack = DateTime.UtcNow.AddSeconds(1);
-                        }
+                        nextAttack = DateTime.UtcNow.AddSeconds(1);
                     }
 
                 } ).Catch( (ex) =>

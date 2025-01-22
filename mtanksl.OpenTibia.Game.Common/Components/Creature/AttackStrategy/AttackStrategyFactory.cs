@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using System;
+using System.Collections.Generic;
 
 namespace OpenTibia.Game.Components
 {
@@ -10,11 +11,9 @@ namespace OpenTibia.Game.Components
 
         FireField,
 
-        PoisonField
-    }
+        PoisonField,
 
-    public enum MinMaxAttackType
-    {
+
         Bolts,
 
         BoulderThrow,
@@ -40,82 +39,62 @@ namespace OpenTibia.Game.Components
 
     public static class AttackStrategyFactory
     {
-        public static IAttackStrategy Create(AttackType type)
+        private static List<(string Name, AttackType Type, Func<int, int, IAttackStrategy> AttackStrategy)> items = new List<(string Name, AttackType Type, Func<int, int, IAttackStrategy> AttackStrategy)>()
         {
-            switch (type)
+            ("EnergyField", AttackType.EnergyField, (min, max) => new RuneAreaAttackStrategy(Offset.Square1, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1504, 1, DamageType.Energy, 20, 20, new DamageCondition(SpecialCondition.Electrified, null, DamageType.Energy, new[] { 25, 25 }, TimeSpan.FromSeconds(4) ) ) ),
+
+            ("FireField", AttackType.FireField, (min, max) => new RuneAreaAttackStrategy(Offset.Square1, ProjectileType.Fire, MagicEffectType.FireDamage, 1492, 1, DamageType.Fire, 20, 20, new DamageCondition(SpecialCondition.Burning, null, DamageType.Fire, new[] { 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(4) ) ) ),
+
+            ("PoisonField", AttackType.PoisonField, (min, max) => new RuneAreaAttackStrategy(Offset.Square1, ProjectileType.Poison, MagicEffectType.GreenRings, 1503, 1, DamageType.Earth, 5, 5, new DamageCondition(SpecialCondition.Poisoned, null, DamageType.Earth, new[] { 5, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(4) ) ) ),
+
+
+            ("Bolts", AttackType.Bolts, (min, max) => new DistanceAttackStrategy(ProjectileType.Bolt, null, DamageType.Physical, min, max) ),
+
+            ("BoulderThrow", AttackType.BoulderThrow, (min, max) => new DistanceAttackStrategy(ProjectileType.BigStone, null, DamageType.Physical, min, max) ),
+
+            ("EneryBeam", AttackType.EneryBeam, (min, max) => new SpellBeamAttackStrategy(Offset.Beam7, MagicEffectType.EnergyArea, DamageType.Energy, min, max) ),
+
+            ("FireWave", AttackType.FireWave, (min, max) => new SpellBeamAttackStrategy(Offset.Wave1133355, MagicEffectType.FireArea, DamageType.Fire, min, max) ),
+
+            ("GreatFireball", AttackType.GreatFireball, (min, max) => new RuneAreaAttackStrategy(Offset.Circle5, ProjectileType.Fire, MagicEffectType.FireArea, DamageType.Fire, min, max) ),
+
+            ("ManaDrain", AttackType.ManaDrain, (min, max) => new RuneTargetSimpleAttackStrategy(null, null, DamageType.ManaDrain, min, max) ),
+
+            ("Melee", AttackType.Melee, (min, max) => new MeleeAttackStrategy(null, DamageType.Physical, min, max) ),
+
+            ("SelfHealing", AttackType.SelfHealing, (min, max) => new SpellHealingAttackStrategy(min, max) ),
+
+            ("Stalagmite", AttackType.Stalagmite, (min, max) => new RuneTargetSimpleAttackStrategy(ProjectileType.Poison, null, DamageType.Earth, min, max) ),
+
+            ("ThrowsKnives", AttackType.ThrowsKnives, (min, max) => new DistanceAttackStrategy(ProjectileType.ThrowingKnife, null, DamageType.Physical, min, max) ),
+
+            ("ThrowsSpears", AttackType.ThrowsSpears, (min, max) => new DistanceAttackStrategy(ProjectileType.Spear, null, DamageType.Physical, min, max) )
+        };
+
+        public static IAttackStrategy Create(string name, int min = 0, int max = 0)
+        {
+            foreach (var item in items)
             {
-                case AttackType.EnergyField:
-
-                    return new RuneAreaAttackStrategy(Offset.Square1, ProjectileType.Energy, MagicEffectType.EnergyDamage, 1504, 1, DamageType.Energy, 20, 20, 
-                        
-                        new DamageCondition(SpecialCondition.Electrified, null, DamageType.Energy, new[] { 25, 25 }, TimeSpan.FromSeconds(4) ) );
-
-                case AttackType.FireField:
-
-                    return new RuneAreaAttackStrategy(Offset.Square1, ProjectileType.Fire, MagicEffectType.FireDamage, 1492, 1, DamageType.Fire, 20, 20, 
-                        
-                        new DamageCondition(SpecialCondition.Burning, null, DamageType.Fire, new[] { 10, 10, 10, 10, 10, 10, 10 }, TimeSpan.FromSeconds(4) ) );
-
-                case AttackType.PoisonField:
-
-                    return new RuneAreaAttackStrategy(Offset.Square1, ProjectileType.Poison, MagicEffectType.GreenRings, 1503, 1, DamageType.Earth, 5, 5, 
-                        
-                        new DamageCondition(SpecialCondition.Poisoned, null, DamageType.Earth, new[] { 5, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(4) ) );
+                if (item.Name == name)
+                {
+                    return item.AttackStrategy(min, max);
+                }
             }
 
-            throw new NotImplementedException();
+            return null;
         }
 
-        public static IAttackStrategy Create(MinMaxAttackType type, int min, int max)
+        public static IAttackStrategy Create(AttackType type, int min = 0, int max = 0)
         {
-            switch (type)
+            foreach (var item in items)
             {
-                case MinMaxAttackType.Bolts:
-
-                    return new DistanceAttackStrategy(ProjectileType.Bolt, null, DamageType.Physical, min, max);
-
-                case MinMaxAttackType.BoulderThrow:
-
-                    return new DistanceAttackStrategy(ProjectileType.BigStone, null, DamageType.Physical, min, max);
-
-                case MinMaxAttackType.EneryBeam:
-
-                    return new SpellBeamAttackStrategy(Offset.Beam7, MagicEffectType.EnergyArea, DamageType.Energy, min, max);                    
-
-                case MinMaxAttackType.FireWave:
-
-                    return new SpellBeamAttackStrategy(Offset.Wave1133355, MagicEffectType.FireArea, DamageType.Fire, min, max);
-
-                case MinMaxAttackType.GreatFireball:
-
-                    return new RuneAreaAttackStrategy(Offset.Circle5, ProjectileType.Fire, MagicEffectType.FireArea, DamageType.Fire, min, max);
-
-                case MinMaxAttackType.ManaDrain:
-
-                    return new RuneTargetSimpleAttackStrategy(null, null, DamageType.ManaDrain, min, max);
-
-                case MinMaxAttackType.Melee:
-
-                    return new MeleeAttackStrategy(null, DamageType.Physical, min, max);
-
-                case MinMaxAttackType.SelfHealing:
-
-                    return new SpellHealingAttackStrategy(min, max);
-
-                case MinMaxAttackType.Stalagmite:
-
-                    return new RuneTargetSimpleAttackStrategy(ProjectileType.Poison, null, DamageType.Earth, min, max);
-
-                case MinMaxAttackType.ThrowsKnives:
-
-                    return new DistanceAttackStrategy(ProjectileType.ThrowingKnife, null, DamageType.Physical, min, max);
-
-                case MinMaxAttackType.ThrowsSpears:
-
-                    return new DistanceAttackStrategy(ProjectileType.Spear, null, DamageType.Physical, min, max);
+                if (item.Type == type)
+                {
+                    return item.AttackStrategy(min, max);
+                }
             }
 
-            throw new NotImplementedException();
-        }      
+            return null;
+        }
     }
 }

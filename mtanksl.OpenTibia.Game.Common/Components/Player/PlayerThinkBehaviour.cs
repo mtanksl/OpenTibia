@@ -179,7 +179,7 @@ namespace OpenTibia.Game.Components
                         }
                         else
                         {
-                            nextAttack = DateTime.UtcNow.AddMilliseconds(250);
+                            nextAttack = DateTime.UtcNow.AddMilliseconds(500);
                         }
                     }
 
@@ -246,7 +246,7 @@ namespace OpenTibia.Game.Components
                         }
                         else
                         {
-                            nextWalk = DateTime.UtcNow.AddMilliseconds(250);
+                            nextWalk = DateTime.UtcNow.AddMilliseconds(500);
                         }
                     }
 

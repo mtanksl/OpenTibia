@@ -39,7 +39,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Outfit = xmlNpc.Look.TypeEx != 0 ? new Outfit(xmlNpc.Look.TypeEx) : new Outfit(xmlNpc.Look.Type, xmlNpc.Look.Head, xmlNpc.Look.Body, xmlNpc.Look.Legs, xmlNpc.Look.Feet, Addon.None),
 
-                    Voices = xmlNpc.Voices == null ? null : new VoiceCollection()
+                    Voices = (xmlNpc.Voices == null || xmlNpc.Voices.Items == null || xmlNpc.Voices.Items.Count == 0) ? null : new VoiceCollection()
                     {
                         Interval = xmlNpc.Voices.Interval,
 

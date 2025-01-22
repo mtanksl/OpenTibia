@@ -13,11 +13,11 @@ namespace OpenTibia.Game.Components
         {
             globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(GameObject.Id), (context, e) =>
             {
-                return Update();
+                return Update(e);
             } );
         }
 
-        public abstract Promise Update();
+        public abstract Promise Update(GlobalTickEventArgs e);
 
         public override void Stop()
         {

@@ -405,7 +405,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                             Cooldown = LuaScope.GetInt32(initialization.Parameters["cooldown"] ),
 
-                            Chance = LuaScope.GetInt32(initialization.Parameters["chance"] ),
+                            Chance = LuaScope.GetDouble(initialization.Parameters["chance"] ),
                         };
 
                         pluginCollection.AddRaidPlugin(script, initialization.Parameters, raid);
@@ -782,7 +782,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Cooldown = LuaScope.GetInt32(plugin["cooldown"] ),
 
-                    Chance = LuaScope.GetInt32(plugin["chance"] ),
+                    Chance = LuaScope.GetDouble(plugin["chance"] ),
                 };
 
                 AddRaidPlugin(fileName, raid);

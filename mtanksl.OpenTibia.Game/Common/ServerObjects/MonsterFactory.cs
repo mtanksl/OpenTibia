@@ -4,6 +4,8 @@ using OpenTibia.FileFormats.Xml.Monsters;
 using OpenTibia.Game.GameObjectScripts;
 using System.Collections.Generic;
 using System.Linq;
+using AttackItem = OpenTibia.Common.Objects.AttackItem;
+using DefenseItem = OpenTibia.Common.Objects.DefenseItem;
 using LootItem = OpenTibia.Common.Objects.LootItem;
 using Monster = OpenTibia.Common.Objects.Monster;
 using VoiceCollection = OpenTibia.Common.Objects.VoiceCollection;
@@ -46,7 +48,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Corpse = (ushort)xmlMonster.Look.Corpse,
 
-                    Voices = xmlMonster.Voices == null ? null : new VoiceCollection()
+                    Voices = (xmlMonster.Voices == null || xmlMonster.Voices.Items == null || xmlMonster.Voices.Items.Count == 0) ? null : new VoiceCollection()
                     {
                         Interval = xmlMonster.Voices.Interval,
 
@@ -57,7 +59,15 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Loot = xmlMonster.Loot?.Select(l => new LootItem() { OpenTibiaId = l.Id, KillsToGetOne = l.KillsToGetOne ?? 1, CountMin = l.CountMin ?? 1, CountMax = l.CountMax ?? 1 } ).ToArray(),
 
-                    DamageTakenFromElements = new Dictionary<DamageType, double>()
+                    DamageTakenFromElements = new Dictionary<DamageType, double>(),
+
+                    Attacks = xmlMonster.Attacks?.Select(a => new AttackItem() { Name = a.Name, Interval = a.Interval, Chance = a.Chance, Min = a.Min ?? 0, Max = a.Max ?? 0 } ).ToArray(),
+
+                    Armor = xmlMonster.Defenses?.Armor ?? 0,
+
+                    Defense = xmlMonster.Defenses?.Defense ?? 0,
+
+                    Defenses = xmlMonster.Defenses?.Items?.Select(d => new DefenseItem() { Name = d.Name, Interval = d.Interval, Chance = d.Chance, Min = d.Min ?? 0, Max = d.Max ?? 0 } ).ToArray()
                 };
 
                 if (xmlMonster.Elements != null)

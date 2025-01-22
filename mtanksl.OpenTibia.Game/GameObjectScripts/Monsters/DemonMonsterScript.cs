@@ -10,13 +10,13 @@ namespace OpenTibia.Game.GameObjectScripts
             base.Start(monster);
 
             Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
-                new CombineRandomAttackStrategy(false,
-                    AttackStrategyFactory.Create(MinMaxAttackType.Melee, 0, 500),
-                    AttackStrategyFactory.Create(MinMaxAttackType.GreatFireball, 150, 250),
-                    AttackStrategyFactory.Create(MinMaxAttackType.EneryBeam, 300, 480),
-                    AttackStrategyFactory.Create(MinMaxAttackType.ManaDrain, 30, 120),
-                    AttackStrategyFactory.Create(MinMaxAttackType.SelfHealing, 80, 250),
-                    AttackStrategyFactory.Create(AttackType.FireField) ),
+                new RandomAttackStrategy(
+                    new SchedulerAttackStrategy(2000, 90, AttackStrategyFactory.Create(AttackType.Melee, 0, 500) ),
+                    new SchedulerAttackStrategy(2000, 90, AttackStrategyFactory.Create(AttackType.GreatFireball, 150, 250) ),
+                    new SchedulerAttackStrategy(2000, 90, AttackStrategyFactory.Create(AttackType.EneryBeam, 300, 480) ),
+                    new SchedulerAttackStrategy(2000, 90, AttackStrategyFactory.Create(AttackType.ManaDrain, 30, 120) ),
+                    new SchedulerAttackStrategy(2000, 90, AttackStrategyFactory.Create(AttackType.SelfHealing, 80, 250) ),
+                    new SchedulerAttackStrategy(2000, 90, AttackStrategyFactory.Create(AttackType.FireField) ) ),
                 ApproachWalkStrategy.Instance,
                 RandomWalkStrategy.Instance,
                 new RandomChangeTargetStrategy(10.0 / 100),

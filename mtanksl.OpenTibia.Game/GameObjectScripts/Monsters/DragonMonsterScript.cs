@@ -10,11 +10,11 @@ namespace OpenTibia.Game.GameObjectScripts
             base.Start(monster);
 
             Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
-                new CombineRandomAttackStrategy(false,
-                    AttackStrategyFactory.Create(MinMaxAttackType.Melee, 0, 120),
-                    AttackStrategyFactory.Create(MinMaxAttackType.FireWave, 100, 170),
-                    AttackStrategyFactory.Create(MinMaxAttackType.GreatFireball, 60, 140),
-                    AttackStrategyFactory.Create(MinMaxAttackType.SelfHealing, 40, 70) ),
+                new RandomAttackStrategy(
+                    new SchedulerAttackStrategy(2000, 90, AttackStrategyFactory.Create(AttackType.Melee, 0, 120) ),
+                    new SchedulerAttackStrategy(2000, 90, AttackStrategyFactory.Create(AttackType.FireWave, 100, 170) ),
+                    new SchedulerAttackStrategy(2000, 90, AttackStrategyFactory.Create(AttackType.GreatFireball, 60, 140) ),
+                    new SchedulerAttackStrategy(2000, 90, AttackStrategyFactory.Create(AttackType.SelfHealing, 40, 70) ) ),
                 new RunAwayOnLowHealthWalkStrategy(300, ApproachWalkStrategy.Instance),
                 RandomWalkStrategy.Instance,
                 DoNotChangeTargetStrategy.Instance,

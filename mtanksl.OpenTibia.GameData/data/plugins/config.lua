@@ -178,6 +178,6 @@
 		{ opentibiaid = 2546, level = 0, filename = "OpenTibia.Plugins.Ammunitions.BurstArrowAmmunitionPlugin, mtanksl.OpenTibia.Plugins" }
 	},
 	raids = {
-		-- { name = "Rat plague", repeatable = true, cooldown = 60, chance = 144, filename = "rats.lua" }
+		-- { name = "Rat plague", repeatable = true, cooldown = 60, chance = 0.7, filename = "rats.lua" } -- 0.7 % means approximately 10 times a day
 	}
 }

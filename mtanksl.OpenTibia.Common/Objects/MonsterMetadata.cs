@@ -22,11 +22,19 @@ namespace OpenTibia.Common.Objects
         public Outfit Outfit { get; set; }
 
         public ushort Corpse { get; set; }
-        
+
         public VoiceCollection Voices { get; set; }
 
         public LootItem[] Loot { get; set; }
 
         public Dictionary<DamageType, double> DamageTakenFromElements { get; set; }
+
+        public AttackItem[] Attacks { get; set; }
+
+        public int Armor { get; set; }
+
+        public int Defense { get; set; }
+
+        public DefenseItem[] Defenses { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Structures;
+using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -89,7 +90,7 @@ namespace OpenTibia.FileFormats.Xml.Monsters
                 {
                     Interval = (int)voicesNode.Attribute("interval"),
 
-                    Chance = (int)voicesNode.Attribute("chance"),
+                    Chance = Math.Max(0, Math.Min(100, (double)voicesNode.Attribute("chance") ) ),
 
                     Items = new List<VoiceItem>()
                 };
@@ -153,6 +154,59 @@ namespace OpenTibia.FileFormats.Xml.Monsters
                 }
             }
 
+            XElement attacksNode = monsterNode.Element("attacks");
+
+            if (attacksNode != null)
+            {
+                monster.Attacks = new List<AttackItem>();
+
+                foreach (var attackNode in attacksNode.Elements() )
+                {
+                    monster.Attacks.Add(new AttackItem() 
+                    {
+                        Name = (string)attackNode.Attribute("name"),
+
+                        Interval = (int)attackNode.Attribute("interval"),
+
+                        Chance = Math.Max(0, Math.Min(100, (double)voicesNode.Attribute("chance") ) ),
+
+                        Min = (int?)attackNode.Attribute("min"),
+
+                        Max = (int?)attackNode.Attribute("max")
+                    } );
+                }
+            }
+
+            XElement defensesNode = monsterNode.Element("defenses");
+
+            if (defensesNode != null)
+            {
+                monster.Defenses = new DefenseCollection()
+                {
+                    Armor = (int)voicesNode.Attribute("armor"),
+                    
+                    Defense = (int)voicesNode.Attribute("defense"),
+
+                    Items = new List<DefenseItem>()
+                };
+
+                foreach (var defenseNode in defensesNode.Elements() )
+                {
+                    monster.Defenses.Items.Add(new DefenseItem() 
+                    {
+                        Name = (string)defenseNode.Attribute("name"),
+
+                        Interval = (int)defenseNode.Attribute("interval"),
+
+                        Chance = Math.Max(0, Math.Min(100, (double)voicesNode.Attribute("chance") ) ),
+
+                        Min = (int?)defenseNode.Attribute("min"),
+
+                        Max = (int?)defenseNode.Attribute("max")
+                    } );
+                }
+            }
+
             return monster;
         }
 
@@ -187,5 +241,12 @@ namespace OpenTibia.FileFormats.Xml.Monsters
         [XmlArray("elements")]
         [XmlArrayItem("element")]
         public List<ElementItem> Elements { get; set; }
+
+        [XmlArray("attacks")]
+        [XmlArrayItem("attack")]
+        public List<AttackItem> Attacks { get; set; }
+
+        [XmlElement("defenses")]
+        public DefenseCollection Defenses { get; set; }
     }
 }

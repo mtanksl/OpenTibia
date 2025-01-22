@@ -2,7 +2,7 @@
 <npc name="Suzy" nameDescription="Suzy" speed="220">
 	<health now="100" max="100"/>
 	<look type="136" head="78" body="10" legs="96" feet="95"/>
-  <voices interval="10000" chance="10">
+  <voices interval="5000" chance="10">
     <voice sentence="Yes indeed, it's a wise idea to store your money in your bank account." />
   </voices>
 </npc>

@@ -13,9 +13,6 @@ namespace OpenTibia.FileFormats.Xml.Monsters
         [XmlAttribute("countmax")]
         public int? CountMax { get; set; }
 
-        // [XmlAttribute("chance")]
-        // public int Chance { get; set; }
-
         [XmlAttribute("killsToGetOne")]
         public int? KillsToGetOne { get; set; }
     }

@@ -8,6 +8,6 @@
 
         public int Cooldown { get; set; }
 
-        public int Chance { get; set; }
+        public double Chance { get; set; }
     }
 }

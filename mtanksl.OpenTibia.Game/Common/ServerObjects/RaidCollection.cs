@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                         {
                             if ( !executed.Contains(raid) )
                             {
-                                if (server.Randomization.HasProbability(1.0 / raid.Chance) )
+                                if (server.Randomization.HasProbability(raid.Chance / 100.0) )
                                 {
                                     if ( !raid.Repeatable )
                                     {

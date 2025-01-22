@@ -4,7 +4,7 @@
     {
         public int Interval { get; set; }
 
-        public int Chance { get; set; }
+        public double Chance { get; set; }
 
         public VoiceItem[] Items { get; set; }
     }

@@ -9,7 +9,7 @@ namespace OpenTibia.FileFormats.Xml.Monsters
         public int Interval { get; set; }
 
         [XmlAttribute("chance")]
-        public int Chance { get; set; }
+        public double Chance { get; set; }
 
         [XmlArrayItem("voice")]
         public List<VoiceItem> Items { get; set; }
