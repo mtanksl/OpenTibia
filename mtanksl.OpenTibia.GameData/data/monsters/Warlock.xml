@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Warlock" nameDescription="a warlock" speed="220" experience="4000">
+<monster name="Warlock" nameDescription="a warlock" speed="220" experience="4000" race="blood">
   <health now="3500" max="3500" />
   <look typeex="0" type="130" head="19" body="71" legs="128" feet="128" corpse="6080" />
   <voices>

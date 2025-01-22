@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Bear" nameDescription="a bear" speed="176" experience="23">
+<monster name="Bear" nameDescription="a bear" speed="176" experience="23" race="blood">
   <health now="80" max="80" />
   <look typeex="0" type="16" head="0" body="0" legs="0" feet="0" corpse="5975" />
   <voices>

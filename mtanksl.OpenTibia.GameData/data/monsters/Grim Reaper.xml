@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Grim Reaper" nameDescription="a grim reaper" speed="400" experience="4500">
+<monster name="Grim Reaper" nameDescription="a grim reaper" speed="400" experience="4500" race="undead">
   <health now="4100" max="4100" />
   <look typeex="0" type="300" head="0" body="0" legs="0" feet="0" corpse="8955" />
   <voices>

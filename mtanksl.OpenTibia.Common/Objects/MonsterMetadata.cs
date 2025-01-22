@@ -13,6 +13,8 @@ namespace OpenTibia.Common.Objects
 
         public uint Experience { get; set; }
 
+        public Race Race { get; set; }
+
         public ushort Health { get; set; }
 
         public ushort MaxHealth { get; set; }

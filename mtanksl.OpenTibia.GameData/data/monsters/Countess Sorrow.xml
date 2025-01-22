@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Countess Sorrow" nameDescription="Countess Sorrow" speed="250" experience="5150">
+<monster name="Countess Sorrow" nameDescription="Countess Sorrow" speed="250" experience="5150" race="undead">
   <health now="7200" max="7200" />
   <look typeex="0" type="241" head="20" body="0" legs="0" feet="0" corpse="6344" />
 </monster>

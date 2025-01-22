@@ -29,7 +29,7 @@ namespace OpenTibia.Common.Structures
 
     public static class DamageTypeExtensions
     {
-        public static MagicEffectType? ToMagicEffectType(this DamageType damageType)
+        public static MagicEffectType? ToMagicEffectType(this DamageType damageType, Race race)
         {
             switch (damageType)
             {
@@ -39,7 +39,30 @@ namespace OpenTibia.Common.Structures
 
                 case DamageType.Physical:
 
-                    return MagicEffectType.RedSpark;
+                    switch (race)
+                    {
+                        case Race.Blood:
+
+                            return MagicEffectType.RedSpark;
+
+                        case Race.Energy:
+
+                            return MagicEffectType.PurpleEnergyDamage;
+
+                        case Race.Fire:
+
+                            return MagicEffectType.RedSpark;
+
+                        case Race.Venom:
+
+                            return MagicEffectType.GreenSpark;
+
+                        case Race.Undead:
+
+                            return MagicEffectType.BlackSpark;
+                    }
+
+                    break;                    
 
                 case DamageType.Earth:
 
@@ -81,7 +104,7 @@ namespace OpenTibia.Common.Structures
             throw new NotImplementedException();
         }
 
-        public static AnimatedTextColor? ToAnimatedTextColor(this DamageType damageType)
+        public static AnimatedTextColor? ToAnimatedTextColor(this DamageType damageType, Race race)
         {
             switch (damageType)
             {
@@ -91,7 +114,30 @@ namespace OpenTibia.Common.Structures
 
                 case DamageType.Physical:
 
-                    return AnimatedTextColor.Red;
+                    switch (race)
+                    {
+                        case Race.Blood:
+
+                            return AnimatedTextColor.Red;
+
+                        case Race.Energy:
+
+                            return AnimatedTextColor.Purple;
+
+                        case Race.Fire:
+
+                            return AnimatedTextColor.Orange;
+
+                        case Race.Venom:
+
+                            return AnimatedTextColor.LightGreen;
+
+                        case Race.Undead:
+
+                            return AnimatedTextColor.LightGrey;
+                    }
+
+                    break;
 
                 case DamageType.Earth:
 

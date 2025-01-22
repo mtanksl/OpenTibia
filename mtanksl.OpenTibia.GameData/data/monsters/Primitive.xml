@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Primitive" nameDescription="a Primitive" speed="300" experience="45">
+<monster name="Primitive" nameDescription="a Primitive" speed="300" experience="45" race="blood">
   <health now="200" max="200" />
   <look typeex="0" type="143" head="1" body="1" legs="1" feet="1" corpse="6080" />
   <voices>

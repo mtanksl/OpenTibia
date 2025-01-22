@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Omruc" nameDescription="a omruc" speed="370" experience="2950">
+<monster name="Omruc" nameDescription="a omruc" speed="370" experience="2950" race="undead">
   <health now="4300" max="4300" />
   <look typeex="0" type="90" head="0" body="0" legs="0" feet="0" corpse="6025" />
   <voices>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using OpenTibia.Common.Structures;
+using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -18,6 +19,39 @@ namespace OpenTibia.FileFormats.Xml.Monsters
             monster.Speed = (int)monsterNode.Attribute("speed");
 
             monster.Experience = (uint)monsterNode.Attribute("experience");
+
+            switch ( (string)monsterNode.Attribute("race") )
+            {
+                case "blood":
+
+                    monster.Race = Race.Blood;
+
+                    break;
+
+                case "energy":
+
+                    monster.Race = Race.Energy;
+
+                    break;
+
+                case "fire":
+
+                    monster.Race = Race.Fire;
+
+                    break;
+
+                case "venom":
+
+                    monster.Race = Race.Venom;
+
+                    break;
+
+                case "undead":
+
+                    monster.Race = Race.Undead;
+
+                    break;
+            }
 
             XElement healthNode = monsterNode.Element("health");
 
@@ -124,6 +158,9 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
         [XmlAttribute("experience")]
         public uint Experience { get; set; }
+
+        [XmlAttribute("race")]
+        public Race Race { get; set; }
 
         [XmlElement("health")]
         public Health Health { get; set; }

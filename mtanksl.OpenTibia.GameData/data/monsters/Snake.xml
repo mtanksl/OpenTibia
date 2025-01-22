@@ -1,16 +1,11 @@
 <?xml version="1.0"?>
-<monster name="Snake" nameDescription="a snake" speed="120" experience="10">
+<monster name="Snake" nameDescription="a snake" speed="120" experience="10" race="blood">
   <health now="15" max="15" />
   <look typeex="0" type="28" head="0" body="0" legs="0" feet="0" corpse="2817" />
   <voices>
     <voice sentence="Zzzzzzt" />
   </voices>
   <elements>
-    <element earthPercent="100" />
-    <element energyPercent="22" />
-    <element firePercent="-10" />
-    <element icePercent="-10" />
-	  </elements>  <elements>
     <element earthPercent="100" />
     <element energyPercent="22" />
     <element firePercent="-10" />

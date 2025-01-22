@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Lich" nameDescription="a lich" speed="320" experience="900">
+<monster name="Lich" nameDescription="a lich" speed="320" experience="900" race="undead">
   <health now="880" max="880" />
   <look typeex="0" type="99" head="95" body="116" legs="119" feet="115" corpse="6028" />
   <voices>

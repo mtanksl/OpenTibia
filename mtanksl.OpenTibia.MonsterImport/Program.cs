@@ -1,4 +1,5 @@
 ﻿using OpenTibia.FileFormats.Xml.Monsters;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml.Linq;
 
@@ -8,12 +9,14 @@ namespace mtanksl.OpenTibia.MonsterImport
     {
         static void Main(string[] args)
         {
-            var fromPath = @"C:\Users\Murilo\Downloads\Crying Damson 0.3.6 860\data\monster";
+            var fromPath = @"";
 
-            var toPath = @"C:\Users\Murilo\Documents\Git\mtanksl.OpenTibia\mtanksl.OpenTibia.GameData\data\monsters";
+            var toPath = @"";
 
             // Update all monster .xml files
             /*
+            HashSet<string> names = new HashSet<string>();
+
             foreach (var folder in Directory.GetDirectories(fromPath) )
             {
                 foreach (var file in Directory.GetFiles(folder, "*.xml") )
@@ -22,20 +25,27 @@ namespace mtanksl.OpenTibia.MonsterImport
 
                     var monster = Monster.Load(monsterFile);
 
+                    if ( !names.Add(monster.Name) )
+                    {
+                        continue;
+                    }
+
                     var monsterFile2 = XElement.Load(Path.Combine(toPath, monster.Name + ".xml"), LoadOptions.PreserveWhitespace);
 
                     try
                     {
                         // monsterFile2.Add(new XAttribute("experience", monster.Experience) );
 
-                        var elements = monsterFile.Element("elements");
+                        // var elements = monsterFile.Element("elements");
+                        // 
+                        // if (elements != null)
+                        // {
+                        //     monsterFile2.Add(elements);
+                        // }
 
-                        if (elements != null)
-                        {
-                            monsterFile2.Add(elements);
+                        // monsterFile2.Add(new XAttribute("race", monster.Race.ToString().ToLower() ) );
 
-                            File.WriteAllText(Path.Combine(toPath, monster.Name + ".xml"), "<?xml version=\"1.0\"?>\r\n" + monsterFile2.ToString() );
-                        }
+                        File.WriteAllText(Path.Combine(toPath, monster.Name + ".xml"), "<?xml version=\"1.0\"?>\r\n" + monsterFile2.ToString() );
                     }
                     catch { }               
                 }

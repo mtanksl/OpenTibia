@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Fury" nameDescription="a fury" speed="460" experience="4000">
+<monster name="Fury" nameDescription="a fury" speed="460" experience="4000" race="blood">
   <health now="4100" max="4100" />
   <look typeex="0" type="149" head="94" body="77" legs="96" feet="0" corpse="6081" />
   <voices>

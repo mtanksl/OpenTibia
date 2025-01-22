@@ -1,15 +1,22 @@
-﻿namespace OpenTibia.Common.Structures
+﻿using System.Xml.Serialization;
+
+namespace OpenTibia.Common.Structures
 {
     public enum Race : byte
     {
-        Blood = 1,
+        [XmlEnum("blood")]
+        Blood = 0,
 
+        [XmlEnum("energy")]
+        Energy = 1,
+
+        [XmlEnum("fire")]
         Fire = 2,
 
-        Energy = 3,
+        [XmlEnum("venom")]
+        Venom = 3,
 
-        Venon = 4,
-
-        Undead = 5
+        [XmlEnum("undead")]
+        Undead = 4
     }
 }

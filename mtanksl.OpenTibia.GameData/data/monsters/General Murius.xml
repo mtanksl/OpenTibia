@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="General Murius" nameDescription="General Murius" speed="240" experience="300">
+<monster name="General Murius" nameDescription="General Murius" speed="240" experience="300" race="blood">
   <health now="550" max="550" />
   <look typeex="0" type="202" head="0" body="0" legs="0" feet="0" corpse="5983" />
   <voices>

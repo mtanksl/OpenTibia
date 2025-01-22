@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Juggernaut" nameDescription="a juggernaut" speed="280" experience="6500">
+<monster name="Juggernaut" nameDescription="a juggernaut" speed="280" experience="6500" race="blood">
   <health now="20000" max="20000" />
   <look typeex="0" type="244" head="0" body="0" legs="0" feet="0" corpse="6336" />
   <voices>

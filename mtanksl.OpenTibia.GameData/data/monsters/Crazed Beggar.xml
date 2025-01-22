@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Crazed Beggar" nameDescription="a crazed beggar" speed="220" experience="35">
+<monster name="Crazed Beggar" nameDescription="a crazed beggar" speed="220" experience="35" race="blood">
   <health now="100" max="100" />
   <look typeex="0" type="153" head="59" body="38" legs="38" feet="97" corpse="3058" />
   <voices>

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Stalker" nameDescription="a stalker" speed="210" experience="90">
+<monster name="Stalker" nameDescription="a stalker" speed="210" experience="90" race="blood">
   <health now="150" max="150" />
   <look typeex="0" type="128" head="95" body="116" legs="95" feet="114" corpse="6080" />
   <elements>

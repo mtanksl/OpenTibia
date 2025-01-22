@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Winter Wolf" nameDescription="a winter wolf" speed="200" experience="20">
+<monster name="Winter Wolf" nameDescription="a winter wolf" speed="200" experience="20" race="blood">
   <health now="30" max="30" />
   <look typeex="0" type="52" head="0" body="0" legs="0" feet="0" corpse="5997" />
   <elements>

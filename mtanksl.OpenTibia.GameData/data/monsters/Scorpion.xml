@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Scorpion" nameDescription="a scorpion" speed="150" experience="45">
+<monster name="Scorpion" nameDescription="a scorpion" speed="150" experience="45" race="venom">
   <health now="45" max="45" />
   <look typeex="0" type="43" head="0" body="0" legs="0" feet="0" corpse="5988" />
   <elements>

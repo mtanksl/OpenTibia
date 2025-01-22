@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Kongra" nameDescription="a kongra" speed="200" experience="115">
+<monster name="Kongra" nameDescription="a kongra" speed="200" experience="115" race="blood">
   <health now="340" max="340" />
   <look typeex="0" type="116" head="0" body="0" legs="0" feet="0" corpse="6043" />
   <voices>

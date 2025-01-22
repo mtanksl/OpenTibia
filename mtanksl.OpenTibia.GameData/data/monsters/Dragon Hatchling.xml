@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Dragon Hatchling" nameDescription="a dragon hatchling" speed="170" experience="185">
+<monster name="Dragon Hatchling" nameDescription="a dragon hatchling" speed="170" experience="185" race="blood">
   <health now="380" max="380" />
   <look typeex="0" type="271" head="0" body="0" legs="0" feet="0" corpse="7621" />
   <voices>

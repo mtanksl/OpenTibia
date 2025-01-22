@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Troll Champion" nameDescription="a troll champion" speed="120" experience="30">
+<monster name="Troll Champion" nameDescription="a troll champion" speed="120" experience="30" race="blood">
   <health now="75" max="75" />
   <look typeex="0" type="281" head="0" body="0" legs="0" feet="0" corpse="7926" />
   <voices>

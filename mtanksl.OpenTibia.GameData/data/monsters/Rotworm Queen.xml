@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Rotworm Queen" nameDescription="Rotworm Queen" speed="126" experience="300">
+<monster name="Rotworm Queen" nameDescription="Rotworm Queen" speed="126" experience="300" race="blood">
   <health now="85" max="85" />
   <look typeex="0" type="295" head="0" body="0" legs="0" feet="0" corpse="8947" />
 </monster>

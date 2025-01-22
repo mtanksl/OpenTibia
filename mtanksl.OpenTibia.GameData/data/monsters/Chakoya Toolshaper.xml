@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Chakoya Toolshaper" nameDescription="a chakoya toolshaper" speed="270" experience="40">
+<monster name="Chakoya Toolshaper" nameDescription="a chakoya toolshaper" speed="270" experience="40" race="blood">
   <health now="80" max="80" />
   <look typeex="0" type="259" head="0" body="0" legs="0" feet="0" corpse="7320" />
   <voices>

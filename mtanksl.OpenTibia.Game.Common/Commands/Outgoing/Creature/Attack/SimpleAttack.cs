@@ -17,8 +17,6 @@ namespace OpenTibia.Game.Commands
         public SimpleAttack(ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max) : base(damageType, min, max)
         {
             this.projectileType = projectileType;
-
-            this.magicEffectType = magicEffectType ?? DamageType.ToMagicEffectType();
         }
 
         public override async Promise Missed(Creature attacker, Creature target)
@@ -125,12 +123,14 @@ namespace OpenTibia.Game.Commands
                             Context.Current.AddPacket(player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindowAndServerLog, "You lose " + healthDamage + " hitpoints.") );
                         }
 
+                        MagicEffectType? magicEffectType = this.magicEffectType ?? DamageType.ToMagicEffectType(Race.Blood);
+
                         if (magicEffectType != null)
                         {
                             await Context.Current.AddCommand(new ShowMagicEffectCommand(target, magicEffectType.Value) );
                         }
 
-                        AnimatedTextColor? animatedTextColor = DamageType.ToAnimatedTextColor();
+                        AnimatedTextColor? animatedTextColor = DamageType.ToAnimatedTextColor(Race.Blood);
 
                         if (animatedTextColor != null)
                         {
@@ -140,7 +140,7 @@ namespace OpenTibia.Game.Commands
                         await Context.Current.AddCommand(new CreatureUpdateHealthCommand(target, target.Health - healthDamage) );
                     }
                 }
-                else if (target is Monster)
+                else if (target is Monster monster)
                 {
                     if (attacker != null)
                     {
@@ -148,13 +148,15 @@ namespace OpenTibia.Game.Commands
 
 
                     }
-
+                                                             
+                    MagicEffectType? magicEffectType = this.magicEffectType ?? DamageType.ToMagicEffectType(monster.Metadata.Race);
+                   
                     if (magicEffectType != null)
                     {
                         await Context.Current.AddCommand(new ShowMagicEffectCommand(target, magicEffectType.Value) );
                     }
 
-                    AnimatedTextColor? animatedTextColor = DamageType.ToAnimatedTextColor();
+                    AnimatedTextColor? animatedTextColor = DamageType.ToAnimatedTextColor(monster.Metadata.Race);
 
                     if (animatedTextColor != null)
                     {

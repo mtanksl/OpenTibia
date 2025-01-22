@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<monster name="Skeleton Warrior" nameDescription="a skeleton warrior" speed="180" experience="65">
+<monster name="Skeleton Warrior" nameDescription="a skeleton warrior" speed="180" experience="65" race="undead">
   <health now="45" max="45" />
   <look typeex="0" type="298" head="0" body="0" legs="0" feet="0" corpse="5972" />
   <elements>

@@ -34,6 +34,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Experience = xmlMonster.Experience,
 
+                    Race = xmlMonster.Race,
+
                     Health = (ushort)xmlMonster.Health.Now,
 
                     MaxHealth = (ushort)xmlMonster.Health.Max,
