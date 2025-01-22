@@ -13,9 +13,11 @@ namespace OpenTibia.Game.Plugins
 
         private LuaTable parameters;
 
-        public LuaScriptingPlayerRotateItemPlugin(string fileName)
+        public LuaScriptingPlayerRotateItemPlugin(string fileName, LuaTable parameters)
         {
             this.fileName = fileName;
+
+            this.parameters = parameters;
         }
 
         public LuaScriptingPlayerRotateItemPlugin(ILuaScope script, LuaTable parameters)

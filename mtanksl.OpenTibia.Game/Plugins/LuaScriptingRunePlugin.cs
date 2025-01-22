@@ -13,9 +13,11 @@ namespace OpenTibia.Game.Plugins
 
         private LuaTable parameters;
 
-        public LuaScriptingRunePlugin(string fileName, Rune rune) : base(rune)
+        public LuaScriptingRunePlugin(string fileName, LuaTable parameters, Rune rune) : base(rune)
         {
             this.fileName = fileName;
+
+            this.parameters = parameters;
         }
 
         public LuaScriptingRunePlugin(ILuaScope script, LuaTable parameters, Rune rune) : base(rune)

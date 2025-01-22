@@ -13,9 +13,11 @@ namespace OpenTibia.Game.Plugins
 
         private LuaTable parameters;
 
-        public LuaScriptingAmmunitionPlugin(string fileName, Ammunition ammunition) : base(ammunition)
+        public LuaScriptingAmmunitionPlugin(string fileName, LuaTable parameters, Ammunition ammunition) : base(ammunition)
         {
             this.fileName = fileName;
+
+            this.parameters = parameters;
         }
 
         public LuaScriptingAmmunitionPlugin(ILuaScope script, LuaTable parameters, Ammunition ammunition) : base(ammunition)

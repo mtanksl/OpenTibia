@@ -12,9 +12,11 @@ namespace OpenTibia.Game.Plugins
 
         private LuaTable parameters;
 
-        public LuaScriptingRaidPlugin(string fileName, Raid raid) : base(raid)
+        public LuaScriptingRaidPlugin(string fileName, LuaTable parameters, Raid raid) : base(raid)
         {
             this.fileName = fileName;
+
+            this.parameters = parameters;
         }
 
         public LuaScriptingRaidPlugin(ILuaScope script, LuaTable parameters, Raid raid) : base(raid)

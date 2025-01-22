@@ -13,9 +13,11 @@ namespace OpenTibia.Game.Plugins
 
         private LuaTable parameters;
 
-        public LuaScriptingPlayerMoveCreaturePlugin(string fileName)
+        public LuaScriptingPlayerMoveCreaturePlugin(string fileName, LuaTable parameters)
         {
             this.fileName = fileName;
+
+            this.parameters = parameters;
         }
 
         public LuaScriptingPlayerMoveCreaturePlugin(ILuaScope script, LuaTable parameters)

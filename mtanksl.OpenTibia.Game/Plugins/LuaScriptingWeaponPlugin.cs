@@ -13,9 +13,11 @@ namespace OpenTibia.Game.Plugins
 
         private LuaTable parameters;
 
-        public LuaScriptingWeaponPlugin(string fileName, Weapon weapon) : base(weapon)
+        public LuaScriptingWeaponPlugin(string fileName, LuaTable parameters, Weapon weapon) : base(weapon)
         {
             this.fileName = fileName;
+
+            this.parameters = parameters;
         }
 
         public LuaScriptingWeaponPlugin(ILuaScope script, LuaTable parameters, Weapon weapon) : base(weapon)

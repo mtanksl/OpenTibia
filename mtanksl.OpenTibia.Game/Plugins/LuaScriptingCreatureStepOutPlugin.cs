@@ -13,9 +13,11 @@ namespace OpenTibia.Game.Plugins
 
         private LuaTable parameters;
 
-        public LuaScriptingCreatureStepOutPlugin(string fileName)
+        public LuaScriptingCreatureStepOutPlugin(string fileName, LuaTable parameters)
         {
             this.fileName = fileName;
+
+            this.parameters = parameters;
         }
 
         public LuaScriptingCreatureStepOutPlugin(ILuaScope script, LuaTable parameters)

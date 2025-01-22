@@ -13,9 +13,11 @@ namespace OpenTibia.Game.Plugins
 
         private LuaTable parameters;
 
-        public LuaScriptingPlayerLogoutPlugin(string fileName)
+        public LuaScriptingPlayerLogoutPlugin(string fileName, LuaTable parameters)
         {
             this.fileName = fileName;
+
+            this.parameters = parameters;
         }
 
         public LuaScriptingPlayerLogoutPlugin(ILuaScope script, LuaTable parameters)

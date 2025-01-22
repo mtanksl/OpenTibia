@@ -13,9 +13,11 @@ namespace OpenTibia.Game.Plugins
 
         private LuaTable parameters;
 
-        public LuaScriptingSpellPlugin(string fileName, Spell spell) : base(spell)
+        public LuaScriptingSpellPlugin(string fileName, LuaTable parameters, Spell spell) : base(spell)
         {
             this.fileName = fileName;
+
+            this.parameters = parameters;
         }
 
         public LuaScriptingSpellPlugin(ILuaScope script, LuaTable parameters, Spell spell) : base(spell)

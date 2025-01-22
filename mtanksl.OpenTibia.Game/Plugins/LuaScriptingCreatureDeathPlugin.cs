@@ -13,9 +13,11 @@ namespace OpenTibia.Game.Plugins
 
         private LuaTable parameters;
 
-        public LuaScriptingCreatureDeathPlugin(string fileName)
+        public LuaScriptingCreatureDeathPlugin(string fileName, LuaTable parameters)
         {
             this.fileName = fileName;
+
+            this.parameters = parameters;
         }
 
         public LuaScriptingCreatureDeathPlugin(ILuaScope script, LuaTable parameters)

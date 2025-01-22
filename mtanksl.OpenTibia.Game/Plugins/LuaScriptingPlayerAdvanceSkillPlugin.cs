@@ -14,9 +14,11 @@ namespace OpenTibia.Game.Plugins
 
         private LuaTable parameters;
 
-        public LuaScriptingPlayerAdvanceSkillPlugin(string fileName)
+        public LuaScriptingPlayerAdvanceSkillPlugin(string fileName, LuaTable parameters)
         {
             this.fileName = fileName;
+
+            this.parameters = parameters;
         }
 
         public LuaScriptingPlayerAdvanceSkillPlugin(ILuaScope script, LuaTable parameters)

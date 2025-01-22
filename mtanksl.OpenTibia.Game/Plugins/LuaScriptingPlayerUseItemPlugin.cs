@@ -13,9 +13,11 @@ namespace OpenTibia.Game.Plugins
 
         private LuaTable parameters;
 
-        public LuaScriptingPlayerUseItemPlugin(string fileName)
+        public LuaScriptingPlayerUseItemPlugin(string fileName, LuaTable parameters)
         {
             this.fileName = fileName;
+
+            this.parameters = parameters;
         }
 
         public LuaScriptingPlayerUseItemPlugin(ILuaScope script, LuaTable parameters)

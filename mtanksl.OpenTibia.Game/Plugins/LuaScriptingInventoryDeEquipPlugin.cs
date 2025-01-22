@@ -13,9 +13,11 @@ namespace OpenTibia.Game.Plugins
 
         private LuaTable parameters;
 
-        public LuaScriptingInventoryDeEquipPlugin(string fileName)
+        public LuaScriptingInventoryDeEquipPlugin(string fileName, LuaTable parameters)
         {
             this.fileName = fileName;
+
+            this.parameters = parameters;
         }
 
         public LuaScriptingInventoryDeEquipPlugin(ILuaScope script, LuaTable parameters)
