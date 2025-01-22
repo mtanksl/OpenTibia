@@ -2,25 +2,32 @@
 {
     public class GlobalTickEventArgs : GameEventArgs
     {
-        public static GlobalTickEventArgs Instance(uint id)
+        public static readonly int Interval = 1000;
+
+        public static readonly int Count = 10;
+
+        public static GlobalTickEventArgs Instance(int index)
         {
-            return Instances[id % Instances.Length];
+            return instances[index];
         }
 
-        public static readonly GlobalTickEventArgs[] Instances = new GlobalTickEventArgs[10]
+        public static GlobalTickEventArgs Instance(uint id)
         {
-            new GlobalTickEventArgs(0, 1000),
-            new GlobalTickEventArgs(1, 1000),
-            new GlobalTickEventArgs(2, 1000),
-            new GlobalTickEventArgs(3, 1000),
-            new GlobalTickEventArgs(4, 1000),
-            new GlobalTickEventArgs(5, 1000),
-            new GlobalTickEventArgs(6, 1000),
-            new GlobalTickEventArgs(7, 1000),
-            new GlobalTickEventArgs(8, 1000),
-            new GlobalTickEventArgs(9, 1000)
-        };
+            return instances[id % instances.Length];
+        }
 
+        private static readonly GlobalTickEventArgs[] instances;
+
+        static GlobalTickEventArgs()
+        {
+            instances = new GlobalTickEventArgs[Count];
+
+            for (int i = 0; i < instances.Length; i++)
+            {
+                instances[i] = new GlobalTickEventArgs(i, Interval);
+            }
+        }
+        
         private GlobalTickEventArgs(int index, int ticks)
         {
             this.index = index;

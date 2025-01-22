@@ -2,11 +2,23 @@
 {
     public class GlobalPingEventArgs : GameEventArgs
     {
-        public static readonly GlobalPingEventArgs Instance = new GlobalPingEventArgs();
+        public static readonly int Interval = 10 * 1000;
 
-        private GlobalPingEventArgs()
+        public static readonly GlobalPingEventArgs Instance = new GlobalPingEventArgs(Interval);
+
+        private GlobalPingEventArgs(int ticks)
         {
-            
+            this.ticks = ticks;
+        }
+
+        private int ticks;
+
+        public int Ticks
+        {
+            get
+            {
+                return ticks;
+            }
         }
     }
 }

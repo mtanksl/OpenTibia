@@ -68,13 +68,13 @@ namespace OpenTibia.Game.Scripts
         {
             DateTime now = DateTime.Now;
 
-            DateTime next = GetSecondInterval(now, 100);
+            DateTime next = GetSecondInterval(now, GlobalTickEventArgs.Interval / GlobalTickEventArgs.Count);
 
             Promise.Delay("Tick", next - now).Then( () =>
             {
-                Tick( (index + 1) % GlobalTickEventArgs.Instances.Length);
+                Tick( (index + 1) % GlobalTickEventArgs.Count);
 
-                Context.AddEvent(GlobalTickEventArgs.Instances[index] );
+                Context.AddEvent(GlobalTickEventArgs.Instance(index) );
 
                 return Promise.Completed;
             } );
@@ -84,9 +84,9 @@ namespace OpenTibia.Game.Scripts
         {
             DateTime now = DateTime.Now;
 
-            DateTime next = GetSecondInterval(now, 10 * 1000);
+            DateTime next = GetSecondInterval(now, GlobalSpawnEventArgs.Interval);
 
-            Promise.Delay("Spawn", next - now).Then(() =>
+            Promise.Delay("Spawn", next - now).Then( () =>
             {
                 Spawn();
 
@@ -100,9 +100,9 @@ namespace OpenTibia.Game.Scripts
         {
             DateTime now = DateTime.Now;
 
-            DateTime next = GetSecondInterval(now, 60 * 1000);
+            DateTime next = GetSecondInterval(now, GlobalRaidEventArgs.Interval);
 
-            Promise.Delay("Raid", next - now).Then(() =>
+            Promise.Delay("Raid", next - now).Then( () =>
             {
                 Raid();
 
@@ -116,7 +116,7 @@ namespace OpenTibia.Game.Scripts
         {
             DateTime now = DateTime.Now;
 
-            DateTime next = GetSecondInterval(now, 10 * 1000);
+            DateTime next = GetSecondInterval(now, GlobalEnvironmentLightEventArgs.Interval);
 
             Promise.Delay("Light", next - now).Then( () =>
             {
@@ -132,7 +132,7 @@ namespace OpenTibia.Game.Scripts
         {
             DateTime now = DateTime.Now;
 
-            DateTime next = GetSecondInterval(now, 10 * 1000);
+            DateTime next = GetSecondInterval(now, GlobalPingEventArgs.Interval);
 
             Promise.Delay("Ping", next - now).Then( () =>
             {
