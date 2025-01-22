@@ -16,17 +16,17 @@ namespace OpenTibia.Game.Components
 
         public async PromiseResult<bool> CanAttack(Creature attacker, Creature target)
         {
+            currentAttackStrategy = null;
+
             foreach (var attackStrategy in Context.Current.Server.Randomization.Shuffle(attackStrategies) )
             {
-                if (await attackStrategy.CanAttack(attacker, target) )
+                if (await attackStrategy.CanAttack(attacker, target) && currentAttackStrategy == null)
                 {
-                    this.currentAttackStrategy = attackStrategy;
-
-                    return true;
+                    currentAttackStrategy = attackStrategy;
                 }
             }
 
-            return false;
+            return currentAttackStrategy != null;
         }
 
         public Promise Attack(Creature attacker, Creature target)

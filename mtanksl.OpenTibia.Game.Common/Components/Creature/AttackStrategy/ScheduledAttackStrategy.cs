@@ -3,7 +3,7 @@ using OpenTibia.Game.Common;
 
 namespace OpenTibia.Game.Components
 {
-    public class SchedulerAttackStrategy : IAttackStrategy
+    public class ScheduledAttackStrategy : IAttackStrategy
     {
         private int ticks;
 
@@ -13,7 +13,7 @@ namespace OpenTibia.Game.Components
 
         private IAttackStrategy attackStrategy;
 
-        public SchedulerAttackStrategy(int interval, double chance, IAttackStrategy attackStrategy)
+        public ScheduledAttackStrategy(int interval, double chance, IAttackStrategy attackStrategy)
         {
             this.ticks = interval;
 
@@ -28,21 +28,21 @@ namespace OpenTibia.Game.Components
 
         public async PromiseResult<bool> CanAttack(Creature attacker, Creature target)
         {
+            currentAttackStrategy = null;
+
             ticks -= 1000;
 
             while (ticks <= 0)
             {
                 ticks += interval;
 
-                if (await attackStrategy.CanAttack(attacker, target) && Context.Current.Server.Randomization.HasProbability(chance / 100.0) )
+                if (await attackStrategy.CanAttack(attacker, target) && currentAttackStrategy == null && Context.Current.Server.Randomization.HasProbability(chance / 100.0) )
                 {
                     currentAttackStrategy = attackStrategy;
-
-                    return true;
                 }
             }
 
-            return false;
+            return currentAttackStrategy != null;
         }
 
         public Promise Attack(Creature attacker, Creature target)
