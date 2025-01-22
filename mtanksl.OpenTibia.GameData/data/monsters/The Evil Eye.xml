@@ -2,7 +2,7 @@
 <monster name="The Evil Eye" nameDescription="The Evil Eye" speed="240" experience="500" race="blood">
   <health now="1200" max="1200" />
   <look typeex="0" type="210" head="0" body="0" legs="0" feet="0" corpse="6037" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Inferior creatures, bow before my power!" />
   </voices>
   <elements>

@@ -2,7 +2,7 @@
 <monster name="Orshabaal" nameDescription="Orshabaal" speed="380" experience="9999" race="fire">
   <health now="22500" max="22500" />
   <look typeex="0" type="201" head="0" body="0" legs="0" feet="0" corpse="2916" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="PRAISED BE MY MASTERS, THE RUTHLESS SEVEN!" />
     <voice sentence="YOU ARE DOOMED!" />
     <voice sentence="ORSHABAAL IS BACK!" />

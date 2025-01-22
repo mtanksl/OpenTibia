@@ -2,7 +2,7 @@
 <monster name="Wasp" nameDescription="a wasp" speed="460" experience="25" race="venom">
   <health now="35" max="35" />
   <look typeex="0" type="44" head="0" body="0" legs="0" feet="0" corpse="5989" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Bssssss" />
   </voices>
   <elements>

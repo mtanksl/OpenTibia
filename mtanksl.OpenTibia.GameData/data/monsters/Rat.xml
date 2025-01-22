@@ -2,7 +2,7 @@
 <monster name="Rat" nameDescription="a rat" speed="134" experience="5" race="blood">
   <health now="20" max="20" />
   <look typeex="0" type="21" head="0" body="0" legs="0" feet="0" corpse="5964" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Meep!" />
   </voices>
   <elements>

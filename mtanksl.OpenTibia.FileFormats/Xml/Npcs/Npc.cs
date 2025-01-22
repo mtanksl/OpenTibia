@@ -47,11 +47,18 @@ namespace OpenTibia.FileFormats.Xml.Npcs
 
             if (voicesNode != null)
             {
-                npc.Voices = new List<VoiceItem>();
+                npc.Voices = new VoiceCollection()
+                {
+                    Interval = (int)voicesNode.Attribute("interval"),
+
+                    Chance = (int)voicesNode.Attribute("chance"),
+
+                    Items = new List<VoiceItem>()
+                };
 
                 foreach (var voiceNode in voicesNode.Elements() )
                 {
-                    npc.Voices.Add(new VoiceItem() 
+                    npc.Voices.Items.Add(new VoiceItem() 
                     { 
                         Sentence = (string)voiceNode.Attribute("sentence")
                     } );
@@ -76,8 +83,7 @@ namespace OpenTibia.FileFormats.Xml.Npcs
         [XmlElement("look")]
         public Look Look { get; set; }
 
-        [XmlArray("voices")]
-        [XmlArrayItem("voice")]
-        public List<VoiceItem> Voices { get; set; }
+        [XmlElement("voices")]
+        public VoiceCollection Voices { get; set; }
     }
 }

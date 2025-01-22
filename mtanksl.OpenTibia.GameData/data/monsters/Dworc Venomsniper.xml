@@ -2,7 +2,7 @@
 <monster name="Dworc Venomsniper" nameDescription="a dworc venomsniper" speed="240" experience="30" race="blood">
   <health now="80" max="80" />
   <look typeex="0" type="216" head="0" body="0" legs="0" feet="0" corpse="6059" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="grak brrretz!" />
     <voice sentence="grow truk grrrrr." />
     <voice sentence="prek tars, dekklep zurk." />

@@ -2,7 +2,7 @@
 <monster name="Black Knight" nameDescription="a black knight" speed="450" experience="1600" race="blood">
   <health now="1800" max="1800" />
   <look typeex="0" type="131" head="95" body="95" legs="95" feet="95" corpse="6080" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="MINE!" />
     <voice sentence="No prisoners!" />
     <voice sentence="NO MERCY!" />

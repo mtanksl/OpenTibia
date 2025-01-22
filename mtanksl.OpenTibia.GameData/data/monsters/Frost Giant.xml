@@ -2,7 +2,7 @@
 <monster name="Frost Giant" nameDescription="a frost giant" speed="195" experience="150" race="blood">
   <health now="270" max="270" />
   <look typeex="0" type="257" head="0" body="0" legs="0" feet="0" corpse="7330" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Hmm Humansoup" />
     <voice sentence="Stand still ya tasy snack!" />
     <voice sentence="Joh Thun!" />

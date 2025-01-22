@@ -2,7 +2,7 @@
 <monster name="Barbarian Bloodwalker" nameDescription="a barbarian bloodwalker" speed="205" experience="195" race="blood">
   <health now="305" max="305" />
   <look typeex="0" type="255" head="114" body="132" legs="132" feet="132" corpse="6080" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="YAAAHEEE!" />
     <voice sentence="SLAUGHTER!" />
     <voice sentence="CARNAGE!" />

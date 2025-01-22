@@ -2,7 +2,7 @@
 <monster name="Nightmare" nameDescription="a nightmare" speed="270" experience="2150" race="blood">
   <health now="2700" max="2700" />
   <look typeex="0" type="245" head="0" body="0" legs="0" feet="0" corpse="6340" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Close your eyes... I want to show you something!" />
     <voice sentence="I will haunt you forever!" />
     <voice sentence="I will make you scream!" />

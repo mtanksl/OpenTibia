@@ -2,7 +2,7 @@
 <monster name="Ungreez" nameDescription="an ungreez" speed="330" experience="5000" race="blood">
   <health now="8200" max="8200" />
   <look typeex="0" type="35" head="0" body="0" legs="0" feet="0" corpse="5995" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="I'll teach you that even heros can die" />
     <voice sentence="You wil die Begging like the others did" />
   </voices>

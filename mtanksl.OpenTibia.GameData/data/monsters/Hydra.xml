@@ -2,7 +2,7 @@
 <monster name="Hydra" nameDescription="a hydra" speed="260" experience="2100" race="blood">
   <health now="2350" max="2350" />
   <look typeex="0" type="121" head="0" body="0" legs="0" feet="0" corpse="6048" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="FCHHHHH" />
     <voice sentence="HISSSS" />
   </voices>

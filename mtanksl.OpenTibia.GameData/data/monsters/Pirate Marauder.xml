@@ -2,7 +2,7 @@
 <monster name="Pirate Marauder" nameDescription="a pirate marauder" speed="230" experience="125" race="blood">
   <health now="210" max="210" />
   <look typeex="0" type="93" head="0" body="0" legs="0" feet="0" corpse="6080" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Plundeeeeer!" />
     <voice sentence="Give up!" />
     <voice sentence="Hiyaa!" />

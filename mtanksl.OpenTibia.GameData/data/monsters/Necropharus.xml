@@ -2,7 +2,7 @@
 <monster name="Necropharus" nameDescription="Necropharus" speed="240" experience="700" race="blood">
   <health now="750" max="750" />
   <look typeex="0" type="209" head="0" body="0" legs="0" feet="0" corpse="6080" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="You will rise as my servant!" />
     <voice sentence="Praise to my master Urgith!" />
   </voices>

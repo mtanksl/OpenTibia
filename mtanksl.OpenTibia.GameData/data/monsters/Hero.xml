@@ -2,7 +2,7 @@
 <monster name="Hero" nameDescription="a hero" speed="268" experience="1200" race="blood">
   <health now="1400" max="1400" />
   <look typeex="0" type="73" head="0" body="0" legs="0" feet="0" corpse="6080" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Let's have a fight!" />
     <voice sentence="Welcome to my battleground." />
     <voice sentence="Have you seen princess Lumelia?" />

@@ -2,7 +2,7 @@
 <monster name="Lost Soul" nameDescription="a lost soul" speed="250" experience="4000" race="undead">
   <health now="5800" max="5800" />
   <look typeex="0" type="232" head="0" body="0" legs="0" feet="0" corpse="6310" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Forgive Meeeee!" />
     <voice sentence="Mouuuurn meeee!" />
   </voices>

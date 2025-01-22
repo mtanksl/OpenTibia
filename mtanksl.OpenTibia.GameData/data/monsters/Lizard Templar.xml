@@ -2,7 +2,7 @@
 <monster name="Lizard Templar" nameDescription="a lizard templar" speed="220" experience="115" race="blood">
   <health now="410" max="410" />
   <look typeex="0" type="113" head="0" body="0" legs="0" feet="0" corpse="4251" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Hissss!" />
   </voices>
   <elements>

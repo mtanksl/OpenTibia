@@ -2,7 +2,7 @@
 <monster name="Rahemos" nameDescription="a rahemos" speed="320" experience="3100" race="undead">
   <health now="3700" max="3700" />
   <look typeex="0" type="87" head="0" body="0" legs="0" feet="0" corpse="6031" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="It's a kind of magic." />
     <voice sentence="Abrah Kadabrah!" />
     <voice sentence="Nothing hidden in my wrappings." />

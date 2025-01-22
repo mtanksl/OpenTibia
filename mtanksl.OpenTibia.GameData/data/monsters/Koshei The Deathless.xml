@@ -2,7 +2,7 @@
 <monster name="Koshei The Deathless" nameDescription="Koshei The Deathless" speed="390" experience="0" race="undead">
   <health now="2000" max="2000" />
   <look typeex="0" type="99" head="95" body="116" legs="119" feet="115" corpse="6028" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Your pain will be beyond imagination!" />
     <voice sentence="You can't defeat me! I will ressurect and take your soul!" />
     <voice sentence="Death is my ally!" />

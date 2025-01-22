@@ -2,7 +2,7 @@
 <monster name="Hacker" nameDescription="a Hacker" speed="250" experience="45" race="blood">
   <health now="430" max="430" />
   <look typeex="0" type="8" head="0" body="0" legs="0" feet="0" corpse="5980" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Feel the wrath of me dos attack!" />
     <voice sentence="You're next!" />
     <voice sentence="Gimme free gold!" />

@@ -2,7 +2,7 @@
 <monster name="Werewolf" nameDescription="a werewolf" speed="320" experience="1450" race="blood">
   <health now="1955" max="1955" />
   <look typeex="0" type="308" head="0" body="0" legs="0" feet="0" corpse="6080" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="BLOOD!" />
     <voice sentence="HRAAAAAAAAAARRRRRR!" />
   </voices>

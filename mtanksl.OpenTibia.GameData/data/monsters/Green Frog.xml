@@ -2,7 +2,7 @@
 <monster name="Green Frog" nameDescription="a green frog" speed="230" experience="0" race="venom">
   <health now="60" max="60" />
   <look typeex="0" type="224" head="69" body="66" legs="69" feet="66" corpse="6079" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Ribbit!" />
     <voice sentence="Ribbit! Ribbit!" />
   </voices>

@@ -2,7 +2,7 @@
 <monster name="Frost Troll" nameDescription="a frost troll" speed="190" experience="23" race="blood">
   <health now="55" max="55" />
   <look typeex="0" type="53" head="0" body="0" legs="0" feet="0" corpse="5998" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Brrrr" />
     <voice sentence="Broar!" />
   </voices>

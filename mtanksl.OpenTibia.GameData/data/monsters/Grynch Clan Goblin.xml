@@ -2,7 +2,7 @@
 <monster name="Grynch Clan Goblin" nameDescription="a Grynch Clan Goblin" speed="400" experience="4" race="blood">
   <health now="80" max="80" />
   <look typeex="0" type="61" head="0" body="0" legs="0" feet="0" corpse="6002" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="T'was not me hand in your pocket!" />
     <voice sentence="Look! Cool stuff in house. Let's get it!" />
     <voice sentence="Uhh! Nobody home!" />

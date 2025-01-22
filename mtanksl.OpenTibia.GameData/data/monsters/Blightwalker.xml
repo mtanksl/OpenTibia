@@ -2,7 +2,7 @@
 <monster name="Blightwalker" nameDescription="a blightwalker" speed="240" experience="3350" race="undead">
   <health now="8900" max="8900" />
   <look typeex="0" type="246" head="0" body="0" legs="0" feet="0" corpse="6354" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="I can see you decaying!" />
     <voice sentence="Let me taste your mortality!" />
   </voices>

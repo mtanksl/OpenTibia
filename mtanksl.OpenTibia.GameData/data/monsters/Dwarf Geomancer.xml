@@ -2,7 +2,7 @@
 <monster name="Dwarf Geomancer" nameDescription="a dwarf geomancer" speed="200" experience="245" race="blood">
   <health now="380" max="380" />
   <look typeex="0" type="66" head="0" body="0" legs="0" feet="0" corpse="6015" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Hail Durin!" />
     <voice sentence="Earth is the strongest element." />
     <voice sentence="Dust to dust." />

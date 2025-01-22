@@ -2,7 +2,7 @@
 <monster name="Ice Golem" nameDescription="an ice golem" speed="195" experience="295" race="undead">
   <health now="385" max="385" />
   <look typeex="0" type="261" head="0" body="0" legs="0" feet="0" corpse="7282" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Chrr." />
   </voices>
   <elements>

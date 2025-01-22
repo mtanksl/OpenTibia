@@ -2,7 +2,7 @@
 <monster name="Spectre" nameDescription="a spectre" speed="250" experience="2100" race="undead">
   <health now="1350" max="1350" />
   <look typeex="0" type="235" head="20" body="0" legs="0" feet="0" corpse="6348" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Revenge ... is so ... sweet!" />
     <voice sentence="Life...force! Feed me your... lifeforce!" />
   </voices>

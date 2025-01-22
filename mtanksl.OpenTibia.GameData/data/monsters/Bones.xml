@@ -2,7 +2,7 @@
 <monster name="Bones" nameDescription="Bones" speed="300" experience="3750" race="undead">
   <health now="9500" max="9500" />
   <look typeex="0" type="231" head="0" body="0" legs="0" feet="0" corpse="6306" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Your new name is breakfast." />
     <voice sentence="Keep that dog away!" />
     <voice sentence="Out Fluffy! Out! Bad dog!" />

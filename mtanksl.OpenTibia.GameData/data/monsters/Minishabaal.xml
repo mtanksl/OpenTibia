@@ -2,7 +2,7 @@
 <monster name="Minishabaal" nameDescription="Minishabaal" speed="700" experience="4000" race="blood">
   <health now="3500" max="3500" />
   <look typeex="0" type="237" head="0" body="0" legs="0" feet="0" corpse="6364" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="I had Princess Lumelia as breakfast!" />
     <voice sentence="Naaa-Nana-Naaa-Naaa!" />
     <voice sentence="My brother will come and get you for this!" />

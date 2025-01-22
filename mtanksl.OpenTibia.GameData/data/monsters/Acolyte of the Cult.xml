@@ -2,7 +2,7 @@
 <monster name="Acolyte of the Cult" nameDescription="an acolyte of the cult" speed="230" experience="300" race="blood">
   <health now="390" max="390" />
   <look typeex="0" type="194" head="114" body="121" legs="121" feet="57" corpse="6080" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Praise voodoo!" />
   </voices>
   <elements>

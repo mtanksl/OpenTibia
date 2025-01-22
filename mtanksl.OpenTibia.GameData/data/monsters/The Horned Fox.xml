@@ -2,7 +2,7 @@
 <monster name="The Horned Fox" nameDescription="the Horned Fox" speed="210" experience="200" race="blood">
   <health now="265" max="265" />
   <look typeex="0" type="202" head="0" body="0" legs="0" feet="0" corpse="5983" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="You will never get me!" />
     <voice sentence="I'll be back!" />
     <voice sentence="Catch me, if you can!" />

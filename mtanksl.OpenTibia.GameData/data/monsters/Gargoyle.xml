@@ -2,7 +2,7 @@
 <monster name="Gargoyle" nameDescription="a gargoyle" speed="250" experience="150" race="blood">
   <health now="450" max="450" />
   <look typeex="0" type="95" head="0" body="0" legs="0" feet="0" corpse="6027" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Harrrr Harrrr!" />
     <voice sentence="Stone sweet stone." />
     <voice sentence="Feel my claws, softskin." />

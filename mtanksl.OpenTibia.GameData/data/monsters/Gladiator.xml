@@ -2,7 +2,7 @@
 <monster name="Gladiator" nameDescription="a gladiator" speed="200" experience="90" race="blood">
   <health now="185" max="185" />
   <look typeex="0" type="131" head="78" body="3" legs="79" feet="114" corpse="3058" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="You are no match for me!" />
     <voice sentence="Feel my prowess" />
     <voice sentence="Fight!" />

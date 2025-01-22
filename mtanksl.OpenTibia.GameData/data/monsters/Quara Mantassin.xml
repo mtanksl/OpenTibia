@@ -2,7 +2,7 @@
 <monster name="Quara Mantassin" nameDescription="a quara mantassin" speed="520" experience="400" race="blood">
   <health now="800" max="800" />
   <look typeex="0" type="72" head="0" body="0" legs="0" feet="0" corpse="6064" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Zuerk Pachak!" />
     <voice sentence="Shrrrr" />
   </voices>

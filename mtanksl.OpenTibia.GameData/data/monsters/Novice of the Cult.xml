@@ -2,7 +2,7 @@
 <monster name="Novice of the Cult" nameDescription="a novice of the cult" speed="210" experience="100" race="blood">
   <health now="285" max="285" />
   <look typeex="0" type="133" head="114" body="95" legs="114" feet="114" corpse="6080" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Fear us!" />
     <voice sentence="You will not tell anyone what you have seen." />
     <voice sentence="Your curiosity will be punished!" />

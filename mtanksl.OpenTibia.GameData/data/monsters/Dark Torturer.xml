@@ -2,7 +2,7 @@
 <monster name="Dark Torturer" nameDescription="a dark torturer" speed="250" experience="3500" race="blood">
   <health now="7350" max="7350" />
   <look typeex="0" type="234" head="0" body="0" legs="0" feet="0" corpse="6328" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="You like it, don't you?" />
     <voice sentence="IahaEhheAie!" />
   </voices>

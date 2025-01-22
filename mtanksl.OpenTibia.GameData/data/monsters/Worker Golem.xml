@@ -2,7 +2,7 @@
 <monster name="Worker Golem" nameDescription="a worker golem" speed="270" experience="1250" race="energy">
   <health now="1400" max="1400" />
   <look typeex="0" type="304" head="0" body="0" legs="0" feet="0" corpse="9801" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="INTRUDER ALARM!" />
     <voice sentence="klonk klonk klonk" />
     <voice sentence="Rrrtttarrrttarrrtta" />

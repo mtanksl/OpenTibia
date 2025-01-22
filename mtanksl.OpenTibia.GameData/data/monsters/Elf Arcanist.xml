@@ -2,7 +2,7 @@
 <monster name="Elf Arcanist" nameDescription="an elf arcanist" speed="230" experience="175" race="blood">
   <health now="220" max="220" />
   <look typeex="0" type="63" head="0" body="0" legs="0" feet="0" corpse="6011" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Feel my wrath!" />
     <voice sentence="For the Daughter of the Stars!" />
     <voice sentence="I'll bring balance upon you!" />

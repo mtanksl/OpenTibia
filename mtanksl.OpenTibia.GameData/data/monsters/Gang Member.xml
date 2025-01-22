@@ -2,7 +2,7 @@
 <monster name="Gang Member" nameDescription="a gang member" speed="220" experience="70" race="blood">
   <health now="295" max="295" />
   <look typeex="0" type="151" head="114" body="19" legs="42" feet="20" corpse="3058" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="This is our territory!" />
     <voice sentence="Help me guys!" />
     <voice sentence="I don't like the way you look!" />

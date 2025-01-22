@@ -2,7 +2,7 @@
 <monster name="Amazon" nameDescription="an amazon" speed="210" experience="60" race="blood">
   <health now="110" max="110" />
   <look typeex="0" type="137" head="113" body="120" legs="114" feet="132" corpse="6081" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Yeeee ha!" />
     <voice sentence="Your head shall be mine!" />
   </voices>

@@ -16,6 +16,6 @@ namespace OpenTibia.Common.Objects
 
         public Outfit Outfit { get; set; }
 
-        public string[] Sentences { get; set; }
+        public VoiceCollection Voices { get; set; }
     }
 }

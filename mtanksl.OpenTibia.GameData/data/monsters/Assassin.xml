@@ -2,7 +2,7 @@
 <monster name="Assassin" nameDescription="an assassin" speed="224" experience="105" race="blood">
   <health now="175" max="175" />
   <look typeex="0" type="129" head="95" body="95" legs="95" feet="95" corpse="6080" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Die!" />
     <voice sentence="Feel the hand of death!" />
     <voice sentence="You are on my deathlist!" />

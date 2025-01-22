@@ -2,7 +2,7 @@
 <monster name="Gazer" nameDescription="a gazer" speed="240" experience="90" race="venom">
   <health now="120" max="120" />
   <look typeex="0" type="109" head="0" body="0" legs="0" feet="0" corpse="6036" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Mommy!?" />
     <voice sentence="Buuuuhaaaahhaaaaa!" />
     <voice sentence="Me need mana!" />

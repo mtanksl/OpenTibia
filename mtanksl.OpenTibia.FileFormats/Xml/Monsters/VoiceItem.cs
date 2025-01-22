@@ -6,5 +6,8 @@ namespace OpenTibia.FileFormats.Xml.Monsters
     {
         [XmlAttribute("sentence")]
         public string Sentence { get; set; }
+
+        [XmlAttribute("yell")]
+        public int? Yell { get; set; }
     }
 }

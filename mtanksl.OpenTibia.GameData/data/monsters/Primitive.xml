@@ -2,7 +2,7 @@
 <monster name="Primitive" nameDescription="a Primitive" speed="300" experience="45" race="blood">
   <health now="200" max="200" />
   <look typeex="0" type="143" head="1" body="1" legs="1" feet="1" corpse="6080" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="We don't need a future!" />
     <voice sentence="I'll rook you all!" />
     <voice sentence="They thought they'd beaten us!" />

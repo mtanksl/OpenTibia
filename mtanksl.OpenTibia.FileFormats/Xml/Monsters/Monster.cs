@@ -80,18 +80,27 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
                 Corpse = (int?)outfitNode.Attribute("corpse") ?? 3058
             };
-
+ 
             XElement voicesNode = monsterNode.Element("voices");
 
             if (voicesNode != null)
             {
-                monster.Voices = new List<VoiceItem>();
+                monster.Voices = new VoiceCollection()
+                {
+                    Interval = (int)voicesNode.Attribute("interval"),
+
+                    Chance = (int)voicesNode.Attribute("chance"),
+
+                    Items = new List<VoiceItem>()
+                };
 
                 foreach (var voiceNode in voicesNode.Elements() )
                 {
-                    monster.Voices.Add(new VoiceItem() 
+                    monster.Voices.Items.Add(new VoiceItem() 
                     { 
-                        Sentence = (string)voiceNode.Attribute("sentence")
+                        Sentence = (string)voiceNode.Attribute("sentence"),
+
+                        Yell = (int?)voiceNode.Attribute("yell")
                     } );
                 }
             }
@@ -168,9 +177,8 @@ namespace OpenTibia.FileFormats.Xml.Monsters
         [XmlElement("look")]
         public Look Look { get; set; }
 
-        [XmlArray("voices")]
-        [XmlArrayItem("voice")]
-        public List<VoiceItem> Voices { get; set; }
+        [XmlElement("voices")]
+        public VoiceCollection Voices { get; set; }
 
         [XmlArray("loot")]
         [XmlArrayItem("item")]

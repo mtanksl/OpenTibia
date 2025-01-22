@@ -2,7 +2,7 @@
 <monster name="Dark Magician" nameDescription="a dark magician" speed="220" experience="185" race="blood">
   <health now="325" max="325" />
   <look typeex="0" type="133" head="116" body="95" legs="50" feet="132" corpse="6080" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Feel the power of my runes!" />
     <voice sentence="Killing you is getting expensive!" />
     <voice sentence="My secrets are mine alone!" />

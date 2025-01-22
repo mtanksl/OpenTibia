@@ -2,7 +2,7 @@
 <monster name="Orc Spearman" nameDescription="an orc spearman" speed="176" experience="38" race="blood">
   <health now="105" max="105" />
   <look typeex="0" type="50" head="0" body="0" legs="0" feet="0" corpse="5996" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Ugaar!" />
   </voices>
   <elements>

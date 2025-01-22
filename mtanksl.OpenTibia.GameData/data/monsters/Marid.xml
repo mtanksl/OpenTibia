@@ -2,7 +2,7 @@
 <monster name="Marid" nameDescription="a marid" speed="170" experience="325" race="blood">
   <health now="550" max="550" />
   <look typeex="0" type="104" head="0" body="0" legs="0" feet="0" corpse="6033" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Simsalabim" />
     <voice sentence="Feel the power of my magic, tiny mortal!" />
     <voice sentence="Wishes can come true." />

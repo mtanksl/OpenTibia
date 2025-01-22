@@ -2,7 +2,7 @@
 <monster name="Bog Raider" nameDescription="a bog raider" speed="300" experience="1300" race="venom">
   <health now="800" max="800" />
   <look typeex="0" type="299" head="0" body="0" legs="0" feet="0" corpse="8951" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Tchhh!" />
     <voice sentence="Slurp!" />
   </voices>

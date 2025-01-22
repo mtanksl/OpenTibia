@@ -2,7 +2,7 @@
 <monster name="Betrayed Wraith" nameDescription="a betrayed wraith" speed="310" experience="3500" race="blood">
   <health now="4200" max="4200" />
   <look typeex="0" type="233" head="0" body="0" legs="0" feet="0" corpse="6316" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Rrrah!" />
     <voice sentence="Gnarr!" />
     <voice sentence="Tcharrr!" />

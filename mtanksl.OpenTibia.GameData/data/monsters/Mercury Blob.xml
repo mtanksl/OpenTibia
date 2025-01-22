@@ -2,7 +2,7 @@
 <monster name="Mercury Blob" nameDescription="a mercury blob" speed="210" experience="180" race="undead">
   <health now="150" max="150" />
   <look typeex="0" type="316" head="0" body="0" legs="0" feet="0" corpse="9961" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Crackle" />
   </voices>
   <elements>

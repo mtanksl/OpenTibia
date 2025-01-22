@@ -2,7 +2,7 @@
 <monster name="Diabolic Imp" nameDescription="a diabolic imp" speed="360" experience="1950" race="blood">
   <health now="1950" max="1950" />
   <look typeex="0" type="237" head="0" body="0" legs="0" feet="0" corpse="6364" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Muahaha!" />
     <voice sentence="He he he!" />
   </voices>

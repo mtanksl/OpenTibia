@@ -2,7 +2,7 @@
 <monster name="The Imperor" nameDescription="The Imperor" speed="330" experience="8000" race="fire">
   <health now="15000" max="15000" />
   <look typeex="0" type="237" head="0" body="0" legs="0" feet="0" corpse="8635" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Muahaha!" />
     <voice sentence="He he he!" />
   </voices>

@@ -2,10 +2,10 @@
 <monster name="Demon" nameDescription="a demon" speed="280" experience="6000" race="fire">
   <health now="8200" max="8200" />
   <look typeex="0" type="35" head="0" body="0" legs="0" feet="0" corpse="5995" />
-  <voices>
-    <voice sentence="MUHAHAHAHA!" />
-    <voice sentence="I SMELL FEEEEEAAAR!" />
-    <voice sentence="CHAMEK ATH UTHUL ARAK!" />
+  <voices interval="5000" chance="10">
+    <voice sentence="MUHAHAHAHA!" yell="1" />
+    <voice sentence="I SMELL FEEEEEAAAR!" yell="1" />
+    <voice sentence="CHAMEK ATH UTHUL ARAK!" yell="1" />
     <voice sentence="Your resistance is futile!" />
     <voice sentence="Your soul will be mine!" />
   </voices>

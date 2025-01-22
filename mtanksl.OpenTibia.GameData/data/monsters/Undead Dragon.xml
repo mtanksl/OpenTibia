@@ -2,7 +2,7 @@
 <monster name="Undead Dragon" nameDescription="an undead dragon" speed="300" experience="7200" race="undead">
   <health now="8350" max="8350" />
   <look typeex="0" type="231" head="0" body="0" legs="0" feet="0" corpse="6306" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="FEEEED MY ETERNAL HUNGER!" />
     <voice sentence="I SENSE LIFE" />
   </voices>

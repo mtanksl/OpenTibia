@@ -2,7 +2,7 @@
 <monster name="Elf" nameDescription="an elf" speed="220" experience="42" race="blood">
   <health now="100" max="100" />
   <look typeex="0" type="62" head="0" body="0" legs="0" feet="0" corpse="6003" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Ulathil beia Thratha!" />
     <voice sentence="Bahaha aka!" />
     <voice sentence="You are not welcome here." />

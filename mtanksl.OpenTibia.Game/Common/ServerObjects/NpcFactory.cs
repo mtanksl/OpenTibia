@@ -5,6 +5,8 @@ using OpenTibia.Game.GameObjectScripts;
 using System.Collections.Generic;
 using System.Linq;
 using Npc = OpenTibia.Common.Objects.Npc;
+using VoiceCollection = OpenTibia.Common.Objects.VoiceCollection;
+using VoiceItem = OpenTibia.Common.Objects.VoiceItem;
 
 namespace OpenTibia.Game.Common.ServerObjects
 {
@@ -37,7 +39,14 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Outfit = xmlNpc.Look.TypeEx != 0 ? new Outfit(xmlNpc.Look.TypeEx) : new Outfit(xmlNpc.Look.Type, xmlNpc.Look.Head, xmlNpc.Look.Body, xmlNpc.Look.Legs, xmlNpc.Look.Feet, Addon.None),
 
-                    Sentences = xmlNpc.Voices?.Select(v => v.Sentence).ToArray()
+                    Voices = xmlNpc.Voices == null ? null : new VoiceCollection()
+                    {
+                        Interval = xmlNpc.Voices.Interval,
+
+                        Chance = xmlNpc.Voices.Chance,
+
+                        Items = xmlNpc.Voices.Items.Select(v => new VoiceItem() { Sentence = v.Sentence, Yell = false } ).ToArray()
+                    }
                 } ); 
             }
         }

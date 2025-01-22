@@ -2,7 +2,7 @@
 <monster name="Lich" nameDescription="a lich" speed="320" experience="900" race="undead">
   <health now="880" max="880" />
   <look typeex="0" type="99" head="95" body="116" legs="119" feet="115" corpse="6028" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Doomed be the living!" />
     <voice sentence="You will endure agony beyond thy death!" />
     <voice sentence="Death awaits all!" />

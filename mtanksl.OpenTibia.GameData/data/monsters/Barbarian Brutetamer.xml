@@ -2,7 +2,7 @@
 <monster name="Barbarian Brutetamer" nameDescription="a barbarian brutetamer" speed="270" experience="90" race="blood">
   <health now="145" max="145" />
   <look typeex="0" type="264" head="78" body="116" legs="95" feet="121" corpse="6081" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="To me, creatures of the wild!" />
     <voice sentence="My instincts tell me about your cowardice." />
   </voices>

@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using LootItem = OpenTibia.Common.Objects.LootItem;
 using Monster = OpenTibia.Common.Objects.Monster;
+using VoiceCollection = OpenTibia.Common.Objects.VoiceCollection;
+using VoiceItem = OpenTibia.Common.Objects.VoiceItem;
 
 namespace OpenTibia.Game.Common.ServerObjects
 {
@@ -44,7 +46,14 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Corpse = (ushort)xmlMonster.Look.Corpse,
 
-                    Sentences = xmlMonster.Voices?.Select(v => v.Sentence).ToArray(),
+                    Voices = xmlMonster.Voices == null ? null : new VoiceCollection()
+                    {
+                        Interval = xmlMonster.Voices.Interval,
+
+                        Chance = xmlMonster.Voices.Chance,
+
+                        Items = xmlMonster.Voices.Items.Select(v => new VoiceItem() { Sentence = v.Sentence, Yell = v.Yell == 1 } ).ToArray()
+                    },
 
                     Loot = xmlMonster.Loot?.Select(l => new LootItem() { OpenTibiaId = l.Id, KillsToGetOne = l.KillsToGetOne ?? 1, CountMin = l.CountMin ?? 1, CountMax = l.CountMax ?? 1 } ).ToArray(),
 

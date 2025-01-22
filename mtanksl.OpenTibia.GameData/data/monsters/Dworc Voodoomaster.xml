@@ -2,7 +2,7 @@
 <monster name="Dworc Voodoomaster" nameDescription="a dworc voodoomaster" speed="240" experience="50" race="blood">
   <health now="80" max="80" />
   <look typeex="0" type="214" head="0" body="0" legs="0" feet="0" corpse="6055" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="grak brrretz!" />
     <voice sentence="grow truk grrrrr." />
     <voice sentence="prek tars, dekklep zurk." />

@@ -2,7 +2,7 @@
 <monster name="Dharalion" nameDescription="Dharalion" speed="240" experience="380" race="blood">
   <health now="380" max="380" />
   <look typeex="0" type="203" head="0" body="0" legs="0" feet="0" corpse="6011" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Feel my wrath!" />
     <voice sentence="Noone will stop my ascension!" />
     <voice sentence="My powers are divine!" />

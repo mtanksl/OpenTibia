@@ -2,7 +2,7 @@
 <monster name="Ghazbaran" nameDescription="Ghazbaran" speed="400" experience="15000" race="undead">
   <health now="60000" max="60000" />
   <look typeex="0" type="12" head="0" body="123" legs="97" feet="94" corpse="6068" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="COME HERE AND DIE!" />
     <voice sentence="COME AND GIVE ME SOME AMUSEMENT!" />
     <voice sentence="IS THAT THE BEST YOU HAVE TO OFFER, TIBIANS?" />

@@ -2,7 +2,7 @@
 <monster name="Cobra" nameDescription="a cobra" speed="170" experience="30" race="blood">
   <health now="65" max="65" />
   <look typeex="0" type="81" head="0" body="0" legs="0" feet="0" corpse="3007" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Zzzzzz" />
     <voice sentence="Fsssss" />
   </voices>

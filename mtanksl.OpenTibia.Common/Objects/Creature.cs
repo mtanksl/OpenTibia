@@ -54,7 +54,8 @@ namespace OpenTibia.Common.Objects
         {
             get
             {
-                return (byte)Math.Max(0, Math.Min(100, Math.Ceiling(100.0 * Health / MaxHealth) ) );            }
+                return (byte)Math.Max(0, Math.Min(100, Math.Ceiling(100.0 * Health / MaxHealth) ) );       
+            }
         }
 
         public Direction Direction { get; set; }

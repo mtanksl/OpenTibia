@@ -2,7 +2,7 @@
 <monster name="Beholder" nameDescription="a beholder" speed="150" experience="170" race="venom">
   <health now="260" max="260" />
   <look typeex="0" type="17" head="0" body="0" legs="0" feet="0" corpse="5992" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Eye for eye!" />
     <voice sentence="Here's looking at you!" />
     <voice sentence="Let me take a look at you!" />

@@ -2,7 +2,7 @@
 <monster name="War Golem" nameDescription="a war golem" speed="280" experience="2550" race="energy">
   <health now="4300" max="4300" />
   <look typeex="0" type="326" head="0" body="0" legs="0" feet="0" corpse="10005" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Azerus barada nikto!" />
     <voice sentence="Klonk klonk klonk" />
     <voice sentence="Engaging Enemy!" />

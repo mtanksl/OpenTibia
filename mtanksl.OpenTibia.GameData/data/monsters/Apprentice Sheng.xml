@@ -2,7 +2,7 @@
 <monster name="Apprentice Sheng" nameDescription="Apprentice Sheng" speed="170" experience="100" race="blood">
   <health now="95" max="95" />
   <look typeex="0" type="23" head="0" body="0" legs="0" feet="0" corpse="5981" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="I will protect the secrets of my master!" />
     <voice sentence="This isle will become ours alone!" />
     <voice sentence="Kaplar!" />

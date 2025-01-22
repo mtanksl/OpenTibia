@@ -2,7 +2,7 @@
 <monster name="Destroyer" nameDescription="a destroyer" speed="270" experience="2000" race="blood">
   <health now="3700" max="3700" />
   <look typeex="0" type="236" head="0" body="0" legs="0" feet="0" corpse="6320" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Destructiooooon!" />
     <voice sentence="It's a good day to destroy!" />
   </voices>

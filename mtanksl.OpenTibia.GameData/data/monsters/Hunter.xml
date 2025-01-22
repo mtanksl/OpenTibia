@@ -2,7 +2,7 @@
 <monster name="Hunter" nameDescription="a hunter" speed="215" experience="150" race="blood">
   <health now="150" max="150" />
   <look typeex="0" type="129" head="95" body="116" legs="121" feet="115" corpse="6080" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Guess who we're hunting, haha!" />
     <voice sentence="Guess who we are hunting!" />
     <voice sentence="Bullseye!" />

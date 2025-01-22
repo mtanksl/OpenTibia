@@ -2,7 +2,7 @@
 <monster name="Defiler" nameDescription="a defiler" speed="260" experience="2500" race="venom">
   <health now="3650" max="3650" />
   <look typeex="0" type="238" head="0" body="0" legs="0" feet="0" corpse="6532" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Blubb" />
   </voices>
   <elements>

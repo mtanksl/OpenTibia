@@ -2,7 +2,7 @@
 <monster name="Dracola" nameDescription="Dracola" speed="410" experience="7750" race="undead">
   <health now="15850" max="15850" />
   <look typeex="0" type="231" head="0" body="0" legs="0" feet="0" corpse="6307" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="DEATH CAN'T STOP MY HUNGER!" />
   </voices>
   <elements>

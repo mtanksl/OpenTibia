@@ -2,7 +2,7 @@
 <monster name="Mammoth" nameDescription="a mammoth" speed="220" experience="110" race="blood">
   <health now="190" max="190" />
   <look typeex="0" type="199" head="0" body="0" legs="0" feet="0" corpse="6074" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Troooooot!" />
     <voice sentence="Hooooot-Toooooot!" />
     <voice sentence="Tooooot." />

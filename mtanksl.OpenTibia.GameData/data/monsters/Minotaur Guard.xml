@@ -2,7 +2,7 @@
 <monster name="Minotaur Guard" nameDescription="a minotaur guard" speed="190" experience="160" race="blood">
   <health now="185" max="185" />
   <look typeex="0" type="29" head="0" body="0" legs="0" feet="0" corpse="5983" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Kirll Karrrl!" />
     <voice sentence="Kaplar!" />
   </voices>

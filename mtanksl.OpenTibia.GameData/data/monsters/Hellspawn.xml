@@ -2,7 +2,7 @@
 <monster name="Hellspawn" nameDescription="a hellspawn" speed="360" experience="2550" race="blood">
   <health now="3500" max="3500" />
   <look typeex="0" type="322" head="0" body="0" legs="0" feet="0" corpse="9923" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Your fragile bones are like toothpicks to me." />
     <voice sentence="You little weasel will not live to see another day." />
     <voice sentence="I'm just a messenger of what's yet to come." />

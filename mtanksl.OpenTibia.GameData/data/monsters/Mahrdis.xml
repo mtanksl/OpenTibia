@@ -2,7 +2,7 @@
 <monster name="Mahrdis" nameDescription="a mahrdis" speed="340" experience="3050" race="undead">
   <health now="3900" max="3900" />
   <look typeex="0" type="90" head="0" body="0" legs="0" feet="0" corpse="6025" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Ashes to ashes!" />
     <voice sentence="Fire, Fire!" />
     <voice sentence="The eternal flame demands its due!" />

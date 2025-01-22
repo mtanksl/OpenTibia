@@ -2,7 +2,7 @@
 <monster name="Crimson Frog" nameDescription="a crimson frog" speed="230" experience="20" race="blood">
   <health now="60" max="60" />
   <look typeex="0" type="226" head="94" body="78" legs="94" feet="78" corpse="6079" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Ribbit!" />
   </voices>
 </monster>

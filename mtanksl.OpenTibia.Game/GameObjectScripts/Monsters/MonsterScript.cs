@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.GameObjectScripts
@@ -8,9 +7,9 @@ namespace OpenTibia.Game.GameObjectScripts
     {
         public override void Start(Monster monster)
         {
-            if (monster.Metadata.Sentences != null && monster.Metadata.Sentences.Length > 0)
+            if (monster.Metadata.Voices != null && monster.Metadata.Voices.Items != null && monster.Metadata.Voices.Items.Length > 0)
             {
-                Context.Server.GameObjectComponents.AddComponent(monster, new CreatureTalkBehaviour(TalkType.MonsterSay, monster.Metadata.Sentences) );
+                Context.Server.GameObjectComponents.AddComponent(monster, new MonsterTalkBehaviour(monster.Metadata.Voices) );
             }
 
             Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(

@@ -2,7 +2,7 @@
 <monster name="Nightstalker" nameDescription="a nightstalker" speed="260" experience="500" race="undead">
   <health now="700" max="700" />
   <look typeex="0" type="320" head="0" body="0" legs="0" feet="0" corpse="9915" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="The sunlight is so depressing." />
     <voice sentence="Come with me, my child." />
     <voice sentence="I've been in the shadow under your bed last night." />

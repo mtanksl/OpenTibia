@@ -2,7 +2,7 @@
 <monster name="Quara Constrictor" nameDescription="a quara constrictor" speed="520" experience="250" race="blood">
   <health now="450" max="450" />
   <look typeex="0" type="46" head="0" body="0" legs="0" feet="0" corpse="6065" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Gaaahhh!" />
     <voice sentence="Gluh! Gluh!" />
     <voice sentence="Tssss!" />

@@ -2,7 +2,7 @@
 <monster name="Demodras" nameDescription="Demodras" speed="230" experience="4000" race="blood">
   <health now="4500" max="4500" />
   <look typeex="0" type="204" head="0" body="0" legs="0" feet="0" corpse="5984" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="I WILL SET THE WORLD IN FIRE!" />
     <voice sentence="I WILL PROTECT MY BROOD!" />
   </voices>

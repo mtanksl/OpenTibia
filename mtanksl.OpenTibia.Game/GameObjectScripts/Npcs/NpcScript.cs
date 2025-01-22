@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
 using OpenTibia.Game.Components;
 
 namespace OpenTibia.Game.GameObjectScripts
@@ -8,9 +7,9 @@ namespace OpenTibia.Game.GameObjectScripts
     {
         public override void Start(Npc npc)
         {
-            if (npc.Metadata.Sentences != null && npc.Metadata.Sentences.Length > 0)
+            if (npc.Metadata.Voices != null && npc.Metadata.Voices.Items != null && npc.Metadata.Voices.Items.Length > 0)
             {
-                Context.Server.GameObjectComponents.AddComponent(npc, new CreatureTalkBehaviour(TalkType.Say, npc.Metadata.Sentences) );
+                Context.Server.GameObjectComponents.AddComponent(npc, new NpcTalkBehaviour(npc.Metadata.Voices) );
             }
 
             if (Context.Server.Config.GameplayPrivateNpcSystem)

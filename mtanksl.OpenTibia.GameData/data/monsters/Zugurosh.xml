@@ -2,7 +2,7 @@
 <monster name="Zugurosh" nameDescription="Zugurosh" speed="340" experience="10000" race="fire">
   <health now="95000" max="95000" />
   <look typeex="0" type="12" head="2" body="35" legs="57" feet="91" corpse="6068" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="You will run out of resources soon enough!!" />
     <voice sentence="One little mistake and your all are mine!" />
     <voice sentence="I sense your strength fading!" />

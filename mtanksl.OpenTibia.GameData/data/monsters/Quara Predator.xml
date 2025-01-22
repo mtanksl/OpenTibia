@@ -2,7 +2,7 @@
 <monster name="Quara Predator" nameDescription="a quara predator" speed="520" experience="1600" race="blood">
   <health now="2200" max="2200" />
   <look typeex="0" type="20" head="0" body="0" legs="0" feet="0" corpse="6067" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Rrrah!" />
     <voice sentence="Rraaar!" />
   </voices>

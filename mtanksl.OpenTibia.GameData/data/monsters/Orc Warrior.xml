@@ -2,7 +2,7 @@
 <monster name="Orc Warrior" nameDescription="an orc warrior" speed="190" experience="50" race="blood">
   <health now="125" max="125" />
   <look typeex="0" type="7" head="0" body="0" legs="0" feet="0" corpse="5979" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Grow truk grrrr." />
     <voice sentence="Trak grrrr brik." />
     <voice sentence="Alk!" />

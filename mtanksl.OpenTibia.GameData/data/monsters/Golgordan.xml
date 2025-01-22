@@ -2,7 +2,7 @@
 <monster name="Golgordan" nameDescription="Golgordan" speed="350" experience="10000" race="fire">
   <health now="40000" max="40000" />
   <look typeex="0" type="12" head="108" body="100" legs="105" feet="114" corpse="6068" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Latrivan your fool" />
   </voices>
   <elements>

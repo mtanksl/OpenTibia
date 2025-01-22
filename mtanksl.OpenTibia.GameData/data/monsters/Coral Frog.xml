@@ -2,7 +2,7 @@
 <monster name="Coral Frog" nameDescription="a coral frog" speed="230" experience="20" race="blood">
   <health now="60" max="60" />
   <look typeex="0" type="226" head="114" body="98" legs="97" feet="114" corpse="6079" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Ribbit!" />
   </voices>
 </monster>

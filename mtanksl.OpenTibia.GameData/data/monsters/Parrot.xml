@@ -2,7 +2,7 @@
 <monster name="Parrot" nameDescription="a parrot" speed="240" experience="0" race="blood">
   <health now="25" max="25" />
   <look typeex="0" type="217" head="0" body="0" legs="0" feet="0" corpse="6056" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="BR? PL? SWE?" />
     <voice sentence="Screeech!" />
     <voice sentence="Neeeewbiiieee!" />

@@ -2,7 +2,7 @@
 <monster name="Bonebeast" nameDescription="a bonebeast" speed="210" experience="580" race="undead">
   <health now="515" max="515" />
   <look typeex="0" type="101" head="0" body="0" legs="0" feet="0" corpse="6030" />
-  <voices>
+  <voices interval="5000" chance="10">
     <voice sentence="Cccchhhhhhhhh!" />
     <voice sentence="Knooorrrrr!" />
   </voices>
