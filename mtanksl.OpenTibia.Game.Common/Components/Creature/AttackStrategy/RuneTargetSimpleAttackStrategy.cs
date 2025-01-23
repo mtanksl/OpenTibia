@@ -17,7 +17,16 @@ namespace OpenTibia.Game.Components
 
         private int max;
 
+        private Condition condition;
+
         public RuneTargetSimpleAttackStrategy(ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max)
+
+            : this(projectileType, magicEffectType, damageType, min, max, null)
+        {
+
+        }
+
+        public RuneTargetSimpleAttackStrategy(ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max, Condition condition)
         {
             this.projectileType = projectileType;
 
@@ -28,6 +37,8 @@ namespace OpenTibia.Game.Components
             this.min = min;
 
             this.max = max;
+
+            this.condition = condition;
         }
 
         public PromiseResult<bool> CanAttack(Creature attacker, Creature target)
@@ -44,7 +55,9 @@ namespace OpenTibia.Game.Components
         {            
             return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target, 
                 
-                new SimpleAttack(projectileType, magicEffectType, damageType, min, max) ) );
+                new SimpleAttack(projectileType, magicEffectType, damageType, min, max),
+
+                condition) );
         }
     }
 }

@@ -3,7 +3,7 @@ using OpenTibia.Game.Common;
 
 namespace OpenTibia.Game.Components
 {
-    public class ScheduledAttackStrategy : IAttackStrategy
+    public class IntervalAndChanceAttackStrategy : IAttackStrategy
     {
         private int ticks;
 
@@ -13,7 +13,7 @@ namespace OpenTibia.Game.Components
 
         private IAttackStrategy attackStrategy;
 
-        public ScheduledAttackStrategy(int interval, double chance, IAttackStrategy attackStrategy)
+        public IntervalAndChanceAttackStrategy(int interval, double chance, IAttackStrategy attackStrategy)
         {
             this.ticks = interval;
 

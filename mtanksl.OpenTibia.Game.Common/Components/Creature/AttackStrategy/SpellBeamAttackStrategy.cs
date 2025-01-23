@@ -17,7 +17,16 @@ namespace OpenTibia.Game.Components
 
         private int max;
 
+        private Condition condition;
+
         public SpellBeamAttackStrategy(Offset[] area, MagicEffectType? magicEffectType, DamageType damageType, int min, int max)
+
+            :this(area, magicEffectType, damageType, min, max, null)
+        {
+            
+        }
+
+        public SpellBeamAttackStrategy(Offset[] area, MagicEffectType? magicEffectType, DamageType damageType, int min, int max, Condition condition)
         {
             this.area = area;
 
@@ -28,6 +37,8 @@ namespace OpenTibia.Game.Components
             this.min = min;
 
             this.max = max;
+
+            this.condition = condition;
         }
 
         public PromiseResult<bool> CanAttack(Creature attacker, Creature target)
@@ -39,7 +50,9 @@ namespace OpenTibia.Game.Components
         {            
             return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, magicEffectType, 
                         
-                new SimpleAttack(null, null, damageType, min, max) ) );
+                new SimpleAttack(null, null, damageType, min, max),
+                
+                condition) );
         }
     }
 }

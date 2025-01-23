@@ -23,7 +23,7 @@ namespace OpenTibia.Game.GameObjectScripts
 
                     if (attackStrategy != null)
                     {
-                        attackStrategies.Add(new ScheduledAttackStrategy(attack.Interval, attack.Chance, attackStrategy) );
+                        attackStrategies.Add(new IntervalAndChanceAttackStrategy(attack.Interval, attack.Chance, attackStrategy) );
                     }
                 }
             }
@@ -36,7 +36,7 @@ namespace OpenTibia.Game.GameObjectScripts
 
                     if (attackStrategy != null)
                     {
-                        attackStrategies.Add(new ScheduledAttackStrategy(defense.Interval, defense.Chance, attackStrategy) );
+                        attackStrategies.Add(new IntervalAndChanceAttackStrategy(defense.Interval, defense.Chance, attackStrategy) );
                     }
                 }
             }
@@ -44,7 +44,7 @@ namespace OpenTibia.Game.GameObjectScripts
             if (attackStrategies.Count > 0)
             {
                 Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
-                    new RandomAttackStrategy(attackStrategies.ToArray() ),
+                    new CombineRandomAttackStrategy(attackStrategies.ToArray() ),
                     ApproachWalkStrategy.Instance,
                     RandomWalkStrategy.Instance,
                     DoNotChangeTargetStrategy.Instance,
@@ -53,7 +53,7 @@ namespace OpenTibia.Game.GameObjectScripts
             else
             {
                 Context.Server.GameObjectComponents.AddComponent(monster, new MonsterThinkBehaviour(
-                    new ScheduledAttackStrategy(2000, 90, AttackStrategyFactory.Create(AttackType.Melee, 0, 20) ),
+                    new IntervalAndChanceAttackStrategy(2000, 90, AttackStrategyFactory.Create(AttackType.Melee, 0, 20) ),
                     ApproachWalkStrategy.Instance,
                     RandomWalkStrategy.Instance,
                     DoNotChangeTargetStrategy.Instance,

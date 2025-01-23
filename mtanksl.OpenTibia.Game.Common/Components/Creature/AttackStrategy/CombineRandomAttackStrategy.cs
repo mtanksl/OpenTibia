@@ -3,11 +3,11 @@ using OpenTibia.Game.Common;
 
 namespace OpenTibia.Game.Components
 {
-    public class RandomAttackStrategy : IAttackStrategy
+    public class CombineRandomAttackStrategy : IAttackStrategy
     {
         private IAttackStrategy[] attackStrategies;
 
-        public RandomAttackStrategy(params IAttackStrategy[] attackStrategies)
+        public CombineRandomAttackStrategy(params IAttackStrategy[] attackStrategies)
         {
             this.attackStrategies = attackStrategies;
         }
