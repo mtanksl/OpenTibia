@@ -364,6 +364,11 @@ namespace OpenTibia.Game.Common
                               HouseFile.Load(PathResolver.GetFullPath("data/world/" + otbmFile.MapInfo.HouseFile) ) );
                 }
 
+                if (Map.Warnings.Count > 0)
+                {
+                    Logger.WriteLine("Map warnings: " + string.Join(", ", Map.Warnings), LogLevel.Warning);
+                }
+
                 using (Logger.Measure("Loading spawns") )
                 {
                     Spawns.Start(SpawnFile.Load(PathResolver.GetFullPath("data/world/" + otbmFile.MapInfo.SpawnFile) ) );
@@ -509,8 +514,6 @@ namespace OpenTibia.Game.Common
 
                                     if (tile != null)
                                     {
-                                        //TODO: Warn about moveable items inside the house during map load
-
                                         Item item = ItemFactory.Create( (ushort)dbHouseItem.OpenTibiaId, (byte)dbHouseItem.Count);
 
                                         ItemFactory.Attach(item);

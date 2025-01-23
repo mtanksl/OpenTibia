@@ -18,6 +18,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         ushort Height { get; }
 
+        List<string> Warnings { get; }
+
         void Start(OtbmFile otbmFile, HouseFile houseFile);
 
         Town GetTown(string name);

@@ -106,6 +106,16 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
+        private List<string> warnings = new List<string>();
+
+        public List<string> Warnings
+        {
+            get
+            {
+                return warnings;
+            }
+        }
+
         public void Start(OtbmFile otbmFile, HouseFile houseFile)
         {
             width = otbmFile.OtbmInfo.Width;
@@ -291,6 +301,18 @@ namespace OpenTibia.Game.Common.ServerObjects
                         {
                             foreach (var otbmItem in items)
                             {
+                                if (parent is HouseTile houseTile)
+                                {
+                                    ItemMetadata itemMetadata = server.ItemFactory.GetItemMetadataByOpenTibiaId(otbmItem.OpenTibiaId);
+
+                                    if ( !itemMetadata.Flags.Is(ItemMetadataFlags.NotMoveable) )
+                                    {
+                                        warnings.Add("Moveable item found inside house at " + houseTile.Position);
+
+                                        continue;
+                                    }
+                                }
+
                                 Item item = server.ItemFactory.Create(otbmItem.OpenTibiaId, otbmItem.Count); //TODO: Create with Capacity
 
                                 if (item != null)
