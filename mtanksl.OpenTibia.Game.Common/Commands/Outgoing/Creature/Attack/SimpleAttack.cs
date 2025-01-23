@@ -168,6 +168,27 @@ namespace OpenTibia.Game.Commands
                     await Context.Current.AddCommand(new CreatureUpdateHealthCommand(target, target.Health - damage) );
                 }
             }
+            else
+            {
+                if (target is Player player)
+                {
+                    MagicEffectType? magicEffectType = this.magicEffectType ?? DamageType.ToMagicEffectType(Race.Blood);
+
+                    if (magicEffectType != null)
+                    {
+                        await Context.Current.AddCommand(new ShowMagicEffectCommand(target, magicEffectType.Value) );
+                    }
+                }
+                else if (target is Monster monster)
+                {
+                    MagicEffectType? magicEffectType = this.magicEffectType ?? DamageType.ToMagicEffectType(monster.Metadata.Race);
+                   
+                    if (magicEffectType != null)
+                    {
+                        await Context.Current.AddCommand(new ShowMagicEffectCommand(target, magicEffectType.Value) );
+                    }
+                }
+            }
         }
     }
 }

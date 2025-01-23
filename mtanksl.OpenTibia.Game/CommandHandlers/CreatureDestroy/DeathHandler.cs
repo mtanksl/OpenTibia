@@ -154,7 +154,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                         var corpse = await Context.AddCommand(new TileCreatePlayerCorpseCommand(command.Creature.Tile, player, true, blesses) );
                         
-                                 _ = Context.AddCommand(new ItemDecayDestroyCommand(corpse, TimeSpan.FromSeconds(30) ) );
+                                 _ = Context.AddCommand(new ItemDecayDestroyCommand(corpse, TimeSpan.FromMinutes(5) ) );
                     }
                     else
                     {
@@ -172,14 +172,10 @@ namespace OpenTibia.Game.CommandHandlers
                                 await Context.AddCommand(new PlayerRemoveSkillPointsCommand(player, skill, skillPoints) );
                             }
                         }
-                    
 
-                        await Context.AddCommand(new TileCreatePlayerCorpseCommand(command.Creature.Tile, player, player.SkullIcon == SkullIcon.Red || player.SkullIcon == SkullIcon.Black, blesses) ).Then( (item) =>
-                        {
-                            _ = Context.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(30) ) );
-
-                            return Promise.Completed;
-                        } );
+                        var corpse = await Context.AddCommand(new TileCreatePlayerCorpseCommand(command.Creature.Tile, player, player.SkullIcon == SkullIcon.Red || player.SkullIcon == SkullIcon.Black, blesses) );
+                        
+                                 _ = Context.AddCommand(new ItemDecayDestroyCommand(corpse, TimeSpan.FromMinutes(5) ) );
                     }
                 }
 

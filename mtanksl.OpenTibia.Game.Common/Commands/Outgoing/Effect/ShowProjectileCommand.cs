@@ -195,7 +195,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            if (FromPosition != null && ToPosition != null)
+            if (FromPosition != null && ToPosition != null && FromPosition != ToPosition)
             {
                 ShowProjectileOutgoingPacket showProjectileOutgoingPacket = new ShowProjectileOutgoingPacket(FromPosition, ToPosition, ProjectileType);
 
