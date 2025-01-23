@@ -15,21 +15,40 @@ namespace OpenTibia.Plugins.Spells
 
         public override PromiseResult<bool> OnCasting(Player player, Creature target, string message)
         {
-            return Promise.FromResultAsBooleanTrue;
+            if (target == null)
+            {
+                return Promise.FromResultAsBooleanTrue;
+            }
+
+            if (player.Tile.Position.IsInRange(target.Tile.Position, 4) && Context.Server.Pathfinding.CanThrow(player.Tile.Position, target.Tile.Position) )
+            {
+                return Promise.FromResultAsBooleanTrue;
+            }
+
+            return Promise.FromResultAsBooleanFalse;
         }
 
         public override Promise OnCast(Player player, Creature target, string message)
         {
-            Offset[] area = new Offset[]
-            {
-                new Offset(0, 1)
-            };
-
             var formula = Formula.GenericFormula(player.Level, player.Skills.GetSkillLevel(Skill.MagicLevel), 1.403, 8, 2.203, 13);
 
-            return Context.AddCommand(new CreatureAttackAreaCommand(player, true, player.Tile.Position, area, null, MagicEffectType.MortArea, 
-                        
-                new SimpleAttack(null, null, DamageType.Death, formula.Min, formula.Max) ) );
+            if (target == null)
+            {
+                Offset[] area = new Offset[]
+                {
+                    new Offset(0, 1)
+                };
+
+                return Context.AddCommand(new CreatureAttackAreaCommand(player, true, player.Tile.Position, area, null, MagicEffectType.MortArea,
+
+                    new SimpleAttack(null, null, DamageType.Death, formula.Min, formula.Max) ) );
+            }
+            else
+            {
+                return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
+
+                    new SimpleAttack(ProjectileType.SuddenDeath, MagicEffectType.MortArea, DamageType.Death, formula.Min, formula.Max) ) );
+            }
         }
     }
 }

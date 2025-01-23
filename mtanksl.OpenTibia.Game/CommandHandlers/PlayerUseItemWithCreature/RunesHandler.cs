@@ -18,40 +18,43 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (plugin != null)
             {
-                if (command.Player.SkullIcon == SkullIcon.Black && plugin.Rune.Group == "Attack")
+                if (command.Player.Rank != Rank.Gamemaster)
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+                    if (command.Player.SkullIcon == SkullIcon.Black && plugin.Rune.Group == "Attack")
+                    {
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
 
-                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
-                    await Promise.Break;
-                }
+                        await Promise.Break;
+                    }
 
-                if (plugin.Rune.Vocations != null && !plugin.Rune.Vocations.Contains(command.Player.Vocation) )
-                {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourVocationCannotUseThisSpell) );
+                    if (plugin.Rune.Vocations != null && !plugin.Rune.Vocations.Contains(command.Player.Vocation) )
+                    {
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourVocationCannotUseThisSpell) );
 
-                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
-                    await Promise.Break;
-                }
+                        await Promise.Break;
+                    }
 
-                if (command.Player.Level < plugin.Rune.Level)
-                {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughLevel) );
+                    if (command.Player.Level < plugin.Rune.Level)
+                    {
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughLevel) );
 
-                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
-                    await Promise.Break;
-                }
+                        await Promise.Break;
+                    }
 
-                if (command.Player.Skills.GetSkillLevel(Skill.MagicLevel) < plugin.Rune.MagicLevel)
-                {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMagicLevel) );
+                    if (command.Player.Skills.GetSkillLevel(Skill.MagicLevel) < plugin.Rune.MagicLevel)
+                    {
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMagicLevel) );
 
-                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
-                    await Promise.Break;
+                        await Promise.Break;
+                    }
                 }
 
                 if (command.Player.Tile.ProtectionZone)

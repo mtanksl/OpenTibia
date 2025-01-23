@@ -17,6 +17,8 @@ namespace OpenTibia.Game.Commands
         public SimpleAttack(ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max) : base(damageType, min, max)
         {
             this.projectileType = projectileType;
+
+            this.magicEffectType = magicEffectType;
         }
 
         public override async Promise Missed(Creature attacker, Creature target)

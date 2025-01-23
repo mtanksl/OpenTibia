@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Plugins;
@@ -34,19 +35,26 @@ namespace OpenTibia.Game.CommandHandlers
 
                 uint windowId = command.Player.Client.Windows.OpenWindow(window);
 
+                IEnumerable<Spell> spells = Context.Server.Plugins.Spells;
+
+                if (command.Player.Rank != Rank.Gamemaster)
+                {
+                    spells = spells.Where(s => s.Vocations.Contains(command.Player.Vocation) );
+
+                    spells = spells.Where(s => s.Level <= command.Player.Level);
+                
+                    if (Context.Server.Config.GameplayLearnSpellFirst)
+                    {
+                        spells = spells.Where(s => command.Player.Spells.HasSpell(s.Name) );
+                    }
+
+                    if ( !command.Player.Premium)
+                    {
+                        spells = spells.Where(s => !s.Premium);
+                    }
+                }
+
                 StringBuilder builder = new StringBuilder();
-
-                IEnumerable<Spell> spells = Context.Server.Plugins.Spells.Where(s => s.Vocations.Contains(command.Player.Vocation) && s.Level <= command.Player.Level);
-
-                if (Context.Server.Config.GameplayLearnSpellFirst)
-                {
-                    spells = spells.Where(s => command.Player.Spells.HasSpell(s.Name) );
-                }
-
-                if ( !command.Player.Premium)
-                {
-                    spells = spells.Where(s => !s.Premium);
-                }
 
                 foreach (var group in spells.OrderBy(s => s.Level).ThenBy(s => s.Mana).GroupBy(s => s.Level) )
                 {

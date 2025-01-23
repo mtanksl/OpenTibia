@@ -47,29 +47,68 @@ namespace OpenTibia.Game.CommandHandlers
 
             if (plugin != null)
             {
-                if (command.Player.SkullIcon == SkullIcon.Black && plugin.Spell.Group == "Attack")
+                if (command.Player.Rank != Rank.Gamemaster)
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
-
-                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
-
-                    await Promise.Break;
-                }
-
-                if (plugin.Spell.Vocations != null && !plugin.Spell.Vocations.Contains(command.Player.Vocation) )
-                {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourVocationCannotUseThisSpell) );
-
-                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
-
-                    await Promise.Break;
-                }
-
-                if (Context.Server.Config.GameplayLearnSpellFirst)
-                {
-                    if ( !command.Player.Spells.HasSpell(plugin.Spell.Name) )
+                    if (command.Player.SkullIcon == SkullIcon.Black && plugin.Spell.Group == "Attack")
                     {
-                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouNeedToLearnThisSpellFirst) );
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
+
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+
+                        await Promise.Break;
+                    }
+
+                    if (plugin.Spell.Vocations != null && !plugin.Spell.Vocations.Contains(command.Player.Vocation) )
+                    {
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YourVocationCannotUseThisSpell) );
+
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+
+                        await Promise.Break;
+                    }
+
+                    if (Context.Server.Config.GameplayLearnSpellFirst)
+                    {
+                        if ( !command.Player.Spells.HasSpell(plugin.Spell.Name) )
+                        {
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouNeedToLearnThisSpellFirst) );
+
+                            await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+
+                            await Promise.Break;
+                        }
+                    }
+
+                    if (plugin.Spell.Premium && !command.Player.Premium)
+                    {
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouNeedAPremiumAccount) );
+
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+
+                        await Promise.Break;
+                    }
+
+                    if (command.Player.Level < plugin.Spell.Level)
+                    {
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughLevel) );
+
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+
+                        await Promise.Break;
+                    }
+                 
+                    if (command.Player.Mana < plugin.Spell.Mana)
+                    {
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMana) );
+
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+
+                        await Promise.Break;
+                    }
+
+                    if (command.Player.Soul < plugin.Spell.Soul)
+                    {
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughSoul) );
 
                         await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
@@ -77,42 +116,6 @@ namespace OpenTibia.Game.CommandHandlers
                     }
                 }
 
-                if (plugin.Spell.Premium && !command.Player.Premium)
-                {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouNeedAPremiumAccount) );
-
-                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
-
-                    await Promise.Break;
-                }
-
-                if (command.Player.Level < plugin.Spell.Level)
-                {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughLevel) );
-
-                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
-
-                    await Promise.Break;
-                }
-                 
-                if (command.Player.Mana < plugin.Spell.Mana)
-                {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughMana) );
-
-                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
-
-                    await Promise.Break;
-                }
-
-                if (command.Player.Soul < plugin.Spell.Soul)
-                {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouDoNotHaveEnoughSoul) );
-
-                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
-
-                    await Promise.Break;
-                }
-                                 
                 if (plugin.Spell.Group == "Attack" && command.Player.Tile.ProtectionZone)
                 {
                     Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisActionIsNotPermittedInAProtectionZone) );
