@@ -278,6 +278,7 @@ return {
 				args = "(string key)",
 				returns = "bool"
 			},
+			-- When eventName is fired, notify
 			-- string command.eventhandler(string eventName, Action<GameEventArgs> callback)
 			-- string command.eventhandler(GameObject gameObject, string eventName, Action<GameEventArgs> callback)
 			eventhandler = {
@@ -293,6 +294,7 @@ return {
 				args = "(string key)",
 				returns = "bool"
 			},
+			-- When eventName is fired by eventSource, notify
 			-- string command.gameobjecteventhandler(GameObject eventSource, string eventName, Action<GameEventArgs> callback)
 			-- string command.gameobjecteventhandler(GameObject gameObject, GameObject eventSource, string eventName, Action<GameEventArgs> callback)
 			gameobjecteventhandler = {
@@ -308,6 +310,7 @@ return {
 				args = "(string key)",
 				returns = "bool"
 			},
+			-- When eventName is fired near observer, notify
 			-- string command.positionaleventhandler(GameObject observer, string eventName, Action<GameEventArgs> callback)
 			-- string command.positionaleventhandler(GameObject gameObject, GameObject observer, string eventName, Action<GameEventArgs> callback)
 			positionaleventhandler = {

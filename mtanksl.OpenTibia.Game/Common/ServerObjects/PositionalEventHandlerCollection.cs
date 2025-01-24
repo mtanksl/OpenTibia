@@ -92,6 +92,8 @@ namespace OpenTibia.Game.Common.ServerObjects
                 gameObjectEventHandlers.Add(observer, eventHandlers);
             }
 
+            eventHandlers.Add(eventHandler.Token, eventHandler);
+
             guids.Add(eventHandler.Token, new GuidItem(observer, type, null) );
 
             HashSet<Guid> tokens;
