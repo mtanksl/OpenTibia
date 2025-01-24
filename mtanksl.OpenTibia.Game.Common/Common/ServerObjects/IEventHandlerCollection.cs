@@ -9,6 +9,10 @@ namespace OpenTibia.Game.Common.ServerObjects
     {
         int Count { get; }
 
+        Guid Subscribe(Type type, Func<Context, object, Promise> execute);
+
+        Guid Subscribe(Type type, IEventHandler eventHandler);
+
         Guid Subscribe<T>(Func<Context, T, Promise> execute) where T : GameEventArgs;
 
         Guid Subscribe<T>(IEventHandler<T> eventHandler) where T : GameEventArgs;

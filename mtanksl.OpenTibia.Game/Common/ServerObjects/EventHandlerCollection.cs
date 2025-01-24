@@ -29,6 +29,45 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public Guid Subscribe(Type type, Func<Context, object, Promise> execute)
+        {
+            return Subscribe(type, new InlineEventHandler(execute) );
+        }
+
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public Guid Subscribe(Type type, IEventHandler eventHandler) 
+        {
+            if ( !typeof(GameEventArgs).IsAssignableFrom(type) )
+            {
+                throw new ArgumentException("Type must be of type GameEventArgs.");
+            }
+
+            if (eventHandler.IsDestroyed)
+            {
+                throw new InvalidOperationException("EventHandler is destroyed.");
+            }
+
+            Dictionary<Guid, IEventHandler> eventHandlers;
+
+            if ( !types.TryGetValue(type, out eventHandlers) )
+            {
+                eventHandlers = new Dictionary<Guid, IEventHandler>();
+
+                types.Add(type, eventHandlers);
+            }
+
+            eventHandlers.Add(eventHandler.Token, eventHandler);
+
+            guids.Add(eventHandler.Token, new GuidItem() { Type = type } );
+
+            return eventHandler.Token;
+        }
+
         /// <exception cref="InvalidOperationException"></exception>
 
         public Guid Subscribe<T>(Func<Context, T, Promise> execute) where T : GameEventArgs
