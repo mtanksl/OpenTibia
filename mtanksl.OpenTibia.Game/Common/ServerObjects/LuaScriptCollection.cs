@@ -50,26 +50,26 @@ namespace OpenTibia.Game.Common.ServerObjects
             
             lua.RegisterCoFunction("waithandle", (luaScope, parameters) =>
             {
-                var promise = new Promise();
+                var promise = new PromiseResult<object[]>();
 
                 return Promise.FromResult(new object[] { promise } );
             } );
 
             lua.RegisterCoFunction("wait", (luaScope, parameters) =>
             {
-                var promise = (Promise)parameters[0];
+                var promise = (PromiseResult<object[]>)parameters[0];
 
-                return promise.Then( () =>
+                return promise.Then(result =>
                 {
-                    return Promise.FromResultAsEmptyObjectArray;
+                    return Promise.FromResult(result);
                 } ); 
             } );
 
             lua.RegisterCoFunction("set", (luaScope, parameters) =>
             {
-                var promise = (Promise)parameters[0];
+                var promise = (PromiseResult<object[]>)parameters[0];
 
-                promise.TrySetResult();
+                promise.TrySetResult(parameters.Skip(1).ToArray() );
 
                 return Promise.FromResultAsEmptyObjectArray;
             } );

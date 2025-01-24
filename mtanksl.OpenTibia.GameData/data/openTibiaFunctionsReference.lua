@@ -240,25 +240,25 @@ return {
 		type = "lib",
 		description = "",
 		childs = {			
-			-- Promise command.waithandle()
+			-- PromiseResult<object[]> command.waithandle()
 			waithandle = {
 				type = "function",
 				description = "",
 				args = "()",
-				returns = "Promise"
+				returns = "PromiseResult<object[]>"
 			},
-			-- void command.wait(Promise promise) block
+			-- object[] command.wait(PromiseResult<object[]> promise) block
 			wait = {
 				type = "function",
 				description = "",
-				args = "(Promise promise)",
-				returns = "void"
+				args = "(PromiseResult<object[]> promise)",
+				returns = "object[]"
 			},
-			-- void command.set(Promise promise)
+			-- void command.set(PromiseResult<object[]> promise, params object[] parameters)
 			set = {
 				type = "function",
 				description = "",
-				args = "(Promise promise)",
+				args = "(PromiseResult<object[]> promise, params object[] parameters)",
 				returns = "void"
 			},
 			-- void command.delay(int milliseconds) block
