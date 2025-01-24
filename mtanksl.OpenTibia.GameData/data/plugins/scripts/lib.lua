@@ -225,12 +225,13 @@ function registerammunition(opentibiaid, level, onusingammunition, onuseammuniti
     } )
 end
 
-function registerraid(name, repeatable, cooldown, chance, onraid)
+function registerraid(name, repeatable, interval, chance, enabled, onraid)
     registerplugin("raids", {
         name = name,
         repeatable = repeatable,
-        cooldown = cooldown,
+        interval = interval,
         chance = chance,
+        enabled = enabled,
 	    onraid = onraid
     } )
 end

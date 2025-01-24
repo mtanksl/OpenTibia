@@ -14,55 +14,73 @@ namespace OpenTibia.Game.Common.ServerObjects
             this.server = server;
         }
 
-        private Guid globalRaidEventArgs;
+        private Raid current;
+
+        private DateTime lastExecution = DateTime.MinValue;
+
+        public bool Start(string name)
+        {
+            if (current == null)
+            {
+                var raidPlugin = server.Plugins.GetRaidPlugin(name);
+
+                if (raidPlugin != null)
+                {
+                    current = raidPlugin.Raid;
+
+                    raidPlugin.OnRaid().Then( () =>
+                    {
+                        current = null;
+
+                        lastExecution = DateTime.UtcNow;
+
+                        return Promise.Completed;
+
+                    } ).Catch( (ex) =>
+                    {
+                        current = null;
+
+                        lastExecution = DateTime.UtcNow;
+
+                        if (ex is PromiseCanceledException)
+                        {
+                            //
+                        }
+                        else
+                        {
+                            server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                        }
+                    } );
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private HashSet<Raid> executed = new HashSet<Raid>();
+
+        private Guid globalRaid;
 
         public void Start()
         {
-            DateTime nextExecution = DateTime.MinValue;
-
-            HashSet<Raid> executed = new HashSet<Raid>();
-
-            Raid current = null;
-            
-            globalRaidEventArgs = server.EventHandlers.Subscribe<GlobalRaidEventArgs>( (context, e) =>
+            globalRaid = server.EventHandlers.Subscribe<GlobalRaidEventArgs>( (context, e) =>
             {
-                if (DateTime.UtcNow >= nextExecution)
+                if (current == null)
                 {
-                    if (current == null)
+                    foreach (var raid in server.Plugins.Raids)
                     {
-                        foreach (var raid in server.Plugins.Raids)
+                        if (raid.Enabled && !executed.Contains(raid) && DateTime.UtcNow >= lastExecution.AddSeconds(raid.Interval) && server.Randomization.HasProbability(raid.Chance / 100.0) )
                         {
-                            if ( !executed.Contains(raid) )
+                            if ( !raid.Repeatable)
                             {
-                                if (server.Randomization.HasProbability(raid.Chance / 100.0) )
-                                {
-                                    if ( !raid.Repeatable )
-                                    {
-                                        executed.Add(raid);
-                                    }
-
-                                    current = raid;
-
-                                    break;
-                                }
+                                executed.Add(raid);
                             }
-                        }
 
-                        if (current != null)
-                        {
-                            var raidPlugin = server.Plugins.GetRaidPlugin(current.Name);
+                            Start(raid.Name);
 
-                            if (raidPlugin != null)
-                            {
-                                return raidPlugin.OnRaid().Then( () =>
-                                {
-                                    nextExecution = DateTime.UtcNow.AddSeconds(current.Cooldown);
-
-                                    current = null;
-                                                       
-                                    return Promise.Completed;
-                                } );
-                            }
+                            break;
                         }
                     }
                 }
@@ -73,7 +91,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public void Stop()
         {
-            server.EventHandlers.Unsubscribe(globalRaidEventArgs);
+            server.EventHandlers.Unsubscribe(globalRaid);
         }
     }
 }

@@ -403,9 +403,11 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                             Repeatable = LuaScope.GetBoolean(initialization.Parameters["repeatable"] ),
 
-                            Cooldown = LuaScope.GetInt32(initialization.Parameters["cooldown"] ),
+                            Interval = LuaScope.GetInt32(initialization.Parameters["interval"] ),
 
                             Chance = LuaScope.GetDouble(initialization.Parameters["chance"] ),
+
+                            Enabled = LuaScope.GetBoolean(initialization.Parameters["enabled"] )
                         };
 
                         pluginCollection.AddRaidPlugin(script, initialization.Parameters, raid);
@@ -780,9 +782,11 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Repeatable = LuaScope.GetBoolean(plugin["repeatable"] ),
 
-                    Cooldown = LuaScope.GetInt32(plugin["cooldown"] ),
+                    Interval = LuaScope.GetInt32(plugin["interval"] ),
 
                     Chance = LuaScope.GetDouble(plugin["chance"] ),
+
+                    Enabled = LuaScope.GetBoolean(plugin["enabled"] )
                 };
 
                 AddRaidPlugin(fileName, plugin, raid);

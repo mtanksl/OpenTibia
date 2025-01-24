@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             this.server = server;
         }
 
-        private Guid globalSpawnEventArgs;
+        private Guid globalSpawn;
 
         public void Start(SpawnFile spawnFile)
         {
@@ -85,7 +85,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 }
             }
 
-            globalSpawnEventArgs = server.EventHandlers.Subscribe<GlobalSpawnEventArgs>(async (context, e) =>
+            globalSpawn = server.EventHandlers.Subscribe<GlobalSpawnEventArgs>(async (context, e) =>
             {
                 foreach (var spawner in GetSpawners() )
                 {
@@ -140,7 +140,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public void Stop()
         {
-            server.EventHandlers.Unsubscribe(globalSpawnEventArgs);
+            server.EventHandlers.Unsubscribe(globalSpawn);
         }
     }
 }

@@ -39,6 +39,8 @@ namespace OpenTibia.Game.Scripts
 
                 gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new DisplayProjectileTypeHandler() ); // /pe
 
+                gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new RaidHandler() ); // /raid
+
                 gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new DestroyMonsterNpcItemHandler() ); // /r        (alito tera)
 
                 gamemasterCommandHandler.CommandHandlers.AddCommandHandler<PlayerSayCommand>(new TeleportToTownHandler() ); // /town
