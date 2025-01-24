@@ -84,7 +84,7 @@ namespace OpenTibia.Game.Commands
 
                 Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You downgraded from level " + currentLevel + " to level " + correctLevel + ".") );
                   
-                Context.AddEvent(new PlayerAdvanceLevelEventArgs(Player, currentLevel, correctLevel) );
+                Context.AddEvent(Player, new PlayerAdvanceLevelEventArgs(Player, currentLevel, correctLevel) );
             }
             else
             {

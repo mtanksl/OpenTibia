@@ -31,8 +31,6 @@ namespace OpenTibia.Game.Commands
                 Context.Server.GameObjectComponents.RemoveComponent(Creature, playerWalkDelayBehaviour);
             }
 
-            //List<Creature> canSeeFromEvents = new List<Creature>();
-
             Dictionary<Player, byte> canSeeFrom = new Dictionary<Player, byte>();
 
             foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(Creature.Tile.Position) )
@@ -46,8 +44,6 @@ namespace OpenTibia.Game.Commands
                         canSeeFrom.Add(player, clientIndex);
                     }
                 }
-
-                //canSeeFromEvents.Add(observer);
             }
 
             Tile fromTile = Creature.Tile;
@@ -62,8 +58,6 @@ namespace OpenTibia.Game.Commands
 
             Context.Server.Map.AddObserver(ToTile.Position, Creature);
 
-            //List<Creature> canSeeToEvents = new List<Creature>();
-
             Dictionary<Player, byte> canSeeTo = new Dictionary<Player, byte>();
 
             foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(Creature.Tile.Position) )
@@ -77,8 +71,6 @@ namespace OpenTibia.Game.Commands
                         canSeeTo.Add(player, clientIndex);
                     }
                 }
-
-                //canSeeToEvents.Add(observer);
             }
 
             Direction? direction = fromTile.Position.ToDirection(ToTile.Position);
@@ -249,23 +241,9 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            TileRemoveCreatureEventArgs tileRemoveCreatureEventArgs = new TileRemoveCreatureEventArgs(Creature, fromTile, fromIndex, ToTile, toIndex);
+            Context.AddEvent(new TileRemoveCreatureEventArgs(Creature, fromTile, fromIndex, ToTile, toIndex) );
 
-            //foreach (var e in canSeeFromEvents)
-            //{
-            //    Context.AddEvent(e, tileRemoveCreatureEventArgs);
-            //}
-
-            Context.AddEvent(tileRemoveCreatureEventArgs);
-
-            TileAddCreatureEventArgs tileAddCreatureEventArgs = new TileAddCreatureEventArgs(Creature, fromTile, fromIndex, ToTile, toIndex);
-            
-            //foreach (var e in canSeeToEvents)
-            //{
-            //    Context.AddEvent(e, tileAddCreatureEventArgs);
-            //}
-
-            Context.AddEvent(tileAddCreatureEventArgs);
+            Context.AddEvent(new TileAddCreatureEventArgs(Creature, fromTile, fromIndex, ToTile, toIndex) );
 
             return Promise.Completed;
         }

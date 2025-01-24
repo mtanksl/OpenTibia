@@ -8,22 +8,22 @@ namespace OpenTibia.Game.Common.ServerObjects
 {
     public interface IGameObjectEventHandlerCollection
     {
-        Guid Subscribe(GameObject gameObject, Type type, Func<Context, object, Promise> execute);
+        Guid Subscribe(GameObject eventSource, Type type, Func<Context, object, Promise> execute);
 
-        Guid Subscribe(GameObject gameObject, Type type, IEventHandler eventHandler);
+        Guid Subscribe(GameObject eventSource, Type type, IEventHandler eventHandler);
 
-        Guid Subscribe<T>(GameObject gameObject, Func<Context, T, Promise> execute) where T : GameEventArgs;
+        Guid Subscribe<T>(GameObject eventSource, Func<Context, T, Promise> execute) where T : GameEventArgs;
 
-        Guid Subscribe<T>(GameObject gameObject, IEventHandler<T> eventHandler) where T : GameEventArgs;
+        Guid Subscribe<T>(GameObject eventSource, IEventHandler<T> eventHandler) where T : GameEventArgs;
 
-        Guid Subscribe<T>(GameObject gameObject, T e, Func<Context, T, Promise> execute) where T : GameEventArgs;
+        Guid Subscribe<T>(GameObject eventSource, T e, Func<Context, T, Promise> execute) where T : GameEventArgs;
 
-        Guid Subscribe<T>(GameObject gameObject, T e, IEventHandler<T> eventHandler) where T : GameEventArgs;
+        Guid Subscribe<T>(GameObject eventSource, T e, IEventHandler<T> eventHandler) where T : GameEventArgs;
 
-        bool Unsubscribe(GameObject gameObject,Guid token);
+        bool Unsubscribe(GameObject eventSource, Guid token);
 
-        IEnumerable<IEventHandler> GetEventHandlers(GameObject gameObject, GameEventArgs e);
+        IEnumerable<IEventHandler> GetEventHandlers(GameObject eventSource, GameEventArgs e);
 
-        void ClearEventHandlers(GameObject gameObject);    
+        void ClearEventHandlers(GameObject eventSource);    
     }
 }

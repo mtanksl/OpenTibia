@@ -21,8 +21,6 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            //List<Creature> canSeeFromEvents = new List<Creature>();
-
             Dictionary<Player, byte> canSeeFrom = new Dictionary<Player, byte>();
 
             foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(FromTile.Position) )
@@ -36,8 +34,6 @@ namespace OpenTibia.Game.Commands
                         canSeeFrom.Add(player, clientIndex);
                     }
                 }
-
-                //canSeeFromEvents.Add(observer);
             }
 
             int fromIndex = FromTile.GetIndex(Creature);
@@ -58,14 +54,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            TileRemoveCreatureEventArgs tileRemoveCreatureEventArgs = new TileRemoveCreatureEventArgs(Creature, FromTile, fromIndex, null, null);
-
-            //foreach (var e in canSeeFromEvents)
-            //{
-            //    Context.AddEvent(e, tileRemoveCreatureEventArgs);
-            //}
-
-            Context.AddEvent(tileRemoveCreatureEventArgs);
+            Context.AddEvent(new TileRemoveCreatureEventArgs(Creature, FromTile, fromIndex, null, null) );
 
             return Promise.Completed;
         }

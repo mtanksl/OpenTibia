@@ -23,8 +23,6 @@ namespace OpenTibia.Game.Commands
         {
             ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(0, Npc.Name, 0, TalkType.Say, Npc.Tile.Position, Message);
 
-            NpcSayEventArgs npcSayEventArgs = new NpcSayEventArgs(Npc, Message);
-
             foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Npc.Tile.Position) )
             {
                 if (observer.Tile.Position.CanHearSay(Npc.Tile.Position) )
@@ -33,7 +31,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            Context.AddEvent(npcSayEventArgs);
+            Context.AddEvent(Npc, new NpcSayEventArgs(Npc, Message) );
 
             return Promise.Completed;
         }

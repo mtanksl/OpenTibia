@@ -136,7 +136,7 @@ namespace OpenTibia.Game.Common
 
         /// <exception cref="ObjectDisposedException"></exception>
 
-        public void AddEvent(GameObject gameObject, GameEventArgs e)
+        public void AddEvent(GameObject eventSource, GameEventArgs e)
         {
             if (disposed)
             {
@@ -148,7 +148,7 @@ namespace OpenTibia.Game.Common
                 events = new Queue< (GameObject, GameEventArgs) >();
             }
 
-            events.Enqueue( (gameObject, e) );
+            events.Enqueue( (eventSource, e) );
         }
 
         private Dictionary<IConnection, MessageCollection> messageCollections;
@@ -233,24 +233,22 @@ namespace OpenTibia.Game.Common
                 {
                     var e = events.Dequeue();
 
-                    if (e.Item1 == null)
+                    foreach (var eventHandler in server.EventHandlers.GetEventHandlers(e.Item2) )
                     {
-                        foreach (var eventHandler in server.EventHandlers.GetEventHandlers(e.Item2) )
+                        eventHandler.Handle(e.Item2).Catch( (ex) =>
                         {
-                            eventHandler.Handle(e.Item2).Catch( (ex) =>
+                            if (ex is PromiseCanceledException)
                             {
-                                if (ex is PromiseCanceledException)
-                                {
-                                    //
-                                }
-                                else
-                                {
-                                    server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
-                                }
-                            } );
-                        }
+                                //
+                            }
+                            else
+                            {
+                                server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                            }
+                        } );
                     }
-                    else
+
+                    if (e.Item1 != null)
                     {
                         foreach (var eventHandler in server.GameObjectEventHandlers.GetEventHandlers(e.Item1, e.Item2) )
                         {

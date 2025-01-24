@@ -77,7 +77,7 @@ namespace OpenTibia.Game.Commands
 
             if (correctSkillLevel < currentSkillLevel)
             {
-                Context.AddEvent(new PlayerAdvanceSkillEventArgs(Player, Skill, currentSkillLevel, correctSkillLevel) );
+                Context.AddEvent(Player, new PlayerAdvanceSkillEventArgs(Player, Skill, currentSkillLevel, correctSkillLevel) );
             }
         }
     }

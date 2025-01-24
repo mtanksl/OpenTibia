@@ -14,23 +14,23 @@ namespace OpenTibia.Game.Common.ServerObjects
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
 
-        public Guid Subscribe(GameObject gameObject, Type type, Func<Context, object, Promise> execute)
+        public Guid Subscribe(GameObject eventSource, Type type, Func<Context, object, Promise> execute)
         {
-            return Subscribe(gameObject, type, new InlineEventHandler(execute) );
+            return Subscribe(eventSource, type, new InlineEventHandler(execute) );
         }
 
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="InvalidOperationException"></exception>
 
-        public Guid Subscribe(GameObject gameObject, Type type, IEventHandler eventHandler) 
+        public Guid Subscribe(GameObject eventSource, Type type, IEventHandler eventHandler) 
         {
             EventHandlerCollection eventHandlerCollection;
 
-            if ( !buckets.TryGetValue(gameObject.Id, out eventHandlerCollection) )
+            if ( !buckets.TryGetValue(eventSource.Id, out eventHandlerCollection) )
             {
                 eventHandlerCollection = new EventHandlerCollection();
 
-                buckets.Add(gameObject.Id, eventHandlerCollection);
+                buckets.Add(eventSource.Id, eventHandlerCollection);
             }
 
             return eventHandlerCollection.Subscribe(type, eventHandler);
@@ -38,22 +38,22 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public Guid Subscribe<T>(GameObject gameObject, Func<Context, T, Promise> execute) where T : GameEventArgs
+        public Guid Subscribe<T>(GameObject eventSource, Func<Context, T, Promise> execute) where T : GameEventArgs
         {
-            return Subscribe<T>(gameObject, new InlineEventHandler<T>(execute) );
+            return Subscribe<T>(eventSource, new InlineEventHandler<T>(execute) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public Guid Subscribe<T>(GameObject gameObject, IEventHandler<T> eventHandler) where T : GameEventArgs
+        public Guid Subscribe<T>(GameObject eventSource, IEventHandler<T> eventHandler) where T : GameEventArgs
         {
             EventHandlerCollection eventHandlerCollection;
 
-            if ( !buckets.TryGetValue(gameObject.Id, out eventHandlerCollection) )
+            if ( !buckets.TryGetValue(eventSource.Id, out eventHandlerCollection) )
             {
                 eventHandlerCollection = new EventHandlerCollection();
 
-                buckets.Add(gameObject.Id, eventHandlerCollection);
+                buckets.Add(eventSource.Id, eventHandlerCollection);
             }
 
             return eventHandlerCollection.Subscribe(eventHandler);
@@ -61,38 +61,38 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public Guid Subscribe<T>(GameObject gameObject, T e, Func<Context, T, Promise> execute) where T : GameEventArgs
+        public Guid Subscribe<T>(GameObject eventSource, T e, Func<Context, T, Promise> execute) where T : GameEventArgs
         {
-            return Subscribe<T>(gameObject, e, new InlineEventHandler<T>(execute) );
+            return Subscribe<T>(eventSource, e, new InlineEventHandler<T>(execute) );
         }
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public Guid Subscribe<T>(GameObject gameObject, T e, IEventHandler<T> eventHandler) where T : GameEventArgs
+        public Guid Subscribe<T>(GameObject eventSource, T e, IEventHandler<T> eventHandler) where T : GameEventArgs
         {
             EventHandlerCollection eventHandlerCollection;
 
-            if ( !buckets.TryGetValue(gameObject.Id, out eventHandlerCollection) )
+            if ( !buckets.TryGetValue(eventSource.Id, out eventHandlerCollection) )
             {
                 eventHandlerCollection = new EventHandlerCollection();
 
-                buckets.Add(gameObject.Id, eventHandlerCollection);
+                buckets.Add(eventSource.Id, eventHandlerCollection);
             }
 
             return eventHandlerCollection.Subscribe(e, eventHandler);
         }
 
-        public bool Unsubscribe(GameObject gameObject, Guid token)
+        public bool Unsubscribe(GameObject eventSource, Guid token)
         {
             EventHandlerCollection eventHandlerCollection;
 
-            if (buckets.TryGetValue(gameObject.Id, out eventHandlerCollection) )
+            if (buckets.TryGetValue(eventSource.Id, out eventHandlerCollection) )
             {
                 if (eventHandlerCollection.Unsubscribe(token) )
                 {
                     if (eventHandlerCollection.Count == 0)
                     {
-                        buckets.Remove(gameObject.Id);
+                        buckets.Remove(eventSource.Id);
                     }
 
                     return true;
@@ -102,11 +102,11 @@ namespace OpenTibia.Game.Common.ServerObjects
             return false;
         }
 
-        public IEnumerable<IEventHandler> GetEventHandlers(GameObject gameObject, GameEventArgs e)
+        public IEnumerable<IEventHandler> GetEventHandlers(GameObject eventSource, GameEventArgs e)
         {
             EventHandlerCollection eventHandlerCollection;
 
-            if (buckets.TryGetValue(gameObject.Id, out eventHandlerCollection) )
+            if (buckets.TryGetValue(eventSource.Id, out eventHandlerCollection) )
             {
                 return eventHandlerCollection.GetEventHandlers(e);
             }
@@ -114,15 +114,15 @@ namespace OpenTibia.Game.Common.ServerObjects
             return Enumerable.Empty<IEventHandler>();
         }
 
-        public void ClearEventHandlers(GameObject gameObject)
+        public void ClearEventHandlers(GameObject eventSource)
         {
             EventHandlerCollection eventHandlerCollection;
 
-            if (buckets.TryGetValue(gameObject.Id, out eventHandlerCollection) )
+            if (buckets.TryGetValue(eventSource.Id, out eventHandlerCollection) )
             {
                 eventHandlerCollection.Clear();
 
-                buckets.Remove(gameObject.Id);
+                buckets.Remove(eventSource.Id);
             }
         }
     }

@@ -25,13 +25,9 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(0, Npc.Name, 0, TalkType.PrivateNpcToPlayer, Npc.Tile.Position, Message);
+            Context.AddPacket(Player, new ShowTextOutgoingPacket(0, Npc.Name, 0, TalkType.PrivateNpcToPlayer, Npc.Tile.Position, Message) );
 
-            NpcSayToPlayerEventArgs npcSayToPlayerEventArgs = new NpcSayToPlayerEventArgs(Npc, Player, Message);
-
-            Context.AddPacket(Player, showTextOutgoingPacket);
-
-            Context.AddEvent(npcSayToPlayerEventArgs);
+            Context.AddEvent(Npc, new NpcSayToPlayerEventArgs(Npc, Player, Message) );
 
             return Promise.Completed;
         }

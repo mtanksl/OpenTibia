@@ -25,8 +25,6 @@ namespace OpenTibia.Game.Commands
 
             Context.Server.Map.AddObserver(ToTile.Position, Creature);
 
-            //List<Creature> canSeeToEvents = new List<Creature>();
-
             Dictionary<Player, byte> canSeeTo = new Dictionary<Player, byte>();
 
             foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(Creature.Tile.Position) )
@@ -40,8 +38,6 @@ namespace OpenTibia.Game.Commands
                         canSeeTo.Add(player, clientIndex);
                     }
                 }
-
-                //canSeeToEvents.Add(observer);
             }
 
             foreach (var pair in canSeeTo)
@@ -58,14 +54,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            TileAddCreatureEventArgs tileAddCreatureEventArgs = new TileAddCreatureEventArgs(Creature, null, null, ToTile, toIndex);
-
-            //foreach (var e in canSeeToEvents)
-            //{
-            //    Context.AddEvent(e, tileAddCreatureEventArgs);
-            //}
-
-            Context.AddEvent(tileAddCreatureEventArgs);
+            Context.AddEvent(new TileAddCreatureEventArgs(Creature, null, null, ToTile, toIndex) );
 
             return Promise.Completed;
         }

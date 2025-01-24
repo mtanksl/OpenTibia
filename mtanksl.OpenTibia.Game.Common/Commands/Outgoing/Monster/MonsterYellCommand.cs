@@ -23,8 +23,6 @@ namespace OpenTibia.Game.Commands
         {
             ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(0, Monster.Name, 0, TalkType.MonsterYell, Monster.Tile.Position, Message);
 
-            MonsterYellEventArgs monsterYellEventArgs = new MonsterYellEventArgs(Monster, Message);
-
             foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Monster.Tile.Position) )
             {
                 if (observer.Tile.Position.CanHearYell(Monster.Tile.Position) )
@@ -33,7 +31,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            Context.AddEvent(monsterYellEventArgs);
+            Context.AddEvent(Monster, new MonsterYellEventArgs(Monster, Message) );
 
             return Promise.Completed;
         }

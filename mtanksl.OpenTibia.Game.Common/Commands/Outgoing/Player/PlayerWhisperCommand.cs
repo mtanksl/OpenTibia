@@ -25,8 +25,6 @@ namespace OpenTibia.Game.Commands
 
             ShowTextOutgoingPacket showTextOutgoingPacket2 = new ShowTextOutgoingPacket(0, Player.Name, Player.Level, TalkType.Whisper, Player.Tile.Position, "pspsps");
 
-            PlayerWhisperEventArgs playerWhisperEventArgs = new PlayerWhisperEventArgs(Player, Message);
-
             foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Player.Tile.Position) )
             {
                 if (observer.Tile.Position.CanHearWhisper(Player.Tile.Position) )
@@ -39,7 +37,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            Context.AddEvent(playerWhisperEventArgs);
+            Context.AddEvent(Player, new PlayerWhisperEventArgs(Player, Message) );
 
             return Promise.Completed;
         }
