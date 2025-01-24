@@ -11,6 +11,31 @@ namespace OpenTibia.Game.Common.ServerObjects
     {
         private Dictionary<uint, EventHandlerCollection> buckets = new Dictionary<uint, EventHandlerCollection>();
 
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public Guid Subscribe(GameObject gameObject, Type type, Func<Context, object, Promise> execute)
+        {
+            return Subscribe(gameObject, type, new InlineEventHandler(execute) );
+        }
+
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
+
+        public Guid Subscribe(GameObject gameObject, Type type, IEventHandler eventHandler) 
+        {
+            EventHandlerCollection eventHandlerCollection;
+
+            if ( !buckets.TryGetValue(gameObject.Id, out eventHandlerCollection) )
+            {
+                eventHandlerCollection = new EventHandlerCollection();
+
+                buckets.Add(gameObject.Id, eventHandlerCollection);
+            }
+
+            return eventHandlerCollection.Subscribe(type, eventHandler);
+        }
+
         /// <exception cref="InvalidOperationException"></exception>
 
         public Guid Subscribe<T>(GameObject gameObject, Func<Context, T, Promise> execute) where T : GameEventArgs
