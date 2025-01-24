@@ -49,7 +49,7 @@ function stage:execute()
 				local tile = command.mapgettile( { x = centerx + math.random(-radius, radius), y = centery + math.random(-radius, radius), z = centerz } )
 				if tile and tile.Ground and not tile.NotWalkable and not tile.BlockPathFinding and not tile.Block and not tile.ProtectionZone then
 					local monster = command.tilecreatemonster(tile, name)
-					command.eventhandler(monster, monster, DEATH_EVENT, function(e)
+					command.gameobjecteventhandler(monster, monster, DEATH_EVENT, function(e)
 						self.count = self.count - 1
 						if self.count == 0 then
 							command.canceldelay(self.delay)
