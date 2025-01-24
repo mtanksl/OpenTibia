@@ -21,6 +21,10 @@ namespace OpenTibia.Game.Commands
                 Player.Town = tile;
             }
 
+            //TODO: Reset player status to level 1
+
+            //TODO: Reset player skills
+
             return Promise.Completed;
         }
     }

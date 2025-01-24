@@ -148,10 +148,6 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         await Context.AddCommand(new PlayerRookingCommand(player) );
 
-                        //TODO: Reset player status to level 1
-
-                        //TODO: Reset player skills
-
                         var corpse = await Context.AddCommand(new TileCreatePlayerCorpseCommand(command.Creature.Tile, player, true, blesses) );
                         
                                  _ = Context.AddCommand(new ItemDecayDestroyCommand(corpse, TimeSpan.FromMinutes(5) ) );
