@@ -147,9 +147,9 @@ namespace OpenTibia.Game.Components
                 return Promise.Completed;
             } );
 
-            playerSay = Context.Server.EventHandlers.Subscribe<PlayerSayEventArgs>( (context, e) => Say(e.Player, e.Message) );
+            playerSay = Context.Server.PositionalEventHandlers.Subscribe<PlayerSayEventArgs>(npc, (context, e) => Say(e.Player, e.Message) );
 
-            playerSayToNpc = Context.Server.EventHandlers.Subscribe<PlayerSayToNpcEventArgs>( (context, e) => Say(e.Player, e.Message) );
+            playerSayToNpc = Context.Server.PositionalEventHandlers.Subscribe<PlayerSayToNpcEventArgs>(npc, (context, e) => Say(e.Player, e.Message) );
 
             globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(npc.Id), async (context, e) =>
             {
@@ -224,9 +224,9 @@ namespace OpenTibia.Game.Components
         {
             Context.Server.EventHandlers.Unsubscribe(globalServerReloaded);
 
-            Context.Server.EventHandlers.Unsubscribe(playerSay);
+            Context.Server.PositionalEventHandlers.Unsubscribe(playerSay);
 
-            Context.Server.EventHandlers.Unsubscribe(playerSayToNpc);
+            Context.Server.PositionalEventHandlers.Unsubscribe(playerSayToNpc);
 
             Context.Server.EventHandlers.Unsubscribe(globalTick);
         }
