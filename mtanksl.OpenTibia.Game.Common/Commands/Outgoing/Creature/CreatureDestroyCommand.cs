@@ -48,14 +48,16 @@ namespace OpenTibia.Game.Commands
 
                     if (Context.Server.PlayerFactory.Detach(player) )
                     {
-                        Context.Server.QueueForExecution( () =>
+                        return Context.AddCommand(new PlayerLogoutCommand(player) ).Then( () =>
                         {
-                            Context.Server.PlayerFactory.ClearComponentsAndEventHandlers(player);
-
-                            return Context.AddCommand(new PlayerLogoutCommand(player) ).Then( () =>
+                            Context.Server.QueueForExecution( () =>
                             {
-                                return Context.AddCommand(new TileRemoveCreatureCommand(player.Tile, player) );
+                                Context.Server.PlayerFactory.ClearComponentsAndEventHandlers(player);
+                                                        
+                                return Context.AddCommand(new TileRemoveCreatureCommand(player.Tile, player) );;
                             } );
+
+                            return Promise.Completed;
                         } );
                     }
 

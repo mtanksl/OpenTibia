@@ -70,6 +70,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             server.GameObjectComponents.ClearComponents(player);
 
             server.GameObjectEventHandlers.ClearEventHandlers(player);
+
+            server.PositionalEventHandlers.ClearEventHandlers(player);
         }
 
         public void Load(DbPlayer dbPlayer, Player player)

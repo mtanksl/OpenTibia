@@ -105,6 +105,8 @@ namespace OpenTibia.Game.Common
 
             EventHandlers = new EventHandlerCollection();
 
+            PositionalEventHandlers = new PositionalEventHandlerCollection(this);
+
             LuaScripts = new LuaScriptCollection(this);
 
             PluginLoader = new PluginLoader(this);
@@ -226,6 +228,8 @@ namespace OpenTibia.Game.Common
         public ICommandHandlerCollection CommandHandlers { get; set; }
 
         public IEventHandlerCollection EventHandlers { get; set; }
+
+        public IPositionalEventHandlerCollection PositionalEventHandlers { get; set; }
 
         public ILuaScriptCollection LuaScripts { get; set; }
 

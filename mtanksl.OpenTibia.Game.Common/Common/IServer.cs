@@ -58,6 +58,8 @@ namespace OpenTibia.Game.Common
 
         IEventHandlerCollection EventHandlers { get; set; }
 
+        IPositionalEventHandlerCollection PositionalEventHandlers { get; set; }
+
         ILuaScriptCollection LuaScripts { get; set; }
 
         IPluginLoader PluginLoader { get; set; }

@@ -27,15 +27,15 @@ namespace OpenTibia.Game.Commands
 
             Dictionary<Player, byte> canSeeTo = new Dictionary<Player, byte>();
 
-            foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(Creature.Tile.Position) )
+            foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Creature.Tile.Position) )
             {
-                if (observer is Player player && observer != Creature)
+                if (observer != Creature)
                 {
                     byte clientIndex;
 
-                    if (player.Client.TryGetIndex(Creature, out clientIndex) )
+                    if (observer.Client.TryGetIndex(Creature, out clientIndex) )
                     {
-                        canSeeTo.Add(player, clientIndex);
+                        canSeeTo.Add(observer, clientIndex);
                     }
                 }
             }

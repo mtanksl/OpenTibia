@@ -308,6 +308,21 @@ return {
 				args = "(GameObject eventSource, string key)",
 				returns = "bool"
 			},
+			-- string command.positionaleventhandler(GameObject observer, string eventName, Action<GameEventArgs> callback)
+			-- string command.positionaleventhandler(GameObject gameObject, GameObject observer, string eventName, Action<GameEventArgs> callback)
+			positionaleventhandler = {
+				type = "function",
+				description = "",
+				args = "([GameObject gameObject, ] GameObject observer, string eventName, Action<GameEventArgs> callback)",
+				returns = "string"
+			},
+			-- bool command.positionalcanceleventhandler(GameObject observer, string key)
+			positionalcanceleventhandler = {
+				type = "function",
+				description = "",
+				args = "(GameObject observer, string key)",
+				returns = "bool"
+			},
 			-- void command.containeradditem(Container container, Item item)
 			containeradditem = {
 				type = "function",

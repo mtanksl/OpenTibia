@@ -418,6 +418,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             server.GameObjectComponents.ClearComponents(item);
 
             server.GameObjectEventHandlers.ClearEventHandlers(item);
+
+            server.PositionalEventHandlers.ClearEventHandlers(item);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace OpenTibia.Common.Objects
 {
-    public class GameObject
+    public abstract class GameObject
     {
         public bool IsDestroyed { get; set; }
 

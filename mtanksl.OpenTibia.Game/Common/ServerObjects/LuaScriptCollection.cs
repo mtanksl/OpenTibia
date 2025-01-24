@@ -185,6 +185,36 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return canceled ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
             } );
 
+            lua.RegisterCoFunction("positionaleventhandler", (luaScope, parameters) =>
+            {
+                if (parameters[0] is GameObject)
+                {
+                    MultiplePositionalEventHandlerBehaviour multipleEventHandlerBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)parameters[0], new MultiplePositionalEventHandlerBehaviour( (GameObject)parameters[1], Type.GetType(LuaScope.GetString(parameters[2] ) ), (context, e) =>
+                    {
+                        return luaScope.CallFunction( (LuaFunction)parameters[3], e); // Ignore result
+
+                    } ), false);
+
+                    return Promise.FromResult(new object[] { multipleEventHandlerBehaviour.Key.ToString() } );
+                }
+                else
+                {
+                    Guid key = Context.Current.Server.PositionalEventHandlers.Subscribe( (GameObject)parameters[0], Type.GetType(LuaScope.GetString(parameters[1] ) ), (context, e) =>
+                    {
+                        return luaScope.CallFunction( (LuaFunction)parameters[2], e); // Ignore result
+                    } );
+
+                    return Promise.FromResult(new object[] { key.ToString() } );
+                }
+            } );
+
+            lua.RegisterCoFunction("positionalcanceleventhandler", (luaScope, parameters) =>
+            {
+                bool canceled = Context.Current.Server.PositionalEventHandlers.Unsubscribe( (GameObject)parameters[0], Guid.Parse(LuaScope.GetString(parameters[1] ) ) );
+
+                return canceled ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
+            } );
+
             lua.RegisterCoFunction("containeradditem", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new ContainerAddItemCommand( (Container)parameters[0], (Item)parameters[1] ) ).Then( () =>

@@ -264,6 +264,21 @@ namespace OpenTibia.Game.Common
                                 }
                             } );
                         }
+
+                        foreach (var eventHandler in server.PositionalEventHandlers.GetEventHandlers(e.Item1, e.Item2) )
+                        {
+                            eventHandler.Handle(e.Item2).Catch( (ex) =>
+                            {
+                                if (ex is PromiseCanceledException)
+                                {
+                                    //
+                                }
+                                else
+                                {
+                                    server.Logger.WriteLine(ex.ToString(), LogLevel.Error);
+                                }
+                            } );
+                        }
                     }
                 }
             }
