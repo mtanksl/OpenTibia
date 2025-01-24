@@ -146,7 +146,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             sampleIndex = ++sampleIndex % sampleLength;
 
-            Interlocked.Exchange(ref averageProcessingTime, (double)sampleSum / sampleLength / Stopwatch.Frequency * 1000);
+            Interlocked.Exchange(ref averageProcessingTime, (double)sampleSum / sampleLength / TimeSpan.TicksPerMillisecond);
         }
     }
 }
