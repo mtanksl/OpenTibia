@@ -1,9 +1,7 @@
 function onraid()
-	local monsters = {}
-	announce("Rat plague!")
-	command.delay(1 * 1000)
-	areaspawn(monsters, "Rat", 5, 10, 930, 781, 7, 4)
-	areaspawn(monsters, "Cave Rat", 5, 10, 930, 781, 7, 4)
-	command.delay(1 * 60 * 60 * 1000)
-	despawn(monsters)
+	local rats = stage:new(10 * 60 * 1000)
+	rats:announce("Rat plague!")
+	rats:areaspawn("Rat", 5, 10, 930, 781, 7, 4)
+	rats:areaspawn("Cave Rat", 5, 10, 930, 781, 7, 4)
+	local exterminated = rats:execute()
 end
