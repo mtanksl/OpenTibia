@@ -13,7 +13,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             foreach (var plugin in Context.Server.Plugins.GetPlayerLoginPlugins() )
             {
-                promises.Add(plugin.OnLogin(e.Player, e.Tile) );
+                promises.Add(plugin.OnLogin(e.Player) );
             }
 
             return Promise.WhenAll(promises.ToArray() );

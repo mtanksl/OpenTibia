@@ -1,3 +1,3 @@
-function ondeath(creature, fromtile)
+function ondeath(creature)
 	print("Creature " .. creature.Name .. " died")  
 end

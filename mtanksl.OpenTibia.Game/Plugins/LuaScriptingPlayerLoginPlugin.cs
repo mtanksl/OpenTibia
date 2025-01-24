@@ -39,15 +39,15 @@ namespace OpenTibia.Game.Plugins
             }
         }
 
-        public override Promise OnLogin(Player player, Tile toTile)
+        public override Promise OnLogin(Player player)
         {
             if (fileName != null)
             {
-                return script.CallFunction("onlogin", player, toTile);
+                return script.CallFunction("onlogin", player);
             }
             else
             {
-                return script.CallFunction( (LuaFunction)parameters["onlogin"], player, toTile);
+                return script.CallFunction( (LuaFunction)parameters["onlogin"], player);
             }           
         }
 

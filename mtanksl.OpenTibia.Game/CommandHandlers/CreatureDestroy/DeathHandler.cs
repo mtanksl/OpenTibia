@@ -179,7 +179,7 @@ namespace OpenTibia.Game.CommandHandlers
                     }
                 }
 
-                Context.AddEvent(command.Creature, new CreatureDeathEventArgs(command.Creature.Tile, command.Creature) );
+                Context.AddEvent(command.Creature, new CreatureDeathEventArgs(command.Creature) );
             }
         }
     }

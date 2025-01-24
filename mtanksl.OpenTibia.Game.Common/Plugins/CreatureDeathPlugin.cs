@@ -5,6 +5,6 @@ namespace OpenTibia.Game.Plugins
 {
     public abstract class CreatureDeathPlugin : Plugin
     {
-        public abstract Promise OnDeath(Creature creature, Tile fromTile);
+        public abstract Promise OnDeath(Creature creature);
     }
 }

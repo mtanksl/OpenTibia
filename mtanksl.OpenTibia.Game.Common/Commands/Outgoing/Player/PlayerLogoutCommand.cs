@@ -36,7 +36,7 @@ namespace OpenTibia.Game.Commands
                 Context.Disconnect(Player);
             }
 
-            Context.AddEvent(Player, new PlayerLogoutEventArgs(Player.Tile, Player) );
+            Context.AddEvent(Player, new PlayerLogoutEventArgs(Player) );
 
             return Promise.Completed;
         }

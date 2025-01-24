@@ -13,7 +13,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             foreach (var plugin in Context.Server.Plugins.GetPlayerLogoutPlugins() )
             {
-                promises.Add(plugin.OnLogout(e.Player, e.Tile) );
+                promises.Add(plugin.OnLogout(e.Player) );
             }
 
             return Promise.WhenAll(promises.ToArray() );

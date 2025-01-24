@@ -39,15 +39,15 @@ namespace OpenTibia.Game.Plugins
             }
         }
 
-        public override Promise OnDeath(Creature creature, Tile fromTile)
+        public override Promise OnDeath(Creature creature)
         {
             if (fileName != null)
             {
-                return script.CallFunction("ondeath", creature, fromTile);
+                return script.CallFunction("ondeath", creature);
             }
             else
             {
-                return script.CallFunction( (LuaFunction)parameters["ondeath"], creature, fromTile);
+                return script.CallFunction( (LuaFunction)parameters["ondeath"], creature);
             }           
         }
 

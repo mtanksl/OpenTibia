@@ -5,6 +5,6 @@ namespace OpenTibia.Game.Plugins
 {
     public abstract class PlayerLoginPlugin : Plugin
     {
-        public abstract Promise OnLogin(Player player, Tile toTile);
+        public abstract Promise OnLogin(Player player);
     }
 }

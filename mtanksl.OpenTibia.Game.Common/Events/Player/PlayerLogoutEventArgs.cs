@@ -4,14 +4,10 @@ namespace OpenTibia.Game.Events
 {
     public class PlayerLogoutEventArgs : GameEventArgs
     {
-        public PlayerLogoutEventArgs(Tile tile, Player player)
+        public PlayerLogoutEventArgs(Player player)
         {
-            Tile = tile;
-
             Player = player;
         }
-
-        public Tile Tile { get; }
 
         public Player Player { get; }
     }

@@ -13,7 +13,7 @@ namespace OpenTibia.Game.CommandHandlers
 
             foreach (var plugin in Context.Server.Plugins.GetCreatureDeathPlugins() )
             {
-                promises.Add(plugin.OnDeath(e.Creature, e.Tile) );
+                promises.Add(plugin.OnDeath(e.Creature) );
             }
 
             return Promise.WhenAll(promises.ToArray() );
