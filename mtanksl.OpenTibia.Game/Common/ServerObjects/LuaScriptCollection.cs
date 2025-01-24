@@ -180,7 +180,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             lua.RegisterCoFunction("gameobjectcanceleventhandler", (luaScope, parameters) =>
             {
-                bool canceled = Context.Current.Server.GameObjectEventHandlers.Unsubscribe( (GameObject)parameters[0], Guid.Parse(LuaScope.GetString(parameters[1] ) ) );
+                bool canceled = Context.Current.Server.GameObjectEventHandlers.Unsubscribe(Guid.Parse(LuaScope.GetString(parameters[0] ) ) );
 
                 return canceled ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
             } );
@@ -210,7 +210,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             lua.RegisterCoFunction("positionalcanceleventhandler", (luaScope, parameters) =>
             {
-                bool canceled = Context.Current.Server.PositionalEventHandlers.Unsubscribe( (GameObject)parameters[0], Guid.Parse(LuaScope.GetString(parameters[1] ) ) );
+                bool canceled = Context.Current.Server.PositionalEventHandlers.Unsubscribe(Guid.Parse(LuaScope.GetString(parameters[0] ) ) );
 
                 return canceled ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
             } );

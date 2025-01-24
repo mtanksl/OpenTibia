@@ -8,16 +8,23 @@ namespace OpenTibia.Game.Common.ServerObjects
 {
     public class EventHandlerCollection : IEventHandlerCollection
     {
+        private Dictionary<Type, Dictionary<Guid, IEventHandler> > types = new Dictionary<Type, Dictionary<Guid, IEventHandler> >();
+
+        private Dictionary<GameEventArgs, Dictionary<Guid, IEventHandler> > objects = new Dictionary<GameEventArgs, Dictionary<Guid, IEventHandler> >();
+
         private class GuidItem
         {
+            public GuidItem(Type type, GameEventArgs @object)
+            {
+                Type = type;
+
+                Object = @object;
+            }
+
             public Type Type { get; set; }
 
             public GameEventArgs Object { get; set; }
         }
-
-        private Dictionary<Type, Dictionary<Guid, IEventHandler> > types = new Dictionary<Type, Dictionary<Guid, IEventHandler> >();
-
-        private Dictionary<GameEventArgs, Dictionary<Guid, IEventHandler> > objects = new Dictionary<GameEventArgs, Dictionary<Guid, IEventHandler> >();
 
         private Dictionary<Guid, GuidItem> guids = new Dictionary<Guid, GuidItem>();
 
@@ -63,7 +70,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             eventHandlers.Add(eventHandler.Token, eventHandler);
 
-            guids.Add(eventHandler.Token, new GuidItem() { Type = type } );
+            guids.Add(eventHandler.Token, new GuidItem(type, null) );
 
             return eventHandler.Token;
         }
@@ -95,7 +102,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             eventHandlers.Add(eventHandler.Token, eventHandler);
 
-            guids.Add(eventHandler.Token, new GuidItem() { Type = typeof(T) } );
+            guids.Add(eventHandler.Token, new GuidItem(typeof(T), null ) );
 
             return eventHandler.Token;
         }
@@ -127,24 +134,24 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             eventHandlers.Add(eventHandler.Token, eventHandler);
 
-            guids.Add(eventHandler.Token, new GuidItem() { Object = e } );
+            guids.Add(eventHandler.Token, new GuidItem(null, e ) );
 
             return eventHandler.Token;
         }
 
         public bool Unsubscribe(Guid token)
         {
-            GuidItem item;
+            GuidItem guiItem;
 
-            if (guids.TryGetValue(token, out item) )
+            if (guids.TryGetValue(token, out guiItem) )
             {
                 guids.Remove(token);
 
-                if (item.Type != null)
+                if (guiItem.Type != null)
                 {
                     Dictionary<Guid, IEventHandler> eventHandlers;
 
-                    if ( types.TryGetValue(item.Type, out eventHandlers) )
+                    if ( types.TryGetValue(guiItem.Type, out eventHandlers) )
                     {
                         IEventHandler eventHandler;
 
@@ -158,7 +165,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                                 if (eventHandlers.Count == 0)
                                 {
-                                    types.Remove(item.Type);
+                                    types.Remove(guiItem.Type);
                                 }
 
                                 return true;
@@ -166,11 +173,11 @@ namespace OpenTibia.Game.Common.ServerObjects
                         }
                     }
                 }
-                else if (item.Object != null)
+                else if (guiItem.Object != null)
                 {
                     Dictionary<Guid, IEventHandler> eventHandlers;
 
-                    if (objects.TryGetValue(item.Object, out eventHandlers) )
+                    if (objects.TryGetValue(guiItem.Object, out eventHandlers) )
                     {
                         IEventHandler eventHandler;
 
@@ -184,7 +191,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                                 if (eventHandlers.Count == 0)
                                 {
-                                    objects.Remove(item.Object);
+                                    objects.Remove(guiItem.Object);
                                 }
 
                                 return true;

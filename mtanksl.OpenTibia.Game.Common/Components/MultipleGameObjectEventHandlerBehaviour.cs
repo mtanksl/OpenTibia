@@ -38,7 +38,7 @@ namespace OpenTibia.Game.Components
 
         public override void Stop()
         {
-            Context.Server.GameObjectEventHandlers.Unsubscribe(eventSource, key);
+            Context.Server.GameObjectEventHandlers.Unsubscribe(key);
         }
     }
 }

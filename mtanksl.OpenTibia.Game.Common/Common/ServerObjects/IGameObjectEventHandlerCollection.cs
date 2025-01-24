@@ -20,7 +20,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         Guid Subscribe<T>(GameObject eventSource, T e, IEventHandler<T> eventHandler) where T : GameEventArgs;
 
-        bool Unsubscribe(GameObject eventSource, Guid token);
+        bool Unsubscribe(Guid token);
 
         IEnumerable<IEventHandler> GetEventHandlers(GameObject eventSource, GameEventArgs e);
 

@@ -301,11 +301,11 @@ return {
 				args = "([GameObject gameObject, ] GameObject eventSource, string eventName, Action<GameEventArgs> callback)",
 				returns = "string"
 			},
-			-- bool command.gameobjectcanceleventhandler(GameObject eventSource, string key)
+			-- bool command.gameobjectcanceleventhandler(string key)
 			gameobjectcanceleventhandler = {
 				type = "function",
 				description = "",
-				args = "(GameObject eventSource, string key)",
+				args = "(string key)",
 				returns = "bool"
 			},
 			-- string command.positionaleventhandler(GameObject observer, string eventName, Action<GameEventArgs> callback)
@@ -316,11 +316,11 @@ return {
 				args = "([GameObject gameObject, ] GameObject observer, string eventName, Action<GameEventArgs> callback)",
 				returns = "string"
 			},
-			-- bool command.positionalcanceleventhandler(GameObject observer, string key)
+			-- bool command.positionalcanceleventhandler(string key)
 			positionalcanceleventhandler = {
 				type = "function",
 				description = "",
-				args = "(GameObject observer, string key)",
+				args = "(string key)",
 				returns = "bool"
 			},
 			-- void command.containeradditem(Container container, Item item)
