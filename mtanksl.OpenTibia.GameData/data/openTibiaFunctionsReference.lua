@@ -216,11 +216,11 @@ return {
 		args = "(opentibiaid, onusingammunition, onuseammunition)",
 		returns = "void"
 	},
-	-- void registerraid(name, repeatable, cooldown, chance, onraid)
+	-- void registerraid(name, repeatable, interval, chance, enabled, onraid)
 	registerraid = {
 		type = "function",
 		description = "",
-		args = "(name, repeatable, cooldown, chance, onraid)",
+		args = "(name, repeatable, interval, chance, enabled, onraid)",
 		returns = "void"
 	},
 	debugger = {
@@ -240,7 +240,28 @@ return {
 		type = "lib",
 		description = "",
 		childs = {			
-			-- void command.delay(int milliseconds)
+			-- Promise command.waithandle()
+			waithandle = {
+				type = "function",
+				description = "",
+				args = "()",
+				returns = "Promise"
+			},
+			-- void command.wait(Promise promise) block
+			wait = {
+				type = "function",
+				description = "",
+				args = "(Promise promise)",
+				returns = "void"
+			},
+			-- void command.set(Promise promise)
+			set = {
+				type = "function",
+				description = "",
+				args = "(Promise promise)",
+				returns = "void"
+			},
+			-- void command.delay(int milliseconds) block
 			-- string command.delay(int milliseconds, Action callback)
 			delay = {
 				type = "function",
@@ -248,7 +269,7 @@ return {
 				args = "(int milliseconds [, Action callback])",
 				returns = "string"
 			},
-			-- void command.delaygameobject(GameObject gameObject, int milliseconds)
+			-- void command.delaygameobject(GameObject gameObject, int milliseconds) block
 			-- string command.delaygameobject(GameObject gameObject, int milliseconds, Action callback)
 			delaygameobject = {
 				type = "function",
@@ -258,6 +279,27 @@ return {
 			},
 			-- bool command.canceldelay(string key)
 			canceldelay = {
+				type = "function",
+				description = "",
+				args = "(string key)",
+				returns = "bool"
+			},
+			-- string command.eventhandler(string eventName, Action<EventArgs> callback)
+			eventhandler = {
+				type = "function",
+				description = "",
+				args = "(string eventName, Action<EventArgs> callback",
+				returns = "string"
+			},
+			-- string command.eventhandlergameobject(GameObject gameObject, string eventName, Action<EventArgs> callback)
+			eventhandlergameobject = {
+				type = "function",
+				description = "",
+				args = "(GameObject gameObject, string eventName, Action<EventArgs> callback",
+				returns = "string"
+			},
+			-- bool command.canceleventhandler(string key)
+			canceleventhandler = {
 				type = "function",
 				description = "",
 				args = "(string key)",
@@ -600,8 +642,8 @@ return {
 				args = "(Player player, Skill skill, ulong skillPoints)",
 				returns = "void"
 			},
-			-- void command.playerupdatskill(Player player, Skill skill, ulong skillPoints, byte skillLevel, byte skillPercent)
-			playerupdatskill = {
+			-- void command.playerupdateskill(Player player, Skill skill, ulong skillPoints, byte skillLevel, byte skillPercent)
+			playerupdateskill = {
 				type = "function",
 				description = "",
 				args = "(Player player, Skill skill, ulong skillPoints, byte skillLevel, byte skillPercent)",

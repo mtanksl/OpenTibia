@@ -47,6 +47,32 @@ namespace OpenTibia.Game.Common.ServerObjects
             lua.RegisterFunction("getconfig", this, GetType().GetMethod(nameof(GetConfig) ) );
 
             lua.RegisterFunction("getfullpath", this, GetType().GetMethod(nameof(GetFullPath) ) );
+            
+            lua.RegisterCoFunction("waithandle", (luaScope, parameters) =>
+            {
+                var promise = new Promise();
+
+                return Promise.FromResult(new object[] { promise } );
+            } );
+
+            lua.RegisterCoFunction("wait", (luaScope, parameters) =>
+            {
+                var promise = (Promise)parameters[0];
+
+                return promise.Then( () =>
+                {
+                    return Promise.FromResultAsEmptyObjectArray;
+                } ); 
+            } );
+
+            lua.RegisterCoFunction("set", (luaScope, parameters) =>
+            {
+                var promise = (Promise)parameters[0];
+
+                promise.TrySetResult();
+
+                return Promise.FromResultAsEmptyObjectArray;
+            } );
 
             lua.RegisterCoFunction("delay", (luaScope, parameters) =>
             {                   
@@ -58,7 +84,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     _ = promise.Then( () =>
                     {
-                        return luaScope.CallFunction( (LuaFunction)parameters[1] );
+                        return luaScope.CallFunction( (LuaFunction)parameters[1] ); // Ignore result
                     } ); 
 
                     return Promise.FromResult(new object[] { key } );
@@ -78,7 +104,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     _ = multipleDelayBehaviour.Promise.Then( () =>
                     {
-                        return luaScope.CallFunction( (LuaFunction)parameters[2] );
+                        return luaScope.CallFunction( (LuaFunction)parameters[2] ); // Ignore result
                     } );
 
                     return Promise.FromResult(new object[] { multipleDelayBehaviour.Key } );
@@ -93,6 +119,34 @@ namespace OpenTibia.Game.Common.ServerObjects
             lua.RegisterCoFunction("canceldelay", (luaScope, parameters) =>
             {
                 bool canceled = Context.Current.Server.CancelQueueForExecution(LuaScope.GetString(parameters[0] ) );
+
+                return canceled ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
+            } );
+
+            lua.RegisterCoFunction("eventhandler", (luaScope, parameters) =>
+            {
+                Guid key = Context.Current.Server.EventHandlers.Subscribe(Type.GetType(LuaScope.GetString(parameters[0] ) ), (context, e) =>
+                {
+                    return luaScope.CallFunction( (LuaFunction)parameters[1], e); // Ignore result
+                } );
+
+                return Promise.FromResult(new object[] { key.ToString() } );
+            } );
+
+            lua.RegisterCoFunction("eventhandlergameobject", (luaScope, parameters) =>
+            {
+                MultipleEventHandlerBehaviour multipleEventHandlerBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)parameters[0], new MultipleEventHandlerBehaviour(Type.GetType(LuaScope.GetString(parameters[1] ) ), (context, e) =>
+                {
+                    return luaScope.CallFunction( (LuaFunction)parameters[2], e); // Ignore result
+
+                } ), false);
+
+                return Promise.FromResult(new object[] { multipleEventHandlerBehaviour.Key.ToString() } );
+            } );
+
+            lua.RegisterCoFunction("canceleventhandler", (luaScope, parameters) =>
+            {
+                bool canceled = Context.Current.Server.EventHandlers.Unsubscribe(Guid.Parse(LuaScope.GetString(parameters[0] ) ) );
 
                 return canceled ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
             } );
@@ -577,7 +631,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("playerupdatskill", (luaScope, parameters) =>
+            lua.RegisterCoFunction("playerupdateskill", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new PlayerUpdateSkillCommand( (Player)parameters[0], (Skill)(int)parameters[1], (ulong)parameters[2], (byte)(long)parameters[3], (byte)(long)parameters[4] ) ).Then( () =>
                 {
@@ -1223,7 +1277,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return new Position( (int)(long)table["x"], (int)(long)table["y"], (int)(long)table["z"] );
             }
          
-            throw new ArgumentException("Parameter must by Position or LuaTable with x, y and z.");
+            throw new ArgumentException("Parameter must be Position or LuaTable with x, y and z.");
         }
 
         /// <exception cref="ArgumentException"></exception>
@@ -1245,7 +1299,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Context.Current.Server.Map.GetTile(ToPosition(parameter) );
             }
          
-            throw new ArgumentException("Parameter must by Tile or LuaTable with x, y and z.");
+            throw new ArgumentException("Parameter must be Tile or LuaTable with x, y and z.");
         }
 
         /// <exception cref="ArgumentException"></exception>
@@ -1278,7 +1332,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 }
             }
 
-            throw new ArgumentException("Parameter must by Attack or LuaTable with type, projectiletype, magiceffecttype, damagetype, min and/or max.");
+            throw new ArgumentException("Parameter must be Attack or LuaTable with type, projectiletype, magiceffecttype, damagetype, min and/or max.");
         }
 
         /// <exception cref="ArgumentException"></exception>
