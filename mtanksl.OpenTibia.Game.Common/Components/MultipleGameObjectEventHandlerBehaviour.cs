@@ -6,17 +6,17 @@ namespace OpenTibia.Game.Components
 {
     public class MultipleGameObjectEventHandlerBehaviour : Behaviour
     {
-        private GameObject gameObject;
+        private GameObject eventSource;
 
-        private Type type;
+        private Type eventName;
 
         private Func<Context, object, Promise> execute;
 
-        public MultipleGameObjectEventHandlerBehaviour(GameObject gameObject, Type type, Func<Context, object, Promise> execute)
+        public MultipleGameObjectEventHandlerBehaviour(GameObject eventSource, Type eventName, Func<Context, object, Promise> execute)
         {
-            this.gameObject = gameObject;
+            this.eventSource = eventSource;
 
-            this.type = type;
+            this.eventName = eventName;
 
             this.execute = execute;
         }
@@ -33,12 +33,12 @@ namespace OpenTibia.Game.Components
 
         public override void Start()
         {
-            key = Context.Server.GameObjectEventHandlers.Subscribe(gameObject, type, execute);
+            key = Context.Server.GameObjectEventHandlers.Subscribe(eventSource, eventName, execute);
         }
 
         public override void Stop()
         {
-            Context.Server.GameObjectEventHandlers.Unsubscribe(gameObject, key);
+            Context.Server.GameObjectEventHandlers.Unsubscribe(eventSource, key);
         }
     }
 }

@@ -298,14 +298,14 @@ return {
 			gameobjecteventhandler = {
 				type = "function",
 				description = "",
-				args = "(GameObject gameObject, [GameObject eventSource, ] string eventName, Action<GameEventArgs> callback)",
+				args = "([GameObject gameObject, ] GameObject eventSource, string eventName, Action<GameEventArgs> callback)",
 				returns = "string"
 			},
 			-- bool command.gameobjectcanceleventhandler(GameObject eventSource, string key)
 			gameobjectcanceleventhandler = {
 				type = "function",
 				description = "",
-				args = "(string key)",
+				args = "(GameObject eventSource, string key)",
 				returns = "bool"
 			},
 			-- void command.containeradditem(Container container, Item item)

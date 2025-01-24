@@ -5,13 +5,13 @@ namespace OpenTibia.Game.Components
 {
     public class MultipleEventHandlerBehaviour : Behaviour
     {
-        private Type type;
+        private Type eventName;
 
         private Func<Context, object, Promise> execute;
 
-        public MultipleEventHandlerBehaviour(Type type, Func<Context, object, Promise> execute)
+        public MultipleEventHandlerBehaviour(Type eventName, Func<Context, object, Promise> execute)
         {
-            this.type = type;
+            this.eventName = eventName;
 
             this.execute = execute;
         }
@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Components
 
         public override void Start()
         {
-            key = Context.Server.EventHandlers.Subscribe(type, execute);
+            key = Context.Server.EventHandlers.Subscribe(eventName, execute);
         }
 
         public override void Stop()
