@@ -30,8 +30,6 @@ namespace OpenTibia.Game.Commands
                 if (observer.Tile.Position.CanHearSay(Npc.Tile.Position) )
                 {                        
                     Context.AddPacket(observer, showTextOutgoingPacket);
-                   
-                    Context.AddEvent(observer, npcSayEventArgs);
                 }
             }
 

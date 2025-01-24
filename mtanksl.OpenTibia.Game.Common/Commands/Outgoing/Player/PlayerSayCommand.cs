@@ -40,16 +40,11 @@ namespace OpenTibia.Game.Commands
 
             PlayerSayEventArgs playerSayEventArgs = new PlayerSayEventArgs(Player, Message);
 
-            foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(Player.Tile.Position) )
+            foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Player.Tile.Position) )
             {
                 if (observer.Tile.Position.CanHearSay(Player.Tile.Position) )
                 {
-                    if (observer is Player player)
-                    {
-                        Context.AddPacket(player, showTextOutgoingPacket);
-                    }
-                   
-                    Context.AddEvent(observer, playerSayEventArgs);
+                    Context.AddPacket(observer, showTextOutgoingPacket);                    
                 }
             }
 

@@ -21,14 +21,6 @@ namespace OpenTibia.Game.Commands
         {
             PlayerSayToNpcEventArgs playerSayToNpcEventArgs = new PlayerSayToNpcEventArgs(Player, Message);
 
-            foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(Player.Tile.Position) )
-            {
-                if (observer.Tile.Position.CanHearSay(Player.Tile.Position) )
-                {
-                    Context.AddEvent(observer, playerSayToNpcEventArgs);
-                }
-            }
-
             Context.AddEvent(playerSayToNpcEventArgs);
 
             return Promise.Completed;

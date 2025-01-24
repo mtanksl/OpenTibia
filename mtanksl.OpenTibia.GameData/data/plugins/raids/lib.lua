@@ -49,13 +49,11 @@ function stage:execute()
 				local tile = command.mapgettile( { x = centerx + math.random(-radius, radius), y = centery + math.random(-radius, radius), z = centerz } )
 				if tile and tile.Ground and not tile.NotWalkable and not tile.BlockPathFinding and not tile.Block and not tile.ProtectionZone then
 					local monster = command.tilecreatemonster(tile, name)
-					command.eventhandlergameobject(monster, DEATH_EVENT, function(e)
-						if e.Creature.Id == monster.Id then
-							self.count = self.count - 1
-							if self.count == 0 then
-								command.canceldelay(self.delay)
-								command.set(self.waithandle, true)
-							end
+					command.eventhandler(monster, monster, DEATH_EVENT, function(e)
+						self.count = self.count - 1
+						if self.count == 0 then
+							command.canceldelay(self.delay)
+							command.set(self.waithandle, true)
 						end
 					end)
 					command.showmagiceffect(monster, magiceffecttype.teleport)

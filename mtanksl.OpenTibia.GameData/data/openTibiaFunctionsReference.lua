@@ -263,18 +263,12 @@ return {
 			},
 			-- void command.delay(int milliseconds) block
 			-- string command.delay(int milliseconds, Action callback)
+			-- void command.delay(GameObject gameObject, int milliseconds) block
+			-- string command.delay(GameObject gameObject, int milliseconds, Action callback)
 			delay = {
 				type = "function",
 				description = "",
-				args = "(int milliseconds [, Action callback])",
-				returns = "string"
-			},
-			-- void command.delaygameobject(GameObject gameObject, int milliseconds) block
-			-- string command.delaygameobject(GameObject gameObject, int milliseconds, Action callback)
-			delaygameobject = {
-				type = "function",
-				description = "",
-				args = "(GameObject gameObject, int milliseconds [, Action callback])",
+				args = "([GameObject gameObject, ] int milliseconds [, Action callback])",
 				returns = "string"
 			},
 			-- bool command.canceldelay(string key)
@@ -284,22 +278,31 @@ return {
 				args = "(string key)",
 				returns = "bool"
 			},
-			-- string command.eventhandler(string eventName, Action<EventArgs> callback)
+			-- string command.eventhandler(string eventName, Action<GameEventArgs> callback)
+			-- string command.eventhandler(GameObject gameObject, string eventName, Action<GameEventArgs> callback)
 			eventhandler = {
 				type = "function",
 				description = "",
-				args = "(string eventName, Action<EventArgs> callback",
-				returns = "string"
-			},
-			-- string command.eventhandlergameobject(GameObject gameObject, string eventName, Action<EventArgs> callback)
-			eventhandlergameobject = {
-				type = "function",
-				description = "",
-				args = "(GameObject gameObject, string eventName, Action<EventArgs> callback",
+				args = "([GameObject gameObject, ] string eventName, Action<GameEventArgs> callback)",
 				returns = "string"
 			},
 			-- bool command.canceleventhandler(string key)
 			canceleventhandler = {
+				type = "function",
+				description = "",
+				args = "(string key)",
+				returns = "bool"
+			},
+			-- string command.gameobjecteventhandler(GameObject eventSource, string eventName, Action<GameEventArgs> callback)
+			-- string command.gameobjecteventhandler(GameObject gameObject, GameObject eventSource, string eventName, Action<GameEventArgs> callback)
+			gameobjecteventhandler = {
+				type = "function",
+				description = "",
+				args = "(GameObject gameObject, [GameObject eventSource, ] string eventName, Action<GameEventArgs> callback)",
+				returns = "string"
+			},
+			-- bool command.gameobjectcanceleventhandler(GameObject eventSource, string key)
+			gameobjectcanceleventhandler = {
 				type = "function",
 				description = "",
 				args = "(string key)",

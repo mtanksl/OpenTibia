@@ -27,25 +27,15 @@ namespace OpenTibia.Game.Commands
 
             PlayerWhisperEventArgs playerWhisperEventArgs = new PlayerWhisperEventArgs(Player, Message);
 
-            foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(Player.Tile.Position) )
+            foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Player.Tile.Position) )
             {
                 if (observer.Tile.Position.CanHearWhisper(Player.Tile.Position) )
                 {
-                    if (observer is Player player)
-                    {
-                        Context.AddPacket(player, showTextOutgoingPacket);
-                    }
-
-                    Context.AddEvent(observer, playerWhisperEventArgs);
+                    Context.AddPacket(observer, showTextOutgoingPacket);
                 }
                 else if (observer.Tile.Position.CanHearSay(Player.Tile.Position) )
                 {
-                    if (observer is Player player)
-                    {
-                        Context.AddPacket(player, showTextOutgoingPacket2);
-                    }
-
-                    Context.AddEvent(observer, playerWhisperEventArgs);
+                    Context.AddPacket(observer, showTextOutgoingPacket2);
                 }
             }
 

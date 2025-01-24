@@ -30,8 +30,6 @@ namespace OpenTibia.Game.Commands
                 if (observer.Tile.Position.CanHearYell(Monster.Tile.Position) )
                 {
                     Context.AddPacket(observer, showTextOutgoingPacket);
-
-                    Context.AddEvent(observer, monsterYellEventArgs);
                 }
             }
 

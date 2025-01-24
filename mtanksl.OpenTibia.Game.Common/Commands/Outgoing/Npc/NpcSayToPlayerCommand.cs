@@ -31,8 +31,6 @@ namespace OpenTibia.Game.Commands
 
             Context.AddPacket(Player, showTextOutgoingPacket);
 
-            Context.AddEvent(Player, npcSayToPlayerEventArgs);
-
             Context.AddEvent(npcSayToPlayerEventArgs);
 
             return Promise.Completed;

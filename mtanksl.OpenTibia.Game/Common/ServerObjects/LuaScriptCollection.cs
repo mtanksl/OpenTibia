@@ -75,45 +75,47 @@ namespace OpenTibia.Game.Common.ServerObjects
             } );
 
             lua.RegisterCoFunction("delay", (luaScope, parameters) =>
-            {                   
-                string key = Guid.NewGuid().ToString();
-
-                Promise promise = Promise.Delay(key, TimeSpan.FromMilliseconds( (long)parameters[0] ) );
-
-                if (parameters.Length == 2)
+            {             
+                if (parameters[0] is GameObject)
                 {
-                    _ = promise.Then( () =>
+                    MultipleDelayBehaviour multipleDelayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)parameters[0], new MultipleDelayBehaviour(TimeSpan.FromMilliseconds( (long)parameters[1] ) ), false);
+
+                    if (parameters.Length == 3)
                     {
-                        return luaScope.CallFunction( (LuaFunction)parameters[1] ); // Ignore result
-                    } ); 
+                        _ = multipleDelayBehaviour.Promise.Then( () =>
+                        {
+                            return luaScope.CallFunction( (LuaFunction)parameters[2] ); // Ignore result
+                        } );
 
-                    return Promise.FromResult(new object[] { key } );
-                }
+                        return Promise.FromResult(new object[] { multipleDelayBehaviour.Key } );
+                    }
 
-                return promise.Then( () =>
-                {
-                    return Promise.FromResultAsEmptyObjectArray;
-                } );                
-            } );
-
-            lua.RegisterCoFunction("delaygameobject", (luaScope, parameters) =>
-            {
-                MultipleDelayBehaviour multipleDelayBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)parameters[0], new MultipleDelayBehaviour(TimeSpan.FromMilliseconds( (long)parameters[1] ) ), false);
-
-                if (parameters.Length == 3)
-                {
-                    _ = multipleDelayBehaviour.Promise.Then( () =>
+                    return multipleDelayBehaviour.Promise.Then( () =>
                     {
-                        return luaScope.CallFunction( (LuaFunction)parameters[2] ); // Ignore result
+                        return Promise.FromResultAsEmptyObjectArray;
                     } );
-
-                    return Promise.FromResult(new object[] { multipleDelayBehaviour.Key } );
                 }
-
-                return multipleDelayBehaviour.Promise.Then( () =>
+                else
                 {
-                    return Promise.FromResultAsEmptyObjectArray;
-                } );
+                    string key = Guid.NewGuid().ToString();
+
+                    Promise promise = Promise.Delay(key, TimeSpan.FromMilliseconds( (long)parameters[0] ) );
+
+                    if (parameters.Length == 2)
+                    {
+                        _ = promise.Then( () =>
+                        {
+                            return luaScope.CallFunction( (LuaFunction)parameters[1] ); // Ignore result
+                        } ); 
+
+                        return Promise.FromResult(new object[] { key } );
+                    }
+
+                    return promise.Then( () =>
+                    {
+                        return Promise.FromResultAsEmptyObjectArray;
+                    } );
+                }                                
             } );
 
             lua.RegisterCoFunction("canceldelay", (luaScope, parameters) =>
@@ -125,28 +127,60 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             lua.RegisterCoFunction("eventhandler", (luaScope, parameters) =>
             {
-                Guid key = Context.Current.Server.EventHandlers.Subscribe(Type.GetType(LuaScope.GetString(parameters[0] ) ), (context, e) =>
+                if (parameters[0] is GameObject)
                 {
-                    return luaScope.CallFunction( (LuaFunction)parameters[1], e); // Ignore result
-                } );
+                    MultipleEventHandlerBehaviour multipleEventHandlerBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)parameters[0], new MultipleEventHandlerBehaviour(Type.GetType(LuaScope.GetString(parameters[1] ) ), (context, e) =>
+                    {
+                        return luaScope.CallFunction( (LuaFunction)parameters[2], e); // Ignore result
 
-                return Promise.FromResult(new object[] { key.ToString() } );
-            } );
+                    } ), false);
 
-            lua.RegisterCoFunction("eventhandlergameobject", (luaScope, parameters) =>
-            {
-                MultipleEventHandlerBehaviour multipleEventHandlerBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)parameters[0], new MultipleEventHandlerBehaviour(Type.GetType(LuaScope.GetString(parameters[1] ) ), (context, e) =>
+                    return Promise.FromResult(new object[] { multipleEventHandlerBehaviour.Key.ToString() } );
+                }
+                else
                 {
-                    return luaScope.CallFunction( (LuaFunction)parameters[2], e); // Ignore result
+                    Guid key = Context.Current.Server.EventHandlers.Subscribe(Type.GetType(LuaScope.GetString(parameters[0] ) ), (context, e) =>
+                    {
+                        return luaScope.CallFunction( (LuaFunction)parameters[1], e); // Ignore result
+                    } );
 
-                } ), false);
-
-                return Promise.FromResult(new object[] { multipleEventHandlerBehaviour.Key.ToString() } );
+                    return Promise.FromResult(new object[] { key.ToString() } );
+                }
             } );
 
             lua.RegisterCoFunction("canceleventhandler", (luaScope, parameters) =>
             {
                 bool canceled = Context.Current.Server.EventHandlers.Unsubscribe(Guid.Parse(LuaScope.GetString(parameters[0] ) ) );
+
+                return canceled ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
+            } );
+
+            lua.RegisterCoFunction("gameobjecteventhandler", (luaScope, parameters) =>
+            {
+                if (parameters[0] is GameObject)
+                {
+                    MultipleGameObjectEventHandlerBehaviour multipleEventHandlerBehaviour = Context.Current.Server.GameObjectComponents.AddComponent( (GameObject)parameters[0], new MultipleGameObjectEventHandlerBehaviour( (GameObject)parameters[1], Type.GetType(LuaScope.GetString(parameters[2] ) ), (context, e) =>
+                    {
+                        return luaScope.CallFunction( (LuaFunction)parameters[3], e); // Ignore result
+
+                    } ), false);
+
+                    return Promise.FromResult(new object[] { multipleEventHandlerBehaviour.Key.ToString() } );
+                }
+                else
+                {
+                    Guid key = Context.Current.Server.GameObjectEventHandlers.Subscribe( (GameObject)parameters[0], Type.GetType(LuaScope.GetString(parameters[1] ) ), (context, e) =>
+                    {
+                        return luaScope.CallFunction( (LuaFunction)parameters[2], e); // Ignore result
+                    } );
+
+                    return Promise.FromResult(new object[] { key.ToString() } );
+                }
+            } );
+
+            lua.RegisterCoFunction("gameobjectcanceleventhandler", (luaScope, parameters) =>
+            {
+                bool canceled = Context.Current.Server.GameObjectEventHandlers.Unsubscribe( (GameObject)parameters[0], Guid.Parse(LuaScope.GetString(parameters[1] ) ) );
 
                 return canceled ? Promise.FromResultAsBooleanTrueObjectArray : Promise.FromResultAsBooleanFalseObjectArray;
             } );
