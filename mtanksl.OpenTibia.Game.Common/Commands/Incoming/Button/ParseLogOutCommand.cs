@@ -16,7 +16,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            if (Player.HasSpecialCondition(SpecialCondition.ProtectionZoneBlock) )
+            if (Player.HasSpecialCondition(SpecialCondition.NoLogoutZone) )
             {
                 Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotLogOutHere) );
 

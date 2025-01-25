@@ -35,6 +35,8 @@ namespace OpenTibia.Common.Structures
 
         ProtectionZoneBlock = 8192,
 
-        ProtectionZone = 16384
+        ProtectionZone = 16384,
+
+        NoLogoutZone = 32768 // Internal
     }
 }

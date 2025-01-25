@@ -34,15 +34,17 @@ namespace OpenTibia.Game.Commands
 
         Bleeding = 4096,
 
+        ProtectionZoneBlock = 8192,
 
 
 
 
-        Outfit = 32768,
 
-        Invisible = 65536,
+        Outfit = 65536,
 
-        Light = 131072
+        Invisible = 131072,
+
+        Light = 262144
     }
 
     public static class SpecialConditionExtensions
@@ -128,6 +130,12 @@ namespace OpenTibia.Game.Commands
                 case ConditionSpecialCondition.Bleeding:
 
                     specialCondition = SpecialCondition.Bleeding;
+
+                    break;
+
+                case ConditionSpecialCondition.ProtectionZoneBlock:
+
+                    specialCondition = SpecialCondition.ProtectionZoneBlock;
 
                     break;
 

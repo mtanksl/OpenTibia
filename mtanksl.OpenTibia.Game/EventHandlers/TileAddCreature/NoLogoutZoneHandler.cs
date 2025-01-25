@@ -15,18 +15,18 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (e.ToTile.NoLogoutZone)
                 {
-                    if ( !player.HasSpecialCondition(SpecialCondition.ProtectionZoneBlock) )
+                    if ( !player.HasSpecialCondition(SpecialCondition.NoLogoutZone) )
                     {
-                        player.AddSpecialCondition(SpecialCondition.ProtectionZoneBlock);
+                        player.AddSpecialCondition(SpecialCondition.NoLogoutZone);
 
                         Context.AddPacket(player, new SetSpecialConditionOutgoingPacket(player.SpecialConditions) );
                     }
                 }
                 else
                 {
-                    if (player.HasSpecialCondition(SpecialCondition.ProtectionZoneBlock) )
+                    if (player.HasSpecialCondition(SpecialCondition.NoLogoutZone) )
                     {
-                        player.RemoveSpecialCondition(SpecialCondition.ProtectionZoneBlock);
+                        player.RemoveSpecialCondition(SpecialCondition.NoLogoutZone);
 
                         Context.AddPacket(player, new SetSpecialConditionOutgoingPacket(player.SpecialConditions) );
                     }
