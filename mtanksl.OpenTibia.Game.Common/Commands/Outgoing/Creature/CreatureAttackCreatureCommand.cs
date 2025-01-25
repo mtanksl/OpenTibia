@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Common;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -33,6 +34,19 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Execute()
         {
+            if (Attack is SimpleAttack)
+            {
+                if (Attacker is Player attacker)
+                {
+                    await Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new LogoutBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayLogoutBlockSeconds) ) ) );
+                }
+            
+                if (Target is Player target)
+                {                               
+                    await Context.Current.AddCommand(new CreatureAddConditionCommand(target, new LogoutBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayLogoutBlockSeconds) ) ) );
+                }
+            }
+
             if (Attack != null)
             {
                 int damage = Attack.Calculate(Attacker, Target);

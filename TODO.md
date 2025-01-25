@@ -8,7 +8,6 @@
 - Fight	
 	- vs Player
 	- PVP vs non-PVP configuration
-	- Logout block
 	- Skull
 	- War
 	- Splash
@@ -94,8 +93,10 @@
 	- Bow and arrow
 	- Wand and rod
 	- Two-handed items
-	- Protection zone
 	- No-logout zone
+	- Logout block
+	- Protection zone block
+	- Protection zone
 	- Raids
 	- Special conditions
 - Interacting with the game world 

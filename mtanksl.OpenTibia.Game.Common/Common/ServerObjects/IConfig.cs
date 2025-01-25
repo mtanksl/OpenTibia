@@ -47,6 +47,8 @@ namespace OpenTibia.Game.Common.ServerObjects
         bool GameplayRemoveWeaponAmmunition { get; set; }
         bool GameplayRemoveChargesFromRunes { get; set; }
         bool GameplayRemoveWeaponCharges { get; set; }
+        int GameplayLogoutBlockSeconds { get; set; }
+        int GameplayProtectionZoneBlockSeconds { get; set; }
         int GameplayDeathLosePercent { get; set; }
         bool GameplayAllowChangeOutfit { get; set; }
         bool GameplayHotkeyAimbotEnabled { get; set; }

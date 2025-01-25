@@ -67,6 +67,10 @@ server = {
 			-- true = weapons disappear after attack (Tibia)
 			-- false = weapons do not disappear after attack
 			removeweaponcharges = true,
+			-- When you attack or get attacked by monsters or people, you will receive logout block for 60 seconds.
+			logoutblockseconds = 1 * 60,
+			-- If you kill another player, no matter if it's justified or not, you will receive logout block and protection zone block for 15 minutes.
+			protectionzoneblockseconds = 15 * 60,
 			-- -1 means use default formula (Tibia)
 			-- 0 means 0%, or no experience loss and no skill loss
 			-- 10 means 10%, as it was before Mar 10 2009 on version 8.41
@@ -132,21 +136,21 @@ server = {
 		packetsabusebanmilliseconds = 15 * 60 * 1000,
 		-- login attempts abuse
 		maxloginattempts = 12,
-		maxloginattemptspermilliseconds = 60 * 1000,
+		maxloginattemptspermilliseconds = 1 * 60 * 1000,
 		loginattemptsabusebanmilliseconds = 15 * 60 * 1000,
 		-- socket timeout
 		socketreceivetimeoutmilliseconds = 500,
 		socketsendtimeoutmilliseconds = 500,
 		maxslowsockets = 2,
-		maxslowsocketspermilliseconds = 60 * 1000,
+		maxslowsocketspermilliseconds = 1 * 60 * 1000,
 		slowsocketsabusbanmilliseconds = 5 * 60 * 1000,
 		-- invalid message abuse
 		maxinvalidmessages = 2,
-		maxinvalidmessagespermilliseconds = 60 * 1000,
+		maxinvalidmessagespermilliseconds = 1 * 60 * 1000,
 		invalidmessagesabusebanmilliseconds = 15 * 60 * 1000,
 		-- unknown packet abuse
 		maxunknownpackets = 2,
-		maxunknownpacketspermilliseconds = 60 * 1000,
+		maxunknownpacketspermilliseconds = 1 * 60 * 1000,
 		unknownpacketsabusebanmilliseconds = 15 * 60 * 1000
 	},
 	database = {

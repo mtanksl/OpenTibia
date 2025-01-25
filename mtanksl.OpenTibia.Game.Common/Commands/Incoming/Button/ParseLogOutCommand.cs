@@ -23,11 +23,14 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            if ( !Player.Tile.ProtectionZone && (Player.HasSpecialCondition(SpecialCondition.LogoutBlock) || Player.HasSpecialCondition(SpecialCondition.ProtectionZoneBlock) ) )
+            if (Player.HasSpecialCondition(SpecialCondition.LogoutBlock) || Player.HasSpecialCondition(SpecialCondition.ProtectionZoneBlock) )
             {
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotLogoutDuringOrImmediatelyAfterAFight) );
+                if ( !Player.Tile.ProtectionZone || Player.HasSpecialCondition(SpecialCondition.Poisoned) || Player.HasSpecialCondition(SpecialCondition.Burning) || Player.HasSpecialCondition(SpecialCondition.Electrified) || Player.HasSpecialCondition(SpecialCondition.Drowning) || Player.HasSpecialCondition(SpecialCondition.Freezing) || Player.HasSpecialCondition(SpecialCondition.Dazzled) || Player.HasSpecialCondition(SpecialCondition.Cursed) || Player.HasSpecialCondition(SpecialCondition.Bleeding) )
+                {
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotLogoutDuringOrImmediatelyAfterAFight) );
 
-                return Promise.Break;
+                    return Promise.Break;
+                }
             }
 
             return Context.AddCommand(new ShowMagicEffectCommand(Player, MagicEffectType.Puff) ).Then( () =>

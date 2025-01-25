@@ -5,7 +5,6 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Reflection.Metadata;
 
 namespace OpenTibia.Game.Common.ServerObjects
 {
@@ -63,7 +62,9 @@ namespace OpenTibia.Game.Common.ServerObjects
         public bool GameplayRemoveChargesFromPotions { get; set; }
         public bool GameplayRemoveChargesFromRunes { get; set; }
         public bool GameplayRemoveWeaponAmmunition { get; set; }
-        public bool GameplayRemoveWeaponCharges { get; set; }
+        public bool GameplayRemoveWeaponCharges { get; set; }        
+        public int GameplayLogoutBlockSeconds { get; set; }
+        public int GameplayProtectionZoneBlockSeconds { get; set; }
         public int GameplayDeathLosePercent { get; set; }
         public bool GameplayAllowChangeOutfit { get; set; }
         public bool GameplayHotkeyAimbotEnabled { get; set; }
@@ -287,6 +288,10 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             GameplayRemoveWeaponCharges = LuaScope.GetBoolean(script["server.game.gameplay.removeweaponcharges"], true);
 
+            GameplayLogoutBlockSeconds = LuaScope.GetInt32(script["server.game.gameplay.logoutblockseconds"], 1 * 60);
+
+            GameplayProtectionZoneBlockSeconds = LuaScope.GetInt32(script["server.game.gameplay.protectionzoneblockseconds"], 15 * 60);
+
             GameplayDeathLosePercent = LuaScope.GetInt32(script["server.game.gameplay.deathlosepercent"], -1);
 
             GameplayAllowChangeOutfit = LuaScope.GetBoolean(script["server.game.gameplay.allowchangeoutfit"], true);
@@ -377,7 +382,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             SecurityMaxLoginAttempts = LuaScope.GetInt32(script["server.security.maxloginattempts"], 12);                        
 
-            SecurityMaxLoginAttemptsPerMilliseconds = LuaScope.GetInt32(script["server.security.maxloginattemptspermilliseconds"], 60 * 1000);     
+            SecurityMaxLoginAttemptsPerMilliseconds = LuaScope.GetInt32(script["server.security.maxloginattemptspermilliseconds"], 1 * 60 * 1000);     
             
             SecurityLoginAttemptsAbuseBanMilliseconds = LuaScope.GetInt32(script["server.security.loginattemptsabusebanmilliseconds"], 15 * 60 * 1000);
 
@@ -387,19 +392,19 @@ namespace OpenTibia.Game.Common.ServerObjects
             
             SecurityMaxSlowSockets = LuaScope.GetInt32(script["server.security.maxslowsockets"], 2);            
 
-            SecurityMaxSlowSocketsPerMilliseconds = LuaScope.GetInt32(script["server.security.maxslowsocketspermilliseconds"], 60 * 1000); 
+            SecurityMaxSlowSocketsPerMilliseconds = LuaScope.GetInt32(script["server.security.maxslowsocketspermilliseconds"], 1 * 60 * 1000); 
             
             SecuritySlowSocketsAbuseBanMilliseconds = LuaScope.GetInt32(script["server.security.slowsocketsabusbanmilliseconds"], 15 * 60 * 1000);   
             
             SecurityMaxInvalidMessages = LuaScope.GetInt32(script["server.security.maxinvalidmessages"], 2);            
 
-            SecurityMaxInvalidMessagesPerMilliseconds = LuaScope.GetInt32(script["server.security.maxinvalidmessagespermilliseconds"], 60 * 1000);  
+            SecurityMaxInvalidMessagesPerMilliseconds = LuaScope.GetInt32(script["server.security.maxinvalidmessagespermilliseconds"], 1 * 60 * 1000);  
             
             SecurityInvalidMessagesAbuseBanMilliseconds = LuaScope.GetInt32(script["server.security.invalidmessagesabusebanmilliseconds"], 15 * 60 * 1000);
 
             SecurityMaxUnknownPackets = LuaScope.GetInt32(script["server.security.maxunknownpackets"], 2);            
 
-            SecurityMaxUnknownPacketsPerMilliseconds = LuaScope.GetInt32(script["server.security.maxunknownpacketspermilliseconds"], 60 * 1000);    
+            SecurityMaxUnknownPacketsPerMilliseconds = LuaScope.GetInt32(script["server.security.maxunknownpacketspermilliseconds"], 1 * 60 * 1000);    
             
             SecurityUnknownPacketsAbuseBanMilliseconds = LuaScope.GetInt32(script["server.security.unknownpacketsabusebanmilliseconds"], 15 * 60 * 1000);
 
