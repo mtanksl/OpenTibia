@@ -78,7 +78,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (plugin.Rune.Group == "Attack")
                 {
-                    if (command.ToCreature is Npc || (command.ToCreature is Player player && (player.Rank == Rank.Gamemaster || Context.Server.Config.GameplayWorldType == WorldType.NonPvp || player.Level <= Context.Server.Config.GameplayProtectionLevel || command.Player.Level <= Context.Server.Config.GameplayProtectionLevel) ) )
+                    if (command.ToCreature is Npc || (command.ToCreature is Player player && (player.Rank == Rank.Gamemaster || player.Rank == Rank.AccountManager || Context.Server.Config.GameplayWorldType == WorldType.NonPvp || player.Level <= Context.Server.Config.GameplayProtectionLevel || command.Player.Level <= Context.Server.Config.GameplayProtectionLevel) ) )
                     {
                         Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature) );
 

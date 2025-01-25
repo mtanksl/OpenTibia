@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Commands
             {
                 PlayerThinkBehaviour playerThinkBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerThinkBehaviour>(Player);
 
-                if (target is Npc || target.Tile.ProtectionZone || Player.Tile.ProtectionZone || (target is Player player && (player.Rank == Rank.Gamemaster || Context.Server.Config.GameplayWorldType == WorldType.NonPvp || player.Level <= Context.Server.Config.GameplayProtectionLevel || Player.Level <= Context.Server.Config.GameplayProtectionLevel) ) )
+                if (target is Npc || target.Tile.ProtectionZone || Player.Tile.ProtectionZone || (target is Player player && (player.Rank == Rank.Gamemaster || player.Rank == Rank.AccountManager || Context.Server.Config.GameplayWorldType == WorldType.NonPvp || player.Level <= Context.Server.Config.GameplayProtectionLevel || Player.Level <= Context.Server.Config.GameplayProtectionLevel) ) )
                 {
                     if (playerThinkBehaviour != null)
                     {
