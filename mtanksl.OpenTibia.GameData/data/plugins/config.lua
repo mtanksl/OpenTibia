@@ -171,7 +171,7 @@
 		{ opentibiaid = 2183, level = 33, mana = 13, vocations = { vocation.druid, vocation.elderdruid }, filename = "OpenTibia.Plugins.Weapons.TempestRodWeaponPlugin, mtanksl.OpenTibia.Plugins" },
 		{ opentibiaid = 2185, level = 19, mana = 5, vocations = { vocation.druid, vocation.elderdruid }, filename = "OpenTibia.Plugins.Weapons.VolcanicRodWeaponPlugin, mtanksl.OpenTibia.Plugins" },
 		{ opentibiaid = 2186, level = 13, mana = 3, vocations = { vocation.druid, vocation.elderdruid }, filename = "OpenTibia.Plugins.Weapons.MoonlightRodWeaponPlugin, mtanksl.OpenTibia.Plugins" },
-		{ opentibiaid = 7366, level = 0, mana = 0, vocations = { vocation.knight, vocation.paladin, vocation.druid, vocation.sorcerer, vocation.eliteknight, vocation.royalpaladin, vocation.elderdruid, vocation.mastersorcerer }, filename = "OpenTibia.Plugins.Weapons.ViperStarWeaponPlugin, mtanksl.OpenTibia.Plugins" }		
+		{ opentibiaid = 7366, level = 0, mana = 0, vocations = { vocation.none, vocation.knight, vocation.paladin, vocation.druid, vocation.sorcerer, vocation.eliteknight, vocation.royalpaladin, vocation.elderdruid, vocation.mastersorcerer }, filename = "OpenTibia.Plugins.Weapons.ViperStarWeaponPlugin, mtanksl.OpenTibia.Plugins" }		
 	},
 	ammunitions = {
 		{ opentibiaid = 2545, level = 0, filename = "OpenTibia.Plugins.Ammunitions.PoisonArrowAmmunitionPlugin, mtanksl.OpenTibia.Plugins" },
