@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Game.Components;
 using OpenTibia.Game.Plugins;
 using OpenTibia.Network.Packets.Outgoing;
@@ -116,13 +117,25 @@ namespace OpenTibia.Game.CommandHandlers
                     }
                 }
 
-                if (plugin.Spell.Group == "Attack" && command.Player.Tile.ProtectionZone)
+                if (plugin.Spell.Group == "Attack")
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisActionIsNotPermittedInAProtectionZone) );
+                    if (command.Player.Tile.ProtectionZone)
+                    {
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisActionIsNotPermittedInAProtectionZone) );
 
-                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
-                    await Promise.Break;
+                        await Promise.Break;
+                    }
+
+                    if (target is Npc || (target is Player player && (player.Rank == Rank.Gamemaster || Context.Server.Config.GameplayWorldType == WorldType.NonPvp || player.Level <= Context.Server.Config.GameplayProtectionLevel || command.Player.Level <= Context.Server.Config.GameplayProtectionLevel) ) )
+                    {
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature) );
+
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+
+                        await Promise.Break;
+                    }
                 }
 
                 PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerCooldownBehaviour>(command.Player);

@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Game.Components;
 using OpenTibia.Game.Plugins;
 using OpenTibia.Network.Packets.Outgoing;
@@ -75,13 +76,16 @@ namespace OpenTibia.Game.CommandHandlers
                     await Promise.Break;
                 }
 
-                if (command.ToCreature is Npc)
+                if (plugin.Rune.Group == "Attack")
                 {
-                    Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature) );
+                    if (command.ToCreature is Npc || (command.ToCreature is Player player && (player.Rank == Rank.Gamemaster || Context.Server.Config.GameplayWorldType == WorldType.NonPvp || player.Level <= Context.Server.Config.GameplayProtectionLevel || command.Player.Level <= Context.Server.Config.GameplayProtectionLevel) ) )
+                    {
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature) );
 
-                    await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
 
-                    await Promise.Break;
+                        await Promise.Break;
+                    }
                 }
 
                 PlayerCooldownBehaviour playerCooldownBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerCooldownBehaviour>(command.Player);

@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Game.Components;
 using OpenTibia.Network.Packets.Outgoing;
 
@@ -31,7 +32,7 @@ namespace OpenTibia.Game.Commands
             {
                 PlayerThinkBehaviour playerThinkBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerThinkBehaviour>(Player);
 
-                if (target is Npc || target is Player || target.Tile.ProtectionZone || Player.Tile.ProtectionZone)
+                if (target is Npc || target.Tile.ProtectionZone || Player.Tile.ProtectionZone || (target is Player player && (player.Rank == Rank.Gamemaster || Context.Server.Config.GameplayWorldType == WorldType.NonPvp || player.Level <= Context.Server.Config.GameplayProtectionLevel || Player.Level <= Context.Server.Config.GameplayProtectionLevel) ) )
                 {
                     if (playerThinkBehaviour != null)
                     {
