@@ -6,16 +6,18 @@ namespace OpenTibia.Game.Commands
 {
     public class ProtectionZoneBlockCondition : Condition
     {
-        public ProtectionZoneBlockCondition() : base(ConditionSpecialCondition.ProtectionZoneBlock)
+        public ProtectionZoneBlockCondition(TimeSpan duration) : base(ConditionSpecialCondition.ProtectionZoneBlock)
         {
-
+            Duration = duration;
         }
+
+        public TimeSpan Duration { get; set; }
 
         private string key = Guid.NewGuid().ToString();
 
         public override Promise OnStart(Creature creature)
         {
-            return Promise.Delay(key, TimeSpan.FromMinutes(15) );
+            return Promise.Delay(key, Duration);
         }
 
         public override void Cancel()

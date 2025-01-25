@@ -44,7 +44,29 @@ namespace OpenTibia.Game.Commands
                     Context.Server.GameObjectComponents.RemoveComponent(Target, creatureConditionBehaviour);
                 }
             }
-                        
+            else if (Condition.ConditionSpecialCondition == ConditionSpecialCondition.LogoutBlock)
+            {
+                creatureConditionBehaviour = Context.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(Target)
+                    .Where(c => c.Condition.ConditionSpecialCondition == ConditionSpecialCondition.ProtectionZoneBlock)
+                    .FirstOrDefault();
+
+                if (creatureConditionBehaviour != null)
+                {
+                    Context.Server.GameObjectComponents.RemoveComponent(Target, creatureConditionBehaviour);
+                }
+            }
+            else if (Condition.ConditionSpecialCondition == ConditionSpecialCondition.ProtectionZoneBlock)
+            {
+                creatureConditionBehaviour = Context.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(Target)
+                    .Where(c => c.Condition.ConditionSpecialCondition == ConditionSpecialCondition.LogoutBlock)
+                    .FirstOrDefault();
+
+                if (creatureConditionBehaviour != null)
+                {
+                    Context.Server.GameObjectComponents.RemoveComponent(Target, creatureConditionBehaviour);
+                }
+            }          
+
             creatureConditionBehaviour = Context.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(Target)
                 .Where(c => c.Condition.ConditionSpecialCondition == Condition.ConditionSpecialCondition)
                 .FirstOrDefault();

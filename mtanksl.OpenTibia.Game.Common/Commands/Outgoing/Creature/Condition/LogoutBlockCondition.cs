@@ -6,16 +6,18 @@ namespace OpenTibia.Game.Commands
 {
     public class LogoutBlockCondition : Condition
     {
-        public LogoutBlockCondition() : base(ConditionSpecialCondition.LogoutBlock)
+        public LogoutBlockCondition(TimeSpan duration) : base(ConditionSpecialCondition.LogoutBlock)
         {
-
+            Duration = duration;
         }
+
+        public TimeSpan Duration { get; set; }
 
         private string key = Guid.NewGuid().ToString();
 
         public override Promise OnStart(Creature creature)
         {
-            return Promise.Delay(key, TimeSpan.FromMinutes(15) );
+            return Promise.Delay(key, Duration);
         }
 
         public override void Cancel()

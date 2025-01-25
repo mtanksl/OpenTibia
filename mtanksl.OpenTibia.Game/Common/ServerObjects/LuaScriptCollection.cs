@@ -1441,7 +1441,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     case "logoutblock":
 
-                        return new LogoutBlockCondition();
+                        return new LogoutBlockCondition(TimeSpan.FromSeconds( (int)(long)table["duration"] ) );
 
                     case "magicshield":
 
@@ -1453,7 +1453,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                                
                     case "protectionzoneblock":
 
-                        return new ProtectionZoneBlockCondition();
+                        return new ProtectionZoneBlockCondition(TimeSpan.FromSeconds( (int)(long)table["duration"] ) );
 
                     case "slowed":
 

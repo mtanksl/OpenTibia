@@ -378,8 +378,8 @@ condition = {
 	light = function(light, duration)
 		return { type = "light", light = light, duration = duration }
 	end,
-	logoutblock = function()
-		return { type = "logoutblock" }
+	logoutblock = function(duration)
+		return { type = "logoutblock", duration = duration }
 	end,
 	magicshield = function(duration)
 		return { type = "magicshield", duration = duration }
@@ -387,8 +387,8 @@ condition = {
 	outfit = function(outfit, duration)
 		return { type = "outfit", outfit = outfit, duration = duration }
 	end,
-	protectionzoneblock = function()
-		return { type = "protectionzoneblock" }
+	protectionzoneblock = function(duration)
+		return { type = "protectionzoneblock", duration = duration }
 	end,
 	slowed = function(speed, duration)
 		return { type = "slowed", speed = speed, duration = duration }
