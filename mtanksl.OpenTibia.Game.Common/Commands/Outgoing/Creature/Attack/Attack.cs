@@ -30,10 +30,12 @@ namespace OpenTibia.Game.Commands
                 if (monster.Metadata.DamageTakenFromElements.TryGetValue(DamageType, out elementPercent) )
                 {
                     return Context.Current.Server.Randomization.Take( (int)(Min * elementPercent), (int)(Max * elementPercent) );
-                }                
+                }
+
+                return Context.Current.Server.Randomization.Take(Min, Max);
             }
 
-            return Context.Current.Server.Randomization.Take(Min, Max);
+            return (int)(Context.Current.Server.Randomization.Take(Min, Max) / 2.0);
         }
 
         public abstract Promise Missed(Creature attacker, Creature target);
