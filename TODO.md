@@ -6,8 +6,6 @@
 	- Item that modifies player speed (ex. BOH)
 	- Item that modifies player skills
 - Fight	
-	- vs Player
-	- PVP vs non-PVP configuration
 	- Skull
 	- War
 	- Splash
@@ -67,6 +65,8 @@
 		- Database for storing VIPs
 	- Safe Trade
 	- Party
+	- Fight (vs Player)
+		- PVP vs non-PVP configuration
 - Interacting with npc
 	- Private NPC system
 	- NPC channel
@@ -77,7 +77,7 @@
 	- Bank Account
 - Interacting with monsters
 	- Combat controls
-	- Fight
+	- Fight (vs Monster)
 		- Monster spawn/respawn	
 		- Monster despawn
 		- Loot

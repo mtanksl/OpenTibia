@@ -62,7 +62,9 @@ namespace OpenTibia.Game.Common.ServerObjects
         public bool GameplayRemoveChargesFromPotions { get; set; }
         public bool GameplayRemoveChargesFromRunes { get; set; }
         public bool GameplayRemoveWeaponAmmunition { get; set; }
-        public bool GameplayRemoveWeaponCharges { get; set; }        
+        public bool GameplayRemoveWeaponCharges { get; set; }
+        public WorldType GameplayWorldType { get; set; }
+        public int GameplayProtectionLevel { get; set; }
         public int GameplayLogoutBlockSeconds { get; set; }
         public int GameplayProtectionZoneBlockSeconds { get; set; }
         public int GameplayDeathLosePercent { get; set; }
@@ -287,6 +289,12 @@ namespace OpenTibia.Game.Common.ServerObjects
             GameplayRemoveWeaponAmmunition = LuaScope.GetBoolean(script["server.game.gameplay.removeweaponammunition"], true);
 
             GameplayRemoveWeaponCharges = LuaScope.GetBoolean(script["server.game.gameplay.removeweaponcharges"], true);
+
+            string worldType = LuaScope.GetString(script["server.game.gameplay.worldtype"], "non-pvp");
+
+            GameplayWorldType = worldType == "pvp" ? WorldType.Pvp : WorldType.NonPvp;
+
+            GameplayProtectionLevel = LuaScope.GetInt32(script["server.game.gameplay.protectionlevel"], 0);
 
             GameplayLogoutBlockSeconds = LuaScope.GetInt32(script["server.game.gameplay.logoutblockseconds"], 1 * 60);
 

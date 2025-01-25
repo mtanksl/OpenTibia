@@ -67,6 +67,9 @@ server = {
 			-- true = weapons disappear after attack (Tibia)
 			-- false = weapons do not disappear after attack
 			removeweaponcharges = true,
+			-- pvp or non-pvp
+			worldtype = "non-pvp",
+			protectionlevel = 0, -- When using pvp
 			-- When you attack or get attacked by monsters or people, you will receive logout block for 60 seconds.
 			logoutblockseconds = 1 * 60,
 			-- If you kill another player, no matter if it's justified or not, you will receive logout block and protection zone block for 15 minutes.
@@ -124,7 +127,7 @@ server = {
 	},
 	security = {
 		-- multi-client
-		maxconnectionswithsameipaddress = 2,
+		maxconnectionswithsameipaddress = 3,
 		connectionswithsameipaddressabusebanmilliseconds = 15 * 60 * 1000,
 		-- connections abuse
 		maxconnections = 2,

@@ -255,7 +255,7 @@ namespace OpenTibia.Common
 
                 if (party != null)
                 {
-                    if (observer == Player)
+                    if (observer == party.Leader)
                     {
                         return party.SharedExperienceEnabled ? PartyIcon.YellowSharedExperience : PartyIcon.Yellow;
                     }
