@@ -24,7 +24,7 @@ namespace OpenTibia.Plugins.Runes
 
             return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 
-                new SimpleAttack(ProjectileType.Holy, null, DamageType.Holy, formula.Min, formula.Max) ) );
+                new DamageAttack(ProjectileType.Holy, null, DamageType.Holy, formula.Min, formula.Max) ) );
         }
     }
 }

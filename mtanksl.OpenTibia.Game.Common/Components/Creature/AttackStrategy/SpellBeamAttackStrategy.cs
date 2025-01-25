@@ -50,7 +50,7 @@ namespace OpenTibia.Game.Components
         {            
             return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, true, attacker.Tile.Position, area, null, magicEffectType, 
                         
-                new SimpleAttack(null, null, damageType, min, max),
+                new DamageAttack(null, null, damageType, min, max),
                 
                 condition) );
         }

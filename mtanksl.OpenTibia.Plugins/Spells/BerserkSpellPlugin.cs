@@ -36,7 +36,7 @@ namespace OpenTibia.Plugins.Spells
 
                 return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.BlackSpark,
                         
-                    new SimpleAttack(null, null, DamageType.Physical, formula.Min, formula.Max) ) );
+                    new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max) ) );
             }
             else if (itemWeapon.Metadata.WeaponType == WeaponType.Sword)
             {
@@ -44,7 +44,7 @@ namespace OpenTibia.Plugins.Spells
 
                 return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.BlackSpark,
                         
-                    new SimpleAttack(null, null, DamageType.Physical, formula.Min, formula.Max) ) );
+                    new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max) ) );
             }
             else if (itemWeapon.Metadata.WeaponType == WeaponType.Axe)
             {
@@ -52,7 +52,7 @@ namespace OpenTibia.Plugins.Spells
 
                 return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.BlackSpark,
                         
-                    new SimpleAttack(null, null, DamageType.Physical, formula.Min, formula.Max) ) );
+                    new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max) ) );
             }
             else if (itemWeapon.Metadata.WeaponType == WeaponType.Club)
             {
@@ -60,7 +60,7 @@ namespace OpenTibia.Plugins.Spells
 
                 return Context.AddCommand(new CreatureAttackAreaCommand(player, false, player.Tile.Position, area, null, MagicEffectType.BlackSpark,
                         
-                    new SimpleAttack(null, null, DamageType.Physical, formula.Min, formula.Max) ) );
+                    new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max) ) );
             }
             else
             {

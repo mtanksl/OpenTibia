@@ -41,13 +41,13 @@ namespace OpenTibia.Plugins.Spells
 
                 return Context.AddCommand(new CreatureAttackAreaCommand(player, true, player.Tile.Position, area, null, MagicEffectType.MortArea,
 
-                    new SimpleAttack(null, null, DamageType.Death, formula.Min, formula.Max) ) );
+                    new DamageAttack(null, null, DamageType.Death, formula.Min, formula.Max) ) );
             }
             else
             {
                 return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 
-                    new SimpleAttack(ProjectileType.SuddenDeath, MagicEffectType.MortArea, DamageType.Death, formula.Min, formula.Max) ) );
+                    new DamageAttack(ProjectileType.SuddenDeath, MagicEffectType.MortArea, DamageType.Death, formula.Min, formula.Max) ) );
             }
         }
     }

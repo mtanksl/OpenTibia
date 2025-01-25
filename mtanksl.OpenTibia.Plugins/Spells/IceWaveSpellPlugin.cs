@@ -32,7 +32,7 @@ namespace OpenTibia.Plugins.Spells
 
             return Context.AddCommand(new CreatureAttackAreaCommand(player, true, player.Tile.Position, area, null, MagicEffectType.IceArea, 
                         
-                new SimpleAttack(null, null, DamageType.Ice, formula.Min, formula.Max) ) );
+                new DamageAttack(null, null, DamageType.Ice, formula.Min, formula.Max) ) );
         }
     }
 }

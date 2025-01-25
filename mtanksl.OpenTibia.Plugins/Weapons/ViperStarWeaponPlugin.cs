@@ -25,7 +25,7 @@ namespace OpenTibia.Plugins.Weapons
 
             return Context.AddCommand(new CreatureAttackCreatureCommand(player, target,
 
-                new SimpleAttack(weapon.Metadata.ProjectileType.Value, null, DamageType.Physical, formula.Min, formula.Max),
+                new DamageAttack(weapon.Metadata.ProjectileType.Value, null, DamageType.Physical, formula.Min, formula.Max),
 
                 new DamageCondition(SpecialCondition.Poisoned, null, DamageType.Earth, new[] { 2, 2, 2, 2, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(4) ) ) );
         }

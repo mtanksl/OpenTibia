@@ -228,7 +228,7 @@ namespace OpenTibia.Game.Components
 
                         await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target,
                             
-                            new SimpleAttack(null, null, DamageType.Physical, formula.Min, formula.Max) ) ); //TODO: More weapon damage types
+                            new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max) ) ); //TODO: More weapon damage types
                     }
                 }
                 else if (itemWeapon.Metadata.WeaponType == WeaponType.Club)
@@ -247,7 +247,7 @@ namespace OpenTibia.Game.Components
 
                         await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                             
-                            new SimpleAttack(null, null, DamageType.Physical, formula.Min, formula.Max) ) ); //TODO: More weapon damage types
+                            new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max) ) ); //TODO: More weapon damage types
                     }
                 }
                 else if (itemWeapon.Metadata.WeaponType == WeaponType.Axe)
@@ -266,7 +266,7 @@ namespace OpenTibia.Game.Components
 
                         await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                             
-                            new SimpleAttack(null, null, DamageType.Physical, formula.Min, formula.Max) ) ); //TODO: More weapon damage types
+                            new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max) ) ); //TODO: More weapon damage types
                     }
                 }
                 else if (itemWeapon.Metadata.WeaponType == WeaponType.Wand)
@@ -342,7 +342,7 @@ namespace OpenTibia.Game.Components
 
                                 await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                                 
-                                    new SimpleAttack(itemAmmunition.Metadata.ProjectileType.Value, null, DamageType.Physical, formula.Min, formula.Max) ) ); //TODO: More ammunition damage types
+                                    new DamageAttack(itemAmmunition.Metadata.ProjectileType.Value, null, DamageType.Physical, formula.Min, formula.Max) ) ); //TODO: More ammunition damage types
                             }
                         }
                         else
@@ -387,7 +387,7 @@ namespace OpenTibia.Game.Components
 
                             await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                                 
-                                new SimpleAttack(itemWeapon.Metadata.ProjectileType.Value, null, DamageType.Physical, formula.Min, formula.Max) ) ); //TODO: More weapon damage types
+                                new DamageAttack(itemWeapon.Metadata.ProjectileType.Value, null, DamageType.Physical, formula.Min, formula.Max) ) ); //TODO: More weapon damage types
                         }
                     }
                 }
@@ -404,7 +404,7 @@ namespace OpenTibia.Game.Components
 
                 await Context.Current.AddCommand(new CreatureAttackCreatureCommand(player, target, 
                     
-                    new SimpleAttack(null, null, DamageType.Physical, formula.Min, formula.Max) ) );
+                    new DamageAttack(null, null, DamageType.Physical, formula.Min, formula.Max) ) );
             }
         }
     }

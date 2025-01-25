@@ -93,14 +93,14 @@ namespace OpenTibia.Game.Components
             {
                 return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, target.Tile.Position, area, projectileType, magicEffectType, openTibiaId.Value, count.Value,
                 
-                    new SimpleAttack(null, null, damageType, min, max),
+                    new DamageAttack(null, null, damageType, min, max),
                 
                     condition) );
             }
 
             return Context.Current.AddCommand(new CreatureAttackAreaCommand(attacker, false, target.Tile.Position, area, projectileType, magicEffectType, 
                 
-                new SimpleAttack(null, null, damageType, min, max),
+                new DamageAttack(null, null, damageType, min, max),
                 
                 condition) );
         }

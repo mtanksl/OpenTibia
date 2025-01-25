@@ -34,7 +34,7 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Execute()
         {
-            if (Attack is SimpleAttack)
+            if (Attack is DamageAttack)
             {
                 if (Attacker is Player attacker)
                 {

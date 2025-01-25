@@ -1392,7 +1392,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     case "simple":
 
-                        return new SimpleAttack( (ProjectileType?)(long?)table["projectiletype"], (MagicEffectType?)(long?)table["magiceffecttype"], (DamageType)(long)table["damagetype"], (int)(long)table["min"], (int)(long)table["max"] );
+                        return new DamageAttack( (ProjectileType?)(long?)table["projectiletype"], (MagicEffectType?)(long?)table["magiceffecttype"], (DamageType)(long)table["damagetype"], (int)(long)table["min"], (int)(long)table["max"] );
                 }
             }
 

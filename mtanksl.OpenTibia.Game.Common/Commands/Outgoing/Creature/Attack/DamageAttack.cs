@@ -8,13 +8,13 @@ using System.Linq;
 
 namespace OpenTibia.Game.Commands
 {
-    public class SimpleAttack : Attack
+    public class DamageAttack : Attack
     {
         protected ProjectileType? projectileType;
 
         private MagicEffectType? magicEffectType;
 
-        public SimpleAttack(ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max) : base(damageType, min, max)
+        public DamageAttack(ProjectileType? projectileType, MagicEffectType? magicEffectType, DamageType damageType, int min, int max) : base(damageType, min, max)
         {
             this.projectileType = projectileType;
 

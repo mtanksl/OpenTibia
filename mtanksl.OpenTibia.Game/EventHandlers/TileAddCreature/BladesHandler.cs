@@ -30,7 +30,7 @@ namespace OpenTibia.Game.CommandHandlers
 
                     if (blades.TryGetValue(topItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
                     {
-                        return Context.AddCommand(new CreatureAttackCreatureCommand(null, e.Creature, new SimpleAttack(null, MagicEffectType.BlackSpark, DamageType.Physical, 60, 60) ) ).Then( () =>
+                        return Context.AddCommand(new CreatureAttackCreatureCommand(null, e.Creature, new DamageAttack(null, MagicEffectType.BlackSpark, DamageType.Physical, 60, 60) ) ).Then( () =>
                         {
                             return Context.AddCommand(new ItemTransformCommand(topItem, toOpenTibiaId, 1) );
 
@@ -43,7 +43,7 @@ namespace OpenTibia.Game.CommandHandlers
                     }
                     else if (topItem.Metadata.OpenTibiaId == activeBlade)
                     {
-                        return Context.AddCommand(new CreatureAttackCreatureCommand(null, e.Creature, new SimpleAttack(null, MagicEffectType.BlackSpark, DamageType.Physical, 60, 60) ) );
+                        return Context.AddCommand(new CreatureAttackCreatureCommand(null, e.Creature, new DamageAttack(null, MagicEffectType.BlackSpark, DamageType.Physical, 60, 60) ) );
                     }
                 }
             }

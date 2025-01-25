@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Components
         {
             return Context.Current.AddCommand(new CreatureAttackCreatureCommand(attacker, target,
                 
-                new SimpleAttack(null, magicEffectType, damageType, min, max) ) );            
+                new DamageAttack(null, magicEffectType, damageType, min, max) ) );            
         }
     }
 }

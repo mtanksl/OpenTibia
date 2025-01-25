@@ -35,7 +35,7 @@ namespace OpenTibia.Plugins.Runes
 
             return Context.AddCommand(new CreatureAttackAreaCommand(player, false, toTile.Position, area, ProjectileType.Poison, MagicEffectType.GreenRings, 1503, 1,
 
-                new SimpleAttack(null, null, DamageType.Earth, 5, 5),
+                new DamageAttack(null, null, DamageType.Earth, 5, 5),
 
                 new DamageCondition(SpecialCondition.Poisoned, null, DamageType.Earth, new[] { 5, 5, 5, 5, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }, TimeSpan.FromSeconds(4) ) ) );
         }

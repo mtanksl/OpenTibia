@@ -26,7 +26,7 @@ namespace OpenTibia.Game.CommandHandlers
                     {
                         return Context.AddCommand(new CreatureAttackCreatureCommand(null, e.Creature,
 
-                            new SimpleAttack(null, null, DamageType.Fire, 300, 300) ) );
+                            new DamageAttack(null, null, DamageType.Fire, 300, 300) ) );
                     }
                 }
             }

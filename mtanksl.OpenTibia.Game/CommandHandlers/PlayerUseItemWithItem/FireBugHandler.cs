@@ -39,7 +39,7 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             return Context.AddCommand(new CreatureAttackCreatureCommand(null, command.Player, 
                             
-                                new SimpleAttack(null, MagicEffectType.ExplosionDamage, DamageType.Fire, 5, 5) ) );
+                                new DamageAttack(null, MagicEffectType.ExplosionDamage, DamageType.Fire, 5, 5) ) );
                         } );
                     }
                     else
@@ -73,7 +73,7 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             return Context.AddCommand(new CreatureAttackCreatureCommand(null, command.Player, 
                             
-                                new SimpleAttack(null, MagicEffectType.ExplosionDamage, DamageType.Fire, 5, 5) ) );
+                                new DamageAttack(null, MagicEffectType.ExplosionDamage, DamageType.Fire, 5, 5) ) );
                         } );
                     }
                     else

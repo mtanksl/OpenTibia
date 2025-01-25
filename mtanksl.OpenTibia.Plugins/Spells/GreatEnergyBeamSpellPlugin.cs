@@ -35,7 +35,7 @@ namespace OpenTibia.Plugins.Spells
 
             return Context.AddCommand(new CreatureAttackAreaCommand(player, true, player.Tile.Position, area, null, MagicEffectType.EnergyArea, 
                         
-                new SimpleAttack(null, null, DamageType.Energy, formula.Min, formula.Max) ) );
+                new DamageAttack(null, null, DamageType.Energy, formula.Min, formula.Max) ) );
         }
     }
 }
