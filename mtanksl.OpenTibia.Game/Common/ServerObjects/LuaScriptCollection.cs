@@ -1427,6 +1427,10 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                         return new DrowningCondition( (int)(long)table["damage"], TimeSpan.FromSeconds( (int)(long)table["interval"] ) );
 
+                    case "drunk":
+
+                        return new DrunkCondition(TimeSpan.FromSeconds( (int)(long)table["duration"] ) );
+
                     case "haste":
 
                         return new HasteCondition( (ushort)(long)table["speed"], TimeSpan.FromSeconds( (int)(long)table["duration"] ) );

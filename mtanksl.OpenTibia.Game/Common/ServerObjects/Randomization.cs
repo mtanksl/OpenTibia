@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace OpenTibia.Game.Common.ServerObjects
@@ -59,25 +60,25 @@ namespace OpenTibia.Game.Common.ServerObjects
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
 
-        public T Take<T>(T[] array)
+        public T Take<T>(IList<T> array)
         {
             if (array == null)
             {
                 throw new ArgumentNullException(nameof(array) );
             }
 
-            if (array.Length == 0)
+            if (array.Count == 0)
             {
                 throw new ArgumentException("Array must have at least one item.");
             }
 
-            return array[ random.Next(0, array.Length) ];
+            return array[ random.Next(0, array.Count) ];
         }
 
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
 
-        public T Take<T>(T[] array, int[] weights)
+        public T Take<T>(IList<T> array, int[] weights)
         {
             if (array == null)
             {
@@ -89,19 +90,19 @@ namespace OpenTibia.Game.Common.ServerObjects
                 throw new ArgumentNullException(nameof(weights) );
             }
 
-            if (array.Length == 0)
+            if (array.Count == 0)
             {
                 throw new ArgumentException("Array must have at least one item.");
             }
 
-            if (array.Length != weights.Length)
+            if (array.Count != weights.Length)
             {
                 throw new ArgumentException("Array must have the same length of Weights.");
             }
 
             int value = random.Next(0, weights.Sum() );
 
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < array.Count; i++)
             {
                 if (value < weights[i] )
                 {

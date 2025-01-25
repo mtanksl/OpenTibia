@@ -36,9 +36,9 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.GiftWraps) ).Then( () =>
                 {
-                    int value = Context.Server.Randomization.Take(0, prizes.Count - 1);
+                    (ushort openTibiaId, byte count) = Context.Server.Randomization.Take(prizes);
 
-                    return Context.AddCommand(new ItemTransformCommand(command.Item, prizes[value].OpenTibiaId, prizes[value].Count) );
+                    return Context.AddCommand(new ItemTransformCommand(command.Item, openTibiaId, count) );
                 } );
             }
 

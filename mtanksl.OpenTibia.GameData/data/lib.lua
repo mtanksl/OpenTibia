@@ -369,6 +369,9 @@ condition = {
 	drowning = function(damage, interval)
 		return { type = "drowning", damage = damage, interval = interval }
 	end,
+	drunk = function(duration)
+		return { type = "drunk", duration = duration }
+	end,
 	haste = function(speed, duration)
 		return { type = "haste", speed = speed, duration = duration }
 	end,

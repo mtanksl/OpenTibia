@@ -11,7 +11,6 @@
 	- Skull
 	- War
 	- Splash
-	- Drunk condition
 	- ...
 - Bed
 - Guild

@@ -20,6 +20,18 @@ namespace OpenTibia.Game.CommandHandlers
                     return Promise.Break;
                 }
 
+                if (fromItem.FluidType == FluidType.Beer || fromItem.FluidType == FluidType.Wine || fromItem.FluidType == FluidType.Rum)
+                {
+                    return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Empty) ).Then( () =>
+                    {
+                        return Context.AddCommand(new ShowTextCommand(command.ToCreature, TalkType.MonsterSay, "Aah...") );
+                    
+                    } ).Then( () =>
+                    {
+                        return Context.AddCommand(new CreatureAddConditionCommand(command.ToCreature, new DrunkCondition(TimeSpan.FromMinutes(2) ) ) );
+                    } );
+                }
+
                 return Context.AddCommand(new FluidItemUpdateFluidTypeCommand(fromItem, FluidType.Empty) ).Then( () =>
                 {
                     return Context.AddCommand(new ShowTextCommand(command.ToCreature, TalkType.MonsterSay, "Gulp.") );

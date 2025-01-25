@@ -39,6 +39,42 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
+            if (Player.HasSpecialCondition(SpecialCondition.Drunk) )
+            {
+                int value = Context.Server.Randomization.Take(0, 20);
+
+                if (value < 4)
+                {
+                    switch (value)
+                    {
+                        case 0:
+
+                            MoveDirection = MoveDirection.North;
+
+                            break;
+
+                        case 1:
+
+                            MoveDirection = MoveDirection.East;
+                            break;
+
+                        case 2:
+
+                            MoveDirection = MoveDirection.South;
+
+                            break;
+
+                        case 3:
+
+                            MoveDirection = MoveDirection.West;
+
+                            break;
+                    }
+
+                    await Context.AddCommand(new ShowTextCommand(Player, TalkType.MonsterSay, "Hicks!") );
+                }
+            }
+
             Tile fromTile = Player.Tile;
 
             Tile toTile = Context.Server.Map.GetTile(fromTile.Position.Offset(MoveDirection) );

@@ -21,11 +21,9 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (santaDolls.Contains(command.Item.Metadata.OpenTibiaId) )
             {                
-                int value = Context.Server.Randomization.Take(0, sounds.Count - 1);
-
                 return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.INeedAHugSantaDoll, new[] { AchievementConstants.INeedAHugPandaTeddy, AchievementConstants.INeedAHugStuffedDragon, AchievementConstants.INeedAHugBabySealDoll, AchievementConstants.INeedAHugSantaDoll }, "I Need a Hug") ).Then( () =>
                 {
-                    return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, sounds[value] ) );
+                    return Context.AddCommand(new ShowTextCommand(command.Player, TalkType.MonsterSay, Context.Server.Randomization.Take(sounds) ) );
                 } );
             }
 

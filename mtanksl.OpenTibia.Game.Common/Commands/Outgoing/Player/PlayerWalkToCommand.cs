@@ -44,6 +44,42 @@ namespace OpenTibia.Game.Commands
             {
                 MoveDirection moveDirection = moveDirections[i];
 
+                if (Player.HasSpecialCondition(SpecialCondition.Drunk) )
+                {
+                    int value = Context.Server.Randomization.Take(0, 20);
+
+                    if (value < 4)
+                    {
+                        switch (value)
+                        {
+                            case 0:
+
+                                moveDirection = MoveDirection.North;
+
+                                break;
+
+                            case 1:
+
+                                moveDirection = MoveDirection.East;
+                                break;
+
+                            case 2:
+
+                                moveDirection = MoveDirection.South;
+
+                                break;
+
+                            case 3:
+
+                                moveDirection = MoveDirection.West;
+
+                                break;
+                        }
+
+                        await Context.AddCommand(new ShowTextCommand(Player, TalkType.MonsterSay, "Hicks!") );
+                    }
+                }
+
                 Tile fromTile = Player.Tile;
 
                 Tile toTile = Context.Server.Map.GetTile(fromTile.Position.Offset(moveDirection) );
