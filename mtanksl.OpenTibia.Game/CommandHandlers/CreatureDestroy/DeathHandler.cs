@@ -169,7 +169,7 @@ namespace OpenTibia.Game.CommandHandlers
                             }
                         }
 
-                        var corpse = await Context.AddCommand(new TileCreatePlayerCorpseCommand(command.Creature.Tile, player, player.SkullIcon == SkullIcon.Red || player.SkullIcon == SkullIcon.Black, blesses) );
+                        var corpse = await Context.AddCommand(new TileCreatePlayerCorpseCommand(command.Creature.Tile, player, player.Client.GetSkullItem(player) == SkullIcon.Red || player.Client.GetSkullItem(player) == SkullIcon.Black, blesses) );
                         
                                  _ = Context.AddCommand(new ItemDecayDestroyCommand(corpse, TimeSpan.FromMinutes(5) ) );
                     }

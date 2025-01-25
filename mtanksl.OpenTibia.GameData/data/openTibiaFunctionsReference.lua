@@ -425,20 +425,6 @@ return {
 				args = "(Creature creature, Outfit baseOutfit, Outfit outfit)",
 				returns = "void"
 			},
-			-- void command.creatureupdatepartyicon(Creature creature, PartyIcon partyIcon)
-			creatureupdatepartyicon = {
-				type = "function",
-				description = "",
-				args = "(Creature creature, PartyIcon partyIcon)",
-				returns = "void"
-			},
-			-- void command.creatureupdateskullicon(Creature creature, SkullIcon skullIcon)
-			creatureupdateskullicon = {
-				type = "function",
-				description = "",
-				args = "(Creature creature, SkullIcon skullIcon)",
-				returns = "void"
-			},
 			-- void command.creatureupdatespeed(Creature creature, ushort baseSpeed, ushort speed)
 			creatureupdatespeed = {
 				type = "function",

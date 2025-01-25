@@ -52,7 +52,7 @@ namespace OpenTibia.Game.Commands
 
                 if (creatureConditionBehaviour != null)
                 {
-                    Context.Server.GameObjectComponents.RemoveComponent(Target, creatureConditionBehaviour);
+                    Context.Server.GameObjectComponents.RemoveComponent(Target, creatureConditionBehaviour); //TODO: What should we do when applying LogoutBlock but there is already a ProtectionZoneBlock?
                 }
             }
             else if (Condition.ConditionSpecialCondition == ConditionSpecialCondition.ProtectionZoneBlock)

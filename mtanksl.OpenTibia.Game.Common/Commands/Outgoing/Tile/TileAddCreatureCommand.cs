@@ -46,11 +46,11 @@ namespace OpenTibia.Game.Commands
 
                 if (pair.Key.Client.Battles.IsKnownCreature(Creature.Id, out removeId) )
                 {
-                    Context.AddPacket(pair.Key, new ThingAddOutgoingPacket(ToTile.Position, pair.Value, Creature) );
+                    Context.AddPacket(pair.Key, new ThingAddOutgoingPacket(ToTile.Position, pair.Value, Creature, pair.Key.Client.GetSkullItem(Creature), pair.Key.Client.GetPartyIcon(Creature) ) );
                 }
                 else
                 {
-                    Context.AddPacket(pair.Key, new ThingAddOutgoingPacket(ToTile.Position, pair.Value, removeId, Creature) );
+                    Context.AddPacket(pair.Key, new ThingAddOutgoingPacket(ToTile.Position, pair.Value, removeId, Creature, pair.Key.Client.GetSkullItem(Creature), pair.Key.Client.GetPartyIcon(Creature), pair.Key.Client.GetWarIcon(Creature) ) );
                 }
             }
 

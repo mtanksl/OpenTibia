@@ -1,14 +1,19 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using System.Collections.Generic;
 
 namespace OpenTibia.Common
 {
     public class Client : IClient
     {
+        private IServer server;
+
         public Client(IServer server)
         {
+            this.server = server;
+
             this.Battles = new BattleCollection(server, this);
 
             this.Containers = new ContainerCollection(this);
@@ -230,6 +235,81 @@ namespace OpenTibia.Common
             clientIndex = 0;
 
             return false;
+        }
+
+        public SkullIcon GetSkullItem(Creature creature)
+        {
+            if (creature is Player observer)
+            {
+                //TODO: Skull
+            }
+
+            return SkullIcon.None;
+        }
+
+        public PartyIcon GetPartyIcon(Creature creature)
+        {
+            if (creature is Player observer)
+            {
+                Party party = server.Parties.GetPartyByLeader(Player);
+
+                if (party != null)
+                {
+                    if (observer == Player)
+                    {
+                        return party.SharedExperienceEnabled ? PartyIcon.YellowSharedExperience : PartyIcon.Yellow;
+                    }
+                    else
+                    {
+                        if (party.ContainsMember(observer) )
+                        {
+                            return party.SharedExperienceEnabled ? PartyIcon.BlueSharedExperience : PartyIcon.Blue;
+                        }
+                        else if (party.ContainsInvitation(observer) )
+                        {
+                            return PartyIcon.WhiteBlue;
+                        }
+                    }
+                }
+                else
+                {
+                    party = server.Parties.GetPartyThatContainsMember(Player);
+
+                    if (party != null)
+                    {
+                        if (observer == party.Leader)
+                        {
+                            return party.SharedExperienceEnabled ? PartyIcon.YellowSharedExperience : PartyIcon.Yellow;
+                        }
+                        else
+                        {
+                            if (party.ContainsMember(observer) )
+                            {
+                                return party.SharedExperienceEnabled ? PartyIcon.BlueSharedExperience : PartyIcon.Blue;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        foreach (var p in server.Parties.GetPartyThatContainsInvitation(Player) )
+                        {
+                            if (observer == p.Leader)
+                            {
+                                return PartyIcon.WhiteYellow;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return PartyIcon.None;
+        }
+        
+        public WarIcon GetWarIcon(Creature creature)
+        {
+            //TODO: War
+
+            return WarIcon.None;
         }
     }
 }

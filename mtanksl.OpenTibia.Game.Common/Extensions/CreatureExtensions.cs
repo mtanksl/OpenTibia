@@ -206,34 +206,6 @@ namespace OpenTibia.Game.Extensions
 
         /// <exception cref="InvalidOperationException"></exception>
 
-        public static Promise UpdatePartyIcon(this Creature creature, PartyIcon partyIcon)
-        {
-            Context context = Context.Current;
-
-            if (context == null)
-            {
-                throw new InvalidOperationException("Context not found.");
-            }
-
-            return context.AddCommand(new CreatureUpdatePartyIconCommand(creature, partyIcon) );
-        }
-
-        /// <exception cref="InvalidOperationException"></exception>
-
-        public static Promise UpdateSkullIcon(this Creature creature, SkullIcon skullIcon)
-        {
-            Context context = Context.Current;
-
-            if (context == null)
-            {
-                throw new InvalidOperationException("Context not found.");
-            }
-
-            return context.AddCommand(new CreatureUpdateSkullIconCommand(creature, skullIcon) );
-        }
-
-        /// <exception cref="InvalidOperationException"></exception>
-
         public static Promise UpdateSpeed(this Creature creature, ushort baseSpeed, ushort speed)
         {
             Context context = Context.Current;

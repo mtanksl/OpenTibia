@@ -16,6 +16,8 @@
 - Guild
 - Hangable items
 - Rings and amulets charges
+- Party shared experience
+- Party spells
 - X-Logging
 - Stamina
 - ...

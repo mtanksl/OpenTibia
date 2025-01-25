@@ -83,7 +83,7 @@ namespace OpenTibia.IO
         /// <summary>
         /// Known creature.
         /// </summary>
-        public static void Write(this ByteArrayStreamWriter writer, Creature creature)
+        public static void Write(this ByteArrayStreamWriter writer, Creature creature, SkullIcon skullIcon, PartyIcon partyIcon)
         {
              writer.Write( (ushort)0x62 );
 
@@ -99,9 +99,9 @@ namespace OpenTibia.IO
 
              writer.Write(creature.Speed);
 
-             writer.Write( (byte)creature.SkullIcon );
+             writer.Write( (byte)skullIcon);
 
-             writer.Write( (byte)creature.PartyIcon );
+             writer.Write( (byte)partyIcon);
 
              writer.Write(creature.Block);
         }
@@ -109,7 +109,7 @@ namespace OpenTibia.IO
         /// <summary>
         /// Unknown creature.
         /// </summary>
-        public static void Write(this ByteArrayStreamWriter writer, uint removeId, Creature creature)
+        public static void Write(this ByteArrayStreamWriter writer, uint removeId, Creature creature, SkullIcon skullIcon, PartyIcon partyIcon, WarIcon warIcon)
         {
             writer.Write( (ushort)0x61 );
 
@@ -129,11 +129,11 @@ namespace OpenTibia.IO
 
             writer.Write(creature.Speed);
 
-            writer.Write( (byte)creature.SkullIcon );
+            writer.Write( (byte)skullIcon);
 
-            writer.Write( (byte)creature.PartyIcon );
+            writer.Write( (byte)partyIcon);
 
-            writer.Write( (byte)creature.WarIcon );
+            writer.Write( (byte)warIcon);
 
             writer.Write(creature.Block);
         }

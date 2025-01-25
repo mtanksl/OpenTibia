@@ -17,12 +17,6 @@ namespace OpenTibia.Common.Objects
 
             BaseSpeed = Speed = 220;
 
-            SkullIcon = SkullIcon.None;
-
-            PartyIcon = PartyIcon.None;
-
-            WarIcon = WarIcon.None;
-
             Block = true;
         }
 
@@ -69,12 +63,6 @@ namespace OpenTibia.Common.Objects
         public ushort BaseSpeed { get; set; }
 
         public ushort Speed { get; set; }
-
-        public SkullIcon SkullIcon { get; set; }
-
-        public PartyIcon PartyIcon { get; set; }
-
-        public WarIcon WarIcon { get; set; }
 
         public bool Block { get; set; }
 

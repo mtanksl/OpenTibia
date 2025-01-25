@@ -98,6 +98,8 @@ namespace OpenTibia.Game.Commands
                 await Context.AddCommand(new ShowProjectileCommand(Attacker, Center, ProjectileType.Value) );
             }
 
+            bool hit = false;
+
             foreach (var area in Area)
             {
                 Offset offset;
@@ -164,10 +166,17 @@ namespace OpenTibia.Game.Commands
                             foreach (var monster in toTile.GetMonsters().ToArray() )
                             {
                                 await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, monster, Attack, Condition) );
+
+                                hit = true;
                             }
                         }
                     }
                 }
+            }
+
+            if ( !hit && Attack is DamageAttack && Attacker is Player attacker)
+            {
+                await Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new LogoutBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayLogoutBlockSeconds) ) ) );
             }
         }
     }

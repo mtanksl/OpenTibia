@@ -335,22 +335,6 @@ namespace OpenTibia.Game.Common.ServerObjects
                 } );
             } );
 
-            lua.RegisterCoFunction("creatureupdatepartyicon", (luaScope, parameters) =>
-            {
-                return Context.Current.AddCommand(new CreatureUpdatePartyIconCommand( (Creature)parameters[0], (PartyIcon)(long)parameters[1] ) ).Then( () =>
-                {
-                    return Promise.FromResultAsEmptyObjectArray;
-                } );
-            } );
-
-            lua.RegisterCoFunction("creatureupdateskullicon", (luaScope, parameters) =>
-            {
-                return Context.Current.AddCommand(new CreatureUpdateSkullIconCommand( (Creature)parameters[0], (SkullIcon)(long)parameters[1] ) ).Then( () =>
-                {
-                    return Promise.FromResultAsEmptyObjectArray;
-                } );
-            } );
-
             lua.RegisterCoFunction("creatureupdatespeed", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new CreatureUpdateSpeedCommand( (Creature)parameters[0], (ushort)(long)parameters[1], (ushort)(long)parameters[2] ) ).Then( () =>

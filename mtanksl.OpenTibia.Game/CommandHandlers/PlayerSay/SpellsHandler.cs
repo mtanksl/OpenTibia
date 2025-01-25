@@ -49,7 +49,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (command.Player.Rank != Rank.Gamemaster)
                 {
-                    if (command.Player.SkullIcon == SkullIcon.Black && plugin.Spell.Group == "Attack")
+                    if (command.Player.Client.GetSkullItem(command.Player) == SkullIcon.Black && plugin.Spell.Group == "Attack")
                     {
                         Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
 

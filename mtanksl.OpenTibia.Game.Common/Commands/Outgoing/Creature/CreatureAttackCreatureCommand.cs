@@ -34,6 +34,22 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Execute()
         {
+            int damage = Attack.Calculate(Attacker, Target);
+
+            if (damage == 0)
+            {
+                await Attack.Missed(Attacker, Target);
+            }
+            else
+            {
+                await Attack.Hit(Attacker, Target, damage);
+
+                if (Condition != null)
+                {
+                    await Context.AddCommand(new CreatureAddConditionCommand(Target, Condition) );
+                }
+            }
+
             if (Attack is DamageAttack)
             {
                 if (Attacker is Player attacker)
@@ -44,32 +60,6 @@ namespace OpenTibia.Game.Commands
                 if (Target is Player target)
                 {                               
                     await Context.Current.AddCommand(new CreatureAddConditionCommand(target, new LogoutBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayLogoutBlockSeconds) ) ) );
-                }
-            }
-
-            if (Attack != null)
-            {
-                int damage = Attack.Calculate(Attacker, Target);
-
-                if (damage == 0)
-                {
-                    await Attack.Missed(Attacker, Target);
-                }
-                else
-                {
-                    await Attack.Hit(Attacker, Target, damage);
-
-                    if (Condition != null)
-                    {
-                        await Context.AddCommand(new CreatureAddConditionCommand(Target, Condition) );
-                    }
-                }
-            }
-            else
-            {
-                if (Condition != null)
-                {
-                    await Context.AddCommand(new CreatureAddConditionCommand(Target, Condition) );
                 }
             }
         }

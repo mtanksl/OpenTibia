@@ -11,7 +11,7 @@ namespace OpenTibia.Network.Packets.Outgoing
         /// <summary>
         /// Known creature.
         /// </summary>
-        public ThingAddOutgoingPacket(Position position, byte index, Creature creature)
+        public ThingAddOutgoingPacket(Position position, byte index, Creature creature, SkullIcon skullIcon, PartyIcon partyIcon)
         {
             this.option = 1;
 
@@ -21,12 +21,16 @@ namespace OpenTibia.Network.Packets.Outgoing
             this.Index = index;
 
             this.Creature = creature;
+
+            this.SkullIcon = skullIcon;
+
+            this.PartyIcon = partyIcon;
         }
 
         /// <summary>
         /// Unknown creature.
         /// </summary>
-        public ThingAddOutgoingPacket(Position position, byte index, uint removeId, Creature creature)
+        public ThingAddOutgoingPacket(Position position, byte index, uint removeId, Creature creature, SkullIcon skullIcon, PartyIcon partyIcon, WarIcon warIcon)
         {
             this.option = 2;
 
@@ -38,6 +42,12 @@ namespace OpenTibia.Network.Packets.Outgoing
             this.RemoveId = removeId;
 
             this.Creature = creature;
+
+            this.SkullIcon = skullIcon;
+
+            this.PartyIcon = partyIcon;
+
+            this.WarIcon = warIcon;
         }
 
         /// <summary>
@@ -62,7 +72,13 @@ namespace OpenTibia.Network.Packets.Outgoing
         public uint RemoveId { get; set; }
 
         public Creature Creature { get; set; }
-                
+
+        public SkullIcon SkullIcon { get; set; }
+
+        public PartyIcon PartyIcon { get; set; }
+
+        public WarIcon WarIcon { get; set; }
+
         public Item Item { get; set; }
 
         public void Write(ByteArrayStreamWriter writer)
@@ -81,13 +97,13 @@ namespace OpenTibia.Network.Packets.Outgoing
             {
                 case 1:
 
-                    writer.Write(Creature);
+                    writer.Write(Creature, SkullIcon, PartyIcon);
 
                     break;
 
                 case 2:
 
-                    writer.Write(RemoveId, Creature);
+                    writer.Write(RemoveId, Creature, SkullIcon, PartyIcon, WarIcon);
 
                     break;
 
