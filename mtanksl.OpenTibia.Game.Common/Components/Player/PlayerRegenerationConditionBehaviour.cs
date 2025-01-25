@@ -66,7 +66,10 @@ namespace OpenTibia.Game.Components
                         {
                             health = vocationConfig.RegenerateHealthInSeconds;
 
-                            await Context.AddCommand(new CreatureUpdateHealthCommand(player, player.Health + vocationConfig.RegenerateHealth) );
+                            if ( !player.Tile.ProtectionZone)
+                            {
+                                await Context.AddCommand(new CreatureUpdateHealthCommand(player, player.Health + vocationConfig.RegenerateHealth) );
+                            }
                         }
 
                         if (mana > 0)
@@ -77,7 +80,10 @@ namespace OpenTibia.Game.Components
                         {
                             mana = vocationConfig.RegenerateManaInSeconds;
 
-                            await Context.AddCommand(new PlayerUpdateManaCommand(player, player.Mana + vocationConfig.RegenerateMana) );
+                            if ( !player.Tile.ProtectionZone)
+                            {
+                                await Context.AddCommand(new PlayerUpdateManaCommand(player, player.Mana + vocationConfig.RegenerateMana) );
+                            }
                         }
                     }
 

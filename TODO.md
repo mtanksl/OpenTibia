@@ -18,6 +18,7 @@
 - Hangable items
 - Rings and amulets charges
 - X-Logging
+- Stamina
 - ...
 
 # Done (or good enough for now)
