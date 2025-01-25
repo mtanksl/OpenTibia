@@ -30,10 +30,6 @@
 - The base objects
 	- Vocation (knight, paladin, sorcerer, druid, etc) and rank (player, tutor, gamemaster) 
 - The base structures
-- Server status info protocol
-- Account manager (create account, change password, create player)
-- Server save routine
-- Map clean routine
 - Interacting with the client
 	- Premium days
 	- Message of the day
@@ -70,12 +66,15 @@
 	- Safe Trade
 	- Party
 - Interacting with npc
+	- Private NPC system
+	- NPC channel
 	- Dialogue
 	- Buy and sell items
 	- Trade window
 	- Travel
 	- Bank Account
 - Interacting with monsters
+	- Combat controls
 	- Fight
 		- Monster spawn/respawn	
 		- Monster despawn
@@ -93,12 +92,6 @@
 	- Bow and arrow
 	- Wand and rod
 	- Two-handed items
-	- No-logout zone
-	- Logout block
-	- Protection zone block
-	- Protection zone
-	- Raids
-	- Special conditions
 - Interacting with the game world 
 	- Look item
 		- Sign items
@@ -122,11 +115,25 @@
 		- Send letter
 	- House
 		- Access list
-		- House items
+		- Database for storing houses, ownership, items
 	- Health and mana regeneration
 	- Soul regeneration
+	- Drunk and other special conditions
+	- No-logout zone
+	- Logout block
+	- Protection zone block
+	- Protection zone
+- Systems
+	- Server status info protocol
+		- Player's peek record
+		- Server rates
+		- Experience stages
+	- Account manager (create account, change password, add character, change character name, change character gender, move character to temple) 
+	- Server save routine
+	- Map clean routine
 - Plugins
-	- Lua scripting
+	- C# dll plugins
+	- Lua scripting (actions, ammunitions, creaturescripts, globalevents, movements, npcs, raids, runes, spells, talkactions, weapons)
 	- Lua debugging with ZeroBrane
 	- Lua autocomplete intellisense
 - Security and Connection
@@ -147,6 +154,11 @@
 	- Allow clones configuration
 	- One player online per account configuration
 	- Replace kick on login configuration
+- Database support
+	- SQLite
+	- MySQL
+	- Microsoft SQL Server 
+	- In Memory
 - Server statistics
 	- Active connections
 	- #Received messages and bytes
@@ -157,4 +169,3 @@
 	- Send Message
 	- Kick Player
 	- Ban Player
-	- Ban IP Address
