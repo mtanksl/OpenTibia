@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
                 return Promise.Break;
             }
 
-            if (Player.HasSpecialCondition(SpecialCondition.LogoutBlock) )
+            if ( !Player.Tile.ProtectionZone && Player.HasSpecialCondition(SpecialCondition.LogoutBlock) )
             {
                 Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotLogoutDuringOrImmediatelyAfterAFight) );
 

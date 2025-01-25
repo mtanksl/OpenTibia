@@ -21,6 +21,27 @@ animatedtextcolor = {
 	white = 215
 }
 
+conditionspecialcondition = {
+	none = 0,
+	poisoned = 1,
+	burning = 2,
+	electrified = 4,
+	drunk = 8,
+	magicshield = 16,
+	slowed = 32,
+	haste = 64,
+	logoutblock = 128,
+	drowning = 256,
+	freezing = 512,
+	dazzled = 1024,
+	cursed = 2048,
+	bleeding = 4096,
+	protectionzoneblock = 8192,
+	outfit = 65536,
+	invisible = 131072,
+	light = 262144
+}
+
 damagetype = {
 	none = 0,
 	physical = 1,
@@ -273,7 +294,8 @@ specialcondition = {
 	cursed = 2048,
 	bleeding = 4096,
 	protectionzoneblock = 8192,
-	protectionzone = 16384
+	protectionzone = 16384,
+	nologoutzone = 32768 -- internal
 }
 
 talktype = {
@@ -356,11 +378,17 @@ condition = {
 	light = function(light, duration)
 		return { type = "light", light = light, duration = duration }
 	end,
+	logoutblock = function()
+		return { type = "logoutblock" }
+	end,
 	magicshield = function(duration)
 		return { type = "magicshield", duration = duration }
 	end,
 	outfit = function(outfit, duration)
 		return { type = "outfit", outfit = outfit, duration = duration }
+	end,
+	protectionzoneblock = function()
+		return { type = "protectionzoneblock" }
 	end,
 	slowed = function(speed, duration)
 		return { type = "slowed", speed = speed, duration = duration }

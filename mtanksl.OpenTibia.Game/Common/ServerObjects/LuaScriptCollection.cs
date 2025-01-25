@@ -1439,6 +1439,10 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                         return new LightCondition(ToLight(table["light"] ), TimeSpan.FromSeconds( (int)(long)table["duration"] ) );
 
+                    case "logoutblock":
+
+                        return new LogoutBlockCondition();
+
                     case "magicshield":
 
                         return new MagicShieldCondition( TimeSpan.FromSeconds( (int)(long)table["duration"] ) );
@@ -1446,7 +1450,11 @@ namespace OpenTibia.Game.Common.ServerObjects
                     case "outfit":
 
                         return new OutfitCondition(ToOutfit(table["outfit"] ), TimeSpan.FromSeconds( (int)(long)table["duration"] ) );
-                                                                    
+                               
+                    case "protectionzoneblock":
+
+                        return new ProtectionZoneBlockCondition();
+
                     case "slowed":
 
                         return new SlowedCondition( (ushort)(long)table["speed"], TimeSpan.FromSeconds( (int)(long)table["duration"] ) );

@@ -65,7 +65,9 @@
         public static readonly string YouCanNotUseThere = "You cannot use there.";
         
         public static readonly string YouCanNotUseThisObject = "You cannot use this object.";
-        
+
+        public static readonly string YouCanNotEnterAProtectionZoneAfterAttackingAnotherPlayer = "You can not enter a protection zone after attacking another player.";
+
         public static readonly string YouDoNotHaveEnoughLevel = "You do not have enough level.";
         
         public static readonly string YouDoNotHaveEnoughMagicLevel = "You do not have enough magic level.";

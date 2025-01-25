@@ -18,6 +18,7 @@
 - Guild
 - Hangable items
 - Rings and amulets charges
+- X-Logging
 - ...
 
 # Done (or good enough for now)

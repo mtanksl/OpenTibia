@@ -13,6 +13,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler<CreatureMoveCommand>(new HouseTileHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler<CreatureMoveCommand>(new ProtectionZoneBlockHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler<CreatureMoveCommand>(new MagicForcefieldHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler<CreatureMoveCommand>(new HoleHandler() );
