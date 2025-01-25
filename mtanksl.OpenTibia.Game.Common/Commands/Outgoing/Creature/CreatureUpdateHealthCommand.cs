@@ -65,7 +65,7 @@ namespace OpenTibia.Game.Commands
 
                     if (Creature.Health == 0)
                     {
-                        return Context.AddCommand(new CreatureDestroyCommand(Creature) );
+                        return Context.AddCommand(new CreatureDeathCommand(Creature) );
                     }
                 }
             }

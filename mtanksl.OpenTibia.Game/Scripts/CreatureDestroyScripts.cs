@@ -20,8 +20,6 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CommandHandlers.AddCommandHandler<CreatureDestroyCommand>(new CleanUpContainerCollectionHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler<CreatureDestroyCommand>(new CleanUpWindowCollectionHandler() );
-
-            Context.Server.CommandHandlers.AddCommandHandler<CreatureDestroyCommand>(new DeathHandler() );
         }
 
         public override void Stop()
