@@ -116,6 +116,26 @@
 
         Version1031 = 54,
 
-        Version1035 = 55
+        Version1035 = 55,
+
+        Version1076 = 56,
+
+        Version1098 = 57,
+
+        Version1100 = 58,
+
+        Version1272 = 59,
+
+        Version1281 = 60,
+
+        Version1285 = 61,
+
+        Version1286 = 62,
+
+        Version1287 = 63,
+
+        Version1290 = 64,
+
+        Version1310 = 65
     }
 }
