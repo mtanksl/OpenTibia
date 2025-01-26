@@ -6,7 +6,6 @@
 	- Item that modifies player speed (ex. BOH)
 	- Item that modifies player skills
 - Fight	
-	- Unjustified kills
 	- War
 	- Splash
 	- ...
@@ -67,6 +66,8 @@
 	- Party
 	- Fight (vs Player)
 		- PVP vs non-PVP configuration
+		- Skull 
+		- Unjustified kills
 - Interacting with npc
 	- Private NPC system
 	- NPC channel
@@ -89,7 +90,6 @@
 		- AOL
 		- Bless
 			- Database for storing blesses
-		- Skull 
 	- Weapon attributes (range, atk, def, arm)
 	- Ammunition
 	- Bow and arrow
