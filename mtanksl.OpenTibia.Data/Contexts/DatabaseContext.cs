@@ -45,6 +45,19 @@ namespace OpenTibia.Data.Contexts
                 .WithMany()
                 .HasForeignKey(v => v.VipId);
 
+            modelBuilder.Entity<DbPlayerKill>()
+                .HasKey(m => new { m.PlayerId, m.TargetId } );
+
+            modelBuilder.Entity<DbPlayerKill>()
+                .HasOne(v => v.Player)
+                .WithMany(p => p.PlayerKills)
+                .HasForeignKey(v => v.PlayerId);
+
+            modelBuilder.Entity<DbPlayerKill>()
+                .HasOne(v => v.Target)
+                .WithMany()
+                .HasForeignKey(v => v.TargetId);
+
             modelBuilder.Entity<DbPlayerOutfit>()
                 .HasKey(m => new { m.PlayerId, m.OutfitId } );
 
@@ -91,6 +104,8 @@ namespace OpenTibia.Data.Contexts
 
         public DbSet<DbPlayerVip> PlayerVips { get; set; }
 
+        public DbSet<DbPlayerKill> PlayerKills { get; set; }
+
         public DbSet<DbPlayerOutfit> PlayerOutfits { get; set; }
 
         public DbSet<DbPlayerSpell> PlayerSpells { get; set; }
@@ -98,7 +113,7 @@ namespace OpenTibia.Data.Contexts
         public DbSet<DbPlayerBless> PlayerBlesses { get; set; }
 
         public DbSet<DbPlayerAchievement> PlayerAchievements { get; set; }
-
+                
         public DbSet<DbRuleViolationReport> RuleViolationReports { get; set; }
 
         public DbSet<DbWorld> Worlds { get; set; }

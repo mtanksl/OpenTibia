@@ -31,8 +31,6 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         void SkullAdd(uint attacker, SkullIcon skullIcon);
 
-        void AddUnjustifiedKill(uint attacker, uint target);
-
         void CleanUp(Player player);
     }
 }

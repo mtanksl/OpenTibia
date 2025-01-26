@@ -93,6 +93,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             LoadOutfits(Context.Current, dbPlayer, player);
 
             LoadVips(Context.Current, dbPlayer, player);
+
+            LoadKills(Context.Current, dbPlayer, player);
         }
 
         private static void LoadPlayer(Context context, DbPlayer dbPlayer, Player player)
@@ -307,7 +309,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private static void LoadBlesses(Context context, DbPlayer dbPlayer, Player player)
         {
-            foreach (var dbPlayerBless in dbPlayer.DbPlayerBlesses)
+            foreach (var dbPlayerBless in dbPlayer.PlayerBlesses)
             {
                 player.Blesses.SetBless(dbPlayerBless.Name);
             }
@@ -367,9 +369,17 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private static void LoadVips(Context context, DbPlayer dbPlayer, Player player)
         {
-            foreach (var dbVip in dbPlayer.PlayerVips)
+            foreach (var dbPlayerVip in dbPlayer.PlayerVips)
             {
-                player.Vips.AddVip(dbVip.Vip.Id, dbVip.Vip.Name);
+                player.Vips.AddVip(dbPlayerVip.Vip.Id, dbPlayerVip.Vip.Name);
+            }
+        }
+
+        private static void LoadKills(Context context, DbPlayer dbPlayer, Player player)
+        {
+            foreach (var dbPlayerKill in dbPlayer.PlayerKills)
+            {
+                player.Kills.AddUnjustifiedKill(dbPlayerKill.TargetId, dbPlayerKill.CreationDate);
             }
         }
 
@@ -392,6 +402,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             SaveOutfits(Context.Current, dbPlayer, player);
 
             SaveVips(Context.Current, dbPlayer, player);
+
+            SaveKills(Context.Current, dbPlayer, player);
         }
 
         private static void SavePlayer(Context context, DbPlayer dbPlayer, Player player)
@@ -632,11 +644,11 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private static void SaveBlesses(Context context, DbPlayer dbPlayer, Player player)
         {
-            dbPlayer.DbPlayerBlesses.Clear();
+            dbPlayer.PlayerBlesses.Clear();
 
             foreach (var name in player.Blesses.GetBlesses() )
             {
-                dbPlayer.DbPlayerBlesses.Add(new DbPlayerBless()
+                dbPlayer.PlayerBlesses.Add(new DbPlayerBless()
                 {
                     PlayerId = dbPlayer.Id,
 
@@ -671,6 +683,21 @@ namespace OpenTibia.Game.Common.ServerObjects
                     PlayerId = dbPlayer.Id,
 
                     VipId = pair.Key
+                } );
+            }
+        }
+
+        private static void SaveKills(Context context, DbPlayer dbPlayer, Player player)
+        {
+            dbPlayer.PlayerKills.Clear();
+
+            foreach (var unjustifiedKill in player.Kills.GetKills() )
+            {
+                dbPlayer.PlayerKills.Add(new DbPlayerKill()
+                {
+                    TargetId = unjustifiedKill.TargetId,
+
+                    CreationDate = unjustifiedKill.CreationDate
                 } );
             }
         }

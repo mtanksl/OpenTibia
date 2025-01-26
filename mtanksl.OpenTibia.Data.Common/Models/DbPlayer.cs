@@ -134,13 +134,15 @@ namespace OpenTibia.Data.Models
 
         public ICollection<DbPlayerSpell> PlayerSpells { get; set; } = new List<DbPlayerSpell>();
 
-        public ICollection<DbPlayerBless> DbPlayerBlesses { get; set; } = new List<DbPlayerBless>();
+        public ICollection<DbPlayerBless> PlayerBlesses { get; set; } = new List<DbPlayerBless>();
 
         public ICollection<DbPlayerAchievement> PlayerAchievements { get; set; } = new List<DbPlayerAchievement>();
 
         public ICollection<DbPlayerOutfit> PlayerOutfits { get; set; } = new List<DbPlayerOutfit>();
 
         public ICollection<DbPlayerVip> PlayerVips { get; set; } = new List<DbPlayerVip>();
+
+        public ICollection<DbPlayerKill> PlayerKills { get; set; } = new List<DbPlayerKill>();
 
         public ICollection<DbHouse> Houses { get; set; } = new List<DbHouse>();
     }

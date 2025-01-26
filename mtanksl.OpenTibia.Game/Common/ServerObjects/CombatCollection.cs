@@ -176,27 +176,6 @@ namespace OpenTibia.Game.Common.ServerObjects
             skulls[attacker] = skullIcon;
         }
 
-        private Dictionary<uint /* attacker */, List<UnjustifiedKill> > unjustifiedKills = new Dictionary<uint, List<UnjustifiedKill> >();
-
-        public void AddUnjustifiedKill(uint attacker, uint target)
-        {
-            List<UnjustifiedKill> kills;
-
-            if ( !unjustifiedKills.TryGetValue(attacker, out kills) )
-            {
-                kills = new List<UnjustifiedKill>();
-
-                unjustifiedKills.Add(attacker, kills);
-            }
-
-            kills.Add(new UnjustifiedKill()
-            {
-                TargetId = target,
-
-                LastAttack = DateTime.UtcNow
-            } );
-        }
-
         public void CleanUp(Player player)
         {
             HashSet<uint> attackers;
@@ -215,7 +194,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                     }
                 }
 
-                if ( !unjustifiedKills.ContainsKey(player.Id) )
+                if (player.Kills.Count == 0)
                 {
                     skulls.Remove(player.Id);
                 }

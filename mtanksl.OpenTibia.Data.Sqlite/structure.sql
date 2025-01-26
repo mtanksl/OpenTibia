@@ -224,6 +224,18 @@ CREATE TABLE PlayerVips (
 CREATE INDEX IX_PlayerVips_PlayerId ON PlayerVips (PlayerId);
 CREATE INDEX IX_PlayerVips_VipId ON PlayerVips (VipId);
 
+-- PlayerKills
+
+CREATE TABLE PlayerKills (
+    PlayerId INTEGER NOT NULL REFERENCES Players (Id) ON DELETE CASCADE,
+    TargetId INTEGER NOT NULL REFERENCES Players (Id) ON DELETE CASCADE,
+    CreationDate DATETIME NOT NULL,
+    PRIMARY KEY (PlayerId, TargetId)
+);
+CREATE INDEX IX_PlayerKills_PlayerId ON PlayerKills (PlayerId);
+CREATE INDEX IX_PlayerKills_TargetId ON PlayerKills (TargetId);
+
+
 -- RuleViolationReports
 
 CREATE TABLE RuleViolationReports (

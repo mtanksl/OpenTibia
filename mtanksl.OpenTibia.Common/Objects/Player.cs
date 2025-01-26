@@ -22,6 +22,8 @@ namespace OpenTibia.Common.Objects
 
             Vips = new PlayerVipCollection();
 
+            Kills = new PlayerKillCollection();
+
             Skills = new Skills(this);
 
             Experience = 0;
@@ -86,7 +88,9 @@ namespace OpenTibia.Common.Objects
         public PlayerBlessCollection Blesses { get; }
 
         public PlayerVipCollection Vips { get; }
-        
+
+        public PlayerKillCollection Kills { get; set; }
+
         public Skills Skills { get; set; }
 
         public ulong Experience { get; set; }
