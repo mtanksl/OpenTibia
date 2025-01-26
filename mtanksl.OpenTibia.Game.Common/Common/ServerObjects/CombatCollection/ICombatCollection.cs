@@ -11,27 +11,27 @@ namespace OpenTibia.Game.Common.ServerObjects
         Dictionary<Creature, Hit> GetHitsByTargetAndRemove(Creature target);
 
 
-        bool ContainsOffense(Player attacker, Player target);
+        bool ContainsOffense(uint attacker, uint target);
 
-        void AddOffense(Player attacker, Player target);
+        void AddOffense(uint attacker, uint target);
 
-        bool ContainsDefense(Player target, Player attacker);
+        bool ContainsDefense(uint target, uint attacker);
 
-        void AddDefense(Player target, Player attacker);
+        void AddDefense(uint target, uint attacker);
 
-        // bool YellowSkullContainsOffense(Player attacker, Player target);
+        // bool YellowSkullContainsOffense(uint attacker, uint target);
 
-        void YellowSkullAddOffense(Player attacker, Player target);
+        void YellowSkullAddOffense(uint attacker, uint target);
 
-        bool YellowSkullContainsDefense(Player target, Player attacker);
+        bool YellowSkullContainsDefense(uint target, uint attacker);
 
-        void YellowSkullAddDefense(Player target, Player attacker);
+        void YellowSkullAddDefense(uint target, uint attacker);
 
-        bool SkullContains(Player attacker, out SkullIcon skullIcon);
+        bool SkullContains(uint attacker, out SkullIcon skullIcon);
 
-        void SkullAdd(Player attacker, SkullIcon skullIcon);
+        void SkullAdd(uint attacker, SkullIcon skullIcon);
 
-        void AddUnjustifiedKill(Player attacker, Player target);
+        void AddUnjustifiedKill(uint attacker, uint target);
 
         void CleanUp(Player player);
     }

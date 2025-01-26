@@ -3,7 +3,6 @@ using OpenTibia.Common.Structures;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace OpenTibia.Game.Common.ServerObjects
 {
@@ -48,11 +47,11 @@ namespace OpenTibia.Game.Common.ServerObjects
             return hits;
         }
 
-        private Dictionary<Player /* attacker */, HashSet<Player /* target */> > offenses = new Dictionary<Player, HashSet<Player> >();
+        private Dictionary<uint /* attacker */, HashSet<uint /* target */> > offenses = new Dictionary<uint, HashSet<uint> >();
 
-        public bool ContainsOffense(Player attacker, Player target)
+        public bool ContainsOffense(uint attacker, uint target)
         {
-            HashSet<Player> targets;
+            HashSet<uint> targets;
 
             if (offenses.TryGetValue(attacker, out targets) )
             {
@@ -62,13 +61,13 @@ namespace OpenTibia.Game.Common.ServerObjects
             return false;
         }
 
-        public void AddOffense(Player attacker, Player target)
+        public void AddOffense(uint attacker, uint target)
         {
-            HashSet<Player> targets;
+            HashSet<uint> targets;
 
             if ( !offenses.TryGetValue(attacker, out targets) )
             {
-                targets = new HashSet<Player>();
+                targets = new HashSet<uint>();
 
                 offenses.Add(attacker, targets);
             }
@@ -76,11 +75,11 @@ namespace OpenTibia.Game.Common.ServerObjects
             targets.Add(target);
         }
 
-        private Dictionary<Player /* target */, HashSet<Player /* attacker */> > defenses = new Dictionary<Player, HashSet<Player> >();
+        private Dictionary<uint /* target */, HashSet<uint /* attacker */> > defenses = new Dictionary<uint, HashSet<uint> >();
 
-        public bool ContainsDefense(Player target, Player attacker)
+        public bool ContainsDefense(uint target, uint attacker)
         {
-            HashSet<Player> attackers;
+            HashSet<uint> attackers;
 
             if (defenses.TryGetValue(target, out attackers) )
             {
@@ -90,13 +89,13 @@ namespace OpenTibia.Game.Common.ServerObjects
             return false;
         }
 
-        public void AddDefense(Player target, Player attacker)
+        public void AddDefense(uint target, uint attacker)
         {
-            HashSet<Player> attackers;
+            HashSet<uint> attackers;
 
             if ( !defenses.TryGetValue(target, out attackers) )
             {
-                attackers = new HashSet<Player>();
+                attackers = new HashSet<uint>();
 
                 defenses.Add(target, attackers);
             }
@@ -104,11 +103,11 @@ namespace OpenTibia.Game.Common.ServerObjects
             attackers.Add(attacker);
         }
 
-        private Dictionary<Player /* attacker */, HashSet<Player /* target */> > yellowSkullOffenses = new Dictionary<Player, HashSet<Player> >();
+        private Dictionary<uint /* attacker */, HashSet<uint /* target */> > yellowSkullOffenses = new Dictionary<uint, HashSet<uint> >();
 
-        private bool YellowSkullContainsOffense(Player attacker, Player target)
+        private bool YellowSkullContainsOffense(uint attacker, uint target)
         {
-            HashSet<Player> targets;
+            HashSet<uint> targets;
 
             if (yellowSkullOffenses.TryGetValue(attacker, out targets) )
             {
@@ -118,13 +117,13 @@ namespace OpenTibia.Game.Common.ServerObjects
             return false;
         }
 
-        public void YellowSkullAddOffense(Player attacker, Player target)
+        public void YellowSkullAddOffense(uint attacker, uint target)
         {
-            HashSet<Player> targets;
+            HashSet<uint> targets;
 
             if ( !yellowSkullOffenses.TryGetValue(attacker, out targets) )
             {
-                targets = new HashSet<Player>();
+                targets = new HashSet<uint>();
 
                 yellowSkullOffenses.Add(attacker, targets);
             }
@@ -132,11 +131,11 @@ namespace OpenTibia.Game.Common.ServerObjects
             targets.Add(target);
         }
 
-        private Dictionary<Player /* target */, HashSet<Player /* attacker */> > yellowSkullDefenses = new Dictionary<Player, HashSet<Player> >();
+        private Dictionary<uint /* target */, HashSet<uint /* attacker */> > yellowSkullDefenses = new Dictionary<uint, HashSet<uint> >();
 
-        public bool YellowSkullContainsDefense(Player target, Player attacker)
+        public bool YellowSkullContainsDefense(uint target, uint attacker)
         {
-            HashSet<Player> attackers;
+            HashSet<uint> attackers;
 
             if (yellowSkullDefenses.TryGetValue(target, out attackers) )
             {
@@ -146,13 +145,13 @@ namespace OpenTibia.Game.Common.ServerObjects
             return false;
         }
 
-        public void YellowSkullAddDefense(Player target, Player attacker)
+        public void YellowSkullAddDefense(uint target, uint attacker)
         {
-            HashSet<Player> attackers;
+            HashSet<uint> attackers;
 
             if ( !yellowSkullDefenses.TryGetValue(target, out attackers) )
             {
-                attackers = new HashSet<Player>();
+                attackers = new HashSet<uint>();
 
                 yellowSkullDefenses.Add(target, attackers);
             }
@@ -160,14 +159,14 @@ namespace OpenTibia.Game.Common.ServerObjects
             attackers.Add(attacker);
         }
 
-        private Dictionary<Player /* attacker */, SkullIcon> skulls = new Dictionary<Player, SkullIcon>();
+        private Dictionary<uint /* attacker */, SkullIcon> skulls = new Dictionary<uint, SkullIcon>();
 
-        public bool SkullContains(Player attacker, out SkullIcon skullIcon)
+        public bool SkullContains(uint attacker, out SkullIcon skullIcon)
         {
             return skulls.TryGetValue(attacker, out skullIcon);
         }
 
-        public void SkullAdd(Player attacker, SkullIcon skullIcon)
+        public void SkullAdd(uint attacker, SkullIcon skullIcon)
         {
             if (skullIcon != SkullIcon.White && skullIcon != SkullIcon.Red && skullIcon != SkullIcon.Black)
             {
@@ -177,9 +176,9 @@ namespace OpenTibia.Game.Common.ServerObjects
             skulls[attacker] = skullIcon;
         }
 
-        private Dictionary<Player /* attacker */, List<UnjustifiedKill> > unjustifiedKills = new Dictionary<Player, List<UnjustifiedKill> >();
+        private Dictionary<uint /* attacker */, List<UnjustifiedKill> > unjustifiedKills = new Dictionary<uint, List<UnjustifiedKill> >();
 
-        public void AddUnjustifiedKill(Player attacker, Player target)
+        public void AddUnjustifiedKill(uint attacker, uint target)
         {
             List<UnjustifiedKill> kills;
 
@@ -192,7 +191,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             kills.Add(new UnjustifiedKill()
             {
-                TargetId = target.Id,
+                TargetId = target,
 
                 LastAttack = DateTime.UtcNow
             } );
@@ -200,63 +199,63 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public void CleanUp(Player player)
         {
-            HashSet<Player> attackers;
+            HashSet<uint> attackers;
 
-            HashSet<Player> targets;
+            HashSet<uint> targets;
 
-            if (offenses.TryGetValue(player, out targets) )
+            if (offenses.TryGetValue(player.Id, out targets) )
             {
-                offenses.Remove(player);
+                offenses.Remove(player.Id);
 
                 foreach (var target in targets)
                 {
                     if (defenses.TryGetValue(target, out attackers) )
                     {
-                        attackers.Remove(player);
+                        attackers.Remove(player.Id);
                     }
                 }
 
-                if ( !unjustifiedKills.ContainsKey(player) )
+                if ( !unjustifiedKills.ContainsKey(player.Id) )
                 {
-                    skulls.Remove(player);
+                    skulls.Remove(player.Id);
                 }
             }
 
-            if (defenses.TryGetValue(player, out attackers) )
+            if (defenses.TryGetValue(player.Id, out attackers) )
             {
-                defenses.Remove(player);
+                defenses.Remove(player.Id);
 
                 foreach (var attacker in attackers)
                 {
                     if (offenses.TryGetValue(attacker, out targets) )
                     {
-                        targets.Remove(player);
+                        targets.Remove(player.Id);
                     }
                 }
             }
 
-            if (yellowSkullOffenses.TryGetValue(player, out targets) )
+            if (yellowSkullOffenses.TryGetValue(player.Id, out targets) )
             {
-                yellowSkullOffenses.Remove(player);
+                yellowSkullOffenses.Remove(player.Id);
 
                 foreach (var target in targets)
                 {
                     if (yellowSkullDefenses.TryGetValue(target, out attackers) )
                     {
-                        attackers.Remove(player);
+                        attackers.Remove(player.Id);
                     }
                 }
             }
 
-            if (yellowSkullDefenses.TryGetValue(player, out attackers) )
+            if (yellowSkullDefenses.TryGetValue(player.Id, out attackers) )
             {
-                yellowSkullDefenses.Remove(player);
+                yellowSkullDefenses.Remove(player.Id);
 
                 foreach (var attacker in attackers)
                 {
                     if (yellowSkullOffenses.TryGetValue(attacker, out targets) )
                     {
-                        targets.Remove(player);
+                        targets.Remove(player.Id);
                     }
                 }
             }

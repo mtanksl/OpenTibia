@@ -189,9 +189,9 @@ namespace OpenTibia.Game.Commands
                     }
                     else
                     {
-                        if ( !Context.Server.Combats.ContainsDefense(attackerPlayer, targetPlayer) )
+                        if ( !Context.Server.Combats.ContainsDefense(attackerPlayer.Id, targetPlayer.Id) )
                         {
-                            Context.Server.Combats.AddUnjustifiedKill(attackerPlayer, targetPlayer);
+                            Context.Server.Combats.AddUnjustifiedKill(attackerPlayer.Id, targetPlayer.Id);
 
                             Context.AddPacket(attackerPlayer, new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, "Warning! The murder of " + targetPlayer.Name + " was not justified.") );
                     

@@ -45,23 +45,23 @@ namespace OpenTibia.Game.Commands
                     {
                         ICombatCollection combats = Context.Server.Combats;
 
-                        if (combats.ContainsDefense(attacker1, target1) )
+                        if (combats.ContainsDefense(attacker1.Id, target1.Id) )
                         {
                             await Context.Current.AddCommand(new CreatureAddConditionCommand(attacker1, new LogoutBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayLogoutBlockSeconds) ) ) );
                         }
                         else
                         {
-                            if ( !combats.ContainsOffense(attacker1, target1) )
+                            if ( !combats.ContainsOffense(attacker1.Id, target1.Id) )
                             {
-                                combats.AddOffense(attacker1, target1);
+                                combats.AddOffense(attacker1.Id, target1.Id);
 
-                                combats.AddDefense(target1, attacker1);
+                                combats.AddDefense(target1.Id, attacker1.Id);
 
-                                if ( !combats.SkullContains(attacker1, out _) )
+                                if ( !combats.SkullContains(attacker1.Id, out _) )
                                 {
-                                    if ( !combats.SkullContains(target1, out _) )
+                                    if ( !combats.SkullContains(target1.Id, out _) )
                                     {
-                                        combats.SkullAdd(attacker1, SkullIcon.White);
+                                        combats.SkullAdd(attacker1.Id, SkullIcon.White);
 
                                         foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(attacker1.Tile.Position) )
                                         {
@@ -75,9 +75,9 @@ namespace OpenTibia.Game.Commands
                                     }
                                     else
                                     {
-                                        combats.YellowSkullAddOffense(attacker1, target1);
+                                        combats.YellowSkullAddOffense(attacker1.Id, target1.Id);
 
-                                        combats.YellowSkullAddDefense(target1, attacker1);
+                                        combats.YellowSkullAddDefense(target1.Id, attacker1.Id);
 
                                         Context.AddPacket(target1, new SetSkullIconOutgoingPacket(attacker1.Id, SkullIcon.Yellow) );
                                     }                                
