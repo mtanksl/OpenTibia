@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using System.Collections.Generic;
 
 namespace OpenTibia.Game.Common.ServerObjects
@@ -18,9 +19,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         void AddDefense(Player target, Player attacker);
 
-        bool WhiteSkullContains(Player attacker);
+        bool SkullContains(Player attacker, out SkullIcon skullIcon);
 
-        void WhiteSkullAdd(Player attacker);
+        void SkullAdd(Player attacker, SkullIcon skullIcon);
 
         bool YellowSkullContains(Player target, Player attacker);
 

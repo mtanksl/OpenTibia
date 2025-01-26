@@ -73,11 +73,11 @@ namespace OpenTibia.Game.Commands
 
                                 combats.AddDefense(target1, attacker1);
 
-                                if ( !combats.WhiteSkullContains(attacker1) )
+                                if ( !combats.SkullContains(attacker1, out _) )
                                 {
-                                    if ( !combats.WhiteSkullContains(target1) )
+                                    if ( !combats.SkullContains(target1, out _) )
                                     {
-                                        combats.WhiteSkullAdd(attacker1);
+                                        combats.SkullAdd(attacker1, SkullIcon.White);
 
                                         foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(attacker1.Tile.Position) )
                                         {

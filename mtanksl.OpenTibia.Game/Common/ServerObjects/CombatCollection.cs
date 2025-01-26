@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using System;
 using System.Collections.Generic;
 
@@ -101,16 +102,21 @@ namespace OpenTibia.Game.Common.ServerObjects
             attackers.Add(attacker);
         }
 
-        private HashSet<Player> whiteSkulls = new HashSet<Player>();
+        private Dictionary<Player, SkullIcon> skulls = new Dictionary<Player, SkullIcon>();
 
-        public bool WhiteSkullContains(Player attacker)
+        public bool SkullContains(Player attacker, out SkullIcon skullIcon)
         {
-            return whiteSkulls.Contains(attacker);
+            return skulls.TryGetValue(attacker, out skullIcon);
         }
 
-        public void WhiteSkullAdd(Player attacker)
+        public void SkullAdd(Player attacker, SkullIcon skullIcon)
         {
-            whiteSkulls.Add(attacker);
+            if (skullIcon != SkullIcon.White && skullIcon != SkullIcon.Red && skullIcon != SkullIcon.Black)
+            {
+                throw new ArgumentException("SkullIcon must be White, Red or Black.");
+            }
+
+            skulls[attacker] = skullIcon;
         }
 
         private Dictionary<Player /* target */, HashSet<Player /* attacker */> > yellowSkulls = new Dictionary<Player, HashSet<Player> >();

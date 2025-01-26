@@ -241,9 +241,11 @@ namespace OpenTibia.Common
         {
             if (creature is Player observer)
             {
-                if (server.Combats.WhiteSkullContains(observer) )
+                SkullIcon skullIcon;
+
+                if (server.Combats.SkullContains(observer, out skullIcon) )
                 {
-                    return SkullIcon.White;
+                    return skullIcon;
                 }
 
                 if (server.Combats.YellowSkullContains(Player, observer) ) // Was player attacked by observer?
