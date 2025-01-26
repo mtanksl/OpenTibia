@@ -17,7 +17,12 @@ namespace OpenTibia.Game.Commands
 
         public override Promise OnStart(Creature creature)
         {
-            return Promise.Delay(key, Duration);
+            return Promise.Delay(key, Duration).Then( () =>
+            {
+                Context.Current.Server.Combats.CleanUp( (Player)creature);
+
+                return Promise.Completed;
+            } );
         }
 
         public override void Cancel()

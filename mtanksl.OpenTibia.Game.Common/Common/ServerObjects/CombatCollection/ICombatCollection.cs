@@ -19,12 +19,20 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         void AddDefense(Player target, Player attacker);
 
+        // bool YellowSkullContainsOffense(Player attacker, Player target);
+
+        void YellowSkullAddOffense(Player attacker, Player target);
+
+        bool YellowSkullContainsDefense(Player target, Player attacker);
+
+        void YellowSkullAddDefense(Player target, Player attacker);
+
         bool SkullContains(Player attacker, out SkullIcon skullIcon);
 
         void SkullAdd(Player attacker, SkullIcon skullIcon);
 
-        bool YellowSkullContains(Player target, Player attacker);
+        void AddUnjustifiedKill(Player attacker, Player target);
 
-        void YellowSkullAdd(Player target, Player attacker);
+        void CleanUp(Player player);
     }
 }

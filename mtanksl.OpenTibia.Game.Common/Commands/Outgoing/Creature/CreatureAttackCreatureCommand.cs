@@ -75,7 +75,9 @@ namespace OpenTibia.Game.Commands
                                     }
                                     else
                                     {
-                                        combats.YellowSkullAdd(target1, attacker1);
+                                        combats.YellowSkullAddOffense(attacker1, target1);
+
+                                        combats.YellowSkullAddDefense(target1, attacker1);
 
                                         Context.AddPacket(target1, new SetSkullIconOutgoingPacket(attacker1.Id, SkullIcon.Yellow) );
                                     }                                

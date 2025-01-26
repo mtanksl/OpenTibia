@@ -1,7 +1,9 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OpenTibia.Game.Common.ServerObjects
 {
@@ -102,7 +104,63 @@ namespace OpenTibia.Game.Common.ServerObjects
             attackers.Add(attacker);
         }
 
-        private Dictionary<Player, SkullIcon> skulls = new Dictionary<Player, SkullIcon>();
+        private Dictionary<Player /* attacker */, HashSet<Player /* target */> > yellowSkullOffenses = new Dictionary<Player, HashSet<Player> >();
+
+        private bool YellowSkullContainsOffense(Player attacker, Player target)
+        {
+            HashSet<Player> targets;
+
+            if (yellowSkullOffenses.TryGetValue(attacker, out targets) )
+            {
+                return targets.Contains(target);
+            }
+
+            return false;
+        }
+
+        public void YellowSkullAddOffense(Player attacker, Player target)
+        {
+            HashSet<Player> targets;
+
+            if ( !yellowSkullOffenses.TryGetValue(attacker, out targets) )
+            {
+                targets = new HashSet<Player>();
+
+                yellowSkullOffenses.Add(attacker, targets);
+            }
+
+            targets.Add(target);
+        }
+
+        private Dictionary<Player /* target */, HashSet<Player /* attacker */> > yellowSkullDefenses = new Dictionary<Player, HashSet<Player> >();
+
+        public bool YellowSkullContainsDefense(Player target, Player attacker)
+        {
+            HashSet<Player> attackers;
+
+            if (yellowSkullDefenses.TryGetValue(target, out attackers) )
+            {
+                return attackers.Contains(attacker);
+            }
+
+            return false;
+        }
+
+        public void YellowSkullAddDefense(Player target, Player attacker)
+        {
+            HashSet<Player> attackers;
+
+            if ( !yellowSkullDefenses.TryGetValue(target, out attackers) )
+            {
+                attackers = new HashSet<Player>();
+
+                yellowSkullDefenses.Add(target, attackers);
+            }
+
+            attackers.Add(attacker);
+        }
+
+        private Dictionary<Player /* attacker */, SkullIcon> skulls = new Dictionary<Player, SkullIcon>();
 
         public bool SkullContains(Player attacker, out SkullIcon skullIcon)
         {
@@ -119,32 +177,99 @@ namespace OpenTibia.Game.Common.ServerObjects
             skulls[attacker] = skullIcon;
         }
 
-        private Dictionary<Player /* target */, HashSet<Player /* attacker */> > yellowSkulls = new Dictionary<Player, HashSet<Player> >();
+        private Dictionary<Player /* attacker */, List<UnjustifiedKill> > unjustifiedKills = new Dictionary<Player, List<UnjustifiedKill> >();
 
-        public bool YellowSkullContains(Player target, Player attacker)
+        public void AddUnjustifiedKill(Player attacker, Player target)
         {
-            HashSet<Player> attackers;
+            List<UnjustifiedKill> kills;
 
-            if (yellowSkulls.TryGetValue(target, out attackers) )
+            if ( !unjustifiedKills.TryGetValue(attacker, out kills) )
             {
-                return attackers.Contains(attacker);
+                kills = new List<UnjustifiedKill>();
+
+                unjustifiedKills.Add(attacker, kills);
             }
 
-            return false;
+            kills.Add(new UnjustifiedKill()
+            {
+                TargetId = target.Id,
+
+                LastAttack = DateTime.UtcNow
+            } );
         }
 
-        public void YellowSkullAdd(Player target, Player attacker)
+        public void CleanUp(Player player)
         {
             HashSet<Player> attackers;
 
-            if ( !yellowSkulls.TryGetValue(target, out attackers) )
-            {
-                attackers = new HashSet<Player>();
+            HashSet<Player> targets;
 
-                yellowSkulls.Add(target, attackers);
+            if (offenses.TryGetValue(player, out targets) )
+            {
+                offenses.Remove(player);
+
+                foreach (var target in targets)
+                {
+                    if (defenses.TryGetValue(target, out attackers) )
+                    {
+                        attackers.Remove(player);
+                    }
+                }
+
+                if ( !unjustifiedKills.ContainsKey(player) )
+                {
+                    skulls.Remove(player);
+                }
             }
 
-            attackers.Add(attacker);
+            if (defenses.TryGetValue(player, out attackers) )
+            {
+                defenses.Remove(player);
+
+                foreach (var attacker in attackers)
+                {
+                    if (offenses.TryGetValue(attacker, out targets) )
+                    {
+                        targets.Remove(player);
+                    }
+                }
+            }
+
+            if (yellowSkullOffenses.TryGetValue(player, out targets) )
+            {
+                yellowSkullOffenses.Remove(player);
+
+                foreach (var target in targets)
+                {
+                    if (yellowSkullDefenses.TryGetValue(target, out attackers) )
+                    {
+                        attackers.Remove(player);
+                    }
+                }
+            }
+
+            if (yellowSkullDefenses.TryGetValue(player, out attackers) )
+            {
+                yellowSkullDefenses.Remove(player);
+
+                foreach (var attacker in attackers)
+                {
+                    if (yellowSkullOffenses.TryGetValue(attacker, out targets) )
+                    {
+                        targets.Remove(player);
+                    }
+                }
+            }
+
+            foreach (var observer in Context.Current.Server.Map.GetObserversOfTypePlayer(player.Tile.Position) )
+            {
+                byte clientIndex;
+
+                if (observer.Client.TryGetIndex(player, out clientIndex) )
+                {
+                    Context.Current.AddPacket(observer, new SetSkullIconOutgoingPacket(player.Id, observer.Client.GetSkullItem(player) ) );
+                }
+            }
         }
     }
 }
