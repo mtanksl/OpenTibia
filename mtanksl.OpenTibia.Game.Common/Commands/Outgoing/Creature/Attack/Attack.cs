@@ -23,17 +23,28 @@ namespace OpenTibia.Game.Commands
 
         public virtual int Calculate(Creature attacker, Creature target)
         {
+            // pvm or mvm
+
             if (target is Monster monster)
             {
                 double elementPercent;
 
                 if (monster.Metadata.DamageTakenFromElements.TryGetValue(DamageType, out elementPercent) )
                 {
-                    return Context.Current.Server.Randomization.Take( (int)(Min * elementPercent), (int)(Max * elementPercent) );
+                    return (int)(Context.Current.Server.Randomization.Take(Min, Max) * elementPercent);
                 }
 
                 return Context.Current.Server.Randomization.Take(Min, Max);
             }
+
+            // mvp
+
+            if (attacker is Monster)
+            {
+                return Context.Current.Server.Randomization.Take(Min, Max);
+            }
+
+            // pvp
 
             return (int)(Context.Current.Server.Randomization.Take(Min, Max) / 2.0);
         }
