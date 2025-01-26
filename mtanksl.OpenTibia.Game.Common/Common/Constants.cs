@@ -40,6 +40,8 @@
 
         public static readonly string TooManyLoginAttempts = "Too many login attempts, try again in a few minutes.";
 
+        public static readonly string TurnSecureModeOffIfYouReallyWantToAttackUnmarkedPlayers = "Turn secure mode off if you really want to attack unmarked players.";
+
         public static readonly string YouAreAlreadyLoggedIn = "You are already logged in.";
 
         public static readonly string YouAreAlreadyTrading = "You are already trading.";

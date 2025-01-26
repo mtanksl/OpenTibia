@@ -313,7 +313,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                                     }
                                 }
 
-                                Item item = server.ItemFactory.Create(otbmItem.OpenTibiaId, otbmItem.Count); //TODO: Create with Capacity
+                                Item item = server.ItemFactory.Create(otbmItem.OpenTibiaId, otbmItem.Count);
 
                                 if (item != null)
                                 {

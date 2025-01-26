@@ -43,6 +43,12 @@ namespace OpenTibia.Game.Commands
 
                     Context.AddPacket(Player, new StopAttackAndFollowOutgoingPacket(0) );
                 }
+                else if (target is Player && Player.Client.SafeMode == SafeMode.YouCannotAttackUnmarkedCharacter && Player.Client.GetSkullItem(target) == SkullIcon.None)
+                {
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TurnSecureModeOffIfYouReallyWantToAttackUnmarkedPlayers) );
+
+                    Context.AddPacket(Player, new StopAttackAndFollowOutgoingPacket(0) );
+                }
                 else
                 {
                     if (Player.Client.ChaseMode == ChaseMode.StandWhileFighting)

@@ -50,7 +50,7 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (command.Player.Rank != Rank.Gamemaster)
                 {
-                    if (command.Player.Client.GetSkullItem(command.Player) == SkullIcon.Black && plugin.Spell.Group == "Attack")
+                    if (plugin.Spell.Group == "Attack" && command.Player.Client.GetSkullItem(command.Player) == SkullIcon.Black)
                     {
                         Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
 
@@ -133,6 +133,15 @@ namespace OpenTibia.Game.CommandHandlers
                         Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouMayNotAttackThisCreature) );
 
                         await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff) );
+
+                        await Promise.Break;
+                    }
+
+                    if (target is Player && command.Player.Client.SafeMode == SafeMode.YouCannotAttackUnmarkedCharacter && command.Player.Client.GetSkullItem(target) == SkullIcon.None)
+                    {
+                        Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TurnSecureModeOffIfYouReallyWantToAttackUnmarkedPlayers) );
+
+                        await Context.AddCommand(new ShowMagicEffectCommand(command.Player, MagicEffectType.Puff));
 
                         await Promise.Break;
                     }
