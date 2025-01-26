@@ -15,7 +15,7 @@ namespace OpenTibia.Plugins.Ammunitions
 
         public override PromiseResult<bool> OnUsingAmmunition(Player player, Creature target, Item weapon, Item ammunition)
         {
-            if (player.Client.GetSkullItem(player) == SkullIcon.Black)
+            if (player.Client.GetSkullIcon(player) == SkullIcon.Black)
             {
                 return Promise.FromResultAsBooleanFalse;
             }

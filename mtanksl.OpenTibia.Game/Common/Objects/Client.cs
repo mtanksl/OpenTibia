@@ -237,7 +237,7 @@ namespace OpenTibia.Common
             return false;
         }
 
-        public SkullIcon GetSkullItem(Creature creature)
+        public SkullIcon GetSkullIcon(Creature creature)
         {
             if (creature is Player observer)
             {

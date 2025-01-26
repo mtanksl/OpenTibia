@@ -115,11 +115,11 @@ namespace OpenTibia.Game.Commands
 
                             if (player.Client.Battles.IsKnownCreature(Creature.Id, out removeId) )
                             {
-                                Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, canSeeTo[player], Creature, player.Client.GetSkullItem(Creature), player.Client.GetPartyIcon(Creature) ) );
+                                Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, canSeeTo[player], Creature, player.Client.GetSkullIcon(Creature), player.Client.GetPartyIcon(Creature) ) );
                             }
                             else
                             {
-                                Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, canSeeTo[player], removeId, Creature, player.Client.GetSkullItem(Creature), player.Client.GetPartyIcon(Creature), player.Client.GetWarIcon(Creature) ) );
+                                Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, canSeeTo[player], removeId, Creature, player.Client.GetSkullIcon(Creature), player.Client.GetPartyIcon(Creature), player.Client.GetWarIcon(Creature) ) );
                             }
                         }
 
@@ -226,11 +226,11 @@ namespace OpenTibia.Game.Commands
 
                     if (observer.Client.Battles.IsKnownCreature(Creature.Id, out removeId) )
                     {
-                        Context.AddPacket(observer, new ThingAddOutgoingPacket(ToTile.Position, canSeeTo[observer], Creature, observer.Client.GetSkullItem(Creature), observer.Client.GetPartyIcon(Creature) ) );
+                        Context.AddPacket(observer, new ThingAddOutgoingPacket(ToTile.Position, canSeeTo[observer], Creature, observer.Client.GetSkullIcon(Creature), observer.Client.GetPartyIcon(Creature) ) );
                     }
                     else
                     {
-                        Context.AddPacket(observer, new ThingAddOutgoingPacket(ToTile.Position, canSeeTo[observer], removeId, Creature, observer.Client.GetSkullItem(Creature), observer.Client.GetPartyIcon(Creature), observer.Client.GetWarIcon(Creature) ) );
+                        Context.AddPacket(observer, new ThingAddOutgoingPacket(ToTile.Position, canSeeTo[observer], removeId, Creature, observer.Client.GetSkullIcon(Creature), observer.Client.GetPartyIcon(Creature), observer.Client.GetWarIcon(Creature) ) );
                     }
                 }
             }

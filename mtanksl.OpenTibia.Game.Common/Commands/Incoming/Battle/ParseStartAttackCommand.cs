@@ -32,7 +32,7 @@ namespace OpenTibia.Game.Commands
             {
                 PlayerThinkBehaviour playerThinkBehaviour = Context.Server.GameObjectComponents.GetComponent<PlayerThinkBehaviour>(Player);
 
-                if (target is Npc || target.Tile.ProtectionZone || Player.Tile.ProtectionZone || (target is Player player && (player.Rank == Rank.Gamemaster || player.Rank == Rank.AccountManager || Context.Server.Config.GameplayWorldType == WorldType.NonPvp || player.Level <= Context.Server.Config.GameplayProtectionLevel || Player.Level <= Context.Server.Config.GameplayProtectionLevel) ) || Player.Client.GetSkullItem(Player) == SkullIcon.Black)
+                if (target is Npc || target.Tile.ProtectionZone || Player.Tile.ProtectionZone || (target is Player player && (player.Rank == Rank.Gamemaster || player.Rank == Rank.AccountManager || Context.Server.Config.GameplayWorldType == WorldType.NonPvp || player.Level <= Context.Server.Config.GameplayProtectionLevel || Player.Level <= Context.Server.Config.GameplayProtectionLevel) ) || Player.Client.GetSkullIcon(Player) == SkullIcon.Black)
                 {
                     if (playerThinkBehaviour != null)
                     {
@@ -43,7 +43,7 @@ namespace OpenTibia.Game.Commands
 
                     Context.AddPacket(Player, new StopAttackAndFollowOutgoingPacket(0) );
                 }
-                else if (target is Player && Player.Client.SafeMode == SafeMode.YouCannotAttackUnmarkedCharacter && Player.Client.GetSkullItem(target) == SkullIcon.None)
+                else if (target is Player && Player.Client.SafeMode == SafeMode.YouCannotAttackUnmarkedCharacter && Player.Client.GetSkullIcon(target) == SkullIcon.None)
                 {
                     Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.TurnSecureModeOffIfYouReallyWantToAttackUnmarkedPlayers) );
 

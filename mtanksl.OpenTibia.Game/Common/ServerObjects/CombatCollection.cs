@@ -267,7 +267,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                 if (observer.Client.TryGetIndex(player, out clientIndex) )
                 {
-                    Context.Current.AddPacket(observer, new SetSkullIconOutgoingPacket(player.Id, observer.Client.GetSkullItem(player) ) );
+                    Context.Current.AddPacket(observer, new SetSkullIconOutgoingPacket(player.Id, observer.Client.GetSkullIcon(player) ) );
                 }
             }
         }
