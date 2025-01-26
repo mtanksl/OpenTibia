@@ -6,7 +6,6 @@
 	- Item that modifies player speed (ex. BOH)
 	- Item that modifies player skills
 - Fight	
-	- Skull
 	- War
 	- Splash
 	- ...
@@ -89,6 +88,7 @@
 		- AOL
 		- Bless
 			- Database for storing blesses
+		- Skull 
 	- Weapon attributes (range, atk, def, arm)
 	- Ammunition
 	- Bow and arrow
