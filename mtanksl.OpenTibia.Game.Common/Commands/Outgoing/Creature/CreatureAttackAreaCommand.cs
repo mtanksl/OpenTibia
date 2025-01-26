@@ -146,12 +146,9 @@ namespace OpenTibia.Game.Commands
                         
                         if (OpenTibiaId != null)
                         {
-                            await Context.AddCommand(new TileCreateItemCommand(toTile, OpenTibiaId.Value, Count.Value) ).Then( (item) =>
-                            {
-                                _ = Context.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(10) ) );
-
-                                return Promise.Completed;
-                            } );
+                            var item = await Context.AddCommand(new TileCreateItemCommand(toTile, OpenTibiaId.Value, Count.Value) );
+                            
+                                   _ = Context.AddCommand(new ItemDecayDestroyCommand(item, TimeSpan.FromSeconds(10) ) );
                         }
 
                         if (Attack != null || Condition != null)

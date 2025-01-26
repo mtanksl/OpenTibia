@@ -6,6 +6,7 @@
 	- Item that modifies player speed (ex. BOH)
 	- Item that modifies player skills
 - Fight	
+	- Unjustified kills
 	- War
 	- Splash
 	- ...

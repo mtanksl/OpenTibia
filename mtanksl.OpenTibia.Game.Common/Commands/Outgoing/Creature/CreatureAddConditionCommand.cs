@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Components;
+using System;
 using System.Linq;
 
 namespace OpenTibia.Game.Commands
@@ -44,17 +45,6 @@ namespace OpenTibia.Game.Commands
                     Context.Server.GameObjectComponents.RemoveComponent(Target, creatureConditionBehaviour);
                 }
             }
-            else if (Condition.ConditionSpecialCondition == ConditionSpecialCondition.LogoutBlock)
-            {
-                creatureConditionBehaviour = Context.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(Target)
-                    .Where(c => c.Condition.ConditionSpecialCondition == ConditionSpecialCondition.ProtectionZoneBlock)
-                    .FirstOrDefault();
-
-                if (creatureConditionBehaviour != null)
-                {
-                    Context.Server.GameObjectComponents.RemoveComponent(Target, creatureConditionBehaviour); //TODO: What should we do when applying LogoutBlock but there is already a ProtectionZoneBlock?
-                }
-            }
             else if (Condition.ConditionSpecialCondition == ConditionSpecialCondition.ProtectionZoneBlock)
             {
                 creatureConditionBehaviour = Context.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(Target)
@@ -65,8 +55,23 @@ namespace OpenTibia.Game.Commands
                 {
                     Context.Server.GameObjectComponents.RemoveComponent(Target, creatureConditionBehaviour);
                 }
-            }          
+            }
+            else if (Condition.ConditionSpecialCondition == ConditionSpecialCondition.LogoutBlock)
+            {
+                creatureConditionBehaviour = Context.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(Target)
+                    .Where(c => c.Condition.ConditionSpecialCondition == ConditionSpecialCondition.ProtectionZoneBlock)
+                    .FirstOrDefault();
 
+                if (creatureConditionBehaviour != null)
+                {
+                    TimeSpan logoutBlockDuration = ( (LogoutBlockCondition)Condition).Duration;
+
+                    TimeSpan protectionZoneBlockDuration = ( (ProtectionZoneBlockCondition)creatureConditionBehaviour.Condition).Duration;
+                    
+                    Condition = new ProtectionZoneBlockCondition(logoutBlockDuration > protectionZoneBlockDuration ? logoutBlockDuration : protectionZoneBlockDuration);
+                }
+            }
+            
             creatureConditionBehaviour = Context.Server.GameObjectComponents.GetComponents<CreatureConditionBehaviour>(Target)
                 .Where(c => c.Condition.ConditionSpecialCondition == Condition.ConditionSpecialCondition)
                 .FirstOrDefault();

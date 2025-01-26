@@ -175,6 +175,8 @@ namespace OpenTibia.Game.Commands
                         
                              _ = Context.AddCommand(new ItemDecayDestroyCommand(corpse, TimeSpan.FromMinutes(5) ) );
                 }
+
+                //TODO: Unjustified kills
             }
 
             Context.AddEvent(Creature, new CreatureDeathEventArgs(Creature) );
