@@ -158,13 +158,18 @@ namespace OpenTibia.Game.Commands
                                 foreach (var player in toTile.GetPlayers().Where(p => p.Rank != Rank.Gamemaster && p.Rank != Rank.AccountManager).ToArray() )
                                 {
                                     await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, player, Attack, Condition) );
+                                
+                                    hit = true;
                                 }
                             }
-                            else if (Attacker is Player attacker && Context.Server.Config.GameplayWorldType != WorldType.NonPvp && attacker.Level > Context.Server.Config.GameplayProtectionLevel)
+                            
+                            if (Attacker is Player attacker && Context.Server.Config.GameplayWorldType != WorldType.NonPvp && attacker.Level > Context.Server.Config.GameplayProtectionLevel)
                             {
                                 foreach (var player in toTile.GetPlayers().Where(p => p.Rank != Rank.Gamemaster && p.Rank != Rank.AccountManager && p.Level > Context.Server.Config.GameplayProtectionLevel).ToArray() )
                                 {
                                     await Context.AddCommand(new CreatureAttackCreatureCommand(Attacker, player, Attack, Condition) );
+                               
+                                    hit = true;
                                 }
                             }
 
