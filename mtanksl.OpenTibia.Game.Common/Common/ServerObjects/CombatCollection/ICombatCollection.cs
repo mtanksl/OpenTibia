@@ -10,15 +10,20 @@ namespace OpenTibia.Game.Common.ServerObjects
         Dictionary<Creature, Hit> GetHitsByTargetAndRemove(Creature target);
 
 
-        public bool WhiteSkullContains(Player attacker);
+        bool ContainsOffense(Player attacker, Player target);
 
-        public bool WhiteSkullContains(Player attacker, Player target);
+        void AddOffense(Player attacker, Player target);
 
-        public void WhiteSkullAdd(Player attacker, Player target);
+        bool ContainsDefense(Player target, Player attacker);
 
+        void AddDefense(Player target, Player attacker);
 
-        public bool YellowSkullContains(Player attacker, Player target);
+        bool WhiteSkullContains(Player attacker);
 
-        public void YellowSkullAdd(Player attacker, Player target);
+        void WhiteSkullAdd(Player attacker);
+
+        bool YellowSkullContains(Player target, Player attacker);
+
+        void YellowSkullAdd(Player target, Player attacker);
     }
 }

@@ -57,55 +57,52 @@ namespace OpenTibia.Game.Commands
             {
                 if (Attacker is Player attacker1 && Target is Player target1)
                 {
-                    ICombatCollection combats = Context.Server.Combats;
-
-                    if ( !combats.WhiteSkullContains(attacker1) ) // If an attacker without white skull
+                    if (attacker1 != target1)
                     {
-                        if ( !combats.WhiteSkullContains(target1) ) // Attacks a target without white skull
+                        ICombatCollection combats = Context.Server.Combats;
+
+                        if (combats.ContainsDefense(attacker1, target1) )
                         {
-                            combats.WhiteSkullAdd(attacker1, target1); // Makes attacker white skull, and add target to self defense list
-
-                            await Context.Current.AddCommand(new CreatureAddConditionCommand(attacker1, new ProtectionZoneBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayLogoutBlockSeconds) ) ) );
-
-                            foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(attacker1.Tile.Position) )
+                            await Context.Current.AddCommand(new CreatureAddConditionCommand(attacker1, new LogoutBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayLogoutBlockSeconds) ) ) );
+                        }
+                        else
+                        {
+                            if ( !combats.ContainsOffense(attacker1, target1) )
                             {
-                                byte clientIndex;
+                                combats.AddOffense(attacker1, target1);
 
-                                if (observer.Client.TryGetIndex(attacker1, out clientIndex) )
+                                combats.AddDefense(target1, attacker1);
+
+                                if ( !combats.WhiteSkullContains(attacker1) )
                                 {
-                                    Context.AddPacket(observer, new SetSkullIconOutgoingPacket(attacker1.Id, SkullIcon.White) );
+                                    if ( !combats.WhiteSkullContains(target1) )
+                                    {
+                                        combats.WhiteSkullAdd(attacker1);
+
+                                        foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(attacker1.Tile.Position) )
+                                        {
+                                            byte clientIndex;
+
+                                            if (observer.Client.TryGetIndex(attacker1, out clientIndex) )
+                                            {
+                                                Context.AddPacket(observer, new SetSkullIconOutgoingPacket(attacker1.Id, SkullIcon.White) );
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        combats.YellowSkullAdd(target1, attacker1);
+
+                                        Context.AddPacket(target1, new SetSkullIconOutgoingPacket(attacker1.Id, SkullIcon.Yellow) );
+                                    }                                
                                 }
                             }
-                        }
-                        else // Attacks a target with white skull
-                        {
-                            if (combats.WhiteSkullContains(target1, attacker1)) // If it is self defense
-                            {
-                                await Context.Current.AddCommand(new CreatureAddConditionCommand(attacker1, new LogoutBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayLogoutBlockSeconds) ) ) );
-                            }
-                            else // If it is not self defense
-                            {
-                                combats.YellowSkullAdd(attacker1, target1); // Makes attacker yellow skull
 
-                                await Context.Current.AddCommand(new CreatureAddConditionCommand(attacker1, new ProtectionZoneBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayLogoutBlockSeconds) ) ) );
+                            await Context.Current.AddCommand(new CreatureAddConditionCommand(attacker1, new ProtectionZoneBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayLogoutBlockSeconds) ) ) );
+                        }
 
-                                Context.AddPacket(target1, new SetSkullIconOutgoingPacket(attacker1.Id, SkullIcon.Yellow) );
-                            }
-                        }
+                        await Context.Current.AddCommand(new CreatureAddConditionCommand(target1, new LogoutBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayLogoutBlockSeconds) ) ) );
                     }
-                    else // If an attacker with white skull
-                    {
-                        if ( !combats.WhiteSkullContains(target1) && 
-                             !combats.WhiteSkullContains(attacker1, target1) && 
-                             !combats.YellowSkullContains(target1, attacker1) ) // Attacks a new target without white skull
-                        {
-                            combats.WhiteSkullAdd(attacker1, target1); // Add target to self defense list
-                        }
-                        
-                        await Context.Current.AddCommand(new CreatureAddConditionCommand(attacker1, new ProtectionZoneBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayLogoutBlockSeconds) ) ) );
-                    }
-                   
-                    await Context.Current.AddCommand(new CreatureAddConditionCommand(target1, new LogoutBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayLogoutBlockSeconds) ) ) );
                 }
                 else if (Attacker is Player attacker2)
                 {

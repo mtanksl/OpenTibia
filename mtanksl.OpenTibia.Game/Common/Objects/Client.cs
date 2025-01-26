@@ -246,7 +246,7 @@ namespace OpenTibia.Common
                     return SkullIcon.White;
                 }
 
-                if (server.Combats.YellowSkullContains(observer, Player) ) // Was player attacked by observer?
+                if (server.Combats.YellowSkullContains(Player, observer) ) // Was player attacked by observer?
                 {
                     return SkullIcon.Yellow;
                 }
