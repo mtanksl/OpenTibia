@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
 
 namespace OpenTibia.Game.CommandHandlers
@@ -13,7 +14,17 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 return next().Then( () =>
                 {
-                    Context.Server.Combats.CleanUp(player);
+                    player.Combat.Clear();
+
+                    foreach (var observer in Context.Current.Server.Map.GetObserversOfTypePlayer(player.Tile.Position) )
+                    {
+                        byte clientIndex;
+
+                        if (observer.Client.TryGetIndex(player, out clientIndex) )
+                        {
+                            Context.Current.AddPacket(observer, new SetSkullIconOutgoingPacket(player.Id, observer.Client.GetSkullIcon(player) ) );
+                        }
+                    }
 
                     return Promise.Completed;
                 } );

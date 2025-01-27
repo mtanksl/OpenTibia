@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Data.Models;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Network.Packets.Outgoing;
@@ -43,44 +44,22 @@ namespace OpenTibia.Game.Commands
                 {
                     if (attacker1 != target1)
                     {
-                        ICombatCollection combats = Context.Server.Combats;
-
-                        if (combats.ContainsDefense(attacker1.Id, target1.Id) )
+                        if (target1.Combat.Attacked(attacker1) )
                         {
                             await Context.Current.AddCommand(new CreatureAddConditionCommand(attacker1, new LogoutBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayLogoutBlockSeconds) ) ) );
                         }
                         else
                         {
-                            if ( !combats.ContainsOffense(attacker1.Id, target1.Id) )
+                            if (attacker1.Combat.CanAttack(target1) )
                             {
-                                combats.AddOffense(attacker1.Id, target1.Id);
-
-                                combats.AddDefense(target1.Id, attacker1.Id);
-
-                                if ( !combats.SkullContains(attacker1.Id, out _) )
+                                foreach (var observer in Context.Current.Server.Map.GetObserversOfTypePlayer(attacker1.Tile.Position) )
                                 {
-                                    if ( !combats.SkullContains(target1.Id, out _) )
+                                    byte clientIndex;
+
+                                    if (observer.Client.TryGetIndex(attacker1, out clientIndex) )
                                     {
-                                        combats.SkullAdd(attacker1.Id, SkullIcon.White);
-
-                                        foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(attacker1.Tile.Position) )
-                                        {
-                                            byte clientIndex;
-
-                                            if (observer.Client.TryGetIndex(attacker1, out clientIndex) )
-                                            {
-                                                Context.AddPacket(observer, new SetSkullIconOutgoingPacket(attacker1.Id, SkullIcon.White) );
-                                            }
-                                        }
+                                        Context.Current.AddPacket(observer, new SetSkullIconOutgoingPacket(attacker1.Id, observer.Client.GetSkullIcon(attacker1) ) );
                                     }
-                                    else
-                                    {
-                                        combats.YellowSkullAddOffense(attacker1.Id, target1.Id);
-
-                                        combats.YellowSkullAddDefense(target1.Id, attacker1.Id);
-
-                                        Context.AddPacket(target1, new SetSkullIconOutgoingPacket(attacker1.Id, SkullIcon.Yellow) );
-                                    }                                
                                 }
                             }
 

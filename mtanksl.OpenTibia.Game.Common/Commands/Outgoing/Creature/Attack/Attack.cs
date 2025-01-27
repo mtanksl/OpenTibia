@@ -46,6 +46,11 @@ namespace OpenTibia.Game.Commands
 
             // pvp
 
+            if ( ( (Player)target).Combat.GetSkullIcon(null) == SkullIcon.Black)
+            {
+                return Context.Current.Server.Randomization.Take(Min, Max);
+            }
+
             return (int)(Context.Current.Server.Randomization.Take(Min, Max) / 2.0);
         }
 

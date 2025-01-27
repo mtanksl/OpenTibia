@@ -171,7 +171,7 @@ namespace OpenTibia.Game.Commands
                         }
                     }
 
-                    var corpse = await Context.AddCommand(new TileCreatePlayerCorpseCommand(Creature.Tile, targetPlayer, targetPlayer.Client.GetSkullIcon(targetPlayer) == SkullIcon.Red || targetPlayer.Client.GetSkullIcon(targetPlayer) == SkullIcon.Black, blesses) );
+                    var corpse = await Context.AddCommand(new TileCreatePlayerCorpseCommand(Creature.Tile, targetPlayer, targetPlayer.Combat.GetSkullIcon(null) == SkullIcon.Red || targetPlayer.Combat.GetSkullIcon(null) == SkullIcon.Black, blesses) );
                         
                              _ = Context.AddCommand(new ItemDecayDestroyCommand(corpse, TimeSpan.FromMinutes(5) ) );
                 }
@@ -189,9 +189,9 @@ namespace OpenTibia.Game.Commands
                     }
                     else
                     {
-                        if ( !Context.Server.Combats.ContainsDefense(attackerPlayer.Id, targetPlayer.Id) )
+                        if ( !targetPlayer.Combat.Attacked(attackerPlayer) )
                         {
-                            attackerPlayer.Kills.AddUnjustifiedKill(targetPlayer.DatabasePlayerId, DateTime.UtcNow);
+                            attackerPlayer.Combat.AddUnjustifiedKill(targetPlayer.DatabasePlayerId, DateTime.UtcNow);
 
                             Context.AddPacket(attackerPlayer, new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, "Warning! The murder of " + targetPlayer.Name + " was not justified.") );
                     

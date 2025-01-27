@@ -19,9 +19,18 @@ namespace OpenTibia.Game.Commands
         {
             if (Player.Health == 0)
             {
-                Player.Health = Player.MaxHealth;
+                if (Player.Combat.GetSkullIcon(null) == SkullIcon.Black)
+                {
+                    Player.Health = 40;
 
-                Player.Mana = Player.MaxMana;
+                    Player.Mana = 0;
+                }
+                else
+                {
+                    Player.Health = Player.MaxHealth;
+
+                    Player.Mana = Player.MaxMana;
+                }
 
                 Player.Direction = Direction.South;
 

@@ -28,7 +28,7 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     if (command.Player.Rank != Rank.Gamemaster)
                     {
-                        if (plugin.Rune.Group == "Attack" && command.Player.Client.GetSkullIcon(command.Player) == SkullIcon.Black)
+                        if (plugin.Rune.Group == "Attack" && command.Player.Combat.GetSkullIcon(null) == SkullIcon.Black)
                         {
                             Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.SorryNotPossible) );
 

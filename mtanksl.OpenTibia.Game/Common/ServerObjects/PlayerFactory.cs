@@ -379,7 +379,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             foreach (var dbPlayerKill in dbPlayer.PlayerKills)
             {
-                player.Kills.AddUnjustifiedKill(dbPlayerKill.TargetId, dbPlayerKill.CreationDate);
+                player.Combat.AddUnjustifiedKill(dbPlayerKill.TargetId, dbPlayerKill.CreationDate);
             }
         }
 
@@ -691,7 +691,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             dbPlayer.PlayerKills.Clear();
 
-            foreach (var unjustifiedKill in player.Kills.GetKills() )
+            foreach (var unjustifiedKill in player.Combat.GetUnjustifiedKills() )
             {
                 dbPlayer.PlayerKills.Add(new DbPlayerKill()
                 {

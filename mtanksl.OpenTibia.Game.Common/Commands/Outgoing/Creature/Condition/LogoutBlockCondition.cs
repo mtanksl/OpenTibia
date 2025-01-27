@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Common;
+using OpenTibia.Network.Packets.Outgoing;
 using System;
 
 namespace OpenTibia.Game.Commands
@@ -17,9 +18,21 @@ namespace OpenTibia.Game.Commands
 
         public override Promise OnStart(Creature creature)
         {
+            Player player = (Player)creature;
+
             return Promise.Delay(key, Duration).Then( () =>
             {
-                Context.Current.Server.Combats.CleanUp( (Player)creature);
+                player.Combat.Clear();
+
+                foreach (var observer in Context.Current.Server.Map.GetObserversOfTypePlayer(player.Tile.Position) )
+                {
+                    byte clientIndex;
+
+                    if (observer.Client.TryGetIndex(player, out clientIndex) )
+                    {
+                        Context.Current.AddPacket(observer, new SetSkullIconOutgoingPacket(player.Id, observer.Client.GetSkullIcon(player) ) );
+                    }
+                }
 
                 return Promise.Completed;
             } );

@@ -22,7 +22,7 @@ namespace OpenTibia.Common.Objects
 
             Vips = new PlayerVipCollection();
 
-            Kills = new PlayerKillCollection();
+            Combat = new PlayerCombatCollection(this);
 
             Skills = new Skills(this);
 
@@ -89,7 +89,7 @@ namespace OpenTibia.Common.Objects
 
         public PlayerVipCollection Vips { get; }
 
-        public PlayerKillCollection Kills { get; set; }
+        public PlayerCombatCollection Combat { get; set; }
 
         public Skills Skills { get; set; }
 
