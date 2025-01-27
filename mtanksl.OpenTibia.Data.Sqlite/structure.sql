@@ -227,14 +227,25 @@ CREATE INDEX IX_PlayerVips_VipId ON PlayerVips (VipId);
 -- PlayerKills
 
 CREATE TABLE PlayerKills (
-    PlayerId INTEGER NOT NULL REFERENCES Players (Id) ON DELETE CASCADE,
-    TargetId INTEGER NOT NULL REFERENCES Players (Id) ON DELETE CASCADE,
-    CreationDate DATETIME NOT NULL,
-    PRIMARY KEY (PlayerId, TargetId)
+    Id INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL,
+    PlayerId INTEGER  NOT NULL REFERENCES Players (Id) ON DELETE CASCADE,
+    TargetId INTEGER  NOT NULL REFERENCES Players (Id) ON DELETE CASCADE,
+    CreationDate DATETIME NOT NULL
 );
 CREATE INDEX IX_PlayerKills_PlayerId ON PlayerKills (PlayerId);
 CREATE INDEX IX_PlayerKills_TargetId ON PlayerKills (TargetId);
 
+-- PlayerDeaths
+
+CREATE TABLE PlayerDeaths (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+    AttackerId INTEGER REFERENCES Players (Id) ON DELETE CASCADE,
+    Name NVARCHAR (255),
+    Level INTEGER NOT NULL,
+    Unjustified BOOLEAN NOT NULL,
+    CreationDate DATETIME NOT NULL
+);
+CREATE INDEX IX_PlayerDeaths_AttackerId ON PlayerKills (AttackerId);
 
 -- RuleViolationReports
 

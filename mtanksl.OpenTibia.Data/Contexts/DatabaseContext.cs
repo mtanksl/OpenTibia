@@ -23,27 +23,17 @@ namespace OpenTibia.Data.Contexts
             modelBuilder.Entity<DbHouseItem>()
                 .HasKey(m => new { m.HouseId, m.SequenceId } );
 
+            modelBuilder.Entity<DbPlayerAchievement>()
+                .HasKey(m => new { m.PlayerId, m.Name } );
+
+            modelBuilder.Entity<DbPlayerBless>()
+                .HasKey(m => new { m.PlayerId, m.Name } );
+
             modelBuilder.Entity<DbPlayerDepotItem>()
                 .HasKey(m => new { m.PlayerId, m.SequenceId } );
 
             modelBuilder.Entity<DbPlayerItem>()
                 .HasKey(m => new { m.PlayerId, m.SequenceId } );
-
-            modelBuilder.Entity<DbPlayerStorage>()
-                .HasKey(m => new { m.PlayerId, m.Key } );
-
-            modelBuilder.Entity<DbPlayerVip>()
-                .HasKey(m => new { m.PlayerId, m.VipId } );
-
-            modelBuilder.Entity<DbPlayerVip>()
-                .HasOne(v => v.Player)
-                .WithMany(p => p.PlayerVips)
-                .HasForeignKey(v => v.PlayerId);
-
-            modelBuilder.Entity<DbPlayerVip>()
-                .HasOne(v => v.Vip)
-                .WithMany()
-                .HasForeignKey(v => v.VipId);
 
             modelBuilder.Entity<DbPlayerKill>()
                 .HasKey(m => new { m.PlayerId, m.TargetId } );
@@ -64,11 +54,21 @@ namespace OpenTibia.Data.Contexts
             modelBuilder.Entity<DbPlayerSpell>()
                 .HasKey(m => new { m.PlayerId, m.Name } );
 
-            modelBuilder.Entity<DbPlayerBless>()
-                .HasKey(m => new { m.PlayerId, m.Name } );
+            modelBuilder.Entity<DbPlayerStorage>()
+                .HasKey(m => new { m.PlayerId, m.Key } );
+            
+            modelBuilder.Entity<DbPlayerVip>()
+                .HasKey(m => new { m.PlayerId, m.VipId } );
 
-            modelBuilder.Entity<DbPlayerAchievement>()
-                .HasKey(m => new { m.PlayerId, m.Name } );
+            modelBuilder.Entity<DbPlayerVip>()
+                .HasOne(v => v.Player)
+                .WithMany(p => p.PlayerVips)
+                .HasForeignKey(v => v.PlayerId);
+
+            modelBuilder.Entity<DbPlayerVip>()
+                .HasOne(v => v.Vip)
+                .WithMany()
+                .HasForeignKey(v => v.VipId);
 
             modelBuilder.Entity<DbServerStorage>()
                 .HasKey(m => m.Key);
@@ -92,17 +92,17 @@ namespace OpenTibia.Data.Contexts
 
         public DbSet<DbMotd> Motd { get; set; }
 
-        public DbSet<DbServerStorage> ServerStorages { get; set; }
-
         public DbSet<DbPlayer> Players { get; set; }
+
+        public DbSet<DbPlayerAchievement> PlayerAchievements { get; set; }
+
+        public DbSet<DbPlayerBless> PlayerBlesses { get; set; }
+
+        public DbSet<DbPlayerDeath> PlayerDeaths { get; set; }
 
         public DbSet<DbPlayerDepotItem> PlayerDepotItems { get; set; }
 
         public DbSet<DbPlayerItem> PlayerItems { get; set; }
-
-        public DbSet<DbPlayerStorage> PlayerStorages { get; set; }
-
-        public DbSet<DbPlayerVip> PlayerVips { get; set; }
 
         public DbSet<DbPlayerKill> PlayerKills { get; set; }
 
@@ -110,11 +110,13 @@ namespace OpenTibia.Data.Contexts
 
         public DbSet<DbPlayerSpell> PlayerSpells { get; set; }
 
-        public DbSet<DbPlayerBless> PlayerBlesses { get; set; }
+        public DbSet<DbPlayerStorage> PlayerStorages { get; set; }
 
-        public DbSet<DbPlayerAchievement> PlayerAchievements { get; set; }
+        public DbSet<DbPlayerVip> PlayerVips { get; set; }
                 
         public DbSet<DbRuleViolationReport> RuleViolationReports { get; set; }
+
+        public DbSet<DbServerStorage> ServerStorages { get; set; }
 
         public DbSet<DbWorld> Worlds { get; set; }
     }

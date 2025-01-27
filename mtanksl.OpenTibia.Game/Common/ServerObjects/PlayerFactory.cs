@@ -74,6 +74,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             server.PositionalEventHandlers.ClearEventHandlers(player);
         }
 
+        // TODO: Optimize, we don't need to load and save everything
+
         public void Load(DbPlayer dbPlayer, Player player)
         {
             LoadPlayer(Context.Current, dbPlayer, player);
@@ -95,6 +97,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             LoadVips(Context.Current, dbPlayer, player);
 
             LoadKills(Context.Current, dbPlayer, player);
+
+            LoadDeaths(Context.Current, dbPlayer, player);
         }
 
         private static void LoadPlayer(Context context, DbPlayer dbPlayer, Player player)
@@ -379,7 +383,15 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             foreach (var dbPlayerKill in dbPlayer.PlayerKills)
             {
-                player.Combat.AddUnjustifiedKill(dbPlayerKill.TargetId, dbPlayerKill.CreationDate);
+                player.Combat.AddUnjustifiedKill(dbPlayerKill.Id, dbPlayerKill.TargetId, dbPlayerKill.CreationDate);
+            }
+        }
+
+        private static void LoadDeaths(Context context, DbPlayer dbPlayer, Player player)
+        {
+            foreach (var dbPlayerDeath in dbPlayer.PlayerDeaths)
+            {
+                player.Combat.AddDeath(dbPlayerDeath.Id, dbPlayerDeath.AttackerId, dbPlayerDeath.Name, dbPlayerDeath.Level, dbPlayerDeath.Unjustified, dbPlayerDeath.CreationDate);
             }
         }
 
@@ -404,6 +416,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             SaveVips(Context.Current, dbPlayer, player);
 
             SaveKills(Context.Current, dbPlayer, player);
+
+            SaveDeaths(Context.Current, dbPlayer, player);
         }
 
         private static void SavePlayer(Context context, DbPlayer dbPlayer, Player player)
@@ -695,9 +709,34 @@ namespace OpenTibia.Game.Common.ServerObjects
             {
                 dbPlayer.PlayerKills.Add(new DbPlayerKill()
                 {
+                    Id = unjustifiedKill.Id,
+
                     TargetId = unjustifiedKill.TargetId,
 
                     CreationDate = unjustifiedKill.CreationDate
+                } );
+            }
+        }
+
+        private static void SaveDeaths(Context context, DbPlayer dbPlayer, Player player)
+        {
+            dbPlayer.PlayerDeaths.Clear();
+
+            foreach (var death in player.Combat.GetDeaths() )
+            {
+                dbPlayer.PlayerDeaths.Add(new DbPlayerDeath()
+                {
+                    Id = death.Id,
+
+                    AttackerId = death.AttackerId,
+
+                    Name = death.Name,
+
+                    Level = death.Level,
+
+                    Unjustified = death.Unjustified,
+
+                    CreationDate = death.CreationDate
                 } );
             }
         }

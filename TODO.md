@@ -8,6 +8,7 @@
 - Fight	
 	- War
 	- Splash
+	- Save skull icon period on database
 	- ...
 - Bed
 - Guild

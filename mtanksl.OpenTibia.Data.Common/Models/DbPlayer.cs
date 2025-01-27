@@ -144,6 +144,8 @@ namespace OpenTibia.Data.Models
 
         public ICollection<DbPlayerKill> PlayerKills { get; set; } = new List<DbPlayerKill>();
 
+        public ICollection<DbPlayerDeath> PlayerDeaths { get; set; } = new List<DbPlayerDeath>();
+
         public ICollection<DbHouse> Houses { get; set; } = new List<DbHouse>();
     }
 }

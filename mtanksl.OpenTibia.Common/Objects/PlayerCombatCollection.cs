@@ -9,7 +9,24 @@ namespace OpenTibia.Common.Objects
     {
         public class UnjustifiedKill
         {
+            public int Id { get; set; }
+
             public int TargetId { get; set; }
+
+            public DateTime CreationDate { get; set; }
+        }
+
+        public class Death
+        {
+            public int Id { get; set; }
+
+            public int? AttackerId { get; set; }
+
+            public string Name { get; set; }
+
+            public int Level { get; set; }
+
+            public bool Unjustified { get; set; }
 
             public DateTime CreationDate { get; set; }
         }
@@ -41,10 +58,12 @@ namespace OpenTibia.Common.Objects
 
         private SkullIcon? skullIcon;
 
-        public void AddUnjustifiedKill(int databasePlayerId, DateTime creationDate)
+        public void AddUnjustifiedKill(int id, int databasePlayerId, DateTime creationDate)
         {
             unjustifiedKills.Add(new UnjustifiedKill()
             {
+                Id = id,
+
                 TargetId = databasePlayerId,
 
                 CreationDate = creationDate
@@ -58,59 +77,125 @@ namespace OpenTibia.Common.Objects
             return unjustifiedKills;
         }
 
+        private List<Death> deaths = new List<Death>();
+
+        public int CountDeaths
+        {
+            get
+            {
+                return deaths.Count;
+            }
+        }
+
+        public void AddDeath(int id, int? databasePlayerId, string name, int level, bool unjustified, DateTime creationDate)
+        {
+            deaths.Add(new Death()
+            {
+                Id = id,
+
+                AttackerId = databasePlayerId,
+
+                Name = name,
+
+                Level = level,
+
+                Unjustified = unjustified,
+
+                CreationDate = creationDate
+            } );
+        }
+
+        public IEnumerable<Death> GetDeaths()
+        {
+            return deaths;
+        }
+
         private SkullIcon GetUnjustifiedKillsSkullIcon()
         {
             SkullIcon GetSkullIcon()
             {
                 DateTime now = DateTime.UtcNow;
 
-                int count = unjustifiedKills.Where(k => k.CreationDate > now.AddDays(-1) ).Count();
-
-                if (count >= 6)
+                if (unjustifiedKills.Count >= 6)
                 {
-                    return SkullIcon.Black;
+                    // A black skull will last for 45 days
+
+                    for (int i = 0; i < 45; i++)
+                    {
+                        // Six or more unmarked characters in one day (24 hours)
+
+                        int count = unjustifiedKills.Where(k => k.CreationDate > now.AddDays(-i - 1) ).Count();
+
+                        if (count >= 6)
+                        {
+                            return SkullIcon.Black;
+                        }
+
+                        // Ten or more unmarked characters in one week (7 days)
+
+                        count = unjustifiedKills.Where(k => k.CreationDate > now.AddDays(-i - 7) ).Count();
+
+                        if (count >= 10)
+                        {
+                            return SkullIcon.Black;
+                        }
+
+                        // Twenty or more unmarked characters in one month (30 days)
+
+                        count = unjustifiedKills.Where(k => k.CreationDate > now.AddDays(-i - 30) ).Count();
+
+                        if (count >= 20)
+                        {
+                            return SkullIcon.Black;
+                        }
+                    }
                 }
 
-                count = unjustifiedKills.Where(k => k.CreationDate > now.AddDays(-7) ).Count();
-
-                if (count >= 10)
+                if (unjustifiedKills.Count >= 3)
                 {
-                    return SkullIcon.Black;
+                    // A red skull will last for 30 days
+
+                    for (int i = 0; i < 30; i++)
+                    {
+                        // Three or more unmarked characters in one day (24 hours)
+
+                        int count = unjustifiedKills.Where(k => k.CreationDate > now.AddDays(-i - 1) ).Count();
+
+                        if (count >= 3)
+                        {
+                            return SkullIcon.Red;
+                        }
+
+                        // Five or more unmarked characters in one week (7 days)
+                        
+                        count = unjustifiedKills.Where(k => k.CreationDate > now.AddDays(-i - 7) ).Count();
+
+                        if (count >= 5)
+                        {
+                            return SkullIcon.Red;
+                        }
+
+                        // Ten or more unmarked characters in one month (30 days)
+
+                        count = unjustifiedKills.Where(k => k.CreationDate > now.AddDays(-i - 30) ).Count();
+
+                        if (count >= 10)
+                        {
+                            return SkullIcon.Red;
+                        }
+                    }
                 }
 
-                count = unjustifiedKills.Where(k => k.CreationDate > now.AddDays(-30) ).Count();
-
-                if (count >= 20)
+                if (unjustifiedKills.Count >= 1)
                 {
-                    return SkullIcon.Black;
-                }
+                    // A white skull will last for 15 minutes
 
-                count = unjustifiedKills.Where(k => k.CreationDate > now.AddDays(-1) ).Count();
+                    int count = unjustifiedKills.Where(k => k.CreationDate > now.AddMinutes(-15) ).Count();
 
-                if (count >= 3)
-                {
-                    return SkullIcon.Red;
-                }
-
-                count = unjustifiedKills.Where(k => k.CreationDate > now.AddDays(-7) ).Count();
-
-                if (count >= 5)
-                {
-                    return SkullIcon.Red;
-                }
-
-                count = unjustifiedKills.Where(k => k.CreationDate > now.AddDays(-30) ).Count();
-
-                if (count >= 10)
-                {
-                    return SkullIcon.Red;
-                }
-
-                count = unjustifiedKills.Where(k => k.CreationDate > now.AddMinutes(-15) ).Count();
-
-                if (count >= 1)
-                {
-                    return SkullIcon.White;
+                    if (count >= 1)
+                    {
+                        return SkullIcon.White;
+                    }
                 }
 
                 return SkullIcon.None;
@@ -184,6 +269,8 @@ namespace OpenTibia.Common.Objects
 
                 attacker.Combat.attackedPlayerKiller.Remove(this.player);
             }
+
+            attackedBy.Clear();
 
             attackedInnocent.Clear();
 

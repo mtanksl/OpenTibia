@@ -4,6 +4,8 @@ namespace OpenTibia.Data.Models
 {
     public class DbPlayerKill
     {
+        public int Id { get; set; }
+
         public int PlayerId { get; set; }
 
         public int TargetId { get; set; }

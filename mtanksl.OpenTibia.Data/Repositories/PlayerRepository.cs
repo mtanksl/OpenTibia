@@ -62,7 +62,10 @@ namespace OpenTibia.Data.Repositories
                     .LoadAsync();
 
                 await context.PlayerKills
-                    .Include(v => v.Target)
+                    .Where(pi => pi.PlayerId == player.Id)
+                    .LoadAsync();
+
+                await context.PlayerDeaths
                     .Where(pi => pi.PlayerId == player.Id)
                     .LoadAsync();
             }
@@ -114,9 +117,12 @@ namespace OpenTibia.Data.Repositories
                     .LoadAsync();
 
                 await context.PlayerKills
-                   .Include(v => v.Target)
-                   .Where(pi => ids.Contains(pi.PlayerId) )
-                   .LoadAsync();
+                     .Where(pi => ids.Contains(pi.PlayerId) )
+                     .LoadAsync();
+
+                await context.PlayerDeaths
+                    .Where(pi => ids.Contains(pi.PlayerId) )
+                    .LoadAsync();
             }
 
             return players;
