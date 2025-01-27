@@ -10,6 +10,8 @@ namespace OpenTibia.Data.Models
 
         public int TargetId { get; set; }
 
+        public bool Unjustified { get; set; }
+
         public DateTime CreationDate { get; set; }
 
 

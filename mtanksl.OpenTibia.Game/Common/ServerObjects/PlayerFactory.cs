@@ -4,6 +4,7 @@ using OpenTibia.Data.Models;
 using OpenTibia.Game.GameObjectScripts;
 using System;
 using System.Linq;
+using static OpenTibia.Common.Objects.PlayerCombatCollection;
 
 namespace OpenTibia.Game.Common.ServerObjects
 {
@@ -383,7 +384,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             foreach (var dbPlayerKill in dbPlayer.PlayerKills)
             {
-                player.Combat.AddUnjustifiedKill(dbPlayerKill.Id, dbPlayerKill.TargetId, dbPlayerKill.CreationDate);
+                player.Combat.AddKill(dbPlayerKill.Id, dbPlayerKill.TargetId, dbPlayerKill.Unjustified, dbPlayerKill.CreationDate);
             }
         }
 
@@ -705,15 +706,17 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             dbPlayer.PlayerKills.Clear();
 
-            foreach (var unjustifiedKill in player.Combat.GetUnjustifiedKills() )
+            foreach (var kill in player.Combat.GetKills() )
             {
                 dbPlayer.PlayerKills.Add(new DbPlayerKill()
                 {
-                    Id = unjustifiedKill.Id,
+                    Id = kill.Id,
 
-                    TargetId = unjustifiedKill.TargetId,
+                    TargetId = kill.TargetId,
 
-                    CreationDate = unjustifiedKill.CreationDate
+                    Unjustified = kill.Unjustified,
+
+                    CreationDate = kill.CreationDate
                 } );
             }
         }

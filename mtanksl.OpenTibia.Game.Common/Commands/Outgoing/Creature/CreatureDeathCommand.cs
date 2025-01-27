@@ -46,29 +46,20 @@ namespace OpenTibia.Game.Commands
 
                 foreach (var pair in hits)
                 {
-                    Creature attacker = pair.Key;
-
-                    if (attacker is Player attackerPlayer)
+                    if (pair.Key is Player attacker && attacker.Tile != null && !attacker.IsDestroyed)
                     {
-                        if (attacker.Tile == null || attacker.IsDestroyed)
-                        {
+                        ulong damage = (ulong)pair.Value.Damage;
 
+                        if (damage > maxDamage)
+                        {
+                            owner = attacker;
                         }
-                        else
+
+                        ulong experience = totalExperience * damage / totalDamage;
+
+                        if (experience > 0)
                         {
-                            ulong damage = (ulong)pair.Value.Damage;
-
-                            if (damage > maxDamage)
-                            {
-                                owner = attackerPlayer;
-                            }
-
-                            ulong experience = totalExperience * damage / totalDamage;
-
-                            if (experience > 0)
-                            {
-                                await Context.AddCommand(new PlayerAddExperienceCommand(attackerPlayer, experience) );
-                            }
+                            await Context.AddCommand(new PlayerAddExperienceCommand(attacker, experience) );
                         }
                     }
                 }
@@ -188,24 +179,29 @@ namespace OpenTibia.Game.Commands
 
                 if (killer is Player attacker)
                 {
-                    if ( !player.Combat.Attacked(attacker) )
-                    {
-                        attacker.Combat.AddUnjustifiedKill(0, player.DatabasePlayerId, DateTime.UtcNow);
+                    bool unjustified = !player.Combat.Attacked(attacker);
 
+                    attacker.Combat.AddKill(0, player.DatabasePlayerId, unjustified, DateTime.UtcNow);
+
+                    player.Combat.AddDeath(0, attacker.DatabasePlayerId, attacker.Name, player.Level, unjustified, DateTime.UtcNow);
+
+                    if (unjustified)
+                    {
                         Context.AddPacket(attacker, new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, "Warning! The murder of " + player.Name + " was not justified.") );
                     
                         await Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ProtectionZoneBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayProtectionZoneBlockSeconds) ) ) );
-
-                        player.Combat.AddDeath(0, attacker.DatabasePlayerId, attacker.Name, attacker.Level, false, DateTime.UtcNow);
-                    }
-                    else
-                    {
-                        player.Combat.AddDeath(0, attacker.DatabasePlayerId, attacker.Name, attacker.Level, true, DateTime.UtcNow);
                     }
                 }
                 else
                 {
-                    player.Combat.AddDeath(0, null, killer == null ? "Environment" : killer.Name, 0, false, DateTime.UtcNow);
+                    if (killer == null)
+                    {
+                        player.Combat.AddDeath(0, null, "Environment", 0, false, DateTime.UtcNow);
+                    }
+                    else
+                    {
+                        player.Combat.AddDeath(0, null, killer.Name, 0, false, DateTime.UtcNow);
+                    }
                 }
             }
 

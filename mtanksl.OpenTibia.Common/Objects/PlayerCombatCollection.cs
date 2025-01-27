@@ -7,11 +7,13 @@ namespace OpenTibia.Common.Objects
 {
     public class PlayerCombatCollection
     {
-        public class UnjustifiedKill
+        public class kill
         {
             public int Id { get; set; }
 
             public int TargetId { get; set; }
+
+            public bool Unjustified { get; set; }
 
             public DateTime CreationDate { get; set; }
         }
@@ -46,35 +48,40 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        private List<UnjustifiedKill> unjustifiedKills = new List<UnjustifiedKill>();
+        private List<kill> kills = new List<kill>();
 
-        public int CountUnjustifiedKills
+        public int CountKills
         {
             get
             {
-                return unjustifiedKills.Count;
+                return kills.Count;
             }
         }
 
         private SkullIcon? skullIcon;
 
-        public void AddUnjustifiedKill(int id, int databasePlayerId, DateTime creationDate)
+        public void AddKill(int id, int databasePlayerId, bool unjustified, DateTime creationDate)
         {
-            unjustifiedKills.Add(new UnjustifiedKill()
+            kills.Add(new kill()
             {
                 Id = id,
 
                 TargetId = databasePlayerId,
 
+                Unjustified  = unjustified,
+
                 CreationDate = creationDate
             } );
 
-            skullIcon = null;
+            if (unjustified)
+            {
+                skullIcon = null;
+            }
         }
 
-        public IEnumerable<UnjustifiedKill> GetUnjustifiedKills()
+        public IEnumerable<kill> GetKills()
         {
-            return unjustifiedKills;
+            return kills;
         }
 
         private List<Death> deaths = new List<Death>();
@@ -110,105 +117,6 @@ namespace OpenTibia.Common.Objects
             return deaths;
         }
 
-        private SkullIcon GetUnjustifiedKillsSkullIcon()
-        {
-            SkullIcon GetSkullIcon()
-            {
-                DateTime now = DateTime.UtcNow;
-
-                if (unjustifiedKills.Count >= 6)
-                {
-                    // A black skull will last for 45 days
-
-                    for (int i = 0; i < 45; i++)
-                    {
-                        // Six or more unmarked characters in one day (24 hours)
-
-                        int count = unjustifiedKills.Where(k => k.CreationDate > now.AddDays(-i - 1) ).Count();
-
-                        if (count >= 6)
-                        {
-                            return SkullIcon.Black;
-                        }
-
-                        // Ten or more unmarked characters in one week (7 days)
-
-                        count = unjustifiedKills.Where(k => k.CreationDate > now.AddDays(-i - 7) ).Count();
-
-                        if (count >= 10)
-                        {
-                            return SkullIcon.Black;
-                        }
-
-                        // Twenty or more unmarked characters in one month (30 days)
-
-                        count = unjustifiedKills.Where(k => k.CreationDate > now.AddDays(-i - 30) ).Count();
-
-                        if (count >= 20)
-                        {
-                            return SkullIcon.Black;
-                        }
-                    }
-                }
-
-                if (unjustifiedKills.Count >= 3)
-                {
-                    // A red skull will last for 30 days
-
-                    for (int i = 0; i < 30; i++)
-                    {
-                        // Three or more unmarked characters in one day (24 hours)
-
-                        int count = unjustifiedKills.Where(k => k.CreationDate > now.AddDays(-i - 1) ).Count();
-
-                        if (count >= 3)
-                        {
-                            return SkullIcon.Red;
-                        }
-
-                        // Five or more unmarked characters in one week (7 days)
-                        
-                        count = unjustifiedKills.Where(k => k.CreationDate > now.AddDays(-i - 7) ).Count();
-
-                        if (count >= 5)
-                        {
-                            return SkullIcon.Red;
-                        }
-
-                        // Ten or more unmarked characters in one month (30 days)
-
-                        count = unjustifiedKills.Where(k => k.CreationDate > now.AddDays(-i - 30) ).Count();
-
-                        if (count >= 10)
-                        {
-                            return SkullIcon.Red;
-                        }
-                    }
-                }
-
-                if (unjustifiedKills.Count >= 1)
-                {
-                    // A white skull will last for 15 minutes
-
-                    int count = unjustifiedKills.Where(k => k.CreationDate > now.AddMinutes(-15) ).Count();
-
-                    if (count >= 1)
-                    {
-                        return SkullIcon.White;
-                    }
-                }
-
-                return SkullIcon.None;
-            }
-
-            if (skullIcon == null)
-            {
-                skullIcon = GetSkullIcon();
-            }
-
-            return skullIcon.Value;
-        }
-
         private HashSet<Player> attackedBy = new HashSet<Player>();
 
         private HashSet<Player> attackedInnocent = new HashSet<Player>();
@@ -242,7 +150,122 @@ namespace OpenTibia.Common.Objects
 
             return false;
         }
-                
+          
+        public void Clear()
+        {
+            foreach (var attacker in attackedBy)
+            {
+                attacker.Combat.attackedInnocent.Remove(this.player);
+
+                attacker.Combat.attackedPlayerKiller.Remove(this.player);
+            }
+
+            attackedBy.Clear();
+
+            attackedInnocent.Clear();
+
+            attackedPlayerKiller.Clear();
+        }
+
+        private SkullIcon GetUnjustifiedKillsSkullIcon()
+        {
+            SkullIcon GetSkullIcon()
+            {
+                DateTime now = DateTime.UtcNow;
+
+                if (kills.Count >= 6)
+                {
+                    // A black skull will last for 45 days
+
+                    for (int i = 0; i < 45; i++)
+                    {
+                        // Six or more unmarked characters in one day (24 hours)
+
+                        int count = kills.Where(k => k.Unjustified && k.CreationDate > now.AddDays(-i - 1) ).Count();
+
+                        if (count >= 6)
+                        {
+                            return SkullIcon.Black;
+                        }
+
+                        // Ten or more unmarked characters in one week (7 days)
+
+                        count = kills.Where(k => k.Unjustified && k.CreationDate > now.AddDays(-i - 7) ).Count();
+
+                        if (count >= 10)
+                        {
+                            return SkullIcon.Black;
+                        }
+
+                        // Twenty or more unmarked characters in one month (30 days)
+
+                        count = kills.Where(k => k.Unjustified && k.CreationDate > now.AddDays(-i - 30) ).Count();
+
+                        if (count >= 20)
+                        {
+                            return SkullIcon.Black;
+                        }
+                    }
+                }
+
+                if (kills.Count >= 3)
+                {
+                    // A red skull will last for 30 days
+
+                    for (int i = 0; i < 30; i++)
+                    {
+                        // Three or more unmarked characters in one day (24 hours)
+
+                        int count = kills.Where(k => k.Unjustified && k.CreationDate > now.AddDays(-i - 1) ).Count();
+
+                        if (count >= 3)
+                        {
+                            return SkullIcon.Red;
+                        }
+
+                        // Five or more unmarked characters in one week (7 days)
+                        
+                        count = kills.Where(k => k.Unjustified && k.CreationDate > now.AddDays(-i - 7) ).Count();
+
+                        if (count >= 5)
+                        {
+                            return SkullIcon.Red;
+                        }
+
+                        // Ten or more unmarked characters in one month (30 days)
+
+                        count = kills.Where(k => k.Unjustified && k.CreationDate > now.AddDays(-i - 30) ).Count();
+
+                        if (count >= 10)
+                        {
+                            return SkullIcon.Red;
+                        }
+                    }
+                }
+
+                if (kills.Count >= 1)
+                {
+                    // A white skull will last for 15 minutes
+
+                    int count = kills.Where(k => k.Unjustified && k.CreationDate > now.AddMinutes(-15) ).Count();
+
+                    if (count >= 1)
+                    {
+                        return SkullIcon.White;
+                    }
+                }
+
+                return SkullIcon.None;
+            }
+
+            if (skullIcon == null)
+            {
+                skullIcon = GetSkullIcon();
+            }
+
+            return skullIcon.Value;
+        }
+
         private SkullIcon GetOffenseSkullIcon(Player target)
         {
             if (attackedInnocent.Count > 0)
@@ -259,22 +282,6 @@ namespace OpenTibia.Common.Objects
             }
 
             return SkullIcon.None;
-        }
-
-        public void Clear()
-        {
-            foreach (var attacker in attackedBy)
-            {
-                attacker.Combat.attackedInnocent.Remove(this.player);
-
-                attacker.Combat.attackedPlayerKiller.Remove(this.player);
-            }
-
-            attackedBy.Clear();
-
-            attackedInnocent.Clear();
-
-            attackedPlayerKiller.Clear();
         }
 
         public SkullIcon GetSkullIcon(Player target)

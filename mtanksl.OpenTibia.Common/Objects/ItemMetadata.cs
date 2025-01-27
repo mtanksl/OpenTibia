@@ -70,17 +70,17 @@ namespace OpenTibia.Common.Objects
         {
             string description;
 
-            if (this.Flags.Is(ItemMetadataFlags.Stackable) && count > 1)
+            if (Flags.Is(ItemMetadataFlags.Stackable) && count > 1)
             {
-                if (this.Plural != null)
+                if (Plural != null)
                 {
-                    description = count + " " + this.Plural;
+                    description = count + " " + Plural;
                 }
                 else
                 {
-                    if (this.Name != null)
+                    if (Name != null)
                     {
-                        description = count + " " + this.Name;
+                        description = count + " " + Name;
                     }
                     else
                     {
@@ -90,15 +90,15 @@ namespace OpenTibia.Common.Objects
             }
             else
             {
-                if (this.Name != null)
+                if (Name != null)
                 {
-                    if (this.Article != null)
+                    if (Article != null)
                     {
-                        description = this.Article + " " + this.Name;
+                        description = Article + " " + Name;
                     }
                     else
                     {
-                        description = this.Name;
+                        description = Name;
                     }
                 }
                 else
