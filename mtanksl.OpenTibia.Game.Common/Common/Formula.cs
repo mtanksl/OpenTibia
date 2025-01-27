@@ -276,6 +276,34 @@ namespace OpenTibia.Game.Common
             return ( (int)( (skill + 25) * 0.3 + level * 0.2), (int)(skill + 25 + level * 0.2) );
         }
 
+        public static int ShieldingFormula(int defense, int armor, FightMode fightMode)
+        {
+            int minDefense = (int)(defense / 2.0);
+
+            int maxDefense = defense;
+
+            double defenseFactor = (fightMode == FightMode.Offensive ? 0.5 : fightMode == FightMode.Balanced ? 0.75 : 1);
+
+            int minArmor;
+
+            int maxArmor;
+
+            if (armor < 2)
+            {
+                minArmor = 0;
+
+                maxArmor = 0;
+            }
+            else
+            {
+                minArmor = (int)(armor / 2.0);
+
+                maxArmor = (int)(armor / 2.0) * 2 - 1;
+            }
+            
+            return (int)(Context.Current.Server.Randomization.Take(minDefense, maxDefense) * defenseFactor + Context.Current.Server.Randomization.Take(minArmor, maxArmor) );
+        }
+
         public static (int Min, int Max) MeleeFormula(int level, int skill, int attack, FightMode fightMode)
         {
             int min = 0;

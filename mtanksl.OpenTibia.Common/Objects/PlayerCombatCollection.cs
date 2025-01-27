@@ -58,8 +58,6 @@ namespace OpenTibia.Common.Objects
             }
         }
 
-        private SkullIcon? skullIcon;
-
         public void AddKill(int id, int databasePlayerId, bool unjustified, DateTime creationDate)
         {
             kills.Add(new kill()
@@ -75,7 +73,7 @@ namespace OpenTibia.Common.Objects
 
             if (unjustified)
             {
-                skullIcon = null;
+                unjustifiedKillsSkullIcon = null;
             }
         }
 
@@ -166,6 +164,8 @@ namespace OpenTibia.Common.Objects
 
             attackedPlayerKiller.Clear();
         }
+
+        private SkullIcon? unjustifiedKillsSkullIcon;
 
         private SkullIcon GetUnjustifiedKillsSkullIcon()
         {
@@ -258,12 +258,12 @@ namespace OpenTibia.Common.Objects
                 return SkullIcon.None;
             }
 
-            if (skullIcon == null)
+            if (unjustifiedKillsSkullIcon == null)
             {
-                skullIcon = GetSkullIcon();
+                unjustifiedKillsSkullIcon = GetSkullIcon();
             }
 
-            return skullIcon.Value;
+            return unjustifiedKillsSkullIcon.Value;
         }
 
         private SkullIcon GetOffenseSkullIcon(Player target)

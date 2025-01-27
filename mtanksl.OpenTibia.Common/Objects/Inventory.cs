@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OpenTibia.Common.Structures;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -42,6 +43,10 @@ namespace OpenTibia.Common.Objects
             contents[index] = content;
 
             content.Parent = this;
+
+            defense = null;
+
+            armor = null;
         }
 
         /// <exception cref="ArgumentException"></exception>
@@ -60,6 +65,10 @@ namespace OpenTibia.Common.Objects
             oldContent.Parent = null;
 
             content.Parent = this;
+
+            defense = null;
+
+            armor = null;
         }
 
         public void RemoveContent(int index)
@@ -69,6 +78,10 @@ namespace OpenTibia.Common.Objects
             contents[index] = null;
 
             content.Parent = null;
+
+            defense = null;
+
+            armor = null;
         }
 
         /// <exception cref="InvalidOperationException"></exception>
@@ -138,6 +151,71 @@ namespace OpenTibia.Common.Objects
         public IEnumerable<Item> GetItems()
         {
             return GetContents().OfType<Item>();
+        }
+
+        private int? defense;
+
+        public int GetDefense()
+        {
+            int Defense()
+            {
+                int defense = 0;
+
+                Item weapon = (Item)contents[ (int)Slot.Left ];
+
+                Item shield = (Item)contents[ (int)Slot.Right ];
+
+                if (weapon != null)
+                {
+                    if (weapon.Metadata.Defense != null)
+                    {
+                        defense += weapon.Metadata.Defense.Value;
+                    }
+                }
+
+                if (shield != null)
+                {
+                    if (shield.Metadata.Defense != null)
+                    {
+                        defense += shield.Metadata.Defense.Value;
+                    }
+                }
+                return defense;
+            }
+
+            if (defense == null)
+            {
+                defense = Defense();
+            }
+
+            return defense.Value;
+        }
+
+        private int? armor;
+
+        public int GetArmor()
+        {
+            int Armor()
+            {
+                int armor = 0;
+
+                foreach (var item in GetItems() )
+                {
+                    if (item.Metadata.Armor != null)
+                    {
+                        armor += item.Metadata.Armor.Value;
+                    }
+                }
+
+                return armor;
+            }
+
+            if (armor == null)
+            {
+                armor = Armor();
+            }
+
+            return armor.Value;
         }
     }
 }

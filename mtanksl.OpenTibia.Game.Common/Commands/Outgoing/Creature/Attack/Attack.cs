@@ -23,42 +23,68 @@ namespace OpenTibia.Game.Commands
 
         public virtual int Calculate(Creature attacker, Creature target)
         {
-            // pvm or mvm
-
             if (target is Monster monster)
             {
+                // pvm or mvm
+
                 double elementPercent;
 
-                if (monster.Metadata.DamageTakenFromElements.TryGetValue(DamageType, out elementPercent) )
+                if ( !monster.Metadata.DamageTakenFromElements.TryGetValue(DamageType, out elementPercent) )
                 {
-                    return (int)(Context.Current.Server.Randomization.Take(Min, Max) * elementPercent);
+                    elementPercent = 1;                   
                 }
 
-                return Context.Current.Server.Randomization.Take(Min, Max);
+                return (int)(Context.Current.Server.Randomization.Take(Min, Max) * elementPercent);
             }
 
-            // environment
-
-            if (attacker == null)
+            if (target is Player player)
             {
-                return Context.Current.Server.Randomization.Take(Min, Max);
+                double attackPercent;
+
+                int shielding;
+
+                if (attacker == null)
+                {
+                    // environment
+
+                    attackPercent = 1;
+
+                    shielding = 0;
+                }
+                else
+                {
+                    if (attacker is Monster)
+                    {
+                        // mvp
+
+                        attackPercent = 1;
+                    }
+                    else
+                    {
+                        // pvp
+
+                        if (player.Combat.GetSkullIcon(null) == SkullIcon.Black)
+                        {
+                            attackPercent = 1;
+                        }
+                        else
+                        {
+                            attackPercent = 0.5;
+                        }
+                    }
+
+                    shielding = Formula.ShieldingFormula(player.Inventory.GetDefense(), player.Inventory.GetArmor(), player.Client.FightMode);
+                }
+
+                int damage = (int)(Context.Current.Server.Randomization.Take(Min, Max) * attackPercent) - shielding;
+
+                if (damage > 0)
+                {
+                    return damage;
+                }
             }
 
-            // mvp
-
-            if (attacker is Monster)
-            {
-                return Context.Current.Server.Randomization.Take(Min, Max);
-            }
-
-            // pvp
-
-            if ( ( (Player)target).Combat.GetSkullIcon(null) == SkullIcon.Black)
-            {
-                return Context.Current.Server.Randomization.Take(Min, Max);
-            }
-
-            return (int)(Context.Current.Server.Randomization.Take(Min, Max) / 2.0);
+            return 0;
         }
 
         public abstract Promise Missed(Creature attacker, Creature target);
