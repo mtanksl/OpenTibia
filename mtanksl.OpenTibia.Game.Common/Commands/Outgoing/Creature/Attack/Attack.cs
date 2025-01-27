@@ -37,6 +37,13 @@ namespace OpenTibia.Game.Commands
                 return Context.Current.Server.Randomization.Take(Min, Max);
             }
 
+            // environment
+
+            if (attacker == null)
+            {
+                return Context.Current.Server.Randomization.Take(Min, Max);
+            }
+
             // mvp
 
             if (attacker is Monster)

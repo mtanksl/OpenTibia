@@ -46,9 +46,6 @@ namespace OpenTibia.Data.Contexts
                 .HasKey(m => new { m.PlayerId, m.SequenceId } );
 
             modelBuilder.Entity<DbPlayerKill>()
-                .HasKey(m => new { m.PlayerId, m.TargetId } );
-
-            modelBuilder.Entity<DbPlayerKill>()
                 .HasOne(v => v.Player)
                 .WithMany(p => p.PlayerKills)
                 .HasForeignKey(v => v.PlayerId);
