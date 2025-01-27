@@ -24,12 +24,12 @@ namespace OpenTibia.Game.Commands
         {
             Dictionary<Creature, Hit> hits = Context.Server.Combats.GetHitsByTargetAndRemove(Creature);
 
-            Creature killer = hits
+            Creature killer = hits?
                 .OrderByDescending(h => h.Value.LastAttack)
                 .Select(h => h.Key)
                 .FirstOrDefault();
 
-            Creature mostDamage = hits
+            Creature mostDamage = hits?
                 .OrderByDescending(h => h.Value.Damage)
                 .Select(h => h.Key)
                 .FirstOrDefault();
