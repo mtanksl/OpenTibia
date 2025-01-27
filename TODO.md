@@ -69,6 +69,7 @@
 		- PVP vs non-PVP configuration
 		- Skull 
 		- Unjustified kills
+			- Database for storing unjustified kills and deaths
 - Interacting with npc
 	- Private NPC system
 	- NPC channel

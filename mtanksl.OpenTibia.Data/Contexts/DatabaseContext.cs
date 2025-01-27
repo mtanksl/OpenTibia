@@ -29,6 +29,16 @@ namespace OpenTibia.Data.Contexts
             modelBuilder.Entity<DbPlayerBless>()
                 .HasKey(m => new { m.PlayerId, m.Name } );
 
+            modelBuilder.Entity<DbPlayerDeath>()
+                .HasOne(v => v.Player)
+                .WithMany(p => p.PlayerDeaths)
+                .HasForeignKey(v => v.PlayerId);
+
+            modelBuilder.Entity<DbPlayerDeath>()
+                .HasOne(v => v.Attacker)
+                .WithMany()
+                .HasForeignKey(v => v.AttackerId);
+
             modelBuilder.Entity<DbPlayerDepotItem>()
                 .HasKey(m => new { m.PlayerId, m.SequenceId } );
 
