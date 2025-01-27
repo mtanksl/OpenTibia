@@ -11,7 +11,7 @@ namespace OpenTibia.Game.Commands
 
         }
 
-        public override Promise Missed(Creature attacker, Creature target)
+        public override Promise Missed(Creature attacker, Creature target, BlockType blockType)
         {
             return Promise.Completed;
         }

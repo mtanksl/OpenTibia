@@ -88,7 +88,14 @@ namespace OpenTibia.Game.Commands
 
             if (ItemMetadata.Defense != null)
             {
-                attributes.Add("Def: " + ItemMetadata.Defense);
+                if (ItemMetadata.ExtraDefense != null)
+                {
+                    attributes.Add("Def: " + ItemMetadata.Defense + " +" + ItemMetadata.ExtraDefense);
+                }
+                else
+                {
+                    attributes.Add("Def: " + ItemMetadata.Defense);
+                }
             }
 
             if (Player.Rank == Rank.Gamemaster)

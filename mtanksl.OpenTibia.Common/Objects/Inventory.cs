@@ -161,26 +161,60 @@ namespace OpenTibia.Common.Objects
             {
                 int defense = 0;
 
-                Item weapon = (Item)contents[ (int)Slot.Left ];
+                int extraDefense = 0;
 
-                Item shield = (Item)contents[ (int)Slot.Right ];
+                Item weapon = null;
+
+                Item shield = null;
+
+                Item left = (Item)contents[ (int)Slot.Left ];
+
+                Item right = (Item)contents[ (int)Slot.Right ];
+
+                if (left != null)
+                {
+                    if (left.Metadata.WeaponType == WeaponType.Sword || left.Metadata.WeaponType == WeaponType.Club || left.Metadata.WeaponType == WeaponType.Axe)
+                    {
+                        weapon = left;
+                    }
+                    else if (left.Metadata.WeaponType == WeaponType.Shield)
+                    {
+                        shield = left;
+                    }
+                }
+
+                if (right != null)
+                {
+                    if (right.Metadata.WeaponType == WeaponType.Sword || right.Metadata.WeaponType == WeaponType.Club || right.Metadata.WeaponType == WeaponType.Axe)
+                    {
+                        weapon = right;
+                    }
+                    else if (right.Metadata.WeaponType == WeaponType.Shield)
+                    {
+                        shield = right;
+                    }
+                }
 
                 if (weapon != null)
                 {
-                    if (weapon.Metadata.Defense != null)
-                    {
-                        defense += weapon.Metadata.Defense.Value;
-                    }
+                    defense = weapon.Metadata.Defense ?? 0;
+
+                    extraDefense = weapon.Metadata.ExtraDefense ?? 0;
                 }
 
                 if (shield != null)
                 {
-                    if (shield.Metadata.Defense != null)
+                    defense = shield.Metadata.Defense ?? 0;
+
+                    int shieldExtraDefense = shield.Metadata.ExtraDefense ?? 0;
+
+                    if (shieldExtraDefense > extraDefense)
                     {
-                        defense += shield.Metadata.Defense.Value;
+                        extraDefense = shieldExtraDefense;
                     }
                 }
-                return defense;
+
+                return defense + extraDefense;
             }
 
             if (defense == null)

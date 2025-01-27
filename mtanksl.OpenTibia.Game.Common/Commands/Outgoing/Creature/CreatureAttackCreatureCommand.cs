@@ -79,11 +79,11 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            int damage = Attack.Calculate(Attacker, Target);
+            (int damage, BlockType blockType) = Attack.Calculate(Attacker, Target);
 
             if (damage == 0)
             {
-                await Attack.Missed(Attacker, Target);
+                await Attack.Missed(Attacker, Target, blockType);
             }
             else
             {

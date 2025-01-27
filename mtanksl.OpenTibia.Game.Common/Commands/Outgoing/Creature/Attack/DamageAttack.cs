@@ -21,14 +21,21 @@ namespace OpenTibia.Game.Commands
             this.magicEffectType = magicEffectType;
         }
 
-        public override async Promise Missed(Creature attacker, Creature target)
+        public override async Promise Missed(Creature attacker, Creature target, BlockType blockType)
         {
             if (projectileType != null)
             {
                 await Context.Current.AddCommand(new ShowProjectileCommand(attacker, target, projectileType.Value) );
             }
 
-            await Context.Current.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.Puff) );
+            if (blockType == BlockType.Armor)
+            {
+                await Context.Current.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.YellowSpark) );
+            }
+            else
+            {
+                await Context.Current.AddCommand(new ShowMagicEffectCommand(target, MagicEffectType.Puff) );
+            }
 
             if (target != attacker)
             {
@@ -37,6 +44,11 @@ namespace OpenTibia.Game.Commands
                     if (attacker != null)
                     {
                         Context.Current.AddPacket(player, new SetFrameColorOutgoingPacket(attacker.Id, FrameColor.Black) );
+
+                        if ( (blockType == BlockType.Shield || blockType == BlockType.Armor) && Formula.GetShield(player) != null)
+                        {
+                            await Context.Current.AddCommand(new PlayerAddSkillPointsCommand(player, Skill.Shield, 1) );
+                        }
                     }
                 }
             }

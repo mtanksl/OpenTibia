@@ -276,7 +276,7 @@ namespace OpenTibia.Game.Common
             return ( (int)( (skill + 25) * 0.3 + level * 0.2), (int)(skill + 25 + level * 0.2) );
         }
 
-        public static int ShieldingFormula(int defense, int armor, FightMode fightMode)
+        public static int DefenseFormula(int defense, FightMode fightMode)
         {
             int minDefense = (int)(defense / 2.0);
 
@@ -284,6 +284,11 @@ namespace OpenTibia.Game.Common
 
             double defenseFactor = (fightMode == FightMode.Offensive ? 0.5 : fightMode == FightMode.Balanced ? 0.75 : 1);
 
+            return (int)(Context.Current.Server.Randomization.Take(minDefense, maxDefense) * defenseFactor);
+        }
+
+        public static int ArmorFormula(int armor)
+        {
             int minArmor;
 
             int maxArmor;
@@ -301,7 +306,7 @@ namespace OpenTibia.Game.Common
                 maxArmor = (int)(armor / 2.0) * 2 - 1;
             }
             
-            return (int)(Context.Current.Server.Randomization.Take(minDefense, maxDefense) * defenseFactor + Context.Current.Server.Randomization.Take(minArmor, maxArmor) );
+            return Context.Current.Server.Randomization.Take(minArmor, maxArmor);
         }
 
         public static (int Min, int Max) MeleeFormula(int level, int skill, int attack, FightMode fightMode)
@@ -471,6 +476,25 @@ namespace OpenTibia.Game.Common
             item = (Item)player.Inventory.GetContent( (byte)Slot.Right);
 
             if (item != null && (item.Metadata.WeaponType == WeaponType.Sword || item.Metadata.WeaponType == WeaponType.Club || item.Metadata.WeaponType == WeaponType.Axe || item.Metadata.WeaponType == WeaponType.Distance || item.Metadata.WeaponType == WeaponType.Wand) )
+            {
+                return item;
+            }
+
+            return null;
+        }
+
+        public static Item GetShield(Player player)
+        {
+            Item item = (Item)player.Inventory.GetContent( (byte)Slot.Left);
+
+            if (item != null && (item.Metadata.WeaponType == WeaponType.Shield) )
+            {
+                return item;
+            }
+
+            item = (Item)player.Inventory.GetContent( (byte)Slot.Right);
+
+            if (item != null && (item.Metadata.WeaponType == WeaponType.Shield) )
             {
                 return item;
             }

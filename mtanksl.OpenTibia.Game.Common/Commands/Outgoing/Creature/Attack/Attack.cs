@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
+using System;
 
 namespace OpenTibia.Game.Commands
 {
@@ -21,27 +22,45 @@ namespace OpenTibia.Game.Commands
 
         public int Max { get; }
 
-        public virtual int Calculate(Creature attacker, Creature target)
+        public virtual (int Damage, BlockType BlockType) Calculate(Creature attacker, Creature target)
         {
             if (target is Monster monster)
             {
                 // pvm or mvm
 
-                double elementPercent;
+                int damage = Context.Current.Server.Randomization.Take(Min, Max);
 
-                if ( !monster.Metadata.DamageTakenFromElements.TryGetValue(DamageType, out elementPercent) )
+                BlockType blockType = BlockType.None;
+
+                if (damage > 0)
                 {
-                    elementPercent = 1;                   
+                    double elementPercent;
+
+                    if ( !monster.Metadata.DamageTakenFromElements.TryGetValue(DamageType, out elementPercent) )
+                    {
+                        elementPercent = 1;                   
+                    }
+
+                    damage = (int)(damage * elementPercent);
+
+                    if (damage <= 0)
+                    {
+                        damage = 0;
+
+                        blockType = BlockType.Immune;
+                    }
                 }
 
-                return (int)(Context.Current.Server.Randomization.Take(Min, Max) * elementPercent);
+                return (damage, blockType);
             }
 
             if (target is Player player)
             {
                 double attackPercent;
 
-                int shielding;
+                int defense;
+
+                int armor;
 
                 if (attacker == null)
                 {
@@ -49,7 +68,9 @@ namespace OpenTibia.Game.Commands
 
                     attackPercent = 1;
 
-                    shielding = 0;
+                    defense = 0;
+
+                    armor = 0;
                 }
                 else
                 {
@@ -73,21 +94,46 @@ namespace OpenTibia.Game.Commands
                         }
                     }
 
-                    shielding = Formula.ShieldingFormula(player.Inventory.GetDefense(), player.Inventory.GetArmor(), player.Client.FightMode);
+                    defense = Formula.DefenseFormula(player.Inventory.GetDefense(), player.Client.FightMode);
+
+                    armor = Formula.ArmorFormula(player.Inventory.GetArmor() );
                 }
 
-                int damage = (int)(Context.Current.Server.Randomization.Take(Min, Max) * attackPercent) - shielding;
+                int damage = (int)(Context.Current.Server.Randomization.Take(Min, Max) * attackPercent);
+
+                BlockType blockType = BlockType.None;
 
                 if (damage > 0)
                 {
-                    return damage;
+                    damage -= defense;
+
+                    if (damage <= 0)
+                    {
+                        damage = 0;
+
+                        blockType = BlockType.Shield;
+                    }
                 }
+
+                if (damage > 0)
+                {
+                    damage -= armor;
+
+                    if (damage <= 0)
+                    {
+                        damage = 0;
+
+                        blockType = BlockType.Armor;
+                    }
+                }
+
+                return (damage, blockType);
             }
 
-            return 0;
+            throw new NotImplementedException();
         }
 
-        public abstract Promise Missed(Creature attacker, Creature target);
+        public abstract Promise Missed(Creature attacker, Creature target, BlockType blockType);
 
         public abstract Promise Hit(Creature attacker, Creature target, int damage);
     }    
