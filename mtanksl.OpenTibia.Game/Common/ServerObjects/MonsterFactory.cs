@@ -90,9 +90,21 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     foreach (var elementItem in xmlMonster.Elements)
                     {
-                        if (elementItem.HolyPercent != null)
+                        if (elementItem.PhysicalPercent != null)
                         {
-                            monsterMetadata.DamageTakenFromElements[DamageType.Holy] = (100 - elementItem.HolyPercent.Value) / 100.0;
+                            monsterMetadata.DamageTakenFromElements[DamageType.Physical] = (100 - elementItem.PhysicalPercent.Value) / 100.0;
+                        }
+                        else if (elementItem.Earthpercent != null)
+                        {
+                            monsterMetadata.DamageTakenFromElements[DamageType.Earth] = (100 - elementItem.Earthpercent.Value) / 100.0;
+                        }
+                        else if (elementItem.FirePercent != null)
+                        {
+                            monsterMetadata.DamageTakenFromElements[DamageType.Fire] = (100 - elementItem.FirePercent.Value) / 100.0;
+                        }
+                        else if (elementItem.EnergyPercent != null)
+                        {
+                            monsterMetadata.DamageTakenFromElements[DamageType.Energy] = (100 - elementItem.EnergyPercent.Value) / 100.0;
                         }
                         else if (elementItem.IcePercent != null)
                         {
@@ -102,21 +114,13 @@ namespace OpenTibia.Game.Common.ServerObjects
                         {
                             monsterMetadata.DamageTakenFromElements[DamageType.Death] = (100 - elementItem.DeathPercent.Value) / 100.0;
                         }
-                        else if (elementItem.PhysicalPercent != null)
+                        else if (elementItem.HolyPercent != null)
                         {
-                            monsterMetadata.DamageTakenFromElements[DamageType.Physical] = (100 - elementItem.PhysicalPercent.Value) / 100.0;
+                            monsterMetadata.DamageTakenFromElements[DamageType.Holy] = (100 - elementItem.HolyPercent.Value) / 100.0;
                         }
-                        else if (elementItem.Earthpercent != null)
+                        else if (elementItem.DrownPercent != null)
                         {
-                            monsterMetadata.DamageTakenFromElements[DamageType.Earth] = (100 - elementItem.Earthpercent.Value) / 100.0;
-                        }
-                        else if (elementItem.EnergyPercent != null)
-                        {
-                            monsterMetadata.DamageTakenFromElements[DamageType.Energy] = (100 - elementItem.EnergyPercent.Value) / 100.0;
-                        }
-                        else if (elementItem.FirePercent != null)
-                        {
-                            monsterMetadata.DamageTakenFromElements[DamageType.Fire] = (100 - elementItem.FirePercent.Value) / 100.0;
+                            monsterMetadata.DamageTakenFromElements[DamageType.Drown] = (100 - elementItem.DrownPercent.Value) / 100.0;
                         }
                     }
                 }

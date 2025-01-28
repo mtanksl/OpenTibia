@@ -4,18 +4,19 @@
 	- Capacity
 	- Item that modifies player light (ex. torch)
 	- Item that modifies player speed (ex. BOH)
-	- Item that modifies player skills
+	- Item, spell or party spells that modifies player skills
 - Fight	
 	- War
 	- Splash
-	- Save skull icon period on database
+	- Summon
+	- Convince
 	- ...
 - Bed
 - Guild
 - Hangable items
 - Rings and amulets charges
 - Party shared experience
-- Party spells
+- Illusion spell and chameleon rune
 - X-Logging
 - Stamina
 - ...

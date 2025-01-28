@@ -6,8 +6,17 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
     public class ElementItem
     {
-        [XmlAttribute("holyPercent")]
-        public int? HolyPercent { get; set; }
+        [XmlAttribute("physicalPercent")]
+        public int? PhysicalPercent { get; set; }
+
+        [XmlAttribute("earthpercent")]
+        public int? Earthpercent { get; set; }
+
+        [XmlAttribute("firePercent")]
+        public int? FirePercent { get; set; }
+
+        [XmlAttribute("energyPercent")]
+        public int? EnergyPercent { get; set; }
 
         [XmlAttribute("icePercent")]
         public int? IcePercent { get; set; }
@@ -15,16 +24,10 @@ namespace OpenTibia.FileFormats.Xml.Monsters
         [XmlAttribute("deathPercent")]
         public int? DeathPercent { get; set; }
 
-        [XmlAttribute("physicalPercent")]
-        public int? PhysicalPercent { get; set; }
+        [XmlAttribute("holyPercent")]
+        public int? HolyPercent { get; set; }
 
-        [XmlAttribute("earthpercent")]
-        public int? Earthpercent { get; set; }
-
-        [XmlAttribute("energyPercent")]
-        public int? EnergyPercent { get; set; }
-
-        [XmlAttribute("firePercent")]
-        public int? FirePercent { get; set; }
+        [XmlAttribute("drownPercent")]
+        public int? DrownPercent { get; set; }
     }
 }

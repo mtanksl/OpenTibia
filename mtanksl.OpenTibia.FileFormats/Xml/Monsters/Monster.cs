@@ -137,19 +137,21 @@ namespace OpenTibia.FileFormats.Xml.Monsters
                 {
                     monster.Elements.Add(new ElementItem() 
                     {
-                        HolyPercent = (int?)elementNode.Attribute("holyPercent"),
+                        PhysicalPercent = (int?)elementNode.Attribute("physicalPercent"),
+
+                        Earthpercent = (int?)elementNode.Attribute("earthpercent"),
+
+                        FirePercent = (int?)elementNode.Attribute("firePercent"),
+
+                        EnergyPercent = (int?)elementNode.Attribute("energyPercent"),
 
                         IcePercent = (int?)elementNode.Attribute("icePercent"),
 
                         DeathPercent = (int?)elementNode.Attribute("deathPercent"),
 
-                        PhysicalPercent = (int?)elementNode.Attribute("physicalPercent"),
+                        HolyPercent = (int?)elementNode.Attribute("holyPercent"),
 
-                        Earthpercent = (int?)elementNode.Attribute("earthpercent"),
-
-                        EnergyPercent = (int?)elementNode.Attribute("energyPercent"),
-
-                        FirePercent = (int?)elementNode.Attribute("firePercent")
+                        DrownPercent = (int?)elementNode.Attribute("drownPercent")
                     } );
                 }
             }
