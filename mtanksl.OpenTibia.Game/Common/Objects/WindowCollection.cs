@@ -6,19 +6,11 @@ namespace OpenTibia.Common
 {
     public class WindowCollection : IWindowCollection
     {
+        private IClient client;
+
         public WindowCollection(IClient client)
         {
             this.client = client;
-        }
-
-        private IClient client;
-
-        private IClient Client
-        {
-            get
-            {
-                return client;
-            }
         }
 
         private Window[] windows = new Window[255];

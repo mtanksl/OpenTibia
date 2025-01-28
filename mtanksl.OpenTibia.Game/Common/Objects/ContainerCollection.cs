@@ -6,19 +6,11 @@ namespace OpenTibia.Common
 {
     public class ContainerCollection : IContainerCollection
     {
+        private IClient client;
+
         public ContainerCollection(IClient client)
         {
             this.client = client;
-        }
-
-        private IClient client;
-
-        private IClient Client
-        {
-            get
-            {
-                return client;
-            }
         }
 
         private Container[] containers = new Container[255];

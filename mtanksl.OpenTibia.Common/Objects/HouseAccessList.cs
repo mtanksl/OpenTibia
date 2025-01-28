@@ -31,7 +31,7 @@ namespace OpenTibia.Common.Objects
 
                 if (asterisk > 0 && asterisk == line.Length - 1) // play*
                 {
-                    if (playerName.StartsWith(line.Substring(0, asterisk) ) ) // player starts with play
+                    if (playerName.StartsWith(line.Substring(0, asterisk) ) )
                     {
                         return true;
                     }
@@ -41,7 +41,7 @@ namespace OpenTibia.Common.Objects
 
                 if (questionMark > 0 && questionMark == line.Length - 1) // playe?
                 {
-                    if (playerName.Substring(0, playerName.Length - 1) == line.Substring(0, questionMark) ) // player - r = playe
+                    if (playerName.Substring(0, playerName.Length - 1) == line.Substring(0, questionMark) )
                     {
                         return true;
                     }

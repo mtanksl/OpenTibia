@@ -47,18 +47,25 @@ namespace OpenTibia.Common.Objects
             return container;
         }
 
-        public bool IsContentOf(Container container)
+        public bool IsContentOf(Container parent)
         {
-            IContent content = this;
+            IContent child = this;
 
-            while (content != null)
+            while (true)
             {
-                if (content == container)
+                if (child == parent)
                 {
                     return true;
                 }
 
-                content = content.Parent as IContent;
+                if (child.Parent is IContent content)
+                {
+                    child = content;
+                }
+                else
+                {
+                    break;
+                }
             }
 
             return false;

@@ -24,7 +24,7 @@ namespace OpenTibia.Common
         {
             if ( creatureIds.Add(creatureId) )
             {
-                if (creatureIds.Count > 250)
+                if (creatureIds.Count > Constants.CreaturesPerClient)
                 {
                     removeId = creatureIds.Where(id =>
                     {

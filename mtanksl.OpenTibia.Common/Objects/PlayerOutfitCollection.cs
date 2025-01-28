@@ -7,9 +7,9 @@ namespace OpenTibia.Common.Objects
     {
         private Dictionary<ushort, Addon> outfits = new Dictionary<ushort, Addon>();
 
-        public bool TryGetOutfit(ushort outfitId, out Addon _addon)
+        public bool TryGetOutfit(ushort outfitId, out Addon addon)
         {
-            return outfits.TryGetValue(outfitId, out _addon);
+            return outfits.TryGetValue(outfitId, out addon);
         }
 
         public void SetOutfit(ushort outfitId, Addon addon)
