@@ -13,6 +13,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 {
     public class ItemFactory : IItemFactory
     {
+        private HashSet<ushort> magicForcefields;
         private HashSet<ushort> lockers;
         private HashSet<ushort> doors;
 
@@ -25,6 +26,8 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         public void Start(OtbFile otbFile, DatFile datFile, ItemsFile itemsFile)
         {
+            magicForcefields = server.Values.GetUInt16HashSet("values.items.magicForcefields");
+
             lockers = server.Values.GetUInt16HashSet("values.items.lockers");
 
             doors = new HashSet<ushort>();
@@ -231,14 +234,16 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     metadata.ExtraDefense = xmlItem.ExtraDefense;
 
+                    metadata.Attack = xmlItem.Attack;
+
                     if (xmlItem.BlockProjectile == true)
                     {
                         metadata.Flags |= ItemMetadataFlags.BlockProjectile;
                     }
 
-                    metadata.Attack = xmlItem.Attack;
-
                     metadata.FloorChange = xmlItem.FloorChange;
+
+                    metadata.Race = xmlItem.Race;
 
                     metadata.Capacity = xmlItem.ContainerSize;
 
@@ -290,6 +295,49 @@ namespace OpenTibia.Game.Common.ServerObjects
                     {
                         metadata.Flags |= ItemMetadataFlags.Writeable;
                     }
+
+                    metadata.DamageTakenFromElements = new Dictionary<DamageType, double>();
+
+                    if (xmlItem.AbsorbPhysicalPercent != null)
+                    {
+                        metadata.DamageTakenFromElements[DamageType.Physical] = (100 - xmlItem.AbsorbPhysicalPercent.Value) / 100.0;
+                    }
+                    else if (xmlItem.AbsorbEarthpercent != null)
+                    {
+                        metadata.DamageTakenFromElements[DamageType.Earth] = (100 - xmlItem.AbsorbEarthpercent.Value) / 100.0;
+                    }
+                    else if (xmlItem.AbsorbFirePercent != null)
+                    {
+                        metadata.DamageTakenFromElements[DamageType.Fire] = (100 - xmlItem.AbsorbFirePercent.Value) / 100.0;
+                    }
+                    else if (xmlItem.AbsorbEnergyPercent != null)
+                    {
+                        metadata.DamageTakenFromElements[DamageType.Energy] = (100 - xmlItem.AbsorbEnergyPercent.Value) / 100.0;
+                    }
+                    else if (xmlItem.AbsorbIcePercent != null)
+                    {
+                        metadata.DamageTakenFromElements[DamageType.Ice] = (100 - xmlItem.AbsorbIcePercent.Value) / 100.0;
+                    }
+                    else if (xmlItem.AbsorbDeathPercent != null)
+                    {
+                        metadata.DamageTakenFromElements[DamageType.Death] = (100 - xmlItem.AbsorbDeathPercent.Value) / 100.0;
+                    }
+                    else if (xmlItem.AbsorbHolyPercent != null)
+                    {
+                        metadata.DamageTakenFromElements[DamageType.Holy] = (100 - xmlItem.AbsorbHolyPercent.Value) / 100.0;
+                    }
+                    else if (xmlItem.AbsorbDrownPercent != null)
+                    {
+                        metadata.DamageTakenFromElements[DamageType.Drown] = (100 - xmlItem.AbsorbDrownPercent.Value) / 100.0;
+                    }
+                    else if (xmlItem.AbsorbManaDrainPercent != null)
+                    {
+                        metadata.DamageTakenFromElements[DamageType.ManaDrain] = (100 - xmlItem.AbsorbManaDrainPercent.Value) / 100.0;
+                    }
+                    else if (xmlItem.AbsorbLifeDrainPercent != null)
+                    {
+                        metadata.DamageTakenFromElements[DamageType.LifeDrain] = (100 - xmlItem.AbsorbLifeDrainPercent.Value) / 100.0;
+                    }
                 }
             }
         }
@@ -333,7 +381,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             Item item;
 
-            if (openTibiaId == 1387)
+            if (magicForcefields.Contains(openTibiaId) )
             {
                 item = new TeleportItem(metadata);
             }

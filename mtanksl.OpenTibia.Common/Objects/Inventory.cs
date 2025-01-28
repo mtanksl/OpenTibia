@@ -43,10 +43,6 @@ namespace OpenTibia.Common.Objects
             contents[index] = content;
 
             content.Parent = this;
-
-            defense = null;
-
-            armor = null;
         }
 
         /// <exception cref="ArgumentException"></exception>
@@ -65,10 +61,6 @@ namespace OpenTibia.Common.Objects
             oldContent.Parent = null;
 
             content.Parent = this;
-
-            defense = null;
-
-            armor = null;
         }
 
         public void RemoveContent(int index)
@@ -78,10 +70,6 @@ namespace OpenTibia.Common.Objects
             contents[index] = null;
 
             content.Parent = null;
-
-            defense = null;
-
-            armor = null;
         }
 
         /// <exception cref="InvalidOperationException"></exception>
@@ -165,112 +153,93 @@ namespace OpenTibia.Common.Objects
             return weight;
         }
 
-
-
-
-
-
-
-
-
-
-        private int? defense;
-
         public int GetDefense()
         {
-            int Defense()
+            Item GetWeapon()
             {
-                int defense = 0;
-
-                int extraDefense = 0;
-
-                Item weapon = null;
-
-                Item shield = null;
-
-                Item left = (Item)contents[ (int)Slot.Left ];
-
-                Item right = (Item)contents[ (int)Slot.Right ];
-
-                if (left != null)
+                foreach (var slot in new[] { Slot.Left, Slot.Right } )
                 {
-                    if (left.Metadata.WeaponType == WeaponType.Sword || left.Metadata.WeaponType == WeaponType.Club || left.Metadata.WeaponType == WeaponType.Axe)
+                    Item item = (Item)contents[ (int)slot ];
+
+                    if (item != null && (item.Metadata.WeaponType == WeaponType.Sword || item.Metadata.WeaponType == WeaponType.Club || item.Metadata.WeaponType == WeaponType.Axe) )
                     {
-                        weapon = left;
-                    }
-                    else if (left.Metadata.WeaponType == WeaponType.Shield)
-                    {
-                        shield = left;
+                        return item;
                     }
                 }
 
-                if (right != null)
-                {
-                    if (right.Metadata.WeaponType == WeaponType.Sword || right.Metadata.WeaponType == WeaponType.Club || right.Metadata.WeaponType == WeaponType.Axe)
-                    {
-                        weapon = right;
-                    }
-                    else if (right.Metadata.WeaponType == WeaponType.Shield)
-                    {
-                        shield = right;
-                    }
-                }
-
-                if (weapon != null)
-                {
-                    defense = weapon.Metadata.Defense ?? 0;
-
-                    extraDefense = weapon.Metadata.ExtraDefense ?? 0;
-                }
-
-                if (shield != null)
-                {
-                    defense = shield.Metadata.Defense ?? 0;
-
-                    int shieldExtraDefense = shield.Metadata.ExtraDefense ?? 0;
-
-                    if (shieldExtraDefense > extraDefense)
-                    {
-                        extraDefense = shieldExtraDefense;
-                    }
-                }
-
-                return defense + extraDefense;
+                return null;
             }
 
-            if (defense == null)
+            Item GetShield()
             {
-                defense = Defense();
+                foreach (var slot in new[] { Slot.Left, Slot.Right } )
+                {
+                    Item item = (Item)contents[ (int)slot ];
+
+                    if (item != null && item.Metadata.WeaponType == WeaponType.Shield)
+                    {
+                        return item;
+                    }
+                }
+
+                return null;
             }
 
-            return defense.Value;
+            int defense = 0;
+
+            int extraDefense = 0;
+
+            Item weapon = GetWeapon();
+
+            Item shield = GetShield();
+
+            if (weapon != null)
+            {
+                defense = weapon.Metadata.Defense ?? 0;
+
+                extraDefense = weapon.Metadata.ExtraDefense ?? 0;
+            }
+
+            if (shield != null)
+            {
+                defense = shield.Metadata.Defense ?? 0;
+
+                extraDefense = Math.Max(extraDefense, shield.Metadata.ExtraDefense ?? 0);
+            }
+
+            return defense + extraDefense;
         }
 
-        private int? armor;
+        public double GetArmorReductionPercent(DamageType damageType)
+        {
+            double armorReductionPercent = 1;
+
+            foreach (var item in GetItems() )
+            {
+                double elementPercent;
+
+                if (item.Metadata.DamageTakenFromElements.TryGetValue(damageType, out elementPercent) )
+                {
+                    armorReductionPercent *= elementPercent;
+                }
+            }
+
+            return armorReductionPercent;
+        }
 
         public int GetArmor()
         {
-            int Armor()
-            {
-                int armor = 0;
+            int armor = 0;
 
-                foreach (var item in GetItems() )
+            foreach (var item in GetItems() )
+            {
+                if (item.Metadata.Armor != null)
                 {
-                    if (item.Metadata.Armor != null)
-                    {
-                        armor += item.Metadata.Armor.Value;
-                    }
+                    armor += item.Metadata.Armor.Value;
                 }
-
-                return armor;
             }
 
-            if (armor == null)
-            {
-                armor = Armor();
-            }
-
-            return armor.Value;
+            return armor;           
         }
     }
 }

@@ -487,14 +487,14 @@ namespace OpenTibia.Game.Common
         {
             Item item = (Item)player.Inventory.GetContent( (byte)Slot.Left);
 
-            if (item != null && (item.Metadata.WeaponType == WeaponType.Shield) )
+            if (item != null && item.Metadata.WeaponType == WeaponType.Shield)
             {
                 return item;
             }
 
             item = (Item)player.Inventory.GetContent( (byte)Slot.Right);
 
-            if (item != null && (item.Metadata.WeaponType == WeaponType.Shield) )
+            if (item != null && item.Metadata.WeaponType == WeaponType.Shield)
             {
                 return item;
             }

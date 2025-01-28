@@ -38,7 +38,7 @@ namespace OpenTibia.Game.Commands
 
                     if ( !monster.Metadata.DamageTakenFromElements.TryGetValue(DamageType, out elementPercent) )
                     {
-                        elementPercent = 1;                   
+                        elementPercent = 1;
                     }
 
                     damage = (int)(damage * elementPercent);
@@ -58,19 +58,11 @@ namespace OpenTibia.Game.Commands
             {
                 double attackPercent;
 
-                int defense;
-
-                int armor;
-
                 if (attacker == null)
                 {
                     // environment
 
                     attackPercent = 1;
-
-                    defense = 0;
-
-                    armor = 0;
                 }
                 else
                 {
@@ -93,10 +85,6 @@ namespace OpenTibia.Game.Commands
                             attackPercent = 0.5;
                         }
                     }
-
-                    defense = Formula.DefenseFormula(player.Inventory.GetDefense(), player.Client.FightMode);
-
-                    armor = Formula.ArmorFormula(player.Inventory.GetArmor() );
                 }
 
                 int damage = (int)(Context.Current.Server.Randomization.Take(Min, Max) * attackPercent);
@@ -105,6 +93,8 @@ namespace OpenTibia.Game.Commands
 
                 if (damage > 0)
                 {
+                    int defense = Formula.DefenseFormula(player.Inventory.GetDefense(), player.Client.FightMode);
+
                     damage -= defense;
 
                     if (damage <= 0)
@@ -117,6 +107,22 @@ namespace OpenTibia.Game.Commands
 
                 if (damage > 0)
                 {
+                    double armorReductionPercent = player.Inventory.GetArmorReductionPercent(DamageType);
+
+                    damage = (int)(damage * armorReductionPercent);
+
+                    if (damage <= 0)
+                    {
+                        damage = 0;
+
+                        blockType = BlockType.Armor;
+                    }
+                }
+
+                if (damage > 0)
+                {
+                    int armor = Formula.ArmorFormula(player.Inventory.GetArmor());
+
                     damage -= armor;
 
                     if (damage <= 0)

@@ -80,15 +80,15 @@ namespace OpenTibia.FileFormats.Xml.Items
 
                         break;
 
-                    case "blockprojectile":
-
-                        item.BlockProjectile = true;
-
-                        break;
-
                     case "attack":
 
                         item.Attack = (byte)(uint)value;
+
+                        break;
+
+                    case "blockprojectile":
+
+                        item.BlockProjectile = true;
 
                         break;
 
@@ -136,6 +136,43 @@ namespace OpenTibia.FileFormats.Xml.Items
                         else
                         {
                             item.FloorChange |= floorChange;
+                        }
+
+                        break;
+
+                    case "corpsetype":
+
+                        switch ( (string)value)
+                        {
+                            case "blood":
+
+                                item.Race = Common.Structures.Race.Blood;
+
+                                break;
+
+                            case "energy":
+
+                                item.Race = Common.Structures.Race.Energy;
+
+                                break;
+
+                            case "fire":
+
+                                item.Race = Common.Structures.Race.Fire;
+
+                                break;
+
+                            case "venom":
+
+                                item.Race = Common.Structures.Race.Venom;
+
+                                break;
+
+                            case "undead":
+
+                                item.Race = Common.Structures.Race.Undead;
+
+                                break;
                         }
 
                         break;
@@ -1089,6 +1126,72 @@ namespace OpenTibia.FileFormats.Xml.Items
                         item.Writeable = true;
 
                         break;
+
+                    case "absorbPercentAllElements":
+
+                        item.AbsorbPhysicalPercent = (int)value;
+                        item.AbsorbEarthpercent = (int)value;
+                        item.AbsorbFirePercent = (int)value;
+                        item.AbsorbEnergyPercent = (int)value;
+                        item.AbsorbIcePercent = (int)value;
+                        item.AbsorbDeathPercent = (int)value;
+                        item.AbsorbHolyPercent = (int)value;
+
+                        break;
+
+                    case "absorbPercentPhysical":
+
+                        item.AbsorbPhysicalPercent = (int)value;
+
+                        break;
+
+                    case "absorbPercentEarth":
+
+                        item.AbsorbEarthpercent = (int)value;
+
+                        break;
+
+                    case "absorbPercentFire":
+
+                        item.AbsorbFirePercent = (int)value;
+
+                        break;
+
+                    case "absorbPercentEnergy":
+
+                        item.AbsorbEnergyPercent = (int)value;
+
+                        break;
+
+                    case "absorbPercentIce":
+
+                        item.AbsorbIcePercent = (int)value;
+
+                        break;
+
+                    case "absorbPercentDeath":
+
+                        item.AbsorbDeathPercent = (int)value;
+
+                        break;
+
+                    case "absorbPercentHoly":
+
+                        item.AbsorbHolyPercent = (int)value;
+
+                        break;
+
+                    case "absorbPercentManaDrain":
+
+                        item.AbsorbManaDrainPercent = (int)value;
+
+                        break;
+
+                    case "absorbPercentLifeDrain":
+
+                        item.AbsorbLifeDrainPercent = (int)value;
+
+                        break;
                 }
             }
 
@@ -1115,9 +1218,11 @@ namespace OpenTibia.FileFormats.Xml.Items
 
         public byte? ExtraDefense { get; set; }
 
+        public byte? Attack { get; set; }
+
         public bool? BlockProjectile { get; set; }
 
-        public byte? Attack { get; set; }
+        public Race? Race { get; set; }
 
         public FloorChange? FloorChange { get; set; }
 
@@ -1148,5 +1253,25 @@ namespace OpenTibia.FileFormats.Xml.Items
         public bool? Readable { get; set; }
 
         public bool? Writeable { get; set; }
+
+        public int? AbsorbPhysicalPercent { get; set; }
+
+        public int? AbsorbEarthpercent { get; set; }
+
+        public int? AbsorbFirePercent { get; set; }
+
+        public int? AbsorbEnergyPercent { get; set; }
+
+        public int? AbsorbIcePercent { get; set; }
+
+        public int? AbsorbDeathPercent { get; set; }
+
+        public int? AbsorbHolyPercent { get; set; }
+
+        public int? AbsorbDrownPercent { get; set; }
+
+        public int? AbsorbManaDrainPercent { get; set; }
+
+        public int? AbsorbLifeDrainPercent { get; set; }
     }
 }

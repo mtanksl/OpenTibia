@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Structures;
+using System.Collections.Generic;
 
 namespace OpenTibia.Common.Objects
 {
@@ -42,6 +43,8 @@ namespace OpenTibia.Common.Objects
 
         public FloorChange? FloorChange { get; set; }
 
+        public Race? Race { get; set; }
+
         public byte? Capacity { get; set; }
 
         public WeaponType? WeaponType { get; set; }
@@ -65,6 +68,8 @@ namespace OpenTibia.Common.Objects
         public byte? HitChance { get; set; }
 
         public byte? MaxHitChance { get; set; }
+
+        public Dictionary<DamageType, double> DamageTakenFromElements { get; set; }
 
         public string GetDescription(byte count)
         {

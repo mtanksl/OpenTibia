@@ -29,5 +29,11 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
         [XmlAttribute("drownPercent")]
         public int? DrownPercent { get; set; }
+
+        [XmlAttribute("manaDrainPercent")]
+        public int? ManaDrainPercent { get; set; }
+
+        [XmlAttribute("lifeDrainPercent")]
+        public int? LifeDrainPercent { get; set; }
     }
 }

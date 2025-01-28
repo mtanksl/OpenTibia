@@ -151,7 +151,11 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
                         HolyPercent = (int?)elementNode.Attribute("holyPercent"),
 
-                        DrownPercent = (int?)elementNode.Attribute("drownPercent")
+                        DrownPercent = (int?)elementNode.Attribute("drownPercent"),
+
+                        ManaDrainPercent = (int?)elementNode.Attribute("manaDrainPercent"),
+
+                        LifeDrainPercent = (int?)elementNode.Attribute("lifeDrainPercent")
                     } );
                 }
             }

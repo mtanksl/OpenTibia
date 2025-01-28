@@ -122,6 +122,14 @@ namespace OpenTibia.Game.Common.ServerObjects
                         {
                             monsterMetadata.DamageTakenFromElements[DamageType.Drown] = (100 - elementItem.DrownPercent.Value) / 100.0;
                         }
+                        else if (elementItem.ManaDrainPercent != null)
+                        {
+                            monsterMetadata.DamageTakenFromElements[DamageType.ManaDrain] = (100 - elementItem.ManaDrainPercent.Value) / 100.0;
+                        }
+                        else if (elementItem.LifeDrainPercent != null)
+                        {
+                            monsterMetadata.DamageTakenFromElements[DamageType.LifeDrain] = (100 - elementItem.LifeDrainPercent.Value) / 100.0;
+                        }
                     }
                 }
 
