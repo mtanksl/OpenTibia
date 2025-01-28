@@ -10,19 +10,19 @@ namespace OpenTibia.Common.Objects
 
             Lockers = new Safe(this);
 
-            Outfits = new PlayerOutfitCollection();
-
-            Storages = new PlayerStorageCollection();
-
             Achievements = new PlayerAchievementsCollection();
-
-            Spells = new PlayerSpellCollection();
 
             Blesses = new PlayerBlessCollection();
 
-            Vips = new PlayerVipCollection();
-
             Combat = new PlayerCombatCollection(this);
+
+            Outfits = new PlayerOutfitCollection();
+
+            Spells = new PlayerSpellCollection();
+
+            Storages = new PlayerStorageCollection();
+
+            Vips = new PlayerVipCollection();
 
             Skills = new Skills(this);
 
@@ -77,19 +77,19 @@ namespace OpenTibia.Common.Objects
 
         public Safe Lockers { get; }
 
-        public PlayerOutfitCollection Outfits { get; }
-
-        public PlayerStorageCollection Storages { get; }
-
         public PlayerAchievementsCollection Achievements { get; }
-
-        public PlayerSpellCollection Spells { get; }
 
         public PlayerBlessCollection Blesses { get; }
 
-        public PlayerVipCollection Vips { get; }
-
         public PlayerCombatCollection Combat { get; set; }
+
+        public PlayerOutfitCollection Outfits { get; }
+
+        public PlayerSpellCollection Spells { get; }
+
+        public PlayerStorageCollection Storages { get; }
+
+        public PlayerVipCollection Vips { get; }
 
         public Skills Skills { get; set; }
 
