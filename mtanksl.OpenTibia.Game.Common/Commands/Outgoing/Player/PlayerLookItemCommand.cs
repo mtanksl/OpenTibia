@@ -55,15 +55,15 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            string decription = ItemMetadata.GetDescription(Type);
+            StringBuilder builder = new StringBuilder();
+
+            builder.Append("You see " + ItemMetadata.GetDescription(Type) );
 
             List<string> attributes = new List<string>();
 
             if (ItemMetadata.RuneSpellName != null)
             {
                 attributes.Add("\"" + ItemMetadata.RuneSpellName + "\"");
-
-                attributes.Add("Charges: " + Type);
             }
 
             if (ItemMetadata.Flags.Is(ItemMetadataFlags.IsContainer) )
@@ -71,9 +71,9 @@ namespace OpenTibia.Game.Commands
                 attributes.Add("Vol: " + ItemMetadata.Capacity);
             }
 
-            if (ItemMetadata.Armor != null)
+            if (ItemMetadata.Attack != null)
             {
-                attributes.Add("Arm: " + ItemMetadata.Armor);
+                attributes.Add("Atk: " + ItemMetadata.Attack);
             }
 
             if (ItemMetadata.Range != null)
@@ -81,20 +81,28 @@ namespace OpenTibia.Game.Commands
                 attributes.Add("Range: " + ItemMetadata.Range);
             }
 
-            if (ItemMetadata.Attack != null)
-            {
-                attributes.Add("Atk: " + ItemMetadata.Attack);
-            }
-
             if (ItemMetadata.Defense != null)
             {
                 if (ItemMetadata.ExtraDefense != null)
                 {
-                    attributes.Add("Def: " + ItemMetadata.Defense + " +" + ItemMetadata.ExtraDefense);
+                    attributes.Add("Def: " + ItemMetadata.Defense + " " + (ItemMetadata.ExtraDefense > 0 ? "+" + ItemMetadata.ExtraDefense : ItemMetadata.ExtraDefense) );
                 }
                 else
                 {
                     attributes.Add("Def: " + ItemMetadata.Defense);
+                }
+            }
+
+            if (ItemMetadata.Armor != null)
+            {
+                attributes.Add("Arm: " + ItemMetadata.Armor);
+            }
+
+            if (ItemMetadata.DamageTakenFromElements.Count > 0)
+            {
+                foreach (var item in ItemMetadata.DamageTakenFromElements)
+                {
+                    attributes.Add(item.Key.GetDescription() + " " + (item.Value > 0 ? "+" + item.Value * 100 : item.Value * 100) + "%");
                 }
             }
 
@@ -116,114 +124,18 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            List<string> descriptions = new List<string>();
-            
-            if (ItemMetadata.Flags.Is(ItemMetadataFlags.IsFluid) || ItemMetadata.Flags.Is(ItemMetadataFlags.IsSplash) )
+            if (attributes.Count > 0)
             {
-                switch ( (FluidType)Type)
-                {
-                    case FluidType.Empty:
+                builder.Append(" (" + string.Join(", ", attributes) + ")");
+            }
 
-                        descriptions.Add("It is empty.");
+            builder.Append(".");
 
-                        break;
+            List<string> descriptions = new List<string>();
 
-                    case FluidType.Water:
-
-                        decription += " of water";
-
-                        break;
-
-                    case FluidType.Blood:
-
-                        decription += " of blood";
-
-                        break;
-
-                    case FluidType.Beer:
-
-                        decription += " of beer";
-
-                        break;
-
-                    case FluidType.Slime:
-
-                        decription += " of slime";
-
-                        break;
-
-                    case FluidType.Lemonade:
-
-                        decription += " of lemonade";
-
-                        break;
-
-                    case FluidType.Milk:
-
-                        decription += " of milk";
-
-                        break;
-
-                    case FluidType.Manafluid:
-
-                        decription += " of manafluid";
-
-                        break;
-
-                    case FluidType.Lifefluid:
-
-                        decription += " of lifefluid";
-
-                        break;
-
-                    case FluidType.Oil:
-
-                        decription += " of oil";
-
-                        break;
-
-                    case FluidType.Urine:
-
-                        decription += " of urine";
-
-                        break;
-
-                    case FluidType.CoconutMilk:
-
-                        decription += " of coconut milk";
-
-                        break;
-
-                    case FluidType.Wine:
-
-                        decription += " of wine";
-
-                        break;
-
-                    case FluidType.Mud:
-
-                        decription += " of mud";
-
-                        break;
-
-                    case FluidType.FruitJuice:
-
-                        decription += " of fruit juice";
-
-                        break;
-
-                    case FluidType.Lava:
-
-                        decription += " of lava";
-
-                        break;
-
-                    case FluidType.Rum:
-
-                        decription += " of rum";
-
-                        break;
-                }
+            if (ItemMetadata.Description != null)
+            {
+                descriptions.Add(ItemMetadata.Description);
             }
 
             if (Item != null)
@@ -232,12 +144,9 @@ namespace OpenTibia.Game.Commands
                 {
                     uint weight = Item.GetWeight();
 
-                    if (weight > 0)
+                    if (weight > 0 && ( (Item.Parent is Tile tile && Player.Tile.Position.IsInRange(tile.Position, 1) ) || Item.Parent is Inventory || Item.Parent is Container) )
                     {
-                        if ( (Item.Parent is Tile tile && Player.Tile.Position.IsInRange(tile.Position, 1) ) || Item.Parent is Inventory || Item.Parent is Container)
-                        {
-                            descriptions.Add("It weights " + (weight / 100.0).ToString("0.00", CultureInfo.InvariantCulture) + " oz.");
-                        }
+                        descriptions.Add("It weights " + (weight / 100.0).ToString("0.00", CultureInfo.InvariantCulture) + " oz.");
                     }
                 }
 
@@ -272,23 +181,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
             }
-
-            if (ItemMetadata.Description != null)
-            {
-                descriptions.Add(ItemMetadata.Description);
-            }
-
-            StringBuilder builder = new StringBuilder();
-
-            builder.Append("You see " + decription);
-
-            if (attributes.Count > 0)
-            {
-                builder.Append(" (" + string.Join(", ", attributes) + ")");
-            }
-
-            builder.Append(".");
-
+                        
             if (descriptions.Count > 0)
             {
                 builder.Append(" " + string.Join(" ", descriptions) );

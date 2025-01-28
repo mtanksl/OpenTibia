@@ -65,6 +65,8 @@ namespace OpenTibia.Game.Common.ServerObjects
                         TibiaId = otbItem.TibiaId,
 
                         OpenTibiaId = otbItem.OpenTibiaId,
+
+                        DamageTakenFromElements = new Dictionary<DamageType, double>()
                     };
 
                     if (otbItem.Flags.Is(FileFormats.Otb.ItemFlags.AllowDistanceRead) )
@@ -295,8 +297,6 @@ namespace OpenTibia.Game.Common.ServerObjects
                     {
                         metadata.Flags |= ItemMetadataFlags.Writeable;
                     }
-
-                    metadata.DamageTakenFromElements = new Dictionary<DamageType, double>();
 
                     if (xmlItem.AbsorbPhysicalPercent != null)
                     {

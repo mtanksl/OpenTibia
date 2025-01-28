@@ -29,6 +29,54 @@ namespace OpenTibia.Common.Structures
 
     public static class DamageTypeExtensions
     {
+        public static string GetDescription(this DamageType damageType)
+        {
+            switch (damageType)
+            {
+                case DamageType.Physical:
+
+                    return "physical";
+
+                case DamageType.Earth:
+
+                    return "earth";
+
+                case DamageType.Fire:
+
+                    return "fire";
+
+                case DamageType.Energy:
+
+                    return "energy";
+
+                case DamageType.Ice:
+
+                    return "ice";
+
+                case DamageType.Death:
+
+                    return "death";
+
+                case DamageType.Holy:
+
+                    return "holy";
+
+                case DamageType.Drown:
+
+                    return "drown";
+
+                case DamageType.ManaDrain:
+
+                    return "mana drain";
+
+                case DamageType.LifeDrain:
+
+                    return "life drain";
+            }
+
+            return null;
+        }
+
         public static MagicEffectType? ToMagicEffectType(this DamageType damageType, Race race)
         {
             switch (damageType)

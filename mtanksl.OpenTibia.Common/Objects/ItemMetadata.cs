@@ -71,26 +71,44 @@ namespace OpenTibia.Common.Objects
 
         public Dictionary<DamageType, double> DamageTakenFromElements { get; set; }
 
-        public string GetDescription(byte count)
+        public string GetDescription(byte type)
         {
             string description;
 
-            if (Flags.Is(ItemMetadataFlags.Stackable) && count > 1)
+            if (Flags.Is(ItemMetadataFlags.Stackable) && type > 1)
             {
                 if (Plural != null)
                 {
-                    description = count + " " + Plural;
+                    description = type + " " + Plural;
                 }
                 else
                 {
                     if (Name != null)
                     {
-                        description = count + " " + Name;
+                        description = type + " " + Name;
                     }
                     else
                     {
                         description = "nothing special";
                     }
+                }
+            }
+            else if ( (Flags.Is(ItemMetadataFlags.IsFluid) || Flags.Is(ItemMetadataFlags.IsSplash) ) && type > 0)
+            {
+                if (Name != null)
+                {
+                    if (Article != null)
+                    {
+                        description = Article + " " + Name + " of " + ( (FluidType)type ).GetDescription();
+                    }
+                    else
+                    {
+                        description = Name + " of " + ( (FluidType)type ).GetDescription();
+                    }
+                }
+                else
+                {
+                    description = "nothing special";
                 }
             }
             else

@@ -121,7 +121,7 @@ namespace OpenTibia.Game.Commands
 
                 if (damage > 0)
                 {
-                    int armor = Formula.ArmorFormula(player.Inventory.GetArmor());
+                    int armor = Formula.ArmorFormula(player.Inventory.GetArmor() );
 
                     damage -= armor;
 
