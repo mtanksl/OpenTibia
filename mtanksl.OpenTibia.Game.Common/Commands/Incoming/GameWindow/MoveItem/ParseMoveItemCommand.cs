@@ -14,11 +14,26 @@ namespace OpenTibia.Game.Commands
 
         public Player Player { get; set; }
 
-        protected bool IsPossible(Item fromItem, Container toContainer)
+        protected bool IsPossible(Item fromItem, Container toContainer, byte toIndex)
         {
-            if (fromItem is Container fromContainer)
+            if (fromItem is Container container)
             {
-                if (toContainer.IsContentOf(fromContainer) )
+                if (toContainer.GetContent(toIndex) == container || toContainer.IsContentOf(container) )
+                {
+                    Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
+
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        protected bool IsPossible(Item fromItem, Inventory toInventory, byte toSlot)
+        {
+            if (fromItem is Container container)
+            {
+                if (toInventory.GetContent(toSlot) == container)
                 {
                     Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.ThisIsImpossible) );
 

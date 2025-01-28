@@ -43,7 +43,7 @@ namespace OpenTibia.Game.Commands
                     {
                         Inventory toInventory = Player.Inventory;
 
-                        if (IsPickupable(fromItem) && IsMoveable(fromItem, Count) )
+                        if (IsPossible(fromItem, toInventory, ToSlot) && IsPickupable(fromItem) && IsMoveable(fromItem, Count) )
                         {
                             if ( !Player.Tile.Position.IsNextTo(fromTile.Position) )
                             {
