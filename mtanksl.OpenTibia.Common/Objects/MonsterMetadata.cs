@@ -29,6 +29,22 @@ namespace OpenTibia.Common.Objects
 
         public Dictionary<DamageType, double> DamageTakenFromElements { get; set; }
 
+        public bool Summonable { get; set; }
+
+        public bool Attackable { get; set; }
+
+        public bool Hostile { get; set; }
+
+        public bool Illusionable { get; set; }
+
+        public bool Convinceable { get; set; }
+
+        public bool Pushable { get; set; }
+
+        public bool CanPushItems { get; set; }
+
+        public bool CanPushCreatures { get; set; }
+
         public AttackItem[] Attacks { get; set; }
 
         public int Armor { get; set; }

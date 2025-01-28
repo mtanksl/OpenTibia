@@ -2,6 +2,8 @@
 
 namespace OpenTibia.FileFormats.Xml.Monsters
 {
+    // This format does not make much sense. Only need 1 node with multiple attributes.
+
     public class ElementItem
     {
         [XmlAttribute("holyPercent")]

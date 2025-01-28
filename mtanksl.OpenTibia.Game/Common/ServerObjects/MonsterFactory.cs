@@ -57,9 +57,25 @@ namespace OpenTibia.Game.Common.ServerObjects
                         Items = xmlMonster.Voices.Items.Select(v => new VoiceItem() { Sentence = v.Sentence, Yell = v.Yell == 1 } ).ToArray()
                     },
 
-                    Loot = xmlMonster.Loot?.Select(l => new LootItem() { OpenTibiaId = l.Id, KillsToGetOne = l.KillsToGetOne ?? 1, CountMin = l.CountMin ?? 1, CountMax = l.CountMax ?? 1 } ).ToArray(),
+                    Loot = xmlMonster.Loot?.Select(l => new LootItem() { OpenTibiaId = l.Id, KillsToGetOne = l.KillsToGetOne, CountMin = l.CountMin ?? 1, CountMax = l.CountMax ?? 1 } ).ToArray(),
 
                     DamageTakenFromElements = new Dictionary<DamageType, double>(),
+
+                    Summonable = xmlMonster.Flags?.Any(f => f.Summonable == 1) ?? false,
+
+                    Attackable = xmlMonster.Flags?.Any(f => f.Attackable == 1) ?? false,
+
+                    Hostile = xmlMonster.Flags?.Any(f => f.Hostile == 1) ?? false,
+
+                    Illusionable = xmlMonster.Flags?.Any(f => f.Illusionable == 1) ?? false,
+
+                    Convinceable = xmlMonster.Flags?.Any(f => f.Convinceable == 1) ?? false,
+
+                    Pushable = xmlMonster.Flags?.Any(f => f.Pushable == 1) ?? false,
+
+                    CanPushItems = xmlMonster.Flags?.Any(f => f.CanPushItems == 1) ?? false,
+
+                    CanPushCreatures = xmlMonster.Flags?.Any(f => f.CanPushCreatures == 1) ?? false,
 
                     Attacks = xmlMonster.Attacks?.Select(a => new AttackItem() { Name = a.Name, Interval = a.Interval, Chance = a.Chance, Min = a.Min ?? 0, Max = a.Max ?? 0 } ).ToArray(),
 

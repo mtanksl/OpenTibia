@@ -122,7 +122,7 @@ namespace OpenTibia.FileFormats.Xml.Monsters
 
                         CountMax = (int?)itemNode.Attribute("countmax"),
 
-                        KillsToGetOne = (int?)itemNode.Attribute("killsToGetOne")
+                        KillsToGetOne = (int)itemNode.Attribute("killsToGetOne")
                     } );
                 }
             }
@@ -150,6 +150,35 @@ namespace OpenTibia.FileFormats.Xml.Monsters
                         EnergyPercent = (int?)elementNode.Attribute("energyPercent"),
 
                         FirePercent = (int?)elementNode.Attribute("firePercent")
+                    } );
+                }
+            }
+
+            XElement flagsNode = monsterNode.Element("flags");
+
+            if (flagsNode != null)
+            {
+                monster.Flags = new List<FlagItem>();
+
+                foreach (var flagNode in flagsNode.Elements() )
+                {
+                    monster.Flags.Add(new FlagItem() 
+                    {
+                        Summonable = (int?)flagNode.Attribute("summonable"),
+
+                        Attackable = (int?)flagNode.Attribute("attackable"),
+
+                        Hostile = (int?)flagNode.Attribute("hostile"),
+
+                        Illusionable = (int?)flagNode.Attribute("illusionable"),
+
+                        Convinceable = (int?)flagNode.Attribute("convinceable"),
+
+                        Pushable = (int?)flagNode.Attribute("pushable"),
+
+                        CanPushItems = (int?)flagNode.Attribute("canpushitems"),
+
+                        CanPushCreatures = (int?)flagNode.Attribute("canpushcreatures")
                     } );
                 }
             }
@@ -241,6 +270,10 @@ namespace OpenTibia.FileFormats.Xml.Monsters
         [XmlArray("elements")]
         [XmlArrayItem("element")]
         public List<ElementItem> Elements { get; set; }
+
+        [XmlArray("flags")]
+        [XmlArrayItem("flag")]
+        public List<FlagItem> Flags { get; set; }
 
         [XmlArray("attacks")]
         [XmlArrayItem("attack")]
