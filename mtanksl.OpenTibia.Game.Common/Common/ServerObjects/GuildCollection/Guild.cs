@@ -36,10 +36,5 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             return members;
         }
-
-        public override string ToString()
-        {
-            return "Name: " + Name;
-        }
     }
 }

@@ -35,14 +35,6 @@ namespace OpenTibia.Common.Objects
 
         public ushort UniqueId { get; set; }
 
-        public virtual uint Weight
-        {
-            get
-            {
-                return metadata.Weight ?? 0;
-            }
-        }
-
         public IContainer Root()
         {
             IContainer container = Parent;
@@ -55,21 +47,26 @@ namespace OpenTibia.Common.Objects
             return container;
         }
 
-        public bool IsContentOf(Container parent)
+        public bool IsContentOf(Container container)
         {
-            IContent child = this;
+            IContent content = this;
 
-            while (child != null)
+            while (content != null)
             {
-                if (child == parent)
+                if (content == container)
                 {
                     return true;
                 }
 
-                child = child.Parent as IContent;
+                content = content.Parent as IContent;
             }
 
             return false;
+        }
+
+        public virtual uint GetWeight()
+        {
+            return metadata.Weight ?? 0;
         }
 
         public override string ToString()

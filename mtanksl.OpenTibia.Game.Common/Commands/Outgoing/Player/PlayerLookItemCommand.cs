@@ -230,7 +230,7 @@ namespace OpenTibia.Game.Commands
             {
                 if (ItemMetadata.Flags.Is(ItemMetadataFlags.Pickupable) && Item.UniqueId == 0)
                 {
-                    uint weight = Item.Weight;
+                    uint weight = Item.GetWeight();
 
                     if (weight > 0)
                     {

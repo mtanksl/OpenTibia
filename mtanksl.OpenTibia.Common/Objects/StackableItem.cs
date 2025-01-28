@@ -7,14 +7,11 @@
 
         }
 
-        public override uint Weight
-        {
-            get
-            {
-                return base.Weight * Count;
-            }
-        }
-
         public byte Count { get; set; }
+
+        public override uint GetWeight()
+        {
+            return Count * base.GetWeight();
+        }
     }
 }

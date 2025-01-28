@@ -153,6 +153,27 @@ namespace OpenTibia.Common.Objects
             return GetContents().OfType<Item>();
         }
 
+        public uint GetWeight()
+        {
+            uint weight = 0;
+
+            foreach (var item in GetItems() )
+            {
+                weight += item.GetWeight();
+            }
+
+            return weight;
+        }
+
+
+
+
+
+
+
+
+
+
         private int? defense;
 
         public int GetDefense()

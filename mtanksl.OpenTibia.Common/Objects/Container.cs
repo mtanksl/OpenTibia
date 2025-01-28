@@ -6,36 +6,6 @@ namespace OpenTibia.Common.Objects
 {
     public class Container : Item, IContainer
     {
-        private RecomputableSource recomputableSource;
-
-        private Recomputable recomputable;
-
-        private void EnsureUpdated()
-        {
-            if (recomputableSource == null)
-            {
-                recomputableSource = new RecomputableSource();
-            }
-
-            if (recomputable == null)
-            {
-                recomputable = new Recomputable(recomputableSource, () =>
-                {
-                    weight = base.Weight;
-
-                    foreach (var content in GetContents() )
-                    {
-                        if (content is Item item)
-                        {
-                            weight += item.Weight;
-                        }
-                    }
-                } );
-            }
-
-            recomputable.EnsureUpdated();
-        }
-
         public Container(ItemMetadata metadata) : base(metadata)
         {
             this.contents = new List<IContent>();
@@ -44,18 +14,6 @@ namespace OpenTibia.Common.Objects
         public Container(ItemMetadata metadata, int capacity) : base(metadata) //TODO: Use this constructor instead
         {
             this.contents = new List<IContent>(capacity);
-        }
-
-        private uint weight;
-
-        public override uint Weight
-        {
-            get
-            {
-                EnsureUpdated();
-
-                return weight;
-            }
         }
 
         public bool IsContainerOf(Item child)
@@ -80,11 +38,6 @@ namespace OpenTibia.Common.Objects
             if ( !(content is Item) )
             {
                 throw new ArgumentException("Content must be an item.");
-            }
-
-            if (recomputableSource != null)
-            {
-                recomputableSource.Change();
             }
 
             int index = 0;
@@ -112,11 +65,6 @@ namespace OpenTibia.Common.Objects
                 throw new ArgumentException("Content must be an item.");
             }
 
-            if (recomputableSource != null)
-            {
-                recomputableSource.Change();
-            }
-
             IContent oldContent = GetContent(index);
 
             contents[index] = content;
@@ -129,11 +77,6 @@ namespace OpenTibia.Common.Objects
         public void RemoveContent(int index)
         {
             IContent content = GetContent(index);
-
-            if (recomputableSource != null)
-            {
-                recomputableSource.Change();
-            }
 
             contents.RemoveAt(index);
 
@@ -243,6 +186,18 @@ namespace OpenTibia.Common.Objects
         public IEnumerable<Player> GetPlayers()
         {
             return players.Keys;
+        }
+
+        public override uint GetWeight()
+        {
+            uint weight = base.GetWeight();
+
+            foreach (var item in GetItems() )
+            {
+                weight += item.GetWeight();
+            }
+
+            return weight;
         }
     }
 }
