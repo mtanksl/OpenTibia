@@ -19,7 +19,7 @@ namespace OpenTibia.Common
 
             if ( !server.RateLimiting.IncreaseActiveConnection(IpAddress) )
             {
-                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.RateLimited) );
+                Disconnect(DisconnectionType.RateLimited);
 
                 return false;
             }
@@ -38,7 +38,7 @@ namespace OpenTibia.Common
         {
             if ( !server.RateLimiting.IsConnectionCountOk(IpAddress) )
             {
-                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.RateLimited) );
+                Disconnect(DisconnectionType.RateLimited);
 
                 return false;
             }
@@ -50,7 +50,7 @@ namespace OpenTibia.Common
         {
             if ( !server.RateLimiting.IsPacketCountOk(IpAddress) )
             {
-                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.RateLimited) );
+                Disconnect(DisconnectionType.RateLimited);
 
                 return false;
             }
@@ -62,14 +62,14 @@ namespace OpenTibia.Common
         {
             server.RateLimiting.IncreaseSlowSocket(IpAddress);
 
-            OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SlowSocket) );
+            Disconnect(DisconnectionType.SlowSocket);
         }
 
         protected override void IncreaseInvalidMessage()
         {
             if ( !server.RateLimiting.IncreaseInvalidMessage(IpAddress) )
             {
-                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.RateLimited) );
+                Disconnect(DisconnectionType.RateLimited);
             }
         }
 
@@ -77,7 +77,7 @@ namespace OpenTibia.Common
         {
             if ( !server.RateLimiting.IncreaseUnknownPacket(IpAddress) )
             {
-                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.RateLimited) );
+                Disconnect(DisconnectionType.RateLimited);
             }
         }
 

@@ -83,7 +83,7 @@ namespace OpenTibia.Network.Sockets
         {
             lock (sync)
             {
-                if ( !stopped )
+                if ( !stopped)
                 {
                     if (IncreaseActiveConnection() && IsConnectionCountOk() )
                     {
@@ -153,12 +153,12 @@ namespace OpenTibia.Network.Sockets
                             }
                             else
                             {
-                                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SocketClosed) );
+                                Disconnect(DisconnectionType.SocketClosed);
                             }
                         }
                         catch (SocketException)
                         {
-                            OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SocketException) );
+                            Disconnect(DisconnectionType.SocketException);
                         }
                     }
                 }
@@ -187,7 +187,7 @@ namespace OpenTibia.Network.Sockets
                             {
                                 OnReceived(body, bodyLength);
 
-                                if ( !stopped )
+                                if ( !stopped)
                                 {
                                     headerLength = 2;
 
@@ -196,23 +196,23 @@ namespace OpenTibia.Network.Sockets
                             }
                             else
                             {
-                                OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SocketClosed) );
+                                Disconnect(DisconnectionType.SocketClosed);
                             }
                         }
                         catch (SocketException)
                         {
-                            OnDisconnected(new DisconnectedEventArgs(DisconnectionType.SocketException) );
+                            Disconnect(DisconnectionType.SocketException);
                         }
                     }
                 }
             }
         }
-        
+
         public void Send(byte[] bytes)
         {
             lock (sync)
             {
-                if ( !stopped )
+                if ( !stopped)
                 {
                     IAsyncResult slowReceiver = socket.BeginSend(bytes, 0, bytes.Length, SocketFlags.None, Send, bytes);
 
@@ -267,11 +267,25 @@ namespace OpenTibia.Network.Sockets
 
         public void Disconnect()
         {
+            Disconnect(DisconnectionType.Requested);
+        }
+
+        protected void Disconnect(DisconnectionType type)
+        {
             lock (sync)
             {
-                if (!stopped)
+                if ( !stopped)
                 {
-                    OnDisconnected(new DisconnectedEventArgs(DisconnectionType.Requested) );
+                    stopped = true;
+                    
+                    if (type != DisconnectionType.SocketClosed && type != DisconnectionType.SocketException)
+                    {
+                        socket.Shutdown(SocketShutdown.Both);
+                    }
+
+                    OnDisconnected(new DisconnectedEventArgs(type) );
+
+                    DecreaseActiveConnection();
                 }
             }
         }
@@ -330,14 +344,10 @@ namespace OpenTibia.Network.Sockets
 
         protected virtual void OnDisconnected(DisconnectedEventArgs e)
         {
-            DecreaseActiveConnection();
-
-            Stop(false);
-
             if (Disconnected != null)
             {
                 Disconnected(this, e);
-            }
+            }         
         }
         
         public void Stop(bool wait = true)
@@ -373,7 +383,7 @@ namespace OpenTibia.Network.Sockets
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposed)
+            if ( !disposed)
             {
                 disposed = true;
 

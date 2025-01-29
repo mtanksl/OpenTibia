@@ -81,10 +81,18 @@ namespace OpenTibia.Common
                             server.Logger.WriteLine("Unknown packet received on login server: 0x" + identification.ToString("X2"), LogLevel.Warning);
                         
                             server.Logger.WriteLine(body.Print(0, length), LogLevel.Warning);
+                        
+                            Disconnect();
                         }
                     }
                     else
                     {
+                        IncreaseInvalidMessage();
+
+                        server.Logger.WriteLine("Invalid message received on login server", LogLevel.Warning);
+
+                        server.Logger.WriteLine(body.Print(0, length), LogLevel.Warning);
+
                         Disconnect();
                     }
                 }
@@ -95,6 +103,8 @@ namespace OpenTibia.Common
                     server.Logger.WriteLine("Invalid message received on login server", LogLevel.Warning);
 
                     server.Logger.WriteLine(body.Print(0, length), LogLevel.Warning);
+                    
+                    Disconnect();
                 }
             }
             catch
@@ -104,6 +114,8 @@ namespace OpenTibia.Common
                 server.Logger.WriteLine("Invalid message received on login server", LogLevel.Warning);
 
                 server.Logger.WriteLine(body.Print(0, length), LogLevel.Warning);
+                 
+                Disconnect();           
             }
 
             base.OnReceived(body, length);
