@@ -403,3 +403,55 @@ CREATE INDEX "IX_PlayerVips_VipId" ON "PlayerVips" ("VipId");
 CREATE INDEX "IX_RuleViolationReports_PlayerId" ON "RuleViolationReports" ("PlayerId");
 
 COMMIT;
+
+--
+
+BEGIN TRANSACTION;
+
+ALTER TABLE "RuleViolationReports" ADD "StatmentDate" TEXT NULL;
+
+ALTER TABLE "RuleViolationReports" ADD "StatmentPlayerId" INTEGER NULL;
+
+CREATE INDEX "IX_RuleViolationReports_StatmentPlayerId" ON "RuleViolationReports" ("StatmentPlayerId");
+
+CREATE TABLE "ef_temp_RuleViolationReports" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_RuleViolationReports" PRIMARY KEY AUTOINCREMENT,
+    "Comment" TEXT NOT NULL,
+    "CreationDate" TEXT NOT NULL,
+    "Name" TEXT NOT NULL,
+    "PlayerId" INTEGER NOT NULL,
+    "RuleViolation" INTEGER NOT NULL,
+    "Statment" TEXT NULL,
+    "StatmentDate" TEXT NULL,
+    "StatmentPlayerId" INTEGER NULL,
+    "Translation" TEXT NULL,
+    "Type" INTEGER NOT NULL,
+    CONSTRAINT "FK_RuleViolationReports_Players_PlayerId" FOREIGN KEY ("PlayerId") REFERENCES "Players" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_RuleViolationReports_Players_StatmentPlayerId" FOREIGN KEY ("StatmentPlayerId") REFERENCES "Players" ("Id")
+);
+
+INSERT INTO "ef_temp_RuleViolationReports" ("Id", "Comment", "CreationDate", "Name", "PlayerId", "RuleViolation", "Statment", "StatmentDate", "StatmentPlayerId", "Translation", "Type")
+SELECT "Id", "Comment", "CreationDate", "Name", "PlayerId", "RuleViolation", "Statment", "StatmentDate", "StatmentPlayerId", "Translation", "Type"
+FROM "RuleViolationReports";
+
+COMMIT;
+
+PRAGMA foreign_keys = 0;
+
+BEGIN TRANSACTION;
+
+DROP TABLE "RuleViolationReports";
+
+ALTER TABLE "ef_temp_RuleViolationReports" RENAME TO "RuleViolationReports";
+
+COMMIT;
+
+PRAGMA foreign_keys = 1;
+
+BEGIN TRANSACTION;
+
+CREATE INDEX "IX_RuleViolationReports_PlayerId" ON "RuleViolationReports" ("PlayerId");
+
+CREATE INDEX "IX_RuleViolationReports_StatmentPlayerId" ON "RuleViolationReports" ("StatmentPlayerId");
+
+COMMIT;

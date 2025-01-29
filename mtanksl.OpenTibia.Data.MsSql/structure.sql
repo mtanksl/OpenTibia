@@ -392,3 +392,23 @@ GO
 
 COMMIT;
 GO
+
+--
+
+BEGIN TRANSACTION;
+GO
+
+ALTER TABLE [RuleViolationReports] ADD [StatmentDate] datetime2 NULL;
+GO
+
+ALTER TABLE [RuleViolationReports] ADD [StatmentPlayerId] int NULL;
+GO
+
+CREATE INDEX [IX_RuleViolationReports_StatmentPlayerId] ON [RuleViolationReports] ([StatmentPlayerId]);
+GO
+
+ALTER TABLE [RuleViolationReports] ADD CONSTRAINT [FK_RuleViolationReports_Players_StatmentPlayerId] FOREIGN KEY ([StatmentPlayerId]) REFERENCES [Players] ([Id]);
+GO
+
+COMMIT;
+GO

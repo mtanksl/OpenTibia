@@ -19,7 +19,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                 DatabasePlayerId = databasePlayerId,
 
-                Message = message
+                Message = message,
+
+                CreationDate = DateTime.UtcNow
             } );
 
             return statementId;

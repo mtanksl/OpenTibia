@@ -343,3 +343,17 @@ CREATE INDEX `IX_PlayerVips_VipId` ON `PlayerVips` (`VipId`);
 CREATE INDEX `IX_RuleViolationReports_PlayerId` ON `RuleViolationReports` (`PlayerId`);
 
 COMMIT;
+
+--
+
+START TRANSACTION;
+
+ALTER TABLE `RuleViolationReports` ADD `StatmentDate` datetime(6) NULL;
+
+ALTER TABLE `RuleViolationReports` ADD `StatmentPlayerId` int NULL;
+
+CREATE INDEX `IX_RuleViolationReports_StatmentPlayerId` ON `RuleViolationReports` (`StatmentPlayerId`);
+
+ALTER TABLE `RuleViolationReports` ADD CONSTRAINT `FK_RuleViolationReports_Players_StatmentPlayerId` FOREIGN KEY (`StatmentPlayerId`) REFERENCES `Players` (`Id`);
+
+COMMIT;

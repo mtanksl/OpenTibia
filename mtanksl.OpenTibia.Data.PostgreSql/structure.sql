@@ -403,3 +403,17 @@ SELECT setval(
     false);
 
 COMMIT;
+
+--
+
+START TRANSACTION;
+
+ALTER TABLE "RuleViolationReports" ADD "StatmentDate" timestamp with time zone;
+
+ALTER TABLE "RuleViolationReports" ADD "StatmentPlayerId" integer;
+
+CREATE INDEX "IX_RuleViolationReports_StatmentPlayerId" ON "RuleViolationReports" ("StatmentPlayerId");
+
+ALTER TABLE "RuleViolationReports" ADD CONSTRAINT "FK_RuleViolationReports_Players_StatmentPlayerId" FOREIGN KEY ("StatmentPlayerId") REFERENCES "Players" ("Id");
+
+COMMIT;

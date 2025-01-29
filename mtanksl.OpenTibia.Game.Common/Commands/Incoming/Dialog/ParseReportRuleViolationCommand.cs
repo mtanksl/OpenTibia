@@ -2,6 +2,7 @@
 using OpenTibia.Common.Structures;
 using OpenTibia.Data.Models;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
 
@@ -46,6 +47,13 @@ namespace OpenTibia.Game.Commands
 
             using (var database = Context.Server.DatabaseFactory.Create() )
             {
+                Statement statment = null;
+
+                if (Type == 0x01)
+                {
+                    statment = Context.Server.Channels.GetStatement(StatmentId);
+                }
+
                 database.RuleViolationReportRepository.AddRuleViolationReport(new DbRuleViolationReport()
                 {
                     PlayerId = Player.DatabasePlayerId,
@@ -54,7 +62,9 @@ namespace OpenTibia.Game.Commands
                     Name = Name,
                     Comment = Comment,
                     Translation = Translation,
-                    Statment = Type == 0x01 ? Context.Server.Channels.GetStatement(StatmentId).Message : null,
+                    StatmentPlayerId = statment?.DatabasePlayerId,
+                    Statment = statment?.Message,
+                    StatmentDate = statment?.CreationDate,
                     CreationDate = DateTime.UtcNow
                 } );
 

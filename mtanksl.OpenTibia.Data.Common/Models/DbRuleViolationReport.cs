@@ -24,12 +24,18 @@ namespace OpenTibia.Data.Models
         [StringLength(255)]
         public string Translation { get; set; }
 
+        public int? StatmentPlayerId { get; set; }
+
         [StringLength(255)]
         public string Statment { get; set; }
+
+        public DateTime? StatmentDate { get; set; }
 
         public DateTime CreationDate { get; set; }
 
 
         public DbPlayer Player { get; set; }
+
+        public DbPlayer StatmentPlayer { get; set; }
     }
 }
