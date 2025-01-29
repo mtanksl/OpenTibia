@@ -63,7 +63,10 @@ namespace OpenTibia.Game.Commands
 
             channels.Add(new ChannelDto(9, "Help") );
 
-            channels.Add(new ChannelDto(65535, "Private Chat Channel") );
+            if (Player.Premium)
+            {
+                channels.Add(new ChannelDto(65535, "Private Chat Channel") );
+            }
 
             foreach (var privateChannel in Context.Server.Channels.GetPrivateChannels() )
             {

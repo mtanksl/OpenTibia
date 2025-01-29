@@ -38,7 +38,11 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                     Name = LuaScope.GetString(lOutfit["name"] ),
 
-                    Gender = (Gender)LuaScope.GetInt32(lOutfit["gender"] )
+                    Gender = (Gender)LuaScope.GetInt32(lOutfit["gender"] ),
+
+                    Premium = LuaScope.GetBoolean(lOutfit["premium"] ),
+
+                    AvailableAtOnce = LuaScope.GetBoolean(lOutfit["availableatonce"] )
                 };
 
                 outfits.Add(outfit.Id, outfit);

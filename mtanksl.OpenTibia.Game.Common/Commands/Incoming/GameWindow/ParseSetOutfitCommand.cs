@@ -26,20 +26,37 @@ namespace OpenTibia.Game.Commands
 
             List<OutfitDto> outfits = new List<OutfitDto>();
 
-            foreach (var pair in Player.Outfits.GetIndexed() )
+            foreach (var outfitConfig in Context.Server.Outfits.GetOutfits() )
             {
-                OutfitConfig outfitConfig = Context.Server.Outfits.GetOutfitById(pair.Key);
-
-                if (outfitConfig != null)
+                if (outfitConfig.Premium && !Player.Premium)
                 {
-                    outfits.Add(new OutfitDto(pair.Key, outfitConfig.Name, pair.Value) );
+                    continue;
+                }
+
+                if (outfitConfig.AvailableAtOnce)
+                {
+                    Addon addon;
+
+                    if (Player.Outfits.TryGetOutfit(outfitConfig.Id, out addon) )
+                    {
+                        outfits.Add(new OutfitDto(outfitConfig.Id, outfitConfig.Name, Player.Premium ? addon : Addon.None) );
+                    }
+                    else
+                    {
+                        outfits.Add(new OutfitDto(outfitConfig.Id, outfitConfig.Name, Addon.None) );
+                    }
                 }
                 else
                 {
-                    outfits.Add(new OutfitDto(pair.Key, "Unknown", pair.Value) );
+                    Addon addon;
+
+                    if (Player.Outfits.TryGetOutfit(outfitConfig.Id, out addon) )
+                    {
+                        outfits.Add(new OutfitDto(outfitConfig.Id, outfitConfig.Name, Player.Premium ? addon : Addon.None) );
+                    }
                 }
             }
-
+            
             if (Player.Rank == Rank.Gamemaster)
             {
                 outfits.Add(new OutfitDto(Outfit.GamemasterBlue.Id, "Gamemaster", Addon.None) );

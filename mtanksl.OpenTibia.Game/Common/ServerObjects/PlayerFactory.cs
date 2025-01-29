@@ -330,45 +330,9 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         private static void LoadOutfits(Context context, DbPlayer dbPlayer, Player player)
         {
-            if (dbPlayer.PlayerOutfits.Count == 0)
+            foreach (var dbPlayerOutfit in dbPlayer.PlayerOutfits)
             {
-                switch (player.Gender)
-                {
-                    case Gender.Male:
-
-                        player.Outfits.SetOutfit(Outfit.MaleCitizen.Id, Addon.None);
-
-                        player.Outfits.SetOutfit(Outfit.MaleHunter.Id, Addon.None);
-
-                        player.Outfits.SetOutfit(Outfit.MaleMage.Id, Addon.None);
-
-                        player.Outfits.SetOutfit(Outfit.MaleKnight.Id, Addon.None);
-
-                        break;
-
-                    case Gender.Female:
-
-                        player.Outfits.SetOutfit(Outfit.FemaleCitizen.Id, Addon.None);
-
-                        player.Outfits.SetOutfit(Outfit.FemaleHunter.Id, Addon.None);
-
-                        player.Outfits.SetOutfit(Outfit.FemaleMage.Id, Addon.None);
-
-                        player.Outfits.SetOutfit(Outfit.FemaleKnight.Id, Addon.None);
-
-                        break;
-
-                    default:
-
-                        throw new NotImplementedException();
-                }
-            }
-            else
-            {
-                foreach (var dbPlayerOutfit in dbPlayer.PlayerOutfits)
-                {
-                    player.Outfits.SetOutfit( (ushort)dbPlayerOutfit.OutfitId, (Addon)dbPlayerOutfit.OutfitAddon);
-                }
+                player.Outfits.SetOutfit( (ushort)dbPlayerOutfit.OutfitId, (Addon)dbPlayerOutfit.OutfitAddon);
             }
         }
 

@@ -16,23 +16,26 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            PrivateChannel privateChannel = Context.Server.Channels.GetPrivateChannel(Player);
-
-            if (privateChannel == null)
+            if (Player.Premium)
             {
-                privateChannel = new PrivateChannel()
+                PrivateChannel privateChannel = Context.Server.Channels.GetPrivateChannel(Player);
+
+                if (privateChannel == null)
                 {
-                    Owner = Player,
+                    privateChannel = new PrivateChannel()
+                    {
+                        Owner = Player,
 
-                    Name = Player.Name + "'s Channel"
-                };
+                        Name = Player.Name + "'s Channel"
+                    };
 
-                privateChannel.AddMember(Player);
+                    privateChannel.AddMember(Player);
 
-                Context.Server.Channels.AddChannel(privateChannel);
+                    Context.Server.Channels.AddChannel(privateChannel);
+                }
+
+                Context.AddPacket(Player, new OpenMyPrivateChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
             }
-
-            Context.AddPacket(Player, new OpenMyPrivateChannelOutgoingPacket(privateChannel.Id, privateChannel.Name) );
 
             return Promise.Completed;
         }

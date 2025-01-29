@@ -11,5 +11,9 @@ namespace OpenTibia.Game.Common.ServerObjects
         public string Name { get; set; }
 
         public Gender Gender { get; set; }
+
+        public bool Premium { get; set; }
+
+        public bool AvailableAtOnce { get; set; }
     }
 }

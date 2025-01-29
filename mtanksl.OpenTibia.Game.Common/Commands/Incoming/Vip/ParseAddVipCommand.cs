@@ -20,15 +20,15 @@ namespace OpenTibia.Game.Commands
 
         public override async Promise Execute()
         {
-            using (var database = Context.Server.DatabaseFactory.Create() )
+            int maxVips = Player.Premium ? Context.Server.Config.GameplayVipPremiumLimit : Context.Server.Config.GameplayVipFreeLimit;
+
+            if (Player.Vips.Count < maxVips)
             {
-                DbPlayer dbPlayer = await database.PlayerRepository.GetPlayerByName(Name);
-
-                if (dbPlayer != null && dbPlayer.Id != Player.DatabasePlayerId)
+                using (var database = Context.Server.DatabaseFactory.Create() )
                 {
-                    int maxVips = Player.Premium ? Context.Server.Config.GameplayVipPremiumLimit : Context.Server.Config.GameplayVipFreeLimit;
+                    DbPlayer dbPlayer = await database.PlayerRepository.GetPlayerByName(Name);
 
-                    if (Player.Vips.Count < maxVips)
+                    if (dbPlayer != null && dbPlayer.Id != Player.DatabasePlayerId)
                     {
                         if (Player.Vips.AddVip(dbPlayer.Id, dbPlayer.Name) )
                         {
