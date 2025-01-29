@@ -186,17 +186,13 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             LoginAccountManagerAccountPassword = LuaScope.GetString(script["server.login.accountmanager.accountpassword"], "");
 
-            LoginAccountManagerPlayerName = LuaScope.GetString(script["server.login.accountmanager.playername"], "");
+            LoginAccountManagerPlayerName = LuaScope.GetString(script["server.login.accountmanager.playername"], "Account Manager");
 
-            LuaTable position = (LuaTable)script["server.login.accountmanager.playerposition"];
+            LoginAccountManagerPlayerPosition = new Position(LuaScope.GetInt32(script["server.login.accountmanager.playerposition.x"], 915), LuaScope.GetInt32(script["server.login.accountmanager.playerposition.y"], 769), LuaScope.GetInt32(script["server.login.accountmanager.playerposition.z"], 6) );
 
-            LoginAccountManagerPlayerPosition = new Position(LuaScope.GetInt32(position["x"] ), LuaScope.GetInt32(position["y"] ), LuaScope.GetInt32(position["z"] ) );
+            LoginAccountManagerPlayerNewPosition = new Position(LuaScope.GetInt32(script["server.login.accountmanager.playernewposition.x"], 921), LuaScope.GetInt32(script["server.login.accountmanager.playernewposition.y"], 771), LuaScope.GetInt32(script["server.login.accountmanager.playernewposition.z"], 6) );
 
-            LuaTable newPosition = (LuaTable)script["server.login.accountmanager.playernewposition"];
-
-            LoginAccountManagerPlayerNewPosition = new Position(LuaScope.GetInt32(newPosition["x"] ), LuaScope.GetInt32(newPosition["y"] ), LuaScope.GetInt32(newPosition["z"] ) );
-
-            LoginAccountManagerWorldName = LuaScope.GetString(script["server.login.accountmanager.worldname"], "");
+            LoginAccountManagerWorldName = LuaScope.GetString(script["server.login.accountmanager.worldname"], "Cormaya");
 
             LoginAccountManagerIpAddress = LuaScope.GetString(script["server.login.accountmanager.ipaddress"], "127.0.0.1");
 
@@ -229,13 +225,11 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             Motd = LuaScope.GetString(script["server.login.motd"], "MTOTS - An open Tibia server developed by mtanksl");
 
-            LuaTable worlds = (LuaTable)script["server.login.worlds"]; 
-            
-            Worlds = worlds.Keys.Cast<string>().Select(key =>
+            Worlds = LuaScope.GetDictionary(script["server.login.worlds"], k => (string)k, v => (LuaTable)v).Select(pair =>
             {
-                string ipAddress = LuaScope.GetString( ( (LuaTable)worlds[key] )["ipaddress"] );
+                string ipAddress = LuaScope.GetString(pair.Value["ipaddress"] );
 
-                int port = LuaScope.GetInt32( ( (LuaTable)worlds[key] )["port"] );
+                int port = LuaScope.GetInt32(pair.Value["port"] );
 
                 try
                 {
@@ -251,7 +245,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                         if (ipv4 == null)
                         {
-                            throw new NotImplementedException("File config.lua parameter server.login.words[\"" + key + "\"].ipaddress could not be resolved to IPV4.");
+                            throw new NotImplementedException("File config.lua parameter server.login.words[\"" + pair.Key + "\"].ipaddress could not be resolved to IPV4.");
                         }
 
                         ipAddress = ipv4.ToString();
@@ -259,16 +253,16 @@ namespace OpenTibia.Game.Common.ServerObjects
                 }
                 catch (SocketException)
                 {
-                    throw new NotImplementedException("File config.lua parameter server.login.words[\"" + key + "\"].ipaddress could not be resolved to IPV4.");
+                    throw new NotImplementedException("File config.lua parameter server.login.words[\"" + pair.Key + "\"].ipaddress could not be resolved to IPV4.");
                 }
 
                 return new DbWorld()
                 {
-                    Name = key, 
-                
-                    Ip = ipAddress, 
-                
-                    Port = port 
+                    Name = pair.Key,
+
+                    Ip = ipAddress,
+
+                    Port = port
                 };
 
             } ).ToArray();
@@ -291,9 +285,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             GameplayRemoveWeaponCharges = LuaScope.GetBoolean(script["server.game.gameplay.removeweaponcharges"], true);
 
-            string worldType = LuaScope.GetString(script["server.game.gameplay.worldtype"], "non-pvp");
-
-            GameplayWorldType = worldType == "pvp" ? WorldType.Pvp : WorldType.NonPvp;
+            GameplayWorldType = LuaScope.GetString(script["server.game.gameplay.worldtype"], "non-pvp") == "pvp" ? WorldType.Pvp : WorldType.NonPvp;
 
             GameplayProtectionLevel = LuaScope.GetInt32(script["server.game.gameplay.protectionlevel"], 0);
 
@@ -343,34 +335,28 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             GameplaySkillRate = LuaScope.GetDouble(script["server.game.gameplay.skillrate"], 1.0);
 
-            LuaTable stages = (LuaTable)script["server.game.gameplay.experiencestages"];
-
             GameplayExperienceStages = new ExperienceStagesConfig()
             {
-                Enabled = LuaScope.GetBoolean(stages["enabled"] ),
+                Enabled = LuaScope.GetBoolean(script["server.game.gameplay.experiencestages.enabled"], false),
 
-                Levels = ( (LuaTable)stages["levels"] ).Values.Cast<LuaTable>().Select(l => new LevelConfig() 
+                Levels = LuaScope.GetList(script["server.game.gameplay.experiencestages.levels"], v => (LuaTable)v).Select(level => new LevelConfig() 
                 { 
-                    MinLevel = LuaScope.GetInt32(l["minlevel"] ),
+                    MinLevel = LuaScope.GetInt32(level["minlevel"] ),
 
-                    MaxLevel = LuaScope.GetInt32(l["maxlevel"] ),
+                    MaxLevel = LuaScope.GetInt32(level["maxlevel"] ),
 
-                    Multiplier = LuaScope.GetDouble(l["multiplier"] )
+                    Multiplier = LuaScope.GetDouble(level["multiplier"] )
 
                 } ).ToArray()
             };
 
-            LuaTable rooking = (LuaTable)script["server.game.gameplay.rooking"];
-                      
-            LuaTable rookingPlayerNewPosition = (LuaTable)rooking["playernewposition"];
-
             GameplayRooking = new RookingConfig()
             {
-                Enabled = LuaScope.GetBoolean(rooking["enabled"] ),
+                Enabled = LuaScope.GetBoolean(script["server.game.gameplay.rooking.enabled"], false),
 
-                ExperienceThreshold = LuaScope.GetUInt64(rooking["experiencethreshold"], 1500),
+                ExperienceThreshold = LuaScope.GetUInt64(script["server.game.gameplay.rooking.experiencethreshold"], 1500),
 
-                PlayerNewPosition = new Position(LuaScope.GetInt32(rookingPlayerNewPosition["x"] ), LuaScope.GetInt32(rookingPlayerNewPosition["y"] ), LuaScope.GetInt32(rookingPlayerNewPosition["z"] ) )
+                PlayerNewPosition = new Position(LuaScope.GetInt32(script["server.game.gameplay.rooking.playernewposition.x"], 921), LuaScope.GetInt32(script["server.game.gameplay.rooking.playernewposition.y"], 771), LuaScope.GetInt32(script["server.game.gameplay.rooking.playernewposition.z"], 6) )
             };
 
             SecurityMaxConnectionsWithSameIpAddress = LuaScope.GetInt32(script["server.security.maxconnectionswithsameipaddress"], 2);       

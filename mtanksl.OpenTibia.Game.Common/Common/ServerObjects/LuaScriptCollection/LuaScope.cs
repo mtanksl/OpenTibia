@@ -571,15 +571,30 @@ namespace OpenTibia.Game.Common.ServerObjects
      
         public static List<ushort> GetUInt16List(object value)
         {
+            return GetList(value, k => (ushort)(long)k);
+        }
+
+        public static HashSet<ushort> GetUInt16HashSet(object value)
+        {
+            return GetHashSet(value, k => (ushort)(long)k);
+        }
+
+        public static Dictionary<ushort, ushort> GetUInt16IUnt16Dictionary(object value)
+        {
+            return GetDictionary(value, k => (ushort)(long)k, v => (ushort)(long)v);
+        }
+
+        public static List<T> GetList<T>(object value, Func<object, T> castValue)
+        {
             if (value != null)
             {
-                var list = new List<ushort>();
+                var list = new List<T>();
 
                 var table = (LuaTable)value;
 
                 foreach (var v in table.Values)
                 {
-                    list.Add( (ushort)(long)v);
+                    list.Add(castValue(v) );
                 }
 
                 return list;
@@ -588,17 +603,17 @@ namespace OpenTibia.Game.Common.ServerObjects
             return null;
         }
 
-        public static HashSet<ushort> GetUInt16HashSet(object value)
+        public static HashSet<T> GetHashSet<T>(object value, Func<object, T> castValue)
         {
             if (value != null)
             {
-                var hashSet = new HashSet<ushort>();
+                var hashSet = new HashSet<T>();
 
                 var table = (LuaTable)value;
 
                 foreach (var v in table.Values)
                 {
-                    hashSet.Add( (ushort)(long)v);
+                    hashSet.Add(castValue(v) );
                 }
 
                 return hashSet;
@@ -607,11 +622,11 @@ namespace OpenTibia.Game.Common.ServerObjects
             return null;
         }
 
-        public static Dictionary<ushort, ushort> GetUInt16IUnt16Dictionary(object value)
+        public static Dictionary<TKey, TValue> GetDictionary<TKey, TValue>(object value, Func<object, TKey> castKey, Func<object, TValue> castValue)
         {
             if (value != null)
             {
-                var dictionary = new Dictionary<ushort, ushort>();
+                var dictionary = new Dictionary<TKey, TValue>();
 
                 var table = (LuaTable)value;
 
@@ -619,7 +634,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     var v = table[k];
 
-                    dictionary.Add( (ushort)(long)k, (ushort)(long)v);
+                    dictionary.Add(castKey(k), castValue(v) );
                 }
 
                 return dictionary;
