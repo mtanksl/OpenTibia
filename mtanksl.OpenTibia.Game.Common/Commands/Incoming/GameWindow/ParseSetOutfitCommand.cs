@@ -28,6 +28,11 @@ namespace OpenTibia.Game.Commands
 
             foreach (var outfitConfig in Context.Server.Outfits.GetOutfits() )
             {
+                if (outfitConfig.Gender != Player.Gender)
+                {
+                    continue;
+                }
+
                 if (outfitConfig.Premium && !Player.Premium)
                 {
                     continue;
