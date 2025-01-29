@@ -111,6 +111,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         string DatabaseUser { get; set; }
         string DatabasePassword { get; set; }
         string DatabaseName { get; set; }
+        string DatabaseOverrideConnectionString { get; set; }
 
         void Start();
 

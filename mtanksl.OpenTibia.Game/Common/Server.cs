@@ -45,15 +45,15 @@ namespace OpenTibia.Game.Common
                 {
                     case "sqlite":
 
-                        return new SqliteContext("Data Source=" + PathResolver.GetFullPath(Config.DatabaseSource), builder.Options);
+                        return new SqliteContext(Config.DatabaseOverrideConnectionString ?? ("Data Source=" + PathResolver.GetFullPath(Config.DatabaseSource) ), builder.Options);
 
                     case "mysql":
 
-                        return new MySqlContext("Server=" + Config.DatabaseHost + ";Port=" + Config.DatabasePort + ";Database=" + Config.DatabaseName + ";User=" + Config.DatabaseUser + ";Password=" + Config.DatabasePassword + ";", builder.Options);
+                        return new MySqlContext(Config.DatabaseOverrideConnectionString ?? ("Server=" + Config.DatabaseHost + ";Port=" + Config.DatabasePort + ";Database=" + Config.DatabaseName + ";User=" + Config.DatabaseUser + ";Password=" + Config.DatabasePassword + ";"), builder.Options);
 
                     case "mssql":
 
-                        return new MsSqlContext("Server=" + Config.DatabaseHost + ";Database=" + Config.DatabaseName + ";User Id=" + Config.DatabaseUser + ";Password=" + Config.DatabasePassword + ";TrustServerCertificate=True;", builder.Options);
+                        return new MsSqlContext(Config.DatabaseOverrideConnectionString ?? ("Server=" + Config.DatabaseHost + ";Database=" + Config.DatabaseName + ";User Id=" + Config.DatabaseUser + ";Password=" + Config.DatabasePassword + ";TrustServerCertificate=True;"), builder.Options);
 
                     case "memory":
 

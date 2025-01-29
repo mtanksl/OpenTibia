@@ -166,7 +166,9 @@ server = {
 		port = 3306,
 		user = "root",
 		password = "",
-		name = "mtots"
+		name = "mtots",
+
+		overrideconnectionstring = nil
 	}
 }
 

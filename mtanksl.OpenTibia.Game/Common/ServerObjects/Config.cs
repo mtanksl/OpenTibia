@@ -127,6 +127,7 @@ namespace OpenTibia.Game.Common.ServerObjects
         public string DatabaseUser { get; set; }
         public string DatabasePassword { get; set; }
         public string DatabaseName { get; set; }
+        public string DatabaseOverrideConnectionString { get; set; }
 
         private ILuaScope script;
 
@@ -429,6 +430,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             DatabasePassword = LuaScope.GetString(script["server.database.password"], "");
 
             DatabaseName = LuaScope.GetString(script["server.database.name"], "mtots");
+
+            DatabaseOverrideConnectionString = LuaScope.GetString(script["server.database.overrideconnectionstring"], null);
         }
 
         /// <exception cref="ObjectDisposedException"></exception>
