@@ -51,6 +51,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mtanksl.OpenTibia.InfoProto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.MapImport", "mtanksl.OpenTibia.MapImport\mtanksl.OpenTibia.MapImport.csproj", "{A1DFF962-31EA-4F55-A5C3-1441CFEDA13A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "mtanksl.OpenTibia.Data.PostgreSql", "mtanksl.OpenTibia.Data.PostgreSql\mtanksl.OpenTibia.Data.PostgreSql.csproj", "{F82ECA43-2802-4F12-8193-33CF5A76EC04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -325,6 +327,18 @@ Global
 		{A1DFF962-31EA-4F55-A5C3-1441CFEDA13A}.Release|x64.Build.0 = Release|Any CPU
 		{A1DFF962-31EA-4F55-A5C3-1441CFEDA13A}.Release|x86.ActiveCfg = Release|Any CPU
 		{A1DFF962-31EA-4F55-A5C3-1441CFEDA13A}.Release|x86.Build.0 = Release|Any CPU
+		{F82ECA43-2802-4F12-8193-33CF5A76EC04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F82ECA43-2802-4F12-8193-33CF5A76EC04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F82ECA43-2802-4F12-8193-33CF5A76EC04}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F82ECA43-2802-4F12-8193-33CF5A76EC04}.Debug|x64.Build.0 = Debug|Any CPU
+		{F82ECA43-2802-4F12-8193-33CF5A76EC04}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F82ECA43-2802-4F12-8193-33CF5A76EC04}.Debug|x86.Build.0 = Debug|Any CPU
+		{F82ECA43-2802-4F12-8193-33CF5A76EC04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F82ECA43-2802-4F12-8193-33CF5A76EC04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F82ECA43-2802-4F12-8193-33CF5A76EC04}.Release|x64.ActiveCfg = Release|Any CPU
+		{F82ECA43-2802-4F12-8193-33CF5A76EC04}.Release|x64.Build.0 = Release|Any CPU
+		{F82ECA43-2802-4F12-8193-33CF5A76EC04}.Release|x86.ActiveCfg = Release|Any CPU
+		{F82ECA43-2802-4F12-8193-33CF5A76EC04}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

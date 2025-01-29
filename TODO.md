@@ -164,6 +164,7 @@
 	- SQLite
 	- MySQL
 	- Microsoft SQL Server 
+	- Postgre SQL
 	- In Memory
 - Server statistics
 	- Active connections

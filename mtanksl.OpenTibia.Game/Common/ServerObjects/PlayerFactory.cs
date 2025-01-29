@@ -465,7 +465,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             dbPlayer.SkillMagicLevel = player.Skills.GetSkillLevel(Skill.MagicLevel);
 
-            dbPlayer.SkillMagicLevelPoints = (long)player.Skills.GetSkillPoints(Skill.Sword);
+            dbPlayer.SkillMagicLevelPoints = (long)player.Skills.GetSkillPoints(Skill.MagicLevel);
 
             dbPlayer.SkillFist = player.Skills.GetSkillLevel(Skill.Fist);
 

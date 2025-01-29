@@ -157,12 +157,12 @@ server = {
 		unknownpacketsabusebanmilliseconds = 15 * 60 * 1000
 	},
 	database = {
-		-- sqlite, mysql, mssql or memory
+		-- sqlite, mysql, mssql, postgresql or memory
 		type = "sqlite", 
 
 		source = "data/database.db", -- When using sqlite
 
-		host = "localhost", -- When using mysql or mssql
+		host = "localhost", -- When using mysql, mssql or postgresql
 		port = 3306,
 		user = "root",
 		password = "",

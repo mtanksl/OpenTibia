@@ -1,9 +1,12 @@
-﻿namespace OpenTibia.Data.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace OpenTibia.Data.Models
 {
     public class DbPlayerSpell
     {
         public int PlayerId { get; set; }
 
+        [StringLength(255)]
         public string Name { get; set; }
 
 

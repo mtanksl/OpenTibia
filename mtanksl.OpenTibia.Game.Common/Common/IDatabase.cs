@@ -28,7 +28,7 @@ namespace OpenTibia.Game.Common
 
         bool CanConnect();
 
-        Task CreateDatabase(int gamePort);
+        Task CreateInMemoryDatabase();
 
         Task Commit();
     }
