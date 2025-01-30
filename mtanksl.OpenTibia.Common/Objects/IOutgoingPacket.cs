@@ -4,6 +4,6 @@ namespace OpenTibia.Network.Packets.Outgoing
 {
     public interface IOutgoingPacket
     {
-        void Write(ByteArrayStreamWriter writer);
+        void Write(IByteArrayStreamWriter writer);
     }
 }

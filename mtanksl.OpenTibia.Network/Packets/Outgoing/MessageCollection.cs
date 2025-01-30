@@ -1,9 +1,10 @@
-﻿using OpenTibia.IO;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.IO;
 using System.Collections.Generic;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
-    public class MessageCollection
+    public class MessageCollection : IMessageCollection
     {
         private const int MaxPacketSize = 8192;
 
@@ -49,7 +50,7 @@ namespace OpenTibia.Network.Packets.Outgoing
             message.Write(buffer, 0, bufferStream.Position);
         }
 
-        public IEnumerable<Message> GetMessages()
+        public IEnumerable<IMessage> GetMessages()
         {
             if (messages != null)
             {

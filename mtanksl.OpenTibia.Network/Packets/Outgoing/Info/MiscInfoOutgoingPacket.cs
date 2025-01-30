@@ -24,7 +24,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public uint Uptime { get; set; }
 
-        public void Write(ByteArrayStreamWriter writer)
+        public void Write(IByteArrayStreamWriter writer)
         {
             writer.Write( (byte)0x12);
 

@@ -21,7 +21,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public uint Nonce { get; set; }
 
-        public void Read(ByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader)
         {
             OperatingSystem = (OperatingSystem)reader.ReadUShort();
 

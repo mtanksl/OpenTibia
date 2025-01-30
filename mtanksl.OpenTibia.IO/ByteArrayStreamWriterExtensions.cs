@@ -6,7 +6,7 @@ namespace OpenTibia.IO
 {
     public static class ByteArrayStreamWriterExtensions
     {       
-        public static void Write(this ByteArrayStreamWriter writer, Outfit outfit)
+        public static void Write(this IByteArrayStreamWriter writer, Outfit outfit)
         {
             writer.Write(outfit.Id);
 
@@ -28,7 +28,7 @@ namespace OpenTibia.IO
             }
         }
 
-        public static void Write(this ByteArrayStreamWriter writer, Light light)
+        public static void Write(this IByteArrayStreamWriter writer, Light light)
         {
             writer.Write(light.Level);
 
@@ -54,7 +54,7 @@ namespace OpenTibia.IO
             FluidColor.Purple
         };
 
-        public static void Write(this ByteArrayStreamWriter writer, Item item)
+        public static void Write(this IByteArrayStreamWriter writer, Item item)
         {
             writer.Write(item.Metadata.TibiaId);
 
@@ -83,7 +83,7 @@ namespace OpenTibia.IO
         /// <summary>
         /// Known creature.
         /// </summary>
-        public static void Write(this ByteArrayStreamWriter writer, Creature creature, SkullIcon skullIcon, PartyIcon partyIcon)
+        public static void Write(this IByteArrayStreamWriter writer, Creature creature, SkullIcon skullIcon, PartyIcon partyIcon)
         {
              writer.Write( (ushort)0x62 );
 
@@ -109,7 +109,7 @@ namespace OpenTibia.IO
         /// <summary>
         /// Unknown creature.
         /// </summary>
-        public static void Write(this ByteArrayStreamWriter writer, uint removeId, Creature creature, SkullIcon skullIcon, PartyIcon partyIcon, WarIcon warIcon)
+        public static void Write(this IByteArrayStreamWriter writer, uint removeId, Creature creature, SkullIcon skullIcon, PartyIcon partyIcon, WarIcon warIcon)
         {
             writer.Write( (ushort)0x61 );
 
@@ -138,7 +138,7 @@ namespace OpenTibia.IO
             writer.Write(creature.Block);
         }
 
-        public static void Write(this ByteArrayStreamWriter writer, IPAddress ipAddress)
+        public static void Write(this IByteArrayStreamWriter writer, IPAddress ipAddress)
         {
             writer.Write( ipAddress.GetAddressBytes() );
         }

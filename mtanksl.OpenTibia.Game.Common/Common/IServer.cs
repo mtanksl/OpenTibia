@@ -14,6 +14,8 @@ namespace OpenTibia.Game.Common
 
         ServerStatus Status { get; }
 
+        IMessageCollectionFactory MessageCollectionFactory { get; set; }
+
         IClientFactory ClientFactory { get; set; }
 
         IDatabaseFactory DatabaseFactory { get; set; }

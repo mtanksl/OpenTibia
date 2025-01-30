@@ -16,7 +16,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public uint CreatureId { get; set; }
 
-        public void Read(ByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader)
         {
             X = reader.ReadUShort();
 

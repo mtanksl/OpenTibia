@@ -38,6 +38,8 @@ namespace OpenTibia.Game.Common
 
             scheduler = new Scheduler(dispatcher);
 
+            MessageCollectionFactory = new MessageCollectionFactory();
+
             ClientFactory = new ClientFactory(this);
 
             DatabaseFactory = new DatabaseFactory(this, builder =>
@@ -189,6 +191,8 @@ namespace OpenTibia.Game.Common
         private Listener infoServer;
 
         public ServerStatus Status { get; private set; }
+
+        public IMessageCollectionFactory MessageCollectionFactory { get; set; }
 
         public IClientFactory ClientFactory { get; set; }
 

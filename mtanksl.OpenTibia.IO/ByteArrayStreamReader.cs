@@ -2,23 +2,23 @@
 
 namespace OpenTibia.IO
 {
-    public class ByteArrayStreamReader
+    public class ByteArrayStreamReader : IByteArrayStreamReader
     {
-        public ByteArrayStreamReader(ByteArrayStream stream) : this(stream, Encoding.GetEncoding("ISO-8859-1") )
+        public ByteArrayStreamReader(IByteArrayStream stream) : this(stream, Encoding.GetEncoding("ISO-8859-1") )
         {
             
         }
 
-        public ByteArrayStreamReader(ByteArrayStream stream, Encoding encoding)
+        public ByteArrayStreamReader(IByteArrayStream stream, Encoding encoding)
         {
             this.stream = stream;
 
             this.encoding = encoding;
         }
 
-        private ByteArrayStream stream;
+        private IByteArrayStream stream;
 
-        public ByteArrayStream BaseStream
+        public IByteArrayStream BaseStream
         {
             get
             {

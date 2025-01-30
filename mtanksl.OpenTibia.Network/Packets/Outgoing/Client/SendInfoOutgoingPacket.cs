@@ -15,7 +15,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public bool CanReportBugs { get; set; }
         
-        public void Write(ByteArrayStreamWriter writer)
+        public void Write(IByteArrayStreamWriter writer)
         {
             writer.Write( (byte)0x0A );
 

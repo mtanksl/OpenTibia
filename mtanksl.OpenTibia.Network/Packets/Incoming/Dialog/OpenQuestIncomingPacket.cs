@@ -6,7 +6,7 @@ namespace OpenTibia.Network.Packets.Incoming
     {
         public ushort QuestId { get; set; }
 
-        public void Read(ByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader)
         {
             QuestId = reader.ReadUShort();
         }

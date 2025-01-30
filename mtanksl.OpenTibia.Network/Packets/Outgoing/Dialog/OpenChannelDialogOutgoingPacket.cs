@@ -24,7 +24,7 @@ namespace OpenTibia.Network.Packets.Outgoing
             }
         }
 
-        public void Write(ByteArrayStreamWriter writer)
+        public void Write(IByteArrayStreamWriter writer)
         {
             writer.Write( (byte)0xAB );
 

@@ -11,7 +11,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public SafeMode SafeMode { get; set; }
         
-        public void Read(ByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader)
         {
             FightMode = (FightMode)reader.ReadByte();
 

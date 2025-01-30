@@ -14,7 +14,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public bool BuyWithBackpacks { get; set; }
 
-        public void Read(ByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader)
         {
             TibiaId = reader.ReadUShort();
 

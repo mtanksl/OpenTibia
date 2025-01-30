@@ -24,7 +24,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public ushort MapHeight { get; set; }
 
-        public void Write(ByteArrayStreamWriter writer)
+        public void Write(IByteArrayStreamWriter writer)
         {
             writer.Write( (byte)0x30);
 

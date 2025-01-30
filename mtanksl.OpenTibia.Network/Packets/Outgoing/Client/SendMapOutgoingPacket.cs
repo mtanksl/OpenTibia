@@ -19,7 +19,7 @@ namespace OpenTibia.Network.Packets.Outgoing
             this.client = client;
         }
 
-        public void GetMapDescription(ByteArrayStreamWriter writer, int x, int y, int z, int width, int height, int floor, int floors)
+        public void GetMapDescription(IByteArrayStreamWriter writer, int x, int y, int z, int width, int height, int floor, int floors)
         {
             int step = -1;
 
@@ -48,7 +48,7 @@ namespace OpenTibia.Network.Packets.Outgoing
             }
         }
 
-        private int GetFloorDescription(ByteArrayStreamWriter writer, int x, int y, int z, int offset, int width, int height, int empty)
+        private int GetFloorDescription(IByteArrayStreamWriter writer, int x, int y, int z, int offset, int width, int height, int empty)
         {
             for (int i = 0; i < width; i++)
             {
@@ -86,7 +86,7 @@ namespace OpenTibia.Network.Packets.Outgoing
             return empty;
         }
 
-        private void GetTileDescription(ByteArrayStreamWriter writer, Tile tile)
+        private void GetTileDescription(IByteArrayStreamWriter writer, Tile tile)
         {
             byte index = 0;
 
@@ -130,6 +130,6 @@ namespace OpenTibia.Network.Packets.Outgoing
             }
         }
 
-        public abstract void Write(ByteArrayStreamWriter writer);
+        public abstract void Write(IByteArrayStreamWriter writer);
     }
 }

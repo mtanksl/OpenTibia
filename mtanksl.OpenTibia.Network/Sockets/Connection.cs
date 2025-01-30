@@ -208,7 +208,15 @@ namespace OpenTibia.Network.Sockets
             }
         }
 
-        public void Send(byte[] bytes)
+        public void Send(IMessageCollection messageCollection)
+        {
+            foreach (var message in messageCollection.GetMessages() )
+            {
+                Send(message.GetBytes(MessageProtocol, Keys) );
+            }
+        }
+
+        private void Send(byte[] bytes)
         {
             lock (sync)
             {

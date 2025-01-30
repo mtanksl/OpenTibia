@@ -15,7 +15,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public XElement Xml { get; set; }
 
-        public void Write(ByteArrayStreamWriter writer)
+        public void Write(IByteArrayStreamWriter writer)
         {
             using (var memoryStream = new MemoryStream() )
             {

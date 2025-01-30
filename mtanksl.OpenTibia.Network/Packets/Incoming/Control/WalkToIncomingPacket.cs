@@ -7,7 +7,7 @@ namespace OpenTibia.Network.Packets.Incoming
     {
         public MoveDirection[] MoveDirections { get; set; }
         
-        public void Read(ByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader)
         {
             MoveDirections = new MoveDirection[ reader.ReadByte() ];
             

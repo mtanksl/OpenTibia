@@ -6,7 +6,7 @@ namespace OpenTibia.Network.Packets.Incoming
     {
         public bool Enabled { get; set; }
         
-        public void Read(ByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader)
         {
             Enabled = reader.ReadBool();
         }

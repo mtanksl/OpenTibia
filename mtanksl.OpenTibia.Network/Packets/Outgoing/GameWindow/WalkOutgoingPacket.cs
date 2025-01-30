@@ -20,7 +20,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public Position ToPosition { get; set; }
         
-        public void Write(ByteArrayStreamWriter writer)
+        public void Write(IByteArrayStreamWriter writer)
         {
             writer.Write( (byte)0x6D );
 

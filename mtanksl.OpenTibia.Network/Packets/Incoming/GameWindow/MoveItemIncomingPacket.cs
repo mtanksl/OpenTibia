@@ -22,7 +22,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public byte Count { get; set; }
         
-        public void Read(ByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader)
         {
             FromX = reader.ReadUShort();
 

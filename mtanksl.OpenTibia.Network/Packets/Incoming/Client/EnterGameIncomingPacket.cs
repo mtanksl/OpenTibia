@@ -43,7 +43,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public byte RefreshRate { get; set; }
 
-        public void Read(ByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader)
         {
             OperatingSystem = (OperatingSystem)reader.ReadUShort();
 

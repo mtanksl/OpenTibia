@@ -12,7 +12,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public string Comment { get; set; }
 
-        public void Read(ByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader)
         {
             AssertLine = reader.ReadString();
 

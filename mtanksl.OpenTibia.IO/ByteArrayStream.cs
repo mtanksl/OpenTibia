@@ -1,6 +1,6 @@
 ﻿namespace OpenTibia.IO
 {
-    public abstract class ByteArrayStream
+    public abstract class ByteArrayStream : IByteArrayStream
     {
         protected int position;
 

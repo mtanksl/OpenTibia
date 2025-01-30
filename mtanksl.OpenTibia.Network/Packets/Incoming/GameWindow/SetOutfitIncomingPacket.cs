@@ -4,7 +4,7 @@ namespace OpenTibia.Network.Packets.Incoming
 {
     public class SetOutfitIncomingPacket : IIncomingPacket
     {
-        public void Read(ByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader)
         {
 
         }

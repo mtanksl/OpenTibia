@@ -6,7 +6,7 @@ namespace OpenTibia.Network.Packets.Incoming
     {
         public string Name { get; set; }
         
-        public void Read(ByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader)
         {
             Name = reader.ReadString();
         }

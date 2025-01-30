@@ -8,7 +8,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public byte Type { get; set; }
         
-        public void Read(ByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader)
         {
             TibiaId = reader.ReadUShort();
 

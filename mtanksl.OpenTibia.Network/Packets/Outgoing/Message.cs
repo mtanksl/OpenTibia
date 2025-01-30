@@ -1,11 +1,12 @@
-﻿using OpenTibia.Common.Structures;
+﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.IO;
 using OpenTibia.Security;
 using System;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
-    public class Message
+    public class Message : IMessage
     {
         private ByteArrayMemoryStream stream;
 

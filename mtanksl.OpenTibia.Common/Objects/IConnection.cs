@@ -12,7 +12,7 @@ namespace OpenTibia.Common.Objects
 
         uint[] Keys { get; set; }
 
-        void Send(byte[] bytes);
+        void Send(IMessageCollection messageCollection);
 
         void Disconnect();
     }

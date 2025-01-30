@@ -16,7 +16,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public uint StatmentId { get; set; }
 
-        public void Read(ByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader)
         {
             /*            
                 0 = Name Report

@@ -7,7 +7,7 @@ namespace OpenTibia.Network.Packets.Incoming
     {
         public Outfit Outfit { get; set; }
 
-        public void Read(ByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader)
         {
             Outfit = reader.ReadOutfit();
         }

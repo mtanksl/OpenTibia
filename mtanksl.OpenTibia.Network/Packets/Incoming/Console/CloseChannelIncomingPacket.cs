@@ -6,7 +6,7 @@ namespace OpenTibia.Network.Packets.Incoming
     {
         public ushort ChannelId { get; set; }
         
-        public void Read(ByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader)
         {
             ChannelId = reader.ReadUShort();
         }

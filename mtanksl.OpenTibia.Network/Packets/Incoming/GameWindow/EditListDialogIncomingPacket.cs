@@ -10,7 +10,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public string Text { get; set; }
 
-        public void Read(ByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader)
         {
             DoorId = reader.ReadByte();
 

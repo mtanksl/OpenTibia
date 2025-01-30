@@ -5,7 +5,7 @@ namespace OpenTibia.IO
 {
     public static class ByteArrayStreamReaderExtensions
     {
-        public static Outfit ReadOutfit(this ByteArrayStreamReader reader)
+        public static Outfit ReadOutfit(this IByteArrayStreamReader reader)
         {
             ushort id = reader.ReadUShort();
 
@@ -17,12 +17,12 @@ namespace OpenTibia.IO
             return new Outfit( id, reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), reader.ReadByte(), (Addon)reader.ReadByte() );
         }
 
-        public static Light ReadLight(this ByteArrayStreamReader reader)
+        public static Light ReadLight(this IByteArrayStreamReader reader)
         {
             return new Light( reader.ReadByte(), reader.ReadByte() );
         }
 
-        public static string ReadCsd(this ByteArrayStreamReader reader)
+        public static string ReadCsd(this IByteArrayStreamReader reader)
         {
             byte[] bytes = reader.ReadBytes(128);
             

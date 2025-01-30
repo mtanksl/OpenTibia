@@ -13,7 +13,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public string Message { get; set; }
         
-        public void Read(ByteArrayStreamReader reader)        
+        public void Read(IByteArrayStreamReader reader)        
         {
             TalkType = (TalkType)reader.ReadByte();
 

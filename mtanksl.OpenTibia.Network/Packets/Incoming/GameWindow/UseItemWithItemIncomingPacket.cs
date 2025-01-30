@@ -24,7 +24,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public byte ToIndex { get; set; }
         
-        public void Read(ByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader)
         {
             FromX = reader.ReadUShort();
 

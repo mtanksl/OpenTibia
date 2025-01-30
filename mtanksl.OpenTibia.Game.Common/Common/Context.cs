@@ -151,7 +151,7 @@ namespace OpenTibia.Game.Common
             events.Enqueue( (eventSource, e) );
         }
 
-        private Dictionary<IConnection, MessageCollection> messageCollections;
+        private Dictionary<IConnection, IMessageCollection> messageCollections;
 
         /// <exception cref="ObjectDisposedException"></exception>
 
@@ -174,14 +174,14 @@ namespace OpenTibia.Game.Common
 
             if (messageCollections == null)
             {
-                messageCollections = new Dictionary<IConnection, MessageCollection>();
+                messageCollections = new Dictionary<IConnection, IMessageCollection>();
             }
 
-            MessageCollection messageCollection;
+            IMessageCollection messageCollection;
 
             if ( !messageCollections.TryGetValue(connection, out messageCollection) )
             {
-                messageCollection = new MessageCollection();
+                messageCollection = server.MessageCollectionFactory.Create();
 
                 messageCollections.Add(connection, messageCollection);
             }
@@ -289,12 +289,9 @@ namespace OpenTibia.Game.Common
                 {
                     IConnection connection = pair.Key;
 
-                    MessageCollection messageCollection = pair.Value;
+                    IMessageCollection messageCollection = pair.Value;
 
-                    foreach (var message in messageCollection.GetMessages() )
-                    {
-                        connection.Send(message.GetBytes(connection.MessageProtocol, connection.Keys) );
-                    }
+                    connection.Send(messageCollection);                    
                 }
 
                 messageCollections.Clear();

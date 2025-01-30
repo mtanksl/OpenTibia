@@ -13,7 +13,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public Position Position { get; set; }
 
-        public override void Write(ByteArrayStreamWriter writer)
+        public override void Write(IByteArrayStreamWriter writer)
         {
             writer.Write( (byte)0x64 );
 

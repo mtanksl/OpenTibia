@@ -19,7 +19,7 @@ namespace OpenTibia.Network.Packets.Outgoing
 
         public bool Online { get; set; }
 
-        public void Write(ByteArrayStreamWriter writer)
+        public void Write(IByteArrayStreamWriter writer)
         {
             writer.Write( (byte)0xD2 );
 

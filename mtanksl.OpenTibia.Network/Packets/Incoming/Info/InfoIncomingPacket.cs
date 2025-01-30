@@ -10,7 +10,7 @@ namespace OpenTibia.Network.Packets.Incoming
 
         public string PlayerName { get; set; }
 
-        public void Read(ByteArrayStreamReader reader)
+        public void Read(IByteArrayStreamReader reader)
         {
             Xml = reader.ReadByte() == 0xFF;
 
