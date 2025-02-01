@@ -16,16 +16,6 @@ namespace OpenTibia.Game.CommandHandlers
                 {
                     player.Combat.Clear();
 
-                    foreach (var observer in Context.Current.Server.Map.GetObserversOfTypePlayer(player.Tile.Position) )
-                    {
-                        byte clientIndex;
-
-                        if (observer.Client.TryGetIndex(player, out clientIndex) )
-                        {
-                            Context.Current.AddPacket(observer, new SetSkullIconOutgoingPacket(player.Id, observer.Client.GetSkullIcon(player) ) );
-                        }
-                    }
-
                     return Promise.Completed;
                 } );
             }
