@@ -115,8 +115,6 @@ namespace OpenTibia.Common.Objects
             return deaths;
         }
 
-        private HashSet<Player> attackedBy = new HashSet<Player>();
-
         private HashSet<Player> attackedInnocent = new HashSet<Player>();
 
         private HashSet<Player> attackedPlayerKiller = new HashSet<Player>();
@@ -133,14 +131,10 @@ namespace OpenTibia.Common.Objects
                 if (target.Combat.GetSkullIcon(null) == SkullIcon.None)
                 {
                     attackedInnocent.Add(target);
-
-                    target.Combat.attackedBy.Add(this.player);
                 }
                 else
                 {
                     attackedPlayerKiller.Add(target);
-
-                    target.Combat.attackedBy.Add(this.player);
                 }
 
                 return true;
@@ -151,15 +145,6 @@ namespace OpenTibia.Common.Objects
           
         public void Clear()
         {
-            foreach (var attacker in attackedBy)
-            {
-                attacker.Combat.attackedInnocent.Remove(this.player);
-
-                attacker.Combat.attackedPlayerKiller.Remove(this.player);
-            }
-
-            attackedBy.Clear();
-
             attackedInnocent.Clear();
 
             attackedPlayerKiller.Clear();

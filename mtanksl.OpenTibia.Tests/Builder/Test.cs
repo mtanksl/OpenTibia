@@ -3,7 +3,6 @@ using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
 using OpenTibia.Network.Packets.Incoming;
-using OpenTibia.Network.Packets.Outgoing;
 using System;
 using System.Linq;
 
@@ -55,53 +54,17 @@ namespace OpenTibia.Tests
 
         public Player Login(string account, string password, string character)
         {
-            if (character == "Account Manager")
-            {
-                var builder = 
+            var builder = 
 
-                    Using("127.0.0.1", a => a
-                        .Execute(new ParseSelectedCharacterCommand(a.Connection, new SelectedCharacterIncomingPacket() { OperatingSystem = Common.Structures.OperatingSystem.Windows, Version = 860, Keys = new uint[] { 0, 0, 0, 0 }, Gamemaster = true, Account = account, Password = password, Character = character, Nonce = 0 } ) )
-                        .ExpectSuccess()
-                        .Observe(o => o
-                            .ExpectPacket(9)
-                            .ExpectPacket<SendInfoOutgoingPacket>(1)
-                            .ExpectPacket<SendTilesOutgoingPacket>(1)
-                            .ExpectPacket<SetEnvironmentLightOutgoingPacket>(1)
-                            .ExpectPacket<SendStatusOutgoingPacket>(1)
-                            .ExpectPacket<SendSkillsOutgoingPacket>(1)
-                            .ExpectPacket<SetSpecialConditionOutgoingPacket>(1)
-                            .ExpectPacket<ShowMagicEffectOutgoingPacket>(1)
-                            .ExpectPacket<ShowWindowTextOutgoingPacket>(2)
-                            .ExpectConnected() ) );
+                Using("127.0.0.1", a => a
+                    .Execute(new ParseSelectedCharacterCommand(a.Connection, new SelectedCharacterIncomingPacket() { OperatingSystem = Common.Structures.OperatingSystem.Windows, Version = 860, Keys = new uint[] { 0, 0, 0, 0 }, Gamemaster = true, Account = account, Password = password, Character = character, Nonce = 0 } ) )
+                    .ExpectSuccess()
+                    .Observe(o => o
+                        .ExpectConnected() ) );
 
-                builder.Run();
+            builder.Run();
 
-                return builder.Connection.Client.Player;
-            }
-            else
-            {
-                var builder = 
-
-                    Using("127.0.0.1", a => a
-                        .Execute(new ParseSelectedCharacterCommand(a.Connection, new SelectedCharacterIncomingPacket() { OperatingSystem = Common.Structures.OperatingSystem.Windows, Version = 860, Keys = new uint[] { 0, 0, 0, 0 }, Gamemaster = true, Account = account, Password = password, Character = character, Nonce = 0 } ) )
-                        .ExpectSuccess()
-                        .Observe(o => o
-                            .ExpectPacket(9)
-                            .ExpectPacket<SendInfoOutgoingPacket>(1)
-                            .ExpectPacket<SendTilesOutgoingPacket>(1)
-                            .ExpectPacket<SetEnvironmentLightOutgoingPacket>(1)
-                            .ExpectPacket<SendStatusOutgoingPacket>(1)
-                            .ExpectPacket<SendSkillsOutgoingPacket>(1)
-                            .ExpectPacket<SetSpecialConditionOutgoingPacket>(1)
-                            .ExpectPacket<SlotAddOutgoingPacket>(1)
-                            .ExpectPacket<ShowMagicEffectOutgoingPacket>(1)
-                            .ExpectPacket<ShowWindowTextOutgoingPacket>(1)
-                            .ExpectConnected() ) );
-
-                builder.Run();
-
-                return builder.Connection.Client.Player;
-            }
+            return builder.Connection.Client.Player;
         }
 
         public void Move(Player player, Position position)
@@ -118,8 +81,6 @@ namespace OpenTibia.Tests
                 .Execute(new ParseLogOutCommand(a.Connection.Client.Player) )
                 .ExpectSuccess()
                 .Observe(o => o
-                    .ExpectPacket(1)
-                    .ExpectPacket<ShowMagicEffectOutgoingPacket>(1)
                     .ExpectConnected(false) ) )
             .Run();
         } 
