@@ -358,6 +358,28 @@ namespace OpenTibia.Game.Common
             }
         }
 
+        public bool IsCompletedSuccessfully
+        {
+            get
+            {
+                lock (sync)
+                {
+                    return status == PromiseStatus.Fulfilled;
+                }
+            }
+        }
+
+        public bool IsFaulted
+        {
+            get
+            {
+                lock (sync)
+                {
+                    return status == PromiseStatus.Rejected;
+                }
+            }
+        }
+
         public void OnCompleted(Action next)
         {
             // Pending

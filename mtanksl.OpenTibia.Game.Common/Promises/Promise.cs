@@ -365,6 +365,36 @@ namespace OpenTibia.Game.Common
             }
         }
 
+        public bool Wait(int millisecondsTimeout)
+        {
+            lock (sync)
+            {
+                bool success = true;
+
+                if (status == PromiseStatus.Pending)
+                {
+                    AddContinueWithFulfilled( () =>
+                    {
+                        Monitor.Pulse(sync);
+                    } );
+                                  
+                    AddContinueWithRejected( (ex) =>
+                    {
+                        Monitor.Pulse(sync);
+                    } );
+
+                    success = Monitor.Wait(sync, millisecondsTimeout);
+                }
+
+                if (exception != null)
+                {
+                    throw exception;
+                }
+
+                return success;
+            }
+        }
+
         public Promise Catch(Action<Exception> onRejected)
         {
             return Promise.Run( (resolve, reject) =>
@@ -570,6 +600,28 @@ namespace OpenTibia.Game.Common
                 lock (sync)
                 {
                     return status != PromiseStatus.Pending;
+                }
+            }
+        }
+
+        public bool IsCompletedSuccessfully
+        {
+            get
+            {
+                lock (sync)
+                {
+                    return status == PromiseStatus.Fulfilled;
+                }
+            }
+        }
+
+        public bool IsFaulted
+        {
+            get
+            {
+                lock (sync)
+                {
+                    return status == PromiseStatus.Rejected;
                 }
             }
         }
