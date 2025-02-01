@@ -11,7 +11,7 @@ namespace OpenTibia.Tests
     public class RotateItemTransformHandlerTests
     {
         [TestMethod]
-        public void CantRotateChest()
+        public void CanRotateChest()
         {
             Test.Run(t =>
             {

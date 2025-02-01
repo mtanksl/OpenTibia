@@ -10,7 +10,23 @@ namespace OpenTibia.Tests
     public class AccountManagerLoginHandlerTests
     {
         [TestMethod]
-        public void Success()
+        public void DoNotShowMessageOnLoginWithoutAccountManager()
+        {
+            Test.Run(t =>
+            {
+                var player = t.Login("1", "1", "Gamemaster");
+
+                t.Using(player, a => a
+                    .Execute(new PlayerLoginEventArgs(a.Connection.Client.Player), new AccountManagerLoginHandler() )
+                    .ExpectSuccess()
+                    .Observe(o => o
+                        .ExpectPacket(0) ) )
+                .Run();
+            } );
+        }
+
+        [TestMethod]
+        public void ShowMessageOnLoginWithAccountManager()
         {
             Test.Run(t =>
             {
