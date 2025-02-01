@@ -37,7 +37,8 @@ namespace OpenTibia.Data.Contexts
             modelBuilder.Entity<DbPlayerDeath>()
                 .HasOne(v => v.Attacker)
                 .WithMany()
-                .HasForeignKey(v => v.AttackerId);
+                .HasForeignKey(v => v.AttackerId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<DbPlayerDepotItem>()
                 .HasKey(m => new { m.PlayerId, m.SequenceId } );
@@ -53,7 +54,8 @@ namespace OpenTibia.Data.Contexts
             modelBuilder.Entity<DbPlayerKill>()
                 .HasOne(v => v.Target)
                 .WithMany()
-                .HasForeignKey(v => v.TargetId);
+                .HasForeignKey(v => v.TargetId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<DbPlayerOutfit>()
                 .HasKey(m => new { m.PlayerId, m.OutfitId } );
@@ -75,7 +77,8 @@ namespace OpenTibia.Data.Contexts
             modelBuilder.Entity<DbPlayerVip>()
                 .HasOne(v => v.Vip)
                 .WithMany()
-                .HasForeignKey(v => v.VipId);
+                .HasForeignKey(v => v.VipId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<DbServerStorage>()
                 .HasKey(m => m.Key);

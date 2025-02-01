@@ -3,12 +3,16 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Security.Cryptography;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace mtanksl.OpenTibia.Build
 {
     internal class Program
     {
+        private static LogLevel logLevelFilter = LogLevel.Debug;
+
         static async Task<int> Main(string[] args)
         {
             var tcs = new TaskCompletionSource<string>();
@@ -20,8 +24,12 @@ namespace mtanksl.OpenTibia.Build
                 tcs.SetResult(null);
             };
 
-            WriteLine("Available commands: help, publish, migration, clear, exit, about.");
+            WriteLine("Available commands: help, publish, migration-config, migration-add, migration-remove, migration-script, clear, exit, about.");
             WriteLine();
+
+            var configDirectoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "MTOTS");
+                                           
+            var configFilePath = Path.Combine(configDirectoryPath, ".config");
 
             try
             {
@@ -35,169 +43,327 @@ namespace mtanksl.OpenTibia.Build
                     {
                         case "help":
 
-                            WriteLine("publish\t\tRebuild the solution, run tests, publish and zip.");
-                            WriteLine("migration\t\tCreate migration scripts for SQLite, MySQL, Microsoft SQL Server and Postgre SQL.");
-                            WriteLine("clear\t\tClear the console screen. Alternative commands: cls.");
-                            WriteLine("exit\t\tExit this build tool.");
-                            WriteLine("about\t\tDisplay license.");
+                            WriteLine("publish\t\t\tRebuild the solution, run tests, publish and zip.");
+                            WriteLine("migration-config\tCreate migration configuration file.");
+                            WriteLine("migration-add\t\tCreate migration for SQLite, MySQL, Microsoft SQL Server and Postgre SQL databases.");
+                            WriteLine("migration-remove\tRemove last migration for SQLite, MySQL, Microsoft SQL Server and Postgre SQL databases.");
+                            WriteLine("migration-script\tGenerate migration scripts for SQLite, MySQL, Microsoft SQL Server and Postgre SQL databases.");
+                            WriteLine("clear\t\t\tClear the console screen. Alternative commands: cls.");
+                            WriteLine("exit\t\t\tExit this build tool.");
+                            WriteLine("about\t\t\tDisplay license.");
                             WriteLine();
 
                             break;
 
                         case "publish":
+                            {
+                                WriteLine("Remember to update server, console and gui versions.", LogLevel.Information);
 
-                            WriteLine("Remember to update server, console and gui versions.", LogLevel.Information);
+                                WriteLine("Running tests...", LogLevel.Information);
 
-                            WriteLine("Running tests...", LogLevel.Information);
+                                    int exitCode = Run(
+                                        workingDirectory: "mtanksl.OpenTibia.Tests", 
+                                        command: "dotnet", 
+                                        arguments: "test mtanksl.OpenTibia.Tests.csproj -c Release");
 
-                                int exitCode = Run(
-                                    "mtanksl.OpenTibia.Tests", 
-                                    "dotnet", "test mtanksl.OpenTibia.Tests.csproj -c Release");
+                                    if (exitCode != 0)
+                                    {
+                                        WriteLine("Could not test mtanksl.OpenTibia.Tests, exited with code " + exitCode, LogLevel.Error);
 
-                                if (exitCode != 0)
-                                {
-                                    WriteLine("Could not test mtanksl.OpenTibia.Tests, exited with code " + exitCode, LogLevel.Error);
+                                        break;
+                                    }
 
-                                    break;
-                                }
+                                WriteLine("Building plugins...", LogLevel.Information);
 
-                            WriteLine("Building plugins...", LogLevel.Information);
+                                    DirectoryDelete(
+                                        directoryName: "mtanksl.OpenTibia.Plugins\\bin\\Release\\netstandard2.0");
 
-                                DirectoryDelete(
-                                    "mtanksl.OpenTibia.Plugins\\bin\\Release\\netstandard2.0");
+                                    exitCode = Run(
+                                        workingDirectory: "mtanksl.OpenTibia.Plugins", 
+                                        command: "dotnet", 
+                                        arguments: "build mtanksl.OpenTibia.Plugins.csproj -c Release");
 
-                                exitCode = Run(
-                                    "mtanksl.OpenTibia.Plugins", 
-                                    "dotnet", "build mtanksl.OpenTibia.Plugins.csproj -c Release");
+                                    if (exitCode != 0)
+                                    {
+                                        WriteLine("Could not build mtanksl.OpenTibia.Plugins, exited with code " + exitCode, LogLevel.Error);
 
-                                if (exitCode != 0)
-                                {
-                                    WriteLine("Could not build mtanksl.OpenTibia.Plugins, exited with code " + exitCode, LogLevel.Error);
+                                        break;
+                                    }
 
-                                    break;
-                                }
+                                    FileCopy(
+                                        sourceFileName: "mtanksl.OpenTibia.Plugins\\bin\\Release\\netstandard2.0\\mtanksl.OpenTibia.Plugins.dll", 
+                                        destinationFileName: "mtanksl.OpenTibia.GameData\\data\\dlls\\mtanksl.OpenTibia.Plugins\\mtanksl.OpenTibia.Plugins.dll");
 
-                                FileCopy(
-                                    "mtanksl.OpenTibia.Plugins\\bin\\Release\\netstandard2.0\\mtanksl.OpenTibia.Plugins.dll", 
-                                    "mtanksl.OpenTibia.GameData\\data\\dlls\\mtanksl.OpenTibia.Plugins\\mtanksl.OpenTibia.Plugins.dll");
-
-                            WriteLine("Building Windows (console) application...", LogLevel.Information);
+                                WriteLine("Building Windows (console) application...", LogLevel.Information);
                              
-                                DirectoryDelete(
-                                    "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\win-x64\\publish");
+                                    DirectoryDelete(
+                                        directoryName: "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\win-x64\\publish");
 
-                                exitCode = Run(
-                                    "mtanksl.OpenTibia.Host", 
-                                    "dotnet", "publish mtanksl.OpenTibia.Host.csproj -c Release -r win-x64 -p:PublishSingleFile=true --self-contained false");
+                                    exitCode = Run(
+                                        workingDirectory: "mtanksl.OpenTibia.Host", 
+                                        command: "dotnet", 
+                                        arguments: "publish mtanksl.OpenTibia.Host.csproj -c Release -r win-x64 -p:PublishSingleFile=true --self-contained false");
 
-                                if (exitCode != 0)
-                                {
-                                    WriteLine("Could not publish mtanksl.OpenTibia.Host for win-x64, exited with code " + exitCode, LogLevel.Error);
+                                    if (exitCode != 0)
+                                    {
+                                        WriteLine("Could not publish mtanksl.OpenTibia.Host for win-x64, exited with code " + exitCode, LogLevel.Error);
 
-                                    break;
-                                }
+                                        break;
+                                    }
 
-                                FileDeletePdb(
-                                    "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\win-x64\\publish");
+                                    FileDeletePdb(
+                                        directoryName: "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\win-x64\\publish");
 
-                                DirectoryCopy(
-                                    "mtanksl.OpenTibia.GameData\\data",
-                                    "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\win-x64\\publish\\data");
+                                    DirectoryCopy(
+                                        sourceDirectoryName: "mtanksl.OpenTibia.GameData\\data", 
+                                        destinationDirectoryName: "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\win-x64\\publish\\data");
 
-                                Zip(
-                                    "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\win-x64\\publish",
-                                    "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\win-x64\\mtanksl.OpenTibia.Host_win-x64.zip");
+                                    Zip(
+                                        directoryName: "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\win-x64\\publish", 
+                                        fileName: "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\win-x64\\mtanksl.OpenTibia.Host_win-x64.zip");
 
-                            WriteLine("Building Linux (console) application...", LogLevel.Information);
+                                WriteLine("Building Linux (console) application...", LogLevel.Information);
 
-                                DirectoryDelete(
-                                    "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\publish");
+                                    DirectoryDelete(
+                                        directoryName: "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\publish");
 
-                                exitCode = Run(
-                                    "mtanksl.OpenTibia.Host",
-                                    "dotnet", "publish mtanksl.OpenTibia.Host.csproj -c Release -r linux-x64 -p:PublishSingleFile=true --self-contained true");
+                                    exitCode = Run(
+                                        workingDirectory: "mtanksl.OpenTibia.Host",
+                                        command: "dotnet", 
+                                        arguments: "publish mtanksl.OpenTibia.Host.csproj -c Release -r linux-x64 -p:PublishSingleFile=true --self-contained true");
 
-                                if (exitCode != 0)
-                                {
-                                    WriteLine("Could not publish mtanksl.OpenTibia.Host for linux-x64, exited with code " + exitCode, LogLevel.Error);
+                                    if (exitCode != 0)
+                                    {
+                                        WriteLine("Could not publish mtanksl.OpenTibia.Host for linux-x64, exited with code " + exitCode, LogLevel.Error);
 
-                                    break;
-                                }
+                                        break;
+                                    }
 
-                                FileDeletePdb(
-                                    "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\publish");
+                                    FileDeletePdb(
+                                         directoryName: "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\publish");
 
-                                DirectoryCopy(
-                                    "mtanksl.OpenTibia.GameData\\data", 
-                                    "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\publish\\data");
+                                    DirectoryCopy(
+                                        sourceDirectoryName: "mtanksl.OpenTibia.GameData\\data",
+                                        destinationDirectoryName: "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\publish\\data");
 
-                                DirectoryDelete(
-                                    "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\publish\\data\\clibs");
+                                    DirectoryDelete(
+                                        directoryName: "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\publish\\data\\clibs");
 
-                                DirectoryDelete(
-                                    "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\publish\\data\\lualibs");
+                                    DirectoryDelete(
+                                        directoryName: "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\publish\\data\\lualibs");
 
-                                DirectoryCreate(
-                                    "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\publish\\data\\clibs");
+                                    DirectoryCreate(
+                                        directoryName: "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\publish\\data\\clibs");
 
-                                DirectoryCreate(
-                                    "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\publish\\data\\lualibs");
+                                    DirectoryCreate(
+                                        directoryName: "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\publish\\data\\lualibs");
 
-                                Zip(
-                                    "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\publish",
-                                    "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\mtanksl.OpenTibia.Host_linux-x64.zip");
+                                    Zip(
+                                        directoryName: "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\publish",
+                                        fileName: "mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\mtanksl.OpenTibia.Host_linux-x64.zip");
 
-                            WriteLine("Building Windows (GUI) application...", LogLevel.Information);
+                                WriteLine("Building Windows (GUI) application...", LogLevel.Information);
 
-                                DirectoryDelete(
-                                    "mtanksl.OpenTibia.Host.GUI\\bin\\Release\\net8.0-windows\\win-x64\\publish");
+                                    DirectoryDelete(
+                                        directoryName: "mtanksl.OpenTibia.Host.GUI\\bin\\Release\\net8.0-windows\\win-x64\\publish");
 
-                                exitCode = Run(
-                                    "mtanksl.OpenTibia.Host.GUI", 
-                                    "dotnet", "publish mtanksl.OpenTibia.Host.GUI.csproj -c Release -r win-x64 -p:PublishSingleFile=true --self-contained false");
+                                    exitCode = Run(
+                                        workingDirectory: "mtanksl.OpenTibia.Host.GUI", 
+                                        command: "dotnet",
+                                        arguments: "publish mtanksl.OpenTibia.Host.GUI.csproj -c Release -r win-x64 -p:PublishSingleFile=true --self-contained false");
 
-                                if (exitCode != 0)
-                                {
-                                    WriteLine("Could not publish mtanksl.OpenTibia.Host.GUI for win-x64, exited with code " + exitCode, LogLevel.Error);
+                                    if (exitCode != 0)
+                                    {
+                                        WriteLine("Could not publish mtanksl.OpenTibia.Host.GUI for win-x64, exited with code " + exitCode, LogLevel.Error);
 
-                                    break;
-                                }
+                                        break;
+                                    }
 
-                                FileDeletePdb(
-                                    "mtanksl.OpenTibia.Host.GUI\\bin\\Release\\net8.0-windows\\win-x64\\publish");
+                                    FileDeletePdb(
+                                        directoryName: "mtanksl.OpenTibia.Host.GUI\\bin\\Release\\net8.0-windows\\win-x64\\publish");
 
-                                DirectoryCopy(
-                                    "mtanksl.OpenTibia.GameData\\data", 
-                                    "mtanksl.OpenTibia.Host.GUI\\bin\\Release\\net8.0-windows\\win-x64\\publish\\data");
+                                    DirectoryCopy(
+                                        sourceDirectoryName: "mtanksl.OpenTibia.GameData\\data", 
+                                        destinationDirectoryName: "mtanksl.OpenTibia.Host.GUI\\bin\\Release\\net8.0-windows\\win-x64\\publish\\data");
 
-                                Zip(
-                                    "mtanksl.OpenTibia.Host.GUI\\bin\\Release\\net8.0-windows\\win-x64\\publish",
-                                    "mtanksl.OpenTibia.Host.GUI\\bin\\Release\\net8.0-windows\\win-x64\\mtanksl.OpenTibia.Host.GUI_win-x64.zip");
+                                    Zip(
+                                        directoryName: "mtanksl.OpenTibia.Host.GUI\\bin\\Release\\net8.0-windows\\win-x64\\publish",
+                                        fileName: "mtanksl.OpenTibia.Host.GUI\\bin\\Release\\net8.0-windows\\win-x64\\mtanksl.OpenTibia.Host.GUI_win-x64.zip");
 
-                            WriteLine("Publish completed... 3 files were created:");
-                            WriteLine("mtanksl.OpenTibia\\mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\win-x64\\mtanksl.OpenTibia.Host_win-x64.zip");
-                            WriteLine("mtanksl.OpenTibia\\mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\mtanksl.OpenTibia.Host_linux-x64.zip");
-                            WriteLine("mtanksl.OpenTibia\\mtanksl.OpenTibia.Host.GUI\\bin\\Release\\net8.0-windows\\win-x64\\mtanksl.OpenTibia.Host.GUI_win-x64.zip");
-                            WriteLine();
+                                WriteLine("Done... 3 files were created:");
+                                WriteLine("mtanksl.OpenTibia\\mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\win-x64\\mtanksl.OpenTibia.Host_win-x64.zip");
+                                WriteLine("mtanksl.OpenTibia\\mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\mtanksl.OpenTibia.Host_linux-x64.zip");
+                                WriteLine("mtanksl.OpenTibia\\mtanksl.OpenTibia.Host.GUI\\bin\\Release\\net8.0-windows\\win-x64\\mtanksl.OpenTibia.Host.GUI_win-x64.zip");
+                                WriteLine();
 
-                            WriteLine("mtanksl.OpenTibia.Host_win-x64.zip");
-                            WriteLine(Hash("mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\win-x64\\mtanksl.OpenTibia.Host_win-x64.zip") );
-                            WriteLine();
+                                WriteLine("mtanksl.OpenTibia.Host_win-x64.zip");
+                                WriteLine(Hash("mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\win-x64\\mtanksl.OpenTibia.Host_win-x64.zip") );
+                                WriteLine();
 
-                            WriteLine("mtanksl.OpenTibia.Host_linux-x64.zip");
-                            WriteLine(Hash("mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\mtanksl.OpenTibia.Host_linux-x64.zip") );
-                            WriteLine();
+                                WriteLine("mtanksl.OpenTibia.Host_linux-x64.zip");
+                                WriteLine(Hash("mtanksl.OpenTibia.Host\\bin\\Release\\net8.0\\linux-x64\\mtanksl.OpenTibia.Host_linux-x64.zip") );
+                                WriteLine();
 
-                            WriteLine("mtanksl.OpenTibia.Host.GUI_win-x64.zip");
-                            WriteLine(Hash("mtanksl.OpenTibia.Host.GUI\\bin\\Release\\net8.0-windows\\win-x64\\mtanksl.OpenTibia.Host.GUI_win-x64.zip") );
-                            WriteLine();
-                            
+                                WriteLine("mtanksl.OpenTibia.Host.GUI_win-x64.zip");
+                                WriteLine(Hash("mtanksl.OpenTibia.Host.GUI\\bin\\Release\\net8.0-windows\\win-x64\\mtanksl.OpenTibia.Host.GUI_win-x64.zip") );
+                                WriteLine();
+                            }
                             break;
 
-                        case "migration":
+                        case "migration-config":
+                            {
+                                var config = new Config();
 
-                            //TODO
+                                WriteLine("SQLite connection string:");
 
+                                config.SqliteConnectionString = Console.ReadLine();
+
+                                WriteLine("MySQL connection string:");
+
+                                config.MysqlConnectionString = Console.ReadLine();
+
+                                WriteLine("Microsoft SQL Server connection string:");
+
+                                config.MssqlConnectionString = Console.ReadLine();
+
+                                WriteLine("Postgre SQL Server connection string:");
+
+                                config.PostgresqlConnectionString = Console.ReadLine();
+
+                                Directory.CreateDirectory(configDirectoryPath);
+
+                                File.WriteAllBytes(configFilePath, ProtectedData.Protect(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(config) ), null, DataProtectionScope.CurrentUser) );
+
+                                WriteLine("Done... 1 encrypted file was created:");
+                                WriteLine(configFilePath);
+                                WriteLine();
+                            }
+                            break;
+
+                        case "migration-add":
+                            {
+                                if ( !File.Exists(configFilePath) )
+                                {
+                                    WriteLine("Migration configuration file not found. Create one using the migration-config option.", LogLevel.Error);
+
+                                    break;
+                                }
+
+                                WriteLine("New migration name:");
+
+                                string name = Console.ReadLine();
+
+                                if ( !string.IsNullOrEmpty(name) )
+                                {
+                                    var config = JsonSerializer.Deserialize<Config>(Encoding.UTF8.GetString(ProtectedData.Unprotect(File.ReadAllBytes(configFilePath), null, DataProtectionScope.CurrentUser)));
+
+                                    foreach (var item in new[] {
+                                        ("SQLite", "mtanksl.OpenTibia.Data.Sqlite", config.SqliteConnectionString),
+                                        ("MySQL", "mtanksl.OpenTibia.Data.MySql", config.MysqlConnectionString),
+                                        ("Microsoft SQL Server", "mtanksl.OpenTibia.Data.MsSql", config.MssqlConnectionString), 
+                                        ("Postgre SQL", "mtanksl.OpenTibia.Data.PostgreSql", config.PostgresqlConnectionString) } )
+                                    {
+                                        if ( !string.IsNullOrEmpty(item.Item3) )
+                                        {
+                                            WriteLine("Scripting " + item.Item1 + "...", LogLevel.Information);
+                                    
+                                            int exitCode = Run(
+                                                workingDirectory: item.Item2, 
+                                                command: "dotnet",
+                                                arguments: "ef migrations add \"" + name + "\" -- \"" + item.Item3 + "\"");
+
+                                            if (exitCode != 0)
+                                            {
+                                                WriteLine("Could not generate script for " + item.Item2 + ", exited with code " + exitCode, LogLevel.Warning);
+                                            }
+                                        }
+                                    }
+                                }
+
+                                WriteLine("Done.");
+                                WriteLine();
+                            }
+                            break;
+
+                        case "migration-remove":
+                            {
+                                if ( !File.Exists(configFilePath) )
+                                {
+                                    WriteLine("Migration configuration file not found. Create one using the migration-config option.", LogLevel.Error);
+
+                                    break;
+                                }
+
+                                var config = JsonSerializer.Deserialize<Config>(Encoding.UTF8.GetString(ProtectedData.Unprotect(File.ReadAllBytes(configFilePath), null, DataProtectionScope.CurrentUser) ) );
+
+                                foreach (var item in new[] {
+                                    ("SQLite", "mtanksl.OpenTibia.Data.Sqlite", config.SqliteConnectionString),
+                                    ("MySQL", "mtanksl.OpenTibia.Data.MySql", config.MysqlConnectionString),
+                                    ("Microsoft SQL Server", "mtanksl.OpenTibia.Data.MsSql", config.MssqlConnectionString), 
+                                    ("Postgre SQL", "mtanksl.OpenTibia.Data.PostgreSql", config.PostgresqlConnectionString) } )
+                                {
+                                    if ( !string.IsNullOrEmpty(item.Item3) )
+                                    {
+                                        WriteLine("Scripting " + item.Item1 + "...", LogLevel.Information);
+                                    
+                                        int exitCode = Run(
+                                            workingDirectory: item.Item2, 
+                                            command: "dotnet",
+                                            arguments: "ef migrations remove -- \"" + item.Item3 + "\"");
+
+                                        if (exitCode != 0)
+                                        {
+                                            WriteLine("Could not generate script for " + item.Item2 + ", exited with code " + exitCode, LogLevel.Warning);
+                                        }
+                                    }
+                                }
+
+                                WriteLine("Done.");
+                                WriteLine();
+                            }
+                            break;
+
+                        case "migration-script":
+                            {
+                                if ( !File.Exists(configFilePath) )
+                                {
+                                    WriteLine("Migration configuration file not found. Create one using the migration-config option.", LogLevel.Error);
+
+                                    break;
+                                }
+
+                                WriteLine("Last migration name:");
+
+                                string name = Console.ReadLine();
+
+                                var config = JsonSerializer.Deserialize<Config>(Encoding.UTF8.GetString(ProtectedData.Unprotect(File.ReadAllBytes(configFilePath), null, DataProtectionScope.CurrentUser) ) );
+
+                                foreach (var item in new[] {
+                                    ("SQLite", "mtanksl.OpenTibia.Data.Sqlite", config.SqliteConnectionString),
+                                    ("MySQL", "mtanksl.OpenTibia.Data.MySql", config.MysqlConnectionString),
+                                    ("Microsoft SQL Server", "mtanksl.OpenTibia.Data.MsSql", config.MssqlConnectionString), 
+                                    ("Postgre SQL", "mtanksl.OpenTibia.Data.PostgreSql", config.PostgresqlConnectionString) } )
+                                {
+                                    if ( !string.IsNullOrEmpty(item.Item3) )
+                                    {
+                                        WriteLine("Scripting " + item.Item1 + "...", LogLevel.Information);
+                                    
+                                        int exitCode = Run(
+                                            workingDirectory: item.Item2, 
+                                            command: "dotnet",
+                                            arguments: string.IsNullOrEmpty(name) ? "ef migrations script -- \"" + item.Item3 + "\"" : 
+                                                                                    "ef migrations script \"" + name + "\" -- \"" + item.Item3 + "\"");
+
+                                        if (exitCode != 0)
+                                        {
+                                            WriteLine("Could not generate script for " + item.Item2 + ", exited with code " + exitCode, LogLevel.Warning);
+                                        }
+                                    }
+                                }
+
+                                WriteLine("Done.");
+                                WriteLine();
+                            }
                             break;
 
                         case "clear":
@@ -264,6 +430,11 @@ namespace mtanksl.OpenTibia.Build
 
         private static void WriteLine(string message = null, LogLevel logLevel = LogLevel.Default)
         {
+            if (logLevel < logLevelFilter)
+            {
+                return;
+            }
+
             lock (sync)
             {
                 switch (logLevel)
@@ -305,11 +476,14 @@ namespace mtanksl.OpenTibia.Build
             }
         }
 
-        private static void DirectoryDelete(string directoryName)
+        private static void FileDeletePdb(string directoryName)
         {
             directoryName = Path.Combine(GetBaseDirectory(), directoryName);
 
-            Directory.Delete(directoryName, true);
+            foreach (var file in Directory.GetFiles(directoryName, "*.pdb" ) )
+            {
+                File.Delete(file);
+            }
         }
 
         private static void FileCopy(string sourceFileName, string destinationFileName)
@@ -318,6 +492,20 @@ namespace mtanksl.OpenTibia.Build
             destinationFileName = Path.Combine(GetBaseDirectory(), destinationFileName);
 
             File.Copy(sourceFileName, destinationFileName, true);
+        }
+
+        private static void DirectoryCreate(string directoryName)
+        {
+            directoryName = Path.Combine(GetBaseDirectory(), directoryName);
+
+            Directory.CreateDirectory(directoryName);
+        }
+
+        private static void DirectoryDelete(string directoryName)
+        {
+            directoryName = Path.Combine(GetBaseDirectory(), directoryName);
+
+            Directory.Delete(directoryName, true);
         }
 
         private static void DirectoryCopy(string sourceDirectoryName, string destinationDirectoryName)
@@ -341,23 +529,6 @@ namespace mtanksl.OpenTibia.Build
                     CopyEachItem(directory, Path.Combine(destination, Path.GetFileName(directory) ) );
                 }
             }
-        }
-
-        private static void FileDeletePdb(string directoryName)
-        {
-            directoryName = Path.Combine(GetBaseDirectory(), directoryName);
-
-            foreach (var file in Directory.GetFiles(directoryName, "*.pdb" ) )
-            {
-                File.Delete(file);
-            }
-        }
-
-        private static void DirectoryCreate(string directoryName)
-        {
-            directoryName = Path.Combine(GetBaseDirectory(), directoryName);
-
-            Directory.CreateDirectory(directoryName);
         }
 
         private static void Zip(string directoryName, string fileName)
@@ -441,6 +612,17 @@ namespace mtanksl.OpenTibia.Build
             }
 
             throw new NotImplementedException();
+        }
+
+        private class Config
+        {
+            public string SqliteConnectionString { get; set; }
+
+            public string MysqlConnectionString { get; set; }
+
+            public string MssqlConnectionString { get; set; }
+
+            public string PostgresqlConnectionString { get; set; }
         }
     }
 }
