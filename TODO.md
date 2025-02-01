@@ -176,3 +176,6 @@
 	- Send Message
 	- Kick Player
 	- Ban Player
+- Build tools
+	- Automate build scripts (rebuild the solution, run tests, publish and zip)
+	- Automate sql generation
