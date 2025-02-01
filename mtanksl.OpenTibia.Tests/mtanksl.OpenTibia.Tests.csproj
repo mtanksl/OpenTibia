@@ -18,9 +18,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\mtanksl.OpenTibia.Common\mtanksl.OpenTibia.Common.csproj" />
     <ProjectReference Include="..\mtanksl.OpenTibia.Game\mtanksl.OpenTibia.Game.csproj" />
     <ProjectReference Include="..\mtanksl.OpenTibia.IO\mtanksl.OpenTibia.IO.csproj" />
     <ProjectReference Include="..\mtanksl.OpenTibia.Security\mtanksl.OpenTibia.Security.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="data\server\config.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

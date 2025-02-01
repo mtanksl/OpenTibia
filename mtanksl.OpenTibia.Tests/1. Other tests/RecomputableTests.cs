@@ -1,9 +1,10 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenTibia.Common.Objects;
 
-namespace mtanksl.OpenTibia.Tests
+namespace OpenTibia.Tests
 {
     [TestClass]
+    [TestCategory("1. Other tests")]
     public class RecomputableTests
     {
         [TestMethod]

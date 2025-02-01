@@ -4,9 +4,10 @@ using OpenTibia.Security;
 using System.Globalization;
 using System.Linq;
 
-namespace mtanksl.OpenTibia.Tests
+namespace OpenTibia.Tests
 {
     [TestClass]
+    [TestCategory("1. Other tests")]
     public class RsaTests
     {
         [TestMethod]

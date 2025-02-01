@@ -2,9 +2,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenTibia.Game.Common;
 using System;
 
-namespace mtanksl.OpenTibia.Tests
+namespace OpenTibia.Tests
 {
     [TestClass]
+    [TestCategory("1. Other tests")]
     public class PromiseTests
     {
         [TestMethod]
@@ -268,6 +269,32 @@ namespace mtanksl.OpenTibia.Tests
             Assert.AreEqual(false, success);
             Assert.AreEqual(true, fail);
             Assert.AreEqual("2", message);
+        }
+
+        [TestMethod]
+        public void WaitNoTimeout()
+        {
+            var promise = new Promise( (resolve, reject) =>
+            {
+                resolve();
+            } );
+
+            var success = promise.Wait(10);
+
+            Assert.AreEqual(true, success);
+        }
+
+        [TestMethod]
+        public void WaitTimeout()
+        {
+            var promise = new Promise( (resolve, reject) =>
+            {
+                
+            } );
+
+            var success = promise.Wait(10);
+
+            Assert.AreEqual(false, success);
         }
     }
 }

@@ -75,7 +75,7 @@ namespace OpenTibia.Game.Common.ServerObjects
             server.PositionalEventHandlers.ClearEventHandlers(player);
         }
 
-        // TODO: Optimize, we don't need to load and save everything
+        //TODO: Optimize, we don't need to load and save everything
 
         public void Load(DbPlayer dbPlayer, Player player)
         {
