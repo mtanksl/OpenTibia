@@ -153,6 +153,13 @@ return {
 		args = "(ondeath)",
 		returns = "void"
 	},
+	-- void registercreaturescriptsplayerearnachievement(onearnachievement)
+	registercreaturescriptsplayerearnachievement = {
+		type = "function",
+		description = "",
+		args = "(onearnachievement)",
+		returns = "void"
+	},
 	-- void registerglobaleventsserverstartup(onstartup)
 	registerglobaleventsserverstartup = {
 		type = "function",

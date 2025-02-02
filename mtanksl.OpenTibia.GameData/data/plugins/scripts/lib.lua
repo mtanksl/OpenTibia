@@ -125,6 +125,13 @@ function registercreaturescriptscreaturedeath(ondeath)
     } )
 end
 
+function registercreaturescriptsplayerearnachievement(onearnachievement)
+    registerplugin("creaturescripts", {
+	    type = "PlayerEarnAchievement",
+	    onearnachievement = onearnachievement
+    } )
+end
+
 function registerglobaleventsserverstartup(onstartup)
     registerplugin("globalevents", {
 	    type = "ServerStartup",
