@@ -42,9 +42,11 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         IEnumerable<Tile> GetTiles();
 
-        void AddObserver(Position position, Creature creature);
+        void ZoneAddCreature(Position position, Creature creature);
 
-        void RemoveObserver(Position position, Creature creature);
+        void ZoneRemoveCreature(Position position, Creature creature);
+
+        bool ZoneMoveCreature(Position fromPosition, Position toPosition, Creature creature);
 
         IEnumerable<Creature> GetObserversOfTypeCreature(Position position);
 

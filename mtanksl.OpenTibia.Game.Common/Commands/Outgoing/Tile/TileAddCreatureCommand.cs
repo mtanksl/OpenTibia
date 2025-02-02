@@ -23,7 +23,7 @@ namespace OpenTibia.Game.Commands
         {
             int toIndex = ToTile.AddContent(Creature);
 
-            Context.Server.Map.AddObserver(ToTile.Position, Creature);
+            Context.Server.Map.ZoneAddCreature(ToTile.Position, Creature);
 
             Dictionary<Player, byte> canSeeTo = new Dictionary<Player, byte>();
 
@@ -55,6 +55,8 @@ namespace OpenTibia.Game.Commands
             }
 
             Context.AddEvent(new TileAddCreatureEventArgs(Creature, null, null, ToTile, toIndex) );
+                            
+            Context.AddEvent(new MapZoneAddCreatureEventArgs(Creature, null, null, ToTile, toIndex) );
 
             return Promise.Completed;
         }

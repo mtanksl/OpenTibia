@@ -396,11 +396,11 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public void ClearEventHandlers(GameObject eventSource)
+        public void ClearEventHandlers(GameObject observer)
         {
             HashSet<Guid> tokens;
 
-            if (gameObjects.TryGetValue(eventSource, out  tokens) )
+            if (gameObjects.TryGetValue(observer, out  tokens) )
             {
                 foreach (var token in tokens.ToArray() )
                 {

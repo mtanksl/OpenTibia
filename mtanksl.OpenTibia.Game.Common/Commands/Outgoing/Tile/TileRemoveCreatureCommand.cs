@@ -40,7 +40,7 @@ namespace OpenTibia.Game.Commands
 
             FromTile.RemoveContent(fromIndex);
 
-            Context.Server.Map.RemoveObserver(FromTile.Position, Creature);
+            Context.Server.Map.ZoneRemoveCreature(FromTile.Position, Creature);
 
             foreach (var pair in canSeeFrom)
             {
@@ -55,6 +55,8 @@ namespace OpenTibia.Game.Commands
             }
 
             Context.AddEvent(new TileRemoveCreatureEventArgs(Creature, FromTile, fromIndex, null, null) );
+
+            Context.AddEvent(new MapZoneRemoveCreatureEventArgs(Creature, FromTile, fromIndex, null, null) );
 
             return Promise.Completed;
         }

@@ -214,6 +214,8 @@ namespace OpenTibia.Game.Common.ServerObjects
                 this.housesById = new Dictionary<ushort, House>();
             }          
 
+            this.tiles = new TileCollection();
+
             foreach (var otbmArea in otbmFile.Areas)
             {
                 foreach (var otbmTile in otbmArea.Tiles)
@@ -237,15 +239,7 @@ namespace OpenTibia.Game.Common.ServerObjects
                     {
                         maxY = otbmArea.Position.Y + otbmTile.OffsetY;
                     }
-                }
-            }
 
-            this.tiles = new TileCollection();
-
-            foreach (var otbmArea in otbmFile.Areas)
-            {
-                foreach (var otbmTile in otbmArea.Tiles)
-                {
                     Position position = otbmArea.Position.Offset(otbmTile.OffsetX, otbmTile.OffsetY, 0);
 
                     Tile tile;
@@ -373,17 +367,15 @@ namespace OpenTibia.Game.Common.ServerObjects
                 }
             }
 
-            //TODO: Use quadtree
+            zones = new HashSet<Creature>[ (int)Math.Ceiling( (maxY - minY + 1) / 14.0) ][];
 
-            observers = new HashSet<Creature>[ (int)Math.Ceiling( (maxY - minY + 1) / 14.0) ][];
-
-            for (int j = 0; j < observers.Length; j++)
+            for (int j = 0; j < zones.Length; j++)
             {
-                observers[j] = new HashSet<Creature>[ (int)Math.Ceiling( (maxX - minX + 1) / 18.0) ];
+                zones[j] = new HashSet<Creature>[ (int)Math.Ceiling( (maxX - minX + 1) / 18.0) ];
 
-                for (int i = 0; i < observers[j].Length; i++)
+                for (int i = 0; i < zones[j].Length; i++)
                 {
-                    observers[j][i] = null;
+                    zones[j][i] = null;
                 }
             }
         }
@@ -470,33 +462,33 @@ namespace OpenTibia.Game.Common.ServerObjects
             return tiles.GetTiles();
         }
 
-        private HashSet<Creature>[][] observers;
+        private HashSet<Creature>[][] zones;
 
-        public void AddObserver(Position position, Creature creature)
+        public void ZoneAddCreature(Position position, Creature creature)
         {
             int j = (position.Y - minY + 1) / 14;
 
             int i = (position.X - minX + 1) / 18;
 
-            HashSet<Creature> set = observers[j][i];
+            HashSet<Creature> set = zones[j][i];
 
             if (set == null)
             {
                 set = new HashSet<Creature>();
 
-                observers[j][i] = set;
+                zones[j][i] = set;
             }
 
             set.Add(creature);
         }
 
-        public void RemoveObserver(Position position, Creature creature)
+        public void ZoneRemoveCreature(Position position, Creature creature)
         {
             int j = (position.Y - minY + 1) / 14;
 
             int i = (position.X - minX + 1) / 18;
 
-            HashSet<Creature> set = observers[j][i];
+            HashSet<Creature> set = zones[j][i];
 
             if (set != null)
             {
@@ -504,9 +496,42 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                 if (set.Count == 0)
                 {
-                    observers[j][i] = null;
+                    zones[j][i] = null;
                 }
             }
+        }
+
+        public bool ZoneMoveCreature(Position fromPosition, Position toPosition, Creature creature)
+        {
+            int fromJ = (fromPosition.Y - minY + 1) / 14;
+
+            int toJ = (toPosition.Y - minY + 1) / 14;
+            
+            if (fromJ != toJ)
+            {
+                ZoneRemoveCreature(fromPosition, creature);
+
+                ZoneAddCreature(toPosition, creature);
+
+                return true;
+            }
+            else
+            {
+                int fromI = (fromPosition.X - minX + 1) / 18;
+
+                int toI = (toPosition.X - minX + 1) / 18;
+
+                if (fromI != toI)
+                {
+                    ZoneRemoveCreature(fromPosition, creature);
+
+                    ZoneAddCreature(toPosition, creature);
+
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public IEnumerable<Creature> GetObserversOfTypeCreature(Position position)
@@ -523,17 +548,17 @@ namespace OpenTibia.Game.Common.ServerObjects
 
             HashSet<Creature> GetObservers(int j, int i)
             {
-                if (j < 0 || j > observers.Length - 1)
+                if (j < 0 || j > zones.Length - 1)
                 {
                     return null;
                 }
 
-                if (i < 0 || i > observers[0].Length - 1)
+                if (i < 0 || i > zones[0].Length - 1)
                 {
                     return null;
                 }
 
-                return observers[j][i];
+                return zones[j][i];
             }
 
             HashSet<Creature> creatures = new HashSet<Creature>();

@@ -39,7 +39,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                             tile.AddContent(monster);
 
-                            server.Map.AddObserver(tile.Position, monster);
+                            server.Map.ZoneAddCreature(tile.Position, monster);
 
                             Spawner spawner = new Spawner()
                             {
@@ -75,7 +75,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
                             tile.AddContent(npc);
 
-                            server.Map.AddObserver(tile.Position, npc);
+                            server.Map.ZoneAddCreature(tile.Position, npc);
                         }
                         else
                         {
