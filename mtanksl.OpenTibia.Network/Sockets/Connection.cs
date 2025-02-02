@@ -209,7 +209,7 @@ namespace OpenTibia.Network.Sockets
         {
             foreach (var message in messageCollection.GetMessages() )
             {
-                Send(Envelope(message.GetBytes() ) );
+                Send(Envelope(message) );
             }
         }
 

@@ -51,8 +51,6 @@ namespace OpenTibia.Tests
             }
         }
 
-        public MessageProtocol MessageProtocol { get; set; }
-
         public uint[] Keys { get; set; }
 
         private List<IOutgoingPacket> outgoingPackets;

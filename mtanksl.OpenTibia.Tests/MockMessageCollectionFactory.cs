@@ -9,5 +9,10 @@ namespace OpenTibia.Tests
         {
             return new MockMessageCollection();
         }
+
+        public void Dispose()
+        {
+            
+        }
     }
 }

@@ -1086,6 +1086,11 @@ namespace OpenTibia.Game.Common
 
                 if (disposing)
                 {
+                    if (MessageCollectionFactory != null)
+                    {
+                        MessageCollectionFactory.Dispose();
+                    }
+
                     if (Values != null)
                     {
                         Values.Dispose();

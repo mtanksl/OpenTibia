@@ -1,12 +1,13 @@
 ﻿using OpenTibia.Network.Packets.Outgoing;
+using System;
 using System.Collections.Generic;
 
 namespace OpenTibia.Common.Objects
 {
-    public interface IMessageCollection
+    public interface IMessageCollection : IDisposable
     {
         void Add(IOutgoingPacket packet);
 
-        IEnumerable<IMessage> GetMessages();
+        IEnumerable<byte[]> GetMessages();
     }
 }

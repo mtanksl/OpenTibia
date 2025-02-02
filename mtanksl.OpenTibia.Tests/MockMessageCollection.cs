@@ -22,6 +22,14 @@ namespace OpenTibia.Tests
             outgoingPackets.Add(packet);
         }
 
-        public IEnumerable<IMessage> GetMessages() { throw new NotImplementedException(); }
+        public IEnumerable<byte[]> GetMessages()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Dispose()
+        {
+            
+        }
     }
 }
