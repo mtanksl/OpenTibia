@@ -1,5 +1,4 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
 using System;
 using System.Net;
 using System.Net.Sockets;
@@ -74,8 +73,6 @@ namespace OpenTibia.Network.Sockets
                 }
             }
         }
-
-        public MessageProtocol MessageProtocol { get; set; }
 
         public uint[] Keys { get; set; }
 
@@ -212,9 +209,11 @@ namespace OpenTibia.Network.Sockets
         {
             foreach (var message in messageCollection.GetMessages() )
             {
-                Send(message.GetBytes(MessageProtocol, Keys) );
+                Send(Envelope(message.GetBytes() ) );
             }
         }
+
+        protected abstract byte[] Envelope(byte[] bytes);
 
         private void Send(byte[] bytes)
         {

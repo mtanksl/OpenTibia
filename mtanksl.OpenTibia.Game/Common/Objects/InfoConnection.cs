@@ -1,5 +1,4 @@
-﻿using OpenTibia.Common.Structures;
-using OpenTibia.Game.Commands;
+﻿using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.IO;
@@ -10,7 +9,7 @@ using System.Net.Sockets;
 
 namespace OpenTibia.Common
 {
-    public class InfoConnection : RateLimitingConnection
+    public class InfoConnection : RawConnection
     {
         private static Dictionary<byte, IPacketToCommand> firstCommands = new Dictionary<byte, IPacketToCommand>();
 
@@ -24,8 +23,6 @@ namespace OpenTibia.Common
         public InfoConnection(IServer server, Socket socket) : base(server, socket)
         {
             this.server = server;
-
-            MessageProtocol = MessageProtocol.Raw;
         }
 
         protected override void OnConnected()

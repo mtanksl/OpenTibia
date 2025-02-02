@@ -291,7 +291,7 @@ namespace OpenTibia.Game.Common
 
                     IMessageCollection messageCollection = pair.Value;
 
-                    connection.Send(messageCollection);                    
+                    connection.Send(messageCollection);
                 }
 
                 messageCollections.Clear();

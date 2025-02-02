@@ -13,7 +13,7 @@ using System.Net.Sockets;
 
 namespace OpenTibia.Common
 {
-    public class GameConnection : RateLimitingConnection
+    public class GameConnection : TibiaConnection
     {
         private static Dictionary<byte, IPacketToCommand> firstCommands = new Dictionary<byte, IPacketToCommand>();
 
@@ -596,8 +596,6 @@ namespace OpenTibia.Common
         public GameConnection(IServer server, Socket socket) : base(server, socket)
         {
             this.server = server;
-
-            MessageProtocol = MessageProtocol.Tibia;
         }
 
         protected override void OnConnected()

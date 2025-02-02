@@ -1,8 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
-using OpenTibia.Common.Structures;
 using OpenTibia.IO;
-using OpenTibia.Security;
-using System;
 
 namespace OpenTibia.Network.Packets.Outgoing
 {
@@ -32,51 +29,9 @@ namespace OpenTibia.Network.Packets.Outgoing
             writer.Write(buffer, offset, length);
         }
 
-        private byte[] Length(byte[] bytes)
+        public byte[] GetBytes()
         {
-            byte[] length = BitConverter.GetBytes( (ushort)bytes.Length );
-
-            return length.Combine(bytes);
-        }
-
-        private byte[] Hash(byte[] bytes)
-        {
-            byte[] hash = BitConverter.GetBytes( Adler32.Generate(bytes) );
-
-            return hash.Combine(bytes);
-        }
-        
-        private byte[] Encrypt(uint[] keys, byte[] bytes)
-        {
-            int padding = bytes.Length % 8;
-
-            if (padding > 0)
-            {
-                bytes = bytes.Combine( new byte[8 - padding] );
-            }
-
-            return Xtea.Encrypt(bytes, 32, keys);
-        }
-
-        public byte[] GetBytes(MessageProtocol type, uint[] keys)
-        {
-            if (type == MessageProtocol.Raw)
-            {
-                return stream.GetBytes();
-            }
-            else if (type == MessageProtocol.Tibia)
-            {
-                if (keys == null)
-                {
-                    return Length(Hash(Length(stream.GetBytes() ) ) );
-                }
-
-                return Length(Hash(Encrypt(keys, Length(stream.GetBytes() ) ) ) );
-            }
-            else
-            {
-                throw new NotImplementedException();
-            }
+            return stream.GetBytes();
         }
     }
 }
