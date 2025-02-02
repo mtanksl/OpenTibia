@@ -24,15 +24,17 @@ namespace OpenTibia.Game.Commands
         {
             if (Tile.TopItem != null && Tile.TopItem is StackableItem stackableItem && stackableItem.Metadata.OpenTibiaId == OpenTibiaId)
             {
-                if (stackableItem.Count + Count > 100)
+                int total = stackableItem.Count + Count;
+
+                if (total > 100)
                 { 
-                    return Context.AddCommand(new StackableItemUpdateCountCommand(stackableItem, 100) ).Then( () =>
+                    return Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, (byte)(total - 100) ) ).Then( (item) =>
                     {
-                        return Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, (byte)(stackableItem.Count + Count - 100) ) );
+                        return Context.AddCommand(new StackableItemUpdateCountCommand(stackableItem, 100) );
                     } );
                 }
 
-                return Context.AddCommand(new StackableItemUpdateCountCommand(stackableItem, (byte)(stackableItem.Count + Count) ) );
+                return Context.AddCommand(new StackableItemUpdateCountCommand(stackableItem, (byte)total) );
             }
 
             return Context.AddCommand(new TileCreateItemCommand(Tile, OpenTibiaId, Count) );

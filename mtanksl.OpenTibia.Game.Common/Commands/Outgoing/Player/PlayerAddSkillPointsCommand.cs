@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 using System;
@@ -68,64 +67,7 @@ namespace OpenTibia.Game.Commands
 
             if (correctSkillLevel > currentSkillLevel)
             {
-                string name;
-
-                switch (Skill)
-                {
-                    case Skill.MagicLevel:
-
-                        name = "magic level";
-
-                        break;
-
-                    case Skill.Fist:
-
-                        name = "fist fighting";
-
-                        break;
-
-                    case Skill.Club:
-
-                        name = "club fighting";
-
-                        break;
-
-                    case Skill.Sword:
-
-                        name = "sword fighting";
-
-                        break;
-
-                    case Skill.Axe:
-
-                        name = "axe fighting";
-
-                        break;
-
-                    case Skill.Distance:
-
-                        name = "distance fighting";
-
-                        break;
-
-                    case Skill.Shield:
-
-                        name = "shielding";
-
-                        break;
-
-                    case Skill.Fish:
-
-                        name = "fishing";
-
-                        break;
-
-                    default:
-
-                        throw new NotImplementedException();
-                }
-
-                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You advanced to " + name + " level " + correctSkillLevel + ".") );
+                Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You advanced to " + Skill.GetDescription() + " level " + correctSkillLevel + ".") );
 
                 Context.AddEvent(Player, new PlayerAdvanceSkillEventArgs(Player, Skill, currentSkillLevel, correctSkillLevel) );
             }            

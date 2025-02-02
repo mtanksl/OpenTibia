@@ -71,6 +71,8 @@ namespace OpenTibia.Game.Commands
                     }
                     else
                     {
+                        builder.Append("You see " + player.Name);
+
                         List<string> attributes = new List<string>();
 
                         attributes.Add("Level: " + player.Level);
@@ -88,8 +90,6 @@ namespace OpenTibia.Game.Commands
                                 attributes.Add("Latency: " + playerPingBehaviour.GetLatency() + " ms");
                             }
                         }
-
-                        builder.Append("You see " + player.Name);
 
                         if (attributes.Count > 0)
                         {

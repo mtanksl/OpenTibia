@@ -31,9 +31,11 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             // And the destination is stackable, then do the math
 
-                            if (toStackableItem.Count + command.Count > 100)
+                            int total = toStackableItem.Count + command.Count;
+
+                            if (total > 100)
                             {
-                                return Context.AddCommand(new TileCreateItemCommand(toTile, fromStackableItem.Metadata.OpenTibiaId, (byte)(toStackableItem.Count + command.Count - 100) ) ).Then( (item) =>
+                                return Context.AddCommand(new TileCreateItemCommand(toTile, fromStackableItem.Metadata.OpenTibiaId, (byte)(total - 100) ) ).Then( (item) =>
                                 {
                                     return Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) );
 
@@ -44,7 +46,7 @@ namespace OpenTibia.Game.CommandHandlers
                             }
                             else
                             {
-                                return Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + command.Count) ) ).Then( () =>
+                                return Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)total) ).Then( () =>
                                 {
                                     return Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
                                 } );
@@ -97,7 +99,9 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             // And the destination is stackable, then do the math
 
-                            if (toStackableItem.Count + command.Count > 100)
+                            int total = toStackableItem.Count + command.Count;
+
+                            if (total > 100)
                             {
                                 byte count = (byte)(100 - toStackableItem.Count);
 
@@ -108,7 +112,7 @@ namespace OpenTibia.Game.CommandHandlers
                             }
                             else
                             {
-                                return Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + command.Count) ) ).Then( () =>
+                                return Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)total) ).Then( () =>
                                 {
                                     return Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
                                 } );
@@ -179,11 +183,13 @@ namespace OpenTibia.Game.CommandHandlers
                         {
                             // And the destination is stackable, then do the math
 
-                            if (toStackableItem.Count + command.Count > 100)
+                            int total = toStackableItem.Count + command.Count;
+
+                            if (total > 100)
                             {
                                 if (toContainer.Count < toContainer.Metadata.Capacity)
                                 {
-                                    return Context.AddCommand(new ContainerCreateItemCommand(toContainer, fromStackableItem.Metadata.OpenTibiaId, (byte)(toStackableItem.Count + command.Count - 100) ) ).Then( (item) =>
+                                    return Context.AddCommand(new ContainerCreateItemCommand(toContainer, fromStackableItem.Metadata.OpenTibiaId, (byte)(total - 100) ) ).Then( (item) =>
                                     {
                                         return Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, 100) );
 
@@ -204,7 +210,7 @@ namespace OpenTibia.Game.CommandHandlers
                             }
                             else
                             {
-                                return Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)(toStackableItem.Count + command.Count) ) ).Then( () =>
+                                return Context.AddCommand(new StackableItemUpdateCountCommand(toStackableItem, (byte)total) ).Then( () =>
                                 {
                                     return Context.AddCommand(new ItemDecrementCommand(fromStackableItem, command.Count) );
                                 } );

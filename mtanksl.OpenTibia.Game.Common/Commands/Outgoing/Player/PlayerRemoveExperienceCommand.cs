@@ -66,7 +66,7 @@ namespace OpenTibia.Game.Commands
 
             if (correctLevel < currentLevel)
             {
-                VocationConfig vocationConfig = Context.Current.Server.Vocations.GetVocationById((byte)Player.Vocation);
+                VocationConfig vocationConfig = Context.Current.Server.Vocations.GetVocationById( (byte)Player.Vocation);
 
                 Player.BaseSpeed = Formula.GetBaseSpeed(correctLevel);
 
