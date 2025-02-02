@@ -1,6 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
 using OpenTibia.Game.Common;
+using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets.Outgoing;
 using System.Linq;
 
@@ -60,6 +61,8 @@ namespace OpenTibia.Game.Commands
                         Player.Achievements.SetAchievement(AchievementName);
 
                         Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "Congratulations! You earned the achievement \"" + AchievementName + "\".") );
+
+                        Context.AddEvent(new PlayerEarnAchievementEventArgs(Player, AchievementName) );
                     }
                 }
                 else
@@ -69,6 +72,8 @@ namespace OpenTibia.Game.Commands
                         Player.Achievements.SetAchievement(AchievementName);
 
                         Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "Congratulations! You earned the achievement \"" + AchievementName + "\".") );
+
+                        Context.AddEvent(new PlayerEarnAchievementEventArgs(Player, AchievementName) );
                     }
                 }
             }
