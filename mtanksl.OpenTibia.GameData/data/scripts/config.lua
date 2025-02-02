@@ -14,6 +14,7 @@
     { filename = "OpenTibia.Game.Scripts.PlayerLogoutScripts" },
     { filename = "OpenTibia.Game.Scripts.PlayerAdvanceLevelScripts" },
     { filename = "OpenTibia.Game.Scripts.PlayerAdvanceSkillScripts" },
+    { filename = "OpenTibia.Game.Scripts.PlayerEarnAchievementScripts" },
     { filename = "OpenTibia.Game.Scripts.CreatureDeathScripts" },
     { filename = "OpenTibia.Game.Scripts.PlayerMoveCreatureScripts" },
     { filename = "OpenTibia.Game.Scripts.PlayerMoveItemScripts" },
