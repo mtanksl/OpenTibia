@@ -57,6 +57,12 @@
 				[6373] = 6371, -- Bookcase
 				[8692] = 8688  -- Chimney
 			},
+			corpses = {
+				--TODO
+			},
+			dusts = {
+				--TODO
+			},
 			trashes = { 
 				[1738] = 2250, -- Box
 				[1739] = 2251, -- Crate
@@ -307,6 +313,7 @@
 		bakingTrayWithGarlicDoughs = { 9115 },
 		barOfChocolates = { 6574 },
 		beerCasks = { 1772 },
+		blessedWoodenStakes = { 5942 },
 		blueberry = 2677,
 		blueSurpriseBags = { 6570 },
 		bread = 2689,
@@ -570,6 +577,6 @@
 		wineCasks = { 1773 },
 		worm = 3976,
 		woodens = { 5901 },
-		woodenTies = 2255 -- TODO
+		woodenTies = 2255 --TODO
 	}
 }

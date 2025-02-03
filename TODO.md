@@ -82,7 +82,7 @@
 	- Combat controls
 	- Fight (vs Monster)
 		- Monster spawn/respawn	
-		- Monster despawn
+		- Monster despawn (anti-luring)
 		- Loot
 		- Experience, level and level percent (advance and downgrade)
 		- Magic level and skills (advance and downgrade)

@@ -10,11 +10,13 @@ namespace OpenTibia.Game.CommandHandlers
     {
         private readonly HashSet<ushort> obsidianKnifes;
         private readonly Dictionary<ushort, ushort> iceCubes;
+        private readonly Dictionary<ushort, ushort> corpses;
 
         public ObsidianKnifeHandler()
         {
             obsidianKnifes = Context.Server.Values.GetUInt16HashSet("values.items.obsidianKnifes");
             iceCubes = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.iceCubes");
+            corpses = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.corpses");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
@@ -65,6 +67,10 @@ namespace OpenTibia.Game.CommandHandlers
                             } );
                         }
                     }
+                }
+                else if (corpses.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+                {
+                    //TODO
                 }
             }
             
