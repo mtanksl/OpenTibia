@@ -67,6 +67,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new RopeHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new SawHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new ScytheHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new ShovelHandler() );

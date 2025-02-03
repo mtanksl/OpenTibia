@@ -485,6 +485,7 @@
 		ropeSpots = { 384, 418, 8278 },
 		roughClayStatue = 11340,
 		rumCasks = { 5539 },
+		saws = { 2558 },
 		santaDolls = { 6567 },
 		scythes = {
 			2550, -- Scythes
@@ -550,6 +551,8 @@
 		wheat = 2694,
 		wheats = { 2694 },
 		wineCasks = { 1773 },
-		worm = 3976
+		worm = 3976,
+		woodens = { 5901 },
+		woodenTies = 2255 -- TODO
 	}
 }
