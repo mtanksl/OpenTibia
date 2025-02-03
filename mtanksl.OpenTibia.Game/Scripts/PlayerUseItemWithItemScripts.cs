@@ -37,6 +37,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new BunchOfSugarCaneHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new CrowbarHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new FireBugHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithItemCommand>(new FlourHandler() );

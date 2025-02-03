@@ -46,7 +46,7 @@ namespace OpenTibia.Game.Commands
                             toContainer.AddContent(content);
                         }
                     }
-                    else
+                    else if (fromContainer.Count > 0)
                     {
                         throw new InvalidOperationException("ToItem must be Container.");
                     }

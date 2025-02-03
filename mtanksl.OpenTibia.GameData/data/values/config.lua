@@ -57,6 +57,22 @@
 				[6373] = 6371, -- Bookcase
 				[8692] = 8688  -- Chimney
 			},
+			trashes = { 
+				[1738] = 2250, -- Box
+				[1739] = 2251, -- Crate
+				[1770] = 2251, -- Barrel
+				[1774] = 2251, -- Barrel
+				[1740] = 2252, -- Chest
+				[1747] = 2252,
+				[1748] = 2252,
+				[1749] = 2252,
+				[1650] = 2253, -- Wooden chair
+				[1651] = 2253,
+				[1652] = 2253,
+				[1653] = 2253,
+				[1741] = 2254,
+				[1619] = 2255 -- Small table
+			},
 			crystalCoinToPlatinumCoin = { [2160] = 2152 },
 			distillingMachines = { [5469] = 5513, [5470] = 5514, },
 			emptyCoalBasins = { [1485] = 1483 },
@@ -311,6 +327,7 @@
 		coconuts = { 2678 },
 		cookie = 2687,
 		crystalCoin = 2160,
+		crowbars = { 2416 },
 		decoratedCake = 6279,
 		decoratedCake = 6279,
 		dice = 5792,
