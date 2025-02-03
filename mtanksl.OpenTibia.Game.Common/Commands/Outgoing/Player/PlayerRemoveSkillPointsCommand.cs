@@ -61,6 +61,8 @@ namespace OpenTibia.Game.Commands
             }
             else
             {
+                currentSkillPoints = SkillPoints;
+
                 if (Skill == Skill.MagicLevel)
                 {
                     correctSkillLevel = 0;

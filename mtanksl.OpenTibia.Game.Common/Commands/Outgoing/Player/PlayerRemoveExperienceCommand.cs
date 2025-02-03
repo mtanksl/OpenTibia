@@ -60,6 +60,8 @@ namespace OpenTibia.Game.Commands
             }
             else
             {
+                currentExperience = Experience;
+
                 correctLevel = 1;
 
                 correctLevelPercent = 0;
