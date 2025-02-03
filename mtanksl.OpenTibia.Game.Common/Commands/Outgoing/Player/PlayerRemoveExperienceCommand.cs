@@ -1,5 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
+using OpenTibia.Data.Models;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Game.Events;
@@ -70,13 +71,40 @@ namespace OpenTibia.Game.Commands
 
                 Player.BaseSpeed = Formula.GetBaseSpeed(correctLevel);
 
-                Player.Capacity = (uint)(Player.Capacity - (correctLevel - currentLevel) * vocationConfig.CapacityPerLevel * 100);
+                uint removeCapacity = (uint)( (correctLevel - currentLevel) * vocationConfig.CapacityPerLevel * 100);
 
-                Player.MaxHealth = (ushort)(Player.MaxHealth - (correctLevel - currentLevel) * vocationConfig.HealthPerLevel);
+                if (Player.Capacity > removeCapacity)
+                {
+                    Player.Capacity -= removeCapacity;
+                }
+                else
+                {
+                    Player.Capacity = 40000;
+                }
+
+                ushort removeHealth = (ushort)( (correctLevel - currentLevel) * vocationConfig.HealthPerLevel);
+
+                if (Player.MaxHealth > removeHealth)
+                {
+                    Player.MaxHealth -= removeHealth;
+                }
+                else
+                {
+                    Player.MaxHealth = 150;
+                }
 
                 Player.Health = Math.Min(Player.MaxHealth, Player.Health);
 
-                Player.MaxMana = (ushort)(Player.MaxMana - (correctLevel - currentLevel) * vocationConfig.ManaPerLevel);
+                ushort removeMana = (ushort)( (correctLevel - currentLevel) * vocationConfig.ManaPerLevel);
+
+                if (Player.MaxMana > removeMana)
+                {
+                    Player.MaxMana -= removeMana;
+                }
+                else
+                {
+                    Player.MaxMana = 55;
+                }
 
                 Player.Mana = Math.Min(Player.MaxMana, Player.Mana);
                 

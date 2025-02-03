@@ -143,7 +143,7 @@ namespace OpenTibia.Game.Commands
 
                 if (rooking)
                 {
-                    player.BaseSpeed = player.Speed = 220;
+                    player.BaseSpeed = 220;
 
                     player.Capacity = 40000;
 
@@ -160,6 +160,8 @@ namespace OpenTibia.Game.Commands
                         player.Town = tile;
                     }
                 }
+
+                player.Speed = player.BaseSpeed;
 
                 if (player.Combat.GetSkullIcon(null) == SkullIcon.Black)
                 {
