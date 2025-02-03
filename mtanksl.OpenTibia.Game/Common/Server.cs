@@ -434,7 +434,9 @@ namespace OpenTibia.Game.Common
                         {
                             foreach (var dbWorld in await database.WorldRepository.GetWorlds() )
                             {
-                                DbWorld world = Config.Worlds.Where(w => w.Name == dbWorld.Name).FirstOrDefault();
+                                DbWorld world = Config.Worlds
+                                    .Where(w => w.Name == dbWorld.Name)
+                                    .FirstOrDefault();
 
                                 if (world != null)
                                 {

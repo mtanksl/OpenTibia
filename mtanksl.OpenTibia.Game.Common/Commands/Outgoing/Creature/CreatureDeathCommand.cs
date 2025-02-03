@@ -40,26 +40,21 @@ namespace OpenTibia.Game.Commands
 
                 ulong totalDamage = (ulong)hits.Values.Sum(h => h.Damage);
 
-                uint maxDamage = 0;
-
-                Player owner = null;
-
                 foreach (var pair in hits)
                 {
-                    if (pair.Key is Player attacker && attacker.Tile != null && !attacker.IsDestroyed)
-                    {
-                        ulong damage = (ulong)pair.Value.Damage;
+                    Creature attacker = pair.Key;
 
-                        if (damage > maxDamage)
-                        {
-                            owner = attacker;
-                        }
+                    Hit hit = pair.Value;
+
+                    if (attacker is Player player && player.Tile != null && !player.IsDestroyed)
+                    {
+                        ulong damage = (ulong)hit.Damage;
 
                         ulong experience = totalExperience * damage / totalDamage;
 
                         if (experience > 0)
                         {
-                            await Context.AddCommand(new PlayerAddExperienceCommand(attacker, experience) );
+                            await Context.AddCommand(new PlayerAddExperienceCommand(player, experience) );
                         }
                     }
                 }
@@ -68,43 +63,40 @@ namespace OpenTibia.Game.Commands
                     
                          _ = Context.AddCommand(new ItemDecayDestroyCommand(corpse, TimeSpan.FromSeconds(30) ) );
 
-                if (owner != null)
+                if (corpse is Container container && killer is Player owner && owner.Tile != null && !owner.IsDestroyed)
                 {
-                    if (corpse is Container container)
+                    StringBuilder builder = new StringBuilder();
+
+                    foreach (var item in container.GetItems() )
                     {
-                        StringBuilder builder = new StringBuilder();
+                        builder.Append(item.Metadata.GetDescription(item is StackableItem stackableItem ? stackableItem.Count : (byte)1) + ", ");
+                    }
 
-                        foreach (var item in container.GetItems() )
-                        {
-                            builder.Append(item.Metadata.GetDescription(item is StackableItem stackableItem ? stackableItem.Count : (byte)1) + ", ");
-                        }
+                    string message;
 
-                        string message;
-
-                        if (builder.Length > 2)
-                        {
-                            builder.Remove(builder.Length - 2, 2);
+                    if (builder.Length > 2)
+                    {
+                        builder.Remove(builder.Length - 2, 2);
                
-                            message = "Loot of " + monster.Metadata.Description + ": " + builder.ToString() + ".";
-                        }
-                        else
-                        {
-                            message = "Loot of " + monster.Metadata.Description + ": nothing.";
-                        }
+                        message = "Loot of " + monster.Metadata.Description + ": " + builder.ToString() + ".";
+                    }
+                    else
+                    {
+                        message = "Loot of " + monster.Metadata.Description + ": nothing.";
+                    }
 
-                        Party party = Context.Server.Parties.GetPartyThatContainsMember(owner);
+                    Party party = Context.Server.Parties.GetPartyThatContainsMember(owner);
 
-                        if (party != null)
+                    if (party != null)
+                    {
+                        foreach (var member in party.GetMembers() )
                         {
-                            foreach (var member in party.GetMembers() )
-                            {
-                                Context.AddPacket(member, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
-                            }
+                            Context.AddPacket(member, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
                         }
-                        else
-                        {
-                            Context.AddPacket(owner, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
-                        }
+                    }
+                    else
+                    {
+                        Context.AddPacket(owner, new ShowWindowTextOutgoingPacket(TextColor.GreenCenterGameWindowAndServerLog, message) );
                     }
                 }
             }
@@ -125,83 +117,59 @@ namespace OpenTibia.Game.Commands
                     lossPercent = Context.Server.Config.GameplayDeathLosePercent / 100.0;
                 }
 
-                ulong experience = (ulong)(player.Experience * lossPercent);
-
-                bool rooking = false;
-
-                if (Context.Server.Config.GameplayRooking.Enabled)
-                {
-                    if (player.Vocation != Vocation.None)
-                    {
-                        if (player.Experience > experience)
-                        {
-                            if (player.Experience - experience < Context.Server.Config.GameplayRooking.ExperienceThreshold)
-                            {
-                                rooking = true;
-                            }
-                        }
-                        else
-                        {
-                            rooking = true;
-                        }
-                    }
-                }
+                bool rooking = Context.Server.Config.GameplayRooking.Enabled && player.Vocation != Vocation.None && (player.Experience * (1 - lossPercent) < Context.Server.Config.GameplayRooking.ExperienceThreshold);
 
                 if (rooking)
                 {
-                    await Context.AddCommand(new PlayerRookingCommand(player) );
-
-                    var corpse = await Context.AddCommand(new TileCreatePlayerCorpseCommand(player.Tile, player, true, blesses) );
-                        
-                             _ = Context.AddCommand(new ItemDecayDestroyCommand(corpse, TimeSpan.FromMinutes(5) ) );
+                    lossPercent = 100 / 100.0;
                 }
-                else
+
+                ulong experience = (ulong)(player.Experience * lossPercent);
+
+                if (experience > 0)
                 {
-                    if (experience > 0)
+                    await Context.AddCommand(new PlayerRemoveExperienceCommand(player, experience) );
+                }
+
+                foreach (var skill in new[] { Skill.MagicLevel, Skill.Fist, Skill.Club, Skill.Sword, Skill.Axe, Skill.Distance, Skill.Shield, Skill.Fish } )
+                {
+                    ulong skillPoints = (ulong)(player.Skills.GetSkillPoints(skill) * lossPercent);
+
+                    if (skillPoints > 0)
                     {
-                        await Context.AddCommand(new PlayerRemoveExperienceCommand(player, experience) );
+                        await Context.AddCommand(new PlayerRemoveSkillPointsCommand(player, skill, skillPoints) );
                     }
+                }
 
-                    foreach (var skill in new[] { Skill.MagicLevel, Skill.Fist, Skill.Club, Skill.Sword, Skill.Axe, Skill.Distance, Skill.Shield, Skill.Fish } )
+                var corpse = await Context.AddCommand(new TileCreatePlayerCorpseCommand(player.Tile, player, rooking || player.Combat.GetSkullIcon(null) == SkullIcon.Red || player.Combat.GetSkullIcon(null) == SkullIcon.Black, blesses) );
+                        
+                         _ = Context.AddCommand(new ItemDecayDestroyCommand(corpse, TimeSpan.FromMinutes(5) ) );
+
+                if (killer is Player owner)
+                {
+                    if ( !player.Combat.Attacked(owner) )
                     {
-                        ulong skillPoints = (ulong)(player.Skills.GetSkillPoints(skill) * lossPercent);
-
-                        if (skillPoints > 0)
+                        if (owner.Tile != null && !owner.IsDestroyed)
                         {
-                            await Context.AddCommand(new PlayerRemoveSkillPointsCommand(player, skill, skillPoints) );
+                            Context.AddPacket(owner, new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, "Warning! The murder of " + player.Name + " was not justified.") );
+
+                            await Context.Current.AddCommand(new CreatureAddConditionCommand(owner, new ProtectionZoneBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayProtectionZoneBlockSeconds) ) ) );
                         }
-                    }
 
-                    var corpse = await Context.AddCommand(new TileCreatePlayerCorpseCommand(player.Tile, player, player.Combat.GetSkullIcon(null) == SkullIcon.Red || player.Combat.GetSkullIcon(null) == SkullIcon.Black, blesses) );
-                        
-                             _ = Context.AddCommand(new ItemDecayDestroyCommand(corpse, TimeSpan.FromMinutes(5) ) );
-                }
+                        owner.Combat.AddKill(0, player.DatabasePlayerId, true, DateTime.UtcNow);
 
-                if (killer is Player attacker)
-                {
-                    bool unjustified = !player.Combat.Attacked(attacker);
-
-                    attacker.Combat.AddKill(0, player.DatabasePlayerId, unjustified, DateTime.UtcNow);
-
-                    player.Combat.AddDeath(0, attacker.DatabasePlayerId, attacker.Name, player.Level, unjustified, DateTime.UtcNow);
-
-                    if (unjustified)
-                    {
-                        Context.AddPacket(attacker, new ShowWindowTextOutgoingPacket(TextColor.RedCenterGameWindowAndServerLog, "Warning! The murder of " + player.Name + " was not justified.") );
-                    
-                        await Context.Current.AddCommand(new CreatureAddConditionCommand(attacker, new ProtectionZoneBlockCondition(TimeSpan.FromSeconds(Context.Current.Server.Config.GameplayProtectionZoneBlockSeconds) ) ) );
-                    }
-                }
-                else
-                {
-                    if (killer == null)
-                    {
-                        player.Combat.AddDeath(0, null, "Environment", 0, false, DateTime.UtcNow);
+                        player.Combat.AddDeath(0, owner.DatabasePlayerId, killer.Name, player.Level, true, DateTime.UtcNow);
                     }
                     else
                     {
-                        player.Combat.AddDeath(0, null, killer.Name, 0, false, DateTime.UtcNow);
+                        owner.Combat.AddKill(0, owner.DatabasePlayerId, false, DateTime.UtcNow);
+
+                        player.Combat.AddDeath(0, owner.DatabasePlayerId, killer.Name, player.Level, false, DateTime.UtcNow);
                     }
+                }
+                else
+                {
+                    player.Combat.AddDeath(0, null, killer == null ? "Environment" : killer.Name, player.Level, false, DateTime.UtcNow);
                 }
             }
 

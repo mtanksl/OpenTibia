@@ -28,9 +28,9 @@ namespace OpenTibia.Game.Commands
 
         public override PromiseResult<Item> Execute()
         {
-            return Context.AddCommand(new TileCreateItemCommand(Tile, Metadata.Corpse, 1) ).Then( (item) =>
+            return Context.AddCommand(new TileCreateItemCommand(Tile, Metadata.Corpse, 1) ).Then( (corpse) =>
             {
-                if (item is Container container)
+                if (corpse is Container container)
                 {
                     if (Metadata.Loot != null)
                     {
@@ -90,7 +90,7 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                return Promise.FromResult(item);
+                return Promise.FromResult(corpse);
             } );
         }
     }
