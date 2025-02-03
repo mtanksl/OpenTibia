@@ -50,34 +50,38 @@ function registeractionsplayermovecreature(name, onmovecreature)
     } )
 end
 
-function registermovementscreaturestepin(opentibiaid, onstepin)
+function registermovementscreaturestepin(opentibiaid, onsteppingin, onstepin)
     registerplugin("movements", {
 	    type = "CreatureStepIn",
 	    opentibiaid = opentibiaid,
+        onsteppingin = onsteppingin,
 	    onstepin = onstepin
     } )
 end
 
-function registermovementscreaturestepout(opentibiaid, onstepout)
+function registermovementscreaturestepout(opentibiaid, onsteppingout, onstepout)
     registerplugin("movements", {
 	    type = "CreatureStepOut",
 	    opentibiaid = opentibiaid,
+        onsteppingout = onsteppingout,
 	    onstepout = onstepout
     } )
 end
 
-function registermovementsinventoryequip(opentibiaid, onequip)
+function registermovementsinventoryequip(opentibiaid, onequipping, onequip)
     registerplugin("movements", {
 	    type = "InventoryEquip",
 	    opentibiaid = opentibiaid,
+        onequipping = onequipping,
 	    onequip = onequip
     } )
 end
 
-function registermovementsinventorydeequip(opentibiaid, ondeequip)
+function registermovementsinventorydeequip(opentibiaid, ondeequipping, ondeequip)
     registerplugin("movements", {
 	    type = "InventoryDeEquip",
 	    opentibiaid = opentibiaid,
+        ondeequipping = ondeequipping,
 	    ondeequip = ondeequip
     } )
 end

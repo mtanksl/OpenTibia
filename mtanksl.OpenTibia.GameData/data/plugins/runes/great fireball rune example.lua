@@ -1,6 +1,6 @@
 function onusingrune(player, target, toTile, rune)
 	--TODO
-	return true
+	return true -- validated, continue process
 end
 
 function onuserune(player, target, toTile, rune)

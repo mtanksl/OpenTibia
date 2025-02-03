@@ -39,6 +39,24 @@ namespace OpenTibia.Game.Plugins
             }
         }
 
+        public override PromiseResult<bool> OnSteppingIn(Creature creature, Tile toTile)
+        {
+            if (fileName != null)
+            {
+                return script.CallFunction("onsteppingin", creature, toTile).Then(result =>
+                {
+                    return (bool)result[0] ? Promise.FromResultAsBooleanTrue : Promise.FromResultAsBooleanFalse;
+                } );
+            }
+            else
+            {
+                return script.CallFunction( (LuaFunction)parameters["onsteppingin"], creature, toTile).Then(result =>
+                {
+                    return (bool)result[0] ? Promise.FromResultAsBooleanTrue : Promise.FromResultAsBooleanFalse;
+                } );
+            }    
+        }
+
         public override Promise OnStepIn(Creature creature, Tile fromTile, Tile toTile)
         {
             if (fileName != null)

@@ -8,13 +8,16 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
+            Context.Server.CommandHandlers.AddCommandHandler<InventoryRemoveItemCommand>(new InventoryRemovingItemScriptingHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler<InventoryRemoveItemCommand>(new InventoryRemoveItemNpcTradingUpdateStatsHandler());
+
+
             Context.Server.EventHandlers.Subscribe<InventoryRemoveItemEventArgs>(new InventoryRemoveItemScriptingHandler() );
 
             Context.Server.EventHandlers.Subscribe<InventoryRemoveItemEventArgs>(new RingDeEquipHandler() );
 
             Context.Server.EventHandlers.Subscribe<InventoryRemoveItemEventArgs>(new HelmetOfTheDeepDeEquipHandler() );
-
-            Context.Server.CommandHandlers.AddCommandHandler<InventoryRemoveItemCommand>(new InventoryRemoveItemNpcTradingUpdateStatsHandler() );
         }
 
         public override void Stop()

@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Game.CommandHandlers;
+using OpenTibia.Game.Commands;
 using OpenTibia.Game.Events;
 
 namespace OpenTibia.Game.Scripts
@@ -7,6 +8,9 @@ namespace OpenTibia.Game.Scripts
     {
         public override void Start()
         {
+            Context.Server.CommandHandlers.AddCommandHandler<TileAddCreatureCommand>(new TileAddingCreatureScriptingHandler() );
+
+
             Context.Server.EventHandlers.Subscribe<TileAddCreatureEventArgs>(new TileAddCreatureScriptingHandler() );
 
             Context.Server.EventHandlers.Subscribe<TileAddCreatureEventArgs>(new ProtectionZoneHandler() );

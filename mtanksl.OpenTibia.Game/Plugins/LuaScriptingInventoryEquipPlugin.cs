@@ -39,6 +39,24 @@ namespace OpenTibia.Game.Plugins
             }
         }
 
+        public override PromiseResult<bool> OnEquipping(Inventory inventory, Item item, byte slot)
+        {
+            if (fileName != null)
+            {
+                return script.CallFunction("onequipping", inventory, item, slot).Then(result =>
+                {
+                    return (bool)result[0] ? Promise.FromResultAsBooleanTrue : Promise.FromResultAsBooleanFalse;
+                } );
+            }
+            else
+            {
+                return script.CallFunction( (LuaFunction)parameters["onequipping"], inventory, item, slot).Then(result =>
+                {
+                    return (bool)result[0] ? Promise.FromResultAsBooleanTrue : Promise.FromResultAsBooleanFalse;
+                } );
+            } 
+        }
+
         public override Promise OnEquip(Inventory inventory, Item item, byte slot)
         {
             if (fileName != null)

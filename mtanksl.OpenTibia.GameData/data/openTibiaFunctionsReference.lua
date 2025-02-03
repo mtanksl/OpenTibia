@@ -41,74 +41,74 @@ return {
 		args = "(string type, LuaTable parameters)",
 		returns = "void"
 	},
-	-- void registeractionsplayerrotateitem(opentibiaid, onrotateitem)
+	-- void registeractionsplayerrotateitem(ushort opentibiaid, Func<Player, Item, bool> onrotateitem)
 	registeractionsplayerrotateitem = {
 		type = "function",
 		description = "",
-		args = "(opentibiaid, onrotateitem)",
+		args = "(ushort opentibiaid, Func<Player, Item, bool> onrotateitem)",
 		returns = "void"
 	},
-	-- void registeractionsplayeruseitem(opentibiaid, onuseitem)
+	-- void registeractionsplayeruseitem(ushort opentibiaid, Func<Player, Item, bool> onuseitem)
 	registeractionsplayeruseitem = {
 		type = "function",
 		description = "",
-		args = "(opentibiaid, onuseitem)",
+		args = "(ushort opentibiaid, Func<Player, Item, bool> onuseitem)",
 		returns = "void"
 	},
-	-- void registeractionsplayeruseitemwithitem(opentibiaid, allowfaruse, onuseitemwithitem)
+	-- void registeractionsplayeruseitemwithitem(ushort opentibiaid, allowfaruse, Func<Player, Item, Item, bool> onuseitemwithitem)
 	registeractionsplayeruseitemwithitem = {
 		type = "function",
 		description = "",
-		args = "(opentibiaid, allowfaruse, onuseitemwithitem)",
+		args = "(ushort opentibiaid, allowfaruse, Func<Player, Item, Item, bool> onuseitemwithitem)",
 		returns = "void"
 	},
-	-- void registeractionsplayeruseitemwithcreature(opentibiaid, allowfaruse, onuseitemwithcreature)
+	-- void registeractionsplayeruseitemwithcreature(ushort opentibiaid, allowfaruse, Func<Player, Item, Creature, bool> onuseitemwithcreature)
 	registeractionsplayeruseitemwithcreature = {
 		type = "function",
 		description = "",
-		args = "(opentibiaid, allowfaruse, onuseitemwithcreature)",
+		args = "(ushort opentibiaid, allowfaruse, Func<Player, Item, Creature, bool> onuseitemwithcreature)",
 		returns = "void"
 	},
-	-- void registeractionsplayermoveitem(opentibiaid, onmoveitem)
+	-- void registeractionsplayermoveitem(ushort opentibiaid, Func<Player, Item, IContainer, byte, byte, bool> onmoveitem)
 	registeractionsplayermoveitem = {
 		type = "function",
 		description = "",
-		args = "(opentibiaid, onmoveitem)",
+		args = "(ushort opentibiaid, Func<Player, Item, IContainer, byte, byte, bool> onmoveitem)",
 		returns = "void"
 	},
-	-- void registeractionsplayermovecreature(name, onmovecreature)
+	-- void registeractionsplayermovecreature(string name, Func<Player, Creature, Tile, bool> onmovecreature)
 	registeractionsplayermovecreature = {
 		type = "function",
 		description = "",
-		args = "(name, onmovecreature)",
+		args = "(string name, Func<Player, Creature, Tile, bool> onmovecreature)",
 		returns = "void"
 	},
-	-- void registermovementscreaturestepin(opentibiaid, onstepin)
+	-- void registermovementscreaturestepin(ushort opentibiaid, Func<Creature, Tile, bool> onsteppingin, Action<Creature, Tile, Tile> onstepin)
 	registermovementscreaturestepin = {
 		type = "function",
 		description = "",
-		args = "(opentibiaid, onstepin)",
+		args = "(ushort opentibiaid, Func<Creature, Tile, bool> onsteppingin, Action<Creature, Tile, Tile> onstepin)",
 		returns = "void"
 	},
-	-- void registermovementscreaturestepout(opentibiaid, onstepout)
+	-- void registermovementscreaturestepout(ushort opentibiaid, Func<Creature, Tile, bool> onsteppingout, Action<Creature, Tile, Tile> onstepout)
 	registermovementscreaturestepout = {
 		type = "function",
 		description = "",
-		args = "(opentibiaid, onstepout)",
+		args = "(ushort opentibiaid, Func<Creature, Tile, bool> onsteppingout, Action<Creature, Tile, Tile> onstepout)",
 		returns = "void"
 	},
-	-- void registermovementsinventoryequip(opentibiaid, onequip)
+	-- void registermovementsinventoryequip(ushort opentibiaid, Func<Inventory, Item, byte, bool> onequipping, Action<Inventory, Item, byte> onequip)
 	registermovementsinventoryequip = {
 		type = "function",
 		description = "",
-		args = "(opentibiaid, onequip)",
+		args = "(ushort opentibiaid, Func<Inventory, Item, byte, bool> onequipping, Action<Inventory, Item, byte> onequip)",
 		returns = "void"
 	},
-	-- void registermovementsinventorydeequip(opentibiaid, ondeequip)
+	-- void registermovementsinventorydeequip(ushort opentibiaid, Func<Inventory, Item, byte, bool> ondeequipping, Action<Inventory, Item, byte> ondeequip)
 	registermovementsinventorydeequip = {
 		type = "function",
 		description = "",
-		args = "(opentibiaid, ondeequip)",
+		args = "(ushort opentibiaid, Func<Inventory, Item, byte, bool> ondeequipping, Action<Inventory, Item, byte> ondeequip)",
 		returns = "void"
 	},
 	-- void registertalkactionsplayersay(message, onsay)
@@ -843,6 +843,13 @@ return {
 				type = "function",
 				description = "",
 				args = "(Player player, string name)",
+				returns = "void"
+			},
+			-- void command.playerstopwalk(Player player)
+			playerstopwalk = {
+				type = "function",
+				description = "",
+				args = "(Player player)",
 				returns = "void"
 			},
 			-- void command.showanimatedtext(Position position, AnimatedTextColor animatedTextColor, string message)

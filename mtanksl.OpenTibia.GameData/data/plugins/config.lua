@@ -8,10 +8,10 @@
 		-- { type = "PlayerMoveCreature", name = "Monster Name", filename = "move creature.lua" }
 	},
 	movements = {
-		-- { type = "CreatureStepIn", opentibiaid = 446, filename = "step in.lua" },
-		-- { type = "CreatureStepOut", opentibiaid = 446, filename = "step out.lua" },
-		-- { type = "InventoryEquip", opentibiaid = 2125, filename = "equip.lua" },
-		-- { type = "InventoryDeEquip", opentibiaid = 2125, filename = "de equip.lua" }
+		 -- { type = "CreatureStepIn", opentibiaid = 446, filename = "step in.lua" },
+		 -- { type = "CreatureStepOut", opentibiaid = 447, filename = "step out.lua" },
+		 -- { type = "InventoryEquip", opentibiaid = 2125, filename = "equip.lua" },
+		 -- { type = "InventoryDeEquip", opentibiaid = 2125, filename = "de equip.lua" }
 	},
 	talkactions = {
 		-- { type = "PlayerSay", message = "/hello", filename = "say.lua" }

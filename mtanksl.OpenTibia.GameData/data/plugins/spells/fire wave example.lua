@@ -1,5 +1,5 @@
 function oncasting(player, target, message)
-	return true
+	return true -- validated, continue process
 end
 
 function oncast(player, target, message)

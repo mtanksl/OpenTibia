@@ -1,5 +1,5 @@
 function onusingweapon(player, target, weapon)
-	return true
+	return true -- validated, continue process
 end
 
 function onuseweapon(player, target, weapon)

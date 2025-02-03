@@ -917,6 +917,15 @@ namespace OpenTibia.Game.Common.ServerObjects
                 return Promise.FromResultAsEmptyObjectArray;
             } );
 
+            lua.RegisterCoFunction("playerstopwalk", (luaScope, parameters) =>
+            {
+                Player player = (Player)parameters[0];
+
+                Context.Current.AddPacket(player, new StopWalkOutgoingPacket(player.Direction) );
+
+                return Promise.FromResultAsEmptyObjectArray;
+            } );
+
             lua.RegisterCoFunction("showanimatedtext", (luaScope, parameters) =>
             {
                 return Context.Current.AddCommand(new ShowAnimatedTextCommand(ToPosition(parameters[0] ), (AnimatedTextColor)(long)parameters[1], LuaScope.GetString(parameters[2] ) ) ).Then( () =>

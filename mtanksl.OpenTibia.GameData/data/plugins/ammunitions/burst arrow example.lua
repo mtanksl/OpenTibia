@@ -1,6 +1,6 @@
 function onusingammunition(player, target, weapon, ammunition)
 	--TODO
-	return true
+	return true -- validated, continue process
 end
 
 function onuseammunition(player, target, weapon, ammunition)
