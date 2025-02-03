@@ -320,7 +320,9 @@
 		enchantedstaff = 2433,
 		enchantedspear = 7367,
 		energyFields = { 1491, 1495 },
+		epaminondasDolls = { 10063 },
 		explosivePresents = { 8110 },
+		ferumbrasDolls = { 11754 },
 		fields = {
 			1492, -- Fire field
 			1493, -- Fire field
@@ -448,6 +450,7 @@
 		mailboxes = { 2593, 3981 },
 		manaPotions = { 7620 },
 		millstones = { 1381, 1382, 1383, 1384 },
+		norsemanDolls = { 8982 },
 		obsidianKnifes = { 5908 },
 		oceanFloors = { 5405, 5406, 5407, 5408, 5409, 5410 },
 		ovens = { 1786, 1788, 1790, 1792, 6356, 6358, 6360, 6362 },

@@ -85,6 +85,10 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new DiceHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new EpaminondasDollHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new FerumbrasDollHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new ExplosivePresentHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new FireworksRocketHandler() );
@@ -120,6 +124,8 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new SantaDollHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new GarlicBreadOrCookieHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new NorsemanDollHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new SealedDoorHandler() );
 
