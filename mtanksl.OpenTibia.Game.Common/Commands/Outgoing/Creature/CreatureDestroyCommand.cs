@@ -6,11 +6,22 @@ namespace OpenTibia.Game.Commands
     public class CreatureDestroyCommand : Command
     {
         public CreatureDestroyCommand(Creature creature)
+
+            : this(creature, false)
+        {
+
+        }
+
+        public CreatureDestroyCommand(Creature creature, bool death)
         {
             Creature = creature;
+
+            Death = death;
         }
 
         public Creature Creature { get; set; }
+
+        public bool Death { get; set; }
 
         public override Promise Execute()
         {
@@ -48,7 +59,7 @@ namespace OpenTibia.Game.Commands
 
                     if (Context.Server.PlayerFactory.Detach(player) )
                     {
-                        return Context.AddCommand(new PlayerLogoutCommand(player) ).Then( () =>
+                        return Context.AddCommand(new PlayerLogoutCommand(player, Death) ).Then( () =>
                         {
                             Context.Server.QueueForExecution( () =>
                             {

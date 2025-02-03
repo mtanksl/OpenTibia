@@ -1,6 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Common.Structures;
-using OpenTibia.Data.Models;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Game.Events;
@@ -69,40 +68,18 @@ namespace OpenTibia.Game.Commands
             {
                 VocationConfig vocationConfig = Context.Current.Server.Vocations.GetVocationById( (byte)Player.Vocation);
 
-                if (correctLevel == 1 && correctLevelPercent == 0)
-                {
-                    Player.Speed = Player.BaseSpeed = 220;
+                Player.BaseSpeed = Formula.GetBaseSpeed(correctLevel);
 
-                    Player.Capacity = 40000;
+                Player.Capacity = (uint)(Player.Capacity - (correctLevel - currentLevel) * vocationConfig.CapacityPerLevel * 100);
 
-                    Player.MaxHealth = Player.Health = 150;
+                Player.MaxHealth = (ushort)(Player.MaxHealth - (correctLevel - currentLevel) * vocationConfig.HealthPerLevel);
 
-                    Player.MaxMana = Player.Mana = 55;
+                Player.Health = Math.Min(Player.MaxHealth, Player.Health);
 
-                    Player.Vocation = Vocation.None;
+                Player.MaxMana = (ushort)(Player.MaxMana - (correctLevel - currentLevel) * vocationConfig.ManaPerLevel);
 
-                    Tile tile = Context.Server.Map.GetTile(Context.Server.Config.GameplayRooking.PlayerNewPosition);
-
-                    if (tile != null)
-                    {
-                        Player.Town = tile;
-                    }
-                }
-                else
-                {
-                    Player.BaseSpeed = Formula.GetBaseSpeed(correctLevel);
-
-                    Player.Capacity = (uint)(Player.Capacity - (correctLevel - currentLevel) * vocationConfig.CapacityPerLevel * 100);
-
-                    Player.MaxHealth = (ushort)(Player.MaxHealth - (correctLevel - currentLevel) * vocationConfig.HealthPerLevel);
-
-                    Player.Health = Math.Min(Player.MaxHealth, Player.Health);
-
-                    Player.MaxMana = (ushort)(Player.MaxMana - (correctLevel - currentLevel) * vocationConfig.ManaPerLevel);
-
-                    Player.Mana = Math.Min(Player.MaxMana, Player.Mana);
-                }
-
+                Player.Mana = Math.Min(Player.MaxMana, Player.Mana);
+                
                 await Context.AddCommand(new PlayerUpdateExperienceCommand(Player, currentExperience - Experience, correctLevel, correctLevelPercent) );
 
                 Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You downgraded from level " + currentLevel + " to level " + correctLevel + ".") );

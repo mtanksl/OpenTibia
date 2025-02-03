@@ -8,32 +8,28 @@ namespace OpenTibia.Game.Commands
 {
     public class PlayerLogoutCommand : Command
     {
-        public PlayerLogoutCommand(Player player)
+        public PlayerLogoutCommand(Player player) 
+            
+            : this(player, false)
+        {
+
+        }
+
+        public PlayerLogoutCommand(Player player, bool death)
         {
             Player = player;
+
+            Death = death;
         }
 
         public Player Player { get; set; }
 
+        public bool Death { get; set; }
+
         public override Promise Execute()
         {
-            if (Player.Health == 0)
+            if (Death)
             {
-                if (Player.Combat.GetSkullIcon(null) == SkullIcon.Black)
-                {
-                    Player.Health = 40;
-
-                    Player.Mana = 0;
-                }
-                else
-                {
-                    Player.Health = Player.MaxHealth;
-
-                    Player.Mana = Player.MaxMana;
-                }
-
-                Player.Direction = Direction.South;
-
                 Player.Spawn = Player.Town;
 
                 Context.AddPacket(Player, new OpenYouAreDeathDialogOutgoingPacket() );

@@ -141,6 +141,41 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
+                if (rooking)
+                {
+                    player.BaseSpeed = player.Speed = 220;
+
+                    player.Capacity = 40000;
+
+                    player.MaxHealth = 150;
+
+                    player.MaxMana = 55;
+
+                    player.Vocation = Vocation.None;
+
+                    Tile tile = Context.Server.Map.GetTile(Context.Server.Config.GameplayRooking.PlayerNewPosition);
+
+                    if (tile != null)
+                    {
+                        player.Town = tile;
+                    }
+                }
+
+                if (player.Combat.GetSkullIcon(null) == SkullIcon.Black)
+                {
+                    player.Health = 40;
+
+                    player.Mana = 0;
+                }
+                else
+                {
+                    player.Health = player.MaxHealth;
+
+                    player.Mana = player.MaxMana;
+                }
+
+                player.Direction = Direction.South;
+
                 var corpse = await Context.AddCommand(new TileCreatePlayerCorpseCommand(player.Tile, player, rooking || player.Combat.GetSkullIcon(null) == SkullIcon.Red || player.Combat.GetSkullIcon(null) == SkullIcon.Black, blesses) );
                         
                          _ = Context.AddCommand(new ItemDecayDestroyCommand(corpse, TimeSpan.FromMinutes(5) ) );
@@ -175,7 +210,7 @@ namespace OpenTibia.Game.Commands
 
             Context.AddEvent(Creature, new CreatureDeathEventArgs(Creature, killer, mostDamage) );
 
-            await Context.AddCommand(new CreatureDestroyCommand(Creature) );
+            await Context.AddCommand(new CreatureDestroyCommand(Creature, true) );
         }
     }
 }

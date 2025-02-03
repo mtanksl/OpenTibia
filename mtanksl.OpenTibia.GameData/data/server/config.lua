@@ -119,7 +119,7 @@ server = {
 				}
 			},
 			rooking = {
-				enabled = false,
+				enabled = true,
 				experiencethreshold = 1500,
 				playernewposition = { x = 921, y = 771, z = 6 }
 			}
