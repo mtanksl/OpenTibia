@@ -102,6 +102,7 @@
 		- Sign items
 		- House doors
 	- Move item
+		- Stackable items
 		- Hangable items	
 	- Rotate item
 	- Use item
@@ -109,6 +110,8 @@
 		- Depot lockers and towns
 		- Read and write items
 		- Quest chest item
+		- Gate of expertise
+		- Ladder/sewer
 		- etc
 	- Use item with creature
 		- Runes

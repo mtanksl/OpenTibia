@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common;
 using System;
@@ -25,7 +26,11 @@ namespace OpenTibia.Game.CommandHandlers
 
                 if (candlesticks.Contains(command.Item.Metadata.OpenTibiaId) && tile.TopItem != null && transformations.TryGetValue(tile.TopItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
                 {
-                    return Context.AddCommand(new ItemTransformCommand(tile.TopItem, toOpenTibiaId, 1) ).Then( (item) =>
+                    return Context.AddCommand(new ShowMagicEffectCommand(tile.TopItem, MagicEffectType.GreenShimmer) ).Then( () =>
+                    {
+                        return Context.AddCommand(new ItemTransformCommand(tile.TopItem, toOpenTibiaId, 1) );
+
+                    } ).Then( (item) =>
                     {
                         return Context.AddCommand(new ItemDestroyCommand(command.Item) );          
                     } ); 

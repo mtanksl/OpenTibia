@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <spawns>
+	<spawn centerx="851" centery="734" centerz="7" radius="1">
+		<npc name="Al Dee" x="0" y="0" z="7" spawntime="60" />
+	</spawn>
 	<spawn centerx="861" centery="734" centerz="7" radius="1">
 		<npc name="Suzy" x="0" y="0" z="7" spawntime="60" />
-	</spawn>
-	<spawn centerx="851" centery="735" centerz="7" radius="1">
-		<npc name="Al Dee" x="0" y="0" z="7" spawntime="60" />
 	</spawn>
 	<spawn centerx="866" centery="741" centerz="7" radius="1">
 		<npc name="Rachel" x="0" y="0" z="7" spawntime="60" />
