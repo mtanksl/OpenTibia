@@ -78,6 +78,12 @@
         // https://tibia.fandom.com/wiki/Cold_as_Ice
         public static readonly int ColdAsIce = 100027;
 
+        // https://tibia.fandom.com/wiki/Minstrel
+        public static readonly int Minstrel = 100028;
+
+        // https://tibia.fandom.com/wiki/Rockstar
+        public static readonly int Rockstar = 100029;
+
         //TODO: More achievements
     }
 }

@@ -21,11 +21,25 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (greenMusicalInstruments.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.GreenNotes) );
+                return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.Minstrel, 500, "Minstrel") ).Then( () =>
+                {
+                    return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.Rockstar, 10000, "Rockstar") );
+
+                } ).Then(() =>
+                {
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.GreenNotes) );
+                } );
             }
             else if (purpleMusicalInstruments.Contains(command.Item.Metadata.OpenTibiaId) )
             {
-                return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.PurpleNotes) );
+                return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.Minstrel, 500, "Minstrel") ).Then( () =>
+                {
+                    return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.Rockstar, 10000, "Rockstar") );
+
+                } ).Then(() =>
+                {
+                    return Context.AddCommand(new ShowMagicEffectCommand(command.Item, MagicEffectType.PurpleNotes) );
+                } );
             }
 
             return next();
