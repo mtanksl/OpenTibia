@@ -36,5 +36,19 @@ namespace OpenTibia.Game.Common.ServerObjects
         {
             return members;
         }
+
+        public string Leader { get; set; }
+
+        public bool IsLeader(string playerName)
+        {
+            return Leader == playerName;
+        }
+
+        public HashSet<string> ViceLeaders { get; set; }
+
+        public bool IsViceLeader(string playerName)
+        {
+            return ViceLeaders.Contains(playerName);
+        }
     }
 }

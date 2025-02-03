@@ -67,7 +67,7 @@ namespace OpenTibia.Game.Commands
 
                         if (guild != null)
                         {
-                            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, TalkType.ChannelYellow, channel.Id, Message);
+                            ShowTextOutgoingPacket showTextOutgoingPacket = new ShowTextOutgoingPacket(Context.Server.Channels.GenerateStatementId(Player.DatabasePlayerId, Message), Player.Name, Player.Level, guild.IsLeader(Player.Name) || guild.IsViceLeader(Player.Name) ? TalkType.ChannelOrange : TalkType.ChannelYellow, channel.Id, Message);
 
                             foreach (var observer in guild.GetMembers() )
                             {
