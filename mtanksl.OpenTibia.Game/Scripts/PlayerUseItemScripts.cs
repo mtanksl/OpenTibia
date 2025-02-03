@@ -13,19 +13,12 @@ namespace OpenTibia.Game.Scripts
         {
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>( (context, next, command) => 
             {
-                if (command.Item.Parent is Tile tile)
+                if (command.Item.Metadata.Flags.Is(ItemMetadataFlags.Hangable) && command.Item.Parent is Tile tile)
                 {
-                    bool hangable = false;
-
                     bool? vertical = null;
 
                     foreach (var item in tile.GetItems() )
                     {
-                        if (item.Metadata.Flags.Is(ItemMetadataFlags.Hangable) )
-                        {
-                            hangable = true;
-                        } 
-
                         if (item.Metadata.Flags.Is(ItemMetadataFlags.Vertical) )
                         {
                             if (vertical == null)
@@ -43,25 +36,22 @@ namespace OpenTibia.Game.Scripts
                         }
                     }
 
-                    if (hangable)
+                    if (vertical == true)
                     {
-                        if (vertical == true)
+                        if (command.Player.Tile.Position.X + 1 == tile.Position.X)
                         {
-                            if (command.Player.Tile.Position.X + 1 == tile.Position.X)
-                            {
-                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
 
-                                return Promise.Break;
-                            }
+                            return Promise.Break;
                         }
-                        else if (vertical == false)
+                    }
+                    else if (vertical == false)
+                    {
+                        if (command.Player.Tile.Position.Y + 1 == tile.Position.Y)
                         {
-                            if (command.Player.Tile.Position.Y + 1 == tile.Position.Y)
-                            {
-                                Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotUseThisObject) );
 
-                                return Promise.Break;
-                            }
+                            return Promise.Break;
                         }
                     }
                 }

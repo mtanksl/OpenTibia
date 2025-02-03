@@ -23,6 +23,54 @@ namespace OpenTibia.Game.Scripts
                 return next();
             } );
 
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveItemCommand>( (context, next, command) => 
+            {
+                if (command.Item.Metadata.Flags.Is(ItemMetadataFlags.Hangable) && command.Item.Parent is Tile tile)
+                {
+                    bool? vertical = null;
+
+                    foreach (var item in tile.GetItems() )
+                    {
+                        if (item.Metadata.Flags.Is(ItemMetadataFlags.Vertical) )
+                        {
+                            if (vertical == null)
+                            {
+                                vertical = true;
+                            }
+                        }
+
+                        if (item.Metadata.Flags.Is(ItemMetadataFlags.Horizontal) )
+                        {
+                            if (vertical == null)
+                            {
+                                vertical = false;
+                            }
+                        }
+                    }
+
+                    if (vertical == true)
+                    {
+                        if (command.Player.Tile.Position.X + 1 == tile.Position.X)
+                        {
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
+
+                            return Promise.Break;
+                        }
+                    }
+                    else if (vertical == false)
+                    {
+                        if (command.Player.Tile.Position.Y + 1 == tile.Position.Y)
+                        {
+                            Context.AddPacket(command.Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteBottomGameWindow, Constants.YouCanNotMoveThisObject) );
+
+                            return Promise.Break;
+                        }
+                    }
+                }
+
+                return next();
+            } );
+
             Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveItemCommand>(new MoveItemScriptingHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveItemCommand>(new MoveItemChestHandler() );
@@ -58,6 +106,8 @@ namespace OpenTibia.Game.Scripts
             Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveItemCommand>(new SafeHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveItemCommand>(new InventoryHandler() );
+
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveItemCommand>(new TapestryHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveItemCommand>(new SplitStackableItemHandler() );
         }

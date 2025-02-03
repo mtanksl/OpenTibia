@@ -13,7 +13,6 @@
 	- ...
 - Bed
 - Guild
-- Hangable items
 - Rings and amulets charges
 - Party shared experience
 - Illusion spell and chameleon rune
@@ -103,6 +102,7 @@
 		- Sign items
 		- House doors
 	- Move item
+		- Hangable items	
 	- Rotate item
 	- Use item
 		- Containers
