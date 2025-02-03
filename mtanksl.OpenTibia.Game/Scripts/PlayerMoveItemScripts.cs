@@ -77,6 +77,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveItemCommand>(new MoveItemHouseTileHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveItemCommand>(new WaterBallsHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveItemCommand>(new DustbinHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerMoveItemCommand>(new ShallowWaterHandler() );
