@@ -501,39 +501,6 @@ namespace OpenTibia.Game.Common.ServerObjects
             }
         }
 
-        public bool ZoneMoveCreature(Position fromPosition, Position toPosition, Creature creature)
-        {
-            int fromJ = (fromPosition.Y - minY + 1) / 14;
-
-            int toJ = (toPosition.Y - minY + 1) / 14;
-            
-            if (fromJ != toJ)
-            {
-                ZoneRemoveCreature(fromPosition, creature);
-
-                ZoneAddCreature(toPosition, creature);
-
-                return true;
-            }
-            else
-            {
-                int fromI = (fromPosition.X - minX + 1) / 18;
-
-                int toI = (toPosition.X - minX + 1) / 18;
-
-                if (fromI != toI)
-                {
-                    ZoneRemoveCreature(fromPosition, creature);
-
-                    ZoneAddCreature(toPosition, creature);
-
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
         public IEnumerable<Creature> GetObserversOfTypeCreature(Position position)
         {
             int Div(int a, int b)

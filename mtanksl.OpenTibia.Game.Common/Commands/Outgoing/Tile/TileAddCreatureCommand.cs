@@ -25,38 +25,51 @@ namespace OpenTibia.Game.Commands
 
             Context.Server.Map.ZoneAddCreature(ToTile.Position, Creature);
 
-            Dictionary<Player, byte> canSeeTo = new Dictionary<Player, byte>();
+            Dictionary<Creature, byte> canSeeTo = new Dictionary<Creature, byte>();
 
-            foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(Creature.Tile.Position) )
+            foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(Creature.Tile.Position) )
             {
-                if (observer != Creature)
+                if (observer is Player player)
                 {
-                    byte clientIndex;
-
-                    if (observer.Client.TryGetIndex(Creature, out clientIndex) )
+                    if (player != Creature)
                     {
-                        canSeeTo.Add(observer, clientIndex);
+                        byte clientIndex;
+
+                        if (player.Client.TryGetIndex(Creature, out clientIndex) )
+                        {
+                            canSeeTo.Add(player, clientIndex);
+                        }
+                    }
+                }
+                else
+                {
+                    if (observer.Tile.Position.CanSee(Creature.Tile.Position) )
+                    {
+                        canSeeTo.Add(observer, 0);
                     }
                 }
             }
 
             foreach (var pair in canSeeTo)
             {
-                uint removeId;
+                if (pair.Key is Player player)
+                {
+                    uint removeId;
 
-                if (pair.Key.Client.Battles.IsKnownCreature(Creature.Id, out removeId) )
-                {
-                    Context.AddPacket(pair.Key, new ThingAddOutgoingPacket(ToTile.Position, pair.Value, Creature, pair.Key.Client.GetSkullIcon(Creature), pair.Key.Client.GetPartyIcon(Creature) ) );
+                    if (player.Client.Battles.IsKnownCreature(Creature.Id, out removeId) )
+                    {
+                        Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, pair.Value, Creature, player.Client.GetSkullIcon(Creature), player.Client.GetPartyIcon(Creature) ) );
+                    }
+                    else
+                    {
+                        Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, pair.Value, removeId, Creature, player.Client.GetSkullIcon(Creature), player.Client.GetPartyIcon(Creature), player.Client.GetWarIcon(Creature) ) );
+                    }
                 }
-                else
-                {
-                    Context.AddPacket(pair.Key, new ThingAddOutgoingPacket(ToTile.Position, pair.Value, removeId, Creature, pair.Key.Client.GetSkullIcon(Creature), pair.Key.Client.GetPartyIcon(Creature), pair.Key.Client.GetWarIcon(Creature) ) );
-                }
+
+                Context.AddEvent(pair.Key, ToTile.Position, new CreatureAppearEventArgs(Creature, ToTile, toIndex) );
             }
 
             Context.AddEvent(new TileAddCreatureEventArgs(Creature, null, null, ToTile, toIndex) );
-                            
-            Context.AddEvent(new MapZoneAddCreatureEventArgs(Creature, null, null, ToTile, toIndex) );
 
             return Promise.Completed;
         }

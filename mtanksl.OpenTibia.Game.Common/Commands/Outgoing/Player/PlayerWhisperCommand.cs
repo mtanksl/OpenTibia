@@ -37,7 +37,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            Context.AddEvent(Player, new PlayerWhisperEventArgs(Player, Message) );
+            Context.AddEvent(new PlayerWhisperEventArgs(Player, Message) );
 
             return Promise.Completed;
         }

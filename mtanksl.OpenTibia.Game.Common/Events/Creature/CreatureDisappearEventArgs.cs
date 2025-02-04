@@ -2,19 +2,15 @@
 
 namespace OpenTibia.Game.Events
 {
-    public class MapZoneRemoveCreatureEventArgs : GameEventArgs
+    public class CreatureDisappearEventArgs : GameEventArgs
     {
-        public MapZoneRemoveCreatureEventArgs(Creature creature, Tile fromTile, int? fromIndex, Tile toTile, int? toIndex)
+        public CreatureDisappearEventArgs(Creature creature, Tile fromTile, int? fromIndex)
         {
             Creature = creature;
 
             FromTile = fromTile;
 
             FromIndex = fromIndex;
-
-            ToTile = toTile;
-
-            ToIndex = toIndex;
         }
 
         public Creature Creature { get; }
@@ -22,9 +18,5 @@ namespace OpenTibia.Game.Events
         public Tile FromTile { get; }
 
         public int? FromIndex { get; }
-
-        public Tile ToTile { get; }
-
-        public int? ToIndex { get; }
     }
 }

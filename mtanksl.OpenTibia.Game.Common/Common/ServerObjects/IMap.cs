@@ -46,8 +46,6 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         void ZoneRemoveCreature(Position position, Creature creature);
 
-        bool ZoneMoveCreature(Position fromPosition, Position toPosition, Creature creature);
-
         IEnumerable<Creature> GetObserversOfTypeCreature(Position position);
 
         IEnumerable<Player> GetObserversOfTypePlayer(Position position);

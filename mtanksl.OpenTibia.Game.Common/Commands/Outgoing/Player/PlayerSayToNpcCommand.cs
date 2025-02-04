@@ -19,7 +19,7 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Context.AddEvent(Player, new PlayerSayToNpcEventArgs(Player, Message) );
+            Context.AddEvent(new PlayerSayToNpcEventArgs(Player, Message) );
 
             return Promise.Completed;
         }

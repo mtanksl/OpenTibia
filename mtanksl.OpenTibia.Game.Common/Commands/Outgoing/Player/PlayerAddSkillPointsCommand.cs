@@ -69,7 +69,7 @@ namespace OpenTibia.Game.Commands
             {
                 Context.AddPacket(Player, new ShowWindowTextOutgoingPacket(TextColor.WhiteCenterGameWindowAndServerLog, "You advanced to " + Skill.GetDescription() + " level " + correctSkillLevel + ".") );
 
-                Context.AddEvent(Player, new PlayerAdvanceSkillEventArgs(Player, Skill, currentSkillLevel, correctSkillLevel) );
+                Context.AddEvent(new PlayerAdvanceSkillEventArgs(Player, Skill, currentSkillLevel, correctSkillLevel) );
             }            
         }
     }

@@ -27,7 +27,7 @@ namespace OpenTibia.Game.Commands
         {
             Context.AddPacket(Player, new ShowTextOutgoingPacket(0, Npc.Name, 0, TalkType.PrivateNpcToPlayer, Npc.Tile.Position, Message) );
 
-            Context.AddEvent(Npc, new NpcSayToPlayerEventArgs(Npc, Player, Message) );
+            Context.AddEvent(new NpcSayToPlayerEventArgs(Npc, Player, Message) );
 
             return Promise.Completed;
         }

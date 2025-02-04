@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.EventHandlers;
 using OpenTibia.Game.Events;
 using System;
@@ -22,7 +23,7 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         bool Unsubscribe(Guid token);
 
-        IEnumerable<IEventHandler> GetEventHandlers(GameObject eventSource, GameEventArgs e);
+        IEnumerable<IEventHandler> GetEventHandlers(Position position, GameEventArgs e);
 
         void ClearEventHandlers(GameObject observer);
     }

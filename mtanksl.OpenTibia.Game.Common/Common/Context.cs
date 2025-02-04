@@ -1,4 +1,5 @@
 ﻿using OpenTibia.Common.Objects;
+using OpenTibia.Common.Structures;
 using OpenTibia.Game.Commands;
 using OpenTibia.Game.Common.ServerObjects;
 using OpenTibia.Game.Events;
@@ -125,18 +126,61 @@ namespace OpenTibia.Game.Common
             return Next();
         }
 
-        private Queue< (GameObject, GameEventArgs) > events;
+        private Queue< (GameObject EventSource, Position Position, GameEventArgs Event) > events;
 
         /// <exception cref="ObjectDisposedException"></exception>
 
         public void AddEvent(GameEventArgs e)
         {
-            AddEvent(null, e);
+            AddEvent(null, null, e);
         }
 
         /// <exception cref="ObjectDisposedException"></exception>
 
         public void AddEvent(GameObject eventSource, GameEventArgs e)
+        {
+            Position position = null;
+
+            switch (eventSource)
+            {
+                case Item item:
+
+                    switch (item.Root() )
+                    {
+                        case Tile tile:
+
+                            position = tile.Position;
+
+                            break;
+
+                        case Inventory inventory:
+
+                            position = inventory.Player.Tile?.Position;
+
+                            break;
+
+                        case Safe safe:
+
+                            position = safe.Player.Tile?.Position;
+
+                            break;
+                    }
+
+                    break;
+
+                case Creature creature:
+
+                    position = creature.Tile?.Position;
+
+                    break;
+            }
+
+            AddEvent(eventSource, position, e);
+        }
+
+        /// <exception cref="ObjectDisposedException"></exception>
+
+        public void AddEvent(GameObject eventSource, Position position, GameEventArgs e)
         {
             if (disposed)
             {
@@ -145,10 +189,10 @@ namespace OpenTibia.Game.Common
 
             if (events == null)
             {
-                events = new Queue< (GameObject, GameEventArgs) >();
+                events = new Queue< (GameObject, Position, GameEventArgs) >();
             }
 
-            events.Enqueue( (eventSource, e) );
+            events.Enqueue( (eventSource, position, e) );
         }
 
         private Dictionary<IConnection, IMessageCollection> messageCollections;
@@ -233,9 +277,9 @@ namespace OpenTibia.Game.Common
                 {
                     var e = events.Dequeue();
 
-                    foreach (var eventHandler in server.EventHandlers.GetEventHandlers(e.Item2) )
+                    foreach (var eventHandler in server.EventHandlers.GetEventHandlers(e.Event) )
                     {
-                        eventHandler.Handle(e.Item2).Catch( (ex) =>
+                        eventHandler.Handle(e.Event).Catch( (ex) =>
                         {
                             if (ex is PromiseCanceledException)
                             {
@@ -248,11 +292,11 @@ namespace OpenTibia.Game.Common
                         } );
                     }
 
-                    if (e.Item1 != null)
+                    if (e.EventSource != null)
                     {
-                        foreach (var eventHandler in server.GameObjectEventHandlers.GetEventHandlers(e.Item1, e.Item2) )
+                        foreach (var eventHandler in server.GameObjectEventHandlers.GetEventHandlers(e.EventSource, e.Event) )
                         {
-                            eventHandler.Handle(e.Item2).Catch( (ex) =>
+                            eventHandler.Handle(e.Event).Catch( (ex) =>
                             {
                                 if (ex is PromiseCanceledException)
                                 {
@@ -264,10 +308,13 @@ namespace OpenTibia.Game.Common
                                 }
                             } );
                         }
+                    }
 
-                        foreach (var eventHandler in server.PositionalEventHandlers.GetEventHandlers(e.Item1, e.Item2) )
+                    if (e.Position != null)
+                    {
+                        foreach (var eventHandler in server.PositionalEventHandlers.GetEventHandlers(e.Position, e.Event) )
                         {
-                            eventHandler.Handle(e.Item2).Catch( (ex) =>
+                            eventHandler.Handle(e.Event).Catch( (ex) =>
                             {
                                 if (ex is PromiseCanceledException)
                                 {

@@ -53,7 +53,7 @@ namespace OpenTibia.Game.Commands
                 Context.AddPacket(Player, new VipOutgoingPacket( (uint)pair.Key, pair.Value, Context.Server.GameObjects.GetPlayerByName(pair.Value) != null) );
             }
 
-            Context.AddEvent(Player, new PlayerLoginEventArgs(Player) );
+            Context.AddEvent(new PlayerLoginEventArgs(Player) );
 
             return Promise.Completed;
         }

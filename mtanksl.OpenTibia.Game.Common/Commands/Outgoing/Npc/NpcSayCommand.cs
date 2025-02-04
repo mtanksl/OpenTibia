@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            Context.AddEvent(Npc, new NpcSayEventArgs(Npc, Message) );
+            Context.AddEvent(new NpcSayEventArgs(Npc, Message) );
 
             return Promise.Completed;
         }

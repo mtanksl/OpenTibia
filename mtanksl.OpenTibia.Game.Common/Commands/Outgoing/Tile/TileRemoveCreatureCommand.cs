@@ -21,17 +21,27 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Dictionary<Player, byte> canSeeFrom = new Dictionary<Player, byte>();
+            Dictionary<Creature, byte> canSeeFrom = new Dictionary<Creature, byte>();
 
-            foreach (var observer in Context.Server.Map.GetObserversOfTypePlayer(FromTile.Position) )
+            foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(FromTile.Position) )
             {
-                if (observer != Creature)
+                if (observer is Player player)
                 {
-                    byte clientIndex;
-
-                    if (observer.Client.TryGetIndex(Creature, out clientIndex) )
+                    if (player != Creature)
                     {
-                        canSeeFrom.Add(observer, clientIndex);
+                        byte clientIndex;
+
+                        if (player.Client.TryGetIndex(Creature, out clientIndex) )
+                        {
+                            canSeeFrom.Add(player, clientIndex);
+                        }
+                    }
+                }
+                else
+                {
+                    if (observer.Tile.Position.CanSee(Creature.Tile.Position) )
+                    {
+                        canSeeFrom.Add(observer, 0);
                     }
                 }
             }
@@ -44,19 +54,22 @@ namespace OpenTibia.Game.Commands
 
             foreach (var pair in canSeeFrom)
             {
-                if (FromTile.Count >= Constants.ObjectsPerPoint)
+                if (pair.Key is Player player)
                 {
-                    Context.AddPacket(pair.Key, new SendTileOutgoingPacket(Context.Server.Map, pair.Key.Client, FromTile.Position) );
+                    if (FromTile.Count >= Constants.ObjectsPerPoint)
+                    {
+                        Context.AddPacket(player, new SendTileOutgoingPacket(Context.Server.Map, player.Client, FromTile.Position) );
+                    }
+                    else
+                    {
+                        Context.AddPacket(player, new ThingRemoveOutgoingPacket(FromTile.Position, pair.Value) );
+                    }
                 }
-                else
-                {
-                    Context.AddPacket(pair.Key, new ThingRemoveOutgoingPacket(FromTile.Position, pair.Value) );
-                }
+
+                Context.AddEvent(pair.Key, FromTile.Position, new CreatureDisappearEventArgs(Creature, FromTile, fromIndex) );
             }
 
             Context.AddEvent(new TileRemoveCreatureEventArgs(Creature, FromTile, fromIndex, null, null) );
-
-            Context.AddEvent(new MapZoneRemoveCreatureEventArgs(Creature, FromTile, fromIndex, null, null) );
 
             return Promise.Completed;
         }

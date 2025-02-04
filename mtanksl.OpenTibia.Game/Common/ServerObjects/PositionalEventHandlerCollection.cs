@@ -311,44 +311,8 @@ namespace OpenTibia.Game.Common.ServerObjects
             return false;
         }
 
-        public IEnumerable<IEventHandler> GetEventHandlers(GameObject eventSource, GameEventArgs e)
+        public IEnumerable<IEventHandler> GetEventHandlers(Position position, GameEventArgs e)
         {
-            Position position = null;
-
-            switch (eventSource)
-            {
-                case Item item:
-
-                    switch (item.Root() )
-                    {
-                        case Tile tile:
-
-                            position = tile.Position;
-
-                            break;
-
-                        case Inventory inventory:
-
-                            position = inventory.Player.Tile.Position;
-
-                            break;
-
-                        case Safe safe:
-
-                            position = safe.Player.Tile.Position;
-
-                            break;
-                    }
-
-                    break;
-
-                case Creature creature:
-
-                    position = creature.Tile.Position;
-
-                    break;
-            }
-
             Dictionary<GameObject, Dictionary<Guid, IEventHandler> > gameObjectEventHandlers;
 
             if (types.TryGetValue(e.GetType(), out gameObjectEventHandlers) )

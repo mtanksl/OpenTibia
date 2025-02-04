@@ -31,7 +31,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            Context.AddEvent(Monster, new MonsterSayEventArgs(Monster, Message) );
+            Context.AddEvent(new MonsterSayEventArgs(Monster, Message) );
 
             return Promise.Completed;
         }
