@@ -28,6 +28,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithCreatureCommand>(new UseItemWithCreatureScriptingHandler(false) );
 
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithCreatureCommand>(new AntidotePotionHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithCreatureCommand>(new SmallHealthPotionHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemWithCreatureCommand>(new HealthPotionHandler() );

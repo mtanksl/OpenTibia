@@ -67,6 +67,8 @@ namespace OpenTibia.Game.Scripts
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new ContainerOpenHandler() );
 
+            Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new BananaChocolateShakeHandler() );
+
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new BookHandler() );
 
             Context.Server.CommandHandlers.AddCommandHandler<PlayerUseItemCommand>(new SpellbookHandler() );
