@@ -8,17 +8,19 @@ namespace OpenTibia.Game.Common
 {
     public static class Formula
     {
-        private static Dictionary<ushort, ulong> experienceCache = new Dictionary<ushort, ulong>();
+        private static Dictionary<ushort, ulong> experienceCaches = new Dictionary<ushort, ulong>();
 
         public static ulong GetRequiredExperience(ushort level)
         {
             ulong experience;
 
-            if ( !experienceCache.TryGetValue(level, out experience) )
+            if ( !experienceCaches.TryGetValue(level, out experience) )
             {
+                // 50 * (x - 1)³ - 150 * (x - 1)² + 400 * (x - 1) / 3
+
                 experience = (ulong)( ( 50 * Math.Pow(level - 1, 3) - 150 * Math.Pow(level - 1, 2) + 400 * (level - 1) ) / 3 );
 
-                experienceCache.Add(level, experience);
+                experienceCaches.Add(level, experience);
             }
 
             return experience;
@@ -150,12 +152,22 @@ namespace OpenTibia.Game.Common
 
                 if ( !skillPointCache.TryGetValue(skillLevel, out skillPoints) )
                 {
+                    // s * (v ˡ ⁻ ᵒ - 1) / (v - 1)
+
+                    // s = skill contant
+                    // v = vocation constant
+                    // l = skill level
+
                     if (skill == Skill.MagicLevel)
                     {
+                        // o = skill offset = 0
+
                         skillPoints = (ulong)Math.Min(ulong.MaxValue, skillConstant * (Math.Pow(vocationConstant, skillLevel) - 1) / (vocationConstant - 1) );
                     }
                     else
                     {
+                        // o = skill offset = 10
+
                         skillPoints = (ulong)Math.Min(ulong.MaxValue, skillConstant * (Math.Pow(vocationConstant, skillLevel - 10) - 1) / (vocationConstant - 1) );
                     }
 
