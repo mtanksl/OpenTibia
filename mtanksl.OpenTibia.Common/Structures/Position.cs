@@ -129,22 +129,22 @@ namespace OpenTibia.Common.Structures
 
         public int EuclideanDistance(Position that)
         {
-            return (int)Math.Sqrt( Math.Pow(that.X - this.X, 2) + Math.Pow(that.Y - this.Y, 2) );
+            return (int)Math.Sqrt( Math.Pow(that.x - this.x, 2) + Math.Pow(that.y - this.y, 2) );
         }
 
         public int ChebyshevDistance(Position that)
         {
-            return Math.Max(Math.Abs(that.X - this.X), Math.Abs(that.Y - this.Y) );
+            return Math.Max(Math.Abs(that.x - this.x), Math.Abs(that.y - this.y) );
         }
 
         public int ManhattanDistance(Position that)
         {
-            return Math.Abs(that.X - this.X) + Math.Abs(that.Y - this.Y);
+            return Math.Abs(that.x - this.x) + Math.Abs(that.y - this.y);
         }
 
         public Position Offset(int x, int y, int z)
         {
-            return new Position(X + x, Y + y, Z + z);
+            return new Position(this.x + x, this.y + y, this.z + z);
         }
 
         public Position Offset(Offset offset)
@@ -292,30 +292,20 @@ namespace OpenTibia.Common.Structures
             return null;
         }
 
-        private bool IsInClient(Position that)
+        private bool IsInViewport(Position that)
         {
             int deltaZ = that.z - this.z;
 
-            int deltaY = that.y - this.y + deltaZ;
-
-            int deltaX = that.x - this.x + deltaZ;
-
-            if (this.z <= 7)
+            if (deltaZ != 0)
             {
-                if (that.z >= 8)
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                if (deltaZ < -2 || deltaZ > 2)
-                {
-                    return false;
-                }
+                return false;
             }
 
-            if (deltaX < -8 || deltaX > 9 || deltaY < -6 || deltaY > 7)
+            int deltaY = that.y - this.y;
+
+            int deltaX = that.x - this.x;
+
+            if (deltaY < -5 || deltaY > 5 || deltaX < -7 || deltaX > 7)
             {
                 return false;
             }
@@ -344,20 +334,30 @@ namespace OpenTibia.Common.Structures
             return true;
         }
 
-        private bool IsInViewport(Position that)
+        private bool IsInClientViewport(Position that)
         {
             int deltaZ = that.z - this.z;
 
-            if (deltaZ != 0)
+            int deltaY = that.y - this.y + deltaZ;
+
+            int deltaX = that.x - this.x + deltaZ;
+
+            if (this.z <= 7)
             {
-                return false;
+                if (that.z >= 8)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (deltaZ < -2 || deltaZ > 2)
+                {
+                    return false;
+                }
             }
 
-            int deltaY = that.y - this.y;
-
-            int deltaX = that.x - this.x;
-
-            if (deltaY < -5 || deltaY > 5 || deltaX < -7 || deltaX > 7)
+            if (deltaY < -6 || deltaY > 7 || deltaX < -8 || deltaX > 9)
             {
                 return false;
             }
@@ -393,7 +393,7 @@ namespace OpenTibia.Common.Structures
 
         public bool CanSee(Position that)
         {
-            return IsInClient(that);
+            return IsInClientViewport(that);
         }
 
         public bool CanHearSay(Position that)

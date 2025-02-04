@@ -4,19 +4,15 @@ namespace OpenTibia.Game.Events
 {
     public class CreatureDisappearEventArgs : GameEventArgs
     {
-        public CreatureDisappearEventArgs(Creature creature, Tile fromTile, int? fromIndex)
+        public CreatureDisappearEventArgs(Creature creature, Tile fromTile)
         {
             Creature = creature;
 
             FromTile = fromTile;
-
-            FromIndex = fromIndex;
         }
 
         public Creature Creature { get; }
 
         public Tile FromTile { get; }
-
-        public int? FromIndex { get; }
     }
 }

@@ -31,29 +31,52 @@ namespace OpenTibia.Game.Commands
                 Context.Server.GameObjectComponents.RemoveComponent(Creature, playerWalkDelayBehaviour);
             }
 
-            Dictionary<Creature, byte> canSeeFrom = new Dictionary<Creature, byte>();
+            Tile fromTile = Creature.Tile;
 
-            foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(Creature.Tile.Position) )
+            Dictionary<Creature, byte> observerCanSeeFrom = new Dictionary<Creature, byte>();
+
+            HashSet<Creature> fromCanSeeObserver = new HashSet<Creature>();
+
+            foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(fromTile.Position) )
             {
-                if (observer is Player player)
                 {
-                    byte clientIndex;
-
-                    if (player.Client.TryGetIndex(Creature, out clientIndex) )
+                    if (observer is Player player)
                     {
-                        canSeeFrom.Add(player, clientIndex);
+                        byte clientIndex;
+
+                        if (player.Client.TryGetIndex(Creature, out clientIndex) )
+                        {
+                            observerCanSeeFrom.Add(player, clientIndex);
+                        }
+                    }
+                    else
+                    {
+                        if (observer.Tile.Position.CanSee(fromTile.Position) )
+                        {
+                            observerCanSeeFrom.Add(observer, 0);
+                        }
                     }
                 }
-                else
+
                 {
-                    if (observer.Tile.Position.CanSee(Creature.Tile.Position) )
+                    if (Creature is Player player)
                     {
-                        canSeeFrom.Add(observer, 0);
+                        byte clientIndex;
+
+                        if (player.Client.TryGetIndex(observer, out clientIndex) )
+                        {
+                            fromCanSeeObserver.Add(observer);
+                        }
+                    }
+                    else
+                    {
+                        if (fromTile.Position.CanSee(observer.Tile.Position) )
+                        {
+                            fromCanSeeObserver.Add(observer);
+                        }
                     }
                 }
             }
-
-            Tile fromTile = Creature.Tile;
 
             int fromIndex = fromTile.GetIndex(Creature);
 
@@ -65,25 +88,48 @@ namespace OpenTibia.Game.Commands
 
             Context.Server.Map.ZoneAddCreature(ToTile.Position, Creature);
 
-            Dictionary<Creature, byte> canSeeTo = new Dictionary<Creature, byte>();
+            Dictionary<Creature, byte> observerCanSeeTo = new Dictionary<Creature, byte>();
 
-            foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(Creature.Tile.Position) )
+            HashSet<Creature> toCanSeeObserver = new HashSet<Creature>();
+
+            foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(ToTile.Position) )
             {
-                if (observer is Player player)
                 {
-                    byte clientIndex;
-
-                    if (player.Client.TryGetIndex(Creature, out clientIndex) )
+                    if (observer is Player player)
                     {
-                        canSeeTo.Add(player, clientIndex);
+                        byte clientIndex;
+
+                        if (player.Client.TryGetIndex(Creature, out clientIndex) )
+                        {
+                            observerCanSeeTo.Add(player, clientIndex);
+                        }
+                    }
+                    else
+                    {
+                        if (observer.Tile.Position.CanSee(ToTile.Position) )
+                        {
+                            observerCanSeeTo.Add(observer, 0);
+                        }
                     }
                 }
-                else
+
                 {
-                    if (observer.Tile.Position.CanSee(Creature.Tile.Position) )
+                    if (Creature is Player player)
                     {
-                        canSeeTo.Add(observer, 0);
-                    };
+                        byte clientIndex;
+
+                        if (player.Client.TryGetIndex(observer, out clientIndex) )
+                        {
+                            toCanSeeObserver.Add(observer);
+                        }
+                    }
+                    else
+                    {
+                        if (ToTile.Position.CanSee(observer.Tile.Position) )
+                        {
+                            toCanSeeObserver.Add(observer);
+                        }
+                    }
                 }
             }
 
@@ -109,16 +155,16 @@ namespace OpenTibia.Game.Commands
                     }
                     else
                     {
-                        if (canSeeFrom.ContainsKey(player) && canSeeTo.ContainsKey(player) )
+                        if (observerCanSeeFrom.ContainsKey(player) && observerCanSeeTo.ContainsKey(player) )
                         {
-                            Context.AddPacket(player, new WalkOutgoingPacket(fromTile.Position, canSeeFrom[player], ToTile.Position) );
+                            Context.AddPacket(player, new WalkOutgoingPacket(fromTile.Position, observerCanSeeFrom[player], ToTile.Position) );
 
                             if (fromTile.Count >= Constants.ObjectsPerPoint)
                             {
                                 Context.AddPacket(player, new SendTileOutgoingPacket(Context.Server.Map, player.Client, fromTile.Position) );
                             }
                         }
-                        else if (canSeeFrom.ContainsKey(player) )
+                        else if (observerCanSeeFrom.ContainsKey(player) )
                         {
                             if (fromTile.Count >= Constants.ObjectsPerPoint)
                             {
@@ -126,20 +172,20 @@ namespace OpenTibia.Game.Commands
                             }
                             else
                             {
-                                Context.AddPacket(player, new ThingRemoveOutgoingPacket(fromTile.Position, canSeeFrom[player] ) );
+                                Context.AddPacket(player, new ThingRemoveOutgoingPacket(fromTile.Position, observerCanSeeFrom[player] ) );
                             }
                         }
-                        else if (canSeeTo.ContainsKey(player) )
+                        else if (observerCanSeeTo.ContainsKey(player) )
                         {
                             uint removeId;
 
                             if (player.Client.Battles.IsKnownCreature(Creature.Id, out removeId) )
                             {
-                                Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, canSeeTo[player], Creature, player.Client.GetSkullIcon(Creature), player.Client.GetPartyIcon(Creature) ) );
+                                Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, observerCanSeeTo[player], Creature, player.Client.GetSkullIcon(Creature), player.Client.GetPartyIcon(Creature) ) );
                             }
                             else
                             {
-                                Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, canSeeTo[player], removeId, Creature, player.Client.GetSkullIcon(Creature), player.Client.GetPartyIcon(Creature), player.Client.GetWarIcon(Creature) ) );
+                                Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, observerCanSeeTo[player], removeId, Creature, player.Client.GetSkullIcon(Creature), player.Client.GetPartyIcon(Creature), player.Client.GetWarIcon(Creature) ) );
                             }
                         }
 
@@ -210,11 +256,11 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            foreach (var observer in canSeeFrom.Keys.Intersect(canSeeTo.Keys) )
+            foreach (var observer in observerCanSeeFrom.Keys.Intersect(observerCanSeeTo.Keys) )
             {
                 if (observer is Player player && player != Creature)
                 {
-                    Context.AddPacket(player, new WalkOutgoingPacket(fromTile.Position, canSeeFrom[player], ToTile.Position) );
+                    Context.AddPacket(player, new WalkOutgoingPacket(fromTile.Position, observerCanSeeFrom[player], ToTile.Position) );
 
                     if (fromTile.Count >= Constants.ObjectsPerPoint)
                     {
@@ -223,7 +269,7 @@ namespace OpenTibia.Game.Commands
                 }
             }
 
-            foreach (var observer in canSeeFrom.Keys.Except(canSeeTo.Keys) )
+            foreach (var observer in observerCanSeeFrom.Keys.Except(observerCanSeeTo.Keys) )
             {
                 if (observer is Player player && player != Creature)
                 {
@@ -233,14 +279,24 @@ namespace OpenTibia.Game.Commands
                     }
                     else
                     {
-                        Context.AddPacket(player, new ThingRemoveOutgoingPacket(fromTile.Position, canSeeFrom[player] ) );
+                        Context.AddPacket(player, new ThingRemoveOutgoingPacket(fromTile.Position, observerCanSeeFrom[player] ) );
                     }
                 }
 
-                Context.AddEvent(observer, fromTile.Position, new CreatureDisappearEventArgs(Creature, fromTile, fromIndex) );
+                Context.AddEvent(observer, new CreatureDisappearEventArgs(Creature, fromTile) );
             }
 
-            foreach (var observer in canSeeTo.Keys.Except(canSeeFrom.Keys) )
+            foreach (var observer in fromCanSeeObserver.Except(toCanSeeObserver) )
+            {
+                if (observer != Creature)
+                {
+                    Context.AddEvent(Creature, new CreatureDisappearEventArgs(observer, observer.Tile) );
+                }
+            }
+
+            Context.AddEvent(new TileRemoveCreatureEventArgs(Creature, fromTile, fromIndex, ToTile, toIndex) );
+
+            foreach (var observer in observerCanSeeTo.Keys.Except(observerCanSeeFrom.Keys) )
             {
                 if (observer is Player player && player != Creature)
                 {
@@ -248,18 +304,24 @@ namespace OpenTibia.Game.Commands
 
                     if (player.Client.Battles.IsKnownCreature(Creature.Id, out removeId) )
                     {
-                        Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, canSeeTo[player], Creature, player.Client.GetSkullIcon(Creature), player.Client.GetPartyIcon(Creature) ) );
+                        Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, observerCanSeeTo[player], Creature, player.Client.GetSkullIcon(Creature), player.Client.GetPartyIcon(Creature) ) );
                     }
                     else
                     {
-                        Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, canSeeTo[player], removeId, Creature, player.Client.GetSkullIcon(Creature), player.Client.GetPartyIcon(Creature), player.Client.GetWarIcon(Creature) ) );
+                        Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, observerCanSeeTo[player], removeId, Creature, player.Client.GetSkullIcon(Creature), player.Client.GetPartyIcon(Creature), player.Client.GetWarIcon(Creature) ) );
                     }
                 }
 
-                Context.AddEvent(observer, ToTile.Position, new CreatureAppearEventArgs(Creature, ToTile, toIndex) );
+                Context.AddEvent(observer, new CreatureAppearEventArgs(Creature, ToTile) );
             }
 
-            Context.AddEvent(new TileRemoveCreatureEventArgs(Creature, fromTile, fromIndex, ToTile, toIndex) );
+            foreach (var observer in toCanSeeObserver.Except(fromCanSeeObserver) )
+            {
+                if (observer != Creature)
+                {
+                    Context.AddEvent(Creature, new CreatureAppearEventArgs(observer, observer.Tile) );
+                }
+            }
 
             Context.AddEvent(new TileAddCreatureEventArgs(Creature, fromTile, fromIndex, ToTile, toIndex) );
 

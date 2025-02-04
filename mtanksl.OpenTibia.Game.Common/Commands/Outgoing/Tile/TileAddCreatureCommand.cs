@@ -25,48 +25,76 @@ namespace OpenTibia.Game.Commands
 
             Context.Server.Map.ZoneAddCreature(ToTile.Position, Creature);
 
-            Dictionary<Creature, byte> canSeeTo = new Dictionary<Creature, byte>();
+            Dictionary<Creature, byte> observerCanSeeTo = new Dictionary<Creature, byte>();
 
-            foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(Creature.Tile.Position) )
+            HashSet<Creature> toCanSeeObserver = new HashSet<Creature>();
+
+            foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(ToTile.Position) )
             {
-                if (observer is Player player)
                 {
-                    if (player != Creature)
+                    if (observer is Player player)
                     {
                         byte clientIndex;
 
                         if (player.Client.TryGetIndex(Creature, out clientIndex) )
                         {
-                            canSeeTo.Add(player, clientIndex);
+                            observerCanSeeTo.Add(player, clientIndex);
+                        }
+                    }
+                    else
+                    {
+                        if (observer.Tile.Position.CanSee(ToTile.Position) )
+                        {
+                            observerCanSeeTo.Add(observer, 0);
                         }
                     }
                 }
-                else
+
                 {
-                    if (observer.Tile.Position.CanSee(Creature.Tile.Position) )
+                    if (Creature is Player player)
                     {
-                        canSeeTo.Add(observer, 0);
+                        byte clientIndex;
+
+                        if (player.Client.TryGetIndex(observer, out clientIndex) )
+                        {
+                            toCanSeeObserver.Add(observer);
+                        }
+                    }
+                    else
+                    {
+                        if (ToTile.Position.CanSee(observer.Tile.Position) )
+                        {
+                            toCanSeeObserver.Add(observer);
+                        }
                     }
                 }
             }
 
-            foreach (var pair in canSeeTo)
+            foreach (var pair in observerCanSeeTo)
             {
-                if (pair.Key is Player player)
+                if (pair.Key is Player player && player != Creature)
                 {
                     uint removeId;
 
-                    if (player.Client.Battles.IsKnownCreature(Creature.Id, out removeId) )
+                    if (player.Client.Battles.IsKnownCreature(Creature.Id, out removeId))
                     {
-                        Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, pair.Value, Creature, player.Client.GetSkullIcon(Creature), player.Client.GetPartyIcon(Creature) ) );
+                        Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, pair.Value, Creature, player.Client.GetSkullIcon(Creature), player.Client.GetPartyIcon(Creature)));
                     }
                     else
                     {
-                        Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, pair.Value, removeId, Creature, player.Client.GetSkullIcon(Creature), player.Client.GetPartyIcon(Creature), player.Client.GetWarIcon(Creature) ) );
+                        Context.AddPacket(player, new ThingAddOutgoingPacket(ToTile.Position, pair.Value, removeId, Creature, player.Client.GetSkullIcon(Creature), player.Client.GetPartyIcon(Creature), player.Client.GetWarIcon(Creature)));
                     }
                 }
 
-                Context.AddEvent(pair.Key, ToTile.Position, new CreatureAppearEventArgs(Creature, ToTile, toIndex) );
+                Context.AddEvent(pair.Key, new CreatureAppearEventArgs(Creature, ToTile) );
+            }
+
+            foreach (var observer in toCanSeeObserver)
+            {
+                if (observer != Creature)
+                {
+                    Context.AddEvent(Creature, new CreatureAppearEventArgs(observer, observer.Tile) );
+                }
             }
 
             Context.AddEvent(new TileAddCreatureEventArgs(Creature, null, null, ToTile, toIndex) );

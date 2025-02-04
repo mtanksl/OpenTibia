@@ -21,27 +21,47 @@ namespace OpenTibia.Game.Commands
 
         public override Promise Execute()
         {
-            Dictionary<Creature, byte> canSeeFrom = new Dictionary<Creature, byte>();
+            Dictionary<Creature, byte> observerCanSeeFrom = new Dictionary<Creature, byte>();
+
+            HashSet<Creature> fromCanSeeObserver = new HashSet<Creature>();
 
             foreach (var observer in Context.Server.Map.GetObserversOfTypeCreature(FromTile.Position) )
             {
-                if (observer is Player player)
                 {
-                    if (player != Creature)
+                    if (observer is Player player)
                     {
                         byte clientIndex;
 
                         if (player.Client.TryGetIndex(Creature, out clientIndex) )
                         {
-                            canSeeFrom.Add(player, clientIndex);
+                            observerCanSeeFrom.Add(player, clientIndex);
+                        }
+                    }
+                    else
+                    {
+                        if (observer.Tile.Position.CanSee(FromTile.Position) )
+                        {
+                            observerCanSeeFrom.Add(observer, 0);
                         }
                     }
                 }
-                else
+
                 {
-                    if (observer.Tile.Position.CanSee(Creature.Tile.Position) )
+                    if (Creature is Player player)
                     {
-                        canSeeFrom.Add(observer, 0);
+                        byte clientIndex;
+
+                        if (player.Client.TryGetIndex(observer, out clientIndex) )
+                        {
+                            fromCanSeeObserver.Add(observer);
+                        }
+                    }
+                    else
+                    {
+                        if (FromTile.Position.CanSee(observer.Tile.Position) )
+                        {
+                            fromCanSeeObserver.Add(observer);
+                        }
                     }
                 }
             }
@@ -52,9 +72,9 @@ namespace OpenTibia.Game.Commands
 
             Context.Server.Map.ZoneRemoveCreature(FromTile.Position, Creature);
 
-            foreach (var pair in canSeeFrom)
+            foreach (var pair in observerCanSeeFrom)
             {
-                if (pair.Key is Player player)
+                if (pair.Key is Player player && player != Creature)
                 {
                     if (FromTile.Count >= Constants.ObjectsPerPoint)
                     {
@@ -66,7 +86,15 @@ namespace OpenTibia.Game.Commands
                     }
                 }
 
-                Context.AddEvent(pair.Key, FromTile.Position, new CreatureDisappearEventArgs(Creature, FromTile, fromIndex) );
+                Context.AddEvent(pair.Key, new CreatureDisappearEventArgs(Creature, FromTile) );
+            }
+
+            foreach (var observer in fromCanSeeObserver)
+            {
+                if (observer != Creature)
+                {
+                    Context.AddEvent(Creature, new CreatureDisappearEventArgs(observer, observer.Tile) );
+                }
             }
 
             Context.AddEvent(new TileRemoveCreatureEventArgs(Creature, FromTile, fromIndex, null, null) );
