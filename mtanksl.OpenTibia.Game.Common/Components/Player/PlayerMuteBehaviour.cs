@@ -22,6 +22,13 @@ namespace OpenTibia.Game.Components
                 return true;
             }
 
+            if (count == 0)
+            {
+                ticks = 1500;
+
+                globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(GameObject.Id), OnThink);
+            }
+
             count++;
 
             if (count > 4)
@@ -40,33 +47,44 @@ namespace OpenTibia.Game.Components
             return false;
         }
 
-        private Guid globalTick;
-
         public override void Start()
         {
-            int ticks = 1500;
+            //
+        }
 
-            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(GameObject.Id), (context, e) =>
+        private int ticks;
+
+        private Guid globalTick;
+
+        private Promise OnThink(Context context, GlobalTickEventArgs e)
+        {
+            ticks -= e.Ticks;
+
+            while (ticks <= 0)
             {
-                ticks -= e.Ticks;
+                ticks += 1500;
 
-                while (ticks <= 0)
+                count--;
+
+                if (count == 0)
                 {
-                    ticks += 1500;
+                    Context.Server.EventHandlers.Unsubscribe(globalTick);
 
-                    if (count > 0)
-                    {
-                        count--;
-                    }
+                    break;
                 }
+            }
 
-                return Promise.Completed;
-            } );
+            return Promise.Completed;
         }
 
         public override void Stop()
         {
-            Context.Server.EventHandlers.Unsubscribe(globalTick);
+            if (count > 0)
+            {
+                count = 0;
+
+                Context.Server.EventHandlers.Unsubscribe(globalTick);
+            }
         }
     }
 }

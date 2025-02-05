@@ -15,35 +15,84 @@ namespace OpenTibia.Game.Components
             this.voices = voices;
         }
 
-        private Guid globalTick;
+        private Npc npc;
+
+        private Guid creatureAppearEventArgs;
+
+        private Guid creatureDisappearEventArgs;
+
+        private int near;
 
         public override void Start()
         {
-            Npc npc = (Npc)GameObject;
+            npc = (Npc)GameObject;
 
-            int ticks = voices.Interval;
-
-            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(npc.Id), async (context, e) =>
+            creatureAppearEventArgs = Context.Server.GameObjectEventHandlers.Subscribe<CreatureAppearEventArgs>(npc, (context, e) => 
             {
-                ticks -= e.Ticks;
-
-                while (ticks <= 0)
+                if (e.Creature is Player player)
                 {
-                    ticks += voices.Interval;
-
-                    if (Context.Server.Randomization.HasProbability(voices.Chance / 100.0) )
+                    if (near == 0)
                     {
-                        VoiceItem voiceItem = Context.Server.Randomization.Take(voices.Items);
-                                                                           
-                        await Context.AddCommand(new NpcSayCommand(npc, voiceItem.Sentence) );
+                        ticks = voices.Interval;
+
+                        globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(npc.Id), OnThink);
+                    }
+
+                    near++;
+                }
+
+                return Promise.Completed; 
+            } );
+
+            creatureDisappearEventArgs = Context.Server.GameObjectEventHandlers.Subscribe<CreatureDisappearEventArgs>(npc, (context, e) =>
+            {
+                if (e.Creature is Player player)
+                {
+                    near--;
+
+                    if (near == 0)
+                    {
+                        Context.Server.EventHandlers.Unsubscribe(globalTick);
                     }
                 }
+
+                return Promise.Completed;
             } );
+        }
+
+        private int ticks;
+
+        private Guid globalTick;
+
+        private async Promise OnThink(Context context, GlobalTickEventArgs e)
+        {
+            ticks -= e.Ticks;
+
+            while (ticks <= 0)
+            {
+                ticks += voices.Interval;
+
+                if (Context.Server.Randomization.HasProbability(voices.Chance / 100.0) )
+                {
+                    VoiceItem voiceItem = Context.Server.Randomization.Take(voices.Items);
+                                                                           
+                    await Context.AddCommand(new NpcSayCommand(npc, voiceItem.Sentence) );
+                }
+            }
         }
 
         public override void Stop()
         {
-            Context.Server.EventHandlers.Unsubscribe(globalTick);
+            Context.Server.GameObjectEventHandlers.Unsubscribe(creatureAppearEventArgs);
+
+            Context.Server.GameObjectEventHandlers.Unsubscribe(creatureDisappearEventArgs);
+
+            if (near > 0)
+            {
+                near = 0;
+
+                Context.Server.EventHandlers.Unsubscribe(globalTick);
+            }
         }
     }
 }

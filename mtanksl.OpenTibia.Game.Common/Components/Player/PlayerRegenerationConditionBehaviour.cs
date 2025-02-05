@@ -18,6 +18,19 @@ namespace OpenTibia.Game.Components
                 return false;
             }
 
+            if (regeneration == 0 && soulRegeneration == 0)
+            {
+                health = vocationConfig.RegenerateHealthInSeconds;
+
+                mana = vocationConfig.RegenerateManaInSeconds;
+
+                soul = vocationConfig.RegenerateSoulInSeconds;
+
+                ticks = 1000;
+
+                globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>(OnThink);
+            }
+
             regeneration += regenerationInSeconds;
 
             return true;
@@ -27,91 +40,122 @@ namespace OpenTibia.Game.Components
 
         public void AddSoulRegeneration()
         {
+            if (regeneration == 0 && soulRegeneration == 0)
+            {
+                health = vocationConfig.RegenerateHealthInSeconds;
+
+                mana = vocationConfig.RegenerateManaInSeconds;
+
+                soul = vocationConfig.RegenerateSoulInSeconds;
+
+                ticks = 1000;
+
+                globalTick = Context.Server.EventHandlers.Subscribe<GlobalTickEventArgs>(OnThink);
+            }
+
             soulRegeneration = 4 * 60;
         }
 
-        private Guid globalTick;
+        private Player player;
+
+        private VocationConfig vocationConfig;
 
         public override void Start()
         {
-            Player player = (Player)GameObject;
+            player = (Player)GameObject;
 
-            VocationConfig vocationConfig = Context.Server.Vocations.GetVocationById( (byte)player.Vocation);
+            vocationConfig = Context.Server.Vocations.GetVocationById( (byte)player.Vocation);
+        }
 
-            int health = vocationConfig.RegenerateHealthInSeconds;
+        private int health;
 
-            int mana = vocationConfig.RegenerateManaInSeconds;
+        private int mana;
 
-            int soul = vocationConfig.RegenerateSoulInSeconds;
+        private int soul;
 
-            int ticks = 1000;
+        private int ticks;
 
-            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(player.Id), async (context, e) =>
+        private Guid globalTick;
+
+        private async Promise OnThink(Context context, GlobalTickEventArgs e)
+        {
+            ticks -= e.Ticks;
+
+            while (ticks <= 0)
             {
-                ticks -= e.Ticks;
+                ticks += 1000;
 
-                while (ticks <= 0)
+                if (regeneration > 0)
                 {
-                    ticks += 1000;
+                    regeneration--;
 
-                    if (regeneration > 0)
+                    if (health > 0)
                     {
-                        regeneration--;
+                        health--;
+                    }
+                    else
+                    {
+                        health = vocationConfig.RegenerateHealthInSeconds;
 
-                        if (health > 0)
+                        if ( !player.Tile.ProtectionZone)
                         {
-                            health--;
-                        }
-                        else
-                        {
-                            health = vocationConfig.RegenerateHealthInSeconds;
-
-                            if ( !player.Tile.ProtectionZone)
-                            {
-                                await Context.AddCommand(new CreatureUpdateHealthCommand(player, player.Health + vocationConfig.RegenerateHealth) );
-                            }
-                        }
-
-                        if (mana > 0)
-                        {
-                            mana--;
-                        }
-                        else
-                        {
-                            mana = vocationConfig.RegenerateManaInSeconds;
-
-                            if ( !player.Tile.ProtectionZone)
-                            {
-                                await Context.AddCommand(new PlayerUpdateManaCommand(player, player.Mana + vocationConfig.RegenerateMana) );
-                            }
+                            await Context.AddCommand(new CreatureUpdateHealthCommand(player, player.Health + vocationConfig.RegenerateHealth) );
                         }
                     }
 
-                    if (soulRegeneration > 0)
+                    if (mana > 0)
                     {
-                        soulRegeneration--;
+                        mana--;
+                    }
+                    else
+                    {
+                        mana = vocationConfig.RegenerateManaInSeconds;
 
-                        if (soul > 0)
+                        if ( !player.Tile.ProtectionZone)
                         {
-                            soul--;
-                        }
-                        else
-                        {
-                            soul = vocationConfig.RegenerateSoulInSeconds;
-
-                            if (player.Soul < vocationConfig.SoulMax)
-                            {
-                                await Context.AddCommand(new PlayerUpdateSoulCommand(player, player.Soul + vocationConfig.RegenerateSoul, vocationConfig.SoulMax) );
-                            }
+                            await Context.AddCommand(new PlayerUpdateManaCommand(player, player.Mana + vocationConfig.RegenerateMana) );
                         }
                     }
                 }
-            } );
+
+                if (soulRegeneration > 0)
+                {
+                    soulRegeneration--;
+
+                    if (soul > 0)
+                    {
+                        soul--;
+                    }
+                    else
+                    {
+                        soul = vocationConfig.RegenerateSoulInSeconds;
+
+                        if (player.Soul < vocationConfig.SoulMax)
+                        {
+                            await Context.AddCommand(new PlayerUpdateSoulCommand(player, player.Soul + vocationConfig.RegenerateSoul, vocationConfig.SoulMax) );
+                        }
+                    }
+                }
+
+                if (regeneration == 0 && soulRegeneration == 0)
+                {
+                    Context.Server.EventHandlers.Unsubscribe(globalTick);
+
+                    break;
+                }
+            }
         }
 
         public override void Stop()
         {
-            Context.Server.EventHandlers.Unsubscribe(globalTick);
+            if (regeneration > 0 || soulRegeneration > 0)
+            {
+                regeneration = 0;
+
+                soulRegeneration = 0;
+
+                Context.Server.EventHandlers.Unsubscribe(globalTick);
+            }
         }
     }
 }
