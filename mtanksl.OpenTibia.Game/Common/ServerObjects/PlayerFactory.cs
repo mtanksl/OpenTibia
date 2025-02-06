@@ -4,7 +4,6 @@ using OpenTibia.Data.Models;
 using OpenTibia.Game.GameObjectScripts;
 using System;
 using System.Linq;
-using static OpenTibia.Common.Objects.PlayerCombatCollection;
 
 namespace OpenTibia.Game.Common.ServerObjects
 {

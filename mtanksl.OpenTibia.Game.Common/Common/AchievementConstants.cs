@@ -1,4 +1,6 @@
-﻿namespace OpenTibia.Game.Common
+﻿using OpenTibia.Game.Commands;
+
+namespace OpenTibia.Game.Common
 {
     public static class AchievementConstants
     {
@@ -83,6 +85,12 @@
 
         // https://tibia.fandom.com/wiki/Rockstar
         public static readonly int Rockstar = 100029;
+
+        // https://tibia.fandom.com/wiki/Marblelous
+        public static readonly int Marblelous = 100030;
+
+        // https://tibia.fandom.com/wiki/Marble_Madness
+        public static readonly int MarbleMadness = 100031;
 
         //TODO: More achievements
     }

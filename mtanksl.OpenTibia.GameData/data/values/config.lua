@@ -60,8 +60,8 @@
 			corpses = {
 				--TODO
 			},
-			dusts = {
-				--TODO
+			demonDusts = {
+				[2916] = 2917
 			},
 			trashes = { 
 				[1738] = 2250, -- Box
@@ -87,7 +87,7 @@
 			goodSugarCanes = { [5466] = 5465 },
 			iceCubes = { [7441] = 7442, [7442] = 7444, [7444] = 7445, [7445] = 7446 },
 			jungleGrasses = { [2782] = 2781, [3985] = 3984 },
-			jungleMaws = { [4208] = 4209 },			
+			jungleMaws = { [4208] = 4209 },
 			partyTrumpets = { [6572] = 6573 },
 			piggyBanks = { [2114] = 2115 },
 			pitfalls = { [293] = 294 },
@@ -282,6 +282,9 @@
 			closeVerticalSealedDoors = { [1224] = 1223, [1242] = 1241, [1256] = 1255, [3552] = 3551, [5115] = 5114, [5133] = 5132, [5289] = 5288, [5749] = 5748,[6203] = 6202, [6260] = 6259, [6908] = 6907, [7050] = 7049, [8552] = 8551, [9176] = 9175, [9278] = 9277, [10279] = 10278, [10485] = 10484, [10792] = 10791 },
 			lockedDoors = { [1211] = 1209, [1214] = 1212, [1233] = 1231, [1236] = 1234, [1251] = 1249, [1254] = 1252, [3537] = 3535, [3546] = 3544 },
 			unlockedDoors = { [1209] = 1211, [1212] = 1214, [1231] = 1233, [1234] = 1236, [1249] = 1251, [1252] = 1254, [3535] = 3537, [3544] = 3546 },
+			vampireDusts = {
+				[2956] = 2957
+			},
 			waterBallsLandToWater = { [7956] = 7711 },
 			waterBallsWaterToLand = { [7711] = 7956 }
 		},
@@ -314,6 +317,7 @@
 		bakingTrayWithGarlicDoughs = { 9115 },
 		barOfChocolates = { 6574 },
 		bananaChocolateShake = { 9996 },
+		beautifulMarbleStatue = 11346,
 		beerCasks = { 1772 },
 		blessedWoodenStakes = { 5942 },
 		blueberry = 2677,
@@ -339,6 +343,7 @@
 		crowbars = { 2416 },
 		decoratedCake = 6279,
 		decoratedCake = 6279,
+		demonDust = 5906,
 		dice = 5792,
 		dices = { 5792, 5793, 5794, 5795, 5796, 5797 },
 		distillingMachines = { 5513, 5514 },
@@ -434,6 +439,7 @@
             9574, 9846 -- Corkscrew
 		},
 		holyWaters = { 7494 },
+		iceMammoth = 7446,
 		humanMaleCorpse = 6080,
 		humanFemaleCorpse = 6081,
 		juiceSqueezers = { 5865, 10513 },
@@ -477,6 +483,8 @@
 		magicForcefields = { 1387 },
 		mailboxes = { 2593, 3981 },
 		manaPotions = { 7620 },
+		marbleRocks = { 11343 },
+		marbleStatue = 11345,
 		millstones = { 1381, 1382, 1383, 1384 },
 		norsemanDolls = { 8982 },
 		obsidianKnifes = { 5908 },
@@ -510,6 +518,7 @@
 		},
 		ropeSpots = { 384, 418, 8278 },
 		roughClayStatue = 11340,
+		roughMarbleStatue = 11344,
 		rumCasks = { 5539 },
 		saws = { 2558 },
 		santaDolls = { 6567 },
@@ -563,6 +572,7 @@
 		twinSunCharms = { 11261 },
 		ultimateHealthPotions = { 8473 },
 		unityCharms = { 11259 },
+		vampireDust = 5905,
 		voodooDolls = { 10018 },
 		watches = { 
 			1728, 1729, 1730, 1731, -- Pendulum clock

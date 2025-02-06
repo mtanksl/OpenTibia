@@ -73,6 +73,8 @@ namespace OpenTibia.Game.Common.ServerObjects
                 {
                     yield return message;
                 }
+
+                messages.Clear();
             }
 
             yield return message[0 .. messageStream.Position]; // Copy data to new array
