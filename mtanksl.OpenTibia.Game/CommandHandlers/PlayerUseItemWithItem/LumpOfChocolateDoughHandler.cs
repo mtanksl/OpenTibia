@@ -23,7 +23,11 @@ namespace OpenTibia.Game.CommandHandlers
         {
             if (lumpOfChocolateDoughs.Contains(command.Item.Metadata.OpenTibiaId) && ovens.Contains(command.ToItem.Metadata.OpenTibiaId) )
             {
-                return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.PieceOfCakeChocolateCake, new[] { AchievementConstants.PieceOfCakeChocolateCake, AchievementConstants.PieceOfCakeDecoratedCake }, "Piece of Cake") ).Then( () =>
+                return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.SweetTooth, 10, "Sweet Tooth") ).Then( () =>
+                {
+                    return Context.AddCommand(new PlayerAchievementCommand(command.Player, AchievementConstants.PieceOfCakeChocolateCake, new[] { AchievementConstants.PieceOfCakeChocolateCake, AchievementConstants.PieceOfCakeDecoratedCake }, "Piece of Cake") );
+                    
+                } ).Then(() =>
                 {
                     return Context.AddCommand(new ItemDecrementCommand(command.Item, 1) );
 

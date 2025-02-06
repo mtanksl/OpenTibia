@@ -92,6 +92,12 @@ namespace OpenTibia.Game.Common
         // https://tibia.fandom.com/wiki/Marble_Madness
         public static readonly int MarbleMadness = 100031;
 
+        // https://tibia.fandom.com/wiki/The_Cake%27s_the_Truth
+        public static readonly int TheCakesTheTruth = 100032;
+
+        // https://tibia.fandom.com/wiki/Sweet_Tooth
+        public static readonly int SweetTooth = 100033;
+                
         //TODO: More achievements
     }
 }

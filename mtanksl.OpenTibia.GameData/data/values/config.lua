@@ -1,6 +1,13 @@
 ﻿values = {
 	items = {
 		transformation = {
+			corpseBehemoths = { [2931] = 2932 },
+			corpseBonebeasts = { [3031] = 3032 },
+			corpseDragons =  { [2844] = 2845 },
+			corpseDragonLords = { [2881] = 2882 },
+			corpseLizards = { [4256] = 4257 },
+			corpseMinotaurs = { [2830] = 2831 },
+			
 			babySealDolls = { [7183] = 7184 },
 			blades = { [1510] = 1511 },
 			blueberryBushes = { [2785] = 2786 },
@@ -56,9 +63,6 @@
 				[6372] = 6357, -- Oven
 				[6373] = 6371, -- Bookcase
 				[8692] = 8688  -- Chimney
-			},
-			corpses = {
-				--TODO
 			},
 			demonDusts = {
 				[2916] = 2917
@@ -305,6 +309,13 @@
 			traps = { [2579] = 2578 },
 			wheats = { [2737] = 2738, [2738] = 2739 }
 		},
+		perfectBehemothFang = 5893,
+		hardenedBone = 5925,
+		greenDragonLeather = 5877,
+		redDragonLeather = 5948,
+		lizardLeather = 5876,
+		minotaurLeather = 5878,
+
 		activeBlade = 1511,
 		activeSpike = 1513,
 		amuletOfLoss = 2173,

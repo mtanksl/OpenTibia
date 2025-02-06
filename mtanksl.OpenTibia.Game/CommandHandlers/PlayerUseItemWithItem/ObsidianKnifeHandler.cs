@@ -15,7 +15,18 @@ namespace OpenTibia.Game.CommandHandlers
         private readonly ushort roughMarbleStatue;
         private readonly ushort marbleStatue;
         private readonly ushort beautifulMarbleStatue;
-        private readonly Dictionary<ushort, ushort> corpses;
+        private readonly Dictionary<ushort, ushort> corpseBehemoths;
+        private readonly Dictionary<ushort, ushort> corpseBonebeasts;
+        private readonly Dictionary<ushort, ushort> corpseDragons;
+        private readonly Dictionary<ushort, ushort> corpseDragonLords;
+        private readonly Dictionary<ushort, ushort> corpseLizards;
+        private readonly Dictionary<ushort, ushort> corpseMinotaurs;
+        private readonly ushort perfectBehemothFang;
+        private readonly ushort hardenedBone;
+        private readonly ushort greenDragonLeather;
+        private readonly ushort redDragonLeather;
+        private readonly ushort lizardLeather;
+        private readonly ushort minotaurLeather;
 
         public ObsidianKnifeHandler()
         {
@@ -26,7 +37,18 @@ namespace OpenTibia.Game.CommandHandlers
             roughMarbleStatue = Context.Server.Values.GetUInt16("values.items.roughMarbleStatue");
             marbleStatue = Context.Server.Values.GetUInt16("values.items.marbleStatue");
             beautifulMarbleStatue = Context.Server.Values.GetUInt16("values.items.beautifulMarbleStatue");
-            corpses = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.corpses");
+            corpseBehemoths = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.corpseBehemoths");
+            corpseBonebeasts = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.corpseBonebeasts");
+            corpseDragons = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.corpseDragons");
+            corpseDragonLords = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.corpseDragonLords");
+            corpseLizards = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.corpseLizards");
+            corpseMinotaurs = Context.Server.Values.GetUInt16IUnt16Dictionary("values.items.transformation.corpseMinotaurs");
+            perfectBehemothFang = Context.Server.Values.GetUInt16("values.items.perfectBehemothFang");
+            hardenedBone = Context.Server.Values.GetUInt16("values.items.hardenedBone");
+            greenDragonLeather = Context.Server.Values.GetUInt16("values.items.greenDragonLeather");
+            redDragonLeather = Context.Server.Values.GetUInt16("values.items.redDragonLeather");
+            lizardLeather = Context.Server.Values.GetUInt16("values.items.lizardLeather");
+            minotaurLeather = Context.Server.Values.GetUInt16("values.items.minotaurLeather");
         }
 
         public override Promise Handle(Func<Promise> next, PlayerUseItemWithItemCommand command)
@@ -123,9 +145,131 @@ namespace OpenTibia.Game.CommandHandlers
                         } );
                     }
                 }
-                else if (corpses.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+                else if (corpseBehemoths.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
                 {
-                    //TODO
+                    if (Context.Server.Randomization.HasProbability(10 / 100.0) )
+                    {
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.GreenShimmer) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+
+                        } ).Then( (item) =>
+                        {
+                            return Context.AddCommand(new PlayerCreateItemCommand(command.Player, perfectBehemothFang, 1) );
+                        } );
+                    }
+                    else
+                    {
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.YellowSpark) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+                        } );
+                    }
+                }
+                else if (corpseBonebeasts.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+                {
+                    if (Context.Server.Randomization.HasProbability(5 / 100.0) )
+                    {
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.GreenShimmer) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+
+                        } ).Then( (item) =>
+                        {
+                            return Context.AddCommand(new PlayerCreateItemCommand(command.Player, hardenedBone, 1) );
+                        } );
+                    }
+                    else
+                    {
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.YellowSpark) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+                        } );
+                    }
+                }
+                else if (corpseDragons.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+                {
+                    if (Context.Server.Randomization.HasProbability(5 / 100.0) )
+                    {
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.GreenShimmer) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+
+                        } ).Then( (item) =>
+                        {
+                            return Context.AddCommand(new PlayerCreateItemCommand(command.Player, greenDragonLeather, 1) );
+                        } );
+                    }
+                    else
+                    {
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.YellowSpark) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+                        } );
+                    }
+                }
+                else if (corpseDragonLords.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+                {
+                    if (Context.Server.Randomization.HasProbability(10 / 100.0) )
+                    {
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.GreenShimmer) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+
+                        } ).Then( (item) =>
+                        {
+                            return Context.AddCommand(new PlayerCreateItemCommand(command.Player, redDragonLeather, 1) );
+                        } );
+                    }
+                    else
+                    {
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.YellowSpark) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+                        } );
+                    }
+                }
+                else if (corpseLizards.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+                {
+                    if (Context.Server.Randomization.HasProbability(10 / 100.0) )
+                    {
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.GreenShimmer) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+
+                        } ).Then( (item) =>
+                        {
+                            return Context.AddCommand(new PlayerCreateItemCommand(command.Player, lizardLeather, 1) );
+                        } );
+                    }
+                    else
+                    {
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.YellowSpark) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+                        } );
+                    }
+                }
+                else if (corpseMinotaurs.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
+                {
+                    if (Context.Server.Randomization.HasProbability(10 / 100.0) )
+                    {
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.GreenShimmer) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+
+                        } ).Then( (item) =>
+                        {
+                            return Context.AddCommand(new PlayerCreateItemCommand(command.Player, minotaurLeather, 1) );
+                        } );
+                    }
+                    else
+                    {
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.YellowSpark) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+                        } );
+                    }
                 }
             }
             

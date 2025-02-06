@@ -31,25 +31,45 @@ namespace OpenTibia.Game.CommandHandlers
             {
                 if (demonDusts.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.YellowSpark) ).Then( () =>
+                    if (Context.Server.Randomization.HasProbability(10 / 100.0) )
                     {
-                        return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.GreenShimmer) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
 
-                    } ).Then( (item) =>
+                        } ).Then( (item) =>
+                        {
+                            return Context.AddCommand(new PlayerCreateItemCommand(command.Player, demonDust, 1) );
+                        } );
+                    }
+                    else
                     {
-                        return Context.AddCommand(new PlayerCreateItemCommand(command.Player, demonDust, 1) );
-                    } );
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.YellowSpark) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+                        } );
+                    }                    
                 }
                 else if (vampireDusts.TryGetValue(command.ToItem.Metadata.OpenTibiaId, out toOpenTibiaId) )
                 {
-                    return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.YellowSpark) ).Then( () =>
+                    if (Context.Server.Randomization.HasProbability(5 / 100.0) )
                     {
-                        return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.GreenShimmer) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
 
-                    } ).Then( (item) =>
+                        } ).Then( (item) =>
+                        {
+                            return Context.AddCommand(new PlayerCreateItemCommand(command.Player, vampireDust, 1) );
+                        } );
+                    }
+                    else
                     {
-                        return Context.AddCommand(new PlayerCreateItemCommand(command.Player, vampireDust, 1) );
-                    } );
+                        return Context.AddCommand(new ShowMagicEffectCommand(command.ToItem, MagicEffectType.YellowSpark) ).Then( () =>
+                        {
+                            return Context.AddCommand(new ItemTransformCommand(command.ToItem, toOpenTibiaId, 1) );
+                        } );
+                    }
                 }
             }
 
