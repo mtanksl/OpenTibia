@@ -43,9 +43,7 @@ namespace OpenTibia.Game.Commands
 
                         PlayerBuyNpcTradeEventArgs e = new PlayerBuyNpcTradeEventArgs(Player, itemMetadata.OpenTibiaId, Packet.Type, (byte)count, (int)offer.BuyPrice * count, Packet.IgnoreCapacity, Packet.BuyWithBackpacks);
 
-                        ObserveEventArgs<PlayerBuyNpcTradeEventArgs> oe = ObserveEventArgs.Create(e);
-
-                        Context.AddEvent(trading.OfferNpc, oe);
+                        Context.AddEvent(trading.OfferNpc, ObserveEventArgs.Create(trading.OfferNpc, e) );
                         
                         Context.AddEvent(Player, e);
                     }

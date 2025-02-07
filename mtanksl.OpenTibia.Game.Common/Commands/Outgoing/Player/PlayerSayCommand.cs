@@ -48,13 +48,11 @@ namespace OpenTibia.Game.Commands
 
             PlayerSayEventArgs e = new PlayerSayEventArgs(Player, Message);
 
-            ObserveEventArgs<PlayerSayEventArgs> oe = ObserveEventArgs.Create(e);
-
             foreach (var npc in Context.Server.Map.GetObserversOfTypeNpc(Player.Tile.Position) )
             {
                 if (npc.Tile.Position.CanSee(Player.Tile.Position) )
                 {
-                    Context.AddEvent(npc, oe);
+                    Context.AddEvent(npc, ObserveEventArgs.Create(npc, e) );
                 }
             }
               

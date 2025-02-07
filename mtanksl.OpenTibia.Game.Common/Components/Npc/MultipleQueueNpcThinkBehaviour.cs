@@ -122,17 +122,17 @@ namespace OpenTibia.Game.Components
 
             globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(npc.Id), OnThink);
 
-            playerSay = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerSayEventArgs> >(npc, (context, e) => Say(e.OriginalEvent.Player, e.OriginalEvent.Message) );
+            playerSay = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerSayEventArgs> >(npc, (context, e) => Say(e.SourceEvent.Player, e.SourceEvent.Message) );
 
-            playerSayToNpc = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerSayToNpcEventArgs> >(npc, (context, e) => Say(e.OriginalEvent.Player, e.OriginalEvent.Message) );
+            playerSayToNpc = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerSayToNpcEventArgs> >(npc, (context, e) => Say(e.SourceEvent.Player, e.SourceEvent.Message) );
 
-            playerBuyNpcTrade = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerBuyNpcTradeEventArgs> >(npc, (context, e) => Buy(e.OriginalEvent.Player, e.OriginalEvent.OpenTibiaId, e.OriginalEvent.Type, e.OriginalEvent.Count, e.OriginalEvent.Price, e.OriginalEvent.IgnoreCapacity, e.OriginalEvent.BuyWithBackpacks) );
+            playerBuyNpcTrade = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerBuyNpcTradeEventArgs> >(npc, (context, e) => Buy(e.SourceEvent.Player, e.SourceEvent.OpenTibiaId, e.SourceEvent.Type, e.SourceEvent.Count, e.SourceEvent.Price, e.SourceEvent.IgnoreCapacity, e.SourceEvent.BuyWithBackpacks) );
 
-            playerSellNpcTrade = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerSellNpcTradeEventArgs> >(npc, (context, e) => Sell(e.OriginalEvent.Player, e.OriginalEvent.OpenTibiaId, e.OriginalEvent.Type, e.OriginalEvent.Count, e.OriginalEvent.Price, e.OriginalEvent.KeepEquipped) );
+            playerSellNpcTrade = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerSellNpcTradeEventArgs> >(npc, (context, e) => Sell(e.SourceEvent.Player, e.SourceEvent.OpenTibiaId, e.SourceEvent.Type, e.SourceEvent.Count, e.SourceEvent.Price, e.SourceEvent.KeepEquipped) );
 
-            playerCloseNpcTrade = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerCloseNpcTradeEventArgs> >(npc, (context, e) => CloseNpcTrade(e.OriginalEvent.Player) );
+            playerCloseNpcTrade = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerCloseNpcTradeEventArgs> >(npc, (context, e) => CloseNpcTrade(e.SourceEvent.Player) );
 
-            playerCloseNpcsChannel = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerCloseNpcsChannelEventArgs> >(npc, (context, e) => CloseNpcsChannel(e.OriginalEvent.Player) );
+            playerCloseNpcsChannel = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerCloseNpcsChannelEventArgs> >(npc, (context, e) => CloseNpcsChannel(e.SourceEvent.Player) );
         }
 
         private async Promise OnThink(Context context, GlobalTickEventArgs e)

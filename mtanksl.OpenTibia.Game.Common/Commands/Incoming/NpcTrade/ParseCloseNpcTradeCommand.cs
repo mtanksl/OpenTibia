@@ -26,9 +26,7 @@ namespace OpenTibia.Game.Commands
 
                     PlayerCloseNpcTradeEventArgs e = new PlayerCloseNpcTradeEventArgs(Player);
 
-                    ObserveEventArgs<PlayerCloseNpcTradeEventArgs> oe = ObserveEventArgs.Create(e);
-
-                    Context.AddEvent(trading.OfferNpc, oe);
+                    Context.AddEvent(trading.OfferNpc, ObserveEventArgs.Create(trading.OfferNpc, e) );
 
                     Context.AddEvent(Player, e);
                 }

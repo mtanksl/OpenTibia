@@ -19,13 +19,11 @@ namespace OpenTibia.Game.Commands
             {
                 PlayerCloseNpcsChannelEventArgs e = new PlayerCloseNpcsChannelEventArgs(Player);
 
-                ObserveEventArgs<PlayerCloseNpcsChannelEventArgs> oe = ObserveEventArgs.Create(e);
-
                 foreach (var npc in Context.Server.Map.GetObserversOfTypeNpc(Player.Tile.Position) )
                 {
                     if (npc.Tile.Position.CanSee(Player.Tile.Position) )
                     {
-                        Context.AddEvent(npc, oe);
+                        Context.AddEvent(npc, ObserveEventArgs.Create(npc, e) );
                     }
                 }
 
