@@ -47,14 +47,14 @@ namespace OpenTibia.Game.Components
             return false;
         }
 
+        private int ticks;
+
+        private Guid globalTick;
+
         public override void Start()
         {
             //
         }
-
-        private int ticks;
-
-        private Guid globalTick;
 
         private Promise OnThink(Context context, GlobalTickEventArgs e)
         {

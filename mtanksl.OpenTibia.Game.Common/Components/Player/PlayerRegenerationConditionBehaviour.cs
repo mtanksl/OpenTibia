@@ -60,13 +60,6 @@ namespace OpenTibia.Game.Components
 
         private VocationConfig vocationConfig;
 
-        public override void Start()
-        {
-            player = (Player)GameObject;
-
-            vocationConfig = Context.Server.Vocations.GetVocationById( (byte)player.Vocation);
-        }
-
         private int health;
 
         private int mana;
@@ -76,6 +69,13 @@ namespace OpenTibia.Game.Components
         private int ticks;
 
         private Guid globalTick;
+
+        public override void Start()
+        {
+            player = (Player)GameObject;
+
+            vocationConfig = Context.Server.Vocations.GetVocationById( (byte)player.Vocation);
+        }
 
         private async Promise OnThink(Context context, GlobalTickEventArgs e)
         {

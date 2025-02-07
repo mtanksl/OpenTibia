@@ -1,7 +1,6 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Common;
-using OpenTibia.Game.Components;
-using System.Collections.Generic;
+using OpenTibia.Game.Events;
 
 namespace OpenTibia.Game.Commands
 {
@@ -18,19 +17,19 @@ namespace OpenTibia.Game.Commands
         {
             if (Context.Server.Config.GameplayPrivateNpcSystem)
             {
-                List<Promise> promises = new List<Promise>();
+                PlayerCloseNpcsChannelEventArgs e = new PlayerCloseNpcsChannelEventArgs(Player);
+
+                ObserveEventArgs<PlayerCloseNpcsChannelEventArgs> oe = ObserveEventArgs.Create(e);
 
                 foreach (var npc in Context.Server.Map.GetObserversOfTypeNpc(Player.Tile.Position) )
                 {
-                    MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>(npc);
-
-                    if (npcThinkBehaviour != null)
+                    if (npc.Tile.Position.CanSee(Player.Tile.Position) )
                     {
-                        promises.Add(npcThinkBehaviour.CloseNpcsChannel(Player) );
+                        Context.AddEvent(npc, oe);
                     }
                 }
 
-                return Promise.WhenAll(promises.ToArray() );
+                Context.AddEvent(Player, e);
             }
              
             return Promise.Completed;

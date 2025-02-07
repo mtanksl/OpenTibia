@@ -1,7 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
-using OpenTibia.Game.Components;
+using OpenTibia.Game.Events;
 
 namespace OpenTibia.Game.Commands
 {
@@ -24,12 +24,13 @@ namespace OpenTibia.Game.Commands
                 {
                     Context.Server.NpcTradings.RemoveTrading(trading);
 
-                    MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>(trading.OfferNpc);
+                    PlayerCloseNpcTradeEventArgs e = new PlayerCloseNpcTradeEventArgs(Player);
 
-                    if (npcThinkBehaviour != null)
-                    {
-                        return npcThinkBehaviour.CloseNpcTrade(Player);
-                    }
+                    ObserveEventArgs<PlayerCloseNpcTradeEventArgs> oe = ObserveEventArgs.Create(e);
+
+                    Context.AddEvent(trading.OfferNpc, oe);
+
+                    Context.AddEvent(Player, e);
                 }
             }
 

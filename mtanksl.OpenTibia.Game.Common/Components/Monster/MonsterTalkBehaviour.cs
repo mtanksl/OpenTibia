@@ -23,6 +23,10 @@ namespace OpenTibia.Game.Components
 
         private int near;
 
+        private int ticks;
+
+        private Guid globalTick;
+
         public override void Start()
         {
             monster = (Monster)GameObject;
@@ -59,10 +63,6 @@ namespace OpenTibia.Game.Components
                 return Promise.Completed;
             } );
         }
-
-        private int ticks;
-
-        private Guid globalTick;
 
         private async Promise OnThink(Context context, GlobalTickEventArgs e)
         {

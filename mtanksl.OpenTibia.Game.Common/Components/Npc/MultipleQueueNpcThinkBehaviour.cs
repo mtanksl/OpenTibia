@@ -13,7 +13,6 @@ namespace OpenTibia.Game.Components
 {
     public class MultipleQueueNpcThinkBehaviour : Behaviour
     {
-        private DialoguePlugin dialoguePlugin;
         private IWalkStrategy idleWalkStrategy;
 
         public MultipleQueueNpcThinkBehaviour(IWalkStrategy idleWalkStrategy)
@@ -21,12 +20,29 @@ namespace OpenTibia.Game.Components
             this.idleWalkStrategy = idleWalkStrategy;
         }
 
+        public async Promise Idle(Player player)
+        {
+            await Remove(player);
+        }
+
+        public async Promise Farewell(Player player)
+        {
+            await Remove(player);
+
+            await dialoguePlugin.OnFarewell(npc, player);
+        }
+
+        public async Promise Disappear(Player player)
+        {
+            await Remove(player);
+
+            await dialoguePlugin.OnDisappear(npc, player);
+        }
+
         private QueueHashSet<Player> queue = new QueueHashSet<Player>();
 
         private async Promise Add(Player player)
         {
-            Npc npc = (Npc)GameObject;
-
             if (queue.Add(player) )
             {
                 await dialoguePlugin.OnEnqueue(npc, player);
@@ -35,8 +51,6 @@ namespace OpenTibia.Game.Components
 
         private async Promise Remove(Player player)
         {
-            Npc npc = (Npc)GameObject;
-
             if (queue.Remove(player) )
             {
                 NpcTrading trading = Context.Server.NpcTradings.GetTradingByCounterOfferPlayer(player);
@@ -69,72 +83,31 @@ namespace OpenTibia.Game.Components
             queue.Clear();
         }
 
-        public async Promise Buy(Player player, ushort openTibiaId, byte type, byte count, int price, bool ignoreCapacity, bool buyWithBackpacks)
-        {
-            Npc npc = (Npc)GameObject;
+        private Npc npc;
 
-            await dialoguePlugin.OnBuy(npc, player, openTibiaId, type, count, price, ignoreCapacity, buyWithBackpacks);
-        }
-
-        public async Promise Sell(Player player, ushort openTibiaId, byte type, byte count, int price, bool keepEquipped)
-        { 
-            Npc npc = (Npc)GameObject;
-
-            await dialoguePlugin.OnSell(npc, player, openTibiaId, type, count, price, keepEquipped);
-        }
-
-        public async Promise CloseNpcTrade(Player player)
-        {
-            Npc npc = (Npc)GameObject;
-
-            await dialoguePlugin.OnCloseNpcTrade(npc, player);
-        }
-
-        public async Promise CloseNpcsChannel(Player player)
-        {
-            Npc npc = (Npc)GameObject;
-
-            await Remove(player);
-        }
-
-        public async Promise Idle(Player player)
-        {
-            Npc npc = (Npc)GameObject;
-
-            await Remove(player);
-        }
-
-        public async Promise Farewell(Player player)
-        {
-            Npc npc = (Npc)GameObject;
-
-            await Remove(player);
-
-            await dialoguePlugin.OnFarewell(npc, player);
-        }
-
-        public async Promise Disappear(Player player)
-        {
-            Npc npc = (Npc)GameObject;
-
-            await Remove(player);
-
-            await dialoguePlugin.OnDisappear(npc, player);
-        }
+        private DialoguePlugin dialoguePlugin;
 
         private Guid globalServerReloaded;
+
+        private Guid globalTick;
 
         private Guid playerSay;
 
         private Guid playerSayToNpc;
 
-        private Guid globalTick;
+        private Guid playerBuyNpcTrade;
+
+        private Guid playerSellNpcTrade;
+
+        private Guid playerCloseNpcTrade;
+
+        private Guid playerCloseNpcsChannel;
 
         private DateTime nextWalk = DateTime.MinValue;
 
         public override void Start()
         {
-            Npc npc = (Npc)GameObject;
+            npc = (Npc)GameObject;
 
             dialoguePlugin = Context.Server.Plugins.GetDialoguePlugin(npc.Name) ?? Context.Server.Plugins.GetDialoguePlugin("Default");
 
@@ -147,88 +120,126 @@ namespace OpenTibia.Game.Components
                 return Promise.Completed;
             } );
 
-            playerSay = Context.Server.EventHandlers.Subscribe<PlayerSayEventArgs>( (context, e) => Say(e.Player, e.Message) );
+            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(npc.Id), OnThink);
 
-            playerSayToNpc = Context.Server.EventHandlers.Subscribe<PlayerSayToNpcEventArgs>( (context, e) => Say(e.Player, e.Message) );
+            playerSay = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerSayEventArgs> >(npc, (context, e) => Say(e.OriginalEvent.Player, e.OriginalEvent.Message) );
 
-            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(npc.Id), async (context, e) =>
+            playerSayToNpc = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerSayToNpcEventArgs> >(npc, (context, e) => Say(e.OriginalEvent.Player, e.OriginalEvent.Message) );
+
+            playerBuyNpcTrade = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerBuyNpcTradeEventArgs> >(npc, (context, e) => Buy(e.OriginalEvent.Player, e.OriginalEvent.OpenTibiaId, e.OriginalEvent.Type, e.OriginalEvent.Count, e.OriginalEvent.Price, e.OriginalEvent.IgnoreCapacity, e.OriginalEvent.BuyWithBackpacks) );
+
+            playerSellNpcTrade = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerSellNpcTradeEventArgs> >(npc, (context, e) => Sell(e.OriginalEvent.Player, e.OriginalEvent.OpenTibiaId, e.OriginalEvent.Type, e.OriginalEvent.Count, e.OriginalEvent.Price, e.OriginalEvent.KeepEquipped) );
+
+            playerCloseNpcTrade = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerCloseNpcTradeEventArgs> >(npc, (context, e) => CloseNpcTrade(e.OriginalEvent.Player) );
+
+            playerCloseNpcsChannel = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerCloseNpcsChannelEventArgs> >(npc, (context, e) => CloseNpcsChannel(e.OriginalEvent.Player) );
+        }
+
+        private async Promise OnThink(Context context, GlobalTickEventArgs e)
+        {
+            foreach (var player in queue.ToArray() )
             {
-                foreach (var player in queue.ToArray() )
+                if (player.Tile == null || player.IsDestroyed || !npc.Tile.Position.IsInRange(player.Tile.Position, 3) )
                 {
-                    if (player.Tile == null || player.IsDestroyed || !npc.Tile.Position.IsInRange(player.Tile.Position, 3) )
+                    await Disappear(player);
+                }
+            }
+
+            if (queue.Count == 0)
+            {
+                if (idleWalkStrategy != null && DateTime.UtcNow >= nextWalk)
+                {
+                    Tile toTile;
+
+                    if (idleWalkStrategy.CanWalk(npc, null, out toTile) )
                     {
-                        await Disappear(player);
+                        await Context.AddCommand(new CreatureMoveCommand(npc, toTile) );
+
+                        nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / npc.Speed);
+                    }
+                    else
+                    {
+                        nextWalk = DateTime.UtcNow.AddSeconds(1);
                     }
                 }
+            }
+            else
+            {
+                Player target = queue.Peek();
 
-                if (queue.Count == 0)
+                Direction? direction = npc.Tile.Position.ToDirection(target.Tile.Position);
+
+                if (direction != null)
                 {
-                    if (idleWalkStrategy != null && DateTime.UtcNow >= nextWalk)
+                    await Context.AddCommand(new CreatureUpdateDirectionCommand(npc, direction.Value));
+                }
+            }
+        }
+
+        private async Promise Say(Player player, string message)
+        {
+            if (npc.Tile.Position.IsInRange(player.Tile.Position, 3) )
+            {               
+                if ( !queue.Contains(player) )
+                {
+                    if (await dialoguePlugin.ShouldGreet(npc, player, message) )
                     {
-                        Tile toTile;
+                        await Add(player);
 
-                        if (idleWalkStrategy.CanWalk(npc, null, out toTile) )
-                        {
-                            await Context.AddCommand(new CreatureMoveCommand(npc, toTile) );
-
-                            nextWalk = DateTime.UtcNow.AddMilliseconds(1000 * toTile.Ground.Metadata.Speed / npc.Speed);
-                        }
-                        else
-                        {
-                            nextWalk = DateTime.UtcNow.AddSeconds(1);
-                        }
+                        await dialoguePlugin.OnGreet(npc, player);
                     }
                 }
                 else
                 {
-                    Player target = queue.Peek();
-
-                    Direction? direction = npc.Tile.Position.ToDirection(target.Tile.Position);
-
-                    if (direction != null)
+                    if (await dialoguePlugin.ShouldFarewell(npc, player, message) )
                     {
-                        await Context.AddCommand(new CreatureUpdateDirectionCommand(npc, direction.Value) );
-                    }
-                }                
-            } );
-
-            async Promise Say(Player player, string message)
-            {
-                if (npc.Tile.Position.IsInRange(player.Tile.Position, 3) )
-                {               
-                    if ( !queue.Contains(player) )
-                    {
-                        if (await dialoguePlugin.ShouldGreet(npc, player, message) )
-                        {
-                            await Add(player);
-
-                            await dialoguePlugin.OnGreet(npc, player);
-                        }
+                        await Farewell(player);
                     }
                     else
                     {
-                        if (await dialoguePlugin.ShouldFarewell(npc, player, message) )
-                        {
-                            await Farewell(player);
-                        }
-                        else
-                        {
-                            await dialoguePlugin.OnSay(npc, player, message);
-                        }
+                        await dialoguePlugin.OnSay(npc, player, message);
                     }
                 }
             }
+        }
+
+        private async Promise Buy(Player player, ushort openTibiaId, byte type, byte count, int price, bool ignoreCapacity, bool buyWithBackpacks)
+        {
+            await dialoguePlugin.OnBuy(npc, player, openTibiaId, type, count, price, ignoreCapacity, buyWithBackpacks);
+        }
+
+        private async Promise Sell(Player player, ushort openTibiaId, byte type, byte count, int price, bool keepEquipped)
+        { 
+            await dialoguePlugin.OnSell(npc, player, openTibiaId, type, count, price, keepEquipped);
+        }
+
+        private async Promise CloseNpcTrade(Player player)
+        {
+            await dialoguePlugin.OnCloseNpcTrade(npc, player);
+        }
+
+        private async Promise CloseNpcsChannel(Player player)
+        {
+            await Remove(player);
         }
 
         public override void Stop()
         {
             Context.Server.EventHandlers.Unsubscribe(globalServerReloaded);
 
-            Context.Server.EventHandlers.Unsubscribe(playerSay);
-
-            Context.Server.EventHandlers.Unsubscribe(playerSayToNpc);
-
             Context.Server.EventHandlers.Unsubscribe(globalTick);
+
+            Context.Server.GameObjectEventHandlers.Unsubscribe(playerSay);
+
+            Context.Server.GameObjectEventHandlers.Unsubscribe(playerSayToNpc);
+
+            Context.Server.GameObjectEventHandlers.Unsubscribe(playerBuyNpcTrade);
+
+            Context.Server.GameObjectEventHandlers.Unsubscribe(playerSellNpcTrade);
+
+            Context.Server.GameObjectEventHandlers.Unsubscribe(playerCloseNpcTrade);
+
+            Context.Server.GameObjectEventHandlers.Unsubscribe(playerCloseNpcsChannel);
         }
     }
 }

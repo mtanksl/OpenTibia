@@ -1,7 +1,7 @@
 ﻿using OpenTibia.Common.Objects;
 using OpenTibia.Game.Common;
 using OpenTibia.Game.Common.ServerObjects;
-using OpenTibia.Game.Components;
+using OpenTibia.Game.Events;
 using OpenTibia.Network.Packets;
 using OpenTibia.Network.Packets.Incoming;
 using System;
@@ -39,14 +39,15 @@ namespace OpenTibia.Game.Commands
 
                     if (offer != null && offer.BuyPrice > 0)
                     {
-                        MultipleQueueNpcThinkBehaviour npcThinkBehaviour = Context.Server.GameObjectComponents.GetComponent<MultipleQueueNpcThinkBehaviour>(trading.OfferNpc);
+                        int count = Math.Max(1, Math.Min(100, (int)Packet.Count) );
 
-                        if (npcThinkBehaviour != null)
-                        {
-                            int count = Math.Max(1, Math.Min(100, (int)Packet.Count) );
+                        PlayerBuyNpcTradeEventArgs e = new PlayerBuyNpcTradeEventArgs(Player, itemMetadata.OpenTibiaId, Packet.Type, (byte)count, (int)offer.BuyPrice * count, Packet.IgnoreCapacity, Packet.BuyWithBackpacks);
 
-                            return npcThinkBehaviour.Buy(Player, itemMetadata.OpenTibiaId, Packet.Type, (byte)count, (int)offer.BuyPrice * count, Packet.IgnoreCapacity, Packet.BuyWithBackpacks);
-                        }
+                        ObserveEventArgs<PlayerBuyNpcTradeEventArgs> oe = ObserveEventArgs.Create(e);
+
+                        Context.AddEvent(trading.OfferNpc, oe);
+                        
+                        Context.AddEvent(Player, e);
                     }
                 }
             }
