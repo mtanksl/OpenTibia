@@ -17,56 +17,6 @@ namespace OpenTibia.Game.Components
             this.idleWalkStrategy = idleWalkStrategy;
         }
 
-        public async Promise Idle(Player player)
-        {
-            await Remove(player);
-
-            if (queue.Count > 0)
-            {
-                Player next = queue.Peek();
-
-                lastSay = DateTime.UtcNow;
-
-                await dialoguePlugin.OnGreet(npc, next);
-            }
-        }
-
-        public async Promise Farewell(Player player)
-        {
-            await Remove(player);
-
-            if (queue.Count > 0)
-            {
-                Player next = queue.Peek();
-
-                lastSay = DateTime.UtcNow;
-
-                await dialoguePlugin.OnGreet(npc, next);
-            }
-            else
-            {
-                await dialoguePlugin.OnFarewell(npc, player);
-            }
-        }
-
-        public async Promise Disappear(Player player)
-        {
-            await Remove(player);
-
-            if (queue.Count > 0)
-            {
-                Player next = queue.Peek();
-
-                lastSay = DateTime.UtcNow;
-
-                await dialoguePlugin.OnGreet(npc, next);
-            }
-            else
-            {
-                await dialoguePlugin.OnDisappear(npc, player);
-            }
-        }
-
         private QueueHashSet<Player> queue = new QueueHashSet<Player>();
 
         private DateTime lastSay;
@@ -104,8 +54,10 @@ namespace OpenTibia.Game.Components
             }
         }
 
-        private void Clear()
+        private void Reload()
         {
+            dialoguePlugin = Context.Server.Plugins.GetDialoguePlugin(npc.Name) ?? Context.Server.Plugins.GetDialoguePlugin("Default");
+
             queue.Clear();
         }
 
@@ -127,25 +79,23 @@ namespace OpenTibia.Game.Components
         {
             npc = (Npc)GameObject;
 
-            dialoguePlugin = Context.Server.Plugins.GetDialoguePlugin(npc.Name) ?? Context.Server.Plugins.GetDialoguePlugin("Default");
+            Reload();
 
             globalServerReloaded = Context.Server.EventHandlers.Subscribe<GlobalServerReloadedEventArgs>( (context, e) =>
             {
-                Clear();
-
-                dialoguePlugin = Context.Server.Plugins.GetDialoguePlugin(npc.Name) ?? Context.Server.Plugins.GetDialoguePlugin("Default");
+                Reload();
 
                 return Promise.Completed;
             } );
 
-            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(npc.Id), OnThink);       
+            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(npc.Id), (context, e) => OnThink() );
                                 
-            playerSay = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerSayEventArgs> >(npc, (context, e) => Say(e.SourceEvent.Player, e.SourceEvent.Message) );
+            playerSay = Context.Server.GameObjectEventHandlers.Subscribe<ObserveEventArgs<PlayerSayEventArgs> >(npc, (context, e) => Say(e.SourceEvent.Player, e.SourceEvent.Message) );
             
-            playerSayToNpc = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerSayToNpcEventArgs> >(npc, (context, e) => Say(e.SourceEvent.Player, e.SourceEvent.Message) );
+            playerSayToNpc = Context.Server.GameObjectEventHandlers.Subscribe<ObserveEventArgs<PlayerSayToNpcEventArgs> >(npc, (context, e) => Say(e.SourceEvent.Player, e.SourceEvent.Message) );
         }
 
-        private async Promise OnThink(Context context, GlobalTickEventArgs e)
+        private async Promise OnThink()
         {
             if (queue.Count == 0)
             {
@@ -225,6 +175,56 @@ namespace OpenTibia.Game.Components
                         }
                     }
                 }
+            }
+        }
+
+        public async Promise Idle(Player player)
+        {
+            await Remove(player);
+
+            if (queue.Count > 0)
+            {
+                Player next = queue.Peek();
+
+                lastSay = DateTime.UtcNow;
+
+                await dialoguePlugin.OnGreet(npc, next);
+            }
+        }
+
+        public async Promise Farewell(Player player)
+        {
+            await Remove(player);
+
+            if (queue.Count > 0)
+            {
+                Player next = queue.Peek();
+
+                lastSay = DateTime.UtcNow;
+
+                await dialoguePlugin.OnGreet(npc, next);
+            }
+            else
+            {
+                await dialoguePlugin.OnFarewell(npc, player);
+            }
+        }
+
+        public async Promise Disappear(Player player)
+        {
+            await Remove(player);
+
+            if (queue.Count > 0)
+            {
+                Player next = queue.Peek();
+
+                lastSay = DateTime.UtcNow;
+
+                await dialoguePlugin.OnGreet(npc, next);
+            }
+            else
+            {
+                await dialoguePlugin.OnDisappear(npc, player);
             }
         }
 

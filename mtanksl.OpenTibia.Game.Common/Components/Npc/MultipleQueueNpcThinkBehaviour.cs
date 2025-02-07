@@ -20,25 +20,6 @@ namespace OpenTibia.Game.Components
             this.idleWalkStrategy = idleWalkStrategy;
         }
 
-        public async Promise Idle(Player player)
-        {
-            await Remove(player);
-        }
-
-        public async Promise Farewell(Player player)
-        {
-            await Remove(player);
-
-            await dialoguePlugin.OnFarewell(npc, player);
-        }
-
-        public async Promise Disappear(Player player)
-        {
-            await Remove(player);
-
-            await dialoguePlugin.OnDisappear(npc, player);
-        }
-
         private QueueHashSet<Player> queue = new QueueHashSet<Player>();
 
         private async Promise Add(Player player)
@@ -66,8 +47,10 @@ namespace OpenTibia.Game.Components
             }
         }
 
-        private void Clear()
+        private void Reload()
         {
+            dialoguePlugin = Context.Server.Plugins.GetDialoguePlugin(npc.Name) ?? Context.Server.Plugins.GetDialoguePlugin("Default");
+
             foreach (var player in queue)
             {
                 NpcTrading trading = Context.Server.NpcTradings.GetTradingByCounterOfferPlayer(player);
@@ -109,33 +92,31 @@ namespace OpenTibia.Game.Components
         {
             npc = (Npc)GameObject;
 
-            dialoguePlugin = Context.Server.Plugins.GetDialoguePlugin(npc.Name) ?? Context.Server.Plugins.GetDialoguePlugin("Default");
+            Reload();
 
             globalServerReloaded = Context.Server.EventHandlers.Subscribe<GlobalServerReloadedEventArgs>( (context, e) =>
             {
-                Clear();
-
-                dialoguePlugin = Context.Server.Plugins.GetDialoguePlugin(npc.Name) ?? Context.Server.Plugins.GetDialoguePlugin("Default");
+                Reload();
 
                 return Promise.Completed;
             } );
 
-            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(npc.Id), OnThink);
+            globalTick = Context.Server.EventHandlers.Subscribe(GlobalTickEventArgs.Instance(npc.Id), (context, e) => OnThink() );
 
-            playerSay = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerSayEventArgs> >(npc, (context, e) => Say(e.SourceEvent.Player, e.SourceEvent.Message) );
+            playerSay = Context.Server.GameObjectEventHandlers.Subscribe<ObserveEventArgs<PlayerSayEventArgs> >(npc, (context, e) => Say(e.SourceEvent.Player, e.SourceEvent.Message) );
 
-            playerSayToNpc = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerSayToNpcEventArgs> >(npc, (context, e) => Say(e.SourceEvent.Player, e.SourceEvent.Message) );
+            playerSayToNpc = Context.Server.GameObjectEventHandlers.Subscribe<ObserveEventArgs<PlayerSayToNpcEventArgs> >(npc, (context, e) => Say(e.SourceEvent.Player, e.SourceEvent.Message) );
 
-            playerBuyNpcTrade = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerBuyNpcTradeEventArgs> >(npc, (context, e) => Buy(e.SourceEvent.Player, e.SourceEvent.OpenTibiaId, e.SourceEvent.Type, e.SourceEvent.Count, e.SourceEvent.Price, e.SourceEvent.IgnoreCapacity, e.SourceEvent.BuyWithBackpacks) );
+            playerBuyNpcTrade = Context.Server.GameObjectEventHandlers.Subscribe<ObserveEventArgs<PlayerBuyNpcTradeEventArgs> >(npc, (context, e) => Buy(e.SourceEvent.Player, e.SourceEvent.OpenTibiaId, e.SourceEvent.Type, e.SourceEvent.Count, e.SourceEvent.Price, e.SourceEvent.IgnoreCapacity, e.SourceEvent.BuyWithBackpacks) );
 
-            playerSellNpcTrade = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerSellNpcTradeEventArgs> >(npc, (context, e) => Sell(e.SourceEvent.Player, e.SourceEvent.OpenTibiaId, e.SourceEvent.Type, e.SourceEvent.Count, e.SourceEvent.Price, e.SourceEvent.KeepEquipped) );
+            playerSellNpcTrade = Context.Server.GameObjectEventHandlers.Subscribe<ObserveEventArgs<PlayerSellNpcTradeEventArgs> >(npc, (context, e) => Sell(e.SourceEvent.Player, e.SourceEvent.OpenTibiaId, e.SourceEvent.Type, e.SourceEvent.Count, e.SourceEvent.Price, e.SourceEvent.KeepEquipped) );
 
-            playerCloseNpcTrade = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerCloseNpcTradeEventArgs> >(npc, (context, e) => CloseNpcTrade(e.SourceEvent.Player) );
+            playerCloseNpcTrade = Context.Server.GameObjectEventHandlers.Subscribe<ObserveEventArgs<PlayerCloseNpcTradeEventArgs> >(npc, (context, e) => CloseNpcTrade(e.SourceEvent.Player) );
 
-            playerCloseNpcsChannel = Context.Server.GameObjectEventHandlers.Subscribe< ObserveEventArgs<PlayerCloseNpcsChannelEventArgs> >(npc, (context, e) => CloseNpcsChannel(e.SourceEvent.Player) );
+            playerCloseNpcsChannel = Context.Server.GameObjectEventHandlers.Subscribe<ObserveEventArgs<PlayerCloseNpcsChannelEventArgs> >(npc, (context, e) => CloseNpcsChannel(e.SourceEvent.Player) );
         }
 
-        private async Promise OnThink(Context context, GlobalTickEventArgs e)
+        private async Promise OnThink()
         {
             foreach (var player in queue.ToArray() )
             {
@@ -221,6 +202,25 @@ namespace OpenTibia.Game.Components
         private async Promise CloseNpcsChannel(Player player)
         {
             await Remove(player);
+        }
+
+        public async Promise Idle(Player player)
+        {
+            await Remove(player);
+        }
+
+        public async Promise Farewell(Player player)
+        {
+            await Remove(player);
+
+            await dialoguePlugin.OnFarewell(npc, player);
+        }
+
+        public async Promise Disappear(Player player)
+        {
+            await Remove(player);
+
+            await dialoguePlugin.OnDisappear(npc, player);
         }
 
         public override void Stop()
