@@ -519,56 +519,6 @@ namespace OpenTibia.Game.Common.ServerObjects
             return defaultValue;
         }
 
-        public static bool[] GetBooleanArray(object value)
-        {
-            if (value != null)
-            {
-                return ( (LuaTable)value).Values.Cast<bool>().ToArray();
-            }
-
-            return null;
-        }
-
-        public static ushort[] GetUInt16Array(object value)
-        {
-            if (value != null)
-            {
-                return ( (LuaTable)value).Values.Cast<long>().Select(v => (ushort)v ).ToArray();
-            }
-
-            return null;
-        }
-
-        public static int[] GetInt32Array(object value)
-        {
-            if (value != null)
-            {
-                return ( (LuaTable)value).Values.Cast<long>().Select(v => (int)v ).ToArray();
-            }
-
-            return null;
-        }
-
-        public static long[] GetInt64Array(object value)
-        {
-            if (value != null)
-            {
-                return ( (LuaTable)value).Values.Cast<long>().ToArray();
-            }
-
-            return null;
-        }
-
-        public static string[] GetStringArray(object value)
-        {
-            if (value != null)
-            {
-                return ( (LuaTable)value).Values.Cast<string>().ToArray();
-            }
-
-            return null;
-        }
-     
         public static List<ushort> GetUInt16List(object value)
         {
             return GetList(value, k => (ushort)(long)k);

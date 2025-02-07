@@ -20,16 +20,6 @@ namespace OpenTibia.Game.Common.ServerObjects
 
         string GetString(string key);
 
-        bool[] GetBooleanArray(string key);
-
-        ushort[] GetUInt16Array(string key);
-
-        int[] GetInt32Array(string key);
-
-        long[] GetInt64Array(string key);
-
-        string[] GetStringArray(string key);
-
         List<ushort> GetUInt16List(string key);
 
         HashSet<ushort> GetUInt16HashSet(string key);

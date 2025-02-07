@@ -109,31 +109,6 @@ namespace OpenTibia.Game.Common.ServerObjects
             return GetValue(key, value => LuaScope.GetString(value) );
         }
 
-        public bool[] GetBooleanArray(string key)
-        {
-            return GetValue(key, value => LuaScope.GetBooleanArray(value) );
-        }
-
-        public ushort[] GetUInt16Array(string key)
-        {
-            return GetValue(key, value => LuaScope.GetUInt16Array(value) );
-        }
-
-        public int[] GetInt32Array(string key)
-        {
-            return GetValue(key, value => LuaScope.GetInt32Array(value) );
-        }
-
-        public long[] GetInt64Array(string key)
-        {
-            return GetValue(key, value => LuaScope.GetInt64Array(value) );
-        }
-
-        public string[] GetStringArray(string key)
-        {
-            return GetValue(key, value => LuaScope.GetStringArray(value) );
-        }
-
         public List<ushort> GetUInt16List(string key)
         {
             return GetValue(key, value => LuaScope.GetUInt16List(value) );
